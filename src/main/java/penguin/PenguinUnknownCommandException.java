@@ -1,4 +1,4 @@
-package penguin.exceptions;
+package penguin;
 
 public class PenguinUnknownCommandException extends PenguinException{
     public PenguinUnknownCommandException() {

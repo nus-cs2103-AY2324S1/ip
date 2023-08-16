@@ -1,4 +1,4 @@
-package penguin.exceptions;
+package penguin;
 /**
  * Any error specific to Penguin bot will throw a <tt>PenguinException</tt>.
  */

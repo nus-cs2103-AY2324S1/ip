@@ -1,7 +1,5 @@
 package penguin;
 
-import penguin.exceptions.PenguinException;
-import penguin.exceptions.PenguinUnknownCommandException;
 /**
  * Penguin is the main logic of Penguin chatbot; its main responsibility is to parse commands and handle errors.
  */
