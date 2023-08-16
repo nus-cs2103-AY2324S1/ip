@@ -2,7 +2,9 @@ package penguin;
 
 import penguin.exceptions.PenguinException;
 import penguin.exceptions.PenguinUnknownCommandException;
-
+/**
+ * Penguin is the main logic of Penguin chatbot; its main responsibility is to parse commands and handle errors.
+ */
 public class Penguin {
     private static final String GREETING = "Honk! I'm Penguin! What can I do for you?";
     private static final String GOODBYE = "Honk! Hope to see you again soon!";
@@ -32,7 +34,9 @@ public class Penguin {
     public static void main(String[] args) {
         new Penguin().run();
     }
-
+    /**
+     * The main logic of Penguin chatbot; parses commands and handles errors.
+     */
     public void run() {
         ui.out(GREETING);
         boolean running = true;
