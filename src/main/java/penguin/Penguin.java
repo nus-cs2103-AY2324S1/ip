@@ -12,6 +12,7 @@ public class Penguin {
     private static final String DEADLINE = "Flap flap flap! Must do this ";
     private static final String EVENT = "Fish party?! ";
 
+    private static final String DELETE = "This task is thrown into the sea! ";
 
     private UI ui;
     private TaskList taskList;
@@ -68,6 +69,11 @@ public class Penguin {
                     Event newEvent = new Event(spl[1], spl[2], spl[3]);
                     taskList.addTask(newEvent);
                     ui.out(EVENT + newEvent.getDisplay());
+                } else if (command.startsWith("delete")) {
+                    String[] spl = command.split(" ");
+                    int taskNo = Integer.parseInt(spl[1]);
+                    ui.out(DELETE + taskList.list.remove(taskNo - 1).getDisplay());
+
                 } else {
                     throw new PenguinUnknownCommandException();
                 }
