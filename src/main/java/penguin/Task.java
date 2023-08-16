@@ -11,8 +11,15 @@ public class Task {
         this.name = name;
     }
 
-    public String getName() {
-        return this.name;
+    public String getDisplay() {
+        String output = "";
+        if (this.done) {
+            output += "[X]";
+        } else {
+            output += "[ ]";
+        }
+        output += this.name;
+        return output;
     }
 
 

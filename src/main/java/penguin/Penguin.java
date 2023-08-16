@@ -5,6 +5,9 @@ public class Penguin {
     private static final String GOODBYE = "Honk! Hope to see you again soon!";
     private static final String MARK = "Honk honk! You did task ";
     private static final String UNMARK = "Fishes! You didn't do task ";
+    private static final String TODO = "Honk! You'll have to do ";
+    private static final String DEADLINE = "Flap flap flap! Must do this ";
+    private static final String EVENT = "Fish party?! ";
 
 
     private UI ui;
@@ -35,19 +38,41 @@ public class Penguin {
                 if (command.equals("bye")) {
                     ui.out(GOODBYE);
                     running = false;
-                } else if (command.equals("list")) {
+                }
+                else if (command.equals("list")) {
                     ui.out(taskList.printList());
-                } else if (command.startsWith("mark")) {
+                }
+                else if (command.startsWith("mark")) {
                     String[] spl = command.split(" ", 2);
                     int taskNo = Integer.parseInt(spl[1]);
                     taskList.list.get(taskNo-1).done = true;
-                    ui.out(MARK + taskNo);
-                } else if (command.startsWith("unmark")) {
+                    ui.out(MARK + taskList.list.get(taskNo-1).getDisplay());
+                }
+                else if (command.startsWith("unmark")) {
                     String[] spl = command.split(" ", 2);
                     int taskNo = Integer.parseInt(spl[1]);
                     taskList.list.get(taskNo-1).done = false;
-                    ui.out(UNMARK + taskNo);
-                } else { // add to list
+                    ui.out(UNMARK + taskList.list.get(taskNo-1).getDisplay());
+                }
+                else if (command.startsWith("todo")) {
+                    String[] spl = command.split(" ", 2);
+                    ToDo newToDo = new ToDo(spl[1]);
+                    taskList.addTask(newToDo);
+                    ui.out(TODO + newToDo.getDisplay());
+                }
+                else if (command.startsWith("deadline")) {
+                    String[] spl = command.split("deadline | /by ");
+                    Deadline newDeadline = new Deadline(spl[1], spl[2]);
+                    taskList.addTask(newDeadline);
+                    ui.out(DEADLINE + newDeadline.getDisplay());
+                }
+                else if (command.startsWith("event")) {
+                    String[] spl = command.split("event | /from | /to ");
+                    Event newEvent = new Event(spl[1], spl[2], spl[3]);
+                    taskList.addTask(newEvent);
+                    ui.out(EVENT + newEvent.getDisplay());
+                }
+                else { // add to list
                     Task newTask = new Task(command);
                     taskList.addTask(newTask);
                     ui.out("remembered: " + command);

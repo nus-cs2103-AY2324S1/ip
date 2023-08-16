@@ -21,12 +21,7 @@ public class TaskList {
         String output = "I'm remembering the following tasks...\n";
         for (int i=1; i<=this.list.size(); i++) {
             output += i + ".";
-            if (this.list.get(i-1).done) {
-                output += "[X]";
-            } else {
-                output += "[ ]";
-            }
-            output += this.list.get(i-1).getName() + "\n";
+            output += this.list.get(i-1).getDisplay() + "\n";
         }
         return output;
     }
