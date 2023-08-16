@@ -1,3 +1,5 @@
+package penguin;
+
 import java.util.Scanner;
 
 /**
