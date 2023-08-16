@@ -10,6 +10,6 @@ public class Event extends Task {
     }
 
     public String getDisplay() {
-        return "[E]" + super.getDisplay() + "from " + this.from + " to " + this.to;
+        return "[E]" + super.getDisplay() + " from " + this.from + " to " + this.to;
     }
 }

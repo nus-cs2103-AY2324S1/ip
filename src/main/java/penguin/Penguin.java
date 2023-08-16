@@ -1,5 +1,8 @@
 package penguin;
 
+import penguin.exceptions.PenguinException;
+import penguin.exceptions.PenguinUnknownCommandException;
+
 public class Penguin {
     private static final String GREETING = "Honk! I'm Penguin! What can I do for you?";
     private static final String GOODBYE = "Honk! Hope to see you again soon!";
@@ -33,50 +36,48 @@ public class Penguin {
         ui.out(GREETING);
         boolean running = true;
         while (running) {
-
+            try {
                 String command = ui.in();
                 if (command.equals("bye")) {
                     ui.out(GOODBYE);
                     running = false;
-                }
-                else if (command.equals("list")) {
+                } else if (command.equals("list")) {
                     ui.out(taskList.printList());
-                }
-                else if (command.startsWith("mark")) {
+                } else if (command.startsWith("mark")) {
                     String[] spl = command.split(" ", 2);
                     int taskNo = Integer.parseInt(spl[1]);
-                    taskList.list.get(taskNo-1).done = true;
-                    ui.out(MARK + taskList.list.get(taskNo-1).getDisplay());
-                }
-                else if (command.startsWith("unmark")) {
+                    taskList.list.get(taskNo - 1).done = true;
+                    ui.out(MARK + taskList.list.get(taskNo - 1).getDisplay());
+                } else if (command.startsWith("unmark")) {
                     String[] spl = command.split(" ", 2);
                     int taskNo = Integer.parseInt(spl[1]);
-                    taskList.list.get(taskNo-1).done = false;
-                    ui.out(UNMARK + taskList.list.get(taskNo-1).getDisplay());
-                }
-                else if (command.startsWith("todo")) {
-                    String[] spl = command.split(" ", 2);
+                    taskList.list.get(taskNo - 1).done = false;
+                    ui.out(UNMARK + taskList.list.get(taskNo - 1).getDisplay());
+                } else if (command.startsWith("todo")) {
+                    String[] spl = command.split("todo ");
                     ToDo newToDo = new ToDo(spl[1]);
                     taskList.addTask(newToDo);
                     ui.out(TODO + newToDo.getDisplay());
-                }
-                else if (command.startsWith("deadline")) {
+                } else if (command.startsWith("deadline")) {
                     String[] spl = command.split("deadline | /by ");
                     Deadline newDeadline = new Deadline(spl[1], spl[2]);
                     taskList.addTask(newDeadline);
                     ui.out(DEADLINE + newDeadline.getDisplay());
-                }
-                else if (command.startsWith("event")) {
+                } else if (command.startsWith("event")) {
                     String[] spl = command.split("event | /from | /to ");
                     Event newEvent = new Event(spl[1], spl[2], spl[3]);
                     taskList.addTask(newEvent);
                     ui.out(EVENT + newEvent.getDisplay());
+                } else {
+                    throw new PenguinUnknownCommandException();
                 }
-                else { // add to list
-                    Task newTask = new Task(command);
-                    taskList.addTask(newTask);
-                    ui.out("remembered: " + command);
-                }
+            } catch (PenguinException e) {
+                ui.out("Fishes!! " + e.getMessage());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.out("No fishes? One or more fields in your command is empty or malformed.");
+            } catch (Exception e) {
+                ui.out("Flap flap flap flap!! An unexpected error occurred...");
+            }
         }
     }
 }
