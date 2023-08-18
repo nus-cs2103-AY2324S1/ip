@@ -1,10 +1,14 @@
 public class Duke {
+    public static final String NAME = "Buzu";
+    public static final String DIVIDER = "__________________________________________________";
+    public static void say(String text) {
+        System.out.println(DIVIDER);
+        System.out.println(text);
+        System.out.println(DIVIDER);
+        System.out.println();
+    }
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        say("Hello! I'm " + NAME + ".\nWhat can I do for you?");
+        say("Bye! Hope to see you again soon!");
     }
 }
