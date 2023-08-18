@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
     public static final String NAME = "Buzu";
     private static final String DIVIDER = "__________________________________________________";
+    private static final List<String> items = new ArrayList<>();
 
     /**
      * Utility function to add indentation when printing line.
@@ -30,13 +33,31 @@ public class Duke {
     public static void main(String[] args) {
         say("Hello! I'm " + NAME + ".", "What can I do for you?");
         Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNextLine()) {
+        boolean stopped = false;
+        while (!stopped && scanner.hasNextLine()) {
             String command = scanner.nextLine();
-            if (command.equals("bye")) {
-                break;
+            switch (command) {
+                case "list":
+                    int numItems = items.size();
+                    if (numItems == 0) {
+                        say("There are no items in your list.");
+                    } else {
+                        String[] response = new String[numItems];
+                        for (int i = 0; i < numItems; i++) {
+                            response[i] = (Integer.toString(i + 1) + ". " + items.get(i));
+                        }
+                        say(response);
+                    }
+                    break;
+                case "bye":
+                    stopped = true;
+                    say("Bye! Hope to see you again soon!");
+                    break;
+                default:
+                    items.add(command);
+                    say("added: " + command);
+                    break;
             }
-            say(command);
         }
-        say("Bye! Hope to see you again soon!");
     }
 }
