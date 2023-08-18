@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    LinkedList<String> tasks = new LinkedList<>();
+    private LinkedList<Task> tasks = new LinkedList<>();
 
     private void greet() {
         System.out.println("    ____________________________________________________________\n");
@@ -19,7 +19,7 @@ public class Duke {
     }
 
     private void addTask(String task) {
-        tasks.add(task);
+        tasks.add(new Task(task));
         System.out.println("    ____________________________________________________________\n");
         System.out.println("    " + "added: " + task + "\n");
         System.out.println("    ____________________________________________________________\n");
@@ -28,14 +28,57 @@ public class Duke {
     private void listTasks() {
         int i = 1;
         System.out.println("    ____________________________________________________________\n");
-        for (String task : tasks) {
+        System.out.println("    Here are the tasks in your list:\n");
+        for (Task task : tasks) {
             System.out.println("    " + i + "." + " " + task);
             i += 1;
         }
         System.out.println("    ____________________________________________________________\n");
     }
 
-    private void echo() {
+    private void displayInvalidIndex() {
+        System.out.println("    ____________________________________________________________\n");
+        System.out.println("    Enter a valid index");
+        System.out.println("    ____________________________________________________________\n");
+    }
+
+    private void markTask(String markTaskCommand) {
+        String regex = "\\d+";
+        String index = markTaskCommand.substring(5);
+
+        if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
+                || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
+            this.displayInvalidIndex();
+        } else {
+            int i = Integer.parseInt(index, 10) - 1;
+            Task task = tasks.get(i);
+            task.markCompleted();
+            System.out.println("    ____________________________________________________________\n");
+            System.out.println("    Nice! I've marked this task as done:\n");
+            System.out.println("    " + task.toString());
+            System.out.println("    ____________________________________________________________\n");
+        }
+    }
+
+    private void unmarkTask(String unmarkTaskCommand) {
+        String regex = "\\d+";
+        String index = unmarkTaskCommand.substring(7);
+
+        if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
+                || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
+            this.displayInvalidIndex();
+        } else {
+            int i = Integer.parseInt(index, 10) - 1;
+            Task task = tasks.get(i);
+            task.markNotCompleted();
+            System.out.println("    ____________________________________________________________\n");
+            System.out.println("    OK, I've marked this task as not done yet:\n");
+            System.out.println("    " + task.toString());
+            System.out.println("    ____________________________________________________________\n");
+        }
+    }
+
+    private void handleUI() {
         Scanner scanner = new Scanner(System.in);
         String command = "";
 
@@ -46,6 +89,10 @@ public class Duke {
                 break;
             } else if (command.equals("list")) {
                 this.listTasks();
+            } else if (command.startsWith("mark ")) {
+                this.markTask(command);
+            } else if (command.startsWith("unmark ")) {
+                this.unmarkTask(command);
             } else {
                 this.addTask(command);
             }
@@ -56,6 +103,6 @@ public class Duke {
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.greet();
-        duke.echo();
+        duke.handleUI();
     }
 }
