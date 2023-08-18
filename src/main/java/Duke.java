@@ -1,10 +1,11 @@
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String line = "---------------------------------------";
+        String name = "ForsakenX";
+        String helloGreeting = String.format("Hello! I'm %s\nWhat can I do for you?", name);
+        String byeGreeting = "Bye. Hope to see you again soon!";
+
+        System.out.println(String.format("%s\n%s\n%s\n%s\n%s",
+                line, helloGreeting, line, byeGreeting, line));
     }
 }
