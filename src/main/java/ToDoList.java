@@ -1,14 +1,26 @@
 import java.util.ArrayList;
 
 public class ToDoList {
-    private ArrayList<String> list;
+    private ArrayList<Task> list;
 
     public ToDoList() {
         list = new ArrayList<>();
     }
 
-    public void add(String task) {
+    public void add(Task task) {
         list.add(task);
+    }
+
+    public void mark(int index) {
+        list.get(index - 1).markDone();
+    }
+
+    public void unmark(int index) {
+        list.get(index - 1).markUndone();
+    }
+
+    public Task get(int index) {
+        return list.get(index - 1);
     }
 
     @Override

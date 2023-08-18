@@ -12,28 +12,58 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private static void addToList(String input) {
-        toDoList.add(input);
-        System.out.println("added: " + input);
+    private static void add(String input) {
+        Task task = new Task(input);
+        toDoList.add(task);
+        System.out.println("added: " + task.toString());
     }
 
     private static void list() {
         System.out.println(toDoList);
     }
 
+    private static void mark(int index) {
+        toDoList.mark(index);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(toDoList.get(index));
+    }
+
+    private static void unmark(int index) {
+        toDoList.unmark(index);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(toDoList.get(index));
+    }
+
     private static boolean parseCommand(String command) {
-        switch (command) {
-            case "bye":
+        String[] parts = command.split(" ");
+        
+        switch (parts[0]) {
+            case "bye": {
                 Duke.exit();
                 return false;
+            }
 
-            case "list":
+            case "list": {
                 Duke.list();
                 break;
+            }
 
-            default:
-                Duke.addToList(command);
+            case "mark": {
+                int index = Integer.parseInt(parts[1]);
+                Duke.mark(index);
                 break;
+            }
+
+            case "unmark": {
+                int index = Integer.parseInt(parts[1]);
+                Duke.unmark(index);
+                break;
+            }
+
+            default: {
+                Duke.add(command);
+                break;
+            }
         }
 
         return true;
