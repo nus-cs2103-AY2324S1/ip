@@ -6,6 +6,9 @@ public class Horo {
                     + "|  __  |/ _ \\| '__/ _ \\\n"
                     + "| |  | | (_) | | | (_) |\n"
                     + "|_|  |_|\\___/|_|  \\___/\n";
-        System.out.println("Hello from\n" + logo);
+        System.out.println(logo);
+        System.out.println("Hello! I'm Horo");
+        System.out.println("What can I do for you?");
+        System.out.println("Bye. Hope to see you again soon!");        
     }
 }
