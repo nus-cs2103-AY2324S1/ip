@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static String[] tasks = new String[100];
+    private static Task[] tasks = new Task[100];
     private static int i = 0;
     public static void printHorizontalLine() {
         System.out.println("\t------------------------------------------------------------------------------------");
@@ -38,8 +38,18 @@ public class Duke {
                     }
                 }
                 printHorizontalLine();
+            } else if (input.contains("unmark")) {
+                String[] split = input.split(" ");
+                int index = Integer.parseInt(split[1]);
+                tasks[index - 1].markAsUndone();
+                printBotMessage("OK, I've marked this task as not done yet:\n\t\t" + tasks[index - 1]);
+            } else if (input.contains("mark")){
+                String[] split = input.split(" ");
+                int index = Integer.parseInt(split[1]);
+                tasks[index - 1].markAsDone();
+                printBotMessage("Nice! I've marked this task as done:\n\t\t" + tasks[index - 1]);
             } else {
-                tasks[i] = input;
+                tasks[i] = new Task(input);
                 i++;
                 printBotMessage("added: " + input);
             }
