@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static String[] tasks = new String[100];
+    private static int i = 0;
     public static void printHorizontalLine() {
         System.out.println("\t------------------------------------------------------------------------------------");
     }
@@ -25,8 +27,22 @@ public class Duke {
             if (input.equals("bye")) {
                 printBotMessage("Bye. Hope to see you again soon! \uD83D\uDD19 \uD83D\uDD1B \uD83D\uDD1D");
                 break;
+            } else if (input.equals("list")) {
+                printHorizontalLine();
+                System.out.println("\tHere are the tasks in your list:");
+                for (int i = 0; i < 100; i++) {
+                    if (tasks[i] != null) {
+                        System.out.println("\t" + (i + 1) + ". " + tasks[i]);
+                    } else {
+                        break;
+                    }
+                }
+                printHorizontalLine();
+            } else {
+                tasks[i] = input;
+                i++;
+                printBotMessage("added: " + input);
             }
-            printBotMessage(input);
         }
 
     }
