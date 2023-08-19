@@ -19,7 +19,7 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
 
-      - name: Run Shell Test
+      - name: Run runtest.sh
         run: |
           chmod +x ./text-ui-test/runtest.sh
           cd ./text-ui-test
