@@ -1,17 +1,31 @@
 import java.util.Scanner;
 
+/**
+ * Duke is a simple task management program that allows users to add, delete, mark, and list tasks.
+ */
 public class Duke {
     private static ToDoList toDoList = new ToDoList();
 
+    /**
+     * Greets the user with a welcome message.
+     */
     private static void greet() {
         System.out.println("Hello! I'm Untitled!");
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Displays a farewell message when exiting the program.
+     */
     private static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Adds a task to the ToDoList and displays a confirmation message.
+     *
+     * @param task The task to be added.
+     */
     private static void add(Task task) {
         toDoList.add(task);
         System.out.println("Got it! I've added this task:");
@@ -19,6 +33,12 @@ public class Duke {
         System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
     }
 
+    /**
+     * Deletes a task at the specified index from the ToDoList and displays a confirmation message.
+     *
+     * @param index The index of the task to be deleted.
+     * @throws IndexOutOfBoundsException If the index is out of range.
+     */
     private static void delete(int index) {
         final Task deletedTask = toDoList.get(index);
         toDoList.delete(index);
@@ -27,22 +47,45 @@ public class Duke {
         System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
     }
 
+    /**
+     * Lists all tasks in the ToDoList and displays them.
+     */
     private static void list() {
         System.out.println(toDoList);
     }
 
+    /**
+     * Marks a task at the specified index as done and displays a confirmation message.
+     *
+     * @param index The index of the task to be marked as done.
+     * @throws IndexOutOfBoundsException If the index is out of range.
+     */
     private static void mark(int index) {
         toDoList.mark(index);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(toDoList.get(index));
     }
 
+    /**
+     * Marks a task at the specified index as not done yet and displays a confirmation message.
+     *
+     * @param index The index of the task to be marked as not done yet.
+     * @throws IndexOutOfBoundsException If the index is out of range.
+     */
     private static void unmark(int index) {
         toDoList.unmark(index);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(toDoList.get(index));
     }
 
+    /**
+     * Parses the user's input and performs the corresponding action.
+     *
+     * @param input The user's input command.
+     * @return {@code true} if parsing should continue, {@code false} if parsing should stop.
+     * @throws IllegalArgumentException If the input command has invalid arguments.
+     * @throws IndexOutOfBoundsException If the input command refers to an out-of-range index.
+     */
     private static boolean parseCommand(String input) {
         // Split into command and rest
         String[] parts = input.split(" ", 2);
@@ -129,6 +172,11 @@ public class Duke {
         return true;
     }
 
+    /**
+     * Main method to run the Duke program.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
