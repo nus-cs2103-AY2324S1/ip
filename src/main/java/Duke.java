@@ -3,12 +3,22 @@ import java.util.Scanner;
 
 public class Duke {
     private static final Scanner scanner = new Scanner(System.in);
+    private static final String[] tasks = new String[100];
+    private static int taskCount = 0;
     public static void main(String[] args) {
         greet();
         while (true) {
             String userInput = readMessage();
-            if (!Objects.equals(userInput, "bye")) {
-                sendMessage(userInput);
+            if (userInput.equals("list")) {
+                StringBuilder output = new StringBuilder();
+                for (int i = 0; i < taskCount; i++) {
+                    output.append(i + 1).append(". ").append(tasks[i]).append("\n");
+                }
+                sendMessage(output.toString());
+            } else if (!Objects.equals(userInput, "bye")) {
+                tasks[taskCount] = userInput;
+                taskCount++;
+                sendMessage("added: " + userInput);
             } else {
                 break;
             }
