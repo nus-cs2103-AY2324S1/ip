@@ -7,11 +7,16 @@ public class AdaBot {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.println(helloString);
-        String response = input.nextLine();
+        String response = "";
 
-        if (response.equals("bye")) {
-            System.out.println(byeString);
+        while (true) {
+            response = input.nextLine();
+            if (response.equals("bye")) {
+                break;
+            }
+            System.out.println(response);
         }
+        System.out.println(byeString);
         input.close();
     }
 }
