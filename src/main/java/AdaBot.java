@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdaBot {
@@ -8,13 +9,20 @@ public class AdaBot {
         Scanner input = new Scanner(System.in);
         System.out.println(helloString);
         String response = "";
+        ArrayList<String> tasks = new ArrayList<String>();
 
         while (true) {
             response = input.nextLine();
             if (response.equals("bye")) {
                 break;
+            } else if (response.equals("list")) {
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println(String.format("%d. %s", i + 1, tasks.get(i)));
+                }
+            } else {
+                tasks.add(response);
+                System.out.println("added: " + response);
             }
-            System.out.println(response);
         }
         System.out.println(byeString);
         input.close();
