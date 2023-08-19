@@ -30,8 +30,31 @@ public class Duke {
                         System.out.println((i + 1) + ". " + lst.get(i));
                     }
             } else {
-                lst.add(new Task(input));
-                System.out.println("added: " + input);
+                String[] arr = input.split(" ", 2);
+                Task task;
+                switch (arr[0]) {
+                    case "todo":
+                        task = new ToDo(arr[1]);
+                        lst.add(task);
+                        break;
+                    case "deadline":
+                        String[] arr2 = arr[1].split(" /by ");
+                        task = new Deadline(arr2[0], arr2[1]);
+                        lst.add(task);
+                        break;
+                    default:
+                        String[] arr3 = arr[1].split(" /");
+                        String taskName = arr3[0];
+                        String from = arr3[1].substring(5);
+                        String to = arr3[2].substring(3);
+                        task = new Event(taskName, from, to);
+                        lst.add(task);
+                        break;
+                }
+                String output = "Got it. I've added this task:\n\t"
+                        + task.toString()
+                        + " Now you have " + String.valueOf(lst.size() + 1) + " tasks in the list.";
+                System.out.println(output);
             }
         }
     }
