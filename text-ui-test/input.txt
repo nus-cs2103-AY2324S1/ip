@@ -10,5 +10,7 @@ todo
 event project meeting /from
 deadline return book /by Sunday
 list
+delete 3
+list
 invalid
 bye

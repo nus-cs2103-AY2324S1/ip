@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -6,8 +7,7 @@ import java.util.Scanner;
  * Duke is a simple task management chatbot that allows users to manager their tasks.
  */
 public class Duke {
-    private static final Task[] tasks = new Task[100];
-    private static int i = 0;
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Prints a horizontal line for formatting purposes.
@@ -51,12 +51,10 @@ public class Duke {
     public static void printTasks() {
         printHorizontalLine();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < 100; i++) {
-            if (tasks[i] != null) {
-                System.out.println("\t" + (i + 1) + ". " + tasks[i]);
-            } else {
-                break;
-            }
+
+        int i = 1;
+        for (Task task : tasks) {
+            System.out.println("\t" + (i++) + ". " + task);
         }
         printHorizontalLine();
     }
@@ -68,8 +66,9 @@ public class Duke {
     public static void unmarkTask(String taskNumber) throws DukeException {
         try {
             int index = Integer.parseInt(taskNumber);
-            tasks[index - 1].markAsUndone();
-            printBotMessage("OK, I've marked this task as not done yet:\n\t\t" + tasks[index - 1]);
+            Task task = tasks.get(index - 1);
+            task.markAsUndone();
+            printBotMessage("OK, I've marked this task as not done yet:\n\t\t" + task);
         } catch (NumberFormatException e) {
             throw new DukeMissingArgumentException("The task number must be an integer.");
         } catch (NullPointerException e) {
@@ -84,8 +83,9 @@ public class Duke {
     public static void markTask(String taskNumber) throws DukeException {
         try {
             int index = Integer.parseInt(taskNumber);
-            tasks[index - 1].markAsDone();
-            printBotMessage("Nice! I've marked this task as done:\n\t" + tasks[index - 1]);
+            Task task = tasks.get(index - 1);
+            task.markAsDone();
+            printBotMessage("Nice! I've marked this task as done:\n\t" + task);
         } catch (NumberFormatException e) {
             throw new DukeMissingArgumentException("The task number must be an integer.");
         } catch (NullPointerException e) {
@@ -103,10 +103,10 @@ public class Duke {
         }
         String description = String.join(" ", inputList.subList(1, inputList.size()));
         Todo todo = new Todo(description);
-        tasks[i] = todo;
-        i++;
+        tasks.add(todo);
+
         printBotMessage("Got it. I've added this task:\n\t" + todo +
-                "\nNow you have " + i + " tasks in the list.");
+                "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -123,10 +123,9 @@ public class Duke {
             throw new DukeMissingArgumentException("The deadline cannot be empty.");
         }
         Deadline deadline = new Deadline(split[0], split[1]);
-        tasks[i] = deadline;
-        i++;
+        tasks.add(deadline);
         printBotMessage("Got it. I've added this task:\n\t" + deadline +
-                "\nNow you have " + i + " tasks in the list.");
+                "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
     /**
@@ -150,10 +149,23 @@ public class Duke {
         }
 
         Event event = new Event(split[0], split2[0], split2[1]);
-        tasks[i] = event;
-        i++;
+        tasks.add(event);
         printBotMessage("Got it. I've added this task:\n\t" + event +
-                "\nNow you have " + i + " tasks in the list.");
+                "\nNow you have " + tasks.size() + " tasks in the list.");
+    }
+
+    public static void deleteTask(String taskNumber) throws DukeException {
+        try {
+            int index = Integer.parseInt(taskNumber);
+            Task task = tasks.get(index - 1);
+            tasks.remove(index - 1);
+            printBotMessage("Noted. I've removed this task:\n\t" + task +
+                    "\nNow you have " + tasks.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            throw new DukeMissingArgumentException("The task number must be an integer.");
+        } catch (NullPointerException e) {
+            throw new DukeMissingTaskException();
+        }
     }
 
     /**
@@ -188,6 +200,9 @@ public class Duke {
                         break;
                     case "event":
                         addEvent(inputList);
+                        break;
+                    case "delete":
+                        deleteTask(String.join(" ", inputList.subList(1, inputList.size())));
                         break;
                     default:
                         throw new DukeInvalidCommandException();
