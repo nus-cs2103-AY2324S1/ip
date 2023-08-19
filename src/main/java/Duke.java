@@ -52,14 +52,22 @@ public class Duke {
     printAddTask(todo);
   }
 
-  private static void addDeadline(String line) {
-    String content = line.substring("deadline ".length());
-    String[] parts = content.split(" /by ");
-    if (parts.length != 2) {
-      printText("Invalid deadline format.");
+  private static void addDeadline(List<String> parts) {
+    if (parts.size() == 1) {
+      printText("Deadline is missing a body!");
       return;
     }
-    Deadline deadline = new Deadline(parts[0], parts[1]);
+
+    int byIdx = parts.indexOf("/by");
+    if (byIdx == -1) {
+      printText("Invalid deadline format: missing /by");
+      return;
+    }
+
+    String deadlineName = String.join(" ", parts.subList(1, byIdx));
+    String deadlineBy = String.join(" ", parts.subList(byIdx + 1, parts.size()));
+
+    Task deadline = new Deadline(deadlineName, deadlineBy);
     tasks.add(deadline);
     printAddTask(deadline);
   }
@@ -123,7 +131,7 @@ public class Duke {
           addToDo(parts);
           break;
         case "deadline":
-          addDeadline(input);
+          addDeadline(parts);
           break;
         case "event":
           addEvent(input);
