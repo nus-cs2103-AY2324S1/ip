@@ -21,45 +21,65 @@ public class Duke {
         printLine();
     }
 
-    private Task createTask(String[] words) {
+    private Task createTodoTask(String[] words) {
+        StringBuilder taskName = new StringBuilder();
+        for (int i = 1; i < words.length; i += 1) {
+            taskName.append(" ").append(words[i]);
+        }
+        return new ToDoTask(taskName.toString());
+    }
+
+    private Task createEventTask(String[] words) {
         StringBuilder taskName = new StringBuilder();
         StringBuilder startDate = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
 
+        int i = 1;
+        while (i < words.length && !words[i].equals("/from")) {
+            taskName.append(" ").append(words[i]);
+            i += 1;
+        }
+        i += 1;
+        while (i < words.length && !words[i].equals("/to")) {
+            startDate.append(" ").append(words[i]);
+            i += 1;
+        }
+        i += 1;
+        while (i < words.length) {
+            endDate.append(" ").append(words[i]);
+            i += 1;
+        }
+        return new EventTask(taskName.toString(), startDate.toString(), endDate.toString());
+    }
+
+    private Task createDeadlineTask(String[] words) {
+        StringBuilder taskName = new StringBuilder();
+        StringBuilder endDate = new StringBuilder();
+
+        int i = 1;
+        while (i < words.length && !words[i].equals("/by")) {
+            taskName.append(" ").append(words[i]);
+            i += 1;
+        }
+        i += 1;
+        while (i < words.length) {
+            endDate.append(" ").append(words[i]);
+            i += 1;
+        }
+        return new DeadlineTask(taskName.toString(), endDate.toString());
+    }
+
+    private Task createTask(String[] words) throws DukeException {
+        if (words.length == 1) {
+            throw new EmptyBodyException();
+        }
+
         if (words[0].equals("todo")) {
-            for (int i = 1; i < words.length; i += 1) {
-                taskName.append(" ").append(words[i]);
-            }
-            return new ToDoTask(taskName.toString());
+            return this.createTodoTask(words);
         } else if (words[0].equals("event")) {
-            int i = 1;
-            while (i < words.length && !words[i].equals("/from")) {
-                taskName.append(" ").append(words[i]);
-                i += 1;
-            }
-            i += 1;
-            while (i < words.length && !words[i].equals("/to")) {
-                startDate.append(" ").append(words[i]);
-                i += 1;
-            }
-            i += 1;
-            while (i < words.length) {
-                endDate.append(" ").append(words[i]);
-                i += 1;
-            }
-            return new EventTask(taskName.toString(), startDate.toString(), endDate.toString());
+            return this.createEventTask(words);
         } else {
-            int i = 1;
-            while (i < words.length && !words[i].equals("/by")) {
-                taskName.append(" ").append(words[i]);
-                i += 1;
-            }
-            i += 1;
-            while (i < words.length) {
-                endDate.append(" ").append(words[i]);
-                i += 1;
-            }
-            return new DeadlineTask(taskName.toString(), endDate.toString());
+            return this.createDeadlineTask(words);
         }
     }
 
@@ -145,8 +165,6 @@ public class Duke {
             this.markTask(words[1]);
         } else if (words[0].equals("unmark") && words.length == 2) {
             this.unmarkedTask(words[1]);
-        } else if ((words[0].equals("deadline") || words[0].equals("todo") || words[0].equals("event")) && words.length == 1) {
-            throw new EmptyBodyException();
         } else if ((words[0].equals("deadline") || words[0].equals("todo") || words[0].equals("event"))) {
             this.addTask(createTask(words));
         } else {
