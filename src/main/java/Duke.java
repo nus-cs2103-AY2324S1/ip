@@ -8,6 +8,9 @@ import java.util.Scanner;
  */
 public class Duke {
     private static final ArrayList<Task> tasks = new ArrayList<>();
+    private enum Command {
+        BYE, LIST, UNMARK, MARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+    }
 
     /**
      * Prints a horizontal line for formatting purposes.
@@ -176,32 +179,32 @@ public class Duke {
         while (true) {
             String input = sc.nextLine();
             List<String> inputList = Arrays.asList(input.split(" "));
-            String keyword = inputList.get(0);
+            Command keyword = Command.valueOf(inputList.get(0).toUpperCase());
 
             try {
                 switch (keyword) {
-                    case "bye":
+                    case BYE:
                         printFarewell();
                         return;
-                    case "list":
+                    case LIST:
                         printTasks();
                         break;
-                    case "unmark":
+                    case UNMARK:
                         unmarkTask(String.join(" ", inputList.subList(1, inputList.size())));
                         break;
-                    case "mark":
+                    case MARK:
                         markTask(String.join(" ", inputList.subList(1, inputList.size())));
                         break;
-                    case "todo":
+                    case TODO:
                         addTodo(inputList);
                         break;
-                    case "deadline":
+                    case DEADLINE:
                         addDeadline(inputList);
                         break;
-                    case "event":
+                    case EVENT:
                         addEvent(inputList);
                         break;
-                    case "delete":
+                    case DELETE:
                         deleteTask(String.join(" ", inputList.subList(1, inputList.size())));
                         break;
                     default:
