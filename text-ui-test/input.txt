@@ -17,4 +17,24 @@ unmark 3
 list
 unmark 1
 list
+todo
+todo     
+deadline
+deadline      
+deadline   book  /until next week
+deadline   x   /by  
+deadline       /by when
+event
+event     
+event     /start   /end   
+event     /from    /to   
+event a   /from    /to   
+event b   /from  s /to    
+event     /from 76 /to 1234567
+mark 0
+unmark 0
+mark 2147483650
+unmark 2147483650
+list
+asdfghjkl
 bye
