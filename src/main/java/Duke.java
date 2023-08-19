@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    static ArrayList<Task> tasks = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         String logo = " ██████╗██╗  ██╗ █████╗ ████████╗████████╗██╗   ██╗\n"
                 + "██╔════╝██║  ██║██╔══██╗╚══██╔══╝╚══██╔══╝╚██╗ ██╔╝\n"
@@ -16,11 +19,8 @@ public class Duke {
         System.out.println("What brings you here today?");
         System.out.println("------------------------------------------");
 
-        ArrayList<Task> tasks = new ArrayList<>();
-
-        Scanner scanner = new Scanner(System.in);
         while (true) {
-            String input = scanner.nextLine(); // mark 3    // read book
+            String input = scanner.nextLine(); // mark 3    // read bookD
             String[] tokens = input.split(" ", 2);
 
             if (tokens[0].equals("list")) {
@@ -38,9 +38,34 @@ public class Duke {
             } else if (tokens[0].equals("unmark")) {
                 int number = Integer.parseInt(tokens[1]);
                 tasks.get(number - 1).setStatus(false);
+            } else if (tokens[0].equals("todo")) {
+                String todoText = input.substring(5);
+                addTask(new Todo(todoText));
+            } else if (tokens[0].equals("deadline")) {
+                String deadlineText = tokens[1];
+                String[] parts = deadlineText.split("/by", 2);
+                String description = parts[0].trim();
+                String date = parts[1].trim();
+                addTask(new Deadline(description, date));
+            } else if (tokens[0].equals("event")) {
+                String eventText = tokens[1];
+                String[] eventParts = eventText.split("/from", 2);
+                String description = eventParts[0].trim();
+                String[] fromToParts = eventParts[1].split("/to", 2);
+                String fromDate = fromToParts[0].trim();
+                String toTime = fromToParts[1].trim();
+                addTask(new Event(description, fromDate, toTime));
             } else {
                 tasks.add(new Task(input));
             }
         }
+    }
+
+    private static void addTask(Task task) {
+        tasks.add(task);
+        System.out.println("------------------------------------------");
+        System.out.printf("Got it. I've added this task:\n\t%s\n", task);
+        System.out.printf("Now you have %d tasks in the list\n.", tasks.size());
+        System.out.println("------------------------------------------");
     }
 }
