@@ -9,7 +9,7 @@ public class GrumpyGordon {
         int taskIndex = 0;
         String taskArgument;
         int taskCount = 0;
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>(100);
 
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
@@ -27,7 +27,7 @@ public class GrumpyGordon {
                             System.out.println("    ____________________________________________________________");
                             System.out.println("     Stop wasting time, go get it done!");
                             for (int i = 0; i < taskCount; i++) {
-                                System.out.println("     " + (i + 1) + "." + tasks[i].toString());
+                                System.out.println("     " + (i + 1) + "." + tasks.get(i).toString());
                             }
                             System.out.println("    ____________________________________________________________");
                         }
@@ -41,10 +41,10 @@ public class GrumpyGordon {
                         if (taskIndex < 0 || taskIndex >= taskCount) {
                             throw new TaskIndexOfOutBoundsException("Invalid task index.");
                         }
-                        tasks[taskIndex].markAsDone();
+                        tasks.get(taskIndex).markAsDone();
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Took you long enough!");
-                        System.out.println("       " + tasks[taskIndex].toString());
+                        System.out.println("       " + tasks.get(taskIndex).toString());
                         System.out.println("    ____________________________________________________________");
                         str = sc.nextLine();
                         break;
@@ -56,11 +56,28 @@ public class GrumpyGordon {
                         if (taskIndex < 0 || taskIndex >= taskCount) {
                             throw new TaskIndexOfOutBoundsException("Invalid task index.");
                         }
-                        tasks[taskIndex].markAsUndone();
+                        tasks.get(taskIndex).markAsUndone();
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     My grandmother does it faster than you!");
-                        System.out.println("       " + tasks[taskIndex].toString());
+                        System.out.println("       " + tasks.get(taskIndex).toString());
                         System.out.println("    ____________________________________________________________");
+                        str = sc.nextLine();
+                        break;
+                    case ("delete"):
+                        if (str.split(" ").length == 1) {
+                            throw new TaskIndexMissingException("Missing task index.");
+                        }
+                        taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
+                        if (taskIndex < 0 || taskIndex >= taskCount) {
+                            throw new TaskIndexOfOutBoundsException("Invalid task index.");
+                        }
+                        taskCount--;
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     Noted. I've removed this task:");
+                        System.out.println("       " + tasks.get(taskIndex).toString());
+                        System.out.println("     Now you have " + taskCount + (taskCount > 1 ? " tasks" : " task") + " in the list.");
+                        System.out.println("    ____________________________________________________________");
+                        tasks.remove(taskIndex);
                         str = sc.nextLine();
                         break;
                     case ("todo"):
@@ -69,11 +86,11 @@ public class GrumpyGordon {
                         }
                         taskArgument = str.split(" ", 2)[1];
                         String todoDescription = taskArgument;
-                        tasks[taskCount] = new Todo(todoDescription);
+                        tasks.add(new Todo(todoDescription));
                         taskCount++;
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
-                        System.out.println("       " + tasks[taskCount - 1].toString());
+                        System.out.println("       " + tasks.get(taskCount - 1).toString());
                         System.out.println("     Now you have " + taskCount + (taskCount > 1 ? " tasks" : " task") + " in the list.");
                         System.out.println("    ____________________________________________________________");
                         str = sc.nextLine();
@@ -86,17 +103,16 @@ public class GrumpyGordon {
                         if (taskArgument.split(" /by ").length <= 1) {
                             throw new DeadlineByMissingException("Deadline must have a /by argument.");
                         }
-                        System.out.println(taskArgument.split("/by"));
                         if (taskArgument.split(" /by ")[0] == "") {
                             throw new DescriptionEmptyException("Invalid task description.");
                         }
                         String deadlineDescription = taskArgument.split(" /by ")[0];
                         String deadlineBy = taskArgument.split(" /by ")[1];
-                        tasks[taskCount] = new Deadline(deadlineDescription, deadlineBy);
+                        tasks.add(new Deadline(deadlineDescription, deadlineBy));
                         taskCount++;
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
-                        System.out.println("       " + tasks[taskCount - 1].toString());
+                        System.out.println("       " + tasks.get(taskCount - 1).toString());
                         System.out.println("     Now you have " + taskCount + (taskCount > 1 ? " tasks" : " task") + " in the list.");
                         System.out.println("    ____________________________________________________________");
                         str = sc.nextLine();
@@ -118,11 +134,11 @@ public class GrumpyGordon {
                         }
                         String eventFrom = taskArgument.split(" /from ")[0].split(" /to ")[0];
                         String eventTo = taskArgument.split(" /to ")[1];
-                        tasks[taskCount] = new Event(eventDescription, eventFrom, eventTo);
+                        tasks.add(new Event(eventDescription, eventFrom, eventTo));
                         taskCount++;
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Got it. I've added this task:");
-                        System.out.println("       " + tasks[taskCount - 1].toString());
+                        System.out.println("       " + tasks.get(taskCount - 1).toString());
                         System.out.println("     Now you have " + taskCount + (taskCount > 1 ? " tasks" : " task") + " in the list.");
                         System.out.println("    ____________________________________________________________");
                         str = sc.nextLine();
@@ -137,6 +153,7 @@ public class GrumpyGordon {
                         System.out.println("       event <description> /from <datetime> /to <datetime>");
                         System.out.println("       mark <taskIndex>");
                         System.out.println("       unmark <taskIndex>");
+                        System.out.println("       delete <taskIndex>");
                         System.out.println("       list");
                         System.out.println("       bye");
                         System.out.println("    ____________________________________________________________");
@@ -150,6 +167,7 @@ public class GrumpyGordon {
                 System.out.println("     Try again using this format:");
                 System.out.println("       mark <taskIndex>");
                 System.out.println("       unmark <taskIndex>");
+                System.out.println("       delete <taskIndex>");
                 System.out.println("    ____________________________________________________________");
                 str = sc.nextLine();
             } catch (TaskIndexMissingException e) {
