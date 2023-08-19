@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static String[] tasks = new String[100];
-    private static int numTasks = 0;
+    
+    private static TaskList tasks = new TaskList();
 
     private static void greet() {
         System.out.println("Hello! I'm Siyuan");
@@ -13,33 +13,25 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private static void echo(String input) {
-        System.out.println(input);
-    }
-
-    private static void addTask(String input) {
-        System.out.println("added: " + input);
-        tasks[numTasks++] = input;
-    }
-
-    private static void listTasks() {
-        for (int i = 0; i < numTasks; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
-        }
-    }
 
     public static void main(String[] args) {
         greet();
         Scanner sc = new Scanner(System.in);
 
         String input = sc.nextLine();
-        
+
         while (!input.equals("bye")) {
 
             if (input.equals("list")) {
-                listTasks();
+                tasks.listAllTasks();
+            } else if (input.startsWith("mark")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                tasks.markTaskAsDone(taskNumber);
+            } else if (input.startsWith("unmark")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                tasks.markTaskAsUndone(taskNumber);
             } else {
-                addTask(input);
+                tasks.addTask(new Task(input));
             }
             input = sc.nextLine();
         }
