@@ -1,3 +1,4 @@
+list
 todo CS2100 Tutorial
 list
 deadline Java Quiz /by 21 Aug
@@ -6,4 +7,8 @@ event class /from 10am /to 12pm
 list
 mark 1
 list
+nonsense
+todo nonsense
+deadline nonsense
+event nonsense nonsense
 bye

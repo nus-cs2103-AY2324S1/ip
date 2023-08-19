@@ -22,7 +22,9 @@ public class RatStorage {
     public void addToDo(String item) {
         ToDo newToDo = new ToDo(item);
         this.storage.add(newToDo);
-        RatPrinter.printWithLines("added: " + newToDo);
+        RatPrinter.printWithLines("Got it. I've added this Deadline:\n"
+                + newToDo.toString()
+                + "\nNow you have " + this.storage.size() + " tasks in the list.");
     }
 
     public void addDeadline(String deadline, String name) {
@@ -46,11 +48,9 @@ public class RatStorage {
 
     public void markItemDone(int index) {
         if (index > this.storage.size() || index < 1) {
-            RatPrinter.printWithLines("invalid index");
-            return;
+            throw new IndexOutOfBoundsException("Task not found");
         } else if (this.storage.get(index - 1) == null) {
-            RatPrinter.printWithLines("item not found");
-            return;
+            throw new IndexOutOfBoundsException("Task not found");
         }
         Task item = this.storage.get(index - 1);
         item.markDone();
@@ -59,11 +59,9 @@ public class RatStorage {
 
     public void unmarkItemDone(int index) {
         if (index > this.storage.size() || index < 1) {
-            RatPrinter.printWithLines("invalid index");
-            return;
+            throw new IndexOutOfBoundsException("Task not found");
         } else if (this.storage.get(index - 1) == null) {
-            RatPrinter.printWithLines("item not found");
-            return;
+            throw new IndexOutOfBoundsException("Task not found");
         }
         Task item = this.storage.get(index - 1);
         item.unmarkDone();
@@ -71,6 +69,14 @@ public class RatStorage {
     }
 
     public void listItems() {
-        RatPrinter.printWithLines(this.toString());
+        if (this.storage.isEmpty()) {
+            RatPrinter.printWithLines("You have no tasks in the list.");
+            return;
+        } else {
+            String list = "Here are the tasks in your list:\n"
+                    + this.toString() + "\n"
+                    + "You have " + this.storage.size() + " tasks in the list.";
+            RatPrinter.printWithLines(list);
+        }
     }
 }
