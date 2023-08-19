@@ -14,6 +14,14 @@ public class Duke {
         return res;
     }
 
+    private static String deleteTask(int index) {
+        Task task = tasks.remove(index);
+        String res = "Noted. I've removed this task:\n";
+        res += String.format("  %s\n", task.toString());
+        res += String.format("Now you have %d tasks in the list.", tasks.size());
+        return res;
+    }
+
     public static void print(String s) {
         System.out.println(s);
     }
@@ -67,6 +75,17 @@ public class Duke {
                         tasks.get(index).unmarkDone();
                         print("OK, I've marked this task as not done yet:");
                         print("  " + tasks.get(index).toString());
+                    } catch (NumberFormatException e) {
+                        throw new DukeException(e);
+                    }
+                    break;
+                case "delete":
+                    try {
+                        int index = Integer.parseInt(queries[1]) - 1;
+                        if (index < 0 || index >= tasks.size()) {
+                            throw new DukeException("Invalid task index");
+                        }
+                        print(deleteTask(index));
                     } catch (NumberFormatException e) {
                         throw new DukeException(e);
                     }
