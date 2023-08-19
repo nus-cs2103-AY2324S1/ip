@@ -70,16 +70,16 @@ public class Duke {
 
     private void addTask(Task task) {
         tasks.add(task);
-        System.out.println("    " + "Got it. I've added this task:");
-        System.out.println("      " + task.toString());
-        System.out.println("    " + "Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("     " + "Got it. I've added this task:");
+        System.out.println("       " + task.toString());
+        System.out.println("     " + "Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private void listTasks() {
         int i = 1;
-        System.out.println("    Here are the tasks in your list:");
+        System.out.println("     Here are the tasks in your list:");
         for (Task task : tasks) {
-            System.out.println("    " + i + "." + " " + task);
+            System.out.println("     " + i + "." + task);
             i += 1;
         }
     }
@@ -94,8 +94,8 @@ public class Duke {
             int i = Integer.parseInt(index, 10) - 1;
             Task task = tasks.get(i);
             task.markCompleted();
-            System.out.println("    Nice! I've marked this task as done:");
-            System.out.println("    " + task.toString());
+            System.out.println("     Nice! I've marked this task as done:");
+            System.out.println("       " + task.toString());
         }
     }
 
@@ -109,8 +109,8 @@ public class Duke {
             int i = Integer.parseInt(index, 10) - 1;
             Task task = tasks.get(i);
             task.markNotCompleted();
-            System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.println("    " + task.toString());
+            System.out.println("     OK, I've marked this task as not done yet:");
+            System.out.println("       " + task.toString());
         }
     }
 
