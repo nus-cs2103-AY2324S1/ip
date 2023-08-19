@@ -26,6 +26,7 @@ public class Horo {
         + " list\n"
         + " mark <number>\n"
         + " unmark <number>\n"
+        + " delete <number>\n"
         + " bye\n";
     System.out.println(introduction);
 
@@ -42,7 +43,6 @@ public class Horo {
         continue;
       }
 
-      Task selectedTask = null;
       String command = m.group(1);
 
       if (command.equals("bye")) {
@@ -64,7 +64,7 @@ public class Horo {
           System.out.println("No tasks available");
           continue;
         }
-
+        Task selectedTask = null;
         try {
           selectedTask = tasks.get(Integer.parseInt(m.group(2)) - 1);
         } catch (Exception e) {
@@ -80,6 +80,23 @@ public class Horo {
           System.out.println("Task marked as not done");
         }
         System.out.println(selectedTask);
+        continue;
+      }
+
+      if (command.equals("delete")) {
+        if (tasks.isEmpty()) {
+          System.out.println("No tasks available");
+          continue;
+        }
+        Task removedTask = null;
+        try {
+          removedTask = tasks.remove(Integer.parseInt(m.group(2)) - 1);
+        } catch (Exception e) {
+          System.out.println("Please enter a valid number from 1 - " + tasks.size());
+          continue;
+        }
+        System.out.println("Removed task: ");
+        System.out.println(removedTask);
         continue;
       }
 
@@ -152,7 +169,7 @@ public class Horo {
   }
 
   private static Pattern commandPattern = Pattern
-      .compile("^(deadline|todo|event|bye|mark|unmark|list) *([\\w ]+)*");
+      .compile("^(deadline|todo|event|bye|mark|unmark|list|delete) *([\\w ]+)*");
 
   private static Matcher commandParser(String command) throws HoroException {
     Matcher m = commandPattern.matcher(command);
