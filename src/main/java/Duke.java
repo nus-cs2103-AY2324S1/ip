@@ -40,7 +40,7 @@ public class Duke {
         String[] parts = input.split(" ", 2);
         final String command = parts[0];
         final String rest = parts.length > 1 ? parts[1] : "";
-        
+
         switch (command) {
             case "bye": {
                 Duke.exit();
