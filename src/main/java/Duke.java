@@ -103,11 +103,18 @@ public class Duke {
     Scanner sc = new Scanner(System.in);
     while (true) {
       input = sc.nextLine();
-      String command = input.split(" ")[0];
+
+      // Handle empty inputs
+      if (input.trim().equals("")) {
+        printText("Enter a command please!");
+        continue;
+      }
+
+      String[] parts = input.split(" ");
+      String command = parts[0];
+      if (command.equals("bye")) break;
+
       switch (command) {
-        case "bye":
-          printText("Bye. Hope to see you again soon!");
-          return;
         case "todo":
           addToDo(input);
           break;
@@ -132,5 +139,7 @@ public class Duke {
           printText("I'm sorry, I don't know what that means :(");
       }
     }
+
+    printText("Bye. Hope to see you again soon!");
   }
 }
