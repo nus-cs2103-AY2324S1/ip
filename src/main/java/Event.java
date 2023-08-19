@@ -59,8 +59,8 @@ public class Event extends Task {
      */
     public String getEndTime(String taskString) {
         String[] arr = splitEventString(taskString);
-        String startTime = arr[2];
-        return startTime.substring(1);
+        String endTime = arr[2];
+        return endTime.substring(1, endTime.length() - 1);
     }
 
     @Override
