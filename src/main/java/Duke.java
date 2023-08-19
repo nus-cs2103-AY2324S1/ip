@@ -1,10 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private static final List<Task> tasks = new ArrayList<>();
     public static void main(String[] args) {
         greet();
 
@@ -21,8 +22,8 @@ public class Duke {
 
                     case "list":
                         StringBuilder output = new StringBuilder();
-                        for (int i = 0; i < taskCount; i++) {
-                            output.append(i + 1).append(". ").append(tasks[i]).append("\n");
+                        for (int i = 0; i < tasks.size(); i++) {
+                            output.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
                         }
                         if (output.length() == 0) {
                             sendMessage("No Items in List");
@@ -41,11 +42,11 @@ public class Duke {
                         } catch (NumberFormatException e) {
                             throw new DukeException("Invalid Argument Provided: " + arguments);
                         }
-                        if (choice < 0 || choice >= taskCount) {
-                            throw new DukeException("Argument Provided out of range: " + choice);
+                        if (choice < 0 || choice >= tasks.size()) {
+                            throw new DukeException("Argument Provided out of range: " + (choice+1));
                         }
-                        tasks[choice].markAsDone();
-                        sendMessage("Nice! I've marked this task as done:\n  " + tasks[choice]);
+                        tasks.get(choice).markAsDone();
+                        sendMessage("Nice! I've marked this task as done:\n  " + tasks.get(choice));
                         break;
 
                     case "unmark":
@@ -57,22 +58,39 @@ public class Duke {
                         } catch (NumberFormatException e) {
                             throw new DukeException("Invalid Argument Provided: " + arguments);
                         }
-                        if (choice < 0 || choice >= taskCount) {
-                            throw new DukeException("Argument Provided out of range: " + choice);
+                        if (choice < 0 || choice >= tasks.size()) {
+                            throw new DukeException("Argument Provided out of range: " + (choice+1));
                         }
-                        tasks[choice].markAsNotDone();
-                        sendMessage("OK, I've marked this task as not done yet:\n  " + tasks[choice]);
+                        tasks.get(choice).markAsNotDone();
+                        sendMessage("OK, I've marked this task as not done yet:\n  " + tasks.get(choice));
+                        break;
+
+                    case "delete":
+                        if (Objects.equals(arguments, "")) {
+                            throw new DukeException("Missing Argument for command: " + command);
+                        }
+                        try {
+                            choice = Integer.parseInt(arguments) - 1;
+                        } catch (NumberFormatException e) {
+                            throw new DukeException("Invalid Argument Provided: " + arguments);
+                        }
+                        if (choice < 0 || choice >= tasks.size()) {
+                            throw new DukeException("Argument Provided out of range: " + (choice+1));
+                        }
+                        sendMessage("Noted. I've removed this task:\n  " +
+                                tasks.get(choice) +
+                                String.format("\nNow you have %d tasks in the list.", tasks.size() - 1));
+                        tasks.remove(choice);
                         break;
 
                     case "todo":
                         if (Objects.equals(arguments, "")) {
                             throw new DukeException("Missing Argument for command: " + command);
                         }
-                        tasks[taskCount] = new Todo(arguments);
-                        taskCount++;
+                        tasks.add(new Todo(arguments));
                         sendMessage("Got it. I've added this task:\n  " +
-                                tasks[taskCount-1] +
-                                String.format("\nNow you have %d tasks in the list.", taskCount));
+                                tasks.get(tasks.size()-1) +
+                                String.format("\nNow you have %d tasks in the list.", tasks.size()));
                         break;
 
                     case "deadline":
@@ -86,11 +104,10 @@ public class Duke {
                         if (Objects.equals(userArgs[1], "")) {
                             throw new DukeException("Missing Argument for command: " + command + ", should include /by [date]");
                         }
-                        tasks[taskCount] = new Deadline(userArgs[0], userArgs[1]);
-                        taskCount++;
+                        tasks.add(new Deadline(userArgs[0], userArgs[1]));
                         sendMessage("Got it. I've added this task:\n  " +
-                                tasks[taskCount-1] +
-                                String.format("\nNow you have %d tasks in the list.", taskCount));
+                                tasks.get(tasks.size()-1) +
+                                String.format("\nNow you have %d tasks in the list.", tasks.size()));
                         break;
 
                     case "event":
@@ -108,11 +125,10 @@ public class Duke {
                                     command +
                                     ", should include /from [date] /to [date]");
                         }
-                        tasks[taskCount] = new Event(userArgs[0], userArgs[1], userArgs[2]);
-                        taskCount++;
+                        tasks.add(new Event(userArgs[0], userArgs[1], userArgs[2]));
                         sendMessage("Got it. I've added this task:\n  " +
-                                tasks[taskCount-1] +
-                                String.format("\nNow you have %d tasks in the list.", taskCount));
+                                tasks.get(tasks.size()-1) +
+                                String.format("\nNow you have %d tasks in the list.", tasks.size()));
                         break;
                     default:
                         throw new DukeException("Invalid Command: " + command + " , Please Try Again...");
