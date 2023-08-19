@@ -1,34 +1,46 @@
+import java.util.Scanner;
+
 public class Duke {
 
 	static String botName = "GOAT";
+	static Scanner input = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		String logo = "   ______    ___        _    _________ \n"
-				+ " .' ___  | .'   `.     / \\  |  _   _  |\n"
-				+ "/ .'   \\_|/  .-.  \\   / _ \\ |_/ | | \\_|\n"
-				+ "| |   ____| |   | |  / ___ \\    | |    \n"
-				+ "\\ `.___]  \\  `-'  /_/ /   \\ \\_ _| |_   \n"
-				+ " `._____.' `.___.'|____| |____|_____|  \n";
-		System.out.println("Hello from\n" + logo);
+		String logo = "\t   ______    ___        _    _________ \n"
+				+ "\t .' ___  | .'   `.     / \\  |  _   _  |\n"
+				+ "\t/ .'   \\_|/  .-.  \\   / _ \\ |_/ | | \\_|\n"
+				+ "\t| |   ____| |   | |  / ___ \\    | |    \n"
+				+ "\t\\ `.___]  \\  `-'  /_/ /   \\ \\_ _| |_   \n"
+				+ "\t `._____.' `.___.'|____| |____|_____|  \n";
+		System.out.println("\tHello from\n" + logo);
 
-		printLine();
 		greet();
-		printLine();
+		while (true) {
+			String command = input.nextLine().trim();
+			if (command.equals("bye"))
+				break;
+			printLine();
+			System.out.printf("\t%s\n", command);
+			printLine();
+		}
 		sayBye();
-		printLine();
 	}
 
 	static void greet() {
-		System.out.printf("Hello! I'm %s\n", botName);
-		System.out.println("What can I do for you?");
+		printLine();
+		System.out.printf("\tHello! I'm %s\n", botName);
+		System.out.println("\tWhat can I do for you?");
+		printLine();
 	}
 
 	static void sayBye() {
-		System.out.println("Bye. Hope to see you again soon!");
+		printLine();
+		System.out.println("\tBye. Hope to see you again soon!");
+		printLine();
 	}
 
 	static void printLine() {
-		String line = "____________________________________________________________";
+		String line = "\t____________________________________________________________";
 		System.out.println(line);
 	}
 }
