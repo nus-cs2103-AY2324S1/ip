@@ -9,18 +9,30 @@ public class AdaBot {
         Scanner input = new Scanner(System.in);
         System.out.println(helloString);
         String response = "";
-        ArrayList<String> tasks = new ArrayList<String>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         while (true) {
             response = input.nextLine();
-            if (response.equals("bye")) {
+            String[] queries = response.trim().split("\\s+");
+            if (queries[0].equals("bye")) {
                 break;
-            } else if (response.equals("list")) {
+            } else if (queries[0].equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(String.format("%d. %s", i + 1, tasks.get(i)));
+                    System.out.println(String.format("%d.%s", i + 1, tasks.get(i).toString()));
                 }
+            } else if (queries[0].equals("mark")) {
+                int index = Integer.parseInt(queries[1]) - 1;
+                tasks.get(index).markDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + tasks.get(index).toString());
+            } else if (queries[0].equals("unmark")) {
+                int index = Integer.parseInt(queries[1]) - 1;
+                tasks.get(index).unmarkDone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + tasks.get(index).toString());
             } else {
-                tasks.add(response);
+                tasks.add(new Task(response));
                 System.out.println("added: " + response);
             }
         }
