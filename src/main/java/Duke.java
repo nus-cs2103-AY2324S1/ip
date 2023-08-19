@@ -76,6 +76,23 @@ public class Duke {
     printAddTask(event);
   }
 
+  private static int updateTaskStatus(String line, boolean status) {
+    int i = extractIndex(line, 1);
+    if ((i - 1) < 0 || (i - 1) > tasks.size()) {
+      printText("Invalid index provided.");
+    }
+    tasks.get(i - 1).setDone(status);
+    return i;
+  }
+
+  private static void printTasks() {
+    String output = IntStream
+        .range(0, tasks.size())
+        .mapToObj((j) -> String.format("%d. %s", j + 1, tasks.get(j)))
+        .collect(Collectors.joining("\n"));
+    printText(String.format("Here are the tasks in your list:\n%s", output));
+  }
+
   public static void main(String[] args) {
     printText("Hello! I'm Cyrus\nWhat can I do for you?");
     String input;
@@ -83,7 +100,6 @@ public class Duke {
     while (true) {
       input = sc.nextLine();
       String command = input.split(" ")[0];
-      int i;
       switch (command) {
         case "bye":
           printText("Bye. Hope to see you again soon!");
@@ -95,31 +111,19 @@ public class Duke {
           addEvent(input);
           break;
         case "mark":
-          i = extractIndex(input, 1);
-          if ((i - 1) < 0 || (i - 1) > tasks.size()) {
-            printText("Invalid index provided.");
-          }
-          tasks.get(i - 1).setDone(true);
+          int idx = updateTaskStatus(input, true);
           printText(
-              String.format("Nice! I've marked this task as done:\n%s", tasks.get(i - 1))
+              String.format("Nice! I've marked this task as done:\n%s", tasks.get(idx - 1))
           );
           break;
         case "unmark":
-          i = extractIndex(input, 1);
-          if ((i - 1) < 0 || (i - 1) > tasks.size()) {
-            printText("Invalid index provided.");
-          }
-          tasks.get(i - 1).setDone(false);
+          idx = updateTaskStatus(input, false);
           printText(
-              String.format("OK, I've marked this task as not done yet:\n%s", tasks.get(i - 1))
+              String.format("OK, I've marked this task as not done yet:\n%s", tasks.get(idx - 1))
           );
           break;
         case "list":
-          String output = IntStream
-              .range(0, tasks.size())
-              .mapToObj((j) -> String.format("%d. %s", j + 1, tasks.get(j)))
-              .collect(Collectors.joining("\n"));
-          printText(String.format("Here are the tasks in your list:\n%s", output));
+          printTasks();
           break;
         default:
           addToDo(input);
