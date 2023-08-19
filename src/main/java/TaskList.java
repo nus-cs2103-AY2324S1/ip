@@ -1,16 +1,16 @@
 public class TaskList {
-    private String[] taskList = new String[100];
+    private Task[] taskList = new Task[100];
     private int index = 0;
 
     public void add(String description) {
-        taskList[index] = description;
+        taskList[index] = new Task(description);
         index ++;
         System.out.println("added: " + description);
     }
     public void list() {
         String msg = "";
         int num = 1;
-        for (String task : taskList) {
+        for (Task task : taskList) {
             if (task != null) {
                 msg = msg + String.valueOf(num) + ": " + task + "\n";
                 num ++;
@@ -19,5 +19,13 @@ public class TaskList {
             }
         }
         System.out.println(msg);
+    }
+
+    public void markAsDone(int index) {
+        this.taskList[index - 1].markAsDone();
+    }
+
+    public void markAsUndone(int index) {
+        this.taskList[index - 1].markAsUndone();
     }
 }

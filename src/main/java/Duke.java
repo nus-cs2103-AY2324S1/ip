@@ -23,10 +23,17 @@ public class Duke {
     private void listen() {
         Scanner sc = new Scanner(System.in);
         String msg = sc.nextLine();
-        if (msg.equals("bye")) {
+        String[] msgArr = msg.split(" ");
+        if (msgArr[0].equals("bye")) {
             exit();
-        } else if (msg.equals("list")) {
+        } else if (msgArr[0].equals("list")) {
             list();
+            listen();
+        } else if (msgArr[0].equals("mark")) {
+            taskList.markAsDone(Integer.parseInt(msgArr[1]));
+            listen();
+        } else if (msgArr[0].equals("unmark")) {
+            taskList.markAsUndone(Integer.parseInt(msgArr[1]));
             listen();
         } else {
             add(msg);
