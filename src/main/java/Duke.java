@@ -9,8 +9,8 @@ public class Duke {
   private final static int globalIndentation = 4;
   private final static List<Task> tasks = new ArrayList<>();
 
-  private static void printText(String text, int indentation) {
-    String frontPadding = " ".repeat(indentation);
+  private static void printText(String text) {
+    String frontPadding = " ".repeat(Duke.globalIndentation);
     System.out.printf("%s%s\n", frontPadding, delimiter);
     String[] lines = text.split("\n");
     for (String line : lines) {
@@ -35,8 +35,8 @@ public class Duke {
             "Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
             task,
             tasks.size()
-        ),
-        globalIndentation);
+        )
+    );
   }
 
   private static void addToDo(String line) {
@@ -50,7 +50,7 @@ public class Duke {
     String content = line.substring("deadline ".length());
     String[] parts = content.split(" /by ");
     if (parts.length != 2) {
-      printText("Invalid deadline format.", globalIndentation);
+      printText("Invalid deadline format.");
       return;
     }
     Deadline deadline = new Deadline(parts[0], parts[1]);
@@ -58,42 +58,60 @@ public class Duke {
     printAddTask(deadline);
   }
 
+  private static void addEvent(String line) {
+    String content = line.substring("event ".length());
+    String[] parts = content.split(" /from ");
+    if (parts.length != 2) {
+      printText("Invalid event format.");
+      return;
+    }
+    String name = parts[0];
+    String[] rest = parts[1].split(" /to ");
+    if (rest.length != 2) {
+      printText("Invalid event format.");
+      return;
+    }
+    Task event = new Event(name, rest[0], rest[1]);
+    tasks.add(event);
+    printAddTask(event);
+  }
+
   public static void main(String[] args) {
-    printText("Hello! I'm Cyrus\nWhat can I do for you?", globalIndentation);
+    printText("Hello! I'm Cyrus\nWhat can I do for you?");
     String input;
     Scanner sc = new Scanner(System.in);
     while (true) {
       input = sc.nextLine();
-
       String command = input.split(" ")[0];
       int i;
       switch (command) {
         case "bye":
-          printText("Bye. Hope to see you again soon!", globalIndentation);
+          printText("Bye. Hope to see you again soon!");
           return;
         case "deadline":
           addDeadline(input);
           break;
+        case "event":
+          addEvent(input);
+          break;
         case "mark":
           i = extractIndex(input, 1);
           if ((i - 1) < 0 || (i - 1) > tasks.size()) {
-            printText("Invalid index provided.", globalIndentation);
+            printText("Invalid index provided.");
           }
           tasks.get(i - 1).setDone(true);
           printText(
-              String.format("Nice! I've marked this task as done:\n%s", tasks.get(i - 1)),
-              globalIndentation
+              String.format("Nice! I've marked this task as done:\n%s", tasks.get(i - 1))
           );
           break;
         case "unmark":
           i = extractIndex(input, 1);
           if ((i - 1) < 0 || (i - 1) > tasks.size()) {
-            printText("Invalid index provided.", globalIndentation);
+            printText("Invalid index provided.");
           }
           tasks.get(i - 1).setDone(false);
           printText(
-              String.format("OK, I've marked this task as not done yet:\n%s", tasks.get(i - 1)),
-              globalIndentation
+              String.format("OK, I've marked this task as not done yet:\n%s", tasks.get(i - 1))
           );
           break;
         case "list":
@@ -101,7 +119,7 @@ public class Duke {
               .range(0, tasks.size())
               .mapToObj((j) -> String.format("%d. %s", j + 1, tasks.get(j)))
               .collect(Collectors.joining("\n"));
-          printText(String.format("Here are the tasks in your list:\n%s", output), globalIndentation);
+          printText(String.format("Here are the tasks in your list:\n%s", output));
           break;
         default:
           addToDo(input);
