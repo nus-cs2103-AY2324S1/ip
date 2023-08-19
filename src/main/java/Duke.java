@@ -12,10 +12,6 @@ public class Duke {
         System.out.println(exitMsg);
     }
 
-    private void add(String msg) {
-        this.taskList.add(msg);
-    }
-
     private void list() {
         this.taskList.list();
     }
@@ -23,19 +19,29 @@ public class Duke {
     private void listen() {
         Scanner sc = new Scanner(System.in);
         while (true) {
-            String msg = sc.nextLine();
-            String[] msgArr = msg.split(" ");
-            if (msgArr[0].equals("bye")) {
-                exit();
-                break;
-            } else if (msgArr[0].equals("list")) {
-                list();
-            } else if (msgArr[0].equals("mark")) {
-                taskList.markAsDone(Integer.parseInt(msgArr[1]));
-            } else if (msgArr[0].equals("unmark")) {
-                taskList.markAsUndone(Integer.parseInt(msgArr[1]));
-            } else {
-                add(msg);
+            try {
+                String msg = sc.nextLine();
+                String[] msgArr = msg.split(" ");
+                if (msgArr[0].equals("bye")) {
+                    exit();
+                    break;
+                } else if (msgArr[0].equals("list")) {
+                    list();
+                } else if (msgArr[0].equals("mark")) {
+                    this.taskList.markAsDone(msgArr);
+                } else if (msgArr[0].equals("unmark")) {
+                    this.taskList.markAsUndone(msgArr);
+                } else if (msgArr[0].equals("todo")){
+                    this.taskList.newTodo(msg);
+                } else if (msgArr[0].equals("deadline")){
+                    this.taskList.newDeadline(msg);
+                } else if (msgArr[0].equals("event")){
+                    this.taskList.newEvent(msg);
+                } else {
+                    throw new DukeNoSuchCommandException();
+                }
+            } catch (DukeException e) {
+                System.out.println(e);
             }
         }
     }
