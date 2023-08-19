@@ -104,6 +104,9 @@ public class Duke {
         case "bye":
           printText("Bye. Hope to see you again soon!");
           return;
+        case "todo":
+          addToDo(input);
+          break;
         case "deadline":
           addDeadline(input);
           break;
@@ -126,7 +129,7 @@ public class Duke {
           printTasks();
           break;
         default:
-          addToDo(input);
+          printText("I'm sorry, I don't know what that means :(");
       }
     }
   }
