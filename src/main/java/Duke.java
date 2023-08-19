@@ -41,8 +41,12 @@ public class Duke {
     );
   }
 
-  private static void addToDo(String line) {
-    String content = line.substring("todo ".length());
+  private static void addToDo(List<String> parts) {
+    if (parts.size() == 1) {
+      printText("ToDo is missing a body!");
+      return;
+    }
+    String content = String.join(" ", parts.subList(1, parts.size()));
     ToDo todo = new ToDo(content);
     tasks.add(todo);
     printAddTask(todo);
@@ -110,13 +114,13 @@ public class Duke {
         continue;
       }
 
-      String[] parts = input.split(" ");
-      String command = parts[0];
+      List<String> parts = List.of(input.split(" "));
+      String command = parts.get(0);
       if (command.equals("bye")) break;
 
       switch (command) {
         case "todo":
-          addToDo(input);
+          addToDo(parts);
           break;
         case "deadline":
           addDeadline(input);
