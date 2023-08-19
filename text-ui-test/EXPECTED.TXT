@@ -20,6 +20,8 @@ Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday 1234567 :/)
 3.[E][ ] project meeting (from: Sat Aug 19 2023 20:00 to: Sat Aug 19 2023 23:00)
+Please enter a valid task number. You entered: ""
+Please enter a valid task number. You entered: ""
 Nice! I've marked this task as done:
 [T][X] borrow book
 Here are the tasks in your list:
@@ -72,11 +74,38 @@ The end date/time of an Event task cannot be blank.
 The description of an Event task cannot be blank.
 The task number is out of range. Use "list" to see your tasks.
 The task number is out of range. Use "list" to see your tasks.
+The task number is out of range. Use "list" to see your tasks.
+The task number is out of range. Use "list" to see your tasks.
 Please enter a valid task number. You entered: "2147483650"
 Please enter a valid task number. You entered: "2147483650"
+Please enter a valid task number. You entered: "a"
+Please enter a valid task number. You entered: "b"
 Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday 1234567 :/)
 3.[E][ ] project meeting (from: Sat Aug 19 2023 20:00 to: Sat Aug 19 2023 23:00)
 I'm sorry, but I don't know what "asdfghjkl" means.
+Please enter a valid task number. You entered: ""
+The task number is out of range. Use "list" to see your tasks.
+Please enter a valid task number. You entered: "2147483650"
+Please enter a valid task number. You entered: "c"
+Noted. I've removed this task:
+[T][ ] borrow book
+Now you have 2 tasks in the list.
+Here are the tasks in your list:
+1.[D][ ] return book (by: Sunday 1234567 :/)
+2.[E][ ] project meeting (from: Sat Aug 19 2023 20:00 to: Sat Aug 19 2023 23:00)
+Noted. I've removed this task:
+[D][ ] return book (by: Sunday 1234567 :/)
+Now you have 1 task in the list.
+Here are the tasks in your list:
+1.[E][ ] project meeting (from: Sat Aug 19 2023 20:00 to: Sat Aug 19 2023 23:00)
+Noted. I've removed this task:
+[E][ ] project meeting (from: Sat Aug 19 2023 20:00 to: Sat Aug 19 2023 23:00)
+Now you have 0 tasks in the list.
+Here are the tasks in your list:
+You have no tasks in your list.
+The task number is out of range. Use "list" to see your tasks.
+Here are the tasks in your list:
+You have no tasks in your list.
 Bye. Hope to see you again soon!

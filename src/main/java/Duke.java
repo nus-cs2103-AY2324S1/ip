@@ -48,7 +48,7 @@ public class Duke {
     }
 
     /**
-     * Prints the number of tasks in the list after adding a task.
+     * Prints the number of tasks in the list after adding/removing a task.
      */
     private static void printNumberOfTasks() {
         String taskOrTasks = list.size() == 1 ? "task" : "tasks";
@@ -151,6 +151,24 @@ public class Duke {
     }
 
     /**
+     * Deletes a task from the list.
+     *
+     * @param num The number of the task to be deleted.
+     * @throws DukeIllegalArgumentException If the task number is out of range of the list.
+     */
+    private static void deleteTask(int num) throws DukeIllegalArgumentException {
+        int index = num - 1;
+        if (index < 0 || index >= list.size()) {
+            throw new DukeIllegalArgumentException(
+                    "The task number is out of range. Use \"list\" to see your tasks.");
+        }
+        Task task = list.remove(index);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        printNumberOfTasks();
+    }
+
+    /**
      * Parses the input.
      *
      * @param input The input from the user.
@@ -215,6 +233,14 @@ public class Duke {
             String[] eventArgs = command[1].split(" /from ");
             String[] eventTimes = eventArgs[1].split(" /to ");
             addEventTask(eventArgs[0], eventTimes[0], eventTimes[1]);
+            break;
+        case "delete":
+            try {
+                deleteTask(Integer.parseInt(command[1]));
+            } catch (NumberFormatException e) {
+                throw new DukeIllegalArgumentException(
+                        "Please enter a valid task number. You entered: \"" + command[1] + "\"");
+            }
             break;
         default:
             throw new DukeUnknownCommandException(

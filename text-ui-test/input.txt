@@ -5,6 +5,8 @@ deadline return book /by Sunday 1234567 :/
 list
 event project meeting /from Sat Aug 19 2023 20:00 /to Sat Aug 19 2023 23:00
 list
+mark
+unmark
 mark 1
 list
 mark 2
@@ -33,8 +35,24 @@ event b   /from  s /to
 event     /from 76 /to 1234567
 mark 0
 unmark 0
+mark -1
+unmark -1
 mark 2147483650
 unmark 2147483650
+mark a
+unmark b
 list
 asdfghjkl
+delete
+delete -1
+delete 2147483650
+delete c
+delete 1
+list
+delete 1
+list
+delete 1
+list
+delete 1
+list
 bye
