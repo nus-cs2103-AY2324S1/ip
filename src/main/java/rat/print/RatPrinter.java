@@ -1,11 +1,11 @@
 package rat.print;
-public class Printer {
+public class RatPrinter {
 
     static String welcomeMsg = "                  Hello! I'm Rat!\n"
             + "              What can I do for you?";
     static String exitMsg = "           Bye. Hope to see you again soon!";
 
-    public Printer() { };
+    public RatPrinter() { };
 
     public static void printWelcome() {
         printWithLines(welcomeMsg);
