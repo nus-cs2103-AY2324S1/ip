@@ -53,12 +53,18 @@ public class Duke {
             }
 
             case "mark": {
+                if (rest.isEmpty()) {
+                    throw new IllegalArgumentException("Task index is missing.");
+                }
                 int index = Integer.parseInt(rest);
                 Duke.mark(index);
                 break;
             }
 
             case "unmark": {
+                if (rest.isEmpty()) {
+                    throw new IllegalArgumentException("Task index is missing.");
+                }
                 int index = Integer.parseInt(rest);
                 Duke.unmark(index);
                 break;
@@ -70,29 +76,36 @@ public class Duke {
             }
 
             case "deadline": {
-                final String[] deadlineParts = rest.split(" /by ", 2);
-                final String name = deadlineParts[0];
-                final String endTime = deadlineParts[1];
-                Duke.add(new Deadline(name, endTime));
+                try {
+                    final String[] deadlineParts = rest.split(" /by ", 2);
+                    final String name = deadlineParts[0];
+                    final String endTime = deadlineParts[1];
+                    Duke.add(new Deadline(name, endTime));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new IllegalArgumentException("Invalid format. Usage: deadline <name> /by <time>");
+                }
                 break;
             }
 
             case "event": {
-                final String[] deadlineParts = rest.split(" /from ", 2);
-                final String name = deadlineParts[0];
-                final String deadline = deadlineParts[1];
+                try {
+                    final String[] deadlineParts = rest.split(" /from ", 2);
+                    final String name = deadlineParts[0];
+                    final String deadline = deadlineParts[1];
 
-                final String[] startAndEndParts = deadline.split(" /to ", 2);
-                final String startTime = startAndEndParts[0];
-                final String endTime = startAndEndParts[1];
+                    final String[] startAndEndParts = deadline.split(" /to ", 2);
+                    final String startTime = startAndEndParts[0];
+                    final String endTime = startAndEndParts[1];
 
-                Duke.add(new Event(name, startTime, endTime));
+                    Duke.add(new Event(name, startTime, endTime));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new IllegalArgumentException("Invalid format. Usage: event <name> /from <time> /to <time>");
+                }
                 break;
             }
 
             default: {
-                // ???
-                break;
+                throw new IllegalArgumentException("Unknown command.");
             }
         }
 
@@ -103,8 +116,18 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         Duke.greet();
-        // Keep processing input until parse failure; i.e. exit
-        for (String input = scanner.nextLine(); Duke.parseCommand(input); input = scanner.nextLine());
+
+        boolean continueParsing = true;
+        while (continueParsing) {
+            String input = scanner.nextLine();
+            try {
+                continueParsing = Duke.parseCommand(input);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Argument Error: " + e.getMessage());
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Out of Bounds Error: " + e.getMessage());
+            }
+        }
 
         scanner.close();
     }

@@ -12,14 +12,23 @@ public class ToDoList {
     }
 
     public void mark(int index) {
+        if (index > list.size()) {
+            throw new IndexOutOfBoundsException("Task index is out of range.");
+        }
         list.get(index - 1).markDone();
     }
 
     public void unmark(int index) {
+        if (index > list.size()) {
+            throw new IndexOutOfBoundsException("Task index is out of range.");
+        }
         list.get(index - 1).markUndone();
     }
 
     public Task get(int index) {
+        if (index > list.size()) {
+            throw new IndexOutOfBoundsException("Task index is out of range.");
+        }
         return list.get(index - 1);
     }
 
