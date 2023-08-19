@@ -35,7 +35,7 @@ public class Duke {
         print(helloString);
         String response = "";
 
-        while (true) {
+        while (input.hasNextLine()) {
             response = input.nextLine();
             String[] queries = response.trim().split("\\s+");
             if (queries[0].equals("bye")) {
