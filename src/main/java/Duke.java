@@ -8,7 +8,6 @@ public class Duke {
         String cmd = sc.nextLine();
         while (!cmd.equals("bye")) {
             if (cmd.equals("list")) {
-                //todo:
                 int counter = 1;
                 lst.forEach(x -> System.out.println(lst.indexOf(x) + 1 + ". " + x + "\n"));
             } else {
