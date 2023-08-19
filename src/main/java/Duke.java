@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Duke {
-  private final static String delimiter = "-".repeat(60);
+  private final static String delimiter = "-".repeat(80);
   private final static int globalIndentation = 4;
   private final static List<Task> tasks = new ArrayList<>();
 
@@ -94,7 +94,7 @@ public class Duke {
 
     try {
       int i = Integer.parseInt(parts.get(1));
-      if ((i - 1) < 0 || (i - 1) > tasks.size()) {
+      if ((i - 1) < 0 || (i - 1) >= tasks.size()) {
         return -1;
       }
       tasks.get(i - 1).setDone(status);
@@ -105,6 +105,10 @@ public class Duke {
   }
 
   private static void printTasks() {
+    if (tasks.size() == 0) {
+      printText("You do not have any tasks, use todo, deadline, or event to add new ones!");
+      return;
+    }
     List<String> formatted = IntStream
         .range(0, tasks.size())
         .mapToObj((j) -> String.format("%d. %s", j + 1, tasks.get(j)))
@@ -112,6 +116,30 @@ public class Duke {
     formatted.add(0, "Here are the tasks in your list:");
     String[] output = formatted.toArray(String[]::new);
     printText(output);
+  }
+
+  private static void deleteTask(List<String> parts) {
+    if (parts.size() == 1) {
+      printText("Missing task index");
+      return;
+    }
+
+    try {
+      int i = Integer.parseInt(parts.get(1));
+      if ((i - 1) < 0 || (i - 1) >= tasks.size()) {
+        printText("Missing task index");
+        return;
+      }
+      Task task = tasks.get(i - 1);
+      tasks.remove(i - 1);
+      printText(
+          "Noted. I've removed this task:",
+          task.toString(),
+          String.format("Now you have %d tasks in the list.", tasks.size())
+      );
+    } catch (NumberFormatException e) {
+      printText("Invalid task index");
+    }
   }
 
   public static void main(String[] args) {
@@ -157,6 +185,9 @@ public class Duke {
           break;
         case "list":
           printTasks();
+          break;
+        case "delete":
+          deleteTask(parts);
           break;
         default:
           printText("I'm sorry, I don't know what that means :(");
