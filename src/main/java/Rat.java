@@ -5,9 +5,12 @@
 import java.util.Scanner;
 import rat.print.RatPrinter;
 import rat.storage.*;
+import rat.inputs.RatInput;
+import rat.inputs.throwables.RatExitThrowable;
 public class Rat {
     static RatPrinter ratPrinter = new RatPrinter();
     static RatStorage ratStorage;
+    static RatInput ratInput = new RatInput();
     static Scanner sc;
 
     public static void initialise() {
@@ -20,22 +23,16 @@ public class Rat {
         ratPrinter.printExit();
     }
 
-    public static void handleInputs() {
-        String input = sc.nextLine();
-        while (!input.equals("bye")) {
-            if (input.equals("list")) {
-                ratStorage.listItems();
-            } else {
-                ratStorage.addItem(new Task(input));
-            }
-            input = sc.nextLine();
-        }
-        exit();
-    }
 
     public static void main(String[] args) {
         Rat.initialise();
-        Rat.handleInputs();
+        try {
+            ratInput.handleInput(sc, ratStorage);
+        } catch (RatExitThrowable e) {
+            Rat.exit();
+        } finally {
+            sc.close();
+        }
     }
 }
 
