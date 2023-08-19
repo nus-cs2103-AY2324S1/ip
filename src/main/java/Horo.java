@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Horo {
   public static void main(String[] args) {
@@ -18,50 +20,80 @@ public class Horo {
     String introduction = "Hello! I'm Horo\n"
         + "What can I do for you?\n"
         + "Type anything to store.\n"
+        + "'todo'\n"
+        + "'deadline'\n"
+        + "'event'\n"
         + "'list' to list\n"
         + "'mark <?>'\n"
         + "'unmark <?>'\n"
         + "'bye' to exit\n";
     System.out.println(introduction);
 
+    Pattern commandPattern = Pattern.compile("^(deadline|todo|event|bye|mark|unmark|list) *([\\w ]+)*");
     while (true) {
       System.out.print(">");
       String input = scanner.nextLine();
 
-      String splitInput[] = input.split(" ");
+      Matcher m = commandPattern.matcher(input);
+      m.find();
+      String command = m.group(1);
 
-      if (splitInput[0].compareToIgnoreCase("bye") == 0) {
-        break;
+      Task selectedTask = null;
+
+      switch (command) {
+        case "bye":
+          System.out.println("Bye. Hope to see you again soon!");
+          scanner.close();
+          System.exit(0);
+          break;
+        case "list":
+          System.out.println("-----Tasks-----");
+          for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+          }
+          break;
+        case "mark":
+          selectedTask = tasks.get(Integer.parseInt(m.group(2)) - 1);
+          selectedTask.markDone();
+          System.out.println("Task marked as done");
+          System.out.println(selectedTask);
+          break;
+        case "unmark":
+          selectedTask = tasks.get(Integer.parseInt(m.group(2)) - 1);
+          selectedTask.markNotDone();
+          System.out.println("Task marked as not done");
+          System.out.println(selectedTask);
+          break;
+        case "todo":
+          Todo newTodo = new Todo(m.group(2));
+          tasks.add(newTodo);
+          System.out.println("Added: ");
+          System.out.println(newTodo);
+          break;
+        case "deadline":
+          Matcher deadlineMatcher = Pattern
+              .compile("(\\/by) ([\\w ]+)")
+              .matcher(input);
+          deadlineMatcher.find();
+          Deadline newDeadline = new Deadline(m.group(2), deadlineMatcher.group(2));
+          tasks.add(newDeadline);
+          System.out.println("Added: ");
+          System.out.println(newDeadline);
+          break;
+        case "event":
+          Matcher eventMatcher = Pattern
+              .compile("(\\/from) ([\\w ]+) (\\/to) ([\\w ]+)")
+              .matcher(input);
+          eventMatcher.find();
+          Event newEvent = new Event(m.group(2), eventMatcher.group(2), eventMatcher.group(4));
+          tasks.add(newEvent);
+          System.out.println("Added: ");
+          System.out.println(newEvent);
+          break;
+        default:
+          tasks.add(new Task(input));
+          System.out.println("Added: " + input);
       }
-
-      if (splitInput[0].compareToIgnoreCase("list") == 0) {
-        for (int i = 0; i < tasks.size(); i++) {
-          System.out.println((i + 1) + ". " + tasks.get(i));
-        }
-        continue;
-      }
-
-      if (splitInput[0].compareToIgnoreCase("mark") == 0) {
-        Task selectedTask = tasks.get(Integer.parseInt(splitInput[1]) - 1);
-        selectedTask.markDone();
-        System.out.println("Task marked as done");
-        System.out.println(selectedTask);
-        continue;
-      }
-
-      if (splitInput[0].compareToIgnoreCase("unmark") == 0) {
-        Task selectedTask = tasks.get(Integer.parseInt(splitInput[1]) - 1);
-        selectedTask.markNotDone();
-        System.out.println("Task marked as not done");
-        System.out.println(selectedTask);
-        continue;
-      }
-
-      tasks.add(new Task(input));
-      System.out.println("Added: " + input);
     }
-
-    System.out.println("Bye. Hope to see you again soon!");
-    scanner.close();
   }
 }
