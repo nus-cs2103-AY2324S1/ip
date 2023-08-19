@@ -10,7 +10,9 @@ public class TaskList {
     public void addTask(Task task) {
         this.tasks[numTasks++] = task;
         // assume that the string representation of add is not changed
-        System.out.println("added: " + task.getDescription());
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task.toString());
+        System.out.println("Now you have " + numTasks + " tasks in the list.");
     }
 
     public void listAllTasks() {
