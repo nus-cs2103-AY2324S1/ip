@@ -4,6 +4,14 @@ mark 1
 event project meeting /from Mon 2pm /to 4pm
 mark 3
 list
+todo
+unmark 100
+unmark 200
+unmark 0
+unmark abc
 unmark 3
 deadline do homework /by no idea :-p
+list
+delete 3
+list
 bye

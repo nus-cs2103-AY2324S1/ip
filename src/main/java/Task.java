@@ -15,13 +15,11 @@ public class Task {
     public void setStatus(boolean status) {
         this.isDone = status;
 
-        System.out.println("------------------------------------------");
         if (isDone) {
-            System.out.printf("Nice! I've marked this task as done:\n\t%s", this);
+            System.out.printf("Nice! I've marked this task as done:\n\t%s\n", this);
         } else {
-            System.out.printf("OK, I've marked this task as not done yet:\n\t%s", this);
+            System.out.printf("OK, I've marked this task as not done yet:\n\t%s\n", this);
         }
-        System.out.println("\n------------------------------------------");
     }
 
     @Override

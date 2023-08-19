@@ -42,6 +42,21 @@ Nice! I've marked this task as done:
 3.[E][X] project meeting (from: Mon 2pm to: 4pm)
 ------------------------------------------
 ------------------------------------------
+ ☹ OOPS!!! + The description of a todo cannot be empty.
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! + The given task index is higher than current task list: 3.
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! + Please provide a task index that is 1 <= task index <= 100.
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! + Please provide a task index that is 1 <= task index <= 100.
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! + Please provide a valid number format
+------------------------------------------
+------------------------------------------
 OK, I've marked this task as not done yet:
 	[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ------------------------------------------
@@ -49,5 +64,22 @@ OK, I've marked this task as not done yet:
 Got it. I've added this task:
 	[D][ ] do homework (by: no idea :-p)
 Now you have 4 tasks in the list.
+------------------------------------------
+------------------------------------------
+1.[T][X] read book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+4.[D][ ] do homework (by: no idea :-p)
+------------------------------------------
+------------------------------------------
+Noted. I've removed this task:
+	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+------------------------------------------
+------------------------------------------
+1.[T][X] read book
+2.[D][ ] return book (by: Sunday)
+3.[D][ ] do homework (by: no idea :-p)
+------------------------------------------
 ------------------------------------------
 Oh.. bye
