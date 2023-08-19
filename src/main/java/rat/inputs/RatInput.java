@@ -42,6 +42,9 @@ public class RatInput {
                 case "event":
                     this.handleEvent(input);
                     break;
+                case "delete":
+                    this.handleDelete(inputArr);
+                    break;
                 default:
                     RatPrinter.printWarning("Sorry, I don't understand what you mean by " + RatPrinter.italicise(input));
             }
@@ -111,5 +114,15 @@ public class RatInput {
         }
     }
 
+    protected void handleDelete(String[] inputs) {
+        try {
+            int index = Integer.parseInt(inputs[1]);
+            this.ratStorage.deleteItem(index);
+        } catch (IndexOutOfBoundsException e) {
+            RatPrinter.printWarning(e.getMessage());
+        } catch (NumberFormatException e) {
+            RatPrinter.printWarning(" \"delete\" command must be followed by a number");
+        }
+    }
 
 }

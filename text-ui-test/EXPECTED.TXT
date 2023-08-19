@@ -80,6 +80,16 @@ Invalid deadline format. Please use "deadline <name> /by <deadline>"
 Invalid event format. Please use "event <name> /from <start> /to <end>"
 ============================================================
 [0m
+[0;33m============================================================
+ "delete" command must be followed by a number
+============================================================
+[0m
+============================================================
+Noted. I've removed this task:
+[T][X] CS2100 Tutorial
+Now you have 3 tasks in the list.
+============================================================
+
 ============================================================
            Bye. Hope to see you again soon!
 ============================================================

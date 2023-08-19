@@ -68,6 +68,19 @@ public class RatStorage {
         RatPrinter.printWithLines("Ok, I've marked this task as not done yet: " + storage.get(index - 1).toString());
     }
 
+    public void deleteItem(int index) {
+        if (index > this.storage.size() || index < 1) {
+            throw new IndexOutOfBoundsException("Task not found");
+        } else if (this.storage.get(index - 1) == null) {
+            throw new IndexOutOfBoundsException("Task not found");
+        }
+        Task item = this.storage.get(index - 1);
+        this.storage.remove(index - 1);
+        RatPrinter.printWithLines("Noted. I've removed this task:\n"
+                + item.toString()
+                + "\nNow you have " + this.storage.size() + " tasks in the list.");
+    }
+
     public void listItems() {
         if (this.storage.isEmpty()) {
             RatPrinter.printWithLines("You have no tasks in the list.");

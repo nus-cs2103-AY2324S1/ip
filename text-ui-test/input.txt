@@ -11,4 +11,6 @@ nonsense
 todo nonsense
 deadline nonsense
 event nonsense nonsense
+delete nonsense
+delete 1
 bye
