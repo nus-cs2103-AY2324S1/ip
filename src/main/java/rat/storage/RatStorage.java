@@ -2,10 +2,9 @@ package rat.storage;
 import java.util.ArrayList;
 import rat.print.RatPrinter;
 
-public class RatStorage<T> {
+public class RatStorage {
 
-    private ArrayList<T> storage;
-    private RatPrinter ratPrinter = new RatPrinter();
+    private final ArrayList<Task> storage;
 
     public RatStorage() {
         storage = new ArrayList<>();
@@ -20,47 +19,58 @@ public class RatStorage<T> {
         return str;
     }
 
-    public void addItem(T item) {
-        this.storage.add(item);
-        this.ratPrinter.printWithLines("added: " + item);
+    public void addToDo(String item) {
+        ToDo newToDo = new ToDo(item);
+        this.storage.add(newToDo);
+        RatPrinter.printWithLines("added: " + newToDo);
     }
 
-    public void deleteItem(int index) {
-        this.ratPrinter.printWithLines("deleted: " + storage.get(index));
-        this.storage.remove(index);
+    public void addDeadline(String deadline, String name) {
+        Deadline newDeadline = new Deadline(deadline, name);
+        this.storage.add(newDeadline);
+        String msg = "Got it. I've added this Deadline:\n"
+                + newDeadline.toString()
+                + "\nNow you have " + this.storage.size() + " tasks in the list.";
+        RatPrinter.printWithLines(msg);
     }
+
+    public void addEvent(String startTime, String endTime, String name) {
+        Event newEvent = new Event(startTime, endTime, name);
+        this.storage.add(newEvent);
+        String msg = "Got it. I've added this Event:\n"
+                + newEvent.toString()
+                + "\nNow you have " + this.storage.size() + " tasks in the list.";
+        RatPrinter.printWithLines(msg);
+    }
+
 
     public void markItemDone(int index) {
         if (index > this.storage.size() || index < 1) {
-            this.ratPrinter.printWithLines("invalid index");
+            RatPrinter.printWithLines("invalid index");
             return;
         } else if (this.storage.get(index - 1) == null) {
-            this.ratPrinter.printWithLines("item not found");
+            RatPrinter.printWithLines("item not found");
             return;
         }
-        T item = this.storage.get(index - 1);
-        if (item instanceof Task) {
-            ((Task) item).markDone();
-        }
-        this.ratPrinter.printWithLines("Nice! I've marked this task as done: " + storage.get(index - 1).toString());
+        Task item = this.storage.get(index - 1);
+        item.markDone();
+        RatPrinter.printWithLines("Nice! I've marked this task as done: " + storage.get(index - 1).toString());
     }
 
     public void unmarkItemDone(int index) {
         if (index > this.storage.size() || index < 1) {
-            this.ratPrinter.printWithLines("invalid index");
+            RatPrinter.printWithLines("invalid index");
             return;
         } else if (this.storage.get(index - 1) == null) {
-            this.ratPrinter.printWithLines("item not found");
+            RatPrinter.printWithLines("item not found");
             return;
         }
-        T item = this.storage.get(index - 1);
-        if (item instanceof Task) {
-            ((Task) item).unmarkDone();
-        }
-        this.ratPrinter.printWithLines("Ok, I've marked this task as not done yet: " + storage.get(index - 1).toString());
+        Task item = this.storage.get(index - 1);
+        item.unmarkDone();
+        RatPrinter.printWithLines("Ok, I've marked this task as not done yet: " + storage.get(index - 1).toString());
     }
 
     public void listItems() {
-        ratPrinter.printWithLines(this.toString());
+        RatPrinter.printWithLines(this.toString());
     }
 }

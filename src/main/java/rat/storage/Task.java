@@ -5,16 +5,16 @@ public class Task {
     private String name;
     private boolean isDone;
 
-    public Task(String name) {
+    protected Task(String name) {
         this.name = name;
         this.isDone = false;
     }
 
-    public void markDone() {
+    protected void markDone() {
         this.isDone = true;
     }
 
-    public void unmarkDone() {
+    protected void unmarkDone() {
         this.isDone = false;
     }
 

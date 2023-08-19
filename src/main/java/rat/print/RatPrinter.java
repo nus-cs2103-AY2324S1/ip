@@ -1,9 +1,9 @@
 package rat.print;
 public class RatPrinter {
 
-    static String welcomeMsg = "                  Hello! I'm Rat!\n"
+    private static String welcomeMsg = "                  Hello! I'm Rat!\n"
             + "              What can I do for you?";
-    static String exitMsg = "           Bye. Hope to see you again soon!";
+    private static String exitMsg = "           Bye. Hope to see you again soon!";
 
     public RatPrinter() { };
 
