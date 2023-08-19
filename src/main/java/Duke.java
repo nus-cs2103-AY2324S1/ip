@@ -22,7 +22,6 @@ public class Duke {
       if (command.equals("bye")) break;
       printText(command, 4);
     }
-    ;
     printText("Bye. Hope to see you again soon!", 4);
   }
 }
