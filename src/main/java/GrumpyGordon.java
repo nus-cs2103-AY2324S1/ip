@@ -9,16 +9,18 @@ public class GrumpyGordon {
         int taskIndex = 0;
         String taskArgument;
         int taskCount = 0;
+        Command command;
         ArrayList<Task> tasks = new ArrayList<>(100);
 
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
 
 
-        while (!str.equals("bye")) {
+        while (!str.equals(Command.BYE.name().toLowerCase())) {
             try {
-                switch (str.split(" ")[0]) {
-                    case ("list"):
+                command = Command.valueOf(str.split(" ")[0].toUpperCase());
+                switch (command) {
+                    case LIST:
                         if (taskCount == 0) {
                             System.out.println("    ____________________________________________________________");
                             System.out.println("     The list is empty, you donkey!");
@@ -33,7 +35,7 @@ public class GrumpyGordon {
                         }
                         str = sc.nextLine();
                         break;
-                    case ("mark"):
+                    case MARK:
                         if (str.split(" ").length == 1) {
                             throw new TaskIndexMissingException("Missing task index.");
                         }
@@ -48,7 +50,7 @@ public class GrumpyGordon {
                         System.out.println("    ____________________________________________________________");
                         str = sc.nextLine();
                         break;
-                    case ("unmark"):
+                    case UNMARK:
                         if (str.split(" ").length == 1) {
                             throw new TaskIndexMissingException("Missing task index.");
                         }
@@ -63,7 +65,7 @@ public class GrumpyGordon {
                         System.out.println("    ____________________________________________________________");
                         str = sc.nextLine();
                         break;
-                    case ("delete"):
+                    case DELETE:
                         if (str.split(" ").length == 1) {
                             throw new TaskIndexMissingException("Missing task index.");
                         }
@@ -75,12 +77,12 @@ public class GrumpyGordon {
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Noted. I've removed this task:");
                         System.out.println("       " + tasks.get(taskIndex).toString());
-                        System.out.println("     Now you have " + taskCount + (taskCount > 1 ? " tasks" : " task") + " in the list.");
+                        System.out.println("     Now you have " + taskCount + (taskCount == 1 ? " task" : " tasks") + " in the list.");
                         System.out.println("    ____________________________________________________________");
                         tasks.remove(taskIndex);
                         str = sc.nextLine();
                         break;
-                    case ("todo"):
+                    case TODO:
                         if (str.split(" ").length == 1) {
                             throw new DescriptionEmptyException("Invalid task description.");
                         }
@@ -95,7 +97,7 @@ public class GrumpyGordon {
                         System.out.println("    ____________________________________________________________");
                         str = sc.nextLine();
                         break;
-                    case ("deadline"):
+                    case DEADLINE:
                         if (str.split(" ").length == 1) {
                             throw new DescriptionEmptyException("Invalid task description.");
                         }
@@ -117,7 +119,7 @@ public class GrumpyGordon {
                         System.out.println("    ____________________________________________________________");
                         str = sc.nextLine();
                         break;
-                    case ("event"):
+                    case EVENT:
                         if (str.split(" ").length == 1) {
                             throw new DescriptionEmptyException("Invalid task description.");
                         }
@@ -197,6 +199,21 @@ public class GrumpyGordon {
                 System.out.println("     Try again using this format:");
                 System.out.println("       mark <taskIndex>");
                 System.out.println("       unmark <taskIndex>");
+                System.out.println("    ____________________________________________________________");
+                str = sc.nextLine();
+            } catch (IllegalArgumentException e) {
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     Can't you use simpler language?");
+                System.out.println("     I don't understand what this means: " + str);
+                System.out.println("     The only commands I understand are:");
+                System.out.println("       todo <description>");
+                System.out.println("       deadline <description> /by <datetime>");
+                System.out.println("       event <description> /from <datetime> /to <datetime>");
+                System.out.println("       mark <taskIndex>");
+                System.out.println("       unmark <taskIndex>");
+                System.out.println("       delete <taskIndex>");
+                System.out.println("       list");
+                System.out.println("       bye");
                 System.out.println("    ____________________________________________________________");
                 str = sc.nextLine();
             } catch (DeadlineByMissingException e) {
