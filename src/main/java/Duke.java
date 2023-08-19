@@ -30,6 +30,33 @@ public class Duke {
                 for (int i = 0; i < index; i++) {
                     System.out.println((i + 1) + "." + data[i]);
                 }
+            } else if (input.contains("todo")) {
+                String subInput = input.substring(5);
+                ToDo t = new ToDo(subInput);
+                data[index] = t;
+                index++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(t);
+                System.out.println("Now you have " + (index) + " tasks in the list.");
+
+            } else if (input.contains("deadline")) {
+                String[] split = input.split(" /by ", 2);
+                Deadline t = new Deadline(split[0].substring(9), split[1]);
+                data[index] = t;
+                index++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(t);
+                System.out.println("Now you have " + (index) + " tasks in the list.");
+            } else if (input.contains("event")) {
+                String[] split = input.split(" /from ", 2);
+                String description = split[0].substring(6);
+                String[] duration = split[1].split(" /to ", 2);
+                Event t = new Event(description, duration[0], duration[1]);
+                data[index] = t;
+                index++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(t);
+                System.out.println("Now you have " + (index) + " tasks in the list.");
             } else if (input.contains("unmark")) {
                 String subInput = input.substring(7);
                 int targetIndex = Integer.parseInt(subInput);
@@ -45,10 +72,7 @@ public class Duke {
                 marked.markAsDone();
                 System.out.println(marked);
             } else {
-                Task t = new Task(input);
-                data[index] = t;
-                index++;
-                System.out.println("added: " + input);
+                System.out.println(input + "is invalid");
             }
             System.out.println("_________________________________________");
         }
