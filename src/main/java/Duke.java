@@ -6,42 +6,47 @@ public class Duke {
     public static String userInput;
 
     public static void main(String[] args) {
-        PrintIntro();
-        PromptInput();
+        printIntro();
+        promptInput();
 
         do {
-            EchoString(userInput);
-            PromptInput();
+            if (userInput.equals("list")) {
+                Task.listTasks();
+            } else {
+                Task newTask = new Task(userInput);
+                Task.addTask(newTask);
+            }
+            promptInput();
         } while (!userInput.equals("bye"));
 
-        PrintEnd();
+        printEnd();
     }
-    private static void PrintIntro() {
-        PrintLine();
+    private static void printIntro() {
+        printLine();
         System.out.println("Hello! I'm Roe!\n" + "What can I do for you?\n");
-        PrintLine();
+        printLine();
     }
 
-    private static void PrintEnd() {
-        PrintLine();
+    private static void printEnd() {
+        printLine();
         System.out.println("Bye. Hope to see you again soon!\n");
-        PrintLine();
+        printLine();
     }
 
-    private static void EchoString(String input) {
-        PrintLine();
+    private static void echoString(String input) {
+        printLine();
         System.out.println(input + "\n");
-        PrintLine();
+        printLine();
     }
 
-    private static String PromptInput() {
+    private static String promptInput() {
         System.out.println();
         userInput = scannerObj.nextLine();
         System.out.println();
         return userInput;
     }
 
-    private static void PrintLine() {
+    public static void printLine() {
         int charCount = 50;
         for (int i = 0; i < charCount; i++) {
             System.out.print("─");
