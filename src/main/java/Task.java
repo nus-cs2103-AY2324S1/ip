@@ -17,9 +17,9 @@ public class Task {
 
         System.out.println("------------------------------------------");
         if (isDone) {
-            System.out.printf("Nice! I've marked this task as done: \n\t%s", this);
+            System.out.printf("Nice! I've marked this task as done:\n\t%s", this);
         } else {
-            System.out.printf("OK, I've marked this task as not done yet: \n\t%s", this);
+            System.out.printf("OK, I've marked this task as not done yet:\n\t%s", this);
         }
         System.out.println("\n------------------------------------------");
     }
