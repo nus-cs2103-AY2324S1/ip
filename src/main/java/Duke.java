@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
 
+    static String[] list = new String[100];
+    static int count = 0;
     public static void horiLine(){
         System.out.println("---------------------");
     }
@@ -14,12 +18,21 @@ public class Duke {
 
     public static void askCommand() {
         Scanner scanner = new Scanner(System.in);
-        String command = scanner.next();
-        if (command.toLowerCase().equals("bye")) {
+        String command = scanner.next().toLowerCase();
+
+        if (command.equals("bye")) {
             exit();
+        } else if (command.equals("list")) {
+            for (int i = 1;i <= count;i++) {
+                System.out.println(i + "." + list[i - 1]);
+            }
+            horiLine();
+            askCommand();
         } else {
             horiLine();
-            System.out.println(command);
+            list[count] = command;
+            count += 1;
+            System.out.println("added: " + command);
             horiLine();
             askCommand();
         }
