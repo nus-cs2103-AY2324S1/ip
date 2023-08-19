@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Duke {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final String[] tasks = new String[100];
+    private static final Task[] tasks = new Task[100];
     private static int taskCount = 0;
     public static void main(String[] args) {
         greet();
@@ -15,8 +15,24 @@ public class Duke {
                     output.append(i + 1).append(". ").append(tasks[i]).append("\n");
                 }
                 sendMessage(output.toString());
+            } else if (userInput.contains("unmark")) {
+                int choice = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                if (choice < 1 || choice > taskCount) {
+                    sendMessage("Invalid Choice Provided!");
+                    continue;
+                }
+                tasks[choice].markAsNotDone();
+                sendMessage("OK, I've marked this task as not done yet:\n  " + tasks[choice]);
+            } else if (userInput.contains("mark")) {
+                int choice = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                if (choice < 1 || choice > taskCount) {
+                    sendMessage("Invalid Choice Provided!");
+                    continue;
+                }
+                tasks[choice].markAsDone();
+                sendMessage("Nice! I've marked this task as done:\n  " + tasks[choice]);
             } else if (!Objects.equals(userInput, "bye")) {
-                tasks[taskCount] = userInput;
+                tasks[taskCount] = new Task(userInput);
                 taskCount++;
                 sendMessage("added: " + userInput);
             } else {
