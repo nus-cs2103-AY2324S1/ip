@@ -43,7 +43,10 @@ public class RatInput {
                     this.handleEvent(input);
                     break;
                 case "delete":
-                    this.handleDelete(inputArr);
+                    this.handleDelete(input);
+                    break;
+                case "help":
+                    this.showCommands();
                     break;
                 default:
                     RatPrinter.printWarning("Sorry, I don't understand what you mean by " + RatPrinter.italicise(input));
@@ -114,15 +117,39 @@ public class RatInput {
         }
     }
 
-    protected void handleDelete(String[] inputs) {
+    protected void handleDelete(String params) {
         try {
-            int index = Integer.parseInt(inputs[1]);
-            this.ratStorage.deleteItem(index);
+            params = params.substring(7);
+            if (params.equals("all")) {
+                this.ratStorage.deleteAll();
+                return;
+            } else {
+                int index = Integer.parseInt(params);
+                this.ratStorage.deleteItem(index);
+                return;
+            }
         } catch (IndexOutOfBoundsException e) {
             RatPrinter.printWarning(e.getMessage());
         } catch (NumberFormatException e) {
             RatPrinter.printWarning(" \"delete\" command must be followed by a number");
         }
+    }
+
+    public void showCommands() {
+        String output = "Hello! I'm Rat, your personal task manager.\n"
+                + "Here are the commands you can use:\n"
+                + "\nhelp: show this list of commands\n"
+                + "list: list all tasks\n"
+                + "mark <index>: mark task at <index> as done\n"
+                + "unmark <index>: mark task at <index> as not done\n"
+                + "todo <name>: add a todo task with <name>\n"
+                + "deadline <name> /by <deadline>: add a deadline task with <name> and <deadline>\n"
+                + "event <name> /from <start> /to <end>: add an event task with <name>, <start> and <end>\n"
+                + "delete <index>: delete task at <index>\n"
+                + "delete all: delete all tasks\n"
+                + "bye: exit the program\n"
+                + "\nbuilt by @keaganpzh";
+        RatPrinter.printWithLines(output);
     }
 
 }

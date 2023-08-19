@@ -81,6 +81,11 @@ public class RatStorage {
                 + "\nNow you have " + this.storage.size() + " tasks in the list.");
     }
 
+    public void deleteAll() {
+        this.storage.clear();
+        RatPrinter.printWithLines("Noted. I've removed all tasks.");
+    }
+
     public void listItems() {
         if (this.storage.isEmpty()) {
             RatPrinter.printWithLines("You have no tasks in the list.");

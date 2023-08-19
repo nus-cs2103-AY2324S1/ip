@@ -8,7 +8,8 @@ public class RatPrinter {
 
     public static void printWelcome() {
         String welcomeMsg = "                  Hello! I'm Rat!\n"
-                + "              What can I do for you?";
+                + "              What can I do for you?\n"
+                + italicise("       type \"help\" to see a list of commands");
         printWithLines(welcomeMsg);
     }
 
