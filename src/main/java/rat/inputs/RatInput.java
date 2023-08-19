@@ -14,7 +14,7 @@ public class RatInput {
     public RatInput(Scanner sc, RatStorage ratStorage) {
         this.sc = sc;
         this.ratStorage = ratStorage;
-    };
+    }
 
     public void handleInput() throws RatExitThrowable {
         while (sc.hasNext()) {
@@ -48,27 +48,26 @@ public class RatInput {
         }
     }
 
-    public void handleMark(String[] inputs) {
+    protected void handleMark(String[] inputs) {
         int index = Integer.parseInt(inputs[1]);
         this.ratStorage.markItemDone(index);
     }
 
-    public void handleUnmark(String[] inputs) {
+    protected void handleUnmark(String[] inputs) {
         int index = Integer.parseInt(inputs[1]);
         this.ratStorage.unmarkItemDone(index);
     }
 
-    public void handleDeadline(String params) {
+    protected void handleDeadline(String params) {
         String[] paramsArr = params.split(" /by ");
         String name = paramsArr[0];
         String deadline = paramsArr[1];
         this.ratStorage.addDeadline(deadline, name);
     }
 
-    public void handleEvent(String params) {
+    protected void handleEvent(String params) {
         String eventName = params.split(" /from ")[0];
         String[] time = params.split(" /from ")[1].split(" /to ");
-        System.out.println(Arrays.toString(time));
         String startTime = time[0];
         String endTime = time[1];
         this.ratStorage.addEvent(startTime, endTime, eventName);

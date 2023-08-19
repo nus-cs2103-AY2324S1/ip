@@ -1,0 +1,16 @@
+name: Text UI Test
+run-name: Text UI Test is running on Rat
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - Level-*
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: run Test
+        run: |
+          /text-ui-test/runtest.sh
