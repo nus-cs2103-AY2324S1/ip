@@ -47,10 +47,13 @@ public class Duke {
                         Task.listTasks();
                         break;
                     case "mark":
-                        Task.markTask(Integer.parseInt(userInput.split(" ")[1]));
+                        Task.markTask(Integer.parseInt(inputInfo));
                         break;
                     case "unmark":
-                        Task.unmarkTask(Integer.parseInt(userInput.split(" ")[1]));
+                        Task.unmarkTask(Integer.parseInt(inputInfo));
+                        break;
+                    case "delete":
+                        Task.deleteTask(Integer.parseInt(inputInfo));
                         break;
                     case "todo": {
                         String taskName = inputInfo;

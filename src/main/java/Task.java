@@ -32,6 +32,14 @@ public class Task {
     System.out.println(taskList.get(i - 1).toString());
   }
 
+  public static void deleteTask(int i) {
+    Task removedTask = taskList.remove(i - 1);
+    Duke.printLine();
+    System.out.println("Noted. I've removed this task:");
+    System.out.println(removedTask.toString());
+    System.out.printf("Now you have %s tasks in the list.%n", taskList.size());
+  }
+
   public static void listTasks() {
     Duke.printLine();
     System.out.println("Here are the tasks in your list:");
