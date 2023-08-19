@@ -16,9 +16,9 @@ public class Printer {
     }
 
     public static void printWithLines(String msg) {
-        System.out.println("____________________________________________________________");
+        System.out.println("============================================================");
         System.out.println(msg);
-        System.out.println("____________________________________________________________");
+        System.out.println("============================================================");
     }
 
 
