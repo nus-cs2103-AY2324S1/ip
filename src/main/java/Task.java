@@ -11,4 +11,10 @@ public class Task {
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + getName();
     }
+    public void mark() {
+        this.isDone = true;
+    }
+    public void unmark() {
+        this.isDone = false;
+    }
 }
