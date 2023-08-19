@@ -19,81 +19,146 @@ public class Horo {
 
     String introduction = "Hello! I'm Horo\n"
         + "What can I do for you?\n"
-        + "Type anything to store.\n"
-        + "'todo'\n"
-        + "'deadline'\n"
-        + "'event'\n"
-        + "'list' to list\n"
-        + "'mark <?>'\n"
-        + "'unmark <?>'\n"
-        + "'bye' to exit\n";
+        + "Usage: \n"
+        + " todo <description>\n"
+        + " deadline <description> /by <time>\n"
+        + " event <description> /from <time> /to <time>\n"
+        + " list\n"
+        + " mark <number>\n"
+        + " unmark <number>\n"
+        + " bye\n";
     System.out.println(introduction);
 
-    Pattern commandPattern = Pattern.compile("^(deadline|todo|event|bye|mark|unmark|list) *([\\w ]+)*");
     while (true) {
       System.out.print(">");
       String input = scanner.nextLine();
+      Matcher m;
 
-      Matcher m = commandPattern.matcher(input);
-      m.find();
-      String command = m.group(1);
+      try {
+        m = commandParser(input);
+      } catch (HoroException e) {
+        System.out.println(e.getMessage());
+        System.out.println("Please use a valid command!");
+        continue;
+      }
 
       Task selectedTask = null;
+      String command = m.group(1);
 
-      switch (command) {
-        case "bye":
-          System.out.println("Bye. Hope to see you again soon!");
-          scanner.close();
-          System.exit(0);
-          break;
-        case "list":
-          System.out.println("-----Tasks-----");
-          for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
-          }
-          break;
-        case "mark":
+      if (command.equals("bye")) {
+        System.out.println("Bye. Hope to see you again soon!");
+        scanner.close();
+        System.exit(0);
+      }
+
+      if (command.equals("list")) {
+        System.out.println("-----Tasks-----");
+        for (int i = 0; i < tasks.size(); i++) {
+          System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+        continue;
+      }
+
+      if (command.equals("mark") || command.equals("unmark")) {
+        if (tasks.isEmpty()) {
+          System.out.println("No tasks available");
+          continue;
+        }
+
+        try {
           selectedTask = tasks.get(Integer.parseInt(m.group(2)) - 1);
+        } catch (Exception e) {
+          System.out.println("Please enter a valid number from 1 - " + tasks.size());
+          continue;
+        }
+
+        if (command.equals("mark")) {
           selectedTask.markDone();
           System.out.println("Task marked as done");
-          System.out.println(selectedTask);
-          break;
-        case "unmark":
-          selectedTask = tasks.get(Integer.parseInt(m.group(2)) - 1);
+        } else {
           selectedTask.markNotDone();
           System.out.println("Task marked as not done");
-          System.out.println(selectedTask);
-          break;
-        case "todo":
-          Todo newTodo = new Todo(m.group(2));
-          tasks.add(newTodo);
-          System.out.println("Added: ");
-          System.out.println(newTodo);
-          break;
-        case "deadline":
-          Matcher deadlineMatcher = Pattern
-              .compile("(\\/by) ([\\w ]+)")
-              .matcher(input);
-          deadlineMatcher.find();
-          Deadline newDeadline = new Deadline(m.group(2), deadlineMatcher.group(2));
-          tasks.add(newDeadline);
-          System.out.println("Added: ");
-          System.out.println(newDeadline);
-          break;
-        case "event":
-          Matcher eventMatcher = Pattern
-              .compile("(\\/from) ([\\w ]+) (\\/to) ([\\w ]+)")
-              .matcher(input);
-          eventMatcher.find();
-          Event newEvent = new Event(m.group(2), eventMatcher.group(2), eventMatcher.group(4));
-          tasks.add(newEvent);
-          System.out.println("Added: ");
-          System.out.println(newEvent);
-          break;
-        default:
-          tasks.add(new Task(input));
-          System.out.println("Added: " + input);
+        }
+        System.out.println(selectedTask);
+        continue;
+      }
+
+      if (command.equals("todo")) {
+        Todo newTodo;
+        try {
+          newTodo = new Todo(m.group(2));
+        } catch (HoroException e) {
+          System.out.println(e.getMessage());
+          continue;
+        }
+        tasks.add(newTodo);
+        System.out.println("Added: ");
+        System.out.println(newTodo);
+        continue;
+      }
+
+      if (command.equals("deadline")) {
+        Matcher deadlineMatcher = Pattern
+            .compile("(\\/by) ([\\w ]+)")
+            .matcher(input);
+        try {
+          if (!deadlineMatcher.find()) {
+            throw new HoroException("Wrong command format");
+          }
+        } catch (HoroException e) {
+          System.out.println(e.getMessage());
+          System.out.println("deadline <description> /by <time>");
+          continue;
+        }
+        Deadline newDeadline;
+        try {
+          newDeadline = new Deadline(m.group(2), deadlineMatcher.group(2));
+        } catch (HoroException e) {
+          System.out.println(e.getMessage());
+          continue;
+        }
+        tasks.add(newDeadline);
+        System.out.println("Added: ");
+        System.out.println(newDeadline);
+        continue;
+      }
+
+      if (command.equals("event")) {
+        Matcher eventMatcher = Pattern
+            .compile("(\\/from) ([\\w ]+) (\\/to) ([\\w ]+)")
+            .matcher(input);
+        try {
+          if (!eventMatcher.find()) {
+            throw new HoroException("Wrong command format");
+          }
+        } catch (HoroException e) {
+          System.out.println(e.getMessage());
+          System.out.println("event <description> /from <time> /to <time>");
+          continue;
+        }
+        Event newEvent;
+        try {
+          newEvent = new Event(m.group(2), eventMatcher.group(2), eventMatcher.group(4));
+        } catch (HoroException e) {
+          System.out.println(e.getMessage());
+          continue;
+        }
+        tasks.add(newEvent);
+        System.out.println("Added: ");
+        System.out.println(newEvent);
+        continue;
       }
     }
+  }
+
+  private static Pattern commandPattern = Pattern
+      .compile("^(deadline|todo|event|bye|mark|unmark|list) *([\\w ]+)*");
+
+  private static Matcher commandParser(String command) throws HoroException {
+    Matcher m = commandPattern.matcher(command);
+    if (!m.find()) {
+      throw new HoroException("Invalid Command");
+    }
+    return m;
   }
 }

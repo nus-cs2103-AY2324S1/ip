@@ -1,6 +1,6 @@
 public class Todo extends Task {
 
-  public Todo(String taskString) {
+  public Todo(String taskString) throws HoroException {
     super(taskString);
   }
 
