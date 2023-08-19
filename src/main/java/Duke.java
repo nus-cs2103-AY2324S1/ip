@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -71,6 +70,23 @@ public class Duke {
         System.out.println("     " + "Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    private void deleteTask(String index) throws DukeException {
+        try {
+            String regex = "\\d+";
+            if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
+                    || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
+                throw new WrongIndexException();
+            }
+            int i = Integer.parseInt(index, 10) - 1;
+            Task task = tasks.remove(i);
+            System.out.println("     Noted. I've removed this task:");
+            System.out.println("       " + task.toString());
+            System.out.println("     " + "Now you have " + tasks.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            throw new WrongIndexException();
+        }
+    }
+
     private void listTasks() {
         int i = 1;
         System.out.println("     Here are the tasks in your list:");
@@ -81,32 +97,38 @@ public class Duke {
     }
 
     private void markTask(String index) throws DukeException {
-        String regex = "\\d+";
-
-        if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
-                || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
-            throw new WrongIndexException("    Enter a valid index");
-        } else {
+        try {
+            String regex = "\\d+";
+            if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
+                    || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
+                throw new WrongIndexException();
+            }
             int i = Integer.parseInt(index, 10) - 1;
             Task task = tasks.get(i);
             task.markCompleted();
             System.out.println("     Nice! I've marked this task as done:");
             System.out.println("       " + task.toString());
+
+        } catch (NumberFormatException e) {
+            throw new WrongIndexException();
         }
     }
 
     private void unmarkedTask(String index) throws DukeException {
-        String regex = "\\d+";
+        try {
+            String regex = "\\d+";
+            if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
+                    || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
+                throw new WrongIndexException();
+            }
 
-        if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
-                || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
-            throw new WrongIndexException("    Enter a valid index");
-        } else {
             int i = Integer.parseInt(index, 10) - 1;
             Task task = tasks.get(i);
             task.markNotCompleted();
             System.out.println("     OK, I've marked this task as not done yet:");
             System.out.println("       " + task.toString());
+        } catch (NumberFormatException e) {
+            throw new WrongIndexException();
         }
     }
 
@@ -117,16 +139,18 @@ public class Duke {
             return false;
         } else if (words[0].equals("list") && words.length == 1) {
             this.listTasks();
+        } else if (words[0].equals("delete") && words.length == 2) {
+            this.deleteTask(words[1]);
         } else if (words[0].equals("mark") && words.length == 2) {
             this.markTask(words[1]);
         } else if (words[0].equals("unmark") && words.length == 2) {
             this.unmarkedTask(words[1]);
         } else if ((words[0].equals("deadline") || words[0].equals("todo") || words[0].equals("event")) && words.length == 1) {
-            throw new EmptyBodyException("    OOPS!!! The description of a todo cannot be empty.");
+            throw new EmptyBodyException();
         } else if ((words[0].equals("deadline") || words[0].equals("todo") || words[0].equals("event"))) {
             this.addTask(createTask(words));
         } else {
-            throw new EmptyBodyException("    OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new InvalidCommandException();
         }
         return true;
     }

@@ -1,7 +1,7 @@
 public class EmptyBodyException extends DukeException {
 
-  EmptyBodyException(String msg) {
-    super(msg);
+  EmptyBodyException() {
+    super("    OOPS!!! The description of a todo cannot be empty.");
   }
 
 }

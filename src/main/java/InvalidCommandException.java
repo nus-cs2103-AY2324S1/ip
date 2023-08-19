@@ -1,7 +1,7 @@
 public class InvalidCommandException extends DukeException {
 
-  InvalidCommandException(String msg) {
-    super(msg);
+  InvalidCommandException() {
+    super("    OOPS!!! I'm sorry, but I don't know what that means :-(");
   }
 
 }

@@ -1,6 +1,6 @@
 public class WrongIndexException extends DukeException {
 
-  WrongIndexException(String msg) {
-    super(msg);
+  WrongIndexException() {
+    super("    Enter a valid index");
   }
 }
