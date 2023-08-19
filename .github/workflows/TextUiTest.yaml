@@ -13,4 +13,4 @@ jobs:
       - uses: actions/checkout@v2
       - name: run Test
         run: |
-          /text-ui-test/runtest.sh
+          ./text-ui-test/runtest.sh
