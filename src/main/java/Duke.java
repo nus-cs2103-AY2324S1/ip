@@ -8,7 +8,7 @@ public class Duke {
     }
 
     private void exit() {
-        String exitMsg = "Bye. Hope to see you again soon!\n";
+        String exitMsg = "Bye. Hope to see you again soon!";
         System.out.println(exitMsg);
     }
 
@@ -22,22 +22,21 @@ public class Duke {
 
     private void listen() {
         Scanner sc = new Scanner(System.in);
-        String msg = sc.nextLine();
-        String[] msgArr = msg.split(" ");
-        if (msgArr[0].equals("bye")) {
-            exit();
-        } else if (msgArr[0].equals("list")) {
-            list();
-            listen();
-        } else if (msgArr[0].equals("mark")) {
-            taskList.markAsDone(Integer.parseInt(msgArr[1]));
-            listen();
-        } else if (msgArr[0].equals("unmark")) {
-            taskList.markAsUndone(Integer.parseInt(msgArr[1]));
-            listen();
-        } else {
-            add(msg);
-            listen();
+        while (true) {
+            String msg = sc.nextLine();
+            String[] msgArr = msg.split(" ");
+            if (msgArr[0].equals("bye")) {
+                exit();
+                break;
+            } else if (msgArr[0].equals("list")) {
+                list();
+            } else if (msgArr[0].equals("mark")) {
+                taskList.markAsDone(Integer.parseInt(msgArr[1]));
+            } else if (msgArr[0].equals("unmark")) {
+                taskList.markAsUndone(Integer.parseInt(msgArr[1]));
+            } else {
+                add(msg);
+            }
         }
     }
 
