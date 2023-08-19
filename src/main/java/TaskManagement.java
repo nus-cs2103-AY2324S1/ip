@@ -15,16 +15,20 @@ public class TaskManagement {
             String input = sc.nextLine();
             try {
                 if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
-                    add_task(input);
+                    this.add_task(input);
                 } else if (input.equalsIgnoreCase("list")) {
-                    list_printer();
+                    this.list_printer();
                 } else if (input.startsWith("mark ") && input.length() > 5
-                        && input.substring(5).matches("\\d+")) {
-                    mark_task(input);
+                        && input.substring(5).matches("-?\\d+")) {
+                    this.mark_task(input);
                 } else if (input.startsWith("unmark ") && input.length() > 7
-                        && input.substring(7).matches("\\d+")) {
-                    unmark_task(input);
-                } else if (input.equalsIgnoreCase("bye")) {
+                        && input.substring(7).matches("-?\\d+")) {
+                    this.unmark_task(input);
+                } else if (input.startsWith("delete ") && input.length() > 7
+                        && input.substring(7).matches("-?\\d+")){
+                    this.delete_task(input);
+                }
+                else if (input.equalsIgnoreCase("bye")) {
                     break;
                 } else {
                     throw new InvalidCommandException();
@@ -60,8 +64,6 @@ public class TaskManagement {
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException(index);
         }
-
-
     }
 
     private void unmark_task(String input) throws InvalidTaskIndexException {
@@ -69,10 +71,27 @@ public class TaskManagement {
         try {
             Task target = this.taskList.get(index-1);
             target.unmark();
+
             Jarvis.horizontal_line_printer();
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(target.toString());
+            System.out.println("\t" + target.toString());
+            this.count_taskList();
             Jarvis.horizontal_line_printer();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskIndexException(index);
+        }
+    }
+
+    private void delete_task(String input) throws InvalidTaskIndexException{
+        int index = Integer.parseInt(input.substring(7));
+        try {
+            Task target = this.taskList.get(index-1);
+            taskList.remove(index-1);
+            Jarvis.horizontal_line_printer();
+            System.out.println(" Noted. I've removed this task:");
+            System.out.println("\t" + target.toString());
+            Jarvis.horizontal_line_printer();
+
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidTaskIndexException(index);
         }
