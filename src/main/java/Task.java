@@ -13,7 +13,9 @@ public class Task {
   public static void addTask(Task task) {
     taskList.add(task);
     Duke.printLine();
-    System.out.printf("added: %s\n%n", task.getTaskName());
+    System.out.println("Got it. I've added this task:");
+    System.out.println(task.toString());
+    System.out.printf("Now you have %s tasks in the list.%n", taskList.size());
     Duke.printLine();
   }
 
@@ -34,12 +36,8 @@ public class Task {
     Duke.printLine();
     System.out.println("Here are the tasks in your list:");
     for (int i = 0; i < taskList.size(); i++) {
-      System.out.printf("%s.%s %s%n",
-          i + 1,
-          taskList.get(i).getStatusIcon(),
-          taskList.get(i).getTaskName());
+      System.out.printf("%s.%s%n", i + 1, taskList.get(i).toString());
     }
-    System.out.println();
     Duke.printLine();
   }
 

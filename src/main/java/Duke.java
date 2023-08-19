@@ -10,14 +10,29 @@ public class Duke {
         promptInput();
 
         do {
-            if (userInput.equals("list")) {
+            String userCommand = userInput.split(" ")[0];
+            if (userCommand.equals("list")) {
                 Task.listTasks();
-            } else if (userInput.matches("mark \\d+")) {
+            } else if (userCommand.equals("mark")) {
                 Task.markTask(Integer.parseInt(userInput.split(" ")[1]));
-            } else if (userInput.matches("unmark \\d+")) {
+            } else if (userCommand.equals("unmark")) {
                 Task.unmarkTask(Integer.parseInt(userInput.split(" ")[1]));
-            } else {
-                Task newTask = new Task(userInput);
+            } else if (userCommand.equals("todo")) {
+                String taskName = userInput.substring(5);
+                Task newTask = new Todo(taskName);
+                Task.addTask(newTask);
+            } else if (userCommand.equals("deadline")) {
+                String[] taskInfo = userInput.substring(9).split(" /by ");
+                String taskName = taskInfo[0];
+                String deadline = taskInfo[1];
+                Task newTask = new Deadline(taskName, deadline);
+                Task.addTask(newTask);
+            } else if (userCommand.equals("event")) {
+                String[] taskInfo = userInput.substring(6).split(" /from ");
+                String taskName = taskInfo[0];
+                String startTime = taskInfo[1].split(" /to ")[0];
+                String endTime = taskInfo[1].split(" /to ")[1];
+                Task newTask = new Event(taskName, startTime, endTime);
                 Task.addTask(newTask);
             }
             promptInput();
