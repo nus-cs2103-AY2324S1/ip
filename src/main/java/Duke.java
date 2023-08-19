@@ -32,11 +32,18 @@ public class Duke {
     String content = line.substring("todo ".length());
     ToDo todo = new ToDo(content);
     tasks.add(todo);
+    printText(
+        String.format(
+            "Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
+            todo,
+            tasks.size()
+        ),
+        globalIndentation);
   }
 
   public static void main(String[] args) {
     printText("Hello! I'm Cyrus\nWhat can I do for you?", globalIndentation);
-    String input = "";
+    String input;
     Scanner sc = new Scanner(System.in);
     List<Task> tasks = new ArrayList<>();
     while (true) {
@@ -56,7 +63,7 @@ public class Duke {
           if ((i - 1) < 0 || (i - 1) > tasks.size()) {
             printText("Invalid index provided.", globalIndentation);
           }
-          tasks.get(i - 1).markDone();
+          tasks.get(i - 1).setDone(true);
           printText(
               String.format("Nice! I've marked this task as done:\n%s", tasks.get(i - 1)),
               globalIndentation
@@ -67,9 +74,9 @@ public class Duke {
           if ((i - 1) < 0 || (i - 1) > tasks.size()) {
             printText("Invalid index provided.", globalIndentation);
           }
-          tasks.get(i - 1).unmarkDone();
+          tasks.get(i - 1).setDone(false);
           printText(
-              String.format("Nice! I've marked this task as done:\n%s", tasks.get(i - 1)),
+              String.format("OK, I've marked this task as not done yet:\n%s", tasks.get(i - 1)),
               globalIndentation
           );
           break;
@@ -81,8 +88,7 @@ public class Duke {
           printText(String.format("Here are the tasks in your list:\n%s", output), globalIndentation);
           break;
         default:
-          tasks.add(new Task(input));
-          printText(String.format("added: %s", input), globalIndentation);
+          addToDo(tasks, input);
       }
     }
   }
