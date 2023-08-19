@@ -13,7 +13,7 @@ public class Duke {
      * Prints a horizontal line for formatting purposes.
      */
     public static void printHorizontalLine() {
-        System.out.println("\t------------------------------------------------------------------------------------");
+        System.out.println("------------------------------------------------------------------------------------");
     }
 
     /**
@@ -22,7 +22,7 @@ public class Duke {
      */
     public static void printBotMessage(String msg) {
         printHorizontalLine();
-        System.out.println("\t" + msg);
+        System.out.println(msg);
         printHorizontalLine();
     }
 
@@ -30,14 +30,12 @@ public class Duke {
      * Prints a greeting message from the bot.
      */
     public static void printGreeting() {
-        String logo = "\n" +
-                "\t_________ .__            __    __                \n" +
-                "\t\\_   ___ \\|  |__ _____ _/  |__/  |_  ___________ \n" +
-                "\t/    \\  \\/|  |  \\\\__  \\\\   __\\   __\\/ __ \\_  __ \\\n" +
-                "\t\\     \\___|   Y  \\/ __ \\|  |  |  | \\  ___/|  | \\/\n" +
-                "\t \\______  /___|  (____  /__|  |__|  \\___  >__|   \n" +
-                "\t        \\/     \\/     \\/                \\/       \n";
-        printBotMessage("Hello! I'm" + logo + "\n\t \uD83E\uDD9C What can I do for you?");
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        printBotMessage("Hello from\n" + "DUKE");
     }
 
     /**
@@ -52,7 +50,7 @@ public class Duke {
      */
     public static void printTasks() {
         printHorizontalLine();
-        System.out.println("\tHere are the tasks in your list:");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < 100; i++) {
             if (tasks[i] != null) {
                 System.out.println("\t" + (i + 1) + ". " + tasks[i]);
@@ -80,7 +78,7 @@ public class Duke {
     public static void markTask(String taskNumber) {
         int index = Integer.parseInt(taskNumber);
         tasks[index - 1].markAsDone();
-        printBotMessage("Nice! I've marked this task as done:\n\t\t" + tasks[index - 1]);
+        printBotMessage("Nice! I've marked this task as done:\n\t" + tasks[index - 1]);
     }
 
     /**
@@ -92,8 +90,8 @@ public class Duke {
         Todo todo = new Todo(description);
         tasks[i] = todo;
         i++;
-        printBotMessage("Got it. I've added this task:\n\t\t" + todo +
-                "\n\tNow you have " + i + " tasks in the list.");
+        printBotMessage("Got it. I've added this task:\n\t" + todo +
+                "\nNow you have " + i + " tasks in the list.");
     }
 
     /**
@@ -106,8 +104,8 @@ public class Duke {
         Deadline deadline = new Deadline(split[0], split[1]);
         tasks[i] = deadline;
         i++;
-        printBotMessage("Got it. I've added this task:\n\t\t" + deadline +
-                "\n\tNow you have " + i + " tasks in the list.");
+        printBotMessage("Got it. I've added this task:\n\t" + deadline +
+                "\nNow you have " + i + " tasks in the list.");
     }
 
     /**
@@ -121,8 +119,8 @@ public class Duke {
         Event event = new Event(split[0], split2[0], split2[1]);
         tasks[i] = event;
         i++;
-        printBotMessage("Got it. I've added this task:\n\t\t" + event +
-                "\n\tNow you have " + i + " tasks in the list.");
+        printBotMessage("Got it. I've added this task:\n\t" + event +
+                "\nNow you have " + i + " tasks in the list.");
     }
     public static void main(String[] args) {
         printGreeting();
