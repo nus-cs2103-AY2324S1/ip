@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Duke {
     public static final String NAME = "Buzu";
     private static final String DIVIDER = "__________________________________________________";
+    private static final String INDENT = "    ";
     private static final List<Task> tasks = new ArrayList<>();
 
     /**
@@ -13,7 +14,7 @@ public class Duke {
      * @param line The line to be indented
      */
     private static void printLine(String line) {
-        System.out.println("\t" + line);
+        System.out.println(INDENT + line);
     }
 
     /**
@@ -52,8 +53,8 @@ public class Duke {
     private static void addTask(Task task) {
         tasks.add(task);
         say("Got it. I've added this task:",
-                "\t" + task.toString(),
-                String.format("Now you have %d task%s in your list.", tasks.size(), tasks.size() == 1 ? "" : "s"));
+                INDENT + task.toString(),
+                String.format("Now you have %d task%s in the list.", tasks.size(), tasks.size() == 1 ? "" : "s"));
     }
 
     private static void handleTodo(String input) {
@@ -92,14 +93,14 @@ public class Duke {
         int taskNum = Integer.parseInt(input);
         Task task = tasks.get(taskNum - 1);
         task.mark();
-        say("Nice! I've marked this task as done:", "\t" + task);
+        say("Nice! I've marked this task as done:", INDENT + task);
     }
 
     private static void handleUnmark(String input) {
         int taskNum = Integer.parseInt(input);
         Task task = tasks.get(taskNum - 1);
         task.unmark();
-        say("Ok, I've marked this task as not done yet:", "\t" + task);
+        say("Ok, I've marked this task as not done yet:", INDENT + task);
     }
 
     public static void main(String[] args) {
@@ -136,7 +137,7 @@ public class Duke {
                     say("Bye! Hope to see you again soon!");
                     break;
                 default:
-                    say("That is an invalid command.");
+                    say("Sorry, that is an invalid query.");
                     break;
             }
         }
