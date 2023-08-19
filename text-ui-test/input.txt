@@ -1,0 +1,7 @@
+todo borrow books
+deadline return books /by aug
+event goto library /from aug /to sep 
+list 
+mark 1
+list
+bye
