@@ -11,22 +11,29 @@ public class ToDoList {
         list.add(task);
     }
 
+    public void delete(int index) {
+        if (index < 1 || index > list.size()) {
+            throw new IndexOutOfBoundsException("Task index is out of range.");
+        }
+        list.remove(index - 1);
+    }
+
     public void mark(int index) {
-        if (index > list.size()) {
+        if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
         list.get(index - 1).markDone();
     }
 
     public void unmark(int index) {
-        if (index > list.size()) {
+        if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
         list.get(index - 1).markUndone();
     }
 
     public Task get(int index) {
-        if (index > list.size()) {
+        if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
         return list.get(index - 1);

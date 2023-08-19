@@ -19,6 +19,14 @@ public class Duke {
         System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
     }
 
+    private static void delete(int index) {
+        final Task deletedTask = toDoList.get(index);
+        toDoList.delete(index);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(deletedTask.toString());
+        System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+    }
+
     private static void list() {
         System.out.println(toDoList);
     }
@@ -101,6 +109,15 @@ public class Duke {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new IllegalArgumentException("Invalid format. Usage: event <name> /from <time> /to <time>");
                 }
+                break;
+            }
+
+            case "delete": {
+                if (rest.isEmpty()) {
+                    throw new IllegalArgumentException("Task index is missing.");
+                }
+                int index = Integer.parseInt(rest);
+                Duke.delete(index);
                 break;
             }
 
