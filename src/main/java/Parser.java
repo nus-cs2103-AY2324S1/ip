@@ -12,6 +12,7 @@ public class Parser {
     String entered = "";
     Scanner s = new Scanner(System.in);
     UI ui = new UI();
+    Storage storage = new Storage();
 
     /**
      * Method that runs the parser
@@ -21,10 +22,10 @@ public class Parser {
             entered = s.nextLine();
             if (entered.equals("bye")) {
                 break;
+            } else if (entered.equals("list")){
+                storage.display();
             } else {
-                ui.line();
-                System.out.println(entered);
-                ui.line();
+                storage.add(entered);
             }
         }
     }
