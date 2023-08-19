@@ -1,8 +1,24 @@
+import java.security.Key;
 import java.util.List;
 import java.util.Scanner;
 
 public class TaskManagement {
     private List<Task> taskList;
+    enum Keyword {
+        LIST("list"), MARK("mark"), UNMARK("unmark"), DELETE("delete"),
+        TODO("todo"), DEADLINE("deadline"), EVENT("event"), BYE("bye");
+
+        private String keyword;
+
+        private Keyword(String keyword) {
+            this.keyword = keyword;
+        }
+
+        public String getKeyword() {
+            return keyword;
+        }
+    }
+
 
     public TaskManagement(List<Task> taskList) {
         this.taskList = taskList;
@@ -10,25 +26,26 @@ public class TaskManagement {
 
     public void operate() {
         Scanner sc = new Scanner(System.in);
-
         while (true) {
             String input = sc.nextLine();
             try {
-                if (input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+                System.out.println();
+                if (input.startsWith(Keyword.TODO.keyword) || input.startsWith(Keyword.DEADLINE.keyword)
+                        || input.startsWith(Keyword.EVENT.keyword)) {
                     this.add_task(input);
-                } else if (input.equalsIgnoreCase("list")) {
+                } else if (input.equalsIgnoreCase(Keyword.LIST.keyword)) {
                     this.list_printer();
-                } else if (input.startsWith("mark ") && input.length() > 5
+                } else if (input.startsWith(Keyword.MARK.keyword + " ") && input.length() > 5
                         && input.substring(5).matches("-?\\d+")) {
                     this.mark_task(input);
-                } else if (input.startsWith("unmark ") && input.length() > 7
+                } else if (input.startsWith(Keyword.UNMARK.keyword + " ") && input.length() > 7
                         && input.substring(7).matches("-?\\d+")) {
                     this.unmark_task(input);
-                } else if (input.startsWith("delete ") && input.length() > 7
+                } else if (input.startsWith(Keyword.DELETE.keyword + " ") && input.length() > 7
                         && input.substring(7).matches("-?\\d+")){
                     this.delete_task(input);
                 }
-                else if (input.equalsIgnoreCase("bye")) {
+                else if (input.equalsIgnoreCase(Keyword.BYE.keyword)) {
                     break;
                 } else {
                     throw new InvalidCommandException();
@@ -55,6 +72,7 @@ public class TaskManagement {
     private void mark_task(String input) throws InvalidTaskIndexException {
         int index = Integer.parseInt(input.substring(5));
         try {
+
             Task target = this.taskList.get(index-1);
             target.mark();
             Jarvis.horizontal_line_printer();
