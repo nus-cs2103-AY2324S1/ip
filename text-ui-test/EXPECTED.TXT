@@ -1,58 +1,58 @@
 	____________________________________________________________
-	Hello! I'm Heimdallr
-	What can I do for you?
+	[36mHello! I'm Heimdallr[0m
+	[36mWhat can I do for you?[0m
 	____________________________________________________________
 	____________________________________________________________
-	DukeException: Invalid Command: randomCommand , Please Try Again...
+	[31mDukeException: Invalid Command: randomCommand , Please Try Again...[0m
 	____________________________________________________________
 	____________________________________________________________
-	No Items in List
+	[36mNo Items in List[0m
 	____________________________________________________________
 	____________________________________________________________
-	Got it. I've added this task:
-	  [T][ ] buy bread
-	Now you have 1 tasks in the list.
+	[36mGot it. I've added this task:[0m
+	[36m  [T][ ] buy bread[0m
+	[36mNow you have 1 tasks in the list.[0m
 	____________________________________________________________
 	____________________________________________________________
-	Got it. I've added this task:
-	  [E][ ] eat bread  (from: now  to: later)
-	Now you have 2 tasks in the list.
+	[36mGot it. I've added this task:[0m
+	[36m  [E][ ] eat bread  (from: now  to: later)[0m
+	[36mNow you have 2 tasks in the list.[0m
 	____________________________________________________________
 	____________________________________________________________
-	Got it. I've added this task:
-	  [D][ ] make bread  (by: later)
-	Now you have 3 tasks in the list.
+	[36mGot it. I've added this task:[0m
+	[36m  [D][ ] make bread  (by: later)[0m
+	[36mNow you have 3 tasks in the list.[0m
 	____________________________________________________________
 	____________________________________________________________
-	1. [T][ ] buy bread
-	2. [E][ ] eat bread  (from: now  to: later)
-	3. [D][ ] make bread  (by: later)
+	[36m1. [T][ ] buy bread[0m
+	[36m2. [E][ ] eat bread  (from: now  to: later)[0m
+	[36m3. [D][ ] make bread  (by: later)[0m
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
-	  [T][X] buy bread
+	[36mNice! I've marked this task as done:[0m
+	[36m  [T][X] buy bread[0m
 	____________________________________________________________
 	____________________________________________________________
-	Nice! I've marked this task as done:
-	  [D][X] make bread  (by: later)
+	[36mNice! I've marked this task as done:[0m
+	[36m  [D][X] make bread  (by: later)[0m
 	____________________________________________________________
 	____________________________________________________________
-	1. [T][X] buy bread
-	2. [E][ ] eat bread  (from: now  to: later)
-	3. [D][X] make bread  (by: later)
+	[36m1. [T][X] buy bread[0m
+	[36m2. [E][ ] eat bread  (from: now  to: later)[0m
+	[36m3. [D][X] make bread  (by: later)[0m
 	____________________________________________________________
 	____________________________________________________________
-	OK, I've marked this task as not done yet:
-	  [T][ ] buy bread
+	[36mOK, I've marked this task as not done yet:[0m
+	[36m  [T][ ] buy bread[0m
 	____________________________________________________________
 	____________________________________________________________
-	1. [T][ ] buy bread
-	2. [E][ ] eat bread  (from: now  to: later)
-	3. [D][X] make bread  (by: later)
+	[36m1. [T][ ] buy bread[0m
+	[36m2. [E][ ] eat bread  (from: now  to: later)[0m
+	[36m3. [D][X] make bread  (by: later)[0m
 	____________________________________________________________
 	____________________________________________________________
-	DukeException: Argument Provided out of range: 3
+	[31mDukeException: Argument Provided out of range: 4[0m
 	____________________________________________________________
 	____________________________________________________________
-	 Bye. Hope to see you again soon!
+	[36m Bye. Hope to see you again soon![0m
 	____________________________________________________________
