@@ -10,10 +10,6 @@ public class Duke {
         System.out.println("    ____________________________________________________________");
     }
 
-    private void displayInvalidIndex() {
-        System.out.println("    Enter a valid index");
-    }
-
     private void greet() {
         printLine();
         System.out.println("    Hello! I'm Duke");
@@ -84,12 +80,12 @@ public class Duke {
         }
     }
 
-    private void markTask(String index) {
+    private void markTask(String index) throws DukeException {
         String regex = "\\d+";
 
         if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
                 || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
-            this.displayInvalidIndex();
+            throw new WrongIndexException("    Enter a valid index");
         } else {
             int i = Integer.parseInt(index, 10) - 1;
             Task task = tasks.get(i);
@@ -99,12 +95,12 @@ public class Duke {
         }
     }
 
-    private void unmarkedTask(String index) {
+    private void unmarkedTask(String index) throws DukeException {
         String regex = "\\d+";
 
         if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
                 || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
-            this.displayInvalidIndex();
+            throw new WrongIndexException("    Enter a valid index");
         } else {
             int i = Integer.parseInt(index, 10) - 1;
             Task task = tasks.get(i);
@@ -115,7 +111,7 @@ public class Duke {
     }
 
 
-    private boolean parseCommand(String command) {
+    private boolean parseCommand(String command) throws DukeException {
         String[] words = command.trim().split("\\s");
         if (words[0].equals("bye") && words.length == 1) {
             return false;
@@ -125,10 +121,12 @@ public class Duke {
             this.markTask(words[1]);
         } else if (words[0].equals("unmark") && words.length == 2) {
             this.unmarkedTask(words[1]);
+        } else if ((words[0].equals("deadline") || words[0].equals("todo") || words[0].equals("event")) && words.length == 1) {
+            throw new EmptyBodyException("    OOPS!!! The description of a todo cannot be empty.");
         } else if ((words[0].equals("deadline") || words[0].equals("todo") || words[0].equals("event"))) {
             this.addTask(createTask(words));
         } else {
-            System.out.println("    OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new EmptyBodyException("    OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return true;
     }
@@ -137,17 +135,20 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String command = "";
         while (true) {
-            command = scanner.nextLine();
-            printLine();
-            boolean continueLoop = parseCommand(command);
-            if (!continueLoop) {
-                break;
+            try {
+                command = scanner.nextLine();
+                printLine();
+                boolean continueLoop = parseCommand(command);
+                if (!continueLoop) {
+                    break;
+                }
+            } catch (DukeException e) {
+                System.out.println(e.toString());
             }
             printLine();
         }
         bye();
     }
-
 
     public static void main(String[] args) {
         Duke duke = new Duke();
