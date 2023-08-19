@@ -2,45 +2,51 @@ package extensions.tasks;
 
 public class Task {
 
-  protected String description;
-  protected boolean isDone = false;
+    // The description of the task.
+    protected String description;
 
-  /**
-   * Constructor for a Task.
-   * @param description The description of the task.
-   */
-  public Task(String description) {
-    this.description = description;
-  }
+    // The status of the task. True if done, false if not done.
+    protected boolean isDone = false;
 
-  /**
-   * Marks this task as done.
-   */
-  public void markAsDone() {
-    isDone = true;
-  }
+    /**
+     * Constructor for a Task.
+     *
+     * @param description The description of the task.
+     */
+    public Task(String description) {
+        this.description = description;
+    }
 
-  /**
-   * Marks this task as undone.
-   */
-  public void unmarkAsDone() {
-    isDone = false;
-  }
+    /**
+     * Marks this task as done.
+     */
+    public void markAsDone() {
+        isDone = true;
+    }
 
-  /**
-   * Returns the status of the checkbox for the task.
-   * @return String [ ] if not done, [X] if done.
-   */
-  private String getStatusCheckbox() {
-    return (isDone ? "[X]" : "[ ]");
-  }
+    /**
+     * Marks this task as undone.
+     */
+    public void unmarkAsDone() {
+        isDone = false;
+    }
 
-  /**
-   * Returns the String representation of the task.
-   * @return String representation of the task.
-   */
-  @Override
-  public String toString() {
-    return getStatusCheckbox() + " " + description;
-  }
+    /**
+     * Returns the status of the checkbox for the task.
+     *
+     * @return String [ ] if not done, [X] if done.
+     */
+    private String getStatusCheckbox() {
+        return (isDone ? "[X]" : "[ ]");
+    }
+
+    /**
+     * Returns the String representation of the task.
+     *
+     * @return String representation of the task.
+     */
+    @Override
+    public String toString() {
+        return getStatusCheckbox() + " " + description;
+    }
 }
