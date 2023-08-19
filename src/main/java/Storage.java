@@ -19,15 +19,16 @@ public class Storage {
     }
 
     /** Add item to the storage */
-    public void add(String item) {
+    public void add(Task t) {
         ui.line();
         if (index >= 100){
             System.out.println("Storage at maximum capacity");
         } else {
-            Task t = new Task(item);
+            System.out.println("Got it, will add task...");
             storage[index] = t;
             index += 1;
-            System.out.println("added: " + item);
+            System.out.println(storage[index-1]);
+            System.out.println("Now, you have " + index + " task(s)");
         }
         ui.line();
     }

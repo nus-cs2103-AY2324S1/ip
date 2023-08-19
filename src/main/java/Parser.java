@@ -39,8 +39,15 @@ public class Parser {
             } else if (entered.contains("mark")) {
                 int index = Integer.parseInt(entered.split(" ")[1]);
                 this.storage.mark(index);
-            } else {
-                storage.add(entered);
+            } else if (entered.contains("todo")) {
+                String todo = entered.substring(5);
+                storage.add(new Todo(todo));
+            } else if (entered.contains("deadline")) {
+                String[] items = entered.substring(9).split(" /");
+                storage.add(new Deadline(items[0], items[1].substring(3)));
+            } else if (entered.contains("event")) {
+                String[] items = entered.substring(6).split(" /");
+                storage.add(new Event(items[0], items[1].substring(6), items[2].substring(4)));
             }
         }
     }
