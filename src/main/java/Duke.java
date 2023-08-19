@@ -16,25 +16,30 @@ public class Duke {
         System.out.println("What brings you here today?");
         System.out.println("------------------------------------------");
 
-        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
-        Scanner input = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            String cmd = input.nextLine();
-            if (cmd.equals("bye")) {
-                System.out.println("Oh.. bye");
-                break;
-            } else if (cmd.equals("list")) {
+            String input = scanner.nextLine(); // mark 3    // read book
+            String[] tokens = input.split(" ", 2);
+
+            if (tokens[0].equals("list")) {
                 System.out.println("------------------------------------------");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i));
+                    System.out.println((i + 1) + "." + tasks.get(i));
                 }
                 System.out.println("------------------------------------------");
+            } else if (tokens[0].equals("bye")) {
+                System.out.println("Oh.. bye");
+                break;
+            } else if (tokens[0].equals("mark")) {
+                int number = Integer.parseInt(tokens[1]);
+                tasks.get(number - 1).setStatus(true);
+            } else if (tokens[0].equals("unmark")) {
+                int number = Integer.parseInt(tokens[1]);
+                tasks.get(number - 1).setStatus(false);
             } else {
-                tasks.add(cmd);
-                System.out.println("------------------------------------------");
-                System.out.println("added: " + cmd);
-                System.out.println("------------------------------------------");
+                tasks.add(new Task(input));
             }
         }
     }
