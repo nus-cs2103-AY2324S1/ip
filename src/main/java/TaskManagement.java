@@ -13,8 +13,9 @@ public class TaskManagement {
 
         while (true) {
             String input = sc.nextLine();
-
-            if (input.equalsIgnoreCase("list")) {
+            if (input.startsWith("todo ") || input.startsWith("deadline ") || input.startsWith("event ")) {
+                add_task(input);
+            } else if (input.equalsIgnoreCase("list")) {
                 list_printer();
                 continue;
             } else if (input.startsWith("mark ") && input.substring(5).matches("\\d+")) {
@@ -25,9 +26,9 @@ public class TaskManagement {
                 continue;
             } else if (input.equalsIgnoreCase("bye")) {
                 break;
+            } else {
+                System.out.println("Sorry, sir! I cannot understand your command.");
             }
-
-            add_task(input);
         }
 
         sc.close();
@@ -73,9 +74,45 @@ public class TaskManagement {
     }
 
     private void add_task(String input) {
-        this.taskList.add(new Task(input));
+        String keyword = input.split(" ")[0];
+        String content = "";
+        Task newTask;
+        switch (keyword){
+            case "todo":
+                content = input.substring(5).trim();
+                newTask = new ToDo(content);
+                this.taskList.add(newTask);
+                break;
+            case "deadline":
+                int byIndex = input.indexOf("/by");
+                content = input.substring("deadline".length(), byIndex).trim();
+                String time = input.substring(byIndex + 3).trim();
+                newTask = new Deadline(content, time);
+                this.taskList.add(newTask);
+                break;
+            case "event":
+                int fromIndex = input.indexOf("/from");
+                int toIndex = input.indexOf("/to");
+                content = input.substring("event".length(), fromIndex).trim();
+                String from = input.substring(fromIndex + 5, toIndex).trim();
+                String to = input.substring(toIndex + 3).trim();
+                newTask = new Event(content, from, to);
+                this.taskList.add(newTask);
+                break;
+            default:
+                System.out.println("Keyword not found");
+                return;
+        }
+
         Jarvis.horizontal_line_printer();
-        System.out.println("added: " + input);
+        System.out.println("Got it, sir. I've added this task: ");
+        System.out.println(newTask.toString());
+        count_taskList();
         Jarvis.horizontal_line_printer();
+    }
+
+    public void count_taskList() {
+        int num = taskList.size();
+        System.out.println("Now you have " + num + " tasks in the list.");
     }
 }
