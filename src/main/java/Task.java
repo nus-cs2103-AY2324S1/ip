@@ -6,12 +6,8 @@ public class Task {
     this.name = name;
   }
 
-  public void markDone() {
-    this.done = true;
-  }
-
-  public void unmarkDone() {
-    this.done = false;
+  public void setDone(boolean done) {
+    this.done = done;
   }
 
   @Override
