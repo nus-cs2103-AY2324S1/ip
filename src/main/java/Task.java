@@ -1,4 +1,7 @@
-public class Task {
+/*
+ * Abstract class that represents a general task.
+ */
+abstract class Task {
     private boolean isDone;
     private String task;
 
