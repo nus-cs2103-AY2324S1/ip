@@ -13,4 +13,4 @@ Now you have 3 tasks in the list.
 Got it. I've added this task:
 [D][ ] do homework (by: no idea :-p)
 Now you have 4 tasks in the list.
-Bye. Hope to see you again soon! failure
+Bye. Hope to see you again soon!

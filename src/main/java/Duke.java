@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -8,10 +8,9 @@ public class Duke {
             super(errorMessage);
         }
     }
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) {
         System.out.println("Hello I'm iP");
-        Task[] tasks = new Task[100];
-        int nextTask = 0;
+        ArrayList<Task> tasks = new ArrayList<>(100);
         Scanner input = new Scanner(System.in);
         String response = "";
         while (!Objects.equals(response, "bye")) {
@@ -21,8 +20,20 @@ public class Duke {
                     System.out.println("Bye. Hope to see you again soon!");
                 } else if (Objects.equals(response, "list")) {
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < nextTask; i++) {
-                        System.out.println(i + 1 + "." + tasks[i].toString());
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println(i + 1 + "." + tasks.get(i).toString());
+                    }
+                } else if (response.startsWith("delete")) {
+                    String[] array = response.split(" ");
+                    String lastVal = array[array.length - 1];
+                    int taskToMark = Integer.parseInt(lastVal);
+                    if (taskToMark <= tasks.size()) {
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(tasks.get(taskToMark - 1).toString());
+                        tasks.remove(taskToMark - 1);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    } else {
+                        throw new DukeException("☹ OOPS!!! The delete command needs to be followed by an existing task number.");
                     }
                 } else if (response.startsWith("mark")) {
                     // Assumption: "mark" is not allowed as a task name & you can mark already done tasks.
@@ -30,12 +41,12 @@ public class Duke {
                     String[] array = response.split(" ");
                     String lastVal = array[array.length - 1];
                     int taskToMark = Integer.parseInt(lastVal);
-                    if (taskToMark <= nextTask) {
-                        tasks[taskToMark - 1].completeTask();
+                    if (taskToMark <= tasks.size()) {
+                        tasks.get(taskToMark - 1).completeTask();
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(tasks[taskToMark - 1].toString());
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     } else {
-                        throw new DukeException("☹ OOPS!!! The mark command needs to be followed by a task number.");
+                        throw new DukeException("☹ OOPS!!! The mark command needs to be followed by an existing task number.");
                     }
                 } else if (response.startsWith("todo")) {
                     String[] array = response.split(" ");
@@ -50,10 +61,10 @@ public class Duke {
                         title.append(command);
                     }
                     if (title.length() != 0) {
-                        tasks[nextTask++] = new Todo(title.toString());
+                        tasks.add(new Todo(title.toString()));
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(tasks[nextTask - 1]);
-                        System.out.println("Now you have " + nextTask + " tasks in the list.");
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     } else {
                         throw new DukeException("☹ OOPS!!! The title of a todo cannot be empty.");
                     }
@@ -83,10 +94,10 @@ public class Duke {
                         }
                     }
                     if (title.length() != 0 || deadline.length() != 0) {
-                        tasks[nextTask++] = new Deadline(title.toString(), deadline.toString());
+                        tasks.add(new Deadline(title.toString(), deadline.toString()));
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(tasks[nextTask - 1]);
-                        System.out.println("Now you have " + nextTask + " tasks in the list.");
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     } else {
                         throw new DukeException("☹ OOPS!!! The title and given deadline cannot be empty.");
                     }
@@ -126,10 +137,10 @@ public class Duke {
                         }
                     }
                     if (title.length() != 0 || from.length() != 0 || to.length() != 0) {
-                        tasks[nextTask++] = new Event(title.toString(), from.toString(), to.toString());
+                        tasks.add(new Event(title.toString(), from.toString(), to.toString()));
                         System.out.println("Got it. I've added this task:");
-                        System.out.println(tasks[nextTask - 1]);
-                        System.out.println("Now you have " + nextTask + " tasks in the list.");
+                        System.out.println(tasks.get(tasks.size() - 1));
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     } else {
                         throw new DukeException("☹ OOPS!!! The title, from and to sections cannot be empty.");
                     }
