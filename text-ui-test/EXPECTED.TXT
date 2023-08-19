@@ -1,6 +1,25 @@
 ============================================================
                   Hello! I'm Rat!
               What can I do for you?
+[3m       type "help" to see a list of commands
+============================================================
+
+============================================================
+Hello! I'm Rat, your personal task manager.
+Here are the commands you can use:
+
+help: show this list of commands
+list: list all tasks
+mark <index>: mark task at <index> as done
+unmark <index>: mark task at <index> as not done
+todo <name>: add a todo task with <name>
+deadline <name> /by <deadline>: add a deadline task with <name> and <deadline>
+event <name> /from <start> /to <end>: add an event task with <name>, <start> and <end>
+delete <index>: delete task at <index>
+delete all: delete all tasks
+bye: exit the program
+
+built by @keaganpzh
 ============================================================
 
 ============================================================
