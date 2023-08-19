@@ -9,8 +9,11 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    public static Deadline create(String[] queries) {
+    public static Deadline create(String[] queries) throws DukeException {
         List<String> queryList = Arrays.asList(queries);
+        if (queryList.size() < 2) {
+            throw new DukeException("The description of a todo cannot be empty.");
+        }
         String name = "";
         String deadline = "";
         int byIndex = (int) 1e9;

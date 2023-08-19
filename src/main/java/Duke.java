@@ -14,9 +14,17 @@ public class Duke {
         return res;
     }
 
+    public static void print(String s) {
+        System.out.println(s);
+    }
+
+    public static void printError(String s) {
+        System.out.println("OOPS!!! " + s);
+    }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        System.out.println(helloString);
+        print(helloString);
         String response = "";
 
         while (true) {
@@ -25,37 +33,61 @@ public class Duke {
             if (queries[0].equals("bye")) {
                 break;
             } 
-            switch (queries[0]) {
-            case "list":
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println(String.format("%d.%s", i + 1, tasks.get(i).toString()));
+            try {
+                switch (queries[0]) {
+                case "list":
+                    if (tasks.size() == 0) {
+                        print("There is no task in your list.");
+                        break;
+                    }
+                    print("Here are the tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        print(String.format("%d.%s", i + 1, tasks.get(i).toString()));
+                    }
+                    break;
+                case "mark":
+                    try {
+                        int index = Integer.parseInt(queries[1]) - 1;
+                        if (index < 0 || index >= tasks.size()) {
+                            throw new DukeException("Invalid task index");
+                        }
+                        tasks.get(index).markDone();
+                        print("Nice! I've marked this task as done:");
+                        print("  " + tasks.get(index).toString());
+                    } catch (NumberFormatException e) {
+                        throw new DukeException(e);
+                    }
+                    break;
+                case "unmark":
+                    try {
+                        int index = Integer.parseInt(queries[1]) - 1;
+                        if (index < 0 || index >= tasks.size()) {
+                            throw new DukeException("Invalid task index");
+                        }
+                        tasks.get(index).unmarkDone();
+                        print("OK, I've marked this task as not done yet:");
+                        print("  " + tasks.get(index).toString());
+                    } catch (NumberFormatException e) {
+                        throw new DukeException(e);
+                    }
+                    break;
+                case "deadline":
+                    print(addTask(Deadline.create(queries)));
+                    break;
+                case "event":
+                    print(addTask(Event.create(queries)));
+                    break;
+                case "todo":
+                    print(addTask(ToDo.create(queries)));
+                    break;
+                default:
+                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
-                break;
-            case "mark":
-                int index = Integer.parseInt(queries[1]) - 1;
-                tasks.get(index).markDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + tasks.get(index).toString());
-                break;
-            case "unmark":
-                index = Integer.parseInt(queries[1]) - 1;
-                tasks.get(index).unmarkDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  " + tasks.get(index).toString());
-                break;
-            case "deadline":
-                System.out.println(addTask(Deadline.create(queries)));
-                break;
-            case "event":
-                System.out.println(addTask(Event.create(queries)));
-                break;
-            case "todo":
-                System.out.println(addTask(ToDo.create(queries)));
-                break;
+            } catch (DukeException e) {
+                printError(e.toString());
             }
         }
-        System.out.println(byeString);
+        print(byeString);
         input.close();
     }
 }

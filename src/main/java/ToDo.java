@@ -6,8 +6,11 @@ public class ToDo extends Task {
         super(name);
     }
 
-    public static ToDo create(String[] queries) {
+    public static ToDo create(String[] queries) throws DukeException {
         List<String> queryList = Arrays.asList(queries);
+        if (queryList.size() < 2) {
+            throw new DukeException("The description of a todo cannot be empty.");
+        }
         String name = "";
         for (int i = 1; i < queryList.size(); i++) {
             name += i > 1 ? " " : "";

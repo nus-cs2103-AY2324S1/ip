@@ -11,8 +11,11 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public static Event create(String[] queries) {
+    public static Event create(String[] queries) throws DukeException {
         List<String> queryList = Arrays.asList(queries);
+        if (queryList.size() < 2) {
+            throw new DukeException("The description of a todo cannot be empty.");
+        }
         String name = "";
         String from = "", to = "";
         int fromIndex = (int) 1e9, toIndex = (int) 1e9;
