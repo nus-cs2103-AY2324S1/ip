@@ -1,0 +1,20 @@
+list
+todo borrow book
+list
+deadline return book /by Sunday 1234567 :/
+list
+event project meeting /from Sat Aug 19 2023 20:00 /to Sat Aug 19 2023 23:00
+list
+mark 1
+list
+mark 2
+list
+mark 3
+list
+unmark 2
+list
+unmark 3
+list
+unmark 1
+list
+bye
