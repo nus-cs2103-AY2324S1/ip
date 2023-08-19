@@ -7,6 +7,7 @@ public class GrumpyGordon {
         System.out.println("    ____________________________________________________________");
 
         int taskIndex;
+        String taskArgument;
         int taskCount = 0;
         Task[] tasks = new Task[100];
 
@@ -15,7 +16,7 @@ public class GrumpyGordon {
 
         while (!str.equals("bye")) {
             switch (str.split(" ")[0]) {
-                case "list":
+                case ("list"):
                     if (taskCount == 0) {
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     The list is empty, you donkey!");
@@ -24,7 +25,7 @@ public class GrumpyGordon {
                         System.out.println("    ____________________________________________________________");
                         System.out.println("     Stop wasting time, go get it done!");
                         for (int i = 0; i < taskCount; i++) {
-                            System.out.println("     " + (i + 1) + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
+                            System.out.println("     " + (i + 1) + "." + tasks[i].toString());
                         }
                         System.out.println("    ____________________________________________________________");
                     }
@@ -35,7 +36,7 @@ public class GrumpyGordon {
                     tasks[taskIndex].markAsDone();
                     System.out.println("    ____________________________________________________________");
                     System.out.println("     Took you long enough!");
-                    System.out.println("       [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].description);
+                    System.out.println("       " + tasks[taskIndex].toString());
                     System.out.println("    ____________________________________________________________");
                     str = sc.nextLine();
                     break;
@@ -44,15 +45,52 @@ public class GrumpyGordon {
                     tasks[taskIndex].markAsUndone();
                     System.out.println("    ____________________________________________________________");
                     System.out.println("     My grandmother does it faster than you!");
-                    System.out.println("       [" + tasks[taskIndex].getStatusIcon() + "] " + tasks[taskIndex].description);
+                    System.out.println("       " + tasks[taskIndex].toString());
+                    System.out.println("    ____________________________________________________________");
+                    str = sc.nextLine();
+                    break;
+                case ("todo"):
+                    taskArgument = str.split(" ", 2)[1];
+                    String todoDescription = taskArgument;
+                    tasks[taskCount] = new Todo(todoDescription);
+                    taskCount++;
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + tasks[taskCount - 1].toString());
+                    System.out.println("     Now you have " + taskCount + (taskCount > 1 ? " tasks" : " task") + " in the list.");
+                    System.out.println("    ____________________________________________________________");
+                    str = sc.nextLine();
+                    break;
+                case ("deadline"):
+                    taskArgument = str.split(" ", 2)[1];
+                    String deadlineDescription = taskArgument.split(" /by ")[0];
+                    String deadlineBy = taskArgument.split(" /by ")[1];
+                    tasks[taskCount] = new Deadline(deadlineDescription, deadlineBy);
+                    taskCount++;
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + tasks[taskCount - 1].toString());
+                    System.out.println("     Now you have " + taskCount + (taskCount > 1 ? " tasks" : " task") + " in the list.");
+                    System.out.println("    ____________________________________________________________");
+                    str = sc.nextLine();
+                    break;
+                case ("event"):
+                    taskArgument = str.split(" ", 2)[1];
+                    String eventDescription = taskArgument.split(" /from ")[0];
+                    String eventFrom = taskArgument.split(" /from ")[1].split("/to")[0];
+                    String eventTo = taskArgument.split("/to")[1];
+                    tasks[taskCount] = new Event(eventDescription, eventFrom, eventTo);
+                    taskCount++;
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + tasks[taskCount - 1].toString());
+                    System.out.println("     Now you have " + taskCount + (taskCount > 1 ? " tasks" : " task") + " in the list.");
                     System.out.println("    ____________________________________________________________");
                     str = sc.nextLine();
                     break;
                 default:
-                    tasks[taskCount] = new Task(str);
-                    taskCount++;
                     System.out.println("    ____________________________________________________________");
-                    System.out.println("     added: " + str);
+                    System.out.println("     Command doesn't exist: " + str);
                     System.out.println("    ____________________________________________________________");
                     str = sc.nextLine();
             }
