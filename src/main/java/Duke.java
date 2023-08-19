@@ -7,14 +7,6 @@ public class Duke {
     private static final String DIVIDER = "__________________________________________________";
     private static final List<Task> tasks = new ArrayList<>();
 
-    enum Command {
-        ADD,
-        LIST,
-        MARK,
-        UNMARK,
-        BYE
-    }
-
     /**
      * Utility function to add indentation when printing line.
      *
@@ -48,20 +40,66 @@ public class Duke {
         try {
             return Command.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException err) {
-            return Command.ADD;
+            return Command.INVALID;
         }
     }
 
-    private static void handleMark(int taskNum) {
-        Task task = tasks.get(taskNum - 1);
-        task.mark();
-        say("Nice! I've marked this task as done:", "\t" + task.toString());
+    /**
+     * Utility function to add a task to the list and respond to the user.
+     *
+     * @param task The task to be added
+     */
+    private static void addTask(Task task) {
+        tasks.add(task);
+        say("Got it. I've added this task:",
+                "\t" + task.toString(),
+                String.format("Now you have %d task%s in your list.", tasks.size(), tasks.size() == 1 ? "" : "s"));
     }
 
-    private static void handleUnmark(int taskNum) {
+    private static void handleTodo(String input) {
+        Todo task = new Todo(input);
+        addTask(task);
+    }
+
+    private static void handleDeadline(String input) {
+        String[] tokens = input.split(" /by ", 2);
+        Deadline task = new Deadline(tokens[0], tokens[1]);
+        addTask(task);
+    }
+
+    private static void handleEvent(String input) {
+        String[] tokens = input.split(" /from ", 2);
+        String[] tokens2 = tokens[1].split(" /to ", 2);
+        Event task = new Event(tokens[0], tokens2[0], tokens2[1]);
+        addTask(task);
+    }
+
+    private static void handleList() {
+        int numTasks = tasks.size();
+        if (numTasks == 0) {
+            say("There are no items in your list.");
+        } else {
+            String[] response = new String[numTasks + 1];
+            response[0] = "Here are the tasks in your list:";
+            for (int i = 0; i < numTasks; i++) {
+                response[i + 1] = (i + 1 + ". " + tasks.get(i));
+            }
+            say(response);
+        }
+    }
+
+    private static void handleMark(String input) {
+        int taskNum = Integer.parseInt(input);
+        Task task = tasks.get(taskNum - 1);
+        task.mark();
+        say("Nice! I've marked this task as done:", "\t" + task);
+    }
+
+    private static void handleUnmark(String input) {
+        int taskNum = Integer.parseInt(input);
         Task task = tasks.get(taskNum - 1);
         task.unmark();
-        say("Ok, I've marked this task as not done yet:", "\t" + task.toString());
+        say("Ok, I've marked this task as not done yet:", "\t" + task);
     }
 
     public static void main(String[] args) {
@@ -71,38 +109,35 @@ public class Duke {
 
         while (!stopped && scanner.hasNextLine()) {
             String input = scanner.nextLine();
-            String[] tokens = input.split(" ");
-            Command command = getCommandType(tokens[0]);
+            String[] params = input.split(" ", 2);
+            Command command = getCommandType(params[0]);
 
             switch (command) {
-                case ADD:
-                    tasks.add(new Task(input));
-                    say("added: " + input);
+                case TODO:
+                    handleTodo(params[1]);
+                    break;
+                case DEADLINE:
+                    handleDeadline(params[1]);
+                    break;
+                case EVENT:
+                    handleEvent(params[1]);
                     break;
                 case LIST:
-                    int numItems = tasks.size();
-                    if (numItems == 0) {
-                        say("There are no items in your list.");
-                    } else {
-                        String[] response = new String[numItems];
-                        for (int i = 0; i < numItems; i++) {
-                            response[i] = (i + 1 + ". " + tasks.get(i));
-                        }
-                        say("Here are the tasks in your list:");
-                        say(response);
-                    }
+                    handleList();
                     break;
                 case MARK:
-                    handleMark(Integer.parseInt(tokens[1]));
+                    handleMark(params[1]);
                     break;
                 case UNMARK:
-                    handleUnmark(Integer.parseInt(tokens[1]));
+                    handleUnmark(params[1]);
                     break;
                 case BYE:
                     stopped = true;
                     say("Bye! Hope to see you again soon!");
                     break;
                 default:
+                    say("That is an invalid command.");
+                    break;
             }
         }
     }
