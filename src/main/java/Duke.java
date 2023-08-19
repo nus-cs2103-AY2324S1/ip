@@ -12,6 +12,10 @@ public class Duke {
         do {
             if (userInput.equals("list")) {
                 Task.listTasks();
+            } else if (userInput.matches("mark \\d+")) {
+                Task.markTask(Integer.parseInt(userInput.split(" ")[1]));
+            } else if (userInput.matches("unmark \\d+")) {
+                Task.unmarkTask(Integer.parseInt(userInput.split(" ")[1]));
             } else {
                 Task newTask = new Task(userInput);
                 Task.addTask(newTask);
