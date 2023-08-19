@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Horo {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        ArrayList<String> store = new ArrayList<String>();
 
         String logo = " _    _ \n"
                     + "| |  | |\n"
@@ -11,10 +14,13 @@ public class Horo {
                     + "| |  | | (_) | | | (_) |\n"
                     + "|_|  |_|\\___/|_|  \\___/\n";
         System.out.println(logo);
-        System.out.println("Hello! I'm Horo");
-        System.out.println("What can I do for you?");
 
-        System.out.println("Type anything. 'bye' to exit");
+        String introduction = "Hello! I'm Horo\n" 
+                            + "What can I do for you?\n"
+                            + "Type anything to store.\n"
+                            + "'list' to list\n"
+                            + "'bye' to exit\n";
+        System.out.println(introduction);
         
         while(true){
           System.out.print(">");
@@ -22,7 +28,14 @@ public class Horo {
           if(input.compareToIgnoreCase("bye") == 0 ){
             break;
           }
-          System.out.println(input);
+          if(input.compareToIgnoreCase("list") == 0 ){
+            for(int i = 0; i < store.size(); i++){
+               System.out.println((i+1) + ". " + store.get(i));
+            }
+            continue;
+          }
+          store.add(input);
+          System.out.println("Added: " + input);
         }
         
         System.out.println("Bye. Hope to see you again soon!");
