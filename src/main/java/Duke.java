@@ -173,15 +173,17 @@ public class Duke {
           int idx = updateTaskStatus(parts, true);
           if (idx == -1) {
             printText("Invalid index given");
+          } else {
+            printText("Nice! I've marked this task as done:", tasks.get(idx - 1).toString());
           }
-          printText("Nice! I've marked this task as done:", tasks.get(idx - 1).toString());
           break;
         case "unmark":
           idx = updateTaskStatus(parts, false);
           if (idx == -1) {
             printText("Invalid index given");
+          } else {
+            printText("OK, I've marked this task as not done yet:", tasks.get(idx - 1).toString());
           }
-          printText("OK, I've marked this task as not done yet:", tasks.get(idx - 1).toString());
           break;
         case "list":
           printTasks();

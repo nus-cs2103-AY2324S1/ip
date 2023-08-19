@@ -1,5 +1,19 @@
-todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
 list
+todo read book
+todo buy groceries
+deadline finish assignment /by Next Monday
+deadline
+deadline finish other assignment
+list
+event school interviews /from Monday
+event school interviews /from Monday /to Friday
+list
+mark 0
+mark 5
+mark 4
+mark 3
+list
+unmark 4
+delete 3
+delete 7
 bye
