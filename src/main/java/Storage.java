@@ -35,8 +35,9 @@ public class Storage {
     /** Display Items in storage */
     public void display() {
         ui.line();
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < index; i++) {
-            System.out.println((i + 1) + ". " + "[" + storage[i].getStatusIcon() + "] " + storage[i].getDescription());
+            System.out.println((i + 1) + ". " + storage[i]);
         }
         ui.line();
     }
@@ -49,7 +50,7 @@ public class Storage {
         ui.line();
         storage[index - 1].mark();
         System.out.println("Alright, it has been marked");
-        System.out.println("[X] " + storage[index - 1].getDescription());
+        System.out.println(storage[index - 1]);
         ui.line();
     }
 
@@ -59,9 +60,9 @@ public class Storage {
      */
     public void unmark(int index) {
         ui.line();
-        storage[index - 1].mark();
+        storage[index - 1].unmark();
         System.out.println("Alright, it has been unmarked");
-        System.out.println("[ ] " + storage[index - 1].getDescription());
+        System.out.println(storage[index - 1]);
         ui.line();
     }
 }

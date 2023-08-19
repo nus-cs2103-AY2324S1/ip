@@ -33,12 +33,12 @@ public class Parser {
                 break;
             } else if (entered.equals("list")) {
                 storage.display();
-            } else if (entered.contains("mark")) {
-                int index = Integer.parseInt(entered.split(" ")[1]);
-                this.storage.mark(index);
             } else if (entered.contains("unmark")) {
                 int index = Integer.parseInt(entered.split(" ")[1]);
                 this.storage.unmark(index);
+            } else if (entered.contains("mark")) {
+                int index = Integer.parseInt(entered.split(" ")[1]);
+                this.storage.mark(index);
             } else {
                 storage.add(entered);
             }
