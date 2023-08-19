@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 public class Duke {
   private final static String delimiter = "-".repeat(60);
   private final static int globalIndentation = 4;
+  private final static List<Task> tasks = new ArrayList<>();
 
   private static void printText(String text, int indentation) {
     String frontPadding = " ".repeat(indentation);
@@ -28,24 +29,39 @@ public class Duke {
     }
   }
 
-  private static void addToDo(List<Task> tasks, String line) {
-    String content = line.substring("todo ".length());
-    ToDo todo = new ToDo(content);
-    tasks.add(todo);
+  private static void printAddTask(Task task) {
     printText(
         String.format(
             "Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
-            todo,
+            task,
             tasks.size()
         ),
         globalIndentation);
+  }
+
+  private static void addToDo(String line) {
+    String content = line.substring("todo ".length());
+    ToDo todo = new ToDo(content);
+    tasks.add(todo);
+    printAddTask(todo);
+  }
+
+  private static void addDeadline(String line) {
+    String content = line.substring("deadline ".length());
+    String[] parts = content.split(" /by ");
+    if (parts.length != 2) {
+      printText("Invalid deadline format.", globalIndentation);
+      return;
+    }
+    Deadline deadline = new Deadline(parts[0], parts[1]);
+    tasks.add(deadline);
+    printAddTask(deadline);
   }
 
   public static void main(String[] args) {
     printText("Hello! I'm Cyrus\nWhat can I do for you?", globalIndentation);
     String input;
     Scanner sc = new Scanner(System.in);
-    List<Task> tasks = new ArrayList<>();
     while (true) {
       input = sc.nextLine();
 
@@ -55,8 +71,8 @@ public class Duke {
         case "bye":
           printText("Bye. Hope to see you again soon!", globalIndentation);
           return;
-        case "todo":
-          addToDo(tasks, input);
+        case "deadline":
+          addDeadline(input);
           break;
         case "mark":
           i = extractIndex(input, 1);
@@ -88,7 +104,7 @@ public class Duke {
           printText(String.format("Here are the tasks in your list:\n%s", output), globalIndentation);
           break;
         default:
-          addToDo(tasks, input);
+          addToDo(input);
       }
     }
   }
