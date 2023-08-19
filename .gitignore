@@ -16,5 +16,10 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-# Class files, because I'm using neovim Lol
+# Manually javac-ing files, Neovim
 *.class
+
+# Ignore JDTLS LSP files, Neovim
+.classpath
+.project
+.settings/

@@ -12,10 +12,11 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    private static void add(String input) {
-        Task task = new Task(input);
+    private static void add(Task task) {
         toDoList.add(task);
-        System.out.println("added: " + task.toString());
+        System.out.println("Got it! I've added this task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
     }
 
     private static void list() {
@@ -34,10 +35,13 @@ public class Duke {
         System.out.println(toDoList.get(index));
     }
 
-    private static boolean parseCommand(String command) {
-        String[] parts = command.split(" ");
+    private static boolean parseCommand(String input) {
+        // Split into command and rest
+        String[] parts = input.split(" ", 2);
+        final String command = parts[0];
+        final String rest = parts.length > 1 ? parts[1] : "";
         
-        switch (parts[0]) {
+        switch (command) {
             case "bye": {
                 Duke.exit();
                 return false;
@@ -49,19 +53,45 @@ public class Duke {
             }
 
             case "mark": {
-                int index = Integer.parseInt(parts[1]);
+                int index = Integer.parseInt(rest);
                 Duke.mark(index);
                 break;
             }
 
             case "unmark": {
-                int index = Integer.parseInt(parts[1]);
+                int index = Integer.parseInt(rest);
                 Duke.unmark(index);
                 break;
             }
 
+            case "todo": {
+                Duke.add(new ToDo(rest));
+                break;
+            }
+
+            case "deadline": {
+                final String[] deadlineParts = rest.split(" /by ", 2);
+                final String name = deadlineParts[0];
+                final String endTime = deadlineParts[1];
+                Duke.add(new Deadline(name, endTime));
+                break;
+            }
+
+            case "event": {
+                final String[] deadlineParts = rest.split(" /from ", 2);
+                final String name = deadlineParts[0];
+                final String deadline = deadlineParts[1];
+
+                final String[] startAndEndParts = deadline.split(" /to ", 2);
+                final String startTime = startAndEndParts[0];
+                final String endTime = startAndEndParts[1];
+
+                Duke.add(new Event(name, startTime, endTime));
+                break;
+            }
+
             default: {
-                Duke.add(command);
+                // ???
                 break;
             }
         }

@@ -23,6 +23,10 @@ public class ToDoList {
         return list.get(index - 1);
     }
 
+    public int size() {
+        return list.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
