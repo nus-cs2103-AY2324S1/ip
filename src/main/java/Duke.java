@@ -23,16 +23,6 @@ public class Duke {
     System.out.printf("%s%s\n", frontPadding, delimiter);
   }
 
-  private static int extractIndex(String text, int pos) {
-    String[] parts = text.split(" ");
-    if (parts.length <= 1) return -1;
-    try {
-      return Integer.parseInt(parts[pos]);
-    } catch (NumberFormatException e) {
-      return -1;
-    }
-  }
-
   private static void printAddTask(Task task) {
     printText(
         "Got it. I've added this task:",
@@ -99,13 +89,19 @@ public class Duke {
     printAddTask(event);
   }
 
-  private static int updateTaskStatus(String line, boolean status) {
-    int i = extractIndex(line, 1);
-    if ((i - 1) < 0 || (i - 1) > tasks.size()) {
-      printText("Invalid index provided.");
+  private static int updateTaskStatus(List<String> parts, boolean status) {
+    if (parts.size() == 1) return -1;
+
+    try {
+      int i = Integer.parseInt(parts.get(1));
+      if ((i - 1) < 0 || (i - 1) > tasks.size()) {
+        return -1;
+      }
+      tasks.get(i - 1).setDone(status);
+      return i;
+    } catch (NumberFormatException e) {
+      return -1;
     }
-    tasks.get(i - 1).setDone(status);
-    return i;
   }
 
   private static void printTasks() {
@@ -146,11 +142,17 @@ public class Duke {
           addEvent(parts);
           break;
         case "mark":
-          int idx = updateTaskStatus(input, true);
+          int idx = updateTaskStatus(parts, true);
+          if (idx == -1) {
+            printText("Invalid index given");
+          }
           printText("Nice! I've marked this task as done:", tasks.get(idx - 1).toString());
           break;
         case "unmark":
-          idx = updateTaskStatus(input, false);
+          idx = updateTaskStatus(parts, false);
+          if (idx == -1) {
+            printText("Invalid index given");
+          }
           printText("OK, I've marked this task as not done yet:", tasks.get(idx - 1).toString());
           break;
         case "list":
