@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         String logo = " ██████╗██╗  ██╗ █████╗ ████████╗████████╗██╗   ██╗\n"
@@ -14,5 +16,16 @@ public class Duke {
         System.out.println("------------------------------------------");
         System.out.println("Byebye. Hope to see you again soon.");
         System.out.println("------------------------------------------");
+
+        Scanner input = new Scanner(System.in);
+        while (input.hasNext()) {
+            String cmd = input.next();
+            if (cmd.equals("bye")) {
+                System.out.println("Oh.. bye");
+                break;
+            } else {
+                System.out.println(cmd);
+            }
+        }
     }
 }
