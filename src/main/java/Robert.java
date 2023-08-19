@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Robert {
     private static void greetUser() {
         String logo = "    ____        __              __ \n"
@@ -14,6 +16,22 @@ public class Robert {
         System.out.println(output);
     }
 
+    private static void echoCommands() {
+        Scanner scanner = new Scanner(System.in);
+
+        String userCommand;
+        while (true) {
+            userCommand = scanner.nextLine();
+            if (userCommand.equals("bye")) {
+                break;
+            }
+            String output = formatOutput(userCommand);
+            System.out.println(output);
+        }
+
+        scanner.close();
+    }
+
     private static void exitChatbot() {
         String output = formatOutput("Goodbye. Hope to see you again soon!");
         System.out.println(output);
@@ -27,13 +45,14 @@ public class Robert {
             outputLines[i] = "\t" + outputLines[i] + "\n";
         }
         String indentedOutput = String.join("", outputLines);
-        String formattedOutput = indentedOutput + HORIZONTAL_LINE;
+        String formattedOutput = HORIZONTAL_LINE + indentedOutput + HORIZONTAL_LINE;
 
         return formattedOutput;
     }
 
     public static void main(String[] args) {
         greetUser();
+        echoCommands();
         exitChatbot();
     }
 }
