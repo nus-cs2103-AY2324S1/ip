@@ -1,15 +1,29 @@
+import java.util.Scanner;
+
 public class Duke {
 
     public static void horiLine(){
         System.out.println("---------------------");
     }
     public static void greet() {
-        horiLine();
+        System.out.println("---------------------");
         System.out.println("Hello! I'm AJbot\n" +
-                " What can I do for you?");
+                "What can I do for you?");
         horiLine();
     }
 
+    public static void askCommand() {
+        Scanner scanner = new Scanner(System.in);
+        String command = scanner.next();
+        if (command.toLowerCase().equals("bye")) {
+            exit();
+        } else {
+            horiLine();
+            System.out.println(command);
+            horiLine();
+            askCommand();
+        }
+    }
     public static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
         horiLine();
@@ -23,6 +37,6 @@ public class Duke {
 //        System.out.println("Hello from\n" + logo);
 
         greet();
-        exit();
+        askCommand();
     }
 }
