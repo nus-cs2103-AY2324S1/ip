@@ -22,4 +22,5 @@ jobs:
       - name: Run Shell Test
         run: |
           chmod +x ./text-ui-test/runtest.sh
-          ./text-ui-test/runtest.sh
+          cd ./text-ui-test
+          runtest.sh
