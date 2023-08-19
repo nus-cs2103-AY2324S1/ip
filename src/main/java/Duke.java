@@ -22,12 +22,16 @@ public class Duke {
                     for (int i = 0; i < taskCount; i++) {
                         output.append(i + 1).append(". ").append(tasks[i]).append("\n");
                     }
-                    sendMessage(output.toString());
+                    if (output.length() == 0) {
+                        sendMessage("No Items in List");
+                    } else {
+                        sendMessage(output.toString());
+                    }
                     break;
 
                 case "mark":
                     int choice = Integer.parseInt(arguments) - 1;
-                    if (choice < 1 || choice > taskCount) {
+                    if (choice < 0 || choice >= taskCount) {
                         sendMessage("Invalid Choice Provided!");
                         continue;
                     }
@@ -37,7 +41,7 @@ public class Duke {
 
                 case "unmark":
                     choice = Integer.parseInt(arguments) - 1;
-                    if (choice < 1 || choice > taskCount) {
+                    if (choice < 0 || choice >= taskCount) {
                         sendMessage("Invalid Choice Provided!");
                         continue;
                     }

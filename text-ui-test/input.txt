@@ -1,0 +1,13 @@
+randomCommand
+list
+todo buy bread
+event eat bread /from now /to later
+deadline make bread /by later
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+mark 4
+bye
