@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
   private String taskName;
 
   private boolean isCompleted;
@@ -18,9 +18,9 @@ public class Task {
 
   public String toString() {
     if (isCompleted) {
-      return "[X]" + " " + taskName;
+      return "[X]" + taskName;
     } else {
-      return "[ ]" + " " + taskName;
+      return "[ ]" + taskName;
     }
   }
 }
