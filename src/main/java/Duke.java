@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Duke {
     public static void main(String[] args) {
@@ -36,27 +37,58 @@ public class Duke {
         try {
             System.out.println(logo + divider + "\nHello! I'm MACHO-CATTO! Your personal chat-bot to make your \nday macho!"
                     + "\nWhat can I do for you today?" + divider);
-            String input = br.readLine();
+            String[] input = br.readLine().split(" ", 2);
+            String command = input != null ? input[0] : null;
+            String taskDesc = input.length == 1 ? null : input[1];
             //exits the echo commands when input contains 'bye'
-            while (!input.equalsIgnoreCase("bye")) {
+            while (!command.equalsIgnoreCase("bye")) {
                 System.out.println(divider);
-                if(input.equalsIgnoreCase("list")) {
-                    for (int i = 0; i < taskList.size(); i++) {
-                        int index = i+1;
-                        System.out.println(index + ". " + taskList.get(i).getTask());
+                if (command.equalsIgnoreCase("list")) {
+                    if(taskList.isEmpty()) {
+                        System.out.println("No tasks recorded, macho!");
                     }
-                }else {
-                    //add each line as a new task into the list
-                    taskList.add(new Task(input));
-                    System.out.println("added: " + input);
+                    for (int i = 0; i < taskList.size(); i++) {
+                        int index = i + 1;
+                        Task task = taskList.get(i);
+                        System.out.println(index + ".[" + task.getStatus() + "] " + task.getTaskDesc());
+                    }
+
+                } else if (command.contains("add")) {
+                    taskList.add(new Task(taskDesc, false));
+                    System.out.println("Added: " + taskDesc);
+
+                } else if (command.contains("mark")) {
+                    //Check marking of tasks
+                    int index = Integer.parseInt(taskDesc) - 1;
+                    if (index < 0 || index >= taskList.size()) {
+                        System.out.println("No tasks available at the specified index, please try again macho!");
+                    } else {
+                        Task task = taskList.get(index);
+                        String reply = "I have marked this task as %s yet, per your request, macho!";
+                        if (command.contains("unmark")) {
+                            task.markedAsUndone();
+                            System.out.println(String.format(reply, "not done"));
+                        } else {
+                            task.markedAsDone();
+                            System.out.println(String.format(reply, "done"));
+                        }
+                        System.out.println(index + 1 + ".[" + task.getStatus() + "] " + task.getTaskDesc());
+                    }
+
                 }
+
                 System.out.println(divider);
-                input = br.readLine();
+                input = br.readLine().split(" ", 2);
+                command = input != null ? input[0] : null;
+                taskDesc = input.length == 1 ? null : input[1];
+
+
             }
-            System.out.println(divider + "\nBye. Hope to see you again soon!" + divider + "\n" + endLogo);
+            System.out.println(divider + "\nBye! Hope to see you again soon, macho!" + divider + "\n" + endLogo);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 }
