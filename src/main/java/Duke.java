@@ -11,29 +11,39 @@ public class Duke {
 
         do {
             String userCommand = userInput.split(" ")[0];
-            if (userCommand.equals("list")) {
-                Task.listTasks();
-            } else if (userCommand.equals("mark")) {
-                Task.markTask(Integer.parseInt(userInput.split(" ")[1]));
-            } else if (userCommand.equals("unmark")) {
-                Task.unmarkTask(Integer.parseInt(userInput.split(" ")[1]));
-            } else if (userCommand.equals("todo")) {
-                String taskName = userInput.substring(5);
-                Task newTask = new Todo(taskName);
-                Task.addTask(newTask);
-            } else if (userCommand.equals("deadline")) {
-                String[] taskInfo = userInput.substring(9).split(" /by ");
-                String taskName = taskInfo[0];
-                String deadline = taskInfo[1];
-                Task newTask = new Deadline(taskName, deadline);
-                Task.addTask(newTask);
-            } else if (userCommand.equals("event")) {
-                String[] taskInfo = userInput.substring(6).split(" /from ");
-                String taskName = taskInfo[0];
-                String startTime = taskInfo[1].split(" /to ")[0];
-                String endTime = taskInfo[1].split(" /to ")[1];
-                Task newTask = new Event(taskName, startTime, endTime);
-                Task.addTask(newTask);
+            switch (userCommand) {
+                case "list":
+                    Task.listTasks();
+                    break;
+                case "mark":
+                    Task.markTask(Integer.parseInt(userInput.split(" ")[1]));
+                    break;
+                case "unmark":
+                    Task.unmarkTask(Integer.parseInt(userInput.split(" ")[1]));
+                    break;
+                case "todo": {
+                    String taskName = userInput.substring(5);
+                    Task newTask = new Todo(taskName);
+                    Task.addTask(newTask);
+                    break;
+                }
+                case "deadline": {
+                    String[] taskInfo = userInput.substring(9).split(" /by ");
+                    String taskName = taskInfo[0];
+                    String deadline = taskInfo[1];
+                    Task newTask = new Deadline(taskName, deadline);
+                    Task.addTask(newTask);
+                    break;
+                }
+                case "event": {
+                    String[] taskInfo = userInput.substring(6).split(" /from ");
+                    String taskName = taskInfo[0];
+                    String startTime = taskInfo[1].split(" /to ")[0];
+                    String endTime = taskInfo[1].split(" /to ")[1];
+                    Task newTask = new Event(taskName, startTime, endTime);
+                    Task.addTask(newTask);
+                    break;
+                }
             }
             promptInput();
         } while (!userInput.equals("bye"));
