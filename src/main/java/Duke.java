@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
 
 	static String botName = "GOAT";
 	static Scanner input = new Scanner(System.in);
+	static List<String> tasks = new ArrayList<>();
 
 	public static void main(String[] args) {
 		String logo = "\t   ______    ___        _    _________ \n"
@@ -19,11 +22,30 @@ public class Duke {
 			String command = input.nextLine().trim();
 			if (command.equals("bye"))
 				break;
-			printLine();
-			System.out.printf("\t%s\n", command);
-			printLine();
+			switch (command) {
+				case "list":
+					listTasks();
+					break;
+				default:
+					addTask(command);
+			}
 		}
 		sayBye();
+	}
+
+	static void listTasks() {
+		printLine();
+		for (int i = 0; i < tasks.size(); ++i)
+			System.out.printf("\t %d. %s\n", i + 1, tasks.get(i));
+		printLine();
+	}
+
+	static void addTask(String task) {
+		tasks.add(task);
+
+		printLine();
+		System.out.printf("\t added: %s\n", task);
+		printLine();
 	}
 
 	static void greet() {
