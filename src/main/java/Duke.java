@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
@@ -7,36 +6,73 @@ public class Duke {
     private static int taskCount = 0;
     public static void main(String[] args) {
         greet();
-        while (true) {
-            String userInput = readMessage();
-            if (userInput.equals("list")) {
-                StringBuilder output = new StringBuilder();
-                for (int i = 0; i < taskCount; i++) {
-                    output.append(i + 1).append(". ").append(tasks[i]).append("\n");
-                }
-                sendMessage(output.toString());
-            } else if (userInput.contains("unmark")) {
-                int choice = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                if (choice < 1 || choice > taskCount) {
-                    sendMessage("Invalid Choice Provided!");
-                    continue;
-                }
-                tasks[choice].markAsNotDone();
-                sendMessage("OK, I've marked this task as not done yet:\n  " + tasks[choice]);
-            } else if (userInput.contains("mark")) {
-                int choice = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                if (choice < 1 || choice > taskCount) {
-                    sendMessage("Invalid Choice Provided!");
-                    continue;
-                }
-                tasks[choice].markAsDone();
-                sendMessage("Nice! I've marked this task as done:\n  " + tasks[choice]);
-            } else if (!Objects.equals(userInput, "bye")) {
-                tasks[taskCount] = new Task(userInput);
-                taskCount++;
-                sendMessage("added: " + userInput);
-            } else {
-                break;
+
+        boolean active = true;
+        while (active) {
+            String[] userInput = readMessage().split(" ", 2);
+            String command = userInput[0];
+            String arguments = userInput.length == 2 ? userInput[1] : "";
+            switch (command){
+                case "bye":
+                    active = false;
+                    break;
+
+                case "list":
+                    StringBuilder output = new StringBuilder();
+                    for (int i = 0; i < taskCount; i++) {
+                        output.append(i + 1).append(". ").append(tasks[i]).append("\n");
+                    }
+                    sendMessage(output.toString());
+                    break;
+
+                case "mark":
+                    int choice = Integer.parseInt(arguments) - 1;
+                    if (choice < 1 || choice > taskCount) {
+                        sendMessage("Invalid Choice Provided!");
+                        continue;
+                    }
+                    tasks[choice].markAsDone();
+                    sendMessage("Nice! I've marked this task as done:\n  " + tasks[choice]);
+                    break;
+
+                case "unmark":
+                    choice = Integer.parseInt(arguments) - 1;
+                    if (choice < 1 || choice > taskCount) {
+                        sendMessage("Invalid Choice Provided!");
+                        continue;
+                    }
+                    tasks[choice].markAsNotDone();
+                    sendMessage("OK, I've marked this task as not done yet:\n  " + tasks[choice]);
+                    break;
+
+                case "todo":
+                    tasks[taskCount] = new Todo(arguments);
+                    taskCount++;
+                    sendMessage("Got it. I've added this task:\n  " +
+                            tasks[taskCount-1] +
+                            String.format("\nNow you have %d tasks in the list.", taskCount));
+                    break;
+
+                case "deadline":
+                    String[] userArgs = arguments.split("/by ");
+                    tasks[taskCount] = new Deadline(userArgs[0], userArgs[1]);
+                    taskCount++;
+                    sendMessage("Got it. I've added this task:\n  " +
+                            tasks[taskCount-1] +
+                            String.format("\nNow you have %d tasks in the list.", taskCount));
+                    break;
+
+                case "event":
+                    userArgs = arguments.split("/from |/to ");
+                    tasks[taskCount] = new Event(userArgs[0], userArgs[1], userArgs[2]);
+                    taskCount++;
+                    sendMessage("Got it. I've added this task:\n  " +
+                            tasks[taskCount-1] +
+                            String.format("\nNow you have %d tasks in the list.", taskCount));
+                    break;
+                default:
+                    sendMessage("Invalid Command, please try again");
+                    break;
             }
         }
         exit();
