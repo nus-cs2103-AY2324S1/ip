@@ -6,6 +6,30 @@ import java.util.Scanner;
 public class Duke {
     private static final Scanner scanner = new Scanner(System.in);
     private static final List<Task> tasks = new ArrayList<>();
+
+    private enum Colors {
+        RESET("\u001B[0m"),
+        BLACK("\u001B[30m"),
+        RED("\u001B[31m"),
+        GREEN("\u001B[32m"),
+        YELLOW("\u001B[33m"),
+        BLUE("\u001B[34m"),
+        PURPLE("\u001B[35m"),
+        CYAN("\u001B[36m"),
+        ;
+
+        private final String code;
+
+        private Colors(String c) {
+            code = c;
+        }
+
+        @Override
+        public String toString() {
+            return code;
+        }
+    }
+
     public static void main(String[] args) {
         greet();
 
@@ -152,7 +176,7 @@ public class Duke {
     public static void sendMessage(String msgs) {
         printLine();
         for (String msg: msgs.split("\n")) {
-            System.out.println("\t" + msg);
+            System.out.println("\t" + Colors.CYAN + msg + Colors.RESET);
         }
         printLine();
     }
@@ -160,7 +184,7 @@ public class Duke {
     public static void sendError(String msgs) {
         printLine();
         for (String msg: msgs.split("\n")) {
-            System.out.println("\t" + msg);
+            System.out.println("\t" + Colors.RED + msg + Colors.RESET);
         }
         printLine();
     }
