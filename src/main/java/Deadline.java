@@ -1,3 +1,6 @@
+/**
+ * Deadline represents a task with an end date.
+ */
 public class Deadline extends Task {
   private String deadline;
 

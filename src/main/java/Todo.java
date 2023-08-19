@@ -1,3 +1,6 @@
+/**
+ * This class represents a basic task that can be marked.
+ */
 public class Todo extends Task {
   public Todo(String taskName) throws DukeException {
     super(taskName);

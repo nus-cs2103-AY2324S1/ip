@@ -1,8 +1,15 @@
 import java.util.Scanner;
 
+/**
+ * Main class that drives the Duke chatbot.
+ */
 public class Duke {
 
     public static Scanner scannerObj = new Scanner(System.in);
+
+    /**
+     * Latest user input is saved in a static field.
+     */
     public static String userInput;
 
     public static void main(String[] args) {
@@ -105,6 +112,9 @@ public class Duke {
         return userInput;
     }
 
+    /**
+     * Prints a horizontal line. To be used by different classes.
+     */
     public static void printLine() {
         int charCount = 50;
         for (int i = 0; i < charCount; i++) {
