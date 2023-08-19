@@ -1,6 +1,9 @@
 import java.util.Scanner;
 public class Duke {
     private TaskList taskList = new TaskList();
+    private enum Command {
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
+    }
     private void greet() {
         String greetMsg = "Hello! I'm Atlas\n"
                 + "What can I do for you?\n";
@@ -22,29 +25,44 @@ public class Duke {
             try {
                 String msg = sc.nextLine();
                 String[] msgArr = msg.split(" ");
-                if (msgArr[0].equals("bye")) {
-                    exit();
-                    break;
-                } else if (msgArr[0].equals("list")) {
-                    list();
-                } else if (msgArr[0].equals("mark")) {
-                    this.taskList.markAsDone(msgArr);
-                } else if (msgArr[0].equals("unmark")) {
-                    this.taskList.markAsUndone(msgArr);
-                } else if (msgArr[0].equals("delete")) {
-                    this.taskList.delete(msgArr);
-                } else if (msgArr[0].equals("todo")){
-                    this.taskList.newTodo(msg);
-                } else if (msgArr[0].equals("deadline")){
-                    this.taskList.newDeadline(msg);
-                } else if (msgArr[0].equals("event")){
-                    this.taskList.newEvent(msg);
-                } else {
-                    throw new DukeNoSuchCommandException();
+                Command command = this.convert((msgArr[0]));
+                switch (command) {
+                    case BYE:
+                        this.exit();
+                        return;
+                    case LIST:
+                        this.list();
+                        break;
+                    case MARK:
+                        this.taskList.markAsDone(msgArr);
+                        break;
+                    case UNMARK:
+                        this.taskList.markAsUndone(msgArr);
+                        break;
+                    case DELETE:
+                        this.taskList.delete(msgArr);
+                        break;
+                    case TODO:
+                        this.taskList.newTodo(msg);
+                        break;
+                    case DEADLINE:
+                        this.taskList.newDeadline(msg);
+                        break;
+                    case EVENT:
+                        this.taskList.newEvent(msg);
+                        break;
                 }
             } catch (DukeException e) {
                 System.out.println(e);
             }
+        }
+    }
+
+    private Command convert(String str) throws DukeNoSuchCommandException {
+        try {
+            return Command.valueOf(str.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new DukeNoSuchCommandException();
         }
     }
 

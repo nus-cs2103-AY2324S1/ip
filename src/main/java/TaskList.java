@@ -20,8 +20,8 @@ public class TaskList {
 
     public void newDeadline(String input) throws DukeMissingArgumentException {
         try {
-            String[] msgArr = input.split("deadline ");             // {"", "return book /by Sunday"}
-            msgArr = msgArr[1].split(" /by ");                      // {"return book", "Sunday"}
+            String[] msgArr = input.split("deadline ");
+            msgArr = msgArr[1].split(" /by ");
             Task newTask = new Deadline(msgArr[0], msgArr[1]);
             this.taskList.add(newTask);
             String msg = "Got it. I've added this task:\n"
@@ -36,10 +36,10 @@ public class TaskList {
 
     public void newEvent(String input) throws DukeMissingArgumentException {
         try {
-            String[] msgArr = input.split("event ");       // "event project meeting /from Mon 2pm /to 4pm"
-            msgArr = msgArr[1].split(" /from ");           // {"", "project meeting /from Mon 2pm /to 4pm"}
-            String description = msgArr[0];                // {"project meeting", "Mon 2pm /to 4pm"}
-            msgArr = msgArr[1].split(" /to ");             // {"Mon 2pm", "4pm"}
+            String[] msgArr = input.split("event ");
+            msgArr = msgArr[1].split(" /from ");
+            String description = msgArr[0];
+            msgArr = msgArr[1].split(" /to ");
             Task newTask = new Event(description, msgArr[0], msgArr[1]);
             taskList.add(newTask);
             String msg = "Got it. I've added this task:\n"
