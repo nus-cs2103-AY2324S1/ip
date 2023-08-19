@@ -12,8 +12,12 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void Echo() {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
+       Greets();
+
+       Scanner scanner = new Scanner(System.in);
+       String[] store = new String[100];
+
         while (true) {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
@@ -21,14 +25,25 @@ public class Duke {
                 scanner.close();
                 break;
             }
-            System.out.println(input);
+            if (input.equals("list")) {
+                for (int i = 0; i < store.length; i++) {
+                    if (store[i] != null) {
+                        System.out.println(i + 1 + ". " + store[i]);
+                    }
+                }
+            }
+            else {
+                System.out.println("added: " + input);
+                for (int i = 0; i < store.length; i++) {
+                    if (store[i] == null) {
+                        store[i] = input;
+                        break;
+                    }
+                }
+            }
         }
 
-    }
-    public static void main(String[] args) {
-       Greets();
-
-         Echo();
+         
     }
 
 }
