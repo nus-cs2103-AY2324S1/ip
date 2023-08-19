@@ -7,10 +7,18 @@ on:
     tags:
       - Level-*
 jobs:
-  test:
+  UI-Test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: run Test
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+
+      - name: Run Shell Test
         run: |
+          chmod +x ./text-ui-test/runtest.sh
           ./text-ui-test/runtest.sh
