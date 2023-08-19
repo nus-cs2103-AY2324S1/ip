@@ -28,6 +28,12 @@ public class Duke {
     }
   }
 
+  private static void addToDo(List<Task> tasks, String line) {
+    String content = line.substring("todo ".length());
+    ToDo todo = new ToDo(content);
+    tasks.add(todo);
+  }
+
   public static void main(String[] args) {
     printText("Hello! I'm Cyrus\nWhat can I do for you?", globalIndentation);
     String input = "";
@@ -35,38 +41,49 @@ public class Duke {
     List<Task> tasks = new ArrayList<>();
     while (true) {
       input = sc.nextLine();
-      if (input.equals("bye")) break;
-      if (input.startsWith("mark")) {
-        int i = extractIndex(input, 1);
-        if ((i - 1) < 0 || (i - 1) > tasks.size()) {
-          printText("Invalid index provided.", globalIndentation);
-        }
-        tasks.get(i - 1).markDone();
-        printText(
-            String.format("Nice! I've marked this task as done:\n%s", tasks.get(i - 1)),
-            globalIndentation
-        );
-      } else if (input.startsWith("unmark")) {
-        int i = extractIndex(input, 1);
-        if ((i - 1) < 0 || (i - 1) > tasks.size()) {
-          printText("Invalid index provided.", globalIndentation);
-        }
-        tasks.get(i - 1).unmarkDone();
-        printText(
-            String.format("Nice! I've marked this task as done:\n%s", tasks.get(i - 1)),
-            globalIndentation
-        );
-      } else if (input.equals("list")) {
-        String output = IntStream
-            .range(0, tasks.size())
-            .mapToObj((i) -> String.format("%d. %s", i + 1, tasks.get(i)))
-            .collect(Collectors.joining("\n"));
-        printText(String.format("Here are the tasks in your list:\n%s", output), globalIndentation);
-      } else {
-        printText(String.format("added: %s", input), globalIndentation);
-        tasks.add(new Task(input));
+
+      String command = input.split(" ")[0];
+      int i;
+      switch (command) {
+        case "bye":
+          printText("Bye. Hope to see you again soon!", globalIndentation);
+          return;
+        case "todo":
+          addToDo(tasks, input);
+          break;
+        case "mark":
+          i = extractIndex(input, 1);
+          if ((i - 1) < 0 || (i - 1) > tasks.size()) {
+            printText("Invalid index provided.", globalIndentation);
+          }
+          tasks.get(i - 1).markDone();
+          printText(
+              String.format("Nice! I've marked this task as done:\n%s", tasks.get(i - 1)),
+              globalIndentation
+          );
+          break;
+        case "unmark":
+          i = extractIndex(input, 1);
+          if ((i - 1) < 0 || (i - 1) > tasks.size()) {
+            printText("Invalid index provided.", globalIndentation);
+          }
+          tasks.get(i - 1).unmarkDone();
+          printText(
+              String.format("Nice! I've marked this task as done:\n%s", tasks.get(i - 1)),
+              globalIndentation
+          );
+          break;
+        case "list":
+          String output = IntStream
+              .range(0, tasks.size())
+              .mapToObj((j) -> String.format("%d. %s", j + 1, tasks.get(j)))
+              .collect(Collectors.joining("\n"));
+          printText(String.format("Here are the tasks in your list:\n%s", output), globalIndentation);
+          break;
+        default:
+          tasks.add(new Task(input));
+          printText(String.format("added: %s", input), globalIndentation);
       }
     }
-    printText("Bye. Hope to see you again soon!", globalIndentation);
   }
 }
