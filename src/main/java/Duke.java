@@ -9,10 +9,9 @@ public class Duke {
   private final static int globalIndentation = 4;
   private final static List<Task> tasks = new ArrayList<>();
 
-  private static void printText(String text) {
+  private static void printText(String... lines) {
     String frontPadding = " ".repeat(Duke.globalIndentation);
     System.out.printf("%s%s\n", frontPadding, delimiter);
-    String[] lines = text.split("\n");
     for (String line : lines) {
       System.out.printf("%s%s\n", frontPadding, line);
     }
@@ -31,11 +30,9 @@ public class Duke {
 
   private static void printAddTask(Task task) {
     printText(
-        String.format(
-            "Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
-            task,
-            tasks.size()
-        )
+        "Got it. I've added this task:",
+        task.toString(),
+        String.format("Now you have %d tasks in the list.", tasks.size())
     );
   }
 
@@ -86,15 +83,17 @@ public class Duke {
   }
 
   private static void printTasks() {
-    String output = IntStream
+    List<String> formatted = IntStream
         .range(0, tasks.size())
         .mapToObj((j) -> String.format("%d. %s", j + 1, tasks.get(j)))
-        .collect(Collectors.joining("\n"));
-    printText(String.format("Here are the tasks in your list:\n%s", output));
+        .collect(Collectors.toList());
+    formatted.add(0, "Here are the tasks in your list:");
+    String[] output = formatted.toArray(String[]::new);
+    printText(output);
   }
 
   public static void main(String[] args) {
-    printText("Hello! I'm Cyrus\nWhat can I do for you?");
+    printText("Hello! I'm Cyrus", "What can I do for you?");
     String input;
     Scanner sc = new Scanner(System.in);
     while (true) {
@@ -115,15 +114,11 @@ public class Duke {
           break;
         case "mark":
           int idx = updateTaskStatus(input, true);
-          printText(
-              String.format("Nice! I've marked this task as done:\n%s", tasks.get(idx - 1))
-          );
+          printText("Nice! I've marked this task as done:", tasks.get(idx - 1).toString());
           break;
         case "unmark":
           idx = updateTaskStatus(input, false);
-          printText(
-              String.format("OK, I've marked this task as not done yet:\n%s", tasks.get(idx - 1))
-          );
+          printText("OK, I've marked this task as not done yet:", tasks.get(idx - 1).toString());
           break;
         case "list":
           printTasks();
