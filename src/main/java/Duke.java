@@ -72,20 +72,29 @@ public class Duke {
     printAddTask(deadline);
   }
 
-  private static void addEvent(String line) {
-    String content = line.substring("event ".length());
-    String[] parts = content.split(" /from ");
-    if (parts.length != 2) {
-      printText("Invalid event format.");
+  private static void addEvent(List<String> parts) {
+    if (parts.size() == 1) {
+      printText("Event is missing a body!");
       return;
     }
-    String name = parts[0];
-    String[] rest = parts[1].split(" /to ");
-    if (rest.length != 2) {
-      printText("Invalid event format.");
+
+    int fromIdx = parts.indexOf("/from");
+    if (fromIdx == -1) {
+      printText("Invalid event format: missing /from");
       return;
     }
-    Task event = new Event(name, rest[0], rest[1]);
+
+    int toIdx = parts.indexOf("/to");
+    if (toIdx == -1) {
+      printText("Invalid event format: missing /to");
+      return;
+    }
+
+    String eventName = String.join(" ", parts.subList(1, fromIdx));
+    String eventFrom = String.join(" ", parts.subList(fromIdx + 1, toIdx));
+    String eventTo = String.join(" ", parts.subList(toIdx + 1, parts.size()));
+
+    Task event = new Event(eventName, eventFrom, eventTo);
     tasks.add(event);
     printAddTask(event);
   }
@@ -134,7 +143,7 @@ public class Duke {
           addDeadline(parts);
           break;
         case "event":
-          addEvent(input);
+          addEvent(parts);
           break;
         case "mark":
           int idx = updateTaskStatus(input, true);
