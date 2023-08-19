@@ -1,17 +1,17 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 public class TaskList {
-    private Task[] taskList = new Task[100];
-    private int index = 0;
+    private ArrayList<Task> taskList = new ArrayList<>();
 
     public void newTodo(String input) throws DukeMissingArgumentException {
         try {
             String[] msgArr = input.split("todo ");
             Task newTask = new Todo(msgArr[1]);
-            taskList[index] = newTask;
-            index ++;
+            this.taskList.add(newTask);
             String msg = "Got it. I've added this task:\n"
                     + "\t" + newTask + "\n"
-                    + "Now you have " + this.index + " task"
-                    + (index == 1 ? "" : "s") + " in the list.\n";
+                    + "Now you have " + this.taskList.size() + " task"
+                    + (taskList.size() <= 1 ? "" : "s") + " in the list.\n";
             System.out.println(msg);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
@@ -23,12 +23,11 @@ public class TaskList {
             String[] msgArr = input.split("deadline ");             // {"", "return book /by Sunday"}
             msgArr = msgArr[1].split(" /by ");                      // {"return book", "Sunday"}
             Task newTask = new Deadline(msgArr[0], msgArr[1]);
-            taskList[index] = newTask;
-            index ++;
+            this.taskList.add(newTask);
             String msg = "Got it. I've added this task:\n"
                     + "\t" + newTask + "\n"
-                    + "Now you have " + this.index + " task"
-                    + (index == 1 ? "" : "s") + " in the list.\n";
+                    + "Now you have " + this.taskList.size() + " task"
+                    + (taskList.size() <= 1 ? "" : "s") + " in the list.\n";
             System.out.println(msg);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
@@ -42,12 +41,11 @@ public class TaskList {
             String description = msgArr[0];                // {"project meeting", "Mon 2pm /to 4pm"}
             msgArr = msgArr[1].split(" /to ");             // {"Mon 2pm", "4pm"}
             Task newTask = new Event(description, msgArr[0], msgArr[1]);
-            taskList[index] = newTask;
-            index ++;
+            taskList.add(newTask);
             String msg = "Got it. I've added this task:\n"
                     + "\t" + newTask + "\n"
-                    + "Now you have " + this.index + " task"
-                    + (index == 1 ? "" : "s") + " in the list.\n";
+                    + "Now you have " + this.taskList.size() + " task"
+                    + (taskList.size() <= 1 ? "" : "s") + " in the list.\n";
             System.out.println(msg);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
@@ -64,6 +62,9 @@ public class TaskList {
                 break;
             }
         }
+        if (taskList.size() == 0) {
+            msg = "You have no task currently.";
+        }
         System.out.println(msg);
     }
 
@@ -71,13 +72,13 @@ public class TaskList {
             DukeInvalidArgumentException, DukeMissingArgumentException {
         try {
             int i = Integer.parseInt(msgArr[1]);
-            if (i - 1 >= index) {
+            if (i - 1 >= this.taskList.size()) {
                 throw new DukeNoTaskFoundException();
             }
-            this.taskList[i - 1].markAsDone();
+            this.taskList.get(i - 1).markAsDone();
         } catch (NumberFormatException e) {
             throw new DukeInvalidArgumentException();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
         }
     }
@@ -86,13 +87,34 @@ public class TaskList {
             DukeInvalidArgumentException, DukeMissingArgumentException {
         try {
             int i = Integer.parseInt(msgArr[1]);
-            if (i - 1 >= index) {
+            if (i - 1 >= this.taskList.size()) {
                 throw new DukeNoTaskFoundException();
             }
-            this.taskList[i - 1].markAsUndone();
+            this.taskList.get(i - 1).markAsUndone();
         } catch (NumberFormatException e) {
             throw new DukeInvalidArgumentException();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeMissingArgumentException();
+        }
+    }
+
+    public void delete(String[] msgArr) throws DukeNoTaskFoundException,
+            DukeInvalidArgumentException, DukeMissingArgumentException {
+        try {
+            int i = Integer.parseInt(msgArr[1]);
+            if (i - 1 >= this.taskList.size()) {
+                throw new DukeNoTaskFoundException();
+            }
+            Task removedTask = this.taskList.get(i - 1);
+            this.taskList.remove(i - 1);
+            String msg = "Noted. I've removed this task:\n"
+                    + "\t" + removedTask + "\n"
+                    + "Now you have " + this.taskList.size() + " task"
+                    + (this.taskList.size() <= 1 ? "" : "s") + " in the list.\n";
+            System.out.println(msg);
+        } catch (NumberFormatException e) {
+            throw new DukeInvalidArgumentException();
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
         }
     }

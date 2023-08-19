@@ -31,6 +31,8 @@ public class Duke {
                     this.taskList.markAsDone(msgArr);
                 } else if (msgArr[0].equals("unmark")) {
                     this.taskList.markAsUndone(msgArr);
+                } else if (msgArr[0].equals("delete")) {
+                    this.taskList.delete(msgArr);
                 } else if (msgArr[0].equals("todo")){
                     this.taskList.newTodo(msg);
                 } else if (msgArr[0].equals("deadline")){
