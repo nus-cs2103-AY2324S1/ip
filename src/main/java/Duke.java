@@ -1,8 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Encapsulates the logic of a Chat bot
+ *
+ * @author Rayson
+ */
 public class Duke {
 
     public static void main(String[] args) {
+        List<Task> tasks = new ArrayList<>();
+
         String LINE = "_______________________________________";
         String logo = "         _           _           _            _        _          _           _            _              _     _      _      \n" +
                 "        /\\ \\        /\\ \\        / /\\         /\\ \\     /\\ \\       /\\ \\        /\\ \\         /\\ \\     _     /\\ \\ /_/\\    /\\ \\    \n" +
@@ -36,8 +45,20 @@ public class Duke {
                 }
 
                 System.out.println(LINE);
-                System.out.println(input);
+
+                if (input.equalsIgnoreCase("list")) {
+                    for (int i = 0; i < tasks.size(); i++) {
+                        Task task = tasks.get(i);
+                        System.out.println(String.format("%d. %s", i + 1, task));
+                    }
+                    System.out.println(LINE);
+                    continue;
+                }
+
+                tasks.add(new Task(input));
+                System.out.println(String.format("added: %s", input));
                 System.out.println(LINE);
+
             }
         } catch (Exception e) {
             System.out.println("Respironix has encountered an issue; exiting");
