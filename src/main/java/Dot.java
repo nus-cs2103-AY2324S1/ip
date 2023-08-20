@@ -14,8 +14,7 @@ public class Dot {
 
     // Class methods - Display, UI
     public static void welcome() {
-        System.out.printf("%sHello! I'm Dot, " +
-                "let me help you finish your tasks on the dot!\n" +
+        System.out.printf("%sHello! I'm Dot\n" +
                 "What can I do for you?\n", HORIZONTAL_RULE);
     }
 
