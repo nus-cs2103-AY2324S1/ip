@@ -1,0 +1,27 @@
+todo borrow book
+list
+todo set up project
+todo call mother
+mark 2
+mark 1
+mark 3
+unmark 2
+list
+deadline return book \by Friday
+deadline finish project \by Monday
+mark 4
+event dinner with family \from Tuesday 6pm \to Tuesday 8pm
+mark 6
+deadline submit application \by Wednesday
+mark 12
+list
+gibberish
+event lunch with family \from Saturday 1pm \to Saturday 3pm
+mark 7
+mark 5
+list
+unmark 6
+unmark 6
+list
+fsdkfns
+bye
