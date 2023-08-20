@@ -13,11 +13,14 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input;
         do {
+            System.out.println("####################");
             input = scanner.nextLine();
+            if (input.equals("bye")) {
+                continue;
+            }
             if (input.equals("list")) {
-                for (int i = 0; i < userTasks.size(); i++) {
-                    System.out.println(userTasks.get(i).toString());
-                }
+                System.out.println("Here are the tasks in your list:");
+                System.out.println(userTasks.toString());
                 continue;
             }
             // If input has mark followed by an integer, mark the task[i-1] as done.
@@ -31,29 +34,15 @@ public class Duke {
                 userTasks.get(TaskID).markAsUndone();
             }
 
-            // If input has todo, followed by the task, add the task as new Todo.
-            else if (input.startsWith("todo")) {
-                Task task = new Todo (input.substring(5));
-                userTasks.add(task);
+            // New tasks are added to the list.
+            else {
+                try {
+                    Task task = Task.createTask(input);
+                    userTasks.add(task);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-            // If input has deadline, followed by the task and the deadline, add the task as new Deadline.
-            else if (input.startsWith("deadline")) {
-                String[] inputSplit = input.split(" /by ");
-                Task task = new Deadline(inputSplit[0].substring(9), inputSplit[1]);
-                userTasks.add(task);
-            }
-            // If input has event, followed by event name and start and end dates, add task as new Event.
-            else if (input.startsWith("event")) {
-                String[] inputSplit = input.split(" /");
-                Task task = new Event(inputSplit[0].substring(6), inputSplit[1].substring(5), inputSplit[2].substring(3));
-                userTasks.add(task);
-            }
-            else if (!input.equals("bye")){ //input as new task
-                Task task = new Task(input);
-                userTasks.add(task);
-                System.out.println("added: " + input);
-            }
-
         } while (!input.equals("bye"));
         System.out.println("Bye. Hope to see you again soon!");
     }

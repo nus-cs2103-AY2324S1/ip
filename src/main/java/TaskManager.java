@@ -29,4 +29,13 @@ public class TaskManager {
     public int size() {
         return this.userTasks.size();
     }
+
+    @Override
+    public String toString() {
+        String output = "";
+        for (int i = 0; i < userTasks.size(); i++) {
+            output += (i + 1) + ". " + userTasks.get(i).toString() + "\n";
+        }
+        return output;
+    }
 }
