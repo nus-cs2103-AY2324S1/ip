@@ -1,12 +1,12 @@
-Hello I'm Oscar! Your friendly chatbot :)
-What can I do for you?
+Hello! This is Oscar, your friendly chatbot :)
+What can Oscar do for you?
 
-Oscar added:
+Oscar has added:
 [T][ ] read book
 
 You have 1 task in the list.
 
-Oscar added:
+Oscar has added:
 [T][ ] join cca
 
 You now have 2 tasks in the list
@@ -15,17 +15,17 @@ Here are the tasks in your list:
 1.[T][ ] read book
 2.[T][ ] join cca
 
-Oscar added:
+Oscar has added:
 [D][ ] return book (by: Sunday)
 
 You now have 3 tasks in the list
 
-Oscar added:
+Oscar has added:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 
 You now have 4 tasks in the list
 
-Nice! I've marked this task as done:
+Nice! Oscar has marked this task as done:
 
 [D][X] return book (by: Sunday)
 
