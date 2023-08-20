@@ -10,45 +10,112 @@ public class Smolbrain {
 
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> data = new ArrayList<>();
+        boolean run = true;
 
-        while(true) {
+        while(run) {
             String input = sc.nextLine();
             System.out.println("____________________________________________________________");
+            String[] words = input.split(" ");
+            String descr = "";
 
-            if (input.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("____________________________________________________________\n");
-                break;
-            }
-
-            switch (input) {
+            switch (words[0]) {
                 case "list":
                     System.out.println("Here are the tasks in your list: ");
                     for (int i = 0; i < data.size(); i++) {
-                        System.out.println((i+1) + ". " + data.get(i).display());
+                        System.out.println((i+1) + ". " + data.get(i));
                     }
                     break;
 
-                default:
-                    if (input.contains("unmark")){
-                        int num = Integer.parseInt(input.replace("unmark ", "")) - 1;
-                        System.out.println("OK, I've marked this task as not done yet: ");
-                        data.get(num).unmark();
-                        System.out.println(data.get(num).display());
-                        break;
-                    } else if (input.contains("mark")){
-                        int num = Integer.parseInt(input.replace("mark ", "")) - 1;
-                        System.out.println("Nice! I've marked this task as done: ");
-                        data.get(num).mark();
-                        System.out.println(data.get(num).display());
-                        break;
+                case "todo":
+                    for (int i = 1; i < words.length; i++) {
+                        descr = descr + words[i] + " ";
                     }
-                    
-                    Task task = new Task(input);
-                    data.add(task);
-                    System.out.println("added: " + input);
+                    descr = descr.substring(0, descr.length()-1);
+                    Todo todo = new Todo(descr);
+                    data.add(todo);
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(todo);
+                    System.out.println("Now you have " + data.size() +" tasks in the list.");
+                    break;
+
+                case "deadline":
+                    boolean by = false;
+                    String by_text = "";
+                    for (int i = 1; i < words.length; i++) {
+                        if (words[i].equals("/by")) {
+                            by = true;
+                            continue;
+                        }
+                        if (by) {
+                            by_text = by_text + words[i] + " ";
+                        } else {
+                            descr = descr + words[i] + " ";
+                        }
+                    }
+                    descr = descr.substring(0, descr.length()-1);
+                    by_text = by_text.substring(0, by_text.length()-1);
+                    Deadline deadline = new Deadline(descr, by_text);
+                    data.add(deadline);
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(deadline);
+                    System.out.println("Now you have " + data.size() +" tasks in the list.");
+                    break;
+
+                case "event":
+                    boolean from = false;
+                    boolean to = false;
+                    String from_text = "";
+                    String to_text = "";
+                    for (int i = 1; i < words.length; i++) {
+                        if (words[i].equals("/from")) {
+                            from = true;
+                            continue;
+                        } else if (words[i].equals("/to")){
+                            to = true;
+                            continue;
+                        }
+                        if (to) {
+                            to_text = to_text + words[i] + " ";
+                        } else if (from) {
+                            from_text = from_text + words[i] + " ";
+                        } else {
+                            descr = descr + words[i] + " ";
+                        }
+                    }
+                    descr = descr.substring(0, descr.length()-1);
+                    from_text = from_text.substring(0, from_text.length()-1);
+                    to_text = to_text.substring(0, to_text.length()-1);
+                    Event event = new Event(descr, from_text, to_text);
+                    data.add(event);
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(event);
+                    System.out.println("Now you have " + data.size() +" tasks in the list.");
+                    break;
+
+                case "mark":
+                    int marknum = Integer.parseInt(words[1]);
+                    data.get(marknum-1).mark();
+                    System.out.println("Nice! I've marked this task as done: ");
+                    System.out.println(data.get(marknum-1));
+                    break;
+
+                case "unmark":
+                    int unmarknum = Integer.parseInt(words[1]);
+                    data.get(unmarknum-1).unmark();
+                    System.out.println("OK, I've marked this task as not done yet: ");
+                    System.out.println(data.get(unmarknum-1));
+                    break;
+
+                case "bye":
+                    System.out.println("Bye. Hope to see you again soon!");
+                    run = false;
+                    break;
+
+                default:
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     break;
             }
+
             System.out.println("____________________________________________________________\n");
         }
 
