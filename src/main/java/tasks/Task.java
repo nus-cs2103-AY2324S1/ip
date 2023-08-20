@@ -28,7 +28,7 @@ public class Task {
                                             : "Already unmarked.");
         } else {
             this.completed = newStatus;
-            Ui.displayMarkOrUnmark(this.completed, this.description);
+            Ui.displayMarkOrUnmark(this.completed, this.toString());
         }
     }
 

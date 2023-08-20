@@ -35,13 +35,13 @@ public class Ui {
                 HORIZONTAL_RULE, msg, HORIZONTAL_RULE);
     }
 
-    public static void displayMarkOrUnmark(boolean isMarking, String item) {
+    public static void displayMarkOrUnmark(boolean isMarking, String task) {
         if (isMarking) {
             wrapPrintWithHorizontalRules(String.format(
-                    "Nice! I've marked this task as done:\n  [X] %s", item));
+                    "Nice! I've marked this task as done:\n  %s", task));
         } else {
             wrapPrintWithHorizontalRules(String.format(
-                    "OK, I've marked this task as not done yet:\n  [] %s", item));
+                    "OK, I've marked this task as not done yet:\n  %s", task));
         }
 
     }
