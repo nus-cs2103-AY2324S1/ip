@@ -13,7 +13,7 @@ public class TaskList {
         this.maxSize = maxSize;
     }
 
-    public void addItem(Task newTask) {
+    public void addTask(Task newTask) {
         if (this.tasks.size() < this.maxSize) {
             this.tasks.add(newTask);
             Ui.wrapPrintWithHorizontalRules(String.format("Got it. I've added this task:\n" +
@@ -50,6 +50,15 @@ public class TaskList {
     public void markTask(int position, boolean isCompleted) {
         if (position >= 0 && position < this.tasks.size()) {
             this.tasks.get(position).toggleStatus(isCompleted);
+        } else {
+            Ui.wrapPrintWithHorizontalRules("Invalid position.");
+        }
+    }
+
+    public void deleteTask(int position) {
+        if (position >= 0 && position < this.tasks.size()) {
+            Task removedTask = this.tasks.remove(position);
+            Ui.wrapPrintWithHorizontalRules(String.format("Task \"%s\" removed successfully!", removedTask));
         } else {
             Ui.wrapPrintWithHorizontalRules("Invalid position.");
         }
