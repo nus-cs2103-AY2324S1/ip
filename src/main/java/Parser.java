@@ -26,7 +26,7 @@ public class Parser {
                 storage.add(description, by);
                 break;
             case "event":
-                description = input.substring(8, input.indexOf("/"));
+                description = input.substring(6, input.indexOf("/"));
                 String from = input.split("/from")[1].split("/to")[0];
                 String to = input.split("/to")[1];
                 storage.add(description, from, to);
