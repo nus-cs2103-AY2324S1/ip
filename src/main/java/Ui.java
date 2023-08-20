@@ -1,29 +1,46 @@
+import java.util.Scanner;
+
 public class Ui {
-    private static final String DIVIDER = "__________________________________";
+    private static final String DIVIDER = "\t__________________________________";
 
     public static void greet(String name) {
+        printDivider();
         printLogo();
-        System.out.println("Hi there! I'm " + name);
-        System.out.println("How can I help you today?");
+        System.out.println("\tHi there! I'm " + name);
+        System.out.println("\tHow can I help you today?");
         printDivider();
     }
 
     public static void exit() {
-        System.out.println("Bye. Have a nice day!");
+        System.out.println("\tBye. Have a nice day!");
         printDivider();
     }
 
-    public static void printDivider() {
-        System.out.println(DIVIDER);
+    private static void printDivider() {
+        System.out.println(Ui.DIVIDER);
     }
 
-    public static void printLogo() {
-        String logo = "++      ++      ++\n" +
-                "||      ||      ||\n" +
-                "| +----+ |      ||\n" +
-                "| +----+ |      ||\n" +
-                "||      ||      ||\n" +
-                "++      ++      ++\n";
+    private static void printLogo() {
+        String logo = "\t++      ++      ++\n" +
+                "\t||      ||      ||\n" +
+                "\t| +----+ |      ||\n" +
+                "\t| +----+ |      ||\n" +
+                "\t||      ||      ||\n" +
+                "\t++      ++      ++\n";
         System.out.println(logo);
+    }
+
+    public static void takeInstructions() {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            String input = sc.next();
+            printDivider();
+            if (input.equals("bye")) {
+                break;
+            }
+            System.out.println("\t" + input);
+            printDivider();
+        }
+        sc.close();
     }
 }
