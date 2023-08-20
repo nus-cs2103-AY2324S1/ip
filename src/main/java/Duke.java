@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Duke {
     private static String ANSI_RESET = "\u001B[0m";
@@ -9,22 +10,50 @@ public class Duke {
     private Task[] tasks = new Task[100];
     private int count = 0;
 
-    private void parseCommand(String command) {
-        // Ignore empty user input
-        if (command.equals("")) return;
+    private static String extractTail(String[] item) {
+        return String.join(" ",
+            Arrays.copyOfRange(
+                item, 1, item.length
+            )
+        );
+    }
 
-        String[] parse = command.split(" ");
+    private void parseInput(String input) {
+        // Ignore empty user input
+        if (input.equals("")) return;
+
+        String[] parse = input.split("/");
+        String[] header = parse[0].strip().split(" ");
+        String command = header[0];
 
         if (parse[0].equals("list")) {
             this.listTasks();
-        } else if (parse[0].equals("mark")) {
+        } 
+        else if (command.equals("mark")) {
+            if (header.length < 2) return;
+            this.markTask(Integer.parseInt(header[1]), true);
+        } 
+        else if (command.equals("unmark")) {
+            if (header.length < 2) return;
+            this.markTask(Integer.parseInt(header[1]), false);
+        } 
+        else if (command.equals("todo")) {
+            this.addTodo(extractTail(header));
+        } 
+        else if (command.equals("deadline")) {
             if (parse.length < 2) return;
-            this.markTask(Integer.parseInt(parse[1]), true);
-        } else if (parse[0].equals("unmark")) {
-            if (parse.length < 2) return;
-            this.markTask(Integer.parseInt(parse[1]), false);
-        } else {
-            this.appendTask(command);
+            this.addDeadline(
+                extractTail(header),
+                extractTail(parse[1].split(" "))
+            );
+        } 
+        else if (command.equals("event")) {
+            if (parse.length < 3) return;
+            this.addEvent(
+                extractTail(header), 
+                extractTail(parse[1].split(" ")),
+                extractTail(parse[2].split(" "))
+            );
         }
     }
 
@@ -44,16 +73,45 @@ public class Duke {
         this.speak(formatTasks);
     }
 
-    private void appendTask(String task) {
-        tasks[count] = new Task(task);
-        count += 1;
-        this.speak(String.format("task added: %s", task));
+    private void addTodo(String description) {
+        Task todo = new Todo(description);
+        this.addTask(todo);
+        this.speak(new String[] {
+            "Okie! I've added a new TODO:",
+            "  " + todo.toString(),
+            "Total no. of tasks stored: " + count
+        });
+    }
+
+    private void addDeadline(String description, String by) {
+        Task deadline = new Deadline(description, by);
+        this.addTask(deadline);
+        this.speak(new String[] {
+            "Okie! I've added a new DEADLINE:",
+            "  " + deadline.toString(),
+            "Total no. of tasks stored: " + count
+        });
+    }
+
+    private void addEvent(String description, String start, String end) {
+        Task event = new Event(description, start, end);
+        this.addTask(event);
+        this.speak(new String[] {
+            "Okie! I've added a new EVENT:",
+            "  " + event.toString(),
+            "Total no. of tasks stored: " + count
+        });
+    }
+
+    private void addTask(Task task) {
+        tasks[this.count] = task;
+        this.count += 1;
     }
 
     private void markTask(int taskCount, boolean done) {
         if (taskCount < 1 || taskCount > count) {
             this.speak(String.format(
-                "Unable to %s task %d. You have %d tasks stored.",
+                "Unable to %s task %d :( You have %d tasks stored.",
                 done ? "mark" : "unmark", taskCount, count
             ));
             return;
@@ -97,12 +155,12 @@ public class Duke {
             "What can I do for you?"
         });
 
-        String command = "";
+        String input = "";
         while (true) {
             System.out.print("> ");
-            command = reader.readLine();
-            if (command.equals("bye")) break;
-            chatbot.parseCommand(command);
+            input = reader.readLine();
+            if (input.equals("bye")) break;
+            chatbot.parseInput(input);
         }
 
         chatbot.speak("Bye~ Come back soon :)");

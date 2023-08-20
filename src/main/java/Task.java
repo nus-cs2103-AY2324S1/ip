@@ -1,9 +1,9 @@
 public class Task {
-    private String detail;
+    private String description;
     private boolean done;
 
-    public Task(String detail) {
-        this.detail = detail;
+    public Task(String description) {
+        this.description = description;
         this.done = false;
     }
 
@@ -20,7 +20,7 @@ public class Task {
         return String.format(
             "[%s] %s",
             this.done ? "X" : " ", 
-            this.detail
+            this.description
         );
     }
 }
