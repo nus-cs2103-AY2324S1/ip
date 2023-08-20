@@ -60,6 +60,26 @@ public class JukeTaskManager extends JukeObject {
     }
 
     /**
+     * Marks a task as complete.
+     * @param index Index of task to act on.
+     * @return Optional<? extends JukeAction> for further actions to take
+     */
+    public Optional<? extends JukeAction> markAsDone(int index) {
+        this.tasks.get(index).markAsComplete();
+        return Optional.empty();
+    }
+
+    /**
+     * Marks a task as incomplete.
+     * @param index Index of task to act on.
+     * @return Optional<? extends JukeAction> for further actions to take
+     */
+    public Optional<? extends JukeAction> markAsUndone(int index) {
+        this.tasks.get(index).markAsIncomplete();
+        return Optional.empty();
+    }
+
+    /**
      * Returns information of the task at the specified index.
      * @param index Index of task to act on.
      * @return String representation of the task.
