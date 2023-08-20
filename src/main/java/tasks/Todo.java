@@ -1,7 +1,7 @@
 package tasks;
 
 public class Todo extends Task {
-    protected Todo(String description) {
+    public Todo(String description) {
         super(description);
     }
     @Override
