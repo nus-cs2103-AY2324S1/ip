@@ -1,13 +1,16 @@
 public class Task {
     private boolean done;
     private String name;
+
+    public Task(){};
     public Task(String name) {
         this.done = false;
         this.name = name;
+
     }
 
-    public boolean getStatus(){
-        return done;
+    public String getStatus(){
+        return done ? "x" : " ";
     }
 
     public void taskIsDone() {
@@ -20,4 +23,13 @@ public class Task {
     public String getName() {
         return name;
     }
+
+    public String getType() {
+        return "Task";
+    }
+
+    public String toString() {
+        return "[" + this.getType() + "]" + "[" + this.getStatus() + "]" + this.getName();
+    }
+
 }

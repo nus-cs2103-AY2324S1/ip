@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Duke {
     static boolean exited = false;
-    Task t = new Task("test task");
     static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void exit() {
@@ -15,10 +14,14 @@ public class Duke {
 //        System.out.println(input);
 //    }
 
-    public static void add(String input) {
-        Task newTask = new Task(input);
-        tasks.add(newTask);
-        System.out.println("Added: " + input);
+    public static void add(Task t) {
+        String taskName = t.getName();
+        tasks.add(t);
+        System.out.println("Got it. I've added this task:\n "
+                + t.toString() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.");
+
+
     }
 
     public static void list() {
@@ -26,11 +29,7 @@ public class Duke {
         for (int i = 0; i < listSize ; i++) {
             int num = i + 1;
             Task taskToList = tasks.get(i);
-            if (taskToList.getStatus()) {
-                System.out.println(num + ".[x] " + taskToList.getName());
-            } else {
-                System.out.println(num + ".[ ] " + taskToList.getName());
-            }
+            System.out.println(num + ". " + taskToList.toString());
         }
     }
     public static void main(String[] args) {
@@ -44,7 +43,13 @@ public class Duke {
         System.out.println(welcome);
 
         while (!exited) {
+//            str.append(sc.nextLine());
+//            int spaceIndex = str.indexOf(" ");
+//            String command = str.substring(0, spaceIndex);
+
             String command = sc.next();
+
+
             if (command.equals("bye")) {
                 Duke.exit();
             } else if (command.equals("list")) {
@@ -57,10 +62,29 @@ public class Duke {
                 int taskNum = sc.nextInt();
                 Task task = tasks.get(taskNum - 1);
                 task.taskNotDone();
-            } else {
+            } else if (command.equals("todo")) {
+
                 String restOfString = sc.nextLine();
-                String taskName = command + restOfString;
-                Duke.add(taskName);
+                String taskName = restOfString;
+                Task taskToAdd = new Todo(taskName);
+                Duke.add(taskToAdd);
+            } else if (command.equals("deadline")) {
+                String restOfString = sc.nextLine();
+                int slashIndex = restOfString.indexOf("/by");
+                String taskName = restOfString.substring(0, slashIndex - 1);
+                String date = restOfString.substring(slashIndex + 4);
+                Task taskToAdd = new Deadline(taskName, date);
+                Duke.add(taskToAdd);
+            } else if (command.equals("event")) {
+                String restOfString = sc.nextLine();
+                int fromIndex = restOfString.indexOf("/from");
+                int toIndex = restOfString.indexOf("/to");
+                String taskName = restOfString.substring(0, fromIndex - 1);
+                String fromDate = restOfString.substring(fromIndex + 6, toIndex - 1);
+                String toDate = restOfString.substring(toIndex + 4);
+                Task taskToAdd = new Event(taskName, fromDate, toDate);
+                Duke.add(taskToAdd);
+
             }
         }
 
