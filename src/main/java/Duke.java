@@ -12,7 +12,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         greetUser();
-        addAndListTasks();
+        addAndMarkTasks();
     }
 
     public static void greetUser() {
@@ -57,6 +57,46 @@ public class Duke {
         }
         exit();
     }
+
+    public static void addAndMarkTasks() {
+        ToDoList tdl = new ToDoList();
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
+        while (!input.equals("bye")) {
+            input = scanner.nextLine();
+            String[] words = input.split(" ");
+            if (input.equals("list")) {
+                tdl.list();
+            } else if (words.length > 1 && (words[0].equals("mark") || words[0].equals("unmark"))) {
+                // I added this try catch block because when I accidentally wrote "mark chores" there's a runtime error
+                // due to trying to parse chores as an integer
+                try {
+                    int index = Integer.parseInt(words[1]);
+                    if (words[0].equals("mark")) {
+                        tdl.mark(index);
+                    } else if (words[0].equals("unmark")) {
+                        tdl.unmark(index);
+                    }
+                } catch (NumberFormatException e) {
+                    printLine();
+                    System.out.println("Please enter a valid index.");
+                    printLine();
+                }
+            } else {
+                tdl.add(input);
+            }
+        }
+        exit();
+    }
+
+
+
+
+
+
+
+
+
 
 
 
