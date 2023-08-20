@@ -54,7 +54,7 @@ public class Duke {
                 ToDo todo = new ToDo(task);
                 list [number] = todo;
                 number++;
-                System.out.println("Got it. I've added this task: \n" + todo.toString());
+                System.out.println("Got it. I've added this task:\n" + todo.toString());
                 System.out.println("Now you have " + (number) + " tasks in the list.");
 
             } else if (input.startsWith("deadline")) {
@@ -66,7 +66,7 @@ public class Duke {
                     Deadline deadline = new Deadline(task, date);
                     list [number] = deadline;
                     number++;
-                    System.out.println("Got it. I've added this task: \n" + deadline.toString());
+                    System.out.println("Got it. I've added this task:\n" + deadline.toString());
                     System.out.println("Now you have " + (number) + " tasks in the list.");
                 } else {
                     System.out.println("Invalid input format.");
@@ -83,7 +83,7 @@ public class Duke {
                     Events event = new Events(task, startDate, endDate);
                     list [number] = event;
                     number++;
-                    System.out.println("Got it. I've added this task: \n" + event.toString());
+                    System.out.println("Got it. I've added this task:\n" + event.toString());
                     System.out.println("Now you have " + (number) + " tasks in the list.");
 
                 } else {
