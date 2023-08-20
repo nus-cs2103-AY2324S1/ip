@@ -6,8 +6,33 @@ public class Duke {
     private static String ANSI_RESET = "\u001B[0m";
     private static String ANSI_PURPLE = "\u001B[35m";
 
+    private String[] history = new String[100];
+    private int count = 0;
+
     private void parseCommand(String command) {
-        this.speak(command);
+        if (command.equals("list")) this.listHistory();
+        else this.appendHistory(command);
+    }
+
+    private void listHistory() {
+        if (this.count == 0) {
+            this.speak("Nothing stored.");
+            return;
+        }
+
+        String[] formatHistory = new String[count];
+        for (int i = 0; i < count; i++) {
+            formatHistory[i] = String.format(
+                "%d. %s", i + 1, history[i]
+            );
+        }
+        this.speak(formatHistory);
+    }
+
+    private void appendHistory(String item) {
+        history[count] = item;
+        count += 1;
+        this.speak(String.format("added: %s", item));
     }
 
     private void speak(String text) {
@@ -30,7 +55,7 @@ public class Duke {
         );
 
         chatbot.speak(new String[] {
-            "Hi. I'm " + ANSI_PURPLE + "Bryan." + ANSI_RESET,
+            "Hi. I'm " + ANSI_PURPLE + "Bryan" + ANSI_RESET,
             "What can I do for you?"
         });
 
