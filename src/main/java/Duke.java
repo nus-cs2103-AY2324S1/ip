@@ -5,8 +5,8 @@ public class Duke {
     /** name of ChatBot */
     private final String name = "Ken";
 
-    /** store user Input in fixed sized array */
-    private ArrayList<String> lists;
+    /** store user Input in Task array */
+    private ArrayList<Task> lists;
 
     /**
      * Initialize the fixed sized array.
@@ -36,15 +36,29 @@ public class Duke {
                 output = "Bye. Hope to see you again soon!";
                 break;
             case "barbie":
-                this.lists.add(input);
+                this.lists.add(new Task(input));
                 output = "Hi barbie!";
                 break;
             case "list":
                 output = outputList();
                 break;
             default:
-                this.lists.add(input);
-                output = "added: " + input;
+                if (input.startsWith("mark ")) {
+                    Integer i = Integer.valueOf(input.substring(5));
+                    if (i <= this.lists.size()) {
+                        this.lists.get(i - 1).markAsDone();
+                        output = "Nice! I've marked this task as done: \n" + this.lists.get(i - 1).toString();
+                    }
+                } else if(input.startsWith("unmark ")) {
+                    Integer i = Integer.valueOf(input.substring(7));
+                    if (i <= this.lists.size()) {
+                        this.lists.get(i - 1).markAsUndone();
+                        output = "OK, I've marked this task as not done yet: \n" + this.lists.get(i - 1).toString();
+                    }
+                } else {
+                    this.lists.add(new Task(input));
+                    output = "added: " + input;
+                }
                 break;
         }
 
@@ -58,8 +72,9 @@ public class Duke {
      */
     private String outputList() {
         StringBuilder output = new StringBuilder();
+        output.append("Here are the tasks in your list: \n");
         int i = 1;
-        for (String val : this.lists) {
+        for (Task val : this.lists) {
             output.append(i).append(". ").append(val).append("\n");
             i++;
         }
