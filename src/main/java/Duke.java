@@ -46,6 +46,38 @@ public class Duke {
         System.out.println(line);
     }
 
+    private void validateToDo(String description) throws DukeException {
+        if (description.isBlank()) {
+            throw new DukeException("Boop Beep OOPS!!! The description of a todo cannot be empty.");
+        }
+    }
+
+    private void validateDeadline(String[] deadlineString) throws DukeException {
+        if (deadlineString.length != 2 || deadlineString[0].isBlank() || deadlineString[1].isBlank()) {
+            throw new DukeException("Boop Beep OOPS!!! Please make sure that the description and date of the deadline is not empty.");
+        }
+    }
+
+    private void validateEvent(String[] eventString) throws DukeException {
+        if (eventString.length != 3 || eventString[0].isBlank() || eventString[1].isBlank() || eventString[2].isBlank()) {
+            throw new DukeException("Boop Beep OOPS!!! Please make sure that the description and dates of the event is not empty.");
+        }
+    }
+
+    private void validateMarkOrUnmark(String number) throws DukeException {
+        if (number.isBlank()) {
+            throw new DukeException("Boop Beep OOPS!!! Please make sure that the index of the task is not empty.");
+        } else {
+            try {
+                int numberInt = Integer.parseInt(number);
+                if (numberInt <= 0 || numberInt > list.size()) {
+                    throw new DukeException("Boop Beep OOPS!!! Please make sure that the index of the task is within range.");
+                }
+            } catch (NumberFormatException e) {
+                throw new DukeException("Boop Beep OOPS!!! Please make sure that the index of the task is an integer.");
+            }
+        }
+    }
     public void runDuke() {
         greet();
 
@@ -53,46 +85,61 @@ public class Duke {
         while (!isDone) {
             String input = sc.nextLine();
 
-            if (input.equals("bye")) {
-                isDone = true;
-            } else if (input.equals("list")) {
-                printList();
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.replaceFirst("mark", "").trim()) - 1;
-                list.get(index).markDone();
-                String markDoneMessage = String.format("\t%s", list.get(index).toString());
+            try {
+                if (input.equals("bye")) {
+                    isDone = true;
+                } else if (input.equals("list")) {
+                    printList();
+                } else if (input.startsWith("mark")) {
+                    String number = input.replaceFirst("mark", "").trim();
+                    validateMarkOrUnmark(number);
 
-                System.out.println("\tBeep Boop Beep! I've marked this task as done:");
-                printMessage(markDoneMessage);
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.replaceFirst("unmark", "").trim()) - 1;
-                list.get(index).markNotDone();
-                String markNotDoneMessage = String.format("\t%s", list.get(index).toString());
+                    int index = Integer.parseInt(number) - 1;
+                    list.get(index).markDone();
+                    String markDoneMessage = String.format("\t%s", list.get(index).toString());
 
-                System.out.println("\tBeep Boop Boop! I've marked this task as not done yet:");
-                printMessage(markNotDoneMessage);
-            } else if (input.startsWith("todo")) {
-                String description = input.replaceFirst("todo", "").trim();
+                    System.out.println("\tBeep Boop Beep! I've marked this task as done:");
+                    printMessage(markDoneMessage);
+                } else if (input.startsWith("unmark")) {
+                    String number = input.replaceFirst("unmark", "").trim();
+                    validateMarkOrUnmark(number);
 
-                ToDo todo = new ToDo(description);
-                addToList(todo);
-            } else if (input.startsWith("deadline")) {
-                String[] deadlineString = input.replaceFirst("deadline", "").split("/", 2);
-                String description = deadlineString[0].trim();
-                String deadlineDate = deadlineString[1].replaceFirst("by", "").trim();
+                    int index = Integer.parseInt(number) - 1;
+                    list.get(index).markNotDone();
+                    String markNotDoneMessage = String.format("\t%s", list.get(index).toString());
 
-                Deadline deadline = new Deadline(description, deadlineDate);
-                addToList(deadline);
-            } else if (input.startsWith("event")) {
-                String[] eventString = input.replaceFirst("event", "").split("/", 3);
-                String description = eventString[0].trim();
-                String start = eventString[1].replaceFirst("from", "").trim();
-                String end = eventString[2].replaceFirst("to", "").trim();
+                    System.out.println("\tBeep Boop Boop! I've marked this task as not done yet:");
+                    printMessage(markNotDoneMessage);
+                } else if (input.startsWith("todo")) {
+                    String description = input.replaceFirst("todo", "").trim();
+                    validateToDo(description);
 
-                Event event = new Event(description, start, end);
-                addToList(event);
-            } else {
+                    ToDo todo = new ToDo(description);
+                    addToList(todo);
+                } else if (input.startsWith("deadline")) {
+                    String[] deadlineString = input.replaceFirst("deadline", "").split("/", 2);
+                    validateDeadline(deadlineString);
 
+                    String description = deadlineString[0].trim();
+                    String deadlineDate = deadlineString[1].replaceFirst("by", "").trim();
+
+                    Deadline deadline = new Deadline(description, deadlineDate);
+                    addToList(deadline);
+                } else if (input.startsWith("event")) {
+                    String[] eventString = input.replaceFirst("event", "").split("/", 3);
+                    validateEvent(eventString);
+
+                    String description = eventString[0].trim();
+                    String start = eventString[1].replaceFirst("from", "").trim();
+                    String end = eventString[2].replaceFirst("to", "").trim();
+
+                    Event event = new Event(description, start, end);
+                    addToList(event);
+                } else {
+                    throw new DukeException("Boop Beep OOPS!!! I'm sorry, but I don't know what that means :(");
+                }
+            } catch (DukeException e) {
+                printMessage(e.getMessage());
             }
         }
 
