@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 enum Command {
@@ -17,17 +19,24 @@ public class Jerma {
         System.out.println("Hello! I'm Jerma.");
 
         Scanner scanner = new Scanner(System.in);
+        List<String> toDoList = new ArrayList<>();
+
         listen: while (true) {
             String input = scanner.nextLine();
             Command command = Command.parse(input);
 
             switch (command) {
             case LIST:
+                for (int i = 0; i < toDoList.size(); i++) {
+                    String output = String.format("%d. %s", i + 1, toDoList.get(i));
+                    System.out.println(output);
+                }
                 break;
             case BYE:
                 break listen;
             case ADD:
-                System.out.println(input);
+                toDoList.add(input);
+                System.out.println("added: " + input);
                 break;
             }
         }
