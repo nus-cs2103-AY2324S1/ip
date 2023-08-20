@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     private static final String chatBotName = "Cristiano";
 
@@ -9,7 +11,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         greetUser();
-        exit();
+        echoUntilBye();
     }
 
     public static void greetUser() {
@@ -26,5 +28,17 @@ public class Duke {
 
     public static void printLine() {
         System.out.println("____________________________________________________________");
+    }
+
+    public static void echoUntilBye() {
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
+        while (!input.equals("bye")) {
+            input = scanner.nextLine();
+            printLine();
+            System.out.println(input);
+            printLine();
+        }
+        exit();
     }
 }
