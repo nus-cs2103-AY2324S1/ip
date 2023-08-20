@@ -1,8 +1,9 @@
-import java.util.Locale;
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
     static String HORIZONTAL_LINE = "    ________________________________________"; //40 underscores.
     static String INDENT = "    "; //4 spaces.
+    static ArrayList<String> taskList = new ArrayList<>(100);
 
     /**
      * Function to greet the User.
@@ -24,10 +25,31 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public static void echo(String input) {
+    /**
+     * Function to add any given input into our taskList.
+     */
+    public static void addTask(String input) {
         System.out.println(HORIZONTAL_LINE);
-        System.out.println(String.format("    %s", input));
+        taskList.add(input);
+        System.out.printf("    added: %s%n", input);
         System.out.println(HORIZONTAL_LINE);
+    }
+
+    /**
+     * Function to list out all tasks.
+     */
+    public static void listAllTasks() {
+        if (taskList.isEmpty()) {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("    No tasks for now!");
+            System.out.println(HORIZONTAL_LINE);
+        } else {
+            System.out.println(HORIZONTAL_LINE);
+            for (int i = 0; i < taskList.size(); i++) {
+                System.out.printf("%d. %s%n", i + 1, taskList.get(i));
+            }
+            System.out.println(HORIZONTAL_LINE);
+        }
     }
 
     public static void main(String[] args) {
@@ -40,8 +62,10 @@ public class Duke {
                 if (formattedInput.equals("bye")) {
                     farewell();
                     repeatFlag = false;
+                } else if (userInput.equals("list")) {
+                    listAllTasks();
                 } else {
-                    echo(userInput);
+                    addTask(userInput);
                 }
             }
         } catch (Exception e) {
