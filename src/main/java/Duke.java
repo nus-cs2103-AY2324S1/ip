@@ -12,13 +12,13 @@ public class Duke {
 
     private static void intro() {
         String output = horizontalLine() +
-                " ____  _   _   ____  _____  ____   _     ____  _____ \n" +
+                " ____  _   _   ____  _____  ____   _     ____  _____\n" +
                 "/ (__`| |_| | / () \\|_   _|/ () \\ | |__ / () \\|_   _|\n" +
-                "\\____)|_| |_|/__/\\__\\ |_| /__/\\__\\|____|\\____/  |_|  \n\n" +
+                "\\____)|_| |_|/__/\\__\\ |_| /__/\\__\\|____|\\____/  |_|\n\n" +
                 "Hello! I'm ChatALot.\n" +
                 "What can I do for you?\n" +
                 horizontalLine();
-        System.out.println(output);
+        System.out.print(output);
     }
 
     private static String processInput (String userInput) {
@@ -74,7 +74,7 @@ public class Duke {
                         " tasks in the list.";
                 return output;
             case "event":
-                restOfInput = userInput.substring(9);
+                restOfInput = userInput.substring(6);
                 arr = restOfInput.split("/from|/to");
                 task = Duke.list.addEvent(arr[0].trim(), arr[1].trim(), arr[2].trim());
                 output = "Got it. I've added this task:\n" +
@@ -95,7 +95,7 @@ public class Duke {
                 processInput(userInput) +
                 "\n" +
                 horizontalLine();
-        System.out.println(displayed);
+        System.out.print(displayed);
         return displayed;
     }
 
@@ -103,7 +103,7 @@ public class Duke {
         String outro = horizontalLine() +
                 "Bye. Hope to see you again soon!\n" +
                 horizontalLine();
-        System.out.println(outro);
+        System.out.print(outro);
         return outro;
     }
 

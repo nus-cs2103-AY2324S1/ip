@@ -1,0 +1,10 @@
+list
+todo Assignment 1
+deadline Assignment 2 /by tomorrow
+event exam /from today /to tomorrow
+mark 1
+mark 3
+unmark 1
+list
+unknown command
+bye

@@ -13,7 +13,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        String output = String.format("[D]%s (from: %s to: %s)",
+        String output = String.format("[E]%s (from: %s to: %s)",
                 super.toString(),
                 this.start,
                 this.end);
