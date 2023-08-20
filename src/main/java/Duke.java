@@ -1,15 +1,15 @@
 import java.util.Scanner;
 public class Duke {
 
-
+    private static Task[] tasks = new Task[100];
+    private static int position = 0;
 
     public static void start() {
         String intro = "Hi! This is your AI assistant LoyBoy!\n";
         String question = "What can I do for you today?";
         System.out.println(intro + question);
         Scanner scanner = new Scanner(System.in);
-        String[] items = new String[100];
-        int position = 0;
+
 
         while (true) {
             String command = scanner.nextLine();
@@ -18,18 +18,38 @@ public class Duke {
                 System.out.println(outro);
                 break;
             } else if (command.equalsIgnoreCase("list")) {
-                for (int item = 0; items[item] != null; item++)  {
-                    System.out.println(item + 1 + ". " + items[item]);
+                listTask();
+            } else if (command.length() > 5) {
+                if (command.substring(0,4).equalsIgnoreCase("mark")) {
+                    tasks[Integer.valueOf(command.substring(command.length() - 1)) - 1].markTask();
+                } else if (command.substring(0,6).equalsIgnoreCase("unmark")) {
+                    tasks[Integer.valueOf(command.substring(command.length() - 1)) - 1].unmarkTask();
+                } else {
+                    addTask(command);
                 }
             } else {
-                items[position] = command;
-                position++;
-                System.out.println("You added '" + command + "' to the list!");
+                addTask(command);
             }
 
         }
-
         scanner.close();
+    }
+
+    private static void addTask(String task) {
+        tasks[position] = new Task(task);
+        position++;
+        System.out.println("You added '" + task + "' to the list!");
+    }
+    private static void listTask() {
+        if (position == 0) {
+            System.out.println("List is empty!");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int item = 0; tasks[item] != null; item++)  {
+                System.out.println(item + 1 + ". " + tasks[item]);
+            }
+        }
+
     }
 
 
