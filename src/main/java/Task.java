@@ -1,8 +1,9 @@
-public class Task {
+abstract class Task {
     private boolean isDone;
     private String taskName;
 
-    public Task(String taskName) {
+    protected Task(String taskName) throws IncompleteDescriptionException {
+        if (taskName.isBlank()) throw new IncompleteDescriptionException();
         isDone = false;
         this.taskName = taskName;
     }
