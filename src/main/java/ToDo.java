@@ -1,4 +1,6 @@
 public class ToDo extends Task {
+    private static String noDescErrorMsg = "\u2639 OOPS!!! The description of a todo cannot be empty.";
+
     public ToDo(String task) {
         super(formatToDoString(task));
     }
@@ -10,7 +12,15 @@ public class ToDo extends Task {
      * @return           the clean version of the task string
      */
     public static String formatToDoString(String taskString) {
-        return taskString.substring(5);
+        if (checkTaskNoDescription(taskString, "todo")) {
+            throw new IllegalArgumentException(noDescErrorMsg);
+        }
+
+        String output = taskString.substring(5);
+        if (checkAllWhiteSpace(output)) {
+            throw new IllegalArgumentException(noDescErrorMsg);
+        }
+        return output;
     }
 
     @Override

@@ -18,6 +18,19 @@ abstract class Task {
         this.isDone = false;
     }
 
+    public static boolean checkTaskNoDescription(String taskType, String task) {
+        return taskType.equals(task);
+    }
+
+    public static boolean checkAllWhiteSpace(String s) {
+        for (int i = 0; i < s.length(); i += 1) {
+            if (s.charAt(i) != ' ') {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         String status = isDone ? "[X]" : "[ ]";

@@ -99,6 +99,8 @@ public class Duke {
             
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("")) {
+                DukeExceptionHandler.handleEmptyInput();
             } else if (input.equals("list")) {
                 printList();
             } else if (input.contains("unmark")) {
@@ -109,17 +111,31 @@ public class Duke {
                 int taskNum = getTaskNumber("mark", input);
                 markTaskAsDone(taskNum);
             } else if (input.contains("todo")) {
-                ToDo newToDo = new ToDo(input);
-                taskList.add(newToDo);
-                printAddedTask(newToDo, taskList.size());
+                try {
+                    ToDo newToDo = new ToDo(input);
+                    taskList.add(newToDo);
+                    printAddedTask(newToDo, taskList.size());
+                } catch (IllegalArgumentException e) {
+                    DukeExceptionHandler.printErrorMsg(e.getMessage());
+                }
             } else if (input.contains("deadline")) {
-                Deadline newDeadline = new Deadline(input);
-                taskList.add(newDeadline);
-                printAddedTask(newDeadline, taskList.size());
+                try {
+                    Deadline newDeadline = new Deadline(input);
+                    taskList.add(newDeadline);
+                    printAddedTask(newDeadline, taskList.size());
+                } catch (IllegalArgumentException e) {
+                    DukeExceptionHandler.printErrorMsg(e.getMessage());
+                } 
             } else if (input.contains("event")) {
-                Event newEvent = new Event(input);
-                taskList.add(newEvent);
-                printAddedTask(newEvent, taskList.size());
+                try {
+                    Event newEvent = new Event(input);
+                    taskList.add(newEvent);
+                    printAddedTask(newEvent, taskList.size());
+                } catch (IllegalArgumentException e) {
+                    DukeExceptionHandler.printErrorMsg(e.getMessage());
+                } 
+            } else {
+                DukeExceptionHandler.handleUnseenInput();
             }
         }
     }

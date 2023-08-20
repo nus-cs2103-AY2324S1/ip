@@ -1,6 +1,7 @@
 public class Event extends Task {
     private String startTime;
     private String endTime;
+    private static String noDescErrorMsg = "\u2639 OOPS!!! The description of a event cannot be empty.";
 
     public Event(String task) {
         super(getTask(task));
@@ -17,11 +18,27 @@ public class Event extends Task {
      * @return           an array of 3 strings
      */
     public static String[] splitEventString(String taskString) {
+        if (checkTaskNoDescription(taskString, "event")) {
+            throw new IllegalArgumentException(noDescErrorMsg);
+        }
+
         String removeCmd = taskString.substring(6);
+        if (checkAllWhiteSpace(removeCmd)) {
+            throw new IllegalArgumentException(noDescErrorMsg);
+        }
+
         String[] arr1 = removeCmd.split("/from");
+        if (arr1.length == 1) {
+            throw new IllegalArgumentException("Invalid event format: missing /from");
+        }
         // we still need to split the 2nd element because it contains both the start and end time
         String secondPart = arr1[1];
         String[] arr2 = secondPart.split("/to");
+
+        if (arr2.length == 1) {
+            throw new IllegalArgumentException("Invalid event format: missing /to");
+        }
+
         String[] output = {arr1[0], arr2[0], arr2[1]};
         return output;
     }
@@ -35,6 +52,10 @@ public class Event extends Task {
     public static String getTask(String taskString) {
         String[] arr = splitEventString(taskString);
         String task = arr[0];
+
+        if (checkAllWhiteSpace(task)) {
+            throw new IllegalArgumentException(noDescErrorMsg);
+        }
         // remove the whitespace in front 
         return task.substring(0, task.length() - 1);
     }
@@ -60,7 +81,7 @@ public class Event extends Task {
     public String getEndTime(String taskString) {
         String[] arr = splitEventString(taskString);
         String endTime = arr[2];
-        return endTime.substring(1, endTime.length() - 1);
+        return endTime.substring(1, endTime.length());
     }
 
     @Override

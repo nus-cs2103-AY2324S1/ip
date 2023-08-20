@@ -1,5 +1,6 @@
 public class Deadline extends Task {
     private String deadline;
+    private static String noDescErrorMsg = "\u2639 OOPS!!! The description of a deadline cannot be empty.";
 
     public Deadline(String task) {
         super(getTask(task));
@@ -15,10 +16,21 @@ public class Deadline extends Task {
      * @return           an array of 2 strings
      */
     public static String[] splitDeadlineString(String taskString) {
+        if (checkTaskNoDescription(taskString, "deadline")) {
+            throw new IllegalArgumentException(noDescErrorMsg);
+        }
+
         // removes "deadline "  from the task string
         String removeCmd = taskString.substring(9);
+        if (checkAllWhiteSpace(removeCmd)) {
+            throw new IllegalArgumentException(noDescErrorMsg);
+        }
+
         // we know the array has 2 elements 
         String[] arr = removeCmd.split("/by");
+        if (arr.length == 1) {
+            throw new IllegalArgumentException("Invalid deadline format: missing /by");
+        }
         return arr;
     }
 
@@ -31,6 +43,10 @@ public class Deadline extends Task {
     public static String getTask(String taskString) {
         String[] arr = splitDeadlineString(taskString);
         String task = arr[0];
+
+        if (checkAllWhiteSpace(task)) {
+            throw new IllegalArgumentException(noDescErrorMsg);
+        }
         // we remove the white space behind the task
         return task.substring(0, task.length() - 1);
     }
