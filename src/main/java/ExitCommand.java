@@ -1,7 +1,7 @@
 public class ExitCommand extends Command{
     @Override
-    public  void execute(){
-        System.out.println("Bye. Hope to see you again soon!");
+    public  void execute(TaskList tasks, Ui ui){
+        ui.respond("Bye. Hope to see you again soon!");
     }
 
     @Override

@@ -1,6 +1,7 @@
 public class Duke {
 
-    Ui ui = new Ui();
+    private Ui ui = new Ui();
+    private TaskList tasks = new TaskList();
 
     public void run () {
         ui.showWelcome();
@@ -9,7 +10,7 @@ public class Duke {
             String userInput = ui.readInput();
             ui.showLine();
             Command command = Parser.parse(userInput);
-            command.execute();
+            command.execute(this.tasks,ui);
             isExit = command.isExit();
             ui.showLine();
         }
