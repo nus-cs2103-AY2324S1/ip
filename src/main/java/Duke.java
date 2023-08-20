@@ -34,8 +34,10 @@ public class Duke {
             printList();
         } else if (command.startsWith("mark")) {
             markTask(command);
-        } else {
+        } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
             addTask(command);
+        } else {
+            printErrorMessage();
         }
     }
 
@@ -48,10 +50,19 @@ public class Duke {
     }
 
     private static void addTask(String task) {
-        tasks.add(new Task(task));
-        System.out.println(LINE);
-        System.out.println("added: " + task);
-        System.out.println(LINE);
+
+        Task newTask = null;
+
+        if (task.startsWith("todo")) {
+            newTask = ToDo.createToDoFromCommand(task);
+        } else if (task.startsWith("deadline")) {
+            newTask = Deadline.createDeadlineFromCommand(task);
+        } else if (task.startsWith("event")) {
+            newTask = Event.createEventFromCommand(task);
+        }
+
+        tasks.add(newTask);
+        printAddedTaskConfirmation(newTask);
     }
 
     private static void markTask(String command) {
@@ -74,6 +85,20 @@ public class Duke {
 
     private static void printFarewellMessage() {
         System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(LINE);
+    }
+
+    private static void printAddedTaskConfirmation(Task task) {
+        System.out.println(LINE);
+        System.out.println("Got it. I've added this task: ");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(LINE);
+    }
+
+    private static void printErrorMessage() {
+        System.out.println(LINE);
+        System.out.println("I'm sorry, but I don't know what that means");
         System.out.println(LINE);
     }
 
