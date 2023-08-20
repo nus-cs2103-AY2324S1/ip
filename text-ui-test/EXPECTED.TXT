@@ -1,1 +1,37 @@
+Hello I'm Oscar! Your friendly chatbot :)
+What can I do for you?
+
+Oscar added:
+[T][ ] read book
+
+You have 1 task in the list.
+
+Oscar added:
+[T][ ] join cca
+
+You now have 2 tasks in the list
+
+Here are the tasks in your list:
+1.[T][ ] read book
+2.[T][ ] join cca
+
+Oscar added:
+[D][ ] return book (by: Sunday)
+
+You now have 3 tasks in the list
+
+Oscar added:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+You now have 4 tasks in the list
+
+Nice! I've marked this task as done:
+
+[D][X] return book (by: Sunday)
+
+Here are the tasks in your list:
+1.[T][ ] read book
+2.[T][ ] join cca
+3.[D][X] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 

@@ -137,5 +137,6 @@ public class Duke {
 
             }
         }
+        scanner.close();
     }
 }
