@@ -1,13 +1,21 @@
+import java.util.Scanner;
+
 public class Duke {
 
-    String name = "Leon";
+    String name = "Meg";
+    boolean isRunning = true;
     public Duke() {
-        String message = String.format("Hello. I'm your personal assistant, %s." +
-                "\n" +
-                "What can I do for you?",
-                this.name);
-        System.out.println(message + "\n");
+        String intro1 = String.format("I'm %s. You called me?" +
+                "\n", this.name);
+        String intro2 = "Make it quick, thanks.";
+        System.out.println(intro1);
+        System.out.println(intro2 + "\n");
         printHorizontalLine();
+        Scanner sc = new Scanner(System.in);
+        while (this.isRunning) {
+            String msg = sc.nextLine();
+            echo(msg);
+        }
         exit();
     }
 
@@ -19,9 +27,18 @@ public class Duke {
     }
 
     private void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Don't let me see you again!");
         printHorizontalLine();
         System.exit(0);
+    }
+
+    private void echo(String message) {
+        if (message.equals("bye")) {
+            this.isRunning = false;
+        } else {
+            System.out.println(message + "\n");
+            printHorizontalLine();
+        }
     }
 
     public static void main(String[] args) {
