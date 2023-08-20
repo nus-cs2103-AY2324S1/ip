@@ -1,4 +1,4 @@
-public class Task {
+abstract public class Task {
     private boolean isDone;
     private final String name;
     public Task(String name) {
@@ -11,9 +11,11 @@ public class Task {
     public void unmarkTask() {
         this.isDone = false;
     }
+    public String getCheckBox() {
+        return this.isDone ? "[X]": "[ ]";
+    }
     @Override
     public String toString() {
-        String checkBox = this.isDone ? "[X]": "[ ]";
-        return String.format("%s %s", checkBox, this.name);
+        return String.format("%s %s", this.getCheckBox(), this.name);
     }
 }

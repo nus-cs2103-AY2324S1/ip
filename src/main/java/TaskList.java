@@ -5,9 +5,9 @@ public class TaskList {
     public TaskList() {
         list = new ArrayList<>();
     }
-    public void add(String item) {
-        list.add(new Task(item));
-        new AddedMessage(item).send();
+    public void add(Task item) {
+        list.add(item);
+        new AddTaskMessage(item, this.list.size()).send();
     }
     public void printList() {
         new TaskListMessage(list).send();

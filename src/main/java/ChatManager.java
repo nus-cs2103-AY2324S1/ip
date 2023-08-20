@@ -18,19 +18,43 @@ public class ChatManager {
             taskList.printList();
             return;
         }
-        if (Pattern.matches("mark \\d", userInput)) {
+        if (Pattern.matches("mark \\d+", userInput)) {
             String[] arr = userInput.split(" ");
             int num = Integer.parseInt(arr[arr.length - 1]);
             taskList.markTask(num);
             return;
         }
-        if (Pattern.matches("unmark \\d", userInput)) {
+        if (Pattern.matches("unmark \\d+", userInput)) {
             String[] arr = userInput.split(" ");
             int num = Integer.parseInt(arr[arr.length - 1]);
             taskList.unmarkTask(num);
             return;
         }
-        taskList.add(userInput);
+        if (Pattern.matches("todo .+", userInput)) {
+            String name = userInput.split(" ", 2)[1];
+            taskList.add(new TodoTask(name));
+            return;
+        }
+        if (Pattern.matches("deadline .+ /by .+", userInput)) {
+            // assumes " /by " is not contained in deadline name
+            String[] arr = userInput.split(" /by ", 2);
+            String name = arr[0].split(" ", 2)[1];
+            String deadline = arr[1];
+            taskList.add(new DeadlinesTask(name, deadline));
+            return;
+        }
+        if (Pattern.matches("event .+ /from .+ /to .+", userInput)) {
+            // assumes " /to " is not in event name and from date
+            String[] a1 = userInput.split(" /to ", 2);
+            // assumes " /from " is not in event name
+            String[] a2 = a1[0].split(" /from ", 2);
+            String name = a2[0].split(" ", 2)[1];
+            String from = a2[1];
+            String to = a1[1];
+            taskList.add(new EventsTask(name, from, to));
+            return;
+        }
+        new MenuMessage().send();
     }
     public boolean getIsActive() {
         return this.isActive;
