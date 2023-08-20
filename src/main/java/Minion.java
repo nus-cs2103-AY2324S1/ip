@@ -9,10 +9,10 @@ import java.util.Scanner;
 public class Minion {
     public static String line = "\t____________________________________________________________\n";
     public static Task[] tasks = new Task[100];
+    public static int taskCount = 0;
     public static void main(String[] args) {
         sayHi();
         Scanner sc = new Scanner(System.in);
-        int taskCount= 0;
         while (true) {
             String command = sc.nextLine();
             if (command.equals("bye")) {
@@ -25,23 +25,48 @@ public class Minion {
                     lst.add((i + 1) + "." + tasks[i].toString());
                 }
                 prettyPrint(lst);
-            } else if (command.startsWith("mark")){
+            } else if (command.startsWith("mark")) {
                 Task currTask = getTask(command);
                 currTask.markDone();
-                List<String> lst = new ArrayList<>();
-                lst.add("Nice! I've marked this task as done:");
-                lst.add("\t" + currTask.toString());
-                prettyPrint(lst);
+                prettyPrint(Arrays.asList(
+                        "Nice! I've marked this task as done:",
+                        "\t" + currTask.toString()
+                ));
             } else if (command.startsWith("unmark")){
                 Task currTask = getTask(command);
                 currTask.markUndone();
-                List<String> lst = new ArrayList<>();
-                lst.add("OK, I've marked this task as not done yet:");
-                lst.add("\t" + currTask.toString());
-                prettyPrint(lst);
+                prettyPrint(Arrays.asList(
+                            "OK, I've marked this task as not done yet:",
+                            "\t" + currTask.toString()
+                ));
             } else {
-                tasks[taskCount++] = new Task(command);
-                prettyPrint(String.format("added %s", command));
+                Task task = null;
+                if(command.startsWith("todo")) {
+                    task = new ToDo(command.split(" ",2)[1]);
+                }
+                else if(command.startsWith("deadline")){
+                    String[] strs = command.split(" ", 2)[1].split(" /by ");
+                    String description = strs[0];
+                    String by = strs[1];
+                    task = new Deadline(description, by);
+                }
+                else if(command.startsWith("event")){
+                    String[] strs = command.split(" ", 2)[1].split(" /from ");
+                    String description = strs[0];
+                    String[] strs2 = strs[1].split(" /to ");
+                    String from = strs2[0];
+                    String to = strs2[1];
+                    task = new Event(description, from, to);
+                } else {
+                    task = new Task(command);
+                }
+                tasks[taskCount++] = task;
+                prettyPrint(Arrays.asList(
+                        "Got it. I've added this task:",
+                        "\t" + task.toString(),
+                        "Now you have " + taskCount +  " tasks in the list."
+                    )
+                );
             }
         }
         sc.close();
@@ -56,6 +81,7 @@ public class Minion {
         int taskIdx = Integer.valueOf(command.split(" ")[1]);
         return tasks[taskIdx - 1];
     }
+
     /**
      * Function to say hi to the user.
      */
@@ -77,6 +103,7 @@ public class Minion {
     public static void prettyPrint(String s){
         System.out.println(line + String.format("\t%s\n", s) + line);
     }
+
     /**
      * Pretty prints a list of strings.
      * @param lst List of strings to be printed.
