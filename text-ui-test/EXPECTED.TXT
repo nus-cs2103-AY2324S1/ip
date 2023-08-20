@@ -55,7 +55,7 @@
     [D][ ] submit application  (by: Wednesday)
     There are now 7 tasks in your list
     ---------------------------------------------------------------------
-    That is an invalid task number
+    12 is an invalid task number. Please try again.
     ---------------------------------------------------------------------
     The tasks in your list are as follows:
     1.[T][X] borrow book
@@ -66,7 +66,7 @@
     6.[E][X] dinner with family  (from: Tuesday 6pm  to: Tuesday 8pm)
     7.[D][ ] submit application  (by: Wednesday)
     ---------------------------------------------------------------------
-    I don't quite understand you. Could you repeat?
+    I don't quite understand gibberish. Please try again.
     ---------------------------------------------------------------------
     Okay! I've added your task:
     [E][ ] lunch with family  (from: Saturday 1pm  to: Saturday 3pm)
@@ -104,7 +104,7 @@
     7.[D][X] submit application  (by: Wednesday)
     8.[E][ ] lunch with family  (from: Saturday 1pm  to: Saturday 3pm)
     ---------------------------------------------------------------------
-    I don't quite understand you. Could you repeat?
+    I don't quite understand fsdkfns. Please try again.
     ---------------------------------------------------------------------
     The description of the task is missing. Please try again.
     ---------------------------------------------------------------------
