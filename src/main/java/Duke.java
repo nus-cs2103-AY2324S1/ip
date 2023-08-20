@@ -9,7 +9,7 @@ public class Duke {
                                 + "|  `---.|  \\\\  \\\\  ''  '\\\\ `-\'   \n"
                                 + "`------'`--'`--'`----'  `---' \n";
     private static final String LINE = "-".repeat(60);
-    private static List<String> tasks = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         printWelcomeMessage();
@@ -32,6 +32,8 @@ public class Duke {
     private static void handleCommand(String command) {
         if (command.equals("list")) {
             printList();
+        } else if (command.startsWith("mark")) {
+            markTask(command);
         } else {
             addTask(command);
         }
@@ -46,9 +48,19 @@ public class Duke {
     }
 
     private static void addTask(String task) {
-        tasks.add(task);
+        tasks.add(new Task(task));
         System.out.println(LINE);
         System.out.println("added: " + task);
+        System.out.println(LINE);
+    }
+
+    private static void markTask(String command) {
+        int index = Integer.parseInt(command.split(" ")[1]) - 1;
+        Task task = tasks.get(index);
+        task.markAsDone();
+        System.out.println(LINE);
+        System.out.println("Nice! I've marked this task as done: ");
+        System.out.println("  " + task);
         System.out.println(LINE);
     }
 
@@ -64,4 +76,5 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(LINE);
     }
+
 }
