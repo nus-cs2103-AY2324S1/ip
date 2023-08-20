@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Duke {
 
-  static String botName = "GOAT";
-  static Scanner input = new Scanner(System.in);
-  static List<Task> tasks = new ArrayList<>();
+  static final String botName = "GOAT";
+  static final Scanner in = new Scanner(System.in);
+  static final List<Task> tasks = new ArrayList<>();
 
   public static void main(String[] args) {
     String logo =
@@ -20,24 +22,53 @@ public class Duke {
 
     greet();
     while (true) { // assumes all commands will be correct (errors are a future task)
-      String instruction = input.nextLine().trim();
-      String[] commands = instruction.split(" ");
-      if (instruction.equals("bye")) break;
-      switch (commands[0]) {
-        case "list":
-          listTasks();
-          break;
-        case "mark":
-          markTask(Integer.parseInt(commands[1]));
-          break;
-        case "unmark":
-          unmarkTask(Integer.parseInt(commands[1]));
-          break;
-        default:
-          addTask(instruction);
-      }
+      String[] input = in.nextLine().trim().split(" ", 2);
+      if (input[0].equals("bye")) break;
+      executeCommand(input);
     }
     sayBye();
+  }
+
+  static void executeCommand(String[] input) {
+    String command = input[0];
+    String name = "";
+    Map<String, String> parsedArguments = new HashMap<>();
+
+    if (input.length > 1) {
+      String[] arguments = input[1].split("/");
+      name = arguments[0].trim();
+      for (int i = 1; i < arguments.length; ++i) {
+        String[] argument = arguments[i].split(" ", 2);
+        String value = "";
+        if (argument.length == 2) value = argument[1].trim();
+        parsedArguments.put(argument[0], value);
+      }
+    }
+
+    switch (command) {
+      case "list":
+        listTasks();
+        break;
+      case "mark":
+        markTask(Integer.parseInt(name));
+        break;
+      case "unmark":
+        unmarkTask(Integer.parseInt(name));
+        break;
+      case "todo":
+        addTask(new Todo(name));
+        break;
+      case "deadline":
+        addTask(new Deadline(name, parsedArguments.getOrDefault("by", "")));
+        break;
+      case "event":
+        addTask(
+            new Event(
+                name,
+                parsedArguments.getOrDefault("from", ""),
+                parsedArguments.getOrDefault("to", "")));
+        break;
+    }
   }
 
   static void markTask(int i) {
@@ -67,11 +98,14 @@ public class Duke {
     printLine();
   }
 
-  static void addTask(String name) {
-    tasks.add(new Task(name));
+  static void addTask(Task task) {
+    tasks.add(task);
 
     printLine();
-    System.out.printf("\t added: %s\n", name);
+    System.out.println("\t Got it. I've added this task:");
+    System.out.printf("\t\t %s\n", task);
+    System.out.printf(
+        "\t Now you have %d task%s in the list.\n", tasks.size(), tasks.size() == 1 ? "" : "s");
     printLine();
   }
 
