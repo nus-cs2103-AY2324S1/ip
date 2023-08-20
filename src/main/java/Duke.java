@@ -10,14 +10,33 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in); // create a Scanner object for user input
         String userInput = scanner.nextLine();
-        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         while (!userInput.equals("bye")) {
             if (userInput.equals("list")) {
+                Duke.botPrintMessage("The tasks in your list are as follows:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    Duke.botPrintMessage(String.format("%d. %s", i + 1, tasks.get(i)));
+                    Duke.botPrintMessage(String.format("%d.%s", i + 1, tasks.get(i)));
+                }
+            } else if (userInput.length() >= 6 && userInput.substring(0, 4).equals("mark")) {
+                try {
+                    Task task = tasks.get(Integer.parseInt(userInput.substring(5)) - 1);
+                    task.markAsDone();
+                    Duke.botPrintMessage("Okay! I've marked the following task as done:");
+                    Duke.botPrintMessage(task.toString());
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    Duke.botPrintMessage("That is an invalid task number");
+                }
+            } else if (userInput.length() >= 8 && userInput.substring(0, 6).equals("unmark")) {
+                try {
+                    Task task = tasks.get(Integer.parseInt(userInput.substring(7)) - 1);
+                    task.markAsNotDone();
+                    Duke.botPrintMessage("Okay! I've marked the following task as not done:");
+                    Duke.botPrintMessage(task.toString());
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    Duke.botPrintMessage("That is an invalid task number");
                 }
             } else {
-                tasks.add(userInput);
+                tasks.add(new Task(userInput));
                 Duke.botPrintMessage("added: " + userInput);
             }
             Duke.botPrintBr();
