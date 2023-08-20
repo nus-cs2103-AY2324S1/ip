@@ -1,39 +1,43 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicMarkableReference;
 
 public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> lst = new ArrayList<>();
         System.out.println(Constants.opening);
+
         while (true) {
             String input = sc.nextLine();
             String[] arr = input.split(" ", 2);
             try {
-                switch (arr[0]) {
-                    case "bye":
+                Commands command = Commands.cmdFromString(arr[0]);
+                switch (command) {
+                    case BYE:
                         System.out.println(Constants.closing);
                         return;
-                    case "mark":
+                    case MARK:
                         int idx1 = Integer.parseInt(arr[1]);
                         lst.get(idx1 - 1).markDone();
                         System.out.println("Nice! I've marked this task as done");
                         System.out.println("\t" + lst.get(idx1 - 1));
                         break;
-                    case "unmark":
+                    case UNMARK:
                         int idx2 = Integer.parseInt(arr[1]);
                         lst.get(idx2 - 1).unMarkDone();
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println("\t" + lst.get(idx2 - 1));
                         break;
-                    case "list":
+                    case LIST:
                         System.out.println(Constants.divider + "\n" + "Here are the tasks in your list:");
                         for (int i = 0; i < lst.size(); i++) {
                             System.out.println((i + 1) + "." + lst.get(i));
                         }
                         System.out.println(Constants.divider + "\n");
                         break;
-                    case "delete":
+                    case DELETE:
                         int idx3 = Integer.parseInt(arr[1]);
                         Task temp = lst.get(idx3 -1);
                         lst.remove(idx3 - 1);
@@ -42,9 +46,9 @@ public class Duke {
                                 + " tasks in the list.\n" + Constants.divider + "\n";
                         System.out.println(output1);
                         break;
-                    case "todo":
-                    case "deadline":
-                    case "event":
+                    case TODO:
+                    case DEADLINE:
+                    case EVENT:
                         Task task;
                         if (arr[0].equals("todo")) {
                             if (arr.length == 1) throw new IncompleteDescriptionException();
@@ -76,8 +80,6 @@ public class Duke {
                                 + Constants.divider + "\n";
                         System.out.println(output2);
                         break;
-                    default:
-                        throw new UnknownCommandException();
                 }
             } catch (IncompleteDescriptionException ex) {
                 System.out.println(ex);
