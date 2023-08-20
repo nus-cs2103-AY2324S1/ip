@@ -1,11 +1,6 @@
-import java.util.regex.Pattern;
-
 public abstract class Task {
-    private static Pattern toDoPattern = Pattern.compile("todo .+");
-    private static Pattern deadlinePattern = Pattern.compile("deadline .+ /by .+");
-    private static Pattern eventPattern = Pattern.compile("event .+ /from .+ /to .+");
     private boolean isDone = false;
-    private String name;
+    private final String name;
     public Task(String name) {
         this.name = name;
     }
@@ -23,37 +18,76 @@ public abstract class Task {
     public void unmark() {
         this.isDone = false;
     }
-    public static Task makeTask(String str) {
-        if (toDoPattern.matcher(str).matches()) {
-            Task newTask = makeToDo(str.substring(5));
-            return newTask;
-        } else if (deadlinePattern.matcher(str).matches()) {
-            String[] comps = str.split("/");
-            Task newTask = Task.makeDeadline(comps[0].substring(9),
-                    comps[1].substring(3));
-            return newTask;
-        } else if (eventPattern.matcher(str).matches()) {
-            String[] comps = str.split("/");
-            Task newTask = Task.makeEvent(comps[0].substring(6),
-                    comps[1].substring(5),
-                    comps[2].substring(3));
-            return newTask;
+    public static Task makeTask(String str) throws InvalidTaskException {
+        Task newTask;
+        if (str.startsWith("todo")) {
+            newTask = makeToDo(str);
+        } else if (str.startsWith("deadline")) {
+            newTask = makeDeadline(str);
+        } else {
+            newTask = makeEvent(str);
         }
-        return null;
+        return newTask;
     }
-    public static boolean canMakeTask(String input) {
-        return toDoPattern.matcher(input).matches()
-                || deadlinePattern.matcher(input).matches()
-                || eventPattern.matcher(input).matches();
+    public static boolean isTaskCommand(String str) {
+        if (str.length() < 4) {
+            return false;
+        }
+        if (str.startsWith("todo")) {
+            return true;
+        }
+        if (str.length() < 5) {
+            return false;
+        }
+        if (str.startsWith("event")) {
+            return true;
+        }
+        if (str.length() < 8) {
+            return false;
+        }
+        return str.startsWith("deadline");
     }
-    public static Task makeEvent(String name, String from, String to) {
-        return new Event(name, from, to);
+    public static Task makeEvent(String str) throws InvalidTaskException {
+        String[] comps = str.split("/");
+        if (comps.length != 3) {
+            throw new InvalidTaskException("Please make sure the event is written in the correct format:\n"
+                    + "event ... /from ... /to ...");
+        } else if (comps[0].trim().equals("event")) {
+            throw new InvalidTaskException("Sorry, the event description can't be empty.");
+        } else if (comps[1].trim().equals("from")) {
+            throw new InvalidTaskException("Sorry, event start time can't be empty.");
+        } else if (comps[2].trim().equals("to")) {
+            throw new InvalidTaskException("Sorry, event end time can't be empty.");
+        } else if (!comps[1].startsWith("from ") || !comps[2].startsWith("to ")) {
+            throw new InvalidTaskException("Please make sure the event is written in the correct format:\n"
+                    + "event ... /from ... /to ...");
+        }
+        return new Event(comps[0].substring(6),
+                comps[1].substring(5),
+                comps[2].substring(3));
     }
-    public static Task makeToDo(String name) {
+    public static Task makeToDo(String str) throws InvalidTaskException {
+        String name = str.substring(4).trim();
+        if (name.equals("")) {
+            throw new InvalidTaskException("Sorry, the todo description can't be empty.");
+        }
         return new ToDo(name);
     }
-    public static Task makeDeadline(String name, String by) {
-        return new Deadline(name, by);
+    public static Task makeDeadline(String str) throws InvalidTaskException {
+        String[] comps = str.split("/");
+        if (comps.length != 2) {
+            throw new InvalidTaskException("Please make sure the deadline is written in the correct format:\n"
+                    + "deadline ... /by ...");
+        } else if (comps[0].trim().equals("deadline")) {
+            throw new InvalidTaskException("Sorry, the deadline description can't be empty.");
+        } else if (comps[1].trim().equals("by")) {
+            throw new InvalidTaskException("Sorry, the deadline can't be empty.");
+        } else if (!comps[1].startsWith("by")) {
+            throw new InvalidTaskException("Please make sure the deadline is written in the correct format:\n"
+                    + "deadline ... /by ...");
+        }
+        return new Deadline(comps[0].substring(9),
+                comps[1].substring(3));
     }
     public static class ToDo extends Task {
         public ToDo(String name) {
@@ -65,7 +99,7 @@ public abstract class Task {
         }
     }
     public static class Deadline extends Task {
-        private String by;
+        private final String by;
         public Deadline(String name, String by) {
             super(name);
             this.by = by;
@@ -77,8 +111,8 @@ public abstract class Task {
         }
     }
     public static class Event extends Task {
-        private String from;
-        private String to;
+        private final String from;
+        private final String to;
         public Event(String name, String from, String to) {
             super(name);
             this.from = from;

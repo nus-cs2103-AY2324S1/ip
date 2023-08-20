@@ -11,39 +11,40 @@ public class Bot {
         Pattern markPattern = Pattern.compile("mark \\d+");
         Pattern unmarkPattern = Pattern.compile("unmark \\d+");
         while (true) {
-            String str = sc.nextLine();
-            if (str.equalsIgnoreCase("bye")) {
-                break;
-            } else if (str.equalsIgnoreCase("list")) {
-                displayList(lst);
-            } else if (markPattern.matcher(str).matches()) {
-                int index = Integer.parseInt(str.substring(5)) - 1;
-                if (index < 0 || index >= lst.size()) {
-                    System.out.println("Sorry, that index doesn't exist.");
-                    continue;
+            try {
+                String str = sc.nextLine();
+                if (str.equalsIgnoreCase("bye")) {
+                    break;
+                } else if (str.equalsIgnoreCase("list")) {
+                    displayList(lst);
+                } else if (markPattern.matcher(str).matches()) {
+                    int index = Integer.parseInt(str.substring(5)) - 1;
+                    if (index < 0 || index >= lst.size()) {
+                        throw new InvalidIndexException();
+                    }
+                    lst.get(index).mark();
+                    System.out.println("I'll mark this as done:\n" + lst.get(index).toString());
+                } else if (unmarkPattern.matcher(str).matches()) {
+                    int index = Integer.parseInt(str.substring(7)) - 1;
+                    if (index < 0 || index >= lst.size()) {
+                        throw new InvalidIndexException();
+                    }
+                    lst.get(index).unmark();
+                    System.out.println("I'll mark this as not done:\n" + lst.get(index).toString());
+                } else if (Task.isTaskCommand(str)) {
+                    addTask(Task.makeTask(str), lst);
+                } else {
+                    throw new InvalidCommandException();
                 }
-                lst.get(index).mark();
-                System.out.println("I'll mark this as done:\n" + lst.get(index).toString());
-            } else if (unmarkPattern.matcher(str).matches()) {
-                int index = Integer.parseInt(str.substring(7)) - 1;
-                if (index < 0 || index >= lst.size()) {
-                    System.out.println("Sorry, that index doesn't exist.");
-                    continue;
-                }
-                lst.get(index).unmark();
-                System.out.println("I'll mark this as not done:\n" + lst.get(index).toString());
-            } else if (Task.canMakeTask(str)) {
-                addTask(Task.makeTask(str), lst);
-            } else {
-                System.out.println(str);
+            } catch (BotException e) {
+                System.out.println(e.getMessage());
             }
         }
-        System.out.println("Bye. You can find me at the nearest trash can!");
+        System.out.println("Bye. I'll be at the nearest trash can!");
     }
-    private static void displayList(ArrayList<Task> lst) {
+    private static void displayList(ArrayList<Task> lst) throws EmptyListException {
         if (lst.size() == 0) {
-            System.out.println("There are no tasks in your list.");
-            return;
+            throw new EmptyListException();
         }
         StringBuilder out = new StringBuilder().append("Here are the tasks in your list:\n");
         Iterator<Task> iter = lst.iterator();
