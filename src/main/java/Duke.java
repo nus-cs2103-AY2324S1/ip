@@ -1,33 +1,11 @@
 import java.util.Scanner;
+import java.util.regex.*;
 
 public class Duke {
-
-  public class Task {
-    protected boolean completed;
-    protected String description;
-
-//        public String getStatusIcon() {
-//            return (this.completed ? "X" : " "); // mark done task with X
-//        }
-
-    public void toggleComplete() {
-      this.completed = !this.completed;
-    }
-
-    public boolean isCompleted() {
-      return this.completed;
-    }
-
-    @Override
-    public String toString() {
-      return (this.completed ? "[X] " : "[ ] ") + this.description;
-    }
-
-    Task(String description) {
-      this.description = description;
-      this.completed = false;
-    }
-  }
+/*
+First take a command, parse to parser, create the necessary task objects, add the task etc
+Since each task have different flags, we parse to that task object to parse the remaining themselves
+ */
 
   Task[] lst = new Task[100];
   int count = 0;
@@ -41,6 +19,36 @@ public class Duke {
     System.out.println("Hello! I'm AJbot\n" + "What can I do for you?");
     horiLine();
   }
+
+  public Task getDeadlineTask(String remaining) { // takes in command, parse it and return task object
+    String pattern = " (.*) /by (.*)";
+
+    Pattern regexPattern = Pattern.compile(pattern);
+    Matcher matcher = regexPattern.matcher(remaining);
+
+    if (matcher.matches()) {
+      String taskName = matcher.group(1);
+      String by = matcher.group(2);
+      return new Deadline(taskName, by);
+    }
+    return null;
+  }
+
+  public Task getEventTask(String remaining) { // takes in command, parse it and return task object
+    String pattern = " (.*) /from (.*?) /to (.*)";
+
+    Pattern regexPattern = Pattern.compile(pattern);
+    Matcher matcher = regexPattern.matcher(remaining);
+
+    if (matcher.matches()) {
+      String taskName = matcher.group(1);
+      String startTime = matcher.group(2);
+      String endTime = matcher.group(3);
+      return new Event(taskName, startTime, endTime);
+    }
+    return null;
+  }
+
 
   public void askCommand() {
     Scanner scanner = new Scanner(System.in);
@@ -81,14 +89,28 @@ public class Duke {
     } else if (command.equals("bye")) {
       exit();
       return;
-    } else { // if its none of the main commands, then its a task
-      String back = scanner.next();
+    } else { // if its none of the main commands, then its a task. do logic for parsing here or thr
+
+      String remaining = scanner.nextLine();
       horiLine();
-      Task task = new Task(command + " " + back); // create a task
-      lst[count] = task;
-      count += 1;
-      System.out.println(count);
-      System.out.println("added: " + task);
+
+      Task task = null;
+      if (command.equals("todo")) {
+        task = new Todo(remaining.substring(1));
+      } else if (command.equals("deadline")) {
+        task = getDeadlineTask(remaining);
+      } else if (command.equals("event")) {
+        task = getEventTask(remaining);
+      } else {
+        System.out.println("No such command!!! Try again!");
+      }
+      if (task != null) { // have a task
+        lst[count] = task;
+        this.count += 1;
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.printf("Now you have %d tasks in the list.\n", this.count);
+      }
     }
     horiLine();
     askCommand();
