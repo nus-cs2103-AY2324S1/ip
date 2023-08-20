@@ -1,4 +1,6 @@
-public class Task {
+package Tasks;
+
+public abstract class Task {
     private String description;
     private boolean isDone;
 
