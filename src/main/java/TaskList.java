@@ -1,15 +1,22 @@
 import java.util.ArrayList;
 
-public class Todo {
+public class TaskList {
     private ArrayList<Task> list;
     private final Reply reply = Reply.init();
 
-    public Todo() {
+    public TaskList() {
         list = new ArrayList<>();
     }
 
-    public void addTask(String task) {
-        list.add(new Task(task));
+    public void addTask(Task task) {
+        list.add(task);
+        StringBuilder dialog = new StringBuilder("Got it. I've added this task:\n       ")
+                .append(task)
+                .append("\n     ")
+                .append("Now you have ")
+                .append(list.size())
+                .append(" tasks in the list.");
+        reply.printDialog(dialog.toString());
     }
 
     public void printTasks() {
@@ -18,16 +25,14 @@ public class Todo {
         for (int i = 0; i < tasks.length; i++) {
             int listIndex = i + 1;
             Task task = tasks[i];
-            String desc = task.description;
             dialog.append(listIndex)
-                    .append(".").append("[")
-                    .append(task.getStatusIcon())
-                    .append("] ");
+                    .append(".");
 
             if (i < tasks.length - 1) {
-                dialog.append(desc).append("\n     ");
+                dialog.append(task)
+                        .append("\n     ");
             } else {
-                dialog.append(desc);
+                dialog.append(task);
             }
         }
         reply.printDialog(dialog.toString());
@@ -38,10 +43,8 @@ public class Todo {
         Task element = list.get(index - 1);
         element.markAsDone();
         dialog.append("Nice! I've marked this task as done:\n")
-                .append("       [")
-                .append(element.getStatusIcon())
-                .append("] ")
-                .append(element.description);
+                .append("       ")
+                .append(element);
         reply.printDialog(dialog.toString());
     }
 
@@ -50,10 +53,8 @@ public class Todo {
         Task element = list.get(index - 1);
         element.markAsNotDone();
         dialog.append("OK! I've marked this task as not done yet:\n")
-                .append("       [")
-                .append(element.getStatusIcon())
-                .append("] ")
-                .append(element.description);
+                .append("       ")
+                .append(element);
         reply.printDialog(dialog.toString());
     }
 }
