@@ -58,8 +58,8 @@ public class Jerma {
         }
         break;
       case TODO:
-        toDoList.add(new Task(input));
-        System.out.println("added: " + input);
+        toDoList.add(new Todo(input));
+        System.out.println("added: " + inputArgs[1]);
         break;
       case DEADLINE:
         break;
