@@ -29,6 +29,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
     }
 }

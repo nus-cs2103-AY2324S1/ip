@@ -1,21 +1,24 @@
 import extensions.exceptions.DukeException;
 import extensions.exceptions.DukeIllegalArgumentException;
 import extensions.exceptions.DukeUnknownCommandException;
-import extensions.tasks.Deadline;
-import extensions.tasks.Event;
-import extensions.tasks.Task;
-import extensions.tasks.ToDo;
+import extensions.tasks.TaskList;
+import extensions.tasks.TaskList.TaskType;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
-    // read user input
+    // Error messages
+    private static final String ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER =
+            "Please enter a valid task number. You entered: \"%s\"";
+    private static final String ERROR_MESSAGE_TEMPLATE_UNKNOWN_COMMAND =
+            "I'm sorry, but I don't know what \"%s\" means.";
+
+    // Read user input
     private static final Scanner sc = new Scanner(System.in);
-    // store list of tasks
-    private static final ArrayList<Task> list = new ArrayList<>();
-    // check if chat has ended
+    // Store list of tasks
+    private static final TaskList list = new TaskList();
+    // Check if chat has ended
     private static boolean hasEndedChat = false;
 
     /**
@@ -30,29 +33,7 @@ public class Duke {
      * Prints the current list of tasks.
      */
     private static void listTasks() {
-        System.out.println("Here are the tasks in your list:");
-        if (list.isEmpty()) {
-            System.out.println("You have no tasks in your list.");
-        } else {
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println((i + 1) + "." + list.get(i));
-            }
-        }
-    }
-
-    /**
-     * Prints an OK message when a task is added.
-     */
-    private static void printAddTaskMessage() {
-        System.out.println("Got it. I've added this task:");
-    }
-
-    /**
-     * Prints the number of tasks in the list after adding/removing a task.
-     */
-    private static void printNumberOfTasks() {
-        String taskOrTasks = list.size() == 1 ? "task" : "tasks";
-        System.out.printf("Now you have %d %s in the list.%n", list.size(), taskOrTasks);
+        System.out.println(list);
     }
 
     /**
@@ -62,14 +43,7 @@ public class Duke {
      * @throws DukeIllegalArgumentException If the task number is out of range of the list.
      */
     private static void markTaskAsDone(int num) throws DukeIllegalArgumentException {
-        int index = num - 1;
-        if (index < 0 || index >= list.size()) {
-            throw new DukeIllegalArgumentException(
-                    "The task number is out of range. Use \"list\" to see your tasks.");
-        }
-        list.get(index).markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(list.get(index));
+        list.mark(num);
     }
 
     /**
@@ -79,14 +53,7 @@ public class Duke {
      * @throws DukeIllegalArgumentException If the task number is out of range of the list.
      */
     private static void unmarkTaskAsDone(int num) throws DukeIllegalArgumentException {
-        int index = num - 1;
-        if (index < 0 || index >= list.size()) {
-            throw new DukeIllegalArgumentException(
-                    "The task number is out of range. Use \"list\" to see your tasks.");
-        }
-        list.get(index).unmarkAsDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(list.get(index));
+        list.unmark(num);
     }
 
     /**
@@ -95,14 +62,7 @@ public class Duke {
      * @param description The description of the ToDo task.
      */
     private static void addToDoTask(String description) throws DukeIllegalArgumentException {
-        if (description.isBlank()) {
-            throw new DukeIllegalArgumentException("The description of a ToDo task cannot be blank.");
-        }
-        Task task = new ToDo(description);
-        list.add(task);
-        printAddTaskMessage();
-        System.out.println(task);
-        printNumberOfTasks();
+        list.add(TaskType.TODO, description);
     }
 
     /**
@@ -112,17 +72,7 @@ public class Duke {
      * @param by The date/time of the Deadline task.
      */
     private static void addDeadlineTask(String description, String by) throws DukeIllegalArgumentException {
-        if (description.isBlank()) {
-            throw new DukeIllegalArgumentException("The description of a Deadline task cannot be blank.");
-        }
-        if (by.isBlank()) {
-            throw new DukeIllegalArgumentException("The date/time of a Deadline task cannot be blank.");
-        }
-        Task task = new Deadline(description, by);
-        list.add(task);
-        printAddTaskMessage();
-        System.out.println(task);
-        printNumberOfTasks();
+        list.add(TaskType.DEADLINE, description, by);
     }
 
     /**
@@ -134,20 +84,7 @@ public class Duke {
      */
     private static void addEventTask(String description, String start, String end)
             throws DukeIllegalArgumentException {
-        if (description.isBlank()) {
-            throw new DukeIllegalArgumentException("The description of an Event task cannot be blank.");
-        }
-        if (start.isBlank()) {
-            throw new DukeIllegalArgumentException("The start date/time of an Event task cannot be blank.");
-        }
-        if (end.isBlank()) {
-            throw new DukeIllegalArgumentException("The end date/time of an Event task cannot be blank.");
-        }
-        Task task = new Event(description, start, end);
-        list.add(task);
-        printAddTaskMessage();
-        System.out.println(task);
-        printNumberOfTasks();
+        list.add(TaskType.EVENT, description, start, end);
     }
 
     /**
@@ -157,15 +94,7 @@ public class Duke {
      * @throws DukeIllegalArgumentException If the task number is out of range of the list.
      */
     private static void deleteTask(int num) throws DukeIllegalArgumentException {
-        int index = num - 1;
-        if (index < 0 || index >= list.size()) {
-            throw new DukeIllegalArgumentException(
-                    "The task number is out of range. Use \"list\" to see your tasks.");
-        }
-        Task task = list.remove(index);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        printNumberOfTasks();
+        list.delete(num);
     }
 
     /**
@@ -202,7 +131,7 @@ public class Duke {
                 markTaskAsDone(Integer.parseInt(command[1]));
             } catch (NumberFormatException e) {
                 throw new DukeIllegalArgumentException(
-                        "Please enter a valid task number. You entered: \"" + command[1] + "\"");
+                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, command[1]));
             }
             break;
         case "unmark":
@@ -210,7 +139,7 @@ public class Duke {
                 unmarkTaskAsDone(Integer.parseInt(command[1]));
             } catch (NumberFormatException e) {
                 throw new DukeIllegalArgumentException(
-                        "Please enter a valid task number. You entered: \"" + command[1] + "\"");
+                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, command[1]));
             }
             break;
         case "todo":
@@ -239,12 +168,12 @@ public class Duke {
                 deleteTask(Integer.parseInt(command[1]));
             } catch (NumberFormatException e) {
                 throw new DukeIllegalArgumentException(
-                        "Please enter a valid task number. You entered: \"" + command[1] + "\"");
+                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, command[1]));
             }
             break;
         default:
             throw new DukeUnknownCommandException(
-                    "I'm sorry, but I don't know what \"" + command[0] + "\" means.");
+                    String.format(ERROR_MESSAGE_TEMPLATE_UNKNOWN_COMMAND, command[0]));
         }
     }
 
