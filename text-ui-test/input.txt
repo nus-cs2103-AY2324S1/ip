@@ -8,4 +8,6 @@ mark 3
 unmark 3
 mark 2
 list
+todo
+blah
 bye

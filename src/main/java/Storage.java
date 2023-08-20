@@ -34,9 +34,13 @@ public class Storage {
     }
 
     public void list() {
-        System.out.println("\tAs requested, here are the tasks in your list:");
-        for (int i = 0; i < this.count; i++) {
-            System.out.printf("\t%d.%s\n", i + 1, this.tasks[i]);
+        if (this.count == 0) {
+            System.out.println("\tThere are currently no tasks in your list:");
+        } else {
+            System.out.println("\tAs requested, here are the tasks in your list:");
+            for (int i = 0; i < this.count; i++) {
+                System.out.printf("\t%d.%s\n", i + 1, this.tasks[i]);
+            }
         }
     }
 

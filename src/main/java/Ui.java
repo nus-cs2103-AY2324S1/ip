@@ -38,7 +38,11 @@ public class Ui {
             if (input.equals("bye")) {
                 break;
             }
-            Parser.parse(input, storage);
+            try {
+                Parser.parse(input, storage);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
             printDivider();
         }
         sc.close();
