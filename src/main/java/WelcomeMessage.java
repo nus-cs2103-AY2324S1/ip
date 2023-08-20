@@ -1,5 +1,3 @@
-package message;
-
 public class WelcomeMessage extends Message {
     @Override
     public void send() {

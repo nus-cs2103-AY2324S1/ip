@@ -1,13 +1,11 @@
-import message.ByeMessage;
-import message.AddedMessage;
-import message.WelcomeMessage;
+import java.util.regex.Pattern;
 
 public class ChatManager {
     private boolean isActive;
-    private TodoList todoList;
+    private final TaskList taskList;
     public ChatManager() {
         this.isActive = true;
-        this.todoList = new TodoList();
+        this.taskList = new TaskList();
         new WelcomeMessage().send();
     }
     public void handleInput(String userInput) {
@@ -17,10 +15,22 @@ public class ChatManager {
             return;
         }
         if (userInput.equals("list")) {
-            todoList.printList();
+            taskList.printList();
             return;
         }
-        todoList.add(userInput);
+        if (Pattern.matches("mark \\d", userInput)) {
+            String[] arr = userInput.split(" ");
+            int num = Integer.parseInt(arr[arr.length - 1]);
+            taskList.markTask(num);
+            return;
+        }
+        if (Pattern.matches("unmark \\d", userInput)) {
+            String[] arr = userInput.split(" ");
+            int num = Integer.parseInt(arr[arr.length - 1]);
+            taskList.unmarkTask(num);
+            return;
+        }
+        taskList.add(userInput);
     }
     public boolean getIsActive() {
         return this.isActive;

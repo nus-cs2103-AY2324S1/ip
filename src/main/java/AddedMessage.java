@@ -1,5 +1,3 @@
-package message;
-
 public class AddedMessage extends Message {
     private final String echo;
     public AddedMessage(String echo) {
