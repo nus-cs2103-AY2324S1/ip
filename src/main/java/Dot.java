@@ -6,7 +6,7 @@ public class Dot {
     public static String HORIZONTAL_RULE = "_".repeat(60) + "\n";
 
     @SuppressWarnings("unused")
-    public static String logo = " ____          _\n"
+    public static String LOGO = " ____          _\n"
             + "|  _ \\ _____ _| |___\n"
             + "| | | | | | | | ____|\n"
             + "| |_| | |_| | | |___\n"
@@ -16,12 +16,14 @@ public class Dot {
 
     // Class methods - Display, UI
     public static void welcome() {
-        System.out.printf("%sHello! I'm Dot\n" +
-                "What can I do for you?\n", HORIZONTAL_RULE);
+        System.out.printf("%s%sHello! I'm Dot, " +
+                "let me help you finish your tasks on the dot!\n" +
+                "What can I do(t) for you?\n%s\n",
+                HORIZONTAL_RULE, LOGO, HORIZONTAL_RULE);
     }
 
     public static void goodbye() {
-        System.out.printf("%sBye. Hope to see you again soon!\n%s",
+        System.out.printf("%sBye! DOnT forget to finish your tasks!\n%s",
                 HORIZONTAL_RULE, HORIZONTAL_RULE);
     }
 
