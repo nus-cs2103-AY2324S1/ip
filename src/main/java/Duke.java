@@ -1,10 +1,13 @@
 import java.util.Scanner;
 public class Duke {
+
     public static void main(String[] args) {
+        Task[] list = new Task[100];
+        int number = 0;
+
         Scanner in = new Scanner(System.in);
         System.out.println("Hello! I'm Muddy\n" + "What can I do for you?");
-        int number = 0;
-        String[] list = new String[100];
+
 
         while (true) {
             String input = in.nextLine();
@@ -19,12 +22,33 @@ public class Duke {
                 } else {
                     System.out.println("List:");
                     for (int i = 0; i < number; i++) {
-                        String item = list[i];
-                        System.out.println((i + 1) + ". " + item);
+                        Task item = list[i];
+                        System.out.println((i + 1) + ". " + "[" + item.getStatusIcon()+ "]" + item.getDescription());
                     }
                 }
-            } else {
-                list[number] = input;
+            } else if (input.startsWith("mark")) {
+                int taskIndex = Integer.parseInt(input.substring(5).trim()) - 1;
+                if (taskIndex >= 0 && taskIndex < number) {
+                    list[taskIndex].markAsDone();
+                    Task item = list[taskIndex];
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("[" + item.getStatusIcon() + "] " + item.getDescription());
+                } else {
+                    System.out.println("You have chosen an invalid task");
+                }
+            } else if (input.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
+                if (taskIndex >= 0 && taskIndex < number) {
+                    list[taskIndex].markAsNotDone();
+                    Task item = list[taskIndex];
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("[" + item.getStatusIcon() + "] " + item.getDescription());
+                } else {
+                    System.out.println("You have chosen an invalid task");
+                }
+            }
+            else {
+                list[number] = new Task(input);
                 number++;
                 System.out.println("added: " + input);
             }
