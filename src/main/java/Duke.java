@@ -43,36 +43,65 @@ public class Duke {
                 break;
             default:
                 if (input.startsWith("mark ")) {
-                    Integer i = Integer.valueOf(input.substring(5));
-                    if (i <= this.lists.size()) {
-                        this.lists.get(i - 1).markAsDone();
-                        output = "Nice! I've marked this task as done: \n" + this.lists.get(i - 1).toString();
+                    try {
+                        Integer i = Integer.valueOf(input.substring(5));
+                        if (i <= this.lists.size()) {
+                            this.lists.get(i - 1).markAsDone();
+                            output = "Nice! I've marked this task as done: \n" + this.lists.get(i - 1).toString();
+                        } else {
+                            output = "☹ OOPS!!! The number input does not exist.";
+                        }
+                    } catch (NumberFormatException err) {
+                        output = "☹ OOPS!!! The number input does not exist.";
                     }
                 } else if(input.startsWith("unmark ")) {
-                    Integer i = Integer.valueOf(input.substring(7));
-                    if (i <= this.lists.size()) {
-                        this.lists.get(i - 1).markAsUndone();
-                        output = "OK, I've marked this task as not done yet: \n" + this.lists.get(i - 1).toString();
+                    try {
+                        Integer i = Integer.valueOf(input.substring(7));
+                        if (i <= this.lists.size()) {
+                            this.lists.get(i - 1).markAsUndone();
+                            output = "OK, I've marked this task as not done yet: \n" + this.lists.get(i - 1).toString();
+                        } else {
+                            output = "☹ OOPS!!! The number input does not exist.";
+                        }
+                    } catch (NumberFormatException err){
+                        output = "☹ OOPS!!! The number input does not exist.";
                     }
                 } else {
                     if (input.startsWith("todo ")) {
                         String desc = input.substring(5);
-                        this.lists.add(new ToDo(desc));
-                        output = "Got it. I've added this task: \n" + this.lists.get(this.lists.size() - 1) + "\n"
-                                + "Now you have " + this.lists.size() + " tasks in the list.";
+                        if (desc.length() == 0) {
+                            output = "☹ OOPS!!! The description of a todo cannot be empty.";
+                        } else {
+                            this.lists.add(new ToDo(desc));
+                            output = "Got it. I've added this task: \n" + this.lists.get(this.lists.size() - 1) + "\n"
+                                    + "Now you have " + this.lists.size() + " tasks in the list.";
+                        }
                     } else if (input.startsWith("deadline ")) {
-                        int index = input.indexOf("/by");
-                        this.lists.add(new Deadline(input.substring(9,index - 1), input.substring(index + 4)));
-                        output = "Got it. I've added this task: \n" + this.lists.get(this.lists.size() - 1) + "\n"
-                                + "Now you have " + this.lists.size() + " tasks in the list.";
+                        try {
+                            int index = input.indexOf("/by");
+                            this.lists.add(new Deadline(input.substring(9,index - 1), input.substring(index + 4)));
+                            output = "Got it. I've added this task: \n" + this.lists.get(this.lists.size() - 1) + "\n"
+                                    + "Now you have " + this.lists.size() + " tasks in the list.";
+                        } catch (StringIndexOutOfBoundsException err) {
+                            output= "☹ OOPS!!! The deadline format is incorrect! \n" +
+                                    "follow the format: deadline description /by end date";
+                        }
+
                     } else if (input.startsWith("event ")) {
-                        int indexFrom = input.indexOf("/from");
-                        int indexTo = input.indexOf("/to");
-                        this.lists.add(new Event(input.substring(6,indexFrom - 1),
-                                input.substring(indexFrom + 6,indexTo - 1),
-                                input.substring(indexTo + 4)));
-                        output = "Got it. I've added this task: \n" + this.lists.get(this.lists.size() - 1) + "\n"
-                                + "Now you have " + this.lists.size() + " tasks in the list.";
+                        try {
+                            int indexFrom = input.indexOf("/from");
+                            int indexTo = input.indexOf("/to");
+                            this.lists.add(new Event(input.substring(6,indexFrom - 1),
+                                    input.substring(indexFrom + 6,indexTo - 1),
+                                    input.substring(indexTo + 4)));
+                            output = "Got it. I've added this task: \n" + this.lists.get(this.lists.size() - 1) + "\n"
+                                    + "Now you have " + this.lists.size() + " tasks in the list.";
+                        } catch (StringIndexOutOfBoundsException err){
+                            output= "☹ OOPS!!! The event format is incorrect! \n" +
+                                    "follow the format: event description /from start date /to end date";
+                        }
+                    } else {
+                        output = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
                     }
                 }
                 break;
