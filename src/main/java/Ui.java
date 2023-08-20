@@ -30,15 +30,15 @@ public class Ui {
         System.out.println(logo);
     }
 
-    public static void takeInstructions() {
+    public static void takeInstructions(Storage storage) {
         Scanner sc = new Scanner(System.in);
         while (true) {
-            String input = sc.next();
+            String input = sc.nextLine();
             printDivider();
             if (input.equals("bye")) {
                 break;
             }
-            System.out.println("\t" + input);
+            Parser.parse(input, storage);
             printDivider();
         }
         sc.close();
