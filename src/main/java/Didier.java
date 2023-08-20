@@ -24,15 +24,25 @@ public class Didier {
                     case "mark":
                     case "unmark":
                         try {
-                            Task taskMark = tasks.get(Integer.parseInt(command[1]) - 1);
+                            Task task = tasks.get(Integer.parseInt(command[1]) - 1);
                             if (command[0].equals("mark")) {
-                                taskMark.markAsDone();
+                                task.markAsDone();
                                 Didier.botPrintMessage("Okay! I've marked the following task as done:");
                             } else {
-                                taskMark.markAsNotDone();
+                                task.markAsNotDone();
                                 Didier.botPrintMessage("Okay! I've marked the following task as undone:");
                             }
-                            Didier.botPrintMessage(taskMark.toString());
+                            Didier.botPrintMessage(task.toString());
+                        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                            throw new TaskNumberException(command[1]);
+                        }
+                        break;
+                    case "delete":
+                        try {
+                            Task task = tasks.remove(Integer.parseInt(command[1]) - 1);
+                            Didier.botPrintMessage("Okay! I've removed this task:");
+                            Didier.botPrintMessage(task.toString());
+                            Didier.botPrintMessage(String.format("There are now %d tasks in your list", tasks.size()));
                         } catch (NumberFormatException | IndexOutOfBoundsException e) {
                             throw new TaskNumberException(command[1]);
                         }

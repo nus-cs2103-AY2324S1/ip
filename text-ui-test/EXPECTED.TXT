@@ -118,5 +118,20 @@
     ---------------------------------------------------------------------
     The start time of the task is missing. Please try again.
     ---------------------------------------------------------------------
+    Okay! I've removed this task:
+    [D][X] return book  (by: Friday)
+    There are now 7 tasks in your list
+    ---------------------------------------------------------------------
+    11 is an invalid task number. Please try again.
+    ---------------------------------------------------------------------
+    The tasks in your list are as follows:
+    1.[T][X] borrow book
+    2.[T][ ] set up project
+    3.[T][X] call mother
+    4.[D][X] finish project  (by: Monday)
+    5.[E][ ] dinner with family  (from: Tuesday 6pm  to: Tuesday 8pm)
+    6.[D][X] submit application  (by: Wednesday)
+    7.[E][ ] lunch with family  (from: Saturday 1pm  to: Saturday 3pm)
+    ---------------------------------------------------------------------
     Goodbye! If you need more help in the future don't hesitate to ask me.
     ---------------------------------------------------------------------
