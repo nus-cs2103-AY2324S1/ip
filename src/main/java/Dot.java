@@ -38,6 +38,20 @@ public class Dot {
                                     new IncorrectMarkParametersException("incorrect number of parameters"));
                         }
                         break;
+                    } else if (input.startsWith("unmark")) {
+                        String[] substrings = input.split(" ");
+                        if (substrings.length == 2) {
+                            try {
+                                int position = Integer.parseInt(substrings[1]);
+                                dotTaskList.markTask(position - 1, false);
+                            } catch (NumberFormatException e) {
+                                TaskErrors.ERR_USING_UNMARK.printErrorMessage(e);
+                            }
+                        } else {
+                            TaskErrors.ERR_USING_UNMARK.printErrorMessage(
+                                    new IncorrectMarkParametersException("incorrect number of parameters"));
+                        }
+                        break;
                     }
                     dotTaskList.addItem(input);
                     break;
