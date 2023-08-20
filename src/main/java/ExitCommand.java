@@ -1,11 +1,7 @@
-public class ExitCommand extends Command{
+public class ExitCommand implements Command{
     @Override
-    public  void execute(TaskList tasks, Ui ui){
+    public  boolean execute(TaskList tasks, Ui ui){
         ui.respond("Bye. Hope to see you again soon!");
-    }
-
-    @Override
-    public  boolean isExit(){
         return true;
     }
 }

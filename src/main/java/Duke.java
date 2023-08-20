@@ -10,8 +10,7 @@ public class Duke {
             String userInput = ui.readInput();
             ui.showLine();
             Command command = Parser.parse(userInput);
-            command.execute(this.tasks,ui);
-            isExit = command.isExit();
+            isExit =  command.execute(this.tasks,ui);;
             ui.showLine();
         }
     }

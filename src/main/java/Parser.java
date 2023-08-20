@@ -6,11 +6,16 @@ public class Parser {
      * @return The corresponding Command object.
      */
     public static Command parse(String userInput)  {
-        switch (userInput.toLowerCase()) {
+        String[] words = userInput.toLowerCase().split("\\s+");
+        switch (words[0]) {
             case "bye":
                 return new ExitCommand();
             case "list":
                 return new ListCommand();
+            case "mark":
+                return new MarkCommand();
+            case "unmark":
+                return new UnmarkCommand();
             default:
                 return new AddCommand();
         }

@@ -15,11 +15,23 @@ public class TaskList {
         tasks.remove(index);
     }
 
+    public void mark(int index) {
+        tasks.get(index).mark();
+    }
+
+    public void unmark(int index) {
+        tasks.get(index).unmark();
+    }
+
+    public Task get(int index) {
+        return tasks.get(index);
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            stringBuilder.append(i + 1).append(". ").append(tasks.get(i).toString());
+            stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString());
             if (i != tasks.size()-1) {
                 stringBuilder.append("\n");
             }
