@@ -1,6 +1,16 @@
+import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
         greet();
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.equals("bye")) {
+                break;
+            }
+            System.out.println(input);
+        }
         exit();
     }
 
