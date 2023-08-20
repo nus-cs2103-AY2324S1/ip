@@ -19,10 +19,6 @@ public class Task {
         return (toBeDone ? "[ ]" : "[X]");
     }
 
-    public String getTask() {
-        return task;
-    }
-
     @Override
     public String toString() {
         return getStatusIcon() + " " + task;

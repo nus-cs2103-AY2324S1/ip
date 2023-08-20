@@ -1,7 +1,31 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hey! It's Sally here!
+How can I help you today?
+
+
+Added to My List:
+ [T][ ] borrow book
+Now you have 1 tasks in the list.
+Added to My List:
+ [D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+Added to My List:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+Added to My List:
+ [D][ ] do homework (by: no idea :-p)
+Now you have 4 tasks in the list.
+Sorry, I do not understand the command (Use todo/deadline/event to add tasks to your list).
+My List:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+4. [D][ ] do homework (by: no idea :-p)
+Nice! I've marked this task as done:
+ [D][X] return book (by: Sunday)
+My List:
+1. [T][ ] borrow book
+2. [D][X] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+4. [D][ ] do homework (by: no idea :-p)
+Bye! See you again next time.
 
