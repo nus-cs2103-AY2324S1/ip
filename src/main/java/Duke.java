@@ -1,11 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
-    Task[] tasks;
-    int taskIndex = 0;
+    ArrayList<Task> tasksNN;
     Scanner sc;
     public Duke() {
         this.sc = new Scanner(System.in);
-        this.tasks = new Task[100];
+        this.tasksNN = new ArrayList<Task>();
     }
     private void line(String text) {
         System.out.println(text);
@@ -30,22 +30,22 @@ public class Duke {
 
     private void listOutTasks() {
         String tasksList = "";
-        for(int i = 0; i < taskIndex; i++) {
-            tasksList += String.format("%d. %s \n", i + 1, tasks[i].toString().replace("  ", ""));
+        for(int i = 0; i < tasksNN.size(); i++) {
+            tasksList += String.format("%d. %s \n", i + 1, tasksNN.get(i).toString().replace("  ", ""));
         }
         this.line(tasksList);
     }
 
     private boolean isMark(String reply) { return reply.startsWith("mark"); }
     private void mark(int index) {
-        Task task = tasks[index];
+        Task task = tasksNN.get(index);
         task.mark();
         this.line(String.format("  Nice! I've marked this task as done:\n    %s", task.toString()));
     }
 
     private boolean isUnmark(String reply) { return reply.startsWith("unmark"); }
     private void unmark(int index) {
-        Task task = tasks[index];
+        Task task = tasksNN.get(index);
         task.unmark();
         this.line(String.format("  Ok, I've marked this task as not done yet:\n    %s", task.toString()));
     }
@@ -84,12 +84,22 @@ public class Duke {
         constructTaskMessage(task);
     }
 
+    private boolean isDelete(String reply) {
+        return reply.startsWith("delete");
+    }
+
+    private void delete(int index) {
+        Task removedTask = tasksNN.remove(index);
+        System.out.println(String.format("  Noted. I've removed this task:"));
+        System.out.println(removedTask.toString());
+        this.line(String.format("  Now you have %d task(s) in the list.", tasksNN.size()));
+    }
+
     private void constructTaskMessage(Task task) {
         System.out.println(String.format("  Got it. I've added this task:"));
-        tasks[taskIndex] = task;
-        taskIndex += 1;
+        tasksNN.add(task);
         System.out.println(task.toString());
-        this.line(String.format("  Now you have %d task(s) in the list.", taskIndex));
+        this.line(String.format("  Now you have %d task(s) in the list.", tasksNN.size()));
     }
 
     private void interact() {
@@ -111,7 +121,10 @@ public class Duke {
                     addDeadline(reply);
                 } else if (isEvent(reply)) {
                     addEvent(reply);
-                } else {
+                } else if (isDelete(reply)) {
+                    delete(Character.getNumericValue(reply.charAt(7) - 1));
+                }
+                else {
                     throw new DukeUnknownCommandException();
                 }
             } catch (DukeException e) {
@@ -119,11 +132,6 @@ public class Duke {
             }
         }
     }
-
-    private void echo(String reply) {
-        this.line(reply);
-    }
-
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.greet();
