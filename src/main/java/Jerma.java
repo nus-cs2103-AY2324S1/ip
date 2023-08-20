@@ -24,83 +24,61 @@ public class Jerma {
     listen: while (true) {
       String input = scanner.nextLine();
       String[] inputArgs = input.split(" ", 2);
-      Command command;
       try {
-        command = Command.parse(inputArgs[0]);
-      } catch (UnsupportedOperationException e) {
-        System.out.println("No such command. Try again!");
-        continue;
-      }
+        Command command = Command.parse(inputArgs[0]);
 
-      switch (command) {
-      case LIST:
-        for (int i = 0; i < toDoList.size(); i++) {
-          String output = String.format("%d. %s", i + 1, toDoList.get(i));
-          System.out.println(output);
-        }
-        break;
-      case BYE:
-        break listen;
-      case MARK:
-        try {
+        switch (command) {
+        case LIST:
+          for (int i = 0; i < toDoList.size(); i++) {
+            String output = String.format("%d. %s", i + 1, toDoList.get(i));
+            System.out.println(output);
+          }
+          break;
+        case BYE:
+          break listen;
+        case MARK:
           int index = Integer.parseInt(inputArgs[1]) - 1;
           Task task = toDoList.get(index);
           task.setDone();
 
           System.out.println("Marked as done: \n" + task);
-        } catch (IndexOutOfBoundsException e) {
-          System.out.println("Invalid arguments. Try again!");
-        }
-        break;
-      case UNMARK:
-        try {
-          int index = Integer.parseInt(inputArgs[1]) - 1;
-          Task task = toDoList.get(index);
+          break;
+        case UNMARK:
+          index = Integer.parseInt(inputArgs[1]) - 1;
+          task = toDoList.get(index);
           task.setUndone();
 
           System.out.println("Marked as undone: \n" + task);
-        } catch (IndexOutOfBoundsException e) {
-          System.out.println("Invalid arguments. Try again!");
-        }
-        break;
-      case TODO:
-        try {
+          break;
+        case TODO:
           toDoList.add(new Todo(inputArgs[1]));
           System.out.println("added todo: " + inputArgs[1]);
-        } catch (IndexOutOfBoundsException e) {
-          System.out.println("Invalid arguments. Try again!");
-        }
-        break;
-      case DEADLINE:
-        String description, by;
-        try {
-          String[] split = inputArgs[1].split(" /by ", 2);
-          description = split[0];
-          by = split[1];
-        } catch (IndexOutOfBoundsException e) {
-          System.out.println("Invalid arguments. Try again!");
           break;
-        }
-        toDoList.add(new Deadline(description, by));
-        System.out.println(
-            String.format("added deadline: %s by %s", description, by));
-        break;
-      case EVENT:
-        String from, to;
-        try {
+        case DEADLINE:
+          String[] split = inputArgs[1].split(" /by ", 2);
+          String description = split[0];
+          String by = split[1];
+
+          toDoList.add(new Deadline(description, by));
+          System.out.println(
+              String.format("added deadline: %s by %s", description, by));
+          break;
+        case EVENT:
           String[] split1 = inputArgs[1].split(" /from ", 2);
           String[] split2 = split1[1].split(" /to ", 2);
           description = split1[0];
-          from = split2[0];
-          to = split2[1];
-        } catch (IndexOutOfBoundsException e) {
-          System.out.println("Invalid arguments. Try again!");
+          String from = split2[0];
+          String to = split2[1];
+
+          toDoList.add(new Event(description, from, to));
+          System.out.println(String.format("added event: %s from %s to %s",
+              description, from, to));
           break;
         }
-        toDoList.add(new Event(description, from, to));
-        System.out.println(String.format("added event: %s from %s to %s",
-            description, from, to));
-        break;
+      } catch (IndexOutOfBoundsException e) {
+        System.out.println("Invalid arguments. Try again!");
+      } catch (UnsupportedOperationException e) {
+        System.out.println("Invalid command. Try again!");
       }
     }
     scanner.close();
