@@ -30,22 +30,7 @@ public abstract class Task {
         return newTask;
     }
     public static boolean isTaskCommand(String str) {
-        if (str.length() < 4) {
-            return false;
-        }
-        if (str.startsWith("todo")) {
-            return true;
-        }
-        if (str.length() < 5) {
-            return false;
-        }
-        if (str.startsWith("event")) {
-            return true;
-        }
-        if (str.length() < 8) {
-            return false;
-        }
-        return str.startsWith("deadline");
+        return str.startsWith("todo") || str.startsWith("event") ||str.startsWith("deadline");
     }
     public static Task makeEvent(String str) throws InvalidTaskException {
         String[] comps = str.split("/");

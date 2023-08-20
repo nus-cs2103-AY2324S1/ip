@@ -1,6 +1,6 @@
 Hello! I'm the trash gremlin Caelus!
 What can I do for you?
-hello
+Sorry, I dunno what you're saying. Must be the trash getting to my brain.
 Added:
 [T][ ] taskone
 Now you have 1 task(s) in the list.
@@ -29,8 +29,10 @@ Here are the tasks in your list:
 3. [E][ ] taskthree (from: ytd  to: tmr)
 I'll mark this as done:
 [E][X] taskthree (from: ytd  to: tmr)
+I've removed this task:
+[E][X] taskthree (from: ytd  to: tmr)
+Now you have 2 task(s) in the list.
 Here are the tasks in your list:
 1. [T][ ] taskone
 2. [D][ ] tasktwo (by: today)
-3. [E][X] taskthree (from: ytd  to: tmr)
-Bye. You can find me at the nearest trash can!
+Bye. I'll be at the nearest trash can!

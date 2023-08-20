@@ -10,6 +10,7 @@ public class Bot {
         ArrayList<Task> lst = new ArrayList<>();
         Pattern markPattern = Pattern.compile("mark \\d+");
         Pattern unmarkPattern = Pattern.compile("unmark \\d+");
+        Pattern deletePattern = Pattern.compile("delete \\d+");
         while (true) {
             try {
                 String str = sc.nextLine();
@@ -17,14 +18,20 @@ public class Bot {
                     break;
                 } else if (str.equalsIgnoreCase("list")) {
                     displayList(lst);
-                } else if (markPattern.matcher(str).matches()) {
+                } else if (str.startsWith("mark")) {
+                    if (!markPattern.matcher(str).matches()) {
+                        throw new InvalidIndexException();
+                    }
                     int index = Integer.parseInt(str.substring(5)) - 1;
                     if (index < 0 || index >= lst.size()) {
                         throw new InvalidIndexException();
                     }
                     lst.get(index).mark();
                     System.out.println("I'll mark this as done:\n" + lst.get(index).toString());
-                } else if (unmarkPattern.matcher(str).matches()) {
+                } else if (str.startsWith("unmark")) {
+                    if (!unmarkPattern.matcher(str).matches()) {
+                        throw new InvalidIndexException();
+                    }
                     int index = Integer.parseInt(str.substring(7)) - 1;
                     if (index < 0 || index >= lst.size()) {
                         throw new InvalidIndexException();
@@ -33,6 +40,16 @@ public class Bot {
                     System.out.println("I'll mark this as not done:\n" + lst.get(index).toString());
                 } else if (Task.isTaskCommand(str)) {
                     addTask(Task.makeTask(str), lst);
+                } else if (str.startsWith("delete")) {
+                    if (!deletePattern.matcher(str).matches()) {
+                        throw new InvalidIndexException();
+                    }
+                    int index = Integer.parseInt(str.substring(7)) - 1;
+                    if (index < 0 || index >= lst.size()) {
+                        throw new InvalidIndexException();
+                    }
+                    System.out.println("I've removed this task:\n" + lst.remove(index).toString());
+                    displayListLength(lst);
                 } else {
                     throw new InvalidCommandException();
                 }

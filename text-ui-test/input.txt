@@ -10,5 +10,6 @@ list
 event taskthree /from ytd /to tmr
 list
 mark 3
+delete 3
 list
 bye
