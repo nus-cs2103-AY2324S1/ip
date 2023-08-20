@@ -5,27 +5,27 @@ public class Duck {
     /**
      * Default tab spacing
      */
-    private static String TAB = "     ";
+    private static final String TAB = "     ";
     /**
      * Default Welcome Message
      */
-    private static String WELCOME_MESSAGE = TAB + " Quack Quack! I am a duck named Quack\r\n"
+    private static final String WELCOME_MESSAGE = TAB + " Quack Quack! I am a duck named Quack\r\n"
             + TAB + " What can I do for you?\r\n";
 
     /**
      * Default Exit Message
      */
-    private static String GOODBYE_MESSAGE = TAB + " Quack Quack! Quack hopes to see you again soon!\r\n";
+    private static final String GOODBYE_MESSAGE = TAB + " Quack Quack! Quack hopes to see you again soon!\r\n";
 
     /**
      * Line Break
      */
-    private static String LINE_BREAK = "    ____________________________________________________________\r\n";
+    private static final String LINE_BREAK = "    ____________________________________________________________\r\n";
 
     /**
      * App LOGO
      */
-    private static String LOGO = "\r\n░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\r\n"
+    private static final String LOGO = "\r\n░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\r\n"
             +
             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\r\n" +
             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██████████░░░░░░░░░░░░░░░░░░░░░░\r\n" +
