@@ -1,12 +1,28 @@
 todo read book
 deadline return book /by June 6th
-list
+list all
+unmark 3
+todo
 event project meeting /from Mon 2pm /to 4pm
+event sleep /from 6am
+event sleep /to 6am
 mark 1
-list
+peek
+mark all
+mark 1 2 3
+deadline eat
 mark 2
+unmark each
+mark 0
+unmark 1 2
 unmark 1
 unmark 2
+deadline /by 6 Jan
 mark 3
+list
+unmark 0
+event /from 6am /to 5pm
+bye bye
+mark 4
 list
 bye
