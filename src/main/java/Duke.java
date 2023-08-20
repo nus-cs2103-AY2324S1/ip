@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+
     public static void main(String[] args) {
         final String HELLO_MESSAGE = "Hello, it's Spot!";
         final String GOODBYE_MESSAGE = "Spot's going to take a nap now. Goodnight!";
@@ -26,6 +27,9 @@ public class Duke {
                     }
                 } else if (input.startsWith("mark")) {
                     try {
+                        if (input.length() <= 5) {
+                            throw new DukeException("Spot needs more details than that!");
+                        }
                         int position = Integer.valueOf(input.substring(5));
                         if (position < 0 || position > tasks.size()) {
                             throw new DukeException("Spot thinks that task doesn't exist!");
@@ -36,6 +40,9 @@ public class Duke {
                     }
                 } else if (input.startsWith("unmark")) {
                     try {
+                        if (input.length() <= 7) {
+                            throw new DukeException("Spot needs more details than that!");
+                        }
                         int position = Integer.valueOf(input.substring(7));
                         if (position < 0 || position > tasks.size()) {
                             throw new DukeException("Spot thinks that task doesn't exist!");
@@ -46,6 +53,9 @@ public class Duke {
                     }
                 } else if (input.startsWith("delete")) {
                     try {
+                        if (input.length() <= 7) {
+                            throw new DukeException("Spot needs more details than that!");
+                        }
                         int position = Integer.valueOf(input.substring(7));
                         if (position < 0 || position > tasks.size()) {
                             throw new DukeException("Spot thinks that task doesn't exist!");
@@ -104,8 +114,8 @@ public class Duke {
                                         "forgotten the description?");
                             }
                             if (keywords.length < 3) {
-                                throw new DukeException("Spot can't find a description," +
-                                        " a start time, and/or an end time!");
+                                throw new DukeException("Spot can't find a start time" +
+                                        " and/or an end time!");
                             }
                             Event newTask = new Event(keywords[0], keywords[1], keywords[2]);
                             tasks.add(newTask);
