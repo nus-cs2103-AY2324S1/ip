@@ -22,32 +22,63 @@ public class Robert {
         Scanner scanner = new Scanner(System.in);
         Boolean isUnderExecution = true;
 
-        String userInput;
+        String[] userInput;
         while (isUnderExecution) {
-            userInput = scanner.nextLine();
-            String[] commands = userInput.split(" ");
+            userInput = scanner.nextLine().split(" ", 2);
+
+            String classification = userInput[0]; // First word indicates the type of action
+            String parameters = ""; // Second word onwards are parameters for different actions
+            if (userInput.length > 1) {
+                parameters = userInput[1];
+            }
             
-            switch (commands[0]) {
+            switch (classification) {
             case "list":
-                listTasks();
+                Robert.listTasks();
                 break;
+            
+            case "mark":
+                int markingTaskIndex = Integer.parseInt(parameters) - 1;
+                Robert.markTask(markingTaskIndex);
+                break;
+
+            case "unmark":
+                int unmarkingTaskIndex = Integer.parseInt(parameters) - 1;
+                Robert.unmarkTask(unmarkingTaskIndex);
+                break;
+            
+            case "todo":
+                ToDo newToDo = new ToDo(parameters);
+                Robert.addTask(newToDo);
+                break;
+
+            case "event":
+                String[] eventParameters = parameters.split(" /from ");
+
+                String eventDescription = eventParameters[0];
+                String from = eventParameters[1].split(" /to ")[0];
+                String to = eventParameters[1].split(" /to ")[1];
+
+                Event newEvent = new Event(eventDescription, from, to);
+                Robert.addTask(newEvent);
+                break;
+
+            case "deadline":
+                String[] deadlineParameters = parameters.split(" /by ");
+
+                String deadlineDescription = deadlineParameters[0];
+                String by = deadlineParameters[1];
+
+                Deadline newDeadline = new Deadline(deadlineDescription, by);
+                Robert.addTask(newDeadline);
+                break;    
 
             case "bye":
                 isUnderExecution = false;
                 break;
-            
-            case "mark":
-                int markingTaskIndex = Integer.parseInt(commands[1]) - 1;
-                markTask(markingTaskIndex);
-                break;
-
-            case "unmark":
-                int unmarkingTaskIndex = Integer.parseInt(commands[1]) - 1;
-                unmarkTask(unmarkingTaskIndex);
-                break;
 
             default:
-                addTask(userInput);
+                Robert.outputMessage("Invalid command. Try again!");
                 break;
             }
         }
@@ -63,22 +94,27 @@ public class Robert {
         Robert.outputMessage(taskListing);
     }
 
-    private static void addTask(String taskDescription) {
-        Task newTask = new Task(taskDescription);
-        Robert.tasks[Task.taskCount++] = newTask;
-        String text = String.format("Alright! I have added this task to your list:\n%s", taskDescription);
+    private static void addTask(Task task) {
+        Robert.tasks[Task.taskCount++] = task;
+
+        String taskPlurality = "task";
+        if (Task.taskCount > 1) {
+            taskPlurality = "tasks";
+        }
+        String text = "Got it. I have added this task:\n  " + task
+                + "\nNow you have " + Task.taskCount + " " + taskPlurality + " in the list.";
         Robert.outputMessage(text);
     }
 
     private static void markTask(int taskIndex) {
         Robert.tasks[taskIndex].markAsDone();
-        String text = "Nice! I've marked this task as done:\n" + Robert.tasks[taskIndex];
+        String text = "Nice! I've marked this task as done:\n  " + Robert.tasks[taskIndex];
         Robert.outputMessage(text);
     }
 
     private static void unmarkTask(int taskIndex) {
         Robert.tasks[taskIndex].markAsUndone();
-        String text = "Ok, I've marked this task as not done yet:\n" + Robert.tasks[taskIndex];
+        String text = "Ok, I've marked this task as not done yet:\n  " + Robert.tasks[taskIndex];
         Robert.outputMessage(text);
     }
 
