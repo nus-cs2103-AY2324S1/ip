@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+import Task.TaskList;
+import Task.Task;
 public class Kniaz {
 
     /**
@@ -30,7 +31,7 @@ public class Kniaz {
     /**
      * All tasks stored by Kniaz.
      */
-    private static List<String> taskList = new ArrayList<>();
+    private static TaskList taskList = new TaskList();
 
 
     /**
@@ -64,20 +65,44 @@ public class Kniaz {
             }
 
             if (next.equals("list")){
-                System.out.println(Kniaz.taskListToString((taskList)));
+
+                System.out.println(taskList.toString());
                 // print out if we are asked to list
+            } else if (next.startsWith("mark")) {
+
+                String entryAsString = Kniaz.getAfter(next,"mark");
+                int entryAsInt = Integer.parseInt(entryAsString.strip());
+                int entryToMark = entryAsInt - 1;
+
+                taskList.get(entryToMark).markAsDone();
+
+                System.out.println("As you say. The task has been marked as done :");
+                System.out.println(taskList.get(entryToMark).toString());
+
+            } else if (next.startsWith("unmark")){
+
+                String entryAsString = Kniaz.getAfter(next,"unmark");
+                int entryAsInt = Integer.parseInt(entryAsString.strip());
+                int entryToMark = entryAsInt - 1;
+
+                taskList.get(entryToMark).markAsUndone();
+
+                System.out.println("Ah, so you didn't actually finish it. Correcting your mistake.");
+                System.out.println(taskList.get(entryToMark).toString());
+
             } else {
+
                 // interpret everything else that isn't special as a task to add
-                taskList.add(next);
-                System.out.printf("added: %s%n",next);
+                Task taskToAdd = Task.newTask((next));
+                // next currently holds the name of this new task
+
+                taskList.add(taskToAdd);
+
+                System.out.printf("added: %s%n",taskToAdd.toString());
             }
             System.out.println((Kniaz.SEPERATOR));
 
 
-//            System.out.println(next);
-//            next  = input.nextLine();
-
-            // Functionality is just to echo -- Print what we got and wait to fetch next input
         }
 
 
@@ -85,22 +110,10 @@ public class Kniaz {
         System.out.println(Kniaz.SEPERATOR);
     }
 
-    /**
-     * Formats a tasklist as a string.
-     * @param taskList the list of tasks to format as a string
-     * @return the list of tasks formatted in the right format
-     */
-    private static String taskListToString(List<? extends  String> taskList){
-        StringBuilder out = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++){
-            String currTask = taskList.get(i);
-            String newLine = String.format(
-                    "%d. %s\n", i+1 , currTask);
-            // User probably expects to start counting from 1 instead of 0
-            // so need to add 1 here
-            out.append(newLine);
-        }
-        return out.toString();
+    private static String getAfter(String fullString, String subString){
+        int indexOfSubString = fullString.indexOf(subString);
+        return fullString.substring(indexOfSubString + subString.length());
+        // add the substring length to skip to the end of it
     }
 
 
