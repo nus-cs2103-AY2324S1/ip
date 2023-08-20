@@ -73,10 +73,52 @@ public class Alyssa {
                     System.out.println("Please enter a valid task number.");
                     System.out.println(line);
                 }
-            } else {
-                taskList.add(new Task(nextInput));
+            } else if (nextInput.startsWith("todo")) {
+                String desc = nextInput.substring(5);
+                Task newTodo = new Todo(desc);
+                taskList.add(newTodo);
+                System.out.println("Got it. I've added this task: ");
+                System.out.println(newTodo.toString());
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println(line);
-                System.out.println("added: " + nextInput);
+            } else if (nextInput.startsWith("deadline")) {
+                try {
+                    String[] parsed = nextInput.split(" /by ");
+                    String desc = parsed[0].substring(9);
+                    String by = parsed[1];
+                    Task newDeadline = new Deadline(desc, by);
+                    taskList.add(newDeadline);
+                    System.out.println(line);
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(newDeadline.toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                    System.out.println(line);
+                } catch (Exception e) {
+                    System.out.println(line);
+                    System.out.println("Invalid deadline");
+                    System.out.println(line);
+                }
+            } else if (nextInput.startsWith("event")) {
+                try {
+                    String[] parsed = nextInput.split(" /from | /to ");
+                    String desc = parsed[0].substring(6);
+                    String from = parsed[1];
+                    String to = parsed[2];
+                    Task newEvent = new Event(desc, from, to);
+                    taskList.add(newEvent);
+                    System.out.println(line);
+                    System.out.println("Got it. I've added this task: ");
+                    System.out.println(newEvent.toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                    System.out.println(line);
+                } catch (Exception e) {
+                    System.out.println(line);
+                    System.out.println("Invalid event");
+                    System.out.println(line);
+                }
+            } else {
+                System.out.println(line);
+                System.out.println("Invalid input");
                 System.out.println(line);
             }
         }
