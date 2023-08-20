@@ -1,7 +1,8 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Robert {
-    private static Task[] tasks = new Task[100];
+	private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static void greetUser() {
         String logo = "    ____        __              __ \n"
@@ -51,8 +52,7 @@ public class Robert {
 
 					parameters = userInput[1];
 					int markingTaskIndex = Integer.parseInt(parameters) - 1;
-
-					if (markingTaskIndex < 1 || Task.taskCount < markingTaskIndex) {
+					if (markingTaskIndex < 0 || Task.taskCount <= markingTaskIndex) {
 						throw new RobertException("Index is out of bounds.\n"
 								+ "Please choose a valid index.");
 					}
@@ -69,7 +69,7 @@ public class Robert {
 					parameters = userInput[1];
 					int unmarkingTaskIndex = Integer.parseInt(parameters) - 1;
 
-					if (unmarkingTaskIndex < 1 || Task.taskCount < unmarkingTaskIndex) {
+					if (unmarkingTaskIndex < 0 || Task.taskCount <= unmarkingTaskIndex) {
 						throw new RobertException("Index is out of bounds.\n"
 								+ "Please choose a valid index.");
 					}
@@ -130,6 +130,23 @@ public class Robert {
 					Robert.addTask(newDeadline);
 					break;    
 
+				case "delete":
+					if (userInput.length == 1) {
+						throw new RobertException("The index used to delete a task cannot be empty.\n"
+								+ "Please add an index.");
+					}
+
+					parameters = userInput[1];
+					int deletingTaskIndex = Integer.parseInt(parameters) - 1;
+
+					if (deletingTaskIndex < 0 || Task.taskCount <= deletingTaskIndex) {
+						throw new RobertException("Index is out of bounds.\n"
+								+ "Please choose a valid index.");
+					}
+
+					Robert.deleteTask(deletingTaskIndex);
+					break;
+
 				default:
 					throw new RobertException("I'm sorry, but I don't know what that means :-(");
 				}
@@ -146,15 +163,18 @@ public class Robert {
     }
 
     private static void listTasks() {
+		int taskIndex = 1;
         String taskListing = "Here are the tasks in your list:\n";
-        for (int i = 0; i < Task.taskCount; i++) {
-            taskListing += String.format("%d. %s\n", i + 1, Robert.tasks[i]);
+        for (Task task : Robert.tasks) {
+            taskListing += String.format("%d. %s\n", taskIndex, task);
+			taskIndex++;
         }
         Robert.outputMessage(taskListing);
     }
 
     private static void addTask(Task task) {
-        Robert.tasks[Task.taskCount++] = task;
+        Robert.tasks.add(task);
+		Task.taskCount++;
 
         String taskPlurality = "task";
         if (Task.taskCount > 1) {
@@ -165,15 +185,29 @@ public class Robert {
         Robert.outputMessage(text);
     }
 
+    private static void deleteTask(int taskIndex) {
+		Task removedTask = Robert.tasks.get(taskIndex);
+        Robert.tasks.remove(taskIndex);
+		Task.taskCount--;
+
+        String taskPlurality = "task";
+        if (Task.taskCount > 1) {
+            taskPlurality = "tasks";
+        }
+        String text = "Noted. I've removed this task:\n  " + removedTask
+                + "\nNow you have " + Task.taskCount + " " + taskPlurality + " in the list.";
+        Robert.outputMessage(text);
+    }	
+
     private static void markTask(int taskIndex) {
-        Robert.tasks[taskIndex].markAsDone();
-        String text = "Nice! I've marked this task as done:\n  " + Robert.tasks[taskIndex];
+        Robert.tasks.get(taskIndex).markAsDone();
+        String text = "Nice! I've marked this task as done:\n  " + Robert.tasks.get(taskIndex);
         Robert.outputMessage(text);
     }
 
     private static void unmarkTask(int taskIndex) {
-        Robert.tasks[taskIndex].markAsUndone();
-        String text = "Ok, I've marked this task as not done yet:\n  " + Robert.tasks[taskIndex];
+        Robert.tasks.get(taskIndex).markAsUndone();
+        String text = "Ok, I've marked this task as not done yet:\n  " + Robert.tasks.get(taskIndex);
         Robert.outputMessage(text);
     }
 
