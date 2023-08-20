@@ -15,32 +15,54 @@ public class Bot {
             if (str.equalsIgnoreCase("bye")) {
                 break;
             } else if (str.equalsIgnoreCase("list")) {
-                System.out.println(displayList(lst));
+                displayList(lst);
             } else if (markPattern.matcher(str).matches()) {
                 int index = Integer.parseInt(str.substring(5)) - 1;
+                if (index <= 0 || index >= lst.size()) {
+                    System.out.println("Sorry, that index doesn't exist.");
+                    continue;
+                }
                 lst.get(index).mark();
                 System.out.println("I'll mark this as done:\n" + lst.get(index).toString());
+                displayListLength(lst);
             } else if (unmarkPattern.matcher(str).matches()) {
                 int index = Integer.parseInt(str.substring(7)) - 1;
+                if (index <= 0 || index >= lst.size()) {
+                    System.out.println("Sorry, that index doesn't exist.");
+                    continue;
+                }
                 lst.get(index).unmark();
                 System.out.println("I'll mark this as not done:\n" + lst.get(index).toString());
+                displayListLength(lst);
+            } else if (Task.canMakeTask(str)) {
+                addTask(Task.makeTask(str), lst);
             } else {
-                lst.add(new Task(str));
-                System.out.println("Added: " + str);
+                System.out.println("Sorry, I don't understand.");
             }
         }
         System.out.println("Bye. You can find me at the nearest trash can!");
     }
-    private static String displayList(ArrayList<Task> lst) {
-        StringBuilder out = new StringBuilder();
+    private static void displayList(ArrayList<Task> lst) {
+        if (lst.size() == 0) {
+            System.out.println("There are no tasks in your list.");
+            return;
+        }
+        StringBuilder out = new StringBuilder().append("Here are the tasks in your list:\n");
         Iterator<Task> iter = lst.iterator();
         int ctr = 1;
         while (iter.hasNext()) {
-            // I'm not smart enough to figure just how much faster this is.
             out.append(ctr).append(". ").append(iter.next().toString()).append("\n");
             ctr++;
         }
         out.deleteCharAt(out.length() - 1);
-        return out.toString();
+        System.out.println(out.toString());
+    }
+    private static void displayListLength(ArrayList<Task> lst) {
+        System.out.println("Now you have " + lst.size() + " task(s) in the list.");
+    }
+    private static void addTask(Task newTask, ArrayList<Task> lst) {
+        System.out.println("Added:\n" + newTask.toString());
+        lst.add(newTask);
+        displayListLength(lst);
     }
 }
