@@ -1,7 +1,7 @@
 // Taken from hint
-public class Task {
-  protected String description;
-  protected boolean isDone;
+abstract public class Task {
+  protected final String description;
+  private boolean isDone;
 
   public Task(String description) {
     this.description = description;
@@ -9,11 +9,7 @@ public class Task {
   }
 
   public String getStatusIcon() {
-    return (isDone ? "X" : " "); // mark done task with X
-  }
-
-  public String getDescription() {
-    return this.description;
+    return (this.isDone ? "X" : " "); // mark done task with X
   }
 
   public void markAsDone() {
@@ -22,5 +18,10 @@ public class Task {
 
   public void markAsNotDone() {
     this.isDone = false;
+  }
+
+  @Override
+  public String toString() {
+    return "[" + getStatusIcon() + "] " + this.description;
   }
 }
