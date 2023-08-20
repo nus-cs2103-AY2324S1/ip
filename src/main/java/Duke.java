@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
         String line = "\t____________________________________________________________";
         System.out.println(line);
         System.out.println("\t Hello! I'm Violet");
@@ -13,7 +15,14 @@ public class Duke {
 
         while (!command.equals("bye")) {
             System.out.println(line);
-            System.out.println("\t " + command);
+            if (command.equals("list")) {
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println("\t " + (i + 1) + ". " + list.get(i));
+                }
+            } else {
+                list.add(command);
+                System.out.println("\t added: " + command);
+            }
             System.out.println(line);
             command = sc.nextLine();
         }
