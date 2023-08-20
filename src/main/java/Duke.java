@@ -5,7 +5,7 @@ public class Duke {
     public static void main(String[] args) {
         String name = "ForsakenX";
         String helloGreeting = String.format("Hello! I'm %s\nWhat can I do for you?\n", name);
-        String byeGreeting = "Bye. Hope to see you again soon! o(╥﹏╥)o\n";
+        String byeGreeting = "Bye. Hope to see you again soon!\n";
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
 

@@ -1,0 +1,11 @@
+list
+todo borrow book
+deadline return book /by 24 Aug
+event study session /from 7pm /to 10pm
+list
+mark 1
+mark 3
+list
+unmark 3
+list
+bye
