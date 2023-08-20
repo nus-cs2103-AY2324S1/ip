@@ -4,7 +4,7 @@ import ui.Ui;
 import java.util.Scanner;
 
 public class Dot {
-    private static final TaskList dotTaskList = TaskList.newTaskList();
+    private static final TaskList dotTaskList = TaskList.newTaskList(100);
 
     public static void main(String[] args) {
         Ui.welcome();
