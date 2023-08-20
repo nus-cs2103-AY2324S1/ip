@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     // Constructor for Duke
     public Duke() {
-
+        this.list = new ArrayList<>();
     }
 
     // Constants
@@ -12,6 +13,7 @@ public class Duke {
 
     // Fields
     private Scanner sc = new Scanner(System.in);
+    private ArrayList<String> list;
 
     public void printMessage(String message) {
         System.out.printf("\t%s\n", message);
@@ -29,8 +31,17 @@ public class Duke {
         printMessage(exiting);
     }
 
-    public void echo(String input) {
-        printMessage(input);
+    public void addToList(String input) {
+        list.add(input);
+        String addMessage = String.format("added: %s", input);
+        printMessage(addMessage);
+    }
+
+    public void printList() {
+        for (int i =0; i < list.size(); i++) {
+            System.out.printf("\t%d. %s\n", i + 1, list.get(i));
+        }
+        System.out.println(line);
     }
 
     public void runDuke() {
@@ -42,8 +53,10 @@ public class Duke {
 
             if (input.equals("bye")) {
                 isDone = true;
+            } else if (input.equals("list")) {
+                printList();
             } else {
-                echo(input);
+                addToList(input);
             }
         }
 
