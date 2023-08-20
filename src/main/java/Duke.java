@@ -1,34 +1,22 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static String indent = "     ";
-    private static String section = indent + "________________________________________\n";
     public static void main(String[] args) {
-
-        //Print intro
-        System.out.println(section
-                + indent + "Hello! I'm Evan\n"
-                + indent + "What can I do for you?\n"
-                + section);
-
         //Start user interaction
-        application();
-    }
-
-    public static void application() {
         Scanner scanner = new Scanner(System.in);
+        Todo tasks = new Todo();
+        Reply reply = Reply.init();
         while(true) {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
-                printDialog("Bye. Hope to see you again soon!");
+                reply.printDialog("Bye. Hope to see you again soon!");
                 return;
+            } else if (input.equals("list")) {
+                tasks.printTasks();
             } else {
-                printDialog(input);
+                tasks.addTask(input);
+                reply.printDialog("added: " + input);
             }
         }
-    }
-
-    public static void printDialog(String dialog) {
-        System.out.println(section + indent + dialog + "\n" + section);
     }
 }
