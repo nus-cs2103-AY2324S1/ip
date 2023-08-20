@@ -1,9 +1,9 @@
 package message;
 
-public class EchoMessage extends Message {
+public class AddedMessage extends Message {
     private final String echo;
-    public EchoMessage(String echo) {
-        this.echo = echo;
+    public AddedMessage(String echo) {
+        this.echo = "added: " + echo;
     }
     @Override
     public void send() {
