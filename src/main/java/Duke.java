@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.Scanner;
 
 public class Duke {
@@ -11,42 +10,56 @@ public class Duke {
     private static final String name = "chatBot";
     private static final String helloMsg = String.format("Hello! I'm %s", name);
     private static final String requestMsg = "What can I do for you?";
-    private static final String addedMsg = "added: %s";
-    private static final String outOfRangeMsg = "Task %d is out of range. You only have %d tasks.";
+    private static final String addedMsg = "Got it. I've added this task:\n  %s\nNow you have %d task%s in the list.";
+    private static final String listMsg = "Here are the tasks in your list:\n%s";
     private static final String markMsg = "Nice! I've marked this task as done:\n  %s";
     private static final String unmarkMsg = "OK, I've marked this task as not done yet:\n  %s";
+    private static final String invalidCmdMsg = "Invalid command.";
     private static final String goodbyeMsg = "Bye. Hope to see you again soon!";
     private static final Scanner userInput = new Scanner(System.in);
-    private static final Pattern markCommand = Pattern.compile("^((un)?)mark [1-9]([0-9]*)$");
 
     public static void main(String[] args) {
         List<Task> tasks = new ArrayList<Task>();
         Duke.printMsg(helloMsg + "\n" + requestMsg);
         while (true) {
-            String msg = userInput.nextLine();
-            if (msg.equals("bye")) {
-                break;
-            } else if (msg.equals("list")) {
-                Duke.printMsg(Duke.stringifyList(tasks));
-            } else if (markCommand.matcher(msg).matches()) {
-                String[] cmd = msg.split(" ");
-                int idx = Integer.parseInt(cmd[1]);
-                if (idx > tasks.size()) {
-                    Duke.printMsg(String.format(outOfRangeMsg, idx, tasks.size()));
+            String[] cmd = userInput.nextLine().split(" ");
+            if (cmd.length == 0) {
+                continue;
+            }
+            int idx;
+            switch (cmd[0]) {
+                case "bye":
+                    break;
+                case "list":
+                    Duke.printMsg(String.format(listMsg, Duke.stringifyList(tasks)));
                     continue;
-                }
-                idx--;
-                if (cmd[0].equals("mark")) {
+                case "mark":
+                    idx = Integer.parseInt(cmd[1]) - 1;
                     tasks.get(idx).mark();
                     Duke.printMsg(String.format(markMsg, tasks.get(idx).toString()));
-                } else {
+                    continue;
+                case "unmark":
+                    idx = Integer.parseInt(cmd[1]) - 1;
                     tasks.get(idx).unmark();
                     Duke.printMsg(String.format(unmarkMsg, tasks.get(idx).toString()));
-                }
-            } else {
-                tasks.add(new Task(msg));
-                Duke.printMsg(String.format(addedMsg, msg));
+                    continue;
+                case "todo":
+                    tasks.add(makeToDo(cmd));
+                    Duke.printLastAdd(tasks);
+                    continue;
+                case "deadline":
+                    tasks.add(makeDeadline(cmd));
+                    Duke.printLastAdd(tasks);
+                    continue;
+                case "event":
+                    tasks.add(makeEvent(cmd));
+                    Duke.printLastAdd(tasks);
+                    continue;
+                default:
+                    Duke.printMsg(invalidCmdMsg);
+                    continue;
             }
+            break;
         }
         Duke.printMsg(goodbyeMsg);
     }
@@ -72,5 +85,53 @@ public class Duke {
             enumArr.add(String.format("%d. %s", i + 1, arr.get(i).toString()));
         }
         return String.join("\n", enumArr);
+    }
+
+    private static <T> void printLastAdd(List<T> arr) {
+        Duke.printMsg(String.format(addedMsg, arr.get(arr.size() - 1).toString(), arr.size(), arr.size() == 1 ? "" : "s"));
+    }
+
+    private static ToDo makeToDo(String[] arr) {
+        List<String> item = new ArrayList<String>();
+        for (int i = 1; i < arr.length; i++) {
+            item.add(arr[i]);
+        }
+        return new ToDo(String.join(" ", item));
+    }
+
+    private static Deadline makeDeadline(String[] arr) {
+        List<String> item = new ArrayList<String>();
+        List<String> by = new ArrayList<String>();
+        List<String> curr = item;
+        for (int i = 1; i < arr.length; i++) {
+            switch (arr[i]) {
+                case "/by":
+                    curr = by;
+                    break;
+                default:
+                    curr.add(arr[i]);
+            }
+        }
+        return new Deadline(String.join(" ", item), String.join(" ", by));
+    }
+
+    private static Event makeEvent(String[] arr) {
+        List<String> item = new ArrayList<String>();
+        List<String> from = new ArrayList<String>();
+        List<String> to = new ArrayList<String>();
+        List<String> curr = item;
+        for (int i = 1; i < arr.length; i++) {
+            switch (arr[i]) {
+                case "/from":
+                    curr = from;
+                    break;
+                case "/to":
+                    curr = to;
+                    break;
+                default:
+                    curr.add(arr[i]);
+            }
+        }
+        return new Event(String.join(" ", item), String.join(" ", from), String.join(" ", to));
     }
 }
