@@ -11,6 +11,10 @@ public class Duke {
     private static final String LINE = "-".repeat(60);
     private static List<Task> tasks = new ArrayList<>();
 
+    public enum CommandType {
+        LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
+    }
+
     public static void main(String[] args) {
         printWelcomeMessage();
         handleUserInput();
@@ -32,18 +36,49 @@ public class Duke {
     }
 
     private static void handleCommand(String command) {
-        if (command.equals("list")) {
-            printList();
-        } else if (command.startsWith("mark")) {
-            markTask(command);
-        } else if (command.startsWith("delete")) {
-            deleteTask(command);
-        } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
-            addTask(command);
-        } else {
-            printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
+        
+        CommandType commandType = parseCommandType(command);
+
+        switch (commandType) {
+            case LIST:
+                printList();
+                break;
+            case MARK:
+                markTask(command);
+                break;
+            case DELETE:
+                deleteTask(command);
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                addTask(command);
+                break;
+            case UNKNOWN:
+                printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
+                break;
         }
     }
+
+    private static CommandType parseCommandType(String command) {
+        if (command.startsWith("list")) {
+            return CommandType.LIST;
+        } else if (command.startsWith("mark")) {
+            return CommandType.MARK;
+        } else if (command.startsWith("delete")) {
+            return CommandType.DELETE;
+        } else if (command.startsWith("todo")) {
+            return CommandType.TODO;
+        } else if (command.startsWith("deadline")) {
+            return CommandType.DEADLINE;
+        } else if (command.startsWith("event")) {
+            return CommandType.EVENT;
+        }
+        else {
+            return CommandType.UNKNOWN;
+        }
+    }
+    
 
     private static void printList() {
         System.out.println(LINE);
