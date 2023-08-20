@@ -13,7 +13,7 @@ public class Duke {
 
     // Fields
     private Scanner sc = new Scanner(System.in);
-    private ArrayList<String> list;
+    private ArrayList<Task> list;
 
     public void printMessage(String message) {
         System.out.printf("\t%s\n", message);
@@ -32,14 +32,16 @@ public class Duke {
     }
 
     public void addToList(String input) {
-        list.add(input);
+        Task task = new Task(input);
+        list.add(task);
         String addMessage = String.format("added: %s", input);
         printMessage(addMessage);
     }
 
     public void printList() {
+        System.out.println("\tHere are the tasks in your list:");
         for (int i =0; i < list.size(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, list.get(i));
+            System.out.printf("\t\t%d. %s\n", i + 1, list.get(i));
         }
         System.out.println(line);
     }
@@ -55,6 +57,20 @@ public class Duke {
                 isDone = true;
             } else if (input.equals("list")) {
                 printList();
+            } else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.replaceFirst("mark", "").trim()) - 1;
+                list.get(index).markDone();
+                String markDoneMessage = String.format("\t%s", list.get(index).toString());
+
+                System.out.println("\tBeep Boop Beep! I've marked this task as done:");
+                printMessage(markDoneMessage);
+            } else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.replaceFirst("unmark", "").trim()) - 1;
+                list.get(index).markNotDone();
+                String markNotDoneMessage = String.format("\t%s", list.get(index).toString());
+
+                System.out.println("\tBeep Boop Boop! I've marked this task as not done yet:");
+                printMessage(markNotDoneMessage);
             } else {
                 addToList(input);
             }
