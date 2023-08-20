@@ -5,10 +5,13 @@ public class TaskList {
     TaskList() {
         this.tasklist = new ArrayList<Task>();
     }
-
+    // adding task into tasklist and output the relevant information
     void add(Task task) {
-        System.out.println("added: " + task.getTask());
         this.tasklist.add(task);
+        System.out.println("Got it. I've added this task:\n" +
+                task.toString() + "\nNow you have " +
+                tasklist.size() + " tasks in the list.");
+
     }
 
     void mark(int taskNumber) {

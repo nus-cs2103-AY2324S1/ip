@@ -1,4 +1,4 @@
-public class Task {
+class Task {
     private final String task;
     private final boolean isDone;
 
@@ -27,8 +27,8 @@ public class Task {
     @Override
     public String toString() {
         if (isDone) {
-            return "[X] " + this.getTask();
+            return "[X] " + this.task;
         }
-        return "[ ] " + this.getTask();
+        return "[ ] " + this.task;
     }
 }
