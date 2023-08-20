@@ -1,9 +1,13 @@
 import java.util.Scanner;
 public class Duke {
     private String message;
+    private String[] history;
+    private int count;
 
     public Duke() {
-        message = "";
+        this.message = "";
+        this.history = new String[100];
+        this.count = 0;
     }
     public void greet() {
         this.indent();
@@ -13,6 +17,19 @@ public class Duke {
 
     public void indent() {
         System.out.println("\t \t \t \t_______________________________________________________________");
+    }
+
+    public void list() {
+        this.indent();
+        for (int i = 0; i < this.count; i++) {
+            System.out.println(String.format("\t \t \t \t %d) ".concat(this.history[i]), i + 1));
+        }
+        this.indent();
+    }
+
+    public void appendList() {
+        this.history[this.count] = this.message;
+        this.count++;
     }
 
     public void exit() {
@@ -29,10 +46,14 @@ public class Duke {
             this.updateMessage(input.nextLine());
             if (this.message.equals("bye")) {
                 break;
+            } else if (this.message.equals("list")) {
+                this.list();
+            } else {
+                this.appendList();
+                this.indent();
+                System.out.println("\t \t \t \t Added: " + this.message);
+                this.indent();
             }
-            this.indent();
-            System.out.println("\t \t \t \t \t" + this.message);
-            this.indent();
         }
     }
 
