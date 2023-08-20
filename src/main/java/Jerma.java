@@ -3,14 +3,14 @@ import java.util.List;
 import java.util.Scanner;
 
 enum Command {
-  LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, ECHO;
+  LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT;
 
   public static Command parse(String input) {
     for (Command command : Command.values()) {
       if (command.toString().toLowerCase().equals(input))
         return command;
     }
-    return ECHO;
+    throw new UnsupportedOperationException();
   }
 }
 
@@ -24,7 +24,13 @@ public class Jerma {
     listen: while (true) {
       String input = scanner.nextLine();
       String[] inputArgs = input.split(" ", 2);
-      Command command = Command.parse(inputArgs[0]);
+      Command command;
+      try {
+        command = Command.parse(inputArgs[0]);
+      } catch (UnsupportedOperationException e) {
+        System.out.println("No such command. Try again!");
+        continue;
+      }
 
       switch (command) {
       case LIST:
@@ -42,7 +48,7 @@ public class Jerma {
           task.setDone();
 
           System.out.println("Marked as done: \n" + task);
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException e) {
           System.out.println("Invalid arguments. Try again!");
         }
         break;
@@ -53,13 +59,17 @@ public class Jerma {
           task.setUndone();
 
           System.out.println("Marked as undone: \n" + task);
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException e) {
           System.out.println("Invalid arguments. Try again!");
         }
         break;
       case TODO:
-        toDoList.add(new Todo(inputArgs[1]));
-        System.out.println("added todo: " + inputArgs[1]);
+        try {
+          toDoList.add(new Todo(inputArgs[1]));
+          System.out.println("added todo: " + inputArgs[1]);
+        } catch (IndexOutOfBoundsException e) {
+          System.out.println("Invalid arguments. Try again!");
+        }
         break;
       case DEADLINE:
         String description, by;
@@ -67,7 +77,7 @@ public class Jerma {
           String[] split = inputArgs[1].split(" /by ", 2);
           description = split[0];
           by = split[1];
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException e) {
           System.out.println("Invalid arguments. Try again!");
           break;
         }
@@ -83,7 +93,7 @@ public class Jerma {
           description = split1[0];
           from = split2[0];
           to = split2[1];
-        } catch (Exception e) {
+        } catch (IndexOutOfBoundsException e) {
           System.out.println("Invalid arguments. Try again!");
           break;
         }
@@ -91,8 +101,6 @@ public class Jerma {
         System.out.println(String.format("added event: %s from %s to %s",
             description, from, to));
         break;
-      case ECHO:
-        System.out.println(input);
       }
     }
     scanner.close();
