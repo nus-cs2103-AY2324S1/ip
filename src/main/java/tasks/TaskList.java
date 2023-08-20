@@ -13,10 +13,11 @@ public class TaskList {
         this.maxSize = maxSize;
     }
 
-    public void addItem(String item) {
+    public void addItem(Task newTask) {
         if (this.tasks.size() < this.maxSize) {
-            Ui.wrapPrintWithHorizontalRules(String.format("added: %s", item));
-            this.tasks.add(new Task(item));
+            this.tasks.add(newTask);
+            Ui.wrapPrintWithHorizontalRules(String.format("Got it. I've added this task:\n" +
+                    "  %s\nNow you have %d tasks in the list.", newTask, this.tasks.size()));
         } else {
             Ui.wrapPrintWithHorizontalRules("Your task list has reached the limit of 100 tasks. " +
                     "Please remove some tasks to proceed.");
@@ -28,8 +29,7 @@ public class TaskList {
         System.out.print(Ui.HORIZONTAL_RULE);
         for (int i = 0; i < this.tasks.size(); i++) {
             Task currTask = this.tasks.get(i);
-            System.out.printf("%d[%c] %s\n", i + 1,
-                    currTask.getStatus(), currTask.getDescription());
+            System.out.printf("%d.%s\n", i + 1, currTask);
         }
         System.out.print(Ui.HORIZONTAL_RULE + "\n");
     }
