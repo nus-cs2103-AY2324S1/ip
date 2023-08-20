@@ -29,11 +29,16 @@ public class Duke {
         int idx = parseMark(input);
         if (idx != 0) {
           taskList.get(idx - 1).markAsDone();
+          System.out.println(
+              String.format("Nice! I've marked this task as done:\n %s\n", taskList.get(idx - 1)));
         }
       } else if (unmarkPattern.matcher(input).find()) {
         int idx = parseMark(input);
         if (idx != 0) {
           taskList.get(idx - 1).markAsNotDone();
+          System.out.println(
+              String.format(
+                  "OK! I've marked this task as not done:\n %s\n", taskList.get(idx - 1)));
         }
       } else if (todoPattern.matcher(input).find()) {
         Matcher m = todoPattern.matcher(input);
@@ -47,14 +52,14 @@ public class Duke {
           DeadlineTask newTask = new DeadlineTask(m.group(1), m.group(2));
           addTask(newTask);
         }
-      } else if(eventPattern.matcher(input).find()){
+      } else if (eventPattern.matcher(input).find()) {
         Matcher m = eventPattern.matcher(input);
         if (m.find()) {
           EventTask newTask = new EventTask(m.group(1), m.group(2), m.group(3));
           addTask(newTask);
         }
       } else {
-        System.out.println("Invalid Input");
+        System.out.println("Invalid Input\n");
       }
     }
   }
@@ -75,15 +80,20 @@ public class Duke {
       res = Integer.parseInt(idx);
     }
     if (res > taskList.size()) {
-      System.out.println("Task " + res + " does not exist");
+      System.out.println("Task " + res + " does not exist\n");
       res = 0;
     }
     return res;
   }
-    private static void addTask(Task newTask) {
+
+  private static void addTask(Task newTask) {
     taskList.add(newTask);
-    System.out.println(String.format("Got it, I've added this task:\n %s\nNow you have %d tasks in the list.", newTask, taskList.size()));
+    System.out.println(
+        String.format(
+            "Got it, I've added this task:\n %s\nNow you have %d tasks in the list.\n",
+            newTask, taskList.size()));
   }
+
   private static String listString() {
     StringBuilder sb = new StringBuilder();
     sb.append("Here are your tasks:\n");
