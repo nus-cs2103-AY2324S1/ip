@@ -36,7 +36,6 @@ public class Duke {
                 output = "Bye. Hope to see you again soon!";
                 break;
             case "barbie":
-                this.lists.add(new Task(input));
                 output = "Hi barbie!";
                 break;
             case "list":
@@ -56,8 +55,25 @@ public class Duke {
                         output = "OK, I've marked this task as not done yet: \n" + this.lists.get(i - 1).toString();
                     }
                 } else {
-                    this.lists.add(new Task(input));
-                    output = "added: " + input;
+                    if (input.startsWith("todo ")) {
+                        String desc = input.substring(5);
+                        this.lists.add(new ToDo(desc));
+                        output = "Got it. I've added this task: \n" + this.lists.get(this.lists.size() - 1) + "\n"
+                                + "Now you have " + this.lists.size() + " tasks in the list.";
+                    } else if (input.startsWith("deadline ")) {
+                        int index = input.indexOf("/by");
+                        this.lists.add(new Deadline(input.substring(9,index - 1), input.substring(index + 4)));
+                        output = "Got it. I've added this task: \n" + this.lists.get(this.lists.size() - 1) + "\n"
+                                + "Now you have " + this.lists.size() + " tasks in the list.";
+                    } else if (input.startsWith("event ")) {
+                        int indexFrom = input.indexOf("/from");
+                        int indexTo = input.indexOf("/to");
+                        this.lists.add(new Event(input.substring(6,indexFrom - 1),
+                                input.substring(indexFrom + 6,indexTo - 1),
+                                input.substring(indexTo + 4)));
+                        output = "Got it. I've added this task: \n" + this.lists.get(this.lists.size() - 1) + "\n"
+                                + "Now you have " + this.lists.size() + " tasks in the list.";
+                    }
                 }
                 break;
         }
@@ -72,10 +88,10 @@ public class Duke {
      */
     private String outputList() {
         StringBuilder output = new StringBuilder();
-        output.append("Here are the tasks in your list: \n");
+        output.append("Here are the tasks in your list: ");
         int i = 1;
         for (Task val : this.lists) {
-            output.append(i).append(". ").append(val).append("\n");
+            output.append("\n").append(i).append(". ").append(val);
             i++;
         }
 
