@@ -36,8 +36,26 @@ public class Jerma {
       case BYE:
         break listen;
       case MARK:
+        try {
+          int index = Integer.parseInt(inputArgs[1]) - 1;
+          Task task = toDoList.get(index);
+          task.setDone();
+
+          System.out.println("Marked as done: \n" + task);
+        } catch (Exception e) {
+          System.out.println("Invalid arguments. Try again!");
+        }
         break;
       case UNMARK:
+        try {
+          int index = Integer.parseInt(inputArgs[1]) - 1;
+          Task task = toDoList.get(index);
+          task.setUndone();
+
+          System.out.println("Marked as undone: \n" + task);
+        } catch (Exception e) {
+          System.out.println("Invalid arguments. Try again!");
+        }
         break;
       case ADD:
         toDoList.add(new Task(input));
