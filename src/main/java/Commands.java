@@ -3,27 +3,14 @@ import Tasks.Deadline;
 import Tasks.Events;
 import Tasks.Task;
 import Tasks.Todo;
-
 import java.util.ArrayList;
 
 public class Commands {
 
-    private enum CommandsList {
-        LIST,
-        TODO,
-        MARK,
-        UNMARK,
-        DEADLINE,
-        EVENT,
-        DELETE,
-        BYE
-    }
-
-    private String cmd;
-    private ArrayList<Task> taskList;
-
-    private String input;
-    String divider = "\n____________________________________________________________";
+    private final String cmd;
+    private final ArrayList<Task> taskList;
+    private final String input;
+    final String DIVIDER = "\n____________________________________________________________";
 
     /**
      * Constructor for Commands to initalise the relevant parameters
@@ -72,7 +59,7 @@ public class Commands {
             Todo td = new Todo(taskDesc, false);
             this.taskList.add(td);
 
-            return "Got it macho! I've added this task:\n" + td.toString() + "\n" +
+            return "Got it macho! I've added this task:\n" + td + "\n" +
                     "You now have " + this.taskList.size() + " tasks in the list, macho!";
         }
     }
@@ -94,7 +81,7 @@ public class Commands {
             Deadline dl = new Deadline(taskDesc, false, by);
             this.taskList.add(dl);
 
-            return "Got it macho! I've added this task:\n" + dl.toString() + "\nYou now have " + this.taskList.size()
+            return "Got it macho! I've added this task:\n" + dl + "\nYou now have " + this.taskList.size()
                     + " tasks in the list, macho!";
         }
     }
@@ -116,7 +103,7 @@ public class Commands {
             String afterTo = parts[2];
             Events ev = new Events(taskDesc, false, afterFrom, afterTo);
             this.taskList.add(ev);
-            return "Got it macho! I've added this task:\n" + ev.toString() + "\nYou now have " + this.taskList.size()
+            return "Got it macho! I've added this task:\n" + ev + "\nYou now have " + this.taskList.size()
                     + " tasks in the list, macho!";
         }
     }
@@ -126,7 +113,7 @@ public class Commands {
      *
      * @param input String of user input
      * @return output String
-     * @throws EmptyTasksException if list of tasks is empty.
+     * @throws EmptyTasksException   if list of tasks is empty.
      * @throws InvalidIndexException if index does not match with indexes of task list
      */
     public String unmark(String input) throws EmptyTasksException, InvalidIndexException {
@@ -137,7 +124,7 @@ public class Commands {
             try {
                 Task task = this.taskList.get(index - 1);
                 task.markedAsUndone();
-                return "I have marked this task as undone yet, per your request, macho!\n" + task.toString();
+                return "I have marked this task as undone yet, per your request, macho!\n" + task;
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidIndexException(input);
             }
@@ -150,7 +137,7 @@ public class Commands {
      *
      * @param input String of user input
      * @return output String
-     * @throws EmptyTasksException if list of tasks is empty.
+     * @throws EmptyTasksException   if list of tasks is empty.
      * @throws InvalidIndexException if index does not match with indexes of task list
      */
     public String mark(String input) throws EmptyTasksException, InvalidIndexException {
@@ -161,7 +148,7 @@ public class Commands {
             try {
                 Task task = this.taskList.get(index - 1);
                 task.markedAsDone();
-                return "I have marked this task as done per your request, macho!\n" + task.toString();
+                return "I have marked this task as done per your request, macho!\n" + task;
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidIndexException(input);
             }
@@ -170,9 +157,10 @@ public class Commands {
 
     /**
      * Deletes a task from the task list.
+     *
      * @param input String of user input
      * @return output String
-     * @throws EmptyTasksException if list of tasks is empty.
+     * @throws EmptyTasksException   if list of tasks is empty.
      * @throws InvalidIndexException if index does not match with indexes of task list
      */
     public String deleteTask(String input) throws InvalidIndexException, EmptyTasksException {
@@ -201,7 +189,7 @@ public class Commands {
         CommandsList command;
         try {
             try {
-                System.out.println(divider);
+                System.out.println(DIVIDER);
                 command = CommandsList.valueOf(this.cmd.toUpperCase());
             } catch (Exception e) {
                 throw new InvalidCommandException(this.cmd);
@@ -243,16 +231,27 @@ public class Commands {
                 default:
                     System.out.println("Invalid command macho! Please try again!");
             }
-            System.out.println(divider);
+            System.out.println(DIVIDER);
 
         } catch (InvalidArgumentException | EmptyTasksException | InvalidCommandException |
                  InvalidTaskDescriptionException | InvalidIndexException e) {
             System.out.println(e.getMessage());
-            System.out.println(divider);
+            System.out.println(DIVIDER);
             return this.taskList;
         }
 
         return this.taskList;
+    }
+
+    private enum CommandsList {
+        LIST,
+        TODO,
+        MARK,
+        UNMARK,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        BYE
     }
 
 

@@ -6,8 +6,8 @@ package Tasks;
  */
 public class Events extends Task {
 
-    private String from;
-    private String to;
+    private final String from;
+    private final String to;
 
     public Events(String description, Boolean isDone, String from, String to) {
         super(description, isDone);

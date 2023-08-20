@@ -7,7 +7,7 @@ package Tasks;
  */
 public class Deadline extends Task {
 
-    private String by;
+    private final String by;
 
     public Deadline(String description, Boolean isDone, String by) {
         super(description, isDone);

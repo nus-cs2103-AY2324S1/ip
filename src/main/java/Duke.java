@@ -1,9 +1,5 @@
 import Exceptions.InvalidCommandException;
-import Tasks.Deadline;
-import Tasks.Events;
 import Tasks.Task;
-import Tasks.Todo;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,38 +8,38 @@ import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
-        boolean debug = true;
-        String divider = "\n____________________________________________________________";
-        String logo = debug ? "" :
+        final boolean isDebug = true;
+        final String divider = "\n____________________________________________________________";
+        final String logo = isDebug ? "" :
                 "      ＼ﾌﾌ 　　      ム｀ヽ\n" +
-                "    / ノ)　  A　 A 　  ）  ヽ\n" +
-                "   / ｜　　( ´・ω・`)ノ⌒ ゝ_ノ\n" +
-                "  /　ﾉ⌒ 7  ⌒ヽーく　 ＼　／\n" +
-                "  丶＿ ノ ｡　　  ノ､　　|/\n" +
-                "　　  `ヽ   `ー-'_人`ーﾉ\n" +
-                "　　　   丶   ￣ _人'彡ﾉ\n";
+                        "    / ノ)　  A　 A 　  ）  ヽ\n" +
+                        "   / ｜　　( ´・ω・`)ノ⌒ ゝ_ノ\n" +
+                        "  /　ﾉ⌒ 7  ⌒ヽーく　 ＼　／\n" +
+                        "  丶＿ ノ ｡　　  ノ､　　|/\n" +
+                        "　　  `ヽ   `ー-'_人`ーﾉ\n" +
+                        "　　　   丶   ￣ _人'彡ﾉ\n";
 
-        String endLogo = debug ? "" :
+        final String endLogo = isDebug ? "" :
                 "               ＿   ★★EVERYDAY★★\n" +
-                "           ／     j     ★★ IS A  ★★\n" +
-                "        ／     /ｰ'          ★★ MACHO  ★★\n" +
-                "     〈       ヽ               ★★ DAY!!!  ★★\n" +
-                "           ､       ヽ ﾍ⌒ ヽﾌ\n" +
-                "             〉       ´ ･ω )        ,-､、\n" +
-                "           / ノ         ￣⌒ヽ　「　   〉\n" +
-                "          ﾉ       ' L          `ヽ.／   /\n" +
-                "     ／    , '           .ノ＼    ´    /\n" +
-                "    (                ∠_       ヽ､＿,.\n" +
-                "     ＼   (            ヽ ";
+                        "           ／     j     ★★ IS A  ★★\n" +
+                        "        ／     /ｰ'          ★★ MACHO  ★★\n" +
+                        "     〈       ヽ               ★★ DAY!!!  ★★\n" +
+                        "           ､       ヽ ﾍ⌒ ヽﾌ\n" +
+                        "             〉       ´ ･ω )        ,-､、\n" +
+                        "           / ノ         ￣⌒ヽ　「　   〉\n" +
+                        "          ﾉ       ' L          `ヽ.／   /\n" +
+                        "     ／    , '           .ノ＼    ´    /\n" +
+                        "    (                ∠_       ヽ､＿,.\n" +
+                        "     ＼   (            ヽ ";
 
         ArrayList<Task> taskList = new ArrayList<>();
         //Create buffered reader for user input
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        //try catch to handle possible IO exceptions
         try {
             System.out.println(logo + divider + "\nHello! I'm MACHO-CATTO! Your personal chat-bot to make your \nday macho!"
                     + "\nWhat can I do for you today?" + divider);
+
             boolean isRunning = true;
 
             //exits the echo commands when input contains 'bye'
