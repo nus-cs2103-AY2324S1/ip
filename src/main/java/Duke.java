@@ -31,7 +31,7 @@ public class Duke {
     private void listOutTasks() {
         String tasksList = "";
         for(int i = 0; i < taskIndex; i++) {
-            tasksList += String.format("%d. %s \n", i + 1, tasks[i].toString());
+            tasksList += String.format("%d. %s \n", i + 1, tasks[i].toString().replace("  ", ""));
         }
         this.line(tasksList);
     }

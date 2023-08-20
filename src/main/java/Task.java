@@ -18,9 +18,9 @@ public class Task {
     @Override
     public String toString() {
         if (status) {
-            return String.format("[X] %s", taskContent);
+            return String.format("[X]%s", taskContent);
         } else {
-            return String.format("[ ] %s", taskContent);
+            return String.format("[ ]%s", taskContent);
         }
     }
 
