@@ -12,7 +12,7 @@ public class Dot {
 
         boolean isOngoing = true;
         while (isOngoing) {
-            String input = sc.next();
+            String input = sc.nextLine();
             switch (input) {
                 case "bye":
                     isOngoing = false;
