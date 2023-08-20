@@ -4,7 +4,7 @@ public class Peko {
             "Usada Pekora-peko! almondo almondo!";
     static String exitText = "Otsupeko! Bye bye!";
     public static void main(String[] args) {
-        String pekoLogo = " _____      -\n"
+        String pekoLogo = " _____      _\n"
                 + "|     |___ | | ______\n"
                 + "|  ___/ _ \\| |/ /    \\\n"
                 + "| |  <  __/|   <  <>  |\n"
