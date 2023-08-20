@@ -32,8 +32,8 @@ public class Duke {
                 System.out.println(indentation+ "Here are the tasks in your list:");
                 int i = 1;
                 for (Task task : taskList) {
-                    System.out.println(String.format("%s%d.[%s] %s",
-                            indentation, i, task.getStatusIcon(), task.getDescription()));
+                    System.out.println(String.format("%s%d.%s",
+                            indentation, i, task.toString()));
                     i++;
                 }
                 System.out.println(indentation + horLine);
@@ -51,14 +51,14 @@ public class Duke {
                     task.markAsDone();
                     System.out.println(indentation + horLine);
                     System.out.println(indentation + "Nice! I've marked this task as done:");
-                    System.out.println(String.format(indentation + "[%s] " + task.getDescription(), task.getStatusIcon()));
+                    System.out.println(indentation + task.toString());
                     System.out.println(indentation + horLine);
                     continue;
                 } else {
                     task.markAsUndone();
                     System.out.println(indentation + horLine);
                     System.out.println(indentation + "OK, I've marked this task as not done yet:");
-                    System.out.println(String.format(indentation + "[%s] " + task.getDescription(), task.getStatusIcon()));
+                    System.out.println(indentation + task.toString());
                     System.out.println(indentation + horLine);
                     continue;
                 }
