@@ -8,9 +8,29 @@ public class Storage {
     }
 
     public void add(String description) {
-        this.tasks[this.count] = new Task(description);
+        Todo task = new Todo(description);
+        this.tasks[this.count] = task;
         this.count++;
-        System.out.println("\tadded: " + description);
+        printAddTask(task);
+    }
+
+    public void add(String description, String by) {
+        Deadline task = new Deadline(description, by);
+        this.tasks[this.count] = task;
+        this.count++;
+        printAddTask(task);
+    }
+
+    public void add(String description, String from, String to) {
+        Event task = new Event(description, from, to);
+        this.tasks[this.count] = task;
+        this.count++;
+        printAddTask(task);
+    }
+
+    private void printAddTask(Task task) {
+        System.out.println("\tGot it. I've added this task:\n\t" + task);
+        this.printNumOfTasks();
     }
 
     public void list() {
@@ -28,5 +48,14 @@ public class Storage {
     public void markTaskNotDone(int index) {
         System.out.println("\tSure, I've marked this task as not done yet:");
         this.tasks[index - 1].markTaskNotDone();
+    }
+
+    private void printNumOfTasks() {
+        if (this.count < 2) {
+            System.out.printf("\tNow you have %d task in the list.\n", this.count);
+        } else {
+            System.out.printf("\tNow you have %d tasks in the list.\n", this.count);
+        }
+
     }
 }
