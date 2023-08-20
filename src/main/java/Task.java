@@ -15,10 +15,14 @@ public class Task {
         return description;
     }
 
-    public void markAsDone(boolean done) {
-        isDone = done;
+    public void markAsDone() {
+        isDone = true;
     }
 
+    public void markAsUndone() {
+        isDone = false;
+    }
+    
     @Override
     public String toString(){
         return "[" + getStatusIcon() + "] " + description;
