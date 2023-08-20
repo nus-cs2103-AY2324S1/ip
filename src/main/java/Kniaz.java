@@ -30,7 +30,8 @@ public class Kniaz {
     /**
      * All tasks stored by Kniaz.
      */
-    private static List<String> taskList = new ArrayList<String>();
+    private static List<String> taskList = new ArrayList<>();
+
 
     /**
      * Main function of Kniaz, that is intended as entry point into the program.
@@ -53,13 +54,13 @@ public class Kniaz {
         System.out.println(Kniaz.SEPERATOR);
 
         String next = ""; //Initialise the input
-        while (!next.equals(Kniaz.EXITSTRING)) {
+        while (true) { // I find this a bit icky but we rely on guard clauses to break instead
 
             next = input.nextLine();
 
             if (next.equals(Kniaz.EXITSTRING)){
 
-                break; // this if makes the while condition redundant but is also more explicit
+                break; // Used here instead of in the while because of timing of next
             }
 
             if (next.equals("list")){
@@ -68,7 +69,7 @@ public class Kniaz {
             } else {
                 // interpret everything else that isn't special as a task to add
                 taskList.add(next);
-                System.out.println(String.format("added: %s",next));
+                System.out.printf("added: %s%n",next);
             }
             System.out.println((Kniaz.SEPERATOR));
 
