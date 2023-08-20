@@ -36,12 +36,11 @@ public class Duke {
     }
 
     private static String promptInput() {
-        System.out.println();
-        userInput = scannerObj.nextLine();
-        System.out.println();
-
         try {
             do {
+                System.out.println();
+                userInput = scannerObj.nextLine();
+                System.out.println();
                 String[] inputArray = userInput.split(" ", 2);
                 String userCommand = inputArray[0];
                 String inputInfo = "";
@@ -50,6 +49,8 @@ public class Duke {
                 }
 
                 switch (userCommand) {
+                    case "bye":
+                        break;
                     case "list":
                         Task.listTasks();
                         break;
@@ -99,7 +100,6 @@ public class Duke {
                         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
                 }
-                promptInput();
             } while (!userInput.equals("bye"));
             printEnd();
         } catch (DukeException e) {
