@@ -35,7 +35,7 @@ public class Duke {
     }
 
     public void addTask(String command) {
-        System.out.println(" Got it. I've added this task: ");
+        System.out.println(" Got it. I've added this task:");
         if (command.startsWith("todo")) {
             Task t = new Todo(command.substring("todo ".length()));
             this.tasks.add(t);
@@ -57,12 +57,12 @@ public class Duke {
             this.tasks.add(t);
             System.out.println("   " + t.toString());
         }
-        System.out.println(" Now you have " + this.tasks.size() + " tasks in the list");
+        System.out.println(" Now you have " + this.tasks.size() + " tasks in the list.");
     }
 
     public void greetAndFarewell() {
         System.out.println("---------------------------------------------------------------");
-        System.out.println(" Hello! I'm  " + name);
+        System.out.println(" Hello! I'm " + name);
         System.out.println(" What can I do for you?");
         System.out.println("---------------------------------------------------------------");
 
