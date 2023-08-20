@@ -24,7 +24,8 @@ public class Duke {
                     command.startsWith("event")) {
                 this.addTask(command);
             } else if (command.startsWith("mark") ||
-                    command.startsWith("unmark")) {
+                    command.startsWith("unmark") ||
+                    command.startsWith("delete")) {
                 try {
                     if (commandSplit.length > 2 || Integer.parseInt(commandSplit[1]) > tasks.size()) {
                         throw new DukeException("Please enter a valid number");
@@ -36,6 +37,12 @@ public class Duke {
                     } else if (command.startsWith("unmark")) {
                         this.tasks.get(markTask - 1).markAsNotDone();
                         System.out.println(" OK, I've marked this task as not done yet:");
+                    } else {
+                        System.out.println(" Noted. I've removed this task:");
+                        System.out.println("   " + this.tasks.get(markTask - 1).toString());
+                        this.tasks.remove(markTask - 1);
+                        System.out.println(" Now you have " + this.tasks.size() + " tasks in the list.");
+                        return;
                     }
                     System.out.println("   " + this.tasks.get(markTask - 1).toString());
                 } catch (NumberFormatException e) {
