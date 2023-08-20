@@ -5,4 +5,7 @@ list
 mark 1
 list
 something
+deadline return book /by next monday
+delete 5
+delete 4
 bye

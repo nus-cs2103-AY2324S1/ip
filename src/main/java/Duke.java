@@ -36,6 +36,8 @@ public class Duke {
             printList();
         } else if (command.startsWith("mark")) {
             markTask(command);
+        } else if (command.startsWith("delete")) {
+            deleteTask(command);
         } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
             addTask(command);
         } else {
@@ -85,6 +87,24 @@ public class Duke {
             System.out.println(LINE);
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println("  " + task);
+            System.out.println(LINE);
+        } catch (NumberFormatException e) {
+            printErrorMessage(new DukeException("Invalid command format"));
+        }
+    }
+
+    private static void deleteTask(String command) {
+        try {
+            int index = Integer.parseInt(command.split(" ")[1]) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                printErrorMessage(new DukeException("Invalid task index"));
+                return;
+            }
+            Task task = tasks.remove(index);
+            System.out.println(LINE);
+            System.out.println("Noted. I've removed this task: ");
+            System.out.println("  " + task);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(LINE);
         } catch (NumberFormatException e) {
             printErrorMessage(new DukeException("Invalid command format"));
