@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 enum Command {
-  LIST, BYE, ADD;
+  LIST, BYE, MARK, UNMARK, ADD;
 
   public static Command parse(String input) {
     for (Command command : Command.values()) {
@@ -23,7 +23,8 @@ public class Jerma {
 
     listen: while (true) {
       String input = scanner.nextLine();
-      Command command = Command.parse(input);
+      String[] inputArgs = input.split(" ");
+      Command command = Command.parse(inputArgs[0]);
 
       switch (command) {
       case LIST:
@@ -34,6 +35,10 @@ public class Jerma {
         break;
       case BYE:
         break listen;
+      case MARK:
+        break;
+      case UNMARK:
+        break;
       case ADD:
         toDoList.add(new Task(input));
         System.out.println("added: " + input);
