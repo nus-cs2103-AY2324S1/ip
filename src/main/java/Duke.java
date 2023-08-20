@@ -1,15 +1,23 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
+    private static TaskList taskList = new TaskList();
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         greet();
         while (true) {
             String input = scanner.nextLine();
+
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                System.out.println(taskList.toString());
+            } else {
+                taskList.add(input);
+                System.out.println("added: " + input);
             }
-            System.out.println(input);
+
         }
         exit();
     }
