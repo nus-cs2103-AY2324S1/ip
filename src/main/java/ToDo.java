@@ -20,7 +20,8 @@ public class ToDo extends Task {
         if (checkAllWhiteSpace(output)) {
             throw new IllegalArgumentException(noDescErrorMsg);
         }
-        return output;
+        
+        return output.trim();
     }
 
     @Override

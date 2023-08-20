@@ -16,4 +16,10 @@ public class DukeExceptionHandler {
         Duke.formatString(" " + s);
         Duke.printDivider();
     }
+
+    public static void handleTaskNumOutOfBounds(int taskNum) {
+        Duke.printDivider();
+        Duke.formatString(" \u2639 OOPS!!! There is no task " + taskNum + ".");
+        Duke.printDivider();
+    }
 }

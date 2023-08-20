@@ -48,7 +48,7 @@ public class Deadline extends Task {
             throw new IllegalArgumentException(noDescErrorMsg);
         }
         // we remove the white space behind the task
-        return task.substring(0, task.length() - 1);
+        return task.trim();
     }
 
     /**
@@ -60,8 +60,12 @@ public class Deadline extends Task {
     public String getDeadline(String taskString) {
         String[] arr = splitDeadlineString(taskString);
         String deadline = arr[1];
+
+        if (checkAllWhiteSpace(deadline)) {
+            throw new IllegalArgumentException("\u2639 OOPS!!! The deadline of a deadline cannot be empty.");
+        }
         // remove the whitespace in front 
-        return deadline.substring(1);
+        return deadline.trim();
     }
 
     @Override

@@ -33,6 +33,11 @@ public class Duke {
     }
 
     public static void markTaskAsDone(int taskNum) {
+        if (taskNum > taskList.size()) {
+            DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
+            return;
+        }
+
         Task task = taskList.get(taskNum - 1);
         task.markAsDone();
         printDivider();
@@ -42,6 +47,11 @@ public class Duke {
     }
 
     public static void markTaskAsUndone(int taskNum) {
+        if (taskNum > taskList.size()) {
+            DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
+            return;
+        }
+
         Task task = taskList.get(taskNum - 1);
         task.markAsUndone();
         printDivider();
@@ -59,7 +69,9 @@ public class Duke {
      */
     public static int getTaskNumber(String command, String input) {
         String taskNum = input.replace(command + " ", "");
-        return Integer.valueOf(taskNum);
+        // remove leading and trailing whitespaces
+        String trimmedTaskNum = taskNum.trim();
+        return Integer.valueOf(trimmedTaskNum);
     }
 
     /*
@@ -78,14 +90,17 @@ public class Duke {
         printDivider();
     }
 
-    /*
-     * Method that accepts a task and prints it out.
-     * 
-     * @param task the task that the user wants to add (could be any of todo, deadline, event)
-     */
     public static void printAddedTask(Task task, int n) {
         printDivider();
         formatString(" Got it. I've added this task:");
+        formatString("  " + task.toString());
+        formatString(" Now you have " + n + " tasks in the list.");
+        printDivider();
+    }
+
+    public static void printDeletedTask(Task task, int n) {
+        printDivider();
+        formatString(" Noted. I've removed this task:");
         formatString("  " + task.toString());
         formatString(" Now you have " + n + " tasks in the list.");
         printDivider();
@@ -134,6 +149,16 @@ public class Duke {
                 } catch (IllegalArgumentException e) {
                     DukeExceptionHandler.printErrorMsg(e.getMessage());
                 } 
+            } else if (input.contains("delete")) {
+                try {
+                    int taskNum = getTaskNumber("delete", input);
+                    Task task = taskList.remove(taskNum - 1);
+                    printDeletedTask(task, taskList.size());
+                } catch (IndexOutOfBoundsException e) {
+                    int taskNum = getTaskNumber("delete", input);
+                    DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
+                }
+                
             } else {
                 DukeExceptionHandler.handleUnseenInput();
             }

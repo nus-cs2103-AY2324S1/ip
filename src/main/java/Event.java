@@ -57,7 +57,7 @@ public class Event extends Task {
             throw new IllegalArgumentException(noDescErrorMsg);
         }
         // remove the whitespace in front 
-        return task.substring(0, task.length() - 1);
+        return task.trim();
     }
 
     /**
@@ -69,7 +69,12 @@ public class Event extends Task {
     public String getStartTime(String taskString) {
         String[] arr = splitEventString(taskString);
         String startTime = arr[1];
-        return startTime.substring(1, startTime.length() - 1);
+
+        if (checkAllWhiteSpace(startTime)) {
+            throw new IllegalArgumentException("\u2639 OOPS!!! The start time of a event cannot be empty.");
+        }
+
+        return startTime.trim();
     }
 
     /**
@@ -81,7 +86,12 @@ public class Event extends Task {
     public String getEndTime(String taskString) {
         String[] arr = splitEventString(taskString);
         String endTime = arr[2];
-        return endTime.substring(1, endTime.length());
+
+        if (checkAllWhiteSpace(endTime)) {
+            throw new IllegalArgumentException("\u2639 OOPS!!! The end time of a event cannot be empty.");
+        }
+
+        return endTime.trim();
     }
 
     @Override
