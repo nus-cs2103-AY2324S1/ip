@@ -171,15 +171,15 @@ public class Minion {
                     if (description.isEmpty()) {
                         throw new MinionException("☹ OOPS!!! The description of an event cannot be empty.");
                     }
-                    throw new MinionException("☹ OOPS!!! The from/to dates of an event cannot be empty.");
+                    throw new MinionException("☹ OOPS!!! The from date of an event cannot be empty.");
                 case 2:
                     description = strs[0].trim();
                     String dates = strs[1].trim();
                     if (description.isEmpty()) {
-                        throw new MinionException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        throw new MinionException("☹ OOPS!!! The description of an event cannot be empty.");
                     }
                     if (dates.isEmpty()) {
-                        throw new MinionException("☹ OOPS!!! The from/to dates of a deadline cannot be empty.");
+                        throw new MinionException("☹ OOPS!!! The from date of an event cannot be empty.");
                     }
                     strs = strs[1].split("/to");
             }
