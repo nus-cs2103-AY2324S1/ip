@@ -75,7 +75,7 @@ public class Dot {
                         }
                         String restOfString = input.substring(5);
                         Task newTodoTask = new Todo(restOfString);
-                        dotTaskList.addItem(newTodoTask);
+                        dotTaskList.addTask(newTodoTask);
                         break;
                     } else if (input.startsWith("deadline") && (input.length() == 8 || input.charAt(8) == ' ')) {
                         if (input.length() <= 9) {
@@ -135,7 +135,7 @@ public class Dot {
                             break;
                         }
                         Task newDeadlineTask = new Deadline(description, deadline);
-                        dotTaskList.addItem(newDeadlineTask);
+                        dotTaskList.addTask(newDeadlineTask);
                         break;
                     } else if (input.startsWith("event")) {
                         // .+ enforces at least one character, but disallows empty string
@@ -155,7 +155,24 @@ public class Dot {
                         String start = input.substring(indexOfFirstSlash + 5, indexOfFSecondSlash).strip();
                         String end = input.substring(indexOfFSecondSlash + 4);
                         Task newEventTask = new Event(description, start, end);
-                        dotTaskList.addItem(newEventTask);
+                        dotTaskList.addTask(newEventTask);
+                        break;
+                    } else if (input.startsWith("delete") && (input.length() == 6 || input.charAt(6) == ' ')) {
+                        String[] substrings = input.split(" ");
+                        if (substrings.length == 2) {
+                            try {
+                                int position = Integer.parseInt(substrings[1]);
+                                dotTaskList.deleteTask(position - 1);
+                            } catch (NumberFormatException e) {
+                                TaskErrors.ERR_USING_MARK.printErrorMessage(e);
+                            }
+                        } else if (substrings.length == 1) {
+                            TaskErrors.ERR_USING_MARK.printErrorMessage(
+                                    new DotException("No task number stated"));
+                        } else {
+                            TaskErrors.ERR_USING_MARK.printErrorMessage(
+                                    new DotException("Too many parameters"));
+                        }
                         break;
                     }
                     TaskErrors.ERR_READING_COMMAND.printErrorMessage(
