@@ -37,8 +37,8 @@ public class Duke {
             while (isRunning) {
                 String input = br.readLine();
                 String cmd = input.split(" ")[0].toUpperCase();
-                Commands commands = new Commands(cmd, taskList);
-                taskList = commands.execute(input);
+                Commands commands = new Commands(cmd, input, taskList);
+                taskList = commands.execute();
                 if (cmd.equalsIgnoreCase("bye")) {
                     isRunning = false;
                 }

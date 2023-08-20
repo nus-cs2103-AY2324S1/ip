@@ -1,7 +1,4 @@
-import Exceptions.EmptyTasksException;
-import Exceptions.InvalidArgumentException;
-import Exceptions.InvalidCommandException;
-import Exceptions.InvalidTaskDescriptionException;
+import Exceptions.*;
 import Tasks.Deadline;
 import Tasks.Events;
 import Tasks.Task;
@@ -18,11 +15,14 @@ public class Commands {
         UNMARK,
         DEADLINE,
         EVENT,
+        DELETE,
         BYE
     }
 
     private String cmd;
     private ArrayList<Task> taskList;
+
+    private String input;
     String divider = "\n____________________________________________________________";
     String endLogo = "               ＿   ★★EVERYDAY★★\n" +
             "           ／     j     ★★ IS A  ★★\n" +
@@ -36,11 +36,24 @@ public class Commands {
             "    (                ∠_       ヽ､＿,.\n" +
             "     ＼   (            ヽ ";
 
-    public Commands(String cmd, ArrayList<Task> taskList) {
+    /**
+     * Constructor for Commands to initalise the relevant parameters
+     *
+     * @param cmd      The command entered
+     * @param input    The whole user input
+     * @param taskList The list of tasks recorded
+     */
+    public Commands(String cmd, String input, ArrayList<Task> taskList) {
         this.taskList = taskList;
+        this.input = input;
         this.cmd = cmd;
     }
 
+    /**
+     * Gets a list of tasks.
+     *
+     * @return Arraylist of tasks
+     */
     public String getList() {
         if (this.taskList.isEmpty()) {
             return "No tasks recorded, macho!";
@@ -55,6 +68,13 @@ public class Commands {
         return sb.toString().trim();
     }
 
+    /**
+     * Creates a task relating to ToDo.
+     *
+     * @param input String of user input
+     * @return output String
+     * @throws InvalidTaskDescriptionException if task description inside input is empty
+     */
     public String createToDo(String input) throws InvalidTaskDescriptionException {
         String taskDesc = input.split(" ", 2)[1];
         if (input.split(" ").length < 2) {
@@ -68,9 +88,16 @@ public class Commands {
         }
     }
 
+    /**
+     * Creates a task relating to Deadline.
+     *
+     * @param input String of user input
+     * @return output String
+     * @throws InvalidArgumentException if input does not contain the correct /by argument
+     */
     public String createDeadline(String input) throws InvalidArgumentException {
         String[] parts = input.split("/by", 2);
-        if (parts.length == 1) {
+        if (parts.length == 1 || parts[1].isEmpty() || parts[1].isBlank()) {
             throw new InvalidArgumentException(input.substring(9), "/by");
         } else {
             String taskDesc = parts[0].split(" ", 2)[1];
@@ -78,11 +105,18 @@ public class Commands {
             Deadline dl = new Deadline(taskDesc, false, by);
             this.taskList.add(dl);
 
-            return "Got it macho! I've added this task:\n" + dl.toString() + "\n" + "You now have " + this.taskList.size()
+            return "Got it macho! I've added this task:\n" + dl.toString() + "\nYou now have " + this.taskList.size()
                     + " tasks in the list, macho!";
         }
     }
 
+    /**
+     * Creates a task relating to Events.
+     *
+     * @param input String of user input
+     * @return output String
+     * @throws InvalidArgumentException if input does not contain the correct /from and /to argument
+     */
     public String createEvent(String input) throws InvalidArgumentException {
         String[] parts = input.split("\\s+/from\\s+|\\s+/to\\s+");
         if (parts.length < 3) {
@@ -93,34 +127,88 @@ public class Commands {
             String afterTo = parts[2];
             Events ev = new Events(taskDesc, false, afterFrom, afterTo);
             this.taskList.add(ev);
-            return "Got it macho! I've added this task:\n" + ev.toString() + "\n" + "You now have " + this.taskList.size()
+            return "Got it macho! I've added this task:\n" + ev.toString() + "\nYou now have " + this.taskList.size()
                     + " tasks in the list, macho!";
         }
     }
 
-    public String unmark(String input) throws EmptyTasksException {
+    /**
+     * Marks a task as uncompleted.
+     *
+     * @param input String of user input
+     * @return output String
+     * @throws EmptyTasksException if list of tasks is empty.
+     * @throws InvalidIndexException if index does not match with indexes of task list
+     */
+    public String unmark(String input) throws EmptyTasksException, InvalidIndexException {
         int index = Integer.parseInt(input.split(" ", 2)[1]);
         if (index < 0 || this.taskList.isEmpty()) {
             throw new EmptyTasksException(input);
         } else {
-            Task task = this.taskList.get(index - 1);
-            task.markedAsUndone();
-            return "I have marked this task as undone yet, per your request, macho!\n" + task.toString();
+            try {
+                Task task = this.taskList.get(index - 1);
+                task.markedAsUndone();
+                return "I have marked this task as undone yet, per your request, macho!\n" + task.toString();
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidIndexException(input);
+            }
+
         }
     }
 
-    public String mark(String input) throws EmptyTasksException {
+    /**
+     * Marks a task as completed.
+     *
+     * @param input String of user input
+     * @return output String
+     * @throws EmptyTasksException if list of tasks is empty.
+     * @throws InvalidIndexException if index does not match with indexes of task list
+     */
+    public String mark(String input) throws EmptyTasksException, InvalidIndexException {
         int index = Integer.parseInt(input.split(" ", 2)[1]);
         if (index < 0 || this.taskList.isEmpty()) {
             throw new EmptyTasksException(input);
         } else {
-            Task task = this.taskList.get(index - 1);
-            task.markedAsDone();
-            return "I have marked this task as done per your request, macho!\n" + task.toString();
+            try {
+                Task task = this.taskList.get(index - 1);
+                task.markedAsDone();
+                return "I have marked this task as done per your request, macho!\n" + task.toString();
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidIndexException(input);
+            }
         }
     }
 
-    public ArrayList<Task> execute(String input) throws InvalidCommandException {
+    /**
+     * Deletes a task from the task list.
+     * @param input String of user input
+     * @return output String
+     * @throws EmptyTasksException if list of tasks is empty.
+     * @throws InvalidIndexException if index does not match with indexes of task list
+     */
+    public String deleteTask(String input) throws InvalidIndexException, EmptyTasksException {
+        int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
+        if (index < 0 || this.taskList.isEmpty()) {
+            throw new EmptyTasksException(input);
+        } else {
+            try {
+                Task task = this.taskList.get(index);
+                this.taskList.remove(index);
+                return "I have deleted this task as done per your request, macho!\n" + task.toString()
+                        + "\nYou now have " + this.taskList.size() + " tasks in the list, macho!";
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidIndexException(input);
+            }
+        }
+    }
+
+    /**
+     * Execute the Duke's functions to process user's input.
+     *
+     * @return ArrayList of Task
+     * @throws InvalidCommandException if user enters an invalid command
+     */
+    public ArrayList<Task> execute() throws InvalidCommandException {
         CommandsList command;
         try {
             try {
@@ -136,23 +224,27 @@ public class Commands {
                     break;
 
                 case TODO:
-                    System.out.println(createToDo(input));
+                    System.out.println(createToDo(this.input));
                     break;
 
                 case DEADLINE:
-                    System.out.println(createDeadline(input));
+                    System.out.println(createDeadline(this.input));
                     break;
 
                 case EVENT:
-                    System.out.println(createEvent(input));
+                    System.out.println(createEvent(this.input));
                     break;
 
                 case UNMARK:
-                    System.out.println(unmark(input));
+                    System.out.println(unmark(this.input));
                     break;
 
                 case MARK:
-                    System.out.println(mark(input));
+                    System.out.println(mark(this.input));
+                    break;
+
+                case DELETE:
+                    System.out.println(deleteTask(this.input));
                     break;
 
                 case BYE:
@@ -163,8 +255,9 @@ public class Commands {
                     System.out.println("Invalid command macho! Please try again!");
             }
             System.out.println(divider);
+
         } catch (InvalidArgumentException | EmptyTasksException | InvalidCommandException |
-                 InvalidTaskDescriptionException e) {
+                 InvalidTaskDescriptionException | InvalidIndexException e) {
             System.out.println(e.getMessage());
             System.out.println(divider);
             return this.taskList;
