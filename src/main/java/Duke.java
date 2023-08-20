@@ -58,16 +58,29 @@ public class Duke {
                     task.markAsUndone();
                     System.out.println(indentation + horLine);
                     System.out.println(indentation + "OK, I've marked this task as not done yet:");
-                    System.out.println(indentation + task.toString());
+                    System.out.println(indentation  + task.toString());
                     System.out.println(indentation + horLine);
                     continue;
                 }
+            } else if(input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
+                Task task;
+                if(input.startsWith("todo")) {
+                    task = new Todo(input.substring(5));
+                } else if(input.startsWith("deadline")) {
+                    task = new Deadline(input.split("/")[0].substring(9),
+                            input.split("/")[1].substring(3));
+                } else {
+                    task = new Event(input.split("/")[0].substring(6),
+                            input.split("/")[1].substring(5),
+                            input.split("/")[2].substring(3));
+                }
+                taskList.add(task);
+                System.out.println(indentation + horLine);
+                System.out.println(indentation + "Got it. I've added this task:");
+                System.out.println(indentation + "  " + task.toString());
+                System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
+                System.out.println(indentation + horLine);
             }
-            Task task = new Task(input);
-            taskList.add(task);
-            System.out.println(indentation + horLine);
-            System.out.println(indentation + "added: " + input);
-            System.out.println(indentation + horLine);
         }
 
 
