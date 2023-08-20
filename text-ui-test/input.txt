@@ -24,4 +24,10 @@ unmark 6
 unmark 6
 list
 fsdkfns
+todo
+deadline
+event
+deadline read book \by
+event basketball game \from Monday 6pm \to
+event football game
 bye

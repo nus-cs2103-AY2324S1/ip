@@ -106,5 +106,17 @@
     ---------------------------------------------------------------------
     I don't quite understand you. Could you repeat?
     ---------------------------------------------------------------------
+    The description of the task is missing. Please try again.
+    ---------------------------------------------------------------------
+    The description of the task is missing. Please try again.
+    ---------------------------------------------------------------------
+    The description of the task is missing. Please try again.
+    ---------------------------------------------------------------------
+    The deadline of the task is missing. Please try again.
+    ---------------------------------------------------------------------
+    The end time of the task is missing. Please try again.
+    ---------------------------------------------------------------------
+    The start time of the task is missing. Please try again.
+    ---------------------------------------------------------------------
     Goodbye! If you need more help in the future don't hesitate to ask me.
     ---------------------------------------------------------------------
