@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -12,13 +14,17 @@ public class Duke {
     private static final Scanner userInput = new Scanner(System.in);
 
     public static void main(String[] args) {
+        List<String> tasks = new ArrayList<String>();
         Duke.printMsg(helloMsg + "\n" + requestMsg);
         while (true) {
             String msg = userInput.nextLine();
             if (msg.equals("bye")) {
                 break;
+            } else if (msg.equals("list")) {
+                Duke.printMsg(Duke.stringifyList(tasks));
             } else {
-                Duke.printMsg(msg);
+                tasks.add(msg);
+                Duke.printMsg(String.format("added: %s", msg));
             }
         }
         Duke.printMsg(goodbyeMsg);
@@ -37,5 +43,13 @@ public class Duke {
         for (String line : response.split("\n")) {
             System.out.println(responseIndent + line);
         }
+    }
+
+    private static <T> String stringifyList(List<T> arr) {
+        List<String> enumArr = new ArrayList<String>();
+        for (int i = 0; i < arr.size(); i++) {
+            enumArr.add(String.format("%d. %s", i + 1, arr.get(i).toString()));
+        }
+        return String.join("\n", enumArr);
     }
 }
