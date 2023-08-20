@@ -11,5 +11,8 @@ list
 blah
 todo
 delete 2
+mark 3
+unmark 0
+delete -1
 list
 bye
