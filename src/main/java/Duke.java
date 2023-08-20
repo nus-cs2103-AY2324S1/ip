@@ -6,33 +6,71 @@ public class Duke {
     private static String ANSI_RESET = "\u001B[0m";
     private static String ANSI_PURPLE = "\u001B[35m";
 
-    private String[] history = new String[100];
+    private Task[] tasks = new Task[100];
     private int count = 0;
 
     private void parseCommand(String command) {
-        if (command.equals("list")) this.listHistory();
-        else this.appendHistory(command);
+        // Ignore empty user input
+        if (command.equals("")) return;
+
+        String[] parse = command.split(" ");
+
+        if (parse[0].equals("list")) {
+            this.listTasks();
+        } else if (parse[0].equals("mark")) {
+            if (parse.length < 2) return;
+            this.markTask(Integer.parseInt(parse[1]), true);
+        } else if (parse[0].equals("unmark")) {
+            if (parse.length < 2) return;
+            this.markTask(Integer.parseInt(parse[1]), false);
+        } else {
+            this.appendTask(command);
+        }
     }
 
-    private void listHistory() {
+    private void listTasks() {
         if (this.count == 0) {
             this.speak("Nothing stored.");
             return;
         }
 
-        String[] formatHistory = new String[count];
+        String[] formatTasks = new String[count + 1];
+        formatTasks[0] = "Here are the tasks in your list:";
         for (int i = 0; i < count; i++) {
-            formatHistory[i] = String.format(
-                "%d. %s", i + 1, history[i]
+            formatTasks[i + 1] = String.format(
+                "%d.%s", i + 1, this.tasks[i].toString()
             );
         }
-        this.speak(formatHistory);
+        this.speak(formatTasks);
     }
 
-    private void appendHistory(String item) {
-        history[count] = item;
+    private void appendTask(String task) {
+        tasks[count] = new Task(task);
         count += 1;
-        this.speak(String.format("added: %s", item));
+        this.speak(String.format("task added: %s", task));
+    }
+
+    private void markTask(int taskCount, boolean done) {
+        if (taskCount < 1 || taskCount > count) {
+            this.speak(String.format(
+                "Unable to %s task %d. You have %d tasks stored.",
+                done ? "mark" : "unmark", taskCount, count
+            ));
+            return;
+        }
+
+        Task task = this.tasks[taskCount - 1];
+        if (done) task.mark(); 
+        else      task.unmark();
+
+        String success = done
+            ? "Nice, I've marked this task as done:"
+            : "OK, I've marked this task as not done yet:";
+
+        this.speak(new String[] {
+            success,
+            "  " + task.toString()
+        });
     }
 
     private void speak(String text) {
