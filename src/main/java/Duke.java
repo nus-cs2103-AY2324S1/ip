@@ -12,13 +12,13 @@ public class Duke {
 
   public static void main(String[] args) {
     String logo =
-        "\t   ______    ___        _    _________ \n"
-            + "\t .' ___  | .'   `.     / \\  |  _   _  |\n"
-            + "\t/ .'   \\_|/  .-.  \\   / _ \\ |_/ | | \\_|\n"
-            + "\t| |   ____| |   | |  / ___ \\    | |    \n"
-            + "\t\\ `.___]  \\  `-'  /_/ /   \\ \\_ _| |_   \n"
-            + "\t `._____.' `.___.'|____| |____|_____|  \n";
-    System.out.println("\tHello from\n" + logo);
+        "\t    ______    ___        _    _________ \n"
+            + "\t  .' ___  | .'   `.     / \\  |  _   _  |\n"
+            + "\t / .'   \\_|/  .-.  \\   / _ \\ |_/ | | \\_|\n"
+            + "\t | |   ____| |   | |  / ___ \\    | |    \n"
+            + "\t \\ `.___]  \\  `-'  /_/ /   \\ \\_ _| |_   \n"
+            + "\t  `._____.' `.___.'|____| |____|_____|  \n";
+    System.out.println("\t Hello from\n" + logo);
 
     greet();
     while (true) { // assumes all commands will be correct (errors are a future task)
@@ -111,14 +111,14 @@ public class Duke {
 
   static void greet() {
     printLine();
-    System.out.printf("\tHello! I'm %s\n", botName);
-    System.out.println("\tWhat can I do for you?");
+    System.out.printf("\t Hello! I'm %s\n", botName);
+    System.out.println("\t What can I do for you?");
     printLine();
   }
 
   static void sayBye() {
     printLine();
-    System.out.println("\tBye. Hope to see you again soon!");
+    System.out.println("\t Bye. Hope to see you again soon!");
     printLine();
   }
 
