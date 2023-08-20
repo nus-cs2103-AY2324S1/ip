@@ -15,10 +15,7 @@ public class Duke {
             System.out.println(userInput);
             userInput = myObj.nextLine();
         }
+
         System.out.println("Bye. Hope to see you again soon!");
-
-
-
-
     }
 }
