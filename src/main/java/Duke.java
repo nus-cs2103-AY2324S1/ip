@@ -100,6 +100,19 @@ public class Duke {
                             output= "☹ OOPS!!! The event format is incorrect! \n" +
                                     "follow the format: event description /from start date /to end date";
                         }
+                    } else if (input.startsWith("delete ")) {
+                        try {
+                            Integer i = Integer.valueOf(input.substring(7));
+                            if (i <= this.lists.size()) {
+                                output = "Noted. I've removed this task: \n" + this.lists.get(i - 1).toString() +
+                                "\nNow you have " + (this.lists.size() - 1) + " tasks in the list.";
+                                this.lists.remove(i - 1);
+                            } else {
+                                output = "☹ OOPS!!! The number input does not exist.";
+                            }
+                        } catch (NumberFormatException err){
+                            output = "☹ OOPS!!! The number input does not exist.";
+                        }
                     } else {
                         output = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
                     }
