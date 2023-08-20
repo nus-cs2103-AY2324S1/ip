@@ -1,7 +1,18 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Paimon {
-  public final String name = "Paimon";
+
+  private final String name = "Paimon";
+
+  private List<String> tasks = new ArrayList<>();
+
+  public void listTasks() {
+    for (int i = 0; i < tasks.size(); i++) {
+      System.out.println(" " + (i + 1) + ". " + tasks.get(i));
+    }
+  }
 
   public void greetAndFarewell() {
     System.out.println("---------------------------------------------------------------");
@@ -14,7 +25,12 @@ public class Paimon {
 
     while (!command.equals("bye")) {
       System.out.println("---------------------------------------------------------------");
-      System.out.println(" " + command);
+      if (!command.equals("list")) {
+        System.out.println(" added: " + command);
+        this.tasks.add(command);
+      } else {
+        this.listTasks();
+      }
       System.out.println("---------------------------------------------------------------");
       command = scanner.nextLine();
     }
