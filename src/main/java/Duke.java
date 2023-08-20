@@ -33,7 +33,7 @@ public class Duke {
     }
 
     public static void markTaskAsDone(int taskNum) {
-        if (taskNum > taskList.size()) {
+        if (taskNum < 0 || taskNum > taskList.size()) {
             DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
             return;
         }
@@ -47,7 +47,7 @@ public class Duke {
     }
 
     public static void markTaskAsUndone(int taskNum) {
-        if (taskNum > taskList.size()) {
+        if (taskNum < 0 || taskNum > taskList.size()) {
             DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
             return;
         }
