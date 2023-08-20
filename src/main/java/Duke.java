@@ -37,10 +37,10 @@ public class Duke {
         printHorizontalLine();
     }
 
-    public static void list() {
-        ArrayList<String> list = new ArrayList<String>();
+    public static void toDo() {
+        ArrayList<Task> list = new ArrayList<Task>();
         Scanner sc = new Scanner(System.in);
-        do {
+        while(true) {
             String command = sc.nextLine();
             if (command.equals("bye")) {
                 return;
@@ -48,26 +48,50 @@ public class Duke {
                 printHorizontalLine();
                 for (int i = 0; i < list.size(); i++) {
                     int printIndex = i + 1;
-                    System.out.println( printIndex + ". " + list.get(i) );
+                    System.out.println( printIndex + ".[" + list.get(i).getStatusIcon() + "] " + list.get(i).getDescription() );
                 }
                 printHorizontalLine();
                 continue;
+            } else if (command.substring(0,5).equals("mark ")) {
+                int curr = Integer.parseInt(command.substring(5)) - 1;
+                Task currTask = list.get(curr);
+                if (currTask.isDone) {
+                    continue;
+                } else {
+                    printHorizontalLine();
+                    currTask.isDone = true;
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println( "[" + currTask.getStatusIcon() + "] " + currTask.getDescription() );
+                    printHorizontalLine();
+
+                }
+                continue;
+            } else if (command.substring(0,7).equals("unmark ")) {
+                int curr = Integer.parseInt(command.substring(7)) - 1;
+                Task currTask = list.get(curr);
+                if (currTask.isDone) {
+                    printHorizontalLine();
+                    currTask.isDone = false;
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println( "[" + currTask.getStatusIcon() + "] " + currTask.getDescription() );
+                    printHorizontalLine();
+                }
+                continue;
             }
-            list.add(command);
+            list.add(new Task(command));
             printHorizontalLine();
             System.out.println("added: " + command);
             printHorizontalLine();
-
-
-        } while (true);
-
+        }
     }
+
+
 
 
     public static void main(String[] args) {
         introduction();
 
-        list();
+        toDo();
 
         conclusion();
 
