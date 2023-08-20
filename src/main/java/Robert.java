@@ -27,60 +27,119 @@ public class Robert {
             userInput = scanner.nextLine().split(" ", 2);
 
             String classification = userInput[0]; // First word indicates the type of action
-            String parameters = ""; // Second word onwards are parameters for different actions
-            if (userInput.length > 1) {
-                parameters = userInput[1];
-            }
+			String parameters; // Second word onwards are used as parameters for commands
             
-            switch (classification) {
-            case "list":
-                Robert.listTasks();
-                break;
-            
-            case "mark":
-                int markingTaskIndex = Integer.parseInt(parameters) - 1;
-                Robert.markTask(markingTaskIndex);
-                break;
+			try {
+				switch (classification) {
+				case "list":
+					if (userInput.length > 1) {
+						throw new RobertException("Unnecessary parameters added.\n"
+								+ "Type 'list' if you intend to list your tasks.");
+					}
+					Robert.listTasks();
+					break;
+					
+				case "bye":
+					isUnderExecution = false;
+					break;
 
-            case "unmark":
-                int unmarkingTaskIndex = Integer.parseInt(parameters) - 1;
-                Robert.unmarkTask(unmarkingTaskIndex);
-                break;
-            
-            case "todo":
-                ToDo newToDo = new ToDo(parameters);
-                Robert.addTask(newToDo);
-                break;
+				case "mark":
+					if (userInput.length == 1) {
+						throw new RobertException("The index used to mark a task cannot be empty.\n"
+								+ "Please add an index.");
+					}
 
-            case "event":
-                String[] eventParameters = parameters.split(" /from ");
+					parameters = userInput[1];
+					int markingTaskIndex = Integer.parseInt(parameters) - 1;
 
-                String eventDescription = eventParameters[0];
-                String from = eventParameters[1].split(" /to ")[0];
-                String to = eventParameters[1].split(" /to ")[1];
+					if (markingTaskIndex < 1 || Task.taskCount < markingTaskIndex) {
+						throw new RobertException("Index is out of bounds.\n"
+								+ "Please choose a valid index.");
+					}
 
-                Event newEvent = new Event(eventDescription, from, to);
-                Robert.addTask(newEvent);
-                break;
+					Robert.markTask(markingTaskIndex);
+					break;
 
-            case "deadline":
-                String[] deadlineParameters = parameters.split(" /by ");
+				case "unmark":
+					if (userInput.length == 1) {
+						throw new RobertException("The index used to unmark a task cannot be empty.\n"
+								+ "Please add an index.");
+					}
 
-                String deadlineDescription = deadlineParameters[0];
-                String by = deadlineParameters[1];
+					parameters = userInput[1];
+					int unmarkingTaskIndex = Integer.parseInt(parameters) - 1;
 
-                Deadline newDeadline = new Deadline(deadlineDescription, by);
-                Robert.addTask(newDeadline);
-                break;    
+					if (unmarkingTaskIndex < 1 || Task.taskCount < unmarkingTaskIndex) {
+						throw new RobertException("Index is out of bounds.\n"
+								+ "Please choose a valid index.");
+					}
+					Robert.unmarkTask(unmarkingTaskIndex);
+					break;
+				
+				case "todo":
+					if (userInput.length == 1) {
+						throw new RobertException("The description of a todo cannot be empty.\n"
+								+ "Please add a description to your todo task.");
+					}
+					ToDo newToDo = new ToDo(userInput[1]);
+					Robert.addTask(newToDo);
+					break;
 
-            case "bye":
-                isUnderExecution = false;
-                break;
+				case "event":
+					if (userInput.length == 1) {
+						throw new RobertException("The description of an event cannot be empty.\n"
+								+ "Please add a description to your event task.");
+					}
 
-            default:
-                Robert.outputMessage("Invalid command. Try again!");
-                break;
-            }
+					parameters = userInput[1];
+
+					if (!parameters.contains("/from") || !parameters.contains("/to")) {
+						throw new RobertException("The event's start and/or end time is/are not specified properly.\n"
+								+ "Please make sure '/from' and '/to' are properly indicated.");
+					}
+
+					String[] eventParameters = parameters.split(" /from ");
+
+					String eventDescription = eventParameters[0];
+					String from = eventParameters[1].split(" /to ")[0];
+					String to = eventParameters[1].split(" /to ")[1];
+
+					Event newEvent = new Event(eventDescription, from, to);
+					Robert.addTask(newEvent);
+					break;
+
+				case "deadline":
+					if (userInput.length == 1) {
+						throw new RobertException("The description of a deadline cannot be empty.\n"
+								+ "Please add a description to your deadline task.");
+					}
+
+					parameters = userInput[1];
+					
+					if (!parameters.contains("/by")) {
+						throw new RobertException("The deadline's due date is not specified properly.\n"
+								+ "Please make sure '/by' is properly indicated.");
+					}
+
+					String[] deadlineParameters = parameters.split(" /by ");
+
+					String deadlineDescription = deadlineParameters[0];
+					String by = deadlineParameters[1];
+
+					Deadline newDeadline = new Deadline(deadlineDescription, by);
+					Robert.addTask(newDeadline);
+					break;    
+
+				default:
+					throw new RobertException("I'm sorry, but I don't know what that means :-(");
+				}
+
+			} catch (RobertException e) {
+				Robert.outputMessage(e.toString());
+
+			} catch (NumberFormatException e) {
+				Robert.outputMessage("Cannot convert given index as integer. Please use proper integer as the index!");
+			}
         }
 
         scanner.close();
