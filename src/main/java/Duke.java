@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Duke {
   protected static ArrayList<Task> taskList = new ArrayList<Task>();
-  private static final Pattern markPattern = Pattern.compile("^mark\\s(\\d+)\\b$");
+  private static final Pattern markPattern = Pattern.compile("^mark\\s(\\d+)$");
   private static final Pattern unmarkPattern = Pattern.compile("^unmark\\s(\\d+)$");
   private static final Pattern indexPattern = Pattern.compile("(\\d+)$");
   private static final Pattern todoPattern = Pattern.compile("^todo\\s(.+)");
@@ -21,6 +21,7 @@ public class Duke {
       String input = scanner.nextLine();
 
       if (input.equals("bye")) {
+        scanner.close();
         exit();
         return;
       } else if (input.equals("list")) {
@@ -29,16 +30,14 @@ public class Duke {
         int idx = parseMark(input);
         if (idx != 0) {
           taskList.get(idx - 1).markAsDone();
-          System.out.println(
-              String.format("Nice! I've marked this task as done:\n %s\n", taskList.get(idx - 1)));
+          System.out.printf("Nice! I've marked this task as done:%n %s%n%n", taskList.get(idx - 1));
         }
       } else if (unmarkPattern.matcher(input).find()) {
         int idx = parseMark(input);
         if (idx != 0) {
           taskList.get(idx - 1).markAsNotDone();
-          System.out.println(
-              String.format(
-                  "OK! I've marked this task as not done:\n %s\n", taskList.get(idx - 1)));
+          System.out.printf(
+              "OK! I've marked this task as not done:%n %s%n%n", taskList.get(idx - 1));
         }
       } else if (todoPattern.matcher(input).find()) {
         Matcher m = todoPattern.matcher(input);
@@ -88,10 +87,9 @@ public class Duke {
 
   private static void addTask(Task newTask) {
     taskList.add(newTask);
-    System.out.println(
-        String.format(
-            "Got it, I've added this task:\n %s\nNow you have %d tasks in the list.\n",
-            newTask, taskList.size()));
+    System.out.printf(
+            "Got it, I've added this task:%n %s%nNow you have %d tasks in the list.%n%n",
+        newTask, taskList.size());
   }
 
   private static String listString() {
