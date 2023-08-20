@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class ChatALot {
 
+    private static ItemList list = new ItemList();
+
     public static String horizontalLine() {
         return "_____________________________________________________\n";
     }
@@ -17,24 +19,34 @@ public class ChatALot {
         System.out.println(output);
     }
 
-    public static String processInput(String userInput) {
-        System.out.print(horizontalLine());
-        String output = echo(userInput);
-        System.out.println(output);
-        System.out.println(horizontalLine());
-        return output;
-    }
-
     public static String echo(String userInput) {
         String output = "You have entered: " +
                 userInput;
         return output;
     }
 
+    public static String processInput(String userInput) {
+        System.out.print(horizontalLine());
+
+        String output;
+        if (userInput.equals("")) {
+            output = "You have not entered anything. Please re-enter.";
+        } else if (userInput.toLowerCase().equals("list")) {
+            output = ChatALot.list.toString();
+        } else {
+            Item item = ChatALot.list.addItem(userInput);
+            output = "added: " + item;
+        }
+        System.out.println(output);
+
+        System.out.println(horizontalLine());
+        return output;
+    }
+
     public static String exit() {
-        String outro = horizontalLine()
-                + "Bye. Hope to see you again soon!\n"
-                + horizontalLine();
+        String outro = horizontalLine() +
+                "Bye. Hope to see you again soon!\n" +
+                horizontalLine();
         System.out.println(outro);
         return outro;
     }
