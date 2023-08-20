@@ -23,7 +23,7 @@ public class Duke {
 
         while (!exited) {
             String command = sc.nextLine();
-            if (command.equals("exit")) {
+            if (command.equals("bye")) {
                 Duke.exit();
             } else {
                 Duke.echo(command);
