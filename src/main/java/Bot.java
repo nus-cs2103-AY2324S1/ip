@@ -18,26 +18,24 @@ public class Bot {
                 displayList(lst);
             } else if (markPattern.matcher(str).matches()) {
                 int index = Integer.parseInt(str.substring(5)) - 1;
-                if (index <= 0 || index >= lst.size()) {
+                if (index < 0 || index >= lst.size()) {
                     System.out.println("Sorry, that index doesn't exist.");
                     continue;
                 }
                 lst.get(index).mark();
                 System.out.println("I'll mark this as done:\n" + lst.get(index).toString());
-                displayListLength(lst);
             } else if (unmarkPattern.matcher(str).matches()) {
                 int index = Integer.parseInt(str.substring(7)) - 1;
-                if (index <= 0 || index >= lst.size()) {
+                if (index < 0 || index >= lst.size()) {
                     System.out.println("Sorry, that index doesn't exist.");
                     continue;
                 }
                 lst.get(index).unmark();
                 System.out.println("I'll mark this as not done:\n" + lst.get(index).toString());
-                displayListLength(lst);
             } else if (Task.canMakeTask(str)) {
                 addTask(Task.makeTask(str), lst);
             } else {
-                System.out.println("Sorry, I don't understand.");
+                System.out.println(str);
             }
         }
         System.out.println("Bye. You can find me at the nearest trash can!");

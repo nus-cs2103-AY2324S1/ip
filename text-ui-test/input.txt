@@ -1,0 +1,14 @@
+hello
+todo taskone
+list
+mark 1
+list
+unmark 1
+list
+deadline tasktwo /by today
+list
+event taskthree /from ytd /to tmr
+list
+mark 3
+list
+bye
