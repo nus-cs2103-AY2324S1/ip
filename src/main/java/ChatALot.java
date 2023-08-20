@@ -1,8 +1,10 @@
+import extensions.Task;
+import extensions.TaskList;
 import java.util.Scanner;
 
 public class ChatALot {
 
-    private static ItemList list = new ItemList();
+    private static TaskList list = new TaskList();
 
     public static String horizontalLine() {
         return "_____________________________________________________\n";
@@ -19,24 +21,36 @@ public class ChatALot {
         System.out.println(output);
     }
 
-    public static String echo(String userInput) {
-        String output = "You have entered: " +
-                userInput;
-        return output;
-    }
-
     public static String processInput(String userInput) {
         System.out.print(horizontalLine());
 
+        String[] inputArr = userInput.split(" ");
         String output;
-        if (userInput.equals("")) {
+
+        if (inputArr.length == 0) {
             output = "You have not entered anything. Please re-enter.";
         } else if (userInput.toLowerCase().equals("list")) {
             output = ChatALot.list.toString();
+        } else if (inputArr.length == 1) {
+            Task task = ChatALot.list.addTask(userInput);
+            output = "added: " + task;
+        } else if (inputArr[0].equals("mark")) {
+            int index = Integer.parseInt(inputArr[1]);
+            Task task = ChatALot.list.markTaskAsDone(index);
+            output = "Nice! I've marked this task as done:\n" +
+                    "  " +
+                    task;
+        } else if (inputArr[0].equals("unmark")) {
+            int index = Integer.parseInt(inputArr[1]);
+            Task task = ChatALot.list.unmarkTask(index);
+            output = "OK, I've marked this task as not done yet:\n" +
+                    "  " +
+                    task;
         } else {
-            Item item = ChatALot.list.addItem(userInput);
-            output = "added: " + item;
+            Task task = ChatALot.list.addTask(userInput);
+            output = "added: " + task;
         }
+
         System.out.println(output);
 
         System.out.println(horizontalLine());
