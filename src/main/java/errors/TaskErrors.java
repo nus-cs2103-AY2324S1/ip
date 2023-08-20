@@ -3,7 +3,8 @@ package errors;
 
 public enum TaskErrors {
     ERR_ADDING_ITEM ("Error adding item in %s"),
-    ERR_USING_MARK ("Invalid use of mark, use: \"mark <task number>\"");
+    ERR_USING_MARK ("Invalid use of mark, use: \"mark <task number>\""),
+    ERR_USING_UNMARK ("Invalid use of unmark, use: \"unmark <task number>\"");
 
 
     private final String errorMessage;
