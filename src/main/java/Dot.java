@@ -39,9 +39,12 @@ public class Dot {
                             } catch (NumberFormatException e) {
                                 TaskErrors.ERR_USING_MARK.printErrorMessage(e);
                             }
+                        } else if (substrings.length == 1) {
+                            TaskErrors.ERR_USING_MARK.printErrorMessage(
+                                    new IncorrectMarkParametersException("No description of your todo"));
                         } else {
                             TaskErrors.ERR_USING_MARK.printErrorMessage(
-                                    new IncorrectMarkParametersException("incorrect number of parameters"));
+                                    new IncorrectMarkParametersException("Too many parameters"));
                         }
                         break;
                     } else if (input.startsWith("unmark")) {
@@ -53,9 +56,12 @@ public class Dot {
                             } catch (NumberFormatException e) {
                                 TaskErrors.ERR_USING_UNMARK.printErrorMessage(e);
                             }
+                        } else if (substrings.length == 1) {
+                            TaskErrors.ERR_USING_UNMARK.printErrorMessage(
+                                    new IncorrectMarkParametersException("No description of your todo"));
                         } else {
                             TaskErrors.ERR_USING_UNMARK.printErrorMessage(
-                                    new IncorrectMarkParametersException("incorrect number of parameters"));
+                                    new IncorrectMarkParametersException("Too many parameters"));
                         }
                         break;
                     } else if (input.startsWith("todo")) {

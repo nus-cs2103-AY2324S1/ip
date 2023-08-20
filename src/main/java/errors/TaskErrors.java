@@ -1,10 +1,12 @@
 package errors;
 
 
+import ui.Ui;
+
 public enum TaskErrors {
-    ERR_ADDING_ITEM ("Error adding item in %s"),
-    ERR_USING_MARK ("Invalid use of mark, use: \"mark <task number>\""),
-    ERR_USING_UNMARK ("Invalid use of unmark, use: \"unmark <task number>\"");
+    ERR_ADDING_ITEM ("..o.o..beep..Error adding item in %s"),
+    ERR_USING_MARK ("..o.o..beep..Invalid use of mark, use: \"mark <task number>\""),
+    ERR_USING_UNMARK ("..o.o..beep..Invalid use of unmark, use: \"unmark <task number>\"");
 
 
     private final String errorMessage;
@@ -14,6 +16,7 @@ public enum TaskErrors {
 
 
     public void printErrorMessage(Exception e) {
-        System.err.println(this.errorMessage + ": " + e);
+        Ui.wrapPrintWithHorizontalRules(this.errorMessage +
+                String.format("\nConnecting the dots: %s", e));
     }
 }
