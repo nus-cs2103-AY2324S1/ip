@@ -4,17 +4,22 @@ public class Duke {
 
     private static final String DIVIDER = "____________________________________________________________";
     private static final String EXIT_COMMAND = "bye";
+    private static final String LIST_COMMAND = "list";
 
     public static void main(String[] args) {
         Duke.greet();
 
         Scanner scanner = new Scanner(System.in);
+        TaskList list = new TaskList();
         while (true) {
             String input = scanner.nextLine();
             if (input.equals(Duke.EXIT_COMMAND)) {
                 break;
+            } else if (input.equals(Duke.LIST_COMMAND)) {
+                list.listTasks();
+            } else {
+                list.addTask(input);
             }
-            Duke.echo(input);
         }
 
         Duke.exit();
