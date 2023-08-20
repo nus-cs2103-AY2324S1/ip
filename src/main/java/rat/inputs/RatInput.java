@@ -49,7 +49,7 @@ public class RatInput {
                     this.showCommands();
                     break;
                 default:
-                    RatPrinter.printWarning("Sorry, I don't understand what you mean by " + RatPrinter.italicise(input));
+                    RatPrinter.printWithLines("Sorry, I don't understand what you mean by " + input);
             }
         }
     }
@@ -59,9 +59,9 @@ public class RatInput {
             int index = Integer.parseInt(inputs[1]);
             this.ratStorage.markItemDone(index);
         } catch (IndexOutOfBoundsException e) {
-            RatPrinter.printWarning(e.getMessage());
+            RatPrinter.printWithLines(e.getMessage());
         } catch (NumberFormatException e) {
-            RatPrinter.printWarning(" \"mark\" command must be followed by a number");
+            RatPrinter.printWithLines(" \"mark\" command must be followed by a number");
         }
     }
 
@@ -70,9 +70,9 @@ public class RatInput {
             int index = Integer.parseInt(inputs[1]);
             this.ratStorage.unmarkItemDone(index);
         } catch (IndexOutOfBoundsException e) {
-            RatPrinter.printWarning(e.getMessage());
+            RatPrinter.printWithLines(e.getMessage());
         } catch (NumberFormatException e) {
-            RatPrinter.printWarning(" \"unmark\" command must be followed by a number");
+            RatPrinter.printWithLines(" \"unmark\" command must be followed by a number");
         }
     }
 
@@ -81,7 +81,7 @@ public class RatInput {
             params = params.substring(5);
             this.ratStorage.addToDo(params);
         } catch (StringIndexOutOfBoundsException e) {
-            RatPrinter.printWarning("To Do name cannot be empty");
+            RatPrinter.printWithLines("To Do name cannot be empty");
         }
     }
 
@@ -93,9 +93,9 @@ public class RatInput {
             String deadline = paramsArr[1];
             this.ratStorage.addDeadline(deadline, name);
         } catch (StringIndexOutOfBoundsException e) {
-            RatPrinter.printWarning("Deadline name cannot be empty");
+            RatPrinter.printWithLines("Deadline name cannot be empty");
         } catch (ArrayIndexOutOfBoundsException e) {
-            RatPrinter.printWarning("Invalid deadline format. Please use \"deadline <name> /by <deadline>\"");
+            RatPrinter.printWithLines("Invalid deadline format. Please use \"deadline <name> /by <deadline>\"");
         }
     }
 
@@ -104,16 +104,16 @@ public class RatInput {
             params = params.substring(6);
             String eventName = params.split(" /from ")[0];
             if (eventName.isEmpty()) {
-                RatPrinter.printWarning("Event name cannot be empty");
+                RatPrinter.printWithLines("Event name cannot be empty");
             }
             String[] time = params.split(" /from ")[1].split(" /to ");
             String startTime = time[0];
             String endTime = time[1];
             this.ratStorage.addEvent(startTime, endTime, eventName);
         } catch (StringIndexOutOfBoundsException e) {
-            RatPrinter.printWarning("Event name cannot be empty");
+            RatPrinter.printWithLines("Event name cannot be empty");
         } catch (ArrayIndexOutOfBoundsException e) {
-            RatPrinter.printWarning("Invalid event format. Please use \"event <name> /from <start> /to <end>\"");
+            RatPrinter.printWithLines("Invalid event format. Please use \"event <name> /from <start> /to <end>\"");
         }
     }
 
@@ -129,9 +129,9 @@ public class RatInput {
                 return;
             }
         } catch (IndexOutOfBoundsException e) {
-            RatPrinter.printWarning(e.getMessage());
+            RatPrinter.printWithLines(e.getMessage());
         } catch (NumberFormatException e) {
-            RatPrinter.printWarning(" \"delete\" command must be followed by a number");
+            RatPrinter.printWithLines(" \"delete\" command must be followed by a number");
         }
     }
 
