@@ -6,10 +6,15 @@ public class Task {
 
     boolean completed;
 
-    public void setList(String list, int taskIndex) {
+    public Task(int index) {
+        this.list = "";
+        this.taskIndex = index;
+        this.completed = false;
+    }
+
+    public String setList(String list) {
         this.list = list;
-        this.taskIndex = taskIndex;
-        completed = false;
+        return "added: " + list;
     }
 
     public String getList() {
@@ -22,6 +27,16 @@ public class Task {
 
     public void setCompleted(boolean flag) {
         this.completed = flag;
+    }
+
+    public String setMarked() {
+        this.completed = true;
+        return "Nice! I've marked this task as done:\n" + "  " + this.getCompleted() + " " + this.list;
+    }
+
+    public String setUnmarked() {
+        this.completed = false;
+        return "OK, I've marked this task as not done yet:\n" + "  " + this.getCompleted() + " " + this.list;
     }
 
     public String getCompleted() {

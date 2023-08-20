@@ -7,7 +7,7 @@ public class Duke {
 
     public Duke() {
         for(int i=0;i<100;i++) {
-            list[i] = new Task();
+            list[i] = new Task(i);
         }
     }
     String divider = "------------------------------------\n";
@@ -31,8 +31,7 @@ public class Duke {
     }
 
     public String addToDo(String toDo) {
-        list[totalTodo++].setList(toDo,totalTodo);
-        return "added: " + echo(toDo);
+        return list[totalTodo++].setList(toDo);
     }
 
     public String getAllToDo() {
@@ -49,16 +48,12 @@ public class Duke {
     public String markToDo(String action, int index) {
         StringBuilder res = new StringBuilder();
         if (action.equals("mark")) {
-            list[index].setCompleted(true);
-        } else {
-            list[index].setCompleted(false);
+             return list[index].setMarked();
         }
-        res.append(action.equals("mark") ? "Nice! I've marked this task as done:\n" :  "OK, I've marked this task as not done yet:\n").append(list[index].getCompleted()).append(" ").append(list[index].getList());
-        return res.toString();
-
+        return list[index].setUnmarked();
     }
 
-    public int markCommand(String input) {
+    public int checkMarkCommand(String input) {
         String[] parts = input.split(" ");
         if((parts[0].equals("mark") || parts[0].equals("unmark")) && parts.length == 2) {
             String sec = parts[1];
@@ -79,11 +74,8 @@ public class Duke {
 
         String userInput = obj.nextLine();
 
-//        int resultIndex = duke.markCommand(userInput);
-//        System.out.println(resultIndex);
-
         while(!userInput.equals("bye")) {
-            int resultIndex = duke.markCommand(userInput);
+            int resultIndex = duke.checkMarkCommand(userInput);
             if(resultIndex != -1) {
                 System.out.println(duke.divider +
                         duke.markToDo((userInput.charAt(0) == 'u' ? "unmark" : "mark"), resultIndex-1)
@@ -102,8 +94,5 @@ public class Duke {
         }
         System.out.println(duke.exit);
 
-//        String input = "unmark 2";
-//        System.out.println(duke.markCommand("unmark 199"));
-//        System.out.println(input.charAt(0) == 'u');
     }
 }
