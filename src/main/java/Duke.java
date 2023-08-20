@@ -14,48 +14,87 @@ public class Duke {
         }
     }
 
-    public void readTask(String command) {
+    public void readTask(String command) throws DukeException {
+        String[] commandSplit = command.split(" ");
         if (command.equals("list")) {
             this.listTasks();
-        } else if (command.startsWith("mark")) {
-            System.out.println(" Nice! I've marked this task as done:");
-            char c = command.charAt(command.length() - 1);
-            int num = c - '0';
-            this.tasks.get(num - 1).markAsDone();
-            System.out.println("   " + this.tasks.get(num - 1).toString());
-        } else if (command.startsWith("unmark")) {
-            System.out.println(" OK, I've marked this task as not done yet:");
-            char c = command.charAt(command.length() - 1);
-            int num = c - '0';
-            this.tasks.get(num - 1).markAsNotDone();
-            System.out.println("   " + this.tasks.get(num - 1).toString());
         } else {
-            this.addTask(command);
+            if (command.startsWith("todo") ||
+                    command.startsWith("deadline") ||
+                    command.startsWith("event")) {
+                this.addTask(command);
+            } else if (command.startsWith("mark") ||
+                    command.startsWith("unmark")) {
+                try {
+                    if (commandSplit.length > 2 || Integer.parseInt(commandSplit[1]) > tasks.size()) {
+                        throw new DukeException("Please enter a valid number");
+                    }
+                    int markTask = Integer.parseInt(commandSplit[1]);
+                    if (command.startsWith("mark")) {
+                        this.tasks.get(markTask - 1).markAsDone();
+                        System.out.println(" Nice! I've marked this task as done:");
+                    } else if (command.startsWith("unmark")) {
+                        this.tasks.get(markTask - 1).markAsNotDone();
+                        System.out.println(" OK, I've marked this task as not done yet:");
+                    }
+                    System.out.println("   " + this.tasks.get(markTask - 1).toString());
+                } catch (NumberFormatException e) {
+                    throw new DukeException("Please enter a valid number");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("Please enter a valid number");
+                }
+            } else {
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+            }
         }
     }
 
-    public void addTask(String command) {
-        System.out.println(" Got it. I've added this task:");
+    public void addTask(String command) throws DukeException {
         if (command.startsWith("todo")) {
-            Task t = new Todo(command.substring("todo ".length()));
-            this.tasks.add(t);
-            System.out.println("   " + t.toString());
+            try {
+                String taskDescription = command.substring(5);
+                if (taskDescription.length() == 0) {
+                    throw new DukeException("The description of a todo cannot be empty.");
+                }
+                Task t = new Todo(taskDescription);
+                this.tasks.add(t);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + t.toString());
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new DukeException("The description of a todo cannot be empty.");
+            }
         } else if (command.startsWith("deadline")) {
-            int byIndex = command.indexOf("/by");
-            String taskDescription = command.substring("deadline ".length(), byIndex).trim();
-            String deadline = command.substring(byIndex + "/by ".length());
-            Task t = new Deadline(taskDescription, deadline);
-            this.tasks.add(t);
-            System.out.println("   " + t.toString());
+            try {
+                String[] taskAndDeadline = command.substring(9).split(" /by ");
+                if (taskAndDeadline[0].length() == 0) {
+                    throw new DukeException("The description of a deadline cannot be empty.");
+                }
+                Task t = new Deadline(taskAndDeadline[0], taskAndDeadline[1]);
+                this.tasks.add(t);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + t.toString());
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new DukeException("The description of a deadline cannot be empty.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("The deadline is not specified.");
+            }
         } else if (command.startsWith("event")) {
-            int fromIndex = command.indexOf("/from");
-            int toIndex = command.indexOf("/to");
-            String taskDescription = command.substring("event ".length(), fromIndex).trim();
-            String from = command.substring(fromIndex + "/from ".length(), toIndex).trim();
-            String to = command.substring(toIndex + "/to ".length());
-            Task t = new Event(taskDescription, from, to);
-            this.tasks.add(t);
-            System.out.println("   " + t.toString());
+            try {
+                String[] taskAndDate = command.substring(6).split(" /from | /to ");
+                if (taskAndDate[0].length() == 0) {
+                    throw new DukeException("The description of a todo cannot be empty.");
+                }
+                Task t = new Event(taskAndDate[0], taskAndDate[1], taskAndDate[2]);
+                this.tasks.add(t);
+                System.out.println(" Got it. I've added this task:");
+                System.out.println("   " + t.toString());
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new DukeException("The description of an event cannot be empty.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("The dates of an event cannot be empty.");
+            }
+        } else {
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
         System.out.println(" Now you have " + this.tasks.size() + " tasks in the list.");
     }
@@ -71,7 +110,11 @@ public class Duke {
 
         while (!command.equals("bye")) {
             System.out.println("---------------------------------------------------------------");
-            this.readTask(command);
+            try {
+                this.readTask(command);
+            } catch (DukeException e) {
+                System.out.println(e.toString());
+            }
             System.out.println("---------------------------------------------------------------");
             command = scanner.nextLine();
         }
