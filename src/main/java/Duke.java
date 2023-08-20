@@ -58,7 +58,7 @@ public class Duke {
                                     "\n\t%s\nNow you have %d tasks in the list.\n", event, taskList.size())));
                 } else if (command.startsWith("todo")) {
                     if (command.trim().equals("todo")) {
-                        throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        throw new DukeException(" ☹ OOPS!!! The description of a todo cannot be empty.");
                     }
                     ToDo toDo = new ToDo(command.replace("todo ", ""));
                     taskList.add(toDo);
