@@ -1,7 +1,28 @@
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Didier {
+    enum Command {
+        LIST,
+        MARK,
+        UNMARK,
+        DELETE,
+        TODO,
+        DEADLINE,
+        EVENT,
+        BYE,
+        UNKOWN;
+
+        static Command textToCommand(String text) {
+            try {
+                Command command = Command.valueOf(text.toUpperCase());
+                return command;
+            } catch (IllegalArgumentException e) {
+                return Command.UNKOWN;
+            }
+        }
+    }
 
     public static void main(String[] args) {
         Didier.botPrintBr();
@@ -9,23 +30,24 @@ public class Didier {
         Didier.botPrintBr();
 
         Scanner scanner = new Scanner(System.in); // create a Scanner object for user input
-        String[] command = scanner.nextLine().split(" ", 2);
+        String[] userInput = scanner.nextLine().split(" ", 2);
+        Command command = Command.textToCommand(userInput[0]);
         ArrayList<Task> tasks = new ArrayList<>();
-        while (!command[0].equals("bye")) {
+        while (!command.equals(Command.BYE)) {
             // Carry out the action determined by the command
             try {
-                switch (command[0]) {
-                case "list":
+                switch (command) {
+                case LIST:
                     Didier.botPrintMessage("The tasks in your list are as follows:");
                     for (int i = 0; i < tasks.size(); i++) {
                         Didier.botPrintMessage(String.format("%d.%s", i + 1, tasks.get(i)));
                     }
                     break;
-                case "mark":
-                case "unmark":
+                case MARK:
+                case UNMARK:
                     try {
-                        Task task = tasks.get(Integer.parseInt(command[1]) - 1);
-                        if (command[0].equals("mark")) {
+                        Task task = tasks.get(Integer.parseInt(userInput[1]) - 1);
+                        if (userInput[0].equals("mark")) {
                             task.markAsDone();
                             Didier.botPrintMessage("Okay! I've marked the following task as done:");
                         } else {
@@ -34,37 +56,37 @@ public class Didier {
                         }
                         Didier.botPrintMessage(task.toString());
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                        throw new TaskNumberException(command[1]);
+                        throw new TaskNumberException(userInput[1]);
                     }
                     break;
-                case "delete":
+                case DELETE:
                     try {
-                        Task task = tasks.remove(Integer.parseInt(command[1]) - 1);
+                        Task task = tasks.remove(Integer.parseInt(userInput[1]) - 1);
                         Didier.botPrintMessage("Okay! I've removed this task:");
                         Didier.botPrintMessage(task.toString());
                         Didier.botPrintMessage(String.format("There are now %d tasks in your list", tasks.size()));
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                        throw new TaskNumberException(command[1]);
+                        throw new TaskNumberException(userInput[1]);
                     }
                     break;
-                case "todo":
-                case "deadline":
-                case "event":
+                case TODO:
+                case DEADLINE:
+                case EVENT:
                     Task task;
-                    if (command.length == 1 || command[1].isBlank()) {
+                    if (userInput.length == 1 || userInput[1].isBlank()) {
                         throw new ElementMissingException("description");
                     }
-                    if (command[0].equals("todo")) {
-                        task = new ToDo(command[1]);
-                    } else if (command[0].equals("deadline")) {
-                        String[] deadlineCommand = command[1].split("\\\\by ", 2);
+                    if (userInput[0].equals("todo")) {
+                        task = new ToDo(userInput[1]);
+                    } else if (userInput[0].equals("deadline")) {
+                        String[] deadlineCommand = userInput[1].split("\\\\by ", 2);
                         if (deadlineCommand.length == 1 || deadlineCommand[1].isBlank()) {
                             throw new ElementMissingException("deadline");
                         } else {
                             task = new Deadline(deadlineCommand[0], deadlineCommand[1]);
                         }
                     } else {
-                        String[] fromCommand = command[1].split("\\\\from ", 2);
+                        String[] fromCommand = userInput[1].split("\\\\from ", 2);
                         if (fromCommand.length == 1 || fromCommand[1].isBlank()) {
                             throw new ElementMissingException("start time");
                         }
@@ -80,14 +102,15 @@ public class Didier {
                     Didier.botPrintMessage(task.toString());
                     Didier.botPrintMessage(String.format("There are now %d tasks in your list", tasks.size()));
                     break;
-                default:
-                    throw new InvalidCommandException(command[0]);
+                case UNKOWN:
+                    throw new InvalidCommandException(userInput[0]);
                 }
             } catch (DidierException e) {
                 Didier.botPrintMessage(e.getMessage() + "Please try again.");
             }
             Didier.botPrintBr();
-            command = scanner.nextLine().split(" ", 2);
+            userInput = scanner.nextLine().split(" ", 2);
+            command = Command.textToCommand(userInput[0]);
         }
 
         Didier.botPrintMessage("Goodbye! If you need more help in the future don't hesitate to ask me.");
