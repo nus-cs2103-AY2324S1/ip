@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Duke {
     static String HORIZONTAL_LINE = "    ________________________________________"; //40 underscores.
     static String INDENT = "    "; //4 spaces.
-    static ArrayList<String> taskList = new ArrayList<>(100);
+    static ArrayList<Task> taskList = new ArrayList<>(100);
 
     /**
      * Function to greet the User.
@@ -28,10 +28,45 @@ public class Duke {
     /**
      * Function to add any given input into our taskList.
      */
-    public static void addTask(String input) {
+    public static void addTask(String description) {
         System.out.println(HORIZONTAL_LINE);
-        taskList.add(input);
-        System.out.printf("    added: %s%n", input);
+        Task task = new Task(description);
+        taskList.add(task);
+        System.out.printf("    added: %s%n", description);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    /**
+     * Function to mark a given task as done.
+     * @param taskIndex the index of the task to be marked as done.
+     */
+    public static void markTask(int taskIndex) {
+        System.out.println(HORIZONTAL_LINE);
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            System.out.printf("Invalid Index of Task. You currently have Task 1 to Task %d\n", taskList.size());
+        } else {
+            Task task = taskList.get(taskIndex);
+            task.markAsDone();
+            System.out.println("    Nice! I've marked this task as done:");
+            System.out.printf("    [%s] %s\n", task.getStatusIcon(), task.description);
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    /**
+     * Function to mark a given task as done.
+     * @param taskIndex the index of the task to be marked as not done yet.
+     */
+    public static void unmarkTask(int taskIndex) {
+        System.out.println(HORIZONTAL_LINE);
+        if (taskIndex < 0 || taskIndex >= taskList.size()) {
+            System.out.printf("    Invalid Index of Task. You currently have Task 1 to Task %d\n", taskList.size());
+        } else {
+            Task task = taskList.get(taskIndex);
+            task.markAsNotDone();
+            System.out.println("    OK, I've marked this task as not done yet:");
+            System.out.printf("    [%s] %s\n", task.getStatusIcon(), task.description);
+        }
         System.out.println(HORIZONTAL_LINE);
     }
 
@@ -46,7 +81,7 @@ public class Duke {
         } else {
             System.out.println(HORIZONTAL_LINE);
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.printf("%d. %s%n", i + 1, taskList.get(i));
+                System.out.printf("    %d.[%s] %s%n", i + 1, taskList.get(i).getStatusIcon(), taskList.get(i).description);
             }
             System.out.println(HORIZONTAL_LINE);
         }
@@ -58,12 +93,19 @@ public class Duke {
             Boolean repeatFlag = true;
             while (repeatFlag) {
                 String userInput = scanner.nextLine();
+                String[] words = userInput.split("\\s+"); // Split input by space, put into array
                 String formattedInput = userInput.toLowerCase();
                 if (formattedInput.equals("bye")) {
                     farewell();
                     repeatFlag = false;
                 } else if (userInput.equals("list")) {
                     listAllTasks();
+                } else if (words[0].equals("mark")) {
+                    int taskIndex = Integer.parseInt(words[1]) - 1; // Potential Error if next input is can't be converted to Integer
+                    markTask(taskIndex);
+                } else if (words[0].equals("unmark")) {
+                    int taskIndex = Integer.parseInt(words[1]) - 1; // Potential Error if next input is can't be converted to Integer
+                    unmarkTask(taskIndex);
                 } else {
                     addTask(userInput);
                 }
