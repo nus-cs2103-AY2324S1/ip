@@ -3,13 +3,13 @@ import java.util.Scanner;
 
 public class Duke {
 
-    String name = "Meg";
-    boolean isRunning = true;
-    ArrayList<String> tasks = new ArrayList<>();
-    int numOfTasks = 0;
+    private boolean isRunning = true;
+    private final ArrayList<Task> tasks = new ArrayList<>();
+    private int numOfTasks = 0;
     public Duke() {
+        String name = "Meg";
         String intro1 = String.format("I'm %s. You called me?" +
-                "\n", this.name);
+                "\n", name);
         String intro2 = "Make it quick, thanks.";
         System.out.println(intro1);
         System.out.println(intro2 + "\n");
@@ -22,26 +22,26 @@ public class Duke {
         exit();
     }
 
-    private void printHorizontalLine() {
+    public void printHorizontalLine() {
         for (int i = 0; i < 20; i++) {
             System.out.print("-");
         }
         System.out.println();
     }
 
-    private void exit() {
+    public void exit() {
         System.out.println("Don't let me see you again!");
         printHorizontalLine();
         System.exit(0);
     }
 
-    private void readInput(String message) {
+    public void readInput(String message) {
         if (message.equals("bye")) {
             this.isRunning = false;
         } else if (message.equals("list")) {
             this.list();
         } else {
-            tasks.add(message);
+            tasks.add(new Task(message));
             numOfTasks++;
             String output = String.format("Don't expect me to %s for you!", message);
             System.out.println(output + "\n");
@@ -49,11 +49,12 @@ public class Duke {
         }
     }
 
-    private void list() {
+    public void list() {
         String output = String.format("You have %d tasks.", numOfTasks);
         System.out.println(output);
         for (int i = 0; i < numOfTasks; i++) {
-            System.out.printf("%d. " + tasks.get(i) + "%n", i+1);
+            System.out.printf("%d. " + tasks.get(i).toString()
+                    + "%n", i+1);
         }
         System.out.println("Don't expect me to remember them for you!");
         printHorizontalLine();
