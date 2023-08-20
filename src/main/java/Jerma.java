@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 enum Command {
-  LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT;
+  LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE;
 
   public static Command parse(String input) {
     for (Command command : Command.values()) {
@@ -49,6 +49,14 @@ public class Jerma {
           task.setUndone();
 
           System.out.println("Marked as undone: \n" + task);
+          break;
+        case DELETE:
+          index = Integer.parseInt(inputArgs[1]) - 1;
+          Task removed = toDoList.remove(index);
+
+          System.out.println(String.format(
+              "Removed the task: \n%s \nYou have %d tasks remaining.", removed,
+              toDoList.size()));
           break;
         case TODO:
           toDoList.add(new Todo(inputArgs[1]));
