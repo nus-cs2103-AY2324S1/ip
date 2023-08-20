@@ -1,33 +1,63 @@
 import java.util.Scanner;
 
 public class Duke {
+    public class Task {
+        protected String description;
+        protected boolean isDone;
 
-    public static Scanner sc = new Scanner(System.in);
-    public static String[] listArr = new String[100];
-    public static void add(String s) {
+        public Task(String description) {
+            this.description = description;
+            this.isDone = false;
+            System.out.println("-------------------------------\n"
+                    + "added: " + this.description
+                    + "\n-------------------------------\n");
+        }
+
+        public String getStatusIcon() {
+            return (isDone ? "X" : " "); //mark done task with X
+        }
+
+        public void mark() {
+            this.isDone = true;
+            System.out.println("Nice! I've marked this task as done:\n"
+            + "[X] " + this.desc());
+        }
+
+        public void unmark() {
+            this.isDone = false;
+            System.out.println("OK, I've marked this task as not done yet:\n"
+            + "[ ] " + this.desc());
+        }
+        public String desc() {
+            return this.description;
+        }
+    }
+    public Scanner sc = new Scanner(System.in).useDelimiter("[\\s,]+");
+    public Task[] taskArr = new Task[100];
+    public void add(String s) {
         for (int i = 0; i < 100; i++) {
-            if (listArr[i] == null) {
-                listArr[i] = s;
-                System.out.println("-------------------------------\n"
-                        + "added: " + s
-                        + "\n-------------------------------\n");
+            if (taskArr[i] == null) {
+                taskArr[i] = new Task(s);
                 break;
             }
         }
     }
-
-    public static void listOut(String[] arr) {
-        System.out.println("-------------------------------");
+    public void listOut(Task[] arr) {
+        System.out.println("-------------------------------"
+        + "\nHere are the tasks in your list:");
         for (int i = 0; i < 100; i++) {
             if (arr[i] != null) {
+                Task curr = arr[i];
                 int num = i + 1;
-                System.out.println(num + ". " + arr[i]);
+                System.out.println(num + ".[" + curr.getStatusIcon() + "] " + curr.desc());
             }
         }
         System.out.println("-------------------------------\n");
     }
 
     public static void main(String[] args) {
+
+        Duke bot = new Duke();
 
         String greeting = "-------------------------------\n"
                 + "Hello! I'm Skog.\n"
@@ -40,14 +70,23 @@ public class Duke {
 
         System.out.println(greeting);
 
-        while (sc.hasNextLine()) {
-            String str = sc.nextLine();
+        while (bot.sc.hasNext()) {
+            String str = bot.sc.next();
             if (str.equals("bye")) {
                 System.out.println(exit);
+                bot.sc.close();
+                break;
             } else if (str.equals("list")) {
-                listOut(listArr);
+                bot.listOut(bot.taskArr);
+            } else if (str.equals("mark")) {
+                int num = bot.sc.nextInt();
+                bot.taskArr[num - 1].mark();
+            } else if (str.equals("unmark")) {
+                int num = bot.sc.nextInt();
+                bot.taskArr[num - 1].unmark();
             } else {
-                add(str);
+                str = str + bot.sc.nextLine();
+                bot.add(str);
             }
         }
     }
