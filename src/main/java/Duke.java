@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * A chatbot that helps to record tasks.
+ */
 public class Duke {
     ArrayList<Task> tasks;
     private enum FirstWord {
@@ -11,24 +15,34 @@ public class Duke {
         this.sc = new Scanner(System.in);
         this.tasks = new ArrayList<Task>();
     }
+
+    /**
+     * Add horizontal line for replies by chatbot.
+     * @param text
+     */
     private void line(String text) {
         System.out.println(text);
         System.out.println("------------------------------------------");
     }
 
+    /**
+     * Greet by chatbot.
+     */
     private void greet() {
         System.out.println("------------------------------------------");
         this.line("  Hello! I'm Jokey :) \n  What can I do for you?");
     }
 
-    private boolean isExit(String reply) {
-        return reply.startsWith("bye");
-    }
+    /**
+     * Exit chatbot.
+     */
     private void exit() {
         this.line("  Bye~ Hope to see you again soon! >w<");
     }
 
-
+    /**
+     * List out all tasks.
+     */
     private void listOutTasks() {
         String tasksList = "";
         for(int i = 0; i < tasks.size(); i++) {
@@ -37,19 +51,31 @@ public class Duke {
         this.line(tasksList);
     }
 
+    /**
+     * Mark task as done.
+     * @param index
+     */
     private void mark(int index) {
         Task task = tasks.get(index);
         task.mark();
         this.line(String.format("  Nice! I've marked this task as done:\n    %s", task.toString()));
     }
 
+    /**
+     * Mark task as not done.
+     * @param index
+     */
     private void unmark(int index) {
         Task task = tasks.get(index);
         task.unmark();
         this.line(String.format("  Ok, I've marked this task as not done yet:\n    %s", task.toString()));
     }
 
-
+    /**
+     * Add a To Do task.
+     * @param reply
+     * @throws DukeException
+     */
     private void addToDo(String reply) throws DukeException {
         if (reply.length() == "todo".length()) {
             throw new DukeEmptyToDoException();
@@ -59,7 +85,11 @@ public class Duke {
         constructTaskMessage(task);
     }
 
-
+    /**
+     * Add a Deadline task.
+     * @param reply
+     * @throws DukeException
+     */
     private void addDeadline(String reply) throws DukeException {
 
         Task task = new Deadline(reply);
@@ -67,14 +97,21 @@ public class Duke {
         constructTaskMessage(task);
     }
 
-
+    /**
+     * Add an Event task.
+     * @param reply
+     * @throws DukeException
+     */
     private void addEvent(String reply) throws DukeException {
         Task task = new Event(reply);
 
         constructTaskMessage(task);
     }
 
-
+    /**
+     * Delete a task.
+     * @param index
+     */
     private void delete(int index) {
         Task removedTask = tasks.remove(index);
         System.out.println(String.format("  Noted. I've removed this task:"));
@@ -82,6 +119,10 @@ public class Duke {
         this.line(String.format("  Now you have %d task(s) in the list.", tasks.size()));
     }
 
+    /**
+     * Construct message for adding task.
+     * @param task
+     */
     private void constructTaskMessage(Task task) {
         System.out.println(String.format("  Got it. I've added this task:"));
         tasks.add(task);
@@ -89,6 +130,9 @@ public class Duke {
         this.line(String.format("  Now you have %d task(s) in the list.", tasks.size()));
     }
 
+    /**
+     * Trigger respective actions.
+     */
     private void interact() {
         while(true) {
             String reply = sc.nextLine();
