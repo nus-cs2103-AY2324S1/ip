@@ -1,0 +1,10 @@
+todo sweep floor
+event marathon /from Saturday 8am /to 2pm
+list
+mark 1
+deadline cs2103 assignment /by 1 Sept
+list
+unmark 1
+mark 3
+list
+bye
