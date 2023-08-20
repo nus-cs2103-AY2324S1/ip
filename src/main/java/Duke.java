@@ -31,11 +31,11 @@ public class Duke {
         printMessage(exiting);
     }
 
-    public void addToList(String input) {
-        Task task = new Task(input);
+    public void addToList(Task task) {
         list.add(task);
-        String addMessage = String.format("added: %s", input);
-        printMessage(addMessage);
+        System.out.println("\tGot it. I've added this task:");
+        System.out.printf("\t\t%s\n\tNow you have %d tasks in the list.\n", task.toString(), list.size());
+        System.out.println(line);
     }
 
     public void printList() {
@@ -71,8 +71,28 @@ public class Duke {
 
                 System.out.println("\tBeep Boop Boop! I've marked this task as not done yet:");
                 printMessage(markNotDoneMessage);
+            } else if (input.startsWith("todo")) {
+                String description = input.replaceFirst("todo", "").trim();
+
+                ToDo todo = new ToDo(description);
+                addToList(todo);
+            } else if (input.startsWith("deadline")) {
+                String[] deadlineString = input.replaceFirst("deadline", "").split("/", 2);
+                String description = deadlineString[0].trim();
+                String deadlineDate = deadlineString[1].replaceFirst("by", "").trim();
+
+                Deadline deadline = new Deadline(description, deadlineDate);
+                addToList(deadline);
+            } else if (input.startsWith("event")) {
+                String[] eventString = input.replaceFirst("event", "").split("/", 3);
+                String description = eventString[0].trim();
+                String start = eventString[1].replaceFirst("from", "").trim();
+                String end = eventString[2].replaceFirst("to", "").trim();
+
+                Event event = new Event(description, start, end);
+                addToList(event);
             } else {
-                addToList(input);
+
             }
         }
 
