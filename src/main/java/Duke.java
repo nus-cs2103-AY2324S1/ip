@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     private static final String chatBotName = "Cristiano";
+    private static String[] list = new String[100];
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -11,7 +12,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         greetUser();
-        echoUntilBye();
+        addAndListTasks();
     }
 
     public static void greetUser() {
@@ -41,4 +42,22 @@ public class Duke {
         }
         exit();
     }
+
+    public static void addAndListTasks() {
+        ToDoList tdl = new ToDoList();
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
+        while (!input.equals("bye")) {
+            input = scanner.nextLine();
+            if (input.equals("list")) {
+                tdl.list();
+            } else {
+                tdl.add(input);
+            }
+        }
+        exit();
+    }
+
+
+
 }
