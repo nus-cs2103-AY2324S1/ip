@@ -15,7 +15,7 @@ public class TaskList {
 
     public void addItem(String item) {
         if (this.tasks.size() < this.maxSize) {
-            Ui.wrapPrintWithHorizontalRules(String.format("added: %s\n", item));
+            Ui.wrapPrintWithHorizontalRules(String.format("added: %s", item));
             this.tasks.add(new Task(item));
         } else {
             Ui.wrapPrintWithHorizontalRules("Your task list has reached the limit of 100 tasks. " +
@@ -23,10 +23,13 @@ public class TaskList {
         }
     }
 
+    // TODO: Move this method to Ui
     public void list() {
         System.out.print(Ui.HORIZONTAL_RULE);
         for (int i = 0; i < this.tasks.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, this.tasks.get(i).getDescription());
+            Task currTask = this.tasks.get(i);
+            System.out.printf("%d[%c] %s\n", i + 1,
+                    currTask.getStatus(), currTask.getDescription());
         }
         System.out.print(Ui.HORIZONTAL_RULE + "\n");
     }
@@ -40,5 +43,15 @@ public class TaskList {
      */
     public static TaskList newTaskList(int maxSize) {
         return new TaskList(maxSize);
+    }
+
+    // TODO: Add IndexOutOfBoundsException handling
+    // TODO: Add type mismatch exception handling
+    public void markTask(int position, boolean isCompleted) {
+        if (position >= 0 && position < this.tasks.size()) {
+            this.tasks.get(position).toggleStatus(isCompleted);
+        } else {
+            Ui.wrapPrintWithHorizontalRules("Invalid position.");
+        }
     }
 }
