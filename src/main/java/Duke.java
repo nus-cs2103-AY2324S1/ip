@@ -18,7 +18,7 @@ public class Duke {
         System.out.println(exitMessage);
     }
 
-    public static Task createTask(String input) {
+    public static Task createTask(String input) throws Exception {
         String[] arrStrings = input.split("\\s+");
         String command = arrStrings[0];
         String name = "";
@@ -38,6 +38,9 @@ public class Duke {
             }
             return new Deadlines(name.substring(0, name.length() - 1), deadline.substring(0, deadline.length() - 1));
         } else if (command.equals("todo")) {
+            if (arrStrings.length == 1) {
+                throw new Exception("OOPS!!! The description of a todo cannot be empty");
+            }
             for (int i = 1; i < arrStrings.length; i ++) {
                 name += arrStrings[i] + " ";
             }
@@ -62,7 +65,7 @@ public class Duke {
             }
             return new Events(name.substring(0, name.length() - 1), from.substring(0, from.length() - 1), to.substring(0, to.length() - 1));
         } else {
-            return null;
+            throw new Exception("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -95,7 +98,13 @@ public class Duke {
                     userInput = scanner.nextLine();
                     break;
                 default:
-                    Task task = createTask(userInput);
+                    Task task = null;
+                    try {
+                        task = createTask(userInput);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        echo();
+                    }
                     Duke.storage[Duke.storagePointer] = task;
                     Duke.totalTasks ++;
                     Duke.storagePointer ++;
