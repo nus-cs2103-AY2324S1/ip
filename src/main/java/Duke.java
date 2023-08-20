@@ -1,15 +1,23 @@
+import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-    private static final String LOGO = ",------.,--.              ,--. \n"
-                                      + "|  .---\'|  |,-.,--.,--. ,-|  |  \n"
-                                      + "|  `--, |     /|  ||  |' .-. |  \n"
-                                      + "|  `---.|  \\\\  \\\\'  ''  '\\\\ `-' |  \n"
-                                      + "`------'`--'`--'`----'  `---' \n";
+    private static final String LOGO = ",------.,--.              ,--.  \n"
+                                + "|  .---\'|  |,-.,--.,--. ,-|  |  \n"
+                                + "|  `--, |     /|  ||  |' .-. |   \n"
+                                + "|  `---.|  \\\\  \\\\  ''  '\\\\ `-\'   \n"
+                                + "`------'`--'`--'`----'  `---' \n";
     private static final String LINE = "-".repeat(60);
+    private static List<String> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         printWelcomeMessage();
+        handleUserInput();
+        printFarewellMessage();
+    }
+
+    private static void handleUserInput() {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
@@ -17,15 +25,30 @@ public class Duke {
                 sc.close();
                 break;
             }
-            echo(input);
+            handleCommand(input);
         }
-
-        printFarewellMessage();
     }
 
-    private static void echo(String input) {
+    private static void handleCommand(String command) {
+        if (command.equals("list")) {
+            printList();
+        } else {
+            addTask(command);
+        }
+    }
+
+    private static void printList() {
         System.out.println(LINE);
-        System.out.println(input);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+        System.out.println(LINE);
+    }
+
+    private static void addTask(String task) {
+        tasks.add(task);
+        System.out.println(LINE);
+        System.out.println("added: " + task);
         System.out.println(LINE);
     }
 
