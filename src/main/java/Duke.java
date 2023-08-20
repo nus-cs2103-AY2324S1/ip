@@ -1,11 +1,11 @@
 import java.util.Scanner;
 public class Duke {
+
     public static void main(String[] args) {
         String name = "Obi-wan Kenobi";
         String line = "_____________________________________";
         Scanner scanner = new Scanner(System.in);
-        String command;
-        String[] tasklist = new String[100];
+        Task[] taskList = new Task[100];
         int ind = 0;
 
         System.out.println("Hello There! I am " + name);
@@ -13,23 +13,42 @@ public class Duke {
         System.out.println(line);
 
         while (true) {
-            command = scanner.nextLine();
+            String input = scanner.nextLine();
+            String[] command = input.split(" ");
 
-            if(command.equals("bye")) {
+            if (command[0].equals("bye") && command.length == 1) {
                 break;
             }
 
-            if(command.equals("list")) {
-                for (int i = 0; i < tasklist.length; i++) {
-                    if(tasklist[i] == null) {
+            else if (command[0].equals("list") && command.length == 1) {
+                for (int i = 0; i < taskList.length; i++) {
+                    if (taskList[i] == null) {
                         break;
                     }
-                    System.out.print((i + 1) + ". " + tasklist[i] + "\n");
+
+                    System.out.print((i + 1) + "." + taskList[i].getStatusIcon() +
+                            " " + taskList[i].getName() + "\n");
                 }
-            } else {
-                tasklist[ind] = command;
+            }
+
+            else if (command.length == 2 && (command[0].equals("mark") || command[0].equals("unmark"))) {
+                int pos = Integer.parseInt(command[1]);
+
+                if (command[0].equals("mark")) {
+                    taskList[pos - 1].markTask();
+                    System.out.println("Nice! I've marked this task as done");
+                } else {
+                    taskList[pos - 1].unmarkTask();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                }
+
+                System.out.println("\t" + taskList[pos - 1].getStatusIcon() + " " + taskList[pos - 1].getName());
+            }
+
+            else {
+                taskList[ind] = new Task(input);
                 ind++;
-                System.out.println("added:" + command);
+                System.out.println("added: " + input);
             }
 
             System.out.println(line);
