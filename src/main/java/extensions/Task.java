@@ -1,6 +1,6 @@
 package extensions;
 
-public class Task {
+public abstract class Task {
     protected String desc;
     protected boolean isDone;
 
@@ -25,7 +25,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String output = "[" + getStatusIcon() + "] " + this.desc;
+        String output = String.format("[%s] %s", getStatusIcon(), this.desc);
         return output;
     }
 

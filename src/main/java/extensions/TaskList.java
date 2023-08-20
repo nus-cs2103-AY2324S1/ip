@@ -10,8 +10,20 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
-    public Task addTask(String name) {
-        Task task = new Task(name);
+    public Task addTodo(String desc) {
+        Task task = new TodoTask(desc);
+        this.list.add(task);
+        return task;
+    }
+
+    public Task addDeadline(String desc, String deadline) {
+        Task task = new DeadlineTask(desc, deadline);
+        this.list.add(task);
+        return task;
+    }
+
+    public Task addEvent(String desc, String start, String end) {
+        Task task = new EventTask(desc, start, end);
         this.list.add(task);
         return task;
     }
@@ -26,6 +38,10 @@ public class TaskList {
         Task task = this.list.get(i-1);
         task.unmark();
         return task;
+    }
+
+    public int getSize() {
+        return this.list.size();
     }
 
     @Override
