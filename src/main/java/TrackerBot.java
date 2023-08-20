@@ -25,7 +25,18 @@ public class TrackerBot {
     System.out.println(FORMAT_LINE);
   }
 
+  /**
+   * Exit function of the app. <br>
+   * Prints an exit message to the user on logout.
+   */
+  private static void exit() {
+    System.out.println(FORMAT_LINE);
+    System.out.println("Thank you for using " + APP_NAME + ". Goodbye.");
+    System.out.println(FORMAT_LINE);
+  }
+
   public static void main(String[] args) {
     greet();
+    exit();
   }
 }
