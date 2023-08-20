@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * The Storage class contains a fixed sized array that
  * stores the input from the parser class and can also
@@ -8,28 +10,24 @@
  */
 public class Storage {
     // Initialising variables and objects
-    Task[] storage;
-    int index;
+    ArrayList<Task> storage;
     UI ui;
 
     public Storage() {
-        this.storage = new Task[100];
-        this.index = 0;
+        this.storage = new ArrayList<Task>();
         this.ui = new UI();
     }
 
-    /** Add item to the storage */
+    /**
+     * Method that adds a task to the storage
+     * @param t The taskk to be added
+     */
     public void add(Task t) {
         ui.line();
-        if (index >= 100){
-            System.out.println("Storage at maximum capacity");
-        } else {
-            System.out.println("Got it, will add task...");
-            storage[index] = t;
-            index += 1;
-            System.out.println(storage[index-1]);
-            System.out.println("Now, you have " + index + " task(s)");
-        }
+        System.out.println("Got it, will add task...");
+        this.storage.add(t);
+        System.out.println(t);
+        System.out.println("Now, you have " + this.storage.size() + " task(s)");
         ui.line();
     }
 
@@ -37,8 +35,8 @@ public class Storage {
     public void display() {
         ui.line();
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < index; i++) {
-            System.out.println((i + 1) + ". " + storage[i]);
+        for (int i = 0; i < this.storage.size(); i++) {
+            System.out.println((i + 1) + ". " + this.storage.get(i));
         }
         ui.line();
     }
@@ -49,9 +47,9 @@ public class Storage {
      */
     public void mark(int index) {
         ui.line();
-        storage[index - 1].mark();
+        this.storage.get(index - 1).mark();
         System.out.println("Alright, it has been marked");
-        System.out.println(storage[index - 1]);
+        System.out.println(this.storage.get(index - 1));
         ui.line();
     }
 
@@ -61,9 +59,22 @@ public class Storage {
      */
     public void unmark(int index) {
         ui.line();
-        storage[index - 1].unmark();
+        this.storage.get(index - 1).unmark();
         System.out.println("Alright, it has been unmarked");
-        System.out.println(storage[index - 1]);
+        System.out.println(this.storage.get(index - 1));
+        ui.line();
+    }
+
+    /**
+     * Method that removes a specific task from storage
+     * @param index the index of the task to be removed
+     */
+    public void delete(int index) {
+        ui.line();
+        Task t = this.storage.remove(index - 1);
+        System.out.println("Sigh... fine, removing...");
+        System.out.println(t);
+        System.out.println("Now, you have " + this.storage.size() + " task(s)");
         ui.line();
     }
 }

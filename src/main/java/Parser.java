@@ -25,7 +25,7 @@ public class Parser {
         this.s = new Scanner(System.in);
         this.ui = new UI();
         this.storage = new Storage();
-        this.commands = Arrays.asList(new String[]{"todo", "deadline", "event", "mark", "unmark"});
+        this.commands = Arrays.asList(new String[]{"todo", "deadline", "event", "mark", "unmark", "delete"});
     }
     /**
      * Method that runs the parser
@@ -44,7 +44,7 @@ public class Parser {
                     String command = temp[0];
                     if (this.commands.contains(command)) {
                         if (temp.length == 1 || temp[1].length() == 0) {
-                            if (command.equals("mark") || command.equals("unmark")){
+                            if (command.equals("mark") || command.equals("unmark") || command.equals("delete")){
                                 throw new MissingIndexException("");
                             } else {
                                 throw new EmptyDescriptionException("");
@@ -76,14 +76,17 @@ public class Parser {
                                 String[] items = temp[1].split(" /");
                                 if (items.length == 3){
                                     // Todo: More Error Catching to be done here
-                                    if (items[1].length() != 0 && items[2].length() != 0) {
-                                        storage.add(new Event(items[0], items[1].substring(6), items[2].substring(4)));
+                                    if (items[1].startsWith("from ") && items[2].startsWith("to ")) {
+                                        storage.add(new Event(items[0], items[1].substring(5), items[2].substring(3)));
                                     } else {
                                         throw new UnknownCommandException("");
                                     }
                                 } else {
                                     throw new UnknownCommandException("");
                                 }
+                            } else if (command.equals("delete")){
+                                int index = Integer.parseInt(temp[1]);
+                                this.storage.delete(index);
                             }
                         }
                     } else {
@@ -109,6 +112,10 @@ public class Parser {
             } catch (MissingIndexException e) {
                 ui.line();
                 System.out.println("There is a missing parameter");
+                ui.line();
+            } catch (IndexOutOfBoundsException e) {
+                ui.line();
+                System.out.println("Object does not exist");
                 ui.line();
             }
         }
