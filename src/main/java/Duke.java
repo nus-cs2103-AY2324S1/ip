@@ -10,7 +10,9 @@ public class Duke {
     private static final String name = "chatBot";
     private static final String helloMsg = String.format("Hello! I'm %s", name);
     private static final String requestMsg = "What can I do for you?";
-    private static final String addedMsg = "Got it. I've added this task:\n  %s\nNow you have %d task%s in the list.";
+    private static final String taskCount = "Now you have %d task%s in the list.";
+    private static final String addedMsg = "Got it. I've added this task:\n  %s\n" + taskCount;
+    private static final String removedMsg = "Noted. I've removed this task:\n  %s\n" + taskCount;
     private static final String listMsg = "Here are the tasks in your list:\n%s";
     private static final String markMsg = "Nice! I've marked this task as done:\n  %s";
     private static final String unmarkMsg = "OK, I've marked this task as not done yet:\n  %s";
@@ -23,6 +25,7 @@ public class Duke {
     private static final String invalidListMsg = "☹ OOPS!!! Did you mean \"list\" without additional arguments?";
     private static final String invalidMarkMsg = "☹ OOPS!!! mark should have exactly one argument.";
     private static final String invalidUnmarkMsg = "☹ OOPS!!! unmark should have exactly one argument.";
+    private static final String invalidRemoveMsg = "☹ OOPS!!! remove should have exactly one argument.";
     private static final String goodbyeMsg = "Bye. Hope to see you again soon!";
     private static final Scanner userInput = new Scanner(System.in);
 
@@ -73,6 +76,16 @@ public class Duke {
                         }
                     }
                     continue;
+                case "remove":
+                    if (cmd.length != 2) {
+                        printMsg(invalidRemoveMsg);
+                    } else {
+                        idx = getIndex(cmd[1], tasks.size());
+                        if (idx >= 0) {
+                            printMsg(String.format(removedMsg, tasks.remove(idx).toString(), tasks.size(), tasks.size() == 1 ? "" : "s"));
+                        }
+                    }
+                    continue;
                 case "todo":
                     newTask = makeToDo(cmd);
                     if (newTask != null) {
@@ -83,14 +96,14 @@ public class Duke {
                 case "deadline":
                     newTask = makeDeadline(cmd);
                     if (newTask != null) {
-                        tasks.add(makeToDo(cmd));
+                        tasks.add(newTask);
                         printLastAdd(tasks);
                     }
                     continue;
                 case "event":
                     newTask = makeEvent(cmd);
                     if (newTask != null) {
-                        tasks.add(makeToDo(cmd));
+                        tasks.add(newTask);
                         printLastAdd(tasks);
                     }
                     continue;
