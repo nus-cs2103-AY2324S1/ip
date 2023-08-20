@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Smolbrain {
@@ -8,16 +9,30 @@ public class Smolbrain {
         System.out.println("____________________________________________________________\n");
 
         Scanner sc = new Scanner(System.in);
+        ArrayList<String> data = new ArrayList<>();
 
         while(true) {
-            String input = sc.next();
+            String input = sc.nextLine();
             System.out.println("____________________________________________________________");
+
             if (input.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println("____________________________________________________________\n");
                 break;
             }
-            System.out.println(input);
+
+            switch (input) {
+                case "list":
+                    for (int i = 0; i < data.size(); i++) {
+                        System.out.println((i+1) + ". " + data.get(i));
+                    }
+                    break;
+
+                default:
+                    data.add(input);
+                    System.out.println("added: " + input);
+                    break;
+            }
             System.out.println("____________________________________________________________\n");
         }
 
