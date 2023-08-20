@@ -1,9 +1,11 @@
 public class Deadline extends Task {
   private String by;
 
-  public Deadline(String name, String by) {
-    super(name, 'D');
+  public Deadline(String description, String by) {
+    super(description, 'D');
     this.by = by;
+
+    if (by.isEmpty()) throw new DukeException("The by of a deadline cannot be empty.");
   }
 
   @Override

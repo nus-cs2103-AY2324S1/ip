@@ -1,11 +1,17 @@
 public abstract class Task {
   private boolean mark = false;
-  private final String name;
+  private final String description;
   private final char type;
 
-  public Task(String name, char type) {
-    this.name = name;
+  public Task(String description, char type) throws DukeException {
+    this.description = description;
     this.type = type;
+
+    if (description.isEmpty())
+      throw new DukeException(
+          String.format(
+              "The description of a %s cannot be empty.",
+              this.getClass().getSimpleName().toLowerCase()));
   }
 
   public void mark() {
@@ -18,6 +24,6 @@ public abstract class Task {
 
   @Override
   public String toString() {
-    return String.format("[%c][%c] %s", type, mark ? 'X' : ' ', name);
+    return String.format("[%c][%c] %s", type, mark ? 'X' : ' ', description);
   }
 }

@@ -45,49 +45,71 @@ public class Duke {
       }
     }
 
-    switch (command) {
-      case "list":
-        listTasks();
-        break;
-      case "mark":
-        markTask(Integer.parseInt(name));
-        break;
-      case "unmark":
-        unmarkTask(Integer.parseInt(name));
-        break;
-      case "todo":
-        addTask(new Todo(name));
-        break;
-      case "deadline":
-        addTask(new Deadline(name, parsedArguments.getOrDefault("by", "")));
-        break;
-      case "event":
-        addTask(
-            new Event(
-                name,
-                parsedArguments.getOrDefault("from", ""),
-                parsedArguments.getOrDefault("to", "")));
-        break;
+    try {
+      switch (command) {
+        case "list":
+          listTasks();
+          break;
+        case "mark":
+          markTask(name);
+          break;
+        case "unmark":
+          unmarkTask(name);
+          break;
+        case "todo":
+          addTask(new Todo(name));
+          break;
+        case "deadline":
+          addTask(new Deadline(name, parsedArguments.getOrDefault("by", "")));
+          break;
+        case "event":
+          addTask(
+              new Event(
+                  name,
+                  parsedArguments.getOrDefault("from", ""),
+                  parsedArguments.getOrDefault("to", "")));
+          break;
+        default:
+          throw new DukeException("I'm sorry, but I don't know what that means :-(");
+      }
+    } catch (DukeException e) {
+      handleDukeException(e);
     }
   }
 
-  static void markTask(int i) {
-    --i;
-    tasks.get(i).mark();
-
+  static void handleDukeException(DukeException e) {
     printLine();
-    System.out.println("\t Nice! I've marked this task as done:");
-    System.out.printf("\t\t %s\n", tasks.get(i));
+    System.out.printf("\t ☹ OOPS!!! %s\n", e.getMessage());
     printLine();
   }
 
-  static void unmarkTask(int i) {
-    --i;
-    tasks.get(i).unmark();
+  static Task getTaskToModify(String command, String i) {
+    try {
+      return tasks.get(Integer.parseInt(i) - 1);
+    } catch (NumberFormatException e) {
+      throw new DukeException(String.format("The argument of %s must be a number.", command));
+    } catch (IndexOutOfBoundsException e) {
+      throw new DukeException(String.format("%s is out of bounds for the tasks list", i));
+    }
+  }
+
+  static void markTask(String i) {
+    Task t = getTaskToModify("mark", i);
+    t.mark();
+
+    printLine();
+    System.out.println("\t Nice! I've marked this task as done:");
+    System.out.printf("\t\t %s\n", t);
+    printLine();
+  }
+
+  static void unmarkTask(String i) {
+    Task t = getTaskToModify("unmark", i);
+    t.unmark();
 
     printLine();
     System.out.println("\t OK, I've marked this task as not done yet");
-    System.out.printf("\t\t %s\n", tasks.get(i));
+    System.out.printf("\t\t %s\n", t);
     printLine();
   }
 
