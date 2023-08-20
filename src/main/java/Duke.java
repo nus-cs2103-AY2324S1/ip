@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+
 public class Duke {
     public static void main(String[] args) {
         String logo = " ____     ____    _    _\n"
@@ -17,7 +18,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input;
 
-        List<String> taskList = new ArrayList<>();
+        List<Task> taskList = new ArrayList<>();
 
         while(scanner.hasNext()) {
             input = scanner.nextLine();
@@ -28,15 +29,42 @@ public class Duke {
                 break;
             } else if(input.equals("list")) {
                 System.out.println(indentation + horLine);
+                System.out.println(indentation+ "Here are the tasks in your list:");
                 int i = 1;
-                for (String task : taskList) {
-                    System.out.println(indentation + i + ". " + task);
+                for (Task task : taskList) {
+                    System.out.println(String.format("%s%d.[%s] %s",
+                            indentation, i, task.getStatusIcon(), task.getDescription()));
                     i++;
                 }
                 System.out.println(indentation + horLine);
                 continue;
+            } else if(input.startsWith("mark") || input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                if (index < 0 || index >= taskList.size()) {
+                    System.out.println(indentation + horLine);
+                    System.out.println("Invalid input, please try again.");
+                    System.out.println(indentation + horLine);
+                    continue;
+                }
+                Task task = taskList.get(index);
+                if(input.startsWith("mark")) {
+                    task.markAsDone();
+                    System.out.println(indentation + horLine);
+                    System.out.println(indentation + "Nice! I've marked this task as done:");
+                    System.out.println(String.format(indentation + "[%s] " + task.getDescription(), task.getStatusIcon()));
+                    System.out.println(indentation + horLine);
+                    continue;
+                } else {
+                    task.markAsUndone();
+                    System.out.println(indentation + horLine);
+                    System.out.println(indentation + "OK, I've marked this task as not done yet:");
+                    System.out.println(String.format(indentation + "[%s] " + task.getDescription(), task.getStatusIcon()));
+                    System.out.println(indentation + horLine);
+                    continue;
+                }
             }
-            taskList.add(input);
+            Task task = new Task(input);
+            taskList.add(task);
             System.out.println(indentation + horLine);
             System.out.println(indentation + "added: " + input);
             System.out.println(indentation + horLine);
