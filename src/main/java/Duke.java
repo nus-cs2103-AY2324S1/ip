@@ -74,8 +74,6 @@ public class Duke {
                                 throw new DukeException("Please enter a valid task number.");
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 throw new DukeException("Please enter a task number.");
-                            } catch (IndexOutOfBoundsException e) {
-                                throw new DukeException("Please enter a valid task number.");
                             } 
                             break;
 
@@ -87,10 +85,20 @@ public class Duke {
                                 throw new DukeException("Please enter a valid task number.");
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 throw new DukeException("Please enter a task number.");
-                            } catch (IndexOutOfBoundsException e) {
-                                throw new DukeException("Please enter a valid task number.");
                             } 
                             break;  
+
+                        case ("delete"):
+                            try {
+                                int taskNumber3 = Integer.parseInt(inputSplit[1]);
+                                tasks.deleteTask(taskNumber3);
+                            } catch (NumberFormatException e) {
+                                throw new DukeException("Please enter a valid task number.");
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                throw new DukeException("Please enter a task number.");
+                            } 
+                            break;
+                            
                         default:
                             throw new DukeException("I'm sorry, but I don't know what that means :-(");
                     }

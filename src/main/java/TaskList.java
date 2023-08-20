@@ -1,36 +1,54 @@
+import java.util.ArrayList;
+
 public class TaskList {
-    private Task[] tasks;
-    private int numTasks;
+    // change implementation to collections
+    private ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = new Task[100];
-        this.numTasks = 0;
+        this.tasks = new ArrayList<>();
     }
 
     public void addTask(Task task) {
-        this.tasks[numTasks++] = task;
-        // assume that the string representation of add is not changed
+        this.tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
-        System.out.println("Now you have " + numTasks + " tasks in the list.");
+        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
+    }
+
+    public void deleteTask(int taskNumber) throws DukeException {
+        if (taskNumber > tasks.size() || taskNumber < 1) {
+            throw new DukeException("Please enter a valid task number.");
+        }
+        Task deletedTask = this.tasks.get(taskNumber - 1);
+        this.tasks.remove(taskNumber - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(deletedTask.toString());
+        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
     }
 
     public void listAllTasks() {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < numTasks; i++) {
-            System.out.println((i + 1) + ". " + tasks[i].toString());
+        for (int i = 0; i < this.tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + this.tasks.get(i).toString());
         }
     }
 
-    public void markTaskAsDone(int taskNumber) {
-        this.tasks[taskNumber - 1].markAsDone();
+    public void markTaskAsDone(int taskNumber) throws DukeException{
+        if (taskNumber > this.tasks.size() || taskNumber < 1) {
+            throw new DukeException("Please enter a valid task number.");
+        }
+
+        this.tasks.get(taskNumber - 1).markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.tasks[taskNumber - 1].toString());
+        System.out.println(this.tasks.get(taskNumber - 1).toString());
     }
 
-    public void markTaskAsUndone(int taskNumber) {
-        this.tasks[taskNumber - 1].markAsUndone();
+    public void markTaskAsUndone(int taskNumber) throws DukeException{
+        if (taskNumber > this.tasks.size() || taskNumber < 1) {
+            throw new DukeException("Please enter a valid task number.");
+        }
+        this.tasks.get(taskNumber - 1).markAsUndone();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.tasks[taskNumber - 1].toString());
+        System.out.println(this.tasks.get(taskNumber - 1).toString());
     }
 }

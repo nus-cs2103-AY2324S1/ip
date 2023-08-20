@@ -20,6 +20,10 @@ Here are the tasks in your list:
 1. [T][X] borrow books
 2. [D][ ] return books (by: aug)
 3. [E][ ] goto library (from: aug to: sep )
-☹ OOPS!!! Please enter a task number.
-☹ OOPS!!! Please enter a task number.
+☹ OOPS!!! Please enter a valid task number.
+☹ OOPS!!! Please enter a valid task number.
+Noted. I've removed this task:
+[T][X] borrow books
+Now you have 2 tasks in the list.
+☹ OOPS!!! Please enter a valid task number.
 Bye. Hope to see you again soon!
