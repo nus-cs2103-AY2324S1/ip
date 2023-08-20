@@ -19,7 +19,7 @@ public class Jerma {
     System.out.println("Hello! I'm Jerma.");
 
     Scanner scanner = new Scanner(System.in);
-    List<String> toDoList = new ArrayList<>();
+    List<Task> toDoList = new ArrayList<>();
 
     listen: while (true) {
       String input = scanner.nextLine();
@@ -35,7 +35,7 @@ public class Jerma {
       case BYE:
         break listen;
       case ADD:
-        toDoList.add(input);
+        toDoList.add(new Task(input));
         System.out.println("added: " + input);
         break;
       }
