@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Duke {
     static boolean exited = false;
-    static ArrayList<String> tasks = new ArrayList<>();
+    Task t = new Task("test task");
+    static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void exit() {
         String goodbye = "Bye. Hope to see you again soon!";
@@ -16,7 +16,8 @@ public class Duke {
 //    }
 
     public static void add(String input) {
-        tasks.add(input);
+        Task newTask = new Task(input);
+        tasks.add(newTask);
         System.out.println("Added: " + input);
     }
 
@@ -24,7 +25,12 @@ public class Duke {
         int listSize = tasks.size();
         for (int i = 0; i < listSize ; i++) {
             int num = i + 1;
-            System.out.println(num + ". " + tasks.get(i));
+            Task taskToList = tasks.get(i);
+            if (taskToList.getStatus()) {
+                System.out.println(num + ".[x] " + taskToList.getName());
+            } else {
+                System.out.println(num + ".[ ] " + taskToList.getName());
+            }
         }
     }
     public static void main(String[] args) {
@@ -38,13 +44,23 @@ public class Duke {
         System.out.println(welcome);
 
         while (!exited) {
-            String command = sc.nextLine();
+            String command = sc.next();
             if (command.equals("bye")) {
                 Duke.exit();
             } else if (command.equals("list")) {
                 Duke.list();
+            } else if (command.equals("mark")) {
+                int taskNum = sc.nextInt();
+                Task task = tasks.get(taskNum - 1);
+                task.taskIsDone();
+            } else if (command.equals("unmark")) {
+                int taskNum = sc.nextInt();
+                Task task = tasks.get(taskNum - 1);
+                task.taskNotDone();
             } else {
-                Duke.add(command);
+                String restOfString = sc.nextLine();
+                String taskName = command + restOfString;
+                Duke.add(taskName);
             }
         }
 
