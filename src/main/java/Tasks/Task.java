@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Task {
     private String taskDesc;
     private boolean isDone;
@@ -29,6 +31,10 @@ public class Task {
 
     public boolean getIsDone() {
         return this.isDone;
+    }
+
+    public String toString() {
+        return "[" + this.getStatus() + "] " + this.getTaskDesc();
     }
 
 
