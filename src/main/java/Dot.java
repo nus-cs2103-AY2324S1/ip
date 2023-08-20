@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Dot {
     // TODO: Create new folders utility & views, for constants etc., and UI
     // Constants - Display, UI
@@ -23,8 +25,20 @@ public class Dot {
                 HORIZONTAL_RULE, HORIZONTAL_RULE);
     }
 
+    public static void echo(String msg) {
+        System.out.printf("%s%s\n%s\n", HORIZONTAL_RULE, msg, HORIZONTAL_RULE);
+    }
+
     public static void main(String[] args) {
         welcome();
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            String input = sc.next();
+            if (input.equals("bye")) {
+                break;
+            }
+            echo(input);
+        }
         goodbye();
     }
 }
