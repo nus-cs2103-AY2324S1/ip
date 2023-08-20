@@ -1,6 +1,8 @@
 todo eat food
+todo
 deadline do homework /by Monday
 event teambuilding /from: Aug 8 2pm /to: 6pm
+doing homework
 list
 mark 1
 list
