@@ -50,6 +50,33 @@ public class Duke {
         this.line(String.format("  Ok, I've marked this task as not done yet:\n    %s", task.toString()));
     }
 
+    private boolean isToDo(String reply) {
+        return reply.startsWith("todo");
+    }
+
+    private boolean isDeadline(String reply) {
+        return reply.startsWith("deadline");
+    }
+
+    private boolean isEvent(String reply) {
+        return reply.startsWith("event");
+    }
+    private void add(String reply) {
+        Task task;
+        System.out.println(String.format("  Got it. I've added this task:"));
+        if (isToDo(reply)) {
+            task = new ToDo(reply);
+        } else if (isDeadline(reply)) {
+            task = new Deadline(reply);
+        } else {
+            task = new Event(reply);
+        }
+        tasks[taskIndex] = task;
+        taskIndex += 1;
+        System.out.println(task.toString());
+        this.line(String.format("  Now you have %d task(s) in the list.", taskIndex));
+    }
+
     private void interact() {
         while(true) {
             String reply = sc.nextLine();
@@ -62,18 +89,17 @@ public class Duke {
                 mark(Character.getNumericValue(reply.charAt(5) - 1));
             } else if (isUnmark(reply)) {
                 unmark(Character.getNumericValue(reply.charAt(7) - 1));
+            } else if (isToDo(reply) || isEvent(reply) || isDeadline(reply)) {
+                add(reply);
             }
             else {
-                this.add(reply);
+                this.echo(reply);
             }
         }
     }
 
-    private void add(String reply) {
-        Task task = new Task(reply);
-        tasks[taskIndex] = task;
-        this.line(String.format("  added: %s", task.showContent()));
-        taskIndex += 1;
+    private void echo(String reply) {
+        this.line(reply);
     }
 
     public static void main(String[] args) {
