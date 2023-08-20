@@ -1,3 +1,18 @@
-deadline return book /by Sunday
-todo borrow book
+todo wakeup happily
+todo step out of comfort zone
+mark 1
+event CS2101 Lecture /from 12PM /to 2PM
+todo be engaging in class
+todo be lazy
+mark 4
+event CS2106 Tutorial /from 2PM /to 3PM
+todo pay attention to lecture
+delete 5
+banana~
+banananaaaaaaa!!!!!
+event GEC1005 Tutorial /from 3PM /to 4PM
+event LAJ2201 Tutorial /from 4PM /to 6PM
+unmark 1
+deadline sleep /by 1.20AM
+list
 bye

@@ -1,11 +1,15 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
-    ArrayList<Task> tasksNN;
+    ArrayList<Task> tasks;
+    private enum FirstWord {
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+    }
+
     Scanner sc;
     public Duke() {
         this.sc = new Scanner(System.in);
-        this.tasksNN = new ArrayList<Task>();
+        this.tasks = new ArrayList<Task>();
     }
     private void line(String text) {
         System.out.println(text);
@@ -24,35 +28,27 @@ public class Duke {
         this.line("  Bye~ Hope to see you again soon! >w<");
     }
 
-    private boolean isListTasks(String reply) {
-        return reply.startsWith("list");
-    }
 
     private void listOutTasks() {
         String tasksList = "";
-        for(int i = 0; i < tasksNN.size(); i++) {
-            tasksList += String.format("%d. %s \n", i + 1, tasksNN.get(i).toString().replace("  ", ""));
+        for(int i = 0; i < tasks.size(); i++) {
+            tasksList += String.format("%d. %s\n", i + 1, tasks.get(i).toString().replace("  ", ""));
         }
         this.line(tasksList);
     }
 
-    private boolean isMark(String reply) { return reply.startsWith("mark"); }
     private void mark(int index) {
-        Task task = tasksNN.get(index);
+        Task task = tasks.get(index);
         task.mark();
         this.line(String.format("  Nice! I've marked this task as done:\n    %s", task.toString()));
     }
 
-    private boolean isUnmark(String reply) { return reply.startsWith("unmark"); }
     private void unmark(int index) {
-        Task task = tasksNN.get(index);
+        Task task = tasks.get(index);
         task.unmark();
         this.line(String.format("  Ok, I've marked this task as not done yet:\n    %s", task.toString()));
     }
 
-    private boolean isToDo(String reply) {
-        return reply.startsWith("todo");
-    }
 
     private void addToDo(String reply) throws DukeException {
         if (reply.length() == "todo".length()) {
@@ -63,9 +59,6 @@ public class Duke {
         constructTaskMessage(task);
     }
 
-    private boolean isDeadline(String reply) {
-        return reply.startsWith("deadline");
-    }
 
     private void addDeadline(String reply) throws DukeException {
 
@@ -74,9 +67,6 @@ public class Duke {
         constructTaskMessage(task);
     }
 
-    private boolean isEvent(String reply) {
-        return reply.startsWith("event");
-    }
 
     private void addEvent(String reply) throws DukeException {
         Task task = new Event(reply);
@@ -84,48 +74,59 @@ public class Duke {
         constructTaskMessage(task);
     }
 
-    private boolean isDelete(String reply) {
-        return reply.startsWith("delete");
-    }
 
     private void delete(int index) {
-        Task removedTask = tasksNN.remove(index);
+        Task removedTask = tasks.remove(index);
         System.out.println(String.format("  Noted. I've removed this task:"));
         System.out.println(removedTask.toString());
-        this.line(String.format("  Now you have %d task(s) in the list.", tasksNN.size()));
+        this.line(String.format("  Now you have %d task(s) in the list.", tasks.size()));
     }
 
     private void constructTaskMessage(Task task) {
         System.out.println(String.format("  Got it. I've added this task:"));
-        tasksNN.add(task);
-        System.out.println(task.toString());
-        this.line(String.format("  Now you have %d task(s) in the list.", tasksNN.size()));
+        tasks.add(task);
+        System.out.println(String.format("  %s", task.toString()));
+        this.line(String.format("  Now you have %d task(s) in the list.", tasks.size()));
     }
 
     private void interact() {
         while(true) {
+            String reply = sc.nextLine();
+            FirstWord firstWord;
             try {
-                String reply = sc.nextLine();
-                if (isExit(reply)) {
-                    exit();
-                    break;
-                } else if (isListTasks(reply)) {
-                    listOutTasks();
-                } else if (isMark(reply)) {
-                    mark(Character.getNumericValue(reply.charAt(5) - 1));
-                } else if (isUnmark(reply)) {
-                    unmark(Character.getNumericValue(reply.charAt(7) - 1));
-                } else if (isToDo(reply)) {
-                    addToDo(reply);
-                } else if (isDeadline(reply)) {
-                    addDeadline(reply);
-                } else if (isEvent(reply)) {
-                    addEvent(reply);
-                } else if (isDelete(reply)) {
-                    delete(Character.getNumericValue(reply.charAt(7) - 1));
-                }
-                else {
-                    throw new DukeUnknownCommandException();
+                firstWord = FirstWord.valueOf(reply.split(" ")[0].toUpperCase());
+            } catch (IllegalArgumentException e) {
+                firstWord = FirstWord.INVALID;
+            }
+            try {
+
+                switch (firstWord) {
+                    case BYE:
+                        exit();
+                        break;
+                    case LIST:
+                        listOutTasks();
+                        break;
+                    case MARK:
+                        mark(Character.getNumericValue(reply.charAt(5) - 1));
+                        break;
+                    case UNMARK:
+                        unmark(Character.getNumericValue(reply.charAt(7) - 1));
+                        break;
+                    case TODO:
+                        addToDo(reply);
+                        break;
+                    case DEADLINE:
+                        addDeadline(reply);
+                        break;
+                    case EVENT:
+                        addEvent(reply);
+                        break;
+                    case DELETE:
+                        delete(Character.getNumericValue(reply.charAt(7) - 1));
+                        break;
+                    default:
+                        throw new DukeUnknownCommandException();
                 }
             } catch (DukeException e) {
                 this.line(e.toString());
