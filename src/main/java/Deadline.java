@@ -5,4 +5,9 @@ public class Deadline extends Task {
     super(description);
     this.by = by;
   }
+
+  @Override
+  public String toString() {
+    return String.format("[%s]%s (by %s)", "D", super.toString(), this.by);
+  }
 }
