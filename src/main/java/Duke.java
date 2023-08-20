@@ -104,6 +104,33 @@ public class Duke {
     }
 
     /**
+     * Delete a task using the task number.
+     * @param index Number of task to be deleted.
+     * @throws DukeException Failure of task number validation.
+     */
+    private static void delete(String index) throws DukeException {
+        int taskIndex;
+        try {
+            taskIndex = Integer.parseInt(index) - 1;
+        } catch(NumberFormatException e){
+            throw new DukeException("Sorry! Please enter the order " +
+                    "of the task to be deleted.");
+        }
+        if (taskIndex < 0) {
+            throw new DukeException("Sorry! " +
+                    "Task numbers must be natural numbers.");
+
+        } else if (taskIndex >= taskList.size()) {
+            throw new DukeException("Sorry! " +
+                    "Task number is too large.");
+        }
+        Task removedTask = taskList.remove(taskIndex);
+        System.out.println("Oscar has removed this task:\n");
+        System.out.println(removedTask + "\n");
+        listCount();
+    }
+
+    /**
      * Create a new todo task and save it to the collection.
      * @param description Details of todo task.
      * @throws DukeException Todo missing description.
@@ -217,6 +244,11 @@ public class Duke {
                 // Mark task as not done if user enters "unmark" command
                 case "unmark":
                     unmark(details);
+                    break;
+
+                // Delete a task if user enters "delete" command
+                case "delete":
+                    delete(details);
                     break;
 
                 // Create a new todo task if user enters "todo" command
