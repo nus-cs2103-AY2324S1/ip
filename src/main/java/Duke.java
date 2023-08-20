@@ -36,6 +36,11 @@ public class Duke {
                     taskList.set(index - 1, task);
                     System.out.print(output(
                             String.format("OK, I've marked this task as not done yet:\n\t%s\n", task)));
+                } else if (command.startsWith("delete")){
+                    int index = Integer.parseInt(command.split(" ")[1]);
+                    Task removedTask = taskList.remove(index - 1);
+                    System.out.print(output(String.format("Noted. I've removed this task:" +
+                            "\n\t%s\nNow you have %d tasks in the list.\n", removedTask, taskList.size())));
                 } else if (command.startsWith("deadline")) {
                     String[] temp = command.replace("deadline ", "").split("/by");
                     Deadline deadline = new Deadline(temp[0].strip(), temp[1].strip());
