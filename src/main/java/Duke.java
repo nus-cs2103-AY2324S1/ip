@@ -1,4 +1,5 @@
 import javax.sound.midi.Soundbank;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -10,12 +11,14 @@ public class Duke {
 
     public static void main(String[] args) {
         String action;
+        ArrayList<String> history = new ArrayList<>();
         Duke.sayHi();
         Scanner reader = new Scanner(System.in);
-        action = reader.next().toString().toUpperCase();
+        action = reader.next().toString();
         while (!action.equals(termination_word)) {
-            Duke.actions(action);
-            action = reader.next().toString().toUpperCase();
+            history.add(action);
+            Duke.actions(action, history);
+            action = reader.next().toString();
         }
         Duke.sayBye();
 
@@ -35,12 +38,20 @@ public class Duke {
 
 
 
-    private static void actions(String action) {
+    private static void actions(String action, ArrayList history) {
+        action = action.toUpperCase();
         switch (action) {
             case "BYE":
                 System.out.println();
+                break;
             case "HI":
                 System.out.println("How are you doing today!");
+                break;
+            case "LIST":
+                for (int i = 0; i < history.size(); i++) {
+                    System.out.println(i+1 + ": " + history.get(i));
+                }
+                break;
             default:
                 action = action.substring(0,1).toUpperCase() + action.substring(1).toLowerCase();
                 System.out.println(action);
