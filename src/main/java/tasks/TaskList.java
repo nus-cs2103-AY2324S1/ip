@@ -13,8 +13,7 @@ public class TaskList {
     }
 
     public void addItem(String item) {
-        System.out.printf("%sadded: %s\n%s\n",
-                Ui.HORIZONTAL_RULE, item, Ui.HORIZONTAL_RULE);
+        Ui.wrapPrintWithHorizontalRules(String.format("added: %s\n", item));
         this.tasks.add(item);
     }
 

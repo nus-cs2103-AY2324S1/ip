@@ -26,4 +26,12 @@ public class Ui {
         System.out.printf("%sBye! DOnT forget to finish your tasks!\n%s",
                 HORIZONTAL_RULE, HORIZONTAL_RULE);
     }
+
+    /**
+     * Displays argument with horizontal rules
+     */
+    public static void wrapPrintWithHorizontalRules(String msg) {
+        System.out.printf("%s%s%s\n",
+                HORIZONTAL_RULE, msg, HORIZONTAL_RULE);
+    }
 }
