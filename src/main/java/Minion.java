@@ -17,7 +17,7 @@ public class Minion {
             Task task = null;
             try {
                 task = parseCommand(command);
-            } catch (MinionException e) {
+            } catch (IllegalValueException | ParserException e) {
                 Ui.print(e.getMessage());
             }
             if (task == null) {
@@ -50,12 +50,12 @@ public class Minion {
      * Returns a task from the parsed command, throws an exception if there is no such task or invalid parameters.
      * @param command Command to parse.
      * @return the task parsed from the command if no exception is thrown.
-     * @throws MinionException
+     * @throws ParserException()
      */
-    public static Task parseCommand(String command) throws MinionException {
+    public static Task parseCommand(String command) throws ParserException, IllegalValueException {
         command = command.trim();
         if (command.isEmpty()){
-            throw new MinionException("☹ OOPS!!! I'm sorry, please input a legit command. :-(");
+            throw new ParserException("☹ OOPS!!! I'm sorry, please input a legit command. :-(");
         }
         String[] arr = command.split(" ", 2);
         String firstWord = arr[0];
@@ -68,7 +68,7 @@ public class Minion {
             Task currTask = null;
             try {
                 currTask = getTask(taskIdx);
-            } catch (MinionException e) {
+            } catch (IllegalValueException e) {
                 throw e;
             }
             currTask.markDone();
@@ -83,7 +83,7 @@ public class Minion {
             Task currTask = null;
             try {
                 currTask = getTask(taskIdx);
-            } catch (MinionException e) {
+            } catch (IllegalValueException e) {
                 throw e;
             }
             currTask.markUndone();
@@ -98,7 +98,7 @@ public class Minion {
             Task currTask = null;
             try {
                 currTask = getTask(taskIdx);
-            } catch (MinionException e) {
+            } catch (IllegalValueException e) {
                 throw e;
             }
             tasks.remove(taskIdx);
@@ -110,7 +110,7 @@ public class Minion {
         }
         if (firstWord.equals("todo")) {
             if(arr.length < 2 || arr[1].isEmpty()) {
-                throw new MinionException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new ParserException("☹ OOPS!!! The description of a todo cannot be empty.");
             }
             return new ToDo(arr[1]);
         }
@@ -118,34 +118,34 @@ public class Minion {
         if (firstWord.equals("deadline")){
             // nothing after deadline
             if (arr.length < 2) {
-                throw new MinionException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new ParserException("☹ OOPS!!! The description of a deadline cannot be empty.");
             }
             // something after deadline but it's just empty space(s)
             // empty -> no description; non-empty -> still need to check if description is missing.
             if (arr[1].isEmpty()) {
-                throw new MinionException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new ParserException("☹ OOPS!!! The description of a deadline cannot be empty.");
             }
             String[] strs = arr[1].split("/by");
             String description = null;
             switch (strs.length){
                 // nothing to left and right
                 case 0:
-                    throw new MinionException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    throw new ParserException("☹ OOPS!!! The description of a deadline cannot be empty.");
                 //something to left, nothing to the right
                 case 1:
                     description = strs[0].trim();
                     if (description.isEmpty()) {
-                        throw new MinionException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        throw new ParserException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
-                    throw new MinionException("☹ OOPS!!! The date of a deadline cannot be empty.");
+                    throw new ParserException("☹ OOPS!!! The date of a deadline cannot be empty.");
                 case 2:
                     description = strs[0].trim();
                     String by = strs[1].trim();
                     if (description.isEmpty()) {
-                        throw new MinionException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        throw new ParserException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
                     if (by.isEmpty()) {
-                        throw new MinionException("☹ OOPS!!! The date of a deadline cannot be empty.");
+                        throw new ParserException("☹ OOPS!!! The date of a deadline cannot be empty.");
                     }
                     return new Deadline(description, by);
             }
@@ -153,10 +153,10 @@ public class Minion {
         //assumes we only have one '/from' and one '/to'
         if (firstWord.equals("event")){
             if (arr.length < 2) {
-                throw new MinionException("☹ OOPS!!! The description of an event cannot be empty.");
+                throw new ParserException("☹ OOPS!!! The description of an event cannot be empty.");
             }
             if (arr[1].isEmpty()) {
-                throw new MinionException("☹ OOPS!!! The description of an event cannot be empty.");
+                throw new ParserException("☹ OOPS!!! The description of an event cannot be empty.");
             }
             String[] strs = arr[1].split("/from");
 
@@ -165,21 +165,21 @@ public class Minion {
             switch (strs.length) {
                 // nothing to left and right
                 case 0:
-                    throw new MinionException("☹ OOPS!!! The description of an event cannot be empty.");
+                    throw new ParserException("☹ OOPS!!! The description of an event cannot be empty.");
                 case 1:
                     description = strs[0].trim();
                     if (description.isEmpty()) {
-                        throw new MinionException("☹ OOPS!!! The description of an event cannot be empty.");
+                        throw new ParserException("☹ OOPS!!! The description of an event cannot be empty.");
                     }
-                    throw new MinionException("☹ OOPS!!! The from date of an event cannot be empty.");
+                    throw new ParserException("☹ OOPS!!! The from date of an event cannot be empty.");
                 case 2:
                     description = strs[0].trim();
                     String dates = strs[1].trim();
                     if (description.isEmpty()) {
-                        throw new MinionException("☹ OOPS!!! The description of an event cannot be empty.");
+                        throw new ParserException("☹ OOPS!!! The description of an event cannot be empty.");
                     }
                     if (dates.isEmpty()) {
-                        throw new MinionException("☹ OOPS!!! The from date of an event cannot be empty.");
+                        throw new ParserException("☹ OOPS!!! The from date of an event cannot be empty.");
                     }
                     strs = strs[1].split("/to");
             }
@@ -189,26 +189,26 @@ public class Minion {
             switch (strs.length) {
                 // nothing to left and right
                 case 0:
-                    throw new MinionException("☹ OOPS!!! The from date of an event cannot be empty.");
+                    throw new ParserException("☹ OOPS!!! The from date of an event cannot be empty.");
                 case 1:
                     from = strs[0].trim();
                     if (from.isEmpty()) {
-                        throw new MinionException("☹ OOPS!!! The from date of an event cannot be empty.");
+                        throw new ParserException("☹ OOPS!!! The from date of an event cannot be empty.");
                     }
-                    throw new MinionException("☹ OOPS!!! The to date of an event cannot be empty.");
+                    throw new ParserException("☹ OOPS!!! The to date of an event cannot be empty.");
                 case 2:
                     from = strs[0].trim();
                     to = strs[1].trim();
                     if (from.isEmpty()) {
-                        throw new MinionException("☹ OOPS!!! The from date of an event cannot be empty.");
+                        throw new ParserException("☹ OOPS!!! The from date of an event cannot be empty.");
                     }
                     if (to.isEmpty()) {
-                        throw new MinionException("☹ OOPS!!! The to date of an event cannot be empty.");
+                        throw new ParserException("☹ OOPS!!! The to date of an event cannot be empty.");
                     }
                     return new Event(description, from, to);
             }
         }
-        throw new MinionException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        throw new ParserException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     /**
@@ -216,9 +216,9 @@ public class Minion {
      * @param taskIdx index of task in the list.
      * @return the Task corresponding to the index.
      */
-    public static Task getTask(int taskIdx) throws MinionException {
+    public static Task getTask(int taskIdx) throws IllegalValueException {
         if (taskIdx < 0 || taskIdx >= tasks.size()) {
-            throw new MinionException("☹ OOPS!!! Please enter a valid task number.");
+            throw new IllegalValueException("☹ OOPS!!! Please enter a valid task number.");
         }
         return tasks.get(taskIdx);
     }
