@@ -54,23 +54,38 @@ public class Duke {
         return reply.startsWith("todo");
     }
 
+    private void addToDo(String reply) throws DukeException {
+        if (reply.length() == "todo".length()) {
+            throw new DukeEmptyToDoException();
+        }
+
+        Task task = new ToDo(reply);
+        constructTaskMessage(task);
+    }
+
     private boolean isDeadline(String reply) {
         return reply.startsWith("deadline");
+    }
+
+    private void addDeadline(String reply) throws DukeException {
+
+        Task task = new Deadline(reply);
+
+        constructTaskMessage(task);
     }
 
     private boolean isEvent(String reply) {
         return reply.startsWith("event");
     }
-    private void add(String reply) {
-        Task task;
+
+    private void addEvent(String reply) throws DukeException {
+        Task task = new Event(reply);
+
+        constructTaskMessage(task);
+    }
+
+    private void constructTaskMessage(Task task) {
         System.out.println(String.format("  Got it. I've added this task:"));
-        if (isToDo(reply)) {
-            task = new ToDo(reply);
-        } else if (isDeadline(reply)) {
-            task = new Deadline(reply);
-        } else {
-            task = new Event(reply);
-        }
         tasks[taskIndex] = task;
         taskIndex += 1;
         System.out.println(task.toString());
@@ -79,21 +94,28 @@ public class Duke {
 
     private void interact() {
         while(true) {
-            String reply = sc.nextLine();
-            if (isExit(reply)) {
-                exit();
-                break;
-            } else if (isListTasks(reply)) {
-                listOutTasks();
-            } else if (isMark(reply)) {
-                mark(Character.getNumericValue(reply.charAt(5) - 1));
-            } else if (isUnmark(reply)) {
-                unmark(Character.getNumericValue(reply.charAt(7) - 1));
-            } else if (isToDo(reply) || isEvent(reply) || isDeadline(reply)) {
-                add(reply);
-            }
-            else {
-                this.echo(reply);
+            try {
+                String reply = sc.nextLine();
+                if (isExit(reply)) {
+                    exit();
+                    break;
+                } else if (isListTasks(reply)) {
+                    listOutTasks();
+                } else if (isMark(reply)) {
+                    mark(Character.getNumericValue(reply.charAt(5) - 1));
+                } else if (isUnmark(reply)) {
+                    unmark(Character.getNumericValue(reply.charAt(7) - 1));
+                } else if (isToDo(reply)) {
+                    addToDo(reply);
+                } else if (isDeadline(reply)) {
+                    addDeadline(reply);
+                } else if (isEvent(reply)) {
+                    addEvent(reply);
+                } else {
+                    throw new DukeUnknownCommandException();
+                }
+            } catch (DukeException e) {
+                this.line(e.toString());
             }
         }
     }
@@ -106,5 +128,6 @@ public class Duke {
         Duke duke = new Duke();
         duke.greet();
         duke.interact();
+
     }
 }
