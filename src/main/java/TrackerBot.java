@@ -7,12 +7,25 @@
  * @version Level-0
  */
 public class TrackerBot {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-    }
+  /** Name of the app. **/
+  private static final String APP_NAME = "TrackerBot";
+
+  /** Line separators for the console between paragraphs. **/
+  private static final String FORMAT_LINE =
+      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+
+  /**
+   * Greet function of the app. <br>
+   * Prints a welcome message to the user on login.
+   */
+  private static void greet() {
+    System.out.println(FORMAT_LINE);
+    System.out.println("Greetings from " + APP_NAME + "!");
+    System.out.println("How may I assist?");
+    System.out.println(FORMAT_LINE);
+  }
+
+  public static void main(String[] args) {
+    greet();
+  }
 }
