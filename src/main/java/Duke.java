@@ -36,21 +36,39 @@ public class Duke {
         try {
             while (true) {
                 String input = scanner.nextLine();
+                System.out.println(LINE);
 
                 if (input.equalsIgnoreCase("bye")) {
-                    System.out.println(LINE);
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println(LINE);
                     break;
                 }
-
-                System.out.println(LINE);
 
                 if (input.equalsIgnoreCase("list")) {
                     for (int i = 0; i < tasks.size(); i++) {
                         Task task = tasks.get(i);
                         System.out.println(String.format("%d. %s", i + 1, task));
                     }
+                    System.out.println(LINE);
+                    continue;
+                }
+
+                if (input.startsWith("mark")) {
+                    int index = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+                    Task task = tasks.get(index - 1);
+                    task.markDone();
+                    System.out.println("Great job completing the task! I've marked it as done.");
+                    System.out.println(task);
+                    System.out.println(LINE);
+                    continue;
+                }
+
+                if (input.startsWith("unmark")) {
+                    int index = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+                    Task task = tasks.get(index - 1);
+                    task.markUndone();
+                    System.out.println("Oops... Did you mark it incorrectly?");
+                    System.out.println(task);
                     System.out.println(LINE);
                     continue;
                 }
