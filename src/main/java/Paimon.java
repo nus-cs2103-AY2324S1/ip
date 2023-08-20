@@ -10,13 +10,11 @@ public class Paimon {
   public void listTasks() {
     System.out.println(" Here are the tasks in your list:");
     for (int i = 0; i < this.tasks.size(); i++) {
-      System.out.println(" " + (i + 1) +
-              ".[" + this.tasks.get(i).getStatusIcon() +
-              "] " + this.tasks.get(i).toString());
+      System.out.println(" " + (i + 1) + "." + this.tasks.get(i).toString());
     }
   }
 
-  public void readTask(String command, Task t) {
+  public void readTask(String command) {
     if (command.equals("list")) {
       this.listTasks();
     } else if (command.startsWith("mark")) {
@@ -24,17 +22,42 @@ public class Paimon {
       char c = command.charAt(command.length() - 1);
       int num = c - '0';
       this.tasks.get(num - 1).markAsDone();
-      System.out.println("   [X] " + this.tasks.get(num - 1).toString());
+      System.out.println("   " + this.tasks.get(num - 1).toString());
     } else if (command.startsWith("unmark")) {
       System.out.println(" OK, I've marked this task as not done yet:");
       char c = command.charAt(command.length() - 1);
       int num = c - '0';
       this.tasks.get(num - 1).markAsNotDone();
-      System.out.println("   [ ] " + this.tasks.get(num - 1).toString());
+      System.out.println("   " + this.tasks.get(num - 1).toString());
     } else {
-      System.out.println(" added: " + command);
-      this.tasks.add(t);
+      this.addTask(command);
     }
+  }
+
+  public void addTask(String command) {
+    System.out.println(" Got it. I've added this task: ");
+    if (command.startsWith("todo")) {
+      Task t = new Todo(command.substring("todo ".length()));
+      this.tasks.add(t);
+      System.out.println("   " + t.toString());
+    } else if (command.startsWith("deadline")) {
+      int byIndex = command.indexOf("/by");
+      String taskDescription = command.substring("deadline ".length(), byIndex).trim();
+      String deadline = command.substring(byIndex + "/by ".length());
+      Task t = new Deadline(taskDescription, deadline);
+      this.tasks.add(t);
+      System.out.println("   " + t.toString());
+    } else if (command.startsWith("event")) {
+      int fromIndex = command.indexOf("/from");
+      int toIndex = command.indexOf("/to");
+      String taskDescription = command.substring("event ".length(), fromIndex).trim();
+      String from = command.substring(fromIndex + "/from ".length(), toIndex).trim();
+      String to = command.substring(toIndex + "/to ".length());
+      Task t = new Event(taskDescription, from, to);
+      this.tasks.add(t);
+      System.out.println("   " + t.toString());
+    }
+    System.out.println(" Now you have " + this.tasks.size() + " tasks in the list");
   }
 
   public void greetAndFarewell() {
@@ -45,14 +68,12 @@ public class Paimon {
 
     Scanner scanner = new Scanner(System.in);
     String command = scanner.nextLine();
-    Task t = new Task(command);
 
     while (!command.equals("bye")) {
       System.out.println("---------------------------------------------------------------");
-      this.readTask(command, t);
+      this.readTask(command);
       System.out.println("---------------------------------------------------------------");
       command = scanner.nextLine();
-      t = new Task(command);
     }
 
     scanner.close();
