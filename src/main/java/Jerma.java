@@ -59,11 +59,37 @@ public class Jerma {
         break;
       case TODO:
         toDoList.add(new Todo(input));
-        System.out.println("added: " + inputArgs[1]);
+        System.out.println("added todo: " + inputArgs[1]);
         break;
       case DEADLINE:
+        String description, by;
+        try {
+          String[] split = inputArgs[1].split(" /by ", 2);
+          description = split[0];
+          by = split[1];
+        } catch (Exception e) {
+          System.out.println("Invalid arguments. Try again!");
+          break;
+        }
+        toDoList.add(new Deadline(description, by));
+        System.out.println(
+            String.format("added deadline: %s by %s", description, by));
         break;
       case EVENT:
+        String from, to;
+        try {
+          String[] split1 = inputArgs[1].split(" /from ", 2);
+          String[] split2 = split1[1].split(" /to ", 2);
+          description = split1[0];
+          from = split2[0];
+          to = split2[1];
+        } catch (Exception e) {
+          System.out.println("Invalid arguments. Try again!");
+          break;
+        }
+        toDoList.add(new Event(description, from, to));
+        System.out.println(String.format("added todo: %s from %s to %s",
+            description, from, to));
         break;
       case ECHO:
         System.out.println(input);
