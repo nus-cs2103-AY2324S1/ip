@@ -4,8 +4,11 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class Duke {
-    private static String ANSI_RESET = "\u001B[0m";
-    private static String ANSI_PURPLE = "\u001B[35m";
+    private static String COLOR_RESET = "\u001B[0m";
+    private static String GREEN = "\033[0;32m";
+    private static String YELLOW = "\033[0;33m";
+    private static String BLUE = "\033[0;34m";
+    private static String PURPLE = "\u001B[35m";
 
     private Task[] tasks = new Task[100];
     private int count = 0;
@@ -77,7 +80,7 @@ public class Duke {
         Task todo = new Todo(description);
         this.addTask(todo);
         this.speak(new String[] {
-            "Okie! I've added a new TODO:",
+            "Okie! I've added a new " + GREEN + "TODO:" + COLOR_RESET,
             "  " + todo.toString(),
             "Total no. of tasks stored: " + count
         });
@@ -87,7 +90,7 @@ public class Duke {
         Task deadline = new Deadline(description, by);
         this.addTask(deadline);
         this.speak(new String[] {
-            "Okie! I've added a new DEADLINE:",
+            "Okie! I've added a new " + BLUE + "DEADLINE:" + COLOR_RESET,
             "  " + deadline.toString(),
             "Total no. of tasks stored: " + count
         });
@@ -97,7 +100,7 @@ public class Duke {
         Task event = new Event(description, start, end);
         this.addTask(event);
         this.speak(new String[] {
-            "Okie! I've added a new EVENT:",
+            "Okie! I've added a new " + YELLOW + "EVENT:" + COLOR_RESET,
             "  " + event.toString(),
             "Total no. of tasks stored: " + count
         });
@@ -151,7 +154,7 @@ public class Duke {
         );
 
         chatbot.speak(new String[] {
-            "Hi. I'm " + ANSI_PURPLE + "Bryan" + ANSI_RESET,
+            "Hi. I'm " + PURPLE + "Bryan" + COLOR_RESET,
             "What can I do for you?"
         });
 
