@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static ArrayList<String> tasksList = new ArrayList<>();
+    private static ArrayList<Task> tasksList = new ArrayList<>();
 
     public static void main(String[] args) {
         String divider = "   _________________________________ \n";
@@ -21,15 +21,15 @@ public class Duke {
 
             switch (command) {
             case "list":
-                String list = "";
+                StringBuilder task = new StringBuilder("");
                 for (int i = 0; i < tasksList.size(); i++) {
                     int id = i + 1;
-                    list += "   " + id + ". " + tasksList.get(i) + "\n";
+                    task.append("   " + id + ". " + tasksList.get(i).getDescription() + "\n");
                 }
-                System.out.println(divider + list + divider);
+                System.out.println(divider + task + divider);
                 break;
             default:
-                tasksList.add(command);
+                tasksList.add(new Task(command));
                 System.out.println(divider + "   added: " + command + "\n" + divider);
             }
         }
