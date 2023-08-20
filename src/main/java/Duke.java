@@ -38,6 +38,14 @@ public class Duke {
         System.out.println(line);
     }
 
+    private void deleteFromList(int index) {
+        Task task = list.get(index);
+        list.remove(index);
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.printf("\t\t%s\n\tNow you have %d tasks in the list.\n", task.toString(), list.size());
+        System.out.println(line);
+    }
+
     public void printList() {
         System.out.println("\tHere are the tasks in your list:");
         for (int i =0; i < list.size(); i++) {
@@ -64,7 +72,7 @@ public class Duke {
         }
     }
 
-    private void validateMarkOrUnmark(String number) throws DukeException {
+    private void validateMarkOrUnmarkorDelete(String number) throws DukeException {
         if (number.isBlank()) {
             throw new DukeException("Boop Beep OOPS!!! Please make sure that the index of the task is not empty.");
         } else {
@@ -92,7 +100,7 @@ public class Duke {
                     printList();
                 } else if (input.startsWith("mark")) {
                     String number = input.replaceFirst("mark", "").trim();
-                    validateMarkOrUnmark(number);
+                    validateMarkOrUnmarkorDelete(number);
 
                     int index = Integer.parseInt(number) - 1;
                     list.get(index).markDone();
@@ -102,7 +110,7 @@ public class Duke {
                     printMessage(markDoneMessage);
                 } else if (input.startsWith("unmark")) {
                     String number = input.replaceFirst("unmark", "").trim();
-                    validateMarkOrUnmark(number);
+                    validateMarkOrUnmarkorDelete(number);
 
                     int index = Integer.parseInt(number) - 1;
                     list.get(index).markNotDone();
@@ -135,6 +143,12 @@ public class Duke {
 
                     Event event = new Event(description, start, end);
                     addToList(event);
+                } else if (input.startsWith("delete")) {
+                    String number = input.replaceFirst("delete", "").trim();
+                    validateMarkOrUnmarkorDelete(number);
+
+                    int index = Integer.parseInt(number) - 1;
+                    deleteFromList(index);
                 } else {
                     throw new DukeException("Boop Beep OOPS!!! I'm sorry, but I don't know what that means :(");
                 }
