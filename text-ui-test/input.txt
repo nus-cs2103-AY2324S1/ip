@@ -23,4 +23,8 @@ mark
 mark a
 mark 0
 blah
+delete
+delete a
+delete 0
+delete 3
 bye

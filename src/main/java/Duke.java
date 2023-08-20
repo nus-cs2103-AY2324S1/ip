@@ -69,12 +69,26 @@ public class Duke {
                   parsedArguments.getOrDefault("from", ""),
                   parsedArguments.getOrDefault("to", "")));
           break;
+        case "delete":
+          deleteTask(name);
+          break;
         default:
           throw new DukeException("I'm sorry, but I don't know what that means :-(");
       }
     } catch (DukeException e) {
       handleDukeException(e);
     }
+  }
+
+  static void deleteTask(String i) {
+    Task t = getTaskToModify("delete", i);
+    tasks.remove(Integer.parseInt(i));
+
+    printLine();
+    System.out.println("\t Noted. I've removed this task:");
+    System.out.printf("\t\t %s\n", t);
+    printNumberOfTasks();
+    printLine();
   }
 
   static void handleDukeException(DukeException e) {
@@ -126,9 +140,13 @@ public class Duke {
     printLine();
     System.out.println("\t Got it. I've added this task:");
     System.out.printf("\t\t %s\n", task);
+    printNumberOfTasks();
+    printLine();
+  }
+
+  static void printNumberOfTasks() {
     System.out.printf(
         "\t Now you have %d task%s in the list.\n", tasks.size(), tasks.size() == 1 ? "" : "s");
-    printLine();
   }
 
   static void greet() {
