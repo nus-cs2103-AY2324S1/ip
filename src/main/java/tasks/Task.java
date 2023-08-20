@@ -38,6 +38,7 @@ public class Task {
     public char getStatus() {
         return this.completed ? 'X': ' ';
     }
+
     public String toString() {
         return String.format("[%c] %s", this.getStatus(), this.description);
     }
