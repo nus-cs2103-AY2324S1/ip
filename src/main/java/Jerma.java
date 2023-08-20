@@ -58,7 +58,7 @@ public class Jerma {
         }
         break;
       case TODO:
-        toDoList.add(new Todo(input));
+        toDoList.add(new Todo(inputArgs[1]));
         System.out.println("added todo: " + inputArgs[1]);
         break;
       case DEADLINE:
@@ -88,7 +88,7 @@ public class Jerma {
           break;
         }
         toDoList.add(new Event(description, from, to));
-        System.out.println(String.format("added todo: %s from %s to %s",
+        System.out.println(String.format("added event: %s from %s to %s",
             description, from, to));
         break;
       case ECHO:

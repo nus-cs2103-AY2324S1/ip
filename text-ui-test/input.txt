@@ -1,0 +1,7 @@
+deadline this /by tomorrow
+todo that
+event those /from yesterday /to next week
+mark 2
+list
+unmark 2
+bye
