@@ -28,10 +28,21 @@ public class Ui {
     }
 
     /**
-     * Displays argument with horizontal rules
+     * Displays argument with horizontal rules.
      */
     public static void wrapPrintWithHorizontalRules(String msg) {
-        System.out.printf("%s%s%s\n",
+        System.out.printf("%s%s\n%s\n",
                 HORIZONTAL_RULE, msg, HORIZONTAL_RULE);
+    }
+
+    public static void displayMarkOrUnmark(boolean isMarking, String item) {
+        if (isMarking) {
+            wrapPrintWithHorizontalRules(String.format(
+                    "Nice! I've marked this task as done:\n  [X] %s", item));
+        } else {
+            wrapPrintWithHorizontalRules(String.format(
+                    "OK, I've marked this task as not done yet:\n  [] %s", item));
+        }
+
     }
 }
