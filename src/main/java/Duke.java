@@ -1,7 +1,5 @@
-import javax.sound.midi.Soundbank;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 
@@ -18,7 +16,7 @@ public class Duke {
         action = reader.nextLine().toString();
         String check = action.toUpperCase();
         while (!check.equals(termination_word)) {
-            history = Duke.actions(action, history);
+            history = Duke.actions(check, action, history);
             action = reader.nextLine().toString();
             check = action.toUpperCase();
         }
@@ -40,12 +38,11 @@ public class Duke {
 
 
 
-    private static ArrayList<Task> actions(String action, ArrayList<Task> history) {
-        action = action.toUpperCase();
-        String[] parts = action.split(" ",2);
-        action = parts[0];
+    private static ArrayList<Task> actions(String check, String inp, ArrayList<Task> history) {
+        inp = inp.toUpperCase();
+        String [] parts = check.split(" ", 2);
         String numberString = parts.length > 1 ? parts[1] : "";
-        switch (action) {
+        switch (check) {
             case "BYE":
                 System.out.println();
                 break;
@@ -72,11 +69,27 @@ public class Duke {
                 }
                 break;
             default:
-                Task currAction = new Task(action);
-                history.add(currAction);
-                System.out.println(action);
+                Task t = Duke.parseInput(inp);
+                history.add(t);
+                System.out.println(t);
         }
         return history;
+    }
+
+    private static Task parseInput(String line) {
+        String[] parts = line.split("/", 3);
+        String[] type_description = parts[0].split(" ", 2);
+        String type = type_description[0];
+        String description = type_description[1];
+        if (parts.length == 1) {
+            return new ToDo(description);
+        } else if (parts.length == 2) {
+            return new Deadline(description, parts[1]);
+        } else if (parts.length == 3) {
+            return new Event(description, parts[1], parts[2]);
+        } else {
+            throw new InvalidParameterException();
+        }
     }
 
 
