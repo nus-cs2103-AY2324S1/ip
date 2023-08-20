@@ -1,3 +1,4 @@
+package pkg.task;
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -24,3 +25,6 @@ public class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
+
+
+
