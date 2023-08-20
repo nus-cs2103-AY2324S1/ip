@@ -1,2 +1,2 @@
-public class Deadline {
+public class Deadline{
 }
