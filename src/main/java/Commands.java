@@ -24,17 +24,6 @@ public class Commands {
 
     private String input;
     String divider = "\n____________________________________________________________";
-    String endLogo = "               ＿   ★★EVERYDAY★★\n" +
-            "           ／     j     ★★ IS A  ★★\n" +
-            "        ／     /ｰ'          ★★ MACHO  ★★\n" +
-            "     〈       ヽ               ★★ DAY!!!  ★★\n" +
-            "           ､       ヽ ﾍ⌒ ヽﾌ\n" +
-            "             〉       ´ ･ω )        ,-､、\n" +
-            "           / ノ         ￣⌒ヽ　「　   〉\n" +
-            "          ﾉ       ' L          `ヽ.／   /\n" +
-            "     ／    , '           .ノ＼    ´    /\n" +
-            "    (                ∠_       ヽ､＿,.\n" +
-            "     ＼   (            ヽ ";
 
     /**
      * Constructor for Commands to initalise the relevant parameters
@@ -248,7 +237,7 @@ public class Commands {
                     break;
 
                 case BYE:
-                    System.out.println("\nBye! Hope to see you again soon, macho!\n" + endLogo);
+                    System.out.println("\nBye! Hope to see you again soon, macho!");
                     break;
 
                 default:
