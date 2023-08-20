@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Duke {
     private static final String LOGO = ",------.,--.              ,--.  \n"
-                                + "|  .---\'|  |,-.,--.,--. ,-|  |  \n"
-                                + "|  `--, |     /|  ||  |' .-. |   \n"
-                                + "|  `---.|  \\\\  \\\\  ''  '\\\\ `-\'   \n"
-                                + "`------'`--'`--'`----'  `---' \n";
+                                    + "|  .---\'|  |,-.,--.,--. ,-|  |  \n"
+                                    + "|  `--, |     /|  ||  |' .-. |   \n"
+                                    + "|  `---.|  \\\\  \\\\  ''  '\\\\ `-\'   \n"
+                                    + "`------'`--'`--'`----'  `---' \n";
     private static final String LINE = "-".repeat(60);
     private static List<Task> tasks = new ArrayList<>();
 
@@ -18,14 +18,16 @@ public class Duke {
     }
 
     private static void handleUserInput() {
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            String input = sc.nextLine();
-            if (input.equals("bye")) {
-                sc.close();
-                break;
+        try (Scanner sc = new Scanner(System.in)) {
+            while (true) {
+                String input = sc.nextLine();
+                if (input.equals("bye")) {
+                    break;
+                }
+                handleCommand(input);
             }
-            handleCommand(input);
+        } catch (Exception e) {
+            printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
         }
     }
 
@@ -37,7 +39,7 @@ public class Duke {
         } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
             addTask(command);
         } else {
-            printErrorMessage();
+            printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
         }
     }
 
@@ -50,30 +52,45 @@ public class Duke {
     }
 
     private static void addTask(String task) {
+        try {
+            Task newTask = null;
+            if (task.startsWith("todo")) {
+                newTask = ToDo.createToDoFromCommand(task);
+            } else if (task.startsWith("deadline")) {
+                newTask = Deadline.createDeadlineFromCommand(task);
+            } else if (task.startsWith("event")) {
+                newTask = Event.createEventFromCommand(task);
+            }
 
-        Task newTask = null;
+            if (newTask != null) {
+                tasks.add(newTask);
+                printAddedTaskConfirmation(newTask);
+            } 
 
-        if (task.startsWith("todo")) {
-            newTask = ToDo.createToDoFromCommand(task);
-        } else if (task.startsWith("deadline")) {
-            newTask = Deadline.createDeadlineFromCommand(task);
-        } else if (task.startsWith("event")) {
-            newTask = Event.createEventFromCommand(task);
+        } catch (DukeException e) {
+            printErrorMessage(e);
         }
-
-        tasks.add(newTask);
-        printAddedTaskConfirmation(newTask);
     }
+    
 
     private static void markTask(String command) {
-        int index = Integer.parseInt(command.split(" ")[1]) - 1;
-        Task task = tasks.get(index);
-        task.markAsDone();
-        System.out.println(LINE);
-        System.out.println("Nice! I've marked this task as done: ");
-        System.out.println("  " + task);
-        System.out.println(LINE);
+        try {
+            int index = Integer.parseInt(command.split(" ")[1]) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                printErrorMessage(new DukeException("Invalid task index"));
+                return;
+            }
+            Task task = tasks.get(index);
+            task.markAsDone();
+            System.out.println(LINE);
+            System.out.println("Nice! I've marked this task as done: ");
+            System.out.println("  " + task);
+            System.out.println(LINE);
+        } catch (NumberFormatException e) {
+            printErrorMessage(new DukeException("Invalid command format"));
+        }
     }
+    
 
     private static void printWelcomeMessage() {
         System.out.println(LINE);
@@ -96,9 +113,9 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    private static void printErrorMessage() {
+    private static void printErrorMessage(DukeException e) {
         System.out.println(LINE);
-        System.out.println("I'm sorry, but I don't know what that means");
+        System.out.println("OOPS!!! " + e.getMessage());
         System.out.println(LINE);
     }
 

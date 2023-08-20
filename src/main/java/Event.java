@@ -9,7 +9,20 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public static Event createEventFromCommand(String command) {
+    public static Event createEventFromCommand(String command) throws DukeException {
+        
+        if (command.length() <= 6) {
+            throw new DukeException("The description of an event cannot be empty.");
+        } else if (!command.contains(" /from ")) {
+            throw new DukeException("The event command must contain a /from.");
+        } else if (!command.contains(" /to ")) {
+            throw new DukeException("The event command must contain a /to.");
+        } else if (command.endsWith(" /from ")) {
+            throw new DukeException("The event command must contain a description after /from.");
+        } else if (command.endsWith(" /to ")) {
+            throw new DukeException("The event command must contain a description after /to.");
+        }
+
         String[] tmpSplit = command.substring(6).split(" /from ");
         String taskDescription = tmpSplit[0];
         String[] split = tmpSplit[1].split(" /to ");

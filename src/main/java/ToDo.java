@@ -4,7 +4,10 @@ public class ToDo extends Task {
         super(description);
     }
 
-    public static ToDo createToDoFromCommand(String command) {
+    public static ToDo createToDoFromCommand(String command) throws DukeException {
+        if (command.length() <= 5) {
+            throw new DukeException("The description of a todo cannot be empty.");
+        }
         return new ToDo (command.substring(5));
     }
 
