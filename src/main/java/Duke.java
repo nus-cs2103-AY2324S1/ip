@@ -1,10 +1,21 @@
 public class Duke {
+
+    private final String name = "Ken";
+
+    private String getName() {
+        return this.name;
+    }
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+
+        Duke chatBot = new Duke();
+        String horLine = "____________________________________________________________";
+        String userInput = "";
+
+        System.out.println(horLine);
+        System.out.println("Hello! I'm " + chatBot.getName() + "!");
+        System.out.println("What can I do for you?");
+        System.out.println(horLine);
+        System.out.println("Bye. hope to see you again soon!");
+        System.out.println(horLine);
     }
 }
