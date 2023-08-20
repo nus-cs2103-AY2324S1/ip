@@ -1,24 +1,24 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class UI {
-    private void horizontalLines() {
+    private final Scanner scanner = new Scanner(System.in);
+    public void horizontalLines() {
         System.out.println("____________________________________________________________"); //length taken from sample
     }
 
-    public void skeletalChatbot() {
-        Scanner scanner = new Scanner(System.in);
-        horizontalLines();
-        System.out.println("Hello! I'm Whelmed.");
-        System.out.println("What can I do for you?");
-        horizontalLines();
-        String input = scanner.nextLine();
-        while (!input.toLowerCase().equals("bye")) {
-            horizontalLines();
-            System.out.println(input);
-            horizontalLines();
-            input = scanner.nextLine();
+    public String readInput() {
+        return scanner.nextLine();
+    }
+
+    public void display(String message) {
+        System.out.println(message);
+    }
+
+    public void displayActions(ArrayList<String> actions) {
+        int queNumber = 1;
+        for (String s : actions) {
+            System.out.println(queNumber + ". " + s);
+            queNumber++;
         }
-        horizontalLines();
-        System.out.println("Bye. Hope to see you again soon!");
-        horizontalLines();
     }
 }
