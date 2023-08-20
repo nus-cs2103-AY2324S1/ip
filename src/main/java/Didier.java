@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class Didier {
 
     public static void main(String[] args) {
-        Duke.botPrintBr();
-        Duke.botPrintMessage("Greetings user, I'm Didier. How can I help you?");
-        Duke.botPrintBr();
+        Didier.botPrintBr();
+        Didier.botPrintMessage("Greetings user, I'm Didier. How can I help you?");
+        Didier.botPrintBr();
 
         Scanner scanner = new Scanner(System.in); // create a Scanner object for user input
         String[] command = scanner.nextLine().split(" ", 2);
@@ -15,9 +15,9 @@ public class Duke {
             // Carry out the action determined by the command
             switch (command[0]) {
                 case "list":
-                    Duke.botPrintMessage("The tasks in your list are as follows:");
+                    Didier.botPrintMessage("The tasks in your list are as follows:");
                     for (int i = 0; i < tasks.size(); i++) {
-                        Duke.botPrintMessage(String.format("%d.%s", i + 1, tasks.get(i)));
+                        Didier.botPrintMessage(String.format("%d.%s", i + 1, tasks.get(i)));
                     }
                     break;
                 case "mark":
@@ -26,14 +26,14 @@ public class Duke {
                         Task taskMark = tasks.get(Integer.parseInt(command[1]) - 1);
                         if (command[0].equals("mark")) {
                             taskMark.markAsDone();
-                            Duke.botPrintMessage("Okay! I've marked the following task as done:");
+                            Didier.botPrintMessage("Okay! I've marked the following task as done:");
                         } else {
                             taskMark.markAsNotDone();
-                            Duke.botPrintMessage("Okay! I've marked the following task as undone:");
+                            Didier.botPrintMessage("Okay! I've marked the following task as undone:");
                         }
-                        Duke.botPrintMessage(taskMark.toString());
+                        Didier.botPrintMessage(taskMark.toString());
                     } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                        Duke.botPrintMessage("That is an invalid task number");
+                        Didier.botPrintMessage("That is an invalid task number");
                     }
                     break;
                 case "todo":
@@ -41,7 +41,7 @@ public class Duke {
                 case "event":
                     Task task;
                     if (command.length == 1 || command[1].isBlank()) {
-                        Duke.botPrintMessage("The description of the task is missing. Please try again.");
+                        Didier.botPrintMessage("The description of the task is missing. Please try again.");
                         break;
                     }
                     if (command[0].equals("todo")) {
@@ -49,7 +49,7 @@ public class Duke {
                     } else if (command[0].equals("deadline")) {
                         String[] deadlineCommand = command[1].split("\\\\by ", 2);
                         if (deadlineCommand.length == 1 || deadlineCommand[1].isBlank()) {
-                            Duke.botPrintMessage("The deadline of the task is missing. Please try again.");
+                            Didier.botPrintMessage("The deadline of the task is missing. Please try again.");
                             break;
                         } else {
                             task = new Deadline(deadlineCommand[0], deadlineCommand[1]);
@@ -57,15 +57,15 @@ public class Duke {
                     } else {
                         String[] fromCommand = command[1].split("\\\\from ", 2);
                         if (fromCommand.length == 1) {
-                            Duke.botPrintMessage("The start time of the task is missing. Please try again.");
+                            Didier.botPrintMessage("The start time of the task is missing. Please try again.");
                             break;
                         }
                         String[] toCommand = fromCommand[1].split("\\\\to ", 2);
                         if (toCommand[0].isBlank()) {
-                            Duke.botPrintMessage("The start time of the task is missing. Please try again.");
+                            Didier.botPrintMessage("The start time of the task is missing. Please try again.");
                             break;
                         } else if (toCommand.length == 1 || toCommand[1].isBlank()) {
-                            Duke.botPrintMessage("The end time of the task is missing. Please try again.");
+                            Didier.botPrintMessage("The end time of the task is missing. Please try again.");
                             break;
                         } else {
                             task = new Event(fromCommand[0], toCommand[0], toCommand[1]);
@@ -73,20 +73,20 @@ public class Duke {
                     }
                     if (task != null) {
                         tasks.add(task);
-                        Duke.botPrintMessage("Okay! I've added your task:");
-                        Duke.botPrintMessage(task.toString());
-                        Duke.botPrintMessage(String.format("There are now %d tasks in your list", tasks.size()));
+                        Didier.botPrintMessage("Okay! I've added your task:");
+                        Didier.botPrintMessage(task.toString());
+                        Didier.botPrintMessage(String.format("There are now %d tasks in your list", tasks.size()));
                     }
                     break;
                 default:
-                    Duke.botPrintMessage("I don't quite understand you. Could you repeat?");
+                    Didier.botPrintMessage("I don't quite understand you. Could you repeat?");
             }
-            Duke.botPrintBr();
+            Didier.botPrintBr();
             command = scanner.nextLine().split(" ", 2);
         }
 
-        Duke.botPrintMessage("Goodbye! If you need more help in the future don't hesitate to ask me.");
-        Duke.botPrintBr();
+        Didier.botPrintMessage("Goodbye! If you need more help in the future don't hesitate to ask me.");
+        Didier.botPrintBr();
     }
 
     /**
@@ -103,7 +103,7 @@ public class Duke {
      */
     private static void botPrintBr() {
         String lineBreak = "---------------------------------------------------------------------";
-        Duke.botPrintMessage(lineBreak);
+        Didier.botPrintMessage(lineBreak);
     }
 
 }
