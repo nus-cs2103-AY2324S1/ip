@@ -3,14 +3,14 @@ import java.util.List;
 import java.util.Scanner;
 
 enum Command {
-  LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT;
+  LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, ECHO;
 
   public static Command parse(String input) {
     for (Command command : Command.values()) {
       if (command.toString().toLowerCase().equals(input))
         return command;
     }
-    throw new UnsupportedOperationException("No such command");
+    return ECHO;
   }
 }
 
@@ -65,8 +65,9 @@ public class Jerma {
         break;
       case EVENT:
         break;
+      case ECHO:
+        System.out.println(input);
       }
-
     }
     scanner.close();
 
