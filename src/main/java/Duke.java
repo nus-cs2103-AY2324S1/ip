@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
 
 
@@ -36,11 +37,37 @@ public class Duke {
         printHorizontalLine();
     }
 
+    public static void list() {
+        ArrayList<String> list = new ArrayList<String>();
+        Scanner sc = new Scanner(System.in);
+        do {
+            String command = sc.nextLine();
+            if (command.equals("bye")) {
+                return;
+            } else if (command.equals("list")) {
+                printHorizontalLine();
+                for (int i = 0; i < list.size(); i++) {
+                    int printIndex = i + 1;
+                    System.out.println( printIndex + ". " + list.get(i) );
+                }
+                printHorizontalLine();
+                continue;
+            }
+            list.add(command);
+            printHorizontalLine();
+            System.out.println("added: " + command);
+            printHorizontalLine();
+
+
+        } while (true);
+
+    }
+
 
     public static void main(String[] args) {
         introduction();
 
-        echo();
+        list();
 
         conclusion();
 
