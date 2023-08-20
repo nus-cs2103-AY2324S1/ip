@@ -1,5 +1,3 @@
-package Tasks;
-
 /**
  * A Deadline is a task which needs to be completed by a certain date. As a result, it keeps track
  * of when it must be completed by.

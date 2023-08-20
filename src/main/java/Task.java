@@ -1,5 +1,3 @@
-package Tasks;
-
 /**
  * The Task class encapsulates a real-life task. A basic task has a description and keeps track of
  * whether it is completed or not. It is declared abstract as as task must take one of three forms:
