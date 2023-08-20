@@ -1,6 +1,12 @@
 import java.util.Scanner;
 public class Duke {
+    static String[] storage;
+    static int storagePointer;
     public static void main(String[] args) {
+        // Initialise the data storage
+        Duke.storage = new String[100];
+        Duke.storagePointer = 0;
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -19,7 +25,17 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         while (!userInput.equals("bye")) {
-            System.out.println(userInput);
+            if (userInput.equals("list")) {
+                for (int i = 1; i <= Duke.storagePointer; i ++) {
+                    String item = Duke.storage[i - 1];
+                    System.out.printf("%d. %s\n", i, item);
+                }
+                userInput = scanner.nextLine();
+                continue;
+            }
+            Duke.storage[Duke.storagePointer] = userInput;
+            Duke.storagePointer ++;
+            System.out.println("added: " + userInput);
             userInput = scanner.nextLine();
         }
     }
