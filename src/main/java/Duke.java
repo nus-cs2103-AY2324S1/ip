@@ -19,14 +19,14 @@ public class Duke {
 
     public static void giveChatbotIntro() {
         printHorizontalLine();
-        System.out.println("Hello! I'm Jeffrey, your personal AI chatbot, ready to serve you today\n");
-        System.out.println("What can I do for you?\n");
+        System.out.println("Hello! I'm Jeffrey, your personal AI chatbot, ready to serve you today");
+        System.out.println("What can I do for you?");
         printHorizontalLine();
     }
 
     public static void giveChatbotOutro() {
-        System.out.println("Bye. Hope to see you again soon!\n");
-        System.out.println("Remember, the universe is vast, but I'm always here for you :D\n");
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Remember, the universe is vast, but I'm always here for you :D");
     }
 
     public static void processInput(String input) {
