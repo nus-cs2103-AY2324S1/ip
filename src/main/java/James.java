@@ -33,6 +33,12 @@ public class James {
                     task.mark();
                     System.out.println(line + "\n" + "Nice! I've marked this task as done:");
                     System.out.println(task + "\n" + line);
+                } else if (input.contains("delete")) {
+                    Integer taskIdx = Integer.parseInt(input.split(" ")[1]);
+                    Task task = items.get(taskIdx - 1);
+                    items.remove(task);
+                    System.out.println(line + "\n" + "Noted. I've removed this task:\n" + task + "\n" + line);
+                    System.out.println("Now you have " + items.size() + " tasks in the list.");
                 } else {
                     // Add Task
                     Task task;
