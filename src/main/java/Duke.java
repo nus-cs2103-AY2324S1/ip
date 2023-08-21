@@ -17,10 +17,16 @@ public class Duke {
         String[] parts = action.split(" ");
         String check = parts[0].toUpperCase();
         while (!check.equals(termination_word)) {
-            history = Duke.actions(check, action, history);
-            action = reader.nextLine().toString();
-            parts = action.split(" ");
-            check = parts[0].toUpperCase();
+            try {
+                history = Duke.actions(action, history);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            } finally {
+                action = reader.nextLine().toString();
+                parts = action.split(" ");
+                check = parts[0].toUpperCase();
+            }
+
         }
         Duke.sayBye();
 
@@ -40,9 +46,10 @@ public class Duke {
 
 
 
-    private static ArrayList<Task> actions(String check, String inp, ArrayList<Task> history) {
+    private static ArrayList<Task> actions(String inp, ArrayList<Task> history) {
         inp = inp.toUpperCase();
         String [] parts = inp.split(" ", 2);
+        String check = parts[0];
         String numberString = parts.length > 1 ? parts[1] : "";
         switch (check) {
             case "BYE":
@@ -60,7 +67,7 @@ public class Duke {
                 try {
                     Integer number = Integer.parseInt(numberString);
                     if (number > history.size() || number < 0) {
-                        throw new InvalidParameterException("Wrong Param");
+                        throw new DukeException("Wrong Param");
                     }
                     Task task = history.get(number-1);
                     task.markAsDone();
@@ -70,27 +77,58 @@ public class Duke {
                     System.out.println("Invalid integer input");
                 }
                 break;
+            case "TODO":
+                ToDo toDo = Duke.toDo(inp);
+                history.add(toDo);
+                System.out.println("Okay! Task added \n" + toDo + "\n");
+                break;
+            case "EVENT":
+                Event event = Duke.event(inp);
+                history.add(event);
+                System.out.println("Okay! Task added \n" + event + "\n");
+                break;
+            case "DEADLINE":
+                Deadline deadLine = Duke.deadline(inp);
+                history.add(deadLine);
+                System.out.println("Okay! Task added \n" + deadLine + "\n");
             default:
-                Task t = Duke.parseInput(inp);
-                history.add(t);
-                System.out.println("Okay! Task added \n" + t + "\n");
+                throw new DukeException("I do not know what you are saying.");
         }
         return history;
     }
 
-    private static Task parseInput(String line) {
-        String[] parts = line.split("/", 3);
-        String[] type_description = parts[0].split(" ", 2);
-        String type = type_description[0];
-        String description = type_description[1];
-        if (parts.length == 1) {
+    private static ToDo toDo(String inp) {
+        try {
+            String[] type_description = inp.split(" ", 2);
+            String type = type_description[0];
+            String description = type_description[1];
             return new ToDo(description);
-        } else if (parts.length == 2) {
+        } catch (Exception e) {
+            throw new DukeException("Please give a valid description for a ToDo task!");
+        }
+    }
+
+    private static Deadline deadline(String inp) {
+        try {
+            String[] parts = inp.split("/", 2);
+            String[] type_description = parts[0].split(" ", 2);
+            String type = type_description[0];
+            String description = type_description[1];
             return new Deadline(description, parts[1]);
-        } else if (parts.length == 3) {
+        } catch (Exception e) {
+            throw new DukeException("Please give a valid description for a Deadline task!");
+        }
+    }
+
+    private static Event event(String inp) {
+        try {
+            String[] parts = inp.split("/", 3);
+            String[] type_description = parts[0].split(" ", 2);
+            String type = type_description[0];
+            String description = type_description[1];
             return new Event(description, parts[1], parts[2]);
-        } else {
-            throw new InvalidParameterException();
+        } catch (Exception e) {
+            throw new DukeException("Please give a valid description for an Event task!");
         }
     }
 
