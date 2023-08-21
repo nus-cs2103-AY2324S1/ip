@@ -1,7 +1,12 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
 public class Duke {
     static String name = "Atlas";
     public static void main(String[] args) {
         greet();
+        listen();
         exit();
     }
 
@@ -32,10 +37,36 @@ public class Duke {
     }
 
     /**
+     * Listens and executes commands
+     */
+    public static void listen() {
+        String command;
+        String exitCommand = "bye";
+        boolean exitChatbot = false;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        while (!exitChatbot) {
+            try {
+                command = reader.readLine();
+                printHorizontalLine();
+                if (command.equals(exitCommand)) {
+                    exitChatbot = true;
+                } else {
+                    System.out.println(command);
+                    printHorizontalLine();
+                }
+            } catch (IOException e) {
+                printHorizontalLine();
+                System.out.println("Unable to read command, exiting");
+                exitChatbot = true;
+            }
+        }
+    }
+
+    /**
      * Prints a horizontal line containing the character '-' of width 80.
      */
     public static void printHorizontalLine() {
-        int consoleWidth = 80;
+        final int consoleWidth = 80;
         String line = "_".repeat(consoleWidth);
         System.out.println(line);
     }
