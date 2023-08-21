@@ -2,8 +2,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    private static ArrayList<String> items = new ArrayList<>();
-    private static String bar = "――――――――――――――――――――――――――――――――――――――――――";
+    private static final ArrayList<Task> items = new ArrayList<>();
+    private static final String bar = "――――――――――――――――――――――――――――――――――――――――――";
 
     public static void greetUser() {
         String greeting = "Hello! I'm CringeBot\n"
@@ -12,7 +12,7 @@ public class Duke {
         System.out.println(wrappedGreeting);
     }
 
-    public static void bidFarewel() {
+    public static void bidFarewell() {
         String farewell = wrapWord("Bye. Hope to see you again soon!");
         System.out.println(farewell);
     }
@@ -27,16 +27,33 @@ public class Duke {
     }
 
     public static void addItem(String item) {
-        Duke.items.add(item);
-        sayWord("added:" + item);
+        Task newTask = new Task(item);
+        Duke.items.add(newTask);
+        sayWord("added: " + item);
     }
 
     public static void printItems() {
         System.out.println(Duke.bar);
         for (int i = 0; i < Duke.items.size(); i++) {
-            System.out.println(String.format("%d. %s", i + 1, Duke.items.get(i)));
+            System.out.printf("%d. %s%n", i + 1, Duke.items.get(i));
         }
         System.out.println(Duke.bar);
+    }
+
+    public static int getIndex(String command) {
+        String[] parts = command.split(" ");
+
+        if (parts.length >= 2) {
+            String secondPart = parts[1];
+            return Integer.parseInt(secondPart);
+        }
+        return -1;
+    }
+
+    public static void printMarkedOrUnmarked(int index, String sentence) {
+        if (index < Duke.items.size()) {
+            System.out.println(wrapWord(String.format("%s\n%s", sentence, Duke.items.get(index))));
+        }
     }
 
     public static void main(String[] args) {
@@ -54,10 +71,22 @@ public class Duke {
                 break;
             } else if (nextLine.equals("list")) {
                 printItems();
+            } else if (nextLine.contains("unmark")) {
+                int index = getIndex(nextLine) - 1;
+                if (index <= Duke.items.size()) {
+                    Duke.items.get(index).unMarkTask();
+                    printMarkedOrUnmarked(index, "OK, I've marked this task as not done yet:");
+                }
+            } else if (nextLine.contains("mark")) {
+                int index = getIndex(nextLine) - 1;
+                if (index <= Duke.items.size()) {
+                    Duke.items.get(index).markTask();
+                    printMarkedOrUnmarked(index, "Nice! I've marked this task as done:");
+                }
             } else {
                 addItem(nextLine);
             }
         }
-        bidFarewel();
+        bidFarewell();
     }
 }
