@@ -12,6 +12,18 @@ public class Duke {
     public static String getName() {
         return Duke.name;
     }
+    public static int getCounter(){
+        return Duke.counter;
+    }
+
+    public static void incrementCounter(){
+        Duke.counter++;
+    }
+
+    public static void setList(String item){
+        list[getCounter()] = item;
+
+    }
 
     public static void main(String[] args) {
         Scanner scanIn = new Scanner(System.in);
@@ -21,6 +33,7 @@ public class Duke {
         System.out.println(sf1);
         System.out.println("What can I do for you today, sir?");
         println();
+
 
 
 
