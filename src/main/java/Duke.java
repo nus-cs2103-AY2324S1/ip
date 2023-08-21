@@ -12,6 +12,12 @@ public class Duke {
     static final String name = "Atlas";
     // Task list
     static List<Task> taskList = new ArrayList<>();
+    // Supported task types
+    protected enum taskTypes {
+        ToDo,
+        Deadline,
+        Event
+    }
 
     /**
      * Main function
@@ -61,13 +67,13 @@ public class Duke {
                 args = splitInput.length > 1 ? splitInput[1] : "";
                 switch (command) {
                     case "todo":
-                        addTask(args, "todo");
+                        addTask(args, taskTypes.ToDo);
                         break;
                     case "deadline":
-                        addTask(args, "deadline");
+                        addTask(args, taskTypes.Deadline);
                         break;
                     case "event":
-                        addTask(args, "event");
+                        addTask(args, taskTypes.Event);
                         break;
                     case "list":
                         printList();
@@ -112,27 +118,27 @@ public class Duke {
      * @param args Item to add to list
      * @param taskType One of "todo", "deadline", or "event"
      */
-    protected static void addTask(String args, String taskType) {
-        class InvalidTaskType extends RuntimeException {
-            final protected String taskType;
-            public InvalidTaskType(String taskType) {
+    protected static void addTask(String args, taskTypes taskType) {
+        class UnsupportedTaskType extends RuntimeException {
+            final protected taskTypes taskType;
+            public UnsupportedTaskType(taskTypes taskType) {
                 this.taskType = taskType;
             }
         }
         Task newTask;
         try {
             switch (taskType) {
-                case "todo":
+                case ToDo:
                     newTask = createTodo(args);
                     break;
-                case "deadline":
+                case Deadline:
                     newTask = createDeadline(args);
                     break;
-                case "event":
+                case Event:
                     newTask = createEvent(args);
                     break;
                 default:
-                    throw new InvalidTaskType(taskType);
+                    throw new UnsupportedTaskType(taskType);
             }
             taskList.add(newTask);
             System.out.printf("Got it. I've added this task:\n" +
@@ -140,7 +146,7 @@ public class Duke {
             printTaskCount();
         } catch (IllegalArgumentException e) {
             System.out.printf("I think you missed something! %s\n", e.getMessage());
-        } catch (InvalidTaskType e) {
+        } catch (UnsupportedTaskType e) {
             System.out.printf("I can't handle this task type: %s\n", e.taskType);
         }
     }
