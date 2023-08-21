@@ -11,7 +11,8 @@ public class Duke {
 
         // Implement function to read user input via keyboard
         Scanner scan = new Scanner(System.in);
-        String[] inputArray = new String[100];
+        Task[] taskArray = new Task[100];
+        boolean[] statusArray = new boolean[100];
 
         int inputNum = 0;
 
@@ -26,11 +27,13 @@ public class Duke {
 
             } else if (Objects.equals(userInput, "list")) {
                 String inputArrayString = "";
-                for (int i = 0; i < inputArray.length; i++) {
-                    String input = inputArray[i];
-                    if (input != null) {
+                for (int i = 0; i < taskArray.length; i++) {
+                    Task currentTask = taskArray[i];
+                    if (taskArray[i] != null) {
+                        String taskName = taskArray[i].getName();
+                        boolean taskStatus = taskArray[i].getStatus();
                         int num = i + 1;
-                        inputArrayString += "     " + num + ". " + input + "\n";
+                        inputArrayString += num + currentTask.statusString() + currentTask.getName();
                     } else {
                         break;
                     }
@@ -40,7 +43,8 @@ public class Duke {
                         "    ____________________________________________________________\n");
 
             } else {
-                inputArray[inputNum] = userInput;
+                Task task = new Task(userInput);
+                taskArray[inputNum] = task;
                 System.out.println("    ____________________________________________________________\n" +
                         "    added: " + userInput + "\n" +
                         "    ____________________________________________________________\n");
