@@ -12,8 +12,12 @@ public class TaskList {
     }
 
     TaskList add(Task task) {
+        System.out.println(" Got it. I've added this task:\n");
         ArrayList<Task> currentTasks = this.tasks;
         currentTasks.add(task);
+        System.out.println("    " + task + "\n");
+        System.out.println(("Now you have " + Integer.toString(currentTasks.size()) +
+                " tasks in the list.\n"));
         return new TaskList(currentTasks);
     }
 

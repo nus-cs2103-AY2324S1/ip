@@ -1,6 +1,6 @@
 public class Task {
-    private final String description;
-    private final Boolean marked;
+    protected final String description;
+    protected final Boolean marked;
 
     Task(String description, Boolean marked) {
         this.description = description;
