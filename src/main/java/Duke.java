@@ -1,9 +1,18 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static String[] textList = new String[100];
+    public static int textListIndex = 0;
 
-    public static void echo(String input) {
-        System.out.println("    " + input);
+    public static void listText() {
+        for (int i = 1; i <= textListIndex; i++) {
+            System.out.println("    " + i + ". " + textList[i - 1]);
+        }
+    }
+    public static void addTextToList(String input) {
+        textList[textListIndex] = input;
+        System.out.println("    added: " + input);
+        textListIndex += 1;
         System.out.println("--------------------------------");
     }
     public static boolean continueOrNot(String input) {
@@ -24,7 +33,11 @@ public class Duke {
         System.out.println("--------------------------------");
         String input = input();
         while (continueOrNot(input)) {
-            echo(input);
+            if (input.equals("list")) {
+                listText();
+            } else {
+                addTextToList(input);
+            }
             input = input();
         }
         System.out.println("    bye...");
