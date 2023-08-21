@@ -10,12 +10,15 @@ public class Duke {
         String EXIT = "Bye(T.T), Hope to see you again soon!";
         String HORILINE = "_____________________________________________________________";
         System.out.println(LOGO + GREETING);
+        String[] toDoList = new String[100];
+        int index = 0;
         while (true) {
             String input = sc.nextLine();
             if (Objects.equals(input, "exit") || Objects.equals(input, "Exit") || Objects.equals(input, "EXIT")) {
                 break;
             } else {
-                System.out.println("\t" +input);
+                toDoList[index++] = input;
+                System.out.println("\tadded: " + input);
             }
         }
         System.out.println(EXIT);
