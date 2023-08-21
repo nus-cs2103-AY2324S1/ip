@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -12,17 +13,31 @@ public class Duke {
             // Future Inputs
             Scanner scanner = new Scanner(System.in);
             String userInput;
+            ArrayList<String> todolist = new ArrayList<String>();
 
             while (true) {
                 userInput = scanner.nextLine();
-                System.out.println("____________________________________________________________\n"
-                        + userInput
-                        + "\n"
-                        + "____________________________________________________________\n");
+                if (userInput.equalsIgnoreCase("list")) {
+                    String todolistoutput = "";
+                    for (int i = 0; i < todolist.size(); i++) {
+                        todolistoutput += i + 1 + ". " + todolist.get(i) + "\n";
+                    }
+                    System.out.println("____________________________________________________________\n"
+                            + todolistoutput
+                            + "____________________________________________________________\n");
 
-                if (userInput.equalsIgnoreCase("bye")) {
+                } else if (userInput.equalsIgnoreCase("bye")) {
                     break;
+                } else {
+                    todolist.add(userInput);
+                    System.out.println("____________________________________________________________\n"
+                            + "Added: "
+                            + userInput
+                            + "\n"
+                            + "____________________________________________________________\n");
+
                 }
+
             }
         } finally {
             System.out.println("Bye. Hope to see you again soon!\n"
