@@ -1,5 +1,6 @@
 yo
 list
+delete 1
 todo
 todo read book
 deadline
@@ -19,5 +20,8 @@ unmark 1
 mark one
 mark -1
 mark 5
+list
+delete 5
+delete 5
 list
 bye
