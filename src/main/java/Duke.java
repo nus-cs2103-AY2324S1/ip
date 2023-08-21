@@ -144,7 +144,8 @@ public class Duke {
      *
      * @param input The parameters for the mark command
      * @return The response string to the user
-     * @throws DukeException if input for mark is not an integer
+     * @throws DukeException if input for mark is not an integer or
+     *                       if the integer is out of bounds
      */
     private static String[] handleMark(String input) throws DukeException {
         String[] response = new String[2];
@@ -152,8 +153,12 @@ public class Duke {
         try {
             taskNum = Integer.parseInt(input);
         } catch (NumberFormatException err) {
-            throw new DukeException("Mark can only mark an integer task number");
+            throw new DukeException("Mark can only take an integer task number");
         }
+        if (taskNum < 0 || taskNum >= tasks.size()) {
+            throw new DukeException("Task number does not exist");
+        }
+
         Task task = tasks.get(taskNum - 1);
         task.mark();
 
@@ -167,21 +172,58 @@ public class Duke {
      *
      * @param input The parameters for the unmark command
      * @return The response string to the user
-     * @throws DukeException if input for unmark is not an integer
+     * @throws DukeException if input for unmark is not an integer or
+     *                       if the integer is out of bounds
      */
     private static String[] handleUnmark(String input) throws DukeException {
         String[] response = new String[2];
         int taskNum;
+
         try {
             taskNum = Integer.parseInt(input);
         } catch (NumberFormatException err) {
-            throw new DukeException("Unmark can only unmark an integer task number");
+            throw new DukeException("Unmark can only take an integer task number");
         }
+        if (taskNum < 0 || taskNum >= tasks.size()) {
+            throw new DukeException("Task number does not exist");
+        }
+
         Task task = tasks.get(taskNum - 1);
         task.unmark();
 
         response[0] = "Ok, I've marked this task as not done yet:";
         response[1] = INDENT + task;
+        return response;
+    }
+
+    /**
+     * Handler for the delete command. Generates the required response.
+     *
+     * @param input The parameters for the delete command
+     * @return The response string to the user
+     * @throws DukeException if input for delete is not an integer or
+     *                       if the integer is out of bounds
+     */
+    private static String[] handleDelete(String input) throws DukeException {
+        String[] response = new String[3];
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(input);
+        } catch (NumberFormatException err) {
+            throw new DukeException("Delete can only take an integer task number");
+        }
+        if (taskNum < 0 || taskNum >= tasks.size()) {
+            throw new DukeException("Task number does not exist");
+        }
+
+        Task task = tasks.get(taskNum - 1);
+        tasks.remove(taskNum - 1);
+
+        response[0] = "Noted. I've removed this task:";
+        response[1] = INDENT + task;
+        response[2] = String.format("Now you have %d task%s in the list.",
+                tasks.size(),
+                tasks.size() == 1 ? "" : "s");
         return response;
     }
 
@@ -254,10 +296,20 @@ public class Duke {
                     }
                     break;
                 }
-                case BYE:
+                case DELETE: {
+                    try {
+                        String[] response = handleDelete(params[1]);
+                        say(response);
+                    } catch (DukeException err) {
+                        say(err.getMessage() + ".");
+                    }
+                }
+                break;
+                case BYE: {
                     stopped = true;
                     say("Bye! Hope to see you again soon!");
                     break;
+                }
                 default:
                     say("Sorry, but I don't know what that means :(");
                     break;

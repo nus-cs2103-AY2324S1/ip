@@ -6,4 +6,6 @@ list
 what
 unmark me
 deadline buy food /at 7pm
+delete 1
+list
 bye
