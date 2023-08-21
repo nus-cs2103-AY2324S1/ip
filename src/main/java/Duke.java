@@ -57,9 +57,26 @@ public class Duke {
                 unmarkTarget.markAsUndone();
                 Duke.printFormatted("OK! I've marked this task as not done yet:\n" + unmarkTarget.toString());
                 break;
+            case "todo":
+                Todo newTodo = new Todo(remaining);
+                tasks.add(newTodo);
+                printTaskAddedMessage(newTodo);
+                break;
+            case "deadline":
+                String[] deadlineParts = remaining.split("/by ", 2);
+                Deadline newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                tasks.add(newDeadline);
+                printTaskAddedMessage(newDeadline);
+                break;
+            case "event":
+                String[] splitByTo = remaining.split("/to ", 2);
+                String[] splitByFrom = splitByTo[0].split("/from ", 2);
+                Event newEvent = new Event(splitByFrom[0], splitByFrom[1], splitByTo[1]);
+                tasks.add(newEvent);
+                printTaskAddedMessage(newEvent);
+                break;
             default:
-                tasks.add(new Task(input));
-                Duke.printFormatted("added: " + input);
+                Duke.printFormatted("Error: Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event");
         }
     }
 
