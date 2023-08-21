@@ -1,5 +1,10 @@
 import java.util.*;
 public class Duke {
+    /**
+     * Converts a LinkedList of Task to a string of Numbered List with the Tasks' description and status.
+     * @param linkedList LinkedList with Task object(s).
+     * @return String that represents Numbered list of Tasks with their description and status.
+     */
     public static String stringifyList(LinkedList<Task> linkedList) {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < linkedList.size(); i++) {
