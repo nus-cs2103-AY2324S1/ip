@@ -2,14 +2,15 @@ import java.util.Scanner;
 
 public class URChatBot {
     public static void main(String[] args) {
-
-    Scanner sc = new Scanner(System.in);
-    String logo =
-            "         _____   _____\n"
-                    + "| | | | /  ___| |   ) | \n"
-                    + "| | | | | |     | ___ /\n"
-                    + "| |_| | | |___  |   ) \\\n"
-                    + "\\___,_| \\_____| |_____|\n";
+        String[] tasks = new String[100];
+        int taskCount = 0;
+        Scanner sc = new Scanner(System.in);
+        String logo =
+                "         _____   _____\n"
+                        + "| | | | /  ___| |   ) | \n"
+                        + "| | | | | |     | ___ /\n"
+                        + "| |_| | | |___  |   ) \\\n"
+                        + "\\___,_| \\_____| |_____|\n";
         System.out.println("Hello! I'm URChatBot.\nWhat can I do for you?\n" + logo);
         while (true) {
             String command = sc.nextLine();
@@ -17,9 +18,18 @@ public class URChatBot {
                 System.out.println("Bye. Hope to see you again soon!");
                 sc.close();
                 break;
+            } else if (command.toUpperCase().contentEquals("LIST")){
+                System.out.println("Here are the tasks in your list:");
+                for(int i = 0; i < tasks.length; i ++) {
+                    if(tasks[i] != null){
+                        System.out.println(i+1 + "." + tasks[i].toString());
+                    }
+                }
             } else {
-                System.out.println(command);
+                tasks[taskCount] = command;
+                taskCount++;
+                System.out.println("added: " + command);
             }
         }
-        }
+    }
 }
