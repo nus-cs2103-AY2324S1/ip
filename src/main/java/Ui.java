@@ -7,21 +7,13 @@ import java.util.List;
 public class Ui {
     private static final String line = "\t____________________________________________________________\n";
     /**
-     * Pretty prints a single string.
-     * @param s String to be printed.
+     * Pretty prints string(s).
+     * @param args string(s) to be printed.
      */
-    public void print(String s){
-        System.out.println(line + String.format("\t%s\n", s) + line);
-    }
-
-    /**
-     * Pretty prints a list of strings.
-     * @param lst List of strings to be printed.
-     */
-    public void print(List<String> lst){
+    public void print(String... args){
         String text = line;
-        for(String s: lst) {
-            text += String.format("\t%s\n", s);
+        for(int i = 0; i < args.length; i++) {
+            text += String.format("\t%s\n", args[i]);
         }
         text += line;
         System.out.println(text);
@@ -30,7 +22,7 @@ public class Ui {
      * Function to say hi to the user.
      */
     public void sayHi(){
-        this.print(Arrays.asList("Hello! I'm Minion!", "What can I do for you?"));
+        this.print("Hello! I'm Minion!", "What can I do for you?");
     }
 
     /**

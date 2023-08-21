@@ -36,11 +36,10 @@ public class Minion {
                 continue;
             }
             tasks.add(task);
-            ui.print(Arrays.asList(
-                            "Got it. I've added this task:",
-                            "\t" + task.toString(),
-                            "Now you have " + tasks.size() +  " tasks in the list."
-                    )
+            ui.print(
+                    "Got it. I've added this task:",
+                    "\t" + task.toString(),
+                    "Now you have " + tasks.size() +  " tasks in the list."
             );
         }
         sc.close();
@@ -55,7 +54,7 @@ public class Minion {
         for(int i = 0; i < tasks.size(); i++) {
             lst.add((i + 1) + "." + tasks.get(i).toString());
         }
-        ui.print(lst);
+        ui.print(lst.toArray(String[]::new));
     }
 
     /**
@@ -84,10 +83,9 @@ public class Minion {
                 throw e;
             }
             currTask.markDone();
-            ui.print(Arrays.asList(
-                    "Nice! I've marked this task as done:",
+            ui.print("Nice! I've marked this task as done:",
                     "\t" + currTask.toString()
-            ));
+            );
             return null;
         }
         if (firstWord.equals("unmark")){
@@ -99,10 +97,9 @@ public class Minion {
                 throw e;
             }
             currTask.markUndone();
-            ui.print(Arrays.asList(
-                    "OK, I've marked this task as not done yet:",
+            ui.print("OK, I've marked this task as not done yet:",
                     "\t" + currTask.toString()
-            ));
+            );
             return null;
         }
         if (firstWord.equals("delete")) {
@@ -114,10 +111,9 @@ public class Minion {
                 throw e;
             }
             tasks.remove(taskIdx);
-            ui.print(Arrays.asList(
-                    "OK, I've removed this task",
+            ui.print("OK, I've removed this task",
                     "\t" + currTask.toString()
-            ));
+            );
             return null;
         }
         if (firstWord.equals("todo")) {
