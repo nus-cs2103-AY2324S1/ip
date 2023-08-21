@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-
         /* String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -14,7 +13,10 @@ public class Duke {
 
         String print1 = "Hello! I'm Afro\n"
                         + "What can I do for you?\n";
+
+        int currIndex = 1;
         String str;
+        String[] strArr = new String[100];
 
         System.out.println(print1);
 
@@ -25,11 +27,20 @@ public class Duke {
 
             if (str.equals("bye")) {
                 break;
+            } else if (str.equals("list")) {
+                for (int i = 1; i < currIndex; i++) {
+                    System.out.println(i + ". " + strArr[i]);
+                }
+                continue;
             }
-            System.out.println(str);
+            
+            strArr[currIndex] = str;
+            currIndex++;
+            System.out.println("added: " + str);
         }
 
         sc.close();
         System.out.println("Bye. Hope to see you again soon!");
+
     }
 }
