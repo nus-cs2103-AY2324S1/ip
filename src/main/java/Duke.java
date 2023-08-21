@@ -1,7 +1,8 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
 
-    private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int position = 0;
 
     public static void start() {
@@ -9,7 +10,6 @@ public class Duke {
         String question = "What can I do for you today?";
         System.out.println(intro + question);
         Scanner scanner = new Scanner(System.in);
-
 
         while (true) {
             String command = scanner.nextLine();
@@ -43,20 +43,24 @@ public class Duke {
 
     public static boolean checkMark(String command) throws RuntimeException {
         String[] parts = command.split(" ", 2);
-        if (parts[0].equalsIgnoreCase("mark")) {
-            try {
-                tasks[Integer.valueOf(parts[1]) - 1].markTask();
-            } catch (RuntimeException e) {
-                throw new RuntimeException("The task does not exist in this list!");
+        try {
+            if (parts[0].equalsIgnoreCase("mark")) {
+                tasks.get(Integer.valueOf(parts[1]) - 1).markTask();
+                return true;
+            } else if (parts[0].equalsIgnoreCase("unmark")) {
+                tasks.get(Integer.valueOf(parts[1]) - 1).unmarkTask();
+                return true;
+            } else if (parts[0].equalsIgnoreCase("delete")) {
+                Task removedTask = tasks.remove(Integer.valueOf(parts[1]) - 1);
+                position--;
+                System.out.println("Yes Sir. I've removed the following task\n" + removedTask + "\nNow you" +
+                        " have " + position + " task(s) in the list!");
+                return true;
             }
-            return true;
-        } else if (parts[0].equalsIgnoreCase("unmark")) {
-            try {
-                tasks[Integer.valueOf(parts[1]) - 1].unmarkTask();
-            } catch (RuntimeException e) {
-                throw new RuntimeException("The task does not exist in this list! Pick a number where a task exist!d");
-            }
-            return true;
+        } catch (IndexOutOfBoundsException e) {
+            throw new RuntimeException("The task does not exist in this list! Pick a number where a task exist!");
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Please pick a number instead of letters!");
         }
         return false;
     }
@@ -70,9 +74,9 @@ public class Duke {
             String taskDetails = parts[1].toLowerCase();
             Task task = parseTask(taskType, taskDetails);
             if (task != null) {
-                tasks[position] = task;
+                tasks.add(task);
                 position++;
-                System.out.println("You added '" + tasks[position - 1] + "' to the list!"
+                System.out.println("You added '" + tasks.get(position - 1) + "' to the list!"
                         + "\nNow you have " + position + " task(s) in the list!");
             } else {
                 throw new DukeException("You inputted an invalid command! Please try deadline, todo or event :)");
@@ -97,8 +101,8 @@ public class Duke {
             System.out.println("List is empty!");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int item = 0; tasks[item] != null; item++)  {
-                System.out.println(item + 1 + ". " + tasks[item]);
+            for (int item = 0; item < tasks.size(); item++)  {
+                System.out.println(item + 1 + ". " + tasks.get(item));
             }
         }
 

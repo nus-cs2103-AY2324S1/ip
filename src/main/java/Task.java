@@ -12,8 +12,6 @@ public class Task {
             return (isDone ? "X" : " ");
         }
 
-
-
         public void markTask() {
             this.isDone = true;
             System.out.println("Heyyo! I've marked this task as done!\n" + this);
