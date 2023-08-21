@@ -1,9 +1,11 @@
+package duke;
+
 import java.util.Scanner;
 public class Duke {
-    private static String name = "Alfred";
+    protected static String name = "Alfred";
 
-    private static String[] list = new String[100];
-    private static int counter = 0;
+    protected static String[] list = new String[100];
+    protected static int counter = 0;
 
     public static void println() {
         System.out.println("____________________________________________________________");
