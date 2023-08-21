@@ -9,8 +9,12 @@ public class Task {
     public String getDoneIcon() {
         return isDone ? "X" : " ";
     }
-    public void toggleDone() {
-        this.isDone = !this.isDone;
+    public void setDone() {
+        this.isDone = true;
+    }
+
+    public void setUndone() {
+        this.isDone = false;
     }
 
     @Override
