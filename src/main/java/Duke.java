@@ -5,6 +5,9 @@ public class Duke {
         exit();
     }
 
+    /**
+     * Prints greeting to console.
+     */
     public static void greet() {
         String logo =
                 "        _______ _                _____ \n" +
@@ -20,11 +23,17 @@ public class Duke {
         printHorizontalLine();
     }
 
+    /**
+     * Prints goodbye to console.
+     */
     public static void exit() {
         System.out.println("Goodbye!");
         printHorizontalLine();
     }
 
+    /**
+     * Prints a horizontal line containing the character '-' of width 80.
+     */
     public static void printHorizontalLine() {
         int consoleWidth = 80;
         String line = "_".repeat(consoleWidth);
