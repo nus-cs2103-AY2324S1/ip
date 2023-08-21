@@ -7,24 +7,40 @@ public class Duke {
         String temp[] = input.split(" ");
         Task task;
         String category;
-        if (temp[0].equals("")) {
-            return;
-        } else if (temp[0].equals("todo")) {
-            task = new Todo(input.substring(5));
-            tasks.add(task);
-        } else if (temp[0].equals("deadline")){
-            int spacer = input.indexOf("/");
-            task = new Deadline(input.substring(9, spacer), input.substring(spacer + 4));
-            tasks.add(task);
-        } else {
-            int startSpacer = input.indexOf("/");
-            int endSpacer = input.lastIndexOf("/");
-            task = new Event(input.substring(6, startSpacer),
-                    input.substring(startSpacer + 6, endSpacer), input.substring(endSpacer + 4));
-            tasks.add(task);
+        try {
+            if (temp[0].equals("")) {
+                throw new DukeException("Input Cannot be Empty");
+            } else if (temp[0].equals("todo")) {
+                if (temp.length == 1) {
+                    throw new DukeException("☹ Description of todo cannot be empty. ☹");
+                }
+                task = new Todo(input.substring(5));
+                tasks.add(task);
+            } else if (temp[0].equals("deadline")){
+                if (temp.length == 1) {
+                    throw new DukeException("☹ Description of deadline cannot be empty. ☹");
+                }
+                int spacer = input.indexOf("/");
+                task = new Deadline(input.substring(9, spacer), input.substring(spacer + 4));
+                tasks.add(task);
+            } else if (temp[0].equals("event")){
+                if (temp.length == 1) {
+                    throw new DukeException("☹ Description of event cannot be empty. ☹");
+                }
+                int startSpacer = input.indexOf("/");
+                int endSpacer = input.lastIndexOf("/");
+                task = new Event(input.substring(6, startSpacer),
+                        input.substring(startSpacer + 6, endSpacer), input.substring(endSpacer + 4));
+                tasks.add(task);
+            } else {
+                throw new DukeException("I'm sorry, but I don't know what that means :(");
+            }
+            System.out.println("Got it. I've added this task:\n" + task
+                    + "\nNow you have " + tasks.size() + " tasks in the list.");
+        } catch (DukeException e) {
+            System.out.println("OOPS!" + e.toString().split("DukeException:")[1]);
         }
-        System.out.println("Got it. I've added this task:\n" + task
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+
     }
     private static void listTask() {
         for (int i = 0; i < tasks.size(); i++) {
