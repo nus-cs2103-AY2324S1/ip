@@ -7,11 +7,15 @@ public class Deadline extends Task {
         this.by = by;
     }
 
-    public static Deadline initializeFromInput(String input) {
-        String[] processed = input.split("deadline")[1].split("/by");
-        String taskName = processed[0];
-        String doBy = processed[1].strip();
-        return new Deadline(taskName, doBy);
+    public static Deadline initializeFromInput(String input) throws EmptyDescriptionException {
+        try {
+            String[] processed = input.split("deadline")[1].split("/by");
+            String taskName = processed[0];
+            String doBy = processed[1].strip();
+            return new Deadline(taskName, doBy);
+        } catch (Exception e) {
+            throw new EmptyDescriptionException("deadline", "deadline return book /by Sunday");
+        }
     }
 
     @Override
