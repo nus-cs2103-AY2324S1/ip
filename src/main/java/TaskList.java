@@ -11,7 +11,9 @@ class TaskList {
     public void add(Task task) {
         list.add(task);
         System.out.println(divider);
-        System.out.println("added: " + task.toString());
+        System.out.println("I Gotchu. This task added successfully:");
+        System.out.println(task.toString());
+        System.out.println("Yeaboi only " + list.size() + " in the list.");
         System.out.println(divider);
     }
 
@@ -37,9 +39,10 @@ class TaskList {
 
     public void print() {
         System.out.println(divider);
+        System.out.println("Here yo tasks in your list my g:");
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
-            System.out.println((i+1) + task.toString());
+            System.out.println((i+1) + "." + task.toString());
         }
         System.out.println(divider);
     }

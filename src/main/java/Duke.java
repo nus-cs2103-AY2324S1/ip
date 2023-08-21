@@ -30,9 +30,24 @@ public class Duke {
             } else if (command.startsWith("unmark")) {
                 int idx = Integer.parseInt(command.split("mark")[1].strip());
                 taskList.unmark(idx);
-            } else {
-                taskList.add(new Task(command));
+            } else if (command.startsWith("todo")) {
+                String description = command.split("todo")[1].strip();
+                taskList.add(new ToDo(description));
+            } else if (command.startsWith("deadline")) {
+                String[] res = command.split("deadline");
+                String description = res[1].split("/by")[0].strip();
+                String by = res[1].split("/by")[1].strip();
+                taskList.add(new Deadline(description, by));
+            } else if (command.startsWith("event")) {
+                String res = command.split("event")[1];
+                String description = res.split("/from")[0].strip();
+                String time = res.split("/from")[1];
+                String from  = time.split("/to")[0].strip();
+                String to = time.split("/to")[1].strip();
+
+                taskList.add(new Event(description, from, to));
             }
+
             command = scanner.nextLine();
         }
         System.out.println(divider);
