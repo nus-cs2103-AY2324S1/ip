@@ -2,6 +2,8 @@ import java.util.Scanner;
 public class Bot {
     public Store store = new Store();
     public static final String LIST_COMMAND = "list";
+    public static final String MARK_COMMAND = "mark";
+    public static final String UNMARK_COMMAND = "unmark";
     public static final String BYE_COMMAND = "bye";
 
     public void printWelcomeMessage(){
@@ -18,11 +20,18 @@ public class Bot {
         String input;
         while(true) {
             input = sc.nextLine();
-            switch(input) {
+            String command = input.split(" ")[0];
+            switch(command) {
                 case BYE_COMMAND:
                     break;
                 case LIST_COMMAND:
                     store.list();
+                    continue;
+                case MARK_COMMAND:
+                    store.mark(Integer.parseInt(input.split(" ")[1]));
+                    continue;
+                case UNMARK_COMMAND:
+                    store.unmark(Integer.parseInt(input.split(" ")[1]));
                     continue;
                 default:
                     store.add(input);
