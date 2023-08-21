@@ -19,10 +19,20 @@ public class Parser {
                 break;
             case "unmark":
                 if (inputArr.length < 2) {
-                    throw new DukeException("Please provide the task number.");
+                    throw new DukeException("\tPlease provide the task number.");
                 }
                 try {
                     storage.markTaskNotDone(Integer.parseInt(inputArr[1]));
+                } catch (NumberFormatException e) {
+                    throw new DukeException("\tPlease provide a valid task number.");
+                }
+                break;
+            case "delete":
+                if (inputArr.length < 2) {
+                    throw new DukeException("\tPlease provide the task number.");
+                }
+                try {
+                    storage.deleteTask(Integer.parseInt(inputArr[1]));
                 } catch (NumberFormatException e) {
                     throw new DukeException("\tPlease provide a valid task number.");
                 }

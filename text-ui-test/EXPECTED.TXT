@@ -11,7 +11,7 @@
 	__________________________________
 	__________________________________
 	Got it. I've added this task:
-	[T][ ] borrow book
+	  [T][ ] borrow book
 	Now you have 1 task in the list.
 	__________________________________
 	__________________________________
@@ -20,12 +20,12 @@
 	__________________________________
 	__________________________________
 	Got it. I've added this task:
-	[D][ ] return book (by: Sunday)
+	  [D][ ] return book (by: Sunday)
 	Now you have 2 tasks in the list.
 	__________________________________
 	__________________________________
 	Got it. I've added this task:
-	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	  [E][ ] project meeting (from: Mon 2pm to: 4pm)
 	Now you have 3 tasks in the list.
 	__________________________________
 	__________________________________
@@ -61,6 +61,19 @@
 	__________________________________
 	__________________________________
 	OOPS!!! I'm sorry, but I don't understand what that means :-(
+	__________________________________
+	__________________________________
+	Got it. I've added this task:
+	  [T][ ] join sports club
+	Now you have 4 tasks in the list.
+	__________________________________
+	__________________________________
+	Nice! I've marked this task as done:
+	  [T][X] join sports club
+	__________________________________
+	__________________________________
+	Noted. I've removed this task.
+	Now you have 3 tasks in the list.
 	__________________________________
 	__________________________________
 	Bye. Have a nice day!

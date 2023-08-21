@@ -10,4 +10,7 @@ mark 2
 list
 todo
 blah
+todo join sports club
+mark 4
+delete 3
 bye
