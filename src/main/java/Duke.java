@@ -9,46 +9,66 @@ public class Duke {
     //        System.out.println("Hello from\n" + logo);
     public static String divider = "____________________________________________________________";
     public static void main(String[] args) {
+        TaskList taskList = new TaskList();
+        boolean flag = true;
+
         System.out.println(divider);
         System.out.println("Hello! I'm BanterBot");
         System.out.println("What can I do for you lmao?");
         System.out.println(divider);
 
-        TaskList taskList = new TaskList();
         Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine();
+        String input = scanner.nextLine().trim();
 
-        while (!command.equals("bye")) {
-            if (command.equals("list")) {
-                taskList.print();
-            } else if (command.startsWith("mark")) {
-                int idx = Integer.parseInt(command.split("mark")[1].strip());
-                taskList.mark(idx);
-            } else if (command.startsWith("unmark")) {
-                int idx = Integer.parseInt(command.split("mark")[1].strip());
-                taskList.unmark(idx);
-            } else if (command.startsWith("todo")) {
-                String description = command.split("todo")[1].strip();
-                taskList.add(new ToDo(description));
-            } else if (command.startsWith("deadline")) {
-                String[] res = command.split("deadline");
-                String description = res[1].split("/by")[0].strip();
-                String by = res[1].split("/by")[1].strip();
-                taskList.add(new Deadline(description, by));
-            } else if (command.startsWith("event")) {
-                String res = command.split("event")[1];
-                String description = res.split("/from")[0].strip();
-                String time = res.split("/from")[1];
-                String from  = time.split("/to")[0].strip();
-                String to = time.split("/to")[1].strip();
+        while (flag) {
+            Command command = Command.parseCommand(input);
 
-                taskList.add(new Event(description, from, to));
+            switch (command) {
+                case LIST:
+                    taskList.print();
+                    break;
+                case MARK:
+                    int idx = Integer.parseInt(input.split("mark", 2)[1].strip());
+
+                    taskList.mark(idx);
+                    break;
+                case UNMARK:
+                    idx = Integer.parseInt(input.split("mark", 2)[1].strip());
+
+                    taskList.unmark(idx);
+                    break;
+                case TODO:
+                    String description = input.split("todo", 2)[1].strip();
+
+                    taskList.add(new ToDo(description));
+                    break;
+                case DEADLINE:
+                    String[] parts = input.split("deadline", 2);
+                    description = parts[1].split("/by", 2)[0].strip();
+                    String by = parts[1].split("/by", 2)[1].strip();
+
+                    taskList.add(new Deadline(description, by));
+                    break;
+                case EVENT:
+                    parts = input.split("event", 2);
+                    description = parts[1].split("/from", 2)[0].strip();
+                    String time = parts[1].split("/from", 2)[1];
+                    String from = time.split("/to", 2)[0].strip();
+                    String to = time.split("/to", 2)[1].strip();
+
+                    taskList.add(new Event(description, from, to));
+                    break;
+                case INVALID:
+                    System.out.println("Invalid Command Bruh");
+                    break;
+                case BYE:
+                    System.out.println(divider);
+                    System.out.println("Bye. Hope to see you again soon lol!");
+                    System.out.println(divider);
+                    flag = false;
+                    return;
             }
-
-            command = scanner.nextLine();
+            input = scanner.nextLine();
         }
-        System.out.println(divider);
-        System.out.println("Bye. Hope to see you again soon lol!");
-        System.out.println(divider);
     }
 }
