@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    private final String line = "\n_____________________________________________________\n";
+    private final String line = "_____________________________________________________";
     private final ArrayList<Task> lst = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -159,38 +159,38 @@ public class Duke {
     public void addTodo(String input) {
         Todo newTask = new Todo(input);
         System.out.println(line);
-        System.out.println("Got it. I've added this task:\n");
-        System.out.println("\t" + newTask + "\n");
+        System.out.println("Got it. I've added this task:");
+        System.out.println("\t" + newTask);
         lst.add(newTask);
-        System.out.println("Now you have " + lst.size() + " tasks in the list.\n");
+        System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
     }
 
     public void addDeadline(String input, String by) {
         Deadline newTask = new Deadline(input, by);
         System.out.println(line);
-        System.out.println("Got it. I've added this task:\n");
-        System.out.println("\t" + newTask + "\n");
+        System.out.println("Got it. I've added this task:");
+        System.out.println("\t" + newTask);
         lst.add(newTask);
-        System.out.println("Now you have " + lst.size() + " tasks in the list.\n");
+        System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
     }
 
     public void addEvent(String input, String start, String end) {
         Event newTask = new Event(input, start, end);
         System.out.println(line);
-        System.out.println("Got it. I've added this task:\n");
-        System.out.println("\t" + newTask + "\n");
+        System.out.println("Got it. I've added this task:");
+        System.out.println("\t" + newTask);
         lst.add(newTask);
-        System.out.println("Now you have " + lst.size() + " tasks in the list.\n");
+        System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
     }
 
     public void printList() {
         System.out.println(line);
-        System.out.println("Here are the tasks in your list:\n");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < lst.size(); i++) {
-            System.out.println((i + 1) + ". " + lst.get(i).toString() + "\n");
+            System.out.println((i + 1) + ". " + lst.get(i).toString());
         }
         System.out.println(line);
     }
@@ -204,12 +204,12 @@ public class Duke {
     public void markCompletion(Task task) {
         if (task.getStatusIcon().equals("X")) {
             System.out.println(line);
-            System.out.println("Nice! I've marked this task as done:\n");
+            System.out.println("Nice! I've marked this task as done:");
             System.out.println("\t" + task);
             System.out.println(line);
         } else {
             System.out.println(line);
-            System.out.println("Nice! I've marked this task as done:\n");
+            System.out.println("Nice! I've marked this task as done:");
             task.toggleCompletion();
             System.out.println("\t" + task);
             System.out.println(line);
@@ -219,12 +219,12 @@ public class Duke {
     public void unmarkCompletion(Task task) {
         if (task.getStatusIcon().equals(" ")) {
             System.out.println(line);
-            System.out.println("OK, I've marked this task as not done yet:\n");
+            System.out.println("OK, I've marked this task as not done yet:");
             System.out.println("\t" + task);
             System.out.println(line);
         } else {
             System.out.println(line);
-            System.out.println("OK, I've marked this task as not done yet:\n");
+            System.out.println("OK, I've marked this task as not done yet:");
             task.toggleCompletion();
             System.out.println("\t" + task);
             System.out.println(line);
@@ -233,10 +233,10 @@ public class Duke {
 
     public void deleteTask(Integer num) {
         System.out.println(line);
-        System.out.println("Noted. I've removed this task:\n");
+        System.out.println("Noted. I've removed this task:");
         Task selectedTask = lst.remove(num - 1);
-        System.out.println("\t" + selectedTask + "\n");
-        System.out.println("Now you have " + lst.size() + " tasks in the list.\n");
+        System.out.println("\t" + selectedTask);
+        System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
     }
 }
