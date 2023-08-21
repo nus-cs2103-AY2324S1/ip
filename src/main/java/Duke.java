@@ -115,6 +115,16 @@ public class Duke {
                 extractTail(toDate)
             );
         } 
+
+        else if (command.equals("delete")) {
+            if (header.length < 2) {
+                throw new DukeException(new String[] {
+                    "Looks like you're missing a number:",
+                    "Try " + cTxt("delete", PURPLE) + " 1"
+                });
+            }
+            this.delete(header[1]);
+        } 
         
         else {
             throw new DukeException(new String[] {
@@ -140,11 +150,41 @@ public class Duke {
         this.speak(formatTasks);
     }
 
+    private void delete(String taskCount) throws DukeException {
+        int index;
+        try {
+            index = Integer.parseInt(taskCount);
+        } catch (NumberFormatException e) {
+            this.error(
+                cTxt("delete", PURPLE)
+                + " takes in a number. Try delete 1."
+            );
+            return;
+        }
+
+        // User tries to delete a task that is out of bounds.
+        if (index < 1 || index > tasks.size()) {
+            throw new DukeException(String.format(
+                "Unable to " 
+                    + cTxt("delete", PURPLE) 
+                    + " task %d :( You have %d task(s) stored.",
+                index, tasks.size()
+            ));
+        }
+
+        Task removedTask = this.tasks.remove(index - 1);
+        this.speak(new String[] {
+            "Okie! I've deleted task " + taskCount + ":",
+            "  " + removedTask.toString(),
+            "Total no. of tasks stored: " + tasks.size()
+        });
+    }
+
     private void addTodo(String description) {
         Task todo = new Todo(description);
         this.addTask(todo);
         this.speak(new String[] {
-            "Okie! I've added a new " + cTxt("TODO:", GREEN),
+            "Okie! I've added a new " + cTxt("TODO", GREEN) + ":",
             "  " + todo.toString(),
             "Total no. of tasks stored: " + tasks.size()
         });
@@ -154,7 +194,7 @@ public class Duke {
         Task deadline = new Deadline(description, by);
         this.addTask(deadline);
         this.speak(new String[] {
-            "Okie! I've added a new " + cTxt("DEADLINE:", BLUE),
+            "Okie! I've added a new " + cTxt("DEADLINE", BLUE) + ":",
             "  " + deadline.toString(),
             "Total no. of tasks stored: " + tasks.size()
         });
@@ -164,7 +204,7 @@ public class Duke {
         Task event = new Event(description, start, end);
         this.addTask(event);
         this.speak(new String[] {
-            "Okie! I've added a new " + cTxt("EVENT:", YELLOW),
+            "Okie! I've added a new " + cTxt("EVENT", YELLOW) + ":",
             "  " + event.toString(),
             "Total no. of tasks stored: " + tasks.size()
         });
@@ -182,7 +222,7 @@ public class Duke {
         } catch (NumberFormatException e) {
             this.error(
                 cTxt((done ? "mark" : "unmark"), PURPLE)
-                + " takes in a number. Try mark 1."
+                + " takes in a number. Try " + cTxt("mark", PURPLE) + " 1."
             );
             return;
         }
@@ -202,7 +242,7 @@ public class Duke {
 
         String success = done
             ? "Nice, I've marked this task as done:"
-            : "OK, I've marked this task as not done yet:";
+            : "Okie, I've marked this task as not done yet:";
 
         this.speak(new String[] {
             success,

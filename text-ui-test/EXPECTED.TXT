@@ -19,7 +19,7 @@
 
 > 
     [0;31mErm... error :([0m
-    [35mmark[0m takes in a number. Try mark 1.
+    [35mmark[0m takes in a number. Try [35mmark[0m 1.
 
 > 
     [0;31mErm... error :([0m
@@ -27,12 +27,12 @@
     Try [35mtodo[0m read a book
 
 > 
-    Okie! I've added a new [0;32mTODO:[0m
+    Okie! I've added a new [0;32mTODO[0m:
       [T][ ] revise basic Java concepts
     Total no. of tasks stored: 1
 
 > 
-    Okie! I've added a new [0;32mTODO:[0m
+    Okie! I've added a new [0;32mTODO[0m:
       [T][ ] revise basic Java concepts
     Total no. of tasks stored: 2
 
@@ -48,7 +48,7 @@
     Try [35mdeadline[0m submit essay /by Monday, 4pm
 
 > 
-    Okie! I've added a new [0;34mDEADLINE:[0m
+    Okie! I've added a new [0;34mDEADLINE[0m:
       [D][ ] watch CS2103T lecture (by: Friday)
     Total no. of tasks stored: 3
 
@@ -76,12 +76,12 @@
     Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
 
 > 
-    Okie! I've added a new [0;33mEVENT:[0m
+    Okie! I've added a new [0;33mEVENT[0m:
       [E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
     Total no. of tasks stored: 4
 
 > 
-    Okie! I've added a new [0;33mEVENT:[0m
+    Okie! I've added a new [0;33mEVENT[0m:
       [E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
     Total no. of tasks stored: 5
 
@@ -114,7 +114,7 @@
     5.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
 
 > 
-    OK, I've marked this task as not done yet:
+    Okie, I've marked this task as not done yet:
       [T][ ] revise basic Java concepts
 
 > 
@@ -124,6 +124,37 @@
     3.[D][X] watch CS2103T lecture (by: Friday)
     4.[E][X] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
     5.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+
+> 
+    [0;31mErm... error :([0m
+        Unable to [35mdelete[0m task 0 :( You have 5 task(s) stored.
+
+> 
+    [0;31mErm... error :([0m
+        Unable to [35mdelete[0m task 8 :( You have 5 task(s) stored.
+
+> 
+    Okie! I've deleted task 1:
+      [T][ ] revise basic Java concepts
+    Total no. of tasks stored: 4
+
+> 
+    Here are the tasks in your list:
+    1.[T][ ] revise basic Java concepts
+    2.[D][X] watch CS2103T lecture (by: Friday)
+    3.[E][X] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    4.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+
+> 
+    Okie! I've deleted task 3:
+      [E][X] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    Total no. of tasks stored: 3
+
+> 
+    Here are the tasks in your list:
+    1.[T][ ] revise basic Java concepts
+    2.[D][X] watch CS2103T lecture (by: Friday)
+    3.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
 
 > 
     Bye~ Come back soon :)
