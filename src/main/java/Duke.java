@@ -7,6 +7,7 @@ public class Duke {
     private boolean isRunning = true;
     private final ArrayList<Task> tasks = new ArrayList<>();
     private int numOfTasks = 0;
+    private int numOfCompletedTasks = 0;
     private final String name;
     public Duke() {
         this.name = "Meg";
@@ -74,12 +75,17 @@ public class Duke {
     }
 
     public void list() {
-        System.out.printf("You have %d tasks.%n", numOfTasks);
+        System.out.printf("You have %d tasks. (%d complete, %d incomplete)%n",
+                numOfTasks, numOfCompletedTasks, numOfTasks - numOfCompletedTasks);
         for (int i = 0; i < numOfTasks; i++) {
             System.out.printf("%d. " + tasks.get(i).toString()
                     + "%n", i + 1);
         }
-        System.out.println("Don't expect me to remember them for you!");
+        if (numOfCompletedTasks == numOfTasks) {
+            System.out.println("You've completed all your tasks. Good for you.");
+        } else {
+            System.out.println("Don't expect me to remember them for you!");
+        }
         printHorizontalLine();
     }
 
@@ -101,10 +107,11 @@ public class Duke {
                 Task task = tasks.get(taskNumber - 1);
                 if (!task.isCompleted) {
                     task.setCompleted();
+                    this.numOfCompletedTasks++;
                     System.out.printf("Task %d set as complete.%n", taskNumber);
                 } else {
-                    System.out.printf("Task %d is already complete." + "%n" +
-                            "Stop wasting my time!", taskNumber);
+                    System.out.printf("Task %d is already complete.%n" +
+                            "Stop wasting my time!%n", taskNumber);
                 }
                 break;
         }
@@ -129,10 +136,11 @@ public class Duke {
                 Task task = tasks.get(taskNumber - 1);
                 if (task.isCompleted) {
                     task.setIncomplete();
+                    this.numOfCompletedTasks--;
                     System.out.printf("Task %d set as incomplete.%n", taskNumber);
                 } else {
-                    System.out.printf("Task %d is already incomplete." + "%n" +
-                            "Stop wasting my time!", taskNumber);
+                    System.out.printf("Task %d is already incomplete.%n" +
+                            "Stop wasting my time!%n", taskNumber);
                 }
                 break;
         }
