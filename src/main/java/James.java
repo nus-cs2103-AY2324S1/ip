@@ -2,7 +2,16 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class James {
+    public enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
     public static void main(String[] args) {
+        new James().start();
+    }
+
+    public void start() {
         String line = "____________________________________________________________";
         String sadFace = "\u2639";
 
@@ -41,14 +50,25 @@ public class James {
                     System.out.println("Now you have " + items.size() + " tasks in the list.");
                 } else {
                     // Add Task
-                    Task task;
+                    TaskType taskType = null;
                     if (input.contains("todo")) {
+                        taskType = TaskType.TODO;
+                    } else if (input.contains("deadline")) {
+                        taskType = TaskType.DEADLINE;
+                    } else if (input.contains("event")) {
+                        taskType = TaskType.EVENT;
+                    } else {
+                        throw new JamesException(sadFace + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    }
+                    Task task;
+
+                    if (taskType == TaskType.TODO) {
                         String[] description = input.split("todo ");
                         if (description.length == 1) {
                             throw new JamesException(sadFace + " OOPS!!! The description of a todo cannot be empty.");
                         }
                         task = new ToDo(description[1]);
-                    } else if (input.contains("deadline")) {
+                    } else if (taskType == TaskType.DEADLINE) {
                         String[] parsed = input.split("deadline ");
                         if (parsed.length == 1) {
                             throw new JamesException(sadFace + " OOPS!!! The description of a deadline cannot be empty.");
@@ -60,7 +80,7 @@ public class James {
                         String description = param[0];
                         String time = param[1];
                         task = new Deadline(description, time);
-                    } else if (input.contains("event")) {
+                    } else if (taskType == TaskType.EVENT) {
                         String[] parsed = input.split("event ")[1].split(" /from ");
                         if (parsed.length == 1) {
                             throw new JamesException(sadFace + " OOPS!!! The description of a event cannot be empty.");
