@@ -51,6 +51,9 @@ public class Duck {
             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\r\n" +
             "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░";
 
+    /**
+     * Quacks memory
+     */
     private ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void main(String[] args) {
@@ -79,28 +82,30 @@ public class Duck {
         String input = scanner.nextLine();
         while (!input.equalsIgnoreCase("bye")) {
             print(Duck.LINE_BREAK);
-            String[] parsedInput = input.split(" ");
-            switch (parsedInput[0]) {
-                case "list":
-                    handleList();
-                    break;
-                case "mark":
-                    handleMark(true, Integer.valueOf(parsedInput[1]) - 1);
-                    break;
-                case "unmark":
-                    handleMark(false, Integer.valueOf(parsedInput[1]) - 1);
-                    break;
-                default:
-                    if (this.tasks.size() >= 99) {
-                        this.print("Quack Quack, I cant remember anymore things!");
+            Parser command = new Parser(input);
+            if (command.getValidity()) {
+                switch (command.getCommand()) {
+                    case LIST:
+                        this.handleList();
                         break;
-                    }
-                    this.tasks.add(new Task(input, this.tasks.size()));
-                    this.print("Quack has added: " + input);
-                    this.print("Now you have " + input + " tasks in quack's memory");
+                    case MARK:
+                    case UNMARK:
+                        this.handleMark(command.getCommand() == Commands.MARK, Integer.valueOf(command.getParam()) - 1);
+                        break;
+                    case TODO:
+                    case DEADLINE:
+                    case EVENT:
+                        this.handleTask(command);
+                        break;
+                    case UNRECOGNISED:
+                        this.print("Quack does not understand your command");
+                        this.print("Quack only understand list, mark, unmark, todo, deadline, event");
+                        break;
 
+                }
+            } else {
+                this.print("QUACK QUACK!! " + command.getParam());
             }
-
             print(Duck.LINE_BREAK);
             input = scanner.nextLine();
         }
@@ -150,6 +155,34 @@ public class Duck {
         }
         this.print(resp);
         this.print(task.toString());
+    }
+
+    /**
+     * Handles the creation of new tasks
+     * 
+     * @param param - parser object containing information on the new task.
+     */
+    public void handleTask(Parser param) {
+        if (this.tasks.size() >= 100) {
+            this.print("QUACK!! quack cannot remember any more tasks!!");
+            return;
+        }
+
+        Commands type = param.getCommand();
+        Task newTask;
+        if (type == Commands.TODO) {
+            newTask = new Todo(param.getParam(), this.tasks.size());
+
+        } else if (type == Commands.DEADLINE) {
+            newTask = new Deadline(param.getFlag("/by"), param.getParam(), this.tasks.size());
+        } else {
+            newTask = new Event(param.getFlag("/from"), param.getFlag("/to"), param.getParam(), this.tasks.size());
+        }
+
+        this.tasks.add(newTask);
+        this.print("Quack! I have added this task:");
+        this.print(newTask.toString());
+        this.print("Quack! Quack is currently remembering " + this.tasks.size() + " tasks.");
 
     }
 
