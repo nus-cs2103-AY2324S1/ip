@@ -4,51 +4,67 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static final String line = "    ————————————————————————————————————————————————————";
+    private static final String i4 = "    ";
+    private static final String i5 = Duke.i4 + " ";
+    private static final String line = Duke.i4 + "————————————————————————————————————————————————————";
     private String name;
-    private List<String> list;
+    private List<Task> list;
 
     public Duke(String name) {
         this.name = name;
         this.list = new ArrayList<>();
     }
 
+    public void line() {
+        System.out.println(Duke.line);
+    }
+
     public void exit() {
-        System.out.println("     Bye. Hope to see you again soon!");
+        System.out.println(Duke.i5 + "Bye. Hope to see you again soon!");
     }
 
     public void greet() {
-        System.out.println(Duke.line);
-        System.out.println("     Hello! I'm " + this.name);
-        System.out.println("     What can I do for you?");
-        System.out.println(Duke.line);
+        this.line();
+        System.out.println(Duke.i5 + "Hello! I'm " + this.name);
+        System.out.println(Duke.i5 + "What can I do for you?");
+        this.line();
     }
 
-    public void echo() {
+    public void startService() {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
-        System.out.println(Duke.line);
+        this.line();
         if (input.equals("bye")) {
             scanner.close();
             exit();
-            System.out.println(Duke.line);
+            this.line();
             return;
         } else if (input.equals("list")) {
+            System.out.println(Duke.i5 + "Here are the tasks in your list:");
             for (int i = 0; i < this.list.size(); i++) {
-                System.out.println("     " + (i + 1) + ". " + this.list.get(i));
+                System.out.println(Duke.i5 + (i + 1) + "." + this.list.get(i));
             }
+        } else if (input.startsWith("mark")) {
+            int index = Integer.parseInt(input.substring(5)) - 1;
+            this.list.get(index).mark();
+        } else if (input.startsWith("unmark")) {
+            int index = Integer.parseInt(input.substring(7)) - 1;
+            this.list.get(index).unmark();
         } else {
-            this.list.add(input);
-            System.out.println("     added: " + input);
+            this.list.add(new Task(input));
+            System.out.println(Duke.i5 + "added: " + input);
         }
-        System.out.println(Duke.line);
-        echo();
+        this.line();
+        startService();
     }
 
     public static void main(String[] args) {
         Duke bot = new Duke("Kam_BOT");
         bot.greet();
-        bot.echo();
+        bot.startService();
     }
 }
+
+
+
