@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static char horizontal_line = '\u2500';
     private static String name = "Chewbacca";
 
     private static List<Task> list = new ArrayList<>();
@@ -26,6 +25,7 @@ public class Duke {
     }
 
     private static String drawLine() {
+        char horizontal_line = '\u2500';
         String line = "";
         for (int i = 0; i < 50; i++)
             line += horizontal_line;
@@ -55,11 +55,12 @@ public class Duke {
     }
 
     private static void readInput() {
+        // change
         Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine();
-        String[] tokens = command.split(" ");
+        String command = scanner.next();
+        //String[] tokens = command.split(" ");
 
-        switch (tokens[0]) {
+        switch (command) {
             case "bye":
                 end();
                 break;
@@ -68,50 +69,98 @@ public class Duke {
                 readInput();
                 break;
             case "mark":
-                mark(Integer.parseInt(tokens[1]));
+                int i = scanner.nextInt();
+                mark(i);
                 readInput();
                 break;
             case "unmark":
-                unmark(Integer.parseInt(tokens[1]));
+                int k = scanner.nextInt();
+                unmark(k);
+                readInput();
+                break;
+            case "deadline":
+                String[] deadlineRemain = scanner.nextLine().split(" /by ");
+                String task = deadlineRemain[0];
+                String date = deadlineRemain[1];
+                createDeadline(task, date);
+                readInput();
+                break;
+            case "todo":
+                String ToDoRemain = scanner.nextLine();
+                createToDo(ToDoRemain);
+                readInput();
+                break;
+            case "event":
+                String[] eventRemain = scanner.nextLine().split(" /from ");
+                String eventTask = eventRemain[0];
+                String[] eventDate = eventRemain[1].split(" /to ");
+                String startDate = eventDate[0];
+                String endDate = eventDate[1];
+                createEvent(eventTask, startDate, endDate);
                 readInput();
                 break;
             default:
-                createTask(command);
+                System.out.println(drawLine());
+                System.out.println("Chewie doesn't understand " + command);
+                System.out.println("\n" + drawLine());
                 readInput();
         }
     }
 
-    private static void createTask(String task) {
-        list.add(new Task(task));
+    private static void createToDo(String task) {
+        ToDo td = new ToDo(task);
+        list.add(td);
         System.out.println(drawLine());
-        System.out.println("added: " + task + "\n");
+        System.out.println("Chewie gotcha, task added: \n" + td.status() + task);
+        System.out.println("Chewie now find " + list.size() + " tasks in the list" + "\n");
+        System.out.println(drawLine());
+    }
+
+    private static void createDeadline(String task, String date) {
+        Deadline dl = new Deadline(task,date);
+        list.add(dl);
+        System.out.println(drawLine());
+        System.out.println("Chewie gotcha, task added: \n" + dl.status() + dl.taskName());
+        System.out.println("Chewie now find " + list.size() + " tasks in the list" + "\n");
+        System.out.println(drawLine());
+    }
+
+    private static void createEvent(String task, String start, String end) {
+        Events ev = new Events(task,start,end);
+        list.add(ev);
+        System.out.println(drawLine());
+        System.out.println("Chewie gotcha, task added: \n" + ev.status() + ev.taskName());
+        System.out.println("Chewie now find " + list.size() + " tasks in the list" + "\n");
         System.out.println(drawLine());
     }
 
     private static void readList() {
         System.out.println(drawLine());
+        System.out.println("Chewie found your task list: ");
         for (int i = 0; i < list.size(); i++) {
             int index = i + 1;
             Task task = list.get(i);
-            String status = task.isDone() ? "[X] " : "[ ] ";
-            System.out.println(index + "." + status + task.taskName());
+
+            System.out.println(index + "." + task.status() + task.taskName());
         }
         System.out.println("\n" + drawLine());
     }
 
     private static void mark(int i) {
-        list.get(i - 1).mark();
+        Task task = list.get(i-1);
+        task.mark();
         System.out.println(drawLine());
         System.out.println("Rrrruuuurrr, Chewie has marked the task.");
-        System.out.println("[X] " + list.get(i - 1).taskName());
+        System.out.println(task.status() + task.taskName());
         System.out.println("\n" + drawLine());
     }
 
     private static void unmark(int i) {
-        list.get(i - 1).unmark();
+        Task task = list.get(i-1);
+        task.unmark();
         System.out.println(drawLine());
         System.out.println("Rrrruuuurrr, Chewie has unmarked the task.");
-        System.out.println("[ ] " + list.get(i - 1).taskName());
+        System.out.println(task.status() + task.taskName());
         System.out.println("\n" + drawLine());
     }
 }
