@@ -20,13 +20,14 @@ public class Duke {
                 + horizontalLine);
 
         String userInput = myObj.nextLine();
-        while(!userInput.equals("bye")) {
+        while (!userInput.equals("bye")) {
             System.out.print(horizontalLine);
-            if (userInput.equals("list")) {
+            if (userInput.startsWith("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 1; i < list.size() + 1; i++) {
                     System.out.println(i + "." + list.get(i - 1));
                 }
-            } else if(userInput.contains("mark")) {
+            } else if (userInput.contains("mark")) {
                 int index = userInput.charAt(userInput.length() - 1) - '0';
                 Task currentTask = list.get(index - 1);
                 if (userInput.contains("unmark")) {
@@ -38,14 +39,35 @@ public class Duke {
                 }
                 System.out.println(currentTask);
             } else {
-                System.out.println("added: " + userInput);
-                Task newTask = new Task(userInput);
+                Task newTask = getTask(userInput);
+                System.out.println("Got it. I've added this task:\n" + newTask);
                 list.add(newTask);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
             }
             System.out.println(horizontalLine);
             userInput = myObj.nextLine();
         }
 
         System.out.println(byeMessage);
+    }
+
+    private static Task getTask(String userInput) {
+        String afterSpace = userInput.substring(userInput.indexOf(' ') + 1);
+        if (userInput.startsWith("todo")) {
+            return new Todo(afterSpace);
+        } else if (userInput.startsWith("deadline")) {
+            int deadlineIndex = afterSpace.indexOf("/by");
+            String taskDeadline = afterSpace.substring(deadlineIndex + 4).trim();
+            String taskName = afterSpace.substring(0, deadlineIndex).trim();
+            return new Deadline(taskName, taskDeadline);
+        } else if (userInput.startsWith("event")) {
+            int fromIndex = afterSpace.indexOf("/from");
+            int toIndex = afterSpace.indexOf("/to");
+            String taskFrom = afterSpace.substring(fromIndex + 6, toIndex - 1).trim();
+            String taskTo = afterSpace.substring(toIndex + 4).trim();
+            String taskName = afterSpace.substring(0, fromIndex).trim();
+            return new Event(taskName, taskFrom, taskTo);
+        }
+        return null;
     }
 }
