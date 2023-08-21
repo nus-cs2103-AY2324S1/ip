@@ -18,19 +18,24 @@ public class Rua {
 
         String command = sc.nextLine();
         while (!command.equals("bye")) {
+            System.out.println("____________________________________________________________\n");
             if (command.equals("list")) {
-                String message = "____________________________________________________________\n" +
-                        taskList.toString() +
-                        "____________________________________________________________\n";
-                System.out.println(message);
+                System.out.println(taskList);
+            } else if (command.startsWith("mark")) {
+                String indexStr = command.replaceAll("[^0-9]", "");
+                int index = Integer.parseInt(indexStr);
+                taskList = taskList.mark(index);
+            } else if (command.startsWith("unmark")) {
+                String indexStr = command.replaceAll("[^0-9]", "");
+                int index = Integer.parseInt(indexStr);
+                taskList = taskList.unmark(index);
             } else {
                 Task newTask = new Task(command);
-                String message = "____________________________________________________________\n" +
-                        "added: " + command + "\n" +
-                        "____________________________________________________________\n";
+                String message = "added: " + command + "\n";
                 System.out.println(message);
-                taskList.add(newTask);
+                taskList = taskList.add(newTask);
             }
+            System.out.println("____________________________________________________________\n");
             command = sc.nextLine();
         }
         System.out.println(goodbye);
