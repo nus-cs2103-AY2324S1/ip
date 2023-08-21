@@ -95,5 +95,7 @@ public class Duke {
             String input = sc.nextLine();
             bot.respond(input);
         }
+
+        sc.close();
     }
 }
