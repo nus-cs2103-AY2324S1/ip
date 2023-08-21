@@ -40,6 +40,11 @@ public class TaskList {
         return task;
     }
 
+    public Task deleteTask(int i) {
+        Task task = this.list.remove(i-1);
+        return task;
+    }
+
     public int getSize() {
         return this.list.size();
     }

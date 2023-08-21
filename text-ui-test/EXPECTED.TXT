@@ -33,10 +33,14 @@ OK, I've marked this task as not done yet:
   [T][ ] Assignment 1
 _____________________________________________________
 _____________________________________________________
+Noted. I've removed this task:
+  [D][ ] Assignment 2 (by: tomorrow)
+Now you have 2 tasks in the list.
+_____________________________________________________
+_____________________________________________________
 Here are the tasks in your list:
 1. [T][ ] Assignment 1
-2. [D][ ] Assignment 2 (by: tomorrow)
-3. [E][ ] exam (from: today to: tomorrow)
+2. [E][ ] exam (from: today to: tomorrow)
 _____________________________________________________
 _____________________________________________________
 OOPS!!! I'm sorry, but I don't know what that means :-(
@@ -55,8 +59,8 @@ Format should be: event <task description> /from <start date/time> /to <end date
 _____________________________________________________
 _____________________________________________________
 Invalid index format.
-Format should be: mark <task index> OR unmark <task index>
-where index is from 1 to 3.
+Format should be: mark <task index> OR unmark <task index> OR delete <task index>
+where index is from 1 to 2.
 _____________________________________________________
 _____________________________________________________
 OOPS!!! I'm sorry, but I don't know what that means :-(

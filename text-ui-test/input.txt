@@ -4,6 +4,7 @@ deadline Assignment 2 /by tomorrow
 event exam /from today /to tomorrow
 mark 1
 unmark 1
+delete 2
 list
 unknown command
 todo

@@ -61,6 +61,27 @@ public class Duke {
                 task;
     }
 
+    private static String deleteTask(String taskNumString) {
+        if (Duke.list.getSize() < 1) {
+            return "The task list is empty.";
+        }
+
+        if (!taskNumString.matches("[0-9]+")) {
+            throw new InvalidIndexException(Duke.list.getSize());
+        }
+
+        int taskNum = Integer.parseInt(taskNumString);
+        if (taskNum < 1 || taskNum > Duke.list.getSize()) {
+            throw new InvalidIndexException(Duke.list.getSize());
+        }
+
+        Task task = Duke.list.deleteTask(taskNum);
+        return String.format("Noted. I've removed this task:\n" +
+                "  " +
+                task +
+                "\nNow you have %d tasks in the list.", Duke.list.getSize());
+    }
+
     private static String createTodo(String desc) {
         if (desc.equals("")) {
             throw new InvalidTodoException();
@@ -144,6 +165,9 @@ public class Duke {
             case "unmark":
                 restOfInput = userInput.trim().substring(6).trim();
                 return unmark(restOfInput);
+            case "delete":
+                restOfInput = userInput.trim().substring(6).trim();
+                return deleteTask(restOfInput);
             case "todo":
                 restOfInput = userInput.trim().substring(4).trim();
                 return createTodo(restOfInput);
