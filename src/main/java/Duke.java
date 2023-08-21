@@ -27,6 +27,13 @@ public class Duke {
                 for (int i = 1; i < list.size() + 1; i++) {
                     System.out.println(i + "." + list.get(i - 1));
                 }
+            } else if (userInput.startsWith("delete")) {
+                int index = userInput.charAt(userInput.length() - 1) - '0';
+                Task currentTask = list.get(index - 1);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(currentTask);
+                list.remove(currentTask);
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
             } else if (userInput.contains("mark")) {
                 int index = userInput.charAt(userInput.length() - 1) - '0';
                 Task currentTask = list.get(index - 1);
