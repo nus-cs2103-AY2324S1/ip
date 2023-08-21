@@ -82,7 +82,7 @@ public class TaskList {
      */
     public void markTaskDone(int number) {
         this.tasks[number - 1].markDone();
-        System.out.println("Nice! I've marked this task done: ");
+        System.out.println("Nice! I've marked this task done:");
         this.tasks[number - 1].displayTask();
     }
 
@@ -92,7 +92,7 @@ public class TaskList {
      */
     public void markTaskUndone(int number) {
         this.tasks[number - 1].markUndone();
-        System.out.println("Ok, I've marked this task as not done yet: ");
+        System.out.println("Ok, I've marked this task as not done yet:");
         this.tasks[number - 1].displayTask();
     }
 
