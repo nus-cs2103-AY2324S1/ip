@@ -1,8 +1,9 @@
 public class Deadline extends Task {
     String[] inputs;
-    public Deadline(String name) {
+    public Deadline(String name) throws DukeException {
         super(name.split("/")[0]);
         this.inputs = name.split("/");
+        if (this.inputs.length < 2) throw new DukeException("deadline has no end date!");
     }
     @Override
     public String toString() {

@@ -1,9 +1,11 @@
 public class Event extends Task {
 
     String[] inputs;
-    public Event(String name) {
+    public Event(String name) throws DukeException {
         super(name.split("/")[0]);
         this.inputs = name.split("/");
+        if (this.inputs.length < 3) throw new DukeException("event has no end date!");
+
     }
 
     @Override
