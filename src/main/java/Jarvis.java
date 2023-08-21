@@ -41,17 +41,26 @@ public class Jarvis {
         System.out.println(jarvisLogo);
         Basics.greet();
 
-        String userInput = scanner.nextLine();
+        String userInput = scanner.next();
 
         while (!userInput.equals("exit")) {
+            // condition on the first word of the user input.
             switch (userInput) {
                 case "list":
                     List.show();
                     break;
+                case "mark":
+                    int taskNumber = scanner.nextInt();
+                    List.markDone(taskNumber);
+                    break;
+                case "unmark":
+                    taskNumber = scanner.nextInt();
+                    List.markUndone(taskNumber);
+                    break;
                 default:
                     List.add(userInput);
             }
-            userInput = scanner.nextLine();
+            userInput = scanner.next();
         }
 
         Basics.exit();
