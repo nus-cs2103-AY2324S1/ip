@@ -40,7 +40,12 @@ public class Duke {
         } catch (DukeException e) {
             System.out.println("OOPS!" + e.toString().split("DukeException:")[1]);
         }
+    }
 
+    private static void deleteTask(int index) {
+        Task temp = tasks.get(index - 1);
+        tasks.remove(index - 1);
+        System.out.println("Noted. I've removed this task:\n" + temp + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
     private static void listTask() {
         for (int i = 0; i < tasks.size(); i++) {
@@ -71,7 +76,10 @@ public class Duke {
                 listTask();
             } else if (temp[0].equals("mark") || temp[0].equals("unmark")) {
                 modifyTask(temp[0], Integer.parseInt(temp[1]));
-            } else {
+            } else if (temp[0].equals("delete")) {
+                deleteTask(Integer.parseInt(temp[1]));
+            }
+            else {
                 addTask(echoInput);
             }
         }
