@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Duke {
     private Scanner sc = new Scanner(System.in);
-    private ArrayList<String> arr;
+    private ArrayList<Task> arr;
     String partition = "--------------------------------------";
 
     public Duke() {
@@ -16,8 +16,23 @@ public class Duke {
     }
 
     public void addToList(String text) {
-        this.arr.add(text);
+        Task newTask = new Task(text);
+        this.arr.add(newTask);
         System.out.println(partition + "\nadded: " + text + "\n" + partition);
+    }
+
+    public void markTask(int index) {
+        Task curr = arr.get(index - 1);
+        curr.changeStatus();
+        System.out.println(partition + "\nNice! I've marked this task as done:\n" 
+        + curr + "\n" + partition);
+    }
+
+    public void unmarkTask(int index) {
+        Task curr = arr.get(index - 1);
+        curr.changeStatus();
+        System.out.println(partition + "\nOK, I've marked this task as not done yet:\n"
+        + curr + "\n" + partition);
     }
 
     public void printList() {
@@ -44,6 +59,12 @@ public class Duke {
                 endBot = true;
             } else if (input.equals("list")) {
                 this.printList();
+            } else if (input.startsWith("mark")) {
+                int currIndex = Integer.parseInt(input.replace("mark ", ""));
+                this.markTask(currIndex);
+            } else if (input.startsWith("unmark")) {
+                int currIndex = Integer.parseInt(input.replace("unmark ", ""));
+                this.unmarkTask(currIndex);
             } else {
                 this.addToList(input);
             }
