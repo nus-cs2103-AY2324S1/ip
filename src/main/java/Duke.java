@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ArrayList<String> taskList = new ArrayList<>();
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -21,9 +23,16 @@ public class Duke {
             if (command.equals("bye")) {
                 isBotRunning = false;
                 sayBye();
+            } else if (command.equals("list")) {
+                int numTask = 1;
+                for (String task : taskList) {
+                    System.out.printf("%d. %s\n", numTask, task);
+                    numTask += 1;
+                }
             } else {
                 printHorizontalLine();
-                System.out.println(command);
+                taskList.add(command);
+                System.out.printf("added: %s%n", command);
                 printHorizontalLine();
             }
         }
