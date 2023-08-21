@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input;
-        Task[] taskList = new Task[100];
+        ArrayList<Task> taskList = new ArrayList<>();
 
         String initMsg = "____________________________________________________________\n"
                 + " Hello! I'm IRIS\n"
@@ -12,7 +13,6 @@ public class Duke {
         System.out.println(initMsg);
 
         input = scanner.nextLine();
-        int taskIndex = 0;
 
         while (!input.equals("bye")) {
             System.out.println("____________________________________________________________");
@@ -30,16 +30,22 @@ public class Duke {
                 }
             } else if (command.equals("mark")) {
                 int index = Integer.parseInt(inputParts[1]) - 1;
-                taskList[index].markDone();
+                taskList.get(index).markDone();
                 System.out.println("Nice! I've marked this task as done:\n"
-                + taskList[index]);
+                + taskList.get(index));
             } else if (command.equals("unmark")) {
                 int index = Integer.parseInt(inputParts[1]) - 1;
-                taskList[index].markUndone();
+                taskList.get(index).markUndone();
                 System.out.println("OK, I've marked this task as not done yet:\n"
-                        + taskList[index]);
+                        + taskList.get(index));
+            } else if (command.equals("delete")) {
+                int index = Integer.parseInt(inputParts[1]) - 1;
+                System.out.println("Noted. I've removed this task:\n"
+                        + taskList.get(index));
+                taskList.remove(index);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             } else {
-                Task newTask = null;
+                Task newTask;
                 if (inputParts.length < 2) {
                     throw new DukeException("☹ OOPS!!! The description of a command cannot be empty.");
                 } else if (command.equals("todo")) {
@@ -55,11 +61,9 @@ public class Duke {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
 
-                if (newTask != null) {
-                    taskList[taskIndex++] = newTask;
-                    System.out.println("Got it. I've added this task:\n" + newTask);
-                    System.out.println("Now you have " + taskIndex + " tasks in the list.");
-                }
+                taskList.add(newTask);
+                System.out.println("Got it. I've added this task:\n" + newTask);
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             }
 
             System.out.println("____________________________________________________________");
@@ -74,20 +78,4 @@ public class Duke {
     }
 }
 
-//else {
-//        if (command.equals("todo")) {
-//        Task newTask = new Todo(inputParts[1]);
-//        taskList[taskIndex++] = newTask;
-//        System.out.println("Got it. I've added this task:\n" + newTask);
-//        } else if (command.equals("deadline")) {
-//        String[] commandParts = inputParts[1].split("/by", 2);
-//        Task newTask = new Deadline(commandParts[0], commandParts[1]);
-//        taskList[taskIndex++] = newTask;
-//        System.out.println("Got it. I've added this task:\n" + newTask);
-//        } else if (command.equals("event")) {
-//        String[] commandParts = inputParts[1].split("/from", 2);
-//        String[] eventParts = commandParts[1].split("/to");
-//        Task newTask = new Event(commandParts[0], eventParts[0], eventParts[1]);
-//        taskList[taskIndex++] = newTask;
-//        System.out.println("Got it. I've added this task:\n" + newTask);
-//        }
+
