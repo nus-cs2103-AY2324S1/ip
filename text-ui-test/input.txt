@@ -9,4 +9,11 @@ mark 1
 list
 unmark 2
 list
+todo
+deadline
+event
+deadline wrong info
+event wrong info
+mark 7
+unmark 7
 bye

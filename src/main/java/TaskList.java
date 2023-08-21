@@ -8,34 +8,9 @@ public class TaskList {
         taskCount = 0;
     }
 
-    public void addTask(String task) {
+    public void addTask(Task task) throws DukeException {
         if (taskCount < MAX_TASKS) {
-            String[] parts = task.split(" ", 2);
-            String taskType = parts[0].toLowerCase();
-            String taskDescription = (parts.length > 1) ? parts[1] : "";
-
-            switch (taskType) {
-                case "todo":
-                    tasks[taskCount] = new ToDo(taskDescription);
-                    break;
-                case "deadline":
-                    String[] deadlineParts = taskDescription.split(" /by ");
-                    String deadlineDescription = deadlineParts[0];
-                    String by = deadlineParts[1];
-                    tasks[taskCount] = new Deadline(deadlineDescription, by);
-                    break;
-                case "event":
-                    String[] eventParts = taskDescription.split(" /from | /to ");
-                    String eventDescription = eventParts[0];
-                    String from = eventParts[1];
-                    String to = eventParts[2];
-                    tasks[taskCount] = new Event(eventDescription, from, to);
-                    break;
-                default:
-                    System.out.println("Please enter task type.");
-                    return;
-            }
-
+            tasks[taskCount] = task;
             taskCount++;
             System.out.println("Got it. I've added this task:");
             System.out.println("  " + tasks[taskCount - 1]);
@@ -45,7 +20,7 @@ public class TaskList {
                 System.out.println("Now you have " + taskCount + " tasks in the list.");
             }
         } else {
-            System.out.println("Sorry, the task list is full.");
+            throw new DukeException("☹ OOPS!!! Sorry, the task list is full.");
         }
     }
 
@@ -60,23 +35,23 @@ public class TaskList {
         }
     }
 
-    public void markTaskAsDone(int index) {
+    public void markTaskAsDone(int index) throws DukeException {
         if (index >= 1 && index <= taskCount) {
             tasks[index - 1].markAsDone();
             System.out.println("Nice! I've marked this task as done:");
             System.out.println(tasks[index - 1].toString());
         } else {
-            System.out.println("Invalid task index.");
+            throw new DukeException("☹ OOPS!!! Invalid task index.");
         }
     }
 
-    public void markTaskAsNotDone(int index) {
+    public void markTaskAsNotDone(int index) throws DukeException {
         if (index >= 1 && index <= taskCount) {
             tasks[index - 1].markAsNotDone();
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(tasks[index - 1].toString());
         } else {
-            System.out.println("Invalid task index.");
+            throw new DukeException("☹ OOPS!!! Invalid task index.");
         }
     }
 }

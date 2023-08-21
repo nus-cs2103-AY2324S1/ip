@@ -38,27 +38,56 @@ public class Chatbot {
     }
 
     public void processInput(String input) {
-        String[] parts = input.split(" ", 2);
-        String command = parts[0];
+        try {
+            String[] parts = input.split(" ", 2);
+            String command = parts[0];
 
-        switch (command) {
-            case "bye":
-                giveOutro();
-                break;
-            case "list":
-                taskList.listTasks();
-                break;
-            case "mark":
-                int index = Integer.parseInt(parts[1]);
-                taskList.markTaskAsDone(index);
-                break;
-            case "unmark":
-                int unmarkIndex = Integer.parseInt(parts[1]);
-                taskList.markTaskAsNotDone(unmarkIndex);
-                break;
-            default:
-                taskList.addTask(input);
-                break;
+            switch (command) {
+                case "bye":
+                    giveOutro();
+                    break;
+                case "list":
+                    taskList.listTasks();
+                    break;
+                case "mark":
+                    int index = Integer.parseInt(parts[1]);
+                    taskList.markTaskAsDone(index);
+                    break;
+                case "unmark":
+                    int unmarkIndex = Integer.parseInt(parts[1]);
+                    taskList.markTaskAsNotDone(unmarkIndex);
+                    break;
+                case "todo":
+                    if (parts.length <= 1 || parts[1].isEmpty()) {
+                        throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    taskList.addTask(new ToDo(parts[1]));
+                    break;
+                case "deadline":
+                    if (parts.length <= 1) {
+                        throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    }
+                    String[] deadlineParts = parts[1].split(" /by ");
+                    if (deadlineParts.length != 2) {
+                        throw new DukeException("☹ OOPS!!! Please provide a valid deadline description and date.");
+                    }
+                    taskList.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+                    break;
+                case "event":
+                    if (parts.length <= 1) {
+                        throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                    }
+                    String[] eventParts = parts[1].split(" /from | /to ");
+                    if (eventParts.length != 3) {
+                        throw new DukeException("☹ OOPS!!! Please provide a valid event description, start date, and end date.");
+                    }
+                    taskList.addTask(new Event(eventParts[0], eventParts[1], eventParts[2]));
+                    break;
+                default:
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
