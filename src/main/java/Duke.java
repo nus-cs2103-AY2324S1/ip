@@ -1,9 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
 
     private static char horizontal_line = '\u2500';
     private static String name = "Chewbacca";
+
+    private static List<Task> list = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -58,9 +62,30 @@ public class Duke {
             case "bye":
                 end();
                 break;
+            case "list":
+                readList();
+                readInput();
+                break;
             default:
-                echo(command);
+                createTask(command);
                 readInput();
         }
+    }
+
+    private static void createTask(String task) {
+        list.add(new Task(task));
+        System.out.println(drawLine());
+        System.out.println("added: " + task + "\n");
+        System.out.println(drawLine());
+    }
+
+    private static void readList() {
+        System.out.println(drawLine());
+        for (int i = 0; i < list.size(); i++) {
+            int index = i + 1;
+            Task task = list.get(i);
+            System.out.println(index + ". " + task.taskName());
+        }
+        System.out.println("\n" + drawLine());
     }
 }
