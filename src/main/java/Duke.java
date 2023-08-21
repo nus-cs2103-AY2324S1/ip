@@ -1,4 +1,8 @@
 import java.util.Scanner;
+
+/**
+ * Represents the main class for the Duke application.
+ */
 public class Duke {
 
     public static void main(String[] args) {
@@ -7,6 +11,10 @@ public class Duke {
         echo();
     }
 
+    /**
+     * Processes user inputs and interacts with the TaskList to execute user commands.
+     * Continues to run until the user inputs the "bye" command.
+     */
     public static void echo() {
         TaskList taskList = new TaskList();
         Scanner input = new Scanner(System.in);

@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+/**
+ * Represents a list of tasks in the Duke application.
+ */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
 
@@ -6,24 +9,41 @@ public class TaskList {
         taskList.add(task);
     }
 
+    /**
+     * Mark a specific task in the list as done.
+     * @param taskNumber The index of the task to be marked as done.
+     */
     public void mark(int taskNumber) {
         Task task = taskList.get(taskNumber);
         task.mark();
         System.out.println(task.toString());
     }
 
+    /**
+     * Mark a specific task in the list as not done.
+     * @param taskNumber The index of the task to be marked as not done.
+     */
     public void unmark(int taskNumber) {
         Task task = taskList.get(taskNumber);
         task.unmark();
         System.out.println(task.toString());
     }
 
+    /**
+     * Delete a specific task from the list.
+     * @param taskNumber The index of the task to be deleted.
+     */
     public void delete(int taskNumber) {
         Task task = taskList.get(taskNumber);
         taskList.remove(taskNumber);
         System.out.println("Noted. I've removed this task:\n" + task);
         message();
     }
+
+    /**
+     * Returns a string representation of the task list.
+     * @return A string representing all tasks in the list.
+     */
     @Override
     public String toString() {
         String result = "";
