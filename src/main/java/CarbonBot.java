@@ -33,12 +33,31 @@ public class CarbonBot {
                     sc.close();
                     return;
                 case "list":
-                    // Lists all the commands saved in the arraylist
-                    int idx = 1;
-                    for(Task t : taskList) {
-                        System.out.println(String.format("%d.%s", idx, t));
-                        idx++;
+                    System.out.println("Here are the tasks in your list:");
+                    printList(taskList);
+                    break;
+                case "todo":
+                    if (input.split(" ", 2).length < 2) {
+                        System.out.println("Please provide a task description!");
+                        continue;
                     }
+
+                    String desc = input.split(" ", 2)[1];
+                    addTask(taskList, new Todo(desc));
+                    break;
+                case "deadline":
+                    int indexOfBy = input.indexOf("/by");
+                    desc = input.substring("deadline ".length(), indexOfBy).trim();
+                    String by = input.substring(indexOfBy + "/by ".length(), input.length());
+                    addTask(taskList, new Deadline(desc, by));
+                    break;
+                case "event":
+                    int indexOfFrom = input.indexOf("/from");
+                    int indexOfTo = input.indexOf("/to");
+                    desc = input.substring("event ".length(), indexOfFrom).trim();
+                    String from = input.substring(indexOfFrom + "/from ".length(), indexOfTo);
+                    String to = input.substring(indexOfTo + "/to ".length(), input.length());
+                    addTask(taskList, new Event(desc, from, to));
                     break;
                 case "mark":
                     updateTaskStatus(taskList, input, true);
@@ -56,6 +75,29 @@ public class CarbonBot {
         }
     }
 
+    // Adds a todo task to the list
+    private static void addTask(List<Task> tasks, Task task) {
+        tasks.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println(getListSize(tasks));
+    }
+
+    // Get number of tasks in the list
+    private static String getListSize(List<Task> tasks) {
+        return "Now you have " + tasks.size() + " tasks in the list.";
+    }
+
+    // Lists all the commands saved in the arraylist
+    private static void printList(List<Task> tasks) {
+        int idx = 1;
+        for(Task t : tasks) {
+            System.out.println(String.format("%d.%s", idx, t));
+            idx++;
+        }
+    }
+
+    // Marks the Task as Done or Not Done
     private static void updateTaskStatus(List<Task> tasks, String input, boolean isDone) {
         // Check if the user has specified the index to be updated
         if (input.split(" ").length < 2) {
