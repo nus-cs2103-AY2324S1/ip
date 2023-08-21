@@ -7,7 +7,7 @@ public class Duke {
         System.out.println("Hello, I am your chatbot!\nMy name is " + name + "\nHow may I help?");
         Scanner scanner = new Scanner(System.in);
         String stuff;
-        ArrayList<Task> items = new ArrayList();
+        ArrayList<Task> items = new ArrayList<>();
         stuff = scanner.nextLine();
         MarkPattern check = new MarkPattern();
 
