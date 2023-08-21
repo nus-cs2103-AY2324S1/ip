@@ -12,8 +12,8 @@ public class TaskManager {
         this.index += 1;
         this.numOfTasks += 1;
         printLine();
-        System.out.println("Got it. I've added the task: \n " + task);
-        System.out.println("Now you have " + numOfTasks + " in your list, just like how I have 5 Ballon d'Ors.");
+        System.out.println("Got it. I've added the task:\n" + task);
+        System.out.println("Now you have " + numOfTasks + " tasks in your list, just like how I have 5 Ballon d'Ors.");
         printLine();
     }
 
@@ -27,7 +27,6 @@ public class TaskManager {
     }
 
     public void mark(int index) {
-
         index -= 1; // since 0 indexed
         Task task = list[index];
         task.mark();

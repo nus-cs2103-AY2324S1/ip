@@ -20,14 +20,14 @@ public class Task {
     public void mark() {
         printLine();
         this.done = true;
-        System.out.println("SIUUU! I've marked this task as done: \n [X] " + taskName);
+        System.out.println("SIUUU! I've marked this task as done:\n [X] " + taskName);
         printLine();
     }
 
     public void unmark() {
         printLine();
         this.done = false;
-        System.out.println("OK, I've marked this task as not done yet: \n [ ] " + taskName);
+        System.out.println("OK, I've marked this task as not done yet:\n [ ] " + taskName);
         printLine();
     }
 
