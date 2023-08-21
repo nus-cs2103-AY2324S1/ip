@@ -2,4 +2,18 @@ todo borrow book
 list
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
+mark 3
+unmark 3
+delete 3
+deadline wronginput
+deadline
+event wrongEventInput
+event
+todo
+delete sadasd
+delete
+mark 122
+mark
+unmark 333
+unmark
 bye
