@@ -31,8 +31,21 @@ public class James {
                 System.out.println(line + "\n" + "Nice! I've marked this task as done:");
                 System.out.println(task + "\n" + line);
             } else {
-                System.out.println(line + "\n" + "added: " + input + "\n" + line);
-                items.add(new Task(input));
+                Task task;
+                if (input.contains("todo")) {
+                    task = new ToDo(input.split("todo ")[1]);
+                } else if (input.contains("deadline")) {
+                    String[] deadline = input.split("deadline ")[1].split(" /by ");
+                    task = new Deadline(deadline[0], deadline[1]);
+                } else {
+                    String description = input.split("event ")[1].split(" /from ")[0];
+                    String[] event = input.split("event ")[1].split(" /from ")[1].split(" /to ");
+                    task = new Event(description, event[0], event[1]);
+                }
+
+                items.add(task);
+                System.out.println(line + "\n" + "Got it. I've added this task:\n" + task + "\n" + line);
+                System.out.println("Now you have " + items.size() + " tasks in the list.");
             }
             input = in.nextLine();
         }
