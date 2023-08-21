@@ -1,25 +1,29 @@
 import java.util.Scanner;
 
 public class Cheems {
-    private UI ui;
-    public Cheems() {
-        this.ui = new UI();
-    }
+    private UI ui = new UI();
+    private Database db = new Database();
+
     public void run() {
         this.ui.showWelcomeMsg();
         Scanner scanner = new Scanner(System.in);
-        // first message
-        System.out.print("You: ");
-        String input = scanner.nextLine();
 
+        // first message
+        String input = this.ui.getInput(scanner);
+
+        // echo
         while (!input.equals("bye")) {
-            System.out.print("Cheems: " + input + "\n");
-            System.out.print("You: ");
-            input = scanner.nextLine();
+            if (input.equals("list")) {
+                this.db.displayData();
+            } else {
+                this.db.addEvent(input);
+            }
+            input = this.ui.getInput(scanner);
         }
 
         this.ui.showExitMsg();
     }
+
     public static void main(String[] args) {
         Cheems cheems = new Cheems();
         cheems.run();

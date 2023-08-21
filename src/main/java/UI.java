@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class UI {
     public void showWelcomeMsg() {
         String logo = "\n" +
@@ -9,14 +11,33 @@ public class UI {
                 "'.___.' [___]|__]  '.__.'  '.__.' [___||__||__] [\\__) ) \n" +
                 "                                                        \n";
         String hello = "Heyo I'm Cheems! Nice to meet you:)" + "\n" + "Want to get some fries on the pier together?";
-
         System.out.println(logo);
-        System.out.print("Cheems: ");
+        displayCheems();
         System.out.println(hello);
     }
 
     public void showExitMsg() {
-        String bye = "Cheems: Okay bye:( Let's get the fries next time.";
+        String bye = "Okay bye:( Let's get the fries next time.";
+        displayCheems();
         System.out.println(bye);
+    }
+
+    /*
+    May be referenced by other components to display messages.
+     */
+    public static void displayCheems() {
+        System.out.println("> Cheems: ");
+    }
+
+    /*
+    Only used by UI itself.
+     */
+    public void displayUser() {
+        System.out.println("> You: ");
+    }
+
+    public String getInput(Scanner scanner) {
+        displayUser();
+        return scanner.nextLine();
     }
 }
