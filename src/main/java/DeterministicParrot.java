@@ -1,5 +1,6 @@
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class DeterministicParrot {
     private class Task{
@@ -25,26 +26,39 @@ public class DeterministicParrot {
         public String toString(){
             return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
         }
-
     }
 
     //init by setting input and output
-    Scanner s;
-    PrintWriter pw;
-    List<Task> list;
+    private Scanner s;
+    private PrintWriter pw;
+    private List<Task> list;
+    private Map<String, Consumer<String[]>> commandHandlers = new HashMap<>();
+
     DeterministicParrot(){
         this.list = new LinkedList<>();
         s = new Scanner(System.in);
         pw = new PrintWriter(System.out, true);
+        this.initCommandHandlers();
     }
     DeterministicParrot(Scanner s, PrintWriter pw){
         this.list = new LinkedList<>();
         this.s = s;
         this.pw = pw;
+        this.initCommandHandlers();
     }
-    /**
-     * Prints a line
-     */
+    private void initCommandHandlers() {
+        commandHandlers.put("list", args -> printList());
+        commandHandlers.put("bye", args -> bye());
+        commandHandlers.put("mark", args -> {
+            int i = Integer.parseInt(args[1]);
+            markAsDone(i);
+        });
+        commandHandlers.put("unmark", args -> {
+            int i = Integer.parseInt(args[1]);
+            markAsUndone(i);
+        });
+    }
+
 
 
     private void printDash() {
@@ -104,35 +118,31 @@ public class DeterministicParrot {
         this.pw.println("       " + this.list.get(i-1));
         printDash();
     }
-    private void poll(){
+    private void handleCommand(String input) {
+        String[] tokens = input.split(" ");
+        Consumer<String[]> cmdHandler = this.commandHandlers.get(tokens[0]);
+        if (cmdHandler != null) {
+            cmdHandler.accept(tokens);
+        } else {
+            addToList(input);
+        }
+    }
+
+    private void poll() {
         this.greet();
-        while(true){
-            String input = s.nextLine();
-            if(input.equals("list")){
-                printList();
+        while (true) {
+            String input = this.s.nextLine().trim();
+            if (input.isEmpty()) {
+                continue; // Skip empty input
             }
-            else if(input.equals("bye")){
+            if(input.equals("bye")){
+                bye();
                 break;
             }
-
-            //TODO: what happens if empty input?
-            else{
-                String[] tok = input.split(" ");
-                if(tok[0].equals("mark")){
-                    int i = Integer.parseInt(tok[1]);
-                    this.markAsDone(i);
-                }
-                else if(tok[0].equals("unmark")){
-                    int i = Integer.parseInt(tok[1]);
-                    this.markAsUndone(i);
-                }
-                else{
-                    this.addToList(input);
-                }
-            }
+            handleCommand(input);
         }
-        this.bye();
     }
+
 
     public static void main(String[] args) {
         DeterministicParrot parrot = new DeterministicParrot();
