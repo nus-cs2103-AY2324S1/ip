@@ -1,5 +1,7 @@
 import java.util.Scanner;
 public class Duke {
+
+    enum EventType {Event, Deadline, Todo};
     Task[] Tasklist;
     int counter;
     String lines;
@@ -53,8 +55,38 @@ public class Duke {
                 System.out.println(" " + wantedtask);
                 System.out.println(lines);
             }
+
+            // solve what tasks are to be added here
             else{
-                meowBot.addTask(command);
+                if (command.startsWith("todo ")) {
+                    String taskInput = command.substring(5);
+                    meowBot.addTask(taskInput, EventType.Todo);
+
+
+
+
+                } else if (command.startsWith("deadline ")) {
+                    String taskInput = command.substring(8);
+                    String[] ans = taskInput.split("/");
+                    String deadline = ans[0].substring(1);
+
+                    System.out.println("deadline is " + deadline);
+                    meowBot.addTask(taskInput, EventType.Deadline);
+
+
+
+                }
+
+                else if (command.startsWith("event ")) {
+                    String taskInput = command.substring(5);
+                    String[] ans = taskInput.split("/");
+                    String startdate = ans[0];
+                    String enddate = ans[0];
+                    System.out.println("startdate is" + startdate);
+                    meowBot.addTask(taskInput, EventType.Event);
+
+
+                }
             }
 
             // asks for the next keyword
@@ -67,12 +99,23 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    void addTask(String taskname){
-        Task task = new Task(taskname);
+    void addTask(String taskname, EventType eType){
+        Task task = null;
+        if (eType == EventType.Todo) {
+            task = new Todo(taskname);
+        } else if (eType == EventType.Event) {
+            task = new Event(taskname);
+        } else if (eType == EventType.Deadline) {
+            task = new Deadline(taskname);
+
+        }
         this.Tasklist[counter] = task;
         counter ++;
         System.out.println(lines);
-        System.out.println("added: " + task);
+        // cast the task to the right subtype
+
+        System.out.println("MEOW got it. I've added this task:\n   " + task);
+        System.out.println("Now you have " + counter + " meow-tasks in the list.");
         System.out.println(lines);
     }
 }
