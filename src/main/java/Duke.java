@@ -87,6 +87,7 @@ public class Duke {
                 System.out.println("Now you have " + i + " tasks in the list.");
                 userInput = myObj.next();
             }
+
 //            toDoList[i] = new Task(userInput);
 //            System.out.println("added: " + userInput);
 //            i++;
