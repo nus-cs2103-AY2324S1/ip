@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
 
@@ -11,11 +13,23 @@ public class Duke {
         // Hello! I'm [YOUR CHATBOT NAME]
 
         String print1 = "Hello! I'm Afro\n"
-                        + "What can I do for you?\n"
-                        + " \n"
-                        + "Bye. Hope to see you again soon!";
+                        + "What can I do for you?\n";
+        String str;
 
         System.out.println(print1);
+
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            str = sc.nextLine();
+
+            if (str.equals("bye")) {
+                break;
+            }
+            System.out.println(str);
+        }
+
+        sc.close();
+        System.out.println("Bye. Hope to see you again soon!");
     }
-    
 }
