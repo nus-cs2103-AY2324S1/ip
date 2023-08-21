@@ -3,9 +3,7 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String logo = "Bacon Pancake";
-        System.out.println(" Hello from " + logo + "\n What can I do for you? \n" + "---------------------------------- \n"
-                + " Bye. Hope to see you again soon! \n"
-                + "----------------------------------\n ");
+        System.out.println(" Hello from " + logo + "\n What can I do for you? \n" + "---------------------------------- \n");
         Task[] lists = new Task[100];
         int length = 0;
         Scanner sc = new Scanner(System.in);
@@ -36,8 +34,9 @@ public class Duke {
                     System.out.println("Nothing to mark");
                 }
             } else {
-                lists[length++] = new Task(input);
-                System.out.println("Bacon Pancake : \n Added : " + input);
+                Task curr = new Task(input.substring(input.indexOf(" ")), input.substring(0, input.indexOf(" ")));
+                lists[length++] = curr;
+                System.out.println("Bacon Pancake : \n Added : " + curr.description);
             }
 
         }
