@@ -33,7 +33,10 @@ public class Duke {
                                     + horizontal_line);
             } else if (Objects.equals(input, "list")) {
                 String outputList = Duke.stringifyList(storage);
-                System.out.println(horizontal_line + outputList + horizontal_line);
+                System.out.println(horizontal_line
+                        + "Here are the tasks in your list:\n"
+                        + outputList
+                        + horizontal_line);
             } else if (input.contains("unmark")) {
                 int a = Integer.parseInt(input.substring(7));
                 storage.get(a - 1).markAsUndone();
@@ -48,6 +51,33 @@ public class Duke {
                                     + "Nice! I've marked this task as done:\n"
                                     + storage.get(a - 1).toString() + "\n"
                                     + horizontal_line);
+            } else if (input.contains("todo")) {
+                String toDoDescription = input.substring(5);
+                ToDo toDoTask = new ToDo(toDoDescription);
+                storage.add(toDoTask);
+                System.out.println(horizontal_line
+                                    + "Got it. I've added this task:\n"
+                                    + toDoTask.toString() + "\n"
+                                    + "Now you have " + storage.size() + ((storage.size() > 1) ? " tasks " : " task ") + "in the list.");
+            } else if (input.contains("deadline")) {
+                String by = input.split("/by ")[1];
+                String deadlineDescription = input.split("deadline ")[1].split(" /by")[0];
+                Deadline deadlineTask = new Deadline(deadlineDescription, by);
+                storage.add(deadlineTask);
+                System.out.println(horizontal_line
+                        + "Got it. I've added this task:\n"
+                        + deadlineTask.toString() + "\n"
+                        + "Now you have " + storage.size() + ((storage.size() > 1) ? " tasks " : " task ") + "in the list.");
+            } else if (input.contains("event")) {
+                String from = input.split("/from ")[1].split(" /to")[0];
+                String to = input.split("/to ")[1];
+                String eventDescription = input.split("event ")[1].split(" /from")[0];
+                Event eventTask = new Event(eventDescription, from, to);
+                storage.add(eventTask);
+                System.out.println(horizontal_line
+                        + "Got it. I've added this task:\n"
+                        + eventTask.toString() + "\n"
+                        + "Now you have " + storage.size() + ((storage.size() > 1) ? " tasks " : " task ") + "in the list.");
             }
             else {
                 storage.add(new Task(input));
