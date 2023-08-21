@@ -1,0 +1,11 @@
+list
+todo revise basic Java concepts
+deadline watch CS2103T lecture /by Friday
+event NUS wellness week /from Mon, 21th Aug /to Fri, 25th Aug
+list
+mark 1
+mark 2
+list
+unmark 1
+list
+bye
