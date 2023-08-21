@@ -15,6 +15,5 @@ public class Duke {
         System.out.println(line);
         System.out.println(exiting);
         System.out.println(line);
-
     }
 }
