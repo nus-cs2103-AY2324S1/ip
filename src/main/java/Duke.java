@@ -35,7 +35,6 @@ public class Duke {
                 if (input.startsWith("todo")) {
                     input = input.substring(5);
                     list.addTask(new ToDoTask(input));
-                    System.out.println("added: " + input);
                 } else if (input.startsWith("deadline")) {
                     input = input.substring(9);
                     String[] inputArr;
