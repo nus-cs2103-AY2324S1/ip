@@ -54,6 +54,34 @@ _____________________________________________________
 
 _____________________________________________________
 
+DukeInvalidCommandException: ? OOPS!!! The description of a todo cannot be empty.
+
+_____________________________________________________
+
+
+_____________________________________________________
+
+DukeInvalidCommandException: ? OOPS!!! I'm sorry, but I don't know what that means :-(
+
+_____________________________________________________
+
+
+_____________________________________________________
+
+DukeInvalidIndexException: ? OOPS!!! I'm sorry, but index is invalid! There are only 3 tasks in the list! :-(
+
+_____________________________________________________
+
+
+_____________________________________________________
+
+DukeEmptyParametersException: ? OOPS!!! I'm sorry, but you did not input a specific date/time for the Deadline/Event task! :-(
+
+_____________________________________________________
+
+
+_____________________________________________________
+
 Bye. Hope to see you again soon!
 
 _____________________________________________________
