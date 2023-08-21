@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,20 +14,31 @@ public class Duke {
         System.out.println(greeting);
     }
 
-    static void addTask(String task, String type) {
+    static void addTask(String task, String type) throws NoDescriptionException, NoDeadlineException, StartEndException {
+        if (task.equals("")) {
+            throw new NoDescriptionException(type);
+        }
         if (type.equals("todo")) {
             taskList.add(new ToDo(task));
         } else if (type.equals("deadline")) {
             String[] taskPortions = task.split("/");
             String desc = taskPortions[0];
-            String deadline = taskPortions[1].split(" ", 2)[1];
-            taskList.add(new Deadline(desc, deadline));
+            try {
+                String deadline = taskPortions[1].split(" ", 2)[1];
+                taskList.add(new Deadline(desc, deadline));
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                throw new NoDeadlineException();
+            }
         } else {
             String[] taskPortions = task.split("/");
             String desc = taskPortions[0];
-            String start = taskPortions[1].split(" ", 2)[1];
-            String end = taskPortions[2].split(" ", 2)[1];
-            taskList.add(new Event(desc, start, end));
+            try {
+                String start = taskPortions[1].split(" ", 2)[1];
+                String end = taskPortions[2].split(" ", 2)[1];
+                taskList.add(new Event(desc, start, end));
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                throw new StartEndException();
+            }
         }
         String addMsg = "_________________________________________________\n"
                 + " Got it. I've added this task:\n"
@@ -69,22 +81,32 @@ public class Duke {
         System.out.println(exitMsg);
         System.exit(0);
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownCommandException {
         greet();
         while (true) {
             Scanner inputScanner = new Scanner(System.in);
-            String command = inputScanner.next();
-            if (command.equals("bye")) {
-                exit();
-            } else if (command.equals("list")) {
-                list();
-            } else if (command.equals("mark")) {
-                mark(inputScanner.nextInt());
-            } else if (command.equals("unmark")) {
-                unmark(inputScanner.nextInt());
-            } else {
-                String task = inputScanner.nextLine();
-                addTask(task, command);
+            try {
+                String command = inputScanner.next();
+                if (command.equals("bye")) {
+                    exit();
+                } else if (command.equals("list")) {
+                    list();
+                } else if (command.equals("mark")) {
+                    mark(inputScanner.nextInt());
+                } else if (command.equals("unmark")) {
+                    unmark(inputScanner.nextInt());
+                } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
+                    String task = inputScanner.nextLine();
+                    try {
+                        addTask(task, command);
+                    } catch (NoDescriptionException | NoDeadlineException | StartEndException ex) {
+                        System.err.print(ex.getMessage());
+                    }
+                } else {
+                    throw new UnknownCommandException();
+                }
+            } catch (UnknownCommandException ex) {
+                System.err.print(ex.getMessage());
             }
         }
     }
