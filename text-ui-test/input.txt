@@ -1,11 +1,14 @@
 todo buy 2 groceries
 deadline eat lunch /by 1st june mon
+event holiday /to july
 list
 mark 2
 event japan holiday trip /from mid june /to end july
-list
+deadline stuff
 hello
 mark 3
+mark 4
 unmark 2
+todo
 list
 end
