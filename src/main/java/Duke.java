@@ -15,12 +15,13 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         // Welcome message
-        program.printMessage("Hello! I'm Skye, your personal task assistant. \nWhat can I do for you?");
+        program.printMessage("Hello! I'm Skye, your personal task assistant.\nWhat can I do for you?");
 
         // Program only exits when user enters "bye" command
         while (true) {
-            System.out.print("> ");
+            // System.out.print("> ");
             String userInput = scanner.nextLine();
+            System.out.println();
             String[] tokens = userInput.split(" ", 2);
             String command = !userInput.isEmpty() ? tokens[0] : "";
 
@@ -136,7 +137,7 @@ public class Duke {
         taskCount++;
         printMessage(
             String.format(
-                "Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
+                "Got it. I've added this task:\n %s\nNow you have %d task(s) in the list.",
                 task.toString(),
                 taskCount
             )

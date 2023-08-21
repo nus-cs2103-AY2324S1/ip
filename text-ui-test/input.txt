@@ -1,0 +1,10 @@
+todo Read CS2103 Week 2 topics
+deadline Week 2 Quiz /by Friday, 25 Aug
+event Singapore GP /from Friday, 15 Sep /to Sunday, 17 Sep
+list
+mark 1
+mark 3
+list
+unmark 3
+list
+bye
