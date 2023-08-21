@@ -52,7 +52,7 @@ public class Duke {
             String text = scanIn.nextLine();
 
 
-            if (text.equals("list")) {
+            if (text.length() > 3 && text.substring(0,4).equals("list")) {
                 println();
                 System.out.println();
                 for (int i = 0; i < listLength(); i++) {
@@ -66,8 +66,8 @@ public class Duke {
                 println();
                 continue;
             }
-
-            else if (text.contains("unmark")) {
+            // never use .contains as the command "unmark" may be present in other commands//
+            else if (text.length() > 5 && text.substring(0,6).equals("unmark")) {
                 int numToUnmark = Integer.parseInt(text.substring(7)) - 1;
                 listOutput(numToUnmark).markAsIncomplete();
                 println();
@@ -79,7 +79,7 @@ public class Duke {
                 continue;
             }
 
-            else if (text.contains("mark")) {
+            else if (text.length() > 3 && text.substring(0,4).equals("mark")) {
                 int numToMark = Integer.parseInt(text.substring(5)) - 1;
                 listOutput(numToMark).markAsComplete();
                 println();
@@ -92,22 +92,25 @@ public class Duke {
             }
 
 
-            else if (text.equals("bye"))   {
+            else if (text.equals("bye")) {
 
                 println();
                 System.out.println("Goodbye. Hope to be of service again soon!");
                 println();
                 break;
-
-            } else {
-                Task task = new Task(text);
-                setList(task);
-                incrementCounter();
-                println();
-                System.out.println("I have added '" + text + "' into your tasks list, sir.");
-                println();
-                continue;
+            } else if (true){
+                break;
             }
+
+//             else {
+//                Task task = new Task(text);
+//                setList(task);
+//                incrementCounter();
+//                println();
+//                System.out.println("I have added '" + text + "' into your tasks list, sir.");
+//                println();
+//                continue;
+//            }
 
         }
 
