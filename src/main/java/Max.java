@@ -1,11 +1,12 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
 public class Max {
     private static String line = "____________________________________________________________";
-    private static Task[] myList = new Task[100];
-    private static int numOfItems = 1;
+    private static ArrayList<Task> myList = new ArrayList<>();
+    private static int numOfItems = 0;
     public static class Task {
         private String item;
         private boolean done;
@@ -90,7 +91,7 @@ public class Max {
 
             String description = task.substring(5).trim();
 
-            Max.myList[numOfItems] = new Todo(description);
+            Max.myList.add(new Todo(description));
         } else if (task.startsWith("deadline")) {
             int byIndex = task.indexOf("/by");
 
@@ -99,7 +100,7 @@ public class Max {
                 throw new MaxException("     Try again... deadline must include a '/by' tag!");
             }
 
-            String item = task.substring(0, byIndex - 1).trim();
+            String item = task.substring(8, byIndex - 1).trim();
             String by = task.substring(byIndex + 3).trim();
 
             // Error checking: empty fields
@@ -107,7 +108,7 @@ public class Max {
                 throw new MaxException("     Oops... Deadline item or 'by' date cannot be empty.");
             }
 
-            Max.myList[numOfItems] = new Deadline(item, by);
+            Max.myList.add(new Deadline(item, by));
         } else if (task.startsWith("event")) {
             int fromIndex = task.indexOf("/from");
             int toIndex = task.indexOf("/to");
@@ -117,7 +118,7 @@ public class Max {
                 throw new MaxException("     Hey! Event must contain '/from' and '/to' tags.");
             }
 
-            String item = task.substring(0, fromIndex - 1).trim();
+            String item = task.substring(5, fromIndex - 1).trim();
             String from = task.substring(fromIndex + 5, toIndex -1).trim();
             String to = task.substring(toIndex + 3).trim();
 
@@ -126,27 +127,51 @@ public class Max {
                 throw new MaxException("     Oh no! Event item, 'from' date, or 'to' date cannot be empty.");
             }
 
-            Max.myList[numOfItems] = new Event(item, from, to);
+            Max.myList.add(new Event(item, from, to));
         }
 
         // Visual feedback from chatbot
         System.out.println("     I gotchu. I've added this task:");
-        System.out.println("       " + Max.myList[numOfItems]);
-        System.out.println("     Now you have " + numOfItems + " tasks in the list.");
-        System.out.println(Max.line);
+        System.out.println("       " + Max.myList.get(numOfItems));
 
         // Increment pointer
         numOfItems++;
+        if (numOfItems == 1) {
+            System.out.println("     Now you have 1 task in the list.");
+        } else {
+            System.out.println("     Now you have " + numOfItems + " tasks in the list.");
+        }
+        System.out.println(Max.line);
     }
 
     public static void list() {
         System.out.println("     Here are all your tasks:");
 
-        // Iterate through array of tasks and enumerate them
-        for (int i = 1; i < numOfItems; i++) {
-            System.out.println("     " + i + ". " + myList[i]);
+        // Iterate through ArrayList of tasks and enumerate them
+        for (int i = 0; i < numOfItems; i++) {
+            int index = i + 1;
+            System.out.println("     " + index + ". " + myList.get(i));
         }
 
+        System.out.println(Max.line);
+    }
+    public static void delete(int taskNumber) throws MaxException {
+        if (taskNumber > numOfItems) {
+            throw new MaxException("     Seems like that number is out of range. Check again!");
+        }
+
+        Task toDelete = myList.get(taskNumber - 1);
+        myList.remove(toDelete);
+        numOfItems--;
+
+        // Visual feedback
+        System.out.println("     Alright. I have removed this task:");
+        System.out.println("       " + toDelete);
+        if (numOfItems == 1) {
+            System.out.println("     Now you have 1 task left.");
+        } else {
+            System.out.println("     Now you have " + numOfItems + " tasks left.");
+        }
         System.out.println(Max.line);
     }
 
@@ -172,14 +197,18 @@ public class Max {
                 } else if (command.contains("unmark")) {
                     // Determine which task to unmark
                     int taskNumber = parseInt(command.substring(7));
-                    myList[taskNumber].unmark();
+                    myList.get(taskNumber - 1).unmark();
                 } else if (command.contains("mark")) {
                     // Determine which task to mark
                     int taskNumber = parseInt(command.substring(5));
-                    myList[taskNumber].mark();
+                    myList.get(taskNumber - 1).mark();
                 } else if (command.contains("event") || command.contains("todo") ||
-                        command.contains("deadline")) {
+                    command.contains("deadline")) {
                     Max.add(command);
+                } else if (command.contains("delete")) {
+                    // to be updated
+                    int taskNumber = parseInt(command.substring(7));
+                    Max.delete(taskNumber);
                 } else {
                     throw new MaxException("     Oh no! I cannot recognise that command.");
                 }

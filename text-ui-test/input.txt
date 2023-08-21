@@ -17,4 +17,8 @@ event /from /to
 event class /from /to
 event class /from 12pm /to
 event class /from /to 12pm
+remove 10
+delete 10
+delete 2
+list
 bye
