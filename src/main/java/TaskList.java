@@ -38,7 +38,7 @@ public class TaskList {
             case DEADLINE:
                 try {
                     String[] deadlineParts = taskString.split(" /by ", 2);
-                    this.list.add(new Deadline(deadlineParts[0], deadlineParts[1]));
+                    this.list.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeInvalidArgumentException(
                             "Your deadline seems to be formatted wrongly. " +
@@ -49,9 +49,9 @@ public class TaskList {
             case EVENT:
                 try {
                     String[] eventParts = taskString.split(" /from ", 2);
-                    String description = eventParts[0];
-                    String[] eventTimeParts = eventParts[1].split(" /to ", 2);
-                    this.list.add(new Event(description, eventTimeParts[0], eventTimeParts[1]));
+                    String description = eventParts[0].trim();
+                    String[] eventTimeParts = eventParts[1].trim().split(" /to ", 2);
+                    this.list.add(new Event(description, eventTimeParts[0].trim(), eventTimeParts[1].trim()));
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeInvalidArgumentException(
                             "Your event seems to be formatted wrongly. " +

@@ -2,14 +2,19 @@ yo
 list
 delete 1
 todo
-todo read book
+todo     
+todo   read book
 deadline
 deadline /by 
+deadline   /by today
+deadline return book /by      
+deadline          what        /by         yes         
 deadline return book /by June 6th
 event
 event X /from Y
 event X /to Y
 event /from X /to Y
+event    bruh   /from    today    /to   ytd
 event project meeting /from Aug 6th 2pm /to 4pm
 todo join sports club
 todo borrow book
@@ -19,7 +24,7 @@ list
 unmark 1
 mark one
 mark -1
-mark 5
+mark 999
 list
 delete 5
 delete 5

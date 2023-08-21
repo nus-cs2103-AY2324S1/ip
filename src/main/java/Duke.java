@@ -67,7 +67,7 @@ public class Duke {
             String input = scanner.nextLine();
             String[] parts = input.split(" ", 2);
             Command command = Command.fromString(parts[0]);
-            String commandArgs = parts.length > 1 ? parts[1] : "";
+            String commandArgs = parts.length > 1 ? parts[1].trim() : "";
             try {
                 if (!Duke.executeCommand(command, commandArgs)) {
                     break;
