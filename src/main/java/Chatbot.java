@@ -37,37 +37,48 @@ public class Chatbot {
         System.out.println("Remember, the universe is vast, but I'm always here for you :D");
     }
 
+    public enum Command {
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        DELETE,
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
     public void processInput(String input) {
         try {
             String[] parts = input.split(" ", 2);
-            String command = parts[0];
+            Command command = Command.valueOf(parts[0].toUpperCase());
 
             switch (command) {
-                case "bye":
+                case BYE:
                     giveOutro();
                     break;
-                case "list":
+                case LIST:
                     taskList.listTasks();
                     break;
-                case "mark":
+                case MARK:
                     int index = Integer.parseInt(parts[1]);
                     taskList.markTaskAsDone(index);
                     break;
-                case "unmark":
+                case UNMARK:
                     int unmarkIndex = Integer.parseInt(parts[1]);
                     taskList.markTaskAsNotDone(unmarkIndex);
                     break;
-                case "delete":
+                case DELETE:
                     int deleteIndex = Integer.parseInt(parts[1]);
                     taskList.deleteTask(deleteIndex);
                     break;
-                case "todo":
+                case TODO:
                     if (parts.length <= 1 || parts[1].isEmpty()) {
                         throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
                     taskList.addTask(new ToDo(parts[1]));
                     break;
-                case "deadline":
+                case DEADLINE:
                     if (parts.length <= 1) {
                         throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
@@ -77,7 +88,7 @@ public class Chatbot {
                     }
                     taskList.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
                     break;
-                case "event":
+                case EVENT:
                     if (parts.length <= 1) {
                         throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                     }
