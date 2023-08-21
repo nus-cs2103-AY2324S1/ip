@@ -16,7 +16,7 @@ public class Duke {
         //this is what the user typed in
         String userCommand;
         //fixed size array to store the items
-        ArrayList<String> toDo = new ArrayList<>();
+        ArrayList<Task> toDo = new ArrayList<>();
 
         //initial greeting
         System.out.println(lines + "\n" + greeting + lines);
@@ -27,7 +27,7 @@ public class Duke {
             if (userCommand.equals("list")) {
                 System.out.println(lines);
                 for (int i = 0; i < toDo.size(); i++) {
-                    System.out.println("        " + Integer.toString(i + 1) + ". " + toDo.get(i));
+                    System.out.println("        " + Integer.toString(i + 1) + "." + toDo.get(i));
                 }
                 System.out.println(lines);
             } else {
