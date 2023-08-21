@@ -46,61 +46,143 @@ public class Duke {
     }
 
     /**
-     * Utility function to add a task to the list and respond to the user.
+     * Handler for the todo command. Generates the required response.
      *
-     * @param task The task to be added
+     * @param input The parameters for the todo command
+     * @return The response string to the user
      */
-    private static void addTask(Task task) {
-        tasks.add(task);
-        say("Got it. I've added this task:",
-                INDENT + task.toString(),
-                String.format("Now you have %d task%s in the list.", tasks.size(), tasks.size() == 1 ? "" : "s"));
-    }
-
-    private static void handleTodo(String input) {
+    private static String[] handleTodo(String input) {
+        String[] response = new String[3];
         Todo task = new Todo(input);
-        addTask(task);
+        tasks.add(task);
+
+        response[0] = "Got it. I've added this task:";
+        response[1] = INDENT + task;
+        response[2] = String.format("Now you have %d task%s in the list.",
+                tasks.size(),
+                tasks.size() == 1 ? "" : "s");
+        return response;
     }
 
-    private static void handleDeadline(String input) {
+    /**
+     * Handler for the deadline command. Generates the required response.
+     *
+     * @param input The parameters for the deadline command
+     * @return The response string to the user
+     * @throws DukeException if input for deadline is missing the "/by" keyword
+     */
+    private static String[] handleDeadline(String input) throws DukeException {
+        String[] response = new String[3];
         String[] tokens = input.split(" /by ", 2);
+        if (tokens.length == 1) {
+            throw new DukeException("Deadline is missing the /by keyword");
+        }
+
         Deadline task = new Deadline(tokens[0], tokens[1]);
-        addTask(task);
+        tasks.add(task);
+
+        response[0] = "Got it. I've added this task:";
+        response[1] = INDENT + task;
+        response[2] = String.format("Now you have %d task%s in the list.",
+                tasks.size(),
+                tasks.size() == 1 ? "" : "s");
+        return response;
     }
 
-    private static void handleEvent(String input) {
+    /**
+     * Handler for the event command. Generates the required response.
+     *
+     * @param input The parameters for the event command
+     * @return The response string to the user
+     * @throws DukeException if input for event is missing the "/from" or "/to" keyword
+     */
+    private static String[] handleEvent(String input) throws DukeException {
+        String[] response = new String[3];
         String[] tokens = input.split(" /from ", 2);
+        if (tokens.length == 1) {
+            throw new DukeException("Event is missing the /from keyword");
+        }
         String[] tokens2 = tokens[1].split(" /to ", 2);
+        if (tokens2.length == 1) {
+            throw new DukeException("Event is missing the /to keyword");
+        }
+
         Event task = new Event(tokens[0], tokens2[0], tokens2[1]);
-        addTask(task);
+        tasks.add(task);
+
+        response[0] = "Got it. I've added this task:";
+        response[1] = INDENT + task;
+        response[2] = String.format("Now you have %d task%s in the list.",
+                tasks.size(),
+                tasks.size() == 1 ? "" : "s");
+        return response;
     }
 
-    private static void handleList() {
+    /**
+     * Handler for the list command. Generates the required response.
+     *
+     * @return The response string to the user
+     */
+    private static String[] handleList() {
+        String[] response;
         int numTasks = tasks.size();
         if (numTasks == 0) {
-            say("There are no items in your list.");
+            response = new String[1];
+            response[0] = "There are no items in your list.";
         } else {
-            String[] response = new String[numTasks + 1];
+            response = new String[numTasks + 1];
             response[0] = "Here are the tasks in your list:";
             for (int i = 0; i < numTasks; i++) {
                 response[i + 1] = (i + 1 + ". " + tasks.get(i));
             }
-            say(response);
         }
+        return response;
     }
 
-    private static void handleMark(String input) {
-        int taskNum = Integer.parseInt(input);
+    /**
+     * Handler for the mark command. Generates the required response.
+     *
+     * @param input The parameters for the mark command
+     * @return The response string to the user
+     * @throws DukeException if input for mark is not an integer
+     */
+    private static String[] handleMark(String input) throws DukeException {
+        String[] response = new String[2];
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(input);
+        } catch (NumberFormatException err) {
+            throw new DukeException("Mark can only mark an integer task number");
+        }
         Task task = tasks.get(taskNum - 1);
         task.mark();
-        say("Nice! I've marked this task as done:", INDENT + task);
+
+        response[0] = "Nice! I've marked this task as done:";
+        response[1] = INDENT + task;
+        return response;
     }
 
-    private static void handleUnmark(String input) {
-        int taskNum = Integer.parseInt(input);
+    /**
+     * Handler for the unmark command. Generates the required response.
+     *
+     * @param input The parameters for the unmark command
+     * @return The response string to the user
+     * @throws DukeException if input for unmark is not an integer
+     */
+    private static String[] handleUnmark(String input) throws DukeException {
+        String[] response = new String[2];
+        int taskNum;
+        try {
+            taskNum = Integer.parseInt(input);
+        } catch (NumberFormatException err) {
+            throw new DukeException("Unmark can only unmark an integer task number");
+        }
         Task task = tasks.get(taskNum - 1);
         task.unmark();
-        say("Ok, I've marked this task as not done yet:", INDENT + task);
+
+        response[0] = "Ok, I've marked this task as not done yet:";
+        response[1] = INDENT + task;
+        return response;
     }
 
     public static void main(String[] args) {
@@ -114,30 +196,70 @@ public class Duke {
             Command command = getCommandType(params[0]);
 
             switch (command) {
-                case TODO:
-                    handleTodo(params[1]);
+                case TODO: {
+                    if (params.length == 1) {
+                        say("Sorry, but the description of a todo cannot be empty.");
+                    } else {
+                        String[] response = handleTodo(params[1]);
+                        say(response);
+                    }
                     break;
-                case DEADLINE:
-                    handleDeadline(params[1]);
+                }
+                case DEADLINE: {
+                    if (params.length == 1) {
+                        say("Sorry, but the description of a deadline cannot be empty.");
+                    } else {
+                        try {
+                            String[] response = handleDeadline(params[1]);
+                            say(response);
+                        } catch (DukeException err) {
+                            say(err.getMessage() + ".");
+                        }
+                    }
                     break;
-                case EVENT:
-                    handleEvent(params[1]);
+                }
+                case EVENT: {
+                    if (params.length == 1) {
+                        say("Sorry, but the description of a event cannot be empty.");
+                    } else {
+                        try {
+                            String[] response = handleEvent(params[1]);
+                            say(response);
+                        } catch (DukeException err) {
+                            say(err.getMessage() + ".");
+                        }
+                    }
                     break;
-                case LIST:
-                    handleList();
+                }
+                case LIST: {
+                    String[] response = handleList();
+                    say(response);
                     break;
-                case MARK:
-                    handleMark(params[1]);
+                }
+                case MARK: {
+                    try {
+                        String[] response = handleMark(params[1]);
+                        say(response);
+                    } catch (DukeException err) {
+                        say(err.getMessage() + ".");
+                    }
                     break;
-                case UNMARK:
-                    handleUnmark(params[1]);
+                }
+                case UNMARK: {
+                    try {
+                        String[] response = handleUnmark(params[1]);
+                        say(response);
+                    } catch (DukeException err) {
+                        say(err.getMessage() + ".");
+                    }
                     break;
+                }
                 case BYE:
                     stopped = true;
                     say("Bye! Hope to see you again soon!");
                     break;
                 default:
-                    say("Sorry, that is an invalid query.");
+                    say("Sorry, but I don't know what that means :(");
                     break;
             }
         }
