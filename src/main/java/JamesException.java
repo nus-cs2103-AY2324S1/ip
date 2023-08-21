@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class JamesException {
+public class JamesException extends Exception{
+    public JamesException(String message) {
+        super(message);
+    }
 }
