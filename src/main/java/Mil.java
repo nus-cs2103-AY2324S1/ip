@@ -37,15 +37,30 @@ public class Mil {
                     i++;
                 }
                 System.out.println(indentation + horLine);
-                continue;
             } else if(input.startsWith("mark") || input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                if (index < 0 || index >= taskList.size()) {
+
+                try {
+                    if(input.split(" ").length < 2) {
+                        throw new MilException("Empty task index");
+                    }
+                } catch (MilException e) {
                     System.out.println(indentation + horLine);
-                    System.out.println("Invalid input, please try again.");
+                    System.out.println(indentation + "☹ Oopsie! You did not input the task index");
                     System.out.println(indentation + horLine);
                     continue;
                 }
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                try {
+                    if (index < 0 || index >= taskList.size()) {
+                        throw new MilException("Invalid task index");
+                    }
+                } catch (MilException e) {
+                    System.out.println(indentation + horLine);
+                    System.out.println(indentation + "☹ Oopsie! The input you entered has: " + e.getMessage());
+                    System.out.println(indentation + horLine);
+                    continue;
+                }
+
                 Task task = taskList.get(index);
                 if(input.startsWith("mark")) {
                     task.markAsDone();
@@ -53,23 +68,54 @@ public class Mil {
                     System.out.println(indentation + "Nice! I've marked this task as done:");
                     System.out.println(indentation + task.toString());
                     System.out.println(indentation + horLine);
-                    continue;
                 } else {
                     task.markAsUndone();
                     System.out.println(indentation + horLine);
                     System.out.println(indentation + "OK, I've marked this task as not done yet:");
                     System.out.println(indentation  + task.toString());
                     System.out.println(indentation + horLine);
-                    continue;
                 }
             } else if(input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
                 Task task;
+                try {
+                    if(input.equals("todo") || input.equals("deadline") || input.equals("event")) {
+                        throw new MilException("Empty task");
+                    }
+                } catch (MilException e) {
+                    System.out.println(indentation + horLine);
+                    System.out.println(indentation + "☹ Oopsie! The task description cannot be empty.");
+                    System.out.println(indentation + horLine);
+                    continue;
+                }
                 if(input.startsWith("todo")) {
                     task = new Todo(input.substring(5));
                 } else if(input.startsWith("deadline")) {
+                    try {
+                        if(!input.contains("/by")) {
+                            throw new MilException("No deadline, please add /by and your deadline");
+                        }
+                        if(input.trim().split("/by").length == 1) {
+                            throw new MilException("Empty deadline");
+                        }
+                    } catch (MilException e) {
+                        System.out.println(indentation + horLine);
+                        System.out.println(indentation + "☹ Oopsie! " + e.getMessage());
+                        System.out.println(indentation + horLine);
+                        continue;
+                    }
                     task = new Deadline(input.split("/")[0].substring(9),
                             input.split("/")[1].substring(3));
                 } else {
+                    try {
+                        if(!input.contains("/from") || !input.contains("/to")) {
+                            throw new MilException("No time event, please include /from and /to commands");
+                        }
+                    } catch (MilException e) {
+                        System.out.println(indentation + horLine);
+                        System.out.println(indentation + "☹ Oopsie! " + e.getMessage());
+                        System.out.println(indentation + horLine);
+                        continue;
+                    }
                     task = new Event(input.split("/")[0].substring(6),
                             input.split("/")[1].substring(5),
                             input.split("/")[2].substring(3));
@@ -80,7 +126,10 @@ public class Mil {
                 System.out.println(indentation + "  " + task.toString());
                 System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println(indentation + horLine);
+            } else {
+                System.out.println("☹ Oopsie! I'm sorry, but I don't know what that means.");
             }
+
         }
 
 
