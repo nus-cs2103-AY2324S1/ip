@@ -15,10 +15,8 @@ public class Duke {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < counter; i++) {
                     Task currTask = taskList[i];
-                    String listCounter = String.valueOf(i + 1) + ".";
-                    String checkBox = "[" + currTask.getStatusIcon() + "]";
-                    String taskDescription = currTask.getDescription();
-                    System.out.println(listCounter + checkBox + " " + taskDescription);
+                    String listCounter = (i + 1) + ".";
+                    System.out.println(listCounter + currTask.toString());
                 }
                 System.out.println("\n");
             } else if (tmp.contains("unmark")) {
@@ -30,9 +28,7 @@ public class Duke {
                     int taskListIndex = Integer.parseInt(stringArray[1]) - 1;
                     Task currTask = taskList[taskListIndex];
                     currTask.markUndone();
-                    String checkBox = "[" + currTask.getStatusIcon() + "]";
-                    String taskDescription = currTask.getDescription();
-                    System.out.println( checkBox + " " + taskDescription + "\n");
+                    System.out.println(currTask + "\n");
                 }
             } else if (tmp.contains("mark")) {
                 String[] stringArray = tmp.split(" ");
@@ -43,14 +39,52 @@ public class Duke {
                     int taskListIndex = Integer.parseInt(stringArray[1]) - 1;
                     Task currTask = taskList[taskListIndex];
                     currTask.markDone();
-                    String checkBox = "[" + currTask.getStatusIcon() + "]";
-                    String taskDescription = currTask.getDescription();
-                    System.out.println( checkBox + " " + taskDescription + "\n");
+                    System.out.println(currTask + "\n");
                 }
-            }  else {
-                System.out.println("added " + tmp + "\n");
-                taskList[counter] = new Task(tmp);
-                counter++;
+            } else if (tmp.contains("todo")) {
+                String[] stringArray = tmp.split(" ", 2);
+                if (stringArray.length != 2) {
+                    System.out.println("Error unexpected number or arguments");
+                } else {
+                    Todo toAdd = new Todo(stringArray[1]);
+                    taskList[counter] = toAdd;
+                    counter++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + toAdd);
+                    System.out.println("Now you have " + counter + " tasks in the list.\n");
+                }
+            } else if (tmp.contains("deadline")) {
+                String[] stringArray = tmp.split(" ", 2);
+                if (stringArray.length != 2) {
+                    System.out.println("Error unexpected number or arguments");
+                } else {
+                    String[] splitDeadline = stringArray[1].split(" /by ", 2);
+                    Deadline toAdd = new Deadline(splitDeadline[0], splitDeadline[1]);
+                    taskList[counter] = toAdd;
+                    counter++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + toAdd);
+                    System.out.println("Now you have " + counter + " tasks in the list.\n");
+                }
+            } else if (tmp.contains("event")) {
+                String[] stringArray = tmp.split(" ", 2);
+                if (stringArray.length != 2) {
+                    System.out.println("Error unexpected number or arguments");
+                } else {
+                    String[] splitFrom = stringArray[1].split(" /from ", 2);
+                    String description = splitFrom[0];
+                    String[] splitTo = splitFrom[1].split(" /to ", 2);
+                    String from = splitTo[0];
+                    String to = splitTo[1];
+                    Event toAdd = new Event(description, from, to);
+                    taskList[counter] = toAdd;
+                    counter++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + toAdd);
+                    System.out.println("Now you have " + counter + " tasks in the list.\n");
+                }
+            } else {
+                System.out.println("I don't recognise this command");
             }
         }
         bye();
