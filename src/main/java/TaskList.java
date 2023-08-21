@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * The task list is used to store the user's tasks. 
+ * The task list is used to store the user's tasks.
  */
 public class TaskList {
 
@@ -21,13 +21,51 @@ public class TaskList {
     /**
      * Adds a new task to the list.
      * 
-     * @param newTask The new task to be added.
+     * @param type       The type of task to be added.
+     * @param taskString Information about the task to be added.
+     * @throws DukeInvalidArgumentException If the given taskString is invalid.
      */
-    public void addTask(Task newTask) {
-        this.list.add(newTask);
+    public void addTask(TaskType type, String taskString) throws DukeInvalidArgumentException {
+        switch (type) {
+            case TODO:
+                if (taskString.equals("")) {
+                    throw new DukeInvalidArgumentException("You didn't specify a task to do. " +
+                            "Check that you're doing \"todo {description}\".");
+                }
+                this.list.add(new ToDo(taskString));
+                break;
+
+            case DEADLINE:
+                try {
+                    String[] deadlineParts = taskString.split(" /by ", 2);
+                    this.list.add(new Deadline(deadlineParts[0], deadlineParts[1]));
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeInvalidArgumentException(
+                            "Your deadline seems to be formatted wrongly. " +
+                                    "Check that you're doing: \"deadline {description} \\by {date}\".");
+                }
+                break;
+
+            case EVENT:
+                try {
+                    String[] eventParts = taskString.split(" /from ", 2);
+                    String description = eventParts[0];
+                    String[] eventTimeParts = eventParts[1].split(" /to ", 2);
+                    this.list.add(new Event(description, eventTimeParts[0], eventTimeParts[1]));
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeInvalidArgumentException(
+                            "Your event seems to be formatted wrongly. " +
+                                    "Check that you're doing: \"event {description} \\from {start} \\to {end}\".");
+                }
+                break;
+
+            default:
+                throw new DukeInvalidArgumentException("I'm gonna be honest, no idea what you're saying.");
+        }
+
         System.out.println(DIVIDER);
         System.out.println("Got it. I've added this task:");
-        System.out.println(newTask);
+        System.out.println(this.list.get(this.list.size() - 1));
         System.out.println("Now you have " + this.list.size() + " tasks in the list.");
         System.out.println(DIVIDER);
     }

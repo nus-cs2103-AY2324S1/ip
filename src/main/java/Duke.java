@@ -46,7 +46,7 @@ public class Duke {
          */
         public static Command fromString(String value) {
             for (Command command : Command.values()) {
-                if (!command.value.equals("add") && command.value.equalsIgnoreCase(value)) {
+                if (command.value.equalsIgnoreCase(value)) {
                     return command;
                 }
             }
@@ -116,8 +116,8 @@ public class Duke {
      * Executes the given command with the given arguments.
      * 
      * @param command The command to execute.
-     * @param args The arguments to pass to the command.
-     * @throws DukeInvalidCommandException If the command is invalid.
+     * @param args    The arguments to pass to the command.
+     * @throws DukeInvalidCommandException  If the command is invalid.
      * @throws DukeInvalidArgumentException If the arguments are invalid.
      * @return True if the command was executed successfully, false otherwise.
      */
@@ -154,35 +154,15 @@ public class Duke {
                 break;
 
             case ADD_TODO:
-                if (args.equals("")) {
-                    throw new DukeInvalidArgumentException("You didn't specify a task to do. " +
-                            "Check that you're doing \"todo {description}\".");
-                }
-                Duke.list.addTask(new ToDo(args));
+                Duke.list.addTask(TaskType.TODO, args);
                 break;
 
             case ADD_DEADLINE:
-                try {
-                    String[] deadlineParts = args.split(" /by ", 2);
-                    Duke.list.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeInvalidArgumentException(
-                            "Your deadline seems to be formatted wrongly. " +
-                                    "Check that you're doing: \"deadline {description} \\by {date}\".");
-                }
+                Duke.list.addTask(TaskType.DEADLINE, args);
                 break;
 
             case ADD_EVENT:
-                try {
-                    String[] eventParts = args.split(" /from ", 2);
-                    String description = eventParts[0];
-                    String[] eventTimeParts = eventParts[1].split(" /to ", 2);
-                    Duke.list.addTask(new Event(description, eventTimeParts[0], eventTimeParts[1]));
-                } catch (IndexOutOfBoundsException e) {
-                    throw new DukeInvalidArgumentException(
-                            "Your event seems to be formatted wrongly. " +
-                                    "Check that you're doing: \"event {description} \\from {start} \\to {end}\".");
-                }
+                Duke.list.addTask(TaskType.EVENT, args);
                 break;
 
             case DELETE_TASK:
