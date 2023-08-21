@@ -1,18 +1,57 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    private Scanner sc = new Scanner(System.in);
+    private ArrayList<String> arr;
+    String partition = "--------------------------------------";
+
+    public Duke() {
+        this.arr = new ArrayList<>();
+    }
+
+    public void printExitMessage() {
         String exitMsg = "Bye. Hope to see you again soon!";
-        String partition = "--------------------------------------";
+        System.out.println(partition + "\n   " + exitMsg + "\n" + partition);
+    }
+
+    public void addToList(String text) {
+        this.arr.add(text);
+        System.out.println(partition + "\nadded: " + text + "\n" + partition);
+    }
+
+    public void printList() {
+        System.out.println(partition);
+        for (int i = 0; i < arr.size(); i++) {
+            int index = i + 1;
+            System.out.println(index + ". " + arr.get(i));
+        }
+        System.out.println(partition);
+    }
+
+    public void initialise() {
         System.out.println(partition + "\n" + "Hello! I'm Rion");
         System.out.println("What can I do for you?\n" + partition);
+    }
 
-        Scanner sc = new Scanner(System.in);
-        String echo = sc.nextLine();
-        while(!echo.equals("bye")) {
-            System.out.println(partition + "\n   " + echo + "\n" + partition);
-            echo = sc.nextLine();
+    public void runRion() {
+        this.initialise();
+
+        boolean endBot = false;
+        while (!endBot) {
+            String input = this.sc.nextLine();
+            if (input.equals("bye")) {
+                endBot = true;
+            } else if (input.equals("list")) {
+                this.printList();
+            } else {
+                this.addToList(input);
+            }
         }
-        System.out.println(partition + "\n   " + exitMsg + "\n" + partition);
+        this.printExitMessage();
+    }
+    public static void main(String[] args) {
+        Duke rion = new Duke();
+        rion.runRion();
     }
 }
