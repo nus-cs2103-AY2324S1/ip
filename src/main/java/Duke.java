@@ -25,6 +25,14 @@ public class Duke {
 
     }
 
+    public static int listLength(){
+        return list.length;
+    }
+
+    public static String listOutput(int i){
+        return list[i];
+    }
+
     public static void main(String[] args) {
         Scanner scanIn = new Scanner(System.in);
 
@@ -41,6 +49,18 @@ public class Duke {
 
             String text = scanIn.nextLine();
             switch (text){
+
+                case "list":
+                    println();
+                    for (int i = 0; i < listLength() ; i++){
+                        if (listOutput(i) == null) {
+                            break;
+                        } else {
+                            System.out.println(i + 1 + ". " + listOutput(i));
+                        }
+                    }
+                    println();
+                    continue;
                 case "bye":
 
                     println();
@@ -49,8 +69,10 @@ public class Duke {
                     break;
 
                 default:
+                    setList(text);
+                    incrementCounter();
                     println();
-                    System.out.println(text);
+                    System.out.println("added: " + text);
                     println();
                     continue;
 
