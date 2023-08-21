@@ -85,7 +85,7 @@ public class Alyssa {
                     System.out.println(line);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println(line);
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
                     System.out.println(line);
                 }
             } else if (nextInput.startsWith("deadline")) {
@@ -123,9 +123,25 @@ public class Alyssa {
                     System.out.println("Invalid event");
                     System.out.println(line);
                 }
+            } else if (nextInput.startsWith("delete")) {
+                try {
+                    String[] parsedInput = nextInput.split(" ");
+                    int index = Integer.valueOf(parsedInput[1]) - 1;
+                    Task toDelete = taskList.get(index);
+                    System.out.println(line);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(toDelete.toString());
+                    taskList.remove(index);
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                    System.out.println(line);
+                } catch (Exception e) {
+                    System.out.println(line);
+                    System.out.println("Oops! Something went wrong. Did you make a typo?");
+                    System.out.println(line);
+                }
             } else {
                 System.out.println(line);
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println(line);
             }
         }
