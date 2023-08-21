@@ -1,13 +1,20 @@
 import java.util.function.Consumer;
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
 public class CommandHandler {
+    /**
+     * List of tasks
+     */
+    private static List<Task> taskList = new ArrayList<>();
     /**
      * Lookup Table that relates a keyword to a corresponding method.
      */
     private static Dictionary<String, Consumer<String>> COMMAND_LIST = new Hashtable<String, Consumer<String>>() {{
         put("bye", CommandHandler::bye);
+        put("list", CommandHandler::list);
     }};
     /**
      * Helper function used to obtain the rest of a sentence sans keyword.
@@ -23,7 +30,7 @@ public class CommandHandler {
      * Used to handle a given user input and call the corresponding method.
      * @param inputString User's input.
      */
-    public static void invoke(String inputString) {
+    public static void handle(String inputString) {
         String inputWords = removeFirstWord(inputString);
         String keyword = inputString.split(" ")[0];
         Consumer<String> calledConsumer = COMMAND_LIST.get(keyword);
@@ -41,14 +48,29 @@ public class CommandHandler {
         Rock.terminate();
     }
     /**
+     * List all tasks in the task list
+     * @param inputString
+     */
+    private static void list(String inputString) {
+        int counter = 1;
+        Rock.say("Task List: ");
+        for (Task task:taskList) {
+            Rock.say(Integer.toString(counter) + ". " + task.toString());
+            counter++;
+        }
+        Rock.say(Rock.LINE_BREAK);
+    }
+    /**
      * Handler for unknown commands given by user.
      * @param inputString User's input
      */
     private static void unknownCommand(String inputString) {
-        echo(inputString);
+        taskList.add(new Task(inputString));
+        Rock.say(inputString + " was added to the task list!");
+        Rock.say(Rock.LINE_BREAK);
     }
     /**
-     * Prints out the user's input.
+     * Prints out the user's input. UNUSED
      * @param inputString User's input.
      */
     private static void echo(String inputString) {
