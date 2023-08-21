@@ -27,6 +27,9 @@ public class Duke {
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
                     System.out.println("Nice! I've marked this task as done:");
                     taskList.mark(taskNumber - 1);
+                } else if (userInput.contains("delete")) {
+                    int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                    taskList.delete(taskNumber - 1);
                 } else if (userInput.contains("todo")) {
                     String[] todoInput = userInput.split(" ", 2);
                     if (todoInput.length < 2 || todoInput[1].trim().isEmpty()) {

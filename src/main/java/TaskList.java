@@ -17,6 +17,13 @@ public class TaskList {
         task.unmark();
         System.out.println(task.toString());
     }
+
+    public void delete(int taskNumber) {
+        Task task = taskList.get(taskNumber);
+        taskList.remove(taskNumber);
+        System.out.println("Noted. I've removed this task:\n" + task);
+        message();
+    }
     @Override
     public String toString() {
         String result = "";
