@@ -1,5 +1,8 @@
 package extensions.exceptions;
 
+/**
+ * Thrown when the user inputs an invalid argument into Duke.
+ */
 public class DukeIllegalArgumentException extends DukeException {
 
     /**

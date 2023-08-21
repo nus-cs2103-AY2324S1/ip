@@ -1,5 +1,8 @@
 package extensions.exceptions;
 
+/**
+ * Thrown when the user inputs an unknown command into Duke.
+ */
 public class DukeUnknownCommandException extends DukeException {
 
     /**

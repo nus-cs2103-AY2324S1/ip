@@ -1,16 +1,19 @@
 package extensions.tasks;
 
-import extensions.exceptions.DukeIllegalArgumentException;
-
 import java.util.ArrayList;
 
-public class TaskList {
-    // Stores the list of tasks
-    protected final ArrayList<Task> list;
+import extensions.exceptions.DukeIllegalArgumentException;
 
+/**
+ * A list of tasks.
+ */
+public class TaskList {
     // Error messages
     private static final String ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS =
             "The task number is out of range. Use \"list\" to see your tasks.";
+
+    // Stores the list of tasks
+    protected final ArrayList<Task> list;
 
     /**
      * Enum for types of tasks.
@@ -51,7 +54,7 @@ public class TaskList {
      * @param description The description of the task to add.
      * @param by The deadline of the task to add.
      * @param start The start date/time of the task to add.
-     * * @param end The end date/time of the task to add.
+     * @param end The end date/time of the task to add.
      */
     private void add(TaskType taskType, String description, String by, String start, String end) {
         switch (taskType) {

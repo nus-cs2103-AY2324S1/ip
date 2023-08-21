@@ -1,5 +1,8 @@
 package extensions.tasks;
 
+/**
+ * A task.
+ */
 public class Task {
 
     // The description of the task.

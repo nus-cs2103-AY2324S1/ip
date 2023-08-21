@@ -1,11 +1,14 @@
+import java.util.Scanner;
+
 import extensions.exceptions.DukeException;
 import extensions.exceptions.DukeIllegalArgumentException;
 import extensions.exceptions.DukeUnknownCommandException;
 import extensions.tasks.TaskList;
 import extensions.tasks.TaskList.TaskType;
 
-import java.util.Scanner;
-
+/**
+ * Duke, the chatbot.
+ */
 public class Duke {
 
     // Error messages
