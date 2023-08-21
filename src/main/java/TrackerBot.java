@@ -14,7 +14,7 @@ public class TrackerBot {
 
   /** Line separators for the console between paragraphs. **/
   private static final String FORMAT_LINE =
-      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
   /**
    * Task Array - as TrackerBot is not instantiated, this must be static.
@@ -139,6 +139,8 @@ public class TrackerBot {
    * <ul>
    *   <li>If the input is "bye", exits the program by returning true.</li>
    *   <li>If the input is "list", prints the list.</li>
+   *   <li>If the input is "mark X", marks the item at index X.</li>
+   *   <li>If the input is "unmark X", unmarks the item at index X.</li>
    *   <li>Otherwise, adds the item to the list.</li>
    * </ul>
    * @param str The input string that is given to the method.
@@ -146,19 +148,41 @@ public class TrackerBot {
    *         false otherwise.
    */
   private static boolean handleInput(String str) {
+    Scanner scanner = new Scanner(str);
+    // if the buffer is empty, exit the handler.
+    if (!scanner.hasNext()) {
+      return false;
+    }
+    String keyword = scanner.next();
     System.out.println(FORMAT_LINE);
     // switch used for now: to handle future input cases.
-    switch(str) {
+    switch(keyword) {
       case "bye":
         exit();
+        scanner.close();
         return true;
       case "list":
         list();
+        break;
+      case "mark":
+        if (scanner.hasNextInt()) {
+          mark(scanner.nextInt());
+        } else {
+          System.out.println("Compulsory parameter for mark should be a number.");
+        }
+        break;
+      case "unmark":
+        if (scanner.hasNextInt()) {
+          unmark(scanner.nextInt());
+        } else {
+          System.out.println("Compulsory parameter for unmark should be a number.");
+        }
         break;
       default:
         add(str);
     }
     System.out.println(FORMAT_LINE);
+    scanner.close();
     return false;
   }
 
@@ -169,6 +193,7 @@ public class TrackerBot {
     boolean isBye;
     do {
       // scanner.nextLine() blocks the main thread.
+      System.out.print("Format :: [keyword] [parse string] | ");
       input = scanner.nextLine();
       isBye = handleInput(input);
     } while (!isBye);
