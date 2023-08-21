@@ -21,6 +21,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatus() + "] " + this.title;
+        return String.format("[%s] %s", this.getStatus(), title);
     }
 }
