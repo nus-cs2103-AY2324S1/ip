@@ -35,9 +35,14 @@ public class Duke {
                         taskList.mark(idx);
                         break;
                     case UNMARK:
-                        idx = Integer.parseInt(input.split("mark", 2)[1].strip());
+                        idx = Integer.parseInt(input.split("unmark", 2)[1].strip());
 
                         taskList.unmark(idx);
+                        break;
+                    case DELETE:
+                        idx = Integer.parseInt(input.split("delete", 2)[1].strip());
+
+                        taskList.delete(idx);
                         break;
                     case TODO:
                         String description = input.split("todo", 2)[1].strip();

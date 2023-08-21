@@ -17,7 +17,11 @@ class TaskList {
         System.out.println(divider);
     }
 
-    public void mark(int idx) {
+    public void mark(int idx) throws DukeException {
+        if (idx > this.list.size()) {
+            throw new DukeException("Out of bounds..");
+        }
+
         Task task = this.list.get(idx - 1);
         task.toggleIsDone(true);
 
@@ -27,7 +31,22 @@ class TaskList {
         System.out.println(divider);
     }
 
-    public void unmark(int idx) {
+    public void delete(int idx) throws DukeException {
+        if (idx > this.list.size()) {
+            throw new DukeException("Out of bounds..");
+        }
+        Task task = this.list.remove(idx - 1);
+        System.out.println(divider);
+        System.out.println("Task remove UwU");
+        System.out.println(task.toString());
+        System.out.println(divider);
+    }
+
+    public void unmark(int idx) throws DukeException {
+        if (idx > this.list.size()) {
+            throw new DukeException("Out of bounds..");
+        }
+
         Task task = this.list.get(idx - 1);
         task.toggleIsDone(false);
 

@@ -6,6 +6,7 @@ public enum Command {
     DEADLINE,
     EVENT,
     BYE,
+    DELETE,
     INVALID;
 
     public static Command parseCommand(String command) throws InvalidCommandException, WrongUseOfCommandException,
@@ -26,7 +27,7 @@ public enum Command {
             throw new WrongUseOfCommandException();
         }
 
-        if (command.startsWith("mark") || command.startsWith("unmark")) {
+        if (command.startsWith("mark") || command.startsWith("unmark") || command.startsWith("delete")) {
             try {
                 String res = command.split(" ", 2)[0];
 
