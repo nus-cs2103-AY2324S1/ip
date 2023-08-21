@@ -5,6 +5,6 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         Chatbot chatbot = new Chatbot(userInput);
-        chatbot.start();
+        chatbot.start(scanner);
     }
 }

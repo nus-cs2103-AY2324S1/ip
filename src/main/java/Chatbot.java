@@ -9,9 +9,8 @@ public class Chatbot {
         this.name = name;
     }
 
-    public void start() {
+    public void start(Scanner scanner) {
         giveIntro();
-        Scanner scanner = new Scanner(System.in);
         String userInput;
 
         do {
