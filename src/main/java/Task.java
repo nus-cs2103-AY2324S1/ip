@@ -37,7 +37,7 @@ public class Task {
      * Prints out the description of the task and its status.
      * @return A string that shows the task's description and status.
      */
-    public String getTaskInfo() {
+    public String toString() {
         return "[" + getStatusIcon() + "]" + " " + this.description;
     }
 }

@@ -10,7 +10,7 @@ public class Duke {
         for (int i = 0; i < linkedList.size(); i++) {
             Task currTask = linkedList.get(i);
             str.append(String.valueOf(i + 1)).append(".")
-                    .append(currTask.getTaskInfo())
+                    .append(currTask.toString())
                     .append("\n");
         }
         return str.toString();
@@ -39,14 +39,14 @@ public class Duke {
                 storage.get(a - 1).markAsUndone();
                 System.out.println(horizontal_line
                         + "OK, I've marked this task as not done yet:\n"
-                        + storage.get(a - 1).getTaskInfo() + "\n"
+                        + storage.get(a - 1).toString() + "\n"
                         + horizontal_line);
             } else if (input.contains("mark")) {
                 int a = Integer.parseInt(input.substring(5));
                 storage.get(a-1).markAsDone();
                 System.out.println(horizontal_line
                                     + "Nice! I've marked this task as done:\n"
-                                    + storage.get(a - 1).getTaskInfo() + "\n"
+                                    + storage.get(a - 1).toString() + "\n"
                                     + horizontal_line);
             }
             else {
