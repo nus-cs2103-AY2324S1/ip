@@ -11,9 +11,15 @@ public class URChatBot {
                     + "| |_| | | |___  |   ) \\\n"
                     + "\\___,_| \\_____| |_____|\n";
         System.out.println("Hello! I'm URChatBot.\nWhat can I do for you?\n" + logo);
-
-        sc.nextLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        sc.close();
-    }
+        while (true) {
+            String command = sc.nextLine();
+            if (command.toUpperCase().contentEquals("BYE")) {
+                System.out.println("Bye. Hope to see you again soon!");
+                sc.close();
+                break;
+            } else {
+                System.out.println(command);
+            }
+        }
+        }
 }
