@@ -6,7 +6,7 @@ import java.util.Scanner;
  * as part of the requirements for the iP.
  *
  * @author WZWren
- * @version Level-0
+ * @version Level-1
  */
 public class TrackerBot {
   /** Name of the app. **/
@@ -46,6 +46,35 @@ public class TrackerBot {
   }
 
   /**
+   * List function of the app. <br>
+   * Prints the list of tasks in the bot.
+   */
+  private static void list() {
+    // happy path: prints an appropriate message and exit the method.
+    if (taskCounter == 0) {
+      System.out.println("No tasks have been added to the list yet.");
+      return;
+    }
+
+    for (int i = 1; i < taskCounter + 1; i++) {
+      System.out.println(i + ". " + TASK_LIST[i - 1]);
+    }
+  }
+
+  /**
+   * Add function of the app. <br>
+   * Adds the item to the task list. We do not handle the OutOfBounds case as
+   * the tasks is assumed to be less than 100.
+   * @param str The String of the task to add to the list.
+   */
+  private static void add(String str) {
+    TASK_LIST[taskCounter] = str;
+    taskCounter++;
+
+    System.out.println("Task added: " + str);
+  }
+
+  /**
    * Input handler function of the app. <br>
    * Takes in a user input, and acts upon the input based on what input it gets. <br>
    * <ul>
@@ -61,8 +90,11 @@ public class TrackerBot {
       case "bye":
         exit();
         break;
+      case "list":
+        list();
+        break;
       default:
-        System.out.println(str);
+        add(str);
     }
     System.out.println(FORMAT_LINE);
   }
