@@ -9,13 +9,13 @@ public class Duke {
 
         String add(String item) {
             list.add(item);
-            return String.format("added: %s", item);
+            return String.format("    added: %s", item);
         }
         @Override
         public String toString() {
             String result = "";
             for (int i = 0; i < list.size(); i++) {
-                result += String.format("    %d. %s", i + 1, list.get(i));
+                result += String.format("    %d. %s\n", i + 1, list.get(i));
             }
             return result;
         }
@@ -26,7 +26,7 @@ public class Duke {
         bye
     }
 
-    StoreList list = new StoreList();
+    private static StoreList list = new StoreList();
     public static void main(String[] args) {
         String logo = "Nino!";
         System.out.println("Hello, my name is " + logo);
@@ -43,7 +43,12 @@ public class Duke {
                 sc.close();
                 break;
             }
-            System.out.println(wrapper(line));
+            if (line.equals("list")) {
+                System.out.println(wrapper(list.toString()));
+                continue;
+            }
+            String response = list.add(line);
+            System.out.println(wrapper(response));
         }
     }
 
