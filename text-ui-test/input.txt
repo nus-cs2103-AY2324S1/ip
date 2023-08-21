@@ -1,0 +1,8 @@
+todo borrow book
+todo read book
+todo join cca
+list
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+mark 3
+list
