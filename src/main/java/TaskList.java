@@ -27,6 +27,10 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    public int size() {
+        return tasks.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
