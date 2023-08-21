@@ -4,31 +4,43 @@ import java.util.*;
  * Represents the Minion chatbot.
  */
 public class Minion {
-    public static List<Task> tasks = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
+
+    private Ui ui;
+
     public static void main(String[] args) {
-        sayHi();
+        new Minion().run(args);
+    }
+
+    /**
+     * Driver function.
+     * @param args arguments passed in to stdin.
+     */
+    private void run(String[] args){
+        ui = new Ui();
+        ui.sayHi();
         Scanner sc = new Scanner(System.in);
         while (true) {
             String command = sc.nextLine();
             if (command.trim().equals("bye")) {
-                sayBye();
+                ui.sayBye();
                 break;
             }
             Task task = null;
             try {
                 task = parseCommand(command);
             } catch (IllegalValueException | ParserException e) {
-                Ui.print(e.getMessage());
+                ui.print(e.getMessage());
             }
             if (task == null) {
                 continue;
             }
             tasks.add(task);
-            Ui.print(Arrays.asList(
-                    "Got it. I've added this task:",
-                    "\t" + task.toString(),
-                    "Now you have " + tasks.size() +  " tasks in the list."
-                )
+            ui.print(Arrays.asList(
+                            "Got it. I've added this task:",
+                            "\t" + task.toString(),
+                            "Now you have " + tasks.size() +  " tasks in the list."
+                    )
             );
         }
         sc.close();
@@ -37,13 +49,13 @@ public class Minion {
     /**
      * Lists current tasks.
      */
-    public static void listTasks() {
+    private void listTasks() {
         List<String> lst = new ArrayList<>();
         lst.add("Here are the tasks in your list:");
         for(int i = 0; i < tasks.size(); i++) {
             lst.add((i + 1) + "." + tasks.get(i).toString());
         }
-        Ui.print(lst);
+        ui.print(lst);
     }
 
     /**
@@ -52,7 +64,7 @@ public class Minion {
      * @return the task parsed from the command if no exception is thrown.
      * @throws ParserException()
      */
-    public static Task parseCommand(String command) throws ParserException, IllegalValueException {
+    private Task parseCommand(String command) throws ParserException, IllegalValueException {
         command = command.trim();
         if (command.isEmpty()){
             throw new ParserException("☹ OOPS!!! I'm sorry, please input a legit command. :-(");
@@ -72,7 +84,7 @@ public class Minion {
                 throw e;
             }
             currTask.markDone();
-            Ui.print(Arrays.asList(
+            ui.print(Arrays.asList(
                     "Nice! I've marked this task as done:",
                     "\t" + currTask.toString()
             ));
@@ -87,7 +99,7 @@ public class Minion {
                 throw e;
             }
             currTask.markUndone();
-            Ui.print(Arrays.asList(
+            ui.print(Arrays.asList(
                     "OK, I've marked this task as not done yet:",
                     "\t" + currTask.toString()
             ));
@@ -102,7 +114,7 @@ public class Minion {
                 throw e;
             }
             tasks.remove(taskIdx);
-            Ui.print(Arrays.asList(
+            ui.print(Arrays.asList(
                     "OK, I've removed this task",
                     "\t" + currTask.toString()
             ));
@@ -216,24 +228,10 @@ public class Minion {
      * @param taskIdx index of task in the list.
      * @return the Task corresponding to the index.
      */
-    public static Task getTask(int taskIdx) throws IllegalValueException {
+    private static Task getTask(int taskIdx) throws IllegalValueException {
         if (taskIdx < 0 || taskIdx >= tasks.size()) {
             throw new IllegalValueException("☹ OOPS!!! Please enter a valid task number.");
         }
         return tasks.get(taskIdx);
-    }
-
-    /**
-     * Function to say hi to the user.
-     */
-    public static void sayHi(){
-        Ui.print(Arrays.asList("Hello! I'm Minion!", "What can I do for you?"));
-    }
-
-    /**
-     * Function to say bye to the user.
-     */
-    public static void sayBye(){
-        Ui.print("Bye. Hope to see you again soon!");
     }
 }
