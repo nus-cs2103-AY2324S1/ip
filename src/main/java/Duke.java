@@ -2,6 +2,9 @@ import java.util.Scanner;
 public class Duke {
     private static String name = "Alfred";
 
+    private static String[] list = new String[100];
+    private static int counter = 0;
+
     public static void println() {
         System.out.println("____________________________________________________________");
     }
@@ -23,8 +26,8 @@ public class Duke {
 
         while (true) {
 
-            String command = scanIn.nextLine();
-            switch (command){
+            String text = scanIn.nextLine();
+            switch (text){
                 case "bye":
 
                     println();
@@ -34,7 +37,7 @@ public class Duke {
 
                 default:
                     println();
-                    System.out.println(command);
+                    System.out.println(text);
                     println();
                     continue;
 
