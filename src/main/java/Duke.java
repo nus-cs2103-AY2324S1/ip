@@ -28,6 +28,9 @@ public class Duke {
                 items.get(check.mark(stuff)).done = true;
                 System.out.println("Yay, done with " + items.get(check.mark(stuff)).display());
             }
+            else if (check.del(stuff) != -1) {
+                System.out.println("Deleted: " + items.remove(check.del(stuff)).display());
+            }
 
             else{
                 if(stuff.trim().toLowerCase().startsWith("todo")) {

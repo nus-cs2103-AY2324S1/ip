@@ -27,4 +27,16 @@ public class MarkPattern {
             return -1;
         }
     }
+
+    public int del(String args) {
+        Pattern pattern = Pattern.compile("delete\\s*(\\d+)");
+        Matcher matcher = pattern.matcher(args);
+
+        if (matcher.find()) {
+            String num = matcher.group(1);
+            return Integer.parseInt(num)-1;
+        } else {
+            return -1;
+        }
+    }
 }
