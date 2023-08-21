@@ -20,19 +20,32 @@ public class Duke {
         System.out.println("Woof Woof! I'm " + name + " 🐾");
         System.out.println("How can I help you?");
         display_lines();
+        String[] tasks = new String[100];
         String s = "";
+        int counter = 0;
         do {
-            s = sc.next();
+            s = sc.nextLine();
             display_lines();
-            if (!s.equals("bye")) {
+            if (s.equals("bye")) {
                 System.out.print("\t");
-                System.out.println(s);
-                display_lines();
-            }
-            else {
                 System.out.println("Bye Bye! Hope to see you again soon! 🐶");
                 display_lines();
                 break;
+            }
+            else if (s.equals("list")) {
+                for (int i = 0; i < counter; i++) {
+                    if (tasks[i] != null) {
+                        System.out.print("\t");
+                        System.out.println((i + 1) + ". " + tasks[i]);
+                    }
+                }
+                display_lines();
+            }
+            else {
+                System.out.print("\t");
+                System.out.println("added: " + s);
+                tasks[counter++] = s;
+                display_lines();
             }
         } while (true);
     }
