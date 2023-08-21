@@ -3,13 +3,12 @@ package services;
 public class Basics {
 
     public static void greet() {
-        String greetMessage = "Hello! I'm Jarvis\n" +
-                "What can I do for you?";
+        String greetMessage = "At your service, sir.";
         Format.print(greetMessage);
     }
 
     public static void exit() {
-        String exitMessage = "Bye. Hope to see you again soon!";
+        String exitMessage = "Shutting down...";
         Format.print(exitMessage);
     }
 
