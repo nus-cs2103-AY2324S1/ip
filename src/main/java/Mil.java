@@ -126,7 +126,37 @@ public class Mil {
                 System.out.println(indentation + "  " + task.toString());
                 System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println(indentation + horLine);
-            } else {
+            }  else if(input.startsWith("delete")) {
+                try {
+                    if(input.split(" ").length < 2) {
+                        throw new MilException("Empty task index");
+                    }
+                } catch (MilException e) {
+                    System.out.println(indentation + horLine);
+                    System.out.println(indentation + "☹ Oopsie! You did not input the task index");
+                    System.out.println(indentation + horLine);
+                    continue;
+                }
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                try {
+                    if (index < 0 || index >= taskList.size()) {
+                        throw new MilException("Invalid task index");
+                    }
+                } catch (MilException e) {
+                    System.out.println(indentation + horLine);
+                    System.out.println(indentation + "☹ Oopsie! The input you entered has: " + e.getMessage());
+                    System.out.println(indentation + horLine);
+                    continue;
+                }
+
+                Task task = taskList.get(index);
+                taskList.remove(index);
+                System.out.println(indentation + horLine);
+                System.out.println(indentation + "Noted. I've removed this task:");
+                System.out.println(indentation + "  " + task.toString());
+                System.out.println(indentation + "Now you have " + taskList.size() + " tasks in the list.");
+                System.out.println(indentation + horLine);
+            }  else {
                 System.out.println("☹ Oopsie! I'm sorry, but I don't know what that means.");
             }
 
