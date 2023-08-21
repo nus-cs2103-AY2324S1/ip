@@ -1,5 +1,14 @@
+yo
+list
+todo
 todo read book
+deadline
+deadline /by 
 deadline return book /by June 6th
+event
+event X /from Y
+event X /to Y
+event /from X /to Y
 event project meeting /from Aug 6th 2pm /to 4pm
 todo join sports club
 todo borrow book
@@ -7,5 +16,8 @@ mark 1
 mark 4
 list
 unmark 1
+mark one
+mark -1
+mark 5
 list
 bye

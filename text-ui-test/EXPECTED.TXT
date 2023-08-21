@@ -3,14 +3,41 @@ Hello! I'm LilBro!
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
+Not sure what you're blabbering on about, please use a valid command.
+____________________________________________________________
+____________________________________________________________
+You have no tasks so far.
+____________________________________________________________
+____________________________________________________________
+You didn't specify a task to do. Check that you're doing "todo {description}".
+____________________________________________________________
+____________________________________________________________
 Got it. I've added this task:
 [T][ ] read book
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
+Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} \by {date}".
+____________________________________________________________
+____________________________________________________________
+Your deadline seems to be formatted wrongly. Check that you're doing: "deadline {description} \by {date}".
+____________________________________________________________
+____________________________________________________________
 Got it. I've added this task:
 [D][ ] return book (by: June 6th)
 Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} \from {start} \to {end}".
+____________________________________________________________
+____________________________________________________________
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} \from {start} \to {end}".
+____________________________________________________________
+____________________________________________________________
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} \from {start} \to {end}".
+____________________________________________________________
+____________________________________________________________
+Your event seems to be formatted wrongly. Check that you're doing: "event {description} \from {start} \to {end}".
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -46,6 +73,15 @@ ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
 [T][ ] read book
+____________________________________________________________
+____________________________________________________________
+Stop trolling me bro. Please enter a numeric index.
+____________________________________________________________
+____________________________________________________________
+You've specified an invalid task number. Check your task list again with the "list" command.
+____________________________________________________________
+____________________________________________________________
+You've specified an invalid task number. Check your task list again with the "list" command.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
