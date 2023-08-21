@@ -20,8 +20,8 @@ public class Duke {
                 if (userInput.equalsIgnoreCase("list")) {
                     String todolistoutput = "";
                     for (int i = 0; i < todolist.size(); i++) {
-                        todolistoutput += i + 1 + "." + "[" + todolist.get(i).getStatusIcon() + "]"
-                                + todolist.get(i).getString() + "\n";
+                        todolistoutput += i + 1 + "."
+                                + todolist.get(i) + "\n";
                     }
                     System.out.println("____________________________________________________________\n"
                             + todolistoutput
@@ -35,7 +35,7 @@ public class Duke {
                     System.out.println("____________________________________________________________\n"
                             + "Nice! I've marked this task as done:\n"
                             + " [" + todolist.get(index - 1).getStatusIcon() + "] "
-                            + todolist.get(index - 1).getString() + "\n"
+                            + todolist.get(index - 1) + "\n"
                             + "____________________________________________________________\n");
                 } else if (userInput.startsWith("unmark")) {
                     int index = Integer.valueOf(userInput.split(" ", 0)[1]);
@@ -43,15 +43,31 @@ public class Duke {
                     System.out.println("____________________________________________________________\n"
                             + "OK, I've marked this task as not done yet:\n"
                             + " [" + todolist.get(index - 1).getStatusIcon() + "] "
-                            + todolist.get(index - 1).getString() + "\n"
+                            + todolist.get(index - 1) + "\n"
                             + "____________________________________________________________\n");
                 } else {
-                    Task task = new Task(userInput);
+                    Task task = null;
+                    if (userInput.startsWith("todo", 0)) {
+                        task = new ToDo(userInput.substring(5));
+                    } else if (userInput.startsWith("deadline", 0)) {
+                        task = new Deadline(userInput.substring(9).split("/")[0],
+                                userInput.substring(9).split("/")[1].substring(3));
+                    } else if (userInput.startsWith("event", 0)) {
+                        task = new Event(userInput.substring(6).split("/")[0],
+                                userInput.substring(6).split("/")[1].substring(5),
+                                userInput.substring(6).split("/")[2].substring(3));
+                    } else {
+                        System.out.println("____________________________________________________________\n"
+                                + "Incorrect Input\n"
+                                + "____________________________________________________________\n");
+                        continue;
+                    }
                     todolist.add(task);
                     System.out.println("____________________________________________________________\n"
-                            + "Added: "
-                            + userInput
+                            + "Got it. I've added this task:\n"
+                            + " " + task
                             + "\n"
+                            + "Now you have " + Task.getTotal() + " tasks in the list.\n"
                             + "____________________________________________________________\n");
 
                 }
