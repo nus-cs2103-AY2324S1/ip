@@ -1,6 +1,6 @@
 import services.Basics;
-import services.Format;
-import services.List;
+import services.tasklist.List;
+import services.tasklist.Todo;
 
 import java.util.Scanner;
 
@@ -41,26 +41,47 @@ public class Jarvis {
         System.out.println(jarvisLogo);
         Basics.greet();
 
-        String userInput = scanner.next();
+        String userInput = scanner.nextLine();
 
         while (!userInput.equals("exit")) {
+            String command = userInput.split(" ")[0];
+            String arguments = userInput.replaceFirst(command, "").strip();
             // condition on the first word of the user input.
-            switch (userInput) {
-                case "list":
+            switch (command) {
+                case "list": {
                     List.show();
                     break;
-                case "mark":
-                    int taskNumber = scanner.nextInt();
+                }
+                case "mark": {
+                    int taskNumber = Integer.parseInt(arguments);
                     List.markDone(taskNumber);
                     break;
-                case "unmark":
-                    taskNumber = scanner.nextInt();
+                }
+                case "unmark": {
+                    int taskNumber =Integer.parseInt(arguments);
                     List.markUndone(taskNumber);
                     break;
+                }
+                case "todo": {
+                    List.add(arguments, "todo");
+                    break;
+                }
+                case "deadline": {
+                    String[] varargs = arguments.split("\\s+/by\\s+");
+                    String description = varargs[0], by = varargs[1];
+                    List.add(description, "deadline", by);
+                    break;
+                }
+                case "event": {
+                    String[] varargs = arguments.split("\\s+/from\\s+|\\s+/to\\s+");
+                    String description = varargs[0], from = varargs[1], to = varargs[2];
+                    List.add(description, "event", from, to);
+                    break;
+                }
                 default:
-                    List.add(userInput);
+                    throw new IllegalStateException("Unexpected value: " + userInput);
             }
-            userInput = scanner.next();
+            userInput = scanner.nextLine();
         }
 
         Basics.exit();
