@@ -17,6 +17,16 @@ public class TrackerBot {
       "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 
   /**
+   * Task Array - as TrackerBot is not instantiated, this must be static.
+   * The Task List array itself should be immutable, in case we override it
+   * during runtime.
+   */
+  private static final String[] TASK_LIST = new String[100];
+
+  /** Tracks the number of items in the task list. */
+  private static int taskCounter = 0;
+
+  /**
    * Greet function of the app. <br>
    * Prints a welcome message to the user on login.
    */
