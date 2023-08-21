@@ -5,7 +5,8 @@ public class Duke {
         System.out.println(" Hello from " + logo + "\n What can I do for you? \n" + "---------------------------------- \n"
                 + " Bye. Hope to see you again soon! \n"
                 + "----------------------------------\n ");
-
+        String[] lists = new String[100];
+        int length = 0;
         Scanner sc = new Scanner(System.in);
 
         while(true) {
@@ -15,8 +16,16 @@ public class Duke {
                 System.out.println("Bacon Pancake : \n" + "Bye! See you again soon ");
                 sc.close();
                 break;
+            } else if (input.equals("list")) {
+                System.out.println("Bacon Pancake : Below are the lists\n");
+                for (int i = 0; i < length; i++) {
+                    System.out.println((i + 1) + ". " + lists[i]);
+                }
+            } else {
+                lists[length++] = input;
+                System.out.println("Bacon Pancake : \n Added : " + input);
             }
-            System.out.println("Bacon Pancake : \n" + input);
+
         }
 
     }
