@@ -107,6 +107,9 @@ public class DeterministicParrot {
         commandHandlers.put("event", args -> {
             addEvent(args);
         });
+        commandHandlers.put("delete", args -> {
+            deleteTask(args);
+        });
     }
 
 
@@ -150,6 +153,9 @@ public class DeterministicParrot {
 
     }
     private void markAsDone(String args[]) throws DeterministicParrotException {
+        if(args.length < 2){
+            throw new DeterministicParrotException("Please provide a task number.");
+        }
         int i;
         try {
             i = Integer.parseInt(args[1]);
@@ -164,6 +170,9 @@ public class DeterministicParrot {
         this.pw.println("       " + this.list.get(i-1));
     }
     private void markAsUndone(String toks[]) throws DeterministicParrotException {
+        if(toks.length < 2){
+            throw new DeterministicParrotException("Please provide a task number.");
+        }
         int i;
         try {
             i = Integer.parseInt(toks[1]);
@@ -221,6 +230,24 @@ public class DeterministicParrot {
         this.pw.println("       " + t);
         this.pw.println("     " + "Now you have " + this.list.size() + " tasks in the list.");
     }
+    private void deleteTask(String args[]) throws DeterministicParrotException {
+        if(args.length < 2){
+            throw new DeterministicParrotException("Please provide a task number.");
+        }
+        int i;
+        try {
+            i = Integer.parseInt(args[1]);
+        } catch (NumberFormatException e) {
+            throw new DeterministicParrotException("Please provide a valid task number.");
+        }
+        if (i <= 0 || i > list.size()) {
+            throw new DeterministicParrotException("Invalid task number.");
+        }
+        Task t = this.list.remove(i-1);
+        this.pw.println("    " + "Noted. I've removed this task:");
+        this.pw.println("       " + t);
+        this.pw.println("     " + "Now you have " + this.list.size() + " tasks in the list.");
+    }
 
     private void handleCommand(String input){
         String[] tokens = input.split(" ");
@@ -239,6 +266,7 @@ public class DeterministicParrot {
             this.printDash();
         }
     }
+
 
     private void poll() {
         this.greet();
