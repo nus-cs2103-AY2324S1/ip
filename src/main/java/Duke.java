@@ -31,20 +31,34 @@ public class Duke {
 
             else{
                 if(stuff.trim().toLowerCase().startsWith("todo")) {
-                    System.out.println("added: " + stuff.trim().substring(4));
-                    items.add(new ToDo(stuff.trim().substring(4)));
+                    if(stuff.trim().substring(4).trim().length() == 0) {
+                        System.out.println("Why empty???");
+                    } else {
+                        System.out.println("added: " + stuff.trim().substring(4));
+                        items.add(new ToDo(stuff.trim().substring(4)));
+                    }
                 }
-                else if(stuff.trim().toLowerCase().startsWith("deadline") && stuff.toLowerCase().contains("/by")) {
-                    String[] parts = stuff.trim().substring(8).split("/by");
-                    items.add(new Deadline(parts[0].trim(),parts[1].trim()));
-                    System.out.println("added: " + parts[0].trim() + " (Due by: " + parts[1].trim() + ")");
+                else if(stuff.trim().toLowerCase().startsWith("deadline") ) {
+                    if (!stuff.toLowerCase().contains("/by")) {
+                        System.out.println("Hey!!! please use /by to indicate a deadline, dont break me please...");
+                    }
+                    else {
+                        String[] parts = stuff.trim().substring(8).split("/by");
+                        items.add(new Deadline(parts[0].trim(),parts[1].trim()));
+                        System.out.println("added: " + parts[0].trim() + " (Due by: " + parts[1].trim() + ")");
+                    }
                 }
-                else if(stuff.trim().toLowerCase().startsWith("event") && stuff.toLowerCase().contains("/from") && stuff.toLowerCase().contains("/to")) {
-                    String[] parts = stuff.trim().substring(5).split("/from");
-                    String part1 = parts[0].trim();
-                    String[] part23 = parts[1].trim().split("/to");
-                    items.add(new Event(part1,part23[0].trim(), part23[1].trim()));
-                    System.out.println("added: " + part1 + " (From: " + part23[0].trim() + " To: " + part23[1].trim() + ")");
+                else if(stuff.trim().toLowerCase().startsWith("event")) {
+                    if (!(stuff.toLowerCase().contains("/from") && stuff.toLowerCase().contains("/to"))) {
+                        System.out.println("Hey! Where is your /from and /to tags??");
+                    }
+                    else {
+                        String[] parts = stuff.trim().substring(5).split("/from");
+                        String part1 = parts[0].trim();
+                        String[] part23 = parts[1].trim().split("/to");
+                        items.add(new Event(part1,part23[0].trim(), part23[1].trim()));
+                        System.out.println("added: " + part1 + " (From: " + part23[0].trim() + " To: " + part23[1].trim() + ")");
+                    }
                 }
                 else {
                     System.out.println("I don't understand...");
