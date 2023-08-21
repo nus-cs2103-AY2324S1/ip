@@ -18,14 +18,14 @@ public class Task {
      */
     public void mark() {
         this.state = true;
-        System.out.println(this);
+        System.out.println(this + "\n");
     }
 
     /** The method to unmark the state of this task as not done
      */
     public void unmark() {
         this.state = false;
-        System.out.println(this);
+        System.out.println(this + "\n");
     }
 
     /** A private method to show out the state of this task
