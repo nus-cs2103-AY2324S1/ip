@@ -6,7 +6,7 @@ import java.util.Scanner;
  * as part of the requirements for the iP.
  *
  * @author WZWren
- * @version Level-1
+ * @version Level-2
  */
 public class TrackerBot {
   /** Name of the app. **/
