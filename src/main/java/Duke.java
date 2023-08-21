@@ -14,7 +14,8 @@ public class Duke {
         Scanner scanIn = new Scanner(System.in);
 
         println();
-        System.out.println("Hello I'm " + getName() + ", your personal assistant.");
+        String sf1 = String.format("Hello I'm %s, your personal assistant.",getName());
+        System.out.println(sf1);
         System.out.println("What can I do for you today, sir?");
         println();
 
