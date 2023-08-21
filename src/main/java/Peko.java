@@ -10,7 +10,7 @@ public class Peko {
             "Usada Pekora-peko! almondo almondo!";
     private static final String exitText = "Otsupeko! Bye bye!";
     private static final String[] commands = new String[]
-            {"echo","otsupeko", "list", "write", "tell me a joke"};
+            {"echo:","otsupeko", "list", "write:", "tell me a joke"};
 
     private static final int ECHO = 0;
     private static final int EXIT = 1;
@@ -42,6 +42,7 @@ public class Peko {
                     break;
                 case WRITE:
                     try {
+                        input = input.startsWith(commands[3]) ? leftPad(input.substring(6, input.length())) : input;
                         addToList(input);
                     } catch (IOException e) {
                         System.out.println("Wakaranai Peko!");
@@ -84,18 +85,8 @@ public class Peko {
         System.out.println(lineBreak);
         return currInput;
     }
-    public static void echo(String s) {
-        s = s.substring(5, s.length());
-        s = leftPad(s);
-        if (s.isBlank()) {
-            System.out.println("You didn't say anything peko?");
-        } else {
-            System.out.println(s);
-        }
-    }
-
     public static int getResponseValue(String input) {
-        int output = 2;
+        int output = 3;
         input = input.toLowerCase();
         for (int i = 0; i < commands.length; i++) {
             if (input.startsWith(commands[i])) {
@@ -105,6 +96,16 @@ public class Peko {
         }
 
         return output;
+    }
+
+    public static void echo(String s) {
+        s = s.substring(5, s.length());
+        s = leftPad(s);
+        if (s.isBlank()) {
+            System.out.println("You didn't say anything peko?");
+        } else {
+            System.out.println(s);
+        }
     }
 
     public static void readList() throws FileNotFoundException {
