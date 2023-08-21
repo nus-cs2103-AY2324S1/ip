@@ -7,37 +7,59 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String[] texts = new String[STORE_SIZE];
-        int text_pointer = 0;
+        Task[] tasks = new Task[STORE_SIZE];
+        int task_pointer = 0;
         printLine();
         String greeting = String.format("%sHello! I'm %s%n%sWhat can I do for you?",
                                         SPACE, NAME, SPACE);
         System.out.println(greeting);
         printLine();
         System.out.println();
-        String commands = sc.nextLine();
-        while (!commands.equals("bye")) {
+        String text = sc.nextLine();
+        String[] split = text.split(" ");
+        String command = split[0];
+        while (!command.equals("bye")) {
             printLine();
-            if (!commands.equals("list")) {
-                System.out.printf("%sadded: %s%n", SPACE, commands);
-                texts[text_pointer] = commands;
-                text_pointer++;
-            } else {
-                for (int i = 0; i < text_pointer; i++) {
-                    if (texts[i] == null) {
+            switch(command) {
+                case "list":
+                    if (task_pointer == 0) {
+                        System.out.printf("%sSorry, there is nothing to list!%n", SPACE);
                         break;
                     } else {
-                        String out = String.format("%s%d. %s", SPACE, i + 1, texts[i]);
-                        System.out.println(out);
+                        System.out.printf("%sHere are the tasks in your list:%n", SPACE);
                     }
-                }
-                if (text_pointer == 0) {
-                    System.out.printf("%sSorry, there is nothing to list!%n", SPACE);
-                }
+                    for (int i = 0; i < task_pointer; i++) {
+                        if (tasks[i] == null) {
+                            break;
+                        } else {
+                            String out = String.format("%s%d.%s", SPACE, i + 1, tasks[i]);
+                            System.out.println(out);
+                        }
+                    }
+                    break;
+
+                case "mark":
+                    int indexMark = Integer.valueOf(split[1]) - 1;
+                    System.out.printf("%sNice! I've marked this task as done:%n%s  %s%n",
+                            SPACE, SPACE, tasks[indexMark].markAsDone());
+                    break;
+
+                case "unmark":
+                    int indexUnmark = Integer.valueOf(split[1]) - 1;
+                    System.out.printf("%sOK, I've marked this task as not done yet:%n%s  %s%n",
+                            SPACE, SPACE, tasks[indexUnmark].markAsNotDone());
+                    break;
+
+                default:
+                    System.out.printf("%sadded: %s%n", SPACE, text);
+                    tasks[task_pointer] = new Task(text);
+                    task_pointer++;
             }
             printLine();
             System.out.println();
-            commands = sc.nextLine();
+            text = sc.nextLine();
+            split = text.split(" ");
+            command = split[0];
         }
         printLine();
         System.out.printf("%sBye. Hope to see you again soon!%n", SPACE);
