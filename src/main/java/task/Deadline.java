@@ -1,4 +1,7 @@
-public class Deadline extends Task{
+package task;
+import task.Task;
+
+public class Deadline extends Task {
     /**
      * The date of the deadline.
      */
