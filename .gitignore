@@ -13,5 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Compiled java classes
+/src/main/java/*.class
+
+# Test artifacts
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT

@@ -1,114 +1,107 @@
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class Duke {
-    private static final int lineLength = 60;
-    private static final String horizontalLine = "_".repeat(lineLength);
+    private static final String horizontalLine = "_".repeat(60);
     private static final String msgIndent = " ";
     private static final String responseIndent = " ".repeat(4);
     private static final String name = "chatBot";
     private static final String helloMsg = String.format("Hello! I'm %s", name);
     private static final String requestMsg = "What can I do for you?";
-    private static final String taskCount = "Now you have %d task%s in the list.";
-    private static final String addedMsg = "Got it. I've added this task:\n  %s\n" + taskCount;
-    private static final String removedMsg = "Noted. I've removed this task:\n  %s\n" + taskCount;
+    private static final String taskCountMsg = "Now you have %d task%s in the list.";
+    private static final String addedMsg = "Got it. I've added this task:\n  %s\n%s";
+    private static final String removedMsg = "Noted. I've removed this task:\n  %s\n%s";
     private static final String listMsg = "Here are the tasks in your list:\n%s";
     private static final String markMsg = "Nice! I've marked this task as done:\n  %s";
     private static final String unmarkMsg = "OK, I've marked this task as not done yet:\n  %s";
     private static final String invalidCmdMsg = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
     private static final String emptyFieldMsg = "☹ OOPS!!! The %s of a %s cannot be empty.";
-    private static final String invalidIndexMsg = "☹ OOPS!!! The index should be a valid integer.";
-    private static final String negativeIndexMsg = "☹ OOPS!!! The index should be a positive integer.";
-    private static final String outOfBoundsMsg = "☹ OOPS!!! %d is out of range. The list only has %d item%s.";
-    private static final String invalidByeMsg = "☹ OOPS!!! Did you mean \"bye\" without additional arguments?";
-    private static final String invalidListMsg = "☹ OOPS!!! Did you mean \"list\" without additional arguments?";
-    private static final String invalidMarkMsg = "☹ OOPS!!! mark should have exactly one argument.";
-    private static final String invalidUnmarkMsg = "☹ OOPS!!! unmark should have exactly one argument.";
-    private static final String invalidRemoveMsg = "☹ OOPS!!! remove should have exactly one argument.";
+    private static final String additionalFieldMsg = "☹ OOPS!!! %s command should not have a %s field.";
+    private static final String invalidIndexMsg = "☹ OOPS!!! Please enter a valid positive integer for the index.";
+    private static final String outOfBoundsMsg = "☹ OOPS!!! %d is out of range. %s";
+    private static final String repeatedFieldMsg = "☹ OOPS!!! %s field is repeated.";
     private static final String goodbyeMsg = "Bye. Hope to see you again soon!";
     private static final Scanner userInput = new Scanner(System.in);
+    private static final Map<String, CommandType> commands = Map.ofEntries(
+            new SimpleEntry<String, CommandType>("list", CommandType.LIST),
+            new SimpleEntry<String, CommandType>("mark", CommandType.MARK),
+            new SimpleEntry<String, CommandType>("unmark", CommandType.UNMARK),
+            new SimpleEntry<String, CommandType>("todo", CommandType.TODO),
+            new SimpleEntry<String, CommandType>("deadline", CommandType.DEADLINE),
+            new SimpleEntry<String, CommandType>("event", CommandType.EVENT),
+            new SimpleEntry<String, CommandType>("remove", CommandType.REMOVE),
+            new SimpleEntry<String, CommandType>("bye", CommandType.BYE)
+        );
+    private static final Map<CommandType, List<String>> arguments = Map.ofEntries(
+            new SimpleEntry<CommandType, List<String>>(CommandType.LIST, List.of()),
+            new SimpleEntry<CommandType, List<String>>(CommandType.MARK, List.of("description")),
+            new SimpleEntry<CommandType, List<String>>(CommandType.UNMARK, List.of("description")),
+            new SimpleEntry<CommandType, List<String>>(CommandType.TODO, List.of("description")),
+            new SimpleEntry<CommandType, List<String>>(CommandType.DEADLINE, List.of("description", "by")),
+            new SimpleEntry<CommandType, List<String>>(CommandType.EVENT, List.of("description", "from", "to")),
+            new SimpleEntry<CommandType, List<String>>(CommandType.REMOVE, List.of("description")),
+            new SimpleEntry<CommandType, List<String>>(CommandType.BYE, List.of())
+        );
+    private static final Map<CommandType, Function<Map<String, String>, Task>> taskConstructors = Map.ofEntries(
+            new SimpleEntry<CommandType, Function<Map<String, String>, Task>>(CommandType.TODO, cmd -> new ToDo(cmd.get("description"))),
+            new SimpleEntry<CommandType, Function<Map<String, String>, Task>>(CommandType.DEADLINE, cmd -> new Deadline(cmd.get("description"), cmd.get("by"))),
+            new SimpleEntry<CommandType, Function<Map<String, String>, Task>>(CommandType.EVENT, cmd -> new Event(cmd.get("description"), cmd.get("from"), cmd.get("to")))
+        );
+
+    private enum CommandType {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, REMOVE, BYE
+    }
 
     public static void main(String[] args) {
         List<Task> tasks = new ArrayList<Task>();
         printMsg(helloMsg + "\n" + requestMsg);
         while (true) {
-            String[] cmd = userInput.nextLine().split(" ");
-            if (cmd.length == 0) {
+            Map<String, String> cmd = parseInput(userInput.nextLine().replaceAll("\n", "").trim().split(" "));
+            if (cmd == null) {
                 continue;
             }
+            CommandType type = commands.get(cmd.get("command"));
             int idx;
-            Task newTask;
-            switch (cmd[0]) {
-                case "bye":
-                    if (cmd.length > 1) {
-                        printMsg(invalidByeMsg);
-                    } else {
-                        break;
+            switch (type) {
+                case BYE:
+                    break;
+                case LIST:
+                    printMsg(String.format(listMsg, stringifyList(tasks)));
+                    continue;
+                case MARK:
+                    idx = getIndex(cmd.get("description"), tasks.size());
+                    if (idx >= 0) {
+                        tasks.get(idx).mark();
+                        printMsg(String.format(markMsg, tasks.get(idx).toString()));
                     }
                     continue;
-                case "list":
-                    if (cmd.length > 1) {
-                        printMsg(invalidListMsg);
-                    } else {
-                        printMsg(String.format(listMsg, stringifyList(tasks)));
+                case UNMARK:
+                    idx = getIndex(cmd.get("description"), tasks.size());
+                    if (idx >= 0) {
+                        tasks.get(idx).unmark();
+                        printMsg(String.format(unmarkMsg, tasks.get(idx).toString()));
                     }
                     continue;
-                case "mark":
-                    if (cmd.length != 2) {
-                        printMsg(invalidMarkMsg);
-                    } else {
-                        idx = getIndex(cmd[1], tasks.size());
-                        if (idx >= 0) {
-                            tasks.get(idx).mark();
-                            printMsg(String.format(markMsg, tasks.get(idx).toString()));
-                        }
+                case REMOVE:
+                    idx = getIndex(cmd.get("description"), tasks.size());
+                    if (idx >= 0) {
+                        printMsg(String.format(removedMsg, tasks.remove(idx).toString(), getTaskCount(tasks.size())));
                     }
                     continue;
-                case "unmark":
-                    if (cmd.length != 2) {
-                        printMsg(invalidUnmarkMsg);
-                    } else {
-                        idx = getIndex(cmd[1], tasks.size());
-                        if (idx >= 0) {
-                            tasks.get(idx).unmark();
-                            printMsg(String.format(unmarkMsg, tasks.get(idx).toString()));
-                        }
-                    }
-                    continue;
-                case "remove":
-                    if (cmd.length != 2) {
-                        printMsg(invalidRemoveMsg);
-                    } else {
-                        idx = getIndex(cmd[1], tasks.size());
-                        if (idx >= 0) {
-                            printMsg(String.format(removedMsg, tasks.remove(idx).toString(), tasks.size(), tasks.size() == 1 ? "" : "s"));
-                        }
-                    }
-                    continue;
-                case "todo":
-                    newTask = makeToDo(cmd);
+                case TODO: case DEADLINE: case EVENT:
+                    Task newTask = taskConstructors.get(type).apply(cmd);
                     if (newTask != null) {
                         tasks.add(newTask);
                         printLastAdd(tasks);
                     }
-                    continue;
-                case "deadline":
-                    newTask = makeDeadline(cmd);
-                    if (newTask != null) {
-                        tasks.add(newTask);
-                        printLastAdd(tasks);
-                    }
-                    continue;
-                case "event":
-                    newTask = makeEvent(cmd);
-                    if (newTask != null) {
-                        tasks.add(newTask);
-                        printLastAdd(tasks);
-                    }
-                    continue;
-                default:
-                    printMsg(invalidCmdMsg);
                     continue;
             }
             break;
@@ -140,75 +133,68 @@ public class Duke {
     }
 
     private static <T> void printLastAdd(List<T> arr) {
-        printMsg(String.format(addedMsg, arr.get(arr.size() - 1).toString(), arr.size(), arr.size() == 1 ? "" : "s"));
+        printMsg(String.format(addedMsg, arr.get(arr.size() - 1).toString(), getTaskCount(arr.size())));
     }
 
-    private static ToDo makeToDo(String[] arr) {
-        List<String> item = new ArrayList<String>();
-        for (int i = 1; i < arr.length; i++) {
-            item.add(arr[i]);
-        }
-        if (item.size() == 0) {
-            printMsg(String.format(emptyFieldMsg, "description", "todo"));
+    private static String getTaskCount(int size) {
+        return String.format(taskCountMsg, size, size == 1 ? "" : "s");
+    }
+    
+    private static Map<String, String> parseInput(String[] arr) {
+        if (arr.length == 0) {
             return null;
         }
-        return new ToDo(String.join(" ", item));
-    }
-
-    private static Deadline makeDeadline(String[] arr) {
-        List<String> item = new ArrayList<String>();
-        List<String> by = new ArrayList<String>();
-        List<String> curr = item;
+        if (!commands.containsKey(arr[0])) {
+            printMsg(invalidCmdMsg);
+            return null;
+        }
+        Map<String, List<String>> disjointMap = new HashMap<String, List<String>>();
+        List<String> curr = new ArrayList<String>();
+        disjointMap.put("description", curr);
         for (int i = 1; i < arr.length; i++) {
-            switch (arr[i]) {
-                case "/by":
-                    curr = by;
-                    break;
-                default:
-                    curr.add(arr[i]);
+            if (arr[i].length() == 0) {
+                continue;
+            }
+            if (arr[i].charAt(0) == '/') {
+                String field = arr[i].substring(1);
+                if (disjointMap.containsKey(field)) {
+                    printMsg(String.format(repeatedFieldMsg, field));
+                    return null;
+                }
+                curr = new ArrayList<String>();
+                disjointMap.put(field, curr);
+            } else {
+                curr.add(arr[i]);
             }
         }
-        if (item.size() == 0) {
-            printMsg(String.format(emptyFieldMsg, "description", "deadline"));
-            return null;
+        if (disjointMap.get("description").size() == 0) {
+            disjointMap.remove("description");
         }
-        if (by.size() == 0) {
-            printMsg(String.format(emptyFieldMsg, "by", "deadline"));
-            return null;
-        }
-        return new Deadline(String.join(" ", item), String.join(" ", by));
-    }
-
-    private static Event makeEvent(String[] arr) {
-        List<String> item = new ArrayList<String>();
-        List<String> from = new ArrayList<String>();
-        List<String> to = new ArrayList<String>();
-        List<String> curr = item;
-        for (int i = 1; i < arr.length; i++) {
-            switch (arr[i]) {
-                case "/from":
-                    curr = from;
-                    break;
-                case "/to":
-                    curr = to;
-                    break;
-                default:
-                    curr.add(arr[i]);
+        Map<String, String> jointMap = new HashMap<String, String>();
+        List<String> emptyFields = new ArrayList<String>();
+        for (String key : arguments.get(commands.get(arr[0]))) {
+            if (!disjointMap.containsKey(key) || disjointMap.get(key).size() == 0) {
+                emptyFields.add(String.format(emptyFieldMsg, key, arr[0]));
+            } else {
+                jointMap.put(key, String.join(" ", disjointMap.get(key)));
             }
+            disjointMap.remove(key);
         }
-        if (item.size() == 0) {
-            printMsg(String.format(emptyFieldMsg, "description", "event"));
+        if (emptyFields.size() > 0) {
+            printMsg(String.join("\n", emptyFields));
             return null;
         }
-        if (from.size() == 0) {
-            printMsg(String.format(emptyFieldMsg, "from", "event"));
+        if (disjointMap.size() > 0) {
+            List<String> additionalFields = new ArrayList<String>(disjointMap.keySet());
+            Collections.sort(additionalFields);
+            for (int i = 0; i < additionalFields.size(); i++) {
+                additionalFields.set(i, String.format(additionalFieldMsg, arr[0], additionalFields.get(i)));
+            }
+            printMsg(String.join("\n", additionalFields));
             return null;
         }
-        if (to.size() == 0) {
-            printMsg(String.format(emptyFieldMsg, "to", "event"));
-            return null;
-        }
-        return new Event(String.join(" ", item), String.join(" ", from), String.join(" ", to));
+        jointMap.put("command", arr[0]);
+        return jointMap;
     }
 
     private static int getIndex(String num, int size) {
@@ -220,11 +206,11 @@ public class Duke {
             return -1;
         }
         if (idx <= 0) {
-            printMsg(negativeIndexMsg);
+            printMsg(invalidIndexMsg);
             return -1;
         }
         if (idx > size) {
-            printMsg(String.format(outOfBoundsMsg, idx, size, size == 1 ? "" : "s"));
+            printMsg(String.format(outOfBoundsMsg, idx, getTaskCount(size)));
             return -1;
         }
         return --idx;

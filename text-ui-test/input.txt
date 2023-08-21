@@ -6,17 +6,17 @@ todo
 event project meeting /from Mon 2pm /to 4pm
 event sleep /from 6am
 event sleep /to 6am
+deadline book room /by June 6th /from June 1st
 remove
 mark 1
 peek
+event meeting /from Mon 2pm /to 4pm /from 2pm
 mark all
-mark 1 2 3
 deadline eat
 mark 2
 unmark each
 remove all
 mark 0
-unmark 1 2
 unmark 1
 remove 4
 unmark 2
