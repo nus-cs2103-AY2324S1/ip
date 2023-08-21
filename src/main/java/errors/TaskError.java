@@ -13,7 +13,7 @@ import ui.Ui;
  *  own error messages, and Java's exception messages,
  *  in the case of a built-in runtime error.
  */
-public enum TaskErrors {
+public enum TaskError {
     ERR_USING_MARK ("..o.o..beep..Invalid use of mark, use: \"mark <task number>\""),
     ERR_USING_UNMARK ("..o.o..beep..Invalid use of unmark, use: \"unmark <task number>\""),
     ERR_USING_TODO ("..o.o..beep..Invalid use of todo, use: \"todo <description>\""),
@@ -26,7 +26,7 @@ public enum TaskErrors {
 
 
     private final String errorMessage;
-    TaskErrors(String errorMessage) {
+    TaskError(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
