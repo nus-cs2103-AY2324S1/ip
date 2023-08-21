@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
 
     private static char horizontal_line = '\u2500';
@@ -16,7 +18,7 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         start();
-        end();
+
     }
 
     private static String drawLine() {
@@ -30,6 +32,8 @@ public class Duke {
         System.out.println(drawLine());
         System.out.println("Rrrruuuurrr, I am " + name + ", son of Attichitcuk");
         System.out.println("How can Chewie help?\n");
+        System.out.println(drawLine());
+        readInput();
 
     }
 
@@ -38,5 +42,25 @@ public class Duke {
         System.out.println("Chewie is going home now.\nBye bye.\n");
         System.out.println(drawLine());
 
+    }
+
+    private static void echo(String s) {
+        System.out.println(drawLine());
+        System.out.println(s + "\n");
+        System.out.println(drawLine());
+    }
+
+    private static void readInput() {
+        Scanner scanner = new Scanner(System.in);
+        String command = scanner.nextLine();
+
+        switch (command) {
+            case "bye":
+                end();
+                break;
+            default:
+                echo(command);
+                readInput();
+        }
     }
 }
