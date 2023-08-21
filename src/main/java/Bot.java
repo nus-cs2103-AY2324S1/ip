@@ -37,12 +37,12 @@ public class Bot {
     public void add(Task task){
         tasks[numOfTasks++] = task;
         MessagePrint.print("Got it. I've added this task:\n"
-                + task + "\n"
-                + "Now you have " + numOfTasks + " tasks in the list.");
+                +"  " + task + "\n"
+                + "Now you have " + numOfTasks + " task" + (numOfTasks > 1 ? "s": "") +  " in the list.");
     }
     public void chat() {
         Scanner sc = new Scanner(System.in);
-        while(true) {
+        while(sc.hasNextLine()) {
             String[] items = null;
             String description = "";
             int index = 0;
@@ -71,7 +71,6 @@ public class Bot {
                     continue;
                 case DEADLINE_COMMAND:
                     items = data.split(" /by ");
-                    System.out.println(items[0]);
                     description = items[0];
                     String by = items[1];
 
