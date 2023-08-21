@@ -1,3 +1,4 @@
-hello
-echo
+read book
+return book
+list
 bye

@@ -3,11 +3,15 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 
 public class Duke {
-    static String name = "Atlas";
+    static final String name = "Atlas";
+    static int taskCount = 0;
+    static final int maxTaskCount = 100;
+    static String[] taskList = new String[maxTaskCount];
+
+
     public static void main(String[] args) {
         greet();
         listen();
-        exit();
     }
 
     /**
@@ -33,7 +37,6 @@ public class Duke {
      */
     public static void exit() {
         System.out.println("Goodbye!");
-        printHorizontalLine();
     }
 
     /**
@@ -41,24 +44,59 @@ public class Duke {
      */
     public static void listen() {
         String command;
-        String exitCommand = "bye";
+        final String listCommand = "list";
+        final String exitCommand = "bye";
         boolean exitChatbot = false;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (!exitChatbot) {
             try {
                 command = reader.readLine();
                 printHorizontalLine();
-                if (command.equals(exitCommand)) {
-                    exitChatbot = true;
-                } else {
-                    System.out.println(command);
-                    printHorizontalLine();
+                switch (command) {
+                    case listCommand:
+                        printList();
+                        break;
+                    case exitCommand:
+                        exitChatbot = true;
+                        break;
+                    default:
+                        addItem(command);
                 }
             } catch (IOException e) {
-                printHorizontalLine();
                 System.out.println("Unable to read command, exiting");
+                printHorizontalLine();
                 exitChatbot = true;
+            } finally {
+                if (!exitChatbot) {
+                    printHorizontalLine();
+                }
             }
+        }
+        exit();
+        printHorizontalLine();
+    }
+
+    /**
+     * Adds task to list. If the list is already full, an error message is
+     * instead printed and returned. If not, the item is added to the list.
+     * @param item Item to add to list
+     */
+    public static void addItem(String item) {
+        if (taskCount == maxTaskCount) {
+            System.out.println("Unable to add task due to exceeding " +
+                    "max task count");
+            return;
+        }
+        taskList[taskCount++] = item;
+        System.out.printf("added: %s%n", item);
+    }
+
+    /**
+     * Prints list in the order in which items are added.
+     */
+    public static void printList() {
+        for (int i = 0; i < taskCount; ++i) {
+            System.out.printf("%d. %s%n", i + 1, taskList[i]);
         }
     }
 
