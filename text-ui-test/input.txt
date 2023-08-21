@@ -6,4 +6,7 @@ todo
 blah
 mark 99
 deadline return book
+delete
+delete 0
+delete 3
 bye

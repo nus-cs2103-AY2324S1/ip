@@ -68,7 +68,7 @@ _____________________________________________________
 
 _____________________________________________________
 
-DukeInvalidIndexException: ? OOPS!!! I'm sorry, but index is invalid! There are only 3 tasks in the list! :-(
+DukeInvalidIndexException: ? OOPS!!! I'm sorry, but index is invalid! There are 3 tasks in the list! :-(
 
 _____________________________________________________
 
@@ -76,6 +76,32 @@ _____________________________________________________
 _____________________________________________________
 
 DukeEmptyParametersException: ? OOPS!!! I'm sorry, but you did not input a specific date/time for the Deadline/Event task! :-(
+
+_____________________________________________________
+
+
+_____________________________________________________
+
+DukeInvalidCommandException: ? OOPS!!! The description of a delete cannot be empty.
+
+_____________________________________________________
+
+
+_____________________________________________________
+
+DukeInvalidIndexException: ? OOPS!!! I'm sorry, but index is invalid! There are 3 tasks in the list! :-(
+
+_____________________________________________________
+
+
+_____________________________________________________
+
+Noted. I've removed this task:
+
+	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+Now you have 2 tasks in the list.
+
 
 _____________________________________________________
 
