@@ -24,6 +24,10 @@ public class Duke {
         }
     }
 
+    private void printListSize() {
+        System.out.println("Now you have " + this.list.size() + " tasks in the list.");
+    }
+
     private void respond(String msg) {
         String[] input = msg.split(" ", 2);
         String command = input[0];
@@ -40,16 +44,40 @@ public class Duke {
                 }
                 break;
             case "mark":
-                System.out.println("Nice! I've marked this task as done:");
                 int index = Integer.parseInt(specifications) - 1;
                 this.list.get(index).markAsDone();
                 System.out.println(this.list.get(index).toString());
                 break;
             case "unmark":
-                System.out.println("OK, I've marked this task as not done yet:");
                 int i = Integer.parseInt(specifications) - 1;
                 this.list.get(i).markAsUndone();
                 System.out.println(this.list.get(i).toString());
+                break;
+            case "todo":
+                Task toDoTask = new ToDo(specifications);
+                this.list.add(toDoTask);
+                toDoTask.notice();
+                this.printListSize();
+                break;
+            case "deadline":
+                String[] splits = specifications.split("/by", 2);
+                String description = splits[0];
+                String date = splits[1];
+                Task deadlineTask = new Deadline(description, date);
+                this.list.add(deadlineTask);
+                deadlineTask.notice();
+                this.printListSize();
+                break;
+            case "event":
+                String[] split = specifications.split("/from", 2);
+                String event = split[0];
+                String[] timings = split[1].split("/to", 2);
+                String start = timings[0];
+                String end = timings[1];
+                Task eventTask = new Event(event, start, end);
+                this.list.add(eventTask);
+                eventTask.notice();
+                this.printListSize();
                 break;
             default:
                 this.list.add(new Task(msg));
