@@ -1,6 +1,5 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.Scanner;
 
 public class Peko {
@@ -9,6 +8,8 @@ public class Peko {
     private static final int ECHO = 0;
     private static final int EXIT = 1;
     private static final int COPYPASTA = Integer.MAX_VALUE;
+    private static final int READ = 2;
+    private static final int WRITE = 3;
     private static final String lineBreak = "------------------------------------------"; //42
     private static final String introText = "Konpeko, Konpeko, Konpeko! \n" +
             "Usada Pekora-peko! almondo almondo!";
@@ -28,6 +29,20 @@ public class Peko {
                 case ECHO:
                     System.out.println(input);
                     System.out.println(lineBreak);
+                    break;
+                case READ:
+                    try {
+                        readList();
+                    } catch (FileNotFoundException e) {
+                        System.out.println("Missing File Peko! Pain Peko");
+                    }
+                    break;
+                case WRITE:
+                    try {
+                        addToList(input);
+                    } catch (IOException e) {
+                        System.out.println("Wakaranai Peko!");
+                    }
                     break;
                 case COPYPASTA:
                     try  {
@@ -76,9 +91,35 @@ public class Peko {
             case "tellmeajoke":
                 output = COPYPASTA;
                 break;
+            case "list":
+                output = READ;
+                break;
+            default:
+                output = WRITE;
+                break;
         }
 
         return output;
+    }
+
+    public static void readList() throws FileNotFoundException {
+        File file = new File("src/main/List.txt");
+        Scanner sc = new Scanner(file);
+        System.out.println("--------------LIST-PEKO------------------");
+        int curr = 1;
+        while (sc.hasNextLine()) {
+            System.out.println(curr + ". " + sc.nextLine());
+            curr++;
+        }
+    }
+
+    public static void addToList(String s) throws IOException {
+        Writer temp;
+        temp = new BufferedWriter(new FileWriter("src/main/List.txt", true));
+        temp.append("[ ] " + s + "\n");
+        temp.close();
+        System.out.println("Added: " + s + " Peko!");
+
     }
     public static void degen() throws FileNotFoundException {
         File text = new File("src/main/Copypasta.txt");
