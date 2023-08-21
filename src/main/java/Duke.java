@@ -24,15 +24,49 @@ public class Duke {
         userCommand = sc.nextLine();
         //echoes the user input when the command is not "bye"
         while (!userCommand.equals("bye")) {
-            if (userCommand.equals("list")) {
-                System.out.println(lines);
+            String[] splitted = userCommand.split(" ");
+            if (splitted[0].equals("list")) {
+                System.out.println(lines + "\n      Here are the tasks in your list:\n");
                 for (int i = 0; i < toDo.size(); i++) {
-                    System.out.println("        " + Integer.toString(i + 1) + "." + toDo.get(i));
+                    Task currTask = toDo.get(i);
+                    String description = currTask.getDescription();
+                    System.out.println("        " + Integer.toString(i + 1) + "." + description);
                 }
                 System.out.println(lines);
+            } else if (splitted[0].equals("mark")){
+                int task_no = Integer.parseInt(splitted[1]);
+                if (task_no <= toDo.size()) {
+                    Task target = toDo.get(task_no - 1);
+                    target.mark();
+                    String description = target.getDescription();
+                    System.out.println(lines
+                            + "\n        Nice! I've marked this task as done:\n          "
+                            + description + "\n"
+                            + lines);
+                } else {
+                    System.out.println(lines
+                            + "\n      You don't have that many tasks :(\n"
+                            + lines);
+                }
+            } else if (splitted[0].equals("unmark")) {
+                int task_no = Integer.parseInt(splitted[1]);
+                if (task_no <= toDo.size()) {
+                    Task target = toDo.get(task_no - 1);
+                    target.unmark();
+                    String description = target.getDescription();
+                    System.out.println(lines
+                            + "\n        OK, I've marked this task as not done yet:\n          "
+                            + description + "\n"
+                            + lines);
+                } else {
+                    System.out.println(lines
+                            + "\n      You don't have that many tasks :(\n"
+                            + lines);
+                }
             } else {
                 System.out.println(lines + "\n        added: " + userCommand + "\n" + lines);
-                toDo.add(userCommand);
+                Task newTask = new Task(userCommand);
+                toDo.add(newTask);
             }
 
             userCommand = sc.nextLine();
