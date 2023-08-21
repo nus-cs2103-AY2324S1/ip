@@ -13,6 +13,7 @@ public class URChatBot {
                         + "\\___,_| \\_____| |_____|\n";
         System.out.println("Hello! I'm URChatBot.\nWhat can I do for you?\n" + logo);
         while (true) {
+            try{
             String command = sc.nextLine();
             if (command.toUpperCase().contentEquals("BYE")) {
                 System.out.println("Bye. Hope to see you again soon!");
@@ -35,6 +36,9 @@ public class URChatBot {
                 tasks[value - 1].markAsUnDone();
                 System.out.println("OK, I've marked this task as not done yet:\n" + tasks[value - 1].toString());
             } else if (command.toUpperCase().startsWith("TODO")){
+                if (command.length() <= 5) {
+                    throw new URChatBotException("☹ OOPS!!! The description of a todo cannot be empty.");
+                }
                 String task = command.substring(command.indexOf("todo") + 5);
                 Task newTask = new ToDo(task);
                 tasks[taskCount] = newTask;
@@ -45,6 +49,9 @@ public class URChatBot {
                     System.out.println("Got it. I've added this task:\n  " + tasks[taskCount - 1].toString() + "\nNow you have " + taskCount + " tasks in the list.");
                 }
             } else if (command.toUpperCase().startsWith("DEADLINE")){
+                if (command.length() <= 5) {
+                    throw new URChatBotException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                }
                 String task = command.substring(command.indexOf("deadline") + 9, command.indexOf("/by") - 1);
                 String by = command.substring(command.indexOf("/by") + 4);
                 Task newTask = new Deadline(task, by);
@@ -56,24 +63,28 @@ public class URChatBot {
                     System.out.println("Got it. I've added this task:\n  " + tasks[taskCount - 1].toString() + "\nNow you have " + taskCount + " tasks in the list.");
                 }
             } else if (command.toUpperCase().startsWith("EVENT")){
+                if (command.length() <= 5) {
+                    throw new URChatBotException("☹ OOPS!!! The description of a todo cannot be empty.");
+                }
                 String task = command.substring(command.indexOf("event") + 6, command.indexOf("/from") - 1);
                 String from = command.substring(command.indexOf("/from") + 6, command.indexOf("/to") - 1);
                 String to = command.substring(command.indexOf("/to") + 4);
                 Task newTask = new Event(task, from, to);
                 tasks[taskCount] = newTask;
                 taskCount++;
+
                 if (taskCount == 1 || taskCount == 0){
                     System.out.println("Got it. I've added this task:\n  " + tasks[taskCount - 1].toString() + "\nNow you have " + taskCount + " task in the list.");
                 } else {
                     System.out.println("Got it. I've added this task:\n  " + tasks[taskCount - 1].toString() + "\nNow you have " + taskCount + " tasks in the list.");
                 }
-            } else {
-                    Task newTask = new Task(command);
-                    tasks[taskCount] = newTask;
-                    taskCount++;
-                    System.out.println("added: " + command);
+            } else{
+                throw new URChatBotException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
+            }catch (URChatBotException e) {
+                System.out.println(" " + e.getMessage());
             }
+        }
 
     }
 }
