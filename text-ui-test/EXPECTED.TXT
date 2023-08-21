@@ -29,10 +29,6 @@ Nice! I've marked this task as done:
   [T][X] Assignment 1
 _____________________________________________________
 _____________________________________________________
-Nice! I've marked this task as done:
-  [E][X] exam (from: today to: tomorrow)
-_____________________________________________________
-_____________________________________________________
 OK, I've marked this task as not done yet:
   [T][ ] Assignment 1
 _____________________________________________________
@@ -40,7 +36,27 @@ _____________________________________________________
 Here are the tasks in your list:
 1. [T][ ] Assignment 1
 2. [D][ ] Assignment 2 (by: tomorrow)
-3. [E][X] exam (from: today to: tomorrow)
+3. [E][ ] exam (from: today to: tomorrow)
+_____________________________________________________
+_____________________________________________________
+OOPS!!! I'm sorry, but I don't know what that means :-(
+_____________________________________________________
+_____________________________________________________
+Missing description for todo task.
+Format should be: todo <task description>
+_____________________________________________________
+_____________________________________________________
+Missing description/end for deadline task.
+Format should be: deadline <task description> /by <end date/time>
+_____________________________________________________
+_____________________________________________________
+Missing description/start/end for event task.
+Format should be: event <task description> /from <start date/time> /to <end date/time>
+_____________________________________________________
+_____________________________________________________
+Invalid index format.
+Format should be: mark <task index> OR unmark <task index>
+where index is from 1 to 3.
 _____________________________________________________
 _____________________________________________________
 OOPS!!! I'm sorry, but I don't know what that means :-(
