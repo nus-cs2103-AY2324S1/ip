@@ -25,17 +25,13 @@ public class Parser {
     private String input;
 
     /**
-     * if it is a valid input
-     */
-    private boolean valid = true;
-
-    /**
      * Constructor for the Parser
      * 
      * @param input - the input string that needs to be parsed
+     * @throws BadInputException
      */
-    public Parser(String input) {
-        this.input = input;
+    public Parser(String input) throws BadInputException {
+        this.input = input.trim();
         String[] splitInput = input.split(" ");
         switch (splitInput[0]) {
             case "list":
@@ -44,33 +40,30 @@ public class Parser {
             case "mark":
                 this.command = Commands.MARK;
                 if (splitInput.length != 2) {
-                    this.valid = false;
-                    this.param = "Quack requires a number after the mark command";
-                    break;
+                    throw new BadInputException(
+                            "Quack requires exactly one number after the mark command");
                 }
                 this.param = splitInput[1];
                 break;
             case "unmark":
                 this.command = Commands.UNMARK;
                 if (splitInput.length != 2) {
-                    this.valid = false;
-                    this.param = "Quack requires a number after the unmark command";
-                    break;
+                    throw new BadInputException(
+                            "Quack requires exactly one number after the unmark command");
                 }
                 this.param = splitInput[1];
                 break;
             case "todo":
                 this.command = Commands.TODO;
                 this.param = this.input.replace("todo ", "");
-                if (this.param.equals("todo") || this.param.equals("")) {
-                    this.valid = false;
-                    this.param = "Please provide a task to do!!";
+                if (this.param.equals("todo")) {
+                    throw new BadInputException(
+                            "Quack doesnt understand an empty todo description, please provide one!!");
                 }
                 break;
             case "deadline":
                 this.command = Commands.DEADLINE;
                 this.findFlags(splitInput, "/by");
-
                 break;
             case "event":
                 this.command = Commands.EVENT;
@@ -87,28 +80,49 @@ public class Parser {
      * 
      * @param splitInputs - input string that has been split into words
      * @param flags       - the flags that needs to be found
+     * @throws BadInputException
      */
-    public void findFlags(String[] splitInputs, String... flags) {
+    private void findFlags(String[] splitInputs, String... flags) throws BadInputException {
 
         int[] flagIndex = this.find(splitInputs, flags);
-        if (!this.valid) {
-            return;
+
+        for (int i = 0; i < flagIndex.length - 1; i++) {
+
+            if (flagIndex[i] == -1) {
+                throw new BadInputException(
+                        "Quack cant find the required " + flags[i] + " flags, please provide quack with one please");
+            }
+
+            if (flagIndex[i + 1] == -1) {
+                throw new BadInputException(
+                        "Quack cant find the required " + flags[i + 1]
+                                + " flags, please provide quack with one please");
+            }
+
+            String value = String.join(" ", Arrays.copyOfRange(splitInputs, flagIndex[i] + 1, flagIndex[i + 1]));
+            if (value.isBlank()) {
+                throw new BadInputException(
+                        "Please provide quack a description for the " + flags[i] + " flag");
+            }
+            this.flag.put(splitInputs[flagIndex[i]], value);
+
         }
         this.param = String.join(" ", Arrays.copyOfRange(splitInputs, 1, flagIndex[0]));
-        for (int i = 0; i < flagIndex.length - 1; i++) {
-            if (flagIndex[i] == -1) {
-                this.valid = false;
-                this.param = "I cant find the required " + flags[i] + " flags";
-                return;
-            }
-            this.flag.put(splitInputs[flagIndex[i]],
-                    String.join(" ", Arrays.copyOfRange(splitInputs, flagIndex[i] + 1, flagIndex[i + 1])));
-
+        if (this.param.isBlank()) {
+            throw new BadInputException(
+                    "Quack doesnt understand an empty description, please provide one!!");
         }
-
     }
 
-    public int[] find(String[] arr, String[] items) {
+    /**
+     * Finds the required flags in the array of strings
+     * 
+     * @param arr   - the array of strings that you want to find the flags from
+     * @param items - the array of flags you want to find from the array
+     * @return an array of the index of the flags
+     * @throws BadInputException
+     */
+    private int[] find(String[] arr, String[] items) throws BadInputException {
         int[] ret = new int[items.length + 1];
         // initialise values
         for (int i = 0; i < items.length + 1; i++) {
@@ -123,9 +137,8 @@ public class Parser {
             for (int j = 0; j < items.length; j++) {
                 if (arr[i].equals(items[j])) {
                     if (ret[j] != -1) {
-                        this.valid = false;
-                        this.param = "There are too many of the" + items[j] + " flag";
-                        return ret;
+                        throw new BadInputException(
+                                "There are too many of the " + items[j] + " flag, please just provide one");
                     }
                     ret[j] = i;
                     break;
@@ -152,15 +165,6 @@ public class Parser {
      */
     public String getFlag(String key) {
         return this.flag.get(key);
-    }
-
-    /**
-     * getter for the validitiy of the input
-     * 
-     * @return true if it is valid
-     */
-    public boolean getValidity() {
-        return this.valid;
     }
 
     /**
