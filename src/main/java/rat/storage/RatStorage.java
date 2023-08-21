@@ -1,15 +1,33 @@
 package rat.storage;
+
 import java.util.ArrayList;
 import rat.print.RatPrinter;
 
+/**
+ * This class encapsulates the storage of Rat, which is a list of tasks.
+ * Includes methods to add, modify, and delete tasks.
+ * @author Keagan
+ */
 public class RatStorage {
 
+    /**
+     * The list of tasks managed by RatStorage, represented by an ArrayList.
+     */
     private final ArrayList<Task> storage;
 
+    /**
+     * Constructor for a RatStorage object.
+     * Initialises the storage as an empty ArrayList.
+     */
     public RatStorage() {
         storage = new ArrayList<>();
     }
 
+    /**
+     * Returns the String representation of RatStorage.
+     * The String representation is a numbered list of tasks.
+     * @return String representation of RatStorage.
+     */
     @Override
     public String toString() {
         String str = "";
@@ -19,6 +37,11 @@ public class RatStorage {
         return str;
     }
 
+    /**
+     * Adds a ToDo task to the storage, given its name.
+     * Instantiates a new ToDo object and adds it to the storage.
+     * @param item Name of the ToDo task.
+     */
     public void addToDo(String item) {
         ToDo newToDo = new ToDo(item);
         this.storage.add(newToDo);
@@ -27,6 +50,12 @@ public class RatStorage {
                 + "\nNow you have " + this.storage.size() + " tasks in the list.");
     }
 
+    /**
+     * Adds a Deadline task to the storage, given its deadline and name.
+     * Instantiates a new Deadline object and adds it to the storage.
+     * @param deadline Deadline of the Deadline task.
+     * @param name Name of the Deadline task.
+     */
     public void addDeadline(String deadline, String name) {
         Deadline newDeadline = new Deadline(deadline, name);
         this.storage.add(newDeadline);
@@ -36,6 +65,13 @@ public class RatStorage {
         RatPrinter.printWithLines(msg);
     }
 
+    /**
+     * Adds an Event task to the storage, given its start time, end time, and name.
+     * Instantiates a new Event object and adds it to the storage.
+     * @param startTime Start time of the Event task.
+     * @param endTime End time of the Event task.
+     * @param name Name of the Event task.
+     */
     public void addEvent(String startTime, String endTime, String name) {
         Event newEvent = new Event(startTime, endTime, name);
         this.storage.add(newEvent);
@@ -45,7 +81,10 @@ public class RatStorage {
         RatPrinter.printWithLines(msg);
     }
 
-
+    /**
+     * Marks a task as done, given its 1-indexed index in the storage.
+     * @param index Index of the task in the storage.
+     */
     public void markItemDone(int index) {
         if (index > this.storage.size() || index < 1) {
             throw new IndexOutOfBoundsException("Task not found");
@@ -57,6 +96,10 @@ public class RatStorage {
         RatPrinter.printWithLines("Nice! I've marked this task as done: " + storage.get(index - 1).toString());
     }
 
+    /**
+     * Marks a task as not done, given its 1-indexed index in the storage.
+     * @param index Index of the task in the storage.
+     */
     public void unmarkItemDone(int index) {
         if (index > this.storage.size() || index < 1) {
             throw new IndexOutOfBoundsException("Task not found");
@@ -68,6 +111,10 @@ public class RatStorage {
         RatPrinter.printWithLines("Ok, I've marked this task as not done yet: " + storage.get(index - 1).toString());
     }
 
+    /**
+     * Deletes a task from storage, given its 1-indexed index in the storage.
+     * @param index Index of the task in the storage.
+     */
     public void deleteItem(int index) {
         if (index > this.storage.size() || index < 1) {
             throw new IndexOutOfBoundsException("Task not found");
@@ -81,15 +128,21 @@ public class RatStorage {
                 + "\nNow you have " + this.storage.size() + " tasks in the list.");
     }
 
+    /**
+     * Deletes all tasks from storage.
+     */
     public void deleteAll() {
         this.storage.clear();
         RatPrinter.printWithLines("Noted. I've removed all tasks.");
     }
 
+    /**
+     * Displays all tasks in storage.
+     * Formats the storage's String representation with a message and count.
+     */
     public void listItems() {
         if (this.storage.isEmpty()) {
             RatPrinter.printWithLines("You have no tasks in the list.");
-            return;
         } else {
             String list = "Here are the tasks in your list:\n"
                     + this.toString() + "\n"
