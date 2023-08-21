@@ -35,10 +35,36 @@ public class Duke {
         scanner.close();
     }
 
-    private static void addTask(String task) {
-        tasks[position] = new Task(task);
-        position++;
-        System.out.println("You added '" + task + "' to the list!");
+    private static void addTask(String description) {
+        String[] parts = description.split(" ", 2);
+        if (parts.length < 2) {
+            System.out.println("You inputted an invalid command! Please try again :)");
+        } else {
+            String taskType = parts[0].toLowerCase();
+            String taskDetails = parts[1].toLowerCase();
+            Task task = parseTask(taskType, taskDetails);
+            if (task != null) {
+                tasks[position] = task;
+                position++;
+                System.out.println("You added '" + tasks[position - 1] + "' to the list!"
+                        + "\nNow you have " + position + " task(s) in the list!");
+            } else {
+                System.out.println("You inputted an invalid command! Please try again :)");
+            }
+
+        }
+    }
+
+    private static Task parseTask(String taskType, String taskDetails) {
+        if (taskType.equalsIgnoreCase("todo")) {
+            return new ToDoTask(taskDetails);
+        } else if (taskType.equalsIgnoreCase("deadline")) {
+            return DeadlineTask.parseDeadline(taskDetails);
+        } else if (taskType.equalsIgnoreCase("event")) {
+            return EventTask.parseEvent(taskDetails);
+        } else {
+            return null;
+        }
     }
     private static void listTask() {
         if (position == 0) {
