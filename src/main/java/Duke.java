@@ -40,7 +40,9 @@ public class Duke {
                         + taskList[index]);
             } else {
                 Task newTask = null;
-                if (command.equals("todo")) {
+                if (inputParts.length < 2) {
+                    throw new DukeException("☹ OOPS!!! The description of a command cannot be empty.");
+                } else if (command.equals("todo")) {
                     newTask = new Todo(inputParts[1]);
                 } else if (command.equals("deadline")) {
                     String[] commandParts = inputParts[1].split("/by", 2);
@@ -49,6 +51,8 @@ public class Duke {
                     String[] commandParts = inputParts[1].split("/from", 2);
                     String[] eventParts = commandParts[1].split("/to");
                     newTask = new Event(commandParts[0], eventParts[0], eventParts[1]);
+                } else {
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
 
                 if (newTask != null) {
