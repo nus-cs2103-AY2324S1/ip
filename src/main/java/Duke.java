@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Duke {
 
     /**
@@ -6,17 +7,18 @@ public class Duke {
     private static final String NAME = "Cabbage";
 
     /**
-     * Entry-point for the program. Displays a logo and greeting.
+     * Entry-point for the program. Displays a greeting, echos the user's input, and exits.
      * @param args CLI arguments passed into the program.
      */
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
         greet();
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        while (!input.equals("bye")) {
+            echo(input);
+            input = scanner.nextLine();
+        }
+        exit();
     }
 
     /**
@@ -26,9 +28,24 @@ public class Duke {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm " + NAME);
         System.out.println("What can I do for you?");
+    }
+
+    /**
+     * Echoes the user's input.
+     * @param input The user's input.
+     */
+    public static void echo(String input) {
+        System.out.println("____________________________________________________________");
+        System.out.println(input);
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Exits the program.
+     */
+    public static void exit() {
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
     }
-
 }
