@@ -20,7 +20,11 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.name;
+        if (this.completed) {
+            return "[X] " + this.name;
+        } else {
+            return "[ ] " + this.name;
+        }
 
     }
 

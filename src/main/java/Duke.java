@@ -37,19 +37,21 @@ public class Duke {
             }
             else if (command.startsWith("mark ")){
                 int tasknumber = Integer.parseInt(command.substring(5));
-                System.out.println("tasknumber is"+ tasknumber);
                 Task wantedtask = meowBot.Tasklist[tasknumber - 1]; //account for 0 indexing
                 wantedtask.markCompleted();
                 System.out.println("Nice! I've meowrked this task as done: ");
                 System.out.println("   " + wantedtask);
+                System.out.println(lines);
+
             }
             else if (command.startsWith("unmark ")) {
-                int tasknumber = Integer.parseInt(command.substring(5));
+                int tasknumber = Integer.parseInt(command.substring(7));
 //                System.out.println("tasknumber is"+ tasknumber);
                 Task wantedtask = meowBot.Tasklist[tasknumber - 1]; //account for 0 indexing
                 wantedtask.markUncompleted();
                 System.out.println("Ok, get your task done soon, I'll be waiting!");
-                System.out.println("   " + wantedtask);
+                System.out.println(" " + wantedtask);
+                System.out.println(lines);
             }
             else{
                 meowBot.addTask(command);
