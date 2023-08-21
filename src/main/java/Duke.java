@@ -25,13 +25,25 @@ public class Duke {
             }
             // If input has mark followed by an integer, mark the task[i-1] as done.
             if (input.startsWith("mark")) {
-                int TaskID = Integer.parseInt(input.substring(5)) - 1;
-                userTasks.get(TaskID).markAsDone();
+                try {
+                    int TaskID = Integer.parseInt(input.substring(5)) - 1;
+                    userTasks.get(TaskID).markAsDone();
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a valid task number.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please ensure task exists.");
+                }
             }
             // If input has delete followed by an integer, delete the task[i-1].
             else if (input.startsWith("unmark")) {
-                int TaskID = Integer.parseInt(input.substring(7)) - 1;
-                userTasks.get(TaskID).markAsUndone();
+                try {
+                    int TaskID = Integer.parseInt(input.substring(7)) - 1;
+                    userTasks.get(TaskID).markAsUndone();
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a valid task number.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Please ensure task exists.");
+                }
             }
 
             // New tasks are added to the list.
