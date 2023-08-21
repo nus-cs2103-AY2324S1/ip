@@ -82,7 +82,7 @@ public class Duke {
 
   static void deleteTask(String i) {
     Task t = getTaskToModify("delete", i);
-    tasks.remove(Integer.parseInt(i));
+    tasks.remove(Integer.parseInt(i)-1);
 
     printLine();
     System.out.println("\t Noted. I've removed this task:");
