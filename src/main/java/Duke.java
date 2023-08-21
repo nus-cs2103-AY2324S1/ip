@@ -21,11 +21,11 @@ public class Duke {
             }
 
             else if (command[0].equals("list") && command.length == 1) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskList.length; i++) {
                     if (taskList[i] == null) {
                         break;
                     }
-
                     System.out.print((i + 1) + "." + taskList[i].toString() + "\n");
                 }
             }
@@ -35,13 +35,13 @@ public class Duke {
 
                 if (command[0].equals("mark")) {
                     taskList[pos - 1].markTask();
-                    System.out.println("Nice! I've marked this task as done");
+                    System.out.println("Nice! I've marked this task as done:");
                 } else {
                     taskList[pos - 1].unmarkTask();
                     System.out.println("OK, I've marked this task as not done yet:");
                 }
 
-                System.out.println("\t" + taskList[pos - 1].getStatusIcon() + " " + taskList[pos - 1].name);
+                System.out.println(taskList[pos - 1].toString());
             }
 
             // add tasks
@@ -62,7 +62,7 @@ public class Duke {
                 }
 
                 System.out.println("Got it. I've added this task:");
-                System.out.println("\t" + taskList[ind].toString());
+                System.out.println(taskList[ind].toString());
                 ind++;
                 System.out.println("Now you have " + ind + " tasks in the list.");
             }
