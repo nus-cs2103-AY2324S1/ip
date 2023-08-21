@@ -1,9 +1,12 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Class for the ChatBot
  */
 public class Duke {
+    public Scanner sc = new Scanner(System.in).useDelimiter("[\\s,\\s/]+");
+    public static ArrayList<Task> taskArr = new ArrayList<>();
     public class Task {
         /**
          * Description of the specific task.
@@ -21,9 +24,6 @@ public class Duke {
         public Task(String description) {
             this.description = description;
             this.isDone = false;
-            System.out.println("-------------------------------\n"
-                    + "added: " + this.description
-                    + "\n-------------------------------\n");
         }
 
         /**
@@ -71,11 +71,6 @@ public class Duke {
         protected String type = "T";
         public Todo(String description) {
             super(description);
-            System.out.println("-------------------------------\n"
-                    + "Got it. I've added this task:\n"
-                    + this
-                    + totalTasks()
-                    + "\n-------------------------------\n");
         }
         @Override
         public void mark() {
@@ -100,11 +95,6 @@ public class Duke {
         public Deadline(String description, String date) {
             super(description);
             this.date = date;
-            System.out.println("-------------------------------\n"
-                    + "Got it. I've added this task:\n"
-                    + this
-                    + totalTasks()
-                    + "\n-------------------------------\n");
         }
         @Override
         public void mark() {
@@ -132,11 +122,6 @@ public class Duke {
             super(description);
             this.from = from;
             this.to = to;
-            System.out.println("-------------------------------\n"
-                    + "Got it. I've added this task:\n"
-                    + this
-                    + totalTasks()
-                    + "\n-------------------------------\n");
         }
         @Override
         public void mark() {
@@ -153,7 +138,7 @@ public class Duke {
         @Override
         public String toString() {
             return "[" + this.type + "]" + "[" + this.getStatusIcon() + "] " + this.description
-                    + " (from: " + this.from + " to" + this.to + ")";
+                    + " (from: " + this.from + " to:" + this.to + ")";
         }
     }
     public static class DukeException extends Exception {
@@ -175,51 +160,54 @@ public class Duke {
             }
         }
     }
-    public Scanner sc = new Scanner(System.in).useDelimiter("[\\s,\\s/]+");
-    public Task[] taskArr = new Task[100];
     public void addTodo(String desc) {
-        for (int i = 0; i < 100; i++) {
-            if (taskArr[i] == null) {
-                taskArr[i] = new Todo(desc);
-                break;
-            }
-        }
+        Todo curr = new Todo(desc);
+        taskArr.add(curr);
+        System.out.println("-------------------------------\n"
+                + "Got it. I've added this task:\n"
+                + curr.toString()
+                + totalTasks()
+                + "\n-------------------------------\n");
     }
     public void addDeadline(String desc, String date) {
-        for (int i = 0; i < 100; i++) {
-            if (taskArr[i] == null) {
-                taskArr[i] = new Deadline(desc, date);
-                break;
-            }
-        }
+        Deadline curr = new Deadline(desc, date);
+        taskArr.add(curr);
+        System.out.println("-------------------------------\n"
+                + "Got it. I've added this task:\n"
+                + curr.toString()
+                + totalTasks()
+                + "\n-------------------------------\n");
     }
     public void addEvent(String desc, String from, String to) {
-        for (int i = 0; i < 100; i++) {
-            if (taskArr[i] == null) {
-                taskArr[i] = new Event(desc, from, to);
-                break;
-            }
-        }
+        Event curr = new Event(desc, from, to);
+        taskArr.add(curr);
+        System.out.println("-------------------------------\n"
+                + "Got it. I've added this task:\n"
+                + curr.toString()
+                + totalTasks()
+                + "\n-------------------------------\n");
+    }
+    public void delete(int num) {
+        Task toRemove = taskArr.get(num);
+        taskArr.remove(num);
+        System.out.println("-------------------------------\n"
+        + "Noted, I've removed this task:\n"
+        + toRemove.toString()
+        + totalTasks()
+        + "\n-------------------------------\n");
     }
     public void listOut() {
-        System.out.println("-------------------------------"
-        + "\nHere are the tasks in your list:");
-        for (int i = 0; i < 100; i++) {
-            if (this.taskArr[i] != null) {
-                Task curr = this.taskArr[i];
-                System.out.println(curr.toString());
-            }
+        int size = taskArr.size();
+        System.out.println("-------------------------------\n"
+        + "Here are the tasks in your list:");
+        for (int i = 0; i < size; i++) {
+            System.out.println(i + 1 + "." + taskArr.get(i).toString());
         }
         System.out.println("-------------------------------\n");
     }
     public String totalTasks() {
-        int count = 0;
-        int i = 0;
-        while (this.taskArr[i] != null) {
-            i++;
-        }
-        count = i + 1;
-        return "\nNow you have " + count + " tasks in the list.";
+        int size = taskArr.size();
+        return "\nNow you have " + size + " tasks in the list.";
     }
 
     public static void main(String[] args) {
@@ -242,21 +230,42 @@ public class Duke {
                 String str = bot.sc.next();
                 if (str.equals("bye")) {
                     System.out.println(exit);
+                    taskArr.clear();
                     bot.sc.close();
                     break;
                 } else if (str.equals("list")) {
                     bot.listOut();
                 } else if (str.equals("mark")) {
-                    int num = bot.sc.nextInt();
-                    bot.taskArr[num - 1].mark();
+                    if (!bot.sc.hasNextInt()) {
+                        throw new DukeException.WrongInput();
+                    } else {
+                        int num = bot.sc.nextInt();
+                        bot.taskArr.get(num - 1).mark();
+                    }
                 } else if (str.equals("unmark")) {
-                    int num = bot.sc.nextInt();
-                    bot.taskArr[num - 1].unmark();
-                } else {
+                    if (!bot.sc.hasNextInt()) {
+                        throw new DukeException.WrongInput();
+                    } else {
+                        int num = bot.sc.nextInt();
+                        bot.taskArr.get(num - 1).unmark();
+                    }
+                } else if (str.equals("delete")) {
+                    if (!bot.sc.hasNextInt()) {
+                        throw new DukeException.WrongInput();
+                    } else {
+                        int num = bot.sc.nextInt();
+                        if (num > taskArr.size()) {
+                            throw new DukeException.WrongInput();
+                        } else {
+                            bot.delete(num - 1);
+                        }
+                    }
+                }
+                else {
                     // check for task type first
                     if (str.equals("todo")) {
                         String desc = bot.sc.nextLine();
-                        if (desc.equals("")) {
+                        if (desc.equals("") || desc.equals(" ")) {
                             throw new DukeException.EmptyDescription();
                         } else {
                             bot.addTodo(desc);
