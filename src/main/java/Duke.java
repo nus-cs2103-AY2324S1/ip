@@ -96,6 +96,21 @@ public class Duke {
                 } catch (ArrayIndexOutOfBoundsException error) {
                     throw new IllegalArgumentException("OOPS!!! The description of an event must have <task> /from <start> /to <end>.");
                 }
+            case "delete":
+                if (specifications.isEmpty()) {
+                    throw new IllegalArgumentException("Please indicate task number.");
+                }
+                try {
+                    Integer number = Integer.parseInt(specifications);
+                    Task taskToRemove = this.list.get(number - 1);
+                    this.list.remove(number - 1);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(taskToRemove.toString());
+                    this.printListSize();
+                    break;
+                } catch (IndexOutOfBoundsException error) {
+                    throw new IllegalArgumentException("OOPS!!! I could not find any task in that position.");
+                }
             default:
                 throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
