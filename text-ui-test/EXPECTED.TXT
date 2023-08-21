@@ -6,25 +6,92 @@
     Nothing stored.
 
 > 
+    [0;31mErm... error :([0m
+        Unable to mark task 1 :( You have 0 task(s) stored.
+
+> 
+    [0;31mErm... error :([0m
+        Unable to mark task 0 :( You have 0 task(s) stored.
+
+> 
+    [0;31mErm... error :([0m
+        Unable to mark task -1 :( You have 0 task(s) stored.
+
+> 
+    [0;31mErm... error :([0m
+    [35mmark[0m takes in a number. Try mark 1.
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing a description:
+    Try [35mtodo[0m read a book
+
+> 
     Okie! I've added a new [0;32mTODO:[0m
       [T][ ] revise basic Java concepts
     Total no. of tasks stored: 1
 
 > 
+    Okie! I've added a new [0;32mTODO:[0m
+      [T][ ] revise basic Java concepts
+    Total no. of tasks stored: 2
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing a description:
+    Try [35mdeadline[0m submit essay /by Monday, 4pm
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing a date:
+    <- Remember to include /by ->
+    Try [35mdeadline[0m submit essay /by Monday, 4pm
+
+> 
     Okie! I've added a new [0;34mDEADLINE:[0m
       [D][ ] watch CS2103T lecture (by: Friday)
-    Total no. of tasks stored: 2
+    Total no. of tasks stored: 3
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing a description:
+    Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing a date range:
+    <- Remember to include /from and /to ->
+    Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing a date range:
+    <- Remember to include /from and /to ->
+    Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing a date range:
+    <- Remember to include /from and /to ->
+    Try [35mevent[0m NUS carnival /from Aug 21st /to Aug 25th
 
 > 
     Okie! I've added a new [0;33mEVENT:[0m
       [E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
-    Total no. of tasks stored: 3
+    Total no. of tasks stored: 4
+
+> 
+    Okie! I've added a new [0;33mEVENT:[0m
+      [E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    Total no. of tasks stored: 5
 
 > 
     Here are the tasks in your list:
     1.[T][ ] revise basic Java concepts
-    2.[D][ ] watch CS2103T lecture (by: Friday)
-    3.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    2.[T][ ] revise basic Java concepts
+    3.[D][ ] watch CS2103T lecture (by: Friday)
+    4.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    5.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
 
 > 
     Nice, I've marked this task as done:
@@ -32,13 +99,15 @@
 
 > 
     Nice, I've marked this task as done:
-      [D][X] watch CS2103T lecture (by: Friday)
+      [T][X] revise basic Java concepts
 
 > 
     Here are the tasks in your list:
     1.[T][X] revise basic Java concepts
-    2.[D][X] watch CS2103T lecture (by: Friday)
-    3.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    2.[T][X] revise basic Java concepts
+    3.[D][ ] watch CS2103T lecture (by: Friday)
+    4.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    5.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
 
 > 
     OK, I've marked this task as not done yet:
@@ -47,8 +116,10 @@
 > 
     Here are the tasks in your list:
     1.[T][ ] revise basic Java concepts
-    2.[D][X] watch CS2103T lecture (by: Friday)
-    3.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    2.[T][X] revise basic Java concepts
+    3.[D][ ] watch CS2103T lecture (by: Friday)
+    4.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    5.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
 
 > 
     Bye~ Come back soon :)
