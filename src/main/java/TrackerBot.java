@@ -137,18 +137,21 @@ public class TrackerBot {
    * Input handler function of the app. <br>
    * Takes in a user input, and acts upon the input based on what input it gets. <br>
    * <ul>
-   *   <li>If the input is "bye", exits the program.</li>
-   *   <li>Otherwise, echoes the input back to the console.</li>
+   *   <li>If the input is "bye", exits the program by returning true.</li>
+   *   <li>If the input is "list", prints the list.</li>
+   *   <li>Otherwise, adds the item to the list.</li>
    * </ul>
    * @param str The input string that is given to the method.
+   * @return true if the handler detects the bye keyword,
+   *         false otherwise.
    */
-  private static void handleInput(String str) {
+  private static boolean handleInput(String str) {
     System.out.println(FORMAT_LINE);
     // switch used for now: to handle future input cases.
     switch(str) {
       case "bye":
         exit();
-        break;
+        return true;
       case "list":
         list();
         break;
@@ -156,16 +159,18 @@ public class TrackerBot {
         add(str);
     }
     System.out.println(FORMAT_LINE);
+    return false;
   }
 
   public static void main(String[] args) {
     greet();
     Scanner scanner = new Scanner(System.in);
     String input;
+    boolean isBye;
     do {
       // scanner.nextLine() blocks the main thread.
       input = scanner.nextLine();
-      handleInput(input);
-    } while (!input.equals("bye"));
+      isBye = handleInput(input);
+    } while (!isBye);
   }
 }
