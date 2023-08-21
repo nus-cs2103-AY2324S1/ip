@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Peko {
@@ -5,6 +8,7 @@ public class Peko {
 
     private static final int ECHO = 0;
     private static final int EXIT = 1;
+    private static final int COPYPASTA = Integer.MAX_VALUE;
     private static final String lineBreak = "------------------------------------------"; //42
     private static final String introText = "Konpeko, Konpeko, Konpeko! \n" +
             "Usada Pekora-peko! almondo almondo!";
@@ -25,9 +29,19 @@ public class Peko {
                     System.out.println(input);
                     System.out.println(lineBreak);
                     break;
+                case COPYPASTA:
+                    try  {
+                        degen();
+                    } catch (FileNotFoundException e) {
+                        System.out.println("Hentai!");
+                    } finally {
+                        loop = false;
+                    }
+                    break;
                 case EXIT:
                     loop = false;
                     break;
+
                 default:
             }
         }
@@ -57,10 +71,23 @@ public class Peko {
         int output = 0;
         switch (input.toLowerCase()) {
             case "otsupeko":
-                output = 1;
+                output = EXIT;
+                break;
+            case "tellmeajoke":
+                output = COPYPASTA;
+                break;
         }
 
         return output;
+    }
+    public static void degen() throws FileNotFoundException {
+        File text = new File("src/main/Copypasta.txt");
+        Scanner sc = new Scanner(text);
+        while (sc.hasNextLine()) {
+            System.out.println(sc.nextLine());
+        }
+        System.out.println(lineBreak);
+
     }
     public static void exit() {
         System.out.println(exitText);
