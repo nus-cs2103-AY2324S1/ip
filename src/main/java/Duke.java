@@ -34,6 +34,7 @@ public class Duke {
 
     public static void printItems() {
         System.out.println(Duke.bar);
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < Duke.items.size(); i++) {
             System.out.printf("%d. %s%n", i + 1, Duke.items.get(i));
         }
