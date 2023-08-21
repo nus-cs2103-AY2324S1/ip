@@ -1,45 +1,80 @@
-import java.util.Scanner;
+import java.io.PrintWriter;
+import java.util.*;
+
 public class DeterministicParrot {
 
+    //init by setting input and output
+    Scanner s;
+    PrintWriter pw;
+    List<String> list;
+    DeterministicParrot(){
+        this.list = new LinkedList<>();
+        s = new Scanner(System.in);
+        pw = new PrintWriter(System.out, true);
+    }
+    DeterministicParrot(Scanner s, PrintWriter pw){
+        this.list = new LinkedList<>();
+        this.s = s;
+        this.pw = pw;
+    }
     /**
      * Prints a line
      */
-    public static void printDash() {
-        System.out.println("    ____________________________________________________________");
+
+
+    private void printDash() {
+        this.pw.println("    ____________________________________________________________");
     }
 
     /**
      *  Hello! I'm [YOUR CHATBOT NAME]
      *  What can I do for you?
      */
-    public static void greet() {
+    private void greet() {
         printDash();
-        System.out.println("     " + "Hello! I'm DeterministicParrot");
-        System.out.println("     " +"What can I do for you?");
+        this.pw.println("     " + "Hello! I'm DeterministicParrot");
+        this.pw.println("     " +"What can I do for you?");
         printDash();
     }
 
-    public static void echo(String s) {
+    private void echo(String s) {
         printDash();
-        System.out.println("     " + s);
-        printDash();
-    }
-    public static void bye() {
-        printDash();
-        System.out.println("      " + "Bye. Hope to see you again soon!");
+        this.pw.println("     " + s);
         printDash();
     }
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        greet();
+    private void bye() {
+        printDash();
+        this.pw.println("     " + "Bye. Hope to see you again soon!");
+        printDash();
+    }
+    private void printList(){
+        printDash();
+        for(int i = 0; i < this.list.size(); i++){
+            this.pw.println("     " + (i+1) + ". " + this.list.get(i));
+        }
+        printDash();
+    }
+    private void poll(){
+        this.greet();
         while(true){
             String input = s.nextLine();
-            if(input.equals("bye")){
+            if(input.equals("list")){
+                printList();
+            }
+            else if(input.equals("bye")){
                 break;
             }
-            echo(input);
+            //TODO: what happens if empty input?
+            else{
+                this.list.add(input);
+                this.pw.println("     "+"added: " + input);
+            }
         }
+        this.bye();
+    }
 
-        bye();
+    public static void main(String[] args) {
+        DeterministicParrot parrot = new DeterministicParrot();
+        parrot.poll();
     }
 }
