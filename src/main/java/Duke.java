@@ -4,12 +4,12 @@ public class Duke {
 
     // Array storing the tasks
     static Task[] taskArr = new Task[100];
+    static int count = 0;
 
     // Function that encapsulates message into a message Card template
     private static String messageCard(String message) {
         String horizontalLine = "\t____________________________________________________________\n";
         return horizontalLine + "\t " + message + "\n" + horizontalLine;
-
     }
 
     // Displays list of items
@@ -34,6 +34,39 @@ public class Duke {
         System.out.println(messageCard("OK, I've marked this task as not done yet:\n\t\t" + taskArr[index]));
     }
 
+    private static void addToDo(String description) {
+        taskArr[count] = new Todo(description);
+        System.out.println(messageCard("Got it. I've added this task:\n\t\t"
+                + taskArr[count]
+                + "\n\tNow you have " + (count + 1) + " tasks in the list."));
+        count++;
+    }
+
+    private static void addDeadline(String description) {
+        taskArr[count] = new Deadline(description.substring(0, description.indexOf("/by")),
+                description.substring(description.indexOf("/by") + 4));
+        System.out.println(messageCard("Got it. I've added this task:\n\t\t"
+                + taskArr[count]
+                + "\n\tNow you have " + (count + 1) + " tasks in the list."));
+        count++;
+    }
+
+    private static void addEvent(String description) {
+
+        int indexFrom = description.indexOf("/from");
+        int indexTo = description.indexOf("/to");
+
+        String event = description.substring(0, indexFrom).trim();
+        String startTime = description.substring(indexFrom + "/from".length(), indexTo).trim();
+        String endTime = description.substring(indexTo + "/to".length()).trim();
+
+        taskArr[count] = new Event(event, startTime, endTime);
+        System.out.println(messageCard("Got it. I've added this task:\n\t\t"
+                + taskArr[count]
+                + "\n\tNow you have " + (count + 1) + " tasks in the list."));
+        count++;
+    }
+
 
     // Main function
     public static void main(String[] args) {
@@ -41,7 +74,6 @@ public class Duke {
         System.out.println(messageCard("Hello! I'm " + CHATBOTNAME
             + "\n\t What can I do for you?"));
 
-        int count = 0;
         while (true) {
             Scanner SC = new Scanner(System.in);
             String userInput = SC.nextLine();
@@ -57,9 +89,17 @@ public class Duke {
                 int index = Integer.parseInt(userInput.substring(7)) - 1;
                 markTaskAsUndone(index);
             } else {
-                System.out.println(messageCard("added: " + userInput));
-                taskArr[count] = new Task(userInput);
-                count++;
+                if (userInput.substring(0,4).equals("todo")) {
+                    // Add a task
+                    addToDo(userInput.substring(5));
+                } else if (userInput.substring(0, 8).equals("deadline")) {
+                    // Add a deadline
+                    addDeadline(userInput.substring(9));
+                } else if (userInput.substring(0, 5).equals("event")) {
+                    // Add a event
+                    addEvent(userInput.substring(6));
+                }
+
             }
         }
     }
