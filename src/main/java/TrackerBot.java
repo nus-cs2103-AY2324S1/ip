@@ -77,6 +77,63 @@ public class TrackerBot {
   }
 
   /**
+   * Helper function for mark - checks if the index is valid.
+   * @param index The index of the list to check.
+   * @return The Task object at the index, if it exists, and null otherwise.
+   */
+  private static Task getTask(int index) {
+    // happy path: return null if out of bounds.
+    if (index <= 0 || index > taskCounter + 1) {
+      return null;
+    }
+    return TASK_LIST[index - 1];
+  }
+
+  /**
+   * Mark function for the app. <br>
+   * Attempts to mark the item in the task list as completed. If the Task is already
+   * completed, or the Task does not exist, prints an appropriate error message.
+   * @param index The index of the list to mark.
+   */
+  private static void mark(int index) {
+    Task task = getTask(index);
+    // happy path: the task does not exist.
+    if (task == null) {
+      System.out.println("That task is not on the list!");
+      System.out.println("Use \"list\" to display what I am currently tracking.");
+      return;
+    }
+
+    if (task.markTask()) {
+      System.out.println("This task has been marked as completed.\n  " + task);
+    } else {
+      System.out.println("This task has already been completed!\n  " + task);
+    }
+  }
+
+  /**
+   * Unmark function for the app. <br>
+   * Attempts to unmark the item in the task list as incomplete. If the Task is already
+   * incomplete, or the Task does not exist, prints an appropriate error message.
+   * @param index The index of the list to unmark.
+   */
+  private static void unmark(int index) {
+    Task task = getTask(index);
+    // happy path: the task does not exist.
+    if (task == null) {
+      System.out.println("That task is not on the list!");
+      System.out.println("Use \"list\" to display what I am currently tracking.");
+      return;
+    }
+
+    if (task.unmarkTask()) {
+      System.out.println("The task has been marked as incomplete.\n  " + task);
+    } else {
+      System.out.println("This task is already in progress.\n  " + task);
+    }
+  }
+
+  /**
    * Input handler function of the app. <br>
    * Takes in a user input, and acts upon the input based on what input it gets. <br>
    * <ul>
