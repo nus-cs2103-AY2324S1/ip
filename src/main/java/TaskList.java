@@ -57,4 +57,18 @@ public class TaskList {
                 .append(element);
         reply.printDialog(dialog.toString());
     }
+
+    public void deleteTask(int index) {
+        StringBuilder dialog = new StringBuilder();
+        Task element = list.get(index - 1);
+        list.remove(index - 1);
+        dialog.append("Noted. I've removed this task:\n")
+                .append("       ")
+                .append(element)
+                .append("\n")
+                .append("     Now you have ")
+                .append(list.size())
+                .append(" tasks in the list.");
+        reply.printDialog(dialog.toString());
+    }
 }

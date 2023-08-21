@@ -24,6 +24,8 @@ public class Duke {
                     handleDeadline(input);
                 } else if (input.startsWith("event")) {
                     handleEvent(input);
+                } else if (input.startsWith("delete")) {
+                    deleteTask(input);
                 } else {
                     throw new InvalidInputException();
                 }
@@ -36,22 +38,19 @@ public class Duke {
 
     }
 
-    public static void markTask(String input, boolean mark) throws InvalidInputException {
-        String[] split = input.split(" ");
-        if (split.length > 2) {
-            throw new InvalidInputException();
-        } else {
-            try {
-                if (mark) {
-                    tasks.markDone(Integer.parseInt(split[1]));
-                } else {
-                    tasks.unmarkDone(Integer.parseInt(split[1]));
-                }
-            } catch (NumberFormatException e ) {
-                reply.printDialog(" I can only understand numbers");
-            } catch (IndexOutOfBoundsException e) {
-                reply.printDialog(" Index number does not exist in our list");
+    public static void markTask(String input, boolean mark) throws InvalidInputException, MissingArgumentException {
+        String command = mark ? "mark" : "unmark";
+        String number = getCommandArguments(input, command);
+        try {
+            if (mark) {
+                tasks.markDone(Integer.parseInt(number));
+            } else {
+                tasks.unmarkDone(Integer.parseInt(number));
             }
+        } catch (NumberFormatException e ) {
+            reply.printDialog(" Strictly type 1 number only");
+        } catch (IndexOutOfBoundsException e) {
+            reply.printDialog(" Index number does not exist in our list");
         }
     }
 
@@ -107,8 +106,18 @@ public class Duke {
             } else {
                 throw new MissingDateArgumentException("to");
             }
-
             tasks.addTask(new Events(desc, from, to));
+        }
+    }
+
+    private static void deleteTask(String input) throws InvalidInputException, MissingArgumentException {
+        String number = getCommandArguments(input,"delete");
+        try {
+            tasks.deleteTask(Integer.parseInt(number));
+        } catch (NumberFormatException e ) {
+            reply.printDialog(" Strictly type 1 number only");
+        } catch (IndexOutOfBoundsException e) {
+            reply.printDialog(" Index number does not exist in our list");
         }
     }
 

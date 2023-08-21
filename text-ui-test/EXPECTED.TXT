@@ -155,5 +155,19 @@
      ________________________________________
 
      ________________________________________
+     Noted. I've removed this task:
+       [T][X] read book
+     Now you have 4 tasks in the list.
+     ________________________________________
+
+     ________________________________________
+     Here are the tasks in your list:
+     1.[D][ ] return book  (by: June 6th)
+     2.[E][ ] project meeting  (from: Aug 6th 2pm to: 4pm)
+     3.[T][X] join sports club
+     4.[T][ ] borrow book
+     ________________________________________
+
+     ________________________________________
      Bye. Hope to see you again soon!
      ________________________________________
