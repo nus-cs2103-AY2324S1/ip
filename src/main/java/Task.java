@@ -1,23 +1,27 @@
 public class Task {
 
-  private String status;
+  private String tag;
 
-  private String name;
+  private String mark;
+
+  private final String name;
 
   public Task(String name) {
-    this.status = "[ ]";
+    this.tag = "[ ]";
+    this.mark = "[ ]";
     this.name = name;
   }
 
-  public String getStatus() {
-    return status;
+  public void setTag(String tag) {
+    this.tag = tag;
   }
 
-  public void setStatus(String status) {
-    this.status = status;
+  public void setMark(String mark) {
+    this.mark = mark;
   }
 
-  public String getName() {
-    return name;
+  @Override
+  public String toString() {
+    return this.tag + this.mark + " " + this.name;
   }
 }

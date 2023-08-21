@@ -33,7 +33,6 @@ public class Alpha {
                     return;
                 default:
                     taskList.addTask(userInput);
-                    System.out.println("added: " + userInput);
             }
 
             System.out.println("______________________________");
