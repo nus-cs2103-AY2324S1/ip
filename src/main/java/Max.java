@@ -179,6 +179,9 @@ public class Max {
         System.out.println("     Bye! Please come again!");
         System.out.println(Max.line);
     }
+    public static enum Command {
+        LIST, MARK, UNMARK, BYE, ADD, DELETE, UNKNOWN
+    }
     public static void main(String[] args) {
         Max.greet();
 
@@ -187,30 +190,57 @@ public class Max {
 
         // User is interacting with chatbot
         while (scannerOpen) {
-            String command = input.nextLine();
+            String userInput = input.nextLine();
+            String command = userInput.split(" ")[0];
+
+            // Initialise enum type for Command
+            Command commandEnum;
+
             try {
                 if (command.equals("bye")) {
                     // User wants to exit the chatbot
-                    scannerOpen = false;
+                    commandEnum = Command.BYE;
                 } else if (command.equals("list")) {
-                    Max.list();
+                    commandEnum = Command.LIST;
                 } else if (command.contains("unmark")) {
-                    // Determine which task to unmark
-                    int taskNumber = parseInt(command.substring(7));
-                    myList.get(taskNumber - 1).unmark();
+                    commandEnum = Command.UNMARK;
                 } else if (command.contains("mark")) {
-                    // Determine which task to mark
-                    int taskNumber = parseInt(command.substring(5));
-                    myList.get(taskNumber - 1).mark();
+                    commandEnum = Command.MARK;
                 } else if (command.contains("event") || command.contains("todo") ||
                     command.contains("deadline")) {
-                    Max.add(command);
+                    commandEnum = Command.ADD;
                 } else if (command.contains("delete")) {
-                    // to be updated
-                    int taskNumber = parseInt(command.substring(7));
-                    Max.delete(taskNumber);
+                    commandEnum = Command.DELETE;
                 } else {
-                    throw new MaxException("     Oh no! I cannot recognise that command.");
+                    commandEnum = Command.UNKNOWN;
+                }
+
+                switch (commandEnum) {
+                    case BYE:
+                        scannerOpen = false;
+                        break;
+                    case LIST:
+                        Max.list();
+                        break;
+                    case ADD:
+                        Max.add(userInput);
+                        break;
+                    case UNMARK:
+                        int unmarkNumber = parseInt(userInput.substring(7));
+                        myList.get(unmarkNumber - 1).unmark();
+                        break;
+                    case MARK:
+                        int markNumber = parseInt(userInput.substring(5));
+                        myList.get(markNumber - 1).mark();
+                        break;
+                    case DELETE:
+                        int deleteNumber = parseInt(userInput.substring(7));
+                        Max.delete(deleteNumber);
+                        break;
+                    case UNKNOWN:
+                        throw new MaxException("     Oh no! I cannot recognise that command.");
+                    default:
+                        break;
                 }
             } catch (MaxException e) {
                 System.out.println(e.getMessage());
