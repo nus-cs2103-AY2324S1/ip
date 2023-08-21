@@ -59,18 +59,38 @@ public class Duke {
                     if (listOutput(i) == null) {
                         break;
                     } else {
-                        System.out.println(i + 1 + ". " + "[" + listOutput(i).getStatusIcon() + "] " + listOutput(i));
+                        String sf2 = String.format("%d. [%s] %s", i+1, listOutput(i).getStatusIcon(), listOutput(i));
+                        System.out.println(sf2);
                         }
                     }
                 println();
                 continue;
             }
-            else if (text.contains("mark")) {
 
+            else if (text.contains("unmark")) {
+                int numToUnmark = Integer.parseInt(text.substring(7)) - 1;
+                listOutput(numToUnmark).markAsIncomplete();
                 println();
-                System.out.println("Alright! I'll check this task as complete for you.");
+                System.out.println("Alright! I'll uncheck this task for you: ");
+                String sf4 = String.format("\t [%s] %s",listOutput(numToUnmark).getStatusIcon(), listOutput(numToUnmark));
+                System.out.println(sf4);
+                println();
+
                 continue;
             }
+
+            else if (text.contains("mark")) {
+                int numToMark = Integer.parseInt(text.substring(5)) - 1;
+                listOutput(numToMark).markAsComplete();
+                println();
+                System.out.println("Alright! I'll check this task as complete for you: ");
+                String sf3 = String.format("\t [%s] %s",listOutput(numToMark).getStatusIcon(), listOutput(numToMark));
+                System.out.println(sf3);
+                println();
+
+                continue;
+            }
+
 
             else if (text.equals("bye"))   {
 
@@ -78,6 +98,7 @@ public class Duke {
                 System.out.println("Goodbye. Hope to be of service again soon!");
                 println();
                 break;
+
             } else {
                 Task task = new Task(text);
                 setList(task);
