@@ -5,12 +5,12 @@ public class Peko {
 
     private static final int ECHO = 0;
     private static final int EXIT = 1;
+    private static final String lineBreak = "------------------------------------------"; //42
+    private static final String introText = "Konpeko, Konpeko, Konpeko! \n" +
+            "Usada Pekora-peko! almondo almondo!";
+    private static final String exitText = "Otsupeko! Bye bye!";
     private static String currInput;
     private static Scanner scanner = new Scanner(System.in);
-    private static String lineBreak = "------------------------------------------"; //42
-    private static String introText = "Konpeko, Konpeko, Konpeko! \n" +
-            "Usada Pekora-peko! almondo almondo!";
-    private static String exitText = "Otsupeko! Bye bye!";
     public static void main(String[] args) {
         String input = "";
         boolean loop = true;
