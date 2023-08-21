@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class Duke {
     private static final String chatBotName = "Cristiano";
-    private static String[] list = new String[100];
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
