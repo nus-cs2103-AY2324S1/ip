@@ -33,5 +33,42 @@ _______________________________________
 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 _______________________________________
 _______________________________________
+Great job completing the task! I've marked it as done.
+[T][X] borrow book
+_______________________________________
+_______________________________________
+Great job completing the task! I've marked it as done.
+[D][X] return book (by: Sunday)
+_______________________________________
+_______________________________________
+Oops... Did you mark it incorrectly?
+[T][ ] borrow book
+_______________________________________
+_______________________________________
+Noted... I've removed this task:
+ [D][X] return book (by: Sunday)
+Now you have 2 tasks in the list
+_______________________________________
+_______________________________________
+1. [T][ ] borrow book
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+_______________________________________
+_______________________________________
+Noted... I've removed this task:
+ [T][ ] borrow book
+Now you have 1 tasks in the list
+_______________________________________
+_______________________________________
+1. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+_______________________________________
+_______________________________________
+Noted... I've removed this task:
+ [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 0 tasks in the list
+_______________________________________
+_______________________________________
+☹ OOPS!!! The task list cannot be empty.
+_______________________________________
+_______________________________________
 Bye. Hope to see you again soon!
 _______________________________________

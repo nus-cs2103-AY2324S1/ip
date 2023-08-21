@@ -58,9 +58,12 @@ public class Duke {
 
                     // Mark a task as done
                     if (input.startsWith("mark")) {
-                        int index = Integer.parseInt(input.replaceAll("[^0-9]", ""));
-
-                        if (tasks.size() <= index) {
+                        String desc = input.replaceAll("[^0-9]", "");
+                        if (desc.equals("")) {
+                            throw new NoIndexException("No Index");
+                        }
+                        int index = Integer.parseInt(desc);
+                        if (tasks.size() < index || index < 1) {
                             throw new NoIndexException(Integer.toString(index));
                         }
 
@@ -74,9 +77,12 @@ public class Duke {
 
                     // Unmark a done task
                     if (input.startsWith("unmark")) {
-                        int index = Integer.parseInt(input.replaceAll("[^0-9]", ""));
-
-                        if (tasks.size() <= index) {
+                        String desc = input.replaceAll("[^0-9]", "");
+                        if (desc.equals("")) {
+                            throw new NoIndexException("No Index");
+                        }
+                        int index = Integer.parseInt(desc);
+                        if (tasks.size() < index || index < 1) {
                             throw new NoIndexException(Integer.toString(index));
                         }
 
@@ -150,11 +156,31 @@ public class Duke {
                         continue;
                     }
 
+                    // Delete a task from the chatbot
+                    if (input.startsWith("delete")) {
+                        String desc = input.replaceAll("[^0-9]", "");
+                        if (desc.equals("")) {
+                            throw new NoIndexException("No Index");
+                        }
+                        int index = Integer.parseInt(desc);
+
+                        if (tasks.size() < index || index < 1) {
+                            throw new NoIndexException(Integer.toString(index));
+                        }
+                        Task task = tasks.get(index - 1);
+                        tasks.remove(index - 1);
+                        System.out.println("Noted... I've removed this task:");
+                        System.out.println(" " + task);
+                        System.out.printf("Now you have %d tasks in the list%n", tasks.size());
+                        System.out.println(LINE);
+                        continue;
+                    }
+
                     throw new UnknownCommandException(input);
 
                 } catch (UnknownTimeException | UnknownCommandException | EmptyTaskListException |
                          NoDescriptionException | NoIndexException e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                     System.out.println(LINE);
                 }
 
