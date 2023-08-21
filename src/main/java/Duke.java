@@ -33,46 +33,67 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String command;
 
+
         // Getting user input and performing relevant actions
         while(getInput) {
-            command = scanner.nextLine();
-            printHorizontalLine();
+            try {
+                command = scanner.nextLine();
+                printHorizontalLine();
 
-            int taskNumber;
-            String[] parsedCommand = command.split(" ", 2);
+                int taskNumber;
+                String[] parsedCommand = command.split(" ", 2);
 
-            switch(parsedCommand[0]) {
-                case "bye":
-                    getInput = false;
-                    bye();
-                    break;
-                case "list":
-                    taskList.displayTaskList();
-                    break;
-                case "mark":
-                    taskNumber = Integer.parseInt(parsedCommand[1]);
-                    taskList.markTaskDone(taskNumber);
-                    break;
-                case "unmark":
-                    taskNumber = Integer.parseInt(parsedCommand[1]);
-                    taskList.markTaskUndone(taskNumber);
-                    break;
-                case "todo":
-                    taskList.createTask(parsedCommand[1]);
-                    break;
-                case "deadline":
-                    String[] detailsAndDeadline = parsedCommand[1].split("/by", 2);
-                    taskList.createTask(detailsAndDeadline[0].trim(), detailsAndDeadline[1].trim());
-                    break;
-                case "event":
-                    String[] detailsAndStartEnd = parsedCommand[1].split("/from", 2);
-                    String[] startAndEnd = detailsAndStartEnd[1].split("/to", 2);
-                    taskList.createTask(detailsAndStartEnd[0].trim(), startAndEnd[0].trim(), startAndEnd[1].trim());
-                    break;
-                default:
-                    System.out.println("Sorry, I don't understand what you are saying!");
+                switch (parsedCommand[0]) {
+                    case "bye":
+                        getInput = false;
+                        bye();
+                        break;
+                    case "list":
+                        taskList.displayTaskList();
+                        break;
+                    case "mark":
+                        taskNumber = Integer.parseInt(parsedCommand[1]);
+                        if (taskNumber <= 0) {
+                            throw new DukeException("Number must be more 1 or more!");
+                        }
+                        taskList.markTaskDone(taskNumber);
+                        break;
+                    case "unmark":
+                        taskNumber = Integer.parseInt(parsedCommand[1]);
+                        if (taskNumber <= 0) {
+                            throw new DukeException("Number must be more 1 or more!");
+                        }
+                        taskList.markTaskUndone(taskNumber);
+                        break;
+                    case "todo":
+                        if (parsedCommand.length == 1) {
+                            throw new DukeException("The description of a todo cannot be empty.");
+                        }
+                        taskList.createTask(parsedCommand[1]);
+                        break;
+                    case "deadline":
+                        if (parsedCommand.length == 1) {
+                            throw new DukeException("The description of a deadline cannot be empty.");
+                        }
+                        String[] detailsAndDeadline = parsedCommand[1].split("/by", 2);
+                        taskList.createTask(detailsAndDeadline[0].trim(), detailsAndDeadline[1].trim());
+                        break;
+                    case "event":
+                        if (parsedCommand.length == 1) {
+                            throw new DukeException("The description of an event cannot be empty.");
+                        }
+                        String[] detailsAndStartEnd = parsedCommand[1].split("/from", 2);
+                        String[] startAndEnd = detailsAndStartEnd[1].split("/to", 2);
+                        taskList.createTask(detailsAndStartEnd[0].trim(), startAndEnd[0].trim(), startAndEnd[1].trim());
+                        break;
+                    default:
+                        throw new DukeException("I don't understand what you are saying!");
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                printHorizontalLine();
             }
-            printHorizontalLine();
         }
     }
 
