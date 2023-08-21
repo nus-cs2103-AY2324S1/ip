@@ -14,15 +14,18 @@ public class Alpha {
 
         while (true) {
             String userInput = sc.nextLine();
-
+            String[] userInputArr = userInput.split(" ");
             System.out.println("______________________________");
 
-            switch (userInput) {
+            switch (userInputArr[0]) {
                 case "list":
-                    int count = 1;
-                    for (String task : taskList.getTasks()) {
-                        System.out.println(count++ + ". " + task);
-                    }
+                    taskList.printTasks();
+                    break;
+                case "mark":
+                    taskList.markTask(Integer.parseInt(userInputArr[1]));
+                    break;
+                case "unmark":
+                    taskList.unmarkTask(Integer.parseInt(userInputArr[1]));
                     break;
                 case "bye":
                     System.out.println("Bye. Hope to see you again soon!");
@@ -31,7 +34,6 @@ public class Alpha {
                 default:
                     taskList.addTask(userInput);
                     System.out.println("added: " + userInput);
-
             }
 
             System.out.println("______________________________");
