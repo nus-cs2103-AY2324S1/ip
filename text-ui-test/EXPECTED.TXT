@@ -34,35 +34,35 @@
      ________________________________________
 
      ________________________________________
-     Invalid input
+      ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
      ________________________________________
 
      ________________________________________
-     Invalid input
+      ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
      ________________________________________
 
      ________________________________________
-     Invalid input
+      ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
      ________________________________________
 
      ________________________________________
-     Invalid input
+      ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
      ________________________________________
 
      ________________________________________
-     Invalid input
+      ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
      ________________________________________
 
      ________________________________________
-     Invalid input
+       ☹ OOPS!!! The description of a todo cannot be empty.
      ________________________________________
 
      ________________________________________
-     Invalid input
+       ☹ OOPS!!! The description of a deadline cannot be empty.
      ________________________________________
 
      ________________________________________
-     Invalid input
+       ☹ OOPS!!! The description of a event cannot be empty.
      ________________________________________
 
      ________________________________________
@@ -127,7 +127,31 @@
      ________________________________________
 
      ________________________________________
-     Invalid input
+      ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+     ________________________________________
+
+     ________________________________________
+       ☹ OOPS!!! Please type the command: '/by' followed by the specified date in any format.
+     ________________________________________
+
+     ________________________________________
+       ☹ OOPS!!! Please type the command: '/from and /to' followed by the specified date in any format.
+     ________________________________________
+
+     ________________________________________
+       ☹ OOPS!!! Please type the command: '/from and /to' followed by the specified date in any format.
+     ________________________________________
+
+     ________________________________________
+       ☹ OOPS!!! Please type the command: '/from and /to' followed by the specified date in any format.
+     ________________________________________
+
+     ________________________________________
+       ☹ OOPS!!! Please type the command: '/from' followed by the specified date in any format.
+     ________________________________________
+
+     ________________________________________
+       ☹ OOPS!!! Please type the command: '/to' followed by the specified date in any format.
      ________________________________________
 
      ________________________________________

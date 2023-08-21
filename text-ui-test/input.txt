@@ -21,4 +21,10 @@ list
 unmark 3
 list
 
+deadline task without by
+event task without argument
+event task /from with one argument
+event task /to with one argument
+event task /by with wrong argument /to to
+event task /from without from and to but uses /by
 bye
