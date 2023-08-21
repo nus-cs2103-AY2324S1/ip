@@ -52,6 +52,7 @@ public class Duke {
 
                 case "list":
                     println();
+                    System.out.println();
                     for (int i = 0; i < listLength() ; i++){
                         if (listOutput(i) == null) {
                             break;
@@ -72,7 +73,7 @@ public class Duke {
                     setList(text);
                     incrementCounter();
                     println();
-                    System.out.println("added: " + text);
+                    System.out.println("I have added '" + text + "' into your tasks list, sir.");
                     println();
                     continue;
 
