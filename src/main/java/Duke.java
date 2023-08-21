@@ -22,7 +22,11 @@ public class Duke {
         );
     }
 
-    private void parseInput(String input) {
+    private static String cTxt(String text, String color) {
+        return color + text + COLOR_RESET;
+    }
+
+    private void parseInput(String input) throws DukeException {
         // Ignore empty user input
         if (input.equals("")) return;
 
@@ -33,35 +37,89 @@ public class Duke {
         if (parse[0].equals("list")) {
             this.listTasks();
         } 
+        
         else if (command.equals("mark")) {
-            if (header.length < 2) return;
+            if (header.length < 2) {
+                throw new DukeException(new String[] {
+                    "Looks like you're missing a number:",
+                    "Try " + cTxt("mark", PURPLE) + " 1"
+                });
+            }
             this.markTask(header[1], true);
         } 
+        
         else if (command.equals("unmark")) {
-            if (header.length < 2) return;
+            if (header.length < 2) {
+                throw new DukeException(new String[] {
+                    "Looks like you're missing a number:",
+                    "Try " + cTxt("unmark", PURPLE) + " 1"
+                });
+            }          
             this.markTask(header[1], false);
         } 
+        
         else if (command.equals("todo")) {
+            if (header.length < 2) {
+                throw new DukeException(new String[] {
+                    "Looks like you're missing a description:",
+                    "Try " + cTxt("todo", PURPLE) + " read a book"
+                });
+            }
             this.addTodo(extractTail(header));
         } 
+        
         else if (command.equals("deadline")) {
-            if (parse.length < 2) return;
+            if (header.length < 2) {
+                throw new DukeException(new String[] {
+                    "Looks like you're missing a description:",
+                    "Try " + cTxt("deadline", PURPLE) + " submit essay /by Monday, 4pm"
+                });
+            }
+            
+            String[] date;
+            if (parse.length < 2
+                    || (date = parse[1].split(" ")).length < 2) {
+                throw new DukeException(new String[] {
+                    "Looks like you're missing a date:",
+                    "<- Remember to include /by ->",
+                    "Try " + cTxt("deadline", PURPLE) + " submit essay /by Monday, 4pm"
+                });
+            }
             this.addDeadline(
                 extractTail(header),
-                extractTail(parse[1].split(" "))
+                extractTail(date)
             );
         } 
+        
         else if (command.equals("event")) {
-            if (parse.length < 3) return;
+            if (header.length < 2) {
+                throw new DukeException(new String[] {
+                    "Looks like you're missing a description:",
+                    "Try " + cTxt("event", PURPLE) + " NUS carnival /from Aug 21st /to Aug 25th"
+                });
+            } 
+            
+            String[] fromDate, toDate;
+            if (parse.length < 3
+                    || (fromDate = parse[1].split(" ")).length < 2
+                    || (toDate   = parse[2].split(" ")).length < 2) {
+                throw new DukeException(new String[] {
+                    "Looks like you're missing a date range:",
+                    "<- Remember to include /from and /to ->",
+                    "Try " + cTxt("event", PURPLE) + " NUS carnival /from Aug 21st /to Aug 25th"
+                });
+            }
             this.addEvent(
                 extractTail(header), 
-                extractTail(parse[1].split(" ")),
-                extractTail(parse[2].split(" "))
+                extractTail(fromDate),
+                extractTail(toDate)
             );
-        } else {
-            this.error(new String[] {
-                "Unrecognized command " + PURPLE + command + COLOR_RESET,
-                "Maybe create a new TODO with \"todo read a book\"?"
+        } 
+        
+        else {
+            throw new DukeException(new String[] {
+                "Unrecognized command " + cTxt(command, PURPLE),
+                "Maybe create a new TODO with " + cTxt("todo", PURPLE) + " read a book?"
             });
         }
     }
@@ -86,7 +144,7 @@ public class Duke {
         Task todo = new Todo(description);
         this.addTask(todo);
         this.speak(new String[] {
-            "Okie! I've added a new " + GREEN + "TODO:" + COLOR_RESET,
+            "Okie! I've added a new " + cTxt("TODO:", GREEN),
             "  " + todo.toString(),
             "Total no. of tasks stored: " + count
         });
@@ -96,7 +154,7 @@ public class Duke {
         Task deadline = new Deadline(description, by);
         this.addTask(deadline);
         this.speak(new String[] {
-            "Okie! I've added a new " + BLUE + "DEADLINE:" + COLOR_RESET,
+            "Okie! I've added a new " + cTxt("DEADLINE:", BLUE),
             "  " + deadline.toString(),
             "Total no. of tasks stored: " + count
         });
@@ -106,7 +164,7 @@ public class Duke {
         Task event = new Event(description, start, end);
         this.addTask(event);
         this.speak(new String[] {
-            "Okie! I've added a new " + YELLOW + "EVENT:" + COLOR_RESET,
+            "Okie! I've added a new " + cTxt("EVENT:", YELLOW),
             "  " + event.toString(),
             "Total no. of tasks stored: " + count
         });
@@ -117,14 +175,14 @@ public class Duke {
         this.count += 1;
     }
 
-    private void markTask(String taskCount, boolean done) {
+    private void markTask(String taskCount, boolean done) throws DukeException {
         int index;
         // User passes a non-integer argument.
         try {
             index = Integer.parseInt(taskCount);
         } catch (NumberFormatException e) {
             this.error(
-                PURPLE + (done ? "mark" : "unmark") + COLOR_RESET 
+                cTxt((done ? "mark" : "unmark"), PURPLE)
                 + " takes in a number. Try mark 1."
             );
             return;
@@ -132,11 +190,10 @@ public class Duke {
 
         // User tries to mark/unmark a task that is out of bounds.
         if (index < 1 || index > count) {
-            this.error(String.format(
-                "Unable to %s task %d :( You have %d tasks stored.",
+            throw new DukeException(String.format(
+                "Unable to %s task %d :( You have %d task(s) stored.",
                 done ? "mark" : "unmark", index, count
             ));
-            return;
         }
 
         // Mark or unmark the task if the taskCount given is correct.
@@ -170,22 +227,22 @@ public class Duke {
     private void error(String text) {
         String msg = String.format(
             "\n    %s\n    %s\n", 
-            RED + "Erm... error :(" + COLOR_RESET,
+            cTxt("Erm... error :(", RED),
             text
         );
         System.out.println(msg);
     }
 
-    private void error(String[] text) {
-        String msg = String.format(
-            "\n    %s\n", 
-            RED + "Erm... error :(" + COLOR_RESET
-        );
-        for (String stub : text) {
-            msg += String.format("    %s\n", stub);
-        }
-        System.out.println(msg);
-    }
+    // private void error(String[] text) {
+    //     String msg = String.format(
+    //         "\n    %s\n", 
+    //         cTxt("Erm... error :(", RED)
+    //     );
+    //     for (String stub : text) {
+    //         msg += String.format("    %s\n", stub);
+    //     }
+    //     System.out.println(msg);
+    // }
 
     public static void main(String[] args) throws IOException {
         Duke chatbot = new Duke();
@@ -194,7 +251,7 @@ public class Duke {
         );
 
         chatbot.speak(new String[] {
-            "Hi. I'm " + PURPLE + "Bryan" + COLOR_RESET,
+            "Hi. I'm " + cTxt("Bryan", PURPLE),
             "What can I do for you?"
         });
 
@@ -203,7 +260,11 @@ public class Duke {
             System.out.print("> ");
             input = reader.readLine();
             if (input.equals("bye")) break;
-            chatbot.parseInput(input);
+            try {
+                chatbot.parseInput(input);
+            } catch (DukeException e) {
+                chatbot.error(e.toString());
+            }
         }
 
         chatbot.speak("Bye~ Come back soon :)");
