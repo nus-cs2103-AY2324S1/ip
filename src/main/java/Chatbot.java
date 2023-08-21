@@ -57,6 +57,10 @@ public class Chatbot {
                     int unmarkIndex = Integer.parseInt(parts[1]);
                     taskList.markTaskAsNotDone(unmarkIndex);
                     break;
+                case "delete":
+                    int deleteIndex = Integer.parseInt(parts[1]);
+                    taskList.deleteTask(deleteIndex);
+                    break;
                 case "todo":
                     if (parts.length <= 1 || parts[1].isEmpty()) {
                         throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");

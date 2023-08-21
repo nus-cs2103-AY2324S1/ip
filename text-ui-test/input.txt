@@ -16,4 +16,8 @@ deadline wrong info
 event wrong info
 mark 7
 unmark 7
+list
+delete 2
+list
+delete 3
 bye
