@@ -27,17 +27,21 @@ public class Duke {
         System.out.println(LOGO + GREETING);
 
         while (true) {
-            String input = sc.next();
+            String input = sc.nextLine();
             if (Objects.equals(input, "exit")) {
                 break;
             } else if (Objects.equals(input, "list")) {
                 listTasks();
-            } else if (Objects.equals(input, "mark")) {
-                int i = sc.nextInt();
+            } else if (Objects.equals(input.split(" ")[0], "mark")) {
+                int i = Integer.parseInt(input.split(" ")[1]);
                 tasks[i - 1].mark();
-            } else if (Objects.equals(input, "unmark")){
-                int i = sc.nextInt();
+                System.out.println("\tNice! I've marked this task as done: \n" +
+                        "\t\t" + tasks[i - 1].toString());
+            } else if (Objects.equals(input.split(" ")[0], "unmark")){
+                int i = Integer.parseInt(input.split(" ")[1]);
                 tasks[i - 1].unmark();
+                System.out.println("\tOK, I've marked this task as not done yet: \n" +
+                        "\t\t" + tasks[i - 1].toString());
             } else {
                 addTask(input);
             }
