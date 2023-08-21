@@ -18,4 +18,8 @@ public class Task {
     public void markAsIncomplete() {
         this.isCompleted = false;
     }
+    @Override
+    public String toString(){
+        return description;
+    }
 }

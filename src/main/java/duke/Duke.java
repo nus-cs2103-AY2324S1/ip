@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Duke {
     protected static String name = "Alfred";
 
-    protected static String[] list = new String[100];
+    protected static Task[] list = new Task[100];
     protected static int counter = 0;
 
     public static void println() {
@@ -22,7 +22,7 @@ public class Duke {
         Duke.counter++;
     }
 
-    public static void setList(String item){
+    public static void setList(Task item){
         list[getCounter()] = item;
 
     }
@@ -31,13 +31,13 @@ public class Duke {
         return list.length;
     }
 
-    public static String listOutput(int i){
+    public static Task listOutput(int i){
         return list[i];
     }
 
     public static void main(String[] args) {
-        Scanner scanIn = new Scanner(System.in);
 
+        Scanner scanIn = new Scanner(System.in);
         println();
         String sf1 = String.format("Hello I'm %s, your personal assistant.",getName());
         System.out.println(sf1);
@@ -45,46 +45,55 @@ public class Duke {
         println();
 
 
-
-
         while (true) {
 
-            String text = scanIn.nextLine();
-            switch (text){
 
-                case "list":
-                    println();
-                    System.out.println();
-                    for (int i = 0; i < listLength() ; i++){
-                        if (listOutput(i) == null) {
-                            break;
-                        } else {
-                            System.out.println(i + 1 + ". " + listOutput(i));
+
+            String text = scanIn.nextLine();
+
+
+            if (text.equals("list")) {
+                println();
+                System.out.println();
+                for (int i = 0; i < listLength(); i++) {
+                    if (listOutput(i) == null) {
+                        break;
+                    } else {
+                        System.out.println(i + 1 + ". " + "[" + listOutput(i).getStatusIcon() + "] " + listOutput(i));
                         }
                     }
-                    println();
-                    continue;
-                case "bye":
-
-                    println();
-                    System.out.println("Goodbye. Hope to be of service again soon!");
-                    println();
-                    break;
-
-                default:
-                    setList(text);
-                    incrementCounter();
-                    println();
-                    System.out.println("I have added '" + text + "' into your tasks list, sir.");
-                    println();
-                    continue;
-
+                println();
+                continue;
             }
-            break;
+            else if (text.contains("mark")) {
+
+                println();
+                System.out.println("Alright! I'll check this task as complete for you.");
+                continue;
+            }
+
+            else if (text.equals("bye"))   {
+
+                println();
+                System.out.println("Goodbye. Hope to be of service again soon!");
+                println();
+                break;
+            } else {
+                Task task = new Task(text);
+                setList(task);
+                incrementCounter();
+                println();
+                System.out.println("I have added '" + text + "' into your tasks list, sir.");
+                println();
+                continue;
+            }
 
         }
 
+
     }
+
 }
+
 
 
