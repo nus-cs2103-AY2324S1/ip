@@ -39,8 +39,7 @@ public class Duke {
 
         Scanner scanIn = new Scanner(System.in);
         println();
-        String sf1 = String.format("Hello I'm %s, your personal assistant.",getName());
-        System.out.println(sf1);
+        System.out.println(String.format("Hello I'm %s, your personal assistant.",getName()));
         System.out.println("What can I do for you today, sir?");
         println();
 
@@ -59,8 +58,7 @@ public class Duke {
                     if (listOutput(i) == null) {
                         break;
                     } else {
-                        String sf2 = String.format("%d. [%s] %s", i+1, listOutput(i).getStatusIcon(), listOutput(i));
-                        System.out.println(sf2);
+                        System.out.println(String.format("%d. [%s] [%s] %s", i+1, listOutput(i).tag, listOutput(i).getStatusIcon(), listOutput(i)));
                         }
                     }
                 println();
@@ -72,8 +70,7 @@ public class Duke {
                 listOutput(numToUnmark).markAsIncomplete();
                 println();
                 System.out.println("Alright! I'll uncheck this task for you: ");
-                String sf4 = String.format("\t [%s] %s",listOutput(numToUnmark).getStatusIcon(), listOutput(numToUnmark));
-                System.out.println(sf4);
+                System.out.println(String.format("\t [%s] %s",listOutput(numToUnmark).getStatusIcon(), listOutput(numToUnmark)));
                 println();
 
                 continue;
@@ -84,8 +81,7 @@ public class Duke {
                 listOutput(numToMark).markAsComplete();
                 println();
                 System.out.println("Alright! I'll check this task as complete for you: ");
-                String sf3 = String.format("\t [%s] %s",listOutput(numToMark).getStatusIcon(), listOutput(numToMark));
-                System.out.println(sf3);
+                System.out.println(String.format("\t [%s] %s",listOutput(numToMark).getStatusIcon(), listOutput(numToMark)));
                 println();
 
                 continue;
@@ -98,8 +94,15 @@ public class Duke {
                 System.out.println("Goodbye. Hope to be of service again soon!");
                 println();
                 break;
-            } else if (true){
-                break;
+            } else if (text.length() > 3 && text.substring(0,4).equals("todo")){
+                String description = text.substring(5);
+                Todo todo = new Todo(description);
+                setList(todo);
+                incrementCounter();
+                println();
+                System.out.println("Noted Sir. I've added this task to your list: ");
+                System.out.println(String.format("\t [%s] [%s] %s",todo.tag,todo.getStatusIcon(),todo.toString()));
+                System.out.println(String.format("As of now, you have %d tasks on the agenda.",getCounter()));
             }
 
 //             else {

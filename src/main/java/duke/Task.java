@@ -1,6 +1,8 @@
 package duke;
 
 public class Task {
+
+    protected Tag tag;
     protected String description;
     protected boolean isCompleted;
 

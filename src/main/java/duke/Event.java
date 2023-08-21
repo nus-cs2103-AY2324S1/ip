@@ -1,7 +1,6 @@
 package duke;
 
 public class Event extends Task{
-    protected Tag tag = Tag.E;
     protected String start;
     protected String end;
 
@@ -9,6 +8,7 @@ public class Event extends Task{
         super(description);
         this.start = start;
         this.end = end;
+        this.tag = Tag.E;
 
     }
 
