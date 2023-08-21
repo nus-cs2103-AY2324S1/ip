@@ -3,6 +3,26 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+    public enum CommandType {
+        LIST, DELETE, MARK, ADD, UNKNOWN, BYE
+    }
+
+    private static CommandType parseCommand(String userInput) {
+        if (userInput.equals("bye")) {
+            return CommandType.BYE;
+        } else if (userInput.startsWith("list")) {
+            return CommandType.LIST;
+        } else if (userInput.startsWith("delete")) {
+            return CommandType.DELETE;
+        } else if (userInput.contains("mark")) {
+            return CommandType.MARK;
+        } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
+            return CommandType.ADD;
+        } else {
+            return CommandType.UNKNOWN;
+        }
+    }
+
     public static void main(String[] args){
 
         String logo = "    ___    _   ___   ________  __      ____      __________  ____  _   __\n"
@@ -19,50 +39,82 @@ public class Duke {
         System.out.println(horizontalLine + logo + "Hello! I'm ANNOY-O-TRON!\nWhat can I do for you?\n"
                 + horizontalLine);
 
-        String userInput = myObj.nextLine();
-        while (!userInput.equals("bye")) {
-            System.out.print(horizontalLine);
-            if (userInput.startsWith("list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 1; i < list.size() + 1; i++) {
-                    System.out.println(i + "." + list.get(i - 1));
+        CommandType command;
+        do {
+                String userInput = myObj.nextLine();
+                command = parseCommand(userInput);
+                System.out.print(horizontalLine);
+            try {
+                switch (command) {
+                    case LIST:
+                        handleListCommand(list);
+                        break;
+                    case DELETE:
+                        handleDeleteCommand(userInput, list);
+                        break;
+                    case MARK:
+                        handleMarkCommand(userInput, list);
+                        break;
+                    case ADD:
+                        handleAddTaskCommand(userInput, list);
+                        break;
+                    case UNKNOWN:
+                        throw new InvalidArgumentException();
                 }
-            } else if (userInput.startsWith("delete")) {
-                int index = userInput.charAt(userInput.length() - 1) - '0';
-                Task currentTask = list.get(index - 1);
-                System.out.println("Noted. I've removed this task:");
-                System.out.println(currentTask);
-                list.remove(currentTask);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-            } else if (userInput.contains("mark")) {
-                int index = userInput.charAt(userInput.length() - 1) - '0';
-                Task currentTask = list.get(index - 1);
-                if (userInput.contains("unmark")) {
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    currentTask.markUndone();
-                } else {
-                    System.out.println("Nice! I've marked this task as done:");
-                    currentTask.markDone();
-                }
-                System.out.println(currentTask);
-            } else {
-                try {
-                    Task newTask = getTask(userInput);
-                    System.out.println("Got it. I've added this task:\n" + newTask);
-                    list.add(newTask);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
-                } catch (DukeException e) {
-                    System.out.println(e.getMessage());
-                }
+                System.out.println(horizontalLine);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
-            System.out.println(horizontalLine);
-            userInput = myObj.nextLine();
-        }
+        } while (command != CommandType.BYE);
 
         System.out.println(byeMessage);
     }
+    private static void handleListCommand(List<Task> list) {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 1; i < list.size() + 1; i++) {
+            System.out.println(i + "." + list.get(i - 1));
+        }
+    }
+    private static void handleDeleteCommand(String userInput, List<Task> list) {
+        int index = getTaskIndex(userInput);
+        if (isValidIndex(index, list.size())) {
+            Task currentTask = list.remove(index - 1);
+            System.out.println("Noted. I've removed this task:\n" + currentTask);
+            System.out.println("Now you have " + list.size() + " tasks in the list.");
+        } else {
+            System.out.println("Invalid task index.");
+        }
+    }
 
-    private static Task getTask(String userInput) throws EmptyDescriptionException, InvalidArgumentException {
+    private static void handleMarkCommand(String userInput, List<Task> list) {
+        int index = getTaskIndex(userInput);
+        if (isValidIndex(index, list.size())) {
+            Task currentTask = list.get(index - 1);
+            if (userInput.contains("unmark")) {
+                System.out.println("OK, I've marked this task as not done yet:");
+                currentTask.markUndone();
+            } else {
+                System.out.println("Nice! I've marked this task as done:");
+                currentTask.markDone();
+            }
+            System.out.println(currentTask);
+        } else {
+            System.out.println("Invalid task index.");
+        }
+    }
+    private static void handleAddTaskCommand(String userInput, List<Task> list) throws InvalidArgumentException, EmptyDescriptionException {
+            Task newTask = getTask(userInput);
+            System.out.println("Got it. I've added this task:\n" + newTask);
+            list.add(newTask);
+            System.out.println("Now you have " + list.size() + " tasks in the list.");
+    }
+    private static int getTaskIndex(String userInput) {
+        return userInput.charAt(userInput.length() - 1) - '0';
+    }
+    private static boolean isValidIndex(int index, int size) {
+        return index > 0 && index <= size;
+    }
+    private static Task getTask(String userInput) throws EmptyDescriptionException {
         String afterSpace = userInput.substring(userInput.indexOf(' ') + 1).trim();
         if (userInput.equals("todo")) {
             throw new EmptyDescriptionException();
@@ -74,15 +126,13 @@ public class Duke {
             String taskDeadline = afterSpace.substring(deadlineIndex + 4).trim();
             String taskName = afterSpace.substring(0, deadlineIndex).trim();
             return new Deadline(taskName, taskDeadline);
-        } else if (userInput.startsWith("event")) {
+        } else {
             int fromIndex = afterSpace.indexOf("/from");
             int toIndex = afterSpace.indexOf("/to");
             String taskFrom = afterSpace.substring(fromIndex + 6, toIndex - 1).trim();
             String taskTo = afterSpace.substring(toIndex + 4).trim();
             String taskName = afterSpace.substring(0, fromIndex).trim();
             return new Event(taskName, taskFrom, taskTo);
-        } else {
-            throw new InvalidArgumentException();
         }
     }
 }
