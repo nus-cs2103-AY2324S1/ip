@@ -1,6 +1,6 @@
 public class Task {
-    private String name;
-    private boolean isDone;
+    protected String name;
+    protected boolean isDone;
 
     /**
      * Constructs a new Task with the given name and sets its completion status to false.
