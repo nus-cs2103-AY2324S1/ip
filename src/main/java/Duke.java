@@ -7,10 +7,10 @@ import java.util.Scanner;
 public class Duke {
 
     static String termination_word = "BYE";
+    static ArrayList<Task> history = new ArrayList<>();
 
     public static void main(String[] args) {
         String action;
-        ArrayList<Task> history = new ArrayList<>();
         Duke.sayHi();
         Scanner reader = new Scanner(System.in);
         action = reader.nextLine().toString();
@@ -18,7 +18,7 @@ public class Duke {
         String check = parts[0].toUpperCase();
         while (!check.equals(termination_word)) {
             try {
-                history = Duke.actions(action, history);
+                Duke.actions(action);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             } finally {
@@ -46,7 +46,7 @@ public class Duke {
 
 
 
-    private static ArrayList<Task> actions(String inp, ArrayList<Task> history) {
+    private static ArrayList<Task> actions(String inp) {
         inp = inp.toUpperCase();
         String [] parts = inp.split(" ", 2);
         String check = parts[0];
@@ -64,18 +64,10 @@ public class Duke {
                 }
                 break;
             case "MARK":
-                try {
-                    Integer number = Integer.parseInt(numberString);
-                    if (number > history.size() || number < 0) {
-                        throw new DukeException("Wrong Param");
-                    }
-                    Task task = history.get(number-1);
-                    task.markAsDone();
-                    System.out.println("YONG has marked this task as completed! \n" + task.toString() + "\n");
-                }
-                catch (Exception e) {
-                    System.out.println("Invalid integer input");
-                }
+                Duke.mark(numberString);
+                break;
+            case "DELETE":
+                Duke.delete(numberString);
                 break;
             case "TODO":
                 ToDo toDo = Duke.toDo(inp);
@@ -97,6 +89,23 @@ public class Duke {
         return history;
     }
 
+    private static void mark(String numberString) {
+        Integer number = Integer.parseInt(numberString);
+        if (number > history.size() || number < 0) {
+            throw new DukeException("Wrong Param");
+        }
+        Task task = history.get(number-1);
+        task.markAsDone();
+        System.out.println("YONG has marked this task as completed! \n" + task.toString() + "\n");
+    }
+    private static void delete(String numberString) {
+        Integer number = Integer.parseInt(numberString);
+        if (number > history.size() || number < 0) {
+            throw new DukeException("Wrong Param");
+        }
+        Task task = history.remove(number-1);
+        System.out.println("YONG has deleted this task for you! \n" + task.toString() + "\n");
+    }
     private static ToDo toDo(String inp) {
         try {
             String[] type_description = inp.split(" ", 2);
