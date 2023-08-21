@@ -1,8 +1,27 @@
+import java.util.Scanner;
+
 public class Cheems {
+    private UI ui;
+    public Cheems() {
+        this.ui = new UI();
+    }
+    public void run() {
+        this.ui.showWelcomeMsg();
+        Scanner scanner = new Scanner(System.in);
+        // first message
+        System.out.print("You: ");
+        String input = scanner.nextLine();
+
+        while (!input.equals("bye")) {
+            System.out.print("Cheems: " + input + "\n");
+            System.out.print("You: ");
+            input = scanner.nextLine();
+        }
+
+        this.ui.showExitMsg();
+    }
     public static void main(String[] args) {
-        String lineBreak = "______________________________________________________________________";
-        String hello = "Hey! I'm Cheems:) Want to get some fries on the pier?";
-        String bye = "Bye:( Let's get the fries next time.";
-        System.out.println(lineBreak + "\n" + hello + "\n" + lineBreak + "\n" + bye + "\n" + lineBreak);
+        Cheems cheems = new Cheems();
+        cheems.run();
     }
 }
