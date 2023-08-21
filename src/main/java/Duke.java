@@ -6,6 +6,7 @@ public class Duke {
 
     private static final String i4 = "    ";
     private static final String i5 = Duke.i4 + " ";
+    private static final String i7 = Duke.i5 + "  ";
     private static final String line = Duke.i4 + "————————————————————————————————————————————————————";
     private String name;
     private List<Task> list;
@@ -52,8 +53,28 @@ public class Duke {
             int index = Integer.parseInt(input.substring(7)) - 1;
             this.list.get(index).unmark();
         } else {
-            this.list.add(new Task(input));
-            System.out.println(Duke.i5 + "added: " + input);
+
+            Task task = null;
+
+            if (input.startsWith("todo")) {
+                task = new Todo(input.substring(5));
+            } else if (input.startsWith("deadline")) {
+                int slashIndex = input.indexOf('/');
+                String by = input.substring(slashIndex + 4);
+                task = new Deadline(input.substring(9, slashIndex - 1), by);
+            } else if (input.startsWith("event")) {
+                int fromIndex = input.indexOf("/from");
+                int toIndex = input.indexOf("/to");
+                String from = input.substring(fromIndex + 6, toIndex - 1);
+                String to = input.substring(toIndex + 4);
+                task = new Event(input.substring(6, fromIndex - 1), from, to);
+            }
+
+            this.list.add(task);
+
+            System.out.println(Duke.i5 + "Got it. I've added this task:");
+            System.out.println(Duke.i7 + task);
+            System.out.println(Duke.i5 + "Now you have " + this.list.size() + " tasks in the list.");
         }
         this.line();
         startService();
