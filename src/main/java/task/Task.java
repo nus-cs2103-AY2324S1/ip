@@ -1,14 +1,15 @@
-package Task;
+package task;
 
 /**
  * Class encapsulating a single task to be done (by the user) in Kniaz
  */
-public class Task {
+public abstract class Task {
 
     /**
      * Whether this task is done
      */
     private boolean isDone = false;
+
 
     /**
      * Name of this task
@@ -16,23 +17,15 @@ public class Task {
     private String taskName = "";
 
     /**
-     * The private constructor for this task, initialisation will be through factory methods
+     * The (protected) constructor for this task, mostly for inheritance by subclasses
      * @param taskName name of task
      * @param isDone whether it is done
      */
-    private Task(String taskName, boolean isDone) {
+    protected Task(String taskName, boolean isDone) {
         this.taskName = taskName;
         this.isDone = isDone;
     }
 
-    /**
-     * Factory method for Task, creates an undone new task with the supplied name
-     * @param taskName the name of the task to be created
-     * @return the task that was created by this method
-     */
-    public static Task newTask(String taskName) {
-        return new Task(taskName, false);
-    }
 
 
     /**
@@ -49,11 +42,11 @@ public class Task {
         this.isDone = false;
     }
     /**
-     * Returns the string representation of Task
-     * @return the string representation of task
+     * The user-facing string representation of this Task, containing information about
+     * whether this task is done and its name
+     * @return the user-facing string representation of this ToDo.
      */
-    @Override
-    public String toString() {
+    public String toPrintString() {
         String statusIcon = "";
         if (this.isDone) {
             statusIcon = "X";

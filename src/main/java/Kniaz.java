@@ -1,8 +1,9 @@
 
 
 import java.util.Scanner;
-import Task.TaskList;
-import Task.Task;
+
+import task.*;
+
 public class Kniaz {
 
     /**
@@ -66,7 +67,7 @@ public class Kniaz {
 
             if (next.equals("list")) {
 
-                System.out.println(taskList.toString());
+                System.out.println(taskList.toPrintString());
                 // print out if we are asked to list
             } else if (next.startsWith("mark")) {
 
@@ -80,7 +81,7 @@ public class Kniaz {
 
                 // give user feedback
                 System.out.println("As you say. The task has been marked as done.");
-                System.out.println(taskList.get(entryToMark).toString());
+                System.out.println(taskList.get(entryToMark).toPrintString());
 
             } else if (next.startsWith("unmark")) {
 
@@ -90,21 +91,61 @@ public class Kniaz {
                 int entryToMark = entryAsInt - 1;
 
                 // handle unmarking here
-                taskList.get(entryToMark).markAsUndone();
+                Kniaz.taskList.get(entryToMark).markAsUndone();
 
                 // give user feedback
                 System.out.println("Ah, so you didn't actually finish it. Correcting your mistake.");
-                System.out.println(taskList.get(entryToMark).toString());
+                System.out.println(taskList.get(entryToMark).toPrintString());
 
-            } else {
+            } else if (next.startsWith(("todo"))) {
 
+                String taskName = Kniaz.getAfter(next,"todo").strip();
                 // interpret everything else that isn't special as a task to add
-                Task taskToAdd = Task.newTask((next));
+                Task taskToAdd = new ToDo((taskName));
                 // next currently holds the name of this new task
 
-                taskList.add(taskToAdd);
+                Kniaz.taskList.add(taskToAdd);
 
-                System.out.printf("added: %s%n",taskToAdd.toString());
+                System.out.printf("added: %s%n",taskToAdd.toPrintString());
+            } else if (next.startsWith("deadline")) {
+
+                // pull the args for this command
+                String deadlineArgs = Kniaz.getAfter(next, "deadline");
+
+                String[] tokenizedDlineArgs = deadlineArgs.split("/");
+                // Split it up by the slash
+
+
+                String deadlineName = tokenizedDlineArgs[0].strip();
+                String deadlineTime = Kniaz.getAfter(tokenizedDlineArgs[1], "by").strip();
+                // we getAfter("by"), to get all after the by, as that's the actual date/time
+                // Of note, this means that if it's lacking "by", no time will be specified.
+                // strip to remove excess whitespace
+
+                Task taskToAdd = new Deadline(deadlineName,deadlineTime);
+                Kniaz.taskList.add(taskToAdd);
+                // make a new Deadline to add
+
+                System.out.printf("added: %s%n",taskToAdd.toPrintString());
+                // remember to print our message to the user!
+
+            } else if (next.startsWith("event")) {
+                String eventArgs = Kniaz.getAfter(next, "event");
+
+                String[] tokenizedEventArgs = eventArgs.split("/");
+
+                String eventName = tokenizedEventArgs[0].strip();
+                String eventStart = Kniaz.getAfter(tokenizedEventArgs[1], "from").strip();
+                String eventEnd = Kniaz.getAfter(tokenizedEventArgs[2], "to").strip();
+                // we use getAfter here to get all after the "from" or "to", as that's the actual date/time
+                // strip to remove excess whitespace
+
+                Task taskToAdd = new Event(eventName, eventStart, eventEnd);
+                Kniaz.taskList.add(taskToAdd);
+                // add a new Event to the tasklist
+
+                System.out.printf("added: %s%n",taskToAdd.toPrintString());
+                // and remember to give feedback to user
             }
 
             // Each command input will invariable result in a seperator line being printed
