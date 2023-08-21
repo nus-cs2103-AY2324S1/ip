@@ -3,13 +3,26 @@ import java.util.Scanner;
 
 public class Duke {
     private static class StoreList {
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
         StoreList() {
         }
 
         String add(String item) {
-            list.add(item);
+            Task task = new Task(item);
+            list.add(task);
             return String.format("    added: %s", item);
+        }
+
+        String markDone(int index) {
+            Task task = list.get(index);
+            task.markAsDone();
+            return String.format("Nice! You have completed the task:\n    %s", task);
+        }
+
+        String markUndone(int index) {
+            Task task = list.get(index);
+            task.markAsNotDone();
+            return String.format("Ok! Task marked undone:\n    %s", task);
         }
         @Override
         public String toString() {
@@ -23,7 +36,9 @@ public class Duke {
 
     enum commands {
         list,
-        bye
+        bye,
+        mark,
+        unmark,
     }
 
     private static StoreList list = new StoreList();
@@ -39,21 +54,38 @@ public class Duke {
         while (true) {
             String line = sc.nextLine();
             if (line.equals("bye")) {
-                System.out.println(wrapper("Goodbye."));
+                printer("Goodbye.");
                 sc.close();
                 break;
             }
             if (line.equals("list")) {
-                System.out.println(wrapper(list.toString()));
+                printer(list.toString());
+                continue;
+            }
+            String[] instructions = line.split(" ");
+            if (instructions[0].equals("mark")) {
+                int index = Integer.parseInt(instructions[1]) - 1;
+                String response = list.markDone(index);
+                printer(response);
+                continue;
+            }
+            if (instructions[0].equals("unmark")) {
+                int index = Integer.parseInt(instructions[1]) - 1;
+                String response = list.markUndone(index);
+                printer(response);
                 continue;
             }
             String response = list.add(line);
-            System.out.println(wrapper(response));
+            printer(response);
         }
     }
 
     private static String wrapper(String line) {
         String frame = "=====================";
         return String.format("%s\n%s", line, frame);
+    }
+
+    private static void printer(String item) {
+        System.out.println(wrapper(item));
     }
 }
