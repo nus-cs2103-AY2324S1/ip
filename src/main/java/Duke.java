@@ -1,7 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
+    static List<Task> taskList = new ArrayList<>();
     static void greet() {
         String greeting = "_________________________________________________\n"
                 + " Hello! I'm Glub!\n"
@@ -10,11 +13,12 @@ public class Duke {
         System.out.println(greeting);
     }
 
-    static void echo(String input) {
-        String echoMsg = "_________________________________________________\n"
-                + String.format(" %s\n", input)
+    static void addTask(String task) {
+        taskList.add(new Task(task));
+        String addMsg = "_________________________________________________\n"
+                + String.format(" added: %s\n", task)
                 + "_________________________________________________\n";
-        System.out.println(echoMsg);
+        System.out.println(addMsg);
     }
 
     static void exit() {
@@ -29,10 +33,10 @@ public class Duke {
         while (true) {
             Scanner inputScanner = new Scanner(System.in);
             String input = inputScanner.nextLine();
-            if (Objects.equals(input, "bye")) {
+            if (input.equals("bye")) {
                 exit();
             } else {
-                echo(input);
+                addTask(input);
             }
         }
     }
