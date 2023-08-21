@@ -13,14 +13,15 @@ public class Duke {
             // Future Inputs
             Scanner scanner = new Scanner(System.in);
             String userInput;
-            ArrayList<String> todolist = new ArrayList<String>();
+            ArrayList<Task> todolist = new ArrayList<Task>();
 
             while (true) {
                 userInput = scanner.nextLine();
                 if (userInput.equalsIgnoreCase("list")) {
                     String todolistoutput = "";
                     for (int i = 0; i < todolist.size(); i++) {
-                        todolistoutput += i + 1 + ". " + todolist.get(i) + "\n";
+                        todolistoutput += i + 1 + "." + "[" + todolist.get(i).getStatusIcon() + "]"
+                                + todolist.get(i).getString() + "\n";
                     }
                     System.out.println("____________________________________________________________\n"
                             + todolistoutput
@@ -28,8 +29,25 @@ public class Duke {
 
                 } else if (userInput.equalsIgnoreCase("bye")) {
                     break;
+                } else if (userInput.startsWith("mark")) {
+                    int index = Integer.valueOf(userInput.split(" ", 0)[1]);
+                    todolist.get(index - 1).markAsDone();
+                    System.out.println("____________________________________________________________\n"
+                            + "Nice! I've marked this task as done:\n"
+                            + " [" + todolist.get(index - 1).getStatusIcon() + "] "
+                            + todolist.get(index - 1).getString() + "\n"
+                            + "____________________________________________________________\n");
+                } else if (userInput.startsWith("unmark")) {
+                    int index = Integer.valueOf(userInput.split(" ", 0)[1]);
+                    todolist.get(index - 1).unmark();
+                    System.out.println("____________________________________________________________\n"
+                            + "OK, I've marked this task as not done yet:\n"
+                            + " [" + todolist.get(index - 1).getStatusIcon() + "] "
+                            + todolist.get(index - 1).getString() + "\n"
+                            + "____________________________________________________________\n");
                 } else {
-                    todolist.add(userInput);
+                    Task task = new Task(userInput);
+                    todolist.add(task);
                     System.out.println("____________________________________________________________\n"
                             + "Added: "
                             + userInput
