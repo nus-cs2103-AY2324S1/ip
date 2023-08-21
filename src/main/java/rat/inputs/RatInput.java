@@ -1,9 +1,7 @@
 package rat.inputs;
 
-import rat.storage.*;
 import java.util.Scanner;
-
-import rat.throwables.RatExitThrowable;
+import rat.storage.*;
 import rat.print.RatPrinter;
 
 public class RatInput {
@@ -16,14 +14,15 @@ public class RatInput {
         this.ratStorage = ratStorage;
     }
 
-    public void handleInput() throws RatExitThrowable {
+    public void handleInput() {
         while (sc.hasNext()) {
             String input = sc.nextLine();
             String[] inputArr = input.split(" ");
             String command = inputArr[0];
             switch (command) {
                 case "bye":
-                    throw new RatExitThrowable();
+                    RatPrinter.printExit();
+                    System.exit(0);
                 case "list":
                     this.ratStorage.listItems();
                     break;

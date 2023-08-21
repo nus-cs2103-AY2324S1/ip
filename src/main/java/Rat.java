@@ -6,7 +6,6 @@ import java.util.Scanner;
 import rat.print.RatPrinter;
 import rat.storage.*;
 import rat.inputs.RatInput;
-import rat.throwables.RatExitThrowable;
 public class Rat {
     static RatStorage ratStorage;
     static RatInput ratInput;
@@ -19,20 +18,10 @@ public class Rat {
         ratInput = new RatInput(sc, ratStorage);
     }
 
-    public static void exit() {
-        RatPrinter.printExit();
-    }
-
-
     public static void main(String[] args) {
         Rat.initialise();
-        try {
-            ratInput.handleInput();
-        } catch (RatExitThrowable e) {
-            Rat.exit();
-        } finally {
-            sc.close();
-        }
+        ratInput.handleInput();
+        sc.close();
     }
 }
 
