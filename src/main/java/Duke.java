@@ -57,13 +57,22 @@ public class Duke {
     private static void readInput() {
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
+        String[] tokens = command.split(" ");
 
-        switch (command) {
+        switch (tokens[0]) {
             case "bye":
                 end();
                 break;
             case "list":
                 readList();
+                readInput();
+                break;
+            case "mark":
+                mark(Integer.parseInt(tokens[1]));
+                readInput();
+                break;
+            case "unmark":
+                unmark(Integer.parseInt(tokens[1]));
                 readInput();
                 break;
             default:
@@ -84,8 +93,25 @@ public class Duke {
         for (int i = 0; i < list.size(); i++) {
             int index = i + 1;
             Task task = list.get(i);
-            System.out.println(index + ". " + task.taskName());
+            String status = task.isDone() ? "[X] " : "[ ] ";
+            System.out.println(index + "." + status + task.taskName());
         }
+        System.out.println("\n" + drawLine());
+    }
+
+    private static void mark(int i) {
+        list.get(i - 1).mark();
+        System.out.println(drawLine());
+        System.out.println("Rrrruuuurrr, Chewie has marked the task.");
+        System.out.println("[X] " + list.get(i - 1).taskName());
+        System.out.println("\n" + drawLine());
+    }
+
+    private static void unmark(int i) {
+        list.get(i - 1).unmark();
+        System.out.println(drawLine());
+        System.out.println("Rrrruuuurrr, Chewie has unmarked the task.");
+        System.out.println("[ ] " + list.get(i - 1).taskName());
         System.out.println("\n" + drawLine());
     }
 }
