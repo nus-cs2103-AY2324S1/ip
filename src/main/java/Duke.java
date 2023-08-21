@@ -14,8 +14,9 @@ public class Duke {
             " `------'      `-----' `------'  ";
 
     private static Boolean isActive = true;
-    private static final String[] tasks = new String[100];
+    private static final Task[] tasks = new Task[100];
     private static int pointer = 0;
+
     public static void main(String[] args) {
         Duke.printWelcomeMessage();
         echo();
@@ -35,20 +36,38 @@ public class Duke {
         String displayMessage = "added: ";
 
         while (isActive) {
-            String command = scanner.nextLine();
+            String input = scanner.nextLine();
+            String[] stringSplit = input.split(" ");
+            String command = stringSplit[0];
 
-            if (command.equals("bye")) {
-                Duke.printGoodbyeMessage();
-                isActive = false;
-            } else if (command.equals("list")) {
-                for (int i = 0; i < pointer; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
-                }
-                System.out.println(divider);
-            } else {
-                Duke.tasks[pointer] = command;
-                Duke.pointer++;
-                System.out.println(displayMessage + command + divider);
+            switch (command) {
+                case "bye":
+                    Duke.printGoodbyeMessage();
+                    isActive = false;
+                    break;
+                case "list":
+                    for (int i = 0; i < pointer; i++) {
+                        System.out.println((i + 1) + ". [" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
+                    }
+                    System.out.println(divider);
+                    break;
+                case "mark":
+                    int markIndex = Integer.parseInt(stringSplit[1]);
+                    tasks[markIndex - 1].markAsDone();
+                    System.out.println("Great Job! I've helped mark this task as done:\n" +
+                            "[" + tasks[markIndex - 1].getStatusIcon() + "] " + tasks[markIndex - 1].description + divider);
+                    break;
+                case "unmark":
+                    int unmarkIndex = Integer.parseInt(stringSplit[1]);
+                    tasks[unmarkIndex - 1].unmarkTask();
+                    System.out.println("No worries! I will help you unmark this task:\n" +
+                            "[" + tasks[unmarkIndex - 1].getStatusIcon() + "] " + tasks[unmarkIndex - 1].description + divider);
+                    break;
+                default:
+                    Duke.tasks[pointer] = new Task(input);
+                    Duke.pointer++;
+                    System.out.println(displayMessage + input + divider);
+                    break;
             }
         }
     }
