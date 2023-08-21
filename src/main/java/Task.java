@@ -11,19 +11,12 @@ public class Task {
     private boolean completed = false;
 
     /**
-     * The Index of the task
-     */
-    private int index;
-
-    /**
      * Constructor for the Task class
      * 
-     * @param task  - the description of the task created
-     * @param index - the id of the task created
+     * @param task - the description of the task created
      */
-    public Task(String task, int index) {
+    public Task(String task) {
         this.task = task;
-        this.index = index;
     }
 
     /**

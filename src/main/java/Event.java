@@ -13,13 +13,12 @@ public class Event extends Task {
     /**
      * constructor for Deadline
      * 
-     * @param from  - the starting time of the event
-     * @param to    - the ending time of the event
-     * @param task  - the description of the task created
-     * @param index - the id of the task created
+     * @param from - the starting time of the event
+     * @param to   - the ending time of the event
+     * @param task - the description of the task created
      */
-    public Event(String from, String to, String task, int index) {
-        super(task, index);
+    public Event(String from, String to, String task) {
+        super(task);
         this.from = from;
         this.to = to;
     }
