@@ -26,11 +26,7 @@ public class Task {
      * Displays and prints the task
      */
     public void displayTask() {
-        if (this.isDone) {
-            System.out.print("[X] ");
-        } else {
-            System.out.print("[ ] ");
-        }
+        System.out.print(this.isDone ? "[X] " : "[ ]");
         System.out.println(this.detail);
     }
 

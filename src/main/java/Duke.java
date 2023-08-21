@@ -6,14 +6,9 @@ import java.util.Scanner;
  */
 public class Duke {
     /**
-     * The name of the chatbot
+     * The name of the bot
      */
     private static final String NAME = "Duke Prince";
-
-    /**
-     * The template for spaces within the program
-     */
-    private static final String SPACER = "----------------------------------------------------";
 
     /**
      * The boolean value for whether program should continue getting user input
@@ -37,60 +32,80 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
 
+        printHorizontalLine();
+        greet();
+        printHorizontalLine();
+
         // Creating scanner object to get user input
         Scanner scanner = new Scanner(System.in);
         String command;
 
-        greet();
-
         // Getting user input and performing relevant actions
         while(getInput) {
             command = scanner.nextLine();
+            printHorizontalLine();
+
+            int taskNumber;
             String[] parsedCommand = command.split(" ", 2);
 
-            if (command.equals("bye")) {
-                getInput = false;
-                break;
-            }
-
-            System.out.println(SPACER);
-            if (command.equals("list")) {
-                taskList.displayTasks();
-            } else if (parsedCommand[0].equals("mark") || parsedCommand[0].equals("unmark")) {
-                int taskNumber = Integer.parseInt(parsedCommand [1]);
-                if (parsedCommand[0].equals("mark")) {
+            switch(parsedCommand[0]) {
+                case "bye":
+                    getInput = false;
+                    bye();
+                    break;
+                case "list":
+                    taskList.displayTaskList();
+                    break;
+                case "mark":
+                    taskNumber = Integer.parseInt(parsedCommand[1]);
                     taskList.markTaskDone(taskNumber);
-                } else {
+                    break;
+                case "unmark":
+                    taskNumber = Integer.parseInt(parsedCommand[1]);
                     taskList.markTaskUndone(taskNumber);
-                }
-            } else {
-                taskList.addTask(command);
+                    break;
+                case "todo":
+                    taskList.createTask(parsedCommand[1]);
+                    break;
+                case "deadline":
+                    String[] detailsAndDeadline = parsedCommand[1].split("/by", 2);
+                    taskList.createTask(detailsAndDeadline[0].trim(), detailsAndDeadline[1].trim());
+                    break;
+                case "event":
+                    String[] detailsAndStartEnd = parsedCommand[1].split("/from", 2);
+                    String[] startAndEnd = detailsAndStartEnd[1].split("/to", 2);
+                    taskList.createTask(detailsAndStartEnd[0].trim(), startAndEnd[0].trim(), startAndEnd[1].trim());
+                    break;
+                default:
+                    System.out.println("Sorry, I don't understand what you are saying!");
             }
-            System.out.println(SPACER);
-            System.out.println();
+            printHorizontalLine();
         }
-
-        bye();
     }
 
     /**
      * This method greets the user upon starting the program
      */
     private static void greet() {
-        System.out.println(SPACER);
         System.out.println("Hello! I'm " + NAME);
         System.out.println("What can I do for you?");
-        System.out.println(SPACER);
-        System.out.println();
     }
 
     /**
      * This method says bye when user exits the program
      */
     private static void bye() {
-        System.out.println(SPACER);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(SPACER);
-        System.out.println();
+    }
+
+    /**
+     * This method prints a horizontal line in the console
+     */
+    private static void printHorizontalLine() {
+        int width = 50;
+        for (int i  = 0; i < width; i++) {
+            System.out.print("-");
+        }
+        System.out.println("");
     }
 }

@@ -27,17 +27,53 @@ public class TaskList {
      */
     public TaskList(int size) {
         this.tasks = new Task[size];
-        numTasks = 0;
+        this.numTasks = 0;
     }
 
     /**
-     * This method adds a task to the task list
-     * @param task
+     * This method creates a Todo task
+     * @param detail
      */
-    public void addTask(String task) {
-        this.tasks[numTasks] = new Task(task);
+    public void createTask(String detail) {
+        this.tasks[numTasks] = new Todo(detail);
+        addTask();
+    }
+
+    /**
+     * This method creates a Deadline task
+     * @param detail
+     * @param endDateTime
+     */
+    public void createTask(String detail, String endDateTime) {
+        this.tasks[numTasks] = new Deadline(detail, endDateTime);
+        addTask();
+    }
+
+    /**
+     * This method creates an Event task
+     * @param detail
+     * @param startDateTime
+     * @param endDateTime
+     */
+    public void createTask(String detail, String startDateTime, String endDateTime) {
+        this.tasks[numTasks] = new Event(detail, startDateTime, endDateTime);
+        addTask();
+    }
+
+    /**
+     *  This method adds the most newly created task to the task list
+     */
+    public void addTask() {
+        System.out.println("Got it. I've added this task:");
+        System.out.print("   ");
+        this.tasks[numTasks].displayTask();
+
         this.numTasks++;
-        System.out.println("added: " + task);
+        if (numTasks == 1) {
+            System.out.println("Now you have " + numTasks + " task in the list.");
+        } else {
+            System.out.println("Now you have " + numTasks + " tasks in the list.");
+        }
     }
 
     /**
@@ -63,7 +99,12 @@ public class TaskList {
     /**
      * This method displays and prints all the tasks in the task list
      */
-    public void displayTasks() {
+    public void displayTaskList() {
+        if (this.numTasks == 0 || this.numTasks == 1) {
+            System.out.println("Here is the task in your list:");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+        }
         for (int i = 0; i < this.numTasks; i++) {
             int bullet = i + 1;
             System.out.print(bullet + ". ");
