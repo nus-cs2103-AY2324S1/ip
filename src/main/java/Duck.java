@@ -97,6 +97,7 @@ public class Duck {
                     }
                     this.tasks.add(new Task(input, this.tasks.size()));
                     this.print("Quack has added: " + input);
+                    this.print("Now you have " + input + " tasks in quack's memory");
 
             }
 
@@ -114,7 +115,7 @@ public class Duck {
             this.print("Quack Quack, you have not entered anything yet!");
             return;
         }
-
+        this.print("Quack Quack, here are the tasks in quack's memory:");
         for (int i = 0; i < this.tasks.size(); i++) {
             this.print((i + 1) + "." + this.tasks.get(i));
         }
