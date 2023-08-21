@@ -3,19 +3,41 @@ public class Task {
     protected boolean isDone;
     protected Type category;
 
-    public Task(String description, String category) {
+    public Task(String description, String category) throws IllegalArgumentException {
         this.isDone = false;
         if (category.equals("todo")) {
             this.category = Type.T;
-            this.description = description;
+            String[] s =description.split(" ", 1);
+            try {
+                this.description = s[0] + s[1];
+            } catch(Exception e) {
+                System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                System.out.println("This is not in the correct format");
+                throw new IllegalArgumentException("Please correct the format");
+            }
         } else if (category.equals("deadline")) {
             this.category = Type.D;
             String[] s =description.split("/", 2);
-            this.description = s[0] + "("+ s[1] + ")";
-        } else {
+            try {
+                this.description = s[0] + "("+ s[1] + ")";
+            } catch(Exception e) {
+                System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                System.out.println("This is not in the correct format");
+                throw new IllegalArgumentException("Please correct the format");
+            }
+
+        } else if (category.equals("event")){
             String[] s = description.split("/(from|to)", 3);
             this.category = Type.E;
-            this.description = s[0] + "(From : " + s[1] + " To : " + s[2] + ")";
+            try {
+                this.description = s[0] + "(From : " + s[1] + " To : " + s[2] + ")";
+            } catch(Exception e) {
+                System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                System.out.println("This is not in the correct format");
+                throw new IllegalArgumentException("Please correct the format");
+            }
+        } else {
+            throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 

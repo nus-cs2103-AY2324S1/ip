@@ -34,9 +34,15 @@ public class Duke {
                     System.out.println("Nothing to mark");
                 }
             } else {
-                Task curr = new Task(input.substring(input.indexOf(" ")), input.substring(0, input.indexOf(" ")));
-                lists[length++] = curr;
-                System.out.println("Bacon Pancake : \n Added : " + curr.description);
+                try {
+                    Task curr = new Task(input.substring(input.indexOf(" ")), input.substring(0, input.indexOf(" ")));
+                    lists[length++] = curr;
+                    System.out.println("Bacon Pancake : \n Added : " + curr.description);
+                } catch(IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                } catch(Exception e) {
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
             }
 
         }
