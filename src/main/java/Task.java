@@ -37,12 +37,28 @@ public class Task {
         System.out.println("  " + this.toString());
     }
 
+    /**
+     * Checks whether a task is completed and return a nX if done
+     * @return String X if done, a blank space string if not
+     */
+    // Note that this is credited from the website partial solution
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    /**
+     * Prints out a message that a task has been added
+     */
+    public void taskAdded(int noOfTask) {
+        System.out.println("added: " + this.taskName);
+        System.out.println("Now you have " + noOfTask + " tasks in the list.");
+    }
     @Override
     public String toString() {
         if (this.isDone) {
-            return "[X] " + this.taskName;
+            return "[" + this.getStatusIcon() + "] " + this.taskName;
         } else {
-            return "[ ] " + this.taskName;
+            return "[" + this.getStatusIcon() + "] " + this.taskName;
         }
     }
 }

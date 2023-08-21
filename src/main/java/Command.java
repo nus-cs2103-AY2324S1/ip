@@ -13,19 +13,19 @@ public enum Command {
         String[] inputtedWords = input.split(" ");
         // Command word should always be first word without space
         String commandWord = inputtedWords[0];
-        if (commandWord.contains("list")) {
+        if (commandWord.startsWith("list")) {
             return Command.LIST;
-        } else if (commandWord.contains("bye")) {
+        } else if (commandWord.startsWith("bye")) {
             return Command.BYE;
-        } else if (commandWord.contains("mark")) {
+        } else if (commandWord.startsWith("mark")) {
             return Command.MARK;
-        } else if (commandWord.contains("unmark")) {
+        } else if (commandWord.startsWith("unmark")) {
             return Command.UNMARK;
-        } else if (commandWord.contains("todo")) {
+        } else if (commandWord.startsWith("todo")) {
             return  Command.TODO;
-        } else if (commandWord.contains("deadline")) {
+        } else if (commandWord.startsWith("deadline")) {
             return Command.DEADLINE;
-        } else if (commandWord.contains("event")) {
+        } else if (commandWord.startsWith("event")) {
             return Command.EVENT;
         } else {
             return Command.ADD;
