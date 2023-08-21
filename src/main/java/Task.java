@@ -7,11 +7,19 @@ public class Task {
         this.isDone = false;
     }
 
+    public void setDone() {
+        this.isDone = true;
+    }
+
+    public void setNotDone() {
+        this.isDone = false;
+    }
+
     @Override
     public String toString() {
         if (this.isDone) {
-            return "[X]" + description;
+            return "[X] " + description;
         }
-        return "[ ]" + description;
+        return "[ ] " + description;
     }
 }
