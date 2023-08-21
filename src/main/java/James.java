@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class James {
     public static void main(String[] args) {
@@ -7,9 +8,20 @@ public class James {
 
         // User Input
         Scanner in = new Scanner(System.in);
+
+        ArrayList<String> items = new ArrayList<String>();
+
         String input = in.nextLine();
         while (!input.equals("bye")) {
-            System.out.println(line + "\n" + input + "\n" + line);
+            if (input.equals("list")) {
+                System.out.println(line);
+                for (int i = 0; i < items.size(); i++) {
+                    System.out.println(i + 1 + ". " + items.get(i));
+                }
+            } else {
+                System.out.println(line + "\n" + "added: " + input + "\n" + line);
+                items.add(input);
+            }
             input = in.nextLine();
         }
 
