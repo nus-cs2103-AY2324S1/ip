@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+
+
 import java.util.Scanner;
 import Task.TaskList;
 import Task.Task;
@@ -59,34 +59,40 @@ public class Kniaz {
 
             next = input.nextLine();
 
-            if (next.equals(Kniaz.EXITSTRING)){
+            if (next.equals(Kniaz.EXITSTRING)) {
 
                 break; // Used here instead of in the while because of timing of next
             }
 
-            if (next.equals("list")){
+            if (next.equals("list")) {
 
                 System.out.println(taskList.toString());
                 // print out if we are asked to list
             } else if (next.startsWith("mark")) {
 
+                // handle parsing which entry the user wants to mark here
                 String entryAsString = Kniaz.getAfter(next,"mark");
                 int entryAsInt = Integer.parseInt(entryAsString.strip());
                 int entryToMark = entryAsInt - 1;
 
+                // handle actual marking here
                 taskList.get(entryToMark).markAsDone();
 
-                System.out.println("As you say. The task has been marked as done :");
+                // give user feedback
+                System.out.println("As you say. The task has been marked as done.");
                 System.out.println(taskList.get(entryToMark).toString());
 
-            } else if (next.startsWith("unmark")){
+            } else if (next.startsWith("unmark")) {
 
+                // handle parsing which entry user wants to unmark here
                 String entryAsString = Kniaz.getAfter(next,"unmark");
                 int entryAsInt = Integer.parseInt(entryAsString.strip());
                 int entryToMark = entryAsInt - 1;
 
+                // handle unmarking here
                 taskList.get(entryToMark).markAsUndone();
 
+                // give user feedback
                 System.out.println("Ah, so you didn't actually finish it. Correcting your mistake.");
                 System.out.println(taskList.get(entryToMark).toString());
 
@@ -100,6 +106,9 @@ public class Kniaz {
 
                 System.out.printf("added: %s%n",taskToAdd.toString());
             }
+
+            // Each command input will invariable result in a seperator line being printed
+            // Helps to keep it looking nice
             System.out.println((Kniaz.SEPERATOR));
 
 
@@ -110,7 +119,13 @@ public class Kniaz {
         System.out.println(Kniaz.SEPERATOR);
     }
 
-    private static String getAfter(String fullString, String subString){
+    /**
+     * Helper function to get the substring after a provided substring
+     * @param fullString The whole string to scan
+     * @param subString The substring to scan fullString for
+     * @return the substring of everything after the provided subString
+     */
+    private static String getAfter(String fullString, String subString) {
         int indexOfSubString = fullString.indexOf(subString);
         return fullString.substring(indexOfSubString + subString.length());
         // add the substring length to skip to the end of it
