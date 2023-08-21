@@ -5,15 +5,18 @@ import java.util.Scanner;
 public class Peko {
 
 
-    private static final int ECHO = 0;
-    private static final int EXIT = 1;
-    private static final int COPYPASTA = Integer.MAX_VALUE;
-    private static final int READ = 2;
-    private static final int WRITE = 3;
     private static final String lineBreak = "------------------------------------------"; //42
     private static final String introText = "Konpeko, Konpeko, Konpeko! \n" +
             "Usada Pekora-peko! almondo almondo!";
     private static final String exitText = "Otsupeko! Bye bye!";
+    private static final String[] commands = new String[]
+            {"echo","otsupeko", "list", "write", "tell me a joke"};
+
+    private static final int ECHO = 0;
+    private static final int EXIT = 1;
+    private static final int READ = 2;
+    private static final int WRITE = 3;
+    private static final int COPYPASTA = 4;
     private static String currInput;
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
@@ -27,7 +30,7 @@ public class Peko {
             responseValue = getResponseValue(input);
             switch (responseValue) {
                 case ECHO:
-                    System.out.println(input);
+                    echo(input);
                     System.out.println(lineBreak);
                     break;
                 case READ:
@@ -77,26 +80,28 @@ public class Peko {
     }
 
     public static String interaction() {
-        currInput = scanner.next();
+        currInput = scanner.nextLine();
         System.out.println(lineBreak);
         return currInput;
     }
+    public static void echo(String s) {
+        s = s.substring(5, s.length());
+        s = leftPad(s);
+        if (s.isBlank()) {
+            System.out.println("You didn't say anything peko?");
+        } else {
+            System.out.println(s);
+        }
+    }
 
     public static int getResponseValue(String input) {
-        int output = 0;
-        switch (input.toLowerCase()) {
-            case "otsupeko":
-                output = EXIT;
+        int output = 2;
+        input = input.toLowerCase();
+        for (int i = 0; i < commands.length; i++) {
+            if (input.startsWith(commands[i])) {
+                output = i;
                 break;
-            case "tellmeajoke":
-                output = COPYPASTA;
-                break;
-            case "list":
-                output = READ;
-                break;
-            default:
-                output = WRITE;
-                break;
+            }
         }
 
         return output;
@@ -111,6 +116,7 @@ public class Peko {
             System.out.println(curr + ". " + sc.nextLine());
             curr++;
         }
+        System.out.println(lineBreak);
     }
 
     public static void addToList(String s) throws IOException {
@@ -118,8 +124,8 @@ public class Peko {
         temp = new BufferedWriter(new FileWriter("src/main/List.txt", true));
         temp.append("[ ] " + s + "\n");
         temp.close();
-        System.out.println("Added: " + s + " Peko!");
-
+        System.out.println("Added: \"" + s + "\" Peko!");
+        System.out.println(lineBreak);
     }
     public static void degen() throws FileNotFoundException {
         File text = new File("src/main/Copypasta.txt");
@@ -130,7 +136,14 @@ public class Peko {
         System.out.println(lineBreak);
 
     }
-    public static void exit() {
+
+    private static String leftPad(String s) {
+        while (s.startsWith(" ")) {
+            s = s.substring(1, s.length());
+        }
+        return s;
+    }
+    private static void exit() {
         System.out.println(exitText);
     }
 }
