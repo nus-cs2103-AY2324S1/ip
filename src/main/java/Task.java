@@ -1,15 +1,15 @@
 public class Task {
-    String taskName;
-    boolean status;
+    protected String taskName;
+    protected boolean status;
 
     public Task(String taskName) {
         this.taskName = taskName;
         this.status = false;
     }
-    public void markDone(int taskNum) {
+    public void markDone() {
         this.status = true;
     }
-    public void markNotDone(int taskNum) {
+    public void unmarkDone() {
         this.status = false;
     }
 
@@ -29,5 +29,10 @@ public class Task {
             statusString = " ";
         }
         return "[" + statusString + "]";
+    }
+
+    @Override
+    public String toString() {
+        return statusString() + " " + this.taskName;
     }
 }
