@@ -1,9 +1,10 @@
 package main.java.actions;
 
 import main.java.JukeObject;
-import main.java.tasks.JukeTask;
-import main.java.tasks.JukeTaskManager;
+import main.java.JukeParser;
+import main.java.tasks.*;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -17,7 +18,7 @@ public abstract class JukeAction extends JukeObject {
      * @return Corresponding JukeAction object
      */
     public static final JukeAction of(String command, JukeTaskManager taskManager) {
-        String[] parsedArgs = JukeAction.parse(command);
+        String[] parsedArgs = JukeParser.parseBySpace(command);
         return JukeAction.dispatch(parsedArgs, taskManager);
     }
 
@@ -29,58 +30,85 @@ public abstract class JukeAction extends JukeObject {
      */
     private static JukeAction dispatch(String[] args, JukeTaskManager taskManager) {
         if (args.length == 0) {
-            return new JukeErrorAction("No commands are present!");
+            return new JukeErrorAction("Oh no! No commands are present!");
         }
 
-        if (args.length == 1) {
-            switch (args[0]) {
-                case "list":
-                    return new JukePrintAction(taskManager);
-                case "bye":
-                    return new JukeExitAction();
-            }
-        } else {
-            String mainAction = args[0];
-            switch (mainAction) {
-                case "mark":
-                    try {
-                        int i = Integer.parseInt(args[1]);
-                        return new JukeMarkTaskDoneAction(taskManager, i - 1);
-                    } catch (NumberFormatException ex) {
-                        return new JukeErrorAction("Oh no! You must input a valid task number " +
-                                                           "for the command \"mark\"!");
-                    } catch (IndexOutOfBoundsException ex) {
-                        return new JukeErrorAction("Oh no! The task you have referenced " +
-                                                           "does not exist!");
-                    }
-                case "unmark":
-                    try {
-                        int i = Integer.parseInt(args[1]);
-                        return new JukeMarkTaskUndoneAction(taskManager, i - 1);
-                    } catch (NumberFormatException ex) {
-                        return new JukeErrorAction("Oh no! You must input a valid task number " +
-                                                           "for the command \"unmark\"!");
-                    }
-                default:
-                    return new JukeAddTaskAction(taskManager, JukeTask.of(String.join(" ", args)));
-            }
+        String mainCommand = args[0];
+        String jukeOpError = "";
 
+        switch (mainCommand) {
+            case "list":
+                return new JukePrintAction(taskManager);
+            case "bye":
+                return new JukeExitAction();
+            case "mark":
+                try {
+                    int i = Integer.parseInt(args[1]);
+                    return new JukeMarkTaskDoneAction(taskManager, i - 1);
+                } catch (NumberFormatException ex) {
+                    jukeOpError = "Oh no! You must input a valid task number " +
+                            "for the command \"mark\"!";
+                    break;
+                }
+            case "unmark":
+                try {
+                    int i = Integer.parseInt(args[1]);
+                    return new JukeMarkTaskUndoneAction(taskManager, i - 1);
+                } catch (NumberFormatException ex) {
+                    jukeOpError = "Oh no! You must input a valid task number " +
+                            "for the command \"unmark\"!";
+                    break;
+                }
+            case "todo":
+                if (args.length == 1) {
+                    // contains only the command text
+                    return new JukeErrorAction("Oh no! I cannot understand your todo command!\n" +
+                                                       "Make sure that your command looks like this: \n" +
+                                                       "todo [description]");
+                } else {
+                    // concatenate back the string
+                    String newArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+                    JukeTask jt = new JukeTodo(newArgs);
+                    return new JukeAddTaskAction(taskManager, jt);
+                }
+            case "deadline":
+                // concatenate back the string
+                String newDeadlineArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 
+                // check if fulfills regex
+                if (!JukeParser.isMatchByString(newDeadlineArgs)) {
+                    return new JukeErrorAction("Oh no! I cannot understand your deadline command!\n" +
+                                                       "Make sure that your command looks like this: \n" +
+                                                       "deadline [description] /by [deadline]");
+                } else {
+                    String[] parsedArguments = JukeParser.parseByByString(newDeadlineArgs);
+                    JukeTask jt = new JukeDeadline(parsedArguments[0], parsedArguments[1]);
+                    return new JukeAddTaskAction(taskManager, jt);
+                }
+            case "event":
+                // concatenate back the string
+                String newEventArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+
+                // check if fulfills regex
+                if (!JukeParser.isMatchFromToString(newEventArgs)) {
+                    return new JukeErrorAction("Oh no! I cannot understand your event command!\n" +
+                                                       "Make sure that your command looks like this: \n" +
+                                                       "deadline [description] /from [from time] /to [to time]");
+                } else {
+                    String[] parsedArguments = JukeParser.parseByFromToString(newEventArgs);
+                    JukeTask jt = new JukeEvent(parsedArguments[0], parsedArguments[1], parsedArguments[2]);
+                    return new JukeAddTaskAction(taskManager, jt);
+                }
         }
 
-        return new JukeErrorAction("No commands are present!");
-    }
+        // checks if there are any operational errors
+        // note that this behaves similar to exceptions, in that older exceptions are overwritten by
+        // newer ones
+        if (!jukeOpError.equals("")) {
+            return new JukeErrorAction(jukeOpError);
+        }
 
-    /**
-     * Parses the input and returns to the caller a sanitised list of commands given to
-     * Juke.
-     *
-     * @param command Raw String command
-     * @return String[] containing list of String commands
-     */
-    private static String[] parse(String command) {
-        // note: by default, commands are split by the space character
-        return command.strip().split(" ");
+        return new JukeErrorAction("Oh no! I do not understand that command!");
     }
 
     /**

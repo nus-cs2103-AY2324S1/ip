@@ -72,7 +72,7 @@ public class JukeOrchestrator extends JukeObject{
      * Dispatches the command and acts on it.
      */
     private void dispatch() {
-        // this is intentionally unintialised as do-while loop will initialise it here,
+        // this is intentionally uninitialized as do-while loop will initialise it here,
         // unless an error occurs of course
         JukeAction action;
 
@@ -90,10 +90,10 @@ public class JukeOrchestrator extends JukeObject{
 
             while (actor.isPresent()) {
                 actor = actor.get().complete();
-                System.out.print(JukeOrchestrator.SEPARATOR);
             }
 
             System.out.print(JukeOrchestrator.SEPARATOR);
+
         } while (!(action instanceof JukeExitAction));
     }
 
@@ -101,11 +101,10 @@ public class JukeOrchestrator extends JukeObject{
      * Prints out the Introduction statments.
      */
     private void printIntroduction() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(JukeOrchestrator.LOGO);
-        builder.append(JukeOrchestrator.SEPARATOR);
-        builder.append(JukeOrchestrator.INTRO);
-        builder.append(JukeOrchestrator.SEPARATOR);
+        String builder = JukeOrchestrator.LOGO +
+                JukeOrchestrator.SEPARATOR +
+                JukeOrchestrator.INTRO +
+                JukeOrchestrator.SEPARATOR;
 
         System.out.print(builder);
     }

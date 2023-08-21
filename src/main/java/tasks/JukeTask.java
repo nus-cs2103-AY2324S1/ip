@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * Class that represents a task that the user adds to Juke.
  */
-public class JukeTask extends JukeObject {
+public abstract class JukeTask extends JukeObject {
     /** Task description. */
     private String taskName;
 
@@ -24,28 +24,10 @@ public class JukeTask extends JukeObject {
     private static final String INCOMPLETE_INDICATOR = "[ ] ";
 
     /**
-     * Factory method to create an incomplete task.
-     * @param task Task description
-     * @return Incomplete JukeTask
-     */
-    public static JukeTask of(String task) {
-        return new JukeTask(task);
-    }
-
-    /**
-     * Factory method to create a completed task.
-     * @param task Task description
-     * @return Completed JukeTask
-     */
-    public static JukeTask ofCompleted(String task) {
-        return new JukeTask(task, true);
-    }
-
-    /**
      * Private constructor used to create an incomplete task.
      * @param taskName Task description
      */
-    private JukeTask(String taskName) {
+    public JukeTask(String taskName) {
         this.taskName = taskName;
         this.isCompleted = false;
     }
@@ -66,7 +48,7 @@ public class JukeTask extends JukeObject {
      */
     public Optional<? extends JukeAction> markAsComplete() {
         if (this.isCompleted) {
-            return Optional.of(new JukeErrorAction("The task selected is already completed!"));
+            return Optional.of(new JukeErrorAction("Oh no! The task selected is already completed!"));
         } else {
             this.isCompleted = true;
             return Optional.empty();

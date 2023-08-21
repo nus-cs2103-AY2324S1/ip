@@ -8,7 +8,6 @@ import main.java.actions.JukeErrorAction;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * A manager of JukeTasks. This class handles the addition/deletion/manipulation of
@@ -65,8 +64,11 @@ public class JukeTaskManager extends JukeObject {
      * @return Optional<? extends JukeAction> for further actions to take
      */
     public Optional<? extends JukeAction> markAsDone(int index) {
-        this.tasks.get(index).markAsComplete();
-        return Optional.empty();
+        if (index < 0 || index > this.tasks.size()) {
+            return Optional.of(new JukeErrorAction("Oh no! I do not have such task recorded!"));
+        }
+
+        return this.tasks.get(index).markAsComplete();
     }
 
     /**
@@ -75,8 +77,11 @@ public class JukeTaskManager extends JukeObject {
      * @return Optional<? extends JukeAction> for further actions to take
      */
     public Optional<? extends JukeAction> markAsUndone(int index) {
-        this.tasks.get(index).markAsIncomplete();
-        return Optional.empty();
+        if (index < 0 || index > this.tasks.size()) {
+            return Optional.of(new JukeErrorAction("Oh no! I do not have such task recorded!"));
+        }
+
+        return this.tasks.get(index).markAsIncomplete();
     }
 
     /**
