@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Max {
     private static String line = "____________________________________________________________";
+    private static String[] myList = new String[100];
+    private static int numOfItems = 0;
     public static void greet() {
         String logo = ".___  ___.      ___      ___   ___ \n" +
                 "|   \\/   |     /   \\     \\  \\ /  / \n" +
@@ -12,12 +14,21 @@ public class Max {
                 "                                   ";
         System.out.println("     Hello from\n" + logo);
         System.out.println(Max.line);
-        System.out.println("     Hello! I'm Max! \n" + "How may I assist you?");
+        System.out.println("     Hello! I'm Max! \n" + "     How may I assist you?");
         System.out.println(Max.line);
     }
 
-    public static void echo(String string) {
-        System.out.println("     " + string);
+    public static void add(String string) {
+        Max.myList[numOfItems] = string;
+        numOfItems++;
+        System.out.println("     added: " + string);
+        System.out.println(Max.line);
+    }
+
+    public static void list() {
+        for (int i = 0; i < numOfItems; i++) {
+            System.out.println("     " + i + ". " + myList[i]);
+        }
         System.out.println(Max.line);
     }
 
@@ -37,8 +48,10 @@ public class Max {
 
             if (command.equals("bye")) {
                 scannerOpen = false;
+            } else if (command.equals("list")) {
+                Max.list();
             } else {
-                Max.echo(command);
+                Max.add(command);
             }
         }
 
