@@ -43,7 +43,12 @@ public class Task {
         setDone(true);
     }
 
-    public void unmark() {
+    public void markAsNotDone() {
         setDone(false);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", getStatusIcon(), getDescription());
     }
 }
