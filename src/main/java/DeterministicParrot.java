@@ -1,6 +1,16 @@
 import java.io.PrintWriter;
 import java.util.*;
-import java.util.function.Consumer;
+
+class DeterministicParrotException extends Exception {
+    public DeterministicParrotException(String message) {
+        super(message);
+    }
+}
+
+@FunctionalInterface
+interface CheckedConsumer<T> {
+    void accept(T t) throws DeterministicParrotException;
+}
 
 public class DeterministicParrot {
     private class Task{
@@ -65,7 +75,7 @@ public class DeterministicParrot {
     private Scanner s;
     private PrintWriter pw;
     private List<Task> list;
-    private Map<String, Consumer<String[]>> commandHandlers = new HashMap<>();
+    private Map<String, CheckedConsumer<String[]>> commandHandlers = new HashMap<>();
 
     DeterministicParrot(){
         this.list = new LinkedList<>();
@@ -83,12 +93,10 @@ public class DeterministicParrot {
         commandHandlers.put("list", args -> printList());
         commandHandlers.put("bye", args -> bye());
         commandHandlers.put("mark", args -> {
-            int i = Integer.parseInt(args[1]);
-            markAsDone(i);
+            markAsDone(args);
         });
         commandHandlers.put("unmark", args -> {
-            int i = Integer.parseInt(args[1]);
-            markAsUndone(i);
+            markAsUndone(args);
         });
         commandHandlers.put("todo", args -> {
             addToDo(args);
@@ -129,53 +137,64 @@ public class DeterministicParrot {
         printDash();
     }
     private void printList(){
-        printDash();
         this.pw.println("     " + "Here are the tasks in your list:");
         for(int i = 0; i < this.list.size(); i++){
             this.pw.println("     " + (i+1) + ". " + this.list.get(i));
         }
-        printDash();
     }
     private void addToList(String s){
         //create task
         Task t = new Task(s);
         this.list.add(t);
-        printDash();
         this.pw.println("    " + "added: " + s);
-        printDash();
 
     }
-    private void markAsDone(int i){
-        //TODO: handle out of bounds
+    private void markAsDone(String args[]) throws DeterministicParrotException {
+        int i;
+        try {
+            i = Integer.parseInt(args[1]);
+        } catch (NumberFormatException e) {
+            throw new DeterministicParrotException("Please provide a valid task number.");
+        }
+        if (i <= 0 || i > list.size()) {
+            throw new DeterministicParrotException("Invalid task number.");
+        }
         this.list.get(i-1).markAsDone();
-        printDash();
         this.pw.println("    " + "Nice! I've marked this task as done:");
         this.pw.println("       " + this.list.get(i-1));
-        printDash();
     }
-    private void markAsUndone(int i){
-        //TODO: handle out of bounds
+    private void markAsUndone(String toks[]) throws DeterministicParrotException {
+        int i;
+        try {
+            i = Integer.parseInt(toks[1]);
+        } catch (NumberFormatException e) {
+            throw new DeterministicParrotException("Please provide a valid task number.");
+        }
+        if (i <= 0 || i > list.size()) {
+            throw new DeterministicParrotException("Invalid task number.");
+        }
         this.list.get(i-1).markAsUndone();
-        printDash();
         this.pw.println("    " + "OK, I've marked this task as not done yet:\n");
         this.pw.println("       " + this.list.get(i-1));
-        printDash();
     }
 
-    private void addToDo(String[] args) {
-        printDash();
+    private void addToDo(String[] args) throws DeterministicParrotException {
+        if (args.length < 2) {
+            throw new DeterministicParrotException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
         String taskDescription = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
         ToDo t = new ToDo(taskDescription);
         this.list.add(t);
         this.pw.println("     " + "Got it. I've added this task:");
         this.pw.println("      " + t);
         this.pw.println("     " + "Now you have " + this.list.size() + " tasks in the list.");
-        printDash();
     }
 
-    private void addDeadline(String[] args) {
-        printDash();
+    private void addDeadline(String[] args) throws DeterministicParrotException {
         int byIndex = Arrays.asList(args).indexOf("/by");
+        if (byIndex == -1 || byIndex == args.length - 1) {
+            throw new DeterministicParrotException("Invalid deadline format. Use /by to specify deadline time.");
+        }
         String taskName = String.join(" ", Arrays.copyOfRange(args, 1, byIndex));
         String deadline = String.join(" ", Arrays.copyOfRange(args, byIndex + 1, args.length));
 
@@ -184,13 +203,14 @@ public class DeterministicParrot {
         this.pw.println("     " + "Got it. I've added this task:");
         this.pw.println("      " + t);
         this.pw.println("     " + "Now you have " + this.list.size() + " tasks in the list.");
-        printDash();
     }
 
-    private void addEvent(String[] args) {
-        printDash();
+    private void addEvent(String[] args) throws DeterministicParrotException {
         int fromIndex = Arrays.asList(args).indexOf("/from");
         int toIndex = Arrays.asList(args).indexOf("/to");
+        if (fromIndex == -1 || toIndex == -1 || toIndex <= fromIndex || fromIndex == args.length - 1 || toIndex == args.length - 1) {
+            throw new DeterministicParrotException("Invalid event format. Use /from and /to to specify event time.");
+        }
         String eventName = String.join(" ", Arrays.copyOfRange(args, 1, fromIndex));
         String startTime = String.join(" ", Arrays.copyOfRange(args, fromIndex + 1, toIndex));
         String endTime = String.join(" ", Arrays.copyOfRange(args, toIndex + 1, args.length));
@@ -200,16 +220,23 @@ public class DeterministicParrot {
         this.pw.println("    " + "Got it. I've added this task:");
         this.pw.println("       " + t);
         this.pw.println("     " + "Now you have " + this.list.size() + " tasks in the list.");
-        printDash();
     }
 
-    private void handleCommand(String input) {
+    private void handleCommand(String input){
         String[] tokens = input.split(" ");
-        Consumer<String[]> cmdHandler = this.commandHandlers.get(tokens[0]);
-        if (cmdHandler != null) {
-            cmdHandler.accept(tokens);
-        } else {
-            addToList(input);
+        CheckedConsumer<String[]> cmdHandler = this.commandHandlers.get(tokens[0]);
+        this.printDash();
+        try {
+            if (cmdHandler != null) {
+                cmdHandler.accept(tokens);
+            } else {
+                throw new DeterministicParrotException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (DeterministicParrotException de) {
+            this.pw.println("     " + de.getMessage());
+        }
+        finally{
+            this.printDash();
         }
     }
 
