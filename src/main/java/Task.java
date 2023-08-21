@@ -11,10 +11,6 @@ public class Task {
         return description;
     }
 
-    public boolean isDone() {
-        return isDone;
-    }
-
     public void markDone() {
         isDone = true;
     }
