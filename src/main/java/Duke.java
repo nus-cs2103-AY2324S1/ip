@@ -26,26 +26,43 @@ public class Duke {
                 for (int i = 0; i < inputList.size(); i++) {
                     System.out.println(i+1 + ". " + inputList.get(i).toString());
                 }
+            } else if (splitOutput[0].equals("deadline")) {
+                System.out.println("Got it. I've added this task:");
+                String newDes = userOutput.split("deadline")[1].split("/by")[0].strip();
+                String newBy = userOutput.split("/by")[1].strip();
+                Deadline newDeadline = new Deadline(newDes, newBy);
+                inputList.add(newDeadline);
+                System.out.println(newDeadline);
+                System.out.println("Now you have " + inputList.size() + " tasks in the list.");
+            } else if (splitOutput[0].equals("todo")) {
+                System.out.println("Got it. I've added this task:");
+                Todo newTodo =  new Todo(userOutput.split("todo")[1].strip());
+                inputList.add(newTodo);
+                System.out.println(newTodo);
+                System.out.println("Now you have " + inputList.size() + " tasks in the list.");
+            } else if (splitOutput[0].equals("event")) {
+                System.out.println("Got it. I've added this task:");
+                String newDes = userOutput.split("event")[1].split("/from")[0].strip();
+                String newFrom = userOutput.split("/from")[1].split("/to")[0].strip();
+                String newTo = userOutput.split("/to")[1].strip();
+                Event newEvent = new Event(newDes, newFrom, newTo);
+                inputList.add(newEvent);
+                System.out.println(newEvent);
+                System.out.println("Now you have " + inputList.size() + " tasks in the list.");
             } else if (splitOutput[0].equals("mark")) {
                 System.out.println("Nice! I've marked this task as done:");
-                Task markTask = inputList.get(Integer.parseInt(splitOutput[1])-1);
-                markTask.mark();
-                System.out.println(markTask.toString());
+                Task selectedTask = inputList.get(Integer.parseInt(splitOutput[1])-1);
+                selectedTask.mark();
+                System.out.println(selectedTask.toString());
             } else if (splitOutput[0].equals("unmark")) {
                 System.out.println(" OK, I've marked this task as not done yet:");
-                Task unmarkTask = inputList.get(Integer.parseInt(splitOutput[1])-1);
-                unmarkTask.unmark();
-                System.out.println(unmarkTask.toString());
-            } else {
-                System.out.println("added: " + userOutput);  // Output user input
-                inputList.add(new Task (userOutput));
+                Task selectedTask = inputList.get(Integer.parseInt(splitOutput[1])-1);
+                selectedTask.unmark();
+                System.out.println(selectedTask.toString());
             }
             userOutput = userInput.nextLine();  // Read user input
-
         }
         printBye();
-
-
     }
 
     public static void printBye() {

@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -12,11 +12,11 @@ public class Task {
     }
 
     public void mark() {
-        isDone = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        isDone = false;
+        this.isDone = false;
     }
 
     @Override
