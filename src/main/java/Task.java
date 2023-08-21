@@ -11,6 +11,12 @@ public class Task {
         this.done = false;
     }
 
+    //default constructor
+    public Task() {
+        this.taskName = "Untitled task";
+        this.done = false;
+    }
+
     public void mark() {
         printLine();
         this.done = true;
