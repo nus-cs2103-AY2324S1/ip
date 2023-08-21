@@ -3,6 +3,8 @@ import java.util.Scanner;
 public class Emiya {
 
     public static void main(String[] args) {
+        int arrayPointer = 0;
+        String[] listArray = new String[100];
         String welcomeMessage = "-----------------------------------------\n"
                 + "Hello! I'm Emiya\n"
                 + "What can I do for you?\n"
@@ -19,6 +21,7 @@ public class Emiya {
         while (true) {
             // nextLine is blocking, so can have this here
             userCommand = myScannerObj.nextLine();
+            int listPointer = 1;
 
             if (userCommand.equals("bye")) {
                 break;
@@ -38,10 +41,34 @@ public class Emiya {
                 continue;
             }
 
-            String outputMessage = "-----------------------------------------\n" +
-                    userCommand+"\n"
-                    +"-----------------------------------------\n";
-            System.out.println(outputMessage);
+
+            if (!userCommand.equals("list")) {
+                String outputMessage = "-----------------------------------------\n" +
+                        "added: " + userCommand+"\n"
+                        +"-----------------------------------------\n";
+                System.out.println(outputMessage);
+                listArray[arrayPointer] = userCommand;
+                arrayPointer++;
+                continue;
+            }
+
+            StringBuilder listString = new StringBuilder("-----------------------------------------\n");
+
+            for (String action: listArray) {
+                if (action == null) {
+                    if (listPointer == 1) {
+                        listString.append("The list is empty! Add items to the list!\n");
+                    }
+                    break;
+                }
+                String listItem = listPointer + ". " + action + "\n";
+                listPointer++;
+                listString.append(listItem);
+            }
+
+            listString.append("-----------------------------------------\n");
+
+            System.out.println(listString);
 
         }
 
