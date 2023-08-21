@@ -9,7 +9,11 @@ public class Event extends Task{
         this.start = start;
         this.end = end;
         this.tag = Tag.E;
+    }
 
+    @Override
+    public String toString(){
+        return String.format("%s (from: %sto: %s)",description,start,end);
     }
 
 }

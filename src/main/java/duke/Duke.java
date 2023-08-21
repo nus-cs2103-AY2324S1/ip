@@ -66,7 +66,8 @@ public class Duke {
             }
             // never use .contains as the command "unmark" may be present in other commands//
             else if (text.length() > 5 && text.substring(0,6).equals("unmark")) {
-                int numToUnmark = Integer.parseInt(text.substring(7)) - 1;
+                String[] splitText = text.split(" ");
+                int numToUnmark = Integer.parseInt(splitText[1]) - 1;
                 listOutput(numToUnmark).markAsIncomplete();
                 println();
                 System.out.println("Alright! I'll uncheck this task for you: ");
@@ -77,7 +78,8 @@ public class Duke {
             }
 
             else if (text.length() > 3 && text.substring(0,4).equals("mark")) {
-                int numToMark = Integer.parseInt(text.substring(5)) - 1;
+                String[] splitText = text.split(" ");
+                int numToMark = Integer.parseInt(splitText[1]) - 1;
                 listOutput(numToMark).markAsComplete();
                 println();
                 System.out.println("Alright! I'll check this task as complete for you: ");
@@ -116,7 +118,21 @@ public class Duke {
                 System.out.println(String.format("\t [%s] [%s] %s",dl.tag,dl.getStatusIcon(),dl.toString()));
                 System.out.println(String.format("As of now, you have %d tasks on the agenda.",getCounter()));
                 println();
-            }
+            } else if (text.length() > 4 && text.substring(0,5).equals("event")){
+                String[] splitText = text.split("/");
+                String description = splitText[0].substring(6);
+                String start = splitText[1].substring(5);
+                String end = splitText[2].substring(3);
+                Event event = new Event(description,start,end);
+                setList(event);
+                incrementCounter();
+                println();
+                System.out.println("Noted Sir. I've added this task to your list: ");
+                System.out.println(String.format("\t [%s] [%s] %s",event.tag,event.getStatusIcon(),event.toString()));
+                System.out.println(String.format("As of now, you have %d tasks on the agenda.",getCounter()));
+                println();
+
+            };
 
 //             else {
 //                Task task = new Task(text);
