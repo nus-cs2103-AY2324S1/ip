@@ -6,7 +6,7 @@ import java.util.Scanner;
  * as part of the requirements for the iP.
  *
  * @author WZWren
- * @version Level-2
+ * @version Level-3
  */
 public class TrackerBot {
   /** Name of the app. **/
@@ -21,7 +21,7 @@ public class TrackerBot {
    * The Task List array itself should be immutable, in case we override it
    * during runtime.
    */
-  private static final String[] TASK_LIST = new String[100];
+  private static final Task[] TASK_LIST = new Task[100];
 
   /** Tracks the number of items in the task list. */
   private static int taskCounter = 0;
@@ -56,8 +56,9 @@ public class TrackerBot {
       return;
     }
 
+    System.out.println("I am tracking these tasks:");
     for (int i = 1; i < taskCounter + 1; i++) {
-      System.out.println(i + ". " + TASK_LIST[i - 1]);
+      System.out.println(i + ". " + TASK_LIST[i - 1].toString());
     }
   }
 
@@ -68,10 +69,11 @@ public class TrackerBot {
    * @param str The String of the task to add to the list.
    */
   private static void add(String str) {
-    TASK_LIST[taskCounter] = str;
+    Task newTask = new Task(str);
+    TASK_LIST[taskCounter] = newTask;
     taskCounter++;
 
-    System.out.println("Task added: " + str);
+    System.out.println("Now tracking: \n  " + newTask);
   }
 
   /**
