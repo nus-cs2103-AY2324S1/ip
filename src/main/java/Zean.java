@@ -1,3 +1,8 @@
+/**
+ * The main class.
+ *
+ * @author Zhong Han
+ */
 public class Zean {
 
     public static void main(String[] args) {

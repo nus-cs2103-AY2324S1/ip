@@ -1,8 +1,18 @@
 import java.util.Scanner;
 
+/**
+ * The class with methods called by the main class.
+ *
+ * @author Zhong Han
+ */
 public class Ui {
     private static final String DIVIDER = "\t__________________________________";
 
+    /**
+     * Prints the welcome message.
+     *
+     * @param name The name of the chatbot.
+     */
     public static void greet(String name) {
         printDivider();
         printLogo();
@@ -11,6 +21,9 @@ public class Ui {
         printDivider();
     }
 
+    /**
+     * Prints the exit message.
+     */
     public static void exit() {
         System.out.println("\tBye. Have a nice day!");
         printDivider();
@@ -30,6 +43,11 @@ public class Ui {
         System.out.println(logo);
     }
 
+    /**
+     * Handles the input provided and outputs corresponding messages.
+     *
+     * @param storage The storage object that stores the tasks.
+     */
     public static void takeInstructions(Storage storage) {
         Scanner sc = new Scanner(System.in);
         while (true) {

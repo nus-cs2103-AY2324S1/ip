@@ -1,5 +1,15 @@
+/**
+ * The class that provides the parser of the input.
+ */
 public class Parser {
 
+    /**
+     * Parses the input and prints the corresponding output.
+     *
+     * @param input The input from the user.
+     * @param storage The storage object to store the tasks.
+     * @throws DukeException An exception related to the chatbot.
+     */
     public static void parse(String input, Storage storage) throws DukeException {
         if (input.isBlank()) {
             return;

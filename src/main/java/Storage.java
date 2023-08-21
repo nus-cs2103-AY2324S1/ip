@@ -1,14 +1,27 @@
 import java.util.ArrayList;
 
+/**
+ * The class that provides the storage for the tasks.
+ *
+ * @author Zhong Han
+ */
 public class Storage {
     private ArrayList<Task> tasks;
     private int count;
 
+    /**
+     * Constructor for storage.
+     */
     public Storage() {
         this.tasks = new ArrayList<>();
         this.count = 0;
     }
 
+    /**
+     * Adds a todo task to the array list.
+     *
+     * @param description The description of the todo task.
+     */
     public void add(String description) {
         Todo task = new Todo(description);
         this.tasks.add(task);
@@ -16,6 +29,12 @@ public class Storage {
         printAddTask(task);
     }
 
+    /**
+     * Adds a deadline task to the array list.
+     *
+     * @param description The description of the deadline task.
+     * @param by The due date of the deadline task.
+     */
     public void add(String description, String by) {
         Deadline task = new Deadline(description, by);
         this.tasks.add(task);
@@ -23,6 +42,13 @@ public class Storage {
         printAddTask(task);
     }
 
+    /**
+     * Adds an event task to the array list.
+     *
+     * @param description The description of the event task.
+     * @param from The start date/time of the event task.
+     * @param to The end date/time of the event task.
+     */
     public void add(String description, String from, String to) {
         Event task = new Event(description, from, to);
         this.tasks.add(task);
@@ -35,6 +61,9 @@ public class Storage {
         this.printNumOfTasks();
     }
 
+    /**
+     * Prints the list of tasks that the storage holds.
+     */
     public void list() {
         if (this.count == 0) {
             System.out.println("\tThere are currently no tasks in your list:");
@@ -46,6 +75,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Marks the task corresponding to the index as done.
+     *
+     * @param index The index of the task seen by the user, which starts from 1.
+     * @throws DukeException An exception related to the chatbot.
+     */
     public void markTaskDone(int index) throws DukeException {
         if (index > this.count || index <= 0) {
             throw new DukeException("\tHmm, this task does not exist :|");
@@ -54,6 +89,12 @@ public class Storage {
         this.tasks.get(index - 1).markTaskDone();
     }
 
+    /**
+     * Marks the task corresponding to the index as not done.
+     *
+     * @param index The index of the task seen by the user, which starts from 1.
+     * @throws DukeException An exception related to the chatbot.
+     */
     public void markTaskNotDone(int index) {
         if (index > this.count || index <= 0) {
             throw new DukeException("\tHmm, this task does not exist :|");
@@ -70,6 +111,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes the task corresponding to the index.
+     *
+     * @param index The index of the task seen by the user, which starts from 1.
+     * @throws DukeException An exception related to the chatbot.
+     */
     public void deleteTask(int index) throws DukeException {
         if (index < 1 || index > this.count) {
             throw new DukeException("\tHmm, this task does not exist :|");
