@@ -30,6 +30,11 @@ public class Duke {
         Duke.printFormatted("Bye. Hope to see you again soon!");
     }
 
+    private static void printTaskAddedMessage(Task task) {
+        Duke.printFormatted(String.format("Got it. I've added this task:\n  %s\n Now you have %d %s in the list.",
+                task.toString(), Duke.tasks.size(), (Duke.tasks.size() == 1 ? "task" : "tasks")));
+    }
+
     private static void parseInput(String input) {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
