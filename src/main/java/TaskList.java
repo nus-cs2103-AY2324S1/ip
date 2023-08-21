@@ -6,6 +6,17 @@ public class TaskList {
         taskList.add(task);
     }
 
+    public void mark(int taskNumber) {
+        Task task = taskList.get(taskNumber);
+        task.mark();
+        System.out.println(task.toString());
+    }
+
+    public void unmark(int taskNumber) {
+        Task task = taskList.get(taskNumber);
+        task.unmark();
+        System.out.println(task.toString());
+    }
     @Override
     public String toString() {
         String result = "";
