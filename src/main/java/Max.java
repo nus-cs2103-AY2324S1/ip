@@ -65,6 +65,11 @@ public class Max {
             return "[E]" + super.toString() + " (from: " + from + " to: " + to +")";
         }
     }
+    public static class MaxException extends Exception {
+        public MaxException(String msg) {
+            super(msg);
+        }
+    }
     public static void greet() {
         System.out.println("     Hello from");
         System.out.println("       /\\/\\   __ ___  __");
@@ -75,22 +80,52 @@ public class Max {
         System.out.println(Max.line);
     }
 
-    public static void add(String task) {
+    public static void add(String task) throws MaxException {
         // Parse command based on type of task (Todo, Deadline, Event)
         if (task.startsWith("todo")) {
+            // Error checking: empty fields
+            if (task.length() < 6) {
+                throw new MaxException("     Watch out -- todo description cannot be empty.");
+            }
+
             String description = task.substring(5).trim();
+
             Max.myList[numOfItems] = new Todo(description);
         } else if (task.startsWith("deadline")) {
             int byIndex = task.indexOf("/by");
+
+            // Error checking: no /by tag
+            if (byIndex == -1) {
+                throw new MaxException("     Try again... deadline must include a '/by' tag!");
+            }
+
             String item = task.substring(0, byIndex - 1).trim();
             String by = task.substring(byIndex + 3).trim();
+
+            // Error checking: empty fields
+            if (item.isEmpty() || by.isEmpty()) {
+                throw new MaxException("     Oops... Deadline item or 'by' date cannot be empty.");
+            }
+
             Max.myList[numOfItems] = new Deadline(item, by);
         } else if (task.startsWith("event")) {
             int fromIndex = task.indexOf("/from");
             int toIndex = task.indexOf("/to");
+
+            // Error checking: no /from or /to tag
+            if (fromIndex == -1 || toIndex == -1) {
+                throw new MaxException("     Hey! Event must contain '/from' and '/to' tags.");
+            }
+
             String item = task.substring(0, fromIndex - 1).trim();
             String from = task.substring(fromIndex + 5, toIndex -1).trim();
             String to = task.substring(toIndex + 3).trim();
+
+            // Error checking: empty fields
+            if (item.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                throw new MaxException("     Oh no! Event item, 'from' date, or 'to' date cannot be empty.");
+            }
+
             Max.myList[numOfItems] = new Event(item, from, to);
         }
 
@@ -128,22 +163,29 @@ public class Max {
         // User is interacting with chatbot
         while (scannerOpen) {
             String command = input.nextLine();
-
-            if (command.equals("bye")) {
-                // User wants to exit the chatbot
-                scannerOpen = false;
-            } else if (command.equals("list")) {
-                Max.list();
-            } else if (command.contains("unmark")) {
-                // Determine which task to unmark
-                int taskNumber = parseInt(command.substring(7));
-                myList[taskNumber].unmark();
-            } else if (command.contains("mark")) {
-                // Determine which task to mark
-                int taskNumber = parseInt(command.substring(5));
-                myList[taskNumber].mark();
-            } else {
-                Max.add(command);
+            try {
+                if (command.equals("bye")) {
+                    // User wants to exit the chatbot
+                    scannerOpen = false;
+                } else if (command.equals("list")) {
+                    Max.list();
+                } else if (command.contains("unmark")) {
+                    // Determine which task to unmark
+                    int taskNumber = parseInt(command.substring(7));
+                    myList[taskNumber].unmark();
+                } else if (command.contains("mark")) {
+                    // Determine which task to mark
+                    int taskNumber = parseInt(command.substring(5));
+                    myList[taskNumber].mark();
+                } else if (command.contains("event") || command.contains("todo") ||
+                        command.contains("deadline")) {
+                    Max.add(command);
+                } else {
+                    throw new MaxException("     Oh no! I cannot recognise that command.");
+                }
+            } catch (MaxException e) {
+                System.out.println(e.getMessage());
+                System.out.println(Max.line);
             }
         }
 

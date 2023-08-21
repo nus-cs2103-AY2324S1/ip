@@ -36,5 +36,29 @@ ____________________________________________________________
      2. [D][X] deadline cook chicken (by: 6pm)
      3. [E][X] event dinner (from: 6.30pm to: 7.30pm)
 ____________________________________________________________
+     Watch out -- todo description cannot be empty.
+____________________________________________________________
+     Try again... deadline must include a '/by' tag!
+____________________________________________________________
+     Hey! Event must contain '/from' and '/to' tags.
+____________________________________________________________
+     Oops... Deadline item or 'by' date cannot be empty.
+____________________________________________________________
+     I gotchu. I've added this task:
+       [D][ ] deadline (by: 2pm)
+     Now you have 4 tasks in the list.
+____________________________________________________________
+     Hey! Event must contain '/from' and '/to' tags.
+____________________________________________________________
+     Hey! Event must contain '/from' and '/to' tags.
+____________________________________________________________
+     Oh no! Event item, 'from' date, or 'to' date cannot be empty.
+____________________________________________________________
+     Oh no! Event item, 'from' date, or 'to' date cannot be empty.
+____________________________________________________________
+     Oh no! Event item, 'from' date, or 'to' date cannot be empty.
+____________________________________________________________
+     Oh no! Event item, 'from' date, or 'to' date cannot be empty.
+____________________________________________________________
      Bye! Please come again!
 ____________________________________________________________
