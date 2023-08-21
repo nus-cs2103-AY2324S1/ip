@@ -4,7 +4,7 @@
 
 Enter your input :
 Bacon Pancake :
- Added :  Poop
+ Added : Poop
 Enter your input :
 Bacon Pancake :
  Added :  Study (By monday)
@@ -17,7 +17,7 @@ Bacon Pancake : Nice! I've marked this task as done:
 Enter your input :
 Bacon Pancake : Below are the lists
 
-1. [T][ ]  Poop
+1. [T][ ] Poop
 2. [D][X]  Study (By monday)
 3. [E][ ]  Supernova (From :  Mon 2pm  To :  Tue 2pm)
 Enter your input :

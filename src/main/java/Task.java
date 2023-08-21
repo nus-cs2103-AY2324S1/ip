@@ -6,7 +6,7 @@ public class Task {
     public Task(String description, String category) throws IllegalArgumentException {
         this.isDone = false;
         if (category.equals("todo")) {
-            this.category = Type.T;
+            this.category = Type.ToDo;
             String[] s =description.split(" ", 2);
             try {
                 this.description = s[0] + s[1];
@@ -16,7 +16,7 @@ public class Task {
                 throw new IllegalArgumentException("Please correct the format");
             }
         } else if (category.equals("deadline")) {
-            this.category = Type.D;
+            this.category = Type.Deadline;
             String[] s =description.split("/", 2);
             try {
                 this.description = s[0] + "("+ s[1] + ")";
@@ -28,7 +28,7 @@ public class Task {
 
         } else if (category.equals("event")){
             String[] s = description.split("/(from|to)", 3);
-            this.category = Type.E;
+            this.category = Type.Event;
             try {
                 this.description = s[0] + "(From : " + s[1] + " To : " + s[2] + ")";
             } catch(Exception e) {
@@ -46,7 +46,8 @@ public class Task {
     }
 
     public String getStatus() {
-        return "[" + this.category +"]" + "["+ this.getStatusIcon() + "] " + this.description;
+        String cat = this.category == Type.ToDo ? "T" : this.category == Type.Deadline ? "D" : "E";
+        return "[" + cat +"]" + "["+ this.getStatusIcon() + "] " + this.description;
     }
 
     public void setDescription(String desc) {

@@ -1,3 +1,3 @@
 public enum Type {
-    T, D, E
+    ToDo, Deadline, Event
 }
