@@ -1,9 +1,16 @@
-todo Prepare slides
-event TA meeting /from Monday 2pm /to 4pm
-deadline CS2103T Post-lecture Quiz /by Monday
+task
+todo
+todo message students
+deadline finish assignment /by
+deadline finish assignment /by Tuesday
+event /by /from
+event ta meeting /from Monday 2pm /to 4pm
 list
-mark 2
-unmark 2
+mark
+mark 4
 mark 1
+mark 2
+mark 3
+unmark 3
 list
 bye

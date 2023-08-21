@@ -9,48 +9,82 @@ What can I do(t) for you?
 ____________________________________________________________
 
 ____________________________________________________________
+..o.o..beep..Command not found..beep..
+Connecting the dots: Unknown command.
+____________________________________________________________
+
+____________________________________________________________
+..o.o..beep..Invalid use of todo, use: "todo <description>"
+Connecting the dots: No task description given
+____________________________________________________________
+
+____________________________________________________________
 Got it. I've added this task:
-  [T][ ] Prepare slides
+  [T][ ] message students
 Now you have 1 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
+..o.o..beep..Invalid use of deadline, use: "deadline <description> /by <deadline_desc>"
+Connecting the dots: No deadline description given.
+____________________________________________________________
+
+____________________________________________________________
 Got it. I've added this task:
-  [E][ ] TA meeting (from: Monday 2pm to: 4pm)
+  [D][ ] finish assignment (by: Tuesday)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
+..o.o..beep..Invalid use of event, use: "event <description> /from <start_desc> /to <end_desc>"
+Connecting the dots: Wrong format for event.
+____________________________________________________________
+
+____________________________________________________________
 Got it. I've added this task:
-  [D][ ] CS2103T Post-lecture Quiz (by: Monday)
+  [E][ ] ta meeting (from: Monday 2pm to: 4pm)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 
 ____________________________________________________________
-1.[T][ ] Prepare slides
-2.[E][ ] TA meeting (from: Monday 2pm to: 4pm)
-3.[D][ ] CS2103T Post-lecture Quiz (by: Monday)
+1.[T][ ] message students
+2.[D][ ] finish assignment (by: Tuesday)
+3.[E][ ] ta meeting (from: Monday 2pm to: 4pm)
+____________________________________________________________
+
+____________________________________________________________
+..o.o..beep..Invalid use of mark, use: "mark <task number>"
+Connecting the dots: No task number stated
+____________________________________________________________
+
+____________________________________________________________
+Invalid position.
 ____________________________________________________________
 
 ____________________________________________________________
 Nice! I've marked this task as done:
-  [E][X] TA meeting (from: Monday 2pm to: 4pm)
+  [T][X] message students
+____________________________________________________________
+
+____________________________________________________________
+Nice! I've marked this task as done:
+  [D][X] finish assignment (by: Tuesday)
+____________________________________________________________
+
+____________________________________________________________
+Nice! I've marked this task as done:
+  [E][X] ta meeting (from: Monday 2pm to: 4pm)
 ____________________________________________________________
 
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-  [E][ ] TA meeting (from: Monday 2pm to: 4pm)
+  [E][ ] ta meeting (from: Monday 2pm to: 4pm)
 ____________________________________________________________
 
 ____________________________________________________________
-Nice! I've marked this task as done:
-  [T][X] Prepare slides
-____________________________________________________________
-
-____________________________________________________________
-1.[T][X] Prepare slides
-2.[E][ ] TA meeting (from: Monday 2pm to: 4pm)
-3.[D][ ] CS2103T Post-lecture Quiz (by: Monday)
+1.[T][X] message students
+2.[D][X] finish assignment (by: Tuesday)
+3.[E][ ] ta meeting (from: Monday 2pm to: 4pm)
 ____________________________________________________________
 
 ____________________________________________________________
