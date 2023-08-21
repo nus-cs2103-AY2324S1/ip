@@ -10,9 +10,32 @@ Now you have 1 tasks in the list.
 1.[T][ ] borrow book
 ---------------------
 ---------------------
+Nice! I've marked this task as done:
+[T][X] borrow book
+---------------------
+---------------------
+OOPS!!! The description of a todo cannot be empty.
+Try:
+todo <task name>
+---------------------
+---------------------
+OOPS!!! The description of a deadline cannot be empty.
+Try:
+deadline <task name> /by <date/time>
+---------------------
+---------------------
+OOPS!!! The description of a event cannot be empty.
+Try:
+event <task name> /from <date/time> /to <date/time>
+---------------------
+---------------------
 Got it. I've added this task:
 [D][ ] return book (by: Sunday)
 Now you have 2 tasks in the list.
+---------------------
+---------------------
+Nice! I've marked this task as done:
+[D][X] return book (by: Sunday)
 ---------------------
 ---------------------
 Got it. I've added this task:
@@ -20,19 +43,16 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ---------------------
 ---------------------
-Nice! I've marked this task as done:
-[T][X] borrow book
+You have already marked it!!!
 ---------------------
 ---------------------
 Nice! I've marked this task as done:
 [E][X] project meeting (from: Mon 2pm to: 4pm)
 ---------------------
+OOPS!!! Please choose an index within the number of items in the list (3)
 ---------------------
-OK, I've marked this task as not done yet:
-[T][ ] borrow book
----------------------
-1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
+1.[T][X] borrow book
+2.[D][X] return book (by: Sunday)
 3.[E][X] project meeting (from: Mon 2pm to: 4pm)
 ---------------------
 Bye. Hope to see you again soon!
