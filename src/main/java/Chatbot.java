@@ -39,12 +39,23 @@ public class Chatbot {
     }
 
     public void processInput(String input) {
-        switch (input) {
+        String[] parts = input.split(" ", 2);
+        String command = parts[0];
+
+        switch (command) {
             case "bye":
                 giveOutro();
                 break;
             case "list":
                 taskList.listTasks();
+                break;
+            case "mark":
+                int index = Integer.parseInt(parts[1]);
+                taskList.markTaskAsDone(index);
+                break;
+            case "unmark":
+                int unmarkIndex = Integer.parseInt(parts[1]);
+                taskList.markTaskAsNotDone(unmarkIndex);
                 break;
             default:
                 taskList.addTask(input);
