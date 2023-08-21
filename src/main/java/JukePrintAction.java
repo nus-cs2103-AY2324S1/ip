@@ -1,18 +1,21 @@
-package main.java.actions;
+package main.java;
 
 import java.util.Optional;
 
 /**
- * Action that is invoked when the user wishes to quit the assistant.
+ * Action that invokes a print action on the command line.
  */
-public class JukeExitAction extends JukeAction {
-    /** The farewell statement used by the assistant when the user decides to quit the assistant. */
-    private static final String EXIT = "Goodbye!";
+public class JukePrintAction extends JukeAction {
+    /** Object to print. */
+    private final Object printTarget;
 
     /**
-     * JukeExitAction Constructor.
+     * Constructor for JukePrintAction.
+     * @param printTarget Object to print
      */
-    public JukeExitAction() {}
+    public JukePrintAction(Object printTarget) {
+        this.printTarget = printTarget;
+    }
 
     /**
      * Necessary method that is invoked when the action is carried out.
@@ -22,7 +25,7 @@ public class JukeExitAction extends JukeAction {
      */
     @Override
     public Optional<? extends JukeAction> complete() {
-        System.out.print(EXIT);
+        System.out.print(printTarget);
         return Optional.empty();
     }
 }

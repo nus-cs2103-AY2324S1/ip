@@ -1,6 +1,4 @@
-package main.java.actions;
-
-import main.java.JukeASCIIColours;
+package main.java;
 
 import java.util.Optional;
 
@@ -9,15 +7,16 @@ import java.util.Optional;
  *
  * This class may be deprecated in future use for favour of proper exception handling.
  */
-public class JukeErrorAction extends JukeAction{
+public class JukeExceptionAction extends JukeAction {
     /** Error description. */
-    private final String err;
+    private final DukeException err;
 
     /**
      * Constructor to create an Error Action.
      * @param err Error description
      */
-    public JukeErrorAction(String err) {
+    public JukeExceptionAction(DukeException err) {
+
         this.err = err;
     }
 
@@ -29,7 +28,7 @@ public class JukeErrorAction extends JukeAction{
      */
     @Override
     public Optional<? extends JukeAction> complete() {
-        System.out.print(JukeASCIIColours.RED + "Error: " + err + JukeASCIIColours.RESET);
+        System.out.print("Error: " + err);
         return Optional.empty();
     }
 }

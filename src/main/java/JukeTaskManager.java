@@ -1,9 +1,4 @@
-package main.java.tasks;
-
-import main.java.JukeASCIIColours;
-import main.java.JukeObject;
-import main.java.actions.JukeAction;
-import main.java.actions.JukeErrorAction;
+package main.java;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -63,9 +58,9 @@ public class JukeTaskManager extends JukeObject {
      * @param index Index of task to act on.
      * @return Optional<? extends JukeAction> for further actions to take
      */
-    public Optional<? extends JukeAction> markAsDone(int index) {
+    public Optional<? extends JukeAction> markAsDone(int index) throws DukeException {
         if (index < 0 || index > this.tasks.size()) {
-            return Optional.of(new JukeErrorAction("Oh no! I do not have such task recorded!"));
+            throw new DukeException("Oh no! I do not have such task recorded!");
         }
 
         return this.tasks.get(index).markAsComplete();
@@ -76,9 +71,9 @@ public class JukeTaskManager extends JukeObject {
      * @param index Index of task to act on.
      * @return Optional<? extends JukeAction> for further actions to take
      */
-    public Optional<? extends JukeAction> markAsUndone(int index) {
+    public Optional<? extends JukeAction> markAsUndone(int index) throws DukeException {
         if (index < 0 || index > this.tasks.size()) {
-            return Optional.of(new JukeErrorAction("Oh no! I do not have such task recorded!"));
+            throw new DukeException("Oh no! I do not have such task recorded!");
         }
 
         return this.tasks.get(index).markAsIncomplete();
@@ -104,7 +99,7 @@ public class JukeTaskManager extends JukeObject {
         builder.append("\n\t>>>>>>>>>>>>>>>>>>>> TASK LIST <<<<<<<<<<<<<<<<<<<<\n");
 
         if (this.tasks.isEmpty()) {
-            builder.append(JukeASCIIColours.RED + "\t\t\t\t\t!No Tasks Present!" + JukeASCIIColours.RESET);
+            builder.append("\t\t\t\t\t!No Tasks Present!");
         }
 
         for (int i = 0; i < this.tasks.size(); i++) {

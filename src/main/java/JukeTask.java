@@ -1,9 +1,4 @@
-package main.java.tasks;
-
-import main.java.Juke;
-import main.java.JukeObject;
-import main.java.actions.JukeAction;
-import main.java.actions.JukeErrorAction;
+package main.java;
 
 import java.util.Optional;
 
@@ -46,9 +41,9 @@ public abstract class JukeTask extends JukeObject {
      * Marks a task as complete.
      * @return Optional<? extends JukeAction> for further actions to take
      */
-    public Optional<? extends JukeAction> markAsComplete() {
+    public Optional<? extends JukeAction> markAsComplete() throws DukeException {
         if (this.isCompleted) {
-            return Optional.of(new JukeErrorAction("Oh no! The task selected is already completed!"));
+            throw new DukeException("Oh no! The task selected is already completed!");
         } else {
             this.isCompleted = true;
             return Optional.empty();
@@ -59,9 +54,9 @@ public abstract class JukeTask extends JukeObject {
      * Marks a task as incomplete.
      * @return Optional<? extends JukeAction> for further actions to take
      */
-    public Optional<? extends JukeAction> markAsIncomplete() {
+    public Optional<? extends JukeAction> markAsIncomplete() throws DukeException {
         if (!this.isCompleted) {
-            return Optional.of(new JukeErrorAction("The task selected is already not completed!"));
+            throw new DukeException("The task selected is already not completed!");
         } else {
             this.isCompleted = false;
             return Optional.empty();

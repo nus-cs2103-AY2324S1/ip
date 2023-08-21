@@ -1,4 +1,4 @@
-package main.java.tasks;
+package main.java;
 
 public class JukeEvent extends JukeTask {
     /** String which represents the Task Identifier. */

@@ -1,8 +1,4 @@
-package main.java.actions;
-
-import main.java.JukeObject;
-import main.java.JukeParser;
-import main.java.tasks.*;
+package main.java;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -17,7 +13,7 @@ public abstract class JukeAction extends JukeObject {
      * @param taskManager JukeTaskManager object which manages all tasks.
      * @return Corresponding JukeAction object
      */
-    public static final JukeAction of(String command, JukeTaskManager taskManager) {
+    public static final JukeAction of(String command, JukeTaskManager taskManager) throws DukeException {
         String[] parsedArgs = JukeParser.parseBySpace(command);
         return JukeAction.dispatch(parsedArgs, taskManager);
     }
@@ -28,9 +24,9 @@ public abstract class JukeAction extends JukeObject {
      * @param taskManager JukeTaskManager object which manages all tasks.
      * @return
      */
-    private static JukeAction dispatch(String[] args, JukeTaskManager taskManager) {
+    private static JukeAction dispatch(String[] args, JukeTaskManager taskManager) throws DukeException {
         if (args.length == 0) {
-            return new JukeErrorAction("Oh no! No commands are present!");
+            throw new DukeException("Oh no! No commands are present!");
         }
 
         String mainCommand = args[0];
@@ -62,9 +58,9 @@ public abstract class JukeAction extends JukeObject {
             case "todo":
                 if (args.length == 1) {
                     // contains only the command text
-                    return new JukeErrorAction("Oh no! I cannot understand your todo command!\n" +
-                                                       "Make sure that your command looks like this: \n" +
-                                                       "todo [description]");
+                    throw new DukeException("Oh no! I cannot understand your todo command!\n" +
+                                                    "Make sure that your command looks like this: \n" +
+                                                    "todo [description]");
                 } else {
                     // concatenate back the string
                     String newArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
@@ -77,9 +73,9 @@ public abstract class JukeAction extends JukeObject {
 
                 // check if fulfills regex
                 if (!JukeParser.isMatchByString(newDeadlineArgs)) {
-                    return new JukeErrorAction("Oh no! I cannot understand your deadline command!\n" +
-                                                       "Make sure that your command looks like this: \n" +
-                                                       "deadline [description] /by [deadline]");
+                    throw new DukeException("Oh no! I cannot understand your deadline command!\n" +
+                                                    "Make sure that your command looks like this: \n" +
+                                                    "deadline [description] /by [deadline]");
                 } else {
                     String[] parsedArguments = JukeParser.parseByByString(newDeadlineArgs);
                     JukeTask jt = new JukeDeadline(parsedArguments[0], parsedArguments[1]);
@@ -91,9 +87,9 @@ public abstract class JukeAction extends JukeObject {
 
                 // check if fulfills regex
                 if (!JukeParser.isMatchFromToString(newEventArgs)) {
-                    return new JukeErrorAction("Oh no! I cannot understand your event command!\n" +
-                                                       "Make sure that your command looks like this: \n" +
-                                                       "deadline [description] /from [from time] /to [to time]");
+                    throw new DukeException("Oh no! I cannot understand your event command!\n" +
+                                                    "Make sure that your command looks like this: \n" +
+                                                    "deadline [description] /from [from time] /to [to time]");
                 } else {
                     String[] parsedArguments = JukeParser.parseByFromToString(newEventArgs);
                     JukeTask jt = new JukeEvent(parsedArguments[0], parsedArguments[1], parsedArguments[2]);
@@ -105,10 +101,10 @@ public abstract class JukeAction extends JukeObject {
         // note that this behaves similar to exceptions, in that older exceptions are overwritten by
         // newer ones
         if (!jukeOpError.equals("")) {
-            return new JukeErrorAction(jukeOpError);
+            throw new DukeException(jukeOpError);
         }
 
-        return new JukeErrorAction("Oh no! I do not understand that command!");
+        throw new DukeException("Oh no! I do not understand that command!");
     }
 
     /**
@@ -117,5 +113,5 @@ public abstract class JukeAction extends JukeObject {
      * made this way to ensure that actions can call other actions and thus lead to chains
      * of actions for added complexity
      */
-    abstract public Optional<? extends JukeAction> complete();
+    abstract public Optional<? extends JukeAction> complete() throws DukeException;
 }

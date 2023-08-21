@@ -1,4 +1,4 @@
-package main.java.tasks;
+package main.java;
 
 /**
  * Represents a Todo task.

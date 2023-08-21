@@ -1,7 +1,4 @@
-package main.java.actions;
-
-import main.java.tasks.JukeTask;
-import main.java.tasks.JukeTaskManager;
+package main.java;
 
 import java.util.Optional;
 
@@ -32,12 +29,12 @@ public class JukeAddTaskAction extends JukeAction {
      * of actions for added complexity
      */
     @Override
-    public Optional<? extends JukeAction> complete() {
+    public Optional<? extends JukeAction> complete() throws DukeException {
         if (this.taskManager.addTask(this.task)) {
             System.out.print("Task added: " + this.task);
             return Optional.empty();
         } else {
-            return Optional.of(new JukeErrorAction("Oops! We cannot add the task of interest to your task list!"));
+            throw new DukeException("Oops! We cannot add the task of interest to your task list!");
         }
     }
 }

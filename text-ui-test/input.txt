@@ -1,0 +1,6 @@
+list
+todo go to school
+deadline go to bed /by now
+event go to prom /from tonight /to tomorrow
+list
+bye
