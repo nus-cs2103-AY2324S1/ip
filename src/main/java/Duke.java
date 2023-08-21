@@ -1,10 +1,15 @@
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        printHorizontalLine();
+        System.out.println("Hello! I'm Jeffrey, your personal AI chatbot, ready to serve you today\n");
+        System.out.println("What can I do for you?\n");
+        printHorizontalLine();
+        System.out.println("Bye. Hope to see you again soon!\n");
+        System.out.println("Remember, the universe is vast, but I'm always here for you :D .\n");
+        printHorizontalLine();
+    }
+
+    public static void printHorizontalLine() {
+        System.out.println("____________________________________________________________");
     }
 }
