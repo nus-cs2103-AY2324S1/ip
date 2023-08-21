@@ -18,7 +18,12 @@ public class TaskList {
         System.out.println(DIVIDER);
     }
 
-    public void markTaskDone(int index) {
+    public void markTaskDone(int index) throws DukeInvalidArgumentException {
+        if (index <= 0 || this.list.size() - 1 < index) {
+            throw new DukeInvalidArgumentException(
+                    "You've specified an invalid task number. Check your task list again with the \"list\" command.");
+        }
+
         this.list.get(index - 1).markDone();
         System.out.println(DIVIDER);
         System.out.println("Nice! I've marked this task as done:");
@@ -26,7 +31,12 @@ public class TaskList {
         System.out.println(DIVIDER);
     }
 
-    public void unmarkTaskDone(int index) {
+    public void unmarkTaskDone(int index) throws DukeInvalidArgumentException {
+        if (index <= 0 || this.list.size() - 1 < index) {
+            throw new DukeInvalidArgumentException(
+                    "You've specified an invalid task number. Check your task list again with the \"list\" command.");
+        }
+
         this.list.get(index - 1).unmarkDone();
         System.out.println(DIVIDER);
         System.out.println("OK, I've marked this task as not done yet:");
@@ -36,10 +46,15 @@ public class TaskList {
 
     public void listTasks() {
         System.out.println(DIVIDER);
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < this.list.size(); i++) {
-            System.out.println((i + 1) + ". " + this.list.get(i));
+        if (this.list.isEmpty()) {
+            System.out.println("You have no tasks so far.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < this.list.size(); i++) {
+                System.out.println((i + 1) + ". " + this.list.get(i));
+            }
         }
+
         System.out.println(DIVIDER);
     }
 }

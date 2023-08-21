@@ -38,14 +38,15 @@ public class Duke {
             String input = scanner.nextLine();
             String[] parts = input.split(" ", 2);
             Command command = Command.fromString(parts[0]);
-            if (command == null) {
-                System.out.println("Invalid command!");
-                continue;
-            }
-
             String commandArgs = parts.length > 1 ? parts[1] : "";
-            if (!Duke.executeCommand(command, commandArgs)) {
-                break;
+            try {
+                if (!Duke.executeCommand(command, commandArgs)) {
+                    break;
+                }
+            } catch (DukeException de) {
+                System.out.println(DIVIDER);
+                System.out.println(de.getMessage());
+                System.out.println(DIVIDER);
             }
         }
 
@@ -71,7 +72,13 @@ public class Duke {
         System.out.println(DIVIDER);
     }
 
-    private static boolean executeCommand(Command command, String args) {
+    private static boolean executeCommand(Command command, String args)
+            throws DukeInvalidCommandException, DukeInvalidArgumentException {
+        if (command == null) {
+            throw new DukeInvalidCommandException(
+                    "Not sure what you're blabbering on about, please use a valid command.");
+        }
+
         switch (command) {
             case EXIT:
                 Duke.exit();
@@ -82,31 +89,55 @@ public class Duke {
                 break;
 
             case MARK_TASK:
-                Duke.list.markTaskDone(Integer.parseInt(args));
+                try {
+                    Duke.list.markTaskDone(Integer.parseInt(args));
+                } catch (NumberFormatException e) {
+                    throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
+                }
                 break;
 
             case UNMARK_TASK:
-                Duke.list.unmarkTaskDone(Integer.parseInt(args));
+                try {
+                    Duke.list.unmarkTaskDone(Integer.parseInt(args));
+                } catch (NumberFormatException e) {
+                    throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
+                }
                 break;
 
             case ADD_TODO:
+                if (args.equals("")) {
+                    throw new DukeInvalidArgumentException("You didn't specify a task to do. " +
+                            "Check that you're doing \"todo {description}\".");
+                }
                 Duke.list.addTask(new ToDo(args));
                 break;
 
             case ADD_DEADLINE:
-                String[] deadlineParts = args.split(" /by ", 2);
-                Duke.list.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+                try {
+                    String[] deadlineParts = args.split(" /by ", 2);
+                    Duke.list.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeInvalidArgumentException(
+                            "Your deadline seems to be formatted wrongly. " +
+                                    "Check that you're doing: \"deadline {description} \\by {date}\".");
+                }
                 break;
 
             case ADD_EVENT:
-                String[] eventParts = args.split(" /from ", 2);
-                String description = eventParts[0];
-                String[] eventTimeParts = eventParts[1].split(" /to ", 2);
-                Duke.list.addTask(new Event(description, eventTimeParts[0], eventTimeParts[1]));
+                try {
+                    String[] eventParts = args.split(" /from ", 2);
+                    String description = eventParts[0];
+                    String[] eventTimeParts = eventParts[1].split(" /to ", 2);
+                    Duke.list.addTask(new Event(description, eventTimeParts[0], eventTimeParts[1]));
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeInvalidArgumentException(
+                            "Your event seems to be formatted wrongly. " +
+                                    "Check that you're doing: \"event {description} \\from {start} \\to {end}\".");
+                }
                 break;
 
             default:
-                System.out.println("LilBro is confused by your command.");
+                throw new DukeInvalidCommandException("I'm gonna be honest, no idea what you're saying.");
         }
 
         return true;
