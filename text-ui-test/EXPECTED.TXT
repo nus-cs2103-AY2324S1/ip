@@ -99,14 +99,18 @@
 
 > 
     Nice, I've marked this task as done:
-      [T][X] revise basic Java concepts
+      [D][X] watch CS2103T lecture (by: Friday)
+
+> 
+    Nice, I've marked this task as done:
+      [E][X] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
 
 > 
     Here are the tasks in your list:
     1.[T][X] revise basic Java concepts
-    2.[T][X] revise basic Java concepts
-    3.[D][ ] watch CS2103T lecture (by: Friday)
-    4.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    2.[T][ ] revise basic Java concepts
+    3.[D][X] watch CS2103T lecture (by: Friday)
+    4.[E][X] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
     5.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
 
 > 
@@ -116,9 +120,9 @@
 > 
     Here are the tasks in your list:
     1.[T][ ] revise basic Java concepts
-    2.[T][X] revise basic Java concepts
-    3.[D][ ] watch CS2103T lecture (by: Friday)
-    4.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
+    2.[T][ ] revise basic Java concepts
+    3.[D][X] watch CS2103T lecture (by: Friday)
+    4.[E][X] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
     5.[E][ ] NUS wellness week (from: Mon, 21th Aug to: Fri, 25th Aug)
 
 > 
