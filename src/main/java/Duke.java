@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.Throwable;
 public class Duke {
 
 
@@ -40,14 +41,14 @@ public class Duke {
     }
 
 
-    public static void toDo() {
+    public static void toDo() throws DukeException {
         ArrayList<Task> list = new ArrayList<Task>();
         Scanner sc = new Scanner(System.in);
         Pattern listRegex = Pattern.compile("^list", Pattern.CASE_INSENSITIVE);
-        Pattern markRegex = Pattern.compile("^mark ", Pattern.CASE_INSENSITIVE);
-        Pattern unmarkRegex = Pattern.compile("^unmark ", Pattern.CASE_INSENSITIVE);
-        Pattern deadlineRegex = Pattern.compile("^deadline ", Pattern.CASE_INSENSITIVE);
-        Pattern todoRegex = Pattern.compile("^todo ", Pattern.CASE_INSENSITIVE);
+        Pattern markRegex = Pattern.compile("^mark", Pattern.CASE_INSENSITIVE);
+        Pattern unmarkRegex = Pattern.compile("^unmark", Pattern.CASE_INSENSITIVE);
+        Pattern deadlineRegex = Pattern.compile("^deadline", Pattern.CASE_INSENSITIVE);
+        Pattern todoRegex = Pattern.compile("^todo", Pattern.CASE_INSENSITIVE);
         Pattern eventRegex = Pattern.compile("^event", Pattern.CASE_INSENSITIVE);
         while(true) {
             String command = sc.nextLine();
@@ -61,18 +62,26 @@ public class Duke {
                     System.out.println(printIndex + "." + list.get(i).toString());
                 }
                 printHorizontalLine();
-                continue;
             } else if (markRegex.matcher(command).find()) {
                 int curr = Integer.parseInt(command.substring(5)) - 1;
                 Task currTask = list.get(curr);
                 currTask.markDone();
-                continue;
             } else if (unmarkRegex.matcher(command).find()) {
                 int curr = Integer.parseInt(command.substring(7)) - 1;
                 Task currTask = list.get(curr);
                 currTask.markUndone();
-                continue;
             } else if (deadlineRegex.matcher(command).find()) {
+                try {
+                    if (command.length() < 9) {
+                        throw new DukeException("Deadline Argument Empty");
+                    }
+                }
+                catch (DukeException e) {
+                    printHorizontalLine();
+                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    printHorizontalLine();
+                    continue;
+                }
                 printHorizontalLine();
                 System.out.println("Got it, I've added this deadline.");
                 String currStr = command.substring(9);
@@ -81,21 +90,41 @@ public class Duke {
                 String description = currStr.substring(0, dateIndex);
                 Task deadlineTask = new Deadline(description, date);
                 list.add(deadlineTask);
-                System.out.println(deadlineTask.toString());
+                System.out.println(deadlineTask);
                 System.out.println("Now you have " + list.size() + " tasks in the list." );
                 printHorizontalLine();
-                continue;
             } else if (todoRegex.matcher(command).find()) {
+                try {
+                    if (command.length() < 5) {
+                        throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                    }
+                }
+                catch (DukeException e) {
+                    printHorizontalLine();
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    printHorizontalLine();
+                    continue;
+                }
                 printHorizontalLine();
                 System.out.println("Got it, I've added this task.");
                 String description = command.substring(5);
                 Task todoTask = new Todo(description);
                 list.add(todoTask);
-                System.out.println(todoTask.toString());
+                System.out.println(todoTask);
                 System.out.println("Now you have " + list.size() + " tasks in the list." );
                 printHorizontalLine();
-                continue;
             } else if (eventRegex.matcher(command).find()) {
+                try {
+                    if (command.length() < 6) {
+                        throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
+                    }
+                }
+                catch (DukeException e) {
+                    printHorizontalLine();
+                    System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
+                    printHorizontalLine();
+                    continue;
+                }
                 printHorizontalLine();
                 System.out.println("Got it, I've added this event.");
                 String currStr = command.substring(6);
@@ -107,29 +136,32 @@ public class Duke {
                 String to = currStr.substring(toIndex + 4);
                 Task eventTask = new Event(description, from, to);
                 list.add(eventTask);
-                System.out.println(eventTask.toString());
+                System.out.println(eventTask);
                 System.out.println("Now you have " + list.size() + " tasks in the list." );
                 printHorizontalLine();
-                continue;
+            } else {
+                try {
+                    throw new DukeException("Invalid Response");
+                } catch (DukeException e) {
+                    printHorizontalLine();
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    printHorizontalLine();
+                    continue;
+                }
             }
-
-
-            list.add(new Task(command));
-            printHorizontalLine();
-            System.out.println("added: " + command);
-            printHorizontalLine();
         }
     }
 
 
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         introduction();
 
         toDo();
 
         conclusion();
+
 
 
     }
