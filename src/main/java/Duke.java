@@ -1,16 +1,17 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Chatbot implementation
+ */
 public class Duke {
     // Chatbot's name
     static final String name = "Atlas";
-    // Number of tasks currently in task list
-    static int taskCount = 0;
-    // Maximum number of tasks in task list
-    static final int maxTaskCount = 100;
     // Task list
-    static Task[] taskList = new Task[maxTaskCount];
+    static List<Task> taskList = new ArrayList<>();
 
     /**
      * Main function
@@ -80,13 +81,16 @@ public class Duke {
                     case "unmark":
                         toggleTaskStatus(args, false);
                         break;
+                    case "delete":
+                        deleteTask(args);
+                        break;
                     default:
                         throw new UnknownCommandException(command);
                 }
             } catch (UnknownCommandException e) {
                 System.out.println(e.getMessage());
-                System.out.println("Here's what I can do though: I can create ToDos (todo), \n" +
-                        "Deadlines (deadline), Events (event), print them out (list), \n" +
+                System.out.println("Here's what I can do though: I can create ToDos (todo),\n" +
+                        "Deadlines (deadline), Events (event), print them out (list),\n" +
                         "as well as check (mark) and uncheck (unmark) them!");
             } catch (IOException e) {
                 System.out.println("Unable to read command, exiting");
@@ -115,10 +119,6 @@ public class Duke {
                 this.taskType = taskType;
             }
         }
-        if (taskCount == maxTaskCount) {
-            System.out.println("Unable to add task due to exceeding max task count");
-            return;
-        }
         Task newTask;
         try {
             switch (taskType) {
@@ -134,10 +134,10 @@ public class Duke {
                 default:
                     throw new InvalidTaskType(taskType);
             }
-            taskList[taskCount++] = newTask;
+            taskList.add(newTask);
             System.out.printf("Got it. I've added this task:\n" +
-                    "\t%s\n" +
-                    "Now you have %d %s in the list.\n", newTask, taskCount, taskCount == 1 ? "task" : "tasks");
+                    "\t%s\n", newTask);
+            printTaskCount();
         } catch (IllegalArgumentException e) {
             System.out.printf("I think you missed something! %s\n", e.getMessage());
         } catch (InvalidTaskType e) {
@@ -180,7 +180,7 @@ public class Duke {
      */
     protected static Event createEvent(String argString) throws IllegalArgumentException {
         IllegalArgumentException badFormat = new IllegalArgumentException("Events should be created " +
-                "with the following format\n: event [name] /from [start time] /to [end time]");
+                "with the following format:\n event [name] /from [start time] /to [end time]");
         String[] splitNameDates = argString.split(" /from ");
         if (splitNameDates.length != 2) {
             throw badFormat;
@@ -200,8 +200,8 @@ public class Duke {
      */
     protected static void printList() {
         System.out.println("Here are your tasks:");
-        for (int i = 0; i < taskCount; ++i) {
-            System.out.printf("%d.%s\n", i + 1, taskList[i]);
+        for (int i = 0; i < taskList.size(); ++i) {
+            System.out.printf("%d.%s\n", i + 1, getTaskByOneIndex(i + 1));
         }
     }
 
@@ -212,7 +212,7 @@ public class Duke {
      */
     protected static void toggleTaskStatus(String idx, boolean checkTask) {
         try {
-            Task selectedTask = getTaskByIndex(idx);
+            Task selectedTask = getTaskByOneIndex(idx);
             if (checkTask) {
                 selectedTask.markAsDone();
                 System.out.printf("Nice! I've marked this task as done:\n" +
@@ -230,17 +230,49 @@ public class Duke {
     }
 
     /**
+     * Deletes task from task list
+     * @param args String containing 1-based index of task to be deleted
+     */
+    protected static void deleteTask(String args) {
+        try {
+            int oneBasedIdx = parseTaskIndex(args);
+            Task taskToDelete = getTaskByOneIndex(oneBasedIdx);
+            taskList.remove(oneBasedIdx - 1);
+            System.out.printf("Noted. I've removed this task:\n" +
+                    "\t%s\n", taskToDelete);
+            printTaskCount();
+        } catch (NumberFormatException e) {
+            System.out.println("I need a positive integer to know which task you are deleting!");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("You're not referring to a valid task!");
+        }
+    }
+
+    /**
+     * Converts index in string to an unsigned integer
+     * @param args String containing 1-based index
+     * @return Index converted to integer form
+     */
+    protected static int parseTaskIndex(String args) {
+        return Integer.parseUnsignedInt(args, 10);
+    }
+    /**
      * Returns task from task list using 1-based index
      * @param args String containing task index (1-based index)
      * @return Task at selected index (e.g. if args is "2", returns 2nd task in list)
-     * @throws IndexOutOfBoundsException Task index does not refer to a valid task
      */
-    protected static Task getTaskByIndex(String args) throws IndexOutOfBoundsException {
-        int idx = Integer.parseUnsignedInt(args, 10);
-        if (idx <= 0 || idx > taskCount) {
-            throw new IndexOutOfBoundsException();
-        }
-        return taskList[idx - 1];
+    protected static Task getTaskByOneIndex(String args) {
+        int idx = parseTaskIndex(args);
+        return getTaskByOneIndex(idx);
+    }
+
+    /**
+     * Returns task from task list using 1-based index
+     * @param idx One-based index
+     * @return Task at corresponding zero-based index in task list
+     */
+    protected static Task getTaskByOneIndex(int idx) {
+        return taskList.get(idx - 1);
     }
 
     /**
@@ -257,5 +289,13 @@ public class Duke {
         final int consoleWidth = 80;
         String line = "_".repeat(consoleWidth);
         System.out.println(line);
+    }
+
+    /**
+     * Prints current number of tasks in task list
+     */
+    protected static void printTaskCount() {
+        System.out.printf("Now you have %d %s in the list.\n", taskList.size(),
+                taskList.size() == 1 ? "task" : "tasks");
     }
 }
