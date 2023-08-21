@@ -1,12 +1,12 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Ren {
     public static void main(String[] args) {
         String LS_COMMAND = "list";
         String EXIT_COMMAND = "bye";
-        List<String> tasks = new ArrayList<String>();
+        String MARK_COMMAND = "mark";
+        String UNMARK_COMMAND = "unmark";
+        TaskList tasks = new TaskList();
 
         Scanner input = new Scanner(System.in);
         String welcomeMsg = "____________________________________________________________\n" +
@@ -19,14 +19,21 @@ public class Ren {
         System.out.println(welcomeMsg);
         String inputStr = input.nextLine();
         while (!inputStr.equals(EXIT_COMMAND)) {
-            if (inputStr.equals(LS_COMMAND)) {
+            String[] commandArr = inputStr.split(" ");
+            if (commandArr[0].equals(LS_COMMAND)) {
                 System.out.println("____________________________________________________________\n");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.printf("%d %s\n%n", i + 1, tasks.get(i));
-                }
+                tasks.listTasks();
                 System.out.println("____________________________________________________________\n");
+            } else if (commandArr[0].equals(MARK_COMMAND) || commandArr[0].equals(UNMARK_COMMAND)) {
+                Task task = tasks.toggleTask(commandArr);
+                System.out.println("____________________________________________________________\n" +
+                        String.format("Marked as %s!\n %s\n",
+                                commandArr[0].equals(MARK_COMMAND) ? "done" : "undone",
+                                task) +
+                        "____________________________________________________________\n");
             } else {
-                tasks.add(inputStr);
+
+                tasks.addTask(inputStr);
 
                 System.out.println("____________________________________________________________\n" +
                         String.format("Added %s\n", inputStr) +
