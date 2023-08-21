@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         String greeting = "____________________________________________________________\n"
@@ -8,6 +10,20 @@ public class Duke {
 
         try {
             // Future Inputs
+            Scanner scanner = new Scanner(System.in);
+            String userInput;
+
+            while (true) {
+                userInput = scanner.nextLine();
+                System.out.println("____________________________________________________________\n"
+                        + userInput
+                        + "\n"
+                        + "____________________________________________________________\n");
+
+                if (userInput.equalsIgnoreCase("bye")) {
+                    break;
+                }
+            }
         } finally {
             System.out.println("Bye. Hope to see you again soon!\n"
                     + "____________________________________________________________");
