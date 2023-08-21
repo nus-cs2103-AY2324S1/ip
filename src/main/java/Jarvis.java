@@ -1,5 +1,6 @@
 import services.Basics;
 import services.Format;
+import services.List;
 
 import java.util.Scanner;
 
@@ -43,7 +44,13 @@ public class Jarvis {
         String userInput = scanner.nextLine();
 
         while (!userInput.equals("exit")) {
-            Basics.echo(userInput);
+            switch (userInput) {
+                case "list":
+                    List.show();
+                    break;
+                default:
+                    List.add(userInput);
+            }
             userInput = scanner.nextLine();
         }
 
