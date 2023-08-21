@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -10,7 +9,7 @@ public class Duke {
 
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String CHATBOT_NAME = "Koko";
-    private static ArrayList<String> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static void printFormatted(String originalMessage) {
         String indentedMessage = Arrays.stream(originalMessage.split("\n"))
@@ -32,15 +31,29 @@ public class Duke {
     }
 
     private static void parseInput(String input) {
-        switch (input) {
+        String[] parts = input.split(" ", 2);
+        String command = parts[0];
+        String remaining = parts.length > 1 ? parts[1] : "";
+
+        switch (command) {
             case "list":
                 String result = IntStream.range(0, tasks.size())
                         .mapToObj(i -> (i + 1) + ". " + tasks.get(i))
                         .collect(Collectors.joining("\n"));
                 Duke.printFormatted(result);
                 break;
+            case "mark":
+                Task markTarget = tasks.get(Integer.parseInt(remaining) - 1);
+                markTarget.markAsDone();
+                Duke.printFormatted("Nice! I've marked this task as done:\n" + markTarget.toString());
+                break;
+            case "unmark":
+                Task unmarkTarget = tasks.get(Integer.parseInt(remaining) - 1);
+                unmarkTarget.markAsUndone();
+                Duke.printFormatted("OK! I've marked this task as not done yet:\n" + unmarkTarget.toString());
+                break;
             default:
-                tasks.add(input);
+                tasks.add(new Task(input));
                 Duke.printFormatted("added: " + input);
         }
     }
