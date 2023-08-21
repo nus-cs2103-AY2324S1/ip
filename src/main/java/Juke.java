@@ -103,7 +103,7 @@ public class Juke {
                     continue;
                 }
 
-                if (input.contains("unmark")) {
+                if (input.contains("unmark ")) {
                     int index = Integer.parseInt(input.substring(7));
                     if (index > tasks.size()) {
                         throw new JukeError("That task does not exist!");
@@ -115,7 +115,7 @@ public class Juke {
                     continue;
                 }
 
-                if (input.contains("mark")) {
+                if (input.contains("mark ")) {
                     int index = Integer.parseInt(input.substring(5));
                     if (index > tasks.size()) {
                         throw new JukeError("That task does not exist!");
@@ -125,7 +125,22 @@ public class Juke {
                     System.out.println("Nice! I've marked this task as done: \n" + currTask.toString());
                     printLine();
                     continue;
-                } else {
+                }
+
+                if (input.startsWith("delete ")) {
+                    int index = Integer.parseInt(input.substring(7));
+                    if (index > tasks.size()) {
+                        throw new JukeError("That task does not exist!");
+                    }
+                    Task currTask = tasks.get(index - 1);
+                    tasks.remove(index - 1);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("\t" + currTask.toString());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    printLine();
+                }
+
+                else { //check for task creation
                     if (input.startsWith("todo")) {
                         if (input.length() < 5 || input.substring(5).length() == 0) {
                             throw new JukeError("The description of a todo cannot be empty.");
