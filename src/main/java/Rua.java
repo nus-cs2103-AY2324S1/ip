@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Rua {
@@ -11,14 +12,25 @@ public class Rua {
         String goodbye= "____________________________________________________________\n" +
                 " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________\n";
+
+        TaskList taskList = new TaskList();
         System.out.println(greeting);
 
         String command = sc.nextLine();
         while (!command.equals("bye")) {
-            String message =  "____________________________________________________________\n" +
-                    command + "\n" +
-                    "____________________________________________________________\n";
-            System.out.println(message);
+            if (command.equals("list")) {
+                String message = "____________________________________________________________\n" +
+                        taskList.toString() +
+                        "____________________________________________________________\n";
+                System.out.println(message);
+            } else {
+                Task newTask = new Task(command);
+                String message = "____________________________________________________________\n" +
+                        "added: " + command + "\n" +
+                        "____________________________________________________________\n";
+                System.out.println(message);
+                taskList.add(newTask);
+            }
             command = sc.nextLine();
         }
         System.out.println(goodbye);
