@@ -15,6 +15,7 @@ public class Task {
         this.isDone = true;
     }
 
+    public void unmarkAsDone() { this.isDone = false; }
     @Override
     public String toString() {
         String ret = "[" + getStatusIcon() + "] " + description;

@@ -59,12 +59,13 @@ public class Duke {
                 System.out.println("How are you doing today! \n");
                 break;
             case "LIST":
-                for (int i = 0; i < history.size(); i++) {
-                    System.out.println(i+1 + ": " + history.get(i));
-                }
+                Duke.list();
                 break;
             case "MARK":
                 Duke.mark(numberString);
+                break;
+            case "UNMARK":
+                Duke.unmark(numberString);
                 break;
             case "DELETE":
                 Duke.delete(numberString);
@@ -89,6 +90,11 @@ public class Duke {
         return history;
     }
 
+    private static void list() {
+        for (int i = 0; i < history.size(); i++) {
+            System.out.println(i+1 + ": " + history.get(i));
+        }
+    }
     private static void mark(String numberString) {
         Integer number = Integer.parseInt(numberString);
         if (number > history.size() || number < 0) {
@@ -98,6 +104,17 @@ public class Duke {
         task.markAsDone();
         System.out.println("YONG has marked this task as completed! \n" + task.toString() + "\n");
     }
+
+    private static void unmark(String numberString) {
+        Integer number = Integer.parseInt(numberString);
+        if (number > history.size() || number < 0) {
+            throw new DukeException("Wrong Param");
+        }
+        Task task = history.get(number-1);
+        task.unmarkAsDone();
+        System.out.println("YONG has unmarked this task! \n" + task.toString() + "\n");
+    }
+
     private static void delete(String numberString) {
         Integer number = Integer.parseInt(numberString);
         if (number > history.size() || number < 0) {
