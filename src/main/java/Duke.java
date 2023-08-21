@@ -11,6 +11,11 @@ public class Duke {
         while(true) {
             System.out.println("Enter your input : ");
             String input = sc.nextLine();
+            if (input.equals("bye")) {
+                System.out.println("Bacon Pancake : \n" + "Bye! See you again soon ");
+                sc.close();
+                break;
+            }
             System.out.println("Bacon Pancake : \n" + input);
         }
 
