@@ -69,8 +69,6 @@ public class Duke {
                     String taskInput = command.substring(8);
                     String[] ans = taskInput.split("/");
                     String deadline = ans[0].substring(1);
-
-                    System.out.println("deadline is " + deadline);
                     meowBot.addTask(taskInput, EventType.Deadline);
 
 
@@ -82,7 +80,6 @@ public class Duke {
                     String[] ans = taskInput.split("/");
                     String startdate = ans[0];
                     String enddate = ans[0];
-                    System.out.println("startdate is" + startdate);
                     meowBot.addTask(taskInput, EventType.Event);
 
 
