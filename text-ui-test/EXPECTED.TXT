@@ -16,4 +16,7 @@ Gg, not done with [T][]  eat rice
 1. [T][]  eat rice
 2. [D][] finish ip (Due By: next year)
 3. [E][] eat noodle (From: now To: later)
+Deleted: [T][]  eat rice
+1. [D][] finish ip (Due By: next year)
+2. [E][] eat noodle (From: now To: later)
 Byeeee! Use me again please!

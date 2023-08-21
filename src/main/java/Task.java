@@ -1,10 +1,14 @@
+//this class represents a task which is a parent class
 public class Task {
     protected String name;
     public Boolean done;
+
+    //constructor to init this class
     public Task (String name) {
         this.name = name;
         this.done = false;
     }
+    //default display for a task
     public String display() {
         if(done) {
             return "[X] " + this.name;

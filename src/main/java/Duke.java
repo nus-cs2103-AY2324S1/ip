@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//The main class to run
 public class Duke {
+    //Main method to start the program
     public static void main(String[] args) {
         String name = "Termina";
         System.out.println("Hello, I am your chatbot!\nMy name is " + name + "\nHow may I help?");
