@@ -15,6 +15,10 @@ public class Cheems {
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 this.db.displayData();
+            } else if (input.startsWith("mark ")) {
+                this.db.markAsDone(input);
+            } else if (input.startsWith("unmark")) {
+                this.db.markAsNotDone(input);
             } else {
                 this.db.addEvent(input);
             }
