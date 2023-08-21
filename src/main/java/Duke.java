@@ -19,8 +19,9 @@ public class Duke {
         System.out.println("\t What can I do for you?");
         System.out.println(line);
 
+        Scanner sc = new Scanner(System.in);
+
         while (!exit) {
-            Scanner sc = new Scanner(System.in);
             String command = sc.nextLine();
             Task task = new Task(command);
             System.out.println(line);
