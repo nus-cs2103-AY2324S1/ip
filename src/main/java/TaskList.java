@@ -9,14 +9,23 @@ public class TaskList {
 
     public void addTask(Task task) {
         this.list.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + this.list.size() + " task(s) in the list.");
     }
 
     public void setTaskComplete(int i) {
-        this.list.get(i).setDone();
+        Task task = this.list.get(i);
+        task.setDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task);
     }
 
     public void setTaskIncomplete(int i) {
-        this.list.get(i).setNotDone();
+        Task task = this.list.get(i);
+        task.setNotDone();
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task);
     }
 
     public Task getTask(int i) {
