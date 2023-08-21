@@ -15,5 +15,6 @@ Nice! I've marked this task as done:
 [T][X] borrow book
 Nice! I've marked this task as not done yet:
 [T][ ] borrow book
-added: [ ] hello there
+OOPS!!! I'm sorry, but I don't know what that means :-(
+
 Bye. Hope to see you again soon!
