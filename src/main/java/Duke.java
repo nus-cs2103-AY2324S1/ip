@@ -1,13 +1,13 @@
 import java.util.Scanner;
 public class Duke {
     private String message;
-    private String[] history;
+    private Task[] tasks;
     private int count;
 
     public Duke() {
         this.message = "";
-        this.history = new String[100];
         this.count = 0;
+        this.tasks = new Task[100];
     }
     public void greet() {
         this.indent();
@@ -21,15 +21,48 @@ public class Duke {
 
     public void list() {
         this.indent();
+        System.out.println("\t \t \t \t Tasks displayed. Your guidance is requested. \uD83D\uDCCB\uD83E\uDD16");
         for (int i = 0; i < this.count; i++) {
-            System.out.println(String.format("\t \t \t \t %d) ".concat(this.history[i]), i + 1));
+            this.tasks[i].displayTask(i + 1);
         }
         this.indent();
     }
 
     public void appendList() {
-        this.history[this.count] = this.message;
+        this.tasks[this.count] = new Task(this.message);
         this.count++;
+    }
+
+    public void mark() {
+        try {
+            int index = Character.getNumericValue(this.message.charAt(5));
+            this.tasks[index - 1].completeTask();
+            this.indent();
+            System.out.println("\t \t \t \t The following task is marked as complete:");
+            this.tasks[index - 1].displayTask(index);
+            System.out.println("\t \t \t \t Is there anything else I can assist you with?");
+            this.indent();
+        } catch (Exception e) {
+            this.indent();
+            System.out.println("\t \t \t \t Something went wrong. Please try again!");
+            this.indent();
+        }
+    }
+
+    public void unmark() {
+        try {
+            int index = Character.getNumericValue(this.message.charAt(7));
+            this.tasks[index - 1].revertTask();
+            this.indent();
+            System.out.println("\t \t \t \t The following task is has been unmarked:");
+            this.tasks[index - 1].displayTask(index);
+            System.out.println("\t \t \t \t Is there anything else I can assist you with?");
+            this.indent();
+        } catch (Exception e) {
+            this.indent();
+            System.out.println("\t \t \t \t Something went wrong. Please try again!");
+            this.indent();
+        }
     }
 
     public void exit() {
@@ -48,6 +81,10 @@ public class Duke {
                 break;
             } else if (this.message.equals("list")) {
                 this.list();
+            } else if (this.message.startsWith("mark")) {
+                this.mark();
+            } else if (this.message.startsWith("unmark")) {
+                this.unmark();
             } else {
                 this.appendList();
                 this.indent();
