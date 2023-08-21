@@ -40,16 +40,14 @@ public class Duke {
     }
 
     /**
-     * Prints goodbye to console.
-     */
-    protected static void exit() {
-        System.out.println("Goodbye!");
-    }
-
-    /**
      * Listens and executes commands
      */
     protected static void listen() {
+        class UnknownCommandException extends RuntimeException {
+            public UnknownCommandException(String command) {
+                super("I don't know what this means :( You requested: " + command);
+            }
+        }
         String input, command, args;
         boolean exitChatbot = false;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -77,14 +75,19 @@ public class Duke {
                         exitChatbot = true;
                         break;
                     case "mark":
-                        markTask(args);
+                        toggleTaskStatus(args, true);
                         break;
                     case "unmark":
-                        unmarkTask(args);
+                        toggleTaskStatus(args, false);
                         break;
                     default:
-                        System.out.printf("I don't know what you mean by: %s\n", command);
+                        throw new UnknownCommandException(command);
                 }
+            } catch (UnknownCommandException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Here's what I can do though: I can create ToDos (todo), \n" +
+                        "Deadlines (deadline), Events (event), print them out (list), \n" +
+                        "as well as check (mark) and uncheck (unmark) them!");
             } catch (IOException e) {
                 System.out.println("Unable to read command, exiting");
                 printHorizontalLine();
@@ -106,9 +109,14 @@ public class Duke {
      * @param taskType One of "todo", "deadline", or "event"
      */
     protected static void addTask(String args, String taskType) {
+        class InvalidTaskType extends RuntimeException {
+            final protected String taskType;
+            public InvalidTaskType(String taskType) {
+                this.taskType = taskType;
+            }
+        }
         if (taskCount == maxTaskCount) {
-            System.out.println("Unable to add task due to exceeding " +
-                    "max task count");
+            System.out.println("Unable to add task due to exceeding max task count");
             return;
         }
         Task newTask;
@@ -124,15 +132,16 @@ public class Duke {
                     newTask = createEvent(args);
                     break;
                 default:
-                    System.out.printf("Invalid task type: %s\n", taskType);
-                    return;
+                    throw new InvalidTaskType(taskType);
             }
             taskList[taskCount++] = newTask;
             System.out.printf("Got it. I've added this task:\n" +
                     "\t%s\n" +
-                    "Now you have %d %s in the list\n", newTask, taskCount, taskCount == 1 ? "task" : "tasks");
-        } catch (IOException e) {
-            System.out.printf("Unable to create task with the following error message: %s\n", e);
+                    "Now you have %d %s in the list.\n", newTask, taskCount, taskCount == 1 ? "task" : "tasks");
+        } catch (IllegalArgumentException e) {
+            System.out.printf("I think you missed something! %s\n", e.getMessage());
+        } catch (InvalidTaskType e) {
+            System.out.printf("I can't handle this task type: %s\n", e.taskType);
         }
     }
 
@@ -149,13 +158,13 @@ public class Duke {
      * Create new Deadline
      * @param argString String containing name and date in the format "[name] \by [date]"
      * @return New Deadline with given name and date
-     * @throws IOException argString improperly formatted: [name] \by [date]
+     * @throws IllegalArgumentException argString improperly formatted: [name] \by [date]
      */
-    protected static Deadline createDeadline(String argString) throws IOException {
+    protected static Deadline createDeadline(String argString) throws IllegalArgumentException {
         String[] args = argString.split(" /by ");
         if (args.length != 2) {
-            throw new IOException("deadlines should be created with the following format: " +
-                    "deadline [name] \\by [date]");
+            throw new IllegalArgumentException("Deadlines should be created with the following format:\n" +
+                    "deadline [name] /by [date]");
         }
         String name = args[0];
         String date = args[1];
@@ -167,11 +176,11 @@ public class Duke {
      * @param argString String containing name, start time, and end time in the format
      *                  "[name] \from [start time] \to [end time]
      * @return New Event with given name, start time, and end time
-     * @throws IOException argString improperly formatted: [name] \from [start time] \to [end time]
+     * @throws IllegalArgumentException argString improperly formatted: [name] \from [start time] \to [end time]
      */
-    protected static Event createEvent(String argString) throws IOException {
-        IOException badFormat = new IOException("events should be created with the following format: " +
-                "event [name] \\from [start time] \\to [end time]");
+    protected static Event createEvent(String argString) throws IllegalArgumentException {
+        IllegalArgumentException badFormat = new IllegalArgumentException("Events should be created " +
+                "with the following format\n: event [name] /from [start time] /to [end time]");
         String[] splitNameDates = argString.split(" /from ");
         if (splitNameDates.length != 2) {
             throw badFormat;
@@ -199,44 +208,25 @@ public class Duke {
     /**
      * Marks task as done
      * @param idx 1-based task index
+     * @param checkTask Mark the task as done
      */
-    protected static void markTask(String idx) {
+    protected static void toggleTaskStatus(String idx, boolean checkTask) {
         try {
             Task selectedTask = getTaskByIndex(idx);
-            selectedTask.markAsDone();
-            System.out.printf("Nice! I've marked this task as done:\n" +
-                    "%s\n", selectedTask);
+            if (checkTask) {
+                selectedTask.markAsDone();
+                System.out.printf("Nice! I've marked this task as done:\n" +
+                        "%s\n", selectedTask);
+            } else {
+                selectedTask.markAsNotDone();
+                System.out.printf("OK, I've marked this task as not done yet:\n" +
+                        "%s\n", selectedTask);
+            }
         } catch (NumberFormatException e) {
-            System.out.println("Task index must be an integer");
+            System.out.println("I need a positive integer to know which task you're referring to!");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task index out of bounds, no action taken");
+            System.out.println("You're not referring to a valid task!");
         }
-    }
-
-    /**
-     * Marks task as not done
-     * @param idx 1-based task index
-     */
-    protected static void unmarkTask(String idx) {
-        try {
-            Task selectedTask = getTaskByIndex(idx);
-            selectedTask.markAsNotDone();
-            System.out.printf("OK, I've marked this task as not done yet:\n" +
-                    "%s\n", selectedTask);
-        } catch (NumberFormatException e) {
-            System.out.println("Task index must be an integer");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task index out of bounds, no action taken");
-        }
-    }
-
-    /**
-     * Prints a horizontal line containing the character '-' of width 80.
-     */
-    protected static void printHorizontalLine() {
-        final int consoleWidth = 80;
-        String line = "_".repeat(consoleWidth);
-        System.out.println(line);
     }
 
     /**
@@ -251,5 +241,21 @@ public class Duke {
             throw new IndexOutOfBoundsException();
         }
         return taskList[idx - 1];
+    }
+
+    /**
+     * Prints goodbye to console.
+     */
+    protected static void exit() {
+        System.out.println("Goodbye!");
+    }
+
+    /**
+     * Prints a horizontal line containing the character '-' of width 80.
+     */
+    protected static void printHorizontalLine() {
+        final int consoleWidth = 80;
+        String line = "_".repeat(consoleWidth);
+        System.out.println(line);
     }
 }

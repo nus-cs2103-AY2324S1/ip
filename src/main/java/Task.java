@@ -15,7 +15,10 @@ public class Task {
      * Constructs a new Task with description
      * @param name Name of task
      */
-    public Task(String name) {
+    public Task(String name) throws IllegalArgumentException {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("I need a name for the task!");
+        }
         this.name = name;
         this.isDone = false;
     }

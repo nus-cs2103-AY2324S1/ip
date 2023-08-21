@@ -5,16 +5,16 @@ public class Deadline extends Task{
     /**
      * Deadline date
      */
-    protected String date;
+    protected String by;
 
     /**
      * Constructs a new Deadline object
      * @param name Name of deadline
-     * @param date Date of deadline
+     * @param by Date of deadline
      */
-    public Deadline(String name, String date) {
+    public Deadline(String name, String by) {
         super(name);
-        this.date = date;
+        this.by = by;
     }
 
     /**
@@ -22,6 +22,6 @@ public class Deadline extends Task{
      * @return String representation of Deadline
      */
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.date);
+        return String.format("[D]%s (by: %s)", super.toString(), this.by);
     }
 }
