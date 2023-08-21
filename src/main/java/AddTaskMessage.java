@@ -7,10 +7,13 @@ public class AddTaskMessage extends Message {
     }
     @Override
     public void send() {
-        System.out.println(createMessage(
-                "Got it. I've added this task:",
-                this.task.toString(),
-                String.format("Now you have %d tasks in the list.", this.totalTasks),
-                horizontalLine));
+        System.out.println(
+                createMessage(
+                    "Got it. I've added this task:",
+                    this.task.toString(),
+                    String.format("Now you have %d tasks in the list.", this.totalTasks),
+                    horizontalLine
+                )
+        );
     }
 }

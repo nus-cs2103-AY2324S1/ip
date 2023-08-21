@@ -19,14 +19,12 @@ public class ChatManager {
             return;
         }
         if (Pattern.matches("mark \\d+", userInput)) {
-            String[] arr = userInput.split(" ");
-            int num = Integer.parseInt(arr[arr.length - 1]);
+            int num = Integer.parseInt(userInput.split(" ", 2)[1]);
             taskList.markTask(num);
             return;
         }
         if (Pattern.matches("unmark \\d+", userInput)) {
-            String[] arr = userInput.split(" ");
-            int num = Integer.parseInt(arr[arr.length - 1]);
+            int num = Integer.parseInt(userInput.split(" ", 2)[1]);
             taskList.unmarkTask(num);
             return;
         }
@@ -56,6 +54,11 @@ public class ChatManager {
             String from = a2[1];
             String to = a1[1];
             taskList.add(new EventsTask(name, from, to));
+            return;
+        }
+        if (Pattern.matches("delete \\d+", userInput)) {
+            int num = Integer.parseInt(userInput.split(" ", 2)[1]);
+            taskList.delete(num);
             return;
         }
         new MenuMessage().send();
