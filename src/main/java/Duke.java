@@ -8,7 +8,7 @@ public class Duke {
         }
 
         String add(String item) {
-            Task task = new Task(item);
+            Task task = Task.create();
             list.add(task);
             return String.format("    added: %s", item);
         }

@@ -1,6 +1,20 @@
-public class Task {
+public abstract class Task {
+
     protected String description;
     protected boolean isDone = false;
+
+    public static Task create(Commands command, String rawLine) {
+        switch (command) {
+            case todo:
+                return ToDo.create(rawLine);
+            case deadline:
+                return Deadlines.create(rawLine);
+            case event:
+                return Event.create(rawLine);
+            default:
+                throw new RuntimeException("Command not recognized");
+        }
+    }
 
     public Task(String description) {
         this.description = description;
