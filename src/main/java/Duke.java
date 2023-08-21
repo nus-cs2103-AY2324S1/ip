@@ -37,6 +37,16 @@ public class Duke {
                 + "_________________________________________________\n";
         System.out.println(markMsg);
     }
+
+    static void unmark(int taskNum) {
+        Task task = taskList.get(taskNum - 1);
+        task.setUndone();
+        String markMsg = "_________________________________________________\n"
+                + " Ok, I've marked this task as not done yet:\n"
+                + String.format("\t %s\n", task)
+                + "_________________________________________________\n";
+        System.out.println(markMsg);
+    }
     static void exit() {
         String exitMsg = "_________________________________________________\n"
                 + " Bye. Hope to see you again soon!\n"
@@ -55,6 +65,8 @@ public class Duke {
                 list();
             } else if (input.equals("mark")) {
                 mark(inputScanner.nextInt());
+            } else if (input.equals("unmark")) {
+                unmark(inputScanner.nextInt());
             } else {
                 addTask(input);
             }
