@@ -1,7 +1,136 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+    ____________________________________________________________
+     Hello! I'm Koko
+     What can I do for you?
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [T][ ] read book
+      Now you have 1 task in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [T][ ] borrow book
+      Now you have 2 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [D][ ] return book  (by: Sunday)
+      Now you have 3 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [D][ ] finish project  (by: Monday)
+      Now you have 4 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [E][ ] project meeting (from: Mon 2pm to: 4pm)
+      Now you have 5 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [E][ ] family gathering (from: Fri 6pm to: 8pm)
+      Now you have 6 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     1. [T][ ] read book
+     2. [T][ ] borrow book
+     3. [D][ ] return book  (by: Sunday)
+     4. [D][ ] finish project  (by: Monday)
+     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     6. [E][ ] family gathering (from: Fri 6pm to: 8pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+     [T][X] borrow book
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+     [T][X] read book
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+     [D][X] finish project  (by: Monday)
+    ____________________________________________________________
+    ____________________________________________________________
+     1. [T][X] read book
+     2. [T][X] borrow book
+     3. [D][ ] return book  (by: Sunday)
+     4. [D][X] finish project  (by: Monday)
+     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     6. [E][ ] family gathering (from: Fri 6pm to: 8pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+     [T][X] borrow book
+    ____________________________________________________________
+    ____________________________________________________________
+     OK! I've marked this task as not done yet:
+     [D][ ] finish project  (by: Monday)
+    ____________________________________________________________
+    ____________________________________________________________
+     OK! I've marked this task as not done yet:
+     [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     1. [T][X] read book
+     2. [T][X] borrow book
+     3. [D][ ] return book  (by: Sunday)
+     4. [D][ ] finish project  (by: Monday)
+     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     6. [E][ ] family gathering (from: Fri 6pm to: 8pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [T][ ] watch movie
+      Now you have 7 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [D][ ] prepare slides  (by: Tuesday)
+      Now you have 8 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Got it. I've added this task:
+       [E][ ] conference (from: Wed 10am to: 12pm)
+      Now you have 9 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     1. [T][X] read book
+     2. [T][X] borrow book
+     3. [D][ ] return book  (by: Sunday)
+     4. [D][ ] finish project  (by: Monday)
+     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     6. [E][ ] family gathering (from: Fri 6pm to: 8pm)
+     7. [T][ ] watch movie
+     8. [D][ ] prepare slides  (by: Tuesday)
+     9. [E][ ] conference (from: Wed 10am to: 12pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+     [D][X] prepare slides  (by: Tuesday)
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+     [E][X] conference (from: Wed 10am to: 12pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     1. [T][X] read book
+     2. [T][X] borrow book
+     3. [D][ ] return book  (by: Sunday)
+     4. [D][ ] finish project  (by: Monday)
+     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     6. [E][ ] family gathering (from: Fri 6pm to: 8pm)
+     7. [T][ ] watch movie
+     8. [D][X] prepare slides  (by: Tuesday)
+     9. [E][X] conference (from: Wed 10am to: 12pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Error: Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
+    ____________________________________________________________
+    ____________________________________________________________
+     Error: Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
+    ____________________________________________________________
+    ____________________________________________________________
+     Bye. Hope to see you again soon!
+    ____________________________________________________________
