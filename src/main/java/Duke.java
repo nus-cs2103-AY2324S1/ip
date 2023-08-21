@@ -19,8 +19,10 @@ public class Duke {
 
         boolean isBotRunning = true;
         while (isBotRunning) {
-            String[] userIn = scanner.nextLine().split(" ");
+            String scannerIn = scanner.nextLine();
+            String[] userIn = scannerIn.split(" ");
             String command = userIn[0];
+            printHorizontalLine();
             switch (command) {
                 case "bye":
                     isBotRunning = false;
@@ -32,47 +34,54 @@ public class Duke {
                         System.out.printf("%d.%s\n", numTask, task);
                         numTask += 1;
                     }
-                    printHorizontalLine();
                     break;
                 case "mark": {
                     int taskId = Integer.parseInt(userIn[1]) - 1;
                     if (taskId >= taskList.size()) {
-                        printHorizontalLine();
                         System.out.println("Task not found!");
-                        printHorizontalLine();
                         break;
                     }
                     Task doneTask = taskList.get(taskId);
                     doneTask.mark();
-                    printHorizontalLine();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(doneTask);
-                    printHorizontalLine();
                     break;
                 }
                 case "unmark": {
                     int taskId = Integer.parseInt(userIn[1]) - 1;
                     if (taskId >= taskList.size()) {
-                        printHorizontalLine();
                         System.out.println("Task not found!");
-                        printHorizontalLine();
                         break;
                     }
                     Task unmarkTask = taskList.get(taskId);
                     unmarkTask.unMark();
-                    printHorizontalLine();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(unmarkTask);
-                    printHorizontalLine();
                     break;
                 }
-                default:
-                    printHorizontalLine();
-                    taskList.add(new Task(command));
-                    System.out.printf("added: %s%n", command);
-                    printHorizontalLine();
+                case "todo":
+                case "deadline":
+                case "event":
+                    Task newTask = null;
+                    switch (command) {
+                        case "deadline":
+                            newTask = Deadline.initializeFromInput(scannerIn);
+                            break;
+                        case "todo":
+                            newTask = Todo.initializeFromInput(scannerIn);
+                            break;
+                        case "event":
+                            newTask = Event.initializeFromInput(scannerIn);
+                            break;
+                    }
+                    taskList.add(newTask);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(newTask);
+                    System.out.printf("Now you have %d tasks in the list.\n", taskList.size());
                     break;
             }
+            printHorizontalLine();
+
         }
 
     }
