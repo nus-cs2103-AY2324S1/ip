@@ -21,6 +21,12 @@ public class Duke {
         System.out.println(addMsg);
     }
 
+    static void list() {
+        for (int i = 0; i < taskList.size(); i++) {
+            System.out.printf(" %d. %s\n", i + 1, taskList.get(i));
+        }
+    }
+
     static void exit() {
         String exitMsg = "_________________________________________________\n"
                 + " Bye. Hope to see you again soon!\n"
@@ -35,6 +41,8 @@ public class Duke {
             String input = inputScanner.nextLine();
             if (input.equals("bye")) {
                 exit();
+            } else if (input.equals("list")) {
+                list();
             } else {
                 addTask(input);
             }
