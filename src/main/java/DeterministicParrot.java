@@ -2,11 +2,36 @@ import java.io.PrintWriter;
 import java.util.*;
 
 public class DeterministicParrot {
+    private class Task{
+        private String name;
+        private boolean isDone;
+        Task(String description){
+            this.name = description;
+            this.isDone = false;
+        }
+        public String getName(){
+            return this.name;
+        }
+        public boolean getIsDone(){
+            return this.isDone;
+        }
+        public void markAsDone(){
+            this.isDone = true;
+        }
+        public void markAsUndone(){
+            this.isDone = false;
+        }
+        @Override
+        public String toString(){
+            return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
+        }
+
+    }
 
     //init by setting input and output
     Scanner s;
     PrintWriter pw;
-    List<String> list;
+    List<Task> list;
     DeterministicParrot(){
         this.list = new LinkedList<>();
         s = new Scanner(System.in);
@@ -54,6 +79,31 @@ public class DeterministicParrot {
         }
         printDash();
     }
+    private void addToList(String s){
+        //create task
+        Task t = new Task(s);
+        this.list.add(t);
+        printDash();
+        this.pw.println("    " + "added: " + s);
+        printDash();
+
+    }
+    private void markAsDone(int i){
+        //TODO: handle out of bounds
+        this.list.get(i-1).markAsDone();
+        printDash();
+        this.pw.println("    " + "Nice! I've marked this task as done:");
+        this.pw.println("       " + this.list.get(i-1));
+        printDash();
+    }
+    private void markAsUndone(int i){
+        //TODO: handle out of bounds
+        this.list.get(i-1).markAsUndone();
+        printDash();
+        this.pw.println("    " + "OK, I've marked this task as not done yet:\n");
+        this.pw.println("       " + this.list.get(i-1));
+        printDash();
+    }
     private void poll(){
         this.greet();
         while(true){
@@ -64,10 +114,21 @@ public class DeterministicParrot {
             else if(input.equals("bye")){
                 break;
             }
+
             //TODO: what happens if empty input?
             else{
-                this.list.add(input);
-                this.pw.println("     "+"added: " + input);
+                String[] tok = input.split(" ");
+                if(tok[0].equals("mark")){
+                    int i = Integer.parseInt(tok[1]);
+                    this.markAsDone(i);
+                }
+                else if(tok[0].equals("unmark")){
+                    int i = Integer.parseInt(tok[1]);
+                    this.markAsUndone(i);
+                }
+                else{
+                    this.addToList(input);
+                }
             }
         }
         this.bye();
