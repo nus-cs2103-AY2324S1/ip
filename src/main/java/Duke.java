@@ -7,10 +7,14 @@ public class Duke {
         StoreList() {
         }
 
-        String add(String item) {
-            Task task = Task.create();
+        String add(Commands type, String item) {
+            Task task = Task.create(type, item);
             list.add(task);
-            return String.format("    added: %s", item);
+            return String.format(
+                    "added: %s\nYou have %d tasks.",
+                    task,
+                    list.size()
+                    );
         }
 
         String markDone(int index) {
@@ -51,32 +55,36 @@ public class Duke {
 
     private static void reader() {
         Scanner sc = new Scanner(System.in);
-        while (true) {
+        Reading: while (true) {
             String line = sc.nextLine();
-            if (line.equals("bye")) {
-                printer("Goodbye.");
-                sc.close();
-                break;
+            String[] instruction = line.split(" ", 2);
+            Commands cmd = Commands.valueOf(instruction[0]);
+            switch (cmd) {
+                case bye:
+                    printer("Goodbye.");
+                    sc.close();
+                    break Reading;
+                case list:
+                    printer(list.toString());
+                    continue Reading;
+                case deadline:
+                case todo:
+                case event:
+                    String taskResponse = list.add(cmd, instruction[1]);
+                    printer(taskResponse);
+                    continue Reading;
+                case mark:
+                    int markIndex = Integer.parseInt(instruction[1]) - 1;
+                    String markedResponse = list.markDone(markIndex);
+                    printer(markedResponse);
+                    continue Reading;
+                case unmark:
+                    int unmarkIndex = Integer.parseInt(instruction[1]) - 1;
+                    String response = list.markUndone(unmarkIndex);
+                    printer(response);
+                    continue Reading;
+
             }
-            if (line.equals("list")) {
-                printer(list.toString());
-                continue;
-            }
-            String[] instructions = line.split(" ");
-            if (instructions[0].equals("mark")) {
-                int index = Integer.parseInt(instructions[1]) - 1;
-                String response = list.markDone(index);
-                printer(response);
-                continue;
-            }
-            if (instructions[0].equals("unmark")) {
-                int index = Integer.parseInt(instructions[1]) - 1;
-                String response = list.markUndone(index);
-                printer(response);
-                continue;
-            }
-            String response = list.add(line);
-            printer(response);
         }
     }
 

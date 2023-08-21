@@ -4,5 +4,6 @@ public enum Commands {
     event,
     bye,
     list,
-
+    mark,
+    unmark
 }
