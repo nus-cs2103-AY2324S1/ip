@@ -6,7 +6,11 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         while (chat.getIsActive()) {
             String userInput = sc.nextLine();
-            chat.handleInput(userInput);
+            try {
+                chat.handleInput(userInput);
+            } catch (DukeException e) {
+                new ErrorMessage(e.getMessage()).send();
+            }
         }
     }
 }

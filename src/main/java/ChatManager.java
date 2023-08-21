@@ -8,7 +8,7 @@ public class ChatManager {
         this.taskList = new TaskList();
         new WelcomeMessage().send();
     }
-    public void handleInput(String userInput) {
+    public void handleInput(String userInput) throws DukeException {
         if (userInput.equals("bye")) {
             this.isActive = false;
             new ByeMessage().send();
@@ -29,6 +29,10 @@ public class ChatManager {
             int num = Integer.parseInt(arr[arr.length - 1]);
             taskList.unmarkTask(num);
             return;
+        }
+        if (Pattern.matches("^todo\\s*$", userInput)) {
+            // raise exception
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         if (Pattern.matches("todo .+", userInput)) {
             String name = userInput.split(" ", 2)[1];
