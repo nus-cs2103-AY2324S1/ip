@@ -9,10 +9,12 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
-    public void addTask(String taskDescription) {
+    public void addTask(Task newTask) {
+        this.list.add(newTask);
         System.out.println(DIVIDER);
-        this.list.add(new Task(taskDescription));
-        System.out.println("added: " + taskDescription);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(newTask);
+        System.out.println("Now you have " + this.list.size() + " tasks in the list.");
         System.out.println(DIVIDER);
     }
 

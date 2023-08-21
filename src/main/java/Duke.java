@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -9,7 +8,9 @@ public class Duke {
     private static enum Command {
         EXIT("bye"),
         LIST_TASKS("list"),
-        ADD_TASK("add"),
+        ADD_TODO("todo"),
+        ADD_DEADLINE("deadline"),
+        ADD_EVENT("event"),
         MARK_TASK("mark"),
         UNMARK_TASK("unmark");
 
@@ -25,7 +26,7 @@ public class Duke {
                     return command;
                 }
             }
-            return Command.ADD_TASK;
+            return null;
         }
     }
 
@@ -35,16 +36,14 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
-            String[] parts = input.split(" ");
-
+            String[] parts = input.split(" ", 2);
             Command command = Command.fromString(parts[0]);
-            String[] commandArgs;
-            if (command == Command.ADD_TASK) {
-                commandArgs = new String[] { input };
-            } else {
-                commandArgs = Arrays.copyOfRange(parts, 1, parts.length);
+            if (command == null) {
+                System.out.println("Invalid command!");
+                continue;
             }
 
+            String commandArgs = parts.length > 1 ? parts[1] : "";
             if (!Duke.executeCommand(command, commandArgs)) {
                 break;
             }
@@ -72,7 +71,7 @@ public class Duke {
         System.out.println(DIVIDER);
     }
 
-    private static boolean executeCommand(Command command, String[] args) {
+    private static boolean executeCommand(Command command, String args) {
         switch (command) {
             case EXIT:
                 Duke.exit();
@@ -83,15 +82,31 @@ public class Duke {
                 break;
 
             case MARK_TASK:
-                Duke.list.markTaskDone(Integer.parseInt(args[0]));
+                Duke.list.markTaskDone(Integer.parseInt(args));
                 break;
 
             case UNMARK_TASK:
-                Duke.list.unmarkTaskDone(Integer.parseInt(args[0]));
+                Duke.list.unmarkTaskDone(Integer.parseInt(args));
+                break;
+
+            case ADD_TODO:
+                Duke.list.addTask(new ToDo(args));
+                break;
+
+            case ADD_DEADLINE:
+                String[] deadlineParts = args.split(" /by ", 2);
+                Duke.list.addTask(new Deadline(deadlineParts[0], deadlineParts[1]));
+                break;
+
+            case ADD_EVENT:
+                String[] eventParts = args.split(" /from ", 2);
+                String description = eventParts[0];
+                String[] eventTimeParts = eventParts[1].split(" /to ", 2);
+                Duke.list.addTask(new Event(description, eventTimeParts[0], eventTimeParts[1]));
                 break;
 
             default:
-                Duke.list.addTask(args[0]);
+                System.out.println("LilBro is confused by your command.");
         }
 
         return true;
