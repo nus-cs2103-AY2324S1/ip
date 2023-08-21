@@ -20,7 +20,7 @@ public class Duke {
      */
     private static void bye() {
         System.out.println("Goodbye for now. " +
-                "Oscar hopes to see you again soon!");
+                "Oscar hopes to see you again soon!\n");
     }
 
     /**
@@ -45,7 +45,7 @@ public class Duke {
         } else if (listSize == 1) {
             System.out.println("You have 1 task in the list.\n");
         } else {
-            System.out.println("You now have " + listSize + " tasks in the list\n");
+            System.out.println("You now have " + listSize + " tasks in the list.\n");
         }
     }
 
@@ -60,15 +60,15 @@ public class Duke {
             taskIndex = Integer.parseInt(index) - 1;
         } catch(NumberFormatException e){
             throw new DukeException("Sorry! " +
-                    "Please enter the number of the task to be marked as done.");
+                    "Please enter the number of the task to be marked as done.\n");
         }
         if (taskIndex < 0) {
             throw new DukeException("Sorry! " +
-                    "Task numbers must be natural numbers.");
+                    "Task numbers must be natural numbers.\n");
 
         } else if (taskIndex >= taskList.size()) {
             throw new DukeException("Sorry! " +
-                    "Task number is too large");
+                    "Task number is too large.\n");
         }
         Task currentTask = taskList.get(taskIndex);
         currentTask.markAsDone();
@@ -87,15 +87,15 @@ public class Duke {
             taskIndex = Integer.parseInt(index) - 1;
         } catch(NumberFormatException e){
             throw new DukeException("Sorry! Please enter the order " +
-                    "of the task to be marked as not done.");
+                    "of the task to be marked as not done.\n");
         }
         if (taskIndex < 0) {
             throw new DukeException("Sorry! " +
-                    "Task numbers must be natural numbers.");
+                    "Task numbers must be natural numbers.\n");
 
         } else if (taskIndex >= taskList.size()) {
             throw new DukeException("Sorry! " +
-                    "Task number is too large.");
+                    "Task number is too large.\n");
         }
         Task currentTask = taskList.get(taskIndex);
         currentTask.markAsNotDone();
@@ -114,15 +114,15 @@ public class Duke {
             taskIndex = Integer.parseInt(index) - 1;
         } catch(NumberFormatException e){
             throw new DukeException("Sorry! Please enter the order " +
-                    "of the task to be deleted.");
+                    "of the task to be deleted.\n");
         }
         if (taskIndex < 0) {
             throw new DukeException("Sorry! " +
-                    "Task numbers must be natural numbers.");
+                    "Task numbers must be natural numbers.\n");
 
         } else if (taskIndex >= taskList.size()) {
             throw new DukeException("Sorry! " +
-                    "Task number is too large.");
+                    "Task number is too large.\n");
         }
         Task removedTask = taskList.remove(taskIndex);
         System.out.println("Oscar has removed this task:\n");
@@ -138,7 +138,7 @@ public class Duke {
     public static void todo(String description) throws DukeException {
         if (description.length() == 0) {
             throw new DukeException("Sorry! " +
-                    "The description of a todo task cannot be empty.");
+                    "The description of a todo task cannot be empty.\n");
         }
         Task newTodo = new Todo(description);
         taskList.add(newTodo);
@@ -154,18 +154,18 @@ public class Duke {
     public static void deadline(String details) throws DukeException {
         if (!details.contains(" /by ")) {
             throw new DukeException("Sorry! " +
-                    "The deadline task is not formatted correctly");
+                    "The deadline task is not formatted correctly.\n");
         }
         String[] split = details.split(" /by ", 2);
         String description = split[0];
         if (description.length() == 0) {
             throw new DukeException("Sorry! " +
-                    "The description of a deadline task cannot be empty.");
+                    "The description of a deadline task cannot be empty.\n");
         }
         String deadline = split[1];
         if (deadline.length() == 0) {
             throw new DukeException("Sorry! " +
-                    "The deadline of a deadline task cannot be empty.");
+                    "The deadline of a deadline task cannot be empty.\n");
         }
         Task newDeadline = new Deadline(description, deadline);
         taskList.add(newDeadline);
@@ -182,23 +182,23 @@ public class Duke {
     public static void event(String details) throws DukeException {
         if (!details.contains(" /from ") || !details.contains(" /to ")) {
             throw new DukeException("Sorry! " +
-                    "The event task is not formatted correctly");
+                    "The event task is not formatted correctly.\n");
         }
         String[] split = details.split(" /from | /to ");
         String description = split[0];
         if (description.length() == 0) {
             throw new DukeException("Sorry! " +
-                    "The description of an event task cannot be empty.");
+                    "The description of an event task cannot be empty.\n");
         }
         String start = split[1];
         if (start.length() == 0) {
             throw new DukeException("Sorry! " +
-                    "The start date/time of an event task cannot be empty.");
+                    "The start date/time of an event task cannot be empty.\n");
         }
         String end = split[2];
         if (end.length() == 0) {
             throw new DukeException("Sorry! " +
-                    "The end date/time of an event task cannot be empty.");
+                    "The end date/time of an event task cannot be empty.\n");
         }
         Task newEvent = new Event(description, start, end);
         taskList.add(newEvent);
@@ -219,56 +219,60 @@ public class Duke {
         while (running) {
             // Obtain command and details entered by user to determine the next
             // course of action
-            String userInput = scanner.nextLine();
-            String[] split = userInput.split(" ", 2);
-            String command = split[0];
-            String details = userInput.length() > command.length() ? split[1] : "";
-            switch (command) {
-                // Exit programme if user enters "bye" command
-                case "bye":
-                    bye();
-                    running = false;
-                    break;
+            try {
+                String userInput = scanner.nextLine();
+                String[] split = userInput.split(" ", 2);
+                String command = split[0];
+                String details = userInput.length() > command.length() ? split[1] : "";
+                switch (command) {
+                    // Exit programme if user enters "bye" command
+                    case "bye":
+                        bye();
+                        running = false;
+                        break;
 
-                // Display text stored by user in chronological order if
-                // user enters "list" command
-                case "list":
-                    list();
-                    break;
+                    // Display text stored by user in chronological order if
+                    // user enters "list" command
+                    case "list":
+                        list();
+                        break;
 
-                // Mark task as done if user enters "mark" command
-                case "mark":
-                    mark(details);
-                    break;
+                    // Mark task as done if user enters "mark" command
+                    case "mark":
+                        mark(details);
+                        break;
 
-                // Mark task as not done if user enters "unmark" command
-                case "unmark":
-                    unmark(details);
-                    break;
+                    // Mark task as not done if user enters "unmark" command
+                    case "unmark":
+                        unmark(details);
+                        break;
 
-                // Delete a task if user enters "delete" command
-                case "delete":
-                    delete(details);
-                    break;
+                    // Delete a task if user enters "delete" command
+                    case "delete":
+                        delete(details);
+                        break;
 
-                // Create a new todo task if user enters "todo" command
-                case "todo":
-                    todo(details);
-                    break;
+                    // Create a new todo task if user enters "todo" command
+                    case "todo":
+                        todo(details);
+                        break;
 
-                // Create a new deadline task if user enters "deadline" command
-                case "deadline":
-                    deadline(details);
-                    break;
+                    // Create a new deadline task if user enters "deadline" command
+                    case "deadline":
+                        deadline(details);
+                        break;
 
-                // Create a new event task if user enters "event" command
-                case "event":
-                    event(details);
-                    break;
+                    // Create a new event task if user enters "event" command
+                    case "event":
+                        event(details);
+                        break;
 
-                // Default response for unknown commands
-                default:
-                    throw new DukeException("Sorry! Oscar does not recognise this command\n");
+                    // Default response for unknown commands
+                    default:
+                        throw new DukeException("Sorry! Oscar does not recognise this command\n");
+                }
+            } catch (DukeException e){
+                System.out.println(e.getMessage());
             }
         }
         scanner.close();
