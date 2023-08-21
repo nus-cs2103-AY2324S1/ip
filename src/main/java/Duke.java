@@ -3,26 +3,29 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class Duke {
-    public static String[] taskList = new String[100];
-
+    public static Task[] taskList = new Task[100];
     public static int taskListIndex = 0;
 
+    public static String printDone(int index) {
+        Task task = taskList[index - 1];
+        return "[" + (task.getDone() ? "X" : " ") + "] " + task;
+    }
     public static void markAsDone(int index) {
-        String[] taskSplitted = taskList[index - 1].split("");
-        taskSplitted[1] = "X";
-        taskList[index - 1] = String.join("", taskSplitted);
+        Task target = taskList[index - 1];
+        target.setDone(true);
         System.out.println("I've marked this as done...");
-        System.out.println("    " + taskList[index - 1]);
+        System.out.println("    " + printDone(index));
         System.out.println("--------------------------------");
     }
     public static void listTask() {
         for (int i = 1; i <= taskListIndex; i++) {
-            System.out.println("    " + i + ". " + taskList[i - 1]);
+            System.out.println("    " + i + ". " + printDone(i));
         }
         System.out.println("--------------------------------");
     }
     public static void addTask(String input) {
-        taskList[taskListIndex] = "[ ] " + input;
+        Task newTask = new Task(input);
+        taskList[taskListIndex] = newTask;
         System.out.println("    added: " + input);
         taskListIndex += 1;
         System.out.println("--------------------------------");
