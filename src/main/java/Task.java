@@ -16,7 +16,22 @@ public class Task {
      * Marks task as done.
      */
     public void markAsDone() {
-        isDone = true;
+        this.isDone = true;
+    }
+
+    /**
+     * Marks task as not done.
+     */
+    public void markAsNotDone() {
+        this.isDone = false;
+    }
+
+    /**
+     * Returns status icon for task.
+     * @return X if task is done and whitespace if not.
+     */
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
@@ -26,6 +41,10 @@ public class Task {
      */
     public String getDescription() {
         return description;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 
 }
