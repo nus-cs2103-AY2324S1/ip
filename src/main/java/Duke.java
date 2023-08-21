@@ -67,16 +67,54 @@ public class Duke {
                     System.out.println(line);
                 }
             } else {
-                this.addTask(input);
+                if (input.startsWith("todo")) {
+                    String task = input.substring(input.indexOf(' ') + 1).trim();
+                    this.addTodo(task);
+                } else if (input.startsWith("deadline")) {
+                    String task = input.substring(input.indexOf(' ') + 1);
+                    String[] parsedTask = task.split("/");
+                    String description = parsedTask[0].trim();
+                    String by = parsedTask[1].substring(parsedTask[1].indexOf(' ') + 1).trim();
+                    this.addDeadline(description, by);
+                } else if (input.startsWith("event")) {
+                    String task = input.substring(input.indexOf(' ') + 1);
+                    String[] parsedTask = task.split("/");
+                    String description = parsedTask[0].trim();
+                    String start = parsedTask[1].substring(parsedTask[1].indexOf(' ') + 1).trim();
+                    String by = parsedTask[2].substring(parsedTask[2].indexOf(' ') + 1).trim();
+                    this.addEvent(description, start, by);
+                }
             }
         }
     }
 
-    public void addTask(String input) {
-        Task newTask = new Task(input);
+    public void addTodo(String input) {
+        Todo newTask = new Todo(input);
         System.out.println(line);
-        System.out.println("added: " + input);
+        System.out.println("Got it. I've added this task:\n");
+        System.out.println("\t" + newTask.toString() + "\n");
         lst.add(newTask);
+        System.out.println("Now you have " + lst.size() + " tasks in the list.\n");
+        System.out.println(line);
+    }
+
+    public void addDeadline(String input, String by) {
+        Deadline newTask = new Deadline(input, by);
+        System.out.println(line);
+        System.out.println("Got it. I've added this task:\n");
+        System.out.println("\t" + newTask.toString() + "\n");
+        lst.add(newTask);
+        System.out.println("Now you have " + lst.size() + " tasks in the list.\n");
+        System.out.println(line);
+    }
+
+    public void addEvent(String input, String start, String end) {
+        Event newTask = new Event(input, start, end);
+        System.out.println(line);
+        System.out.println("Got it. I've added this task:\n");
+        System.out.println("\t" + newTask.toString() + "\n");
+        lst.add(newTask);
+        System.out.println("Now you have " + lst.size() + " tasks in the list.\n");
         System.out.println(line);
     }
 
