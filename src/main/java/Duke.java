@@ -91,7 +91,7 @@ public class Duke {
             return;
         }
         System.out.println("____________________________________________________________");
-        System.out.println("Got it. I've added this task: ");
+        System.out.println("Got it. I've added this task:");
         System.out.println(tasks.get(tasks.size() - 1));
         String placeholder = tasks.size() == 1 ? "task" : "tasks";
         System.out.println("Now you have " + tasks.size() + " " + placeholder + " in the list.");
