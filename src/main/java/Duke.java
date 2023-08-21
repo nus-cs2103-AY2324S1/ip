@@ -12,15 +12,26 @@ public class Duke {
         System.out.println("What can I do for you?");
 
         Scanner scanner = new Scanner(System.in);
+        String[] list = new String[100];
+        int count = 0;
+
         while (true) {
             String command = scanner.nextLine();
 
             if (command.equalsIgnoreCase("bye")) {
-                System.out.println("   Bye. Hope to see you again soon!");
+                System.out.println("Bye. Hope to see you again soon!");
                 break;
+            } else if (command.equalsIgnoreCase("list")) {
+                for (int i = 0; i < count; i++) {
+                    System.out.println((i + 1) + ". " + list[i]);
+                }
+            } else {
+                list[count] = command;
+                count++;
+                System.out.println("added: " + command);
             }
 
-            System.out.println("   " + command);
+            //System.out.println("   " + command);
         }
     }
 }
