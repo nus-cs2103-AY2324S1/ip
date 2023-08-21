@@ -9,4 +9,10 @@ public class Task {
     public String printTask() {
         return "[" + (isDone ? "X" : " ") + "] " + this.description;
     }
+    public void markAsDone() {
+        this.isDone = true;
+    }
+    public void markAsUndone() {
+        this.isDone = false;
+    }
 }
