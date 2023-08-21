@@ -7,8 +7,13 @@ public class Duke {
     private boolean isRunning = true;
     private final ArrayList<Task> tasks = new ArrayList<>();
     private int numOfTasks = 0;
+    private final String name;
     public Duke() {
-        String name = "Meg";
+        this.name = "Meg";
+        this.run();
+    }
+
+    public void run() {
         String intro1 = String.format("I'm %s. You called me?" +
                 "\n", name);
         String intro2 = "Make it quick, thanks.";
@@ -85,17 +90,23 @@ public class Duke {
             return;
         }
         int taskNumber = this.launchConfirmationScreen("mark as complete");
-        if (taskNumber != -1) {
-            Task task = tasks.get(taskNumber - 1);
-            if (!task.isCompleted) {
-                task.setCompleted();
-                System.out.printf("Task %d set as complete.%n", taskNumber);
-            } else {
-                System.out.printf("Task %d is already complete." + "%n" +
-                        "Stop wasting my time!", taskNumber);
-            }
-        } else {
-            System.out.println("Request unsuccessful.");
+        switch (taskNumber) {
+            case -1:
+                System.out.println("Request unsuccessful. (reason: invalid task number)");
+                break;
+            case -2:
+                System.out.println("Request unsuccessful. (reason: invalid input)");
+                break;
+            default:
+                Task task = tasks.get(taskNumber - 1);
+                if (!task.isCompleted) {
+                    task.setCompleted();
+                    System.out.printf("Task %d set as complete.%n", taskNumber);
+                } else {
+                    System.out.printf("Task %d is already complete." + "%n" +
+                            "Stop wasting my time!", taskNumber);
+                }
+                break;
         }
         printHorizontalLine();
     }
@@ -107,17 +118,23 @@ public class Duke {
             return;
         }
         int taskNumber = this.launchConfirmationScreen("mark as incomplete");
-        if (taskNumber != -1) {
-            Task task = tasks.get(taskNumber - 1);
-            if (task.isCompleted) {
-                task.setIncomplete();
-                System.out.printf("Task %d set as incomplete.%n", taskNumber);
-            } else {
-                System.out.printf("Task %d is already incomplete." + "%n" +
-                        "Stop wasting my time!", taskNumber);
-            }
-        } else {
-            System.out.println("Request unsuccessful.");
+        switch (taskNumber) {
+            case -1:
+                System.out.println("Request unsuccessful. (reason: invalid task number)");
+                break;
+            case -2:
+                System.out.println("Request unsuccessful. (reason: invalid input)");
+                break;
+            default:
+                Task task = tasks.get(taskNumber - 1);
+                if (task.isCompleted) {
+                    task.setIncomplete();
+                    System.out.printf("Task %d set as incomplete.%n", taskNumber);
+                } else {
+                    System.out.printf("Task %d is already incomplete." + "%n" +
+                            "Stop wasting my time!", taskNumber);
+                }
+                break;
         }
         printHorizontalLine();
     }
@@ -133,10 +150,10 @@ public class Duke {
         }
         try {
             int a = sc.nextInt();
-            return (a > numOfTasks ? -1 : a);
+            return (a > numOfTasks || a < 1 ? -1 : a);
         }
         catch (InputMismatchException e) {
-            return -1;
+            return -2;
         }
     }
 
