@@ -1,6 +1,10 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * The main class of the program.
+ */
 public class Duke {
 
     /**
@@ -10,7 +14,7 @@ public class Duke {
     /**
      * Dynamic array of tasks.
      */
-    private final List<String> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     /**
      * Entry-point for the program. Displays a greeting, echos the user's input, and exits.
@@ -24,7 +28,18 @@ public class Duke {
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 duke.listTasks();
-            } else {
+            }
+            // begins with mark
+            else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.substring(5));
+                duke.tasks.get(index - 1).markAsDone();
+            }
+            // begins with unmark
+            else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.substring(7));
+                duke.tasks.get(index - 1).markAsUndone();
+            }
+            else {
                 duke.addTask(input);
             }
             input = scanner.nextLine();
@@ -56,7 +71,7 @@ public class Duke {
      * @param task The task to be added.
      */
     public void addTask(String task) {
-        tasks.add(task);
+        tasks.add(new Task(task));
         System.out.println("____________________________________________________________");
         System.out.println("added: " + task);
         System.out.println("____________________________________________________________");
@@ -68,7 +83,7 @@ public class Duke {
     public void listTasks() {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
         System.out.println("____________________________________________________________");
     }
