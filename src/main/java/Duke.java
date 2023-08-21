@@ -13,10 +13,25 @@ public class Duke {
         System.out.println(greeting);
     }
 
-    static void addTask(String task) {
-        taskList.add(new Task(task));
+    static void addTask(String task, String type) {
+        if (type.equals("todo")) {
+            taskList.add(new ToDo(task));
+        } else if (type.equals("deadline")) {
+            String[] taskPortions = task.split("/");
+            String desc = taskPortions[0];
+            String deadline = taskPortions[1].split(" ", 2)[1];
+            taskList.add(new Deadline(desc, deadline));
+        } else {
+            String[] taskPortions = task.split("/");
+            String desc = taskPortions[0];
+            String start = taskPortions[1].split(" ", 2)[1];
+            String end = taskPortions[2].split(" ", 2)[1];
+            taskList.add(new Event(desc, start, end));
+        }
         String addMsg = "_________________________________________________\n"
-                + String.format(" added: %s\n", task)
+                + " Got it. I've added this task:\n"
+                + String.format(" \t%s\n", taskList.get(taskList.size()-1))
+                + String.format("Now you have %d tasks in the list\n", taskList.size())
                 + "_________________________________________________\n";
         System.out.println(addMsg);
     }
@@ -58,17 +73,18 @@ public class Duke {
         greet();
         while (true) {
             Scanner inputScanner = new Scanner(System.in);
-            String input = inputScanner.next();
-            if (input.equals("bye")) {
+            String command = inputScanner.next();
+            if (command.equals("bye")) {
                 exit();
-            } else if (input.equals("list")) {
+            } else if (command.equals("list")) {
                 list();
-            } else if (input.equals("mark")) {
+            } else if (command.equals("mark")) {
                 mark(inputScanner.nextInt());
-            } else if (input.equals("unmark")) {
+            } else if (command.equals("unmark")) {
                 unmark(inputScanner.nextInt());
             } else {
-                addTask(input);
+                String task = inputScanner.nextLine();
+                addTask(task, command);
             }
         }
     }
