@@ -14,8 +14,12 @@ public class Duke {
         int index = 0;
         while (true) {
             String input = sc.nextLine();
-            if (Objects.equals(input, "exit") || Objects.equals(input, "Exit") || Objects.equals(input, "EXIT")) {
+            if (Objects.equals(input, "exit")) {
                 break;
+            } else if (Objects.equals(input, "list")) {
+                for (int i = 0; i < index; i++) {
+                    System.out.println("\t" + (i + 1) + ": " + toDoList[i]);
+                }
             } else {
                 toDoList[index++] = input;
                 System.out.println("\tadded: " + input);
