@@ -14,13 +14,13 @@ public class Duke {
                     return;
                 } else if (input.equals("list")) {
                     tasks.printTasks();
-                } else if (input.startsWith("mark")) {
+                } else if (input.startsWith("mark ")) {
                     markTask(input, true);
-                } else if (input.startsWith("unmark")) {
+                } else if (input.startsWith("unmark ")) {
                     markTask(input, false);
-                } else if (input.startsWith("todo")) {
+                } else if (input.startsWith("todo ")) {
                     handleToDo(input);
-                } else if (input.startsWith("deadline")) {
+                } else if (input.startsWith("deadline ")) {
                     handleDeadline(input);
                 } else if (input.startsWith("event")) {
                     handleEvent(input);
