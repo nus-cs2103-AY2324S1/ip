@@ -19,7 +19,7 @@ public class TaskList {
     }
 
     public void markTaskDone(int index) throws DukeInvalidArgumentException {
-        if (index <= 0 || this.list.size() - 1 < index) {
+        if (index <= 0 || index > this.list.size()) {
             throw new DukeInvalidArgumentException(
                     "You've specified an invalid task number. Check your task list again with the \"list\" command.");
         }
@@ -32,7 +32,7 @@ public class TaskList {
     }
 
     public void unmarkTaskDone(int index) throws DukeInvalidArgumentException {
-        if (index <= 0 || this.list.size() - 1 < index) {
+        if (index <= 0 || index > this.list.size()) {
             throw new DukeInvalidArgumentException(
                     "You've specified an invalid task number. Check your task list again with the \"list\" command.");
         }
@@ -42,6 +42,19 @@ public class TaskList {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(this.list.get(index - 1));
         System.out.println(DIVIDER);
+    }
+
+    public void deleteTask(int index) throws DukeInvalidArgumentException {
+        if (index <= 0 || index > this.list.size()) {
+            throw new DukeInvalidArgumentException(
+                    "You've specified an invalid task number. Check your task list again with the \"list\" command.");
+        }
+
+        System.out.println(DIVIDER);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(this.list.get(index - 1));
+        System.out.println(DIVIDER);
+        this.list.remove(index - 1);
     }
 
     public void listTasks() {

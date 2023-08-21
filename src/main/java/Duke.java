@@ -12,7 +12,8 @@ public class Duke {
         ADD_DEADLINE("deadline"),
         ADD_EVENT("event"),
         MARK_TASK("mark"),
-        UNMARK_TASK("unmark");
+        UNMARK_TASK("unmark"),
+        DELETE_TASK("delete");
 
         private final String value;
 
@@ -133,6 +134,14 @@ public class Duke {
                     throw new DukeInvalidArgumentException(
                             "Your event seems to be formatted wrongly. " +
                                     "Check that you're doing: \"event {description} \\from {start} \\to {end}\".");
+                }
+                break;
+
+            case DELETE_TASK:
+                try {
+                    Duke.list.deleteTask(Integer.parseInt(args));
+                } catch (NumberFormatException e) {
+                    throw new DukeInvalidArgumentException("Stop trolling me bro. Please enter a numeric index.");
                 }
                 break;
 
