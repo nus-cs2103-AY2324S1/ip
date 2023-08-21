@@ -1,10 +1,26 @@
 public class Duke {
+    private String name = "KAM_BOT";
+    private static final String line = "————————————————————————————————————————————————————";
+
+    public Duke(String name) {
+        this.name = name;
+    }
+
+    public void exit() {
+        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(Duke.line);
+    }
+
+    public void greet() {
+        System.out.println(Duke.line);
+        System.out.println("Hello! I'm " + this.name);
+        System.out.println("What can I do for you?");
+        System.out.println(Duke.line);
+    }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        Duke bot = new Duke("Kam_BOT");
+        bot.greet();
+        bot.exit();
     }
 }
