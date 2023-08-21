@@ -8,4 +8,16 @@ mark 3
 mark 1
 unmark 2
 list
+todo
+todo
+deadline do homework
+deadline do homework /by
+deadline /by Today
+event lecture
+event lecture /from
+event lecture /from /to
+event lecture /from wed 10pm
+event lecture /to thurs 2pm
+event /from wed 5pm /to wed 6pm
+list
 bye

@@ -9,15 +9,17 @@ public class CarbonBot {
         Scanner sc = new Scanner(System.in);
         List<Task> taskList = new ArrayList<>();
 
+        // Greeting Message
         System.out.println(DIVIDER);
         System.out.println("Hello! I'm CarbonBot");
         System.out.println("What can I do for you?");
         System.out.println(DIVIDER);
 
+        // Keep fetching for user's input
         while(true) {
             String input = sc.nextLine();
 
-            // Do not process if the input was empty
+            // Ignore if the input was empty
             if (input.isEmpty()) {
                 continue;
             }
@@ -27,88 +29,84 @@ public class CarbonBot {
             String desc;
 
             System.out.println(DIVIDER);
-            switch(cmd) {
-                case "bye":
-                    // Exit the program if the command is "bye"
-                    System.out.println("Bye. Hope to see you again soon!");
-                    System.out.println(DIVIDER);
-                    sc.close();
-                    return;
-                case "list":
-                    System.out.println("Here are the tasks in your list:");
-                    printList(taskList);
-                    break;
-                case "todo":
-                    // Get the description from all the characters after "todo "
-                    desc = input.substring("todo ".length() - 1, input.length());
+            try {
+                switch (cmd) {
+                    case "bye":
+                        // Exit the program if the command is "bye"
+                        System.out.println("Bye. Hope to see you again soon!");
+                        System.out.println(DIVIDER);
+                        sc.close();
+                        return;
+                    case "list":
+                        System.out.println("Here are the tasks in your list:");
+                        printList(taskList);
+                        break;
+                    case "todo":
+                        // Get the description from all the characters after "todo"
+                        desc = input.substring("todo".length()).trim();
 
-                    // Validates if the description is empty (or only whitespaces)
-                    if (desc.isBlank()) {
-                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-                    } else {
-                        addTask(taskList, new Todo(desc));
-                    }
-                    break;
-                case "deadline":
-                    int indexOfBy = input.indexOf("/by");
-                    // Validates the existence of /by syntax
-                    if (indexOfBy == -1) {
-                        System.out.println("☹ OOPS!!! Please specify the deadline using /by.");
+                        // Validates if the description is empty (or only whitespaces)
+                        if (desc.isBlank()) {
+                            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        } else {
+                            addTask(taskList, new Todo(desc));
+                        }
                         break;
-                    }
+                    case "deadline":
+                        int indexOfBy = input.indexOf("/by");
+                        // Validates the existence of /by syntax
+                        if (indexOfBy == -1) {
+                            throw new DukeException("☹ OOPS!!! Please specify the deadline using /by.");
+                        }
 
-                    desc = input.substring("deadline ".length(), indexOfBy).trim();
-                    String by = input.substring(indexOfBy + "/by ".length(), input.length());
-                    if (desc.isBlank()) {
-                        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-                        break;
-                    }
-                    if (by.isBlank()) {
-                        System.out.println("☹ OOPS!!! The 'by' of a deadline cannot be empty.");
-                        break;
-                    }
+                        desc = input.substring("deadline ".length(), indexOfBy).trim();
+                        String by = input.substring(indexOfBy + "/by".length()).trim();
+                        if (desc.isBlank()) {
+                            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        }
+                        if (by.isBlank()) {
+                            throw new DukeException("☹ OOPS!!! The 'by' of a deadline cannot be empty.");
+                        }
 
-                    addTask(taskList, new Deadline(desc, by));
-                    break;
-                case "event":
-                    int indexOfFrom = input.indexOf("/from");
-                    int indexOfTo = input.indexOf("/to");
-                    if (indexOfFrom == -1 || indexOfTo == -1) {
-                        System.out.println("☹ OOPS!!! Please specify the start and end of the" +
-                                " event using /from and /to.");
+                        addTask(taskList, new Deadline(desc, by));
                         break;
-                    }
+                    case "event":
+                        int indexOfFrom = input.indexOf("/from");
+                        int indexOfTo = input.indexOf("/to");
+                        if (indexOfFrom == -1 || indexOfTo == -1) {
+                            throw new DukeException("☹ OOPS!!! Please specify the start and end of the" +
+                                    " event using /from and /to.");
+                        }
 
-                    desc = input.substring("event ".length(), indexOfFrom).trim();
-                    String from = input.substring(indexOfFrom + "/from ".length(), indexOfTo);
-                    String to = input.substring(indexOfTo + "/to ".length(), input.length());
+                        desc = input.substring("event ".length(), indexOfFrom).trim();
+                        String from = input.substring(indexOfFrom + "/from".length(), indexOfTo).trim();
+                        String to = input.substring(indexOfTo + "/to".length()).trim();
 
-                    if (desc.isBlank()) {
-                        System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
-                        break;
-                    }
-                    if (from.isBlank()) {
-                        System.out.println("☹ OOPS!!! The 'from' of an event cannot be empty.");
-                        break;
-                    }
-                    if (to.isBlank()) {
-                        System.out.println("☹ OOPS!!! The 'to' of an event cannot be empty.");
-                        break;
-                    }
+                        if (desc.isBlank()) {
+                            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                        }
+                        if (from.isBlank()) {
+                            throw new DukeException("☹ OOPS!!! The 'from' of an event cannot be empty.");
+                        }
+                        if (to.isBlank()) {
+                            throw new DukeException("☹ OOPS!!! The 'to' of an event cannot be empty.");
+                        }
 
-                    addTask(taskList, new Event(desc, from, to));
-                    break;
-                case "mark":
-                    updateTaskStatus(taskList, input, true);
-                    break;
-                case "unmark":
-                    updateTaskStatus(taskList, input, false);
-                    break;
-                default:
-                    // Unrecognised Command
-                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                    System.out.println("My supported commands are: list, mark, " +
-                            "unmark, todo, deadline, event, bye.");
+                        addTask(taskList, new Event(desc, from, to));
+                        break;
+                    case "mark":
+                        updateTaskStatus(taskList, input, true);
+                        break;
+                    case "unmark":
+                        updateTaskStatus(taskList, input, false);
+                        break;
+                    default:
+                        // Unrecognised Command
+                        throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(" +
+                                "\nMy supported commands are: list, mark, unmark, todo, deadline, event, bye.");
+                }
+            } catch (DukeException ex) {
+                System.out.println(ex.getMessage());
             }
             System.out.println(DIVIDER);
         }
@@ -137,11 +135,10 @@ public class CarbonBot {
     }
 
     // Marks the Task as Done or Not Done
-    private static void updateTaskStatus(List<Task> tasks, String input, boolean isDone) {
-        // Check if the user has specified the index to be updated
+    private static void updateTaskStatus(List<Task> tasks, String input, boolean isDone) throws DukeException {
+        // Validates if the user has specified the index to be updated
         if (input.split(" ").length < 2) {
-            System.out.println("Please provide the task index to be updated.");
-            return;
+            throw new DukeException("No index was provided. Please enter the task index to be updated.");
         }
 
         try {
@@ -162,11 +159,12 @@ public class CarbonBot {
                 System.out.println(t);
             } else {
                 // Do not process the command if the index was out of bounds
-                System.out.println("Index given was out-of-bounds");
+                throw new DukeException("Index provided was out-of-bounds. Use the index number" +
+                        " labelled for the task in the command 'list'!");
             }
         } catch (NumberFormatException ex) {
             // Ensure the index is integer
-            System.out.println("Please provide a valid integer index.");
+            throw new DukeException("Please provide a valid integer for the index.");
         }
 
     }
