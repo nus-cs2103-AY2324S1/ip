@@ -2,6 +2,18 @@ import java.util.Scanner;
 
 public class Duke {
     private static final String NAME = "404";
+    private static final String NAME_ART =
+            "               _                _               _                      \n" +
+            "           _  /\\ \\            / /\\          _  /\\ \\               \n" +
+            "          /\\_\\\\ \\ \\          / /  \\        /\\_\\\\ \\ \\        \n" +
+            "         / / / \\ \\ \\        / / /\\ \\      / / / \\ \\ \\          \n" +
+            "        / / /   \\ \\ \\      / / /\\ \\ \\    / / /   \\ \\ \\        \n" +
+            "        \\ \\ \\____\\ \\ \\    /_/ /  \\ \\ \\   \\ \\ \\____\\ \\ \\ \n" +
+            "         \\ \\________\\ \\   \\ \\ \\   \\ \\ \\   \\ \\________\\ \\ \n" +
+            "          \\/________/\\ \\   \\ \\ \\   \\ \\ \\   \\/________/\\ \\  \n" +
+            "                    \\ \\ \\   \\ \\ \\___\\ \\ \\            \\ \\ \\ \n" +
+            "                     \\ \\_\\   \\ \\/____\\ \\ \\            \\ \\_\\ \n" +
+            "                      \\/_/    \\_________\\/             \\/_/";
     private static final String INDENT = "     ";
     private static final int STORE_SIZE = 100;
     private static Task[] tasks = new Task[STORE_SIZE];
@@ -9,16 +21,32 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        printLine();
         String greeting = String.format("%sHello! I'm %s%n%sWhat can I do for you?",
-                                        INDENT, NAME, INDENT);
+                                         INDENT, NAME, INDENT);
+        System.out.println(NAME_ART);
+        printLine();
         System.out.println(greeting);
         printLine();
         System.out.println();
-        String text = sc.nextLine();
-        String[] split = text.split(" ");
-        String command = split[0];
-        while (!command.equals("bye")) {
+
+        while (true) {
+            String text = sc.nextLine();
+            String[] split = text.split(" ");
+            if (text.isEmpty() || split.length == 0) {
+                printLine();
+                System.out.printf("%sPlease retry, you have not entered anything!%n", INDENT);
+                printLine();
+                continue;
+            }
+            String command = split[0].toLowerCase();
+            String message = "";
+            if (split.length > 1) {
+                message = text.substring(split[0].length() + 1);
+            }
+            if (text.equals("bye")) {
+                break;
+            }
+
             printLine();
             switch(command) {
                 case "list":
@@ -26,42 +54,31 @@ public class Duke {
                     break;
 
                 case "mark":
-                    markAndUnmarkTask(text, true);
+                    markAndUnmarkTask(message, true);
                     break;
 
                 case "unmark":
-                    markAndUnmarkTask(text, false);
+                    markAndUnmarkTask(message, false);
                     break;
 
                 case "todo":
-                    String todoTask = text.substring(text.indexOf(" ") + 1);
-                    Task todo = new Todo(todoTask);
+                    Task todo = new Todo(message);
                     addTask(todo);
                     break;
 
                 case "deadline":
-                    String deadlineTask = text.substring(text.indexOf(" ") + 1,
-                                                         text.indexOf("/by") - 1);
-                    String by = text.substring(text.indexOf("/by") + 4);
-                    Task deadline = new Deadline(deadlineTask, by);
-                    addTask(deadline);
+                    String[] deadlineTask = message.split(" /by ");
+                    addTask(new Deadline(deadlineTask[0], deadlineTask[1]));
                     break;
 
                 case "event":
-                    String eventTask = text.substring(text.indexOf(" ") + 1,
-                            text.indexOf("/from") - 1);
-                    String from = text.substring(text.indexOf("/from") + 6,
-                            text.indexOf("/to") - 1);
-                    String to = text.substring(text.indexOf("/to") + 4);
-                    Task event = new Event(eventTask, from, to);
-                    addTask(event);
+                    String[] eventTask = message.split(" /from ");
+                    String[] dates = eventTask[1].split(" /to ");
+                    addTask(new Event(eventTask[0], dates[0], dates[1]));
                     break;
             }
             printLine();
             System.out.println();
-            text = sc.nextLine();
-            split = text.split(" ");
-            command = split[0];
         }
         printLine();
         System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
@@ -70,7 +87,8 @@ public class Duke {
     }
 
     private static void printLine() {
-        String line =  "    ____________________________________________________________";
+        String line = "    ____________________________________________________________\n" +
+                      "   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/";
         System.out.println(line);
     }
 
@@ -101,10 +119,9 @@ public class Duke {
         }
     }
 
-    private static void markAndUnmarkTask(String text, boolean mark) {
-        String message;
+    private static void markAndUnmarkTask(String message, boolean mark) {
         String task;
-        int index = Integer.valueOf(text.substring(text.indexOf(' ') + 1)) - 1;
+        int index = Integer.valueOf(message) - 1;
         if (mark) {
             message = "Nice! I've marked this task as done:";
             task = tasks[index].markAsDone();
