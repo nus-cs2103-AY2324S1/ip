@@ -18,8 +18,40 @@ public class TaskManager {
 
     }
 
-    public void remove(int taskID) {
-        this.userTasks.remove(taskID);
+    public void delete(String input) throws DukeException {
+        try {
+            int taskID = Integer.parseInt(input.substring(7)) - 1;
+            this.userTasks.remove(taskID);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(userTasks.get(taskID).toString());
+            System.out.println("Now you have " + userTasks.size() + " tasks in the list.");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid task number.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Please ensure task exists.");
+        }
+    }
+
+    public void markTaskAsDone(String input) throws DukeException {
+        try {
+            int taskID = Integer.parseInt(input.substring(5)) - 1;
+            this.userTasks.get(taskID).markAsDone();
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid task number.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Please ensure task exists.");
+        }
+    }
+
+    public void markTaskAsUndone(String input) throws DukeException {
+        try {
+            int taskID = Integer.parseInt(input.substring(7)) - 1;
+            this.userTasks.get(taskID).markAsUndone();
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid task number.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Please ensure task exists.");
+        }
     }
 
     public Task get(int taskID) {
