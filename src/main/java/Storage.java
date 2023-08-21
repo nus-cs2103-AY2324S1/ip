@@ -44,12 +44,18 @@ public class Storage {
         }
     }
 
-    public void markTaskDone(int index) {
+    public void markTaskDone(int index) throws DukeException {
+        if (index > this.count || index <= 0) {
+            throw new DukeException("\tHmm, this task does not exist :|");
+        }
         System.out.println("\tNice! I've marked this task as done:");
         this.tasks[index - 1].markTaskDone();
     }
 
     public void markTaskNotDone(int index) {
+        if (index > this.count || index <= 0) {
+            throw new DukeException("\tHmm, this task does not exist :|");
+        }
         System.out.println("\tSure, I've marked this task as not done yet:");
         this.tasks[index - 1].markTaskNotDone();
     }
