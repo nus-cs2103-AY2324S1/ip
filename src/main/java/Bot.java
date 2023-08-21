@@ -42,53 +42,78 @@ public class Bot {
     }
     public void chat() {
         Scanner sc = new Scanner(System.in);
-        while(sc.hasNextLine()) {
-            String[] items = null;
-            String description = "";
-            int index = 0;
-            String input = sc.nextLine();
-            String[] inputSplit = input.split(" ", 2);
-            String command = inputSplit[0];
-            String data = inputSplit.length == 2 ? inputSplit[1] : "";
+        while (sc.hasNextLine()) {
+            try {
+                    String[] items = null;
+                    String description = "";
+                    int index = 0;
+                String input = sc.nextLine();
+                String[] inputSplit = input.split(" ", 2);
+                String command = inputSplit[0];
+                String data = inputSplit.length == 2 ? inputSplit[1] : "";
 
-            switch(command) {
-                case BYE_COMMAND:
-                    break;
-                case LIST_COMMAND:
-                    this.list();
-                    continue;
-                case MARK_COMMAND:
-                    index = Integer.parseInt(input.split(" ")[1]);
-                    tasks[index - 1].mark();
-                    continue;
-                case UNMARK_COMMAND:
-                    index = Integer.parseInt(input.split(" ")[1]);
-                    tasks[index - 1].unmark();
-                    continue;
-                case TODO_COMMAND:
-                    description = data;
-                    this.add(new ToDo(description));
-                    continue;
-                case DEADLINE_COMMAND:
-                    items = data.split(" /by ");
-                    description = items[0];
-                    String by = items[1];
+                switch (command) {
+                    case BYE_COMMAND:
+                        break;
+                    case LIST_COMMAND:
+                        this.list();
+                        continue;
+                    case MARK_COMMAND:
+                        index = Integer.parseInt(input.split(" ")[1]);
+                        tasks[index - 1].mark();
+                        continue;
+                    case UNMARK_COMMAND:
+                        index = Integer.parseInt(input.split(" ")[1]);
+                        tasks[index - 1].unmark();
+                        continue;
+                    case TODO_COMMAND:
+                        if (data == "") {
+                            throw new LinusException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        }
+                        description = data;
+                        this.add(new ToDo(description));
+                        continue;
+                    case DEADLINE_COMMAND:
+                        if (data == "") {
+                            throw new LinusException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        }
 
-                    this.add(new Deadline(description, by));
-                    continue;
-                case EVENT_COMMAND:
-                    items = data.split(" /from | /to ");
-                    description = items[0];
-                    String from = items[1];
-                    String to = items[2];
+                        items = data.split(" /by ");
+                        if(items.length != 2) {
+                            throw new LinusException("☹ OOPS!!! Please specify the deadline in the correct format: deadline <description> /by <date>");
+                        }
 
-                    this.add(new Event(description, from ,to));
-                    continue;
-                default:
-                    continue;
+                        description = items[0];
+                        String by = items[1];
+
+                        this.add(new Deadline(description, by));
+                        continue;
+                    case EVENT_COMMAND:
+                        if (data == "") {
+                            throw new LinusException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        }
+
+                        items = data.split(" /from | /to ");
+                        if(items.length != 3) {
+                            throw new LinusException("☹ OOPS!!! Please specify the event in the correct format: event <description> /from <date> /to <date>");
+                        }
+                        description = items[0];
+                        String from = items[1];
+                        String to = items[2];
+
+                        this.add(new Event(description, from, to));
+                        continue;
+                    default:
+                        throw new LinusException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+                break;
+                } catch(LinusException e) {
+                    MessagePrint.print(e.getMessage());
+                }
             }
-            break;
-        }
+
+
+
     }
     public void start() {
         this.printWelcomeMessage();
