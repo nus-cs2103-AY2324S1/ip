@@ -9,6 +9,7 @@ public class Duke {
     private static String YELLOW = "\033[0;33m";
     private static String BLUE = "\033[0;34m";
     private static String PURPLE = "\u001B[35m";
+    private static String RED = "\033[0;31m";
 
     private Task[] tasks = new Task[100];
     private int count = 0;
@@ -34,11 +35,11 @@ public class Duke {
         } 
         else if (command.equals("mark")) {
             if (header.length < 2) return;
-            this.markTask(Integer.parseInt(header[1]), true);
+            this.markTask(header[1], true);
         } 
         else if (command.equals("unmark")) {
             if (header.length < 2) return;
-            this.markTask(Integer.parseInt(header[1]), false);
+            this.markTask(header[1], false);
         } 
         else if (command.equals("todo")) {
             this.addTodo(extractTail(header));
@@ -57,6 +58,11 @@ public class Duke {
                 extractTail(parse[1].split(" ")),
                 extractTail(parse[2].split(" "))
             );
+        } else {
+            this.error(new String[] {
+                "Unrecognized command " + PURPLE + command + COLOR_RESET,
+                "Maybe create a new TODO with \"todo read a book\"?"
+            });
         }
     }
 
@@ -111,16 +117,30 @@ public class Duke {
         this.count += 1;
     }
 
-    private void markTask(int taskCount, boolean done) {
-        if (taskCount < 1 || taskCount > count) {
-            this.speak(String.format(
+    private void markTask(String taskCount, boolean done) {
+        int index;
+        // User passes a non-integer argument.
+        try {
+            index = Integer.parseInt(taskCount);
+        } catch (NumberFormatException e) {
+            this.error(
+                PURPLE + (done ? "mark" : "unmark") + COLOR_RESET 
+                + " takes in a number. Try mark 1."
+            );
+            return;
+        }
+
+        // User tries to mark/unmark a task that is out of bounds.
+        if (index < 1 || index > count) {
+            this.error(String.format(
                 "Unable to %s task %d :( You have %d tasks stored.",
-                done ? "mark" : "unmark", taskCount, count
+                done ? "mark" : "unmark", index, count
             ));
             return;
         }
 
-        Task task = this.tasks[taskCount - 1];
+        // Mark or unmark the task if the taskCount given is correct.
+        Task task = this.tasks[index - 1];
         if (done) task.mark(); 
         else      task.unmark();
 
@@ -141,6 +161,26 @@ public class Duke {
 
     private void speak(String[] text) {
         String msg = "\n";
+        for (String stub : text) {
+            msg += String.format("    %s\n", stub);
+        }
+        System.out.println(msg);
+    }
+
+    private void error(String text) {
+        String msg = String.format(
+            "\n    %s\n    %s\n", 
+            RED + "Erm... error :(" + COLOR_RESET,
+            text
+        );
+        System.out.println(msg);
+    }
+
+    private void error(String[] text) {
+        String msg = String.format(
+            "\n    %s\n", 
+            RED + "Erm... error :(" + COLOR_RESET
+        );
         for (String stub : text) {
             msg += String.format("    %s\n", stub);
         }
