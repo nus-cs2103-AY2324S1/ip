@@ -1,7 +1,7 @@
 /**
  * Represents a task in the task list.
  */
-public class Task {
+public abstract class Task {
 
     /**
      * The description of the task.
@@ -12,15 +12,6 @@ public class Task {
      * Whether the task is done.
      */
     protected boolean isDone;
-
-    /**
-     * Creates a task with the given description.
-     * @param description The description of the task.
-     */
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
 
     /**
      * Returns the status icon of the task.
@@ -38,6 +29,7 @@ public class Task {
         System.out.println("Nice! I've marked this task as done:");
         this.isDone = true;
         System.out.println(this);
+        System.out.println("____________________________________________________________");
     }
 
     /**
@@ -48,6 +40,7 @@ public class Task {
         System.out.println("OK, I've marked this task as not done yet:");
         this.isDone = false;
         System.out.println(this);;
+        System.out.println("____________________________________________________________");
     }
 
     /**

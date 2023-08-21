@@ -54,6 +54,7 @@ public class Duke {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm " + NAME);
         System.out.println("What can I do for you?");
+        System.out.println("____________________________________________________________");
     }
 
     /**
@@ -71,9 +72,29 @@ public class Duke {
      * @param task The task to be added.
      */
     public void addTask(String task) {
-        tasks.add(new Task(task));
+        if (task.startsWith("todo")) {
+            tasks.add(new ToDo (task.substring(5)));
+        }
+        else if (task.startsWith("deadline")) {
+            String[] split = task.substring(9).split("/by");
+            tasks.add(new Deadline(split[0], split[1]));
+        }
+        else if (task.startsWith("event")) {
+            String[] split = task.substring(6).split("/");
+
+            tasks.add(new Event(split[0], split[1].substring(5), split[2].substring(3)));
+        }
+        else {
+            System.out.println("____________________________________________________________");
+            System.out.println("Bro i'm not sure what that means, pls try again!");
+            System.out.println("____________________________________________________________");
+            return;
+        }
         System.out.println("____________________________________________________________");
-        System.out.println("added: " + task);
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(tasks.get(tasks.size() - 1));
+        String placeholder = tasks.size() == 1 ? "task" : "tasks";
+        System.out.println("Now you have " + tasks.size() + " " + placeholder + " in the list.");
         System.out.println("____________________________________________________________");
     }
 
