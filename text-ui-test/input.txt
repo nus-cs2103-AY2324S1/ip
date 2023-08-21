@@ -1,0 +1,9 @@
+todo meal prep
+deadline cook chicken /by 6pm
+event dinner /from 6.30pm /to 7.30pm
+list
+mark 1
+mark 2
+mark 3
+list
+bye

@@ -66,16 +66,12 @@ public class Max {
         }
     }
     public static void greet() {
-        String logo = ".___  ___.      ___      ___   ___ \n" +
-                "|   \\/   |     /   \\     \\  \\ /  / \n" +
-                "|  \\  /  |    /  ^  \\     \\  V  /  \n" +
-                "|  |\\/|  |   /  /_\\  \\     >   <   \n" +
-                "|  |  |  |  /  _____  \\   /  .  \\  \n" +
-                "|__|  |__| /__/     \\__\\ /__/ \\__\\ \n" +
-                "                                   ";
-        System.out.println("     Hello from\n" + logo);
-        System.out.println(Max.line);
-        System.out.println("     Hello! I'm Max! \n" + "     How may I assist you?");
+        System.out.println("     Hello from");
+        System.out.println("       /\\/\\   __ ___  __");
+        System.out.println("      /    \\ / _` \\ \\/ /");
+        System.out.println("     / /\\/\\ \\ (_| |>  <");
+        System.out.println("     \\/    \\/\\__,_/_/\\_\\");
+        System.out.println("     How may I assist you?");
         System.out.println(Max.line);
     }
 
