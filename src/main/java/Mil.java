@@ -2,11 +2,11 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Duke {
+public class Mil {
     public static void main(String[] args) {
         String logo = " ____     ____    _    _\n"
                 + "|     \\__/    |  | |  | |\n"
-                + "|  | \\ _ / |  |  | |  | |  \n"
+                + "|  | \\ _ / |  |  | |  | |\n"
                 + "|  |       |  |  | |  | |____\n"
                 + "|__|       |__|  |_|  |______|\n";
         String horLine = "__________________________________________________________________________";
