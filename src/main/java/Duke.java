@@ -30,7 +30,8 @@ public class Duke {
                 meowBot.getCommand(command);
                 if (command.equals("list")) {
                     System.out.println(lines);
-                    for (int i = 1; i < meowBot.counter + 1; i++) {
+                    System.out.println("Meoowww here are your tasks");
+                    for (int i = 1; i < meowBot.Tasklist.size() + 1; i++) {
                         System.out.println(i + ". " + meowBot.Tasklist.get(i - 1));
                     }
                     System.out.println(lines);
@@ -50,12 +51,22 @@ public class Duke {
                     System.out.println("Ok, get your task done soon, I'll be waiting!");
                     System.out.println(" " + wantedtask);
                     System.out.println(lines);
+                } else if (command.startsWith("delete")) {
+                    int tasknumber = Integer.parseInt(command.substring(7));
+                    Task wantedtask = meowBot.Tasklist.get(tasknumber - 1);
+                    meowBot.removeTask(tasknumber - 1);
+                    System.out.println("Meow... ok, I've removed this task: ");
+                    System.out.println(" " + wantedtask);
+                    System.out.println("Now you have " + meowBot.Tasklist.size() + " meow-tasks in the list.");
+                    System.out.println(lines);
+
+
+
                 }
 
                 // solve what tasks are to be added here
                 else {
                     if (command.startsWith("todo")) {
-
                         String taskInput = command.substring(4).trim();
                         meowBot.addTask(taskInput, TaskType.Todo);
 
@@ -101,22 +112,25 @@ public class Duke {
 
         }
         this.Tasklist.add(task);
-        counter ++;
         System.out.println(lines);
         // cast the task to the right subtype
 
         System.out.println("MEOW got it. I've added this task:\n   " + task);
-        System.out.println("Now you have " + counter + " meow-tasks in the list.");
+        System.out.println("Now you have " + this.Tasklist.size() + " meow-tasks in the list.");
         System.out.println(lines);
     }
 
     boolean getCommand(String command) throws DukeException{
         String firstword = command.split(" ")[0];
-        String[] commands = {"bye","list", "unmark","mark", "todo", "deadline", "event"};
+        String[] commands = {"bye","list", "unmark","mark", "todo", "deadline", "event", "delete"};
         for (String c: commands) {
             if(c.equals(firstword)) return true;
         }
         throw new DukeException("Invalid keyword");
 
+    }
+
+    void removeTask(int taskNumber) {
+        this.Tasklist.remove(taskNumber);
     }
 }
