@@ -33,16 +33,36 @@ public class Duke {
                         String taskName = taskArray[i].getName();
                         boolean taskStatus = taskArray[i].getStatus();
                         int num = i + 1;
-                        inputArrayString += num + currentTask.statusString() + currentTask.getName();
+                        inputArrayString += "     " + num + ". " + currentTask.statusString() + " " + currentTask.getName() + "\n";
                     } else {
                         break;
                     }
                 }
                 System.out.println("    ____________________________________________________________\n" +
+                        "     Here are the tasks in your list:\n" +
                         inputArrayString +
                         "    ____________________________________________________________\n");
 
-            } else {
+            } else if (userInput.startsWith("mark")) {
+                String[] parts = userInput.split("\\s+");
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                Task currentTask = taskArray[taskIndex];
+                currentTask.markDone();
+                System.out.println("    ____________________________________________________________\n" +
+                        "     Nice! I've marked this task as done:\n" +
+                        "       " + currentTask.toString() + "\n" +
+                        "    ____________________________________________________________\n");
+            } else if (userInput.startsWith("unmark")) {
+                String[] parts = userInput.split("\\s+");
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                Task currentTask = taskArray[taskIndex];
+                currentTask.unmarkDone();
+                System.out.println("    ____________________________________________________________\n" +
+                        "     OK, I've marked this task as not done yet:\n" +
+                        "       " + currentTask.toString() + "\n" +
+                        "    ____________________________________________________________\n");
+            }
+            else {
                 Task task = new Task(userInput);
                 taskArray[inputNum] = task;
                 System.out.println("    ____________________________________________________________\n" +
