@@ -1,29 +1,28 @@
 import java.util.Scanner;
-import java.util.regex.Pattern;
 import pkg.task.*;
+import pkg.command.*;
 
 
 public class Duke {
-    private static String chatBotName = "Doctor101";
-
-    public static void Greets() {
-        System.out.println("Hello! I'm " + chatBotName);
-        System.out.println("What can I do for you?");
-    }
-
-    public static void Bye() {
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-
+    private invoker invoker = new invoker();
     public static void main(String[] args) {
-       Greets();
+        Duke duke = new Duke();
+        //duke.invoker.setCommand("todo", new );
        Scanner scanner = new Scanner(System.in);
-       Task[] tasks = new Task[100];
 
         while (true) {
             String input = scanner.nextLine();
-            int index;
-
+            if (input.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+                scanner.close();
+                return;
+            }
+            duke.invoker.execute(input);
+        }
+    }
+}
+            
+/* 
             // \\s means one empty space, \\d means one digit, + means one or more, () means group
             Pattern markPattern = Pattern.compile("mark\\s(\\d+)");
             if (markPattern.matcher(input).matches()) {
@@ -70,3 +69,4 @@ public class Duke {
     }
 
 }
+*/

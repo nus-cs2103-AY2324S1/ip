@@ -1,5 +1,5 @@
 package pkg.task;
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -18,6 +18,10 @@ public class Task {
 
     public void unmark() {
         this.isDone = false;
+    }
+
+    public void updateDescription(String description) {
+        this.description = description;
     }
 
     @Override
