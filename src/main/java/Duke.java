@@ -9,10 +9,10 @@ public class Duke {
 
     public static void echo() {
         String task = "";
-        while (task != "bye") {
+        while (!task.equals("bye")) {
             Scanner newInput = new Scanner(System.in);
             task = newInput.nextLine();
-            System.out.println(task);
+            System.out.println("added: " + task);
         }
         System.out.println("Bye. Hope to see you again soon!");
 
