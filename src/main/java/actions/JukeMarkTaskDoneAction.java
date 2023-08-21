@@ -1,11 +1,14 @@
-package main.java;
+package main.java.actions;
+
+import main.java.exceptions.JukeException;
+import main.java.JukeTaskManager;
 
 import java.util.Optional;
 
 /**
- * Action that marks a JukeTask as undone.
+ * Action that marks a JukeTask as done.
  */
-public class JukeMarkTaskUndoneAction extends JukeAction{
+public class JukeMarkTaskDoneAction extends JukeAction {
     /** JukeTaskManager that manages the tasks. */
     private final JukeTaskManager taskManager;
 
@@ -13,11 +16,11 @@ public class JukeMarkTaskUndoneAction extends JukeAction{
     private final int index;
 
     /**
-     * Constructor for JukeMarkTaskUndoneAction.
+     * Constructor for JukeMarkTaskDoneAction.
      * @param taskManager JukeTaskManager that manages the tasks
      * @param index Index of the Task to act on
      */
-    public JukeMarkTaskUndoneAction(JukeTaskManager taskManager, int index) {
+    public JukeMarkTaskDoneAction(JukeTaskManager taskManager, int index) {
         this.taskManager = taskManager;
         this.index = index;
     }
@@ -29,12 +32,8 @@ public class JukeMarkTaskUndoneAction extends JukeAction{
      * of actions for added complexity
      */
     @Override
-    public Optional<? extends JukeAction> complete() throws DukeException {
-        Optional<? extends JukeAction> optional = this.taskManager.markAsUndone(this.index);
-        if (optional.isEmpty()) {
-            System.out.print("Task Marked as Undone!\n" + this.taskManager.taskInformation(this.index));
-        }
-
-        return optional;
+    public void complete() throws JukeException {
+        this.taskManager.markAsDone(this.index);
+        System.out.print("Task Marked as Done!\n" + this.taskManager.taskInformation(this.index));
     }
 }

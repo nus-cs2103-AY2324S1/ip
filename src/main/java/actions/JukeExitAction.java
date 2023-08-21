@@ -1,4 +1,6 @@
-package main.java;
+package main.java.actions;
+
+import main.java.exceptions.JukeException;
 
 import java.util.Optional;
 
@@ -21,8 +23,7 @@ public class JukeExitAction extends JukeAction {
      * of actions for added complexity
      */
     @Override
-    public Optional<? extends JukeAction> complete() throws DukeException {
+    public void complete() throws JukeException {
         System.out.print(EXIT);
-        return Optional.empty();
     }
 }

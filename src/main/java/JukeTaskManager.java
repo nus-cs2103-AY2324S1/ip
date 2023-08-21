@@ -1,5 +1,10 @@
 package main.java;
 
+import main.java.exceptions.JukeException;
+import main.java.primitivies.JukeObject;
+import main.java.actions.JukeAction;
+import main.java.tasks.JukeTask;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -36,15 +41,6 @@ public class JukeTaskManager extends JukeObject {
     }
 
     /**
-     * Factory method to create a JukeTaskManager with initial tasks.
-     * @param initialTasks Initial tasks.
-     * @return JukeTaskManager object
-     */
-    public static JukeTaskManager ofExisting(List<? extends JukeTask> initialTasks) {
-        return new JukeTaskManager(initialTasks);
-    }
-
-    /**
      * Adds a task.
      * @param task JukeTask object.
      * @return true if the task is added, else false
@@ -54,16 +50,40 @@ public class JukeTaskManager extends JukeObject {
     }
 
     /**
+     * Deletes a task.
+     * @param task JukeTask object
+     * @return true if the task is successfully deleted, else false
+     */
+    public boolean deleteTask(JukeTask task) {
+        return this.tasks.remove(task);
+    }
+
+    /**
+     * Deletes a task by index.
+     * @param task Index of JukeTask object
+     * @return true if the task is successfuly deleted, else false
+     */
+    public JukeTask deleteTask(int task) throws JukeException{
+        try {
+            JukeTask retTask = this.tasks.get(task);
+            this.tasks.remove(retTask);
+            return retTask;
+        } catch (IndexOutOfBoundsException ex) {
+            throw new JukeException("Oh no! The task index you have provided is not valid!");
+        }
+    }
+
+    /**
      * Marks a task as complete.
      * @param index Index of task to act on.
      * @return Optional<? extends JukeAction> for further actions to take
      */
-    public Optional<? extends JukeAction> markAsDone(int index) throws DukeException {
+    public void markAsDone(int index) throws JukeException {
         if (index < 0 || index > this.tasks.size()) {
-            throw new DukeException("Oh no! I do not have such task recorded!");
+            throw new JukeException("Oh no! I do not have such task recorded!");
         }
 
-        return this.tasks.get(index).markAsComplete();
+        this.tasks.get(index).markAsComplete();
     }
 
     /**
@@ -71,12 +91,12 @@ public class JukeTaskManager extends JukeObject {
      * @param index Index of task to act on.
      * @return Optional<? extends JukeAction> for further actions to take
      */
-    public Optional<? extends JukeAction> markAsUndone(int index) throws DukeException {
+    public void markAsUndone(int index) throws JukeException {
         if (index < 0 || index > this.tasks.size()) {
-            throw new DukeException("Oh no! I do not have such task recorded!");
+            throw new JukeException("Oh no! I do not have such task recorded!");
         }
 
-        return this.tasks.get(index).markAsIncomplete();
+        this.tasks.get(index).markAsIncomplete();
     }
 
     /**

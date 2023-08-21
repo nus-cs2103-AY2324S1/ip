@@ -1,4 +1,6 @@
-package main.java;
+package main.java.actions;
+
+import main.java.exceptions.JukeException;
 
 import java.util.Optional;
 
@@ -9,13 +11,13 @@ import java.util.Optional;
  */
 public class JukeExceptionAction extends JukeAction {
     /** Error description. */
-    private final DukeException err;
+    private final JukeException err;
 
     /**
      * Constructor to create an Error Action.
      * @param err Error description
      */
-    public JukeExceptionAction(DukeException err) {
+    public JukeExceptionAction(JukeException err) {
 
         this.err = err;
     }
@@ -27,8 +29,7 @@ public class JukeExceptionAction extends JukeAction {
      * of actions for added complexity
      */
     @Override
-    public Optional<? extends JukeAction> complete() {
+    public void complete() {
         System.out.print("Error: " + err);
-        return Optional.empty();
     }
 }

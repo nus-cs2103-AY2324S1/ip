@@ -1,4 +1,4 @@
-package main.java;
+package main.java.actions;
 
 import java.util.Optional;
 
@@ -24,8 +24,7 @@ public class JukePrintAction extends JukeAction {
      * of actions for added complexity
      */
     @Override
-    public Optional<? extends JukeAction> complete() {
+    public void complete() {
         System.out.print(printTarget);
-        return Optional.empty();
     }
 }

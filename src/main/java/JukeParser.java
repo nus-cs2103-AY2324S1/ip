@@ -1,5 +1,7 @@
 package main.java;
 
+import main.java.primitivies.JukeObject;
+
 import java.util.regex.Pattern;
 
 /**

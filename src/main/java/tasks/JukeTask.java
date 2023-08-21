@@ -1,9 +1,13 @@
-package main.java;
+package main.java.tasks;
+
+import main.java.actions.JukeAction;
+import main.java.exceptions.JukeException;
+import main.java.primitivies.JukeObject;
 
 import java.util.Optional;
 
 /**
- * Class that represents a task that the user adds to Juke.
+ * Abstract Class that represents a task that the user adds to Juke.
  */
 public abstract class JukeTask extends JukeObject {
     /** Task description. */
@@ -28,38 +32,26 @@ public abstract class JukeTask extends JukeObject {
     }
 
     /**
-     * Private constructor used to create an incomplete task.
-     * @param taskName Task description
-     * @param isCompleted Boolean to describe if the task is completed or otherwise
-     */
-    private JukeTask(String taskName, boolean isCompleted) {
-        this.taskName = taskName;
-        this.isCompleted = isCompleted;
-    }
-
-    /**
      * Marks a task as complete.
-     * @return Optional<? extends JukeAction> for further actions to take
+     * @return {@code Optional<? extends JukeAction>} for further actions to take
      */
-    public Optional<? extends JukeAction> markAsComplete() throws DukeException {
+    public void markAsComplete() throws JukeException {
         if (this.isCompleted) {
-            throw new DukeException("Oh no! The task selected is already completed!");
+            throw new JukeException("Oh no! The task selected is already completed!");
         } else {
             this.isCompleted = true;
-            return Optional.empty();
         }
     }
 
     /**
      * Marks a task as incomplete.
-     * @return Optional<? extends JukeAction> for further actions to take
+     * @return {@code Optional<? extends JukeAction>} for further actions to take
      */
-    public Optional<? extends JukeAction> markAsIncomplete() throws DukeException {
+    public void markAsIncomplete() throws JukeException {
         if (!this.isCompleted) {
-            throw new DukeException("The task selected is already not completed!");
+            throw new JukeException("The task selected is already not completed!");
         } else {
             this.isCompleted = false;
-            return Optional.empty();
         }
     }
 

@@ -1,4 +1,4 @@
-package main.java;
+package main.java.primitivies;
 
 /**
  * Abstract Class that represents objects that Juke can handle.

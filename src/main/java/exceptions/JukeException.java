@@ -1,19 +1,17 @@
-package main.java;
-
-import java.util.Optional;
+package main.java.exceptions;
 
 /**
- * This class represents an exception thrown by Juke.
+ * This class represents a generic exception thrown by Juke.
  */
-public class DukeException extends Exception {
+public class JukeException extends Exception {
     /** Error description. */
     private final String err;
 
     /**
-     * Constructor to create an Error Action.
+     * Constructor to create a JukeException.
      * @param err Error description
      */
-    public DukeException(String err) {
+    public JukeException(String err) {
         this.err = err;
     }
 

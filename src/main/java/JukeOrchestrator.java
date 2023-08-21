@@ -1,5 +1,11 @@
 package main.java;
 
+import main.java.actions.JukeExceptionAction;
+import main.java.actions.JukeExitAction;
+import main.java.exceptions.JukeException;
+import main.java.primitivies.JukeObject;
+import main.java.actions.JukeAction;
+
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -81,14 +87,10 @@ public class JukeOrchestrator extends JukeObject {
                 System.out.print(JukeOrchestrator.JUKEOUTPUT);
 
                 // act on it, or any other future generated actions
-                Optional<? extends JukeAction> actor = action.complete();
-
-                while (actor.isPresent()) {
-                    actor = actor.get().complete();
-                }
+                action.complete();
 
                 System.out.print(JukeOrchestrator.SEPARATOR);
-            } catch (DukeException ex) {
+            } catch (JukeException ex) {
                 new JukeExceptionAction(ex).complete();
                 System.out.print(JukeOrchestrator.SEPARATOR);
             }
