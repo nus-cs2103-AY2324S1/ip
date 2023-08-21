@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Duke {
@@ -11,8 +12,7 @@ public class Duke {
     private static String PURPLE = "\u001B[35m";
     private static String RED = "\033[0;31m";
 
-    private Task[] tasks = new Task[100];
-    private int count = 0;
+    private ArrayList<Task> tasks = new ArrayList<Task>();
 
     private static String extractTail(String[] item) {
         return String.join(" ",
@@ -125,16 +125,16 @@ public class Duke {
     }
 
     private void listTasks() {
-        if (this.count == 0) {
+        if (this.tasks.size() == 0) {
             this.speak("Nothing stored.");
             return;
         }
 
-        String[] formatTasks = new String[count + 1];
+        String[] formatTasks = new String[tasks.size() + 1];
         formatTasks[0] = "Here are the tasks in your list:";
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             formatTasks[i + 1] = String.format(
-                "%d.%s", i + 1, this.tasks[i].toString()
+                "%d.%s", i + 1, this.tasks.get(i).toString()
             );
         }
         this.speak(formatTasks);
@@ -146,7 +146,7 @@ public class Duke {
         this.speak(new String[] {
             "Okie! I've added a new " + cTxt("TODO:", GREEN),
             "  " + todo.toString(),
-            "Total no. of tasks stored: " + count
+            "Total no. of tasks stored: " + tasks.size()
         });
     }
 
@@ -156,7 +156,7 @@ public class Duke {
         this.speak(new String[] {
             "Okie! I've added a new " + cTxt("DEADLINE:", BLUE),
             "  " + deadline.toString(),
-            "Total no. of tasks stored: " + count
+            "Total no. of tasks stored: " + tasks.size()
         });
     }
 
@@ -166,13 +166,12 @@ public class Duke {
         this.speak(new String[] {
             "Okie! I've added a new " + cTxt("EVENT:", YELLOW),
             "  " + event.toString(),
-            "Total no. of tasks stored: " + count
+            "Total no. of tasks stored: " + tasks.size()
         });
     }
 
     private void addTask(Task task) {
-        tasks[this.count] = task;
-        this.count += 1;
+        tasks.add(task);
     }
 
     private void markTask(String taskCount, boolean done) throws DukeException {
@@ -189,15 +188,15 @@ public class Duke {
         }
 
         // User tries to mark/unmark a task that is out of bounds.
-        if (index < 1 || index > count) {
+        if (index < 1 || index > tasks.size()) {
             throw new DukeException(String.format(
                 "Unable to %s task %d :( You have %d task(s) stored.",
-                done ? "mark" : "unmark", index, count
+                done ? "mark" : "unmark", index, tasks.size()
             ));
         }
 
         // Mark or unmark the task if the taskCount given is correct.
-        Task task = this.tasks[index - 1];
+        Task task = this.tasks.get(index - 1);
         if (done) task.mark(); 
         else      task.unmark();
 
