@@ -9,6 +9,9 @@ public class EventTask extends Task {
     }
 
     public static EventTask parseEvent(String taskDetails) {
+        if (!taskDetails.contains("/from") || !taskDetails.contains("/to")) {
+            throw new RuntimeException("Error! Remember to include '/from' and '/to' after the event command!");
+        }
         String[] details = taskDetails.split("/from", 2);
         String[] innerDetails = details[1].split("/to", 2);
         String description = details[0];

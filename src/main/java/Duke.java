@@ -19,26 +19,52 @@ public class Duke {
                 break;
             } else if (command.equalsIgnoreCase("list")) {
                 listTask();
-            } else if (command.length() > 5) {
-                if (command.substring(0,4).equalsIgnoreCase("mark")) {
-                    tasks[Integer.valueOf(command.substring(command.length() - 1)) - 1].markTask();
-                } else if (command.substring(0,6).equalsIgnoreCase("unmark")) {
-                    tasks[Integer.valueOf(command.substring(command.length() - 1)) - 1].unmarkTask();
-                } else {
-                    addTask(command);
+            } else if (command.split(" ", 2).length > 1) {
+                try {
+                    if (Duke.checkMark(command) == false) {
+                        addTask(command);
+                    }
+                } catch (RuntimeException e) {
+                    System.out.println(e.getMessage());
+                } catch (DukeException e) {
+                    System.out.println("Error! " + e.getMessage());
                 }
             } else {
-                addTask(command);
+                try {
+                    addTask(command);
+                } catch (DukeException e) {
+                    System.out.println("Error! " + e.getMessage());
+                }
             }
 
         }
         scanner.close();
     }
 
-    private static void addTask(String description) {
+    public static boolean checkMark(String command) throws RuntimeException {
+        String[] parts = command.split(" ", 2);
+        if (parts[0].equalsIgnoreCase("mark")) {
+            try {
+                tasks[Integer.valueOf(parts[1]) - 1].markTask();
+            } catch (RuntimeException e) {
+                throw new RuntimeException("The task does not exist in this list!");
+            }
+            return true;
+        } else if (parts[0].equalsIgnoreCase("unmark")) {
+            try {
+                tasks[Integer.valueOf(parts[1]) - 1].unmarkTask();
+            } catch (RuntimeException e) {
+                throw new RuntimeException("The task does not exist in this list! Pick a number where a task exist!d");
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private static void addTask(String description) throws DukeException {
         String[] parts = description.split(" ", 2);
         if (parts.length < 2) {
-            System.out.println("You inputted an invalid command! Please try again :)");
+            throw new DukeException("You inputted an invalid command! Please try deadline, todo or event :)");
         } else {
             String taskType = parts[0].toLowerCase();
             String taskDetails = parts[1].toLowerCase();
@@ -49,7 +75,7 @@ public class Duke {
                 System.out.println("You added '" + tasks[position - 1] + "' to the list!"
                         + "\nNow you have " + position + " task(s) in the list!");
             } else {
-                System.out.println("You inputted an invalid command! Please try again :)");
+                throw new DukeException("You inputted an invalid command! Please try deadline, todo or event :)");
             }
 
         }

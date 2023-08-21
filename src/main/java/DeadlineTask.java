@@ -5,7 +5,10 @@ public class DeadlineTask extends Task {
         this.by = by;
     }
 
-    public static DeadlineTask parseDeadline(String taskDetails) {
+    public static DeadlineTask parseDeadline(String taskDetails) throws RuntimeException {
+        if (!taskDetails.contains("/by")) {
+            throw new RuntimeException("Error! Remember to include '/by' after the deadline command!");
+        }
             String[] details = taskDetails.split("/by", 2);
             String description = details[0];
             String by = details[1];
