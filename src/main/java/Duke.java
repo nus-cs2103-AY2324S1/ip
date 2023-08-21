@@ -17,14 +17,16 @@ public class Duke {
         System.out.println(formattedMessage);
     }
 
+    private static void greet() {
+        Duke.printFormatted("Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?");
+    }
 
+    private static void exit() {
+        Duke.printFormatted("Bye. Hope to see you again soon!");
+    }
 
     public static void main(String[] args) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello! I'm " + CHATBOT_NAME);
-        System.out.println("What can I do for you?");
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(HORIZONTAL_LINE);
+        Duke.greet();
+        Duke.exit();
     }
 }
