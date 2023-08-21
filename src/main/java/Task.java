@@ -7,6 +7,10 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Get completed status of task
+     * @return X if task is completed, a blank space otherwise
+     */
     public String getStatus() {
         return (isDone ? "X" : " ");
     }

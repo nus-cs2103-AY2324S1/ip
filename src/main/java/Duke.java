@@ -23,13 +23,16 @@ public class Duke {
         Duke.output(String.format(taskAddMessage, task.toString(), taskTotal));
     }
 
-    public static void main(String[] args) {
+    /**
+     * Runs the chatbot, terminates when chatbot receives "end" command
+     */
+    public static void runJyuuni() {
         Duke.output("Hey its Jyuuni, your helpful assistant.\n     How can I help you?");
 
         Scanner userInput = new Scanner(System.in);
         boolean isRun = true;
 
-        // Waits for input until program stops running
+        // Requests user input until program is instructed to end
         while (isRun) {
             String input = userInput.nextLine();
             String[] splitInput = input.split(" ", 2);
@@ -77,5 +80,9 @@ public class Duke {
                     Duke.output("Sorry, I don't recognise this comment :(");
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Duke.runJyuuni();
     }
 }
