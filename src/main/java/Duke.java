@@ -14,6 +14,8 @@ public class Duke {
             " `------'      `-----' `------'  ";
 
     private static Boolean isActive = true;
+    private static final String[] tasks = new String[100];
+    private static int pointer = 0;
     public static void main(String[] args) {
         Duke.printWelcomeMessage();
         echo();
@@ -25,19 +27,28 @@ public class Duke {
 
     private static void printGoodbyeMessage() {
         String goodbyeMessage = "Goodbye! Bob signing out!";
-        System.out.println(goodbyeMessage + "\n" + divider);
+        System.out.println(goodbyeMessage + divider);
     }
 
     private static void echo() {
         Scanner scanner = new Scanner(System.in);
+        String displayMessage = "added: ";
 
         while (isActive) {
             String command = scanner.nextLine();
+
             if (command.equals("bye")) {
                 Duke.printGoodbyeMessage();
                 isActive = false;
+            } else if (command.equals("list")) {
+                for (int i = 0; i < pointer; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
+                }
+                System.out.println(divider);
             } else {
-                System.out.println(command + "!" + divider);
+                Duke.tasks[pointer] = command;
+                Duke.pointer++;
+                System.out.println(displayMessage + command + divider);
             }
         }
     }
