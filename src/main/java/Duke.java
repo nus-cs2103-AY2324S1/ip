@@ -15,7 +15,6 @@ public class Duke {
         printHorizontalLine();
         System.out.println("Hello! I'm Zac");
         System.out.println("What can I do for you?");
-        printHorizontalLine();
 
         boolean isBotRunning = true;
         while (isBotRunning) {
@@ -26,7 +25,7 @@ public class Duke {
             switch (command) {
                 case "bye":
                     isBotRunning = false;
-                    sayBye();
+                    System.out.println("Bye. Hope to see you again soon!");
                     break;
                 case "list":
                     int numTask = 1;
@@ -80,7 +79,6 @@ public class Duke {
                     System.out.printf("Now you have %d tasks in the list.\n", taskList.size());
                     break;
             }
-            printHorizontalLine();
 
         }
 
@@ -90,9 +88,4 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
-    public static void sayBye() {
-        printHorizontalLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printHorizontalLine();
-    }
 }
