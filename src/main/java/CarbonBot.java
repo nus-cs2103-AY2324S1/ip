@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class CarbonBot {
     private static String DIVIDER = "____________________________________________________________";
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<Task> taskList = new ArrayList<>();
@@ -23,11 +24,12 @@ public class CarbonBot {
 
             String cmd = input.split(" ")[0];
             int taskIdx;
+            String desc;
 
             System.out.println(DIVIDER);
             switch(cmd) {
                 case "bye":
-                    // Stops listening to user input if the command is "bye"
+                    // Exit the program if the command is "bye"
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println(DIVIDER);
                     sc.close();
@@ -37,26 +39,63 @@ public class CarbonBot {
                     printList(taskList);
                     break;
                 case "todo":
-                    if (input.split(" ", 2).length < 2) {
-                        System.out.println("Please provide a task description!");
-                        continue;
-                    }
+                    // Get the description from all the characters after "todo "
+                    desc = input.substring("todo ".length() - 1, input.length());
 
-                    String desc = input.split(" ", 2)[1];
-                    addTask(taskList, new Todo(desc));
+                    // Validates if the description is empty (or only whitespaces)
+                    if (desc.isBlank()) {
+                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    } else {
+                        addTask(taskList, new Todo(desc));
+                    }
                     break;
                 case "deadline":
                     int indexOfBy = input.indexOf("/by");
+                    // Validates the existence of /by syntax
+                    if (indexOfBy == -1) {
+                        System.out.println("☹ OOPS!!! Please specify the deadline using /by.");
+                        break;
+                    }
+
                     desc = input.substring("deadline ".length(), indexOfBy).trim();
                     String by = input.substring(indexOfBy + "/by ".length(), input.length());
+                    if (desc.isBlank()) {
+                        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        break;
+                    }
+                    if (by.isBlank()) {
+                        System.out.println("☹ OOPS!!! The 'by' of a deadline cannot be empty.");
+                        break;
+                    }
+
                     addTask(taskList, new Deadline(desc, by));
                     break;
                 case "event":
                     int indexOfFrom = input.indexOf("/from");
                     int indexOfTo = input.indexOf("/to");
+                    if (indexOfFrom == -1 || indexOfTo == -1) {
+                        System.out.println("☹ OOPS!!! Please specify the start and end of the" +
+                                " event using /from and /to.");
+                        break;
+                    }
+
                     desc = input.substring("event ".length(), indexOfFrom).trim();
                     String from = input.substring(indexOfFrom + "/from ".length(), indexOfTo);
                     String to = input.substring(indexOfTo + "/to ".length(), input.length());
+
+                    if (desc.isBlank()) {
+                        System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+                        break;
+                    }
+                    if (from.isBlank()) {
+                        System.out.println("☹ OOPS!!! The 'from' of an event cannot be empty.");
+                        break;
+                    }
+                    if (to.isBlank()) {
+                        System.out.println("☹ OOPS!!! The 'to' of an event cannot be empty.");
+                        break;
+                    }
+
                     addTask(taskList, new Event(desc, from, to));
                     break;
                 case "mark":
@@ -66,10 +105,10 @@ public class CarbonBot {
                     updateTaskStatus(taskList, input, false);
                     break;
                 default:
-                    // Adds the task to the list
-                    Task task = new Task(input);
-                    taskList.add(task);
-                    System.out.println("added: " + input);
+                    // Unrecognised Command
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.out.println("My supported commands are: list, mark, " +
+                            "unmark, todo, deadline, event, bye.");
             }
             System.out.println(DIVIDER);
         }
