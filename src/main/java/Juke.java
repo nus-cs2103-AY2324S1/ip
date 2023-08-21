@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Juke {
     static void printLine() {
@@ -7,12 +9,10 @@ public class Juke {
     }
     public static void main(String[] args) {
         class Task {
-            protected final String type;
             protected final String desc;
             protected boolean isDone;
 
-            public Task(String type, String desc) {
-                this.type = type;
+            public Task(String desc) {
                 this.desc = desc;
                 this.isDone = false;
             }
@@ -34,6 +34,47 @@ public class Juke {
                 return this.getStatusIcon() + desc;
             }
         }
+
+        class Todo extends Task {
+            public Todo(String desc) {
+                super(desc);
+            }
+
+            @Override
+            public String toString() {
+                return "[T]" + super.toString();
+            }
+        }
+
+        class Deadline extends Task {
+            protected String by;
+
+            public Deadline(String description, String by) {
+                super(description);
+                this.by = by;
+            }
+
+            @Override
+            public String toString() {
+                return "[D]" + super.toString() + " (by: " + by + ")";
+            }
+        }
+
+        class Event extends Task {
+            protected String start;
+            protected String end;
+            public Event(String description, String start, String end) {
+                super(description);
+                this.start = start;
+                this.end = end;
+            }
+
+            @Override
+            public String toString() {
+                return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+            }
+        }
+
         ArrayList<Task> tasks = new ArrayList<Task>();
 
         //Introduce itself to the user
@@ -80,9 +121,38 @@ public class Juke {
             }
 
             else {
-                tasks.add(new Task("todo", input));
-                System.out.println("added: " + input);
-                printLine();
+                if (input.startsWith("todo")) {
+                    Task newTask = new Todo(input.substring(5));
+                    tasks.add(newTask);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("\t" + newTask.toString());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    printLine();
+                } else if (input.startsWith("deadline")) {
+                    final Pattern deadlinePattern = Pattern.compile(
+                            "^deadline\\s+(.*)\\s+/by\\s+(.*)$");
+                    Matcher matcher = deadlinePattern.matcher(input);
+                    if (matcher.matches()) {
+                        Task newTask = new Deadline(matcher.group(1), matcher.group(2));
+                        tasks.add(newTask);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("\t" + newTask.toString());
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        printLine();
+                    }
+                } else if (input.startsWith("event")) {
+                    final Pattern eventPattern = Pattern.compile(
+                            "^event\\s+(.*)\\s+/from\\s+(.*)\\s+/to\\s+(.*)$");
+                    Matcher matcher = eventPattern.matcher(input);
+                    if (matcher.matches()) {
+                        Task newTask = new Event(matcher.group(1), matcher.group(2), matcher.group(3));
+                        tasks.add(newTask);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("\t" + newTask.toString());
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        printLine();
+                    }
+                }
             }
         }
     }
