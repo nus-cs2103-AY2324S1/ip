@@ -25,4 +25,7 @@ public class TaskList {
         }
         return result;
     }
+    public void message() {
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+    }
 }
