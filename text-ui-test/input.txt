@@ -10,4 +10,8 @@ list
 deadline Claims Submission
 deadline Claims Submission /by 31 Aug
 list
+todo Watch ST2334 Pre-Lecture Videos
+list
+delete 3
+list
 bye
