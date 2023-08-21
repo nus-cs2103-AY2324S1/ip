@@ -9,8 +9,8 @@ public class Duke {
 
     public static void echo() {
         TaskList taskList = new TaskList();
-        while (true) {
-            Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
+        while (input.hasNextLine()) {
             String userInput = input.nextLine();
 
             if (userInput.equals("bye")) {
