@@ -22,5 +22,6 @@ public class Duke {
         Duke bot = new Duke("Kam_BOT");
         bot.greet();
         bot.exit();
+
     }
 }
