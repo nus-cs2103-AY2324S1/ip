@@ -1,14 +1,10 @@
-public class Task {
+public abstract class Task {
     protected String name;
     protected boolean isDone;
 
     public Task(String name){
         this.name = name;
         this.isDone = false;
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public String getStatusIcon() {
@@ -21,5 +17,9 @@ public class Task {
 
     public void unmarkTask() {
         this.isDone = false;
+    }
+
+    public String toString() {
+        return this.getStatusIcon() + " " + this.name;
     }
 }

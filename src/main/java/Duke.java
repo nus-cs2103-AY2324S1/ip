@@ -14,7 +14,7 @@ public class Duke {
 
         while (true) {
             String input = scanner.nextLine();
-            String[] command = input.split(" ");
+            String[] command = input.split(" ", 2);
 
             if (command[0].equals("bye") && command.length == 1) {
                 break;
@@ -26,8 +26,7 @@ public class Duke {
                         break;
                     }
 
-                    System.out.print((i + 1) + "." + taskList[i].getStatusIcon() +
-                            " " + taskList[i].getName() + "\n");
+                    System.out.print((i + 1) + "." + taskList[i].toString() + "\n");
                 }
             }
 
@@ -42,13 +41,34 @@ public class Duke {
                     System.out.println("OK, I've marked this task as not done yet:");
                 }
 
-                System.out.println("\t" + taskList[pos - 1].getStatusIcon() + " " + taskList[pos - 1].getName());
+                System.out.println("\t" + taskList[pos - 1].getStatusIcon() + " " + taskList[pos - 1].name);
+            }
+
+            // add tasks
+            else if (command[0].equals("todo") || command[0].equals("deadline") || command[0].equals("event")) {
+                if (command[0].equals("todo")) {
+                    taskList[ind] = new ToDo(command[1]);
+                }
+
+                else if (command[0].equals("deadline")) {
+                    String[] task = command[1].split("/by ", 2);
+                    taskList[ind] = new Deadline(task[0], task[1]);
+                }
+
+                else {
+                    String[] event = command[1].split("/from ",2);
+                    String[] dates = event[1].split("/to ", 2);
+                    taskList[ind] = new Event(event[0], dates[0], dates[1]);
+                }
+
+                System.out.println("Got it. I've added this task:");
+                System.out.println("\t" + taskList[ind].toString());
+                ind++;
+                System.out.println("Now you have " + ind + " tasks in the list.");
             }
 
             else {
-                taskList[ind] = new Task(input);
-                ind++;
-                System.out.println("added: " + input);
+                System.out.println("Invalid Command");
             }
 
             System.out.println(line);
