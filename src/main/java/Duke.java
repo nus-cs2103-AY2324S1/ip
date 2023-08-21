@@ -1,5 +1,7 @@
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Duke {
 
@@ -27,6 +29,12 @@ public class Duke {
 
     public static void main(String[] args) {
         Duke.greet();
+
+        Scanner scanner = new Scanner(System.in);
+        Stream.generate(scanner::nextLine)
+                .takeWhile(input -> !input.equals("bye"))
+                .forEach(Duke::printFormatted);
+
         Duke.exit();
     }
 }
