@@ -67,6 +67,23 @@ public class Duke {
                     } catch (NumberFormatException e) {
                         throw new DukeInvalidIndexException(lst.size());
                     }
+                } else if (input.startsWith("delete")) {
+
+                    if (input.replaceAll("\\s", "").equals(input)) {
+                        throw new DukeInvalidCommandException("delete");
+                    }
+
+                    String[] parsedString = input.split(" ");
+                    try {
+                        int num = Integer.parseInt(parsedString[1]);
+                        if (num > lst.size() || num <= 0) {
+                            throw new DukeInvalidIndexException(lst.size());
+                        }
+                        this.deleteTask(num);
+                    } catch (NumberFormatException e) {
+                        throw new DukeInvalidIndexException(lst.size());
+                    }
+
                 } else {
                     if (input.startsWith("todo")) {
 
@@ -90,6 +107,11 @@ public class Duke {
                         String task = input.substring(input.indexOf(' ') + 1);
                         String[] parsedTask = task.split("/");
                         String description = parsedTask[0].trim();
+
+                        if (parsedTask.length < 2) {
+                            throw new DukeEmptyParametersException();
+                        }
+
                         String by = parsedTask[1].substring(parsedTask[1].indexOf(' ') + 1).trim();
                         if (description.equals("")) {
                             throw new DukeInvalidCommandException(command);
@@ -107,6 +129,11 @@ public class Duke {
                         String command = input.substring(0, input.indexOf(' '));
                         String task = input.substring(input.indexOf(' ') + 1);
                         String[] parsedTask = task.split("/");
+
+                        if (parsedTask.length < 3) {
+                            throw new DukeEmptyParametersException();
+                        }
+
                         String description = parsedTask[0].trim();
                         String start = parsedTask[1].substring(parsedTask[1].indexOf(' ') + 1).trim();
                         String by = parsedTask[2].substring(parsedTask[2].indexOf(' ') + 1).trim();
@@ -202,5 +229,14 @@ public class Duke {
             System.out.println("\t" + task);
             System.out.println(line);
         }
+    }
+
+    public void deleteTask(Integer num) {
+        System.out.println(line);
+        System.out.println("Noted. I've removed this task:\n");
+        Task selectedTask = lst.remove(num - 1);
+        System.out.println("\t" + selectedTask + "\n");
+        System.out.println("Now you have " + lst.size() + " tasks in the list.\n");
+        System.out.println(line);
     }
 }
