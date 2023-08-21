@@ -10,11 +10,11 @@ public class Peko {
             "Usada Pekora-peko! almondo almondo!";
     private static final String exitText = "Otsupeko! Bye bye!";
     private static String currInput;
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        String input = "";
+        String input;
         boolean loop = true;
-        int responseValue = 0;
+        int responseValue;
         intro();
 
         while (loop) {
