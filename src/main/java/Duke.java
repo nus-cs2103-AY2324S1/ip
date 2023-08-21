@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     private static final int LINE_LENGTH = 100;
+    private boolean exit = false;
     private final Task[] tasks;
     private int taskCount;
 
@@ -15,111 +16,66 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         // Welcome message
-        program.printMessage("Hello! I'm Skye, your personal task assistant.\nWhat can I do for you?");
+        program.printMessage(
+            "Hello! I'm Skye, your personal task assistant.\n" +
+            "What can I do for you?"
+        );
 
         // Program only exits when user enters "bye" command
-        while (true) {
-            // System.out.print("> ");
-            String userInput = scanner.nextLine();
-            System.out.println();
-            String[] tokens = userInput.split(" ", 2);
-            String command = !userInput.isEmpty() ? tokens[0] : "";
+        do {
+            try {
+                // System.out.print("> ");
+                String userInput = scanner.nextLine();
+                System.out.println();
+                String[] tokens = userInput.split(" ", 2);
+                String command = !userInput.isEmpty() ? tokens[0] : "";
 
-            // Switch statement to check for command keywords in the first word
-            switch (command) {
-                case "bye":
-                    program.printMessage("Bye. Hope to see you again soon!");
-                    scanner.close();
-                    System.exit(0);
-                    break;
-
-                case "list":
-                    program.listTasks();
-                    break;
-
-                case "mark":
-                    int completedTaskNumber = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
-                    if (program.isInvalidTaskNumber(completedTaskNumber)) {
-                        program.printMessage("The task number you've entered is out of the valid range.");
-                    } else if (program.tasks[completedTaskNumber - 1].isDone()) {
-                        program.printMessage("The task number you've entered is already marked as complete.");
-                    } else {
-                        program.tasks[completedTaskNumber - 1].markAsDone();
-                        program.printMessage(
-                                String.format(
-                                        "Nice! I've marked this task as done:\n %s",
-                                        program.tasks[completedTaskNumber - 1].toString()
-                                )
-                        );
-                    }
-                    break;
-
-                case "unmark":
-                    int incompleteTaskNumber = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
-                    if (program.isInvalidTaskNumber(incompleteTaskNumber)) {
-                        program.printMessage("The task number you've entered is out of the valid range.");
-                    } else if (!program.tasks[incompleteTaskNumber - 1].isDone()) {
-                        program.printMessage("The task number you've entered is already unmarked.");
-                    } else {
-                        program.tasks[incompleteTaskNumber - 1].markAsNotDone();
-                        program.printMessage(
-                                String.format(
-                                        "OK, I've marked this task as not done yet:\n %s",
-                                        program.tasks[incompleteTaskNumber - 1].toString()
-                                )
-                        );
-                    }
-                    break;
-
-                case "deadline":
-                    // Ensure that "/by" exists in the command
-                    if (!tokens[1].contains("/by")) {
-                        program.printMessage(
-                            "Invalid deadline format! It should be: deadline <description> /by <date>"
-                        );
+                // Switch statement to check for command keywords in the first word
+                switch (command) {
+                    case "bye":
+                        scanner.close();
+                        program.exit();
                         break;
-                    }
 
-                    // Split by "by"
-                    String[] deadlineParams = tokens[1].split("/by");
-
-                    // Deadline attributes
-                    String deadlineDescription = deadlineParams[0].trim();
-                    String by = deadlineParams[1].trim();
-
-                    // Add deadline to tasks
-                    program.addTask(new Deadline(deadlineDescription, by));
-                    break;
-
-                case "event":
-                    // Ensure that "/from" comes before "/to"
-                    if (
-                        !tokens[1].contains("/from") || !tokens[1].contains("/to")
-                        || tokens[1].indexOf("/from") > tokens[1].indexOf("/to")
-                    ) {
-                        program.printMessage(
-                            "Invalid event format! It should be: event <description> /from <start> /to <end>"
-                        );
+                    case "list":
+                        program.listTasks();
                         break;
-                    }
 
-                    // Split by /from or /to
-                    String[] eventParams = tokens[1].split("\\s+/\\w+");
+                    case "mark":
+                        int completedTaskNumber = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
+                        program.markTask(completedTaskNumber);
+                        break;
 
-                    // Event attributes
-                    String eventDescription = eventParams[0].trim();
-                    String from = eventParams[1].trim();
-                    String to = eventParams[2].trim();
+                    case "unmark":
+                        int incompleteTaskNumber = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
+                        program.unmarkTask(incompleteTaskNumber);
+                        break;
 
-                    // Add event to tasks
-                    program.addTask(new Event(eventDescription, from, to));
-                    break;
+                    case "deadline":
+                        program.addDeadline(tokens);
+                        break;
 
-                case "todo":
-                    program.addTask(new ToDo(tokens[1]));
-                    break;
+                    case "event":
+                        program.addEvent(tokens);
+                        break;
+
+                    case "todo":
+                        program.addToDo(tokens);
+                        break;
+
+                    default:
+                        throw new DukeException("I'm sorry, I don't know what that means :-(");
+                }
+            } catch (DukeException exception) {
+                program.printMessage(exception.getMessage());
+            } catch (NumberFormatException exception) {
+                program.printMessage("Error: Task number must be an integer.\n(example: mark 1)");
             }
-        }
+        } while (!program.exit);
+    }
+
+    private void setExit() {
+        this.exit = true;
     }
 
     private void renderLine() {
@@ -153,7 +109,114 @@ public class Duke {
         renderLine();
     }
 
+    private void exit() {
+        printMessage("Bye. Hope to see you again soon!");
+        setExit();
+        System.exit(0);
+    }
+
     private boolean isInvalidTaskNumber(int taskNumber) {
         return (taskNumber <= 0) || (taskNumber > taskCount);
+    }
+
+    private void markTask(int taskNumber) throws DukeException {
+        if (isInvalidTaskNumber(taskNumber)) {
+            throw new DukeException("The task number you've entered is out of the valid range.");
+        } else if (tasks[taskNumber - 1].isDone()) {
+            throw new DukeException("The task number you've entered is already marked as complete.");
+        } else {
+            tasks[taskNumber - 1].markAsDone();
+            printMessage(
+                String.format("Nice! I've marked this task as done:\n %s", tasks[taskNumber - 1].toString())
+            );
+        }
+    }
+
+    private void unmarkTask(int taskNumber) throws DukeException {
+        if (isInvalidTaskNumber(taskNumber)) {
+            throw new DukeException("The task number you've entered is out of the valid range.");
+        } else if (!tasks[taskNumber - 1].isDone()) {
+            throw new DukeException("The task number you've entered is already unmarked.");
+        } else {
+            tasks[taskNumber - 1].markAsNotDone();
+            printMessage(
+                String.format("OK, I've marked this task as not done yet:\n %s", tasks[taskNumber - 1].toString())
+            );
+        }
+    }
+
+    private String[] getEventParams(String[] tokens) throws DukeException {
+        String commands = tokens[1];
+
+        // Ensure that "/from" comes before "/to"
+        if (
+            !commands.contains("/from") || !commands.contains("/to")
+            || commands.indexOf("/from") > commands.indexOf("/to")
+        ) {
+            throw new DukeException(
+                "Invalid event format!\n" +
+                "Correct usage: event <description> /from <start> /to <end>"
+            );
+        }
+
+        // Split by /from or /to
+        return commands.split("\\s+/\\w+");
+    }
+
+    private void addDeadline(String[] tokens) throws DukeException {
+        if (tokens.length < 2) {
+            throw new DukeException(
+                "The description of a deadline cannot be empty.\n" +
+                "Correct usage: deadline <description> /by <date>"
+            );
+        }
+
+        // Ensure that "/by" exists in the command
+        if (!tokens[1].contains("/by")) {
+            throw new DukeException(
+                "Invalid deadline format!\n" +
+                "Correct usage: deadline <description> /by <date>"
+            );
+        }
+
+        // Split by "by"
+        String[] deadlineParams = tokens[1].split("/by");
+
+        // Deadline attributes
+        String deadlineDescription = deadlineParams[0].trim();
+        String by = deadlineParams[1].trim();
+
+        // Add deadline to tasks
+        addTask(new Deadline(deadlineDescription, by));
+    }
+
+    private void addEvent(String[] tokens) throws DukeException {
+        if (tokens.length < 2) {
+            throw new DukeException(
+                "The description of an event cannot be empty.\n" +
+                "Correct usage: event <description> /from <start> /to <end>"
+            );
+        }
+
+        String[] eventParams = getEventParams(tokens);
+
+        // Event attributes
+        String eventDescription = eventParams[0].trim();
+        String from = eventParams[1].trim();
+        String to = eventParams[2].trim();
+
+        // Add event to tasks
+        addTask(new Event(eventDescription, from, to));
+    }
+
+    private void addToDo(String[] tokens) throws DukeException {
+        if (tokens.length < 2) {
+            throw new DukeException(
+                "The description of a todo cannot be empty.\n" +
+                "Correct usage: todo <description>"
+            );
+        } else {
+            addTask(new ToDo(tokens[1]));
+        }
     }
 }
