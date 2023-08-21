@@ -1,13 +1,22 @@
+/**
+ * A Task is an object with a name and toggleable status
+ */
 public class Task {
-    protected String description;
+    /**
+     * Name of task
+     */
+    protected String name;
+    /**
+     * Whether the task is done
+     */
     protected boolean isDone;
 
     /**
      * Constructs a new Task with description
-     * @param description Name of task
+     * @param name Name of task
      */
-    public Task(String description) {
-        this.description = description;
+    public Task(String name) {
+        this.name = name;
         this.isDone = false;
     }
 
@@ -23,29 +32,29 @@ public class Task {
      * Returns task's name
      * @return The name of the task
      */
-    public String getDescription() {
-        return this.description;
+    public String getName() {
+        return this.name;
     }
 
     /**
      * Marks task as done
      */
-    public void checkTask() {
+    public void markAsDone() {
         this.isDone = true;
     }
 
     /**
      * Marks task as not done
      */
-    public void uncheckTask() {
+    public void markAsNotDone() {
         this.isDone = false;
     }
 
     /**
-     * String representation of task
+     * Returns string representation of task
      * @return String representation of task containing task status and task description
      */
     public String toString() {
-        return String.format("[%s] %s\n", this.getStatusIcon(), this.getDescription());
+        return String.format("[%s] %s", this.getStatusIcon(), this.getName());
     }
 }
