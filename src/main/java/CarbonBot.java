@@ -94,6 +94,9 @@ public class CarbonBot {
 
                         addTask(taskList, new Event(desc, from, to));
                         break;
+                    case "delete":
+                        deleteTask(taskList, input);
+                        break;
                     case "mark":
                         updateTaskStatus(taskList, input, true);
                         break;
@@ -109,6 +112,29 @@ public class CarbonBot {
                 System.out.println(ex.getMessage());
             }
             System.out.println(DIVIDER);
+        }
+    }
+
+    private static void deleteTask(List<Task> tasks, String input) throws DukeException {
+        // Validates if the user has specified the index to be updated
+        if (input.split(" ").length < 2) {
+            throw new DukeException("No index was provided. Please enter the task index to be updated.");
+        }
+
+        // -1, due to 0-indexing of the List
+        try {
+            int taskIdx = Integer.parseInt(input.split(" ")[1]) - 1;
+            if (taskIdx < 0 || taskIdx >= tasks.size()) {
+                throw new DukeException("Index provided was out-of-bounds. Use the index number" +
+                        " labelled for the task in the command 'list'!");
+            }
+            Task task = tasks.get(taskIdx);
+            tasks.remove(task);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(task);
+            System.out.println(getListSize(tasks));
+        } catch (NumberFormatException nfe) {
+            throw new DukeException("Please provide a valid integer for the index.");
         }
     }
 
