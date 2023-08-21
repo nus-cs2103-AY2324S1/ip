@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Set;
 
 public class Ren {
     public static void main(String[] args) {
@@ -6,6 +7,9 @@ public class Ren {
         String EXIT_COMMAND = "bye";
         String MARK_COMMAND = "mark";
         String UNMARK_COMMAND = "unmark";
+        Set<String> TASK_TYPES = Set.of(
+                "todo", "deadline", "event"
+        );
         TaskList tasks = new TaskList();
 
         Scanner input = new Scanner(System.in);
@@ -31,12 +35,13 @@ public class Ren {
                                 commandArr[0].equals(MARK_COMMAND) ? "done" : "undone",
                                 task) +
                         "____________________________________________________________\n");
-            } else {
+            } else if (TASK_TYPES.contains(commandArr[0])) {
 
-                tasks.addTask(inputStr);
-
+                Task task = tasks.addTask(commandArr);
+                
                 System.out.println("____________________________________________________________\n" +
-                        String.format("Added %s\n", inputStr) +
+                        String.format("Added %s\n", task) +
+                        tasks.declareNumOfTasks() +
                         "____________________________________________________________\n");
             }
 
