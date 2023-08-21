@@ -7,7 +7,9 @@ public class Duke {
         String temp[] = input.split(" ");
         Task task;
         String category;
-        if (temp[0].equals("todo")) {
+        if (temp[0].equals("")) {
+            return;
+        } else if (temp[0].equals("todo")) {
             task = new Todo(input.substring(5));
             tasks.add(task);
         } else if (temp[0].equals("deadline")){
@@ -21,7 +23,7 @@ public class Duke {
                     input.substring(startSpacer + 6, endSpacer), input.substring(endSpacer + 4));
             tasks.add(task);
         }
-        System.out.println("Got it. I've added this task: \n" + task
+        System.out.println("Got it. I've added this task:\n" + task
                 + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
     private static void listTask() {
@@ -43,15 +45,15 @@ public class Duke {
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello! I'm BaekBot. \nWhat can I do for you?");
+        System.out.println("Hello! I'm BaekBot.\nWhat can I do for you?");
         while (true) {
             String echoInput = scanner.nextLine();
+            String temp[] = echoInput.split(" ");
             if (echoInput.equals("bye")) {
                 break;
             } else if (echoInput.equals("list")) {
                 listTask();
-            } else if (echoInput.substring(0, 4).equals("mark") || echoInput.substring(0, 6).equals("unmark")) {
-                String temp[] = echoInput.split(" ");
+            } else if (temp[0].equals("mark") || temp[0].equals("unmark")) {
                 modifyTask(temp[0], Integer.parseInt(temp[1]));
             } else {
                 addTask(echoInput);
