@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class URChatBot {
     public static void main(String[] args) {
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
         Scanner sc = new Scanner(System.in);
         String logo =
@@ -25,11 +25,22 @@ public class URChatBot {
                         System.out.println(i+1 + "." + tasks[i].toString());
                     }
                 }
-            } else {
-                tasks[taskCount] = command;
-                taskCount++;
-                System.out.println("added: " + command);
+            } else if (command.toUpperCase().startsWith("MARK")){
+                int value = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+                tasks[value - 1].markAsDone();
+                System.out.println("Nice! I've marked this task as done:\n" + tasks[value - 1].toString());
+
+            } else if (command.toUpperCase().startsWith("UNMARK")){
+                int value = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+                tasks[value - 1].markAsUnDone();
+                System.out.println("OK, I've marked this task as not done yet:\n" + tasks[value - 1].toString());}
+            else {
+                    Task newTask = new Task(command);
+                    tasks[taskCount] = newTask;
+                    taskCount++;
+                    System.out.println("added: " + command);
+                }
             }
-        }
+
     }
 }
