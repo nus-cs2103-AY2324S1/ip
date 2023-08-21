@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
         String logo = "    ___    _   ___   ________  __      ____      __________  ____  _   __\n"
                 + "   /   |  / | / / | / / __ \\ \\/ /     / __ \\    /_  __/ __ \\/ __ \\/ | / /\n"
@@ -39,10 +39,14 @@ public class Duke {
                 }
                 System.out.println(currentTask);
             } else {
-                Task newTask = getTask(userInput);
-                System.out.println("Got it. I've added this task:\n" + newTask);
-                list.add(newTask);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
+                try {
+                    Task newTask = getTask(userInput);
+                    System.out.println("Got it. I've added this task:\n" + newTask);
+                    list.add(newTask);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             }
             System.out.println(horizontalLine);
             userInput = myObj.nextLine();
@@ -51,8 +55,11 @@ public class Duke {
         System.out.println(byeMessage);
     }
 
-    private static Task getTask(String userInput) {
-        String afterSpace = userInput.substring(userInput.indexOf(' ') + 1);
+    private static Task getTask(String userInput) throws EmptyDescriptionException, InvalidArgumentException {
+        String afterSpace = userInput.substring(userInput.indexOf(' ') + 1).trim();
+        if (userInput.equals("todo")) {
+            throw new EmptyDescriptionException();
+        }
         if (userInput.startsWith("todo")) {
             return new Todo(afterSpace);
         } else if (userInput.startsWith("deadline")) {
@@ -67,7 +74,8 @@ public class Duke {
             String taskTo = afterSpace.substring(toIndex + 4).trim();
             String taskName = afterSpace.substring(0, fromIndex).trim();
             return new Event(taskName, taskFrom, taskTo);
+        } else {
+            throw new InvalidArgumentException();
         }
-        return null;
     }
 }
