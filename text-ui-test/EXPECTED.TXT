@@ -21,5 +21,15 @@ Bacon Pancake : Below are the lists
 2. [D][X]  Study (By monday)
 3. [E][ ]  Supernova (From :  Mon 2pm  To :  Tue 2pm)
 Enter your input :
+Noted. I've removed this task:
+
+[E][ ]  Supernova (From :  Mon 2pm  To :  Tue 2pm)
+Now you have 2 tasks left.
+Enter your input :
+Bacon Pancake : Below are the lists
+
+1. [T][ ] Poop
+2. [D][X]  Study (By monday)
+Enter your input :
 Bacon Pancake :
 Bye! See you again soon

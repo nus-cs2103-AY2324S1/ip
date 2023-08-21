@@ -1,11 +1,11 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String logo = "Bacon Pancake";
         System.out.println(" Hello from " + logo + "\n What can I do for you? \n" + "---------------------------------- \n");
-        Task[] lists = new Task[100];
-        int length = 0;
+        ArrayList<Task> lists = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         while(true) {
@@ -18,25 +18,41 @@ public class Duke {
             } else if (input.equals("list")) {
                 System.out.println("Bacon Pancake : Below are the lists\n");
                 int curr = 1;
-                for (int i = 0; i < length; i++) {
-                    if (lists[i] != null) {
-                        Task t = lists[i];
+                for (int i = 0; i < lists.size(); i++) {
+                    if (lists.get(i) != null) {
+                        Task t = lists.get(i);
                         System.out.println((curr++) + ". " + t.getStatus());
                     }
 
                 }
+            } else if (input.startsWith("delete ")) {
+                String[] s = input.split(" ");
+                try {
+                    Task now = lists.get(Integer.parseInt(s[1]) - 1);
+                    lists.remove(now);
+                    System.out.println("Noted. I've removed this task: \n");
+                    System.out.println(now);
+                    System.out.println("Now you have " + lists.size() + " tasks left.");
+                } catch(Exception e) {
+                    System.out.println("Something wrong with the given input");
+                }
             } else if(input.startsWith("mark ")) {
                 System.out.println("Bacon Pancake : Nice! I've marked this task as done:");
                 int current = Integer.parseInt(input.substring(5)) - 1;
-                if (lists[current] != null ) {
-                    System.out.println(lists[current].mark());
-                } else {
-                    System.out.println("Nothing to mark");
+                try {
+                    if (lists.get(current) != null ) {
+                        System.out.println(lists.get(current).mark());
+                    } else {
+                        System.out.println("Nothing to mark");
+                    }
+                } catch(Exception e) {
+                    System.out.println("Sorry there is no such task");
                 }
+
             } else {
                 try {
                     Task curr = new Task(input.substring(input.indexOf(" ")), input.substring(0, input.indexOf(" ")));
-                    lists[length++] = curr;
+                    lists.add(curr);
                     System.out.println("Bacon Pancake : \n Added : " + curr.description);
                 } catch(IllegalArgumentException e) {
                     System.out.println(e.getMessage());

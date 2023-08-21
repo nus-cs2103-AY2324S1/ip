@@ -3,4 +3,6 @@ deadline Study /By monday
 event Supernova /from Mon 2pm /to Tue 2pm
 mark 2
 list
+delete 3
+list
 bye

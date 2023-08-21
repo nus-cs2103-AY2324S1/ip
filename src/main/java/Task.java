@@ -7,7 +7,7 @@ public class Task {
         this.isDone = false;
         if (category.equals("todo")) {
             this.category = Type.T;
-            String[] s =description.split(" ", 1);
+            String[] s =description.split(" ", 2);
             try {
                 this.description = s[0] + s[1];
             } catch(Exception e) {
@@ -56,6 +56,11 @@ public class Task {
     public String mark() {
         this.isDone = true;
         return "["+ this.getStatusIcon() + "] " + this.description;
+    }
+
+    @Override
+    public String toString() {
+        return this.getStatus();
     }
 
 }
