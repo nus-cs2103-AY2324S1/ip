@@ -68,7 +68,7 @@ public class Rock {
         while (!isTerminated) {
             String userInput = scanner.nextLine();
             say(LINE_BREAK);
-            CommandHandler.handle(userInput);
+            CommandInvoker.handle(userInput);
         }
     }
 }
