@@ -4,7 +4,6 @@ import java.util.Scanner;
  * This is the Main class for the Duke program
  * @author Selwyn
  */
-
 public class Duke {
     /**
      * The name of the chatbot
@@ -40,23 +39,32 @@ public class Duke {
 
         // Creating scanner object to get user input
         Scanner scanner = new Scanner(System.in);
-        String response;
+        String command;
 
         greet();
 
         // Getting user input and performing relevant actions
         while(getInput) {
-            response = scanner.nextLine();
-            if (response.equals("bye")) {
+            command = scanner.nextLine();
+            String[] parsedCommand = command.split(" ", 2);
+
+            if (command.equals("bye")) {
                 getInput = false;
                 break;
             }
 
             System.out.println(SPACER);
-            if (response.equals("list")) {
+            if (command.equals("list")) {
                 taskList.displayTasks();
+            } else if (parsedCommand[0].equals("mark") || parsedCommand[0].equals("unmark")) {
+                int taskNumber = Integer.parseInt(parsedCommand [1]);
+                if (parsedCommand[0].equals("mark")) {
+                    taskList.markTaskDone(taskNumber);
+                } else {
+                    taskList.markTaskUndone(taskNumber);
+                }
             } else {
-                taskList.addTask(response);
+                taskList.addTask(command);
             }
             System.out.println(SPACER);
             System.out.println();
