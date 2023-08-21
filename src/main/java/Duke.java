@@ -76,6 +76,14 @@ public class Duke {
                         + "☹ OOPS!!! The event needs to have a task description, /from and /to.\n"
                         + H_LINE);
             }
+        } else if (input.contains("delete")) {
+            int a = Integer.parseInt(input.substring(7));
+            Task toBeRemoved = taskManager.getTask(a-1);
+            taskManager.deleteTask(a-1);
+            System.out.println(H_LINE
+                                + "Noted. I've removed this task:\n"
+                                + toBeRemoved + "\n"
+                                +"Now you have " + taskManager.getSize() + ((taskManager.getSize() > 1) ? " tasks " : " task ") + "in the list.");
         } else {
             throw new InvalidUserInputException();
         }
