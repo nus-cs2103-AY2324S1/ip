@@ -48,6 +48,22 @@ public class Duke {
         System.out.println(addMsg);
     }
 
+    static void deleteTask(int taskNum) throws IndexOutOfBoundsException {
+        try {
+            Task deleted = taskList.remove(taskNum - 1);
+            String msg = "_________________________________________________\n"
+                    + " Noted. I've removed this task:\n"
+                    + String.format("\t%s\n", deleted)
+                    + String.format("Now you have %d tasks in the list.\n", taskList.size())
+                    + "_________________________________________________\n";
+            System.out.println(msg);
+        } catch (IndexOutOfBoundsException ex) {
+            System.err.println("_________________________________________________\n"
+            + String.format(" Task %d does not exist!\n", taskNum)
+            + "_________________________________________________\n");
+        }
+    }
+
     static void list() {
         System.out.println(" Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
@@ -95,6 +111,8 @@ public class Duke {
                     mark(inputScanner.nextInt());
                 } else if (command.equals("unmark")) {
                     unmark(inputScanner.nextInt());
+                } else if (command.equals("delete")) {
+                    deleteTask(inputScanner.nextInt());
                 } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
                     String task = inputScanner.nextLine();
                     try {
