@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+/**
+ * This is the Main class for the Duke program
+ * @author Selwyn
+ */
+
 public class Duke {
     /**
      * The name of the chatbot
@@ -17,6 +22,11 @@ public class Duke {
     private static boolean getInput = true;
 
     /**
+     * This is the TaskList object for the whole program
+     */
+    private static TaskList taskList = new TaskList();
+
+    /**
      * This is the main method to run the program
      * @param args
      */
@@ -27,19 +37,29 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        greet();
 
         // Creating scanner object to get user input
         Scanner scanner = new Scanner(System.in);
-        String response = scanner.nextLine();
+        String response;
 
+        greet();
+
+        // Getting user input and performing relevant actions
         while(getInput) {
+            response = scanner.nextLine();
             if (response.equals("bye")) {
                 getInput = false;
-            } else {
-                echo(response);
-                response = scanner.nextLine();
+                break;
             }
+
+            System.out.println(SPACER);
+            if (response.equals("list")) {
+                taskList.displayTasks();
+            } else {
+                taskList.addTask(response);
+            }
+            System.out.println(SPACER);
+            System.out.println();
         }
 
         bye();
@@ -53,16 +73,7 @@ public class Duke {
         System.out.println("Hello! I'm " + NAME);
         System.out.println("What can I do for you?");
         System.out.println(SPACER);
-    }
-
-    /**
-     * This method causes program to echo the user's input
-     * @param userInput
-     */
-    private static void echo(String userInput) {
-        System.out.println(SPACER);
-        System.out.println(userInput);
-        System.out.println(SPACER);
+        System.out.println();
     }
 
     /**
@@ -72,5 +83,6 @@ public class Duke {
         System.out.println(SPACER);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(SPACER);
+        System.out.println();
     }
 }
