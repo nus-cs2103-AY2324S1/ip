@@ -14,8 +14,8 @@ public class Duke {
         Scanner scanIn = new Scanner(System.in);
 
         println();
-        System.out.println("Hello I'm " + getName());
-        System.out.println("What can I do for you?");
+        System.out.println("Hello I'm " + getName() + ", your personal assistant.");
+        System.out.println("What can I do for you today, sir?");
         println();
 
 
@@ -27,7 +27,7 @@ public class Duke {
                 case "bye":
 
                     println();
-                    System.out.println("Bye. Hope to see you again soon!");
+                    System.out.println("Goodbye. Hope to be of service again soon!");
                     println();
                     break;
 
