@@ -10,4 +10,9 @@ public class Deadline extends Task{
         this.tag = Tag.D;
 
     }
+
+    @Override
+    public String toString(){
+        return String.format("%s (by: %s)",description,deadline);
+    }
 }

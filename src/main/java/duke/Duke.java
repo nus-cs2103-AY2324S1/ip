@@ -103,6 +103,19 @@ public class Duke {
                 System.out.println("Noted Sir. I've added this task to your list: ");
                 System.out.println(String.format("\t [%s] [%s] %s",todo.tag,todo.getStatusIcon(),todo.toString()));
                 System.out.println(String.format("As of now, you have %d tasks on the agenda.",getCounter()));
+                println();
+            } else if (text.length() > 7 && text.substring(0,8).equals("deadline")){
+                String[] splitText = text.split("/");
+                String description = splitText[0].substring(9);
+                String deadline = splitText[1].substring(3);
+                Deadline dl = new Deadline(description,deadline);
+                setList(dl);
+                incrementCounter();
+                println();
+                System.out.println("Noted Sir. I've added this task to your list: ");
+                System.out.println(String.format("\t [%s] [%s] %s",dl.tag,dl.getStatusIcon(),dl.toString()));
+                System.out.println(String.format("As of now, you have %d tasks on the agenda.",getCounter()));
+                println();
             }
 
 //             else {
