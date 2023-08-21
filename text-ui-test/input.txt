@@ -29,4 +29,6 @@ event task /by with wrong argument /to to
 event task /from without from and to but uses /by
 delete 1
 list
+mark 10
+mark 1 2
 bye
