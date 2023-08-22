@@ -3,6 +3,12 @@ Hello! I'm DukeKing
 What can I do for you?
 ________________________________________
 ________________________________________
+OOPS!!! I'm sorry, but I don't know what that means :-C
+________________________________________
+________________________________________
+OOPS!!! The description of a todo cannot be empty.
+________________________________________
+________________________________________
 Got it. I've added this task:
   [T][ ] read book
 Now you have 1 tasks in the list.
