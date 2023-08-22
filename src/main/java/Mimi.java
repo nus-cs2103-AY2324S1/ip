@@ -1,11 +1,8 @@
 import java.util.Scanner;
 public class Mimi {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+
+        Storage PreviousCommands = new Storage();
 
         String LINE = "_________________________________________________\n";
 
@@ -28,7 +25,15 @@ public class Mimi {
                 break;
             }
 
-            System.out.println(command + "\n" + LINE);
+            if (input.isList()) {
+                PreviousCommands.listItems();
+                System.out.println(LINE);
+                continue;
+            }
+
+            PreviousCommands.add(input);
+
+            System.out.println(LINE);
         }
     }
 }
