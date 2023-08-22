@@ -11,18 +11,22 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public String markAsDone() {
-        this.isDone = true;
-        return this.toString();
-    }
-
-    public String markAsNotDone() {
-        this.isDone = false;
+    public String mark(boolean status) {
+        this.isDone = status;
         return this.toString();
     }
 
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Task) {
+            Task task = (Task) o;
+            return this.description.equals(task.description) && this.isDone == task.isDone;
+        }
+        return false;
     }
 }

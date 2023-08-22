@@ -13,4 +13,13 @@ public class Event extends Task{
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Event) {
+            Event event = (Event) o;
+            return super.equals(event) && this.from.equals(event.from) && this.to.equals(event.to);
+        }
+        return false;
+    }
 }

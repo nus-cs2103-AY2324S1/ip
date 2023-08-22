@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 public class Duke {
 
@@ -16,9 +19,7 @@ public class Duke {
             "                      \\/_/    \\_________\\/             \\/_/";
     private static final String NAME = "404";
     private static final String INDENT = "     ";
-    private static final int STORE_SIZE = 100;
-    private Task[] tasks = new Task[STORE_SIZE];
-    private int task_pointer = 0;
+    private List<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Duke robot404 = new Duke();
@@ -65,13 +66,31 @@ public class Duke {
 
             case "mark":
             case "unmark":
+            case "delete":
+                if (commands[1].equals("all")) {
+                    if (tasks.isEmpty()) {
+                        String message = String.format("%sOOPS!!! There are no tasks to %s.", INDENT, commands[0]);
+                        throw new DukeException(message);
+                    }
+                    if (commands[0].equals("delete")) {
+                        tasks.clear();
+                    } else {
+                        tasks.forEach(t -> t.mark(commands[0].equals("mark")));
+                    }
+                    System.out.printf("%sNoted. I will %s all tasks.%n", INDENT, commands[0]);
+                    break;
+                }
                 int task_num = Integer.parseInt(commands[1]);
-                if (task_num > task_pointer || task_num < 1) {
+                if (task_num > tasks.size() || task_num < 1) {
                     String message = String.format("%sOOPS!!! There is no task %d to %s", INDENT, task_num, commands[0]);
                     listTask();
                     throw new DukeException(message);
                 }
-                markTask(task_num - 1, commands[0].equals("mark"));
+                if (commands[0].equals("delete")) {
+                    deleteTask(task_num - 1);
+                } else {
+                    markTask(task_num - 1, commands[0].equals("mark"));
+                }
                 break;
 
             case "todo":
@@ -116,7 +135,8 @@ public class Duke {
 
                 case "mark":
                 case "unmark":
-                    throw new MarkException(message);
+                case "delete":
+                    throw new ManipulateException(message, commands[0]);
 
                 default:
                     throw new DukeException(unknownMessage);
@@ -132,7 +152,7 @@ public class Duke {
                 }
             case "list":
                 String errMessage = String.format("%sOOPS!!! The command for %s is invalid.\n" +
-                        "%sPlease enter in the form: %s", INDENT, commands[0], INDENT, commands[0]);
+                        "%sEnter in the form: \"%s\"", INDENT, commands[0], INDENT, commands[0]);
                 throw new DukeException(errMessage);
 
             case "todo":
@@ -141,11 +161,14 @@ public class Duke {
 
             case "mark":
             case "unmark":
+            case "delete":
                 try {
-                    Integer.parseInt(temp);
+                    if (!temp.equals("all")) {
+                        Integer.parseInt(temp);
+                    }
                     commands[1] = temp;
                 } catch (NumberFormatException e) {
-                    throw new MarkException(message);
+                    throw new ManipulateException(message, commands[0]);
                 }
                 break;
 
@@ -184,30 +207,23 @@ public class Duke {
     }
 
     private void addTask(Task task) {
-        tasks[task_pointer] = task;
-        task_pointer++;
+        tasks.add(task);
         System.out.printf("%sGot it. I've added this task:%n" +
                           "%s  %s%n" +
                           "%sNow you have %d tasks in the list.%n",
-                          INDENT, INDENT, task, INDENT, task_pointer);
+                          INDENT, INDENT, task, INDENT, tasks.size());
     }
 
     private void listTask() {
-        if (task_pointer == 0) {
+        if (tasks.isEmpty()) {
             System.out.printf("%sOOPS!!! There is nothing in the list, yet!%n", INDENT);
             return;
         } else {
             System.out.printf("%sHere are the tasks in your list:%n", INDENT);
         }
-
-        for (int i = 0; i < task_pointer; i++) {
-            if (tasks[i] == null) {
-                break;
-            } else {
-                String out = String.format("%s%d.%s", INDENT, i + 1, tasks[i]);
-                System.out.println(out);
-            }
-        }
+        IntStream.range(0, tasks.size())
+                 .forEach(i ->
+                         System.out.printf("%s%d.%s%n", INDENT, i + 1, tasks.get(i)));
     }
 
     private void markTask(int index, boolean mark) {
@@ -215,11 +231,19 @@ public class Duke {
         String message;
         if (mark) {
             message = "Nice! I've marked this task as done:";
-            task = tasks[index].markAsDone();
+            task = tasks.get(index).mark(true);
         } else {
             message = "OK, I've marked this task as not done yet:";
-            task = tasks[index].markAsNotDone();
+            task = tasks.get(index).mark(false);
         }
         System.out.printf("%s%s%n%s  %s%n", INDENT, message, INDENT, task);
+    }
+
+    private void deleteTask(int index) {
+        Task removedTask = tasks.remove(index);
+        System.out.printf("%sNoted. I've removed this task:%n" +
+                          "%s  %s%n" +
+                          "%sNow you have %d tasks in the list.%n",
+                INDENT, INDENT, removedTask, INDENT, tasks.size());
     }
 }

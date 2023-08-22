@@ -8,4 +8,12 @@ public class Todo extends Task{
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Task) {
+            return super.equals(o);
+        }
+        return false;
+    }
 }
