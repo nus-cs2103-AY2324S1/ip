@@ -16,7 +16,7 @@ public class Duke {
                     if (taskIndex >= 0 && taskIndex< taskList.size()) {
                         Task task = taskList.get(taskIndex);
                         task.markAsDone();
-                        System.out.println("Nice! I've marked this task as done:\n " + task.toString());
+                        System.out.println("Nice! I've marked this task as done:\n " + task);
                     } else {
                         System.out.println("Invalid task index.");
                     }
@@ -28,7 +28,7 @@ public class Duke {
                     if (taskIndex >= 0 && taskIndex< taskList.size()) {
                         Task task = taskList.get(taskIndex);
                         task.markAsUndone();
-                        System.out.println("OK, I've marked this task as not done yet:\n " + task.toString());
+                        System.out.println("OK, I've marked this task as not done yet:\n " + task);
                     } else {
                         System.out.println("Invalid task index.");
                     }
@@ -45,12 +45,31 @@ public class Duke {
             } else if (userInput.equals("bye")) {
                 break;
             } else {
-                Task newTask = new Task(userInput);
+                Task newTask = createNewTask(userInput);
+
                 taskList.add(newTask);
-                System.out.println("added: " + userInput);
+                System.out.println("Got it. I've added this task:\n " + newTask
+                    + "\nNow you have " + taskList.size() +" tasks in the list.");
             }
         }
 
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    private static Task createNewTask(String userInput) {
+        Task newTask;
+        //Remove first word
+        String[] arr = userInput.split(" ", 2);
+        if (arr[0].equals("todo")) {
+            newTask = new ToDo(arr[1]);
+        } else if (arr[0].equals("deadline")) {
+            String[] a = arr[1].split(" /by ");
+            newTask = new Deadline(a[0], a[1]);
+        } else {
+            String[] a = arr[1].split(" /from ");
+            String[] fromto = a[1].split("/to ");
+            newTask = new Event(a[0], fromto[0], fromto[1]);
+        }
+        return newTask;
     }
 }
