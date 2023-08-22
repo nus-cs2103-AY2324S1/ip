@@ -15,17 +15,29 @@ public class Task {
     }
 
     /** The method to mark the state of this task as done
+     *  If the task has already been marked, throw an exception
      */
-    public void mark() {
-        this.state = true;
-        System.out.println(this + "\n");
+    public void mark() throws DukeException{
+        if (state) {
+            throw new DukeException("☹ OOPS!!! This task has already be marked!\n");
+        }else {
+            System.out.println("Nice! I've marked this task as done:");
+            this.state = true;
+            System.out.println(this + "\n");
+        }
     }
 
     /** The method to unmark the state of this task as not done
+     * If the task has not been marked yet, throw an exception
      */
-    public void unmark() {
-        this.state = false;
-        System.out.println(this + "\n");
+    public void unmark() throws DukeException{
+        if (!state) {
+            throw new DukeException("☹ OOPS!!! This task hasn't be marked yet!\n");
+        }else {
+            System.out.println("OK, I've marked this task as not done yet:");
+            this.state = false;
+            System.out.println(this + "\n");
+        }
     }
 
     /** A private method to show out the state of this task
