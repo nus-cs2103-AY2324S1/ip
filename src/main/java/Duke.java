@@ -2,24 +2,74 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
+/**
+ * Duke is a chat bot that allows users to add, delete, mark, view tasks.
+ */
 public class Duke {
 
+    /** State of bot Duke. */
     private boolean active = true;
+
+    /** List of tasks stored. */
     private List<Task> list = new ArrayList<>();
 
+    /** Duke greets the user. */
     private void greet() {
         System.out.println("Hello! I'm Aikent\n" + "What can I do for you?");
     }
 
+    /** Duke says goodbye to users. */
     private void exit() {
         active = false;
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /** Prints out the list of tasks stored. */
+    private void list() {
+        System.out.println("Here are the tasks in your list:");
+        for (int index = 0; index < this.list.size(); index++) {
+            Task item = this.list.get(index);
+            System.out.println((index + 1) + ". " + item.toString());
+        }
+    }
+
+    /** Marks the task input by users .
+     *
+     * @param index Index of task to be marked.
+     * */
+    private void mark(int index) {
+        try {
+            this.list.get(index).markAsDone();
+            System.out.println(this.list.get(index).toString());
+        } catch (IndexOutOfBoundsException error) {
+            throw new IllegalArgumentException("OOPS!!! I could not find any task in that position.");
+        }
+    }
+
+    /**
+     * Unmarks the task input by user.
+     *
+     * @param index Index of task to be unmarked.
+     */
+    private void unmark(int index) {
+        try {
+            this.list.get(index).markAsUndone();
+            System.out.println(this.list.get(index).toString());
+        } catch (IndexOutOfBoundsException error) {
+            throw new IllegalArgumentException("OOPS!!! I could not find any task in that position.");
+        }
+    }
+
+    /** Displays how many task are stored in the list currently. */
     private void printListSize() {
         System.out.println("Now you have " + this.list.size() + " tasks in the list.");
     }
 
+    /**
+     * Display what Duke will response to a given command by the user.
+     *
+     * @param msg The input command by the user.
+     */
     private void respond(String msg) {
         String[] input = msg.split(" ", 2);
         String command = input[0];
@@ -29,36 +79,22 @@ public class Duke {
                 exit();
                 break;
             case "list":
-                System.out.println("Here are the tasks in your list:");
-                for (int index = 0; index < this.list.size(); index++) {
-                    Task item = this.list.get(index);
-                    System.out.println((index + 1) + ". " + item.toString());
-                }
+                list();
                 break;
             case "mark":
                 if (specifications.isEmpty()) {
                     throw new IllegalArgumentException("Please indicate task number.");
                 }
-                try {
-                    int index = Integer.parseInt(specifications) - 1;
-                    this.list.get(index).markAsDone();
-                    System.out.println(this.list.get(index).toString());
-                    break;
-                } catch (IndexOutOfBoundsException error) {
-                    throw new IllegalArgumentException("OOPS!!! I could not find any task in that position.");
-                }
+                int index = Integer.parseInt(specifications) - 1;
+                mark(index);
+                break;
             case "unmark":
                 if (specifications.isEmpty()) {
                     throw new IllegalArgumentException("Please indicate task number.");
                 }
-                try {
-                    int i = Integer.parseInt(specifications) - 1;
-                    this.list.get(i).markAsUndone();
-                    System.out.println(this.list.get(i).toString());
-                    break;
-                } catch (IndexOutOfBoundsException error) {
-                    throw new IllegalArgumentException("OOPS!!! I could not find any task in that position.");
-                }
+                int i = Integer.parseInt(specifications) - 1;
+                unmark(i);
+                break;
             case "todo":
                 if (specifications.isEmpty()) {
                     throw new IllegalArgumentException("OOPS!!! The description of a todo cannot be empty.");
