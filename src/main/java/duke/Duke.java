@@ -53,7 +53,7 @@ public class Duke {
 
             if (text.length() > 3 && text.substring(0,4).equals("list")) {
                 println();
-                System.out.println();
+
                 for (int i = 0; i < listLength(); i++) {
                     if (listOutput(i) == null) {
                         break;
@@ -71,7 +71,7 @@ public class Duke {
                 listOutput(numToUnmark).markAsIncomplete();
                 println();
                 System.out.println("Alright! I'll uncheck this task for you: ");
-                System.out.println(String.format("\t [%s] %s",listOutput(numToUnmark).getStatusIcon(), listOutput(numToUnmark)));
+                System.out.println(String.format("\t [%s] [%s] %s",listOutput(numToUnmark).tag, listOutput(numToUnmark).getStatusIcon(), listOutput(numToUnmark)));
                 println();
 
                 continue;
@@ -83,7 +83,7 @@ public class Duke {
                 listOutput(numToMark).markAsComplete();
                 println();
                 System.out.println("Alright! I'll check this task as complete for you: ");
-                System.out.println(String.format("\t [%s] %s",listOutput(numToMark).getStatusIcon(), listOutput(numToMark)));
+                System.out.println(String.format("\t [%s] [%s] %s",listOutput(numToMark).tag, listOutput(numToMark).getStatusIcon(), listOutput(numToMark)));
                 println();
 
                 continue;
@@ -109,7 +109,7 @@ public class Duke {
             } else if (text.length() > 7 && text.substring(0,8).equals("deadline")){
                 String[] splitText = text.split("/");
                 String description = splitText[0].substring(9);
-                String deadline = splitText[1].substring(3);
+                String deadline = splitText[1].trim().substring(3);
                 Deadline dl = new Deadline(description,deadline);
                 setList(dl);
                 incrementCounter();
@@ -121,8 +121,8 @@ public class Duke {
             } else if (text.length() > 4 && text.substring(0,5).equals("event")){
                 String[] splitText = text.split("/");
                 String description = splitText[0].substring(6);
-                String start = splitText[1].substring(5);
-                String end = splitText[2].substring(3);
+                String start = splitText[1].trim().substring(5);
+                String end = splitText[2].trim().substring(3);
                 Event event = new Event(description,start,end);
                 setList(event);
                 incrementCounter();
