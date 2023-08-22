@@ -29,8 +29,6 @@ public class Emiya {
             String input = myScannerObj.nextLine();
             // handles numbering for the list
             int listPointer = 1;
-//            Pattern regexPattern = Pattern.compile("(\\D+)(.*)");
-//            Matcher regexMatcher = regexPattern.matcher(input);
             String[] partsOfInput = input.split("\\s+",2);
 
             if (input.equals("bye")) {
@@ -71,8 +69,6 @@ public class Emiya {
             }
 
             if (partsOfInput != null) {
-//                String typeOfTask = regexMatcher.group(1).trim();
-//                String taskDetails = regexMatcher.group(2).trim();
                 String typeOfTask = partsOfInput[0];
                 String taskDetails = partsOfInput[1];
                 Integer position = null;
@@ -104,23 +100,6 @@ public class Emiya {
                             break;
                         }
                         // if not a specific unmark typeOfTask, continue
-//                    case "list": // shift list out into its own thing for input
-//                        StringBuilder listString = new StringBuilder("-----------------------------------------\n" +
-//                                "Here are the tasks in your list:\n");
-//                        for (Task task: taskArray) {
-//                            if (task == null) {
-//                                if (listPointer == 1) {
-//                                    listString.append("The list is empty! Add items to the list!\n");
-//                                }
-//                                break;
-//                            }
-//                            String listItem = listPointer + "." + task + "\n";
-//                            listPointer++;
-//                            listString.append(listItem);
-//                        }
-//                        listString.append("-----------------------------------------\n");
-//                        System.out.println(listString);
-//                        break;
                     case "todo":
                         // need to be able to go through the rest of the string and add it inside
                         taskArray[arrayPointer] = new ToDo(taskDetails);
@@ -153,11 +132,10 @@ public class Emiya {
                         System.out.println(eventOutputMessage);
                         break;
                     default:
-//                        String outputMessage = "-----------------------------------------\n" +
-//                                "Sure! I have added this task to the list:\n" + taskArray[arrayPointer-1] +"\n"
-//                                +"Now you have " + arrayPointer + " tasks in your list!\n"
-//                                +"-----------------------------------------\n";
-//                        System.out.println(outputMessage);
+                        String errorMessage = "-----------------------------------------\n" +
+                                "Unknown command given! Please input command again!\n"
+                                +"-----------------------------------------\n";;
+                        System.out.println(errorMessage);
                 }
 
             }
