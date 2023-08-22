@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -11,7 +12,7 @@ public class Duke {
                             "\t░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░░░╚═╝░░░░░░╚═╝░░░\n";
     private final String GREETING = "\tHello! I'm Chatty.\n\tWhat can I do for you?";
     private final String FAREWELL = "\tBye. Have \"fun\" in school!";
-    private Task[] taskList = new Task[100];
+    private ArrayList<Task> taskList = new ArrayList<Task>();
     // private String[] taskList = new String[100];
     // private boolean[] taskListCompletion = new boolean[100];
     private int taskListSize = 0;
@@ -104,8 +105,8 @@ public class Duke {
     }
 
     private void addToTaskList(Task task) {
-        if (taskListSize < taskList.length) {
-            taskList[taskListSize] = task;
+        if (taskListSize < 100) {
+            taskList.add(task);
             taskListSize++;
         } else {
             System.out.println("Error: List is full.");
@@ -124,18 +125,19 @@ public class Duke {
         if (inputString.equals("list")) {
             System.out.println("\tHere are the tasks in your list:");
             for (int i = 0; i < taskListSize; i++) {
-                System.out.println("\t" + (i + 1) + ". " + taskList[i]);
+                System.out.println("\t" + (i + 1) + ". " + taskList.get(i));
             }
         } else if (inputString.startsWith("mark")) {
             int taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
-            taskList[taskIndex].markAsDone();
+            // taskList.get(taskIndex).markAsDone();
+            taskList.get(taskIndex).markAsDone();
             System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t\t" + taskList[taskIndex]);
+            System.out.println("\t\t" + taskList.get(taskIndex));
         } else if (inputString.startsWith("unmark")) {
             int taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
-            taskList[taskIndex].unmarkAsDone();
+            taskList.get(taskIndex).unmarkAsDone();
             System.out.println("\tOK, I've marked this task as not done yet:");
-            System.out.println("\t\t" + taskList[taskIndex]);
+            System.out.println("\t\t" + taskList.get(taskIndex));
         // there are only 3 types of tasks.
         // need override toString() method for each task type.
         } else if (inputString.startsWith("todo")) {
@@ -168,8 +170,18 @@ public class Duke {
             } catch (StringIndexOutOfBoundsException e) {
                 System.out.println("\t☹ OOPS!!! The description of an event cannot be empty.");
             }
+        } else if (inputString.startsWith("delete")) {
+            String indexToDelete = inputString.split(" ")[1];
+            int taskIndexToDelete = Integer.parseInt(indexToDelete) - 1;
+            System.out.println("\tNoted. I've removed task " + indexToDelete + ":");
+            System.out.println("\t\t" + taskList.get(taskIndexToDelete));
+            // have to place here before it's removed for the output to be correct
+            taskList.remove(taskIndexToDelete);
+            taskListSize--;
+            String taskWord = taskListSize == 1 ? "task" : "tasks";
+            System.out.println("\tNow you have " + taskListSize + " " + taskWord + " in your list.");
         } else {
-            System.out.println("\tI'm not quite sure what that means. Try again using either mark, unmark, todo, deadline, event, or bye.");
+            System.out.println("\tI'm not quite sure what that means. Try again using either mark <index>, unmark <index>, todo <task>, deadline <task /by ..>, event <task /from .. /to ..>, or bye.");
         }
         System.out.println(DIVIDER);
     }
@@ -178,7 +190,7 @@ public class Duke {
         addToTaskList(newTask);
         System.out.println("\tGot it. I've added this task:");
         // can use -1 because we just added it
-        System.out.println("\t\t" + taskList[taskListSize - 1]);
+        System.out.println("\t\t" + taskList.get(taskListSize - 1));
         String taskWord = taskListSize == 1 ? "task" : "tasks";
         System.out.println("\tNow you have " + taskListSize + " " + taskWord + " in your list.");
     }
