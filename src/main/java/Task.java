@@ -15,7 +15,8 @@ public class Task {
         this.complete = false;
     }
 
-    public String printTask() {
+    @Override
+    public String toString() {
         return complete ? "[X] " + name : "[ ] " + name;
     }
 }

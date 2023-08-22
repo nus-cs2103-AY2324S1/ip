@@ -15,13 +15,10 @@ public class Main {
             } else {
                 System.out.println(chatBot.sendMessage(keyWord, details));
                 String userInput = scanner.nextLine();
-                String[] parts = userInput.split(" ");
+                String[] parts = userInput.split(" ", 2);
                 keyWord = parts[0];
-                details = "";
-
-                for (int i = 1; i < parts.length; i++) {
-                    details += parts[i];
-                    if (i + 1 < parts.length) details += " ";
+                if (parts.length == 2) {
+                    details = parts[1];
                 }
             }
         }
