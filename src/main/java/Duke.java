@@ -46,6 +46,16 @@ public class Duke {
         selectedTask.setDone();
         System.out.println("[" + selectedTask.getDoneIcon() + "] " + selectedTask.description);
 
+      } else if (commandString.equals("unmark")) {
+
+        int index = Integer.parseInt(inputTokens[1]);
+        index--;
+        System.out.println("Marked selected task as un-done desu");
+        // set current task as un-done
+        Task selectedTask = taskList.get(index);
+        selectedTask.setUnDone();
+        System.out.println("[" + selectedTask.getDoneIcon() + "] " + selectedTask.description);
+
       } else {
         taskList.add(new Task(inputString));
         System.out.println("added:\t" + inputString);
