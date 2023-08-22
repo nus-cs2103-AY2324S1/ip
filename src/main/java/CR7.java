@@ -12,6 +12,8 @@ public class CR7 {
         printHorizontalLine(40);
         System.out.println("Hello! I'm CR7\n" + "What can I do for you?\n");
         String input = "";
+        String[] tasks = new String[100];
+        int counter = 0;
         while (!input.equals("bye")) {
             Scanner myObj = new Scanner(System.in);
             input = myObj.nextLine();
@@ -21,9 +23,20 @@ public class CR7 {
                 printHorizontalLine(40);
                 break;
             }
-            printHorizontalLine(40);
-            System.out.println(input + "\n");
-            printHorizontalLine(40);
+            if (input.equals("list")) {
+                printHorizontalLine(40);
+                for (int i = 1; i < counter + 1; i++) {
+                    System.out.println(i + ". " + tasks[i-1]);
+                }
+                System.out.println();
+                printHorizontalLine(40);
+            } else {
+                tasks[counter] = input;
+                counter++;
+                printHorizontalLine(40);
+                System.out.println("added: " + input + "\n");
+                printHorizontalLine(40);
+            }
         }
     }
 }
