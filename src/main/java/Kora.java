@@ -1,5 +1,12 @@
 import java.util.Scanner;
+
+import command.ByeCommand;
+import command.Command;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
 import task.TaskList;
+import task.Task;
 public class Kora {
 
     private TaskList taskList;
@@ -17,26 +24,41 @@ public class Kora {
         while (!isExit) {
             Scanner scanner = new Scanner(System.in);
             //System.out.println("------------------------------");
-            System.out.println(getResponse(scanner.nextLine()));
-            System.out.println("------------------------------");
+            getResponse(scanner.nextLine());
+            //System.out.println("------------------------------");
         }
     }
 
-    public String getResponse(String userInput) {
-        String output = "------------------------------" + "\n";
+    public void getResponse(String userInput) {
+        String line = "------------------------------" + "\n";
+        Task currentTask = new Task(taskList.getNextIndex(), userInput);
+        String[] userInputArray = userInput.split(" ");
         try {
-            if (userInput.equals("bye")) {
-                output = output + "Byebye. See you again!";
-            } else if (userInput.equals("list")) {
-                output = output + taskList.toString();
+            if (userInputArray[0].equals("bye")) {
+                Command command = new ByeCommand();
+                command.execute(taskList, 0);
+                command.printOutput(command.getCommandMessage());
+            } else if (userInputArray[0].equals("list")) {
+                Command command = new ListCommand();
+                command.execute(taskList, 0);
+                command.printOutput(command.getCommandMessage());
+            } else if (userInputArray[0].equals("mark")) {
+                int inputTaskIndex = Integer.valueOf(userInputArray[1]);
+                Command command = new MarkCommand();
+                command.execute(taskList, inputTaskIndex);
+                command.printOutput(command.getCommandMessage());
+            } else if (userInputArray[0].equals("unmark")) {
+                int inputTaskIndex = Integer.valueOf(userInputArray[1]);
+                Command command = new UnmarkCommand();
+                command.execute(taskList, inputTaskIndex);
+                command.printOutput(command.getCommandMessage());
             } else {
-                taskList.addTask(userInput);
-                output = output + "added: " + userInput;
+                taskList.addTask(currentTask);
+                System.out.println(line + "added: " + userInput + "\n" + line);
             }
         } catch (Exception e) {
-            output = output + e.getMessage();
+            System.out.println(line + e.getMessage());
         }
-        return output;
     }
     public static void main(String[] args) {
         Kora kora = new Kora();
