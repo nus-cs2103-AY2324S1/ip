@@ -20,7 +20,7 @@ public class Duke {
     }
 
     // the event loop
-    private void run() {
+    public void run() {
         this.greeting();
 
         while (this.isRunning) {
@@ -43,7 +43,9 @@ public class Duke {
 
             } else {
                 Task newTask = Task.parseInputAsTask(input);
-                this.taskList.addTask(newTask);
+                if (newTask != null) {
+                    this.taskList.addTask(newTask);
+                }
             }
         }
     }
