@@ -55,5 +55,15 @@ OOPS!!! Please choose an index within the number of items in the list (3)
 2.[D][X] return book (by: Sunday)
 3.[E][X] project meeting (from: Mon 2pm to: 4pm)
 ---------------------
+OOPS!!! Please choose an index within the number of items in the list (3)
+---------------------
+---------------------
+Noted. I've removed this task:
+[E][X] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in the list.
+---------------------
+1.[T][X] borrow book
+2.[D][X] return book (by: Sunday)
+---------------------
 Bye. Hope to see you again soon!
 ---------------------
