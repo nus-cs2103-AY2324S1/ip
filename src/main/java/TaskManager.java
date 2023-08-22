@@ -7,11 +7,38 @@ public class TaskManager {
     public TaskManager(){
         this.tasks = new ArrayList<Task>();
     }
-
-    public void addTask(String t) {
-        Task task = new Task(t);
+    public void addTodo(String t) {
+        Task task = new Todos(t);
         tasks.add(task);
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("     " + task.toString());
+        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("    ____________________________________________________________");
     }
+    public void addDeadlines(String t, String date) {
+        Task task = new Deadlines(t, date);
+        tasks.add(task);
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("     " + task.toString());
+        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("    ____________________________________________________________");
+    }
+
+    public void addEvents(String t, String start, String end) {
+        Task task = new Events(t, start, end);
+        tasks.add(task);
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("     " + task.toString());
+        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("    ____________________________________________________________");
+    }
+
+
+
+
 
     public Task getTask(int index) {
         if (index >= 1 && index <= tasks.size()) {
