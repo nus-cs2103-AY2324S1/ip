@@ -15,7 +15,7 @@ public class Duke {
             String userInput;
             ArrayList<Task> todolist = new ArrayList<Task>();
 
-            while (true) {
+            while (scanner.hasNextLine()) {
                 userInput = scanner.nextLine();
                 if (userInput.equalsIgnoreCase("list")) {
                     String todolistoutput = "";
