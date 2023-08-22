@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Duke {
@@ -58,55 +59,95 @@ public class Duke {
     }
 
     private static void readInput() {
-        // change
-        //Scanner scanner = new Scanner(System.in);
-        String command = scanner.next();
-        //String[] tokens = command.split(" ");
 
-        switch (command) {
-            case "bye":
-                end();
-                break;
-            case "list":
-                readList();
-                readInput();
-                break;
-            case "mark":
-                int i = scanner.nextInt();
-                mark(i);
-                readInput();
-                break;
-            case "unmark":
-                int k = scanner.nextInt();
-                unmark(k);
-                readInput();
-                break;
-            case "deadline":
-                String[] deadlineRemain = scanner.nextLine().split(" /by ");
-                String task = deadlineRemain[0];
-                String date = deadlineRemain[1];
-                createDeadline(task, date);
-                readInput();
-                break;
-            case "todo":
-                String ToDoRemain = scanner.nextLine();
-                createToDo(ToDoRemain);
-                readInput();
-                break;
-            case "event":
-                String[] eventRemain = scanner.nextLine().split(" /from ");
-                String eventTask = eventRemain[0];
-                String[] eventDate = eventRemain[1].split(" /to ");
-                String startDate = eventDate[0];
-                String endDate = eventDate[1];
-                createEvent(eventTask, startDate, endDate);
-                readInput();
-                break;
-            default:
-                System.out.println(drawLine());
-                System.out.println("Chewie doesn't understand " + command);
-                System.out.println("\n" + drawLine());
-                readInput();
+        String command = scanner.next();
+
+        try {
+            switch (command) {
+                case "bye":
+                    end();
+                    break;
+                case "list":
+                    readList();
+                    readInput();
+                    break;
+                case "mark":
+                    if (!scanner.hasNextInt())
+                        throw new DukeException("Chewie doesn't see the index of task list.");
+
+                    int i = scanner.nextInt();
+                    if (i < 1 || i > list.size())
+                        throw new DukeException("The list doesn't have this index.");
+
+                    mark(i);
+                    readInput();
+                    break;
+                case "unmark":
+                    if (!scanner.hasNextInt())
+                        throw new DukeException("Chewie doesn't see the index of task list.");
+
+                    int k = scanner.nextInt();
+                    if (k < 1 || k > list.size())
+                        throw new DukeException("The list doesn't have this index.");
+
+                    unmark(k);
+                    readInput();
+                    break;
+                case "deadline":
+                    String deadlinePrompt = scanner.nextLine();
+                    if (deadlinePrompt.isBlank())
+                        throw new DukeException("Chewie says deadline's description cannot be empty.");
+
+                    String[] deadlineRemain = deadlinePrompt.split(" /by ");
+                    if (deadlineRemain.length != 2 || deadlineRemain[0].isBlank() || deadlineRemain[1].isBlank())
+                        throw new DukeException("Chewie says deadline's description is wrong.");
+
+                    String task = deadlineRemain[0];
+                    String date = deadlineRemain[1];
+                    createDeadline(task, date);
+                    readInput();
+                    break;
+                case "todo":
+                    String ToDoRemain = scanner.nextLine();
+                    if (ToDoRemain.isBlank()) {
+                        throw new DukeException("Chewie says todo's description cannot be empty.");
+                    }
+
+                    createToDo(ToDoRemain);
+                    readInput();
+                    break;
+                case "event":
+                    String eventPrompt = scanner.nextLine();
+                    if (eventPrompt.isBlank())
+                        throw new DukeException("Chewie says event's description cannot be empty.");
+
+                    String[] eventRemain = eventPrompt.split(" /from ");
+                    if (eventRemain.length != 2 || eventRemain[0].isBlank())
+                        throw new DukeException("Chewie says event's description is wrong.");
+
+                    String eventTask = eventRemain[0];
+                    String[] eventDate = eventRemain[1].split(" /to ");
+                    if (eventDate.length !=2)
+                        throw new DukeException("Chewie says event's time is wrong.");
+
+                    String startDate = eventDate[0];
+                    String endDate = eventDate[1];
+                    if (startDate.isBlank() || endDate.isBlank())
+                        throw new DukeException("Chewie says event's time is wrong.");
+
+                    createEvent(eventTask, startDate, endDate);
+                    readInput();
+                    break;
+                default:
+                    throw new DukeException("Chewie doesn't recgonize this command: " + command);
+            }
+        } catch (DukeException e) {
+            System.out.println(drawLine());
+            System.out.println(e.getMessage());
+            System.out.println("\n" + drawLine());
+        } finally {
+            scanner.nextLine();
+            readInput();
         }
     }
 
