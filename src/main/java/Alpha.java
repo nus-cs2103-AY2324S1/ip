@@ -1,41 +1,65 @@
+import com.alpha.exceptions.InvalidTaskException;
+import com.alpha.exceptions.InvalidTaskException.InvalidCommandException;
+import com.alpha.tasks.TaskList;
+import com.alpha.utils.Parser;
 import java.util.Scanner;
 
 public class Alpha {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
-        System.out.println("______________________________");
-        System.out.println("Hello! I'm Alpha.");
-        System.out.println("What can I do for you?");
-        System.out.println("______________________________");
+    System.out.println("______________________________");
+    System.out.println("Hello! I'm Alpha.");
+    System.out.println("What can I do for you?");
+    System.out.println("______________________________");
 
-        Scanner sc = new Scanner(System.in);
-        TaskList taskList = new TaskList();
+    Scanner sc = new Scanner(System.in);
+    TaskList taskList = new TaskList();
 
-        while (true) {
-            String userInput = sc.nextLine();
-            String[] userInputArr = userInput.split(" ");
-            System.out.println("______________________________");
+    while (true) {
+      String userInput = sc.nextLine();
+      String[] tokens;
 
-            switch (userInputArr[0]) {
-                case "list":
-                    taskList.printTasks();
-                    break;
-                case "mark":
-                    taskList.markTask(Integer.parseInt(userInputArr[1]));
-                    break;
-                case "unmark":
-                    taskList.unmarkTask(Integer.parseInt(userInputArr[1]));
-                    break;
-                case "bye":
-                    System.out.println("Bye. Hope to see you again soon!");
-                    System.out.println("______________________________");
-                    return;
-                default:
-                    taskList.addTask(userInput);
-            }
+      try {
+        tokens = Parser.getTokens(userInput);
+      } catch (InvalidCommandException e) {
+        System.out.println(e.getMessage());
+        continue;
+      }
 
-            System.out.println("______________________________");
-        }
+      System.out.println("______________________________");
+
+      switch (tokens[0]) {
+        case "list":
+          taskList.printTasks();
+          break;
+        case "mark":
+          try {
+            taskList.markTask(Integer.parseInt(tokens[1]));
+          } catch (NumberFormatException | InvalidTaskException e) {
+            System.out.println(e.getMessage());
+          }
+          break;
+        case "unmark":
+          try {
+            taskList.unmarkTask(Integer.parseInt(tokens[1]));
+          } catch (NumberFormatException | InvalidTaskException e) {
+            System.out.println(e.getMessage());
+          }
+          break;
+        case "bye":
+          System.out.println("Bye. Hope to see you again soon!");
+          System.out.println("______________________________");
+          return;
+        default:
+          try {
+            taskList.addTask(userInput);
+          } catch (InvalidTaskException e) {
+            System.out.println(e.getMessage());
+          }
+
+      }
+      System.out.println("______________________________");
     }
+  }
 }

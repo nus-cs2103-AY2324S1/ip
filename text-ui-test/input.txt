@@ -12,3 +12,4 @@ mark 4
 list
 todo borrow book
 list
+bye
