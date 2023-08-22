@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class MattBot {
     private static String NAME = "MattBot";
     public static void main(String[] args) {
@@ -11,7 +12,20 @@ public class MattBot {
         System.out.println("Hello! I'm " + NAME);
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
-        System.out.println("Bye. Hope to see you again soon!");
+
+        Scanner sc = new Scanner(System.in);
+        String userInput;
+        while (true) {
+            userInput = sc.nextLine();
+            if (userInput.contains("bye")) {
+                break;
+            }
+            System.out.println("____________________________________________________________");
+            System.out.println(userInput);
+            System.out.println("____________________________________________________________");
+        }
+        System.out.println("____________________________________________________________");
+        System.out.println("Bye, Hope to see you soon!");
         System.out.println("____________________________________________________________");
     }
 }
