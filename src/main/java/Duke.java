@@ -130,9 +130,24 @@ public class Duke {
                         }
                     }
                     break;
+                case "delete":
+                    if (splitted.length <= 1) {
+                        System.out.println(lines + "\n          Please say which task to delete! (⋟﹏⋞)\n" + lines);
+                    } else {
+                        int target = Integer.parseInt(splitted[1]);
+                        if (target <= toDo.size()) {
+                            Task toDelete = toDo.get(target - 1);
+                            String description = toDelete.getDescription();
+                            toDo.remove(target - 1);
+                            System.out.println(lines + "\n          Noted, I've removed this task:\n                "
+                                    + description + "\n         Now you have " + toDo.size() + " tasks in the list"
+                                    + "\n" + lines);
+                        }
+                    }
+                    break;
                 default:
                     System.out.println(lines
-                            + "\n        Huhhhhhhh??? (o_O) ? Please use one of the command words: todo, event, deadline, list, mark, unmark, bye\n"
+                            + "\n        Huhhhhhhh??? (o_O) ? Please use one of the command words: todo, event, deadline, list, mark, unmark, delete, bye\n"
                             + lines);
             }
 

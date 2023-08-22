@@ -12,7 +12,7 @@ public class Event extends Task{
     public String getDescription() {
         return "[E]" + super.getDescription()
                 + "(from:" + this.startTime
-                + " to:" + this.endTime + ")";
+                + "to:" + this.endTime + ")";
     }
 
 }
