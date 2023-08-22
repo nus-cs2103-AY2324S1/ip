@@ -32,9 +32,21 @@ public class Duke {
             formatPrintMessage("Task cannot be empty");
             return;
         }
-        switch (input) {
+
+        String[] inputArr = input.split(" ");
+        String command = inputArr[0];
+
+        switch (command) {
             case "list":
                 this.storage.showAllTasks();
+                break;
+            case "mark":
+                int taskNumber = Integer.parseInt(inputArr[1]);
+                this.storage.markTaskAsDone(taskNumber);
+                break;
+            case "unmark":
+                int taskNumber2 = Integer.parseInt(inputArr[1]);
+                this.storage.unmarkTaskAsDone(taskNumber2);
                 break;
             default:
                 this.storage.addTask(input);

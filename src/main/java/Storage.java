@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Storage {
-    private ArrayList<String> tasks;
+    private ArrayList<Task> tasks;
 
     public Storage() {
         this.tasks = new ArrayList<>();
@@ -13,9 +13,10 @@ public class Storage {
         System.out.println();
     }
 
-    public void addTask(String task) {
+    public void addTask(String taskName) {
+        Task task = new Task(taskName);
         this.tasks.add(task);
-        formatPrintMessage("added: " + task);
+        formatPrintMessage("added: " + taskName);
     }
 
     public void showAllTasks() {
@@ -31,5 +32,25 @@ public class Storage {
         }
 
         System.out.println();
+    }
+
+    public void markTaskAsDone(int taskNumber) {
+        if (taskNumber > this.tasks.size()) {
+            formatPrintMessage("Task number does not exist");
+            return;
+        }
+
+        Task task = this.tasks.get(taskNumber - 1);
+        task.markAsDone();
+    }
+
+    public void unmarkTaskAsDone(int taskNumber) {
+        if (taskNumber > this.tasks.size()) {
+            formatPrintMessage("Task number does not exist");
+            return;
+        }
+
+        Task task = this.tasks.get(taskNumber - 1);
+        task.unmarkAsDone();
     }
 }
