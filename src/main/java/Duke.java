@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -5,8 +6,30 @@ public class Duke {
     private static String name = "SoCrates";
     private static String line =
         "\t____________________________________________________________";
-    private static Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
+    private ArrayList<String> list = new ArrayList<>();
 
+    public static void main(String[] args) {
+        Duke duke = new Duke();
+        duke.run();
+    }
+
+    private void run() {
+        printWelcome();
+
+        while (true) {
+            String command = scanner.nextLine();
+            if (command.equals("bye")) {
+                break;
+            } else if (command.equals("list")) {
+                printList();
+            } else {
+                addToList(command);
+            }
+        }
+
+        printExit();
+    }
 
     private static void printMessage(String message) {
         System.out.println(line);
@@ -22,31 +45,31 @@ public class Duke {
         System.out.println("\n" + line + "\n");
     }
 
-    public static void printWelcome() {
+    private static void printWelcome() {
         String[] message = {
-            "Hello! I'm " + name,
-            "What can I do for you?"
+                "Hello! I'm " + name,
+                "What can I do for you?"
         };
 
         printMessage(message);
     }
 
-    public static void printExit() {
+    private static void printExit() {
         printMessage("Bye. Hope to see you again soon!");
     }
 
-    public static void main(String[] args) {
-        printWelcome();
+    private void addToList(String text) {
+        list.add(text);
+        printMessage("added: " + text);
+    }
 
-        while (true) {
-            String command = scanner.nextLine();
-            if (command.equals("bye")) {
-                break;
-            }
-
-            printMessage(command);
+    private void printList() {
+        System.out.println(line);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.printf("\t%d. %s\n", i + 1, list.get(i));
         }
 
-        printExit();
+        System.out.println("\n" + line + "\n");
     }
+
 }
