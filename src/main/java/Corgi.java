@@ -55,9 +55,11 @@ public class Corgi {
 
                 switch (cmd) {
                     case BYE:
+                        if (inputParts.length > 1) throw new InvalidCommandException();
                         System.out.println("Bye, take care and see you soon! *tail wags*");
                         break loop;
                     case LIST:
+                        if (inputParts.length > 1) throw new InvalidCommandException();
                         this.displayTasks();
                         System.out.println("------------------------------------------------------------");
                         break;
