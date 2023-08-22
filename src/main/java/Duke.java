@@ -30,16 +30,20 @@ public class Duke {
         whisper("Bye. Hope to see you again soon!");
     }
 
-    private static Command toCommand(String input) {
+    private static Command toCommand(String input) throws DukeException {
         try {
             return Command.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
-            return Command.UNKNOWN;
+            throw new DukeException("I'm sorry, but I don't know what that means...");
         }
     }
 
     private static void list() {
-        say("Here are the tasks in your list:");
+        if (cursor == 0) {
+            say("You have no tasks in your list!");
+            return;
+        }
+
         whisper("Here are the tasks in your list:");
         for (int i = 0; i < cursor; i++) {
             String taskEntry = String.format("%d. %s", i + 1, tasks[i]);
@@ -57,41 +61,97 @@ public class Duke {
         );
     }
 
-    private static void addTodo(String details) {
+    private static void addTodo(String details) throws DukeException {
+        if (details.isEmpty()) {
+            throw new DukeException("Todo description cannot be empty!");
+        }
+
         Todo todo = new Todo(details);
         add(todo);
     }
 
-    private static void addDeadline(String details) {
-        String[] tokens = details.split(" /by ");
+    private static void addDeadline(String details) throws DukeException {
+        String[] tokens = details.split(" /by ", 2);
         String description = tokens[0];
-        String by = tokens[1];
 
+        if (description.isEmpty()) {
+            throw new DukeException("Deadline description cannot be empty!");
+        }
+        if (tokens.length != 2) {
+            throw new DukeException("Deadline due date cannot be empty!");
+        }
+
+        String by = tokens[1];
         Deadline deadline = new Deadline(description, by);
         add(deadline);
     }
 
-    private static void addEvent(String details) {
-        String[] tokens = details.split(" /from ");
+    private static void addEvent(String details) throws DukeException {
+        String[] tokens = details.split(" /from ", 2);
         String description = tokens[0];
+
+        if (description.isEmpty()) {
+            throw new DukeException("Event description cannot be empty!");
+        }
+        if (tokens.length != 2) {
+            throw new DukeException("Event start and end dates cannot be empty!");
+        }
+
         tokens = tokens[1].split(" /to ");
         String from = tokens[0];
-        String to = tokens[1];
 
+        if (from.isEmpty()) {
+            throw new DukeException("Event start date cannot be empty!");
+        }
+        if (tokens.length != 2) {
+            throw new DukeException("Event end date cannot be empty!");
+        }
+
+        String to = tokens[1];
         Event event = new Event(description, from, to);
         add(event);
     }
 
-    private static void mark(int index) {
-        Task task = tasks[index - 1];
-        task.markAsDone();
-        say("Nice! I've marked this task as done:", task.toString());
+    private static void mark(String index) throws DukeException {
+        try {
+            int idx = Integer.parseInt(index);
+
+            if (idx < 1 || idx > cursor) {
+                throw new DukeException("Invalid task index!");
+            }
+
+            Task task = tasks[idx - 1];
+
+            if (task.isDone) {
+                throw new DukeException("Task has already been done!");
+            }
+
+            task.markAsDone();
+            say("Nice! I've marked this task as done:", indent(task.toString()));
+        } catch (NumberFormatException e) {
+            throw new DukeException("Task index is not a number!");
+        }
     }
 
-    private static void unmark(int index) {
-        Task task = tasks[index - 1];
-        task.markAsUndone();
-        say("OK, I've marked this task as not done yet:", task.toString());
+    private static void unmark(String index) throws DukeException {
+        try {
+            int idx = Integer.parseInt(index);
+
+            if (idx < 1 || idx > cursor) {
+                throw new DukeException("Invalid task index!");
+            }
+
+            Task task = tasks[idx - 1];
+
+            if (!task.isDone) {
+                throw new DukeException("Task has not been done yet!");
+            }
+
+            task.markAsUndone();
+            say("OK, I've marked this task as not done yet:", indent(task.toString()));
+        } catch (NumberFormatException e) {
+            throw new DukeException("Task index is not a number!");
+        }
     }
 
     public static void main(String[] args) {
@@ -104,39 +164,41 @@ public class Duke {
             String input = sc.nextLine().trim();
             String[] tokens = input.split(" ", 2);
 
-            Command command = toCommand(tokens[0]);
-            String commandArgs = tokens.length > 1 ? tokens[1] : "";
+            try {
+                Command command = toCommand(tokens[0]);
+                String commandArgs = tokens.length > 1 ? tokens[1] : "";
 
-            switch (command) {
-                case BYE:
-                    farewell();
-                    shouldTerminate = true;
-                    break;
-                case LIST:
-                    list();
-                    break;
-                case TODO:
-                    addTodo(commandArgs);
-                    break;
-                case DEADLINE:
-                    addDeadline(commandArgs);
-                    break;
-                case EVENT:
-                    addEvent(commandArgs);
-                    break;
-                case MARK:
-                    mark(Integer.parseInt(commandArgs));
-                    break;
-                case UNMARK:
-                    unmark(Integer.parseInt(commandArgs));
-                    break;
-                default: // UNKNOWN
-                    say("Unknown command!");
+                switch (command) {
+                    case BYE:
+                        farewell();
+                        shouldTerminate = true;
+                        break;
+                    case LIST:
+                        list();
+                        break;
+                    case TODO:
+                        addTodo(commandArgs);
+                        break;
+                    case DEADLINE:
+                        addDeadline(commandArgs);
+                        break;
+                    case EVENT:
+                        addEvent(commandArgs);
+                        break;
+                    case MARK:
+                        mark(commandArgs);
+                        break;
+                    case UNMARK:
+                        unmark(commandArgs);
+                        break;
+                }
+            } catch (DukeException e) {
+                say(e.getMessage());
             }
         }
     }
 
     enum Command {
-        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, UNKNOWN
+        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK
     }
 }
