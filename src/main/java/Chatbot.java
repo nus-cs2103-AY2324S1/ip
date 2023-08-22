@@ -152,33 +152,60 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
         // Process whatever we need to do!
         switch (message.getSender()) {
             case USER:
-                String[] parts = message.getMessage().split(" ", 1);
+                String[] parts = message.getMessage().split(" ", 2);
                 String command = parts[0];
                 String data = parts.length > 1 ? parts[1] : null;
 
                 switch (command) {
+                    case "mark":
+                    case "unmark":
+                        if (data != null) {
+                            int index = Integer.parseInt(data) - 1;
+                            boolean completed = command.equals("mark");
+
+                            TaskManager.Task task = this.taskManager.getTask(index);
+                            task.markCompleted(completed);
+
+                            if (completed) {
+                                this.sendMessage(
+                                        MessageSender.CHATBOT,
+                                        String.format("Nice! I've marked this task as done:\n   %s", task.toString())
+                                );
+                            } else {
+                                this.sendMessage(
+                                        MessageSender.CHATBOT,
+                                        String.format("OK, I've marked this task as not done yet:\n   %s", task.toString())
+                                );
+                            }
+                        }
+                        break;
+
                     case "list":
                         if (data == null || data.isEmpty()) {
                             StringBuilder builder = new StringBuilder();
                             int count = 1;
-                            for (TaskManager.Task item : this.taskManager.getTasks()) {
+                            for (TaskManager.Task task : this.taskManager.getTasks()) {
                                 if (count > 1) {
                                     builder.append("\n");
                                 }
 
                                 builder.append(count);
                                 builder.append(". ");
-                                builder.append(item.getTitle());
+                                builder.append(task.toString());
                                 count++;
                             }
                             this.sendMessage(MessageSender.CHATBOT, builder.toString());
                             break;
                         }
+                        // Otherwise, fallthrough.
+
                     case "bye":
                         if (data == null || data.isEmpty()) {
                             this.closeConversation();
                             break;
                         }
+                        // Otherwise, fallthrough.
+
                     default:
                         String text = message.getMessage();
                         this.taskManager.addTask(new TaskManager.Todo(text));
