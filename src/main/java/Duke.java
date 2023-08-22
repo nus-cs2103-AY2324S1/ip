@@ -24,16 +24,19 @@ public class Duke {
             }
 
             if (input.equals("list")) {
+                int id = 1;
+                System.out.println("Here are the tasks in your list:");
                 for (Task task : taskList) {
-                    System.out.println("Here are the tasks in your list:");
-                    System.out.println(task); //will print output in form 1. read book via tell dont ask
+                    System.out.println(String.valueOf(id) + ". " + task);
+                    id++;
                 }
                 continue;
             }
-            Task newTask = new Task(input, id);
-            id++;
+
+            Task newTask = new Task(input);
             taskList.add(newTask);
             System.out.println("added: " + input);
         }
+        scanner.close();
     }
 }
