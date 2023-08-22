@@ -13,4 +13,8 @@ event debug3 /from noww /to
 event debug3 /from /to noww
 event debug3 /from noww /to noww /from noww
 list
+delete 2
+list
+delete 1
+list
 bye

@@ -30,6 +30,7 @@
     ____________________________________________________________
 
      Quack Quack, you have not entered anything yet!
+     Create new tasks with the todo, deadline or event command
     ____________________________________________________________
 
     ____________________________________________________________
@@ -113,6 +114,33 @@
      1.[T][X] debugging
      2.[D][ ] debug2 (by: now)
      3.[E][ ] debug3 (from: noww to: noww)
+    ____________________________________________________________
+
+    ____________________________________________________________
+
+     Quack! I have removed this task:
+     [D][ ] debug2 (by: now)
+     Quack! Quack is currently remembering 2 tasks.
+    ____________________________________________________________
+
+    ____________________________________________________________
+
+     Quack Quack, here are the tasks in quack's memory:
+     1.[T][X] debugging
+     2.[E][ ] debug3 (from: noww to: noww)
+    ____________________________________________________________
+
+    ____________________________________________________________
+
+     Quack! I have removed this task:
+     [T][X] debugging
+     Quack! Quack is currently remembering 1 tasks.
+    ____________________________________________________________
+
+    ____________________________________________________________
+
+     Quack Quack, here are the tasks in quack's memory:
+     1.[E][ ] debug3 (from: noww to: noww)
     ____________________________________________________________
 
     ____________________________________________________________
