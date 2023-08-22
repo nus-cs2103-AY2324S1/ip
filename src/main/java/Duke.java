@@ -81,29 +81,17 @@ public class Duke {
                     Duke.printFormatted("OK! I've marked this task as not done yet:\n" + unmarkTarget.toString());
                     break;
                 case "todo":
-                    Todo newTodo = new Todo(remaining);
+                    Todo newTodo = Todo.createFromCommandString(remaining);
                     tasks.add(newTodo);
                     printTaskAddedMessage(newTodo);
                     break;
                 case "deadline":
-                    String[] deadlineParts = remaining.split("/by ", 2);
-                    if (deadlineParts.length < 2) {
-                        throw new DukeException("Missing '/by' or date for deadline.");
-                    }
-                    Deadline newDeadline = new Deadline(deadlineParts[0], deadlineParts[1]);
+                    Deadline newDeadline = Deadline.createFromCommandString(remaining);
                     tasks.add(newDeadline);
                     printTaskAddedMessage(newDeadline);
                     break;
                 case "event":
-                    String[] splitByTo = remaining.split("/to ", 2);
-                    if (splitByTo.length < 2) {
-                        throw new DukeException("Missing '/to' or end date for event.");
-                    }
-                    String[] splitByFrom = splitByTo[0].split("/from ", 2);
-                    if (splitByFrom.length < 2) {
-                        throw new DukeException("Missing '/from' or start date for event.");
-                    }
-                    Event newEvent = new Event(splitByFrom[0], splitByFrom[1], splitByTo[1]);
+                    Event newEvent = Event.createFromCommandString(remaining);
                     tasks.add(newEvent);
                     printTaskAddedMessage(newEvent);
                     break;
