@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -7,21 +8,21 @@ import java.util.Scanner;
 public class HelpBuddy {
     /** A string that produces a line to segment messages produced. */
     private final static String horizontal = "    ____________________________________________________________";
-    /** A string that holds what the user has typed into the chatbot. */
-    private String userInput;
+    /** An ArrayList that holds everything the user has typed into the chatbot. */
+    private ArrayList<String> userInput = new ArrayList<>(100);
 
     /**
      * Returns hello message.
      */
     public static String printHelloMessage() {
-        return "Hello! I'm HelpBuddy.\n" + "    What can I do for you?";
+        return "Hello! I'm HelpBuddy.\n" + "    What can I do for you?\n";
     }
 
     /**
      * Returns bye message.
      */
     public static String printByeMessage() {
-        return "Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
@@ -30,7 +31,7 @@ public class HelpBuddy {
      * @param s The string that HelpBuddy replies.
      */
     private String printMessageBlock(String s) {
-        return horizontal + "\n" + "    " + s + "\n" + horizontal + "\n";
+        return horizontal + "\n" + "    " + s + horizontal + "\n";
     }
 
     /**
@@ -41,13 +42,26 @@ public class HelpBuddy {
     public void outputMessage(Scanner sc) {
         System.out.println(printMessageBlock(HelpBuddy.printHelloMessage()));
 
-        String inputMessage = sc.next();
-        this.userInput = inputMessage;
+        String inputMessage = sc.nextLine();
 
         while(!inputMessage.equalsIgnoreCase("bye")) {
-            System.out.println(printMessageBlock(this.userInput));
-            inputMessage = sc.next();
-            this.userInput = inputMessage;
+            if (!inputMessage.equalsIgnoreCase("list")) {
+                System.out.println(printMessageBlock("added: " + inputMessage + "\n"));
+                this.userInput.add(inputMessage);
+            } else {
+                Object[] inputArray = this.userInput.toArray();
+                String outputMessage = "";
+                for (int i = 0; i < inputArray.length; i++) {
+                    int index = i + 1;
+                    if (i != inputArray.length - 1) {
+                        outputMessage +=  index + ". " + inputArray[i] + "\n    ";
+                    } else {
+                        outputMessage +=  index + ". " + inputArray[i] + "\n";
+                    }
+                }
+                System.out.println(printMessageBlock(outputMessage));
+            }
+            inputMessage = sc.nextLine();
         }
 
         System.out.println(printMessageBlock(HelpBuddy.printByeMessage()));
