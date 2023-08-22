@@ -7,7 +7,7 @@ public class Harvard {
         System.out.println(line);
 
         Scanner in = new Scanner(System.in);
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         while (true) {
@@ -24,7 +24,8 @@ public class Harvard {
                     System.out.println((i + 1) + ". " + tasks[i]);
                 }
             } else {
-                tasks[taskCount] = command;
+                Task task = new Task(command);
+                tasks[taskCount] = task;
                 taskCount++;
                 System.out.println(line);
                 System.out.println("added: " + command);
