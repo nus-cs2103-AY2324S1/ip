@@ -17,6 +17,36 @@ public class Harvard {
                 System.out.println("Bye. Hope to see you again soon!");
                 System.out.println(line);
                 break;
+            } else if (command.startsWith("todo")) {
+                String description = command.substring(5);
+                Todo todo = new Todo(description);
+                tasks[taskCount] = todo;
+                taskCount++;
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:\n" + todo +
+                        "\nNow you have " + taskCount + " tasks in the list.");
+            } else if (command.startsWith("deadline")) {
+                String[] split = command.split(" /by ");
+                String description = split[0].substring(9);
+                String by = split[1];
+                Deadline deadline = new Deadline(description, by);
+                tasks[taskCount] = deadline;
+                taskCount++;
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:\n" + deadline +
+                        "\nNow you have " + taskCount + " tasks in the list.");
+            } else if (command.startsWith("event")) {
+                String[] split = command.split("/from ");
+                String[] split2 = split[1].split(" /to ");
+                String description = split[0].substring(6);
+                String from = split2[0];
+                String to = split2[1];
+                Event event = new Event(description, from, to);
+                tasks[taskCount] = event;
+                taskCount++;
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:\n" + event +
+                        "\nNow you have " + taskCount + " tasks in the list.");
             } else if (command.equals("list")) {
                 System.out.println(line);
                 System.out.println("Here are the tasks in your list:");
@@ -48,7 +78,8 @@ public class Harvard {
                 tasks[taskCount] = task;
                 taskCount++;
                 System.out.println(line);
-                System.out.println("Got it! I've added this task: " + command);
+                System.out.println("Got it! I've added this task: " + task);
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
             }
             System.out.println(line);
         }
