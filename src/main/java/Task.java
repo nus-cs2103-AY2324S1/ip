@@ -7,19 +7,18 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getTaskName() {
-        return this.taskName;
+    public String getTask() {
+        String output = (isDone ? " [X] " : " [ ] ") + this.taskName;
+        return output;
     }
 
-    public String getIsDone() {
-        return this.isDone ? "[X]" : "[ ]";
-    }
-
-    public void markAsDone() {
+    public String markAsDone() {
         this.isDone = true;
+        return "'" + this.taskName + "'" + " is completed! Good job :)";
     }
 
-    public void markAsUndone() {
+    public String markAsUndone() {
         this.isDone = false;
+        return "'" + this.taskName + "'" + " is now not completed :(";
     }
 }
