@@ -2,10 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Duke {
 
     private Scanner sc = new Scanner(System.in);
-    private List<String> list = new ArrayList<String>(100);
+    private List<Task> list = new ArrayList<Task>(100);
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.run();
@@ -27,8 +28,20 @@ public class Duke {
                 printLine();
                 printList();
                 printLine();
+            } else if (input.startsWith("mark ")) {
+                int index = Integer.parseInt(input.substring(5));
+                list.get(index - 1).markAsDone();
+                printLine();
+                printDone(index);
+                printLine();
+            } else if (input.startsWith("unmark ")) {
+                int index = Integer.parseInt(input.substring(7));
+                list.get(index - 1).markAsUndone();
+                printLine();
+                printUndone(index);
+                printLine();
             } else {
-                list.add(input);
+                list.add(new Task(input));
                 printLine();
                 printAdded(input);
                 printLine();
@@ -39,11 +52,22 @@ public class Duke {
         System.out.println(input);
     }
 
+    public void printDone(int index) {
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(list.get(index - 1));
+    }
+
+    public void printUndone(int index) {
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(list.get(index - 1));
+    }
+
     public void printAdded(String input) {
         System.out.println("added: " + input);
     }
 
     public void printList() {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
             System.out.println(i + 1 + ". " + list.get(i));
         }
@@ -60,3 +84,4 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 }
+
