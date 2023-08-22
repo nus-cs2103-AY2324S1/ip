@@ -1,10 +1,29 @@
-public class  {
+import java.util.Objects;
+import java.util.Scanner;
+
+public class Alpha {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+
+        Scanner sc = new Scanner(System.in);
+
+        String intro = "____________________________________________________________\n" +
+                " Hello! I'm Alpha\n" +
+                " What can I do for you?\n";
+
+        String end = "____________________________________________________________\n" +
+                " Bye. Hope to see you again soon!\n" +
+                "____________________________________________________________";
+
+        System.out.println(intro);
+        String input = sc.nextLine();
+        while (!Objects.equals(input, "bye")) {
+            String output = "____________________________________________________________\n" +
+                    input + "\n" +
+                    "____________________________________________________________";
+            System.out.println(output);
+            input = sc.nextLine();
+        }
+
+        System.out.println(end);
     }
 }
