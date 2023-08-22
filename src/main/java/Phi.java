@@ -1,25 +1,27 @@
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Phi {
+    // scanner object for user input
+    static Scanner sc = new Scanner(System.in);
+    // arrayList to store input text given
+    static TaskList taskList = new TaskList();
+
     public static void main(String[] args) {
-        // scanner object for user input
-        Scanner sc = new Scanner(System.in);
-        // arrayList to store input text given
-        ArrayList<String> inputTextList = new ArrayList<>();
 
         greeting();
-        
+
         String input = sc.nextLine();
-        while (!Objects.equals(input, "bye")) {
-            if (Objects.equals(input, "list")) {
-                for (String s : inputTextList) {
-                    System.out.println(s);
-                }
+        while (!input.equals("bye")) {
+            if (input.equals("list")) {
+                taskList.printList();
+            } else if (input.startsWith("mark")) {
+                int number = Integer.parseInt(input.substring(5));
+                taskList.doTask(number);
+            } else if (input.startsWith("unmark")) {
+                int number = Integer.parseInt(input.substring(7));
+                taskList.undoTask(number);
             } else {
-                inputTextList.add((inputTextList.size() + 1) + ": " + input);
-                System.out.println("Added: " + input);
+                taskList.addTask(input);
             }
             input = sc.nextLine();
         }
@@ -41,4 +43,5 @@ public class Phi {
         String exitMsg = "okk THANKS FOR COMING BYE!";
         System.out.println(exitMsg);
     }
+
 }
