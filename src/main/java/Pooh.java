@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Pooh {
+    protected static final String horizontalLine = "      _______________________________________________________________________________";
 
     public static void welcomeMsg() {
         String logo = "      .----------------.  .----------------.  .----------------.  .----------------. \n" +
@@ -18,7 +19,6 @@ public class Pooh {
                 "       '----------------'  '----------------'  '----------------'  '----------------' ";
 
         String greetings = "      Hi there! Good to see you! I'm Pooh!\n      What can I do for you?";
-        String horizontalLine = "      _______________________________________________________________________________";
         System.out.println(logo);
         System.out.println(horizontalLine);
         System.out.println(greetings);
@@ -26,7 +26,6 @@ public class Pooh {
     }
 
     public static void exitMsg() {
-        String horizontalLine = "      _______________________________________________________________________________";
         String byeMessage = "      How lucky I am to have something that makes saying goodbye so hard. Pooh says Bye!";
         System.out.println(horizontalLine);
         System.out.println(byeMessage);
@@ -34,7 +33,6 @@ public class Pooh {
     }
 
     public static void generalRespond(String message) {
-        String horizontalLine = "      _______________________________________________________________________________";
         System.out.println(horizontalLine);
         System.out.println(message);
         System.out.println(horizontalLine);
@@ -46,7 +44,6 @@ public class Pooh {
             String task = String.format("      %d. ", i) + tasks.get(i) + "\n";
             todoListString.append(task);
         }
-        String horizontalLine = "      _______________________________________________________________________________";
         System.out.println(horizontalLine);
         System.out.println(todoListString.toString().stripTrailing());
         System.out.println(horizontalLine);
@@ -62,7 +59,7 @@ public class Pooh {
                 exitMsg();
                 userInput.close();
                 System.exit(0);
-            } else if (userCmd.equalsIgnoreCase("list")){
+            } else if (userCmd.equalsIgnoreCase("list")) {
                 if (todoList.isEmpty()) {
                     generalRespond("      No tasks added. Add one now!");
                 } else {
