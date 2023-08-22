@@ -1,8 +1,8 @@
-public class toDo {
-    public String name;
-    public boolean done;
+public class Task {
+    protected String name;
+    protected boolean done;
 
-    public toDo(String name) {
+    public Task (String name) {
         this.name = name;
         this.done = false;
     }
@@ -19,4 +19,8 @@ public class toDo {
         return this.done ? "[X]" : "[ ]";
     }
 
+    public String toPrint() {
+        String str = this.getStatus() + " " + this.name;
+        return str;
+    }
 }
