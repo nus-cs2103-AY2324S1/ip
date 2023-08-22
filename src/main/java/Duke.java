@@ -1,11 +1,14 @@
 import javax.sound.midi.SysexMessage;
+import java.net.UnknownServiceException;
 import java.util.Scanner;
 
 public class Duke {
     static String name = "Nichbot";
-    // Assuming there will not be more than 100 tasks
-    static String[] tasks = new String[100];
+
+//    static String[] tasks = new String[100];
     static int count = 0;
+    // Assuming there will not be more than 100 tasks
+    static Task[] tasks = new Task[100];
 
     // Level-0, Function to say introduce the chatbot
     public static void sayHello() {
@@ -25,24 +28,38 @@ public class Duke {
     }
 
 //  Level-1, Echo user input
-    public static void echoUserInput(String input) {
-        System.out.println(input + "\n____________________________________________________________");
+    public static void echoUserInput(Task task) {
+        System.out.println(task.getDescription() + "\n____________________________________________________________");
     }
 
 //    Level-2, Add, list
     public static void addList(String input) {
-        tasks[count++] = input;
+        Task newTask = new Task(input);
+        tasks[count++] = newTask;
         System.out.print("____________________________________________________________\n" + "added: ");
-        echoUserInput(input);
+        echoUserInput(newTask);
     }
 
     public static void printList() {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < count; i++) {
-            String current = String.format("%d: %s",i + 1,tasks[i]);
+            String current = String.format("%d:[%s] %s",i + 1, tasks[i].getStatusIcon(),tasks[i].getDescription());
             System.out.println(current);
         }
         System.out.print("____________________________________________________________\n");
+    }
+
+    public static void markDoneOrUndone(int count, boolean done) {
+        if (count < 1 || count > 100) {
+            System.out.println("Invalid Input written.");
+            return;
+        }
+        Task current = tasks[count - 1];
+        if (done) {
+            current.setDone();
+        } else {
+            current.setNotDone();
+        }
     }
 
     public static void main(String[] args) {
@@ -60,6 +77,10 @@ public class Duke {
             userInput = sc.nextLine();
             if (userInput.toLowerCase().equals("list")) {
                 printList();
+            } else if (userInput.length() > 5 && userInput.substring(0,4).toLowerCase().equals("mark")) {
+                markDoneOrUndone(Character.getNumericValue(userInput.charAt(5)), true);
+            } else if (userInput.length() > 7 && userInput.substring(0,6).toLowerCase().equals("unmark")) {
+                markDoneOrUndone(Character.getNumericValue(userInput.charAt(7)), false);
             } else {
                 addList(userInput);
             }
