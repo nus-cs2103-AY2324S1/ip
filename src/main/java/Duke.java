@@ -73,9 +73,9 @@ public class Duke {
         String CHATBOTNAME = "Carl";
         System.out.println(messageCard("Hello! I'm " + CHATBOTNAME
             + "\n\t What can I do for you?"));
+        Scanner SC = new Scanner(System.in);
 
         while (true) {
-            Scanner SC = new Scanner(System.in);
             String userInput = SC.nextLine();
             if (userInput.equals("bye")) {
                 System.out.println(messageCard("Bye. Hope to see you again soon!"));
@@ -96,11 +96,12 @@ public class Duke {
                     // Add a deadline
                     addDeadline(userInput.substring(9));
                 } else if (userInput.substring(0, 5).equals("event")) {
-                    // Add a event
+                    // Add an event
                     addEvent(userInput.substring(6));
                 }
 
             }
         }
+        SC.close();
     }
 }
