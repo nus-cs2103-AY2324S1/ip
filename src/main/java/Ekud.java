@@ -1,134 +1,154 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
+import command.ByeCommand;
+import command.Command;
+import command.DeadlineCommand;
+import command.EventCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.ParseException;
+import command.TodoCommand;
+import command.UnmarkCommand;
+import javafx.css.CssParser.ParseError;
+import task.DeadlineTask;
+import task.EventTask;
+import task.Task;
+import task.TodoTask;
+
 public class Ekud {
-    public static final String GREETING = "Hello! I'm Ekud!\nWhat can I do for you?";
-    public static final String FAREWELL = "Bye. Hope to see you again soon!";
-    public static final String LIST_SUCCESS = "Here are the tasks in your list:";
-    public static final String LIST_EMPTY = "No tasks yet. Add one!";
-    public static final String ADD_SUCCESS = "Got it. I've added this task:";
-    public static final String ADD_TASK_COUNT = "Now you have %d tasks in the list.";
-    public static final String MARK_SUCCESS = "Nice! I've marked this task as done:";
-    public static final String MARK_FAILURE_NO_TASK = "Please provide task number to mark.";
-    public static final String MARK_FAILURE_INVALID_TASK = "Invalid task number provided.";
-    public static final String UNMARK_SUCCESS = "OK, I've marked this task as not done yet:";
-    public static final String UNMARK_FAILURE_NO_TASK = "Please provider task number to unmark.";
-    public static final String UNMARK_FAILURE_INVALID_TASK = "Invalid task number provided.";
-    public static final String PROMPT = "> ";
+    public Store store = new Store();
 
-    public ArrayList<Task> tasks = new ArrayList<>();
-
-    public void processList() {
-        if (tasks.isEmpty()) {
-            System.out.println(LIST_EMPTY);
+    public void processList(ListCommand command) {
+        if (store.isTasksEmpty()) {
+            System.out.println("No tasks yet. Add one!");
             return;
         }
 
-        System.out.println(LIST_SUCCESS);
+        System.out.println("Here are the tasks in your list:");
 
-        for (int index = 0; index < tasks.size(); index++) {
+        for (int index = 0; index < store.getTasks().size(); index++) {
             // Add padding to align single-digit numbers if we'll render
             // two-digit numbers later on.
-            if (tasks.size() > 9 && index < 9) {
+            if (store.getTasks().size() > 9 && index < 9) {
                 System.out.print(" ");
             }
             System.out.print(index + 1);
 
-            Task task = tasks.get(index);
+            Task task = store.getTasks().get(index);
             System.out.println(". " + task.toString());
         }
     }
 
-    public void processMark(int index) {
-        if (index < 0 || index >= tasks.size()) {
-            System.out.println(MARK_FAILURE_INVALID_TASK);
+    public void processMark(MarkCommand command) {
+        int index = command.getTaskId() - 1;
+
+        if (index < 0 || index >= store.getTasks().size()) {
+            System.out.println("Invalid task number provided.");
             return;
         }
 
-        Task task = tasks.get(index);
+        Task task = store.getTasks().get(index);
         task.mark();
 
-        System.out.println(MARK_SUCCESS);
+        System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
 
-    public void processUnmark(int index) {
-        if (index < 0 || index >= tasks.size()) {
-            System.out.println(UNMARK_FAILURE_INVALID_TASK);
+    public void processUnmark(UnmarkCommand command) {
+        int index = command.getTaskId() - 1;
+
+        if (index < 0 || index >= store.getTasks().size()) {
+            System.out.println("Invalid task number provided.");
             return;
         }
 
-        Task task = tasks.get(index);
+        Task task = store.getTasks().get(index);
         task.unmark();
 
-        System.out.println(UNMARK_SUCCESS);
+        System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
     }
 
-    public void processAddEvent(String title) {
-        Task task = new EventTask(title);
-        tasks.add(task);
+    public void processEvent(EventCommand command) {
+        Task task = new EventTask(command.getTitle(), command.getFrom(), command.getTo());
+        store.addTask(task);
 
-        System.out.println(ADD_SUCCESS);
+        System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
-        System.out.println(String.format(ADD_TASK_COUNT, tasks.size()));
+        System.out.println("Now you have " + store.getTasks().size() + " tasks in the list.");
+    }
+
+    public void processDeadline(DeadlineCommand command) {
+        Task task = new DeadlineTask(command.getTitle(), command.getBy());
+        store.addTask(task);
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + store.getTasks().size() + " tasks in the list.");
+    }
+
+    public void processTodo(TodoCommand command) {
+        Task task = new TodoTask(command.getTitle());
+        store.addTask(task);
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + task);
+        System.out.println("Now you have " + store.getTasks().size() + " tasks in the list.");
     }
 
     public boolean processLine(String line) {
-        String[] components = line.split("\\s+");
-        String command = components[0]; // guaranteed due to isEmpty check in main method
-        if (command.equals("list")) {
-            processList();
-        } else if (command.equals("event")) {
-            String title = line.substring("event".length()).trim();
-            processAddEvent(title);
-        } else if (command.equals("mark")) {
-            if (components.length < 2) {
-                System.out.println(MARK_FAILURE_NO_TASK);
-                return false;
-            }
-            int index;
-            try {
-                index = Integer.parseInt(components[1]) - 1;
-            } catch (NumberFormatException error) {
-                System.out.println(MARK_FAILURE_INVALID_TASK);
-                return false;
-            }
-            processMark(index);
-        } else if (command.equals("unmark")) {
-            if (components.length < 2) {
-                System.out.println(UNMARK_FAILURE_NO_TASK);
-                return false;
-            }
-            int index;
-            try {
-                index = Integer.parseInt(components[1]) - 1;
-            } catch (NumberFormatException error) {
-                System.out.println(UNMARK_FAILURE_INVALID_TASK);
-                return false;
-            }
-            processUnmark(index);
-        } else if (command.equals("bye")) {
+        Command command;
+        try {
+            command = Command.parse(line);
+        } catch (ParseException error) {
+            System.out.println(error.getMessage());
+            return false;
+        }
+
+        if (command instanceof ByeCommand) {
             return true;
         }
+
+        if (command instanceof ListCommand) {
+            processList((ListCommand) command);
+        } else if (command instanceof EventCommand) {
+            processEvent((EventCommand) command);
+        } else if (command instanceof DeadlineCommand) {
+            processDeadline((DeadlineCommand) command);
+        } else if (command instanceof TodoCommand) {
+            processTodo((TodoCommand) command);
+        } else if (command instanceof MarkCommand) {
+            processMark((MarkCommand) command);
+        } else if (command instanceof UnmarkCommand) {
+            processUnmark((UnmarkCommand) command);
+        }
+
         return false;
     }
 
     public static void main(String[] args) {
         Ekud program = new Ekud();
+
         Scanner scanner = new Scanner(System.in);
-        System.out.println(GREETING);
+
+        System.out.println("Hello! I'm Ekud!");
+        System.out.println("What can I do for you?");
+
         while (true) {
-            System.out.print(PROMPT);
+            System.out.print("> ");
+
             String line = scanner.nextLine().trim();
             if (line.isEmpty()) {
                 continue;
             }
+
             if (program.processLine(line)) {
                 break;
             }
         }
-        System.out.println(FAREWELL);
+
+        System.out.println("Bye. Hope to see you again soon!");
+
         scanner.close();
     }
 }
