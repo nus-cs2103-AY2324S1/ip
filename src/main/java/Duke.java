@@ -51,14 +51,29 @@ public class Duke {
                             throw new EmptyException("todo");
                         }
                     } else if (splitOutput[0].equals("event")) {
-                        System.out.println("Got it. I've added this task:");
-                        String newDes = userOutput.split("event")[1].split("/from")[0].strip();
-                        String newFrom = userOutput.split("/from")[1].split("/to")[0].strip();
-                        String newTo = userOutput.split("/to")[1].strip();
-                        Event newEvent = new Event(newDes, newFrom, newTo);
-                        inputList.add(newEvent);
-                        System.out.println(newEvent);
-                        System.out.println("Now you have " + inputList.size() + " tasks in the list.");
+                        try {
+                            String newDes = userOutput.split("event")[1].split("/from")[0].strip();
+                            String newFrom = userOutput.split("/from")[1].split("/to")[0].strip();
+                            String newTo = userOutput.split("/to")[1].strip();
+                            Event newEvent = new Event(newDes, newFrom, newTo);
+                            inputList.add(newEvent);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(newEvent);
+                            System.out.println("Now you have " + inputList.size() + " tasks in the list.");
+                        } catch (Exception e) {
+                            throw new EmptyException("event");
+                        }
+                    } else if (splitOutput[0].equals("delete")) {
+                        try {
+                            Integer deleteIndex = Integer.valueOf(splitOutput[1]);
+                            Task deletedTask = inputList.get(deleteIndex - 1);
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(deletedTask);
+                            inputList.remove(deleteIndex-1);
+                            System.out.println("Now you have " + inputList.size() + " tasks in the list.");
+                        } catch (Exception e) {
+                            throw new IndexOutOfBoundsException();
+                        }
                     } else if (splitOutput[0].equals("mark")) {
                         System.out.println("Nice! I've marked this task as done:");
                         Task selectedTask = inputList.get(Integer.parseInt(splitOutput[1]) - 1);
@@ -75,7 +90,7 @@ public class Duke {
                         throw new InvalidInputException();
                     }
                 } catch (Exception e) {
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                 }
                 userOutput = userInput.nextLine();  // Read user input
             }
