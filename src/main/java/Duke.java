@@ -16,9 +16,24 @@ public class Duke {
     }
 
     public void addToList(String text) {
-        Task newTask = new Task(text);
+        ToDo newTask = new ToDo(text);
         this.arr.add(newTask);
-        System.out.println(partition + "\nadded: " + text + "\n" + partition);
+        System.out.println(partition + "\nadded:\n" + newTask + "\n" +
+        "You have " + this.arr.size() + " tasks in the list.\n" + partition);
+    }
+
+    public void addToList(String text, String dueDate) {
+        Deadline newTask = new Deadline(text, dueDate);
+        this.arr.add(newTask);
+        System.out.println(partition + "\nadded:\n" + newTask + "\nYou have "
+        + this.arr.size() + " tasks in the list.\n" + partition);
+    }
+
+    public void addToList(String text, String startDate, String endDate) {
+        Event newTask = new Event(text, startDate, endDate);
+        this.arr.add(newTask);
+        System.out.println(partition + "\nadded:\n" + newTask + "\nYou have "
+        + this.arr.size() + " tasks in the list.\n" + partition);
     }
 
     public void markTask(int index) {
@@ -65,8 +80,19 @@ public class Duke {
             } else if (input.startsWith("unmark")) {
                 int currIndex = Integer.parseInt(input.replace("unmark ", ""));
                 this.unmarkTask(currIndex);
+            } else if (input.startsWith("todo")) {
+                String description = input.replace("todo", "");
+                this.addToList(description);
+            } else if (input.startsWith("deadline")) {
+                String description = input.replace("deadline ", "");
+                String[] details = description.split(" /by ");
+                this.addToList(details[0], details[1]);
             } else {
-                this.addToList(input);
+                String description = input.replace("event", "");
+                String[] details = description.split(" /");
+                details[1] = details[1].replace("from ", "");
+                details[2] = details[2].replace("to ", "");
+                this.addToList(details[0], details[1], details[2]);
             }
         }
         this.printExitMessage();
