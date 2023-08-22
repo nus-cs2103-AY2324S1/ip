@@ -1,10 +1,13 @@
+import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 
 public class Duke {
     static String name = "Nichbot";
+    // Assuming there will not be more than 100 tasks
+    static String[] tasks = new String[100];
+    static int count = 0;
 
-
-    // Function to say introduce the chatbot
+    // Level-0, Function to say introduce the chatbot
     public static void sayHello() {
         String greet = String.format(
                 "____________________________________________________________\n" +
@@ -14,19 +17,34 @@ public class Duke {
         System.out.println(greet);
     }
 
-    // Function to say goodbye
+    // Level-0, Function to say goodbye
     public static void sayGoodBye() {
         String bye =  ("Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________");
         System.out.println(bye);
     }
 
+//  Level-1, Echo user input
     public static void echoUserInput(String input) {
-        String echo = String.format( "____________________________________________________________\n"
-                + " %s\n"
-                + "____________________________________________________________\n", input);
-        System.out.println(echo);
+        System.out.println(input + "\n____________________________________________________________");
     }
+
+//    Level-2, Add, list
+    public static void addList(String input) {
+        tasks[count++] = input;
+        System.out.print("____________________________________________________________\n" + "added: ");
+        echoUserInput(input);
+    }
+
+    public static void printList() {
+        System.out.println("____________________________________________________________");
+        for (int i = 0; i < count; i++) {
+            String current = String.format("%d: %s",i + 1,tasks[i]);
+            System.out.println(current);
+        }
+        System.out.print("____________________________________________________________\n");
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -40,9 +58,13 @@ public class Duke {
         String userInput = "";
         do {
             userInput = sc.nextLine();
-            echoUserInput(userInput);
+            if (userInput.toLowerCase().equals("list")) {
+                printList();
+            } else {
+                addList(userInput);
+            }
         } while (!userInput.toLowerCase().equals("bye"));
-        
+
         sayGoodBye();
     }
 }
