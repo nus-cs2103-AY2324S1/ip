@@ -78,9 +78,88 @@ public class TaskManager {
 
         @Override
         public String toString() {
-            return String.format("%s %s", this.getCompletedIndicatorString(), this.getTitle());
+            return String.format("<T> %s %s", this.getCompletedIndicatorString(), this.getTitle());
         }
     }
+
+    /**
+     * A deadline task. It tracks a title and a deadline associated
+     * with it, and can be marked as completed.
+     */
+    public static class Deadline extends Task {
+
+        private String deadline; // TODO: dates should not be a string
+
+        public Deadline(String title, String deadline) {
+            super(title);
+            this.deadline = deadline;
+        }
+
+        /**
+         * Obtains the deadline of this task.
+         * @return The deadline of this task as a string.
+         */
+        public String getDeadline() {
+            return this.deadline;
+        }
+
+        @Override
+        public String toString() {
+            return String.format(
+                    "<D> %s %s (by: %s)",
+                    this.getCompletedIndicatorString(),
+                    this.getTitle(),
+                    this.getDeadline()
+            );
+        }
+    }
+
+    /**
+     * An event task. It tracks a title and the range associated with the
+     * event (from date-time to date-time), and can be marked as completed.
+     */
+    public static class Event extends Task {
+
+        private String startTimestamp; // TODO: Start times should not be a string.
+        private String endTimestamp; // TODO: End times should not be a string.
+
+        public Event(String title, String startTimestamp, String endTimestamp) {
+            super(title);
+            this.startTimestamp = startTimestamp;
+            this.endTimestamp = endTimestamp;
+        }
+
+        /**
+         * Obtains the starting timestamp of this event task.
+         *
+         * @return The starting timestamp as a string.
+         */
+        public String getStartTimestamp() {
+            return this.startTimestamp;
+        }
+
+        /**
+         * Obtains the ending timestamp of this event task.
+         *
+         * @return The ending timestamp as a string.
+         */
+        public String getEndTimestamp() {
+            return this.endTimestamp;
+        }
+
+        @Override
+        public String toString() {
+            return String.format(
+                    "<E> %s %s (from: %s, to: %s)",
+                    this.getCompletedIndicatorString(),
+                    this.getTitle(),
+                    this.getStartTimestamp(),
+                    this.getEndTimestamp()
+            );
+        }
+    }
+
+
 
     private List<Task> taskList;
 
