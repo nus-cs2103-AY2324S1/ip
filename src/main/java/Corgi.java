@@ -135,7 +135,13 @@ public class Corgi {
         this.tasks.add(new Task(task));
         System.out.println("Added: " + task);
     }
-
+    
+     /**
+      * Add a new task to the list of tasks based on the provided task type.
+      *
+      * @param taskInfo Information about the task, including description and date/time details
+      * @param type The type of the task ("todo", "deadline", or "event")
+      */
     private void addTask(String taskInfo, String type) {
         Task newTask = null;
 
