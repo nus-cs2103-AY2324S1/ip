@@ -1,6 +1,10 @@
 package services.tasklist;
 
+import command.CommandType;
 import services.Format;
+import services.bizerrors.EmptyArgumentException;
+import services.bizerrors.InvalidArgumentException;
+import services.bizerrors.JarvisException;
 import services.tasklist.tasks.Deadline;
 import services.tasklist.tasks.Event;
 import services.tasklist.tasks.Task;
@@ -9,16 +13,15 @@ import services.tasklist.tasks.Todo;
 import java.util.ArrayList;
 
 public class List {
-    private enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
-
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static int taskCount = 0;
 
-    public static void add(String description, String taskTypeName, String... args) throws IllegalStateException {
+    public static void add(String description, CommandType taskType, String... args) throws JarvisException {
         Task newTask;
-        TaskType taskType = TaskType.valueOf(taskTypeName.toUpperCase());
+        // this if block is unnecessary currently (is never reached), but it may be useful in the future.
+        if (description.isEmpty()) {
+            throw new EmptyArgumentException(taskType.toString().toLowerCase());
+        }
         switch (taskType) {
             case TODO:
                 newTask = new Todo(description);
@@ -30,7 +33,8 @@ public class List {
                 newTask = new Event(description, args[0], args[1]);
                 break;
             default:
-                throw new IllegalStateException("Unexpected task type: " + taskType);
+                // the program should never reach this point.
+                throw new JarvisException("Default case reached.");
         }
         taskList.add(newTask);
         taskCount++;
@@ -50,6 +54,10 @@ public class List {
     }
 
     public static void show() {
+        if (taskCount == 0) {
+            Format.print("Sir, there are no tasks on your calendar.");
+            return;
+        }
         String result = "Sir, there are " + taskCount + " tasks on your calendar:\n";
         for (int i = 1; i < taskCount; i++) {
             result += i + ". " + taskList.get(i - 1) + "\n";

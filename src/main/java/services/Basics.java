@@ -8,7 +8,7 @@ public class Basics {
     }
 
     public static void exit() {
-        String exitMessage = "Shutting down...";
+        String exitMessage = "Goodbye, sir.\n" + "Shutting down...";
         Format.print(exitMessage);
     }
 

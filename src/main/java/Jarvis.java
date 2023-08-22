@@ -1,4 +1,6 @@
+import command.CommandResolver;
 import services.Basics;
+import services.bizerrors.JarvisException;
 
 import java.util.Scanner;
 
@@ -44,7 +46,11 @@ public class Jarvis {
         while (!userInput.equals("exit")) {
             String command = userInput.split(" ")[0];
             String arguments = userInput.replaceFirst(command, "").strip();
-            CommandResolver.resolve(command, arguments);
+            try {
+                CommandResolver.resolve(command, arguments);
+            } catch (JarvisException e) {
+                System.out.print(e);
+            }
             userInput = scanner.nextLine();
         }
 
