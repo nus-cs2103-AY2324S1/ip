@@ -19,18 +19,21 @@ public class Duke {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String output = scanner.nextLine();
-
-            // Exit the loop and the application if the user inputs "bye"
             if (output.equals("bye")) {
                 System.out.println(bye);
                 break;
             }
-            // Display the list of tasks if the user inputs "list"
             else if (output.equals("list")) {
                 list.display();
-            }
-            // Add the user input as a new task
-            else {
+            } else if (output.startsWith("mark")) {
+                String[] inputs = output.split(" ");
+                int key = Integer.parseInt(inputs[1]);
+                list.markDone(key);
+            } else if (output.startsWith("unmark")) {
+                String[] inputs = output.split(" ");
+                int key = Integer.parseInt(inputs[1]);
+                list.unmark(key);
+            } else {
                 list.add(output);
             }
         }
