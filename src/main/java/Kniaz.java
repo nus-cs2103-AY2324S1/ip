@@ -135,7 +135,7 @@ public class Kniaz {
                 String[] tokenizedEventArgs = eventArgs.split("/");
 
                 String eventName = tokenizedEventArgs[0].strip();
-                String eventStart = Kniaz.getAfter(tokenizedEventArgs[1], "from").strip();
+                String eventStart = Kniaz.getAfter(tokenizedEventArgs[1], " from").strip();
                 String eventEnd = Kniaz.getAfter(tokenizedEventArgs[2], "to").strip();
                 // we use getAfter here to get all after the "from" or "to", as that's the actual date/time
                 // strip to remove excess whitespace

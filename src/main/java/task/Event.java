@@ -38,8 +38,8 @@ public class Event extends Task {
     @Override
     public String toPrintString() {
         String postpend = String.format(
-                "from : %s to: %s", this.startTime, this.endTime
-        );
+                " from : %s to: %s", this.startTime, this.endTime
+        ); //need a whitespace here for formatting reasons
         return Event.PREPEND + super.toPrintString() + postpend;
     }
 }
