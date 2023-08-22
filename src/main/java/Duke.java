@@ -18,13 +18,21 @@ public class Duke {
 
         while (notBye) {
             String input = scanner.nextLine();
+            String[] splited = input.split(" ");
 
-            if (input.equals("bye")) {
+            if (splited[0].equals("bye")) {
                 notBye = false;
                 System.out.println("Bye. Hope to see you again soon!");
-            } else if (input.equals("list")) {
+            } else if (splited[0].equals("list")) {
                 dukelist.printList();
-            } else {
+            } else if (splited[0].equals("mark")) {
+                int number = Integer.parseInt(splited[1]);
+                dukelist.setDone(number);
+            } else if (splited[0].equals("unmark")) {
+                int number = Integer.parseInt(splited[1]);
+                dukelist.setUndone(number);
+            }
+            else {
                 dukelist.addToList(input);
 
             }
