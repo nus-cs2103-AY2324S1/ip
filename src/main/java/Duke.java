@@ -4,7 +4,8 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         // Send welcome message
-        System.out.println("    ____________________________________________________________\n" +
+        System.out.println(
+                "    ____________________________________________________________\n" +
                 "     Hello! I'm BbabBBB\n" +
                 "     What can I do for you?\n" +
                 "    ____________________________________________________________\n");
@@ -20,7 +21,8 @@ public class Duke {
         while (true) {
             String userInput = scan.nextLine();
             if (Objects.equals(userInput, "bye")) {
-                System.out.println("    ____________________________________________________________\n" +
+                System.out.println(
+                        "    ____________________________________________________________\n" +
                         "     Bye. Hope to see you again soon!\n" +
                         "    ____________________________________________________________\n");
                 break;
@@ -33,12 +35,13 @@ public class Duke {
                         String taskName = taskArray[i].getName();
                         boolean taskStatus = taskArray[i].getStatus();
                         int num = i + 1;
-                        inputArrayString += "     " + num + ". " + currentTask.statusString() + " " + currentTask.getName() + "\n";
+                        inputArrayString += "     " + num + ". " + currentTask.toString() + "\n";
                     } else {
                         break;
                     }
                 }
-                System.out.println("    ____________________________________________________________\n" +
+                System.out.println(
+                        "    ____________________________________________________________\n" +
                         "     Here are the tasks in your list:\n" +
                         inputArrayString +
                         "    ____________________________________________________________\n");
@@ -48,24 +51,68 @@ public class Duke {
                 int taskIndex = Integer.parseInt(parts[1]) - 1;
                 Task currentTask = taskArray[taskIndex];
                 currentTask.markDone();
-                System.out.println("    ____________________________________________________________\n" +
+                System.out.println(
+                        "    ____________________________________________________________\n" +
                         "     Nice! I've marked this task as done:\n" +
                         "       " + currentTask.toString() + "\n" +
                         "    ____________________________________________________________\n");
+
             } else if (userInput.startsWith("unmark")) {
                 String[] parts = userInput.split("\\s+");
                 int taskIndex = Integer.parseInt(parts[1]) - 1;
                 Task currentTask = taskArray[taskIndex];
                 currentTask.unmarkDone();
-                System.out.println("    ____________________________________________________________\n" +
+                System.out.println(
+                        "    ____________________________________________________________\n" +
                         "     OK, I've marked this task as not done yet:\n" +
                         "       " + currentTask.toString() + "\n" +
                         "    ____________________________________________________________\n");
-            }
-            else {
+            } else if (userInput.startsWith("todo ")) {
+                String taskName = userInput.substring("todo ".length());
+                taskArray[inputNum] = new ToDo(taskName);
+                System.out.println(
+                        "    ____________________________________________________________\n" +
+                        "     Got it. I've added this task:\n" +
+                        "       " + taskArray[inputNum].toString() + "\n" +
+                        "     Now you have " + (inputNum + 1) + " task(s) in the list.\n" +
+                        "    ____________________________________________________________\n");
+                inputNum++;
+
+            } else if (userInput.startsWith("deadline ")) {
+                String description = userInput.substring("deadline ".length());
+                String[] parts = description.split(" /by ");
+                String taskName = parts[0];
+                String by = parts[1];
+                taskArray[inputNum] = new Deadline(taskName, by);
+                System.out.println(
+                        "    ____________________________________________________________\n" +
+                        "     Got it. I've added this task:\n" +
+                        "       " + taskArray[inputNum].toString() + "\n" +
+                        "     Now you have " + (inputNum + 1) + " task(s) in the list.\n" +
+                        "    ____________________________________________________________\n");
+                inputNum++;
+
+            } else if (userInput.startsWith("event ")) {
+                String description = userInput.substring("event ".length());
+                String[] partsA = description.split(" /from ");
+                String taskName = partsA[0];
+                String[] partsB = partsA[1].split(" /to ");
+                String start = partsB[0];
+                String end = partsB[1];
+                taskArray[inputNum] = new Event(taskName, start, end);
+                System.out.println(
+                        "    ____________________________________________________________\n" +
+                        "     Got it. I've added this task:\n" +
+                        "       " + taskArray[inputNum].toString() + "\n" +
+                        "     Now you have " + (inputNum + 1) + " task(s) in the list.\n" +
+                        "    ____________________________________________________________\n");
+                inputNum++;
+
+            } else {
                 Task task = new Task(userInput);
                 taskArray[inputNum] = task;
-                System.out.println("    ____________________________________________________________\n" +
+                System.out.println(
+                        "    ____________________________________________________________\n" +
                         "    added: " + userInput + "\n" +
                         "    ____________________________________________________________\n");
                 inputNum++;
