@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -30,12 +31,41 @@ public class Duke {
     }
 
     public void handleTask(String task) {
-        System.out.println(line);
-        System.out.println("added: " + task);
-        System.out.println(line);
+        String nextTaskString = null;
 
-        Task nextTask = new Task(task);
-        this.tasks.add(nextTask);
+        if (task.startsWith("todo")) {
+            String[] preprocessedTask = task.split("todo ");
+
+            Todo nextTodo = new Todo(preprocessedTask[1]);
+            this.tasks.add(nextTodo);
+            nextTaskString = nextTodo.toString();
+        } else if (task.startsWith("deadline")) {
+            String[] temp = task.split("deadline ");
+            String[] preprocessedTask = preprocessTask(temp[1]);
+
+            Deadline nextDeadline = new Deadline(preprocessedTask[0], preprocessedTask[1]);
+            this.tasks.add(nextDeadline);
+            nextTaskString = nextDeadline.toString();
+        } else if (task.startsWith("event")) {
+            String[] temp = task.split("event ");
+            String[] preprocessedTask = preprocessTask(temp[1]);
+
+            Event nextEvent = new Event(preprocessedTask[0], preprocessedTask[1], preprocessedTask[2]);
+            this.tasks.add(nextEvent);
+            nextTaskString = nextEvent.toString();
+        }
+
+        System.out.println(line);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(nextTaskString);
+        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
+        System.out.println(line);
+    }
+
+    private String[] preprocessTask(String temp) {
+        String[] preprocessedTask = temp.split(" /by | /from | /to ");
+
+        return preprocessedTask;
     }
 
     public void markTask(int taskIndex) {
