@@ -2,22 +2,26 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static String StringFormat(String str) {
-        return "_______________________________________________\n"
-                + str + "\n"
-                + "_______________________________________________";
+    private static String StringFormat(String[] strArray) {
+        String content = "";
+        for (String s : strArray) {
+            content += "\t " + s + "\n";
+        }
+        return   "\t_______________________________________________\n"
+                + content
+                + "\t_______________________________________________";
     }
 
     private static String Greet() {
-        return StringFormat("Hi there! I'm Bob.\nHow can I help?");
+        return StringFormat(new String[]{"Hi there! I'm Bob", "How can I help?"});
     }
 
     private static String Exit() {
-        return StringFormat("See you soon!");
+        return StringFormat(new String[]{"See you soon!"});
     }
 
     private static String Echo(String input) {
-        return StringFormat(input);
+        return StringFormat(new String[]{input});
     }
 
     public static void main(String[] args) {
