@@ -132,10 +132,10 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             switch (command.getName()) {
                 case "mark":
                 case "unmark":
+                case "delete":
                     if (command.getData() != null) {
                         int index;
                         TaskManager.Task task;
-                        boolean completed;
 
                         // Process the input
                         try {
@@ -156,27 +156,46 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                             ));
                         }
 
-                        completed = command.getName().equals("mark");
+                        // Let's see what we should do!
+                        if (command.getName().equals("delete")) {
 
-                        // Mark the task accordingly
-                        if (task.isCompleted() == completed) {
-                            throw new ChatbotException(
-                                    completed ? "The task was already done!" : "The task was already not done!"
-                            );
-                        }
-                        task.markCompleted(completed);
+                            // Delete the task accordingly. We already checked the index so it should be correct.
+                            this.taskManager.removeTask(index);
 
-                        // Send an appropriate reply
-                        if (completed) {
+                            // Send an appropriate reply.
                             this.sendMessage(
                                     ChatMessage.SenderType.CHATBOT,
-                                    String.format("Nice! I've marked this task as done:\n   %s", task.toString())
+                                    String.format(
+                                            "Alright, I've deleted this task:\n   %s\nYou're left with %d tasks now! :)",
+                                            task,
+                                            this.taskManager.getTaskCount()
+                                    )
                             );
+
                         } else {
-                            this.sendMessage(
-                                    ChatMessage.SenderType.CHATBOT,
-                                    String.format("OK, I've marked this task as not done yet:\n   %s", task.toString())
-                            );
+
+                            // Mark the task as done or not accordingly
+                            boolean completed = command.getName().equals("mark");
+                            if (task.isCompleted() == completed) {
+                                throw new ChatbotException(
+                                        completed ? "The task was already done!" : "The task was already not done!"
+                                );
+                            }
+                            task.markCompleted(completed);
+
+                            // Send an appropriate reply
+                            if (completed) {
+                                this.sendMessage(
+                                        ChatMessage.SenderType.CHATBOT,
+                                        String.format("Nice! I've marked this task as done:\n   %s", task.toString())
+                                );
+                            } else {
+                                this.sendMessage(
+                                        ChatMessage.SenderType.CHATBOT,
+                                        String.format("OK, I've marked this task as not done yet:\n   %s", task.toString())
+                                );
+                            }
+
                         }
                     }
                     break;
