@@ -9,12 +9,15 @@ public class Duke {
             " / __/ / / /_/ / ,< /  __/\n" +
             "/_/   /_/\\__,_/_/|_|\\___/ \n" +
             "                          ";
+    private static String[] listOfCommands = new String[100];
+    private static int nextCommandIndex = 0;
 
     public static void main(String[] args) {
         // introduce Fluke
         System.out.println(LOGO);
         addHorizontalLine();
         greet();
+        addHorizontalLine();
         // initialise scanner to check for user input
         Scanner scanner = new Scanner(System.in);
         boolean waitingForInput = true;
@@ -26,9 +29,13 @@ public class Duke {
                     waitingForInput = false;
                     sayBye();
                     break;
+                case "list":
+                    list();
+                    break;
                 default:
-                    echo(nextCommand);
+                    addCommand(nextCommand);
             }
+            addHorizontalLine();
         }
     }
 
@@ -37,20 +44,31 @@ public class Duke {
                 "Hello! I'm " + CHATBOT_NAME + ", everything I do is down to luck!" + "\n" +
                 "Feeling lucky today?"
         );
-        addHorizontalLine();
     }
 
     private static void sayBye() {
         System.out.println("Bye. Good luck!");
-        addHorizontalLine();
     }
 
     private static void addHorizontalLine() {
         System.out.println("____________________________________________________________");
     }
 
-    private static void echo(String str) {
-        System.out.println(str);
-        addHorizontalLine();
+    private static void addCommand(String str) {
+        listOfCommands[nextCommandIndex] = str;
+        nextCommandIndex += 1;
+        System.out.println("added: " + str);
+    }
+
+    private static void list() {
+        for (int i = 0; i < 100; i++) {
+            if (listOfCommands[i] == null) {
+                break;
+            } else {
+                String command = listOfCommands[i];
+                int number = i + 1;
+                System.out.println(number + ". " + command);
+            }
+        }
     }
 }
