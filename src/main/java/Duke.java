@@ -4,12 +4,11 @@ import java.util.Scanner;
 public class Duke {
     private final static String CHATBOT_NAME = "Fluke";
     private final static String LOGO =
-            "    ________      __      \n" +
-            "   / ____/ /_  __/ /_____ \n" +
+            "    ________      __\n" +
+            "   / ____/ /_  __/ /_____\n" +
             "  / /_  / / / / / //_/ _ \\\n" +
             " / __/ / / /_/ / ,< /  __/\n" +
-            "/_/   /_/\\__,_/_/|_|\\___/ \n" +
-            "                          ";
+            "/_/   /_/\\__,_/_/|_|\\___/";
     private static Task[] listOfTasks = new Task[100];
     private static int nextTaskIndex = 0;
 
