@@ -29,9 +29,14 @@
      Missing '/by' or date for deadline.
     ____________________________________________________________
     ____________________________________________________________
+     Noted. I've removed this task:
+     [T][ ] borrow book
+     Now you have 3 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
      Got it. I've added this task:
        [E][ ] project meeting (from: Mon 2pm to: 4pm)
-      Now you have 5 tasks in the list.
+      Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Missing '/to' or end date for event.
@@ -40,21 +45,28 @@
      Missing '/from' or start date for event.
     ____________________________________________________________
     ____________________________________________________________
+     Nice! I've marked this task as done:
+     [D][X] finish project  (by: Monday)
+    ____________________________________________________________
+    ____________________________________________________________
+     Noted. I've removed this task:
+     [D][X] finish project  (by: Monday)
+     Now you have 3 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
      Got it. I've added this task:
        [E][ ] family gathering (from: Fri 6pm to: 8pm)
-      Now you have 6 tasks in the list.
+      Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      1. [T][ ] read book
-     2. [T][ ] borrow book
-     3. [D][ ] return book  (by: Sunday)
-     4. [D][ ] finish project  (by: Monday)
-     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     6. [E][ ] family gathering (from: Fri 6pm to: 8pm)
+     2. [D][ ] return book  (by: Sunday)
+     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     4. [E][ ] family gathering (from: Fri 6pm to: 8pm)
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
-     [T][X] borrow book
+     [D][X] return book  (by: Sunday)
     ____________________________________________________________
     ____________________________________________________________
      Invalid task number.
@@ -65,83 +77,75 @@
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
-     [D][X] finish project  (by: Monday)
+     [E][X] family gathering (from: Fri 6pm to: 8pm)
     ____________________________________________________________
     ____________________________________________________________
      1. [T][X] read book
-     2. [T][X] borrow book
-     3. [D][ ] return book  (by: Sunday)
-     4. [D][X] finish project  (by: Monday)
-     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     6. [E][ ] family gathering (from: Fri 6pm to: 8pm)
+     2. [D][X] return book  (by: Sunday)
+     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     4. [E][X] family gathering (from: Fri 6pm to: 8pm)
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
-     [T][X] borrow book
-    ____________________________________________________________
-    ____________________________________________________________
-     OK! I've marked this task as not done yet:
-     [D][ ] finish project  (by: Monday)
+     [D][X] return book  (by: Sunday)
     ____________________________________________________________
     ____________________________________________________________
      Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
      OK! I've marked this task as not done yet:
-     [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     [E][ ] family gathering (from: Fri 6pm to: 8pm)
+    ____________________________________________________________
+    ____________________________________________________________
+     Invalid task number.
+    ____________________________________________________________
+    ____________________________________________________________
+     Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
      1. [T][X] read book
-     2. [T][X] borrow book
-     3. [D][ ] return book  (by: Sunday)
-     4. [D][ ] finish project  (by: Monday)
-     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     6. [E][ ] family gathering (from: Fri 6pm to: 8pm)
+     2. [D][X] return book  (by: Sunday)
+     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     4. [E][ ] family gathering (from: Fri 6pm to: 8pm)
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
        [T][ ] watch movie
-      Now you have 7 tasks in the list.
+      Now you have 5 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
        [D][ ] prepare slides  (by: Tuesday)
-      Now you have 8 tasks in the list.
+      Now you have 6 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
        [E][ ] conference (from: Wed 10am to: 12pm)
-      Now you have 9 tasks in the list.
+      Now you have 7 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
      1. [T][X] read book
-     2. [T][X] borrow book
-     3. [D][ ] return book  (by: Sunday)
-     4. [D][ ] finish project  (by: Monday)
-     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     6. [E][ ] family gathering (from: Fri 6pm to: 8pm)
-     7. [T][ ] watch movie
-     8. [D][ ] prepare slides  (by: Tuesday)
-     9. [E][ ] conference (from: Wed 10am to: 12pm)
+     2. [D][X] return book  (by: Sunday)
+     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     4. [E][ ] family gathering (from: Fri 6pm to: 8pm)
+     5. [T][ ] watch movie
+     6. [D][ ] prepare slides  (by: Tuesday)
+     7. [E][ ] conference (from: Wed 10am to: 12pm)
     ____________________________________________________________
     ____________________________________________________________
-     Nice! I've marked this task as done:
-     [D][X] prepare slides  (by: Tuesday)
+     Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
-     Nice! I've marked this task as done:
-     [E][X] conference (from: Wed 10am to: 12pm)
+     Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
      1. [T][X] read book
-     2. [T][X] borrow book
-     3. [D][ ] return book  (by: Sunday)
-     4. [D][ ] finish project  (by: Monday)
-     5. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     6. [E][ ] family gathering (from: Fri 6pm to: 8pm)
-     7. [T][ ] watch movie
-     8. [D][X] prepare slides  (by: Tuesday)
-     9. [E][X] conference (from: Wed 10am to: 12pm)
+     2. [D][X] return book  (by: Sunday)
+     3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+     4. [E][ ] family gathering (from: Fri 6pm to: 8pm)
+     5. [T][ ] watch movie
+     6. [D][ ] prepare slides  (by: Tuesday)
+     7. [E][ ] conference (from: Wed 10am to: 12pm)
     ____________________________________________________________
     ____________________________________________________________
      Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
