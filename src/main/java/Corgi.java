@@ -14,6 +14,9 @@ public class Corgi {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Starts the chatbot - Corgi.
+     */
     public void start() {
         String logo = "  ____ ___  ____   ____ ___\n"
                 + " / ___/ _ \\|  _ \\ / ___|_ _|\n"
@@ -44,6 +47,9 @@ public class Corgi {
         sc.close();
     }
 
+    /**
+     * Display the list of tasks.
+     */
     private void displayTasks() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks added.");
@@ -54,6 +60,11 @@ public class Corgi {
         }
     }
 
+    /**
+     * Add a new task to the list of tasks.
+     * 
+     * @param task Task to be added
+     */
     private void addTask(String task) {
         this.tasks.add(task);
         System.out.println("Added: " + task);
