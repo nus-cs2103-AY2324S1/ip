@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static final int TAB_WIDTH = 4;
     private static final String NAME = "Jimmy";
     private static final int MAX_ENTRIES = 100;
     private static final Task[] tasks = new Task[MAX_ENTRIES];
@@ -8,7 +9,9 @@ public class Duke {
 
     private static void print(String... strings) {
         for (String s : strings) {
-            System.out.print('\t');
+            for (int i = 0; i < TAB_WIDTH; i++) {
+                System.out.print(" ");
+            }
             System.out.println(s);
         }
     }
