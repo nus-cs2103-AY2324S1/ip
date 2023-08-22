@@ -8,9 +8,9 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String x = sc.nextLine();
         while (x != null) {
-            String[] stringList = x.split(" ");
-            String firstWord = stringList[0];
-            switch (firstWord) {
+            String[] stringList = x.split(" ",2);
+            String first = stringList[0];
+            switch (first) {
                 case "bye":
                     break;
                 case "list":
@@ -26,8 +26,14 @@ public class Duke {
                     Task p = my_list.get(j-1);
                     p.markUndone();
                     break;
-                default:
-                    addTask(x);
+                case "todo":
+                    addTodo(stringList[1]);
+                    break;
+                case "deadline":
+                    addDeadline(stringList[1]);
+                    break;
+                case "event":
+                    addEvent(stringList[1]);
                     break;
             }
             if (x.equals("bye")) {
@@ -43,11 +49,35 @@ public class Duke {
     private static void ending() {
         System.out.println("Bye. Hope to see you again!");
     }
-    private static void addTask(String x) {
-        Task t = new Task(x);
+    private static void addTodo(String x) {
+        Todo t = new Todo(x);
         my_list.add(t);
-        System.out.println("Added to list: " + x);
+        addedTask(x);
     }
+    private static void addDeadline(String x) {
+        String[] s = x.split(" /by ");
+        String description = s[0];
+        String deadline = s[1];
+        Deadline d = new Deadline(description, deadline);
+        my_list.add(d);
+        addedTask(description);
+    }
+
+    private static void addEvent(String x) {
+        String[] s = x.split(" /from | /to ");
+        String description = s[0];
+        String from = s[1];
+        String to = s[2];
+        Event e = new Event(description, from, to);
+        my_list.add(e);
+        addedTask(description);
+    }
+
+    private static void addedTask(String x) {
+        System.out.println("Added to list: " + x);
+        System.out.println("Now you have " + my_list.size() + " tasks in the list");
+    }
+
     private static void printList() {
         for (int i = 0; i < my_list.size(); i++) {
             System.out.println(i+1 + " " + my_list.get(i).toString());
