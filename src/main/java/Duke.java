@@ -35,9 +35,18 @@ public class Duke {
                 tasks.get(index).unmarkDone();
                 System.out.println("Pong: I've marked this task as not done.");
                 System.out.printf("    %s\n", tasks.get(index));
-            } else {
-                tasks.add(new Task(userInput));
-                System.out.printf("Pong: [Added] %s\n", userInput);
+            } else if (userInput.startsWith("todo")) {
+                tasks.add(new Todo(userInput.substring(5)));
+                System.out.printf("Pong: [Added] %s\n", tasks.get(tasks.size() - 1));
+            } else if (userInput.startsWith("deadline")) {
+                String[] tokens = userInput.substring(9).split(" /by ");
+                tasks.add(new Deadline(tokens[0], tokens[1]));
+                System.out.printf("Pong: [Added] %s\n", tasks.get(tasks.size() - 1));
+            } else if (userInput.startsWith("event")) {
+                String[] tokens = userInput.substring(6).split(" /from ");
+                String[] duration = tokens[1].split(" /to ");
+                tasks.add(new Event(tokens[0], duration[0], duration[1]));
+                System.out.printf("Pong: [Added] %s\n", tasks.get(tasks.size() - 1));
             }
         }
 
