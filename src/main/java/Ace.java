@@ -70,28 +70,39 @@ public class Ace {
     }
 
     public String sendMessage(String keyWord, String details) {
-        switch(keyWord) {
-            case "start":
-                return addLine(greet());
-            case "bye":
-                return addLine(goodbye());
-            case "list":
-                return addLine(printList());
-            case "mark":
-                return addLine(markTask(Integer.parseInt(details)));
-            case "unmark":
-                return addLine(unmarkTask(Integer.parseInt(details)));
-            case "todo":
-                return addLine(addTodo(details));
-            case "deadline":
-                String[] partDeadline = details.split("/by");
-                return addLine(addDeadline(partDeadline[0], partDeadline[1]));
-            case "event":
-                String[] partFrom = details.split("/from");
-                String[] partTo = partFrom[1].split("/to");
-                return addLine(addEvent(partFrom[0], partTo[0], partTo[1]));
-            default:
-                return addLine(addTask(keyWord + " " + details));
+        try {
+            switch (keyWord) {
+                case "start":
+                    return addLine(greet());
+                case "bye":
+                    return addLine(goodbye());
+                case "list":
+                    return addLine(printList());
+                case "mark":
+                    int markIndex = Integer.parseInt(details);
+                    if (markIndex > tracker) throw new DukeException("☹ OOPS!! Task does not exist");
+                    return addLine(markTask(markIndex));
+                case "unmark":
+                    int unmarkIndex = Integer.parseInt(details);
+                    if (unmarkIndex > tracker) throw new DukeException("☹ OOPS!! Task does not exist");
+                    return addLine(unmarkTask(unmarkIndex));
+                case "todo":
+                    if (details == "") throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n");
+                    return addLine(addTodo(details));
+                case "deadline":
+                    if (details == "") throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.\n");
+                    String[] partDeadline = details.split("/by");
+                    return addLine(addDeadline(partDeadline[0], partDeadline[1]));
+                case "event":
+                    if (details == "") throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.\n");
+                    String[] partFrom = details.split("/from");
+                    String[] partTo = partFrom[1].split("/to");
+                    return addLine(addEvent(partFrom[0], partTo[0], partTo[1]));
+                default:
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+        } catch (DukeException e) {
+            return addLine(e.getMessage());
         }
     }
 }

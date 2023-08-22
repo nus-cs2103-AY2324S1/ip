@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class Duke {
     public static void main(String[] args) {
         Ace chatBot = new Ace();
         Scanner scanner = new Scanner(System.in);
