@@ -2,24 +2,24 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static final String horizontalLine = "      ____________________________________________________________\n";
+    public static final String horizontalLine = "        ____________________________________________________________\n";
     public static void greet() {
         System.out.println(horizontalLine
-                            + "      " + "Hello! I'm Glenda!\n"
-                            + "      " + "What can I do for you?\n"
+                            + "        " + "Hello! I'm Glenda!\n"
+                            + "        " + "What can I do for you?\n"
                             + horizontalLine);
     }
     public static void exit() {
         System.out.println(horizontalLine
-                            + "      " + "Bye. Hope to see you again soon!\n"
+                            + "        " + "Bye. Hope to see you again soon!\n"
                             + horizontalLine);
     }
 
     public static void printCommand(Task task, int numberOfTasks) {
         System.out.print(horizontalLine);
-        System.out.println("      " + "Got it. I've added this task to the list: ");
-        System.out.println("        " + task.toString());
-        System.out.println("      " + "Now you have " + numberOfTasks + " task(s) in the list.");
+        System.out.println("        " + "Got it. I've added this task to the list:");
+        System.out.println("          " + task.toString());
+        System.out.println("        " + "Now you have " + numberOfTasks + " task(s) in the list.");
         System.out.println(horizontalLine);
     }
 
@@ -28,13 +28,13 @@ public class Duke {
 
         if (tasks[0] == null) {
             // Case where there is no tasks to be displayed
-            System.out.println("      " + "No tasks added. ");
+            System.out.println("        " + "No tasks added. ");
         } else {
-            System.out.println("      " + "Here are the task(s) in your list: ");
+            System.out.println("        " + "Here are the task(s) in your list:");
 
             int taskNumber = 0;
             while (tasks[taskNumber] != null) {
-                System.out.println("      " + (taskNumber + 1) + ". " + tasks[taskNumber].toString());
+                System.out.println("        " + (taskNumber + 1) + ". " + tasks[taskNumber].toString());
                 taskNumber++;
             }
         }
@@ -43,23 +43,23 @@ public class Duke {
 
     public static void markTaskAsDone(Task task) {
         System.out.print(horizontalLine);
-        System.out.println("      " + "Great! I've completed this task!");
+        System.out.println("        " + "Great! I've completed this task!");
         task.markAsDone();
-        System.out.println("      " + task.toString());
+        System.out.println("        " + task.toString());
         System.out.println(horizontalLine);
     }
 
     public static void markTaskAsUnDone(Task task) {
         System.out.print(horizontalLine);
-        System.out.println("      " + "Okay, I have not yet completed this task.");
+        System.out.println("        " + "Okay, I have not yet completed this task.");
         task.markAsUndone();
-        System.out.println("      " + task.toString());
+        System.out.println("        " + task.toString());
         System.out.println(horizontalLine);
     }
 
     public static void invalidCommand() {
         System.out.println(horizontalLine
-                            + "      " + "Invalid command!\n"
+                            + "        " + "Invalid command!\n"
                             + horizontalLine);
     }
 
