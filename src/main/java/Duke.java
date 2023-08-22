@@ -33,6 +33,12 @@ public class Duke {
                 return CommandType.MARK;
             case "unmark":
                 return CommandType.UNMARK;
+            case "todo":
+                return CommandType.TODO;
+            case "deadline":
+                return CommandType.DEADLINE;
+            case "event":
+                return CommandType.EVENT;
             case "bye":
                 return CommandType.BYE;
             default:
@@ -75,10 +81,39 @@ public class Duke {
         System.out.println(list[index]);
     }
 
-    private void addToList(String line) {
-        list[size] = new Task(line);
+    private void addToList(String task) {
+        list[size] = new Task(task);
         size++;
-        System.out.println("Added " + line + " to list");
+        System.out.println("Added " + task + " to list");
+    }
+
+    private void addTodoToList(String task) {
+        list[size] = new Todo(task);
+        size++;
+        System.out.println("This task is added to the list");
+        System.out.println(list[size - 1]);
+        System.out.println(String.format("You now have %d tasks in your list", size));
+    }
+
+    private void addDeadlineToList(String line) {
+        String task = line.substring(0, line.indexOf("/by") - 1);
+        String dueDate = line.substring(line.indexOf("/by") + 4);
+        list[size] = new Deadline(task, dueDate);
+        size++;
+        System.out.println("This task is added to the list");
+        System.out.println(list[size - 1]);
+        System.out.println(String.format("You now have %d tasks in your list", size));
+    }
+
+    private void addEventToList(String line) {
+        String task = line.substring(0, line.indexOf("/from") - 1);
+        String dateFrom = line.substring(line.indexOf("/from") + 6, line.indexOf("/to") - 1);
+        String dateTo = line.substring(line.indexOf("/to") + 4);
+        list[size] = new Event(task, dateFrom, dateTo);
+        size++;
+        System.out.println("This task is added to the list");
+        System.out.println(list[size - 1]);
+        System.out.println(String.format("You now have %d tasks in your list", size));
     }
 
     private void performCommands() {
@@ -96,6 +131,15 @@ public class Duke {
                     break;
                 case UNMARK:
                     unmarkDone(Integer.parseInt(options) - 1);
+                    break;
+                case TODO:
+                    addTodoToList(options);
+                    break;
+                case DEADLINE:
+                    addDeadlineToList(options);
+                    break;
+                case EVENT:
+                    addEventToList(options);
                     break;
                 case BYE:
                     exit();
