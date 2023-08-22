@@ -69,41 +69,40 @@ public class Duke {
             }
             return rtnVal;
         }
-    }
-
-    /**
-     * Encapsulates an item in the list
-     */
-    private static class Item {
-        private String name;
-        private boolean isCompleted;
-        public Item(String name) {
-            this.name = name;
-            this.isCompleted = false;
-        }
-
         /**
-         * Mark this item as completed.
+         * Encapsulates an item in the list
          */
-        public void markCompleted() {
-            this.isCompleted = true;
-        }
-
-        /**
-         * Removes the "completed" mark on this item.
-         */
-        public void unmarkCompleted() {
-            this.isCompleted = false;
-        }
-        @Override
-        public String toString() {
-            String rtnVal = "";
-            if (this.isCompleted) {
-                rtnVal += "[X] ";
-            } else {
-                rtnVal += "[ ] ";
+        private static class Item {
+            private String name;
+            private boolean isCompleted;
+            public Item(String name) {
+                this.name = name;
+                this.isCompleted = false;
             }
-            return  rtnVal + name;
+
+            /**
+             * Mark this item as completed.
+             */
+            public void markCompleted() {
+                this.isCompleted = true;
+            }
+
+            /**
+             * Removes the "completed" mark on this item.
+             */
+            public void unmarkCompleted() {
+                this.isCompleted = false;
+            }
+            @Override
+            public String toString() {
+                String rtnVal = "";
+                if (this.isCompleted) {
+                    rtnVal += "[X] ";
+                } else {
+                    rtnVal += "[ ] ";
+                }
+                return  rtnVal + name;
+            }
         }
     }
 
@@ -133,7 +132,7 @@ public class Duke {
                             list.unmarkItem(idx);
                             System.out.println("OK, I've marked this task as not done yet:");
                         }
-                        System.out.println(list.viewItem(idx));
+                        System.out.println("  " + list.viewItem(idx));
                     } catch (NumberFormatException e) {
                         System.out.println("Please input a valid number for your index!");
                     }
