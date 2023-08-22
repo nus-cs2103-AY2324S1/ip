@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -7,6 +9,7 @@ public class Horo {
   private static Scanner scanner = new Scanner(System.in);
 
   public static void main(String[] args) {
+    loadTasks();
     welcomeMessage();
 
     while (true) {
@@ -127,6 +130,51 @@ public class Horo {
     System.out.println("Bye. Hope to see you again soon!");
     scanner.close();
     System.exit(0);
+  }
+
+  private static void loadTasks() {
+    try {
+      File taskFile = new File("./data/tasks.txt");
+      if (taskFile.createNewFile()) {
+        System.out.println("File created: " + taskFile.getName());
+      }
+
+      Scanner scanner = new Scanner(taskFile);
+      while (scanner.hasNextLine()) {
+        String data = scanner.nextLine();
+        parseTaskString(data);
+        // System.out.println(data);
+      }
+      scanner.close();
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    } catch (HoroException e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  private static void parseTaskString(String s) throws HoroException {
+    String[] arguments = s.split(",");
+    Task t;
+    switch (arguments[0]) {
+      case "T":
+        t = new Todo(arguments[2]);
+        break;
+      case "D":
+        t = new Deadline(arguments[2], arguments[3]);
+        break;
+      case "E":
+        t = new Event(arguments[2], arguments[3], arguments[4]);
+        break;
+      default:
+        System.out.println("Bad Command");
+        return;
+    }
+    if (arguments[1].equals("1")) {
+      t.markDone();
+    }
+    tasks.add(t);
   }
 
   private static void addTask(Task newTask) {
