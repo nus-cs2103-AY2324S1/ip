@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     private static final String NAME = "Jimmy";
 
@@ -16,8 +18,21 @@ public class Duke {
         print("Bye. Hope to see you again soon!");
     }
 
+    private static void echo(String s) {
+        print(s);
+    }
+
     public static void main(String[] args) {
         greet();
+
+        Scanner sc = new Scanner(System.in);
+
+        while (sc.hasNextLine()) {
+            String command = sc.nextLine();
+
+            if (command.equals("bye")) break;
+            echo(command);
+        }
 
         farewell();
     }
