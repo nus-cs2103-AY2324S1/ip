@@ -145,4 +145,35 @@ public class Command {
         }
         return this.params.get(key);
     }
+
+    /**
+     * Checks whether the given parameter was initialised.
+     *
+     * @param key the parameter, also known as the key.
+     * @return `true` if it was initialised, `false` otherwise.
+     */
+    public boolean hasParam(String key) {
+        if (!key.startsWith("/")) {
+            key = "/" + key;
+        }
+        return this.params.containsKey(key);
+    }
+
+
+    /**
+     * Checks whether the given parameter has any *useful* value.
+     *
+     * @param key the parameter, also known as the key.
+     * @return `true` if it has any non-empty, non-whitespace value, `false` otherwise.
+     */
+    public boolean hasParamWithUsefulValue(String key) {
+        if (!key.startsWith("/")) {
+            key = "/" + key;
+        }
+        String value = this.params.get(key);
+        if (value == null) {
+            value = "";
+        }
+        return !value.isBlank();
+    }
 }

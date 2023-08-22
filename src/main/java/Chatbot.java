@@ -86,10 +86,11 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * Method to send a message to the chatbot from the user.
      * @param message The message string to send.
      * @return The resulting message sent.
+     * @throws ChatbotRuntimeException if the conversation is closed.
      */
     public ChatMessage sendMessageFromUser(String message) {
         if (this.closed) {
-            throw new ChatbotRuntimeException("The conversation is not started or has ended, so no messages may be sent!");
+            throw new ChatbotRuntimeException("Conversations are not open, so no messages may be sent!");
         }
 
         return this.sendMessage(ChatMessage.SenderType.USER, message);
@@ -190,8 +191,10 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                                 task = new TaskManager.Todo(command.getData());
                                 break;
                             case "deadline":
-                                if (command.getParam("by") == null) {
-                                    throw new ChatbotException("The 'deadline' command requires supplying '/by <deadline>'!");
+                                if (!command.hasParamWithUsefulValue("by")) {
+                                    throw new ChatbotException(
+                                            "The 'deadline' command requires supplying '/by <deadline>'!"
+                                    );
                                 }
                                 task = new TaskManager.Deadline(
                                         command.getData(),
@@ -199,8 +202,11 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                                 );
                                 break;
                             case "event":
-                                if (command.getParam("from") == null || command.getParam("to") == null) {
-                                    throw new ChatbotException("The 'event' command requires supplying both '/from <date>' and '/to <date>'!");
+                                if (!command.hasParamWithUsefulValue("from") ||
+                                        !command.hasParamWithUsefulValue("to")) {
+                                    throw new ChatbotException(
+                                            "The 'event' command requires supplying both '/from <date>' and '/to <date>'!"
+                                    );
                                 }
                                 task = new TaskManager.Event(
                                         command.getData(),
