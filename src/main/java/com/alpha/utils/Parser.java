@@ -50,12 +50,12 @@ public class Parser {
 
   public static String getEventName(String text) throws InvalidEventException {
     String result = text.replaceFirst("event", "").replaceFirst(" ", "");
-    int indexOfLastFrom = text.lastIndexOf("/from");
+    int indexOfLastFrom = result.lastIndexOf("/from");
     if (indexOfLastFrom == -1) {
       System.out.println("a");
       throw new InvalidEventException();
     }
-    return result.substring(0, indexOfLastFrom - 1);
+    return result.substring(0, indexOfLastFrom);
   }
 
   public static String getEventStart(String text) throws InvalidEventException {

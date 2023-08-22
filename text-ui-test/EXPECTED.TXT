@@ -31,14 +31,14 @@ Here are the tasks in your list:
 ______________________________
 ______________________________
 Got it. I've added this task:
-[E][ ] project meeting /from(from: Aug 6th 2pm to: 4pm)
+[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 Now you have 3 tasks in the list.
 ______________________________
 ______________________________
 Here are the tasks in your list:
 1.[T][X] read book
 2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting /from(from: Aug 6th 2pm to: 4pm)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 ______________________________
 ______________________________
 Got it. I've added this task:
@@ -49,7 +49,7 @@ ______________________________
 Here are the tasks in your list:
 1.[T][X] read book
 2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting /from(from: Aug 6th 2pm to: 4pm)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 4.[T][ ] join sports club
 ______________________________
 ______________________________
@@ -60,7 +60,7 @@ ______________________________
 Here are the tasks in your list:
 1.[T][X] read book
 2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting /from(from: Aug 6th 2pm to: 4pm)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 4.[T][X] join sports club
 ______________________________
 ______________________________
@@ -72,7 +72,7 @@ ______________________________
 Here are the tasks in your list:
 1.[T][X] read book
 2.[D][ ] return book (by: June 6th)
-3.[E][ ] project meeting /from(from: Aug 6th 2pm to: 4pm)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 4.[T][X] join sports club
 5.[T][ ] borrow book
 ______________________________
@@ -84,7 +84,7 @@ ______________________________
 ______________________________
 Here are the tasks in your list:
 1.[T][X] read book
-2.[E][ ] project meeting /from(from: Aug 6th 2pm to: 4pm)
+2.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 3.[T][X] join sports club
 4.[T][ ] borrow book
 ______________________________
