@@ -89,6 +89,14 @@ public class Duke {
         return stringFormat(new String[]{statement, "\t" + lst.get(index - 1).toString()});
     }
 
+    private static String deleteTask(int index) {
+        String taskStr = lst.get(index - 1).toString();
+        lst.remove(index - 1);
+
+        return stringFormat(new String[]{"I've removed this task from list: ", "\t" + taskStr,
+                "You now have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")});
+    }
+
     public static void main(String[] args) {
         System.out.println(greet());
 
@@ -117,6 +125,18 @@ public class Duke {
                     }
                     System.out.println(markDoneOrNot(index, doneOrNot));
 
+                } else if (nextLine.contains("delete")) {
+                    String[] deleteIndex = nextLine.split(" ");
+                    if (deleteIndex.length == 1) {
+                        throw new MissingIndexException();
+                    }
+                    int index = 0;
+                    try {
+                        index = Integer.parseInt(deleteIndex[1]);
+                    } catch (NumberFormatException e) {
+                        throw new MissingIndexException();
+                    }
+                    System.out.println(deleteTask(index));
                 } else if (nextLine.equals("bye")) {
                     System.out.println(exit());
                     sc.close();
