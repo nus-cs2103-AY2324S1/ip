@@ -23,6 +23,26 @@ public class Harvard {
                 for (int i = 0; i < taskCount; i++) {
                     System.out.println((i + 1) + ". " + tasks[i]);
                 }
+            } else if (command.startsWith("mark")) {
+                String[] split = command.split(" ");
+                int index = Integer.parseInt(split[1]) - 1;
+                if (index >= taskCount || index < 0) {
+                    System.out.println(line);
+                    System.out.println("Invalid index!");
+                    System.out.println(line);
+                    continue;
+                }
+                tasks[index].markAsDone();
+                System.out.println(line);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(tasks[index]);
+            } else if (command.startsWith("unmark")) {
+                String[] split = command.split(" ");
+                int index = Integer.parseInt(split[1]) - 1;
+                tasks[index].markAsUndone();
+                System.out.println(line);
+                System.out.println("Ok! I've marked this task as not done yet:");
+                System.out.println(tasks[index]);
             } else {
                 Task task = new Task(command);
                 tasks[taskCount] = task;
