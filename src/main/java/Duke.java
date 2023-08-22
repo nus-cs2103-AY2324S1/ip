@@ -12,11 +12,7 @@ public class Duke {
         String input = scanner.nextLine().trim();
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-//                printLine();
-//                for (int i = 0; i < items.size(); i++) {
-//                    System.out.println("\t" + String.valueOf(i + 1) + ". " + items.get(i));
-//                }
-//                printLine();
+
                 items.displayList();
             } else {
                 String command = input.split(" ")[0];
@@ -37,7 +33,7 @@ public class Duke {
                     items.add(new Event(data[0].split(" ", 2)[1], period));
                 }
             }
-            input = scanner.nextLine().trim();
+            input = scanner.nextLine().trim(); // Get next input
         }
         printLine();
         System.out.println("\tBye. Hope to see you again soon!");
