@@ -52,18 +52,18 @@ public class Duke {
             argument = inputSplit[1];
         }
 
-        switch (command) {
-            case "BYE":
+        switch (Commands.valueOf(command)) {
+            case BYE:
                 Duke.printGoodbyeMessage();
                 Duke.isActive = false;
                 break;
-            case "LIST":
+            case LIST:
                 for (int i = 0; i < pointer; i++) {
                     System.out.println((i + 1) + ". " + tasks.get(i).toString());
                 }
                 System.out.println(divider);
                 break;
-            case "MARK":
+            case MARK:
                 if (argument.isBlank()) {
                     System.out.println("Tell me which task to mark as done! Give me an integer number!" + divider);
                     break;
@@ -79,7 +79,7 @@ public class Duke {
                     System.out.println("You are trying to mark a non-existent task, ensure you mark a task that you have created :O" + divider);
                 }
                 break;
-            case "UNMARK":
+            case UNMARK:
                 if (argument.isBlank()) {
                     System.out.println("Tell me which task to mark as done! Give me an integer number!" + divider);
                     break;
@@ -95,7 +95,7 @@ public class Duke {
                     System.out.println("You are trying to unmark a non-existent task, ensure you mark a task that you have created :O" + divider);
                 }
                 break;
-            case "TODO":
+            case TODO:
                 if (argument.isBlank()) {
                     System.out.println("The description of your todo should not be empty! Try:\ntodo [description]" + divider);
                     break;
@@ -105,7 +105,7 @@ public class Duke {
                 Duke.pointer++;
                 printListMessage();
                 break;
-            case "DEADLINE":
+            case DEADLINE:
                 if (argument.isBlank()) {
                     System.out.println("The description of your deadline should not be empty! Try:\ndeadline [description] /by [duedate]" + divider);
                     break;
@@ -120,7 +120,7 @@ public class Duke {
                 Duke.pointer++;
                 printListMessage();
                 break;
-            case "EVENT":
+            case EVENT:
                 if (argument.isBlank()) {
                     System.out.println("The description of your event should not be empty! Try:\nevent [description] /from [start] /to [end]" + divider);
                     break;
@@ -140,7 +140,7 @@ public class Duke {
                 Duke.pointer++;
                 printListMessage();
                 break;
-            case "DELETE":
+            case DELETE:
                 if (argument.isBlank()) {
                     System.out.println("Tell me which task to delete! Give me an integer number!" + divider);
                     break;
@@ -167,4 +167,9 @@ public class Duke {
             processResponse();
         }
     }
+
+    public enum Commands {
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
+    }
+
 }
