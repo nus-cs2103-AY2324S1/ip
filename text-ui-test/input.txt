@@ -16,3 +16,4 @@ event project meeting /from /to 4pm
 event project meeting /from
 event project meeting /from /to
 list
+bye

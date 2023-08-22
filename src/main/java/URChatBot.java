@@ -14,10 +14,9 @@ public class URChatBot {
         System.out.println("Hello! I'm URChatBot.\nWhat can I do for you?\n" + logo);
         while (true) {
             try{
-            String command = sc.nextLine();
+                String command = sc.nextLine();
             if (command.toUpperCase().contentEquals("BYE")) {
                 System.out.println("Bye. Hope to see you again soon!");
-                sc.close();
                 break;
             } else if (command.toUpperCase().contentEquals("LIST")){
                 System.out.println("Here are the tasks in your list:");
