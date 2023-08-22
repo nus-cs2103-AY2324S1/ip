@@ -1,9 +1,9 @@
-public class Task {
-    private String description;
-    private boolean isDone;
-    public Task(String description) {
+abstract class Task {
+    protected String description = "";
+    protected boolean isDone = false;
+
+    protected Task(String description) {
         this.description = description;
-        this.isDone = false;
     }
 
     /**
