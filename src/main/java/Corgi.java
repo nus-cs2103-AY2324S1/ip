@@ -1,9 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Corgi {
+    private List<String> tasks;
+    
     public static void main(String[] args) {
         Corgi bot = new Corgi();
         bot.start();
+    }
+
+    public Corgi() {
+        this.tasks = new ArrayList<>();
     }
 
     public void start() {
