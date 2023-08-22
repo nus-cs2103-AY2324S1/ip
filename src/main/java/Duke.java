@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke  {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -9,6 +11,16 @@ public class Duke  {
 
         MYBot MYBot = new MYBot("MYBot");
         MYBot.openGreeting();
-        MYBot.closeGreeting();
+
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            String input = scanner.nextLine();
+            if(input.equals("bye")){
+                MYBot.closeGreeting();
+                break;
+            } else {
+                MYBot.echoMessage(input);
+            }
+        }
     }
 }

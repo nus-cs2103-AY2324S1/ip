@@ -14,7 +14,14 @@ public class MYBot {
     }
 
     public void closeGreeting(){
+        System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("____________________________________________________________");
+    }
+
+    public void echoMessage(String input){
+        System.out.println("____________________________________________________________");
+        System.out.println(input);
         System.out.println("____________________________________________________________");
     }
 }
