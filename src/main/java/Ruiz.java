@@ -12,7 +12,7 @@ public class Ruiz {
         System.out.println("____________________________________________________________");
     }
 
-    public void markTask(String input) throws BotException{
+    public void markTask(String input) throws BotException {
         if (input.split(" ").length < 2) {
             throw new BotException("OOPS!!! The index of a task cannot be empty.");
         }
@@ -35,7 +35,7 @@ public class Ruiz {
         }
     }
 
-    public void unmarkTask(String input) throws BotException{
+    public void unmarkTask(String input) throws BotException {
         if (input.split(" ").length < 2) {
             throw new BotException("OOPS!!! The index of a task cannot be empty.");
         }
@@ -57,7 +57,8 @@ public class Ruiz {
             throw new BotException("This task does not exist!");
         }
     }
-    public void deleteTask(String input) throws BotException{
+
+    public void deleteTask(String input) throws BotException {
         if (input.split(" ").length < 2) {
             throw new BotException("OOPS!!! The index of a task cannot be empty.");
         }
@@ -71,7 +72,7 @@ public class Ruiz {
             Task task = this.tasks.get(taskIndex);
             System.out.println("Noted. I've removed this task:\n" + task);
             tasks.remove(taskIndex);
-            System.out.println( "\nNow you have " + tasks.size() + " tasks in the list.\n" +
+            System.out.println("\nNow you have " + tasks.size() + " tasks in the list.\n" +
                     "____________________________________________________________");
         } else {
             throw new BotException("This task does not exist!");
