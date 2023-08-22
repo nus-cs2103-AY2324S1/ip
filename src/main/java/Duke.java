@@ -33,6 +33,10 @@ public class Duke {
                 String command = substrings[0];
                     switch (command) {
                         case "mark":
+                            if (substrings.length < 2) {
+                                throw new InvalidTaskIndexException("Invalid command!"
+                                        + "Please include the index of the task you wish to mark");
+                            }
                             int markTaskId = Integer.parseInt(substrings[1]) - 1;
                             if (markTaskId >= 0 && markTaskId < tasks.size()) {
                                 tasks.get(markTaskId).markAsDone();
@@ -40,12 +44,14 @@ public class Duke {
                                 String message = tasks.size() > 0
                                         ? "No such task! Please enter a task ID between 1 and " + tasks.size()
                                         : "You have no tasks! Please add some tasks first";
-                                System.out.println(" ────────────────────────────────────────\n"
-                                        + message
-                                        + "\n ────────────────────────────────────────");
+                                throw new InvalidTaskIndexException(message);
                             }
                             break;
                         case "unmark":
+                            if (substrings.length < 2) {
+                                throw new InvalidTaskIndexException("Invalid command!"
+                                        + "Please include the index of the task you wish to unmark");
+                            }
                             int unmarkTaskId = Integer.parseInt(substrings[1]) - 1;
                             if (unmarkTaskId >= 0 && unmarkTaskId < tasks.size()) {
                                 tasks.get(unmarkTaskId).markAsUndone();
@@ -53,12 +59,14 @@ public class Duke {
                                 String message = tasks.size() > 0
                                         ? "No such task! Please enter a task ID between 1 and " + tasks.size()
                                         : "You have no tasks! Please add some tasks first";
-                                System.out.println(" ────────────────────────────────────────\n"
-                                        + message
-                                        + "\n ────────────────────────────────────────");
+                                throw new InvalidTaskIndexException(message);
                             }
                             break;
                         case "todo":
+                            if (substrings.length != 2) {
+                                throw new MissingTaskDetailsException("Invalid command! "
+                                        + "Please include details of this task");
+                            }
                             String todoDesc = substrings[1];
                             Todo todo = new Todo(todoDesc);
                             tasks.add(todo);
@@ -69,7 +77,15 @@ public class Duke {
                                     + " ────────────────────────────────────────");
                             break;
                         case "deadline":
+                            if (substrings.length != 2) {
+                                throw new MissingTaskDetailsException("Invalid command! "
+                                        + "Please include details of this task");
+                            }
                             String[] details = substrings[1].split("/by", 2);
+                            if (details.length != 2) {
+                                throw new MissingTaskDetailsException("Invalid command! "
+                                        + "Please include the deadline of this task");
+                            }
                             Deadline deadline = new Deadline(details[0], details[1]);
                             tasks.add(deadline);
                             System.out.println(" ────────────────────────────────────────\n"
@@ -79,8 +95,20 @@ public class Duke {
                                     + " ────────────────────────────────────────");
                             break;
                         case "event":
+                            if (substrings.length != 2) {
+                                throw new MissingTaskDetailsException("Invalid command! "
+                                        + "Please include details of this task");
+                            }
                             String[] eventDetails = substrings[1].split("/from", 2);
+                            if (eventDetails.length != 2) {
+                                throw new MissingTaskDetailsException("Invalid command! "
+                                        + "Please include when the event starts");
+                            }
                             String[] eventTimings = eventDetails[1].split("/to", 2);
+                            if (eventTimings.length != 2) {
+                                throw new MissingTaskDetailsException("Invalid command! "
+                                        + "Please include when the event ends");
+                            }
                             Event event = new Event(eventDetails[0], eventTimings[0], eventTimings[1]);
                             tasks.add(event);
                             System.out.println(" ────────────────────────────────────────\n"
@@ -89,15 +117,17 @@ public class Duke {
                                     + "\n Now you have " + tasks.size() + " tasks in the list.\n"
                                     + " ────────────────────────────────────────");
                             break;
+                        default:
+                            throw new UnknownCommandException("Sorry! I do not recognise this command");
                     }
-                } catch (NumberFormatException e) { // invalid argument is entered for mark and unmark eg. "mark a"
+                } catch (NumberFormatException e) { // user inputs invalid argument for mark and unmark eg. "mark ab"
                     System.out.println(" ────────────────────────────────────────\n"
                             + "Invalid command! Please enter only one valid task ID\n"
                             + " ────────────────────────────────────────");
-                } catch (IndexOutOfBoundsException e) { // when user only inputs the command eg "mark" or "deadline"
+                } catch (InvalidTaskIndexException | MissingTaskDetailsException | UnknownCommandException e) {
                     System.out.println(" ────────────────────────────────────────\n"
-                            + "Invalid command! Please enter valid task details or a valid task ID\n"
-                            + " ────────────────────────────────────────");
+                            + e.getMessage()
+                            + "\n ────────────────────────────────────────");
                 }
             }
         }
