@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Duke {
 
     private static final String INDENTATION = "    ";
-    private static ArrayList store = new ArrayList<String>();
+    private static ArrayList<Task> store = new ArrayList<Task>();
 
     private static String formatOutput(String output) {
         String horizontalLine = "____________________________________________________________";
@@ -26,19 +26,45 @@ public class Duke {
 
     private static void handleCommand() {
         Scanner sc = new Scanner(System.in);
-        String command;
+        String command, commandString;
+        String[] commandArray;
+        int commandIndex = 0;
 
         while (true) {
-            command = sc.nextLine();
-            if (command.equals("bye")) {
+            commandString = sc.nextLine();
+            commandArray = commandString.split(" ");
+            command = commandArray[0];
+
+            if (commandString.equals("bye")) {
                 System.out.println(formatOutput("Bye. Hope to see you again soon!"));
                 break;
-            } else if (command.equals("list")) {
+            } else if (commandString.equals("list")) {
                 System.out.println(formatOutput(formatList(store)));
+            } else if (command.equals("mark")) {
+                commandIndex = Integer.parseInt(commandArray[1]) - 1;
+                if (commandIndex > store.size()) {
+                    System.out.println(formatOutput("Invalid Index!"));
+                } else {
+                    Task selectedTask = store.get(commandIndex);
+                    selectedTask.markTask();
+                    System.out.println(formatOutput("Nice! I've marked the task as done:\n" +
+                            INDENTATION + selectedTask));
+                }
+
+            } else if (command.equals("unmark")) {
+                if (commandIndex > store.size()) {
+                    System.out.println(formatOutput("Invalid Index!"));
+                } else {
+                    commandIndex = Integer.parseInt(commandArray[1]) - 1;
+                    Task selectedTask = store.get(commandIndex);
+                    selectedTask.unmarkTask();
+                    System.out.println(formatOutput("OK, I've marked this task as not done yet:\n" +
+                            INDENTATION + selectedTask));
+                }
             }
             else {
-                store.add(command);
-                System.out.println(formatOutput("added: " + command));
+                store.add(new Task(commandString));
+                System.out.println(formatOutput("added: " + commandString));
             }
         }
 
