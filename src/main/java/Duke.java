@@ -24,9 +24,10 @@ public class Duke {
             if (input[0].equals("list")) {
                 StringBuilder allTasks = new StringBuilder();
                 for (int i = 0; i < tasks.size(); i++) {
-                    allTasks.append(String.format("%d.%s\n", i + 1, tasks.get(i)));
+                    allTasks.append(String.format(" %d.%s\n", i + 1, tasks.get(i)));
                 }
                 String tasksList = "____________________________________________________________\n" +
+                        " Here are the tasks in your list:\n" +
                         allTasks +
                         "____________________________________________________________\n";
                 System.out.println(tasksList);
@@ -50,10 +51,32 @@ public class Duke {
                 System.out.println(finalMessage);
                 continue;
             }
-            String newTaskDesc = String.join(" ", input);
-            tasks.add(new Task(newTaskDesc));
+            Task newTask = null;
+            if (input[0].equals("todo")) {
+                String newTaskDesc = String.join(" ", input).substring(input[0].length() + 1);
+                newTask = new Todo(newTaskDesc);
+            }
+            if (input[0].equals("deadline")) {
+                String taskInput = String.join(" ", input).substring(input[0].length() + 1);
+                int index = taskInput.indexOf("/by");
+                String taskDesc = taskInput.substring(0, index - 1);
+                String taskDeadline = taskInput.substring(index + 4);
+                newTask = new Deadline(taskDesc, taskDeadline);
+            }
+            if (input[0].equals("event")) {
+                String taskInput = String.join(" ", input).substring(input[0].length() + 1);
+                int fromIndex = taskInput.indexOf("/from");
+                int toIndex = taskInput.indexOf("/to");
+                String taskDesc = taskInput.substring(0, fromIndex - 1);
+                String taskFrom = taskInput.substring(fromIndex + 6, toIndex - 1);
+                String taskTo = taskInput.substring(toIndex + 4);
+                newTask = new Event(taskDesc, taskFrom, taskTo);
+            }
+            tasks.add(newTask);
             String echoMessage = "____________________________________________________________\n" +
-                    String.format(" added: %s\n", newTaskDesc) +
+                    " Got it. I've added this task:\n" +
+                    String.format("  %s\n", newTask) +
+                    String.format(" Now you have %d tasks in the list.\n", tasks.size()) +
                     "____________________________________________________________\n";
             System.out.println(echoMessage);
         }
