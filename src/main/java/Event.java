@@ -1,13 +1,36 @@
+/**
+ * A task which holds the date from and to.
+ */
 public class Event extends Task{
+
+    /**
+     * The start time of the event task.
+     */
     private String from;
+
+    /**
+     * The end time of the event task.
+     */
     private String to;
 
+    /**
+     * Constructs an Event task
+     *
+     * @param description The description of the task.
+     * @param from The start time of the task.
+     * @param to The end time of the task.
+     */
     public Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Returns a string representation of the event task.
+     *
+     * @return A string representing the event task.
+     */
     @Override
     public String toString() {
         return this.isDone ? "[E][X] " + this.description + " (from: " + from + " to: " + to + ")"

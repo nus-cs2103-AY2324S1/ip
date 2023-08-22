@@ -1,3 +1,7 @@
+/**
+ * Class responsible for parsing user input and returning
+ * a Command object for execution.
+ */
 public class Parser {
     /**
      * Parses the user input into a Command object.

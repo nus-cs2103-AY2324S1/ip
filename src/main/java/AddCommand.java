@@ -1,4 +1,16 @@
+/**
+ * Command that adds the task to the task list.
+ */
 public class AddCommand implements Command{
+
+    /**
+     * Determines the type of task using the latest chat message,
+     * Creates a new task with the correct type and adds it to the list.
+     *
+     * @param tasks The task list to which the new task will be added.
+     * @param ui The user interface used to retrieve the last user message.
+     * @return {@code false} as the program should continue running.
+     */
     @Override
     public boolean execute(TaskList tasks,Ui ui){
         String userInput = ui.getLastMsg();
