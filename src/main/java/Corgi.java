@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import tasks.Task;
 
 public class Corgi {
     private List<String> tasks;
