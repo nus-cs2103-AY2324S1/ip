@@ -1,28 +1,23 @@
 import java.util.Scanner;
 
 public class Cheems {
-    private UI ui = new UI();
-    private Database db = new Database();
+    private final UI ui = new UI();
+    private final Database db = new Database();
+    private final Scanner scanner = new Scanner(System.in);
+    private final Parser parser = new Parser(this.db);
 
     public void run() {
         this.ui.showWelcomeMsg();
-        Scanner scanner = new Scanner(System.in);
+        String input = this.ui.getInput(this.scanner);
 
-        // first message
-        String input = this.ui.getInput(scanner);
-
-        // echo
+        // business logic
         while (!input.equals("bye")) {
-            if (input.equals("list")) {
-                this.db.displayData();
-            } else if (input.startsWith("mark ")) {
-                this.db.markAsDone(input);
-            } else if (input.startsWith("unmark")) {
-                this.db.markAsNotDone(input);
-            } else {
-                this.db.addEvent(input);
+            try {
+                parser.parseAndExecute(input);
+            } catch (RuntimeException e) {
+                System.out.println(e.toString());
             }
-            input = this.ui.getInput(scanner);
+            input = this.ui.getInput(this.scanner);
         }
 
         this.ui.showExitMsg();

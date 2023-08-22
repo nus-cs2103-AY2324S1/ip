@@ -22,22 +22,15 @@ public class UI {
         System.out.println(bye);
     }
 
+    public String getInput(Scanner scanner) {
+        System.out.println("> You: ");
+        return scanner.nextLine();
+    }
+
     /*
     May be referenced by other components to display messages.
      */
     public static void displayCheems() {
         System.out.println("> Cheems: ");
-    }
-
-    /*
-    Only used by UI itself.
-     */
-    public void displayUser() {
-        System.out.println("> You: ");
-    }
-
-    public String getInput(Scanner scanner) {
-        displayUser();
-        return scanner.nextLine();
     }
 }

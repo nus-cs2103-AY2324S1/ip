@@ -1,19 +1,24 @@
+import tasks.*;
 import java.util.ArrayList;
-public class Database {
-    private ArrayList<Task> db = new ArrayList<>();
-    private int total = 0;  // total indicates the first free slot
 
-    public void addEvent(String ss) {
-        this.db.add(new Task(ss));
+public class Database {
+    private final ArrayList<Task> db = new ArrayList<>();
+    private int total = 0;  // total also indicates the first free slot
+
+    public void addTask(Task task) {
+        this.db.add(task);
         this.total++;
+
         UI.displayCheems();
-        System.out.printf("I have added \"%s\" for you!%n", ss);
+        System.out.print("I have added this task for you!\n" + task);
+        System.out.printf("\nNow you have %d tasks in your list!\n", this.total);
     }
+
 
     public void displayData() {
         UI.displayCheems();
         for (int i = 0; i < this.total; i++) {
-            System.out.printf("%d.%s%n", i + 1, this.db.get(i));
+            System.out.printf("%d.%s\n", i + 1, this.db.get(i));
         }
     }
 
@@ -22,26 +27,20 @@ public class Database {
         return this.total;
     }
 
-    public void markAsDone(String input) {
-        String[] words = input.split(" ");
-        int taskNo = Integer.parseInt(words[1]) - 1;
-        this.db.get(taskNo).markAsDone();
+    public void markAsDone(int index) {
+        // check for range of index
+        this.db.get(index).markAsDone();
 
-        // display
         UI.displayCheems();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.db.get(taskNo));
-
+        System.out.println("Good job! I've marked this task as done:");
+        System.out.println(this.db.get(index));
     }
 
-    public void markAsNotDone(String input) {
-        String[] words = input.split(" ");
-        int taskNo = Integer.parseInt(words[1]) - 1;
-        this.db.get(taskNo).markAsNotDone();
+    public void markAsNotDone(int index) {
+        this.db.get(index).markAsNotDone();
 
-        // display
         UI.displayCheems();
-        System.out.println("Got it! I've unmarked it for you:");
-        System.out.println(this.db.get(taskNo));
+        System.out.println("Okie dokie! I've unmarked it for you:");
+        System.out.println(this.db.get(index));
     }
 }
