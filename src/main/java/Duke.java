@@ -63,6 +63,12 @@ public class Duke {
 
           break;
         }
+        case "todo": {
+          int commandLength = commandString.length()+1;
+          String taskName = inputString.substring(commandLength);
+          System.out.println(taskName);
+          break;
+        }
         default:
           taskList.add(new Task(inputString));
           System.out.println("added:\t" + inputString);
