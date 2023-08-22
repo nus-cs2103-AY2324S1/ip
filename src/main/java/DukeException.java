@@ -1,3 +1,7 @@
+/**
+ * This is the DukeException class for exceptions specific to the Duke program
+ * @author Selwyn
+ */
 public class DukeException extends Exception {
     /**
      * Constructor for the DukeException class

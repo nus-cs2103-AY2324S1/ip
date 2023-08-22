@@ -41,6 +41,7 @@ public class Duke {
                 printHorizontalLine();
 
                 int taskNumber;
+                Task newTask;
                 String[] parsedCommand = command.split(" ", 2);
 
                 switch (parsedCommand[0]) {
@@ -52,45 +53,75 @@ public class Duke {
                         taskList.displayTaskList();
                         break;
                     case "mark":
+                        if (parsedCommand.length < 2) {
+                            throw new DukeException("Number needs to be provided for marking task.");
+                        }
                         taskNumber = Integer.parseInt(parsedCommand[1]);
                         if (taskNumber <= 0) {
                             throw new DukeException("Number must be more 1 or more!");
+                        }
+                        if (taskList.exceedsSizeOfTaskList(taskNumber)) {
+                            throw new DukeException("Number is higher than current size of task list!");
                         }
                         taskList.markTaskDone(taskNumber);
                         break;
                     case "unmark":
+                        if (parsedCommand.length < 2) {
+                            throw new DukeException("Number needs to be provided for unmarking task.");
+                        }
                         taskNumber = Integer.parseInt(parsedCommand[1]);
                         if (taskNumber <= 0) {
                             throw new DukeException("Number must be more 1 or more!");
                         }
+                        if (taskList.exceedsSizeOfTaskList(taskNumber)) {
+                            throw new DukeException("Number is higher than current size of task list!");
+                        }
                         taskList.markTaskUndone(taskNumber);
                         break;
                     case "todo":
-                        if (parsedCommand.length == 1) {
+                        if (parsedCommand.length < 2 ) {
                             throw new DukeException("The description of a todo cannot be empty.");
                         }
-                        taskList.createTask(parsedCommand[1]);
+                        newTask = new Todo(parsedCommand[1]);
+                        taskList.addTask(newTask);
                         break;
                     case "deadline":
-                        if (parsedCommand.length == 1) {
+                        if (parsedCommand.length < 2) {
                             throw new DukeException("The description of a deadline cannot be empty.");
                         }
                         String[] detailsAndDeadline = parsedCommand[1].split("/by", 2);
-                        taskList.createTask(detailsAndDeadline[0].trim(), detailsAndDeadline[1].trim());
+                        newTask = new Deadline(detailsAndDeadline[0].trim(), detailsAndDeadline[1].trim());
+                        taskList.addTask(newTask);
                         break;
                     case "event":
-                        if (parsedCommand.length == 1) {
+                        if (parsedCommand.length < 2) {
                             throw new DukeException("The description of an event cannot be empty.");
                         }
                         String[] detailsAndStartEnd = parsedCommand[1].split("/from", 2);
                         String[] startAndEnd = detailsAndStartEnd[1].split("/to", 2);
-                        taskList.createTask(detailsAndStartEnd[0].trim(), startAndEnd[0].trim(), startAndEnd[1].trim());
+                        newTask = new Event(detailsAndStartEnd[0].trim(), startAndEnd[0].trim(), startAndEnd[1].trim());
+                        taskList.addTask(newTask);
+                        break;
+                    case "delete":
+                        if (parsedCommand.length < 2) {
+                            throw new DukeException("Number needs to be provided for deleting task.");
+                        }
+                        taskNumber = Integer.parseInt(parsedCommand[1]);
+                        if (taskNumber <= 0) {
+                            throw new DukeException("Number must be more 1 or more!");
+                        }
+                        if (taskList.exceedsSizeOfTaskList(taskNumber)) {
+                            throw new DukeException("Number is higher than current size of task list!");
+                        }
+                        taskList.deleteTask(taskNumber);
                         break;
                     default:
                         throw new DukeException("I don't understand what you are saying!");
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } catch(Exception e) {
+                System.out.println("Something has gone wrong! Please try again!");
             } finally {
                 printHorizontalLine();
             }
