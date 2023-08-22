@@ -37,6 +37,34 @@ public class Duke {
     }
 
     /**
+     * Function to handle a Deadline Task. If it's inputs are valid, create a Deadline Task.
+     * Otherwise, print an error message in the console.
+     */
+    public static void handleDeadlineTask(String userInput) {
+        String[] details = userInput.split("/by");
+        //details[0] contains "deadline" plus task description, need to erase "deadline". details[1] contains String deadline timing
+        if (details.length == 2) {
+            String taskDescription = details[0].trim().replace("deadline", "").trim();
+            String deadline = details[1].trim();
+            Deadline deadlineTask = new Deadline(taskDescription, deadline);
+            taskList.add(deadlineTask); //Deadline <: Task
+
+            //Print details in the console
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("     Got it. I've added this task:");
+            System.out.printf("       %s\n", deadlineTask.toString());
+            System.out.printf("     Now you have %d tasks in the list.\n", taskList.size());
+            System.out.println(HORIZONTAL_LINE);
+
+        } else {
+            System.out.println("Invalid Deadline Task input. \n"
+                    + "Please input in the following format: "
+                    + "deadline <Task Description> /by <deadline timing>\n");
+        }
+
+    }
+
+    /**
      * Function to mark a given task as done.
      * @param taskIndex the index of the task to be marked as done.
      */
@@ -47,8 +75,8 @@ public class Duke {
         } else {
             Task task = taskList.get(taskIndex);
             task.markAsDone();
-            System.out.println("    Nice! I've marked this task as done:");
-            System.out.printf("    [%s] %s\n", task.getStatusIcon(), task.description);
+            System.out.println("     Nice! I've marked this task as done:");
+            System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
         }
         System.out.println(HORIZONTAL_LINE);
     }
@@ -64,8 +92,8 @@ public class Duke {
         } else {
             Task task = taskList.get(taskIndex);
             task.markAsNotDone();
-            System.out.println("    OK, I've marked this task as not done yet:");
-            System.out.printf("    [%s] %s\n", task.getStatusIcon(), task.description);
+            System.out.println("     OK, I've marked this task as not done yet:");
+            System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.description);
         }
         System.out.println(HORIZONTAL_LINE);
     }
@@ -81,7 +109,7 @@ public class Duke {
         } else {
             System.out.println(HORIZONTAL_LINE);
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.printf("    %d.[%s] %s%n", i + 1, taskList.get(i).getStatusIcon(), taskList.get(i).description);
+                System.out.printf("     %d.%s\n", i + 1, taskList.get(i).toString());
             }
             System.out.println(HORIZONTAL_LINE);
         }
@@ -93,6 +121,9 @@ public class Duke {
             Boolean repeatFlag = true;
             while (repeatFlag) {
                 String userInput = scanner.nextLine();
+                //Level-4 Inrement: Use userInput.startWith() to check first word before splitting
+
+
                 String[] words = userInput.split("\\s+"); // Split input by space, put into array
                 String formattedInput = userInput.toLowerCase();
                 if (formattedInput.equals("bye")) {
@@ -106,6 +137,8 @@ public class Duke {
                 } else if (words[0].equals("unmark")) {
                     int taskIndex = Integer.parseInt(words[1]) - 1; // Potential Error if next input is can't be converted to Integer
                     unmarkTask(taskIndex);
+                } else if (userInput.startsWith("deadline")){
+                    handleDeadlineTask(userInput);
                 } else {
                     addTask(userInput);
                 }
