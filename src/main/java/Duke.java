@@ -37,7 +37,7 @@ public class Duke {
                 answerList[counter] = userInput;
 
                 // Display user input has been added
-                System.out.println(Duke.lineSeparator + "\n" + "added:" + userInput + "\n" + Duke.lineSeparator);
+                System.out.println(Duke.lineSeparator + "\n" + "added: " + userInput + "\n" + Duke.lineSeparator);
                 counter++;
             }
         }
