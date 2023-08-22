@@ -1,19 +1,25 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static final int TAB_WIDTH = 4;
+    private static final int INDENT_SIZE = 4;
     private static final String NAME = "Jimmy";
     private static final int MAX_ENTRIES = 100;
     private static final Task[] tasks = new Task[MAX_ENTRIES];
     private static int cursor = 0;
 
-    private static void say(String... strings) {
+    private static String indent(String s) {
+        return String.format("%s%s", " ".repeat(INDENT_SIZE), s);
+    }
+
+    private static void whisper(String... strings) {
         for (String s : strings) {
-            for (int i = 0; i < TAB_WIDTH; i++) {
-                System.out.print(" ");
-            }
-            System.out.println(s);
+            System.out.println(indent(s));
         }
+    }
+
+    private static void say(String... strings) {
+        whisper(strings);
+        System.out.println();
     }
 
     private static void greet() {
@@ -21,7 +27,7 @@ public class Duke {
     }
 
     private static void farewell() {
-        say("Bye. Hope to see you again soon!");
+        whisper("Bye. Hope to see you again soon!");
     }
 
     private static Command toCommand(String input) {
@@ -34,17 +40,19 @@ public class Duke {
 
     private static void list() {
         say("Here are the tasks in your list:");
+        whisper("Here are the tasks in your list:");
         for (int i = 0; i < cursor; i++) {
             String taskEntry = String.format("%d. %s", i + 1, tasks[i]);
-            say(taskEntry);
+            whisper(indent(taskEntry));
         }
+        say(String.format("You have %d %s in your list.", cursor, cursor == 1 ? "task" : "tasks"));
     }
 
     private static void add(Task task) {
         tasks[cursor++] = task;
         say(
                 "Got it. I've added this task:",
-                task.toString(),
+                indent(task.toString()),
                 String.format("Now you have %d %s in the list.", cursor, cursor == 1 ? "task" : "tasks")
         );
     }
