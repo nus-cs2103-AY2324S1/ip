@@ -9,8 +9,8 @@ import java.util.Scanner;
  * @author Tan Kerway
  */
 public class Duke {
-    // array to store the user's items
-    private final String[] items;
+    // array to store the user's items, as a Task object
+    private final Task[] items;
     // pointer that will always point to the last element of the array
     private int i;
 
@@ -20,7 +20,7 @@ public class Duke {
      * @author Tan Kerway
      */
     public Duke() {
-        this.items = new String[100];
+        this.items = new Task[100];
         this.i = -1;
     }
 
@@ -43,7 +43,7 @@ public class Duke {
     void listAllTasks() {
         int index = -1;
         while(this.items[++index] != null) {
-            System.out.println((index + 1) + ". " + this.items[index]);
+            System.out.println((index + 1) + ". " + this.items[index].toString());
         }
     }
 
@@ -54,7 +54,8 @@ public class Duke {
      * @author Tan Kerway
      */
     private void addTask(String task) {
-        this.items[++this.i] = task;
+        // create a new task and store it in the chatbot memory
+        this.items[++this.i] = new Task(task);
     }
 
     /**
@@ -64,9 +65,55 @@ public class Duke {
      * @author Tan Kerway
      * @param task the task to be echoed to the console
      */
-    void echoTask(String task) {
+    void echoTaskAdded(String task) {
         System.out.println("------------------------------------------------------------------------");
         System.out.println("added: " + task);
+        System.out.println("------------------------------------------------------------------------");
+    }
+
+    /**
+     * Marks a task as done.
+     *
+     * @author Tan Kerway
+     * @param currentTask the task to be marked as done
+     */
+    private void handleMarkTask(Task currentTask){
+        currentTask.markDone();
+    }
+
+    /**
+     * Echos that the task has been marked.
+     *
+     * @author Tan Kerway
+     * @param currentTask the marked task to be echoed
+     */
+    private void echoTaskMarked(Task currentTask) {
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(currentTask);
+        System.out.println("------------------------------------------------------------------------");
+    }
+
+    /**
+     * Marks a task as done.
+     *
+     * @author Tan Kerway
+     * @param currentTask the task to be marked as done
+     */
+    private void handleUnmarkTask(Task currentTask){
+        currentTask.markUndone();
+    }
+
+    /**
+     * Echos that the task has been marked.
+     *
+     * @author Tan Kerway
+     * @param currentTask the marked task to be echoed
+     */
+    private void echoTaskUnmarked(Task currentTask) {
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(currentTask);
         System.out.println("------------------------------------------------------------------------");
     }
 
@@ -80,16 +127,32 @@ public class Duke {
      */
     private void handleAddTask() {
         Scanner sc = new Scanner(System.in);
-        String input = "";
+        String input;
         while (true) {
             input = sc.nextLine();
+            // case where the input is "list" => enumerate all tasks
             if (input.equals("list")) {
                 listAllTasks();
                 continue;
             }
+            // case where the input is "bye" => terminate early
             if (input.equals("bye")) { return; }
+            // case where the input is the mark command => mark the task as done
+            if (input.startsWith("mark")) {
+                Task currentTask = this.items[Integer.parseInt(input.substring(5, 6)) - 1];
+                handleMarkTask(currentTask);
+                echoTaskMarked(currentTask);
+                continue;
+            }
+            // case where the input is unmark
+            if (input.startsWith("unmark")) {
+                Task currentTask = this.items[Integer.parseInt(input.substring(7, 8)) - 1];
+                handleUnmarkTask(currentTask);
+                echoTaskUnmarked(currentTask);
+                continue;
+            }
             addTask(input);
-            echoTask(input);
+            echoTaskAdded(input);
         }
     }
 
