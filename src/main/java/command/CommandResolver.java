@@ -65,6 +65,15 @@ public class CommandResolver {
                     }
                     return;
                 }
+                case DELETE: {
+                    try {
+                        int taskNumber = Integer.parseInt(args);
+                        List.delete(taskNumber);
+                    } catch (NumberFormatException e) {
+                        throw new InvalidArgumentException(command);
+                    }
+                    return;
+                }
             }
         } catch (IllegalArgumentException e) {
             throw new InvalidCommandException(command);
