@@ -1,16 +1,12 @@
-package java.doctor.store;
-
-import java.doctor.Task.*;
-
-public class store {
-    private static store store = new store();
+public class Store {
+    private static Store store = new Store();
     Task[] tasks = new Task[100];
     int taskCount = 0;
 
-    private store() {
+    private Store() {
     }
 
-    public static store getInstance() {
+    public static Store getInstance() {
         return store;
     }
 
@@ -83,3 +79,4 @@ public class store {
         return result;
     }
 }
+

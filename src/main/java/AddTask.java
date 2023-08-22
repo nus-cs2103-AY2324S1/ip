@@ -1,10 +1,3 @@
-package java.doctor.Command;
-
-import java.doctor.Builder.Builder;
-import java.doctor.Task.*;
-import java.doctor.store.*;
-
-
 public class AddTask implements Command {
     protected Builder<Task> taskBuilder;
     public AddTask (Builder<Task> taskBuilder) {
@@ -13,7 +6,7 @@ public class AddTask implements Command {
 
     @Override
     public void execute(String input) {
-        store s = store.getInstance();
+        Store s = Store.getInstance();
         Task task = taskBuilder.buildFromString(input);
         if (task == null) {
             System.out.println("Invalid input");

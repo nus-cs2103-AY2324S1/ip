@@ -1,4 +1,3 @@
-package java.doctor.Task;
 public class Event extends Task{
     private From  from;
     private To to;

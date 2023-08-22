@@ -1,6 +1,3 @@
-package java.doctor.Builder;
-
-import java.doctor.Task.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,6 +23,4 @@ public class EventBuilder implements Builder<Task> {
     }
     
 }
-
-
 

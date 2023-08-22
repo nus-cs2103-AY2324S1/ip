@@ -1,5 +1,3 @@
-package java.doctor.Task;
-
 public abstract class TaskComponent { 
 }
 

@@ -1,5 +1,3 @@
-package java.doctor.Task;
-
 public class Deadline extends Task {
     private By by;
 

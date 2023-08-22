@@ -1,4 +1,3 @@
-package java.doctor.Task;
 public abstract class Task {
     protected Description description;
     protected boolean isDone = false;
@@ -24,10 +23,3 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
-
-
-
-
-
-
-

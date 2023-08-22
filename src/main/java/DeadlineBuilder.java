@@ -1,6 +1,3 @@
-package java.doctor.Builder;
-
-import java.doctor.Task.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,4 +19,3 @@ public class DeadlineBuilder implements Builder<Task> {
         return null; 
     }  
 }
-

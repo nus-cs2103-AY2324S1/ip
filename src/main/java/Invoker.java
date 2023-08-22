@@ -1,6 +1,3 @@
-package java.doctor.Invoker;
-
-import java.doctor.Command.Command;
 import java.util.HashMap;
 
 public class Invoker {
@@ -24,3 +21,4 @@ public class Invoker {
         this.commands.get(commandName).execute(input);
     }
 }
+

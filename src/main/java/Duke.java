@@ -1,10 +1,4 @@
-package java.doctor;
-import java.doctor.Builder.*;
-import java.doctor.Command.*;
-import java.doctor.Invoker.Invoker;
 import java.util.Scanner;
-
-
 public class Duke {
     private Invoker invoker = new Invoker();
     public static void main(String[] args) {

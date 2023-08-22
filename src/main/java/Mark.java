@@ -1,6 +1,3 @@
-package java.doctor.Command;
-
-import java.doctor.store.store;
 import java.util.regex.Pattern;
 public class Mark implements Command{
     
@@ -12,7 +9,7 @@ public class Mark implements Command{
             return;
         }
         int index = Integer.parseInt(input.split(" ")[1]);
-        store s = store.getInstance();
+        Store s = Store.getInstance();
         if(!s.mark(index)){
             System.out.println("Invalid index");
             return;
