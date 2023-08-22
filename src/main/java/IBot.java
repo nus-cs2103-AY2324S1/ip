@@ -11,7 +11,7 @@ public class IBot {
 
     private void todo(String cmd) throws DukeException {
         if (cmd.isEmpty() || cmd.equals(" ")) {
-            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n");
         } else {
             addTask(new Todo(cmd.substring(1)));
         }
@@ -19,11 +19,11 @@ public class IBot {
 
     private void deadline(String cmd) throws DukeException {
         if (cmd.isEmpty() || cmd.equals(" ")) {
-            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.\n");
         }else if(!cmd.matches(" \\S.*\\s/by\\s\\S.*")){
             throw new DukeException(
                     "☹ OOPS!!! Please follow the following pattern to add a task:\n  " +
-                            "deadline <task name> /by <deadline>");
+                            "deadline <task name> /by <deadline>\n");
         }else {
             String[] temp = cmd.split(" /by ");
             addTask(new Deadline(
@@ -34,11 +34,11 @@ public class IBot {
 
     private void event(String cmd) throws DukeException {
         if (cmd.isEmpty() || cmd.equals(" ")) {
-            throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
+            throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.\n");
         }else if(!cmd.matches(" \\S.*\\s/from\\s\\S.*\\s/to\\s\\S.*")){
             throw new DukeException(
                     "☹ OOPS!!! Please follow the following pattern to add a task:\n  " +
-                            "event <task name> /from <begin time> /to <end time>");
+                            "event <task name> /from <begin time> /to <end time>\n");
         }else {
             String[] temp = cmd.split(" /");
             addTask(new Event(
@@ -51,18 +51,18 @@ public class IBot {
     private int getIndex(String cmd) throws DukeException {
         if (cmd.isEmpty() || cmd.equals(" ")) {
             throw new DukeException(
-                    "☹ OOPS!!! You need to tell me which task you want to mark/unmark.");
+                    "☹ OOPS!!! You need to tell me which task you want to act on.\n");
         }else if(!cmd.matches(" \\d*")){
             throw new DukeException(
-                    "☹ OOPS!!! Please follow the following pattern to mark/unmark a task:\n  " +
-                            "mark/unmark <task number>\n" +
-                            "You can find the task number by calling 'list'");
+                    "☹ OOPS!!! Please follow the following pattern to act on a task:\n  " +
+                            "<your action> <task number>\n" +
+                            "You can find the task number by calling 'list'\n");
         }else {
             int index = Integer.parseInt(cmd.substring(1));
             if (index <= lst.size() && index > 0) {
                 return index;
             } else {
-                System.out.println("☹ OOPS!!! There is no such a task");
+                System.out.println("☹ OOPS!!! There is no such a task\n");
             }
         }
         return -1;
@@ -80,6 +80,16 @@ public class IBot {
             lst.get(getIndex(cmd) - 1).unmark();
         }
 
+    }
+
+    private void delete(String cmd) throws DukeException{
+        if (getIndex(cmd) != -1) {
+            Task delete = lst.get(getIndex(cmd) - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println("  " + delete);
+            lst.remove(lst.get(getIndex(cmd) - 1));
+            System.out.println("Now you have " + lst.size() + " tasks in the list.\n");
+        }
     }
 
     private void list() {
@@ -108,11 +118,14 @@ public class IBot {
                 case "unmark":
                     unmark(instr.substring(6));
                     break;
+                case "delete":
+                    delete(instr.substring(6));
+                    break;
                 case "list":
                     list();
                     break;
                 case "bye":
-                    System.out.println(" Bye. Hope to see you again soon!");
+                    System.out.println("Bye. Hope to see you again soon!");
                     return false;
                 default:
                     throw new DukeException("☹ OOPS!!! I can't understand.\n");

@@ -23,7 +23,7 @@ public class Task {
         }else {
             System.out.println("Nice! I've marked this task as done:");
             this.state = true;
-            System.out.println(this + "\n");
+            System.out.println("  " + this + "\n");
         }
     }
 
@@ -36,7 +36,7 @@ public class Task {
         }else {
             System.out.println("OK, I've marked this task as not done yet:");
             this.state = false;
-            System.out.println(this + "\n");
+            System.out.println("  " + this + "\n");
         }
     }
 
