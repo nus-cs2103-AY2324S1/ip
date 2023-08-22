@@ -1,3 +1,9 @@
+/**
+ * Duke class that encapsulates a personal assistant chatbot.
+ *
+ * @author Pearlynn
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
