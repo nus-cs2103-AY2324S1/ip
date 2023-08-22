@@ -14,6 +14,10 @@ public class Task {
         this.done = done;
     }
 
+    public String getStatus() {
+        return "[" + (this.done ? "X" : " ") + "] " + this.title;
+    }
+
     public String toString() {
         return title;
     }
