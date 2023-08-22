@@ -1,3 +1,5 @@
+import java.util.Objects;
+import java.util.Scanner;
 public class Duke {
     private static final String SEPARATOR_LINE = "____________________________________________________________";
     public static void main(String[] args) {
@@ -13,10 +15,24 @@ public class Duke {
         System.out.println(entranceMsg);
         System.out.println(SEPARATOR_LINE);
 
+
+
+        String inputString = "";
+
+        Scanner keyboard = new Scanner(System.in);
+
+        while (!Objects.equals(inputString, "bye")) {
+            inputString = keyboard.nextLine();
+
+            System.out.println(inputString);
+            System.out.println(SEPARATOR_LINE);
+        }
+
+
+
         String exitMsg = "Bye! Hope to see you again soon.";
         System.out.println(exitMsg);
         System.out.println(SEPARATOR_LINE);
-
 
 
     }
