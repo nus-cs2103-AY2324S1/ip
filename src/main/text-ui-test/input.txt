@@ -1,0 +1,9 @@
+todo go for a walk
+deadline CS2103T Quiz /by Friday
+event CS2103T lecture /from 4pm /to 6pm
+list
+mark 2
+list
+unmark 2
+list
+bye

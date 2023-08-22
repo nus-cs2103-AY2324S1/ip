@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class Duke {
     private static final String name = "Bartholomew Hamish Montgomery";
-    private static final String line = "__________________________________\n";
+    private static final String line = "______________________________________________________________________________________\n";
     public static void main(String[] args) {
 
         greet();
@@ -68,25 +68,28 @@ public class Duke {
 
     private static void displayList(Task[] tasks, int taskCount){
         if (tasks[0] == null) {
-            System.out.println("There are no items in the list!");
+            System.out.println(line + "There are no items in the list!" + "\n" + line);
         } else {
-            System.out.println("Here are the tasks in your list:");
+            System.out.println(line + "Here are the tasks in your list:");
             for(int i = 0; i < taskCount; i++){
                 System.out.println(tasks[i].getTask());
             }
+            System.out.println(line);
         }
     }
 
     public static void mark(String input, Task[] tasks) {
         int taskIndex = Integer.parseInt(input.substring(5)) - 1;
         tasks[taskIndex].mark();
-        System.out.println("Okay, I have marked this task as completed!" + "\n" + tasks[taskIndex].checkBox());
+        System.out.println(line + "Okay, I have marked this task as completed!" + "\n" + tasks[taskIndex].checkBox());
+        System.out.println(line);
     }
 
     public static void unMark(String input, Task[] tasks) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         tasks[taskIndex].unMark();
-        System.out.println("Okay, I have marked this task as incomplete!" + "\n" + tasks[taskIndex].checkBox());
+        System.out.println(line + "Okay, I have marked this task as incomplete!" + "\n" + tasks[taskIndex].checkBox());
+        System.out.println(line);
     }
 
     private static void addToList(Task task, Task[] tasks, int taskId) {
