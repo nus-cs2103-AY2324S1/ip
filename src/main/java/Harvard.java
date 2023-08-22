@@ -48,7 +48,7 @@ public class Harvard {
                 tasks[taskCount] = task;
                 taskCount++;
                 System.out.println(line);
-                System.out.println("added: " + command);
+                System.out.println("Got it! I've added this task: " + command);
             }
             System.out.println(line);
         }
