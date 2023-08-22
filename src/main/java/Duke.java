@@ -62,6 +62,27 @@ public class Duke {
                                 throw new InvalidTaskIndexException(message);
                             }
                             break;
+                        case "delete":
+                            if (substrings.length < 2) {
+                                throw new InvalidTaskIndexException("Invalid command!"
+                                        + "Please include the index of the task you wish to delete");
+                            }
+                            int deleteTaskId = Integer.parseInt(substrings[1]) - 1;
+                            if (deleteTaskId >= 0 && deleteTaskId < tasks.size()) {
+                                String message = tasks.get(deleteTaskId).toString();
+                                tasks.remove(deleteTaskId);
+                                System.out.println(" ────────────────────────────────────────\n"
+                                        + " Noted. I've removed this task:\n"
+                                        + "     " + message
+                                        + "\n Now you have " + tasks.size() + " tasks in the list.\n"
+                                        + " ────────────────────────────────────────");
+                            } else {
+                                String message = tasks.size() > 0
+                                        ? "No such task! Please enter a task ID between 1 and " + tasks.size()
+                                        : "You have no tasks! Please add some tasks first";
+                                throw new InvalidTaskIndexException(message);
+                            }
+                            break;
                         case "todo":
                             if (substrings.length != 2) {
                                 throw new MissingTaskDetailsException("Invalid command! "
