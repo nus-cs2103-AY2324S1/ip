@@ -6,9 +6,9 @@ public class Duke {
     public static void main(String[] args) {
         welcome();
         Scanner sc = new Scanner(System.in);
-        String x = sc.nextLine();
-        while (x != null) {
-            String[] stringList = x.split(" ",2);
+        while (sc.hasNextLine()) {
+            String x = sc.nextLine();
+            String[] stringList = x.split(" ", 2);
             String first = stringList[0];
             switch (first) {
                 case "bye":
@@ -18,12 +18,12 @@ public class Duke {
                     break;
                 case "mark":
                     int i = Integer.parseInt(stringList[1]);
-                    Task t = my_list.get(i-1);
+                    Task t = my_list.get(i - 1);
                     t.markDone();
                     break;
                 case "unmark":
                     int j = Integer.parseInt(stringList[1]);
-                    Task p = my_list.get(j-1);
+                    Task p = my_list.get(j - 1);
                     p.markUndone();
                     break;
                 case "todo":
@@ -37,14 +37,13 @@ public class Duke {
                     break;
             }
             if (x.equals("bye")) {
+                ending();
                 break;
             }
-            x = sc.nextLine();
         }
-        ending();
     }
     private static void welcome() {
-        System.out.println("Hello! I'm BoxBox \nWhat can I do for you?");
+        System.out.println("Hello! I'm BoxBox\nWhat can I do for you?");
     }
     private static void ending() {
         System.out.println("Bye. Hope to see you again!");
@@ -75,7 +74,7 @@ public class Duke {
 
     private static void addedTask(String x) {
         System.out.println("Added to list: " + x);
-        System.out.println("Now you have " + my_list.size() + " tasks in the list");
+        System.out.println("Now you have " + my_list.size() + (my_list.size() == 1 ? " task " : " tasks ") + "in the list");
     }
 
     private static void printList() {

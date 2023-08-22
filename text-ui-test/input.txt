@@ -1,0 +1,13 @@
+todo read
+list
+deadline play /by 10pm
+list
+mark 1
+list
+event cook /from idk /to tmr
+list
+mark 3
+list
+unmark 1
+list
+bye

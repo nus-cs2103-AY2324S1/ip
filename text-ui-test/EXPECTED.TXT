@@ -1,2 +1,29 @@
-
-
+Hello! I'm BoxBox
+What can I do for you?
+Added to list: read
+Now you have 1 task in the list
+1 [T] [ ] read
+Added to list: play
+Now you have 2 tasks in the list
+1 [T] [ ] read
+2 [D] [ ] play (by: 10pm)
+I've marked this task as done!
+[T] [/] read
+1 [T] [/] read
+2 [D] [ ] play (by: 10pm)
+Added to list: cook
+Now you have 3 tasks in the list
+1 [T] [/] read
+2 [D] [ ] play (by: 10pm)
+3 [E] [ ] cook (from: idk to: tmr)
+I've marked this task as done!
+[E] [/] cook (from: idk to: tmr)
+1 [T] [/] read
+2 [D] [ ] play (by: 10pm)
+3 [E] [/] cook (from: idk to: tmr)
+I've marked this task as undone!
+[T] [ ] read
+1 [T] [ ] read
+2 [D] [ ] play (by: 10pm)
+3 [E] [/] cook (from: idk to: tmr)
+Bye. Hope to see you again!
