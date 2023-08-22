@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Jarvis {
     public static void main(String[] args) {
@@ -22,19 +23,29 @@ public class Jarvis {
         System.out.println(question);
         System.out.println(line);
 
-        while (true) { // any other command other than bye
-            Scanner userInput = new Scanner(System.in);
-            String request = userInput.nextLine();
+        ArrayList<String> taskList = new ArrayList<String>(); // list of tasks
 
-            if (!request.equals("bye")) { // if "bye is not entered"
+        while (true) {
+            Scanner userInput = new Scanner(System.in);
+            String task = userInput.nextLine();
+
+            if (task.equals("list")) { // if "list" is entered
                 System.out.println(line);
-                System.out.println(request);
+                for (int i = 0; i < taskList.size(); i++) {
+                    int count = i + 1;
+                    System.out.println(count + ". " + taskList.get(i));
+                }
                 System.out.println(line);
-            } else {
-                System.out.println(line); // if "bye" is entered
+            } else if (task.equals("bye")) { // if "bye" is entered
+                System.out.println(line);
                 System.out.println(signOff);
                 System.out.println(line);
                 break;
+            } else { // if any other request
+                taskList.add(task); // add new task to the end of task list
+                System.out.println(line);
+                System.out.println("added: " + task);
+                System.out.println(line);
             }
         }
     }
