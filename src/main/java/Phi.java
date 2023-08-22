@@ -1,16 +1,26 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Phi {
     public static void main(String[] args) {
+        // scanner object for user input
+        Scanner sc = new Scanner(System.in);
+        // arrayList to store input text given
+        ArrayList<String> inputTextList = new ArrayList<>();
 
         greeting();
-
-        // creating scanner object for user input
-        Scanner sc = new Scanner(System.in);
+        
         String input = sc.nextLine();
         while (!Objects.equals(input, "bye")) {
-            System.out.println(input);
+            if (Objects.equals(input, "list")) {
+                for (String s : inputTextList) {
+                    System.out.println(s);
+                }
+            } else {
+                inputTextList.add((inputTextList.size() + 1) + ": " + input);
+                System.out.println("Added: " + input);
+            }
             input = sc.nextLine();
         }
 
