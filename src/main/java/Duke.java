@@ -78,6 +78,10 @@ public class Duke {
                 throw new DukeException("Use /from and /to to specify event duration.");
             }
             System.out.printf("Pong: [Added] %s\n", tasks.get(tasks.size() - 1));
+        } else if (userInput.startsWith("delete")) {
+            int deleteIndex = Integer.parseInt(userInput.substring(7));
+            Task task = tasks.remove(deleteIndex - 1);
+            System.out.printf("Pong: [Deleted] %s\n", task);
         }
 
         return true;
