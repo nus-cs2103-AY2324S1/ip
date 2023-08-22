@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
 
-    static String chatbotName = "Gobble Gobble";
-    static String lineSeparator = "____________________________________________________________";
+    private static final String chatbotName = "Gobble Gobble";
+    private static final String lineSeparator = "____________________________________________________________";
 
     public static void main(String[] args) {
         System.out.println(Duke.lineSeparator + "\n" + "Hello! I'm " + Duke.chatbotName + "\n" +
