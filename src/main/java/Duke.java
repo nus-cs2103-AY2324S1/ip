@@ -1,3 +1,6 @@
+import java.util.Objects;
+import java.util.Scanner;
+
 public class Duke {
     private static void start() {
         System.out.println("____________________________________________________________\n");
@@ -14,8 +17,19 @@ public class Duke {
         System.out.println("____________________________________________________________\n");
     }
 
+    private static void echo() {
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (Objects.equals(line, "bye")) break;
+            System.out.println(line);
+            System.out.println("____________________________________________________________\n");
+        }
+    }
+
     public static void main(String[] args) {
         start();
+        echo();
         exit();
     }
 }
