@@ -25,13 +25,11 @@ public class Event extends Task{
     }
 
     /**
-     * This method displays and prints the completion status, details, start and end dates & times of the event
+     * This method returns the string representation of an event task
+     * @return String representation of an event task
      */
     @Override
-    public void displayTask() {
-        System.out.print("[E] ");
-        System.out.print(this.isDone ? "[X] " : "[ ] ");
-        System.out.print(this.detail + " ");
-        System.out.println("(from: " + this.startDateTime + " to: " + this.endDateTime + ")");
+    public String toString() {
+        return "[E] " + super.toString() + " (from " + this.startDateTime + " to: " + this.endDateTime + ")";
     }
 }

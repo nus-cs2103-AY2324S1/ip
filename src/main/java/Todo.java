@@ -13,12 +13,11 @@ public class Todo extends Task{
     }
 
     /**
-     * This method displays and prints the Todo completion state and details
+     * This method returns the string representation of this todo task
+     * @return String representation of this todo task
      */
     @Override
-    public void displayTask() {
-        System.out.print("[T] ");
-        System.out.print(this.isDone ? "[X] " : "[ ] ");
-        System.out.println(this.detail);
+    public String toString() {
+        return "[T] " + super.toString();
     }
 }

@@ -19,13 +19,11 @@ public class Deadline extends Task{
     }
 
     /**
-     * This method displays and prints the completion status, details and the date & time of the deadline
+     * This method returns the string representation of a deadline task
+     * @return String representation of a deadline task
      */
     @Override
-    public void displayTask() {
-        System.out.print("[D] ");
-        System.out.print(this.isDone ? "[X] " : "[ ] ");
-        System.out.print(this.detail + " ");
-        System.out.println("(by: " + this.endDateTime + ")");
+    public String toString() {
+        return "[D] " + super.toString() + " (by: " + this.endDateTime + ")";
     }
 }

@@ -23,11 +23,16 @@ public class Task {
     }
 
     /**
-     * Displays and prints the task
+     * This method returns string representation of this task
+     * @return String representation of this task
      */
-    public void displayTask() {
-        System.out.print(this.isDone ? "[X] " : "[ ]");
-        System.out.println(this.detail);
+    @Override
+    public String toString() {
+        if (this.isDone) {
+            return "[X] " + this.detail;
+        } else {
+            return "[ ] " + this.detail;
+        }
     }
 
     /**
