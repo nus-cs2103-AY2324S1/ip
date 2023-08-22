@@ -30,7 +30,7 @@ public class IBot {
         if (cmd.isEmpty() || cmd.equals(" ")) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n");
         } else {
-            addTask(new Todo(cmd.substring(1)));
+            addTask(Task.of(cmd.substring(1)));
         }
     }
 
@@ -50,7 +50,7 @@ public class IBot {
                             "deadline <task name> /by <deadline>\n");
         }else {
             String[] temp = cmd.split(" /by ");
-            addTask(new Deadline(
+            addTask(Task.of(
                     temp[0].substring(1),
                     temp[1]));
         }
@@ -72,7 +72,7 @@ public class IBot {
                             "event <task name> /from <begin time> /to <end time>\n");
         }else {
             String[] temp = cmd.split(" /");
-            addTask(new Event(
+            addTask(Task.of(
                     temp[0].substring(1),
                     temp[1].substring(5),
                     temp[2].substring(3)));

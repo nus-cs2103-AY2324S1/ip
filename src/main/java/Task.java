@@ -14,6 +14,36 @@ public class Task {
         this.state = false;
     }
 
+    /**
+     * A factory method to creat a todo instance
+     * @param name Task name
+     * @return The todo instance
+     */
+    public static Task of(String name) {
+        return new Todo(name);
+    }
+
+    /**
+     * A factory method to create a deadline instance
+     * @param name Task name
+     * @param time Task deadline
+     * @return A deadline instance
+     */
+    public static Task of(String name, String time) {
+        return new Deadline(name, time);
+    }
+
+    /**
+     * A factory method to create an event instance
+     * @param name Task name
+     * @param startTime Task start time
+     * @param endTime Task end time
+     * @return An event instance
+     */
+    public static Task of(String name, String startTime, String endTime) {
+        return new Event(name, startTime, endTime);
+    }
+
     /** The method to mark the state of this task as done
      *  If the task has already been marked, throw an exception
      */
