@@ -27,8 +27,8 @@ public class TaskList {
         return this.taskArr[index].toString();
     }
 
-    public void addTask(String description) {
-        this.taskArr[len] = new Task(description);
+    public void addTask(Task task) {
+        this.taskArr[len] = task;
         len += 1;
     }
 

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.regex.*;
 
 public class Duke {
     public static void main(String[] args) {
@@ -20,13 +21,22 @@ public class Duke {
 
         // initialise scanner to detect user input
         Scanner sc = new Scanner(System.in);
-        String userInput = sc.next();
+        String userInput = sc.nextLine();
 
         // initialise array to store user input
         TaskList arr = new TaskList();
 
         // while loop to continuously take in inputs until user types bye
         while (!userInput.equals("bye")) {
+
+            // basic user input processing
+            // String[] inputArr = userInput.split("\\s+");
+            // int inputArrLength = inputArr.length;
+            boolean isMark = Pattern.compile("^mark ").matcher(userInput).find();
+            boolean isUnmark = Pattern.compile("^unmark ").matcher(userInput).find();
+            boolean isTodo = Pattern.compile("^todo").matcher(userInput).find();
+            boolean isDeadline = Pattern.compile("^deadline").matcher(userInput).find();
+            boolean isEvent = Pattern.compile("^event").matcher(userInput).find();
 
             // if user asks for list
             if (userInput.equals("list")) {
@@ -36,40 +46,108 @@ public class Duke {
                     System.out.printf("%d. %s\n", i + 1, arr.taskToString(i));
                 }
                 System.out.println(lnspace);
-                userInput = sc.next();
+                userInput = sc.nextLine();
                 continue;
             }
 
             // if user wants to mark task
-            if (userInput.equals("mark")) {
-                int markTask = Integer.parseInt(sc.next());
+            if (isMark) {
+                int markTask = Integer.parseInt(userInput.split(" ")[1]);
                 arr.markTaskAsDone(markTask - 1);
                 System.out.println(lnspace);
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(arr.taskToString(markTask - 1));
                 System.out.println(lnspace);
-                userInput = sc.next();
+                userInput = sc.nextLine();
                 continue;
             }
 
             // if user wants to unmark task
-            if (userInput.equals("unmark")) {
-                int unmarkTask = Integer.parseInt(sc.next());
+            if (isUnmark) {
+                int unmarkTask = Integer.parseInt(userInput.split(" ")[1]);
                 arr.markTaskAsNotDone(unmarkTask - 1);
                 System.out.println(lnspace);
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(arr.taskToString(unmarkTask - 1));
                 System.out.println(lnspace);
-                userInput = sc.next();
+                userInput = sc.nextLine();
+                continue;
+            }
+
+            // if user wants to add todo, deadline or event
+
+            if (isTodo) {
+                System.out.println(lnspace);
+                Matcher matcher = Pattern.compile("todo ").matcher(userInput);
+                if (!matcher.find()) {
+                    // return error
+                }
+                String description = userInput.substring(matcher.end()).trim();
+                arr.addTask(new Todo(description));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(arr.taskToString(arr.length() - 1));
+                System.out.println("Now you have " + arr.length() + " tasks in the list.");
+                System.out.println(lnspace);
+                userInput = sc.nextLine();
+                continue;
+            }
+
+            if (isDeadline) {
+                System.out.println(lnspace);
+                Matcher matcher = Pattern.compile("deadline ").matcher(userInput);
+                if (!matcher.find()) {
+                    // return error: not valid deadline
+                }
+                String info = userInput.substring(matcher.end()).trim();
+                matcher = Pattern.compile(" /by ").matcher(info);
+                if (!matcher.find()) {
+                    // return error: not valid deadline, no end date provided
+                }
+                String description = info.substring(0, matcher.start()).trim();
+                String deadline = info.substring(matcher.end()).trim();
+                arr.addTask(new Deadline(description, deadline));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(arr.taskToString(arr.length() - 1));
+                System.out.println("Now you have " + arr.length() + " tasks in the list.");
+                System.out.println(lnspace);
+                userInput = sc.nextLine();
+                continue;
+            }
+
+            if (isEvent) {
+                System.out.println(lnspace);
+                Matcher matcher = Pattern.compile("event ").matcher(userInput);
+                if (!matcher.find()) {
+                    // return error: not valid event
+                }
+                String info = userInput.substring(matcher.end()).trim();
+                matcher = Pattern.compile(" /from ").matcher(info);
+                if (!matcher.find()) {
+                    // return error: not valid event, no start date provided
+                }
+                String description = info.substring(0, matcher.start()).trim();
+                String tmp = info.substring(matcher.end()).trim();
+                matcher = Pattern.compile(" /to ").matcher(tmp);
+                if (!matcher.find()) {
+                    // return error: not valid event, no end date provided
+                }
+                String start = tmp.substring(0, matcher.start()).trim();
+                String end = tmp.substring(matcher.end()).trim();
+                arr.addTask(new Event(description, start, end));
+                System.out.println("Got it. I've added this task:");
+                System.out.println(arr.taskToString(arr.length() - 1));
+                System.out.println("Now you have " + arr.length() + " tasks in the list.");
+                System.out.println(lnspace);
+                userInput = sc.nextLine();
                 continue;
             }
 
             // if not continue to listen for further user inputs
-            arr.addTask(userInput);
+            arr.addTask(new Task(userInput));
             System.out.println(lnspace);
             System.out.println("added: " + userInput);
             System.out.println(lnspace);
-            userInput = sc.next();
+            userInput = sc.nextLine();
         }
 
         // terminate program: close scanner, print ending message
