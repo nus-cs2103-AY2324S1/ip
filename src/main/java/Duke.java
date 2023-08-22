@@ -33,6 +33,14 @@ public class Duke {
         }
     }
 
+    public static void delete(int num) {
+        Task t = tasks.get(num - 1);
+        tasks.remove(num - 1);
+        System.out.println("Noted. I've removed this task: \n" +
+                t.toString() + "\n" +
+                "Now you have " + tasks.size() + " tasks in the list.");
+    }
+
     public static void execute() throws DukeException {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -52,6 +60,9 @@ public class Duke {
                 int taskNum = sc.nextInt();
                 Task task = tasks.get(taskNum - 1);
 
+            } else if (command.equals("delete")) {
+                int index = sc.nextInt();
+                delete(index);
             } else if (command.equals("todo")) {
 
                     String restOfString = sc.nextLine();
@@ -94,7 +105,7 @@ public class Duke {
 
                     String taskName = restOfString.substring(0, fromIndex - 1);
                     String fromDate = restOfString.substring(fromIndex + 6, toIndex - 1);
-                    
+
                     String toDate = restOfString.substring(toIndex + 4);
                     Task taskToAdd = new Event(taskName, fromDate, toDate);
                     Duke.add(taskToAdd);
