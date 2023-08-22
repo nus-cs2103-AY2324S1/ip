@@ -17,18 +17,22 @@ public class Database {
 
     public void displayData() {
         UI.displayCheems();
-        for (int i = 0; i < this.total; i++) {
-            System.out.printf("%d.%s\n", i + 1, this.db.get(i));
+        if (this.total == 0) {
+            System.out.println("You have no task right now:) Happy happy!");
+        } else {
+            for (int i = 0; i < this.total; i++) {
+                System.out.printf("%d.%s\n", i + 1, this.db.get(i));
+            }
         }
     }
 
-    // for validity check later
-    public int total() {
-        return this.total;
-    }
 
     public void markAsDone(int index) {
         // check for range of index
+        if (index >= this.total) {
+            throw new IndexOutOfBoundsException(String.format("Sorry you do not have task #%d, try \"list\" to check your current list of tasks!", index + 1));
+        }
+
         this.db.get(index).markAsDone();
 
         UI.displayCheems();
@@ -37,6 +41,11 @@ public class Database {
     }
 
     public void markAsNotDone(int index) {
+        // check for range of index
+        if (index >= this.total) {
+            throw new IndexOutOfBoundsException(String.format("Sorry you do not have task #%d, try \"list\" to check your current list of tasks!", index + 1));
+        }
+
         this.db.get(index).markAsNotDone();
 
         UI.displayCheems();
