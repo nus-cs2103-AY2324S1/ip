@@ -30,12 +30,12 @@ public class Victor {
             } else if (formattedInput[0].equals("mark")) {
                 Task task = list.get(Integer.parseInt(formattedInput[1]) - 1);
                 task.markDone();
-                System.out.printf("Nice! I've marked this task as done: \n" +
+                System.out.printf("Nice! I've marked this task as done:\n" +
                         "%s\n" + "----------\n", task);
             } else if (formattedInput[0].equals("unmark")) {
                 Task task = list.get(Integer.parseInt(formattedInput[1]) - 1);
                 task.unMarkDone();
-                System.out.printf("OK, I've marked this task as not done yet: \n" +
+                System.out.printf("OK, I've marked this task as not done yet:\n" +
                         "%s\n" + "----------\n", task);
             } else if (formattedInput[0].equals("todo")) {
                 Task task = new Todo(formattedInput[1]);
