@@ -11,8 +11,41 @@ public class Duke {
                             "\t░╚════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░░░╚═╝░░░░░░╚═╝░░░\n";
     private final String GREETING = "\tHello! I'm Chatty.\n\tWhat can I do for you?";
     private final String FAREWELL = "\tBye. Have \"fun\" in school!";
-    private String[] textList = new String[100];
-    private int textListSize = 0;
+    private Task[] taskList = new Task[100];
+    // private String[] taskList = new String[100];
+    // private boolean[] taskListCompletion = new boolean[100];
+    private int taskListSize = 0;
+
+    private class Task{
+        private String taskName;
+        private boolean isDone;
+
+        public Task(String taskName) {
+            this.taskName = taskName;
+            this.isDone = false;
+        }
+
+        public void markAsDone() {
+            this.isDone = true;
+        }
+
+        public String getTaskName() {
+            return this.taskName;
+        }
+
+        public boolean getIsDone() {
+            return this.isDone;
+        }
+
+        public void unmarkAsDone() {
+            this.isDone = false;
+        }
+
+        @Override
+        public String toString() {
+            return "[" + (this.isDone ? "X" : " ") + "] " + this.taskName;
+        }
+    }
 
     public static void main(String[] args) {
         // get new duke instance
@@ -37,9 +70,9 @@ public class Duke {
     }
 
     private void addToTextList(String text) {
-        if (textListSize < textList.length) {
-            textList[textListSize] = text;
-            textListSize++;
+        if (taskListSize < taskList.length) {
+            taskList[taskListSize] = new Task(text);
+            taskListSize++;
         } else {
             System.out.println("Error: List is full.");
         }
@@ -53,10 +86,22 @@ public class Duke {
 
     private void handleTextInput(String inputString) {
         System.out.println(DIVIDER);
+        // handle key logic here.
         if (inputString.equals("list")) {
-            for (int i = 0; i < textListSize; i++) {
-                System.out.println("\t" + (i + 1) + ". " + textList[i]);
+            System.out.println("\tHere are the tasks in your list:");
+            for (int i = 0; i < taskListSize; i++) {
+                System.out.println("\t" + (i + 1) + ". " + taskList[i]);
             }
+        } else if (inputString.startsWith("mark")) {
+            int taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
+            taskList[taskIndex].markAsDone();
+            System.out.println("\tNice! I've marked this task as done:");
+            System.out.println("\t\t" + taskList[taskIndex]);
+        } else if (inputString.startsWith("unmark")) {
+            int taskIndex = Integer.parseInt(inputString.split(" ")[1]) - 1;
+            taskList[taskIndex].unmarkAsDone();
+            System.out.println("\tOK, I've marked this task as not done yet:");
+            System.out.println("\t\t" + taskList[taskIndex]);
         } else {
             System.out.println("\tadded: " + inputString);
             addToTextList(inputString);
