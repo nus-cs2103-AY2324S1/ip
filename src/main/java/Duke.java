@@ -22,7 +22,12 @@ public class Duke {
             divider;
 
 
-    public String addTask(String[] taskArray) {
+    public String addTask(String[] taskArray) throws DukeException{
+
+        if(totalTodo >= 100) {
+            throw new DukeException("List has exceeded the limit of 100 tasks!");
+        }
+
         String action = taskArray[0];
         String task = taskArray[1];
         String by = taskArray[2];
@@ -90,6 +95,7 @@ public class Duke {
         if (index >= totalTodo) {
             throw new DukeException("Enter mark/umark command with index lesser than " + (totalTodo+1) +"\n");
         }
+
         if (action.equals("mark")) {
              return list[index].setMarked();
         }

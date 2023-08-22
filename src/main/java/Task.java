@@ -8,12 +8,18 @@ public class Task {
         this.list = list;
     }
 
-    public String setMarked() {
+    public String setMarked() throws DukeException{
+        if(this.completed) {
+            throw new DukeException("This task has already been marked as done!\n");
+        }
         this.completed = true;
         return "";
     }
 
-    public String setUnmarked() {
+    public String setUnmarked() throws DukeException{
+        if(!this.completed) {
+            throw new DukeException("This task has already been marked as not done!");
+        }
         this.completed = false;
         return "";
     }
