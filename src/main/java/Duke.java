@@ -75,7 +75,7 @@ public class Duke {
                             tasks.get(markIndex - 1).toString() + divider);
                 } catch (NumberFormatException e) {
                     System.out.println("The mark command must be followed by an integer number." + divider);
-                } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                } catch (NullPointerException | IndexOutOfBoundsException e) {
                     System.out.println("You are trying to mark a non-existent task, ensure you mark a task that you have created :O" + divider);
                 }
                 break;
@@ -91,7 +91,7 @@ public class Duke {
                             tasks.get(unmarkIndex - 1).toString() + divider);
                 } catch (NumberFormatException e) {
                     System.out.println("The mark command must be followed by an integer number." + divider);
-                } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                } catch (NullPointerException | IndexOutOfBoundsException e) {
                     System.out.println("You are trying to unmark a non-existent task, ensure you mark a task that you have created :O" + divider);
                 }
                 break;
@@ -139,6 +139,24 @@ public class Duke {
                 System.out.println(displayMessage + Duke.tasks.get(pointer).toString());
                 Duke.pointer++;
                 printListMessage();
+                break;
+            case "DELETE":
+                if (argument.isBlank()) {
+                    System.out.println("Tell me which task to delete! Give me an integer number!" + divider);
+                    break;
+                }
+                try {
+                    int delIndex = Integer.parseInt(argument);
+                    Task deletedTask = tasks.remove(delIndex - 1);
+                    System.out.println("Foosh! Let it be gone! I've helped delete the task:\n" +
+                            deletedTask.toString());
+                    Duke.pointer--;
+                    printListMessage();
+                } catch (NumberFormatException e) {
+                    System.out.println("The delete command must be followed by an integer number." + divider);
+                } catch (NullPointerException | IndexOutOfBoundsException e) {
+                    System.out.println("You are trying to delete a non-existent task, ensure you delete a task that you have created :3" + divider);
+                }
                 break;
             default:
                 System.out.println("I'm sorry! I don't understand the command :( " + divider);
