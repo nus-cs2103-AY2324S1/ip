@@ -77,29 +77,63 @@ public class Duke {
 
         while (true) {
             String userInput = SC.nextLine();
-            if (userInput.equals("bye")) {
-                System.out.println(messageCard("Bye. Hope to see you again soon!"));
-                break;
-            } else if (userInput.equals("list")) {
-                System.out.println(displayList(taskArr));
-            } else if (userInput.substring(0, 4).equals("mark")) {
-                int index = Integer.parseInt(userInput.substring(5)) - 1;
-                markTaskAsDone(index);
-            } else if (userInput.substring(0, 6).equals("unmark")) {
-                int index = Integer.parseInt(userInput.substring(7)) - 1;
-                markTaskAsUndone(index);
-            } else {
-                if (userInput.substring(0,4).equals("todo")) {
-                    // Add a task
-                    addToDo(userInput.substring(5));
-                } else if (userInput.substring(0, 8).equals("deadline")) {
-                    // Add a deadline
-                    addDeadline(userInput.substring(9));
-                } else if (userInput.substring(0, 5).equals("event")) {
-                    // Add an event
-                    addEvent(userInput.substring(6));
-                }
+            try {
+                if (userInput.equals("bye")) {
+                    System.out.println(messageCard("Bye. Hope to see you again soon!"));
+                    break;
+                } else if (userInput.equals("list")) {
+                    System.out.println(displayList(taskArr));
+                } else if (userInput.contains("mark") && userInput.substring(0, 4).equals("mark")) {
+                    if (!userInput.equals("mark")) {
+                        int index = Integer.parseInt(userInput.substring(5)) - 1;
+                        if (index >= 100 || index < 0 || taskArr[index] == null) {
+                            System.out.println("Invalid mark task");
+                        } else {
+                            markTaskAsDone(index);
+                        }
+                    } else {
+                        System.out.println("Invalid mark task");
+                    }
+                } else if (userInput.contains("mark") && userInput.substring(0, 6).equals("unmark")) {
+                    if (!userInput.equals("mark")) {
+                        int index = Integer.parseInt(userInput.substring(7)) - 1;
+                        if (index >= 100 || index < 0 || taskArr[index] == null) {
+                            System.out.println("Invalid mark task");
+                        } else {
+                            markTaskAsUndone(index);
+                        }
+                    } else {
+                        System.out.println("Invalid mark task");
+                    }
+                } else {
+                    if (userInput.contains("todo") && userInput.substring(0, 4).equals("todo")) {
+                        // Add a task
+                        if (userInput.equals("todo")) { // checks if description is empty
+                            throw new DukeException("todo");
+                        } else {
+                            addToDo(userInput.substring(5));
+                        }
+                    } else if (userInput.contains("deadline") && userInput.substring(0, 8).equals("deadline")) {
+                        // Add a deadline
+                        if (userInput.equals("deadline")) { // checks if description is empty
+                            throw new DukeException("deadline");
+                        } else {
+                            addDeadline(userInput.substring(9));
+                        }
 
+                    } else if (userInput.contains("event") && userInput.substring(0, 5).equals("event")) {
+                        // Add an event
+                        if (userInput.equals("event")) { // checks if description is empty
+                            throw new DukeException("event");
+                        } else {
+                            addEvent(userInput.substring(6));
+                        }
+                    } else {
+                        System.out.println(messageCard("OOPS!!! I'm sorry, but I don't know what that means :-("));
+                    }
+                }
+            } catch (DukeException e) {
+                System.out.println(messageCard(e.getMessage()));
             }
         }
         SC.close();
