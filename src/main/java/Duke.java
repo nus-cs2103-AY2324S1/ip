@@ -96,7 +96,7 @@ public class Duke {
                     }
                     int t = Integer.parseInt(input.substring(7));
                     if (t > roo.data.size()) {
-                        throw new DukeException("We dunhave so many task lah =_=\nq");
+                        throw new DukeException("We dunhave so many task lah =_=\n");
                     }
                     roo.delete(t - 1);
                 } catch (DukeException e) {
