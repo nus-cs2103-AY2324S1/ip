@@ -6,29 +6,46 @@ public class Duke {
         String name = "your father";
         String line = "_________________________\n";
         System.out.println(logo +
-                            line +
-                            "Hello! I'm " + name + "\n" +
-                            "What can I do for you?\n" +
-                            line);
+                line +
+                "Hello! I'm " + name + "\n" +
+                "What can I do for you?\n" +
+                line);
 
         Scanner scanner = new Scanner(System.in);
         String input;
-        String[] list = new String[100];
-        int listIndex = 0;
+
+        Task[] tasks = new Task[100];
+        int taskIndex = 0;
 
         while (true) {
-            input = scanner.nextLine();
+            input = scanner.nextLine().toLowerCase();
+            String[] words = input.split(" ");
+
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
-                System.out.print(line + "\n");
-                for (int i = 0; i < listIndex; i++) {
-                    System.out.println((i + 1) + ". " + list[i]);
+                System.out.println(line + "\nHere are the tasks in your list:");
+                for (int i = 0; i < taskIndex; i++) {
+                    System.out.println((i + 1) + "." + tasks[i]);
                 }
-                System.out.print(line + "\n");
+                System.out.println(line);
+            } else if (words[0].equals("mark") && words.length > 1) {
+                int index = Integer.parseInt(words[1]) - 1;
+                tasks[index].markDone();
+                System.out.println(line + "\nNice! I've marked this task as done:\n  " +
+                        tasks[index] +
+                        "\n" +
+                        line);
+            } else if (words[0].equals("unmark") && words.length > 1) {
+                int index = Integer.parseInt(words[1]) - 1;
+                tasks[index].unmarkDone();
+                System.out.println(line + "\nOK, I've marked this task as not done yet:\n  " +
+                        tasks[index] +
+                        "\n" +
+                        line);
             } else {
-                list[listIndex] = input;
-                listIndex++;
+                tasks[taskIndex] = new Task(input);
+                taskIndex++;
                 System.out.println(line + "added: " + input + "\n" + line);
             }
         }
