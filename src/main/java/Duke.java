@@ -125,8 +125,18 @@ public class Duke {
                 }
                 break;
             case "delete":
-                list.remove(Integer.parseInt(response.split(" ")[1])-1);
-                printList(list);
+                try {
+                    int taskIndex = Integer.parseInt(response.split(" ")[1]) - 1;
+                    if (taskIndex < 0 || taskIndex >= list.size()) {
+                        throw new TaskIndexOutOfBoundsException("Invalid task index");
+                    }
+                    list.remove(Integer.parseInt(response.split(" ")[1])-1);
+                    printList(list);
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println(format_response("Invalid input. Usage: delete <task_index>"));
+                } catch (TaskIndexOutOfBoundsException e) {
+                    System.out.println(format_response("Invalid task index. Please provide a valid index."));
+                }
                 break;
             default: {
                 System.out.println(format_response(
