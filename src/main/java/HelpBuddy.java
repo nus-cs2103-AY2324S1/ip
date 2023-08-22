@@ -46,6 +46,9 @@ public class HelpBuddy {
 
         String markPattern = "mark\\s+(\\d+)";
         String unmarkPattern = "unmark\\s+(\\d+)";
+        String toDoPattern = "todo\\s+(.+)";
+        String deadlinePattern = "deadline\\s+(.+)\\s+/by\\s+(.+)";
+        String eventPattern = "event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)";
         String inputMessage = sc.nextLine();
 
         while(inputMessage != "") {
@@ -78,8 +81,25 @@ public class HelpBuddy {
                 System.out.println(printMessageBlock(HelpBuddy.printByeMessage()));
                 break;
             } else {
-                System.out.println(printMessageBlock("added: " + inputMessage + "\n"));
-                this.userInput.add(new Task(inputMessage));
+                String output = "Got it. I've added this task:\n      ";
+                int numOfTasks = userInput.size() + 1;
+                Task t = null;
+                if (inputMessage.matches(deadlinePattern)) {
+                    String taskDetails = inputMessage.replaceAll("deadline\\s+", "");
+                    String[] taskDetailArray = taskDetails.split("/by");
+                    t = new Deadline(taskDetailArray[0], taskDetailArray[1]);
+                } else if (inputMessage.matches(toDoPattern)) {
+                    String taskDetails = inputMessage.replaceAll("todo\\s+", "");
+                    t = new ToDo(taskDetails);
+                } else if (inputMessage.matches(eventPattern)) {
+                    String taskDetails = inputMessage.replaceAll("event\\s+", "");
+                    String[] taskDetailArray = taskDetails.split("/from");
+                    String[] timeFromTo = taskDetailArray[1].split("/to");
+                    t = new Event(taskDetailArray[0], timeFromTo[0], timeFromTo[1]);
+                }
+                this.userInput.add(t);
+                output += t + "\n    Now you have " + numOfTasks + " tasks in this list.\n";
+                System.out.println(printMessageBlock(output));
             }
             inputMessage = sc.nextLine();
         }
