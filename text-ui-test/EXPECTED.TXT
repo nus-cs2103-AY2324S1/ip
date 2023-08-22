@@ -78,11 +78,20 @@
     OK, I've marked this task as not done yet:
         [T][ ] call mom
 
+    Missing task index!
+
+    Task index is not a number!
+
+    Noted. I've removed this task:
+        [T][ ] call mom
+    Now you have 3 tasks in the list.
+
+    Invalid task index!
+
     Here are the tasks in your list:
         1. [T][X] borrow book
         2. [D][ ] return book (by Sunday)
         3. [E][ ] project meeting (from Mon 2pm to 4pm)
-        4. [T][ ] call mom
-    You have 4 tasks in your list.
+    You have 3 tasks in your list.
 
     Bye. Hope to see you again soon!

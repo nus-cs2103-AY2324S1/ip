@@ -162,6 +162,31 @@ public class Duke {
         }
     }
 
+    private static void delete(String index) throws DukeException {
+        if (index.isEmpty()) {
+            throw new DukeException("Missing task index!");
+        }
+
+        try {
+            int idx = Integer.parseInt(index);
+
+            if (idx < 1 || idx > tasks.size()) {
+                throw new DukeException("Invalid task index!");
+            }
+
+            Task task = tasks.get(idx - 1);
+            tasks.remove(idx - 1);
+
+            say(
+                    "Noted. I've removed this task:",
+                    indent(task.toString()),
+                    "Now you have 3 tasks in the list."
+            );
+        } catch (NumberFormatException e) {
+            throw new DukeException("Task index is not a number!");
+        }
+    }
+
     public static void main(String[] args) {
         greet();
 
@@ -199,6 +224,9 @@ public class Duke {
                     case UNMARK:
                         unmark(commandArgs);
                         break;
+                    case DELETE:
+                        delete(commandArgs);
+                        break;
                 }
             } catch (DukeException e) {
                 say(e.getMessage());
@@ -207,6 +235,6 @@ public class Duke {
     }
 
     enum Command {
-        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK
+        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
     }
 }
