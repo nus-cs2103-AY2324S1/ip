@@ -6,14 +6,6 @@ public class Duke {
     private static final Task[] tasks = new Task[MAX_ENTRIES];
     private static int cursor = 0;
 
-    enum Command {
-        BYE,
-        LIST,
-        ADD,
-        MARK,
-        UNMARK
-    }
-
     private static void print(String... strings) {
         for (String s : strings) {
             System.out.print('\t');
@@ -33,7 +25,7 @@ public class Duke {
         try {
             return Command.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
-            return Command.ADD;
+            return Command.UNKNOWN;
         }
     }
 
@@ -45,9 +37,38 @@ public class Duke {
         }
     }
 
-    private static void add(String description) {
-        tasks[cursor++] = new Task(description);
-        print(String.format("Added: %s", description));
+    private static void add(Task task) {
+        tasks[cursor++] = task;
+        print(
+                "Got it. I've added this task:",
+                task.toString(),
+                String.format("Now you have %d tasks in the list.", cursor)
+        );
+    }
+
+    private static void addTodo(String details) {
+        Todo todo = new Todo(details);
+        add(todo);
+    }
+
+    private static void addDeadline(String details) {
+        String[] tokens = details.split(" /by ");
+        String description = tokens[0];
+        String by = tokens[1];
+
+        Deadline deadline = new Deadline(description, by);
+        add(deadline);
+    }
+
+    private static void addEvent(String details) {
+        String[] tokens = details.split(" /from ");
+        String description = tokens[0];
+        tokens = tokens[1].split(" /to ");
+        String from = tokens[0];
+        String to = tokens[1];
+
+        Event event = new Event(description, from, to);
+        add(event);
     }
 
     private static void mark(int index) {
@@ -71,7 +92,9 @@ public class Duke {
         while (!shouldTerminate && sc.hasNextLine()) {
             String input = sc.nextLine().trim();
             String[] tokens = input.split(" ", 2);
+
             Command command = toCommand(tokens[0]);
+            String commandArgs = tokens.length > 1 ? tokens[1] : "";
 
             switch (command) {
                 case BYE:
@@ -81,15 +104,28 @@ public class Duke {
                 case LIST:
                     list();
                     break;
+                case TODO:
+                    addTodo(commandArgs);
+                    break;
+                case DEADLINE:
+                    addDeadline(commandArgs);
+                    break;
+                case EVENT:
+                    addEvent(commandArgs);
+                    break;
                 case MARK:
-                    mark(Integer.parseInt(tokens[1]));
+                    mark(Integer.parseInt(commandArgs));
                     break;
                 case UNMARK:
-                    unmark(Integer.parseInt(tokens[1]));
+                    unmark(Integer.parseInt(commandArgs));
                     break;
-                default:
-                    add(input);
+                default: // UNKNOWN
+                    print("Unknown command!");
             }
         }
+    }
+
+    enum Command {
+        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, UNKNOWN
     }
 }
