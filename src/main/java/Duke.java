@@ -32,20 +32,10 @@ public class Duke {
             System.out.println(num + ". " + taskToList.toString());
         }
     }
-    public static void main(String[] args) {
+
+    public static void execute() throws DukeException {
         Scanner sc = new Scanner(System.in);
-        tasks.clear();
-        exited = false;
-
-        String welcome = "Hello! I'm Eddie\n" +
-                "What can I do for you?";
-
-        System.out.println(welcome);
-
-        while (!exited) {
-//            str.append(sc.nextLine());
-//            int spaceIndex = str.indexOf(" ");
-//            String command = str.substring(0, spaceIndex);
+        while (true) {
 
             String command = sc.next();
 
@@ -61,32 +51,79 @@ public class Duke {
             } else if (command.equals("unmark")) {
                 int taskNum = sc.nextInt();
                 Task task = tasks.get(taskNum - 1);
-                task.taskNotDone();
+
             } else if (command.equals("todo")) {
 
-                String restOfString = sc.nextLine();
-                String taskName = restOfString;
-                Task taskToAdd = new Todo(taskName);
-                Duke.add(taskToAdd);
+                    String restOfString = sc.nextLine();
+                if (restOfString.length() != 0) {
+                    String taskName = restOfString;
+                    Task taskToAdd = new Todo(taskName);
+                    Duke.add(taskToAdd);
+
+                } else {
+                    throw new EmptyDescriptionException();
+                }
+
             } else if (command.equals("deadline")) {
                 String restOfString = sc.nextLine();
-                int slashIndex = restOfString.indexOf("/by");
-                String taskName = restOfString.substring(0, slashIndex - 1);
-                String date = restOfString.substring(slashIndex + 4);
-                Task taskToAdd = new Deadline(taskName, date);
-                Duke.add(taskToAdd);
-            } else if (command.equals("event")) {
-                String restOfString = sc.nextLine();
-                int fromIndex = restOfString.indexOf("/from");
-                int toIndex = restOfString.indexOf("/to");
-                String taskName = restOfString.substring(0, fromIndex - 1);
-                String fromDate = restOfString.substring(fromIndex + 6, toIndex - 1);
-                String toDate = restOfString.substring(toIndex + 4);
-                Task taskToAdd = new Event(taskName, fromDate, toDate);
-                Duke.add(taskToAdd);
 
+                if (restOfString.length() != 0) {
+                    int slashIndex = restOfString.indexOf("/by");
+                    if (slashIndex == -1) {
+                        throw new MissingByDateException();
+                    }
+                    String taskName = restOfString.substring(0, slashIndex - 1);
+                    String date = restOfString.substring(slashIndex + 4);
+                    Task taskToAdd = new Deadline(taskName, date);
+                    Duke.add(taskToAdd);
+                } else {
+                    throw new EmptyDescriptionException();
+                }
+
+            } else if (command.equals("event")) {
+
+                String restOfString = sc.nextLine();
+                if (restOfString.length() != 0) {
+                    int fromIndex = restOfString.indexOf("/from");
+                    int toIndex = restOfString.indexOf("/to");
+                    if (fromIndex == -1) {
+                        throw new MissingFromDateException();
+                    } else if (toIndex == -1) {
+                        throw new MissingToDateException();
+                    }
+
+                    String taskName = restOfString.substring(0, fromIndex - 1);
+                    String fromDate = restOfString.substring(fromIndex + 6, toIndex - 1);
+                    
+                    String toDate = restOfString.substring(toIndex + 4);
+                    Task taskToAdd = new Event(taskName, fromDate, toDate);
+                    Duke.add(taskToAdd);
+                } else {
+                    throw new EmptyDescriptionException();
+                }
+
+
+            } else {
+                throw new NoSuchCommandException();
             }
         }
+    }
+    public static void main(String[] args) {
+
+        tasks.clear();
+
+        String welcome = "Hello! I'm Eddie\n" +
+                "What can I do for you?";
+
+        System.out.println(welcome);
+
+        try {
+            Duke.execute();
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
+
+
 
 
     }
