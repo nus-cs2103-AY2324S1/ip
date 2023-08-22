@@ -67,40 +67,84 @@ public class Duke {
                     System.out.println(divider);
                     break;
                 case "MARK":
-                    int markIndex = Integer.parseInt(argument);
-                    tasks[markIndex - 1].markAsDone();
-                    System.out.println("Great Job! I've helped mark this task as done:\n" +
-                            tasks[markIndex - 1].toString() + divider);
+                    if (argument.isBlank()) {
+                        System.out.println("Tell me which task to mark as done! Give me an integer number!" + divider);
+                        break;
+                    }
+                    try {
+                        int markIndex = Integer.parseInt(argument);
+                        tasks[markIndex - 1].markAsDone();
+                        System.out.println("Great Job! I've helped mark this task as done:\n" +
+                                tasks[markIndex - 1].toString() + divider);
+                    } catch (NumberFormatException e) {
+                        System.out.println("The mark command must be followed by an integer number." + divider);
+                    } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                        System.out.println("You are trying to mark a non-existent task, ensure you mark a task that you have created :O" + divider);
+                    }
                     break;
                 case "UNMARK":
-                    int unmarkIndex = Integer.parseInt(argument);
-                    tasks[unmarkIndex - 1].unmarkTask();
-                    System.out.println("No worries! I will help you unmark this task:\n" +
-                            tasks[unmarkIndex - 1].toString() + divider);
+                    if (argument.isBlank()) {
+                        System.out.println("Tell me which task to mark as done! Give me an integer number!" + divider);
+                        break;
+                    }
+                    try {
+                        int unmarkIndex = Integer.parseInt(argument);
+                        tasks[unmarkIndex - 1].unmarkTask();
+                        System.out.println("No worries! I will help you unmark this task:\n" +
+                                tasks[unmarkIndex - 1].toString() + divider);
+                    } catch (NumberFormatException e) {
+                        System.out.println("The mark command must be followed by an integer number." + divider);
+                    } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                        System.out.println("You are trying to unmark a non-existent task, ensure you mark a task that you have created :O" + divider);
+                    }
                     break;
                 case "TODO":
+                    if (argument.isBlank()) {
+                        System.out.println("The description of your todo should not be empty! Try:\ntodo [description]" + divider);
+                        break;
+                    }
                     Duke.tasks[pointer] = new Todo(argument);
                     System.out.println(displayMessage + Duke.tasks[pointer].toString());
                     Duke.pointer++;
                     printListMessage();
                     break;
                 case "DEADLINE":
+                    if (argument.isBlank()) {
+                        System.out.println("The description of your deadline should not be empty! Try:\ndeadline [description] /by [duedate]" + divider);
+                        break;
+                    }
                     String[] bySplit = argument.split(" /by ", 2);
+                    if (bySplit.length != 2) {
+                        System.out.println("Incorrect deadline command format! It should be:\ndeadline [description] /by [duedate]" + divider);
+                        break;
+                    }
                     Duke.tasks[pointer] = new Deadline(bySplit[0], bySplit[1]);
                     System.out.println(displayMessage + Duke.tasks[pointer].toString());
                     Duke.pointer++;
                     printListMessage();
                     break;
                 case "EVENT":
+                    if (argument.isBlank()) {
+                        System.out.println("The description of your event should not be empty! Try:\nevent [description] /from [start] /to [end]" + divider);
+                        break;
+                    }
                     String[] descSplit = argument.split(" /from ", 2);
+                    if (descSplit.length != 2) {
+                        System.out.println("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]" + divider);
+                        break;
+                    }
                     String[] periodSplit = descSplit[1].split(" /to ",2);
+                    if (periodSplit.length != 2) {
+                        System.out.println("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]" + divider);
+                        break;
+                    }
                     Duke.tasks[pointer] = new Event(descSplit[0], periodSplit[0], periodSplit[1]);
                     System.out.println(displayMessage + Duke.tasks[pointer].toString());
                     Duke.pointer++;
                     printListMessage();
                     break;
                 default:
-                    System.out.println("Unknown command");
+                    System.out.println("I'm sorry! I don't understand the command :( " + divider);
                     break;
             }
         }
