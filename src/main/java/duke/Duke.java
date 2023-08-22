@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.utils.Task;
+import duke.utils.TaskList;
+
 public class Duke {
     private static final String NAME = "Joi";
     private boolean isRunning;
     private final Scanner sc;
-    private final ArrayList<Task> itemList;
+    private final TaskList taskList;
 
     // constructor for Duke
     public Duke() {
         this.isRunning = true;
         this.sc = new Scanner(System.in);
-        this.itemList = new ArrayList<>();
+        this.taskList = new TaskList();
     }
 
     // the event loop
@@ -27,34 +29,21 @@ public class Duke {
             if (input.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 this.isRunning = false;
+
             } else if (input.equals("list")) {
-                for (int i = 0; i < this.itemList.size(); i++) {
-                    System.out.println((i+1) + ". " + this.itemList.get(i));
-                }
-                System.out.println();
+                this.taskList.listTasks();
+
             } else if (input.startsWith("mark")){
                 int taskIdx = Integer.parseInt(input.substring(5)) - 1;
+                this.taskList.markAsDone(taskIdx);
 
-                if (taskIdx < itemList.size()) {
-                    itemList.get(taskIdx).setDone();
-                }
-
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(itemList.get(taskIdx) + "\n");
             } else if (input.startsWith("unmark")) {
                 int taskIdx = Integer.parseInt(input.substring(7)) - 1;
+                this.taskList.unmarkAsDone(taskIdx);
 
-                if (taskIdx < itemList.size()) {
-                    itemList.get(taskIdx).setNotDone();
-                }
-
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(itemList.get(taskIdx) + "\n");
             } else {
-                Task newTask = new Task(input);
-
-                itemList.add((newTask));
-                System.out.println("added: " + input + "\n");
+                Task newTask = Task.parseInputAsTask(input);
+                this.taskList.addTask(newTask);
             }
         }
     }
