@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 public class Mimi {
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -14,8 +14,21 @@ public class Mimi {
                 + "Hello! I'm Mimi.\n"
                 + "What can I do for you?\n"
                 + LINE
-                + "Bye. Hope to see you again soon!\n"
-                + LINE
         );
+
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            String command = sc.nextLine();
+            System.out.println(LINE);
+            Input input = new Input(command);
+
+            if (input.isExit()) {
+                System.out.println(Input.EXIT_MESSAGE + LINE);
+                break;
+            }
+
+            System.out.println(command + "\n" + LINE);
+        }
     }
 }
