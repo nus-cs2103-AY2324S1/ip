@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
 
-    private static final Task[] taskList = new Task[100];
-    private static int taskTotal = 0;
+    /**
+     * Collection used to store all tasks
+     */
+    private static final ArrayList<Task> taskList= new ArrayList<>(1);
 
     /**
      * Formats chatbot output with borders, first line indentation and new line character at the end
@@ -15,12 +18,12 @@ public class Duke {
     }
 
     /**
-     * Formats chatbot output specifically for task added messages
+     * Formats chatbot output specifically for adding/removing tasks
      * @param task task added to list
      */
-    private static void newTaskOutput(Task task) {
-        String taskAddMessage = "I've added the following task for you:\n       %s\n     There are currently %d tasks in your list.";
-        Duke.output(String.format(taskAddMessage, task.toString(), taskTotal));
+    private static void taskOutput(Task task, String action) {
+        String taskMessage = "I've %s the following task as requested:\n       %s\n     There are currently %d tasks in your list.";
+        Duke.output(String.format(taskMessage, action, task.toString(), taskList.size()));
     }
 
     /**
@@ -41,30 +44,37 @@ public class Duke {
                 case "mark":
                     try {
                         int index = Integer.parseInt(splitInput[1]);
-                        Task item = taskList[index - 1];
-                        item.markAsDone();
-                        Duke.output("Good job on completing this task:\n       " + item);
-                    } catch (NumberFormatException e) {
-                        Duke.output("That ain't a number, ya silly");
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        Duke.output("I can't mark something that doesn't exist...");
-                    } catch (NullPointerException e) {
-                        Duke.output("You don't have that many tasks");
+                        Task mark = taskList.get(index - 1);
+                        mark.markAsDone();
+                        Duke.output("Good job on completing this task:\n       " + mark);
+                    } catch (NumberFormatException e) {                    // If argument of "mark" is not a number
+                        Duke.output("You need to provide a valid number");
+                    } catch (IndexOutOfBoundsException e) {                // If argument is not a number from list
+                        Duke.output("I can't mark something that doesn't exist...\n     Try a number from the list");
                     }
                     break;
 
                 case "unmark":
                     try {
                         int index = Integer.parseInt(splitInput[1]);
-                        Task item = taskList[index - 1];
-                        item.markNotDone();
-                        Duke.output("Unmarked task as requested:\n       " + item);
-                    } catch (NumberFormatException e) {
-                        Duke.output("That ain't a number, ya silly");
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        Duke.output("I can't mark something that doesn't exist...");
-                    } catch (NullPointerException e) {
-                        Duke.output("You don't have that many tasks");
+                        Task unmark = taskList.get(index - 1);
+                        unmark.markNotDone();
+                        Duke.output("Unmarked task as requested:\n       " + unmark);
+                    } catch (NumberFormatException e) {                    // If argument of "unmark" is not a number
+                        Duke.output("You need to provide a valid number");
+                    } catch (IndexOutOfBoundsException e) {                // If argument is not a number from list
+                        Duke.output("I can't unmark something that doesn't exist...\n     Try a number from the list");
+                    }
+                    break;
+
+                case "delete":
+                    try {
+                        Task delete = taskList.remove(Integer.parseInt(splitInput[1]) - 1);
+                        Duke.taskOutput(delete, "removed");
+                    } catch (NumberFormatException e) {                    // If argument of "delete" is not a number
+                        Duke.output("You need to provide a valid number");
+                    } catch (IndexOutOfBoundsException e) {                // If argument is not a number from list
+                        Duke.output("I can't remove a task that doesn't exist...\n     Try a number from the list");
                     }
                     break;
 
@@ -74,44 +84,50 @@ public class Duke {
                         Duke.output("Wrong format, try \"todo [DESCRIPTION]\"");
                     } else {
                         Task todo = new Todo(splitInput[1]);
-                        taskList[taskTotal++] = todo;
-                        Duke.newTaskOutput(todo);
+                        taskList.add(todo);
+                        Duke.taskOutput(todo, "added");
                     }
                     break;
+
                 case "deadline":
                     // ArrayIndexOutOfBounds only thrown when the string is not split -> /by not present
                     try {
                         String[] deadVar = splitInput[1].split(" /by ", 2);
                         Task deadline = new Deadline(deadVar[0], deadVar[1]);
-                        taskList[taskTotal++] = deadline;
-                        Duke.newTaskOutput(deadline);
+                        taskList.add(deadline);
+                        Duke.taskOutput(deadline, "added");
                     } catch (ArrayIndexOutOfBoundsException e) {
                         Duke.output("Wrong format, try \"deadline [DESCRIPTION] /by [TIME]\"");
                     }
                     break;
+
                 case "event":
-                    // Using only 1 split statement that splits by /(from|to) allows edge cases like "/to x /from x" combinations
+                    // Using 1 split statement that splits by /(from|to) allows wrong combos like "/to x /from x"
                     try {
                         String[] eventVar = splitInput[1].split(" /from ", 2);
                         String[] times = eventVar[1].split(" /to ", 2);
                         Task event = new Event(eventVar[0], times[0], times[1]);
-                        taskList[taskTotal++] = event;
-                        Duke.newTaskOutput(event);
+                        taskList.add(event);
+                        Duke.taskOutput(event, "added");
                     } catch (ArrayIndexOutOfBoundsException e) {
                         Duke.output("Wrong format, try \"event [DESCRIPTION] /from [START] /to [END]\"");
                     }
                     break;
+
                 case "list":
                     StringBuilder allTasks = new StringBuilder("Here are your tasks:");
-                    for (int i = 0; i < taskTotal; i++) {
-                        allTasks.append(String.format("\n     %d.%s", (i + 1), taskList[i].toString()));
+                    int taskNo = taskList.size();
+                    for (int i = 0; i < taskNo; i++) {
+                        allTasks.append(String.format("\n     %d.%s", (i + 1), taskList.get(i).toString()));
                     }
                     Duke.output(allTasks.toString());
                     break;
+
                 case "end":
                     isRun = false;
                     Duke.output("Come back if you need anything else!");
                     break;
+
                 default:
                     Duke.output("Sorry, I don't recognise this comment :(");
             }

@@ -4,13 +4,13 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     I've added the following task for you:
+     I've added the following task as requested:
        [T][ ] buy 2 groceries
      There are currently 1 tasks in your list.
     ____________________________________________________________
 
     ____________________________________________________________
-     I've added the following task for you:
+     I've added the following task as requested:
        [D][ ] eat lunch (by: 1st june mon)
      There are currently 2 tasks in your list.
     ____________________________________________________________
@@ -31,7 +31,7 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     I've added the following task for you:
+     I've added the following task as requested:
        [E][ ] japan holiday trip (from: mid june to: end july)
      There are currently 3 tasks in your list.
     ____________________________________________________________
@@ -50,12 +50,17 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     You don't have that many tasks
+     I can't mark something that doesn't exist...
+     Try a number from the list
     ____________________________________________________________
 
     ____________________________________________________________
      Unmarked task as requested:
        [D][ ] eat lunch (by: 1st june mon)
+    ____________________________________________________________
+
+    ____________________________________________________________
+     You need to provide a valid number
     ____________________________________________________________
 
     ____________________________________________________________
@@ -67,6 +72,27 @@
      1.[T][ ] buy 2 groceries
      2.[D][ ] eat lunch (by: 1st june mon)
      3.[E][X] japan holiday trip (from: mid june to: end july)
+    ____________________________________________________________
+
+    ____________________________________________________________
+     You need to provide a valid number
+    ____________________________________________________________
+
+    ____________________________________________________________
+     I've removed the following task as requested:
+       [D][ ] eat lunch (by: 1st june mon)
+     There are currently 2 tasks in your list.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     I can't remove a task that doesn't exist...
+     Try a number from the list
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Here are your tasks:
+     1.[T][ ] buy 2 groceries
+     2.[E][X] japan holiday trip (from: mid june to: end july)
     ____________________________________________________________
 
     ____________________________________________________________

@@ -9,6 +9,11 @@ hello
 mark 3
 mark 4
 unmark 2
+unmark three
 todo
+list
+delete task 1
+delete 2
+delete 3
 list
 end
