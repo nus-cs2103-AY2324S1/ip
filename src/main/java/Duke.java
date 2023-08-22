@@ -13,7 +13,13 @@ public class Duke {
         while (true) {
             String command = scanner.nextLine();
 
-            if (command.equalsIgnoreCase("bye")) {
+            if (command.isEmpty()) {
+                try {
+                    throw new DukeException("☹ OOPS!!! The description cannot be empty.");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (command.equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
             } else if (command.equalsIgnoreCase("list")) {
@@ -34,52 +40,85 @@ public class Duke {
                 System.out.println(list[number].toString());
 
             } else if (command.toLowerCase().startsWith("todo")) {
-                String todo = command.substring(5).trim();
-                Todo add = new Todo(todo);
-                list[count] = add;
-                count++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println(add.toString());
-                System.out.println("Now you have " + count + " tasks in the list.");
+                String todo = command.substring(4).trim();
+                if (todo.isEmpty()) {
+                    try {
+                        throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    Todo add = new Todo(todo);
+                    list[count] = add;
+                    count++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(add.toString());
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                }
 
             } else if (command.toLowerCase().startsWith("deadline")) {
                 String deadline = command.substring(8).trim();
-                String[] sub = deadline.split("/by");
 
-                String description = sub[0].trim();
-                String by = sub[1].trim();
+                if (deadline.isEmpty()) {
+                    try {
+                        throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
 
-                Deadline add = new Deadline(description, by);
-                list[count] = add;
-                count++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println(add.toString());
-                System.out.println("Now you have " + count + " tasks in the list.");
+                    String[] sub = deadline.split("/by");
+
+                    String description = sub[0].trim();
+                    String by = sub[1].trim();
+
+                    Deadline add = new Deadline(description, by);
+                    list[count] = add;
+                    count++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(add.toString());
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                }
 
             } else if (command.toLowerCase().startsWith("event")) {
                 String event = command.substring(5).trim();
-                String[] sub = event.split("/from");
 
-                String description = sub[0].trim();
-                String timing = sub[1].trim();
+                if (event.isEmpty()) {
+                    try {
+                        throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                    } catch (DukeException e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
 
-                String[] fromTo = timing.split("/to");
-                String from = fromTo[0].trim();
-                String to = fromTo[1].trim();
+                    String[] sub = event.split("/from");
 
-                Event add = new Event(description, from, to);
-                list[count] = add;
-                count++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println(add.toString());
-                System.out.println("Now you have " + count + " tasks in the list.");
+                    String description = sub[0].trim();
+                    String timing = sub[1].trim();
+
+                    String[] fromTo = timing.split("/to");
+                    String from = fromTo[0].trim();
+                    String to = fromTo[1].trim();
+
+                    Event add = new Event(description, from, to);
+                    list[count] = add;
+                    count++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(add.toString());
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                }
             } else {
-                Task task = new Task(command);
-                list[count] = task;
-                count++;
-                System.out.println("Got it. I've added this task:");
-                System.out.println(task.toString());
-                System.out.println("Now you have " + count + " tasks in the list.");
+//                Task task = new Task(command);
+//                list[count] = task;
+//                count++;
+//                System.out.println("Got it. I've added this task:");
+//                System.out.println(task.toString());
+//                System.out.println("Now you have " + count + " tasks in the list.");
+                try {
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             }
 
         }
@@ -160,6 +199,12 @@ public class Duke {
         @Override
         public String toString() {
             return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        }
+    }
+
+    public static class DukeException extends Exception {
+        public DukeException(String message) {
+            super(message);
         }
     }
 
