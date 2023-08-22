@@ -18,6 +18,6 @@ public class Task {
     @Override
     public String toString() {
         String statusIcon = isDone ? "[X]" : "[ ]";
-        return String.format("%s %s", statusIcon, this.description);
+        return String.format("%s %s", statusIcon, description);
     }
 }

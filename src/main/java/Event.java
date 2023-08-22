@@ -9,6 +9,6 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", this.dateFrom, this.dateTo);
+        return "[E]" + super.toString() + String.format(" (from: %s to: %s)", dateFrom, dateTo);
     }
 }

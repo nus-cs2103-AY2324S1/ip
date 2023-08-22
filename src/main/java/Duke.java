@@ -24,7 +24,7 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
-    private CommandType parseText(String line) {
+    private CommandType parseText(String line) throws DukeException {
         String command = line.split(" ")[0];
         switch(command) {
             case "list":
@@ -42,7 +42,7 @@ public class Duke {
             case "bye":
                 return CommandType.BYE;
             default:
-                return CommandType.ADD;
+                throw new DukeException("!!!: Sorry I do not understand what you mean");
         }
     }
 
@@ -69,83 +69,108 @@ public class Duke {
         }
     }
 
-    private void markDone(int index) {
+    private void markDone(String options) throws DukeException {
+        try {
+            Integer.parseInt(options);
+        } catch(NumberFormatException e) {
+            throw new DukeException("!!!: Please provide a number for the task to be marked done");
+        }
+        int index = Integer.parseInt(options) - 1;
+        if (index < 1 || index > size) {
+            throw new DukeException(String.format("!!!: Please provide a valid number, " +
+                    "there are currently %d items in the list", size));
+        }
         list[index].markDone();
         System.out.println("This task is marked as done");
         System.out.println(list[index]);
     }
 
-    private void unmarkDone(int index) {
+    private void unmarkDone(String options) throws DukeException {
+        try {
+            Integer.parseInt(options);
+        } catch(NumberFormatException e) {
+            throw new DukeException("!!!: Please provide a number for the task to be marked not done");
+        }
+        int index = Integer.parseInt(options) - 1;
+        if (index < 1 || index > size) {
+            throw new DukeException(String.format("!!!: Please provide a valid number, " +
+                    "there are currently %d items in the list", size));
+        }
         list[index].unmarkDone();
         System.out.println("This task is marked as not done");
         System.out.println(list[index]);
     }
 
-    private void addToList(String task) {
-        list[size] = new Task(task);
-        size++;
-        System.out.println("Added " + task + " to list");
-    }
-
-    private void addTodoToList(String task) {
+    private void addTodoToList(String task) throws DukeException {
+        if (task.isBlank()) throw new DukeException("!!!: Please provide a task name");
         list[size] = new Todo(task);
         size++;
         System.out.println("This task is added to the list");
         System.out.println(list[size - 1]);
-        System.out.println(String.format("You now have %d tasks in your list", size));
+        System.out.printf("You now have %d tasks in your list%n", size);
     }
 
-    private void addDeadlineToList(String line) {
+    private void addDeadlineToList(String line) throws DukeException {
+        if (!line.contains(" /by ")) throw new DukeException("!!!: Please provide a by date using \"/by by_date\"");
         String task = line.substring(0, line.indexOf("/by") - 1);
+        if (task.isBlank()) throw new DukeException("!!!: Please provide a task name");
         String dueDate = line.substring(line.indexOf("/by") + 4);
+        if (dueDate.isBlank()) throw new DukeException("!!!: Please provide a due date");
         list[size] = new Deadline(task, dueDate);
         size++;
         System.out.println("This task is added to the list");
         System.out.println(list[size - 1]);
-        System.out.println(String.format("You now have %d tasks in your list", size));
+        System.out.printf("You now have %d tasks in your list%n", size);
     }
 
-    private void addEventToList(String line) {
+    private void addEventToList(String line) throws DukeException {
+        if (!line.contains(" /from ")) throw new DukeException("!!!: Please provide a from date using \"/from from_date\"");
+        if (!line.contains(" /to ")) throw new DukeException("!!!: Please provide a to date using \"/to to_date\"");
         String task = line.substring(0, line.indexOf("/from") - 1);
+        if (task.isBlank()) throw new DukeException("!!!: Please provide a task name");
         String dateFrom = line.substring(line.indexOf("/from") + 6, line.indexOf("/to") - 1);
+        if (dateFrom.isBlank()) throw new DukeException("!!!: Please provide a from date");
         String dateTo = line.substring(line.indexOf("/to") + 4);
+        if (dateTo.isBlank()) throw new DukeException("!!!: Please provide a to date");
         list[size] = new Event(task, dateFrom, dateTo);
         size++;
         System.out.println("This task is added to the list");
         System.out.println(list[size - 1]);
-        System.out.println(String.format("You now have %d tasks in your list", size));
+        System.out.printf("You now have %d tasks in your list%n", size);
     }
 
     private void performCommands() {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            CommandType command = parseText(line);
-            String options = line.substring(line.indexOf(' ') + 1);
-            switch (command) {
-                case LIST:
-                    list();
-                    break;
-                case MARK:
-                    markDone(Integer.parseInt(options) - 1);
-                    break;
-                case UNMARK:
-                    unmarkDone(Integer.parseInt(options) - 1);
-                    break;
-                case TODO:
-                    addTodoToList(options);
-                    break;
-                case DEADLINE:
-                    addDeadlineToList(options);
-                    break;
-                case EVENT:
-                    addEventToList(options);
-                    break;
-                case BYE:
-                    exit();
-                    return;
-                case ADD:
-                    addToList(options);
+            try {
+                CommandType command = parseText(line);
+                String options = !line.contains(" ") ? "" : line.substring(line.indexOf(' ') + 1);
+                switch (command) {
+                    case LIST:
+                        list();
+                        break;
+                    case MARK:
+                        markDone(options);
+                        break;
+                    case UNMARK:
+                        unmarkDone(options);
+                        break;
+                    case TODO:
+                        addTodoToList(options);
+                        break;
+                    case DEADLINE:
+                        addDeadlineToList(options);
+                        break;
+                    case EVENT:
+                        addEventToList(options);
+                        break;
+                    case BYE:
+                        exit();
+                        return;
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
             System.out.println("____________________________________________________________");
         }
