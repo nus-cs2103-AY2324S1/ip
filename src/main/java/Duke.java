@@ -15,6 +15,7 @@ public class Duke {
 
     Scanner scanner = new Scanner(System.in);
 
+    label:
     while (true) {
       String inputString = scanner.nextLine();
       String[] inputTokens = inputString.split(" ");
@@ -26,39 +27,46 @@ public class Duke {
 
       String commandString = inputTokens[0];
 
-      if (commandString.equals("bye")) {
-        break;
-      } else if (commandString.equals("list")) {
+      switch (commandString) {
+        case "bye":
+          break label;
+        case "list":
 
-        for (int i = 0; i < taskList.size(); i++) {
+          for (int i = 0; i < taskList.size(); i++) {
 
-          String index = Integer.toString(i + 1);
-          Task selectectedTask = taskList.get(i);
-          System.out.println(index + "\t" + "[" + selectectedTask.getDoneIcon() + "] "
-              + selectectedTask.description);
+            String index = Integer.toString(i + 1);
+            Task selectectedTask = taskList.get(i);
+            System.out.println(index + "\t" + "[" + selectectedTask.getDoneIcon() + "] "
+                + selectectedTask.description);
+          }
+          break;
+        case "mark": {
+          int index = Integer.parseInt(inputTokens[1]);
+          index--;
+          System.out.println("Marked selected task as done");
+          // set current task as done
+          Task selectedTask = taskList.get(index);
+          selectedTask.setDone();
+          System.out.println("[" + selectedTask.getDoneIcon() + "] " + selectedTask.description);
+
+          break;
         }
-      } else if (commandString.equals("mark")) {
-        int index = Integer.parseInt(inputTokens[1]);
-        index--;
-        System.out.println("Marked selected task as done");
-        // set current task as done
-        Task selectedTask = taskList.get(index);
-        selectedTask.setDone();
-        System.out.println("[" + selectedTask.getDoneIcon() + "] " + selectedTask.description);
+        case "unmark": {
 
-      } else if (commandString.equals("unmark")) {
+          int index = Integer.parseInt(inputTokens[1]);
+          index--;
+          System.out.println("Marked selected task as un-done desu");
+          // set current task as un-done
+          Task selectedTask = taskList.get(index);
+          selectedTask.setUnDone();
+          System.out.println("[" + selectedTask.getDoneIcon() + "] " + selectedTask.description);
 
-        int index = Integer.parseInt(inputTokens[1]);
-        index--;
-        System.out.println("Marked selected task as un-done desu");
-        // set current task as un-done
-        Task selectedTask = taskList.get(index);
-        selectedTask.setUnDone();
-        System.out.println("[" + selectedTask.getDoneIcon() + "] " + selectedTask.description);
-
-      } else {
-        taskList.add(new Task(inputString));
-        System.out.println("added:\t" + inputString);
+          break;
+        }
+        default:
+          taskList.add(new Task(inputString));
+          System.out.println("added:\t" + inputString);
+          break;
       }
     }
 
