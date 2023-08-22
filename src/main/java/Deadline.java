@@ -15,6 +15,7 @@ public class Deadline extends Task {
     /**
      * Function to handle a Deadline Task. If it's inputs are valid, create a Deadline Task.
      * Otherwise, print an error message in the console.
+     * @param userInput a valid user input for a Deadline Task.
      */
     public static void handleDeadlineTask(String userInput) {
         String[] details = userInput.split("/by");
