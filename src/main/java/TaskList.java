@@ -53,6 +53,14 @@ public class TaskList {
         tasklist.set(taskIndex, unmarkedTask);
     }
 
+    void delete(String taskNumber) throws DukeException {
+        int taskIndex = getTaskIndex(taskNumber);
+        Task removedTask = tasklist.remove(taskIndex);
+        System.out.println("Noted. I've removed this task:\n" +
+                removedTask.toString() +
+                "\nNow you have " + tasklist.size() + " tasks in the list.");
+    }
+
     void listContent() {
         if (tasklist.isEmpty()) {
             System.out.println("Oops! It seems you do not have anything in your task list");

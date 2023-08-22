@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class CommandProcessor {
     private final TaskList tasks;
-    private static final String[] VALIDCOMMANDS = {"mark", "unmark", "list", "todo", "event", "deadline"};
+    private static final String[] VALIDCOMMANDS = {"mark", "unmark", "list", "todo", "event", "deadline", "delete"};
 
     CommandProcessor() {
         this.tasks = new TaskList();
@@ -51,6 +51,11 @@ public class CommandProcessor {
                 return;
             } else if (commandType.equals("unmark")) {
                 tasks.unMark(taskName);
+                return;
+            }
+
+            if (commandType.equals("delete")) {
+                tasks.delete(taskName);
                 return;
             }
 
