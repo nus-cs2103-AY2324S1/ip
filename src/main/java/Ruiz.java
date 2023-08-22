@@ -12,7 +12,7 @@ public class Ruiz {
         System.out.println("____________________________________________________________");
     }
 
-    public void markTask(String index) {
+    public void markTask(String index) throws BotException{
         int taskIndex = Integer.parseInt(index) - 1;
         if (taskIndex >= 0 && this.tasks.size() > taskIndex) {
             Task task = this.tasks.get(taskIndex);
@@ -23,13 +23,11 @@ public class Ruiz {
                     "\n" +
                     "____________________________________________________________");
         } else {
-            System.out.println("____________________________________________________________\n" +
-                    "This task does not exist\n" +
-                    "____________________________________________________________");
+            throw new BotException("This task does not exist!");
         }
     }
 
-    public void unmarkTask(String index) {
+    public void unmarkTask(String index) throws BotException{
         int taskIndex = Integer.parseInt(index) - 1;
         if (taskIndex >= 0 && this.tasks.size() > taskIndex) {
             Task task = this.tasks.get(taskIndex);
@@ -40,46 +38,55 @@ public class Ruiz {
                     "\n" +
                     "____________________________________________________________\n");
         } else {
-            System.out.println("____________________________________________________________\n" +
-                    "This task does not exist\n" +
-                    "____________________________________________________________\n");
+            throw new BotException("This task does not exist!");
         }
     }
 
-    public void addTask(String input) {
-        String keyWord = input.split(" ")[0];
-        String content = input.split(" ", 2)[1];
-        Task temp;
-        String description;
-        switch (keyWord) {
-            case "todo":
-                temp = new ToDos(content);
-                this.tasks.add(temp);
-                System.out.println("____________________________________________________________\n" +
-                        "Got it. I've added this task:\n" +
-                        temp);
-                break;
-            case "deadline":
-                description = content.split(" /by ")[0];
-                String by = content.split("/by ")[1];
-                temp = new Deadlines(description, by);
-                this.tasks.add(temp);
-                System.out.println("____________________________________________________________\n" +
-                        "Got it. I've added this task:\n" +
-                        temp);
-                break;
-            case "event":
-                description = content.split(" /from")[0];
-                String from = content.split(" /from ")[1].split(" /")[0];
-                String to = content.split(" /from ")[1].split("/to ")[1];
-                temp = new Events(description, from, to);
-                this.tasks.add(temp);
-                System.out.println("____________________________________________________________\n" +
-                        "Got it. I've added this task:\n" +
-                        temp);
-                break;
+    public void addTodo(String input) throws BotException {
+        if (input.split(" ", 2).length <= 1) {
+            throw new BotException("OOPS!!! The description of a todo cannot be empty.");
         }
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.\n" +
+        String content = input.split(" ", 2)[1];
+        Task temp = new ToDos(content);
+        this.tasks.add(temp);
+        System.out.println("____________________________________________________________\n" +
+                "Got it. I've added this task:\n" +
+                temp +
+                "\nNow you have " + tasks.size() + " tasks in the list.\n" +
+                "____________________________________________________________");
+    }
+
+    public void addDeadline(String input) throws BotException {
+        if (input.split("/by", 2).length <= 1) {
+            throw new BotException("OOPS!!! The description the deadline is incomplete");
+        }
+        String content = input.split(" ", 2)[1];
+        String description = content.split(" /by ")[0];
+        String by = content.split("/by ")[1];
+        Task temp = new Deadlines(description, by);
+        this.tasks.add(temp);
+        System.out.println("____________________________________________________________\n" +
+                "Got it. I've added this task:\n" +
+                temp +
+                "\nNow you have " + tasks.size() + " tasks in the list.\n" +
+                "____________________________________________________________"
+        );
+    }
+
+    public void addEvent(String input) throws BotException {
+        if (input.split("/from").length <= 2) {
+            throw new BotException("OOPS!!! The description the event is incomplete.");
+        }
+        String content = input.split(" ", 2)[1];
+        String description = content.split(" /from")[0];
+        String from = content.split(" /from ")[1].split(" /")[0];
+        String to = content.split(" /from ")[1].split("/to ")[1];
+        Task temp = new Events(description, from, to);
+        this.tasks.add(temp);
+        System.out.println("____________________________________________________________\n" +
+                "Got it. I've added this task:\n" +
+                temp +
+                "\nNow you have " + tasks.size() + " tasks in the list.\n" +
                 "____________________________________________________________");
     }
 
@@ -104,26 +111,37 @@ public class Ruiz {
         bot.greet();
         String input = "";
         while (!input.equals("bye")) {
-            input = inputObj.nextLine();
-            String keyWord = input.split(" ")[0];
-            switch (keyWord) {
-                case "bye":
-                    bot.bye();
-                    break;
-                case "list":
-                    bot.getTasks();
-                    break;
-                case "mark":
-                    bot.markTask(input.split(" ")[1]);
-                    break;
-                case "unmark":
-                    bot.unmarkTask(input.split(" ")[1]);
-                    break;
-                default:
-                    bot.addTask(input);
-                    break;
+            try {
+                input = inputObj.nextLine();
+                String keyWord = input.split(" ")[0];
+                switch (keyWord) {
+                    case "bye":
+                        bot.bye();
+                        break;
+                    case "list":
+                        bot.getTasks();
+                        break;
+                    case "mark":
+                        bot.markTask(input.split(" ")[1]);
+                        break;
+                    case "unmark":
+                        bot.unmarkTask(input.split(" ")[1]);
+                        break;
+                    case "deadline":
+                        bot.addDeadline(input);
+                        break;
+                    case "todo":
+                        bot.addTodo(input);
+                        break;
+                    case "event":
+                        bot.addEvent(input);
+                        break;
+                    default:
+                        throw new BotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (BotException e) {
+                System.out.println(e);
             }
-
         }
     }
 }
