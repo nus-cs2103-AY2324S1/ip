@@ -150,30 +150,26 @@ public class TrackerBot {
    *         false otherwise.
    */
   private static boolean handleInput(String str) {
-    Scanner scanner = new Scanner(str);
-    // if the buffer is empty, exit the handler.
-    if (!scanner.hasNext()) {
-      return false;
-    }
-    String keyword = scanner.next();
+    Pair<Command, String> input = Command.parse(str);
+    Scanner scanner = new Scanner(input.getSecond());
+
     System.out.println(FORMAT_LINE);
     // switch used for now: to handle future input cases.
-    switch(keyword) {
-      case "bye":
+    switch(input.getFirst()) {
+      case BYE:
         exit();
-        scanner.close();
         return true;
-      case "list":
+      case LIST:
         list();
         break;
-      case "mark":
+      case MARK:
         if (scanner.hasNextInt()) {
           mark(scanner.nextInt());
         } else {
           System.out.println("Compulsory parameter for mark should be a number.");
         }
         break;
-      case "unmark":
+      case UNMARK:
         if (scanner.hasNextInt()) {
           unmark(scanner.nextInt());
         } else {
