@@ -90,7 +90,11 @@ public class Duke {
                         break;
                     case MARK:
                     case UNMARK:
-                        this.handleMark(command.getCommand() == Commands.MARK, command.getIndex() - 1);
+                        this.handleMark(command.getCommand() == Commands.MARK,
+                                this.validateIndex(command.getIndex() - 1));
+                        break;
+                    case DELETE:
+                        this.handleDeletion(this.validateIndex(command.getIndex() - 1));
                         break;
                     case TODO:
                     case DEADLINE:
@@ -131,17 +135,18 @@ public class Duke {
     }
 
     /**
-     * Handles the execution of mark and unmark
+     * validate the index to ensure it is within range
      * 
-     * @param mark  - a boolean value to indicate to mark or unmark the task, true
-     *              for mark
      * @param index - the index of the task in question
+     * @return the validated index
      * @throws BadInputException
      */
-    private void handleMark(boolean mark, int index) throws BadInputException {
+    private int validateIndex(int index) throws BadInputException {
 
+        // vaidate input
         if (this.tasks.size() == 0) {
-            throw new BadInputException("Quack currently has no task remembered, why not add one now?");
+            throw new BadInputException(
+                    "Quack currently has no task remembered and cannot execute your command, add one now??");
         }
 
         // vaidate input
@@ -149,7 +154,28 @@ public class Duke {
             throw new BadInputException("Quack does not remember having a task: " + (index + 1) + "\n" + Duke.TAB +
                     "Quack only remember till task " + (this.tasks.size()));
         }
+        return index;
+    }
 
+    /**
+     * Handles the deletion command
+     * 
+     * @param index
+     */
+    private void handleDeletion(int index) {
+        Task removed = this.tasks.remove(index);
+        this.print("Quack! I have removed this task:");
+        this.print(removed.toString());
+        this.print("Quack! Quack is currently remembering " + this.tasks.size() + " tasks.");
+    }
+
+    /**
+     * Handles the mark/unmark command
+     * 
+     * @param mark  - true if its a mark command else false
+     * @param index - index of the task in question
+     */
+    private void handleMark(boolean mark, int index) {
         Task task = this.tasks.get(index);
         // only toggle if mark != completed as if they are the same then theres no
         // effect

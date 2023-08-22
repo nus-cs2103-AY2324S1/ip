@@ -50,6 +50,10 @@ public class Parser {
                 this.command = Commands.UNMARK;
                 this.index = this.findIndex(splitInput);
                 break;
+            case "delete":
+                this.command = Commands.DELETE;
+                this.index = this.findIndex(splitInput);
+                break;
             case "todo":
                 this.command = Commands.TODO;
                 this.param = this.input.replace("todo ", "");
