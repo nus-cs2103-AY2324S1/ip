@@ -1,7 +1,22 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+KNIAZ
+____________________
 
+What can I do for you?
+____________________
+
+added: [T][ ] read book
+____________________
+
+1. [T][ ] read book
+
+____________________
+
+added: [D][ ] return book(by : Sunday)
+____________________
+
+added: [E][ ] project meeting from : Mon 2pm to: 4pm
+____________________
+
+Bye. Hope to see you again soon!
+____________________
