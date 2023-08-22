@@ -39,25 +39,33 @@ public class Duke {
         }
     }
 
+    private void list() {
+        if (size == 0) System.out.println("No items are in the list");
+        for (int i = 0; i < size; i++) {
+            String item = String.format("%d. %s", i + 1, list[i]);
+            System.out.println(item);
+        }
+    }
+
+    private void addToList(String line) {
+        list[size] = line;
+        size++;
+        System.out.println("Added " + line + " to list");
+    }
+
     private void parse_text() {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             switch (line) {
                 case "list":
-                    if (size == 0) System.out.println("No items are in the list");
-                    for (int i = 0; i < size; i++) {
-                        String item = String.format("%d. %s", i + 1, list[i]);
-                        System.out.println(item);
-                    }
+                    list();
                     break;
                 case "bye":
                     exit();
                     return;
                 default:
-                    list[size] = line;
-                    size++;
-                    System.out.println("Added " + line + " to list");
+                    addToList(line);
             }
             System.out.println("____________________________________________________________");
         }
