@@ -7,4 +7,10 @@ mark 2
 list
 unmark 2
 list
+blah
+todo
+deadline
+event
+deadline return book
+event return book
 bye
