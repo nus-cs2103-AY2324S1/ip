@@ -75,6 +75,19 @@ public class Duke {
 
           break;
         }
+        case "deadline": {
+          int commandLength = commandString.length() + 1;
+          String taskName = inputString.substring(commandLength);
+          String[] parts = taskName.split("/by", 2);
+          String name = parts[0];
+          String endDate = parts[1];
+          Task curentTask = new Deadline(name, endDate);
+          taskList.add(curentTask);
+
+          System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+
+          break;
+        }
         default:
           System.out.println("Please enter a suitable task!");
       }
