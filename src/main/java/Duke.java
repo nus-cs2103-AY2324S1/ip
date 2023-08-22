@@ -5,8 +5,10 @@ public class Duke {
     private static final String BOT_NAME = "SHIBA-BOT";
     private static final String BYE_COMMAND = "bye";
     private static final String LIST_COMMAND = "list";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
 
-    private static final String[] tasks = new String[100];
+    private static final ShibaTask[] tasks = new ShibaTask[100];
     private static int taskCount = 0;
 
     public static void main(String[] args) {
@@ -42,12 +44,20 @@ public class Duke {
     }
 
     /**
-     * Prints the given message with an indent (space).
-     *
+     * Prints the given message with a single indent (space).
      * @param message The message to be printed.
      */
     private static void printWithIndent(String message) {
-        System.out.println(" " + message);
+        printWithIndents(message, 1);
+    }
+
+    /**
+     * Prints the given message with the given number of indents (spaces).
+     * @param message The message to be printed.
+     * @param indentCount The number of indents.
+     */
+    private static void printWithIndents(String message, int indentCount) {
+        System.out.println(" ".repeat(indentCount) + message);
     }
 
     /**
@@ -58,10 +68,16 @@ public class Duke {
 
         while (true) {
             String input = sc.nextLine();
-            switch (input) {
+            String[] cmd = input.split(" ");
+
+            switch (cmd[0]) {
                 case LIST_COMMAND:
                     listTasks();
-                    continue;
+                    break;
+                case MARK_COMMAND:
+                case UNMARK_COMMAND:
+                    handleMarkTask(cmd);
+                    break;
                 case BYE_COMMAND:
                     return;
                 default:
@@ -76,7 +92,7 @@ public class Duke {
      * @param task The task to be added.
      */
     private static void addTask(String task) {
-        tasks[taskCount] = task;
+        tasks[taskCount] = new ShibaTask(task);
         taskCount++;
 
         printHorizontalLine();
@@ -90,8 +106,52 @@ public class Duke {
     private static void listTasks() {
         printHorizontalLine();
         for (int i = 0; i < taskCount; i++) {
-            printWithIndent((i + 1) + ". " + tasks[i]);
+            printWithIndent((i + 1) + "." + tasks[i]);
         }
         printHorizontalLine();
+    }
+
+    /**
+     * Performs actions to mark/unmark a task based on the input command parameters
+     * @param cmd Input command parameters, split by spaces.
+     */
+    private static void handleMarkTask(String[] cmd) {
+        if (cmd.length < 2) {
+            printHorizontalLine();
+            printWithIndent("Woof! Please specify a task number!");
+            printHorizontalLine();
+            return;
+        }
+
+        int taskNumber = Integer.parseInt(cmd[1]);
+        if (taskNumber < 1 || taskNumber > taskCount) {
+            printHorizontalLine();
+            printWithIndent("Woof! Please specify a valid task number!");
+            printHorizontalLine();
+            return;
+        }
+
+        ShibaTask task = tasks[taskNumber - 1];
+        if (cmd[0].equals(MARK_COMMAND)) {
+            boolean res = task.markDone();
+            printHorizontalLine();
+            if (res) {
+                printWithIndent("Woof! I've marked this task as done:");
+            } else {
+                printWithIndent("Woof! This task is already done!");
+            }
+            printWithIndent("  " + task);
+            printHorizontalLine();
+        } else {
+            boolean res = task.markNotDone();
+            printHorizontalLine();
+            if (res) {
+                printWithIndent("Woof! I've marked this task as not done yet:");
+            } else {
+                printWithIndent("Woof! You have not done this task yet!");
+            }
+            printWithIndents(task.toString(), 3);
+            printHorizontalLine();
+        }
     }
 }
