@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.*;
 public class Duke {
     public static String line = "----------------------------------------------------\n";
@@ -12,6 +14,13 @@ public class Duke {
                 "Hello I'm Project54\n" +
                 "What can I do for you?"
         ));
+    }
+
+    public static Matcher regexParse(String regex, String text) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+        matcher.find();
+        return matcher;
     }
 
     public static String getCommand(String input) {
@@ -40,7 +49,7 @@ public class Duke {
     public static void reply() {
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         String response = myObj.nextLine();
-        String command = getCommand(response);
+        Matcher matcher;
         List<Task> list = new ArrayList<Task>();
         while (!response.equals("bye")) {
             switch(response.split(" ")[0]) {
@@ -58,10 +67,29 @@ public class Duke {
                     printList(list);
                     response = myObj.nextLine();
                     break;
+                case "todo":
+                    matcher = regexParse("^todo\\s([\\w\\s]*)$", response);
+                    list.add(new ToDo(matcher.group(1)));
+                    printList(list);
+                    response = myObj.nextLine();
+                    break;
+                case "deadline":
+                    matcher = regexParse("^deadline\\s([\\w\\s]*)\\s\\/by\\s([\\w\\s]*)$", response);
+                    list.add(new Deadlines(matcher.group(1), matcher.group(2)));
+                    printList(list);
+                    response = myObj.nextLine();
+                    break;
+                case "event":
+                    matcher = regexParse("^event\\s([\\w\\s]*)\\s\\/from\\s([\\w\\s]*)\\s\\/to\\s([\\w\\s]*)$", response);
+                    list.add(new Event(matcher.group(1), matcher.group(2), matcher.group(3)));
+                    printList(list);
+                    response = myObj.nextLine();
+                    break;
                 default: {
-                    list.add(new Task(response));
-                    System.out.println(format_response("added: " + response));  // Output user input
-                    response = myObj.nextLine(); // Read user input
+                    System.out.println(format_response(
+                            "Invalid response"
+                    ));
+                    response = myObj.nextLine();
                 }
             }
 
