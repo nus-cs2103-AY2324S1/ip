@@ -113,6 +113,10 @@ public class Duke {
     }
 
     private static void mark(String index) throws DukeException {
+        if (index.isEmpty()) {
+            throw new DukeException("Missing task index!");
+        }
+
         try {
             int idx = Integer.parseInt(index);
 
@@ -134,6 +138,10 @@ public class Duke {
     }
 
     private static void unmark(String index) throws DukeException {
+        if (index.isEmpty()) {
+            throw new DukeException("Missing task index!");
+        }
+
         try {
             int idx = Integer.parseInt(index);
 

@@ -12,6 +12,7 @@ event project meeting /from Mon 2pm
 event project meeting /from Mon 2pm /to 4pm
 list
 todo call mom
+mark
 mark 0
 mark a
 mark 1
@@ -19,6 +20,7 @@ list
 mark 1
 mark 4
 list
+unmark
 unmark 3
 unmark 4
 list

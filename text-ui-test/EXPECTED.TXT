@@ -43,6 +43,8 @@
         [T][ ] call mom
     Now you have 4 tasks in the list.
 
+    Missing task index!
+
     Invalid task index!
 
     Task index is not a number!
@@ -68,6 +70,8 @@
         3. [E][ ] project meeting (from Mon 2pm to 4pm)
         4. [T][X] call mom
     You have 4 tasks in your list.
+
+    Missing task index!
 
     Task has not been done yet!
 
