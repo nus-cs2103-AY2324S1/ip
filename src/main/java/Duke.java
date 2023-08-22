@@ -11,6 +11,11 @@ public class Duke {
             " / __/ / / /_/ / ,< /  __/\n" +
             "/_/   /_/\\__,_/_/|_|\\___/";
     private static ArrayList<Task> listOfTasks = new ArrayList<>();
+
+    private enum Command {
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT;
+    }
+
     public static void main(String[] args) {
         // introduce Fluke
         System.out.println(LOGO);
@@ -24,30 +29,62 @@ public class Duke {
             // check for user commands
             try {
                 String nextCommand = scanner.nextLine();
-                if (nextCommand.equals("bye")) {
-                    waitingForInput = false;
-                    sayBye();
-                } else if (nextCommand.equals("list")) {
-                    list();
-                } else if (nextCommand.startsWith("mark")) {
-                    markTaskAsDone(nextCommand);
-                } else if (nextCommand.startsWith("unmark")) {
-                    markTaskAsUndone(nextCommand);
-                } else if (nextCommand.startsWith("delete")) {
-                    deleteTask(nextCommand);
-                } else if (nextCommand.startsWith("todo")) {
-                    addTodo(nextCommand);
-                } else if (nextCommand.startsWith("deadline")) {
-                    addDeadline(nextCommand);
-                } else if (nextCommand.startsWith("event")) {
-                    addEvent(nextCommand);
-                } else {
-                    throw new InvalidInputException();
+                Command commandType = parseCommand(nextCommand);
+                switch (commandType) {
+                    case BYE:
+                        waitingForInput = false;
+                        sayBye();
+                        break;
+                    case LIST:
+                        list();
+                        break;
+                    case MARK:
+                        markTaskAsDone(nextCommand);
+                        break;
+                    case UNMARK:
+                        markTaskAsUndone(nextCommand);
+                        break;
+                    case DELETE:
+                        deleteTask(nextCommand);
+                        break;
+                    case TODO:
+                        addTodo(nextCommand);
+                        break;
+                    case DEADLINE:
+                        addDeadline(nextCommand);
+                        break;
+                    case EVENT:
+                        addEvent(nextCommand);
+                        break;
+                    default:
+                        throw new InvalidInputException();
                 }
             } catch (DukeException d) {
                 printError(d.getMessage());
             }
             addHorizontalLine();
+        }
+    }
+
+    private static Command parseCommand(String nextCommand) throws InvalidInputException {
+        if (nextCommand.equals("bye")) {
+            return Command.BYE;
+        } else if (nextCommand.equals("list")) {
+            return Command.LIST;
+        } else if (nextCommand.startsWith("mark")) {
+            return Command.MARK;
+        } else if (nextCommand.startsWith("unmark")) {
+            return Command.UNMARK;
+        } else if (nextCommand.startsWith("delete")) {
+            return Command.DELETE;
+        } else if (nextCommand.startsWith("todo")) {
+            return Command.TODO;
+        } else if (nextCommand.startsWith("deadline")) {
+            return Command.DEADLINE;
+        } else if (nextCommand.startsWith("event")) {
+            return Command.EVENT;
+        } else {
+            throw new InvalidInputException();
         }
     }
 
