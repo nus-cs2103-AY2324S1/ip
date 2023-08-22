@@ -14,14 +14,11 @@ public class Task {
         this.marked = false;
     }
 
-    @Override
-    public String toString() {
-        String checkBox;
-        if (this.marked) {
-            checkBox = "[X]";
-        } else {
-            checkBox = "[ ]";
-        }
-        return String.format("%s %s", checkBox, this.name);
+    public boolean isMarked() {
+        return this.marked;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }
