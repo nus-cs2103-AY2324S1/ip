@@ -1,7 +1,18 @@
-todo sleep
-event meeting /from 2pm /to 4pm
-deadline lecture quiz /by 9pm
 list
 mark 1
 unmark 1
+todo
+todo sleep
+event
+event meeting /from 2pm /to 4pm
+deadline
+deadline lecture quiz /by 9pm
+list
+mark -1
+mark 1
+mark
+unmark 1
+unmark 10
+unmark
+add task
 bye

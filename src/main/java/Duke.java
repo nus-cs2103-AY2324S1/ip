@@ -17,24 +17,46 @@ public class Duke {
         this.numberOfTasks++;
         message.append("Now you have ");
         message.append(this.numberOfTasks);
-        message.append(" tasks in the list.");
+        message.append(" task(s) in the list.");
         return message.toString();
     }
 
     public void addTask(String[] task, String typeOfTask) {
         switch (typeOfTask) {
             case "event":
-                this.tasks[this.numberOfTasks] = new Event(task[0], task[1]);
-                System.out.println(printAddTaskSuccessMessage());
-                break;
+                if (task.length == 1 || task[1].isBlank()) {
+                    System.out.println("OOPS!!! The description of an event cannot be empty and the start and end time/date cannot be empty.");
+                    break;
+                } else if (task[1].contains("/from") && task[1].contains("/to")) {
+                    String[] description = task[1].split(" /from ");
+                    this.tasks[this.numberOfTasks] = new Event(description[0], description[1]);
+                    System.out.println(printAddTaskSuccessMessage());
+                    break;
+                } else {
+                    System.out.println("OOPS!!! Invalid command. The command for an event should be:\nevent <task> /from <start date/time> /to <end date/time>");
+                    break;
+                }
             case "todo":
+                if (task.length == 1 || task[1].isBlank()) {
+                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
+                    break;
+                }
                 this.tasks[this.numberOfTasks] = new Todo(task[1]);
                 System.out.println(printAddTaskSuccessMessage());
                 break;
             case "deadline":
-                this.tasks[this.numberOfTasks] = new Deadline(task[0], task[1]);
-                System.out.println(printAddTaskSuccessMessage());
-                break;
+                if (task.length == 1 || task[1].isBlank()) {
+                    System.out.println("OOPS!!! The description of a deadline cannot be empty and the deadline for the deadline cannot be empty.");
+                    break;
+                } else if (task[1].contains("/by")) {
+                    String[] description = task[1].split(" /by ");
+                    this.tasks[this.numberOfTasks] = new Deadline(description[0], description[1]);
+                    System.out.println(printAddTaskSuccessMessage());
+                    break;
+                } else {
+                    System.out.println("OOPS!!! Invalid command. The command for a deadline should be:\ndeadline <task> /by <deadline>");
+                    break;
+                }
             default:
                 break;
         }
@@ -64,7 +86,11 @@ public class Duke {
                         break label;
                     // Display the stored commands
                     case "list":
-                        System.out.println("Here are the tasks in your list:");
+                        if (chatbot.numberOfTasks == 0) {
+                            System.out.println("You do not have any tasks in the list.");
+                            break;
+                        }
+                        System.out.println("Here are the task(s) in your list:");
                         for (int i = 0; i < chatbot.numberOfTasks; i++) {
                             System.out.println(i + 1 + "." + chatbot.tasks[i].toString());
                         }
@@ -74,36 +100,59 @@ public class Duke {
                         chatbot.addTask(words, "todo");
                         break;
                     case "deadline":
-                        if (words[1].contains("/by")) {
-                            String[] task = words[1].split(" /by ");
-                            chatbot.addTask(task, "deadline");
-                        }
+                        chatbot.addTask(words, "deadline");
                         break;
                     case "event":
-                        if (words[1].contains("/from") && words[1].contains("/to")) {
-                            String[] task = words[1].split(" /from ");
-                            chatbot.addTask(task, "event");
-                        }
+                        chatbot.addTask(words, "event");
                         break;
                     // Mark task as done
                     case "mark":
-                        System.out.println("Nice! I've marked this task as done:");
+                        if (chatbot.numberOfTasks == 0) {
+                            System.out.println("Add task to start marking task as done!");
+                            break;
+                        } else if (words.length == 1 || words[1].isBlank()) {
+                            System.out.println("OOPS!! Task number cannot empty. Please indicate a task number from one to the number of tasks in the list.");
+                            break;
+                        }
                         int markIndex = Integer.parseInt(words[1]);
+                        if (markIndex > chatbot.numberOfTasks || markIndex <= 0) {
+                            System.out.println("OOPS!! Invalid task number. The task number has to be from one to the number of tasks in the list.");
+                            break;
+                        }
+                        System.out.println("Nice! I've marked this task as done:");
                         Task markTask = chatbot.tasks[markIndex - 1];
                         markTask.markAsDone();
                         System.out.println(markTask.toString());
                         break;
                     // Mark task as not done
                     case "unmark":
-                        System.out.println("OK, I've marked this task as not done yet:");
+                        if (chatbot.numberOfTasks == 0) {
+                            System.out.println("Add task to start marking task as not done!");
+                            break;
+                        } else if (words.length == 1 || words[1].isBlank()) {
+                            System.out.println("OOPS!! Task number cannot empty. Please indicate a task number from one to the number of tasks in the list.");
+                            break;
+                        }
                         int unmarkIndex = Integer.parseInt(words[1]);
+                        if (unmarkIndex > chatbot.numberOfTasks || unmarkIndex <= 0) {
+                            System.out.println("OOPS!! Invalid task number. The task number has to be from one to the number of tasks in the list.");
+                            break;
+                        }
+                        System.out.println("OK, I've marked this task as not done yet:");
                         Task unmarkTask = chatbot.tasks[unmarkIndex - 1];
                         unmarkTask.markAsNotDone();
                         System.out.println(unmarkTask.toString());
                         break;
                     // Invalid command
                     default:
-                        System.out.println("Invalid command.");
+                        System.out.println("OOPS!!! Invalid command. Try the following commands instead:");
+                        System.out.println("> todo <task>");
+                        System.out.println("> deadline <task> /by <deadline>");
+                        System.out.println("> event <task> /from <start date/time> /to <end date/time>");
+                        System.out.println("> list");
+                        System.out.println("> mark <task number>");
+                        System.out.println("> unmark <task number>");
+                        System.out.println("> bye");
                         break;
                 }
             }
