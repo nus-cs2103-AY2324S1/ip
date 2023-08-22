@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 import java.util.Scanner;  // Import the Scanner class
 public class Duke {
-    static Task[] list = new Task[100]; // List to be returned when input is "list"
+    static ArrayList<Task> list = new ArrayList<Task>(); // List to be returned when input is "list"
     static int counter = 0; // Items in list
 
     public static String greet() { // Greets user on initialisation
@@ -42,16 +43,21 @@ public class Duke {
             String from = startEnd[0];
             String to = startEnd[1];
             return event(name, from, to);
-        } else {
+        } else
+        if (input.startsWith("delete ")) {
+            int index = Integer.valueOf(input.substring(7)) - 1;
+            return delete(index);
+        }
+        {
             throw new DukeException("I'm afraid I do not quite understand. Could you kindly repeat it?");
         }
     }
 
     public static String mark(int index) throws DukeException {
         if (index >= 0 && index < counter) {
-            list[index].setDone(); // Item mark complete
+            list.get(index).setDone(); // Item mark complete
             return "Congratulations on finishing the task. I will now mark it as complete:\n" +
-                    list[index].toString();
+                    list.get(index).toString()+ "\n";
         } else {
             throw new DukeException("I'm afraid the task does not exist. " +
                     "Perhaps you might want to see your list again?");
@@ -60,9 +66,9 @@ public class Duke {
 
     public static String unmark(int index) throws DukeException {
         if (index >= 0 && index < counter) {
-            list[index].setNotDone(); // Item mark complete
+            list.get(index).setNotDone(); // Item mark complete
             return "No worries. I will now mark it as incomplete:\n" +
-                    list[index].toString();
+                    list.get(index).toString() + "\n";
         } else {
             throw new DukeException("I'm afraid the task does not exist. " +
                     "Perhaps you might want to see your list again?");
@@ -71,9 +77,9 @@ public class Duke {
 
     public static String list() throws DukeException {
         String result = "";
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] != null) {
-                result += i + 1 + ". " + list[i] + "\n";
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) != null) {
+                result += i + 1 + ". " + list.get(i) + "\n";
             } else {
                 break;
             }
@@ -86,22 +92,18 @@ public class Duke {
         }
     }
 
-    public static void addTask(int index, Task task) throws DukeException {
-        if (index < list.length) {
-            list[index] = task;
-        } else {
-            throw new DukeException("My apologies but I'm afraid your task list is currently full.");
-        }
+    public static void addTask(Task task) throws DukeException {
+        list.add(task);
     }
 
     public static String todo(String task) throws DukeException {
         if (task != "") {
             Task item = new Todo(task);
-            addTask(counter, item);
+            addTask(item);
             counter += 1;
             String response = "Understood, I will add the following todo to your list:\n" + item.toString();
             String listLength = "Please note that there are " + counter + " tasks in the list.";
-            return response + "\n" + listLength;
+            return response + "\n" + listLength + "\n";
         } else {
             throw new DukeException("I am missing some information. " +
                     "I must have not heard you correctly. " +
@@ -112,11 +114,11 @@ public class Duke {
     public static String deadline(String task, String by) throws DukeException {
         if (task != "" && by != "") {
             Task item = new Deadline(task, by);
-            addTask(counter, item);
+            addTask(item);
             counter += 1;
             String response = "Understood, I will add the following deadline to your list:\n" + item.toString();
             String listLength = "Please note that there are " + counter + " tasks in the list.";
-            return response + "\n" + listLength;
+            return response + "\n" + listLength + "\n";
         } else {
             throw new DukeException("I am missing some information. " +
                     "I must have not heard you correctly. " +
@@ -127,15 +129,29 @@ public class Duke {
     public static String event(String task, String from, String to) throws DukeException {
         if (task != "" && from != "" && to != "") {
             Task item = new Event(task, from, to);
-            addTask(counter, item);
+            addTask(item);
             counter += 1;
             String response = "Understood, I will add the following event to your list:\n" + item.toString();
             String listLength = "Please note that there are " + counter + " tasks in the list.";
-            return response + "\n" + listLength;
+            return response + "\n" + listLength + "\n";
         } else {
             throw new DukeException("I am missing some information. " +
                     "I must have not heard you correctly. " +
                     "Perhaps you can say it again?");
+        }
+    }
+
+    public static String delete(int index) throws DukeException {
+        if (index >= 0 && index < counter) {
+            Task task = list.get(index);
+            list.remove(index);
+            counter -= 1;
+            String response = "Understood, I will remove the following task from your list:\n" + task.toString();
+            String listLength = "Please note that there are " + counter + " tasks in the list.";
+            return response + "\n" + listLength + "\n";
+        } else {
+            throw new DukeException("I'm afraid the task does not exist. " +
+                    "Perhaps you might want to see your list again?");
         }
     }
 

@@ -1,6 +1,10 @@
 todo Automate ButlerBot
 deadline CS2103T Individual Project /by Thursday
 event Birthday Celebration! /from Fri 11pm /to Sat 12am
+todo Delete this
 todo Mark this
-mark 4
+mark 5
+list
+delete 4
+list
 bye
