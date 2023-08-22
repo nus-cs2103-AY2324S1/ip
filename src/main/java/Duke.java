@@ -20,6 +20,12 @@ public class Duke  {
                 break;
             } else if(input.equals("list")){
                 MYBot.listTasks();
+            } else if(input.startsWith("mark ")) {
+                int task_index = Integer.parseInt(input.substring(5));
+                MYBot.markTasks(task_index);
+            } else if(input.startsWith("unmark ")) {
+                int task_index = Integer.parseInt(input.substring(7));
+                MYBot.unmarkTasks(task_index);
             } else {
                 MYBot.addTask(input);
             }
