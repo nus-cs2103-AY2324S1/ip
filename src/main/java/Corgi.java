@@ -10,6 +10,9 @@ public class Corgi {
         bot.start();
     }
 
+    /**
+     * Constructs new Corgi chatbot with an empty task list.
+     */
     public Corgi() {
         this.tasks = new ArrayList<>();
     }
