@@ -23,19 +23,17 @@ public class Duke {
         System.out.println(horizontalLine);
     }
 
-    public static void printTasks(Task[] tasks) {
+    public static void printTasks(ArrayList<Task> tasks) {
         System.out.print(horizontalLine);
 
-        if (tasks[0] == null) {
+        if (tasks.isEmpty()) {
             // Case where there is no tasks to be displayed
             System.out.println("        " + "No tasks added. ");
         } else {
             System.out.println("        " + "Here are the task(s) in your list:");
 
-            int taskNumber = 0;
-            while (tasks[taskNumber] != null) {
-                System.out.println("        " + (taskNumber + 1) + ". " + tasks[taskNumber].toString());
-                taskNumber++;
+            for (Task task: tasks) {
+                System.out.println("        " + (tasks.indexOf(task) + 1) + ". " + task.toString());
             }
         }
         System.out.println(horizontalLine);
@@ -91,7 +89,7 @@ public class Duke {
     public static void main(String[] args) {
         greet();
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int numberOfTasks = 0;
 
         while(true) {
@@ -115,29 +113,29 @@ public class Duke {
                     if (splitCommand[0].equals("event")) {
                         // Add event task into task list
                         String[] taskParts = splitCommand[1].split("/");
-                        tasks[numberOfTasks] = new Event(taskParts[0], taskParts[1], taskParts[2]);
-                        printCommand(tasks[numberOfTasks++], numberOfTasks);
+                        tasks.add(new Event(taskParts[0], taskParts[1], taskParts[2]));
+                        printCommand(tasks.get(numberOfTasks++), numberOfTasks);
 
                     } else if (splitCommand[0].equals("deadline")) {
                         // Add deadline task into tasklist
                         String[] taskParts = splitCommand[1].split(" /by ");
-                        tasks[numberOfTasks] = new Deadline(taskParts[0], taskParts[1]);
-                        printCommand(tasks[numberOfTasks++], numberOfTasks);
+                        tasks.add(new Deadline(taskParts[0], taskParts[1]));
+                        printCommand(tasks.get(numberOfTasks++), numberOfTasks);
 
                     } else if (splitCommand[0].equals("todo")) {
                         // Add to-do task into tasklist
-                        tasks[numberOfTasks] = new ToDo(command.split(" ", 2)[1]);
-                        printCommand(tasks[numberOfTasks++], numberOfTasks);
+                        tasks.add(new ToDo(command.split(" ", 2)[1]));
+                        printCommand(tasks.get(numberOfTasks++), numberOfTasks);
 
                     } else if (splitCommand[0].equals("mark")) {
                         // Mark tasks as done
                         int taskNumber = Integer.parseInt(command.split(" ", 2)[1]);
-                        markTaskAsDone(tasks[taskNumber - 1]);
+                        markTaskAsDone(tasks.get(taskNumber - 1));
 
                     } else if (splitCommand[0].equals("unmark")) {
                         // Mark tasks as undone
                         int taskNumber = Integer.parseInt(command.split(" ", 2)[1]);
-                        markTaskAsUnDone(tasks[taskNumber - 1]);
+                        markTaskAsUnDone(tasks.get(taskNumber - 1));
 
                     } else {
                         // Non-existent task functions
