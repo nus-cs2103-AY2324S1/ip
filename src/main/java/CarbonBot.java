@@ -53,13 +53,13 @@ public class CarbonBot {
                         }
                         break;
                     case "deadline":
-                        int indexOfBy = input.indexOf("/by");
+                        int indexOfBy = input.indexOf("/by ");
                         // Validates the existence of /by syntax
                         if (indexOfBy == -1) {
                             throw new DukeException("☹ OOPS!!! Please specify the deadline using /by.");
                         }
 
-                        desc = input.substring("deadline ".length(), indexOfBy).trim();
+                        desc = input.substring("deadline".length(), indexOfBy).trim();
                         String by = input.substring(indexOfBy + "/by".length()).trim();
                         if (desc.isBlank()) {
                             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
@@ -76,6 +76,9 @@ public class CarbonBot {
                         if (indexOfFrom == -1 || indexOfTo == -1) {
                             throw new DukeException("☹ OOPS!!! Please specify the start and end of the" +
                                     " event using /from and /to.");
+                        }
+                        if (indexOfFrom > indexOfTo) {
+                            throw new DukeException("☹ OOPS!!! Please specify the /from before the /to!");
                         }
 
                         desc = input.substring("event ".length(), indexOfFrom).trim();
