@@ -1,6 +1,8 @@
 import java.util.Scanner;
+import task.TaskList;
 public class Kora {
 
+    private TaskList taskList;
     public Kora() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -9,25 +11,30 @@ public class Kora {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello, I am your chatbot Kora!\nHow can I help you today?");
         System.out.println("------------------------------");
+
+        taskList = new TaskList();
         boolean isExit = false;
         while (!isExit) {
             Scanner scanner = new Scanner(System.in);
-            System.out.println(getResponse(scanner.next()));
+            //System.out.println("------------------------------");
+            System.out.println(getResponse(scanner.nextLine()));
+            System.out.println("------------------------------");
         }
-
-        //System.out.println("Byebye. See you again!");
     }
 
     public String getResponse(String userInput) {
-        String output;
+        String output = "------------------------------" + "\n";
         try {
             if (userInput.equals("bye")) {
-                output = "Byebye. See you again!";
+                output = output + "Byebye. See you again!";
+            } else if (userInput.equals("list")) {
+                output = output + taskList.toString();
             } else {
-                output = userInput;
+                taskList.addTask(userInput);
+                output = output + "added: " + userInput;
             }
         } catch (Exception e) {
-            output = e.getMessage();
+            output = output + e.getMessage();
         }
         return output;
     }
