@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Ace {
-    private static String[] toDoList = new String[100];
+    private static Task[] toDoList = new Task[100];
     private static int tracker = 0;
 
     private String addLine(String message) {
@@ -18,22 +18,34 @@ public class Ace {
     }
 
     private String printList() {
-        String output = "";
+        String output = "Here are the tasks in your list:\n";
         for (int i = 0; i < tracker; i++) {
-            if (!toDoList[i].isEmpty()) {
-                output += (i + 1) + ". " + toDoList[i] + "\n";
+            if (toDoList[i] != null) {
+                output += (i + 1) + "." + toDoList[i].printTask() + "\n";
             }
         }
         return output;
     }
 
     private String addTask(String task) {
-        toDoList[tracker] = task;
+        toDoList[tracker] = new Task(task);
         tracker++;
         return "added: " + task;
     }
 
-    public String sendMessage(String keyWord) {
+    private String markTask(int index) {
+        Task curr = toDoList[index - 1];
+        curr.taskDone();
+        return "Nice! I've marked this task as done:\n" + "\t" + curr.printTask();
+    }
+
+    private String unmarkTask(int index) {
+        Task curr = toDoList[index - 1];
+        curr.taskUndone();
+        return "OK, I've marked this task as not done yet:\n" + "\t" + curr.printTask();
+    }
+
+    public String sendMessage(String keyWord, String details) {
         switch(keyWord) {
             case "start":
                 return addLine(greet());
@@ -41,8 +53,12 @@ public class Ace {
                 return addLine(goodbye());
             case "list":
                 return addLine(printList());
+            case "mark":
+                return addLine(markTask(Integer.parseInt(details)));
+            case "unmark":
+                return addLine(unmarkTask(Integer.parseInt(details)));
             default:
-                return addLine(addTask(keyWord));
+                return addLine(addTask(keyWord + " " + details));
         }
     }
 }
