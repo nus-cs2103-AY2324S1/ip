@@ -14,28 +14,32 @@ public class Dook {
             String[] tmp = input.split(" ", 2);
             String command = tmp[0].trim();
             String body = tmp.length == 1 ? "" : tmp[1].trim();
+
             try {
                 switch (command) {
-                    case ("bye"):
+                    case "bye":
                         bidFarewell();
                         return;
-                    case ("list"):
+                    case "list":
                         displayList();
                         break;
-                    case ("mark"):
+                    case "mark":
                         markTask(body, true);
                         break;
-                    case ("unmark"):
+                    case "unmark":
                         markTask(body, false);
                         break;
-                    case ("todo"):
+                    case "todo":
                         addToDo(body);
                         break;
-                    case ("deadline"):
+                    case "deadline":
                         addDeadline(body);
                         break;
-                    case ("event"):
+                    case "event":
                         addEvent(body);
+                        break;
+                    case "delete":
+                        deleteEvent(body);
                         break;
                     default:
                         throw new DookException("Invalid Command.");
@@ -46,7 +50,6 @@ public class Dook {
 
         }
     }
-
     private static void addToDo(String body) throws DookException {
         if (body.isBlank()) {
             throw new DookException(String.format("Task cannot be empty!"));
@@ -56,7 +59,6 @@ public class Dook {
         printMessage(String.format("added: %s.\n Now you have %d tasks in the list", task, taskList.size()));
 
     }
-
     private static void addDeadline(String body) throws DookException {
         if (body.isBlank()) {
             throw new DookException(String.format("Task cannot be empty!"));
@@ -72,7 +74,6 @@ public class Dook {
         printMessage(String.format("added: %s.\n Now you have %d tasks in the list", task, taskList.size()));
 
     }
-
     private static void addEvent(String body) throws DookException{
         if (body.isBlank()) {
             throw new DookException(String.format("Task cannot be empty!"));
@@ -98,7 +99,6 @@ public class Dook {
     private static void addToTaskList(Task task) {
         taskList.add(task);
     }
-
     private static void displayList() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
@@ -108,14 +108,12 @@ public class Dook {
                 taskList.size(),
                 taskList.size() == 1 ? "task" : "tasks"));
     }
-
     private static void markTask(String body, boolean value) throws DookException{
         int index;
         try {
             index = Integer.parseInt(body.split(" ", 2)[0]);
         } catch (NumberFormatException e) {
-            printMessage(String.format("Usage: %s [task number]", value ? "mark" : "unmark"));
-            return;
+            throw new DookException(String.format("Usage: %s [task number]", value ? "mark" : "unmark"));
         }
 
         if (index <= 0 || index > taskList.size()) {
@@ -132,12 +130,29 @@ public class Dook {
                 value ? "done" : "not done yet", curr);
         printMessage(message);
     }
+    private static void deleteEvent(String body) throws DookException{
+        int index;
+        try {
+            index = Integer.parseInt(body.split(" ", 2)[0]);
+        } catch (NumberFormatException e) {
+            throw new DookException(String.format("Usage: delete [task number]"));
+        }
 
+        if (index <= 0 || index > taskList.size()) {
+            throw new DookException("That task does not exist on the list.");
+        }
 
+        Task curr = taskList.get(index - 1);
+        taskList.remove(index - 1);
+        String message = String.format("Ok, I have removed this task:\n   %s", curr);
+        message += String.format("\nYou have %d %s in the list",
+                taskList.size(),
+                taskList.size() == 1 ? "task" : "tasks");
+        printMessage(message);
+    }
     private static void greetUser() {
         printMessage(String.format("%s here.\nWhat can I do for you?", name));
     }
-
     public static void printMessage(String msg) {
         printDivider();
         System.out.println(msg);
