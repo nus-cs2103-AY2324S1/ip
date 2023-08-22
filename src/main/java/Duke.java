@@ -10,9 +10,10 @@ public class Duke {
                 " | |    |  __  | / /\\ \\ | |  | | | |_ |  ___/  | |   \n" +
                 " | |____| |  | |/ ____ \\| |__| | |__| | |      | |   \n" +
                 "  \\_____|_|  |_/_/    \\_\\_____/ \\_____|_|      |_|   \n";
-        final String horizontal = "-------------------------------------------------------------------";
+        final String horizontal = "--------------------------------------------------------" +
+                "-----------";
 
-        List<String> taskList = new ArrayList<String>();
+        List<Task> taskList = new ArrayList<Task>();
 
         System.out.println(horizontal + logo + horizontal);
         System.out.println("ChadGPT: Welcome to ChadGPT, What would you like to do today?\n" + horizontal);
@@ -20,17 +21,27 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         System.out.print("User: ");
         while (!sc.hasNext("bye")) {
-            String task = sc.nextLine();
-            if (task.equals("list")) {
+            String command = sc.next();
+            if (command.equals("list")) {
                 int counter = 1;
                 System.out.println("ChadGPT: Here are your tasks: ");
-                for (String t : taskList) {
-                    System.out.println(counter + ". " + t);
-                    counter++;
+                for (Task t : taskList) {
+                    System.out.print(counter++ + ". ");
+                    t.printStatus();
                 }
+            } else if (command.equals("mark")) {
+                int index = Integer.parseInt(sc.next()) - 1;
+                taskList.get(index).completeTask();
+                System.out.println("ChadGPT: Nice! I'll mark the task as done: ");
+                taskList.get(index).printStatus();
+            } else if (command.equals("unmark")) {
+                int index = Integer.parseInt(sc.next()) - 1;
+                taskList.get(index).undo();
+                System.out.println("ChadGPT: No problem, I'll mark this task as not done yet: ");
+                taskList.get(index).printStatus();
             } else {
-                System.out.println("ChadGPT: added task '" + task + "'");
-                taskList.add(task);
+                System.out.println("ChadGPT: added task '" + command + "'");
+                taskList.add(new Task(command));
             }
             System.out.print(horizontal + "\nUser: ");
         }
