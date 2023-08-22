@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Duke {
 
     private Scanner sc = new Scanner(System.in);
+    
     private List<Task> list = new ArrayList<Task>(100);
     public static void main(String[] args) {
         Duke duke = new Duke();
