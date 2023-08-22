@@ -1,7 +1,21 @@
 import java.util.Scanner;
 public class Duke {
+    public class Task {
+        public String name;
+        public boolean isComplete;
 
-    String[] taskList = new String[100];
+        public Task(String name) {
+            this.name = name;
+            this.isComplete = false;
+        }
+
+        public String getMark() {
+            return (isComplete ? "X" : " ");
+        }
+
+    }
+
+    Task[] taskList = new Task[100];
     int taskCount = 0;
 
     String line = "~~*~~*~~*~~*~~*~~*~~*~~*~~*~~\n";
@@ -23,7 +37,7 @@ public class Duke {
             System.out.println(line);
         }
         public void chadAddList(String input) {
-            taskList[taskCount] = input;
+            taskList[taskCount] = new Task(input);
             taskCount++;
             System.out.println(line);
             System.out.println(input + " has been added to yo list!\n");
@@ -36,12 +50,30 @@ public class Duke {
                 System.out.println(line);
                 System.out.println("Your outstanding tasks are...");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println("Task " + (i + 1) + ") " + taskList[i]);
+                    System.out.println("Task " + (i + 1) + ") " + taskList[i].name + " [" + taskList[i].getMark() + "]");
                 }
                 System.out.println("\n" + "Get to work NOW!\n");
                 System.out.println(line);
             }
         }
+
+        public void chadMarkTask(int index) {
+            taskList[index - 1].isComplete = true;
+            System.out.println(line);
+            System.out.println("Good job! Task fulfilled!");
+            System.out.println(taskList[index - 1].name + " [" + taskList[index - 1].getMark() + "]\n");
+            System.out.println(line);
+        }
+
+        public void chadUnmarkTask(int index) {
+            taskList[index - 1].isComplete = false;
+            System.out.println(line);
+            System.out.println("Boooo! Task is not done!");
+            System.out.println(taskList[index - 1].name + " [" + taskList[index - 1].getMark() + "]\n");
+            System.out.println(line);
+        }
+
+
 
 
     public static void main(String[] args) {
@@ -52,14 +84,23 @@ public class Duke {
 
         while(true) {
             String input = scanObj.nextLine();
-            if (input.equals("bye")) {
+            String[] inputArray = input.split(" ", 2);
+            if (inputArray[0].equals("bye")) {
                 chad.chadBye();
                 break;
-            }
-            else if (input.equals("list")) {
+
+            } else if (inputArray[0].equals("list")) {
                 chad.chadListTask();
-            }
-            else {
+
+            } else if (inputArray[0].equals("mark")) {
+                Integer index = Integer.valueOf(inputArray[1]);
+                chad.chadMarkTask(index);
+
+            } else if (inputArray[0].equals("unmark")) {
+                Integer index = Integer.valueOf(inputArray[1]);
+                chad.chadUnmarkTask(index);
+
+            } else {
                 chad.chadAddList(input);
             }
         }
