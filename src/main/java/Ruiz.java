@@ -6,7 +6,7 @@ public class Ruiz {
 
     public void getTasks() {
         System.out.println("____________________________________________________________");
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < this.tasks.size(); i++) {
             System.out.println((i + 1) + ". " + this.tasks.get(i).toString());
         }
         System.out.println("____________________________________________________________");

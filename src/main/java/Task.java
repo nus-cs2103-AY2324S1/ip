@@ -8,11 +8,11 @@ public class Task {
     }
 
     public void mark() {
-        completed = true;
+        this.completed = true;
     }
 
     public void unmark() {
-        completed = false;
+        this.completed = false;
     }
 
     @Override
