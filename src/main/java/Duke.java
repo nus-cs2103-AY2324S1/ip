@@ -18,26 +18,51 @@ public class Duke {
         printGreeting();
         printLine();
         while(!isExit) {
-            String input = sc.nextLine();
-            if (input.equals("bye")) {
-                isExit = true;
-                printBye();
-            } else if (input.equals("list")) {
-                printList();
-            } else if (input.startsWith("mark ")) {
-                int index = Integer.parseInt(input.substring(5));
-                list.get(index - 1).markAsDone();
-                printDone(index);
-            } else if (input.startsWith("unmark ")) {
-                int index = Integer.parseInt(input.substring(7));
-                list.get(index - 1).markAsUndone();
-                printUndone(index);
-            } else {
-                addTask(input);
+            try {
+                String input = sc.nextLine();
+                validateInput(input);
+                if (input.equals("bye")) {
+                    isExit = true;
+                    printBye();
+                } else if (input.equals("list")) {
+                    printList();
+                } else if (input.startsWith("mark ")) {
+                    int index = Integer.parseInt(input.substring(5));
+                    list.get(index - 1).markAsDone();
+                    printDone(index);
+                } else if (input.startsWith("unmark ")) {
+                    int index = Integer.parseInt(input.substring(7));
+                    list.get(index - 1).markAsUndone();
+                    printUndone(index);
+                } else {
+                    addTask(input);
+                }
+            } catch (DukeException e) {
+                printLine();
+                System.out.println(e.getMessage());
+                printLine();
             }
         }
     }
 
+    public void validateInput(String input) throws DukeException {
+        if (input.equals("todo") || input.equals("deadline") || input.equals("event")) {
+            throw new DukeException("☹ OOPS!!! The description of a " + input + " cannot be empty.");
+        }
+
+        if (input.startsWith("deadline ") && !input.contains("/by")) {
+            throw new DukeException("☹ OOPS!!! The description of a deadline must contain /by.");
+        }
+
+        if (input.startsWith("event ") && !input.contains("/from") && !input.contains("/to")) {
+            throw new DukeException("☹ OOPS!!! The description of a event must contain /from and /to.");
+        }
+
+        if (!input.startsWith("todo ") && !input.startsWith("deadline ") && !input.startsWith("event ")
+                && !input.equals("list") && !input.equals("bye")) {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
     public void printDone(int index) {
         printLine();
         System.out.println("Nice! I've marked this task as done:");
