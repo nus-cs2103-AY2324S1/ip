@@ -8,6 +8,11 @@ public class TaskManager {
 
     /**
      * A task that the task manager can keep in its task list.
+     *
+     * <p>
+     * This is an abstract class which should be inherited by custom task types.
+     * It contains basic properties for a task, which can be extended as needed.
+     * </p>
      */
     public abstract static class Task {
         private String title;
@@ -47,22 +52,33 @@ public class TaskManager {
         }
 
         /**
-         * Returns a string representation of the task.
+         * Internal method for a formatted mark-complete symbol for this task.
+         */
+        protected String getCompletedIndicatorString() {
+            return String.format("[%s]", this.isCompleted() ? "X" : " ");
+        }
+
+        /**
+         * Returns a string representation of the task, to be implemented by inherited classes.
          *
          * @return A string representing the task.
          */
         @Override
-        public String toString() {
-            return String.format("[%s] %s", this.isCompleted() ? "X" : " ", this.getTitle());
-        }
+        public abstract String toString();
     }
 
     /**
      * A trivial task that represents to-dos.
+     * It has a title and can be marked as completed.
      */
     public static class Todo extends Task {
         public Todo(String title) {
             super(title);
+        }
+
+        @Override
+        public String toString() {
+            return String.format("%s %s", this.getCompletedIndicatorString(), this.getTitle());
         }
     }
 
