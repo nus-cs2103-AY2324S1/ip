@@ -2,11 +2,11 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
-    private String[] list;
+    private Task[] list;
     private int size = 0;
 
     public Duke() {
-        this.list = new String[100];
+        this.list = new Task[100];
     }
 
     private void start() {
@@ -48,7 +48,7 @@ public class Duke {
     }
 
     private void addToList(String line) {
-        list[size] = line;
+        list[size] = new Task(line);
         size++;
         System.out.println("Added " + line + " to list");
     }
