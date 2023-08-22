@@ -22,12 +22,13 @@ public class Duke {
         System.out.println(lines + "\n" + greeting + lines);
         //getting user input
         userCommand = sc.nextLine();
-        //echoes the user input when the command is not "bye"
+
+
         while (!userCommand.equals("bye")) {
             String[] splitted = userCommand.split(" ", 2);
             switch (splitted[0]) {
                 case "list":
-                    System.out.println(lines + "\n      Here are the tasks in your list:\n");
+                    System.out.println(lines + "\n        Here are the tasks in your list:\n");
                     for (int i = 0; i < toDo.size(); i++) {
                         Task currTask = toDo.get(i);
                         String description = currTask.getDescription();
