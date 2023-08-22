@@ -60,7 +60,16 @@ ____________________________________________________________
 
 ____________________________________________________________
 
-Goodbye! Bob signing out!
+Foosh! Let it be gone! I've helped delete the task:
+[D][ ] return book (by: Sunday)
+
+Now you have 2 tasks in your list!
 ____________________________________________________________
 
+1. [T][ ] borrow book
+2. [E][X] project meeting (from: Mon 2pm, to: 4pm)
 
+____________________________________________________________
+
+Goodbye! Bob signing out!
+____________________________________________________________

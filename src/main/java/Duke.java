@@ -58,6 +58,10 @@ public class Duke {
                 Duke.isActive = false;
                 break;
             case LIST:
+                if (pointer == 0) {
+                    System.out.println("You don't have any tasks. Good job!" + divider);
+                    break;
+                }
                 for (int i = 0; i < pointer; i++) {
                     System.out.println((i + 1) + ". " + tasks.get(i).toString());
                 }
@@ -171,5 +175,4 @@ public class Duke {
     public enum Commands {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
     }
-
 }
