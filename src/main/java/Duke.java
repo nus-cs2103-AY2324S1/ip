@@ -19,7 +19,7 @@ public class Duke {
 
         chatbot.openConversation();
 
-        do {
+        while (chatbot.isConversationOpen()) {
             System.out.print("> ");
 
             if (!scanner.hasNextLine()) {
@@ -30,11 +30,7 @@ public class Duke {
             System.out.println();
 
             chatbot.sendMessageFromUser(line);
-
-            if (chatbot.isConversationClosed()) {
-                break;
-            }
-        } while (true);
+        }
 
         chatbot.closeConversation();
         scanner.close();

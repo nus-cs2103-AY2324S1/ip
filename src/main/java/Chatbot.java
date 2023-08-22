@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * A chat-bot to interact with. Provides methods to allow for users to easily
+ * interact with the bot and for clients to subscribe to chat messages.
+ */
 public class Chatbot extends EventEmitter<Chatbot.Message> {
 
     /**
@@ -94,7 +98,7 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
             return;
         }
         this.closed = true;
-        this.sendMessage(MessageSender.CHATBOT, "Bye. Hope to see you again soon!");
+        this.sendMessage(MessageSender.CHATBOT, "Bye! Hope to see you again soon! ^-^");
     }
 
     /**
@@ -152,16 +156,15 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
         // Process whatever we need to do!
         switch (message.getSender()) {
             case USER:
-                String[] parts = message.getMessage().split(" ", 2);
-                String command = parts[0];
-                String data = parts.length > 1 ? parts[1] : null;
+                final String FAILURE_MESSAGE_REPLY = "Sorry, idgi :(";
+                final Command command = Command.parse(message.getMessage());
 
-                switch (command) {
+                switch (command.getName()) {
                     case "mark":
                     case "unmark":
-                        if (data != null) {
-                            int index = Integer.parseInt(data) - 1;
-                            boolean completed = command.equals("mark");
+                        if (command.getData() != null) {
+                            int index = Integer.parseInt(command.getData()) - 1;
+                            boolean completed = command.getName().equals("mark");
 
                             TaskManager.Task task = this.taskManager.getTask(index);
                             task.markCompleted(completed);
@@ -179,41 +182,48 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
                             }
                         }
                         break;
+
                     case "todo":
                     case "deadline":
                     case "event":
-
-                        if (data != null && !data.isBlank()) {
+                        if (!command.getData().isBlank()) {
                             TaskManager.Task task = null;
-                            String[] dataParts;
-                            switch (command) {
+                            switch (command.getName()) {
                                 case "todo":
-                                    task = new TaskManager.Todo(data);
+                                    task = new TaskManager.Todo(command.getData());
                                     break;
                                 case "deadline":
-                                    dataParts = data.split("/by", 2);
-                                    task = new TaskManager.Deadline(dataParts[0].trim(), dataParts[1].trim());
+                                    task = new TaskManager.Deadline(
+                                            command.getData(),
+                                            command.getParam("by")
+                                    );
                                     break;
                                 case "event":
-                                    dataParts = data.split("/(from|to)", 3);
-                                    task = new TaskManager.Event(dataParts[0].trim(), dataParts[1].trim(), dataParts[2].trim());
+                                    task = new TaskManager.Event(
+                                            command.getData(),
+                                            command.getParam("from"),
+                                            command.getParam("to")
+                                    );
                                     break;
                             }
-                            this.taskManager.addTask(task);
-                            this.sendMessage(
-                                    MessageSender.CHATBOT,
-                                    String.format(
-                                            "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
-                                            task,
-                                            this.taskManager.getTaskCount()
-                                    )
-                            );
+                            if (task != null) {
+                                this.taskManager.addTask(task);
+                                this.sendMessage(
+                                        MessageSender.CHATBOT,
+                                        String.format(
+                                                "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
+                                                task,
+                                                this.taskManager.getTaskCount()
+                                        )
+                                );
+                                break;
+                            }
                         }
-
+                        this.sendMessage(MessageSender.CHATBOT, FAILURE_MESSAGE_REPLY);
                         break;
 
                     case "list":
-                        if (data == null || data.isBlank()) {
+                        if (command.getData().isBlank()) {
                             StringBuilder builder = new StringBuilder();
 
                             if (this.taskManager.getTaskCount() > 0) {
@@ -233,17 +243,18 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
                             this.sendMessage(MessageSender.CHATBOT, builder.toString());
                             break;
                         }
-                        // Otherwise, fallthrough to default path.
+                        this.sendMessage(MessageSender.CHATBOT, FAILURE_MESSAGE_REPLY);
+                        break;
 
                     case "bye":
-                        if (data == null || data.isBlank()) {
+                        if (command.getData().isBlank()) {
                             this.closeConversation();
                             break;
                         }
-                        // Otherwise, fallthrough to default path.
-
+                        this.sendMessage(MessageSender.CHATBOT, FAILURE_MESSAGE_REPLY);
+                        break;
                     default:
-                        this.sendMessage(MessageSender.CHATBOT, "Sorry, idgi :(");
+                        this.sendMessage(MessageSender.CHATBOT, FAILURE_MESSAGE_REPLY);
                         break;
                 }
 
