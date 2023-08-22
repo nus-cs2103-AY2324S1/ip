@@ -1,5 +1,6 @@
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.NoSuchElementException;
 
 public class Parser {
     String defaultInput;
@@ -16,7 +17,9 @@ public class Parser {
     public String getDefaultString() {
         return defaultInput;
     }
-    public String getTaggedInput(String tag) {
-        return taggedInputs.get(tag);
+    public String getTaggedInput(String tag) throws NoSuchElementException {
+        String result = taggedInputs.get(tag);
+        if (result == null) throw new NoSuchElementException("Invalid Tag!");
+        return result;
     }
 }

@@ -1,0 +1,4 @@
+todo hide
+event run /from 1 /to 20
+deadline die /by 24
+list
