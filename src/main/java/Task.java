@@ -1,8 +1,8 @@
-public class Task {
+public abstract class Task {
     private final String title;
     private boolean isDone;
 
-    public Task(String title) {
+    protected Task(String title) {
         this.title = title;
         isDone = false;
     }
@@ -25,7 +25,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String mark = isDone ? "x" : " ";
+        String mark = isDone ? "X" : " ";
         return "[" + mark + "] " + title;
     }
 }
