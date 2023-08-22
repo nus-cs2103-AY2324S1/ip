@@ -41,6 +41,10 @@ public class Corgi {
                 break;
             } else if (userInput.toLowerCase().equals("list")) {
                 this.displayTasks();
+            } else if (userInput.startsWith("mark ")) {
+                this.markTaskAsDone(userInput.substring(5));
+            } else if (userInput.startsWith("unmark ")) {
+
             } else {
                 this.addTask(userInput);
             }
@@ -49,6 +53,17 @@ public class Corgi {
         }
 
         sc.close();
+    }
+
+    private void markTaskAsDone(String indexStr) {
+        int index = Integer.parseInt(indexStr) - 1;
+        if (index >= 0 && index < this.tasks.size()) {
+            Task target = tasks.get(index);
+            target.markAsDone();
+            System.out.println("Nice! I've marked this task as done:\n" + target);
+        } else {
+            System.out.println("Invalid task number!");
+        }
     }
 
     /**
