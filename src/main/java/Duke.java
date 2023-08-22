@@ -18,8 +18,10 @@ public class Duke  {
             if(input.equals("bye")){
                 MYBot.closeGreeting();
                 break;
+            } else if(input.equals("list")){
+                MYBot.listTasks();
             } else {
-                MYBot.echoMessage(input);
+                MYBot.addTask(input);
             }
         }
     }
