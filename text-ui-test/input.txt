@@ -22,4 +22,9 @@ deadline abcd by
 deadline abcd /by
 deadline abcd /by asdf
 list
+delete
+delete abc
+delete 123
+delete 4
+list
 bye

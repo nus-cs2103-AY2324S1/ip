@@ -8,11 +8,11 @@ public class Duke {
     private static final HashMap<String, Command> commandMap = new HashMap<>(
             Map.of("todo", Command.TODO, "event", Command.EVENT, "mark", Command.MARK,
                     "unmark", Command.UNMARK, "list", Command.LIST, "bye", Command.EXIT,
-                    "deadline", Command.DEADLINE)
+                    "deadline", Command.DEADLINE, "delete", Command.DELETE)
     );
     private ArrayList<Task> tasks;
     private enum Command {
-        MARK, UNMARK, LIST, EXIT, TODO, DEADLINE, EVENT, INVALID
+        MARK, UNMARK, LIST, EXIT, TODO, DEADLINE, EVENT, INVALID, DELETE
     }
 
     public Duke() {
@@ -62,18 +62,23 @@ public class Duke {
                 Task task;
                 switch (cmd) {
                     case MARK:
-                        int num = Integer.parseInt(text.substring(5));
+                        int num = Integer.parseInt(text.split(" ")[1]);
                         // index out of bounds error will be caught below
                         task = this.tasks.get(num-1);
                         task.doTask();
                         System.out.println("    I've marked this task as done:");
                         break;
                     case UNMARK:
-                        int num2 = Integer.parseInt(text.substring(7));
+                        int num2 = Integer.parseInt(text.split(" ")[1]);
                         // index out of bounds error will be caught below
                         task = this.tasks.get(num2-1);
                         task.undoTask();
                         System.out.println("    I've marked this task as not done yet:");
+                        break;
+                    case DELETE:
+                        int num3 = Integer.parseInt(text.split(" ")[1]);
+                        task = this.tasks.remove(num3);
+                        System.out.println("    Noted. I've removed this task:");
                         break;
                     case TODO:
                         String description = text.substring(5);
@@ -117,9 +122,9 @@ public class Duke {
                 System.out.println("    " + task.toString());
                 System.out.println("    You currently have " + this.tasks.size() + " tasks in the list.");
             } catch (NumberFormatException e) {
-                System.out.println("Invalid task number. Please enter a valid number to mark/unmark");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("The task number you are trying to mark/unmark "
+                System.out.println("    Invalid task number. Please enter a valid number to mark/unmark");
+            } catch (IndexOutOfBoundsException e) {  // for when task number is out of bounds
+                System.out.println("    The task number you are trying to mark/unmark/delete "
                         + "does not exist yet.");
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
