@@ -1,9 +1,13 @@
 package pardiyem.parser;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Parser {
     String SPACE = " ";
-    public int parseCommand(String in) {
+    public ArrayList<String> parseCommand(String in) {
         int x = in.indexOf(SPACE);
         String command;
+        ArrayList<String> out = new ArrayList<String>(Arrays.asList("-1", "-1"));
         if (x == -1) {
             command = in;
         } else {
@@ -11,11 +15,23 @@ public class Parser {
         }
         switch (command) {
             case "bye":
-                return 1;
+                out.set(0, "1");
+                break;
             case "list":
-                return 2;
+                out.set(0, "2");
+                break;
+            case "mark":
+                out.set(0, "3");
+                out.set(1, in.substring(x+1));
+                break;
+            case "unmark":
+                out.set(0, "4");
+                out.set(1, in.substring(x+1));
+                break;
             default:
-                return 0;
+                out.set(0, "0");
+                break;
         }
+        return out;
     }
 }
