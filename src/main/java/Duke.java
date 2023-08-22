@@ -22,11 +22,11 @@ public class Duke {
             } else if (input.split(" ")[0].equals("unmark")) {
                 Task item = items.get(Integer.valueOf(input.split(" ")[1]) - 1);
                 item.undoTask();
-            }else {
+            } else {
                 printLine();
                 System.out.println("\t" + "added: " + input);
                 printLine();
-                items.add(new Task(input));
+                items.add(new ToDos(input));
             }
             input = scanner.nextLine().trim();
         }
