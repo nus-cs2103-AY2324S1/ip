@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Corgi {
     private List<String> tasks;
-    
+
     public static void main(String[] args) {
         Corgi bot = new Corgi();
         bot.start();
@@ -27,18 +27,25 @@ public class Corgi {
         Scanner sc = new Scanner(System.in);
 
         while(true) {
-            String userInput = sc.nextLine();
+            String userInput = sc.nextLine().trim();
 
-            if (!userInput.toLowerCase().equals("bye")) {
-                System.out.println(userInput);
+            if (userInput.toLowerCase().equals("bye")) {
+                System.out.println("Bye, take care and see you soon! *tail wags*");
+                break;
+            } else if (userInput.toLowerCase().equals("list")) {
+
             } else {
-                 System.out.println("Bye, take care and see you soon! *tail wags*");
-                 break;
+                this.addTask(userInput);
             }
 
             System.out.println("------------------------------------------------------------");
         }
 
         sc.close();
+    }
+
+    private void addTask(String task) {
+        this.tasks.add(task);
+        System.out.println("Added: " + task);
     }
 }
