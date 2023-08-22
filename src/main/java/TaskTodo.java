@@ -1,6 +1,6 @@
 public class TaskTodo extends Task {
-    TaskTodo(Parser input) {
-        super(input);
+    TaskTodo(String taskName) {
+        super(taskName);
         super.oneLetterAbbrev = "T";
     }
 }

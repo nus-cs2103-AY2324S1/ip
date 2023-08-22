@@ -1,9 +1,9 @@
 public class TaskDeadline extends Task {
     String deadlineDate;
-    TaskDeadline(Parser input) {
-        super(input);
+    TaskDeadline(String taskName, String deadlineDate) {
+        super(taskName);
         super.oneLetterAbbrev = "D";
-        this.deadlineDate = input.getTaggedInput("by");
+        this.deadlineDate = deadlineDate;
     }
     @Override
     public String toString() {

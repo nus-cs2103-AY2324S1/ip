@@ -1,0 +1,16 @@
+public class CommandTaskList extends Command{
+    @Override
+    public void accept(Parser input) {
+        if (Rock.taskList.size() == 0) {
+            Rock.respond("Task list is empty!");
+        } else {
+            int counter = 1;
+            String response = "Task List: ";
+            for (Task task:Rock.taskList) {
+                response += "\n" + Integer.toString(counter) + ". " + task.toString();
+                counter++;
+            }
+            Rock.respond(response);
+        }
+    }
+}

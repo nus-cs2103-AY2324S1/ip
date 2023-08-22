@@ -4,8 +4,11 @@
  * 
  * @author Alvis Ng (supermii2)
  */
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Rock {
+    public static List<Task> taskList;
     /**
      * Standardised line break used for separate input and output messages.
      */
@@ -37,16 +40,21 @@ public class Rock {
     public static void say(String words) {
         System.out.println("\t" + words);
     }
+    public static void respond(String words) {
+        String response = words + "\n" + LINE_BREAK;
+        say(response.replaceAll("\n", "\n\t"));
+    }
     /**
      * Subroutine called on startup of chatbot.
      */
     private static void onReady() {
         // Instantiate scanner object
         scanner = new Scanner(System.in);
+        //Initiate Task List
+        taskList = new ArrayList<>();
         // Intro Message
         say(LOGO);
-        say("How can I help you?"); 
-        say(LINE_BREAK);
+        respond("How can I help you?"); 
     }
     /**
      * Subroutine called to terminate chatbot.
@@ -56,8 +64,7 @@ public class Rock {
         isTerminated = true;
         scanner.close();
         //Exit Message
-        say("Bye. Hope to see you again soon");
-        say(LINE_BREAK);
+        respond("Bye. Hope to see you again soon");
     }
     /**
      * Main Program for running chatbot.
@@ -68,7 +75,7 @@ public class Rock {
         while (!isTerminated) {
             String userInput = scanner.nextLine();
             say(LINE_BREAK);
-            CommandInvoker.handle(userInput);
+            Invoker.handle(userInput);
         }
     }
 }

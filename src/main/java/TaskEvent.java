@@ -1,10 +1,10 @@
 public class TaskEvent extends Task{
     String startTime, endTime;
-    TaskEvent(Parser input) {
-        super(input);
+    TaskEvent(String taskName, String startTime, String endTime) {
+        super(taskName);
         super.oneLetterAbbrev = "E";
-        startTime = input.getTaggedInput("from");
-        endTime = input.getTaggedInput("to");
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
     @Override
     public String toString() {
