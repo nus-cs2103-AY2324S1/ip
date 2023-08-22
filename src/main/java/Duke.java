@@ -2,6 +2,10 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
+
+    public enum Activity {
+        bye, list, mark, unmark, todo, deadline, event, delete,
+    }
     public static void main(String[] args) throws DukeException {
         // welcome message
         String line = "_".repeat(40);
@@ -18,19 +22,15 @@ public class Duke {
         //looping in the program
         while (true) {
             // end the program
-            if (string.equals("bye")) {
+            if (string.equals(Activity.bye.name())) {
                 break;
 
                 // reading the list
-            } else if (string.equals("list")) {
+            } else if (string.equals(Activity.list.name())) {
                     System.out.println(line);
-                    String openingList = "Here are the tasks in your list:";
-                    System.out.println(openingList);
-                    for (int length = 1; length < list.size() + 1; length += 1) {
-                        System.out.println(length + "." + list.get(length - 1));
-                    }
+                    printList(list);
                 // marking the task to the list
-            } else if (string.startsWith("mark")) {
+            } else if (string.startsWith(Activity.mark.name())) {
                 try {
                     String[] splittedInput = string.split(" ");
                     int taskNumber = Integer.parseInt(splittedInput[1]);
@@ -49,7 +49,7 @@ public class Duke {
                     System.out.println(line + "\nOOPS!!! You chose air.");
                 }
                 // unmarking the task from the list
-            } else if (string.startsWith("unmark")) {
+            } else if (string.startsWith(Activity.unmark.name())) {
                 try {
                     String[] splittedInput = string.split(" ");
                     int taskNumber = Integer.parseInt(splittedInput[1]);
@@ -68,7 +68,7 @@ public class Duke {
                     System.out.println(line + "\nOOPS!!! You chose air.");
                 }
                 // if task is a todo
-            } else if (string.startsWith("todo")) {
+            } else if (string.startsWith(Activity.todo.name())) {
                 String addingTask = "Got it. I've added this task:";
                 int noOfTask = list.size() + 1;
                 String numberOfTask = "Now you have " + noOfTask + " tasks in the list.";
@@ -83,7 +83,7 @@ public class Duke {
                     System.out.println(output);
                 }
                 // if task is a dateline
-            } else if (string.startsWith("deadline")) {
+            } else if (string.startsWith(Activity.deadline.name())) {
                 String addingTask = "Got it. I've added this task:";
                 int noOfTask = list.size() + 1;
                 String numberOfTask = "Now you have " + noOfTask + " tasks in the list.";
@@ -105,7 +105,7 @@ public class Duke {
                     }
                 }
                 // if task is an event
-            } else if (string.startsWith("event")) {
+            } else if (string.startsWith(Activity.event.name())) {
                 String addingTask = "Got it. I've added this task:";
                 int noOfTask = list.size() + 1;
                 String numberOfTask = "Now you have " + noOfTask + " tasks in the list.";
@@ -132,15 +132,11 @@ public class Duke {
                         }
                     }
                 }
-            } else if (string.startsWith("delete")) {
+            } else if (string.startsWith(Activity.delete.name())) {
                 String[] splittedInput = string.split(" ");
                 int taskNumber = Integer.parseInt(splittedInput[1]);
-                String deletingTask = "Noted. I've removed this task:";
-                int taskInArray = list.size() - 1;
-                Task removedTask = list.remove(taskNumber - 1);
-                String numberOfTask = "Now you have " + taskInArray + " tasks in the list.";
-                output = String.format("%s\n%s\n  %s\n%s", line, deletingTask, removedTask, numberOfTask);
-                System.out.println(output);
+                System.out.println(line);
+                deleteTask(list, taskNumber);
             } else {
                 System.out.println(line + "\nOOPS!!! I'm sorry, but I don't know what that means :-C");
             }
@@ -149,5 +145,20 @@ public class Duke {
             string = sc.nextLine();
         }
         System.out.println(line + "\nBye. Hope to see you again soon!" + "\n" + line);
+    }
+    public static void printList(ArrayList<Task> list) {
+        System.out.println("Here are the tasks in your list:");
+        for (int length = 1; length < list.size() + 1; length += 1) {
+            System.out.println(length + "." + list.get(length - 1));
+        }
+    }
+
+    public static void deleteTask(ArrayList<Task> list, int taskNumber) {
+        String deletingTask = "Noted. I've removed this task:";
+        int taskInArray = list.size() - 1;
+        Task removedTask = list.remove(taskNumber - 1);
+        String numberOfTask = "Now you have " + taskInArray + " tasks in the list.";
+        String output = String.format("%s\n  %s\n%s", deletingTask, removedTask, numberOfTask);
+        System.out.println(output);
     }
 }
