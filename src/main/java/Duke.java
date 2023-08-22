@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -12,8 +13,8 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
 
         // Data
-        Task[] taskList = new Task[100];
-        int counter = 0;
+        ArrayList<Task> taskList = new ArrayList<>();
+
 
         while (true) {
             String userInput = scanner.nextLine().trim();// trim() removes leading and trailing spaces
@@ -26,7 +27,7 @@ public class Duke {
 
             // Guard list
             if (command.equals("list")) {
-                list(taskList, counter);
+                list(taskList);
                 continue;
             }
 
@@ -43,16 +44,16 @@ public class Duke {
                         unmark(taskList, userInput);
                         break;
                     case "todo":
-                        addTodo(taskList, counter, userInput);
-                        counter++;
+                        addTodo(taskList, userInput);
                         break;
                     case "deadline":
-                        addDeadline(taskList, counter, userInput);
-                        counter++;
+                        addDeadline(taskList, userInput);
                         break;
                     case "event":
-                        addEvent(taskList, counter, userInput);
-                        counter++;
+                        addEvent(taskList, userInput);
+                        break;
+                    case "delete":
+                        deleteTask(taskList, userInput);
                         break;
                     default:
                         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -75,17 +76,17 @@ public class Duke {
      * Display ordered list of tasks.
      *
      * @param taskList list of tasks.
-     * @param counter  number of tasks.
      */
-    public static void list(Task[] taskList, int counter) {
+    public static void list(ArrayList<Task> taskList) {
         // Display Ordered list
         System.out.println(Duke.lineSeparator);
         System.out.println("Here are the tasks in your list:");
 
-        for (int i = 0; i < counter; i++) {
-            Task task = taskList[i];
+        int i = 0;
+        for (Task task : taskList) {
             String description = task.toString();
             System.out.printf("%d. %s\n", i + 1, description);
+            i++;
         }
         System.out.println(Duke.lineSeparator);
     }
@@ -94,10 +95,9 @@ public class Duke {
      * Add task to task list.
      *
      * @param taskList  list of tasks.
-     * @param counter   number of tasks.
      * @param userInput user input.
      */
-    public static void add(Task[] taskList, int counter, String userInput) throws DukeException {
+    public static void add(ArrayList<Task> taskList, String userInput) throws DukeException {
         String description = userInput.split(" ", 2)[1];
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -107,25 +107,25 @@ public class Duke {
         Task userTask = new Task(description);
 
         // Display user input has been added
-        addTask(taskList, counter, userTask);
-        Duke.printAddResult(counter, userTask);
+        addTask(taskList, userTask);
+        Duke.printAddResult(taskList.size(), userTask);
     }
 
 
-    public static void addTodo(Task[] taskList, int counter, String userInput) throws DukeException {
+    public static void addTodo(ArrayList<Task> taskList, String userInput) throws DukeException {
         String description = userInput.split(" ", 2)[1];
         if (description.isEmpty()) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         ToDoTask userTask = new ToDoTask(description);
 
-        addTask(taskList, counter, userTask);
+        addTask(taskList, userTask);
 
         // Display user input has been added
-        Duke.printAddResult(counter, userTask);
+        Duke.printAddResult(taskList.size(), userTask);
     }
 
-    public static void addDeadline(Task[] taskList, int counter, String userInput) throws DukeException {
+    public static void addDeadline(ArrayList<Task> taskList, String userInput) throws DukeException {
         if (userInput.split("/by").length < 2) {
             throw new DukeException("☹ OOPS!!! The date of deadline cannot be empty.");
         }
@@ -137,11 +137,11 @@ public class Duke {
         }
 
         DeadlineTask userTask = new DeadlineTask(description, by);
-        addTask(taskList, counter, userTask);
-        Duke.printAddResult(counter, userTask);
+        addTask(taskList, userTask);
+        Duke.printAddResult(taskList.size(), userTask);
     }
 
-    public static void addEvent(Task[] taskList, int counter, String userInput) throws DukeException {
+    public static void addEvent(ArrayList<Task> taskList, String userInput) throws DukeException {
         if (userInput.split("/from").length < 2) {
             throw new DukeException("☹ OOPS!!! The date of event cannot be empty.");
         }
@@ -165,8 +165,8 @@ public class Duke {
 
         EventTask userTask = new EventTask(description, from, to);
 
-        addTask(taskList, counter, userTask);
-        Duke.printAddResult(counter, userTask);
+        addTask(taskList, userTask);
+        Duke.printAddResult(taskList.size(), userTask);
     }
 
     /**
@@ -175,10 +175,10 @@ public class Duke {
      * @param taskList  list of tasks.
      * @param userInput user input.
      */
-    public static void mark(Task[] taskList, String userInput) throws DukeException {
+    public static void mark(ArrayList<Task> taskList, String userInput) throws DukeException {
         // Get task number from user input (e.g. "done 1)
         int taskNumber = getTaskNumber(userInput);
-        Task task = taskList[taskNumber];
+        Task task = taskList.get(taskNumber);
 
         // Mark task as done
         task.mark();
@@ -194,10 +194,10 @@ public class Duke {
      * @param taskList  list of tasks.
      * @param userInput user input.
      */
-    public static void unmark(Task[] taskList, String userInput) throws DukeException {
+    public static void unmark(ArrayList<Task> taskList, String userInput) throws DukeException {
         // Get task number from user input (e.g. "done 1)
         int taskNumber = getTaskNumber(userInput);
-        Task task = taskList[taskNumber];
+        Task task = taskList.get(taskNumber);
         // Unmark task
         task.unmark();
 
@@ -206,8 +206,17 @@ public class Duke {
                 task + "\n" + Duke.lineSeparator);
     }
 
-    public static void addTask(Task[] taskList, int counter, Task task) {
-        taskList[counter] = task;
+    public static void addTask(ArrayList<Task> taskList, Task task) {
+        taskList.add(task);
+    }
+
+    public static void deleteTask(ArrayList<Task> taskList, String userInput) throws DukeException {
+        int number = getTaskNumber(userInput);
+        taskList.remove(number);
+
+        System.out.println(Duke.lineSeparator + "\n" + "Noted. I've removed this task:" + "\n"
+                + userInput + "\n" + "Now you have " + (taskList.size()) + " tasks in the list." + "\n"
+                + Duke.lineSeparator);
     }
 
     /**
@@ -223,9 +232,9 @@ public class Duke {
         return Integer.parseInt(userInput.split(" ")[1]) - 1;
     }
 
-    public static void printAddResult(int counter, Task task) {
+    public static void printAddResult(int size, Task task) {
         System.out.println(Duke.lineSeparator + "\n" + "Got it. I've added this task:" + "\n"
-                + task.toString() + "\n" + "Now you have " + (counter + 1) + " tasks in the list." + "\n"
+                + task.toString() + "\n" + "Now you have " + (size) + " tasks in the list." + "\n"
                 + Duke.lineSeparator);
     }
 
