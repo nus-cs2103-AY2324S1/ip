@@ -10,6 +10,7 @@ public class Duke {
     String goodbye = "Bye. See you again! (またね)";
 
     ArrayList<Task> taskList = new ArrayList<>();
+    UiFormatter uiFormatter = new UiFormatter();
     System.out.println(greeting);
     System.out.println(info);
 
@@ -64,9 +65,13 @@ public class Duke {
           break;
         }
         case "todo": {
-          int commandLength = commandString.length()+1;
+          int commandLength = commandString.length() + 1;
           String taskName = inputString.substring(commandLength);
-          System.out.println(taskName);
+          Task curentTask = new Todo(taskName);
+          taskList.add(curentTask);
+
+          System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+
           break;
         }
         default:
