@@ -6,20 +6,27 @@ public class Duke {
     public static Task[] taskList = new Task[100];
     public static int taskListIndex = 0;
 
-    public static String printDone(int index) {
+    public static String printDoneState(int index) {
         Task task = taskList[index - 1];
         return "[" + (task.getDone() ? "X" : " ") + "] " + task;
+    }
+    public static void unmark(int index) {
+        Task target = taskList[index - 1];
+        target.setDone(false);
+        System.out.println("I've marked this task as not done yet...");
+        System.out.println("    " + printDoneState(index));
+        System.out.println("--------------------------------");
     }
     public static void markAsDone(int index) {
         Task target = taskList[index - 1];
         target.setDone(true);
         System.out.println("I've marked this as done...");
-        System.out.println("    " + printDone(index));
+        System.out.println("    " + printDoneState(index));
         System.out.println("--------------------------------");
     }
     public static void listTask() {
         for (int i = 1; i <= taskListIndex; i++) {
-            System.out.println("    " + i + ". " + printDone(i));
+            System.out.println("    " + i + ". " + printDoneState(i));
         }
         System.out.println("--------------------------------");
     }
@@ -52,7 +59,10 @@ public class Duke {
                 listTask();
             } else if (input[0].equals("mark")) {
                 markAsDone(Integer.parseInt(input[1]));
-            } else {
+            } else if (input[0].equals("unmark")) {
+                unmark(Integer.parseInt(input[1]));
+            }
+            else {
                 addTask(String.join(" ", input));
             }
             input = input();
