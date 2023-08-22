@@ -73,11 +73,7 @@ public class Pooh {
                 userInput.close();
                 System.exit(0);
             } else if (userCmd.equalsIgnoreCase("list")) {
-                if (todoList.isEmpty()) {
-                    generalRespond("      No tasks added. Add one now!");
-                } else {
-                    printTasksMsg(todoList);
-                }
+                printTasksMsg(todoList);
             } else if (userCmd.startsWith("mark ")) {
                 int index = Integer.parseInt(userCmd.split(" ")[1]) - 1;
                 Task task = todoList.get(index);
