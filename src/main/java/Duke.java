@@ -80,6 +80,14 @@ public class Duke {
                     System.out.printf("Got it. I've added this task:\n" +
                             "%s\n" + "Now you have %d tasks in the list.\n" +
                             "----------\n", task, list.size());
+                } else if (formattedInput[0].equals("delete")) {
+                    if (formattedInput.length == 1) throw new DukeException("The task number to mark cannot be empty.");
+                    int taskNumber = Integer.parseInt(formattedInput[1]);
+                    if (taskNumber > list.size() || taskNumber < 1) throw new DukeException("Invalid task number");
+                    Task task = list.remove(taskNumber - 1);
+                    System.out.printf("Noted. I've removed this task:\n" +
+                            "%s\n" + "Now you have %d tasks in the list.\n" +
+                            "----------\n", task, list.size());
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
