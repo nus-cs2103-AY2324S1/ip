@@ -1,14 +1,16 @@
 import ip.utils.Pair;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  * Main Program for the application. <br>
  * As of Level-0, this has been renamed from Duke to TrackerBot
  * as part of the requirements for the iP.
+ * Level-5 was skipped as TrackerBot had been handling error messages throughout its lifespan.
  *
  * @author WZWren
- * @version Level-3
+ * @version Level-6
  */
 public class TrackerBot {
   /** Name of the app. **/
@@ -23,10 +25,7 @@ public class TrackerBot {
    * The Task List array itself should be immutable, in case we override it
    * during runtime.
    */
-  private static final Task[] TASK_LIST = new Task[100];
-
-  /** Tracks the number of items in the task list. */
-  private static int taskCounter = 0;
+  private static final ArrayList<Task> TASK_LIST = new ArrayList<>();
 
   /**
    * Greet function of the app. <br>
@@ -53,21 +52,20 @@ public class TrackerBot {
    */
   private static void list() {
     // happy path: prints an appropriate message and exit the method.
-    if (taskCounter == 0) {
+    if (TASK_LIST.size() == 0) {
       System.out.println("No tasks have been added to the list yet.");
       return;
     }
 
     System.out.println("I am tracking these tasks:");
-    for (int i = 1; i < taskCounter + 1; i++) {
-      System.out.println(i + ". " + TASK_LIST[i - 1].toString());
+    for (int i = 1; i < TASK_LIST.size() + 1; i++) {
+      System.out.println(i + ". " + TASK_LIST.get(i - 1));
     }
   }
 
   /**
    * Function that adds a task to the app. <br>
    * Adds a To-Do, Event or Deadline task to the task list.
-   * We do not handle the OutOfBounds case as the tasks is assumed to be less than 100.
    * @param input The Pair&lt;Command, String&gt; of the task to add to the list.
    */
   private static void add(Pair<Command, String> input) {
@@ -138,8 +136,7 @@ public class TrackerBot {
         System.out.println("That wasn't supposed to happen...");
         return;
     }
-    TASK_LIST[taskCounter] = newTask;
-    taskCounter++;
+    TASK_LIST.add(newTask);
 
     System.out.println("Now tracking: \n  " + newTask);
   }
@@ -151,10 +148,10 @@ public class TrackerBot {
    */
   private static Task getTask(int index) {
     // happy path: return null if out of bounds.
-    if (index <= 0 || index > taskCounter + 1) {
+    if (index <= 0 || index > TASK_LIST.size()) {
       return null;
     }
-    return TASK_LIST[index - 1];
+    return TASK_LIST.get(index - 1);
   }
 
   /**
