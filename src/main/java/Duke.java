@@ -7,9 +7,9 @@ public class Duke {
         int taskCount = 0;
         System.out.println(
                 "____________________________________________________________\n" +
-                        "Hello! I'm Ding!\n" +
-                        "What can I do for you?\n" +
-                        "____________________________________________________________\n");
+                "Hello! I'm Ding!\n" +
+                "What can I do for you?\n" +
+                "____________________________________________________________\n");
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         while (!str.equals("bye")) {
