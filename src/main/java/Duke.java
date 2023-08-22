@@ -39,6 +39,13 @@ public class Duke {
                 }
                 
             } else if (str.startsWith("unmark")) {
+                try {
+                    validateInput(str, 7);
+                } catch (UserInputException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+
                 int stringLength = str.length();
                 int index = Integer.parseInt(str.substring(stringLength - 1)) - 1;
                 
@@ -49,6 +56,13 @@ public class Duke {
                 System.out.println(task.getStatusIcon() + " " + task.description);
 
             } else if (str.startsWith("mark")) {
+                try {
+                    validateInput(str, 5);
+                } catch (UserInputException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+
                 int stringLength = str.length();
                 int index = Integer.parseInt(str.substring(stringLength - 1)) - 1;
 
@@ -59,17 +73,35 @@ public class Duke {
                 System.out.println(task.getStatusIcon() + " " + task.description);
 
             } else {
-                System.out.println("Got it. I've added this task:");
-
-                if (str.startsWith("todo")) {
+                if (!(str.startsWith("todo") && str.startsWith("event") 
+                        && str.startsWith("deadline"))) {
+                    System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    continue;
+                } else if (str.startsWith("todo")) {
+                    try {
+                        validateInput(str, 5);
+                    } catch (UserInputException e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+    
                     String[] moreStrings = str.split(" ", 2);
 
                     Task todo = new Todo(moreStrings[1]);
                     taskForce.add(todo);
+
+                    System.out.println("Got it. I've added this task:");
                     System.out.println(todo.getTypeIcon() + 
                                         todo.getStatusIcon() + " " + todo.description);
 
                 } else if (str.startsWith("deadline")) {
+                    try {
+                        validateInput(str, 9);
+                    } catch (UserInputException e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+
                     String[] moreStrings = str.split("/");
                     String[] pullStrings = moreStrings[0].split(" ", 2);
 
@@ -78,11 +110,19 @@ public class Duke {
                     Task deadline = new Deadline(pullStrings[1], returnBy);
                     taskForce.add(deadline);
 
+                    System.out.println("Got it. I've added this task:");
                     System.out.println(deadline.getTypeIcon() + deadline.getStatusIcon()
                                         + " " + deadline.description
                                             + " " + deadline.getExtras());
 
                 } else if (str.startsWith("event")) {
+                    try {
+                        validateInput(str, 6);
+                    } catch (UserInputException e) {
+                        System.out.println(e.getMessage());
+                        continue;
+                    }
+
                     String[] moreStrings = str.split("/");
                     String[] pullStrings = moreStrings[0].split(" ", 2);
 
@@ -92,10 +132,11 @@ public class Duke {
                     Task event = new Event(pullStrings[1], from, to);
                     taskForce.add(event);
 
+                    System.out.println("Got it. I've added this task:");
                     System.out.println(event.getTypeIcon() + event.getStatusIcon()
                                         + " " + event.description
                                             + " " + event.getExtras());
-                }
+                } 
 
                 System.out.println("Now you have " + taskForce.size() + " tasks in the list.");
             }
@@ -104,5 +145,11 @@ public class Duke {
         sc.close();
         System.out.println("Bye. Hope to see you again soon!");
 
+    }
+
+    public static void validateInput(String str, int minimum) throws UserInputException {
+        if (str.length() <= minimum) {
+            throw new UserInputException("OOPS!!! The description of a " + str + " cannot be empty.");
+        }
     }
 }
