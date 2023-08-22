@@ -1,6 +1,6 @@
 package tasks;
 
-import exceptions.ShibaException;
+import exceptions.InvalidCommandException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,10 +14,10 @@ public class EventTask extends ShibaTask {
      * @param cmd The command to be parsed.
      * @return The EventTask parsed from the command, or null if the command is invalid.
      */
-    public static EventTask fromCmd(String cmd) throws ShibaException {
+    public static EventTask fromCmd(String cmd) throws InvalidCommandException {
         String[] cmdSplit = cmd.split(" ", 2);
         if (cmdSplit.length != 2) {
-            throw new ShibaException("Event name should not be empty!");
+            throw new InvalidCommandException("Event name should not be empty!");
         }
 
         Matcher matcher1 = option1Regex.matcher(cmdSplit[1]);
@@ -30,7 +30,7 @@ public class EventTask extends ShibaTask {
             return new EventTask(matcher2.group(1), matcher2.group(3), matcher2.group(2));
         }
 
-        throw new ShibaException("Invalid event format! Event name, /from and /to parameters must be present and not empty.");
+        throw new InvalidCommandException("Invalid event format! Event name, /from and /to parameters must be present and not empty.");
     }
 
     private final String startTime;

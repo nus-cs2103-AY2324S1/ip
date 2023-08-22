@@ -6,6 +6,9 @@
      Woof! You have no tasks in the list - go browse some Reddit!
     ____________________________________________________________
     ____________________________________________________________
+     Woof! You don't have any tasks yet!
+    ____________________________________________________________
+    ____________________________________________________________
      Woof! I've added this task:
        [T][ ] Do tutorials
      You now have 1 task in the list. Now gimme some treats.
@@ -72,6 +75,14 @@
     ____________________________________________________________
     ____________________________________________________________
      Woof! Invalid event format! Event name, /from and /to parameters must be present and not empty.
+    ____________________________________________________________
+    ____________________________________________________________
+     Woof! Please specify a valid task number!
+    ____________________________________________________________
+    ____________________________________________________________
+     Woof! I've deleted this task:
+       [D][ ] Prepare for CA1 (by: 14 Sept)
+     You now have 2 tasks in the list. Some headpats please?
     ____________________________________________________________
     ____________________________________________________________
      Woof! Hope to bark at you again soon!
