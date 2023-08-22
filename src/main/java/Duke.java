@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Duke {
     private static final String NAME = "Jimmy";
+    private static final int MAX_ENTRIES = 100;
+    private static final String[] tasks = new String[MAX_ENTRIES];
+    private static int cursor = 0;
 
     private static void print(String... strings) {
         for (String s : strings) {
@@ -18,22 +21,34 @@ public class Duke {
         print("Bye. Hope to see you again soon!");
     }
 
-    private static void echo(String s) {
-        print(s);
+    private static void list() {
+        for (int i = 0; i < cursor; i++) {
+            String taskEntry = String.format("%d. %s", i + 1, tasks[i]);
+            print(taskEntry);
+        }
     }
 
     public static void main(String[] args) {
         greet();
 
+        boolean shouldTerminate = false;
         Scanner sc = new Scanner(System.in);
 
-        while (sc.hasNextLine()) {
+        while (!shouldTerminate && sc.hasNextLine()) {
             String command = sc.nextLine();
 
-            if (command.equals("bye")) break;
-            echo(command);
+            switch (command) {
+                case "bye":
+                    farewell();
+                    shouldTerminate = true;
+                    break;
+                case "list":
+                    list();
+                    break;
+                default:
+                    tasks[cursor++] = command;
+                    print(String.format("added: %s", command));
+            }
         }
-
-        farewell();
     }
 }
