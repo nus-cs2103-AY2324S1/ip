@@ -1,8 +1,11 @@
 public class Deadline extends Task {
     private String date;
 
-    Deadline(String task, String date) {
+    public Deadline(String task, String date) throws DukeException{
         super(task);
+        if (date.isEmpty() || date.equals(" ")) {
+            throw new DukeException("What is your DEADLINE???\n");
+        }
         this.date = date;
     }
 

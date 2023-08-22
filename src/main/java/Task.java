@@ -2,7 +2,10 @@ public class Task {
     private boolean finish;
     private String task;
 
-    Task (String task) {
+    public Task (String task) throws DukeException{
+        if (task.isEmpty() || task.equals(" ")) {
+            throw new DukeException("Description is EMPTY!!!\n");
+        }
         this.finish = false;
         this.task = task;
     }
