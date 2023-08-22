@@ -1,12 +1,8 @@
 import java.util.Scanner;
 public class Sara {
-
-    private static final int MAX_TASKS = 100;
-    private static String[] tasks = new String[MAX_TASKS];
-    private static int taskCount = 0;
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        TaskManager taskManager = new TaskManager();
 
         System.out.println("    ____________________________________________________________");
         System.out.println("     Hello! I'm Sara");
@@ -23,10 +19,25 @@ public class Sara {
                 System.out.println("    ____________________________________________________________");
                 break;
 
-            } else if("list".equalsIgnoreCase(userInput)) {
-                listTask();
+            } else if ("list".equalsIgnoreCase(userInput)) {
+                taskManager.printTasks();
+            } else if (userInput.startsWith("mark")){
+                int index = Integer.parseInt(userInput.split(" ")[1]);
+                taskManager.taskDone((index));
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     Nice! I've marked this task as done:");
+                System.out.println("       " + taskManager.getTask(index));
+                System.out.println("    ____________________________________________________________");
+
+            } else if (userInput.startsWith("umark")) {
+                int index = Integer.parseInt(userInput.split(" ")[1]);
+                taskManager.unMarktask(index);
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     OK, I've marked this task as not done yet:");
+                System.out.println("       " + taskManager.getTask(index));
+                System.out.println("    ____________________________________________________________");
             } else {
-                addTask(userInput);
+                taskManager.addTask(userInput);
                 System.out.println("     added: " + userInput);
                 System.out.println("    ____________________________________________________________");
 
@@ -35,20 +46,5 @@ public class Sara {
 
         scanner.close();
     }
-
-    private static void addTask (String t) {
-        if (taskCount < MAX_TASKS) {
-            tasks[taskCount] = t;
-            taskCount++;
-        } else {
-            System.out.println("     Error: Task list is full!");
-        }
-    }
-
-    private static void listTask() {
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println("     " + (i + 1) + ". " + tasks[i]);
-        }
-        System.out.println("    ____________________________________________________________");
-    }
 }
+
