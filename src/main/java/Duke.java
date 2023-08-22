@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     private final static String CHATBOT_NAME = "Fluke";
     private final static String LOGO =
@@ -9,10 +11,25 @@ public class Duke {
             "                          ";
 
     public static void main(String[] args) {
+        // introduce Fluke
         System.out.println(LOGO);
         addHorizontalLine();
         greet();
-        sayBye();
+        // initialise scanner to check for user input
+        Scanner scanner = new Scanner(System.in);
+        boolean waitingForInput = true;
+        while (waitingForInput) {
+            // check for user commands
+            String nextCommand = scanner.nextLine();
+            switch (nextCommand) {
+                case "bye":
+                    waitingForInput = false;
+                    sayBye();
+                    break;
+                default:
+                    echo(nextCommand);
+            }
+        }
     }
 
     private static void greet() {
@@ -30,5 +47,10 @@ public class Duke {
 
     private static void addHorizontalLine() {
         System.out.println("____________________________________________________________");
+    }
+
+    private static void echo(String str) {
+        System.out.println(str);
+        addHorizontalLine();
     }
 }
