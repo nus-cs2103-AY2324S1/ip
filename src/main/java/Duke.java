@@ -7,16 +7,32 @@ public class Duke {
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
 
-        ArrayList<String> statements = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         Scanner in = new Scanner(System.in);
         boolean run = true;
         while (run) {
             String line = in.nextLine();
-            switch (line) {
+            String[] split = line.split(" ");
+            switch (split[0]) {
+                case "mark":
+                    int index = Integer.parseInt(split[1]) - 1;
+                    Task task = tasks.get(index);
+                    task.markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(task);
+                    break;
+                case "unmark":
+                    index = Integer.parseInt(split[1]) - 1;
+                    task = tasks.get(index);
+                    task.markAsUndone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(task);
+                    break;
                 case "list":
-                    for (int i = 0; i < statements.size(); i++) {
-                        System.out.println((i + 1) + ". " + statements.get(i));
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + "." + tasks.get(i));
                     }
                     break;
                 case "bye":
@@ -24,7 +40,8 @@ public class Duke {
                     run = false;
                     break;
                 default:
-                    statements.add(line);
+                    Task newTask = new Task(line);
+                    tasks.add(newTask);
                     System.out.println("added: " + line);
             }
         }
