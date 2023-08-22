@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Exceptions.AlyssaArgumentException;
+
 /**
  * This class represents the main program.
  */
@@ -36,9 +38,10 @@ public class Alyssa {
         }
         System.out.println(line);
     }
-    private static void markTask(int index) throws Exception {
+    private static void markTask(String rest) throws AlyssaArgumentException, NumberFormatException {
+        int index = Integer.valueOf(rest); //this could throw a NumberFormatException if rest is not a number
         if (index < 1 || index > taskList.size()) {
-            throw new Exception("Invalid index");
+            throw new AlyssaArgumentException("Invalid task number");
         }
         Task task = taskList.get(index - 1);
         task.markAsDone();
@@ -47,9 +50,10 @@ public class Alyssa {
         System.out.println(task.toString());
         System.out.println(line);
     }
-    private static void unmarkTask(int index) throws Exception {
+    private static void unmarkTask(String rest) throws AlyssaArgumentException, NumberFormatException {
+        int index = Integer.valueOf(rest); //this could throw a NumberFormatException if rest is not a number
         if (index < 1 || index > taskList.size()) {
-            throw new Exception("Invalid index");
+            throw new AlyssaArgumentException("Invalid task number");
         }
         Task task = taskList.get(index - 1);
         task.markAsUndone();
@@ -58,7 +62,10 @@ public class Alyssa {
         System.out.println(task.toString());
         System.out.println(line);
     }
-    private static void addTodo(String desc) throws Exception, StringIndexOutOfBoundsException {
+    private static void addTodo(String desc) throws AlyssaArgumentException {
+        if (desc.isEmpty()) {
+            throw new AlyssaArgumentException("Please specify a description for the todo.");
+        }
         Task newTodo = new Todo(desc);
         taskList.add(newTodo);
         System.out.println(line);
@@ -67,8 +74,11 @@ public class Alyssa {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
         System.out.println(line);
     }
-    private static void addDeadline(String rest) throws Exception {
+    private static void addDeadline(String rest) throws AlyssaArgumentException {
         String[] parsed = rest.split(" /by ");
+        if (parsed.length < 2) {
+            throw new AlyssaArgumentException("Incorrect deadline syntax. Syntax: deadline desc /by date");
+        }
         String desc = parsed[0];
         String by = parsed[1];
         Task newDeadline = new Deadline(desc, by);
@@ -79,8 +89,11 @@ public class Alyssa {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
         System.out.println(line);
     }
-    private static void addEvent(String rest) throws Exception {
+    private static void addEvent(String rest) throws AlyssaArgumentException {
         String[] parsed = rest.split(" /from | /to ");
+        if (parsed.length < 3) {
+            throw new AlyssaArgumentException("Incorrect event syntax. Syntax: event desc /from date /to date");
+        }
         String desc = parsed[0];
         String from = parsed[1];
         String to = parsed[2];
@@ -92,9 +105,10 @@ public class Alyssa {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
         System.out.println(line);
     }
-    private static void deleteTask(int index) throws Exception {
+    private static void deleteTask(String rest) throws AlyssaArgumentException, NumberFormatException {
+        int index = Integer.valueOf(rest); //this could throw a NumberFormatException if rest is not a number
         if (index < 1 || index > taskList.size()) {
-            throw new Exception("Invalid index");
+            throw new AlyssaArgumentException("Invalid task number");
         }
         Task toDelete = taskList.get(index - 1);
         System.out.println(line);
@@ -120,59 +134,67 @@ public class Alyssa {
                 break;
             case MARK:
                 try {
-                    markTask(Integer.valueOf(rest));
-                } catch (Exception e) {
+                    markTask(rest);
+                } catch (NumberFormatException e) {
                     System.out.println(line);
-                    System.out.println("Please enter a valid task number.");
+                    System.out.println(e.getMessage());
+                    System.out.println(line);
+                } catch (AlyssaArgumentException e) {
+                    System.out.println(line);
+                    System.out.println(e.getMessage());
                     System.out.println(line);
                 }
                 break;
             case UNMARK:
                 try {
-                    unmarkTask(Integer.valueOf(rest));
-                } catch (Exception e) {
+                    unmarkTask(rest);
+                } catch (NumberFormatException e) {
                     System.out.println(line);
-                    System.out.println("Please enter a valid task number.");
+                    System.out.println(e.getMessage());
+                    System.out.println(line);
+                } catch (AlyssaArgumentException e) {
+                    System.out.println(line);
+                    System.out.println(e.getMessage());
                     System.out.println(line);
                 }
                 break;
             case TODO:
                 try {
                     addTodo(rest);
-                } catch (StringIndexOutOfBoundsException e) {
+                } catch (AlyssaArgumentException e) {
                     System.out.println(line);
-                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
-                    System.out.println(line);
-                } catch (Exception e) {
-                    System.out.println(line);
-                    System.out.println("Please enter a legitimate task number.");
+                    System.out.println(e.getMessage());
                     System.out.println(line);
                 }
                 break;
             case DEADLINE:
                 try {
                     addDeadline(rest);
-                } catch (Exception e) {
+                } catch (AlyssaArgumentException e) {
                     System.out.println(line);
-                    System.out.println("Please enter a legitimate deadline.");
+                    System.out.println(e.getMessage());
                     System.out.println(line);
                 }
                 break;
             case EVENT:
                 try {
                     addEvent(rest);
-                } catch (Exception e) {
+                } catch (AlyssaArgumentException e) {
                     System.out.println(line);
-                    System.out.println("Please enter a legitimate event.");
+                    System.out.println(e.getMessage());
                     System.out.println(line);
                 }
                 break;
             case DELETE:
                 try {
-                    deleteTask(Integer.valueOf(rest));
-                } catch (Exception e) {
+                    deleteTask(rest);
+                } catch (AlyssaArgumentException e) {
                     System.out.println(line);
-                    System.out.println("Please enter a legitimate task to delete.");
+                    System.out.println(e.getMessage());
+                    System.out.println(line);
+                } catch (NumberFormatException e) {
+                    System.out.println(line);
+                    System.out.println(e.getMessage());
                     System.out.println(line);
                 }
                 break;
@@ -181,30 +203,7 @@ public class Alyssa {
         }
     }
     //CHECKSTYLE.ON: Indentation
-    //CHECKSTYLE.OFF: Indentation
-    private static Command assignCommand(String cmd) {
-        switch (cmd) {
-            case "bye":
-                return Command.BYE;
-            case "list":
-                return Command.LIST;
-            case "mark":
-                return Command.MARK;
-            case "unmark":
-                return Command.UNMARK;
-            case "todo":
-                return Command.TODO;
-            case "event":
-                return Command.EVENT;
-            case "deadline":
-                return Command.DEADLINE;
-            case "delete":
-                return Command.DELETE;
-            default:
-                return Command.INVALID;
-        }
-    }
-    //CHECKSTYLE.ON: Indentation
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         taskList = new ArrayList<>();
@@ -215,7 +214,7 @@ public class Alyssa {
             String nextInput = sc.nextLine();
             String[] parsedInput = nextInput.split(" ", 2);
             String commandString = parsedInput[0];
-            command = assignCommand(commandString);
+            command = Command.assignCommand(commandString);
             String rest = parsedInput.length > 1 ? parsedInput[1] : "";
             run(command, rest);
             if (command == Command.BYE) {
