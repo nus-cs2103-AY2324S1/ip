@@ -21,10 +21,36 @@ public class MYBot {
         System.out.println("____________________________________________________________");
     }
 
-    public void addTask(String task){
-        task_List.addTask(task);
+    public void addTask(String input){
         System.out.println("____________________________________________________________");
-        System.out.println("added: " + task);
+        System.out.println("Got it. I've added this task:");
+
+        if(input.startsWith("todo ")){
+
+            String description = input.substring(5);
+            Task task = new Todo(description);
+            task_List.addTask(task);
+            System.out.println(task.toString());
+
+        } else if (input.startsWith("deadline ")){
+
+            String description = input.substring(9,input.indexOf(" /by "));
+            String by = input.substring(input.indexOf(" /by ") + 4);
+            Task task = new Deadline(description, by);
+            task_List.addTask(task);
+            System.out.println(task.toString());
+
+        } else if ((input.startsWith("event "))) {
+
+            String description = input.substring(6,input.indexOf(" /from "));
+            String from = input.substring(input.indexOf(" /from ") + 6, input.indexOf(" /to "));
+            String to = input.substring(input.indexOf(" /to ") + 4);
+            Task task = new Event(description, from, to);
+            task_List.addTask(task);
+            System.out.println(task.toString());
+        }
+
+        System.out.println("Now you have " + task_List.getTask_Count() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
@@ -35,7 +61,7 @@ public class MYBot {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++){
-            System.out.println((i+1) + "." + "["+ tasks[i].getStatusIcon() + "]" + tasks[i].getDescription());
+            System.out.println((i+1) + "." + tasks[i].toString());
         }
         System.out.println("____________________________________________________________");
     }
@@ -48,7 +74,7 @@ public class MYBot {
             taskTobeMarked.taskDone();
 
             System.out.println("Good job completing! I've marked these task as done:):");
-            System.out.println("[" + taskTobeMarked.getStatusIcon() + "]" + taskTobeMarked.getDescription());
+            System.out.println(taskTobeMarked.toString());
         } else {
             System.out.println("Oops! Task not found:(");
         }
@@ -65,7 +91,7 @@ public class MYBot {
             taskTobeMarked.undoTask();
 
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[" + taskTobeMarked.getStatusIcon() + "]" + taskTobeMarked.getDescription());
+            System.out.println(taskTobeMarked.toString());
         } else {
             System.out.println("Oops! Task not found:(");
         }

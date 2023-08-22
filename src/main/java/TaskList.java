@@ -7,9 +7,8 @@ public class TaskList {
         task_Count = 0;
     }
 
-    public void addTask(String task){
-        Task newTask = new Task(task);
-        task_List[task_Count] = newTask;
+    public void addTask(Task task){
+        task_List[task_Count] = task;
         task_Count++;
     }
 

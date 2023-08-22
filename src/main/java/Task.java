@@ -7,11 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getDescription(){
+    private String getDescription(){
         return description;
     }
 
@@ -21,5 +21,10 @@ public class Task {
 
     public void undoTask() {
         isDone = false;
+    }
+
+    @Override
+    public String toString(){
+        return " [" + getStatusIcon() + "] " + getDescription();
     }
 }
