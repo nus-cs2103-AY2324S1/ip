@@ -1,6 +1,5 @@
 import java.util.Scanner;
 public class Duke {
-
     static String indent = "   ";
     static String megaIndent = "     ";
     static String horizontalLines = indent  + "__________________________________________";
@@ -30,7 +29,8 @@ public class Duke {
 
         System.out.println(horizontalLines);
         System.out.println(indent + "Got it. I've added this task:");
-        System.out.println(megaIndent + taskArray[count].toString());
+        System.out.println(megaIndent + taskArray[count].toS
+                tring());
         count++;
 
         System.out.println(indent + "Now you have " + count + " tasks in the list.");
