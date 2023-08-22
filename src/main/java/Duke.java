@@ -2,6 +2,7 @@ import java.util.Objects;
 import java.util.Scanner;
 public class Duke {
     private static final String SEPARATOR_LINE = "____________________________________________________________";
+    private static ListContainer listContainer = new ListContainer();
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -24,7 +25,16 @@ public class Duke {
         while (!Objects.equals(inputString, "bye")) {
             inputString = keyboard.nextLine();
 
-            System.out.println(inputString);
+//            System.out.println(inputString);
+            System.out.println(SEPARATOR_LINE);
+
+            if (inputString.equals("list")) {
+                // output the list
+                System.out.println(listContainer.toString());
+            } else {
+                // add to the list
+                listContainer.addToList(inputString);
+            }
             System.out.println(SEPARATOR_LINE);
         }
 
