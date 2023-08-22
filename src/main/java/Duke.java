@@ -26,16 +26,34 @@ public class Duke {
         return stringFormat(new String[]{input});
     }
 
-    private static String addToList(String taskName) {
-        Task taskObj = new Task(taskName);
+    private static String addToList(String description) {
+        // Split by the first " " into type, and task details
+        String taskType = description.split(" ", 2)[0];
+        String taskDetails = description.split(" ", 2)[1];
+        Task taskObj;
+        if (taskType.equals("deadline")) {
+            taskObj = new Deadline(taskDetails);
+        } else if (taskType.equals("event")) {
+            taskObj = new Event(taskDetails);
+        } else {
+            taskObj = new Todo(taskDetails);
+        }
+
         lst.add(taskObj);
-        return stringFormat(new String[]{"added: " + taskName});
+        return stringFormat(new String[]{"New task added: ", "\t" + taskObj.toString(),
+                "You now have " + lst.size() + (lst.size() == 1 ? " task!" : " tasks!")});
     }
 
     private static String displayList() {
-        String[] tasks = new String[lst.size()];
+        String[] tasks = new String[lst.size() + 1];
+        if (lst.isEmpty()) {
+            tasks[0] = "You currently have no tasks.";
+        } else {
+            tasks[0] = "Here are your tasks!";
+        }
+
         for (int i = 0; i < lst.size(); i++) {
-            tasks[i] = (i + 1) + ". " + lst.get(i).toString();
+            tasks[i + 1] = (i + 1) + ". " + lst.get(i).toString();
         }
         return stringFormat(tasks);
     }
@@ -43,7 +61,7 @@ public class Duke {
     private static String markDoneOrNot(int index, boolean doneOrNot) {
         lst.get(index - 1).SetDoneOrNot(doneOrNot);
         String statement = doneOrNot ? "Nice! You completed a task!" : "... This is now undone.";
-        return stringFormat(new String[]{statement, lst.get(index - 1).toString()});
+        return stringFormat(new String[]{statement, "\t" + lst.get(index - 1).toString()});
     }
 
     public static void main(String[] args) {
@@ -62,7 +80,7 @@ public class Duke {
             if (nextLine.equals("list")) {
                 System.out.println(displayList());
 
-            } else if (nextLine.contains("mark")) {
+            } else if (nextLine.contains("mark")) { // if command is to mark or unmark
                 String[] markIndex = nextLine.split(" ");
                 int index = Integer.parseInt(markIndex[1]);
                 boolean doneOrNot = true;
@@ -76,7 +94,7 @@ public class Duke {
                 sc.close();
                 break;
 
-            } else {
+            } else { // if command is to add tasks
                 System.out.println(addToList(nextLine));
             }
         }
