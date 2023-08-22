@@ -50,7 +50,16 @@ public class Task {
      * Prints out a message that a task has been added
      */
     public void taskAdded(int noOfTask) {
-        System.out.println("added: " + this.taskName);
+        System.out.println("Got it. I've added this task:");
+        System.out.println("  " + this.toString());
+        System.out.println("Now you have " + noOfTask + " tasks in the list.");
+    }
+    /**
+     * Prints out a message that a task has been deleted
+     */
+    public void taskDeleted(int noOfTask) {
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println("  " + this.toString());
         System.out.println("Now you have " + noOfTask + " tasks in the list.");
     }
 

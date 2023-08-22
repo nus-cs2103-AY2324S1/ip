@@ -11,15 +11,6 @@ public class ToDos extends Task {
     public ToDos(String taskName) {
         super(taskName);
     }
-    /**
-     * Prints out a message that a To-Do task has been added
-     */
-    @Override
-    public void taskAdded(int noOfTask) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + this.toString());
-        System.out.println("Now you have " + noOfTask + " tasks in the list.");
-    }
 
     /**
      * taskValidator does nothing if there are no wrong inputs but throws a WrongInputException

@@ -1,8 +1,4 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.function.Function;
+import java.util.*;
 
 public class Duke {
     public static final int DEADLINEOFFSET = 9;
@@ -10,8 +6,8 @@ public class Duke {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] taskStorage = new Task[100];
-        int storageIndex = 0;
+        ArrayList<Task> taskList = new ArrayList<>();
+        int totalItemNumber = 0;
 
         String chatBotName = "Benedict Cucumber Badge";
         System.out.println("Hello! I'm " + chatBotName);
@@ -33,9 +29,8 @@ public class Duke {
                             break;
                         case LIST:
                             System.out.println("Here are the tasks in your list:");
-                            for (int i = 0; i < storageIndex; i++) {
-                                int itemNumber = i + 1;
-                                System.out.println(itemNumber + ". " + taskStorage[i].toString());
+                            for (int i = 0; i < totalItemNumber; i++) {
+                                System.out.println(i + 1 + ". " + taskList.get(i).toString());
                             }
                             break;
                         case UNMARK:
@@ -44,23 +39,24 @@ public class Duke {
                             // The input after the mark word should be task no (which should be index 1)
                             int taskNumberUnmark = Integer.parseInt(splitString[1]);
                             // The above should throw a NumberFormatException
-                            Task selectedTaskUnmark = taskStorage[taskNumberUnmark - 1];
+                            Task selectedTaskUnmark = taskList.get(taskNumberUnmark - 1);
                             selectedTaskUnmark.undoTask();
                             break;
                         case MARK:
                             // The input after the mark word should be task no (which should be index 1)
                             int taskNumberMark = Integer.parseInt(splitString[1]);
                             // The above should throw a NumberFormatException
-                            Task selectedTaskMark = taskStorage[taskNumberMark - 1];
+                            Task selectedTaskMark = taskList.get(taskNumberMark - 1);
                             selectedTaskMark.completeTask();
                             break;
                         case TODO:
                             // Test whether a ToDos input is valid
                             ToDos.taskValidator(input);
                             // for To-Dos anything after the command is task name
-                            taskStorage[storageIndex] = new ToDos(splitString[1]);
-                            taskStorage[storageIndex].taskAdded(storageIndex + 1);
-                            storageIndex++;
+                            Task toDo = new ToDos(input.substring(5));
+                            taskList.add(toDo);
+                            totalItemNumber++;
+                            toDo.taskAdded(totalItemNumber);
                             break;
                         case DEADLINE:
                             // Test whether a deadline's input is valid
@@ -72,9 +68,9 @@ public class Duke {
                             // Hardcoded because we know how words are positioned
                             String taskNameDeadline = segementedString[0].substring(DEADLINEOFFSET);
                             Task deadlineTask = new Deadline(taskNameDeadline, deadline);
-                            taskStorage[storageIndex] = deadlineTask;
-                            taskStorage[storageIndex].taskAdded(storageIndex + 1);
-                            storageIndex++;
+                            taskList.add(deadlineTask);
+                            totalItemNumber++;
+                            deadlineTask.taskAdded(totalItemNumber);
                             break;
                         case EVENT:
                             // Test whether a event's input is valid
@@ -86,19 +82,30 @@ public class Duke {
                             String start = segmentedViaTo[0];
                             String end = segmentedViaTo[1];
                             Task event = new Event(taskNameEvent, start, end);
-                            taskStorage[storageIndex] = event;
-                            taskStorage[storageIndex].taskAdded(storageIndex + 1);
-                            storageIndex++;
+                            taskList.add(event);
+                            totalItemNumber++;
+                            event.taskAdded(totalItemNumber);
                             break;
+                        case DELETE:
+                            int taskNumberDelete = Integer.parseInt(splitString[1]);
+                            Task toDeleteTask = taskList.get(taskNumberDelete - 1);
+                            taskList.remove(taskNumberDelete - 1);
+                            totalItemNumber--;
+                            toDeleteTask.taskDeleted(totalItemNumber);
+                            break;
+
                     }
                 } catch (NullPointerException e) {
                     // If we mark a task number outside the range
                     System.out.println(e.toString() + "\nPlease enter a valid task number from list");
                 } catch (NumberFormatException e) {
                     // If we mark a non int task number
-                    System.out.println("You can't mark or un-mark anything else other than a valid task number");
+                    System.out.println("Enter a valid task number that is a integer shown in list");
                 } catch (WrongInputTask e) {
                     System.out.println(e.toString());
+                } catch (IndexOutOfBoundsException e) {
+                    // To catch invalid number inputs for delete 
+                    System.out.println("Please enter a valid task number from the range in  list");
                 }
             } catch (InvalidInputException e) {
                 String commandWord = input.split(" ")[0];

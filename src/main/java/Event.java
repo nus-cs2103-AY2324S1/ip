@@ -20,16 +20,6 @@ public class Event extends Task {
     }
 
     /**
-     * Prints out a message that a Event has been added
-     */
-    @Override
-    public void taskAdded(int noOfTask) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + this.toString());
-        System.out.println("Now you have " + noOfTask + " tasks in the list.");
-    }
-
-    /**
      * taskValidator does nothing if there are no wrong inputs but throws a WrongInputException
      * if inputs are invalid
      * @param input the user's string input
