@@ -94,20 +94,28 @@ public class Duke {
                     println();
                     break;
                 } else if (text.startsWith("todo")) {
-                    String description = text.substring(5);
-                    Todo todo = new Todo(description);
-                    setList(todo);
-                    incrementCounter();
-                    println();
-                    System.out.println("Noted Sir. I've added this task to your list: ");
-                    System.out.println(String.format("\t [%s] [%s] %s", todo.tag, todo.getStatusIcon(), todo.toString()));
-                    System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
-                    println();
+                    String description = text.substring(4);
+                    if (description.isEmpty()) {
+                        throw new DukeException("I apologise, sir. But the description of todo cannot be empty");
+                    } else {
+                        Todo todo = new Todo(description.trim());
+                        setList(todo);
+                        incrementCounter();
+                        println();
+                        System.out.println("Noted Sir. I've added this task to your list: ");
+                        System.out.println(String.format("\t [%s] [%s] %s", todo.tag, todo.getStatusIcon(), todo.toString()));
+                        System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
+                        println();
+                    }
                 } else if (text.startsWith("deadline")) {
                     String[] splitText = text.split("/");
-                    String description = splitText[0].substring(9);
+                    String description = splitText[0].substring(8);
+                    if (description.isEmpty()){
+                        throw new DukeException("I apologise, sir. But the description and deadline cannot be empty");
+
+                    }
                     String deadline = splitText[1].trim().substring(3);
-                    Deadline dl = new Deadline(description, deadline);
+                    Deadline dl = new Deadline(description.trim(), deadline);
                     setList(dl);
                     incrementCounter();
                     println();
@@ -117,10 +125,14 @@ public class Duke {
                     println();
                 } else if (text.startsWith("event")) {
                     String[] splitText = text.split("/");
-                    String description = splitText[0].substring(6);
+                    String description = splitText[0].substring(5);
+                    if (description.isEmpty()){
+                        throw new DukeException("I apologise, sir. But the description, start and end cannot be empty");
+
+                    }
                     String start = splitText[1].trim().substring(5);
                     String end = splitText[2].trim().substring(3);
-                    Event event = new Event(description, start, end);
+                    Event event = new Event(description.trim(), start, end);
                     setList(event);
                     incrementCounter();
                     println();
@@ -130,12 +142,12 @@ public class Duke {
                     println();
 
                 } else {
-                    throw new DukeException();
+                    throw new DukeException("I apologise, sir. But I do not understand what you mean.");
                 }
                 }
                 catch(DukeException e){
                     println();
-                    System.out.println("I apologise, sir. But I do not understand what you mean.");
+                    System.out.println(e.message);
                     println();
 
                 }
