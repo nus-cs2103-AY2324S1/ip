@@ -34,7 +34,12 @@ public class Duke {
         try {
             // Split by the first " " into type, and task details
             String[] task = description.split(" ", 2);
-            TaskType taskType = Enum.valueOf(TaskType.class, task[0]);
+            TaskType taskType;
+            try {
+                taskType = Enum.valueOf(TaskType.class, task[0]);
+            } catch (Exception e) {
+                throw new WrongInputException();
+            }
 
             if (!isValidTaskType(taskType)) {
                 throw new WrongInputException();
@@ -143,6 +148,9 @@ public class Duke {
                     break;
 
                 } else { // if command is to add tasks
+                    if (nextLine.isEmpty()) {
+                        throw new NoSuchElementException();
+                    }
                     System.out.println(addToList(nextLine));
                 }
             }
