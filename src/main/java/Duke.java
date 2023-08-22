@@ -53,7 +53,7 @@ public class Duke {
         System.out.println("Added " + line + " to list");
     }
 
-    private void parse_text() {
+    private void parseText() {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
