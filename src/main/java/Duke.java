@@ -16,7 +16,7 @@ public class Duke {
     Scanner scanner = new Scanner(System.in);
 
     while (true) {
-      String inputString = scanner.nextLine();
+      String inputString = scanner.next();
       if (inputString.equals("bye")) {
         break;
       } else if (inputString.equals("list")) {
@@ -24,6 +24,10 @@ public class Duke {
           String index = Integer.toString(i + 1);
           System.out.println(index + "\t" + userInputs.get(i));
         }
+      } else if (inputString.equals("mark")) {
+        int index = scanner.nextInt();
+        System.out.println(index);
+
       } else {
         userInputs.add(inputString);
         System.out.println("added:\t" + inputString);
