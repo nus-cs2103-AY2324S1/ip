@@ -16,7 +16,7 @@ public class Duke {
         System.out.println("Hello I'm " + Duke.CHAT_BOT_NAME);
         System.out.println("What can I do for you?");
         System.out.println("Please type your command below, I will store what you said");
-        System.out.println("Usage: \"list\" to see the list of text stored, \"bye\" to exit \n" +
+        System.out.println("Usage: \"list\" to see the list of text stored, \"bye\" to exit\n" +
                 "\"mark (number)\" to mark task no. (number) to be done, \"unmark (number)\" to mark it as undone");
     }
 
