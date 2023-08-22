@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
-//TODO Add todo, deadline and event commands
 public class CommandInvoker {
     /**
      * List of tasks
