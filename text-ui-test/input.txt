@@ -1,6 +1,7 @@
 list
 mark 1
 unmark 1
+delete 1
 todo
 todo sleep
 event
@@ -14,5 +15,8 @@ mark
 unmark 1
 unmark 10
 unmark
+delete -4
+delete
+delete 1
 add task
 bye

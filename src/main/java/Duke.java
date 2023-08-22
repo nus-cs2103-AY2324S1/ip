@@ -1,10 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
 public class Duke {
-    protected Task[] tasks;
+    protected List<Task> tasks;
     protected int numberOfTasks;
 
     public Duke() {
-        tasks = new Task[100];
+        tasks = new ArrayList<>();
         numberOfTasks = 0;
     }
 
@@ -12,9 +15,20 @@ public class Duke {
         StringBuilder message = new StringBuilder();
         message.append("Got it. I've added this task:\n");
         message.append(" ");
-        message.append(this.tasks[this.numberOfTasks].toString());
+        message.append(this.tasks.get(this.numberOfTasks - 1).toString());
         message.append("\n");
-        this.numberOfTasks++;
+        message.append("Now you have ");
+        message.append(this.numberOfTasks);
+        message.append(" task(s) in the list.");
+        return message.toString();
+    }
+
+    public String printRemoveTaskSuccessMessage(int index) {
+        StringBuilder message = new StringBuilder();
+        message.append("Noted. I've removed this task:\n");
+        message.append(" ");
+        message.append(this.tasks.get(index).toString());
+        message.append("\n");
         message.append("Now you have ");
         message.append(this.numberOfTasks);
         message.append(" task(s) in the list.");
@@ -29,7 +43,8 @@ public class Duke {
                     break;
                 } else if (task[1].contains("/from") && task[1].contains("/to")) {
                     String[] description = task[1].split(" /from ");
-                    this.tasks[this.numberOfTasks] = new Event(description[0], description[1]);
+                    this.tasks.add(new Event(description[0], description[1]));
+                    this.numberOfTasks++;
                     System.out.println(printAddTaskSuccessMessage());
                     break;
                 } else {
@@ -41,7 +56,8 @@ public class Duke {
                     System.out.println("OOPS!!! The description of a todo cannot be empty.");
                     break;
                 }
-                this.tasks[this.numberOfTasks] = new Todo(task[1]);
+                this.tasks.add(new Todo(task[1]));
+                this.numberOfTasks++;
                 System.out.println(printAddTaskSuccessMessage());
                 break;
             case "deadline":
@@ -50,7 +66,8 @@ public class Duke {
                     break;
                 } else if (task[1].contains("/by")) {
                     String[] description = task[1].split(" /by ");
-                    this.tasks[this.numberOfTasks] = new Deadline(description[0], description[1]);
+                    this.tasks.add(new Deadline(description[0], description[1]));
+                    this.numberOfTasks++;
                     System.out.println(printAddTaskSuccessMessage());
                     break;
                 } else {
@@ -60,6 +77,12 @@ public class Duke {
             default:
                 break;
         }
+    }
+
+    public void removeTask(int index) {
+        numberOfTasks--;
+        System.out.println(printRemoveTaskSuccessMessage(index - 1));
+        this.tasks.remove(index - 1);
     }
 
     public static void main(String[] args) {
@@ -92,7 +115,7 @@ public class Duke {
                         }
                         System.out.println("Here are the task(s) in your list:");
                         for (int i = 0; i < chatbot.numberOfTasks; i++) {
-                            System.out.println(i + 1 + "." + chatbot.tasks[i].toString());
+                            System.out.println(i + 1 + "." + chatbot.tasks.get(i).toString());
                         }
                         break;
                     // Add task
@@ -120,7 +143,7 @@ public class Duke {
                             break;
                         }
                         System.out.println("Nice! I've marked this task as done:");
-                        Task markTask = chatbot.tasks[markIndex - 1];
+                        Task markTask = chatbot.tasks.get(markIndex - 1);
                         markTask.markAsDone();
                         System.out.println(markTask.toString());
                         break;
@@ -139,9 +162,25 @@ public class Duke {
                             break;
                         }
                         System.out.println("OK, I've marked this task as not done yet:");
-                        Task unmarkTask = chatbot.tasks[unmarkIndex - 1];
+                        Task unmarkTask = chatbot.tasks.get(unmarkIndex - 1);
                         unmarkTask.markAsNotDone();
                         System.out.println(unmarkTask.toString());
+                        break;
+                    // remove task
+                    case "delete":
+                        if (chatbot.numberOfTasks == 0) {
+                            System.out.println("Add task to start deleting!");
+                            break;
+                        } else if (words.length == 1 || words[1].isBlank()) {
+                            System.out.println("OOPS!! Task number cannot empty. Please indicate a task number from one to the number of tasks in the list.");
+                            break;
+                        }
+                        int deleteIndex = Integer.parseInt(words[1]);
+                        if (deleteIndex > chatbot.numberOfTasks || deleteIndex <= 0) {
+                            System.out.println("OOPS!! Invalid task number. The task number has to be from one to the number of tasks in the list.");
+                            break;
+                        }
+                        chatbot.removeTask(deleteIndex);
                         break;
                     // Invalid command
                     default:
@@ -152,6 +191,7 @@ public class Duke {
                         System.out.println("> list");
                         System.out.println("> mark <task number>");
                         System.out.println("> unmark <task number>");
+                        System.out.println("> delete <task number>");
                         System.out.println("> bye");
                         break;
                 }

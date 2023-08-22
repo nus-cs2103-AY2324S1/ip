@@ -3,6 +3,7 @@ What can I do for you?
 You do not have any tasks in the list.
 Add task to start marking task as done!
 Add task to start marking task as not done!
+Add task to start deleting!
 OOPS!!! The description of a todo cannot be empty.
 Got it. I've added this task:
  [T][ ] sleep
@@ -27,6 +28,11 @@ OK, I've marked this task as not done yet:
 [T][ ] sleep
 OOPS!! Invalid task number. The task number has to be from one to the number of tasks in the list.
 OOPS!! Task number cannot empty. Please indicate a task number from one to the number of tasks in the list.
+OOPS!! Invalid task number. The task number has to be from one to the number of tasks in the list.
+OOPS!! Task number cannot empty. Please indicate a task number from one to the number of tasks in the list.
+Noted. I've removed this task:
+ [T][ ] sleep
+Now you have 2 task(s) in the list.
 OOPS!!! Invalid command. Try the following commands instead:
 > todo <task>
 > deadline <task> /by <deadline>
@@ -34,5 +40,6 @@ OOPS!!! Invalid command. Try the following commands instead:
 > list
 > mark <task number>
 > unmark <task number>
+> delete <task number>
 > bye
 Bye. Hope to see you again soon!
