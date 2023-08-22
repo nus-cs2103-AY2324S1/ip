@@ -64,4 +64,15 @@ public class TaskList {
     System.out.println("OK, I've marked this task as not done yet:");
     System.out.println(task);
   }
+
+  public void deleteTask(int taskNumber) throws InvalidTaskException {
+    if (taskNumber > tasks.size()) {
+      throw new InvalidTaskException("Task does not exist, please enter valid task number");
+    }
+    Task task = tasks.get(taskNumber - 1);
+    tasks.remove(task);
+    System.out.println("Noted. I've removed this task:");
+    System.out.println(task);
+    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+  }
 }

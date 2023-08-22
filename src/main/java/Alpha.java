@@ -47,6 +47,13 @@ public class Alpha {
             System.out.println(e.getMessage());
           }
           break;
+        case "delete":
+          try {
+            taskList.deleteTask(Integer.parseInt(tokens[1]));
+          } catch (NumberFormatException | InvalidTaskException e) {
+            System.out.println(e.getMessage());
+          }
+          break;
         case "bye":
           System.out.println("Bye. Hope to see you again soon!");
           System.out.println("______________________________");
