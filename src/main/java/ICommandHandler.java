@@ -1,3 +1,3 @@
 public interface ICommandHandler {
-    public void execute();
+    public void execute(String command);
 }

@@ -10,6 +10,7 @@ public class Main {
     public Main(){
         this.commands = new HashMap<String,ICommandHandler>();
         this.commands.put("intro", new IntroHandler());
+        this.commands.put("list", new ListHandler());
         this.commands.put("bye", new ExitHandler());
     }
 
@@ -19,7 +20,6 @@ public class Main {
     }
 
     private void run(){
-        System.out.println("    ____________________________________________________________");
         this.executeCommand("intro");
         this.isRunning = true;
         Scanner sc = new Scanner(System.in);
@@ -36,10 +36,10 @@ public class Main {
     }
     private void executeCommand(String command){
         if(!this.commands.containsKey(command)){
-            this.say(command); // echo
+            this.commands.get("list").execute(command);
             return;
         }
-        this.commands.get(command).execute();
+        this.commands.get(command).execute(command);
     }
 
     public static Main getInstance(){
@@ -55,11 +55,14 @@ public class Main {
     }
 
     public void say(String content){
-        this.say(content, true);
+        this.say(content, true,true);
     }
-    public void say(String content, boolean outputLine){
+    public void say(String content, boolean outputUpperLine, boolean outputLowerLine){
+        if(outputUpperLine){
+            System.out.println("    ____________________________________________________________");
+        }
         System.out.println("    " + content);
-        if(outputLine){
+        if(outputLowerLine){
             System.out.println("    ____________________________________________________________");
         }
 
