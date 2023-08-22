@@ -6,7 +6,7 @@ public class BouncyBob {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] database = new String[100];
+        Task[] database = new Task[100];
         int pointer = 0;
         System.out.println(TOP_BORDER);
         System.out.println(MIDDLE_BORDER);
@@ -28,12 +28,12 @@ public class BouncyBob {
                 break;
             } else if (userInput.equals("list")) {
                 for (int i = 0; i < pointer; i++) {
-                    System.out.println(database[i]);
+                    System.out.println(database[i].getName());
                 }
                 System.out.println(BOTTOM_BORDER);
             } else {
                 System.out.println("Added to database: " + userInput);
-                database[pointer] = userInput;
+                database[pointer] = new Task(userInput);
                 pointer++;
                 System.out.println(BOTTOM_BORDER);
             }
