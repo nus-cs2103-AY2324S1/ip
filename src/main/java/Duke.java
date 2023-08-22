@@ -53,6 +53,39 @@ public class Duke {
                 System.out.println("OK, I've marked this task as not done yet:\n");
                 System.out.println(task.get(input_num));
                 System.out.println("_____________________________________\n");
+            } else if (input.startsWith("todo ")) {
+                String description = input.substring(5).trim();
+                task.add(new Todo(description));
+                System.out.println("_____________________________________\n");
+                System.out.println("Got it. I've added this task:\n");
+                System.out.println(task.get(task.size() - 1).toString());
+                String task_type = (task.size() > 1 ? " tasks" : " task");
+                System.out.println("Now you have " + task.size() + task_type + " in the list.\n");
+                System.out.println("_____________________________________\n");
+            }else if (input.startsWith("deadline ")) {
+                String[] tem = input.split("/by");
+                String description = tem[0].substring(9).trim();
+                String time = tem[1].trim();
+                task.add(new Deadline(description, time));
+                System.out.println("_____________________________________\n");
+                System.out.println("Got it. I've added this task:\n");
+                System.out.println(task.get(task.size() - 1).toString());
+                String task_type = (task.size() > 1 ? " tasks" : " task");
+                System.out.println("Now you have " + task.size() + task_type + " in the list.\n");
+                System.out.println("_____________________________________\n");
+            } else if (input.startsWith("event ")) {
+                String[] tem_1 = input.split("/from");
+                String[] tem_2 = tem_1[1].split("/to");
+                String description = tem_1[0].substring(6).trim();
+                String start = tem_2[0].trim();
+                String end = tem_2[1].trim();
+                task.add(new Event(description, start, end));
+                System.out.println("_____________________________________\n");
+                System.out.println("Got it. I've added this task:\n");
+                System.out.println(task.get(task.size() - 1).toString());
+                String task_type = (task.size() > 1 ? " tasks" : " task");
+                System.out.println("Now you have " + task.size() + task_type + " in the list.\n");
+                System.out.println("_____________________________________\n");
             } else {
                 task.add(new Task(input));
                 System.out.println("_____________________________________\n");
