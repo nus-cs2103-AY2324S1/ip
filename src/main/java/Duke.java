@@ -42,6 +42,11 @@ public class Duke {
                 System.out.println(separator);
             } else if (command.equals("mark")) {
                 int index = sc.nextInt();
+                if (!sc.nextLine().equals("")) {
+                    System.out.println(errorMessage);
+                    System.out.println(separator);
+                    continue;
+                }
                 try {
                     list.get(index - 1).mark();
                 } catch (Exception e) {
@@ -53,6 +58,11 @@ public class Duke {
                 System.out.println(separator);
             } else if (command.equals("unmark")) {
                 int index = sc.nextInt();
+                if (!sc.nextLine().equals("")) {
+                    System.out.println(errorMessage);
+                    System.out.println(separator);
+                    continue;
+                }
                 try {
                     list.get(index - 1).unmark();
                 } catch (Exception e) {
@@ -97,6 +107,26 @@ public class Duke {
                         "the overall collection of these tasks that require action.\n" +
                         "Here is a display of the added deadline task: " + list.get(list.size() - 1) + "\n" +
                         "You now, in total, have " + list.size() + " of these tasks recorded within said collection.");
+                System.out.println(separator);
+            } else if (command.equals("delete")) {
+                Task hold;
+                try {
+                    int index = sc.nextInt();
+                    hold = list.get(index - 1);
+                    if (!sc.nextLine().equals("")) {
+                        System.out.println(errorMessage);
+                        System.out.println(separator);
+                        continue;
+                    }
+                    list.remove(index - 1);
+                } catch (Exception e) {
+                    System.out.println(errorMessage);
+                    continue;
+                }
+                System.out.println("I have acknowledged your request to have the task allocated to the specific index at which you have mentioned removed from the collection of all\n" +
+                        "such tasks, colloquially known as your To Do list.\n" +
+                        "The task in question that has been deleted is: " + hold + "\n" +
+                        "As of this current moment, there are a total of " + list.size() + " occurrences of tasks in your list.");
                 System.out.println(separator);
             } else {
                 System.out.println("Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.");

@@ -12,5 +12,8 @@ mark 24
 todo
 deadline
 event
+list
+delete 1
+list
 bye
 

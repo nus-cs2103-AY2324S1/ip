@@ -61,5 +61,26 @@ Unfortunately, the circumstances preceding this has necessitated that I issue an
 ____________________________________________________________
 Unfortunately, the circumstances preceding this has necessitated that I issue and apology for the input that I have received is unrecognised.
 ____________________________________________________________
+Here is the collection of items, previously designated to be known as Tasks, that you have inputted over a previous unspecified period of time
+that may or may not require urgent attention, but will nevertheless necessitate some level of action within an either
+indicated or not indicated time period.
+1. [T][ ]  borrow book
+2. [D][X]  return book (by: Sunday)
+3. [E][ ]  project meeting (from: Mon 2pm  to: 4pm)
+____________________________________________________________
+____________________________________________________________
+I have acknowledged your request to have the task allocated to the specific index at which you have mentioned removed from the collection of all
+such tasks, colloquially known as your To Do list.
+The task in question that has been deleted is: [T][ ]  borrow book
+As of this current moment, there are a total of 2 occurrences of tasks in your list.
+____________________________________________________________
+____________________________________________________________
+Here is the collection of items, previously designated to be known as Tasks, that you have inputted over a previous unspecified period of time
+that may or may not require urgent attention, but will nevertheless necessitate some level of action within an either
+indicated or not indicated time period.
+1. [D][X]  return book (by: Sunday)
+2. [E][ ]  project meeting (from: Mon 2pm  to: 4pm)
+____________________________________________________________
+____________________________________________________________
 It appears that the user has decided to close the program as indicated by the command of which this is the function being issued and therefore,
 I shall bid thee farewell and wish thee great fortune in your future endeavors.
