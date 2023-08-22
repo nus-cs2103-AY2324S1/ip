@@ -5,7 +5,7 @@ public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String horizontal = "____________________________________________________________";
-        String chatBotName = "chadgpt";
+        String chatBotName = "bob";
 
         String ln1 = String.format("Hello! I'm %s", chatBotName);
         String ln2 = "What can I do for you?";
