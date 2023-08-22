@@ -33,12 +33,11 @@ public class Duke {
                     display_lines();
                     break outer;
                 case "list":
+                    System.out.print("\t");
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < counter; i++) {
-                        if (!tasks[i].description.equals("")) {
-                            System.out.print("\t");
-                            System.out.println((i + 1) + ". " + tasks[i].getString());
-                        }
+                        System.out.print("\t\t");
+                        System.out.println((i + 1) + ". " + tasks[i].getString());
                     }
                     display_lines();
                     break;
@@ -61,8 +60,30 @@ public class Duke {
                     }
                     else {
                         System.out.print("\t");
-                        System.out.println("Added Task: " + s);
-                        tasks[counter++] = new Task(s);
+                        System.out.println("Woof. I have added this task: ");
+                        switch(s.substring(0, s.indexOf(' '))) {
+                            case "todo": {
+                                String task = s.substring(s.indexOf(' ') + 1);
+                                tasks[counter++] = new ToDo(task);
+                                break;
+                            }
+                            case "deadline": {
+                                String task = s.substring(s.indexOf(' ') + 1, s.indexOf('/') - 1);
+                                String by = s.substring(s.lastIndexOf('/') + 4);
+                                tasks[counter++] = new Deadline(task, by);
+                                break;
+                            }
+                            case "event": {
+                                String task = s.substring(s.indexOf(' ') + 1, s.indexOf('/') - 1);
+                                String from = s.substring(s.indexOf("from") + 5, s.lastIndexOf('/') - 1);
+                                String by = s.substring(s.indexOf("to") + 3);
+                                tasks[counter++] = new Event(task, from, by);
+                                break;
+                            }
+                        }
+                        System.out.println("\t\t" + tasks[counter - 1].getString());
+                        System.out.println("\tNow you have " + counter + (counter == 1 ? " task" : " tasks") + " in your list.");
+
                     }
                     display_lines();
                     break;
