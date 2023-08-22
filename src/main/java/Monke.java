@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Monke {
-    private static String[] list = new String[100];
+    private static Task[] list = new Task[100];
     private static int index = 0;
 
     public static void speak(String msg) {
@@ -29,33 +29,44 @@ public class Monke {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
+            Monke.printHorizontalLine();
             if (input.equals("bye")) {
                 break;
             }
             if (input.equals("list")) {
                 Monke.displayList();
-                continue;
+            }
+            else if (input.startsWith("mark")) {
+                int n = Integer.parseInt(input.split(" ", 2)[1]);
+                Task task = Monke.list[n - 1];
+                task.mark();
+                Monke.speak("Ooga booga! I've marked this task as done:");
+                Monke.speak("\t" + task);
+            }
+            else if (input.startsWith("unmark")) {
+                int n = Integer.parseInt(input.split(" ", 2)[1]);
+                Task task = Monke.list[n - 1];
+                task.unmark();
+                Monke.speak("Ooga, I've marked this task as not done yet:");
+                Monke.speak("\t" + task);
+            } else {
+                Monke.speak("added: " + input);
+                Monke.addToList(new Task(input));
             }
             Monke.printHorizontalLine();
-            Monke.speak("added: " + input);
-            Monke.addToList(input);
-            Monke.printHorizontalLine();
         }
-        Monke.printHorizontalLine();
         sc.close();
     }
 
-    public static void addToList(String item) {
+    public static void addToList(Task item) {
         Monke.list[index] = item;
         Monke.index++;
     }
 
     public static void displayList() {
-        Monke.printHorizontalLine();
         for (int i = 0; i < Monke.index; i++) {
             Monke.speak((i + 1) + ". " + Monke.list[i]);
         }
-        Monke.printHorizontalLine();
     }
 
     public static void main(String[] args) {
