@@ -5,6 +5,29 @@ public class Duke {
     private static String FAREWELL = "Bye. Hope to see you again soon!";
 
     /**
+     * Exception when a wrong task query string is supplied to ChatBotList.
+     */
+    private static class IllegalChatBotListArgumentException extends IllegalArgumentException {
+        public IllegalChatBotListArgumentException(String message) {
+            super(message);
+        }
+        public IllegalChatBotListArgumentException() {
+            super();
+        }
+    }
+    /**
+     * Exception when the task the user is attempting to access does not exist.
+     */
+    private static class NotInChatBotListException extends ArrayIndexOutOfBoundsException {
+        public NotInChatBotListException(String message) {
+            super(message);
+        }
+        public NotInChatBotListException() {
+            super();
+        }
+    }
+
+    /**
      * Abstracts a list. Note that items in the list cannot be removed as yet.
      */
     private static class ChatBotList {
@@ -76,7 +99,9 @@ public class Duke {
                 return rtnVal + super.name + " (from: " + this.from + " to: " + this.to + ")";
             }
         }
-
+        /**
+         * Encapsulates a deadline with a do-by time/date.
+         */
         private static class Deadline extends Item {
             private String by;
 
@@ -96,7 +121,9 @@ public class Duke {
                 return rtnVal + super.name + " (by: " + this.by + ")";
             }
         }
-
+        /**
+         * Encapsulates a t0d0 task without time/date dependencies.
+         */
         private static class Todo extends Item {
             public Todo(String input) {
                 super(input);
@@ -137,13 +164,13 @@ public class Duke {
                 case "event":
                     String[] firstSplit = s.split(" +/from +");
                     if (firstSplit.length != 2) {
-                        throw new IllegalArgumentException("Incorrect syntax!\n" +
+                        throw new IllegalChatBotListArgumentException("Incorrect syntax!\n" +
                                 "Please use this syntax:\n" +
                                 "event <desc> /from <start> /to <end>");
                     }
                     String[] secondSplit = firstSplit[1].split(" +/to +");
                     if (secondSplit.length != 2) {
-                        throw new IllegalArgumentException("Incorrect syntax!\n" +
+                        throw new IllegalChatBotListArgumentException("Incorrect syntax!\n" +
                                 "Please use this syntax:\n" +
                                 "event <desc> /from <start> /to <end>");
                     }
@@ -153,7 +180,7 @@ public class Duke {
                 case "deadline":
                     String[] splitInput = s.split(" +/by +", 2);
                     if (splitInput.length != 2) {
-                        throw new IllegalArgumentException("Incorrect syntax!\n" +
+                        throw new IllegalChatBotListArgumentException("Incorrect syntax!\n" +
                                 "Please use this syntax:\n" +
                                 "deadline <desc> /by <deadline>");
                     }
@@ -177,7 +204,7 @@ public class Duke {
          */
         public void markItem(int index) {
             if (index <= -1 || index >= counter + 1 || counter == 0) {
-                throw new ArrayIndexOutOfBoundsException();
+                throw new NotInChatBotListException();
             }
             this.list[index - 1].markCompleted();
         }
@@ -189,7 +216,7 @@ public class Duke {
          */
         public void unmarkItem(int index) {
             if (index < -1 || index >= counter + 1) {
-                throw new ArrayIndexOutOfBoundsException();
+                throw new NotInChatBotListException();
             }
             this.list[index - 1].unmarkCompleted();
         }
@@ -201,7 +228,7 @@ public class Duke {
          */
         public String viewItem(int index) {
             if (index < -1 || index >= counter + 1) {
-                throw new ArrayIndexOutOfBoundsException();
+                throw new NotInChatBotListException();
             }
             return this.list[index - 1].toString();
         }
@@ -251,42 +278,39 @@ public class Duke {
                     } catch (NumberFormatException e) {
                         System.out.println("Please input a valid number for your index!");
                     }
-                    catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("Make sure your item is in the list!");
+                    catch (NotInChatBotListException e) {
+                        System.out.println("Make sure your item is in the list!\n" +
+                                "You may check using the \"list\" command.");
                     }
                 } else if (splitInput[0].equals("event")) {
                     if (splitInput.length < 2) {
-                        System.out.println("Incorrect syntax!\n" +
-                                "Please use this syntax:\n" +
+                        System.out.println("☹ OOPS!!! The description of a event cannot be empty.\n" +
                                 "event <desc> /from <start> /to <end>");
                     } else {
                         try {
                             String taskStr = list.addToList(splitInput[1], "event");
                             System.out.println("Got it. I've added this task:\n" + taskStr);
                             System.out.println("Now you have " + list.getLength() + " tasks in the list.");
-                        } catch (IllegalArgumentException e) {
+                        } catch (IllegalChatBotListArgumentException e) {
                             System.out.println(e.getMessage());
                         }
                     }
                 } else if (splitInput[0].equals("deadline")) {
                     if (splitInput.length < 2) {
-                        System.out.println("Incorrect syntax!\n" +
-                                "Please use this syntax:\n" +
+                        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.\n"+
                                 "deadline <desc> /by <deadline>");
                     } else {
                         try {
                             String taskStr = list.addToList(splitInput[1], "deadline");
                             System.out.println("Got it. I've added this task:\n" + taskStr);
                             System.out.println("Now you have " + list.getLength() + " tasks in the list.");
-                        } catch (IllegalArgumentException e) {
+                        } catch (IllegalChatBotListArgumentException e) {
                             System.out.println(e.getMessage());
                         }
                     }
                 } else if (splitInput[0].equals("todo")) {
                     if (splitInput.length < 2) {
-                        System.out.println("Incorrect syntax!\n" +
-                                "Please use this syntax:\n" +
-                                "todo <desc>");
+                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                     } else {
                         String taskStr = list.addToList(splitInput[1], "todo");
                         System.out.println("Got it. I've added this task:\n" + taskStr);
@@ -294,7 +318,7 @@ public class Duke {
                     }
                 } else {
                     list.addToList(input, "todo");
-                    System.out.println("Not a command, but I'll add that task for you anyway.\nadded: " + input);
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             }
         }
