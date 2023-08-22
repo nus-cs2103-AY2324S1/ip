@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         int count = 0;
-        String[] strlst = new String[100];
+        Task[] tasklst = new Task[100];
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -20,16 +20,23 @@ public class Duke {
 
         while(!input.equals("bye")) {
             if (input.equals("list")) {
-                Printer.printList(strlst);
+                Printer.printList(tasklst);
                 input = sc.nextLine();
-            }
-            else {
+            } else if (input.contains("unmark")) {
+                int temp = Character.getNumericValue(input.charAt(7));
+                tasklst[temp - 1].unmarkAsDone();
+                input = sc.nextLine();
+            } else if (input.contains("mark")) {
+                int temp = Character.getNumericValue(input.charAt(5));
+                tasklst[temp - 1].markAsDone();
+                input = sc.nextLine();
+            } else {
                 Printer.print("added: " + input);
-                strlst[count] = input;
-                input = sc.nextLine();
+                Task newtsk = new Task(input);
+                tasklst[count] = newtsk;
                 count++;
+                input = sc.nextLine();
             }
-
         }
 
         Printer.printExit();
