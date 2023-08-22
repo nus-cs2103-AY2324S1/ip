@@ -8,14 +8,14 @@ public class Simon {
         String space = "____________________________________________________________";
         String nSpace = "\n____________________________________________________________";
         String spaceN = "____________________________________________________________\n";
-        String greetings = spaceN +
-                "Hello! I'm Simon\n" +
+        String greetings = "Hello! I'm Simon\n" +
                 "What can I do for you?\n" +
                 space;
 
         String bye = "Bye. Hope to see you again soon!" + nSpace;
 
         // Start Program
+        System.out.println(spaceN + SimonAscii.toStr());
         System.out.println(greetings);
         while (!inData.equals("bye")) {
             inData = scan.nextLine();
