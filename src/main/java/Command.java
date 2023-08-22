@@ -8,14 +8,19 @@ public enum Command {
     DEADLINE,
     EVENT;
 
+    public static final String[] validCommands =
+            {"list", "bye", "todo <task_name>", "deadline <task_name> /by <deadline>",
+                    "event <task_name> /from <start-time> /to <end-time>", "mark", "unmark",};
 
-    public static Command getCommand(String input) {
+
+
+    public static Command getCommand(String input) throws InvalidInputException {
         String[] inputtedWords = input.split(" ");
         // Command word should always be first word without space
         String commandWord = inputtedWords[0];
-        if (commandWord.startsWith("list")) {
+        if (commandWord.equals("list")) {
             return Command.LIST;
-        } else if (commandWord.startsWith("bye")) {
+        } else if (commandWord.equals("bye")) {
             return Command.BYE;
         } else if (commandWord.startsWith("mark")) {
             return Command.MARK;
@@ -28,7 +33,7 @@ public enum Command {
         } else if (commandWord.startsWith("event")) {
             return Command.EVENT;
         } else {
-            return Command.ADD;
+            throw new InvalidInputException();
         }
     }
 }
