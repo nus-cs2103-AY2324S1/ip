@@ -1,9 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
-    private final Task[] data = new Task[100];
-    private int count = 0;
+    private final ArrayList<Task> data = new ArrayList<>();
 
     public void greet() {
         String logo = " ____                \n"
@@ -20,29 +20,34 @@ public class Duke {
     }
 
     public void add(Task task) {
-        data[count] = task;
-        count++;
+        data.add(task);
         System.out.println("\"" + task.toString() + "\" added :)");
-        System.out.println("Now got " + this.count + " task liao T_T\n");
+        System.out.println("Now got " + data.size() + " task liao T_T\n");
     }
 
     public void list() {
         System.out.println("Although I dunwan to list... But here is your list:");
-        for (int i = 0; i < count; i++) {
-            Task dt = data[i];
+        for (int i = 0; i < data.size(); i++) {
+            Task dt = data.get(i);
             System.out.println((i + 1) + ". " + dt.toString());
         }
         System.out.println(" ");
     }
 
     public void markDone(int i) {
-        data[i].markDone();
-        System.out.println("Yay! \"" + data[i] + "\" done liao!!\n");
+        data.get(i).markDone();
+        System.out.println("Yay! \"" + data.get(i) + "\" done liao!!\n");
     }
 
     public void markUndone(int i) {
-        data[i].markUndone();
-        System.out.println("Hmm... Why just now don't mark \"" + data[i] + "\" as done properly...\n");
+        data.get(i).markUndone();
+        System.out.println("Hmm... Why just now don't mark \"" + data.get(i) + "\" as done properly...\n");
+    }
+
+    public void delete(int i) {
+        System.out.println("Okay!! Task \"" + data.get(i) + "\" removed :) ");
+        data.remove(i);
+        System.out.println("You still have " + data.size() + " tasks in the list\n");
     }
 
     public static void print(String input, Duke roo, Scanner sc) {
@@ -56,9 +61,9 @@ public class Duke {
                         throw new DukeException("Please unmark your task using this format: \"unmark [serial number]\"\n");
                     }
                     int t = Integer.parseInt(input.substring(7));
-                    if (t > roo.count) {
+                    if (t > roo.data.size()) {
                         throw new DukeException("We dunhave so many task lah =_=\n");
-                    } else if (!roo.data[t - 1].done()) {
+                    } else if (!roo.data.get(t - 1).done()) {
                         throw new DukeException("Weihh... It's unmark ehhh\n");
                     }
                     roo.markUndone(t - 1);
@@ -73,12 +78,27 @@ public class Duke {
                         throw new DukeException("Please mark your task using this format: \"mark [serial number]\"\n");
                     }
                     int t = Integer.parseInt(input.substring(5));
-                    if (t > roo.count) {
-                        throw new DukeException("We dunhave so many task lah =_=\n");
-                    } else if (roo.data[t - 1].done()) {
+                    if (t > roo.data.size()) {
+                        throw new DukeException("We dunhave so many task lah =_=\nq");
+                    } else if (roo.data.get(t - 1).done()) {
                         throw new DukeException("Weihh... It's already mark ehhh\n");
                     }
                     roo.markDone(t - 1);
+                } catch (DukeException e) {
+                    System.err.println(e);
+                } finally {
+                    input = sc.nextLine();
+                }
+            } else if (input.startsWith("delete")) {
+                try {
+                    if (input.length() < 8) {
+                        throw new DukeException("Please delete your task using this format: \"delete [serial number]\"\n");
+                    }
+                    int t = Integer.parseInt(input.substring(7));
+                    if (t > roo.data.size()) {
+                        throw new DukeException("We dunhave so many task lah =_=\nq");
+                    }
+                    roo.delete(t - 1);
                 } catch (DukeException e) {
                     System.err.println(e);
                 } finally {
