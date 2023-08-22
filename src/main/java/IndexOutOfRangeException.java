@@ -1,7 +1,5 @@
-public class EmptyDescriptionException extends AjException{
-  EmptyDescriptionException(String cmd, String helpMsg) {
-    super("☹ OOPS!!! The description of a " + cmd + " cannot be empty.\n" +
-            "Try:\n" +
-            helpMsg);
+public class IndexOutOfRangeException extends AjException {
+  IndexOutOfRangeException(int val) {
+    super("OOPS!!! Please choose an index within the number of items in the list " + "(" + val + ")");
   }
 }

@@ -11,6 +11,7 @@ public abstract class Task {
     return this.completed;
   }
 
+
   @Override
   public String toString() {
     return (this.completed ? "[X] " : "[ ] ") + this.taskName;

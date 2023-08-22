@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class AjException {
+public class AjException extends Exception{
+  AjException(String msg) {
+    super(msg);
+  }
 }
