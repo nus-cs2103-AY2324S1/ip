@@ -39,6 +39,12 @@ public class Duke {
         print("Nice! I've marked this task as done:", task.toString());
     }
 
+    private static void unmark(int index) {
+        Task task = tasks[index - 1];
+        task.markAsUndone();
+        print("OK, I've marked this task as not done yet:", task.toString());
+    }
+
     public static void main(String[] args) {
         greet();
 
@@ -57,8 +63,10 @@ public class Duke {
                     list();
                     break;
                 case "mark":
-                    int index = sc.nextInt();
-                    mark(index);
+                    mark(sc.nextInt());
+                    break;
+                case "unmark":
+                    unmark(sc.nextInt());
                     break;
                 default:
                     add(command);
