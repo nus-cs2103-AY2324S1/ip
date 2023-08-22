@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Duke {
 
     private static Scanner prompt = new Scanner(System.in);
+    private static List taskList = new List();
     public static void main(String[] args) {
         greet();
     }
@@ -18,7 +19,16 @@ public class Duke {
         if (promptText.equals("bye")) {
             exit();
         }
-        System.out.println("\t" + promptText);
+        else if (promptText.equals("list")) {
+            list();
+        }
+        //System.out.println("\t" + promptText);
+        taskList.add(promptText);
+        echo();
+    }
+
+    public static void list() {
+        taskList.list();
         echo();
     }
 
