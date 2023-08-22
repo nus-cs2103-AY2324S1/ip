@@ -26,7 +26,7 @@ public class Duke {
 
     private void run() {
         start();
-        parse_text();
+        parseText();
     }
 
     private void echo() {
