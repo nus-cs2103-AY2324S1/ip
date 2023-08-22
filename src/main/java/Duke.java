@@ -54,9 +54,37 @@ public class Duke {
 
             } else {
                 // adding task to the list
-                Task currentTask = new Task(string);
-                list[taskInArray + 1] = currentTask;
-                System.out.println(line + "\nadded: " + string);
+                String addingTask = "Got it. I've added this task:";
+                int noOfTask = taskInArray + 1;
+                String numberOfTask = "Now you have " + noOfTask + " tasks in the list.";
+                if (string.startsWith("todo")) {
+                    String[] splittedInput = string.split(" ");
+                    String task = string.replace("todo ", "");
+                    Task currentTask = new Todo(task);
+                    list[noOfTask] = currentTask;
+                    System.out.println(line + "\n" + addingTask + "\n" + "  " + currentTask + "\n" + numberOfTask);
+                } else if (string.startsWith("deadline")) {
+                    String[] splittedInput = string.split(" ");
+                    String task = string.replace("deadline ", "");
+                    String[] splittedTask = task.split(" /by ");
+                    String taskName = splittedTask[0];
+                    String end = splittedTask[1];
+                    Task currentTask = new Deadlines(taskName, end);
+                    list[noOfTask] = currentTask;
+                    System.out.println(line + "\n" + addingTask + "\n" + "  " + currentTask + "\n" + numberOfTask);
+                } else if (string.startsWith("event")) {
+                    String[] splittedInput = string.split(" ");
+                    String task = string.replace("event ", "");
+                    String[] splitStart = task.split(" /from ");
+                    String taskName = splitStart[0];
+                    String[] splitEnd = splitStart[1].split(" /to ");
+                    String start = splitEnd[0];
+                    String end = splitEnd[1];
+                    Task currentTask = new Events(taskName, start, end);
+                    list[noOfTask] = currentTask;
+                    System.out.println(line + "\n" + addingTask + "\n" + "  " + currentTask + "\n" + numberOfTask);
+
+                }
                 taskInArray += 1;
             }
 
