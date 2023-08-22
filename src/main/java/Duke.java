@@ -28,10 +28,10 @@ public class Duke {
         this.indent();
     }
 
-    public void appendList() {
-        this.tasks[this.count] = new Task(this.message);
-        this.count++;
-    }
+//    public void appendList() {
+//        this.tasks[this.count] = new Task(this.message);
+//        this.count++;
+//    }
 
     public void mark() {
         try {
@@ -65,6 +65,63 @@ public class Duke {
         }
     }
 
+    public void todo() {
+        try {
+            String description = this.message.substring(5);
+            this.tasks[this.count] = new Todo(description);
+            this.indent();
+            System.out.println("\t \t \t \t Added the following task to the list.");
+            this.tasks[this.count].displayTask(this.count + 1);
+            this.count++;
+            System.out.println(String.format("\t \t \t \t You currently have %d tasks in your list.", this.count));
+            this.indent();
+        } catch (Exception e) {
+            this.indent();
+            System.out.println("\t \t \t \t Something went wrong. Please try again!");
+            this.indent();
+        }
+    }
+
+    public void deadline() {
+        try {
+            int index = this.message.indexOf("/");
+            String description = this.message.substring(9, index - 1);
+            String deadline = this.message.substring(index + 1);
+            this.tasks[this.count] = new Deadline(description, deadline);
+            this.indent();
+            System.out.println("\t \t \t \t Added the following task to the list.");
+            this.tasks[this.count].displayTask(this.count + 1);
+            this.count++;
+            System.out.println(String.format("\t \t \t \t You currently have %d tasks in your list.", this.count));
+            this.indent();
+        } catch (Exception e) {
+            this.indent();
+            System.out.println("\t \t \t \t Something went wrong. Please try again!");
+            this.indent();
+        }
+    }
+
+    public void event() {
+        try {
+            int index1 = this.message.indexOf("/");
+            int index2 = this.message.indexOf("/", index1 + 1);
+            String description = this.message.substring(6, index1 - 1);
+            String from = this.message.substring(index1 + 1, index2 - 1);
+            String to = this.message.substring(index2 + 1);
+            this.tasks[this.count] = new Event(description, from, to);
+            this.indent();
+            System.out.println("\t \t \t \t Added the following task to the list.");
+            this.tasks[this.count].displayTask(this.count + 1);
+            this.count++;
+            System.out.println(String.format("\t \t \t \t You currently have %d tasks in your list.", this.count));
+            this.indent();
+        } catch (Exception e) {
+            this.indent();
+            System.out.println("\t \t \t \t Something went wrong. Please try again!");
+            this.indent();
+        }
+    }
+
     public void exit() {
         this.indent();
         System.out.println("\t \t \t \t I shall now take my leave. If you require further assistance, \n" +
@@ -85,10 +142,15 @@ public class Duke {
                 this.mark();
             } else if (this.message.startsWith("unmark")) {
                 this.unmark();
+            } else if (this.message.startsWith("todo")) {
+                this.todo();
+            } else if (this.message.startsWith("deadline")) {
+                this.deadline();
+            } else if (this.message.startsWith("event")) {
+                this.event();
             } else {
-                this.appendList();
                 this.indent();
-                System.out.println("\t \t \t \t Added: " + this.message);
+                System.out.println("\t \t \t \t " + this.message);
                 this.indent();
             }
         }
