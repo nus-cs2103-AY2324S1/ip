@@ -9,8 +9,8 @@ public class Duke {
             " / __/ / / /_/ / ,< /  __/\n" +
             "/_/   /_/\\__,_/_/|_|\\___/ \n" +
             "                          ";
-    private static String[] listOfCommands = new String[100];
-    private static int nextCommandIndex = 0;
+    private static Task[] listOfTasks = new Task[100];
+    private static int nextTaskIndex = 0;
 
     public static void main(String[] args) {
         // introduce Fluke
@@ -24,16 +24,19 @@ public class Duke {
         while (waitingForInput) {
             // check for user commands
             String nextCommand = scanner.nextLine();
-            switch (nextCommand) {
-                case "bye":
-                    waitingForInput = false;
-                    sayBye();
-                    break;
-                case "list":
-                    list();
-                    break;
-                default:
-                    addCommand(nextCommand);
+            if (nextCommand.equals("bye")) {
+                waitingForInput = false;
+                sayBye();
+            } else if (nextCommand.equals("list")) {
+                list();
+            } else if (nextCommand.startsWith("mark")) {
+                int number = Integer.parseInt(nextCommand.substring(5));
+                markTaskAsDone(number);
+            } else if (nextCommand.startsWith("unmark")) {
+                int number = Integer.parseInt(nextCommand.substring(7));
+                markTaskAsUndone(number);
+            } else {
+                addTask(nextCommand);
             }
             addHorizontalLine();
         }
@@ -54,21 +57,45 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
-    private static void addCommand(String str) {
-        listOfCommands[nextCommandIndex] = str;
-        nextCommandIndex += 1;
+    private static void addTask(String str) {
+        listOfTasks[nextTaskIndex] = new Task(str);
+        nextTaskIndex += 1;
         System.out.println("added: " + str);
     }
 
     private static void list() {
         for (int i = 0; i < 100; i++) {
-            if (listOfCommands[i] == null) {
+            if (listOfTasks[i] == null) {
                 break;
             } else {
-                String command = listOfCommands[i];
+                Task task = listOfTasks[i];
                 int number = i + 1;
-                System.out.println(number + ". " + command);
+                System.out.println(number + ". " + task);
             }
+        }
+    }
+
+    private static void markTaskAsDone(int taskNumber) {
+        int index = taskNumber - 1;
+        // check if task exists
+        if (listOfTasks.length > index && listOfTasks[index] != null) {
+            listOfTasks[index].markAsDone();
+            System.out.println("I have marked this task as done, I hope it's the right one:");
+            System.out.println(listOfTasks[index]);
+        } else {
+            System.out.println("I'm pretty sure that task doesn't exist...");
+        }
+    }
+
+    private static void markTaskAsUndone(int taskNumber) {
+        int index = taskNumber - 1;
+        // check if task exists
+        if (listOfTasks.length > index && listOfTasks[index] != null) {
+            listOfTasks[index].markAsUndone();
+            System.out.println("I have marked this task as not done yet, I hope it's the right one:");
+            System.out.println(listOfTasks[index]);
+        } else {
+            System.out.println("I'm pretty sure that task doesn't exist...");
         }
     }
 }
