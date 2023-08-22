@@ -1,5 +1,6 @@
-import javax.swing.plaf.synth.SynthRadioButtonMenuItemUI;
-import java.util.*;
+enum TaskType {
+    todo, event, deadline
+}
 
 public class Task {
     protected String name;

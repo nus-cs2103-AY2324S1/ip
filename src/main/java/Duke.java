@@ -25,8 +25,8 @@ public class Duke {
         return stringFormat(new String[]{input});
     }
 
-    private static boolean isValidTaskType(String str) {
-        return str.equals("deadline") || str.equals("event") || str.equals("todo");
+    private static boolean isValidTaskType(TaskType type) {
+        return type.equals(TaskType.todo) || type.equals(TaskType.deadline) || type.equals(TaskType.event);
     }
 
     private static String addToList(String description) {
@@ -34,7 +34,7 @@ public class Duke {
         try {
             // Split by the first " " into type, and task details
             String[] task = description.split(" ", 2);
-            String taskType = task[0];
+            TaskType taskType = Enum.valueOf(TaskType.class, task[0]);
 
             if (!isValidTaskType(taskType)) {
                 throw new WrongInputException();
@@ -46,9 +46,9 @@ public class Duke {
 
             String taskDetails = task[1];
 
-            if (taskType.equals("deadline")) {
+            if (taskType.equals(TaskType.deadline)) {
                 taskObj = new Deadline(taskDetails);
-            } else if (taskType.equals("event")) {
+            } else if (taskType.equals(TaskType.event)) {
                 taskObj = new Event(taskDetails);
             } else {
                 taskObj = new Todo(taskDetails);
