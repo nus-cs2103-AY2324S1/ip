@@ -1,11 +1,14 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.utils.Task;
 public class Duke {
     private static final String NAME = "Joi";
     private boolean isRunning;
     private final Scanner sc;
-    private final ArrayList<String> itemList;
+    private final ArrayList<Task> itemList;
 
     // constructor for Duke
     public Duke() {
@@ -29,8 +32,28 @@ public class Duke {
                     System.out.println((i+1) + ". " + this.itemList.get(i));
                 }
                 System.out.println();
+            } else if (input.startsWith("mark")){
+                int taskIdx = Integer.parseInt(input.substring(5)) - 1;
+
+                if (taskIdx < itemList.size()) {
+                    itemList.get(taskIdx).setDone();
+                }
+
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(itemList.get(taskIdx) + "\n");
+            } else if (input.startsWith("unmark")) {
+                int taskIdx = Integer.parseInt(input.substring(7)) - 1;
+
+                if (taskIdx < itemList.size()) {
+                    itemList.get(taskIdx).setNotDone();
+                }
+
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(itemList.get(taskIdx) + "\n");
             } else {
-                this.itemList.add(input);
+                Task newTask = new Task(input);
+
+                itemList.add((newTask));
                 System.out.println("added: " + input + "\n");
             }
         }
