@@ -91,7 +91,7 @@ public class Duke {
                     println();
                     break;
                 } else if (text.startsWith("todo")) {
-<<<<<<< HEAD
+
                     String description = text.substring(4);
                     if (description.isEmpty()) {
                         throw new DukeException("I apologise, sir. But the description of todo cannot be empty");
@@ -105,53 +105,42 @@ public class Duke {
                         System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
                         println();
                     }
-=======
-                    String description = text.substring(5);
-                    if (description.equals(" ")){
-                        throw new DukeException( );
-                    }
-                    Todo todo = new Todo(description);
-                    setList(todo);
-                    incrementCounter();
-                    println();
-                    System.out.println("Noted Sir. I've added this task to your list: ");
-                    System.out.println(String.format("\t [%s] [%s] %s", todo.tag, todo.getStatusIcon(), todo.toString()));
-                    System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
-                    println();
->>>>>>> 21750337ed2e81907cc4712d683fdf4e890b63be
+
                 } else if (text.startsWith("deadline")) {
                     String[] splitText = text.split("/");
                     String description = splitText[0].substring(8);
                     if (description.isEmpty()){
                         throw new DukeException("I apologise, sir. But the description and deadline cannot be empty");
 
+                    } else {
+                        String deadline = splitText[1].trim().substring(3);
+                        Deadline dl = new Deadline(description.trim(), deadline);
+                        setList(dl);
+                        incrementCounter();
+                        println();
+                        System.out.println("Noted Sir. I've added this task to your list: ");
+                        System.out.println(String.format("\t [%s] [%s] %s", dl.tag, dl.getStatusIcon(), dl.toString()));
+                        System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
+                        println();
                     }
-                    String deadline = splitText[1].trim().substring(3);
-                    Deadline dl = new Deadline(description.trim(), deadline);
-                    setList(dl);
-                    incrementCounter();
-                    println();
-                    System.out.println("Noted Sir. I've added this task to your list: ");
-                    System.out.println(String.format("\t [%s] [%s] %s", dl.tag, dl.getStatusIcon(), dl.toString()));
-                    System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
-                    println();
                 } else if (text.startsWith("event")) {
                     String[] splitText = text.split("/");
                     String description = splitText[0].substring(5);
                     if (description.isEmpty()){
                         throw new DukeException("I apologise, sir. But the description, start and end cannot be empty");
 
+                    } else {
+                        String start = splitText[1].trim().substring(5);
+                        String end = splitText[2].trim().substring(3);
+                        Event event = new Event(description.trim(), start, end);
+                        setList(event);
+                        incrementCounter();
+                        println();
+                        System.out.println("Noted Sir. I've added this task to your list: ");
+                        System.out.println(String.format("\t [%s] [%s] %s", event.tag, event.getStatusIcon(), event.toString()));
+                        System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
+                        println();
                     }
-                    String start = splitText[1].trim().substring(5);
-                    String end = splitText[2].trim().substring(3);
-                    Event event = new Event(description.trim(), start, end);
-                    setList(event);
-                    incrementCounter();
-                    println();
-                    System.out.println("Noted Sir. I've added this task to your list: ");
-                    System.out.println(String.format("\t [%s] [%s] %s", event.tag, event.getStatusIcon(), event.toString()));
-                    System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
-                    println();
 
                 } else if (text.startsWith("delete")) {
                     String[] splitText = text.split(" ");
