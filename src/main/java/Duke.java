@@ -1,8 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.lang.Throwable;
 public class Duke {
 
 
@@ -14,17 +12,6 @@ public class Duke {
         System.out.println("");
     }
 
-    public static void echo() {
-        Scanner sc = new Scanner(System.in);
-        String command = sc.nextLine();
-        if (command.equals("bye")) {
-            return;
-        }
-        printHorizontalLine();
-        System.out.println(command);
-        printHorizontalLine();
-        echo();
-    }
 
     public static void introduction() {
         String name = "Donk";
@@ -41,8 +28,8 @@ public class Duke {
     }
 
 
-    public static void toDo() throws DukeException {
-        ArrayList<Task> list = new ArrayList<Task>();
+    public static void toDo() {
+        ArrayList<Task> list = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         Pattern listRegex = Pattern.compile("^list", Pattern.CASE_INSENSITIVE);
         Pattern markRegex = Pattern.compile("^mark", Pattern.CASE_INSENSITIVE);
@@ -50,6 +37,7 @@ public class Duke {
         Pattern deadlineRegex = Pattern.compile("^deadline", Pattern.CASE_INSENSITIVE);
         Pattern todoRegex = Pattern.compile("^todo", Pattern.CASE_INSENSITIVE);
         Pattern eventRegex = Pattern.compile("^event", Pattern.CASE_INSENSITIVE);
+        Pattern deleteRegex = Pattern.compile("^delete", Pattern.CASE_INSENSITIVE);
         while(true) {
             String command = sc.nextLine();
             if (command.equals("bye")) {
@@ -139,6 +127,16 @@ public class Duke {
                 System.out.println(eventTask);
                 System.out.println("Now you have " + list.size() + " tasks in the list." );
                 printHorizontalLine();
+            } else if (deleteRegex.matcher(command).find()) {
+                printHorizontalLine();
+                System.out.println("Noted. I've removed this task:");
+                int indexToRemove = Integer.parseInt(command.substring(7)) - 1;
+                Task taskToRemove = list.get(indexToRemove);
+                System.out.println(taskToRemove);
+                list.remove(indexToRemove);
+                System.out.println("Now you have " + list.size() + " tasks in the list." );
+                printHorizontalLine();
+
             } else {
                 try {
                     throw new DukeException("Invalid Response");
@@ -146,7 +144,6 @@ public class Duke {
                     printHorizontalLine();
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     printHorizontalLine();
-                    continue;
                 }
             }
         }
@@ -155,7 +152,7 @@ public class Duke {
 
 
 
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) {
         introduction();
 
         toDo();
