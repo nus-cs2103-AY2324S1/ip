@@ -10,9 +10,9 @@ public class Deadline extends Task {
     @Override
     public void displayTask(int index) {
         if (super.completed) {
-            System.out.println(String.format("\t \t \t \t %d) [Deadline] ✅ " + super.action + " (" + this.deadline + ")", index));
+            System.out.println(String.format("\t \t \t \t %d) [Deadline] [X] " + super.action + " (" + this.deadline + ")", index));
         } else {
-            System.out.println(String.format("\t \t \t \t %d) [Deadline] ⬜ " + super.action + " (" + this.deadline + ")", index));
+            System.out.println(String.format("\t \t \t \t %d) [Deadline] [ ] " + super.action + " (" + this.deadline + ")", index));
         }
     }
 }

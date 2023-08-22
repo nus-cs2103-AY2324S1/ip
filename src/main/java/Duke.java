@@ -11,7 +11,7 @@ public class Duke {
     }
     public void greet() {
         this.indent();
-        System.out.println("\t \t \t \t Greetings, I am Vision. How may I assist you today? \uD83E\uDD16\uD83D\uDD0D");
+        System.out.println("\t \t \t \t Greetings, I am Vision. How may I assist you today?");
         this.indent();
     }
 
@@ -21,7 +21,7 @@ public class Duke {
 
     public void list() {
         this.indent();
-        System.out.println("\t \t \t \t Tasks displayed. Your guidance is requested. \uD83D\uDCCB\uD83E\uDD16");
+        System.out.println("\t \t \t \t Tasks displayed. Your guidance is requested.");
         for (int i = 0; i < this.count; i++) {
             this.tasks[i].displayTask(i + 1);
         }
@@ -124,8 +124,7 @@ public class Duke {
 
     public void exit() {
         this.indent();
-        System.out.println("\t \t \t \t I shall now take my leave. If you require further assistance, \n" +
-                "\t \t \t \t do not hesitate to seek my guidance once more. Farewell. \uD83E\uDD16\uD83D\uDC4B");
+        System.out.println("\t \t \t \t I shall now take my leave. Farewell!");
         this.indent();
     }
 
