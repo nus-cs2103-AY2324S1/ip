@@ -38,15 +38,15 @@ public class Duke {
         System.out.println(" ");
     }
 
-//    public void markDone(int i) {
-//        data[i + 1].markDone();
-//        System.out.println("Yay! " + data[i + 1] + " done liao!!");
-//    }
-//
-//    public void markUndone(int i) {
-//        data[i + 1].markUndone();
-//        System.out.println("Hmm... Why just now simply mark " + data[i + 1] + " as done...");
-//    }
+    public void markDone(int i) {
+        data[i].markDone();
+        System.out.println("Yay! \"" + data[i] + "\" done liao!!\n");
+    }
+
+    public void markUndone(int i) {
+        data[i].markUndone();
+        System.out.println("Hmm... Why just now don't mark \"" + data[i] + "\" as done properly...\n");
+    }
 
     public static void main(String[] args) {
         Duke roo = new Duke();
@@ -59,8 +59,14 @@ public class Duke {
             if (input.equals("list")) {
                 roo.list();
                 input = sc.nextLine();
-//            } else if (input.contains("mark")) {
-//                input = sc.nextLine();
+            } else if (input.startsWith("unmark ")) {
+                int t = Integer.parseInt(input.substring(7));
+                roo.markUndone(t - 1);
+                input = sc.nextLine();
+            } else if (input.startsWith("mark ")) {
+                int t = Integer.parseInt(input.substring(5));
+                roo.markDone(t - 1);
+                input = sc.nextLine();
             } else if (!input.equals("bye")) {
                 roo.add(new Task(input));
                 input = sc.nextLine();
