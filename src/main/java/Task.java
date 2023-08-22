@@ -1,8 +1,9 @@
-public class Task {
-    private String taskName;
+public abstract class Task {
+    protected String taskName;
     private boolean completed;
-    Task(String taskName) {
-        this.taskName = taskName;
+    protected String oneLetterAbbrev;
+    Task(Parser input) {
+        this.taskName = input.getDefaultString();
         completed = false;
     }
     public boolean isCompleted() {
@@ -16,10 +17,6 @@ public class Task {
     }
     @Override
     public String toString() {
-        if (this.isCompleted()) {
-            return "[X] " + this.taskName;
-        } else {
-            return "[ ] " + this.taskName;
-        }
+        return this.isCompleted() ? "[" + this.oneLetterAbbrev + "][X] " + this.taskName : "[" + this.oneLetterAbbrev + "][ ] " + this.taskName;
     }
 }

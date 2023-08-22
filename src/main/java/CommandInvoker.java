@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
-
+//TODO Add todo, deadline and event commands
 public class CommandInvoker {
     /**
      * List of tasks
@@ -12,12 +12,14 @@ public class CommandInvoker {
     /**
      * Lookup Table that relates a keyword to a corresponding method.
      */
-    private static Dictionary<String, Consumer<String>> COMMAND_LIST = new Hashtable<String, Consumer<String>>() {{
+    private static Dictionary<String, Consumer<Parser>> COMMAND_LIST = new Hashtable<String, Consumer<Parser>>() {{
         put("bye", CommandInvoker::bye);
         put("list", CommandInvoker::list);
-        put("echo", CommandInvoker::echo);
         put("mark", CommandInvoker::mark);
         put("unmark", CommandInvoker::unmark);
+        put("todo", CommandInvoker::todo);
+        put("deadline", CommandInvoker::deadline);
+        put("event", CommandInvoker::event);
     }};
     /**
      * Helper function used to obtain the rest of a sentence sans keyword.
@@ -34,27 +36,27 @@ public class CommandInvoker {
      * @param inputString User's input.
      */
     public static void handle(String inputString) {
-        String inputWords = removeFirstWord(inputString);
+        Parser input = new Parser(removeFirstWord(inputString));
         String keyword = inputString.split(" ")[0];
-        Consumer<String> calledConsumer = COMMAND_LIST.get(keyword);
+        Consumer<Parser> calledConsumer = COMMAND_LIST.get(keyword);
         if (calledConsumer != null) {
-            calledConsumer.accept(inputWords);
+            calledConsumer.accept(input);
         } else {
             unknownCommand(inputString);
         }
     }
     /**
      * Terminates chatbot
-     * @param inputString Unused
+     * @param input Unused
      */
-    private static void bye(String inputString) {
+    private static void bye(Parser input) {
         Rock.terminate();
     }
     /**
      * List all tasks in the task list
-     * @param inputString
+     * @param input Unused
      */
-    private static void list(String inputString) {
+    private static void list(Parser input) {
         int counter = 1;
         Rock.say("Task List: ");
         for (Task task:taskList) {
@@ -65,11 +67,10 @@ public class CommandInvoker {
     }
     /**
      * Handler for unknown commands given by user.
-     * @param inputString User's input
+     * @param input User's input
      */
-    private static void unknownCommand(String inputString) {
-        taskList.add(new Task(inputString));
-        Rock.say(inputString + " was added to the task list!");
+    private static void unknownCommand(String input) {
+        Rock.say("Unknown command!");
         Rock.say(Rock.LINE_BREAK);
     }
     /**
@@ -77,7 +78,8 @@ public class CommandInvoker {
      * @param inputString Contains index of task to be
      * marked. 1-indexed.
      */
-    private static void mark(String inputString) {
+    private static void mark(Parser input) {
+        String inputString = input.getDefaultString();
         try {
             int taskIdx = Integer.parseInt(inputString);
             if (taskIdx < 1 || taskIdx > taskList.size()) {
@@ -95,10 +97,11 @@ public class CommandInvoker {
     }
     /**
      * Unmarks a task as completed
-     * @param inputString Contains index of task to be
+     * @param input Contains index of task to be
      * unmarked. 1-indexed.
      */
-    private static void unmark(String inputString) {
+    private static void unmark(Parser input) {
+        String inputString = input.getDefaultString();
         try {
             int taskIdx = Integer.parseInt(inputString);
             if (taskIdx < 1 || taskIdx > taskList.size()) {
@@ -114,12 +117,13 @@ public class CommandInvoker {
             Rock.say("Invalid index given!");
         }
     }
-    /**
-     * Prints out the user's input. UNUSED
-     * @param inputString User's input.
-     */
-    private static void echo(String inputString) {
-        Rock.say(inputString);
-        Rock.say(Rock.LINE_BREAK);
+    private static void todo(Parser input) {
+        taskList.add(new TaskTodo(input));
+    }
+    private static void deadline(Parser input) {
+        taskList.add(new TaskDeadline(input));
+    }
+    private static void event(Parser input) {
+        taskList.add(new TaskEvent(input));
     }
 }
