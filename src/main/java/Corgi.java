@@ -87,6 +87,11 @@ public class Corgi {
         sc.close();
     }
 
+    /**
+    * Prints an corgi-themed error message.
+    *
+    * @param msg The error message to display.
+    */
     private void printException(String msg) {
         System.out.println("Woof?! 🤬 \n" + msg);
     }
