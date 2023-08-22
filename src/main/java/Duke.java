@@ -2,7 +2,7 @@ import java.util.*;
 public class Duke {
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int counter = 0;
         String logo = " _           _        \n"
                     + "| |    _   _| | _____ \n"
@@ -18,11 +18,17 @@ public class Duke {
             } else if (input.equals("list")) {
                 for (int i = 0; i < counter; i++) {
                     System.out.println((i+1)+". " + list[i]);
-
                 }
-            } else {
+            } else if (input.startsWith("mark")) {
+                int number = Integer.parseInt(input.substring(5));
+                list[number - 1].markDone();
+            } else if (input.startsWith("unmark")) {
+                int number = Integer.parseInt(input.substring(7));
+                list[number - 1].markUndone();
+            }
+            else {
                 System.out.println("added: " + input);
-                list[counter] = input;
+                list[counter] = new Task(input);
                 counter += 1;
             }
         }
