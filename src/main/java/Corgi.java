@@ -55,6 +55,11 @@ public class Corgi {
         sc.close();
     }
 
+    /**
+     * Mark task as done.
+     * 
+     * @param indexStr Target task index.
+     */
     private void markTaskAsDone(String indexStr) {
         int index = Integer.parseInt(indexStr) - 1;
         if (index >= 0 && index < this.tasks.size()) {
@@ -66,6 +71,11 @@ public class Corgi {
         }
     }
 
+    /**
+     * Mark task as not done.
+     * 
+     * @param indexStr Target task index.
+     */
     private void markTaskAsNotDone(String indexStr) {
         int index = Integer.parseInt(indexStr) - 1;
         if (index >= 0 && index < this.tasks.size()) {
