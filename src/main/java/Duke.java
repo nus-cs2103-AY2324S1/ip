@@ -1,11 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
     private static final int INDENT_SIZE = 4;
     private static final String NAME = "Jimmy";
-    private static final int MAX_ENTRIES = 100;
-    private static final Task[] tasks = new Task[MAX_ENTRIES];
-    private static int cursor = 0;
+    private static final List<Task> tasks = new ArrayList<>();
 
     private static String indent(String s) {
         return String.format("%s%s", " ".repeat(INDENT_SIZE), s);
@@ -39,25 +39,25 @@ public class Duke {
     }
 
     private static void list() {
-        if (cursor == 0) {
+        if (tasks.isEmpty()) {
             say("You have no tasks in your list!");
             return;
         }
 
         whisper("Here are the tasks in your list:");
-        for (int i = 0; i < cursor; i++) {
-            String taskEntry = String.format("%d. %s", i + 1, tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            String taskEntry = String.format("%d. %s", i + 1, tasks.get(i));
             whisper(indent(taskEntry));
         }
-        say(String.format("You have %d %s in your list.", cursor, cursor == 1 ? "task" : "tasks"));
+        say(String.format("You have %d %s in your list.", tasks.size(), tasks.size() == 1 ? "task" : "tasks"));
     }
 
     private static void add(Task task) {
-        tasks[cursor++] = task;
+        tasks.add(task);
         say(
                 "Got it. I've added this task:",
                 indent(task.toString()),
-                String.format("Now you have %d %s in the list.", cursor, cursor == 1 ? "task" : "tasks")
+                String.format("Now you have %d %s in the list.", tasks.size(), tasks.size() == 1 ? "task" : "tasks")
         );
     }
 
@@ -120,11 +120,11 @@ public class Duke {
         try {
             int idx = Integer.parseInt(index);
 
-            if (idx < 1 || idx > cursor) {
+            if (idx < 1 || idx > tasks.size()) {
                 throw new DukeException("Invalid task index!");
             }
 
-            Task task = tasks[idx - 1];
+            Task task = tasks.get(idx - 1);
 
             if (task.isDone) {
                 throw new DukeException("Task has already been done!");
@@ -145,11 +145,11 @@ public class Duke {
         try {
             int idx = Integer.parseInt(index);
 
-            if (idx < 1 || idx > cursor) {
+            if (idx < 1 || idx > tasks.size()) {
                 throw new DukeException("Invalid task index!");
             }
 
-            Task task = tasks[idx - 1];
+            Task task = tasks.get(idx - 1);
 
             if (!task.isDone) {
                 throw new DukeException("Task has not been done yet!");
