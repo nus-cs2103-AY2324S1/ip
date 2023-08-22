@@ -1,6 +1,9 @@
-import java.util.Scanner;
+import java.security.SecureRandom;
+import java.util.*;
 
 public class Duke {
+
+    private static ArrayList<String> lst = new ArrayList<>();
 
     private static String StringFormat(String[] strArray) {
         String content = "";
@@ -24,6 +27,19 @@ public class Duke {
         return StringFormat(new String[]{input});
     }
 
+    private static String AddToList(String task) {
+        lst.add(task);
+        return StringFormat(new String[]{"added: " + task});
+    }
+
+    private static String DisplayList() {
+        String[] tasks = new String[lst.size()];
+        for (int i = 0; i < lst.size(); i++) {
+            tasks[i] = (i + 1) + ". " + lst.get(i);
+        }
+        return StringFormat(tasks);
+    }
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -36,12 +52,15 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String nextLine = sc.nextLine();
-            if (nextLine.equals("bye")) {
+            if (nextLine.equals("list")) {
+                System.out.println(DisplayList());
+            } else if (nextLine.equals("bye")) {
                 System.out.println(Exit());
                 sc.close();
                 break;
+            } else {
+                System.out.println(AddToList(nextLine));
             }
-            System.out.println(Echo(nextLine));
         }
     }
 }
