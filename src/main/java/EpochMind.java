@@ -58,7 +58,8 @@ public class EpochMind {
                     break;
 
                 default:
-                    System.out.println("No such command detected, please try again");
+                    EpochMindException e = new EpochMindException("There is no such command in the Arcana of Knowledge");
+                    System.out.println(e);
                     break;
             }
         }
@@ -84,11 +85,13 @@ public class EpochMind {
 
     public static void mark(String[] commandList) {
         if (commandList.length == 1) {
-            System.out.println("Thou hast forgotten to specify thine index");
+            EpochMindException e = new EpochMindException("Thou hast forgotten to specify thine index");
+            System.out.println(e);
         } else {
             int index = parseInt(commandList[1]);
             if (tasks.size() < index) {
-                System.out.println("Thou hast specified an index larger than thine list");
+                EpochMindException e = new EpochMindException("Thou hast specified an index larger than thine list");
+                System.out.println(e);
             } else {
                 System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is completed \n" +
                         "[X] " + tasks.get(index - 1).description +
@@ -100,11 +103,13 @@ public class EpochMind {
 
     public static void unmark(String[] commandList) {
         if (commandList.length == 1) {
-            System.out.println("Thou hast forgotten to specify thine index");
+            EpochMindException e = new EpochMindException("Thou hast forgotten to specify thine index");
+            System.out.println(e);
         } else {
             int index = parseInt(commandList[1]);
             if (tasks.size() < index) {
-                System.out.println("Thou hast specified an index larger than thine list");
+                EpochMindException e = new EpochMindException("Thou hast specified an index larger than thine list");
+                System.out.println(e);
             } else {
                 System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is not yet completed \n" +
                         "[ ] " + tasks.get(index - 1).description +
@@ -116,26 +121,37 @@ public class EpochMind {
 
     public static void todo(String command) {
         String restOfCommand = removeCommandWord(command);
-        ToDo toDo = new ToDo(restOfCommand);
-        tasks.add(toDo);
-        System.out.println("___________________________________________________________________________________________________________\n" + "The Mind has added a new task \n" + toDo + "\nThere are now " + tasks.size() + " tasks left to complete" +
-                "\n___________________________________________________________________________________________________________\n");
+        if (restOfCommand.trim().equals("")) {
+            EpochMindException e = new EpochMindException("Thou hast not specified a task");
+            System.out.println(e);
+        } else {
+            ToDo toDo = new ToDo(restOfCommand);
+            tasks.add(toDo);
+            System.out.println("___________________________________________________________________________________________________________\n" + "The Mind has added a new task \n" + toDo + "\nThere are now " + tasks.size() + " tasks left to complete" +
+                    "\n___________________________________________________________________________________________________________\n");
+        }
+
     }
 
     public static void deadline(String command) {
         String restOfCommand = removeCommandWord(command);
         int endIndex = restOfCommand.indexOf("/by ");
         if (endIndex == -1) {
-            System.out.println("The Mind needs a deadline");
+            EpochMindException e = new EpochMindException("The Mind needs a deadline");
+            System.out.println(e);
         } else {
             String taskDescription = restOfCommand.substring(0, endIndex).trim();
-            int deadlineIndex = restOfCommand.indexOf("/by ") + 3;
-            String deadlineString = restOfCommand.substring(deadlineIndex);
-            Deadline deadline = new Deadline(taskDescription, deadlineString);
-            tasks.add(deadline);
-            System.out.println("___________________________________________________________________________________________________________\n" + "The Mind has added a new task \n" + deadline + "\nThere are now " + tasks.size() + " tasks left to complete" +
-                    "\n___________________________________________________________________________________________________________\n");
-
+            if (taskDescription.trim().equals("")) {
+                EpochMindException e = new EpochMindException("Thou hast not specified a task");
+                System.out.println(e);
+            } else {
+                int deadlineIndex = restOfCommand.indexOf("/by ") + 3;
+                String deadlineString = restOfCommand.substring(deadlineIndex);
+                Deadline deadline = new Deadline(taskDescription, deadlineString);
+                tasks.add(deadline);
+                System.out.println("___________________________________________________________________________________________________________\n" + "The Mind has added a new task \n" + deadline + "\nThere are now " + tasks.size() + " tasks left to complete" +
+                        "\n___________________________________________________________________________________________________________\n");
+            }
         }
     }
 
@@ -143,27 +159,30 @@ public class EpochMind {
         String restOfCommand = removeCommandWord(command);
         int fromIndex = restOfCommand.indexOf("/from");
         if (fromIndex == -1) {
-            System.out.println("The Mind needs a start time");
+            EpochMindException e = new EpochMindException("The Mind needs a start time");
+            System.out.println(e);
         } else {
             String description = restOfCommand.substring(0, fromIndex).trim();
-            fromIndex = restOfCommand.indexOf("/from") + "/from".length();
-            int toIndex = restOfCommand.indexOf("/to");
-            if (toIndex == -1) {
-                System.out.println("The Mind needs a end time");
+            if (description.trim().equals("")) {
+                EpochMindException e = new EpochMindException("Thou hast not specified a task");
+                System.out.println(e);
             } else {
-                String startString = restOfCommand.substring(fromIndex, toIndex).trim();
-                toIndex = restOfCommand.indexOf("/to") + "/to".length();
-                String endString = restOfCommand.substring(toIndex);
-                Event event = new Event(description, startString, endString);
-                tasks.add(event);
-                System.out.println("___________________________________________________________________________________________________________\n" + "The Mind has added a new task \n" + event + "\nThere are now " + tasks.size() + " tasks left to complete" +
-                        "\n___________________________________________________________________________________________________________\n");
+                fromIndex = restOfCommand.indexOf("/from") + "/from".length();
+                int toIndex = restOfCommand.indexOf("/to");
+                if (toIndex == -1) {
+                    EpochMindException e = new EpochMindException("The Mind needs a end time");
+                    System.out.println(e);
+                } else {
+                    String startString = restOfCommand.substring(fromIndex, toIndex).trim();
+                    toIndex = restOfCommand.indexOf("/to") + "/to".length();
+                    String endString = restOfCommand.substring(toIndex);
+                    Event event = new Event(description, startString, endString);
+                    tasks.add(event);
+                    System.out.println("___________________________________________________________________________________________________________\n" + "The Mind has added a new task \n" + event + "\nThere are now " + tasks.size() + " tasks left to complete" +
+                            "\n___________________________________________________________________________________________________________\n");
+                }
             }
-
         }
-
-
-
     }
 
     public static String removeCommandWord(String command) {
