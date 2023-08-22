@@ -35,6 +35,11 @@ public class Duke {
      */
     private static class ChatBotList {
         private ArrayList<Item> list;
+        private enum taskType {
+            EVENT,
+            DEADLINE,
+            TODO
+        }
 
         /**
          * Encapsulates an item in the list
@@ -162,9 +167,9 @@ public class Duke {
          * @param type The type of item*
          * @return The toString() of the Item added.
          */
-        public String addToList(String s, String type) {
+        public String addToList(String s, taskType type) {
             switch (type) {
-                case "event":
+                case EVENT:
                     String[] firstSplit = s.split(" +/from +");
                     if (firstSplit.length != 2) {
                         throw new IllegalChatBotListArgumentException("Incorrect syntax!\n" +
@@ -179,7 +184,7 @@ public class Duke {
                     }
                     this.list.add( new Event(firstSplit[0], secondSplit[0], secondSplit[1]));
                     break;
-                case "deadline":
+                case DEADLINE:
                     String[] splitInput = s.split(" +/by +", 2);
                     if (splitInput.length != 2) {
                         throw new IllegalChatBotListArgumentException("Incorrect syntax!\n" +
@@ -188,7 +193,7 @@ public class Duke {
                     }
                     this.list.add(new Deadline(splitInput[0], splitInput[1]));
                     break;
-                case "todo":
+                case TODO:
                     this.list.add(new Todo(s));
                     break;
                 default:
@@ -301,7 +306,7 @@ public class Duke {
                                 "event <desc> /from <start> /to <end>");
                     } else {
                         try {
-                            String taskStr = list.addToList(splitInput[1], "event");
+                            String taskStr = list.addToList(splitInput[1], ChatBotList.taskType.EVENT);
                             System.out.println("Got it. I've added this task:\n" + taskStr);
                             System.out.println("Now you have " + list.getLength() + " tasks in the list.");
                         } catch (IllegalChatBotListArgumentException e) {
@@ -314,7 +319,7 @@ public class Duke {
                                 "deadline <desc> /by <deadline>");
                     } else {
                         try {
-                            String taskStr = list.addToList(splitInput[1], "deadline");
+                            String taskStr = list.addToList(splitInput[1], ChatBotList.taskType.DEADLINE);
                             System.out.println("Got it. I've added this task:\n" + taskStr);
                             System.out.println("Now you have " + list.getLength() + " tasks in the list.");
                         } catch (IllegalChatBotListArgumentException e) {
@@ -325,7 +330,7 @@ public class Duke {
                     if (splitInput.length < 2) {
                         System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                     } else {
-                        String taskStr = list.addToList(splitInput[1], "todo");
+                        String taskStr = list.addToList(splitInput[1], ChatBotList.taskType.TODO);
                         System.out.println("Got it. I've added this task:\n" + taskStr);
                         System.out.println("Now you have " + list.getLength() + " tasks in the list.");
                     }
