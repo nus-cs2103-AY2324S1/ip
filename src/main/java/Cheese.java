@@ -23,11 +23,28 @@ public class Cheese {
   }
 
   private void addToList(String input) {
-    cheeseStack.add(input);
+    cheeseStack.add("[ ] " + input);
+  }
+
+  private void markItem(int index) {
+    String input = cheeseStack.get(index);
+    String[] inputArray = new String[2];
+    inputArray = input.split("]");
+    inputArray[0] = "[X] ";
+    input = inputArray[0] + inputArray[1];
+    cheeseStack.set(index, input);
   }
 
   private void commandResponse(String input) {
-    switch(input) {
+    String inputSplit[] = input.split(" ");
+    switch(inputSplit[0]) {
+      case "mark":
+        markItem(Integer.parseInt(inputSplit[1]) - 1);
+        System.out.println("\t-----------------------------------------");
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t" + cheeseStack.get(Integer.parseInt(inputSplit[1]) - 1));
+        System.out.println("\t-----------------------------------------");
+        break;
       case "bye":
         System.out.println("\tBye. Hope to see you again soon!");
         break;
