@@ -14,7 +14,6 @@ public class Duke {
     }
 
     public static void addTask(String task) {
-        
         taskList.add(task);
         System.out.println("Added: " + task);
     }
@@ -39,21 +38,21 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         greet();
 
-//        Scanner scanner = new Scanner(System.in);
-//        String userInput;
-//
-//        do {
-//            System.out.print("> ");
-//            userInput = scanner.nextLine();
-//
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+
+        do {
+            System.out.print("> ");
+            userInput = scanner.nextLine();
+            System.out.println(userInput);
 //            if (userInput.equalsIgnoreCase("list")) {
 //                listAllTasks();
 //            } else if (!userInput.equalsIgnoreCase("bye")) {
 //                addTask(userInput);
 //            }
-//        } while (!userInput.equalsIgnoreCase("bye"));
+        } while (!userInput.equalsIgnoreCase("bye"));
 
         exit();
-//        scanner.close();
+        scanner.close();
     }
 }
