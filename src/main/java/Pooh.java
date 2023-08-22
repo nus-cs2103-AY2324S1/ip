@@ -84,8 +84,15 @@ public class Pooh {
             task = new Event(description, eventStartTime, eventEndTime);
         }
         taskList.add(task);
-        String addTaskMessage = String.format("      Got it. I've added this task:\n          %s\n      Now you have %d tasks in the list", task.toString(), taskList.size());
+        String addTaskMessage = String.format("      Got it. I've added this task:\n          %s\n      Now you have %d tasks in the list", task, taskList.size());
         generalRespond(addTaskMessage);
+    }
+
+    public static void deleteTask(List<Task> taskList, int index) {
+        Task task = taskList.get(index);
+        taskList.remove(index);
+        String delTaskMessage = String.format("      Noted. I've removed this task:\n          %s\n      Now you have %d tasks in the list", task, taskList.size());
+        generalRespond(delTaskMessage);
     }
 
     public static void main(String[] args) {
@@ -124,6 +131,12 @@ public class Pooh {
                     } catch (EmptyTaskDescriptorsException ex) {
                         generalRespond(ex.toString());
                     }
+                } else if (userAction.equalsIgnoreCase("delete")) {
+                    int index = Integer.parseInt(userCmd.split(" ")[1]) - 1;
+                    if (index < 0 || index >= todoList.size()) {
+                        throw new InvalidTaskException();
+                    }
+                    deleteTask(todoList, index);
                 } else {
                     throw new UnrecognizedCommandException();
                 }
