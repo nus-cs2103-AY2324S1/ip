@@ -3,45 +3,50 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CarbonBot {
-    private static String DIVIDER = "____________________________________________________________";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<Task> taskList = new ArrayList<>();
 
         // Greeting Message
-        System.out.println(DIVIDER);
+        printDivider();
         System.out.println("Hello! I'm CarbonBot");
         System.out.println("What can I do for you?");
-        System.out.println(DIVIDER);
+        printDivider();
 
         // Keep fetching for user's input
         while(true) {
             String input = sc.nextLine();
 
             // Ignore if the input was empty
-            if (input.isEmpty()) {
+            if (input.isBlank()) {
                 continue;
             }
 
+            // Fetches the first word as the command string
             String cmd = input.split(" ")[0];
+
+
             int taskIdx;
             String desc;
 
-            System.out.println(DIVIDER);
+            printDivider();
             try {
                 switch (cmd) {
                     case "bye":
-                        // Exit the program if the command is "bye"
+                        // bye: Exits the program after bidding farewell!
                         System.out.println("Bye. Hope to see you again soon!");
-                        System.out.println(DIVIDER);
+                        printDivider();
                         sc.close();
                         return;
                     case "list":
+                        // list: Prints out the list of tasks (and their status)
                         System.out.println("Here are the tasks in your list:");
                         printList(taskList);
                         break;
                     case "todo":
+                        // todo: Adds a TODO Task to the list
+
                         // Get the description from all the characters after "todo"
                         desc = input.substring("todo".length()).trim();
 
@@ -53,7 +58,9 @@ public class CarbonBot {
                         }
                         break;
                     case "deadline":
-                        int indexOfBy = input.indexOf("/by ");
+                        // deadline: Adds a deadline Task to the list
+
+                        int indexOfBy = input.indexOf("/by");
                         // Validates the existence of /by syntax
                         if (indexOfBy == -1) {
                             throw new DukeException("☹ OOPS!!! Please specify the deadline using /by.");
@@ -71,6 +78,8 @@ public class CarbonBot {
                         addTask(taskList, new Deadline(desc, by));
                         break;
                     case "event":
+                        // event: Adds a event Task to the list
+
                         int indexOfFrom = input.indexOf("/from");
                         int indexOfTo = input.indexOf("/to");
                         if (indexOfFrom == -1 || indexOfTo == -1) {
@@ -112,10 +121,17 @@ public class CarbonBot {
                                 "\nMy supported commands are: list, mark, unmark, todo, deadline, event, bye.");
                 }
             } catch (DukeException ex) {
+                // Prints the error message if a DukeException is encountered
                 System.out.println(ex.getMessage());
             }
-            System.out.println(DIVIDER);
+            printDivider();
         }
+    }
+
+
+    private static void printDivider() {
+        String DIVIDER = "____________________________________________________________";
+        System.out.println(DIVIDER);
     }
 
     private static void deleteTask(List<Task> tasks, String input) throws DukeException {
