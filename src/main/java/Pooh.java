@@ -62,7 +62,11 @@ public class Pooh {
         System.out.println(horizontalLine);
     }
 
-    public static void addTask(List<Task> taskList, String userAction, String cmd) {
+    public static void addTask(List<Task> taskList, String userAction, String cmd) throws EmptyTaskDescriptorsException {
+        if (cmd.split(" ", 2).length == 1) {
+            throw new EmptyTaskDescriptorsException();
+        }
+
         String userArgs = cmd.split(" ", 2)[1];
         Task task;
         if (userAction.equalsIgnoreCase("todo")) {
@@ -90,28 +94,44 @@ public class Pooh {
         List<Task> todoList = new ArrayList<>();
         Scanner userInput = new Scanner(System.in);
         while (userInput.hasNextLine()) {
-            String userCmd = userInput.nextLine();
-            String userAction = userCmd.split(" ")[0];
-            if (userAction.equalsIgnoreCase("bye")) {
-                exitMsg();
-                userInput.close();
-                System.exit(0);
-            } else if (userAction.equalsIgnoreCase("list")) {
-                printTasksMsg(todoList);
-            } else if (userAction.equalsIgnoreCase("mark")) {
-                int index = Integer.parseInt(userCmd.split(" ")[1]) - 1;
-                Task task = todoList.get(index);
-                task.markAsDone();
-                taskDoneMsg(task);
-            } else if (userAction.equalsIgnoreCase("unmark")) {
-                int index = Integer.parseInt(userCmd.split(" ")[1]) - 1;
-                Task task = todoList.get(index);
-                task.markAsUndone();
-                taskUndoneMsg(task);
-            } else if (userAction.equalsIgnoreCase("todo") || userAction.equalsIgnoreCase("event") || userAction.equalsIgnoreCase("deadline")) {
-                addTask(todoList, userAction, userCmd);
-            } else {
-                generalRespond("      Unrecognized command!");
+            try {
+                String userCmd = userInput.nextLine();
+                String userAction = userCmd.split(" ")[0];
+                if (userAction.equalsIgnoreCase("bye")) {
+                    exitMsg();
+                    userInput.close();
+                    System.exit(0);
+                } else if (userAction.equalsIgnoreCase("list")) {
+                    printTasksMsg(todoList);
+                } else if (userAction.equalsIgnoreCase("mark")) {
+                    int index = Integer.parseInt(userCmd.split(" ")[1]) - 1;
+                    if (index < 0 || index >= todoList.size()) {
+                        throw new InvalidTaskException();
+                    }
+                    Task task = todoList.get(index);
+                    task.markAsDone();
+                    taskDoneMsg(task);
+                } else if (userAction.equalsIgnoreCase("unmark")) {
+                    int index = Integer.parseInt(userCmd.split(" ")[1]) - 1;
+                    if (index < 0 || index >= todoList.size()) {
+                        throw new InvalidTaskException();
+                    }
+                    Task task = todoList.get(index);
+                    task.markAsUndone();
+                    taskUndoneMsg(task);
+                } else if (userAction.equalsIgnoreCase("todo") || userAction.equalsIgnoreCase("event") || userAction.equalsIgnoreCase("deadline")) {
+                    try {
+                        addTask(todoList, userAction, userCmd);
+                    } catch (EmptyTaskDescriptorsException ex) {
+                        generalRespond(ex.toString());
+                    }
+                } else {
+                    throw new UnrecognizedCommandException();
+                }
+            } catch (UnrecognizedCommandException ex) {
+                generalRespond(ex.toString());
+            } catch (InvalidTaskException ex) {
+                generalRespond(ex.toString());
             }
         }
     }
