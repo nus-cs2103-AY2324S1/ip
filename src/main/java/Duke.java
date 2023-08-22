@@ -24,9 +24,25 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
+    private CommandType parseText(String line) {
+        String command = line.split(" ")[0];
+        switch(command) {
+            case "list":
+                return CommandType.LIST;
+            case "mark":
+                return CommandType.MARK;
+            case "unmark":
+                return CommandType.UNMARK;
+            case "bye":
+                return CommandType.BYE;
+            default:
+                return CommandType.ADD;
+        }
+    }
+
     private void run() {
         start();
-        parseText();
+        performCommands();
     }
 
     private void echo() {
@@ -47,25 +63,45 @@ public class Duke {
         }
     }
 
+    private void markDone(int index) {
+        list[index].markDone();
+        System.out.println("This task is marked as done");
+        System.out.println(list[index]);
+    }
+
+    private void unmarkDone(int index) {
+        list[index].unmarkDone();
+        System.out.println("This task is marked as not done");
+        System.out.println(list[index]);
+    }
+
     private void addToList(String line) {
         list[size] = new Task(line);
         size++;
         System.out.println("Added " + line + " to list");
     }
 
-    private void parseText() {
+    private void performCommands() {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            switch (line) {
-                case "list":
+            CommandType command = parseText(line);
+            String options = line.substring(line.indexOf(' ') + 1);
+            switch (command) {
+                case LIST:
                     list();
                     break;
-                case "bye":
+                case MARK:
+                    markDone(Integer.parseInt(options) - 1);
+                    break;
+                case UNMARK:
+                    unmarkDone(Integer.parseInt(options) - 1);
+                    break;
+                case BYE:
                     exit();
                     return;
-                default:
-                    addToList(line);
+                case ADD:
+                    addToList(options);
             }
             System.out.println("____________________________________________________________");
         }
