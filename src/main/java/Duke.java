@@ -14,7 +14,7 @@ public class Duke {
 
         System.out.println("Hello from\n" + logo);
         System.out.println("_____________________________________\n");
-        System.out.println("Hello! I 'm Jarvis.");
+        System.out.println("Hello! I 'm Jarvis.\n");
         System.out.println("What can I do for you?\n");
         System.out.println("_____________________________________\n");
 
@@ -32,7 +32,6 @@ public class Duke {
                 break;
             } else if (input.equals("list")) {
                 System.out.println("_____________________________________\n");
-                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < task.size(); i++) {
                     int tem_order = i + 1;
                     System.out.println(tem_order + "." + task.get(i));
