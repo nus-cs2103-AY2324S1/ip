@@ -1,44 +1,55 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
 
-    private static final String name = "Duck";
-    private static final String exitMessage = "bye";
+    private final String name = "Duck";
+    private final String exitMessage = "bye";
 
-    private static ArrayList<String> list = new ArrayList<>();
-
-    public static void welcomeMessage() {
+    protected ArrayList<Task> list = new ArrayList<>();
+    private Task task = new Task();
+    public void welcomeMessage() {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
     }
 
-    public static void exit() {
+    public void exit() {
         System.out.println("Bye. Hope to see you again soon !");
         System.out.println("____________________________________________________________");
     }
 
-    public static boolean isBye(String str) {
+    public boolean isBye(String str) {
         return str.equalsIgnoreCase(exitMessage);
     }
 
-    public static boolean checkList(String str) {
+    public boolean checkList(String str) {
         return str.equalsIgnoreCase("list");
     }
 
-    public static void typeMessage() {
+    public boolean checkMark(String str) { return str.contains("mark");}
+
+    public boolean checkUnMark(String str) { return str.contains("unmark");}
+
+
+
+    public void typeMessage() {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         while (!isBye(str)){
             //echo(str);
             if (checkList(str)) {
                 display();
+            } else if (checkUnMark(str)) {
+                setUndone(str);
+            } else if (checkMark(str)) {
+                setDone(str);
             } else {
                 echo(str);
-                list.add(str);
+                list.add(new Task(str));
             }
             str = sc.nextLine();
         }
@@ -47,26 +58,36 @@ public class Duke {
         }
     }
 
-    public static void display() {
+    public void display() {
         int count = 0;
         int serial = 1;
         System.out.println("____________________________________________________________");
         while (count < list.size()) {
-            System.out.println(serial + ". " + list.get(count));
+            System.out.println(serial + "." + list.get(count).Box() + " " + list.get(count));
             count++;
             serial++;
         }
         System.out.println("____________________________________________________________");
     }
 
-    public static void echo(String str) {
+    public void echo(String str) {
         System.out.println("____________________________________________________________");
         System.out.println("added: " + str);
         System.out.println("____________________________________________________________");
+    }
 
+    public void setDone(String str) {
+        int index = task.getIndexOfMark(str);
+        list.get(index).markAsDone();
+    }
+
+    public void setUndone(String str) {
+        int index = task.getIndexOfUnmark(str);
+        list.get(index).markUndone();
     }
     public static void main(String[] args) {
-        welcomeMessage();
-        typeMessage();
+        Duke duck = new Duke();
+        duck.welcomeMessage();
+        duck.typeMessage();
     }
 }
