@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Dook {
@@ -29,7 +27,7 @@ public class Dook {
             return Command.invalid;
          }
     }
-    public static ArrayList<Task> taskList = new ArrayList<>();
+
     public static void main(String[] args) {
         greetUser();
         Scanner sc = new Scanner(System.in);
@@ -50,22 +48,22 @@ public class Dook {
                         displayList();
                         break;
                     case mark:
-                        markTask(body, true);
+                        handleMark(body, true);
                         break;
                     case unmark:
-                        markTask(body, false);
+                        handleMark(body, false);
                         break;
                     case todo:
-                        addToDo(body);
+                        handleToDo(body);
                         break;
                     case deadline:
-                        addDeadline(body);
+                        handleDeadline(body);
                         break;
                     case event:
-                        addEvent(body);
+                        handleEvent(body);
                         break;
                     case delete:
-                        deleteEvent(body);
+                        handleDelete(body);
                         break;
                     case invalid:
                         displayHelp();
@@ -85,14 +83,15 @@ public class Dook {
         }
         printMessage(result.toString());
     }
-    private static void addToDo(String body) throws DookException {
+    public static DookList dookList = new DookList();
+    private static void handleToDo(String body) throws DookException {
         if (body.isBlank()) {
             throw new DookException(String.format("Usage: todo [name]"));
         }
         Task task = new Todo(body.trim());
         addToTaskList(task);
     }
-    private static void addDeadline(String body) throws DookException {
+    private static void handleDeadline(String body) throws DookException {
         if (body.isBlank()) {
             throw new DookException(String.format("Usage: deadline [name] /by [time]."));
         }
@@ -111,7 +110,7 @@ public class Dook {
         Task task = new Deadline(desc, by);
         addToTaskList(task);
     }
-    private static void addEvent(String body) throws DookException{
+    private static void handleEvent(String body) throws DookException{
         if (body.isBlank()) {
             throw new DookException(String.format("Usage: event [name] /from [start] /to [end]."));
         }
@@ -137,62 +136,28 @@ public class Dook {
         addToTaskList(task);
     }
     private static void addToTaskList(Task task) {
-        taskList.add(task);
-        printMessage(String.format("added: %s.\n Now you have %d %s in the list.",
-                task,
-                taskList.size(),
-                taskList.size() == 1 ? "task" : "tasks"));
+        printMessage(dookList.addTask(task));
     }
     private static void displayList() {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < taskList.size(); i++) {
-            result.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
-        }
-        printMessage(result.toString() + String.format("\nYou have %d %s in the list.",
-                taskList.size(),
-                taskList.size() == 1 ? "task" : "tasks"));
+        printMessage(dookList.toString());
     }
-    private static void markTask(String body, boolean value) throws DookException{
+    private static void handleMark(String body, boolean value) throws DookException{
         int index;
         try {
             index = Integer.parseInt(body.split(" ", 2)[0]);
         } catch (NumberFormatException e) {
             throw new DookException(String.format("Usage: %s [task number]", value ? "mark" : "unmark"));
         }
-
-        if (index <= 0 || index > taskList.size()) {
-            throw new DookException("That task does not exist on the list.");
-        }
-
-        Task curr = taskList.get(index - 1);
-        if (value) {
-            curr.markAsDone();
-        } else {
-            curr.unmarkAsDone();
-        }
-        String message = String.format("I have marked this task as %s:\n   %s",
-                value ? "done" : "not done yet", curr);
-        printMessage(message);
+        printMessage(dookList.markTask(index, value));
     }
-    private static void deleteEvent(String body) throws DookException{
+    private static void handleDelete(String body) throws DookException{
         int index;
         try {
             index = Integer.parseInt(body.split(" ", 2)[0]);
         } catch (NumberFormatException e) {
             throw new DookException(String.format("Usage: delete [task number]"));
         }
-
-        if (index <= 0 || index > taskList.size()) {
-            throw new DookException("That task does not exist on the list.");
-        }
-
-        Task curr = taskList.get(index - 1);
-        taskList.remove(index - 1);
-        String message = String.format("Ok, I have removed this task:\n   %s", curr);
-        message += String.format("\nYou have %d %s in the list.",
-                taskList.size(),
-                taskList.size() == 1 ? "task" : "tasks");
-        printMessage(message);
+        printMessage(dookList.deleteTask(index));
     }
     private static void greetUser() {
         printMessage(String.format("%s here.\nWhat can I do for you?", name));
