@@ -5,7 +5,10 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<String> todoList = new ArrayList<>();
+        List<Task> todoList = new ArrayList<>();
+
+
+
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -27,15 +30,32 @@ public class Duke {
             } else if (response.equalsIgnoreCase("list")) {
                 int i;
                 for (i = 1; i < todoList.size() + 1; i++) {
-                    System.out.println(i + ". " + todoList.get(i - 1));
+                    System.out.println(i + ". " + todoList.get(i - 1).toString());
                 }
+            } else if (response.startsWith("mark")) {
+                String[] parts = response.split(" ");
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                todoList.get(taskIndex).markDone();
+                System.out.println("Good Job! I have marked this task as done!");
+                System.out.println(todoList.get(taskIndex).toString());
+                for (Task t: todoList) {
+
+                }
+            } else if (response.startsWith("unmark")) {
+                String[] parts = response.split(" ");
+                int taskIndex = Integer.parseInt(parts[1]) - 1;
+                todoList.get(taskIndex).markUndone();
+                System.out.println("Aw man! I have marked this task as undone. We go again!");
+                System.out.println(todoList.get(taskIndex).toString());
             } else {
-                    todoList.add(response);
-                    System.out.println("added: " + response);
-                }
+                todoList.add(new Task(response));
+                System.out.println("added: " + response);
             }
-        scanner.close();
         }
+        scanner.close();
     }
+}
+
+
 
 
