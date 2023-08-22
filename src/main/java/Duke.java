@@ -13,8 +13,8 @@ public class Duke {
             if (command.equals("list")) {
                 System.out.println("    Here are the tasks in your list:");
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println(String.format("    %d.[%s] " + list.get(i).getDescription(),
-                            i+1, list.get(i).getStatusIcon()));
+                    System.out.println(String.format("    %d.%s",
+                            i+1, list.get(i).toString()));
                 }
             } else if (command.startsWith("mark ")) {
                 try {
@@ -22,7 +22,7 @@ public class Duke {
                     Task task = list.get(toMark - 1);
                     task.markAsDone();
                     System.out.println("    Nice! I've marked this task as done:");
-                    System.out.println(String.format("      [%s] %s", task.getStatusIcon(), task.getDescription()));
+                    System.out.println(String.format("      %s", task.toString()));
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("    Task does not exist.");
                 }
@@ -32,13 +32,37 @@ public class Duke {
                     Task task = list.get(toMark - 1);
                     task.markAsUndone();
                     System.out.println("    OK, I've marked this task as not done yet:");
-                    System.out.println(String.format("      [%s] %s", task.getStatusIcon(), task.getDescription()));
+                    System.out.println(String.format("      %s", task.toString()));
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("    Task does not exist.");
                 }
-            } else {
-                System.out.println("    added: " + command);
-                list.add(new Task(command));
+            } else if (command.startsWith("deadline ")) {
+                int byIndex = command.indexOf("/by");
+                String desc = command.substring(9, byIndex).trim();
+                String deadline = command.substring(byIndex + 3).trim();
+                Deadline d = new Deadline(desc, deadline);
+                list.add(d);
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("      " + d.toString());
+                System.out.println("    Number of tasks: " + list.size());
+            } else if (command.startsWith("event ")) {
+                int fromIndex = command.indexOf("/from");
+                int toIndex = command.indexOf("/to");
+                String desc = command.substring(6, fromIndex).trim();
+                String from = command.substring(fromIndex + 5, toIndex).trim();
+                String to = command.substring(toIndex + 3).trim();
+                Event e = new Event(desc, from, to);
+                list.add(e);
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("      " + e.toString());
+                System.out.println("    Number of tasks: " + list.size());
+            } else if (command.startsWith("todo ")) {
+                String desc = command.substring(5).trim();
+                ToDo t = new ToDo(desc);
+                list.add(t);
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("      " + t.toString());
+                System.out.println("    Number of tasks: " + list.size());
             }
             System.out.println(line);
             command = scanner.nextLine();
