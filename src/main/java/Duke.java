@@ -16,16 +16,25 @@ public class Duke {
     Scanner scanner = new Scanner(System.in);
 
     while (true) {
-      String inputString = scanner.next();
-      if (inputString.equals("bye")) {
+      String inputString = scanner.nextLine();
+      String[] inputTokens = inputString.split(" ");
+
+      // there is no input
+      if (inputTokens.length == 0) {
         break;
-      } else if (inputString.equals("list")) {
+      }
+
+      String commandString = inputTokens[0];
+
+      if (commandString.equals("bye")) {
+        break;
+      } else if (commandString.equals("list")) {
         for (int i = 0; i < userInputs.size(); i++) {
           String index = Integer.toString(i + 1);
           System.out.println(index + "\t" + userInputs.get(i));
         }
-      } else if (inputString.equals("mark")) {
-        int index = scanner.nextInt();
+      } else if (commandString.equals("mark")) {
+        int index = Integer.parseInt(inputTokens[1]);
         System.out.println(index);
 
       } else {
