@@ -80,6 +80,15 @@ public class Duke {
                     unmarkTarget.markAsUndone();
                     Duke.printFormatted("OK! I've marked this task as not done yet:\n" + unmarkTarget);
                     break;
+                case "delete":
+                    int deleteIndex = Integer.parseInt(remaining) - 1;
+                    if (deleteIndex < 0 || deleteIndex >= tasks.size()) {
+                        throw new DukeException("Invalid task number.");
+                    }
+                    Task toDelete = tasks.remove(deleteIndex);
+                    Duke.printFormatted("Noted. I've removed this task:\n  " + toDelete.toString() +
+                            "\nNow you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
+                    break;
                 case "todo":
                     Todo newTodo = Todo.createFromCommandString(remaining);
                     tasks.add(newTodo);
