@@ -36,44 +36,38 @@ public class EpochMind {
             String[] commandList = command.trim().toLowerCase().split(" ");
             switch (commandList[0]) {
                 case "bye":
-                    System.out.println("___________________________________________________________________________________________________________\n" +
-                            " May you seek the truth\n" +
-                            "___________________________________________________________________________________________________________\n");
+                    bye();
                     break;
                 case "list":
                     list();
                     break;
                 case "mark":
-                    if (commandList.length == 1) {
-                        System.out.println("Thou hast forgotten to specify thine index");
-                    } else {
-                        int index = parseInt(commandList[1]);
-                        if (tasks.size() < index) {
-                            System.out.println("Thou hast specified an index larger than thine list");
-                        } else {
-                            mark(parseInt(commandList[1]));
-                        }
-                    }
+                    mark(commandList);
                     break;
                 case "unmark":
-                    if (commandList.length == 1) {
-                        System.out.println("Thou hast forgotten to specify thine index");
-                    } else {
-                        int index = parseInt(commandList[1]);
-                        if (tasks.size() < index) {
-                            System.out.println("Thou hast specified an index larger than thine list");
-                        } else {
-                            unmark(parseInt(commandList[1]));
-                        }
-                    }
+                    unmark(commandList);
                     break;
+                case "todo":
+                    todo(command);
+                    break;
+                case "deadline":
+                    deadline(command);
+                    break;
+                case "event":
+                    event(command);
+                    break;
+
                 default:
-                    tasks.add(new Task(command));
-                    System.out.println("___________________________________________________________________________________________________________\n" +
-                            "added: " + command + "\n" + "___________________________________________________________________________________________________________\n");
+                    System.out.println("No such command detected, please try again");
                     break;
             }
         }
+    }
+
+    public static void bye() {
+        System.out.println("___________________________________________________________________________________________________________\n" +
+                " May you seek the truth\n" +
+                "___________________________________________________________________________________________________________\n");
     }
 
     public static void list() {
@@ -82,26 +76,103 @@ public class EpochMind {
             StringBuilder sb = new StringBuilder();
             sb.append(i+1);
             sb.append(". ");
-            sb.append("[" + tasks.get(i).getStatusIcon() + "]");
-            sb.append(tasks.get(i).description);
+            sb.append(tasks.get(i).toString());
             System.out.println(sb);
         }
         System.out.println("___________________________________________________________________________________________________________\n");
     }
 
-    public static void mark(int index) {
-        System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is completed \n" +
-                "[X] " + tasks.get(index - 1).description +
+    public static void mark(String[] commandList) {
+        if (commandList.length == 1) {
+            System.out.println("Thou hast forgotten to specify thine index");
+        } else {
+            int index = parseInt(commandList[1]);
+            if (tasks.size() < index) {
+                System.out.println("Thou hast specified an index larger than thine list");
+            } else {
+                System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is completed \n" +
+                        "[X] " + tasks.get(index - 1).description +
+                        "\n___________________________________________________________________________________________________________\n");
+                tasks.get(index - 1).mark();
+            }
+        }
+    }
+
+    public static void unmark(String[] commandList) {
+        if (commandList.length == 1) {
+            System.out.println("Thou hast forgotten to specify thine index");
+        } else {
+            int index = parseInt(commandList[1]);
+            if (tasks.size() < index) {
+                System.out.println("Thou hast specified an index larger than thine list");
+            } else {
+                System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is not yet completed \n" +
+                        "[ ] " + tasks.get(index - 1).description +
+                        "\n___________________________________________________________________________________________________________\n");
+                tasks.get(index - 1).unmark();
+            }
+        }
+    }
+
+    public static void todo(String command) {
+        String restOfCommand = removeCommandWord(command);
+        ToDo toDo = new ToDo(restOfCommand);
+        tasks.add(toDo);
+        System.out.println("___________________________________________________________________________________________________________\n" + "The Mind has added a new task \n" + toDo + "\nThere are now " + tasks.size() + " tasks left to complete" +
                 "\n___________________________________________________________________________________________________________\n");
-        tasks.get(index - 1).mark();
     }
 
-    public static void unmark(int index) {
-        System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is not yet completed \n" +
-"[ ] " + tasks.get(index - 1).description +
-"\n___________________________________________________________________________________________________________\n");
-        tasks.get(index - 1).unmark();
+    public static void deadline(String command) {
+        String restOfCommand = removeCommandWord(command);
+        int endIndex = restOfCommand.indexOf("/by ");
+        if (endIndex == -1) {
+            System.out.println("The Mind needs a deadline");
+        } else {
+            String taskDescription = restOfCommand.substring(0, endIndex).trim();
+            int deadlineIndex = restOfCommand.indexOf("/by ") + 3;
+            String deadlineString = restOfCommand.substring(deadlineIndex);
+            Deadline deadline = new Deadline(taskDescription, deadlineString);
+            tasks.add(deadline);
+            System.out.println("___________________________________________________________________________________________________________\n" + "The Mind has added a new task \n" + deadline + "\nThere are now " + tasks.size() + " tasks left to complete" +
+                    "\n___________________________________________________________________________________________________________\n");
+
+        }
     }
 
+    public static void event(String command) {
+        String restOfCommand = removeCommandWord(command);
+        int fromIndex = restOfCommand.indexOf("/from");
+        if (fromIndex == -1) {
+            System.out.println("The Mind needs a start time");
+        } else {
+            String description = restOfCommand.substring(0, fromIndex).trim();
+            fromIndex = restOfCommand.indexOf("/from") + "/from".length();
+            int toIndex = restOfCommand.indexOf("/to");
+            if (toIndex == -1) {
+                System.out.println("The Mind needs a end time");
+            } else {
+                String startString = restOfCommand.substring(fromIndex, toIndex).trim();
+                toIndex = restOfCommand.indexOf("/to") + "/to".length();
+                String endString = restOfCommand.substring(toIndex);
+                Event event = new Event(description, startString, endString);
+                tasks.add(event);
+                System.out.println("___________________________________________________________________________________________________________\n" + "The Mind has added a new task \n" + event + "\nThere are now " + tasks.size() + " tasks left to complete" +
+                        "\n___________________________________________________________________________________________________________\n");
+            }
 
+        }
+
+
+
+    }
+
+    public static String removeCommandWord(String command) {
+        int firstSpaceIndex = command.indexOf(' ');
+
+        if (firstSpaceIndex == -1 || firstSpaceIndex == command.length() - 1) {
+            return "";
+        }
+        // Extract the substring starting from the position after the first space
+        return command.substring(firstSpaceIndex + 1);
+    }
 }

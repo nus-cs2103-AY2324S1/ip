@@ -18,5 +18,13 @@ public class Task {
     public void unmark() {
         isDone = false;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[" + getStatusIcon() + "] ");
+        sb.append(description);
+        return sb.toString();
+    }
 }
 
