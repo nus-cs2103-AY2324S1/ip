@@ -52,6 +52,12 @@ public class Duke {
         } else if (input.startsWith("unmark")) {
             int index = Integer.parseInt(input.substring(7)) - 1;
             this.list.get(index).unmark();
+        } else if (input.startsWith("delete")) {
+            int index = Integer.parseInt(input.substring(7)) - 1;
+            Task task = this.list.remove(index);
+            System.out.println(Duke.i5 + "Noted. I've removed this task:");
+            System.out.println(Duke.i7 + task);
+            System.out.println(Duke.i5 + "Now you have " + this.list.size() + " tasks in the list.");
         } else {
 
             Task task = null;
