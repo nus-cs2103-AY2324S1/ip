@@ -37,71 +37,103 @@ public class Duke {
                     System.out.println(lines);
                     break;
                 case "mark":
-                    int task_no = Integer.parseInt(splitted[1]);
-                    if (task_no <= toDo.size()) {
-                        Task target = toDo.get(task_no - 1);
-                        target.mark();
-                        String description = target.getDescription();
-                        System.out.println(lines
-                                + "\n        Nice! I've marked this task as done:\n          "
-                                + description + "\n"
-                                + lines);
+                    if (splitted.length <= 1) {
+                        System.out.println(lines + "\n          Please say which task to mark (⋟﹏⋞)\n" + lines);
                     } else {
-                        System.out.println(lines
-                                + "\n      You don't have that many tasks :(\n"
-                                + lines);
+                        int task_no = Integer.parseInt(splitted[1]);
+                        if (task_no <= toDo.size()) {
+                            Task target = toDo.get(task_no - 1);
+                            target.mark();
+                            String description = target.getDescription();
+                            System.out.println(lines
+                                    + "\n        Nice! I've marked this task as done:\n          "
+                                    + description + "\n"
+                                    + lines);
+                        } else {
+                            System.out.println(lines
+                                    + "\n      You don't have that many tasks :(\n"
+                                    + lines);
+                        }
                     }
                     break;
                 case "unmark":
-                    int taskNo = Integer.parseInt(splitted[1]);
-                    if (taskNo <= toDo.size()) {
-                        Task target = toDo.get(taskNo - 1);
-                        target.unmark();
-                        String description = target.getDescription();
-                        System.out.println(lines
-                                + "\n        OK, I've marked this task as not done yet:\n          "
-                                + description + "\n"
-                                + lines);
+                    if (splitted.length <= 1) {
+                        System.out.println(lines + "\n          Please say which task to unmark (⋟﹏⋞)\n" + lines);
                     } else {
-                        System.out.println(lines
-                                + "\n      You don't have that many tasks :(\n"
-                                + lines);
+                        int taskNo = Integer.parseInt(splitted[1]);
+                        if (taskNo <= toDo.size()) {
+                            Task target = toDo.get(taskNo - 1);
+                            target.unmark();
+                            String description = target.getDescription();
+                            System.out.println(lines
+                                    + "\n        OK, I've marked this task as not done yet:\n          "
+                                    + description + "\n"
+                                    + lines);
+                        } else {
+                            System.out.println(lines
+                                    + "\n      You don't have that many tasks :(\n"
+                                    + lines);
+                        }
                     }
                     break;
                 case "todo":
-                    String todoTask = splitted[1];
-                    Todo newTodo = new Todo(todoTask);
-                    toDo.add(newTodo);
-                    String description = newTodo.getDescription();
-                    System.out.println(lines + "\n         Got it. I've added this new todo:\n           "
-                            + description + "\n         Now you have " + toDo.size() + " tasks in the list.\n" + lines);
+                    if (splitted.length <= 1) {
+                        System.out.println(lines + "\n          Please add a description for the todo! (⋟﹏⋞)\n" + lines);
+                    } else {
+                        String todoTask = splitted[1];
+                        Todo newTodo = new Todo(todoTask);
+                        toDo.add(newTodo);
+                        String description = newTodo.getDescription();
+                        System.out.println(lines + "\n         Got it. I've added this new todo:\n           "
+                                + description + "\n         Now you have " + toDo.size() + " tasks in the list.\n" + lines);
+                    }
                     break;
                 case "deadline":
-                    String[] deadTask = splitted[1].split("/by");
-                    String deadDescription = deadTask[0];
-                    String deadTime = deadTask[1];
-                    Deadline deadlineTask = new Deadline(deadDescription, deadTime);
-                    toDo.add(deadlineTask);
-                    String message = deadlineTask.getDescription();
-                    System.out.println(lines + "\n         Got it. I've added this new deadline:\n           "
-                            + message + "\n         Now you have " + toDo.size() + " tasks in the list.\n" + lines);
+                    if (splitted.length <= 1) {
+                        System.out.println(lines + "\n          Please add a description for the deadline! (⋟﹏⋞)\n" + lines);
+                    } else {
+                        String[] deadTask = splitted[1].split("/by");
+                        if (deadTask.length == 1) {
+                            System.out.println(lines + "\n          Please add a deadline! (⋟﹏⋞)\n" + lines);
+                        } else {
+                            String deadDescription = deadTask[0];
+                            String deadTime = deadTask[1];
+                            Deadline deadlineTask = new Deadline(deadDescription, deadTime);
+                            toDo.add(deadlineTask);
+                            String message = deadlineTask.getDescription();
+                            System.out.println(lines + "\n         Got it. I've added this new deadline:\n           "
+                                    + message + "\n         Now you have " + toDo.size() + " tasks in the list.\n" + lines);
+                        }
+                    }
                     break;
                 case "event":
-                    String[] eventTask = splitted[1].split("/from");
-                    String eventDescription = eventTask[0];
-                    String[] startEnd = eventTask[1].split("/to");
-                    String eventStart = startEnd[0];
-                    String eventEnd = startEnd[1];
-                    Event newEvent = new Event(eventDescription, eventStart, eventEnd);
-                    toDo.add(newEvent);
-                    String msg = newEvent.getDescription();
-                    System.out.println(lines + "\n         Got it. I've added this new event:\n           "
-                            + msg + "\n         Now you have " + toDo.size() + " tasks in the list.\n" + lines);
+                    if (splitted.length <= 1) {
+                        System.out.println(lines + "\n          Please add a description for the event! (⋟﹏⋞)\n" + lines);
+                    } else {
+                        String[] eventTask = splitted[1].split("/from");
+                        if (eventTask.length == 1) {
+                            System.out.println(lines + "\n          Please add a start time for the event! (⋟﹏⋞)\n" + lines);
+                        } else {
+                            String eventDescription = eventTask[0];
+                            String[] startEnd = eventTask[1].split("/to");
+                            if (startEnd.length == 1) {
+                                System.out.println(lines + "\n          Please add a end time for the event! (⋟﹏⋞)\n" + lines);
+                            } else {
+                                String eventStart = startEnd[0];
+                                String eventEnd = startEnd[1];
+                                Event newEvent = new Event(eventDescription, eventStart, eventEnd);
+                                toDo.add(newEvent);
+                                String msg = newEvent.getDescription();
+                                System.out.println(lines + "\n         Got it. I've added this new event:\n           "
+                                        + msg + "\n         Now you have " + toDo.size() + " tasks in the list.\n" + lines);
+                            }
+                        }
+                    }
                     break;
                 default:
-                    System.out.println(lines + "\n        added: " + userCommand + "\n" + lines);
-                    Task newTask = new Task(userCommand);
-                    toDo.add(newTask);
+                    System.out.println(lines
+                            + "\n        Huhhhhhhh??? (o_O) ? Please use one of the command words: todo, event, deadline, list, mark, unmark, bye\n"
+                            + lines);
             }
 
             userCommand = sc.nextLine();
