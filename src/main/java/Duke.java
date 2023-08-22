@@ -13,7 +13,7 @@ public class Duke {
 
     public static void addTask(Task task) {
         tasks[index++] = task;
-        System.out.println("Got it, I've added this task:\n\t"  +
+        System.out.println("Got it, I've added this task:\n    "  +
                 task.toString() + "\n" +
                 "Now you have " + index + " tasks in the list.");
     }
@@ -40,13 +40,13 @@ public class Duke {
             } else if (Objects.equals(command, "mark")) {
                 int i = Integer.parseInt(input.split(" ")[1]);
                 tasks[i - 1].mark();
-                System.out.println("Nice! I've marked this task as done: \n" +
-                        "\t" + tasks[i - 1].toString());
+                System.out.println("Nice! I've marked this task as done:\n" +
+                        "    " + tasks[i - 1].toString());
             } else if (Objects.equals(command, "unmark")) {
                 int i = Integer.parseInt(input.split(" ")[1]);
                 tasks[i - 1].unmark();
-                System.out.println("OK, I've marked this task as not done yet: \n" +
-                        "\t" + tasks[i - 1].toString());
+                System.out.println("OK, I've marked this task as not done yet:\n" +
+                        "    " + tasks[i - 1].toString());
             } else if (Objects.equals(command, "todo")) {
                 String des = input.split(" ", 2)[1];
                 addTask(new Todo(des));
