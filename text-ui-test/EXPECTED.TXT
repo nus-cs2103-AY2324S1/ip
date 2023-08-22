@@ -13,6 +13,9 @@
       Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
+     Description for todo cannot be empty.
+    ____________________________________________________________
+    ____________________________________________________________
      Got it. I've added this task:
        [D][ ] return book  (by: Sunday)
       Now you have 3 tasks in the list.
@@ -23,9 +26,18 @@
       Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
+     Missing '/by' or date for deadline.
+    ____________________________________________________________
+    ____________________________________________________________
      Got it. I've added this task:
        [E][ ] project meeting (from: Mon 2pm to: 4pm)
       Now you have 5 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+     Missing '/to' or end date for event.
+    ____________________________________________________________
+    ____________________________________________________________
+     Missing '/from' or start date for event.
     ____________________________________________________________
     ____________________________________________________________
      Got it. I've added this task:
@@ -43,6 +55,9 @@
     ____________________________________________________________
      Nice! I've marked this task as done:
      [T][X] borrow book
+    ____________________________________________________________
+    ____________________________________________________________
+     Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
      Nice! I've marked this task as done:
@@ -67,6 +82,9 @@
     ____________________________________________________________
      OK! I've marked this task as not done yet:
      [D][ ] finish project  (by: Monday)
+    ____________________________________________________________
+    ____________________________________________________________
+     Invalid task number.
     ____________________________________________________________
     ____________________________________________________________
      OK! I've marked this task as not done yet:
@@ -126,10 +144,10 @@
      9. [E][X] conference (from: Wed 10am to: 12pm)
     ____________________________________________________________
     ____________________________________________________________
-     Error: Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
+     Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
     ____________________________________________________________
     ____________________________________________________________
-     Error: Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
+     Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event
     ____________________________________________________________
     ____________________________________________________________
      Bye. Hope to see you again soon!

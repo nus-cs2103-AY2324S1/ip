@@ -1,16 +1,22 @@
 todo read book
 todo borrow book
+todo
 deadline return book /by Sunday
 deadline finish project /by Monday
+deadline asd asd
 event project meeting /from Mon 2pm /to 4pm
+event this should fail /from Mon 2pm
+event this should fail too /to Mon 2pm
 event family gathering /from Fri 6pm /to 8pm
 list
 mark 2
+mark 50
 mark 1
 mark 4
 list
 mark 2
 unmark 4
+unmark 900
 unmark 5
 list
 todo watch movie
