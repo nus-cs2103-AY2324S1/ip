@@ -10,4 +10,12 @@ public class Task {
     public void setDone(boolean done) {
         this.isDone = true;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
 }
