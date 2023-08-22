@@ -63,8 +63,11 @@ public class Duke {
     }
 
     //for list command
-    public String getAllToDo() {
+    public String getAllToDo() throws DukeException{
         StringBuilder res = new StringBuilder();
+        if(totalTodo == 0) {
+            throw new DukeException("Oh no! No tasks for now! Add more tasks :)");
+        }
         res.append("Here are the tasks in your list:\n");
         for (int i = 0; i < totalTodo; i++) {
             res.append(i + 1).append(".")
@@ -75,28 +78,47 @@ public class Duke {
     }
 
     // for mark and unmark command
-    public String markToDo(String action, int index) {
+    public String markToDo(String action, int index) throws DukeException{
         StringBuilder res = new StringBuilder();
+
+        //No task to mark/unmark
+        if(totalTodo == 0) {
+            throw new DukeException("No tasks! Add more tasks to mark/unmark!\n");
+        }
+
+        //index entered is more than totalTodos
+        if (index >= totalTodo) {
+            throw new DukeException("Enter mark/umark command with index lesser than " + (totalTodo+1) +"\n");
+        }
         if (action.equals("mark")) {
              return list[index].setMarked();
         }
         return list[index].setUnmarked();
     }
 
-    public int checkMarkCommand(String input) {
+    public int checkMarkCommand(String input) throws DukeException{
+
         String[] parts = input.split(" ");
+
+        //No index to mark/unmark
+        if(input.equals("mark") && parts.length == 1) {
+            throw new DukeException("Specify index to mark/unmark task!\n");
+        }
+
         if((parts[0].equals("mark") || parts[0].equals("unmark")) && parts.length == 2) {
             String sec = parts[1];
+
+            //index is not valid integer
             try {
                 return Integer.parseInt(sec);
             } catch (NumberFormatException e) {
-                return -1;
+                throw new DukeException("Enter a valid positive integer after your mark/unmark command!\n");
             }
         }
             return -1;
     }
 
-    public String[] checkActionAndTask(String input) {
+    public String[] checkActionAndTask(String input) throws DukeException, InvalidInputExpression{
         String action = "";
         String task ="";
         String from="";
@@ -105,6 +127,11 @@ public class Duke {
 
         String[] parts = input.split(" ");
         action = parts[0];
+
+        //empty input or empty action
+        if(action.equals("") || !action.equals("todo") && !action.equals("deadline") && !action.equals("event")) {
+            throw new InvalidInputExpression("Invalid input!! Specify task as deadline, event or todo followed by the task please la dei!\n");
+        }
 
         switch(action) {
             case "deadline" : {
@@ -148,44 +175,59 @@ public class Duke {
 
             default:
         }
+
+        //empty description
+        if (task.equals("")) {
+            throw new DukeException("No description specified la dei!! How to do work when no work is said!! Enter again!\n");
+        }
+        //No from &/ to in event task
+        if (action.equals("event") && (from.isEmpty() || to.isEmpty())) {
+            throw new DukeException("event task must have both /from and /to times");
+        }
+        //No by in deadline task
+        if (action.equals("deadline") && (by.isEmpty())) {
+            throw new DukeException("deadline task must have /by time");
+        }
         return new String[]{action, task, by, from, to};
     }
     public static void main(String[] args) {
         Scanner obj = new Scanner(System.in);
         Duke duke = new Duke();
-
         System.out.println(duke.greet);
 
-        String userInput = obj.nextLine();
+        while (true) {
+            String userInput = obj.nextLine();
 
-//        String[] res= duke.checkActionAndTask(userInput);
-//        for(String i : res) {
-//            System.out.println(i);
-//        }
-
-        while(!userInput.equals("bye")) {
-            int resultIndex = duke.checkMarkCommand(userInput);
-            if(resultIndex != -1) {
-                System.out.println(duke.divider +
-                        duke.markToDo((userInput.charAt(0) == 'u' ? "unmark" : "mark"), resultIndex-1)
-                        + "\n" + duke.divider);
-
-            } else if (userInput.equals("list")){
-                System.out.println(duke.divider +
-                        duke.getAllToDo()
-                        + "\n" + duke.divider);
-            } else {
-                String[] taskEvent = duke.checkActionAndTask(userInput);
-                String action = taskEvent[0];
-                String list = taskEvent[1];
-
-                System.out.println(duke.divider +
-                        duke.addTask(taskEvent)
-                        + "\n" + duke.divider);
+            if (userInput.equals("bye")) {
+                break;
             }
-            userInput = obj.nextLine();
-        }
-        System.out.println(duke.exit);
 
+            try {
+                int resultIndex = duke.checkMarkCommand(userInput);
+                if (resultIndex != -1) {
+                    System.out.println(duke.divider +
+                            duke.markToDo((userInput.charAt(0) == 'u' ? "unmark" : "mark"), resultIndex - 1)
+                            + "\n" + duke.divider);
+                } else if (userInput.equals("list")) {
+                    System.out.println(duke.divider +
+                            duke.getAllToDo()
+                            + "\n" + duke.divider);
+                } else {
+                    try {
+                        String[] taskEvent = duke.checkActionAndTask(userInput);
+                        System.out.println(duke.divider +
+                                duke.addTask(taskEvent)
+                                + "\n" + duke.divider);
+                    } catch (InvalidInputExpression | DukeException e) {
+                        System.out.println(e.getMessage() + "\n");
+                    }
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        System.out.println(duke.exit);
     }
+
 }
