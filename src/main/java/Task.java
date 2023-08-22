@@ -1,6 +1,8 @@
-class Task {
+abstract class Task {
     private final String task;
     private final boolean isDone;
+
+
 
     Task(String task) {
         this.task = task;
@@ -12,15 +14,11 @@ class Task {
         this.isDone = isDone;
     }
 
-    Task done() {
-        return new Task(this.task, true);
-    }
+    abstract Task done();
 
-    Task undone() {
-        return new Task(this.task, false);
-    }
+    abstract Task undone();
 
-    String getTask() {
+    protected String getTask() {
         return this.task;
     }
 

@@ -1,6 +1,14 @@
 public class Todo extends Task {
-    Todo(String task) {
-        super(task);
+    private static String parseTodo(String task) throws DukeException {
+        String todoTask = task.trim();
+        if (todoTask.isEmpty()) {
+            throw new DukeException("Please enter valid deadline: Do not leave it empty");
+        }
+
+        return todoTask;
+    }
+    Todo(String task) throws DukeException {
+        super(parseTodo(task));
     }
 
     Todo(String task, boolean isDone) {
