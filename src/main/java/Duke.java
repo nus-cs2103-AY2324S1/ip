@@ -18,15 +18,15 @@ public class Duke {
 
         while (true) {
             String userInput = scanner.nextLine().trim();// trim() removes leading and trailing spaces
-            String command = userInput.split(" ", 2)[0].toLowerCase();
+            Command command = Command.valueOf(userInput.split(" ", 2)[0].toUpperCase());
             // Guard bye
-            if (command.equals("bye")) {
+            if (command.equals(Command.BYE)) {
                 goodbye();
                 break;
             }
 
             // Guard list
-            if (command.equals("list")) {
+            if (command.equals(Command.LIST)) {
                 list(taskList);
                 continue;
             }
@@ -37,22 +37,22 @@ public class Duke {
                 }
 
                 switch (command) {
-                    case "mark":
+                    case MARK:
                         mark(taskList, userInput);
                         break;
-                    case "unmark":
+                    case UNMARK:
                         unmark(taskList, userInput);
                         break;
-                    case "todo":
+                    case TODO:
                         addTodo(taskList, userInput);
                         break;
-                    case "deadline":
+                    case DEADLINE:
                         addDeadline(taskList, userInput);
                         break;
-                    case "event":
+                    case EVENT:
                         addEvent(taskList, userInput);
                         break;
-                    case "delete":
+                    case DELETE:
                         deleteTask(taskList, userInput);
                         break;
                     default:
