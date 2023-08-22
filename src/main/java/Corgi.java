@@ -33,7 +33,7 @@ public class Corgi {
                 System.out.println("Bye, take care and see you soon! *tail wags*");
                 break;
             } else if (userInput.toLowerCase().equals("list")) {
-
+                this.displayTasks();
             } else {
                 this.addTask(userInput);
             }
@@ -42,6 +42,16 @@ public class Corgi {
         }
 
         sc.close();
+    }
+
+    private void displayTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks added.");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i+1) + ") " + tasks.get(i));
+            }
+        }
     }
 
     private void addTask(String task) {
