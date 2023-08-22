@@ -1,9 +1,8 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
 
-    Task[] list = new Task[100];
-
-    private static int totalTodo = 0;
+    ArrayList<Task> list = new ArrayList<>();
 
     String divider = "------------------------------------\n";
     String logo = " ____        _        \n"
@@ -24,10 +23,6 @@ public class Duke {
 
     public String addTask(String[] taskArray) throws DukeException{
 
-        if(totalTodo >= 100) {
-            throw new DukeException("List has exceeded the limit of 100 tasks!");
-        }
-
         String action = taskArray[0];
         String task = taskArray[1];
         String by = taskArray[2];
@@ -37,23 +32,20 @@ public class Duke {
         String res = "";
         switch (action) {
             case "todo" : {
-                list[totalTodo] = new ToDo(task);
-                res = "Got it. I've added this task : \n" + list[totalTodo].toString() + "\n";
-                totalTodo++;
+                list.add(new ToDo(task));
+                res = "Got it. I've added this task : \n" + list.get(list.size()-1).toString() + "\n";
                 res += getTaskLeft();
                 break;
             }
             case "deadline" : {
-                list[totalTodo] = new Deadline(task, by);
-                res = "Got it. I've added this task : \n" + list[totalTodo].toString() + "\n";
-                totalTodo++;
+                list.add(new Deadline(task, by));
+                res = "Got it. I've added this task : \n" + list.get(list.size()-1).toString() + "\n";
                 res += getTaskLeft();
                 break;
             }
             case "event" : {
-                list[totalTodo] = new Event(task,from,to);
-                res = "Got it. I've added this task : \n" + list[totalTodo].toString() + "\n";
-                totalTodo++;
+                list.add(new Event(task,from,to));
+                res = "Got it. I've added this task : \n" + list.get(list.size()-1).toString() + "\n";
                 res += getTaskLeft();
                 break;
             }
@@ -64,20 +56,20 @@ public class Duke {
 
     //get task left as a string
     public String getTaskLeft() {
-        return "Now you have " + totalTodo + (totalTodo==1 ? " task" : " tasks") + " in the list.";
+        return "Now you have " + list.size() + (list.size()==1 ? " task" : " tasks") + " in the list.";
     }
 
     //for list command
     public String getAllToDo() throws DukeException{
         StringBuilder res = new StringBuilder();
-        if(totalTodo == 0) {
+        if(list.size() == 0) {
             throw new DukeException("Oh no! No tasks for now! Add more tasks :)");
         }
         res.append("Here are the tasks in your list:\n");
-        for (int i = 0; i < totalTodo; i++) {
+        for (int i = 0; i < list.size(); i++) {
             res.append(i + 1).append(".")
-                    .append(list[i].toString());
-            if (i != totalTodo - 1) res.append("\n");
+                    .append(list.get(i).toString());
+            if (i != list.size() - 1) res.append("\n");
         }
         return res.toString();
     }
@@ -87,19 +79,19 @@ public class Duke {
         StringBuilder res = new StringBuilder();
 
         //No task to mark/unmark
-        if(totalTodo == 0) {
+        if(list.size() == 0) {
             throw new DukeException("No tasks! Add more tasks to mark/unmark!\n");
         }
 
         //index entered is more than totalTodos
-        if (index >= totalTodo) {
-            throw new DukeException("Enter mark/umark command with index lesser than " + (totalTodo+1) +"\n");
+        if (index >= list.size()) {
+            throw new DukeException("Enter mark/umark command with index lesser than " + (list.size()+1) +"\n");
         }
 
         if (action.equals("mark")) {
-             return list[index].setMarked();
+             return list.get(index).setMarked();
         }
-        return list[index].setUnmarked();
+        return list.get(index).setUnmarked();
     }
 
     public int checkMarkCommand(String input) throws DukeException{
@@ -122,6 +114,43 @@ public class Duke {
             }
         }
             return -1;
+    }
+
+    public int checkDeleteCommand(String input) throws DukeException{
+
+        String[] parts = input.split(" ");
+
+        //No index to mark/unmark
+        if(input.equals("delete") && parts.length == 1) {
+            throw new DukeException("Specify index to delete task!\n");
+        }
+
+        if((parts[0].equals("delete")) && parts.length == 2) {
+            String sec = parts[1];
+
+            //index is not valid integer
+            try {
+                return Integer.parseInt(sec);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Enter a valid positive integer after your mark/unmark command!\n");
+            }
+        }
+        return -1;
+    }
+
+    public String deleteTask(int index) throws DukeException{
+        StringBuilder res = new StringBuilder();
+
+        //No task to mark/unmark
+        if(list.size() == 0) {
+            throw new DukeException("No tasks to delete! Add more tasks to mark/unmark!\n");
+        }
+
+
+        String removedTask = list.get(index).toString();
+        list.remove(index);
+        return "Noted. I've removed this task: \n " + "  " + removedTask + "\n" + getTaskLeft();
+
     }
 
     public String[] checkActionAndTask(String input) throws DukeException, InvalidInputExpression{
@@ -218,16 +247,23 @@ public class Duke {
                     System.out.println(duke.divider +
                             duke.getAllToDo()
                             + "\n" + duke.divider);
-                } else {
-                    try {
-                        String[] taskEvent = duke.checkActionAndTask(userInput);
-                        System.out.println(duke.divider +
-                                duke.addTask(taskEvent)
-                                + "\n" + duke.divider);
-                    } catch (InvalidInputExpression | DukeException e) {
-                        System.out.println(e.getMessage() + "\n");
+                } else if (duke.checkDeleteCommand(userInput) != -1) {
+                    int index = duke.checkDeleteCommand(userInput);
+                    System.out.println(duke.divider +
+                            duke.deleteTask(index - 1)
+                            + "\n" + duke.divider);
+                } else
+                    {
+                        try {
+                            String[] taskEvent = duke.checkActionAndTask(userInput);
+                            System.out.println(duke.divider +
+                                    duke.addTask(taskEvent)
+                                    + "\n" + duke.divider);
+                        } catch (InvalidInputExpression | DukeException e) {
+                            System.out.println(e.getMessage() + "\n");
+                        }
                     }
-                }
+
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
