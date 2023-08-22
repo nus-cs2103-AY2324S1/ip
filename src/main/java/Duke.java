@@ -9,7 +9,7 @@ public class Duke {
 
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String CHATBOT_NAME = "Koko";
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     private static void printFormatted(String originalMessage) {
         String indentedMessage = Arrays.stream(originalMessage.split("\n"))
@@ -69,7 +69,7 @@ public class Duke {
                     }
                     Task markTarget = tasks.get(markIndex);
                     markTarget.markAsDone();
-                    Duke.printFormatted("Nice! I've marked this task as done:\n" + markTarget.toString());
+                    Duke.printFormatted("Nice! I've marked this task as done:\n" + markTarget);
                     break;
                 case "unmark":
                     int unmarkIndex = Integer.parseInt(remaining) - 1;
@@ -78,7 +78,7 @@ public class Duke {
                     }
                     Task unmarkTarget = tasks.get(unmarkIndex);
                     unmarkTarget.markAsUndone();
-                    Duke.printFormatted("OK! I've marked this task as not done yet:\n" + unmarkTarget.toString());
+                    Duke.printFormatted("OK! I've marked this task as not done yet:\n" + unmarkTarget);
                     break;
                 case "todo":
                     Todo newTodo = Todo.createFromCommandString(remaining);

@@ -1,6 +1,6 @@
 public class Deadline extends Task {
 
-    private String by;
+    private final String by;
 
     /**
      * Constructs a Deadline with the specified name and due date.

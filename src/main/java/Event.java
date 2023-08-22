@@ -1,7 +1,7 @@
 public class Event extends Task {
 
-    private String startTime;
-    private String endTime;
+    private final String startTime;
+    private final String endTime;
 
     /**
      * Constructs an Event with the specified name, start time, and end time.
