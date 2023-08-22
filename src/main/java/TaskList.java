@@ -16,19 +16,22 @@ public class TaskList {
     public String getTaskDetails(int taskListIndex) {
         if(isValidListIndex(taskListIndex)) {
             Task task = tasks[taskListIndex];
-            return String.format("[" + task.getStatusIcon() + "] " +
-            task.getDescription());
+            return task.toString();
         } else {
             System.out.println("Invalid Index of task!");
             return null;
         }
     }
 
-    public void addTask(String task) {
+    public int getTaskCount() {
+        return this.taskCount;
+    }
+
+    public void addTask(Task task) {
         if (taskCount >= MAX_TASKS) {
             System.out.println("No more space to add Task :((");
         } else {
-            this.tasks[taskCount] = new Task(task);
+            this.tasks[taskCount] = task;
             this.taskCount++;
         }
     }
@@ -47,9 +50,12 @@ public class TaskList {
 
     public void displayTasks() {
         if (taskCount == 0) {
+            System.out.println("____________________________________________________________");
             System.out.println("Horray!! No tasks in the task list!");
+            System.out.println("____________________________________________________________");
         } else {
             System.out.println("____________________________________________________________");
+            System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
                 System.out.println((i + 1) + ". " + this.getTaskDetails(i));
             }
