@@ -9,14 +9,13 @@ public class Duke {
                 + "____________________________________________________________\n";
         System.out.println(greeting);
 
-        try {
-            // Future Inputs
-            Scanner scanner = new Scanner(System.in);
-            String userInput;
-            ArrayList<Task> todolist = new ArrayList<Task>();
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+        ArrayList<Task> todolist = new ArrayList<Task>();
 
-            while (scanner.hasNextLine()) {
-                userInput = scanner.nextLine();
+        while (scanner.hasNextLine()) {
+            userInput = scanner.nextLine();
+            try {
                 if (userInput.equalsIgnoreCase("list")) {
                     String todolistoutput = "";
                     for (int i = 0; i < todolist.size(); i++) {
@@ -48,19 +47,34 @@ public class Duke {
                 } else {
                     Task task = null;
                     if (userInput.startsWith("todo", 0)) {
+                        if (userInput.length() < 5) {
+                            throw new IllegalArgumentException(
+                                    "☹ OOPS!!! The description of a todo cannot be empty.");
+                        }
                         task = new ToDo(userInput.substring(5));
                     } else if (userInput.startsWith("deadline", 0)) {
+                        if (userInput.length() < 9) {
+                            throw new IllegalArgumentException(
+                                    "☹ OOPS!!! The description of a deadline cannot be empty.");
+                        } else if (!userInput.contains("/by")) {
+                            throw new IllegalArgumentException(
+                                    "☹ OOPS!!! The deadline date of a deadline cannot be empty.");
+                        }
                         task = new Deadline(userInput.substring(9).split("/")[0],
                                 userInput.substring(9).split("/")[1].substring(3));
                     } else if (userInput.startsWith("event", 0)) {
+                        if (userInput.length() < 9) {
+                            throw new IllegalArgumentException(
+                                    "☹ OOPS!!! The description of a deadline cannot be empty.");
+                        } else if (!userInput.contains("/by")) {
+                            throw new IllegalArgumentException(
+                                    "☹ OOPS!!! The deadline date of a deadline cannot be empty.");
+                        }
                         task = new Event(userInput.substring(6).split("/")[0],
                                 userInput.substring(6).split("/")[1].substring(5),
                                 userInput.substring(6).split("/")[2].substring(3));
                     } else {
-                        System.out.println("____________________________________________________________\n"
-                                + "Incorrect Input\n"
-                                + "____________________________________________________________\n");
-                        continue;
+                        throw new IllegalArgumentException("Incorrect Input");
                     }
                     todolist.add(task);
                     System.out.println("____________________________________________________________\n"
@@ -71,11 +85,17 @@ public class Duke {
                             + "____________________________________________________________\n");
 
                 }
-
+            } catch (IllegalArgumentException e) {
+                System.out.println("____________________________________________________________\n"
+                        + e.getMessage() + "\n"
+                        + "____________________________________________________________\n");
             }
-        } finally {
-            System.out.println("Bye. Hope to see you again soon!\n"
-                    + "____________________________________________________________");
+
         }
+
+        System.out.println("____________________________________________________________\n"
+                + "Bye. Hope to see you again soon!\n"
+                + "____________________________________________________________");
+
     }
 }
