@@ -1,20 +1,34 @@
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Main {
     private static Main INSTANCE;
     private String name = "your girlfriend";
     private HashMap<String,ICommandHandler> commands;
+    private boolean isRunning;
 
     public Main(){
         this.commands = new HashMap<String,ICommandHandler>();
         this.commands.put("intro", new IntroHandler());
-        this.commands.put("exit", new ExitHandler());
+        this.commands.put("bye", new ExitHandler());
     }
 
     public static void main(String[] args) {
         initialize();
-        INSTANCE.executeCommand("intro");
-        INSTANCE.executeCommand("exit");
+        INSTANCE.run();
+    }
+
+    private void run(){
+        System.out.println("    ____________________________________________________________");
+        this.executeCommand("intro");
+        this.isRunning = true;
+        Scanner sc = new Scanner(System.in);
+        while(this.isRunning){
+            String input = sc.nextLine();
+            this.executeCommand(input);
+        }
+        sc.close();
+        return;
     }
 
     private static void initialize(){
@@ -22,7 +36,8 @@ public class Main {
     }
     private void executeCommand(String command){
         if(!this.commands.containsKey(command)){
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            this.say(command); // echo
+            return;
         }
         this.commands.get(command).execute();
     }
@@ -33,5 +48,20 @@ public class Main {
 
     public String getName(){
         return this.name;
+    }
+
+    public void exit(){
+        this.isRunning = false;
+    }
+
+    public void say(String content){
+        this.say(content, true);
+    }
+    public void say(String content, boolean outputLine){
+        System.out.println("    " + content);
+        if(outputLine){
+            System.out.println("    ____________________________________________________________");
+        }
+
     }
 }
