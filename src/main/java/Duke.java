@@ -2,8 +2,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 public class Duke {
-
-
     public static void printHorizontalLine() {
 
         for (int i = 0; i < 50; i++) {
@@ -27,6 +25,10 @@ public class Duke {
         printHorizontalLine();
     }
 
+
+    public enum Commands {
+        LIST, MARK, UNMARK, DEADLINE, TODO, EVENT, DELETE
+    }
 
     public static void toDo() {
         ArrayList<Task> list = new ArrayList<>();
@@ -148,6 +150,8 @@ public class Duke {
             }
         }
     }
+
+
 
 
 
