@@ -1,9 +1,13 @@
 abstract class Task {
-    protected String description = "";
+    protected String description;
     protected boolean isDone = false;
 
-    protected Task(String description) {
-        this.description = description;
+    protected Task(String description) throws DukeException {
+        String trimmedDescription = description.trim();
+        if (trimmedDescription.equals("")) {
+            throw new EmptyDescriptionException();
+        }
+        this.description = trimmedDescription;
     }
 
     /**

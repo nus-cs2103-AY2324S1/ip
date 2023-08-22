@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -9,9 +10,7 @@ public class Duke {
             "  / /_  / / / / / //_/ _ \\\n" +
             " / __/ / / /_/ / ,< /  __/\n" +
             "/_/   /_/\\__,_/_/|_|\\___/";
-    private static Task[] listOfTasks = new Task[100];
-    private static int nextTaskIndex = 0;
-
+    private static ArrayList<Task> listOfTasks = new ArrayList<>();
     public static void main(String[] args) {
         // introduce Fluke
         System.out.println(LOGO);
@@ -23,24 +22,30 @@ public class Duke {
         boolean waitingForInput = true;
         while (waitingForInput) {
             // check for user commands
-            String nextCommand = scanner.nextLine();
-            if (nextCommand.equals("bye")) {
-                waitingForInput = false;
-                sayBye();
-            } else if (nextCommand.equals("list")) {
-                list();
-            } else if (nextCommand.startsWith("mark")) {
-                int number = Integer.parseInt(nextCommand.substring(5));
-                markTaskAsDone(number);
-            } else if (nextCommand.startsWith("unmark")) {
-                int number = Integer.parseInt(nextCommand.substring(7));
-                markTaskAsUndone(number);
-            } else if (nextCommand.startsWith("todo")) {
-                addTodo(nextCommand);
-            } else if (nextCommand.startsWith("deadline")) {
-                addDeadline(nextCommand);
-            } else if (nextCommand.startsWith("event")) {
-                addEvent(nextCommand);
+            try {
+                String nextCommand = scanner.nextLine();
+                if (nextCommand.equals("bye")) {
+                    waitingForInput = false;
+                    sayBye();
+                } else if (nextCommand.equals("list")) {
+                    list();
+                } else if (nextCommand.startsWith("mark")) {
+                    markTaskAsDone(nextCommand);
+                } else if (nextCommand.startsWith("unmark")) {
+                    markTaskAsUndone(nextCommand);
+                } else if (nextCommand.startsWith("delete")) {
+                    deleteTask(nextCommand);
+                } else if (nextCommand.startsWith("todo")) {
+                    addTodo(nextCommand);
+                } else if (nextCommand.startsWith("deadline")) {
+                    addDeadline(nextCommand);
+                } else if (nextCommand.startsWith("event")) {
+                    addEvent(nextCommand);
+                } else {
+                    throw new InvalidInputException();
+                }
+            } catch (DukeException d) {
+                printError(d.getMessage());
             }
             addHorizontalLine();
         }
@@ -64,86 +69,140 @@ public class Duke {
     private static void addTask(Task task) {
         System.out.println("(Scribbles randomly). Hope I got it right!");
         System.out.println("  " + task);
-        listOfTasks[nextTaskIndex] = task;
-        nextTaskIndex += 1;
-        System.out.println("I think there are now " + nextTaskIndex + " tasks in the list.");
+        listOfTasks.add(task);
+        System.out.println("I think there are now " + listOfTasks.size() + " tasks in the list.");
     }
 
     private static void addTodo(String command) {
-        if (command.length() <= 5) {
-            // command is too short, description is invalid
-            // handle errors
-            return;
+        try {
+            if (command.length() <= 5) {
+                // command is too short, description is invalid
+                throw new EmptyDescriptionException();
+            }
+            String str = command.substring(5);
+            Todo newTodo = new Todo(str);
+            addTask(newTodo);
+        } catch (DukeException d) {
+            printError(d.getMessage());
         }
-        String str = command.substring(5);
-        Todo newTodo = new Todo(str);
-        addTask(newTodo);
     }
 
     private static void addDeadline(String command) {
-        if (command.length() <= 9) {
-            // command is too short, description is invalid
-            // handle errors
-            return;
+        try {
+            if (command.length() <= 9) {
+                // command is too short, description is invalid
+                throw new EmptyDescriptionException();
+            }
+            String str = command.substring(9);
+            int byIndex = str.indexOf("/by");
+            String description = str.substring(0, byIndex - 1);
+            String by = str.substring(byIndex + 4);
+            Task task = new Deadline(description, by);
+            addTask(task);
+        } catch (DukeException d) {
+            printError(d.getMessage());
         }
-        String str = command.substring(9);
-        int byIndex = str.indexOf("/by");
-        String description = str.substring(0, byIndex - 1);
-        String by = str.substring(byIndex + 4);
-        Task task = new Deadline(description, by);
-        addTask(task);
     }
 
     private static void addEvent(String command) {
-        if (command.length() <= 6) {
-            // command is too short, description is invalid
-            // handle errors
-            return;
+        try {
+            if (command.length() <= 6) {
+                // command is too short, description is invalid
+                throw new EmptyDescriptionException();
+            }
+            String str = command.substring(6);
+            int fromIndex = str.indexOf("/from");
+            int toIndex = str.indexOf("/to");
+            String description = str.substring(0, fromIndex - 1);
+            String from = str.substring(fromIndex + 6, toIndex - 1);
+            String to = str.substring(toIndex + 4);
+            Task task = new Event(description, from, to);
+            addTask(task);
+        } catch (DukeException d) {
+            printError(d.getMessage());
         }
-        String str = command.substring(6);
-        int fromIndex = str.indexOf("/from");
-        int toIndex = str.indexOf("/to");
-        String description = str.substring(0, fromIndex - 1);
-        String from = str.substring(fromIndex + 6, toIndex - 1);
-        String to = str.substring(toIndex + 4);
-        Task task = new Event(description, from, to);
-        addTask(task);
     }
 
     private static void list() {
         System.out.println("Here are the tasks we have currently!");
-        for (int i = 0; i < 100; i++) {
-            if (listOfTasks[i] == null) {
-                break;
-            } else {
-                Task task = listOfTasks[i];
-                int number = i + 1;
-                System.out.println(number + "." + task);
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            Task task = listOfTasks.get(i);
+            int number = i + 1;
+            System.out.println(number + "." + task);
+        }
+    }
+
+    private static void markTaskAsDone(String nextCommand) {
+        try {
+            if (nextCommand.length() <= 5) {
+                throw new InvalidInputException();
             }
+            int taskNumber = obtainTaskNumber(nextCommand.substring(5));
+            int index = taskNumber - 1;
+            // check if task exists
+            if (index < listOfTasks.size()) {
+                listOfTasks.get(index).markAsDone();
+                System.out.println("I have marked this task as done, I hope it's the right one:");
+                System.out.println("  " + listOfTasks.get(index));
+            } else {
+                throw new TaskDoesNotExistException();
+            }
+        } catch (DukeException d) {
+            printError(d.getMessage());
         }
     }
 
-    private static void markTaskAsDone(int taskNumber) {
-        int index = taskNumber - 1;
-        // check if task exists
-        if (listOfTasks.length > index && listOfTasks[index] != null) {
-            listOfTasks[index].markAsDone();
-            System.out.println("I have marked this task as done, I hope it's the right one:");
-            System.out.println("  " + listOfTasks[index]);
-        } else {
-            System.out.println("I'm pretty sure that task doesn't exist...");
+    private static void markTaskAsUndone(String nextCommand) {
+        try {
+            if (nextCommand.length() <= 7) {
+                throw new InvalidInputException();
+            }
+            int taskNumber = obtainTaskNumber(nextCommand.substring(7));
+            int index = taskNumber - 1;
+            // check if task exists
+            if (index < listOfTasks.size()) {
+                listOfTasks.get(index).markAsUndone();
+                System.out.println("  " + "I have marked this task as not done yet, I hope it's the right one:");
+                System.out.println(listOfTasks.get(index));
+            } else {
+                throw new TaskDoesNotExistException();
+            }
+        } catch (DukeException d) {
+            printError(d.getMessage());
         }
     }
 
-    private static void markTaskAsUndone(int taskNumber) {
-        int index = taskNumber - 1;
-        // check if task exists
-        if (listOfTasks.length > index && listOfTasks[index] != null) {
-            listOfTasks[index].markAsUndone();
-            System.out.println("  " + "I have marked this task as not done yet, I hope it's the right one:");
-            System.out.println(listOfTasks[index]);
-        } else {
-            System.out.println("I'm pretty sure that task doesn't exist...");
+    private static void deleteTask(String nextCommand) {
+        try {
+            if (nextCommand.length() <= 7) {
+                throw new InvalidInputException();
+            }
+            int taskNumber = obtainTaskNumber(nextCommand.substring(7));
+            int index = taskNumber - 1;
+            // check if task exists
+            if (index < listOfTasks.size()) {
+                String taskString = listOfTasks.get(index).toString();
+                listOfTasks.remove(index);
+                System.out.println("Task deleted! I hope it's the right one:");
+                System.out.println("  " + taskString);
+                System.out.println("I think there are now " + listOfTasks.size() + " tasks in the list.");
+            } else {
+                throw new TaskDoesNotExistException();
+            }
+        } catch (DukeException d) {
+            printError(d.getMessage());
         }
+    }
+
+    private static int obtainTaskNumber(String taskNumberString) throws InvalidInputException {
+        try {
+            return Integer.parseInt(taskNumberString);
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException();
+        }
+    }
+
+    private static void printError(String message) {
+        System.out.println("☹ OOPS!!! " + message);
     }
 }
