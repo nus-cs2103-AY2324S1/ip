@@ -27,7 +27,6 @@ public class Duke {
         System.out.println(horizontal);
         System.out.println(ln3);
         System.out.println(horizontal);
-
         sc.close();
     }
 }
