@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class EpochMind {
@@ -22,6 +24,7 @@ public class EpochMind {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        List<String> userInput = new ArrayList<>();
 
         System.out.println(logo + "___________________________________________________________________________________________________________\n" +
                 " Greetings! I'm EpochMind, Seer of the Cosmos, Keeper of Knowledge, Pantheon of Wisdom, the Eternal Truth\n" +
@@ -33,10 +36,26 @@ public class EpochMind {
                 System.out.println("___________________________________________________________________________________________________________\n" +
                         " May you seek the truth\n" +
                         "___________________________________________________________________________________________________________\n");
+            } else if (command.trim().toLowerCase().equals("list")) {
+                list(userInput);
             } else {
-                System.out.println(command);
+                userInput.add(command);
+                System.out.println("___________________________________________________________________________________________________________\n" +
+                        "added: " + command + "\n"+"___________________________________________________________________________________________________________\n");
             }
         }
+    }
+
+    public static void list(List<String> userInput) {
+        System.out.println("___________________________________________________________________________________________________________\n");
+        for (int i = 0; i < userInput.size(); i++) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(i+1);
+            sb.append(".");
+            sb.append(userInput.get(i));
+            System.out.println(sb.toString());
+        }
+        System.out.println("___________________________________________________________________________________________________________\n");
     }
 
 }
