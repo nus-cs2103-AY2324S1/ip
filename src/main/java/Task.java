@@ -23,6 +23,24 @@ public class Task {
     }
 
     /**
+     * Getter method for the global Task count.
+     *
+     * @return Number of Tasks initialized
+     */
+    public static int getTaskCount() {
+        return taskCount;
+    }
+
+    /**
+     * Getter method for the Task id
+     *
+     * @return ID of the task
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * Getter method for the Task description.
      *
      * @return Description of the task
@@ -39,4 +57,5 @@ public class Task {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
 }
