@@ -43,12 +43,5 @@ public class Bob {
 
         System.out.println(horizontal);
     }
-
-    public static void main(String[] args) {
-        Bob bob = new Bob();
-        bob.addTask("help");
-        bob.addTask("lol");
-
-        bob.listOut();
-    }
+    
 }
