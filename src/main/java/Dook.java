@@ -5,14 +5,28 @@ import java.util.Scanner;
 public class Dook {
     public static String name = "Dook";
     private enum Command{
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID;
+        bye("Exits the program."), list("Displays the current tasks"),
+        mark("Marks selected task as done."), unmark("Marks selected task as undone."),
+        todo("Adds a task."), deadline("Adds a task with a deadline."),
+        event("Adds a task with a start and end time."), delete("Deletes selected task from list."),
+        invalid("You entered an invalid command.");
+
+        private final String desc;
+
+        Command(String desc) {
+            this.desc = desc;
+        }
+        @Override
+        public String toString() {
+            return this.name() + ": " + this.desc;
+        }
 
     }
     private static Command parseKeyword(String keyword) {
          try {
-            return Command.valueOf(keyword.toUpperCase(Locale.ROOT));
+            return Command.valueOf(keyword);
          } catch (IllegalArgumentException e){
-            return Command.INVALID;
+            return Command.invalid;
          }
     }
     public static ArrayList<Task> taskList = new ArrayList<>();
@@ -29,32 +43,33 @@ public class Dook {
 
             try {
                 switch (command) {
-                    case BYE:
+                    case bye:
                         bidFarewell();
                         return;
-                    case LIST:
+                    case list:
                         displayList();
                         break;
-                    case MARK:
+                    case mark:
                         markTask(body, true);
                         break;
-                    case UNMARK:
+                    case unmark:
                         markTask(body, false);
                         break;
-                    case TODO:
+                    case todo:
                         addToDo(body);
                         break;
-                    case DEADLINE:
+                    case deadline:
                         addDeadline(body);
                         break;
-                    case EVENT:
+                    case event:
                         addEvent(body);
                         break;
-                    case DELETE:
+                    case delete:
                         deleteEvent(body);
                         break;
-                    case INVALID:
-                        throw new DookException("Invalid Command.");
+                    case invalid:
+                        displayHelp();
+                        break;
                 }
             } catch (DookException e) {
                 printMessage(e.getMessage());
@@ -62,16 +77,24 @@ public class Dook {
 
         }
     }
+    private static void displayHelp() {
+        StringBuilder result = new StringBuilder();
+        result.append("Available commands:\n");
+        for (Command c : Command.values()) {
+            result.append(c.toString() + "\n");
+        }
+        printMessage(result.toString());
+    }
     private static void addToDo(String body) throws DookException {
         if (body.isBlank()) {
-            throw new DookException(String.format("Task cannot be empty!"));
+            throw new DookException(String.format("Usage: todo [name]"));
         }
         Task task = new Todo(body.trim());
         addToTaskList(task);
     }
     private static void addDeadline(String body) throws DookException {
         if (body.isBlank()) {
-            throw new DookException(String.format("Task cannot be empty!"));
+            throw new DookException(String.format("Usage: deadline [name] /by [time]."));
         }
 
         String[] tmp = body.split("/by", 2);
@@ -90,7 +113,7 @@ public class Dook {
     }
     private static void addEvent(String body) throws DookException{
         if (body.isBlank()) {
-            throw new DookException(String.format("Task cannot be empty!"));
+            throw new DookException(String.format("Usage: event [name] /from [start] /to [end]."));
         }
         String[] tmp1 = body.split("/from", 2);
         if (tmp1.length <= 1) {
@@ -115,7 +138,7 @@ public class Dook {
     }
     private static void addToTaskList(Task task) {
         taskList.add(task);
-        printMessage(String.format("added: %s.\n Now you have %d %s in the list",
+        printMessage(String.format("added: %s.\n Now you have %d %s in the list.",
                 task,
                 taskList.size(),
                 taskList.size() == 1 ? "task" : "tasks"));
