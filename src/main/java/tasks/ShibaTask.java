@@ -1,8 +1,10 @@
-public class ShibaTask {
+package tasks;
+
+public abstract class ShibaTask {
     private final String name;
     private boolean isDone;
 
-    public ShibaTask(String name) {
+    protected ShibaTask(String name) {
         this.name = name;
         this.isDone = false;
     }
