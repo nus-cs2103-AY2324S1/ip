@@ -1,6 +1,6 @@
 public class Bob {
     private String name = "Bob";
-    private String[] list = new String[100];
+    private Task[] list = new Task[100];
     private String horizontal = "____________________________________________________________";
     private int count;
 
@@ -25,17 +25,19 @@ public class Bob {
         System.out.println(horizontal);
     }
 
-    public void addTask(String task) {
+    public void addTask(String desc) {
+        Task task = new Task(desc);
         list[this.count] = task;
         this.count++;
 
         System.out.println(horizontal);
-        System.out.println("added: " + task);
+        System.out.println("added: " + desc);
         System.out.println(horizontal);
     }
 
     public void listOut() {
         System.out.println(horizontal);
+        System.out.println("Here are the tasks in your list:");
 
         for (int i = 1; i <= this.count; i++) {
             System.out.println(i + ". " + list[i - 1]);
@@ -43,5 +45,14 @@ public class Bob {
 
         System.out.println(horizontal);
     }
-    
+
+    public void markTask(int index) {
+        Task task = list[index];
+        task.markAsDone();
+    }
+
+    public void unmarkTask(int index) {
+        Task task = list[index];
+        task.unmark();
+    }
 }

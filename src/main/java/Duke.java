@@ -11,13 +11,22 @@ public class Duke {
         bob.greet();
 
         while (true) {
-            String ans = sc.nextLine();
-            if (ans.equalsIgnoreCase("bye")) {
+            String line = sc.nextLine();
+            String[] words = line.split(" ");
+            String firstWord = words[0];
+
+            if (firstWord.equalsIgnoreCase("bye")) {
                 break;
-            } else if (ans.equalsIgnoreCase("list")) {
+            } else if (firstWord.equalsIgnoreCase("list")) {
                 bob.listOut();
+            } else if (words.length > 1 && firstWord.equalsIgnoreCase("mark")) {
+                int index = Integer.parseInt(words[1]);
+                bob.markTask(index - 1);
+            } else if (words.length > 1 && firstWord.equalsIgnoreCase("unmark")) {
+                int index = Integer.parseInt(words[1]);
+                bob.unmarkTask(index - 1);
             } else {
-                bob.addTask(ans);
+                bob.addTask(line);
             }
         }
 
