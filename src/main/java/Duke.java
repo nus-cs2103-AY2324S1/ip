@@ -8,7 +8,7 @@ public class Duke {
         String welcomeMessage = "____________________________________________________________\n" +
                 " Hello! I'm Bongo!\n" +
                 " What can I do for you?\n" +
-                "____________________________________________________________\n";
+                "____________________________________________________________";
         System.out.println(welcomeMessage);
         Scanner sc = new Scanner(System.in);
 
@@ -17,7 +17,7 @@ public class Duke {
             if (input[0].equals("bye")) {
                 String goodbyeMessage = "____________________________________________________________\n" +
                         " Bye. Hope to see you again soon!\n" +
-                        "____________________________________________________________\n";
+                        "____________________________________________________________";
                 System.out.println(goodbyeMessage);
                 break;
             }
@@ -29,7 +29,7 @@ public class Duke {
                 String tasksList = "____________________________________________________________\n" +
                         " Here are the tasks in your list:\n" +
                         allTasks +
-                        "____________________________________________________________\n";
+                        "____________________________________________________________";
                 System.out.println(tasksList);
                 continue;
             }
@@ -47,7 +47,7 @@ public class Duke {
                 String finalMessage = "____________________________________________________________\n" +
                             taskStatusMessage +
                             String.format("  %s\n", chosenTask) +
-                            "____________________________________________________________\n";
+                            "____________________________________________________________";
                 System.out.println(finalMessage);
                 continue;
             }
@@ -77,7 +77,7 @@ public class Duke {
                     " Got it. I've added this task:\n" +
                     String.format("  %s\n", newTask) +
                     String.format(" Now you have %d tasks in the list.\n", tasks.size()) +
-                    "____________________________________________________________\n";
+                    "____________________________________________________________";
             System.out.println(echoMessage);
         }
     }
