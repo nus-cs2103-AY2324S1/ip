@@ -90,7 +90,7 @@ public class Duke {
                         break;
                     case MARK:
                     case UNMARK:
-                        this.handleMark(command.getCommand() == Commands.MARK, Integer.valueOf(command.getParam()) - 1);
+                        this.handleMark(command.getCommand() == Commands.MARK, command.getIndex() - 1);
                         break;
                     case TODO:
                     case DEADLINE:
@@ -105,6 +105,9 @@ public class Duke {
                 }
             } catch (BadInputException e) {
                 this.print("QUACK QUACK!! " + e.getMessage());
+            } catch (NumberFormatException e) {
+                this.print("QUACK QUACK!! " + e.getMessage()
+                        + ", quack only understand numbers, please input a numeric value!");
             }
             this.print(Duke.LINE_BREAK);
             input = scanner.nextLine();
@@ -136,11 +139,14 @@ public class Duke {
      */
     private void handleMark(boolean mark, int index) throws BadInputException {
 
+        if (this.tasks.size() == 0) {
+            throw new BadInputException("Quack currently has no task remembered, why not add one now?");
+        }
+
         // vaidate input
         if (index >= this.tasks.size()) {
             throw new BadInputException("Quack does not remember having a task: " + (index + 1) + "\n" + Duke.TAB +
-                    (this.tasks.size() == 0 ? "Quack currently has no task remembered, why not add one now?"
-                            : "Quack only remember till task " + (this.tasks.size())));
+                    "Quack only remember till task " + (this.tasks.size()));
         }
 
         Task task = this.tasks.get(index);

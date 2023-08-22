@@ -14,10 +14,14 @@ public class Parser {
     private Commands command;
 
     /**
-     * param that came with the command, stores the error message if it is not a
-     * valid input
+     * param that came with the command
      */
     private String param = "";
+
+    /**
+     * Index that came with the command
+     */
+    private int index = -1;
 
     /**
      * the original input
@@ -28,9 +32,10 @@ public class Parser {
      * Constructor for the Parser
      * 
      * @param input - the input string that needs to be parsed
-     * @throws BadInputException
+     * @throws BadInputException     - if the input cannot be parsed properly
+     * @throws NumberFormatException - if the input cannot be converted to an int
      */
-    public Parser(String input) throws BadInputException {
+    public Parser(String input) throws BadInputException, NumberFormatException {
         this.input = input.trim();
         String[] splitInput = input.split(" ");
         switch (splitInput[0]) {
@@ -39,19 +44,11 @@ public class Parser {
                 break;
             case "mark":
                 this.command = Commands.MARK;
-                if (splitInput.length != 2) {
-                    throw new BadInputException(
-                            "Quack requires exactly one number after the mark command");
-                }
-                this.param = splitInput[1];
+                this.index = this.findIndex(splitInput);
                 break;
             case "unmark":
                 this.command = Commands.UNMARK;
-                if (splitInput.length != 2) {
-                    throw new BadInputException(
-                            "Quack requires exactly one number after the unmark command");
-                }
-                this.param = splitInput[1];
+                this.index = this.findIndex(splitInput);
                 break;
             case "todo":
                 this.command = Commands.TODO;
@@ -75,12 +72,26 @@ public class Parser {
         }
     }
 
+    private int findIndex(String[] splitInput) throws BadInputException, NumberFormatException {
+        if (splitInput.length != 2) {
+            throw new BadInputException(
+                    "Quack requires exactly one number after the mark command");
+        }
+        int ret = Integer.valueOf(splitInput[1]);
+        if (ret < 0) {
+            throw new BadInputException(
+                    "Quack requires a positive number to help you manage tasks!");
+        }
+        return ret;
+    }
+
     /**
      * function to find the flags and update both the flags and param field
      * 
      * @param splitInputs - input string that has been split into words
      * @param flags       - the flags that needs to be found
-     * @throws BadInputException
+     * @throws BadInputException - if the flags cannot be found or without a
+     *                           description
      */
     private void findFlags(String[] splitInputs, String... flags) throws BadInputException {
 
@@ -120,7 +131,8 @@ public class Parser {
      * @param arr   - the array of strings that you want to find the flags from
      * @param items - the array of flags you want to find from the array
      * @return an array of the index of the flags
-     * @throws BadInputException
+     * @throws BadInputException - if the flags cannot be found or without a
+     *                           description
      */
     private int[] find(String[] arr, String[] items) throws BadInputException {
         int[] ret = new int[items.length + 1];
@@ -174,5 +186,14 @@ public class Parser {
      */
     public String getParam() {
         return this.param;
+    }
+
+    /**
+     * getter for the index of the input
+     * 
+     * @return index
+     */
+    public int getIndex() {
+        return this.index;
     }
 }
