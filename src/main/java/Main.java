@@ -1,8 +1,17 @@
+import java.util.Scanner;
+
 /**
  * A class which runs the HelpBuddy chatbot.
  */
 public class Main {
     public static void main(String[] args) {
-        HelpBuddy.printStandardMessage();
+        /** Create a new chatbot to activate its service. */
+        HelpBuddy chatBot = new HelpBuddy();
+        /** Create a scanner to read from standard input. */
+        Scanner sc = new Scanner(System.in);
+        /** Chatbot will reply according to user input. */
+        chatBot.outputMessage(sc);
+        /** Clean up the scanner. */
+        sc.close();
     }
 }
