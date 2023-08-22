@@ -17,14 +17,14 @@ public class Duke {
 
     private static void greet() {
         System.out.println(
-                "Hello! I'm " + CHATBOT_NAME + "\n" +
-                "What can I do for you?"
+                "Hello! I'm " + CHATBOT_NAME + ", everything I do is down to luck!" + "\n" +
+                "Feeling lucky today?"
         );
         addHorizontalLine();
     }
 
     private static void sayBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println("Bye. Good luck!");
         addHorizontalLine();
     }
 
