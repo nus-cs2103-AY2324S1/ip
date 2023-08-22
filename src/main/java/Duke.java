@@ -5,11 +5,6 @@ public class Duke {
 
     private static int totalTodo = 0;
 
-    public Duke() {
-//        for(int i=0;i<100;i++) {
-//            list[i] = new Task(i);
-//        }
-    }
     String divider = "------------------------------------\n";
     String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
@@ -26,9 +21,6 @@ public class Duke {
             "Bye. Hope to see you again soon!\n" +
             divider;
 
-    public String echo(String userInput) {
-        return userInput;
-    }
 
     public String addTask(String[] taskArray) {
         String action = taskArray[0];
@@ -36,8 +28,6 @@ public class Duke {
         String by = taskArray[2];
         String from = taskArray[3];
         String to = taskArray[4];
-
-        System.out.println(task);
 
         String res = "";
         switch (action) {
@@ -189,19 +179,6 @@ public class Duke {
                 String action = taskEvent[0];
                 String list = taskEvent[1];
 
-
-//                switch (action) {
-//                    case "todo" : {
-//                        list[totalTodo++] = new ToDo(userInput);
-//                        break;
-//                    }
-//                    case "event" : {
-//
-//                    }
-//                    case "deadline" : {
-//
-//                    }
-//                }
                 System.out.println(duke.divider +
                         duke.addTask(taskEvent)
                         + "\n" + duke.divider);
