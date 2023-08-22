@@ -93,6 +93,17 @@ public class Duke {
                     unmark(k);
                     readInput();
                     break;
+                case "delete":
+                    if (!scanner.hasNextInt())
+                        throw new DukeException("Chewie doesn't see the index of task list.");
+
+                    int j = scanner.nextInt();
+                    if (j < 1 || j > list.size())
+                        throw new DukeException("The list doesn't have this index.");
+
+                    delete(j);
+                    readInput();
+                    break;
                 case "deadline":
                     String deadlinePrompt = scanner.nextLine();
                     if (deadlinePrompt.isBlank())
@@ -206,5 +217,14 @@ public class Duke {
         System.out.println("Rrrruuuurrr, Chewie has unmarked the task.");
         System.out.println(task.status() + task.taskName());
         System.out.println("\n" + drawLine());
+    }
+
+    private static void delete(int i) {
+        Task task = list.get(i-1);
+        list.remove(i-1);
+        System.out.println(drawLine());
+        System.out.println("Chewie gotcha, task removed:\n" + task.status() + task.taskName());
+        System.out.println("Chewie now find " + list.size() + " tasks in the list" + "\n");
+        System.out.println(drawLine());
     }
 }
