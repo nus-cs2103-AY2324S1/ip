@@ -12,9 +12,16 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         System.out.println("Salutations! I am\n" + logo + "\nAn exceedingly verbose conversation simulation program");
         System.out.println(separator);
-
-        System.out.println("It appears that the user has decided to close the program as indicated by the command of which this is the function being issued and therefore I shall bid thee farewell and wish thee great fortune in your future endeavors");
+        while (true) {
+            String command = sc.nextLine();
+            System.out.println(separator);
+            if (command.equals("bye")) {
+                break;
+            }
+            System.out.println(command);
+            System.out.println(separator);
+        }
+        System.out.println("It appears that the user has decided to close the program as indicated by the command of which this is the function being issued and therefore,\n" +
+                "I shall bid thee farewell and wish thee great fortune in your future endeavors");
     }
-
-
 }
