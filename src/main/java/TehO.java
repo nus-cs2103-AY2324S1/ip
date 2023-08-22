@@ -32,6 +32,24 @@ public class TehO {
                 task.markAsNotDone(taskNumber);
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(task.toString());
+            } else if (userCommand.equals("todo")) {
+                System.out.println("Got it. I've added this task:");
+                //?
+                System.out.println("Now you have " + taskCounter +" tasks in the list.");
+
+            } else if (userCommand.equals("deadline")) { //need time
+                System.out.println("Got it. I've added this task:");
+                //?
+                String byDate = String.valueOf(parseInt(userCommand.split("/")[1]));
+                System.out.println("Now you have " + taskCounter +" tasks in the list.");
+                
+            } else if (userCommand.equals("event")) { //need time
+                System.out.println("Got it. I've added this task:");
+                //?
+                String fromDate = String.valueOf(parseInt(userCommand.split("/")[1]));
+                String toDate = String.valueOf(parseInt(userCommand.split("/")[2]));
+                System.out.println("Now you have " + taskCounter +" tasks in the list.");
+
             } else {
                 Task task = new Task(userCommand);
                 addTask(task);
