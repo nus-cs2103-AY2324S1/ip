@@ -21,6 +21,7 @@ public class Duke {
         Duke.printWelcomeMessage();
         processResponse();
     }
+
     private static void printWelcomeMessage() {
         String welcomeMessage = "Hi, I'm Bob. How can I help you?";
         System.out.println(divider + logo + "\n" + welcomeMessage + divider);
@@ -61,7 +62,7 @@ public class Duke {
                     break;
                 case "LIST":
                     for (int i = 0; i < pointer; i++) {
-                        System.out.println((i + 1) + " ." + tasks[i].toString());
+                        System.out.println((i + 1) + ". " + tasks[i].toString());
                     }
                     System.out.println(divider);
                     break;
