@@ -1,9 +1,9 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
-    private final ArrayList<String> data = new ArrayList<>();
+    private final Task[] data = new Task[100];
+    private int count = 0;
 
     public void greet() {
         String logo = " ____                \n"
@@ -19,17 +19,34 @@ public class Duke {
         System.out.println("Ciao! Hope to see you soon yorr!!");
     }
 
-    public void add(String s) {
-        data.add(s);
-        System.out.println("Added \"" + s + "\" lerr :)\n");
+    public void add(Task task) {
+        data[count] = task;
+        count++;
+        System.out.println("\"" + task.toString() + "\" added :)\n");
     }
 
     public void list() {
-        for (int i = 0; i < data.size(); i++) {
-            System.out.println((i + 1) + ". " + data.get(i));
+        System.out.println("Although I dunwan to list... But here is your list:");
+        for (int i = 0; i < count; i++) {
+            Task dt = data[i];
+            if (dt.done()) {
+                System.out.println((i + 1) + ". [x] " + dt.toString());
+            } else {
+                System.out.println((i + 1) + ". [ ] " + dt.toString());
+            }
         }
         System.out.println(" ");
     }
+
+//    public void markDone(int i) {
+//        data[i + 1].markDone();
+//        System.out.println("Yay! " + data[i + 1] + " done liao!!");
+//    }
+//
+//    public void markUndone(int i) {
+//        data[i + 1].markUndone();
+//        System.out.println("Hmm... Why just now simply mark " + data[i + 1] + " as done...");
+//    }
 
     public static void main(String[] args) {
         Duke roo = new Duke();
@@ -42,8 +59,10 @@ public class Duke {
             if (input.equals("list")) {
                 roo.list();
                 input = sc.nextLine();
+//            } else if (input.contains("mark")) {
+//                input = sc.nextLine();
             } else if (!input.equals("bye")) {
-                roo.add(input);
+                roo.add(new Task(input));
                 input = sc.nextLine();
             } else {
                 sc.close();
