@@ -1,9 +1,32 @@
-public class Duke {
-    public static void main(String[] args) {
-        String horizontalLine = "____________________________________________________________";
-        System.out.println(horizontalLine + "\nHello! I'm Nano\n" +
-                "What can I do for you?\n" + horizontalLine);
+import java.util.Scanner;
 
-        System.out.println(horizontalLine + "\n Bye. Hope to see you again soon!\n" + horizontalLine);
+public class Duke {
+
+    private static void printOutput(String output) {
+        String horizontalLine = "    ____________________________________________________________";
+        System.out.printf(horizontalLine + "\n    " + output + '\n' + horizontalLine + '\n');
+    }
+
+    private static void handleCommand() {
+        Scanner sc = new Scanner(System.in);
+        String command;
+
+        while (true) {
+            command = sc.nextLine();
+            if (command.equals("bye")) {
+                printOutput("Bye. Hope to see you again soon!");
+                break;
+            } else {
+                printOutput(command);
+            }
+        }
+
+    }
+
+    public static void main(String[] args) {
+
+        printOutput("Hello! I'm Nano\n    What can I do for you?");
+        handleCommand();
+
     }
 }
