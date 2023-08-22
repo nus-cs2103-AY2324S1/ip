@@ -40,21 +40,35 @@ public class Duke {
                     }
                     System.out.println("_____________________________________\n");
                 } else if (input.startsWith("mark ")) {
+                    if (input.length() <= 5) {
+                        throw new DukeException("☹ OOPS!!! The description of a mark cannot be empty.");
+                    }
                     String[] tem = input.split(" ");
                     int input_num = Integer.parseInt(tem[1]) - 1;
-                    task.get(input_num).mark();
-                    System.out.println("_____________________________________\n");
-                    System.out.println("Nice! I've marked this task as done:\n");
-                    System.out.println(task.get(input_num));
-                    System.out.println("_____________________________________\n");
-                } else if (input.startsWith("unmark")) {
+                    if (input_num >= 0 && input_num < task.size()) {
+                        task.get(input_num).mark();
+                        System.out.println("_____________________________________\n");
+                        System.out.println("Nice! I've marked this task as done:\n");
+                        System.out.println("  " + task.get(input_num));
+                        System.out.println("_____________________________________\n");
+                    } else {
+                        throw new DukeException("Invalid task number. :( Please provide a valid task number.");
+                    }
+                } else if (input.startsWith("unmark ")) {
+                    if (input.length() <= 7) {
+                        throw new DukeException("☹ OOPS!!! The description of a unmark cannot be empty.");
+                    }
                     String[] tem = input.split(" ");
                     int input_num = Integer.parseInt(tem[1]) - 1;
-                    task.get(input_num).unmark();
-                    System.out.println("_____________________________________\n");
-                    System.out.println("OK, I've marked this task as not done yet:\n");
-                    System.out.println(task.get(input_num));
-                    System.out.println("_____________________________________\n");
+                    if (input_num >= 0 && input_num < task.size()) {
+                        task.get(input_num).unmark();
+                        System.out.println("_____________________________________\n");
+                        System.out.println("OK, I've marked this task as not done yet:\n");
+                        System.out.println("  " + task.get(input_num));
+                        System.out.println("_____________________________________\n");
+                    } else {
+                        throw new DukeException("Invalid task number. :( Please provide a valid task number.");
+                    }
                 } else if (input.startsWith("todo ")) {
                     if (input.length() <= 5) {
                         throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -63,7 +77,7 @@ public class Duke {
                     task.add(new Todo(description));
                     System.out.println("_____________________________________\n");
                     System.out.println("Got it. I've added this task:\n");
-                    System.out.println(task.get(task.size() - 1).toString());
+                    System.out.println("  " + task.get(task.size() - 1).toString());
                     String task_type = (task.size() > 1 ? " tasks" : " task");
                     System.out.println("Now you have " + task.size() + task_type + " in the list.\n");
                     System.out.println("_____________________________________\n");
@@ -77,7 +91,7 @@ public class Duke {
                     task.add(new Deadline(description, time));
                     System.out.println("_____________________________________\n");
                     System.out.println("Got it. I've added this task:\n");
-                    System.out.println(task.get(task.size() - 1).toString());
+                    System.out.println("  " + task.get(task.size() - 1).toString());
                     String task_type = (task.size() > 1 ? " tasks" : " task");
                     System.out.println("Now you have " + task.size() + task_type + " in the list.\n");
                     System.out.println("_____________________________________\n");
@@ -93,10 +107,22 @@ public class Duke {
                     task.add(new Event(description, start, end));
                     System.out.println("_____________________________________\n");
                     System.out.println("Got it. I've added this task:\n");
-                    System.out.println(task.get(task.size() - 1).toString());
+                    System.out.println("  " + task.get(task.size() - 1).toString());
                     String task_type = (task.size() > 1 ? " tasks" : " task");
                     System.out.println("Now you have " + task.size() + task_type + " in the list.\n");
                     System.out.println("_____________________________________\n");
+                } else if (input.startsWith("delete ")) {
+                    int task_num = Integer.parseInt(input.substring(7)) - 1;
+                    if (task_num >= 0 && task_num < task.size()) {
+                        Task removedTask = task.remove(task_num);
+                        System.out.println("_____________________________________\n");
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("  " + removedTask);
+                        System.out.println("Now you have " + task.size() + " tasks in the list.");
+                        System.out.println("_____________________________________\n");
+                    } else {
+                        throw new DukeException("Invalid task number. :( Please provide a valid task number.");
+                    }
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
