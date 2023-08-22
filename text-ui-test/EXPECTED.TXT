@@ -1,23 +1,18 @@
 Good day to you, I'm ButlerBot.
 How may I be of service to you?
 
-Understood, I will add the following task to your list:
+Understood, I will add the following todo to your list:
 [T][ ] Automate ButlerBot
 Please note that there are 1 tasks in the list.
-Understood, I will add the following task to your list:
+Understood, I will add the following deadline to your list:
 [D][ ] CS2103T Individual Project (by: Thursday)
 Please note that there are 2 tasks in the list.
-Understood, I will add the following task to your list:
+Understood, I will add the following event to your list:
 [E][ ] Birthday Celebration! (from: Fri 11pm to: Sat 12am)
 Please note that there are 3 tasks in the list.
-Understood, I will add the following task to your list:
+Understood, I will add the following todo to your list:
 [T][ ] Mark this
 Please note that there are 4 tasks in the list.
 Congratulations on finishing the task. I will now mark it as complete:
 [T][X] Mark this
-1. [T][ ] Automate ButlerBot
-2. [D][ ] CS2103T Individual Project (by: Thursday)
-3. [E][ ] Birthday Celebration! (from: Fri 11pm to: Sat 12am)
-4. [T][X] Mark this
 Goodbye and have a nice day.
-

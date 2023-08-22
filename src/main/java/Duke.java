@@ -1,159 +1,156 @@
 import java.util.Scanner;  // Import the Scanner class
 public class Duke {
-    int TODO = 0, DEADLINE = 1, EVENT = 2;
-    public static class Task {
-        protected String description;
-        protected boolean isDone;
+    static Task[] list = new Task[100]; // List to be returned when input is "list"
+    static int counter = 0; // Items in list
 
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        public String getStatusIcon() {
-            return (isDone ? "X" : " "); // mark done task with X
-        }
-
-        public void setDone() {
-            this.isDone = true;
-        }
-
-        public void setNotDone() {
-            this.isDone = false;
-        }
-        public String toString() {
-            return "[" + getStatusIcon() + "] " + this.description;
-        }
+    public static String greet() { // Greets user on initialisation
+        return "Good day to you, I'm ButlerBot.\n" +
+                "How may I be of service to you?\n";
     }
-    public static class Todo extends Task {
-        public Todo(String description) {
-            super(description);
-        }
 
-        @Override
-        public String toString() {
-            return "[T]" + super.toString();
-        }
+    public static String thank() { // Exits the Bot
+        return "Goodbye and have a nice day.";
     }
-    public static class Deadline extends Task {
 
-        protected String by;
-
-        public Deadline(String description, String by) {
-            super(description);
-            this.by = by;
-        }
-
-        @Override
-        public String toString() {
-            return "[D]" + super.toString() + " (by: " + by + ")";
+    public static String command(String input) throws DukeException {
+        if (input.startsWith("list")) {
+            return list();
+        } else
+        if (input.startsWith("mark ")) {
+            int index = Integer.valueOf(input.substring(5)) - 1;
+            return mark(index);
+        } else
+        if (input.startsWith("unmark ")) {
+            int index = Integer.valueOf(input.substring(7)) - 1;
+            return unmark(index);
+        } else
+        if (input.startsWith("todo ")) {
+            String task = input.substring(5);
+            return todo(task);
+        } else
+        if (input.startsWith("deadline ")) {
+            String task = input.substring(9);
+            String name = task.split(" /by ")[0];
+            String by = task.split(" /by ")[1];
+            return deadline(name, by);
+        } else
+        if (input.startsWith("event ")) {
+            String task = input.substring(6);
+            String[] description = task.split(" /from ");
+            String name = description[0];
+            String[] startEnd = description[1].split(" /to ");
+            String from = startEnd[0];
+            String to = startEnd[1];
+            return event(name, from, to);
+        } else {
+            throw new DukeException("I'm afraid I do not quite understand. Could you kindly repeat it?");
         }
     }
 
-    public static class Event extends Task {
-        protected String from;
-        protected String to;
-
-        public Event(String description, String from, String to) {
-            super(description);
-            this.from = from;
-            this.to = to;
-        }
-
-        @Override
-        public String toString() {
-            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    public static String mark(int index) throws DukeException {
+        if (index >= 0 && index < counter) {
+            list[index].setDone(); // Item mark complete
+            return "Congratulations on finishing the task. I will now mark it as complete:\n" +
+                    list[index].toString();
+        } else {
+            throw new DukeException("I'm afraid the task does not exist. " +
+                    "Perhaps you might want to see your list again?");
         }
     }
 
-    public static void main(String[] args) {
-        Task[] list = new Task[100]; // List to be returned when input is "list"
-        int counter = 0; // Items in list
+    public static String unmark(int index) throws DukeException {
+        if (index >= 0 && index < counter) {
+            list[index].setNotDone(); // Item mark complete
+            return "No worries. I will now mark it as incomplete:\n" +
+                    list[index].toString();
+        } else {
+            throw new DukeException("I'm afraid the task does not exist. " +
+                    "Perhaps you might want to see your list again?");
+        }
+    }
+
+    public static String list() throws DukeException {
+        String result = "";
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] != null) {
+                result += i + 1 + ". " + list[i] + "\n";
+            } else {
+                break;
+            }
+        }
+        if (result != "") {
+            return result;
+        } else {
+            throw new DukeException("There is nothing on your list currently. " +
+                    "Perhaps you might want to add a new task?");
+        }
+    }
+
+    public static void addTask(int index, Task task) throws DukeException {
+        if (index < list.length) {
+            list[index] = task;
+        } else {
+            throw new DukeException("My apologies but I'm afraid your task list is currently full.");
+        }
+    }
+
+    public static String todo(String task) throws DukeException {
+        if (task != "") {
+            Task item = new Todo(task);
+            addTask(counter, item);
+            counter += 1;
+            String response = "Understood, I will add the following todo to your list:\n" + item.toString();
+            String listLength = "Please note that there are " + counter + " tasks in the list.";
+            return response + "\n" + listLength;
+        } else {
+            throw new DukeException("I am missing some information. " +
+                    "I must have not heard you correctly. " +
+                    "Perhaps you can say it again?");
+        }
+    }
+
+    public static String deadline(String task, String by) throws DukeException {
+        if (task != "" && by != "") {
+            Task item = new Deadline(task, by);
+            addTask(counter, item);
+            counter += 1;
+            String response = "Understood, I will add the following deadline to your list:\n" + item.toString();
+            String listLength = "Please note that there are " + counter + " tasks in the list.";
+            return response + "\n" + listLength;
+        } else {
+            throw new DukeException("I am missing some information. " +
+                    "I must have not heard you correctly. " +
+                    "Perhaps you can say it again?");
+        }
+    }
+
+    public static String event(String task, String from, String to) throws DukeException {
+        if (task != "" && from != "" && to != "") {
+            Task item = new Event(task, from, to);
+            addTask(counter, item);
+            counter += 1;
+            String response = "Understood, I will add the following event to your list:\n" + item.toString();
+            String listLength = "Please note that there are " + counter + " tasks in the list.";
+            return response + "\n" + listLength;
+        } else {
+            throw new DukeException("I am missing some information. " +
+                    "I must have not heard you correctly. " +
+                    "Perhaps you can say it again?");
+        }
+    }
+
+    public static void main(String[] args) throws DukeException {
+
         Scanner myObj = new Scanner(System.in);  // Create a Scanner object
 
-        System.out.println("Good day to you, I'm ButlerBot.\n" +
-                "How may I be of service to you?\n"); // Greets user
+        System.out.println(greet());
 
         String echo = myObj.nextLine(); // Reads user input
 
         while (!echo.equals("bye")) {
-            if (echo.startsWith("mark ")) { // Mark task complete
-                int index = Integer.valueOf(echo.substring(5)) - 1; // Index of task
-                list[index].setDone(); // Item mark complete
-                System.out.println("Congratulations on finishing the task. I will now mark it as complete:\n" +
-                        list[index].toString());
-            }
-
-            else if (echo.startsWith("unmark ")) { // Mark task incomplete
-                int index = Integer.valueOf(echo.substring(7)) - 1; // Index of task
-                list[index].setNotDone(); // Item mark complete
-                System.out.println("No worries. I will now mark it as incomplete:\n" +
-                        list[index].toString());
-            }
-
-            else if (echo.equals("list")) { // Returns the list of tasks
-                for (int i = 0; i < list.length; i++) {
-                    if (list[i] != null) {
-                        System.out.println(i + 1 + ". " + list[i]); // Returns the list
-                    }
-                }
-            }
-
-            else if (echo.startsWith("todo ")) { // Task of Todo type
-                // Insert Todo into list
-                String tasking = echo.substring(5);
-                list[counter] = new Todo(tasking);
-                String task = list[counter].toString();
-                counter += 1;
-
-                String response = "Understood, I will add the following task to your list:\n" + task;
-                String listLength = "Please note that there are " + counter + " tasks in the list.";
-                System.out.println(response + "\n" + listLength);
-            }
-
-            else if (echo.startsWith("deadline ")) { // Task of Deadline type
-                // Insert Deadline into list
-                String tasking = echo.substring(9);
-                String[] taskTime = tasking.split(" /by ");
-                list[counter] = new Deadline(taskTime[0], taskTime[1]);
-                String task = list[counter].toString();
-                counter += 1;
-
-                String response = "Understood, I will add the following task to your list:\n" + task;
-                String listLength = "Please note that there are " + counter + " tasks in the list.";
-                System.out.println(response + "\n" + listLength);
-            }
-
-            else if (echo.startsWith("event ")) { // Task of Event type
-                // Insert Event into list
-                String tasking = echo.substring(6);
-                String[] taskTime = tasking.split(" /from ");
-                String event = taskTime[0];
-                String[] startEnd = taskTime[1].split(" /to ");
-                String start = startEnd[0];
-                String end = startEnd[1];
-
-                list[counter] = new Event(event, start, end);
-                String task = list[counter].toString();
-                counter += 1;
-
-                String response = "Understood, I will add the following task to your list:\n" + task;
-                String listLength = "Please note that there are " + counter + " tasks in the list.";
-                System.out.println(response + "\n" + listLength);
-            }
-
-            else {
-                // Echos the input
-                String response = "Understood, I will add \"" + echo + "\" to your to do list.";
-                System.out.println(response);
-
-                // Insert action into list
-                Task add = new Task(echo);
-                list[counter] = add;
-                counter += 1;
-            }
+            System.out.println(command(echo));
             echo = myObj.nextLine();
         }
-        System.out.println("Goodbye and have a nice day.\n"); // Exits the bot
+        System.out.println(thank()); // Exits the bot
     }
 }
