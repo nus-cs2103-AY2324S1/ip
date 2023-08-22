@@ -9,6 +9,12 @@ mark 2
 mark 2
 unmark 2
 unmark 3
+mark ierfgheiurh
+mark 0
+unmark 999
 list
 some weird command
+todo
+deadline /by 14 Sept
+event Random event /from 17 Sept 8pm
 bye

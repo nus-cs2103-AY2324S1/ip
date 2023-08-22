@@ -1,3 +1,4 @@
+import exceptions.ShibaException;
 import tasks.DeadlineTask;
 import tasks.EventTask;
 import tasks.ShibaTask;
@@ -55,10 +56,11 @@ public class Duke {
 
     /**
      * Prints the invalid command message.
+     * @param e The ShibaException whose message is to be printed.
      */
-    private static void printInvalidCommand() {
+    private static void printInvalidCommand(ShibaException e) {
         printHorizontalLine();
-        printWithLevel2Indent("Woof! That command is invalid! You're missing some parameters.");
+        printWithLevel2Indent("Woof! " + e.getMessage());
         printHorizontalLine();
     }
 
@@ -143,14 +145,12 @@ public class Duke {
      * @param cmd The full command to be parsed into a task.
      */
     private static void addTodo(String cmd) {
-        TodoTask todo = TodoTask.fromCmd(cmd);
-
-        if (todo == null) {
-            printInvalidCommand();
-            return;
+        try {
+            TodoTask todo = TodoTask.fromCmd(cmd);
+            addTask(todo);
+        } catch (ShibaException e) {
+            printInvalidCommand(e);
         }
-
-        addTask(todo);
     }
 
     /**
@@ -158,14 +158,12 @@ public class Duke {
      * @param cmd The full command to be parsed into a task.
      */
     private static void addDeadline(String cmd) {
-        DeadlineTask deadline = DeadlineTask.fromCmd(cmd);
-
-        if (deadline == null) {
-            printInvalidCommand();
-            return;
+        try {
+            DeadlineTask deadline = DeadlineTask.fromCmd(cmd);
+            addTask(deadline);
+        } catch (ShibaException e) {
+            printInvalidCommand(e);
         }
-
-        addTask(deadline);
     }
 
     /**
@@ -173,14 +171,12 @@ public class Duke {
      * @param cmd The full command to be parsed into a task.
      */
     private static void addEvent(String cmd) {
-        EventTask event = EventTask.fromCmd(cmd);
-
-        if (event == null) {
-            printInvalidCommand();
-            return;
+        try {
+            EventTask event = EventTask.fromCmd(cmd);
+            addTask(event);
+        } catch (ShibaException e) {
+            printInvalidCommand(e);
         }
-
-        addTask(event);
     }
 
     /**
@@ -225,35 +221,39 @@ public class Duke {
             return;
         }
 
-        int taskNumber = Integer.parseInt(cmd[1]);
-        if (taskNumber < 1 || taskNumber > taskCount) {
-            printHorizontalLine();
-            printWithLevel2Indent("Woof! Please specify a valid task number!");
-            printHorizontalLine();
-            return;
-        }
+        try {
+            int taskNumber = Integer.parseInt(cmd[1]);
+            if (taskNumber < 1 || taskNumber > taskCount) {
+                printHorizontalLine();
+                printWithLevel2Indent("Woof! Please specify a valid task number!");
+                printHorizontalLine();
+                return;
+            }
 
-        ShibaTask task = tasks[taskNumber - 1];
-        if (cmd[0].equals(MARK_COMMAND)) {
-            boolean res = task.markDone();
-            printHorizontalLine();
-            if (res) {
-                printWithLevel2Indent("Woof! I've marked this task as done:");
+            ShibaTask task = tasks[taskNumber - 1];
+            if (cmd[0].equals(MARK_COMMAND)) {
+                boolean res = task.markDone();
+                printHorizontalLine();
+                if (res) {
+                    printWithLevel2Indent("Woof! I've marked this task as done:");
+                } else {
+                    printWithLevel2Indent("Woof! This task is already done!");
+                }
+                printWithLevel3Indent(task.toString());
+                printHorizontalLine();
             } else {
-                printWithLevel2Indent("Woof! This task is already done!");
+                boolean res = task.markNotDone();
+                printHorizontalLine();
+                if (res) {
+                    printWithLevel2Indent("Woof! I've marked this task as not done yet:");
+                } else {
+                    printWithLevel2Indent("Woof! You have not done this task yet!");
+                }
+                printWithLevel3Indent(task.toString());
+                printHorizontalLine();
             }
-            printWithLevel3Indent(task.toString());
-            printHorizontalLine();
-        } else {
-            boolean res = task.markNotDone();
-            printHorizontalLine();
-            if (res) {
-                printWithLevel2Indent("Woof! I've marked this task as not done yet:");
-            } else {
-                printWithLevel2Indent("Woof! You have not done this task yet!");
-            }
-            printWithLevel3Indent(task.toString());
-            printHorizontalLine();
+        } catch (NumberFormatException e) {
+            printInvalidCommand(new ShibaException("Invalid task number! Please enter a positive integer."));
         }
     }
 }
