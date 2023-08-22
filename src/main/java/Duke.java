@@ -1,23 +1,42 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-public class Duke {
-    static Task[] storage;
-    static int storagePointer;
-    static int totalTasks;
 
+/**
+ * @author Donovan Chan Jia Jun
+ */
+public class Duke {
+    /**
+     * Temporary data storage to store user text.
+     */
+    static ArrayList<Task> storage;
+    static String line = "---------------------------------------------------------------------------------------------";
+
+    /**
+     * Starting point of the bot.
+     * Says hello - Carries out data storage for user text - Says goodbye
+     *
+     * @param args
+     * @return void
+     */
     public static void main(String[] args) {
         // Initialise the data storage
-        Duke.storage = new Task[100];
-        Duke.storagePointer = 0;
-        Duke.totalTasks = 0;
+        Duke.storage = new ArrayList<>();
         String chatbotName = "notDuke";
         String introMessage = "Hello! I'm " + chatbotName + "\n"
-                        + "What can I do for you?\n";
-        String exitMessage = "Bye. Hope to see you again soon!\n";
-        System.out.println(introMessage);
+                        + "What can I do for you?";
+        String exitMessage = "Bye. Hope to see you again soon!";
+        System.out.printf("%s\n%s\n%s\n", Duke.line, introMessage, Duke.line);
         Duke.echo();
-        System.out.println(exitMessage);
+        System.out.printf("%s\n%s\n", exitMessage, Duke.line);
     }
 
+    /**
+     * Creates the tasks based on String input.
+     *
+     * @param input String input by user
+     * @return Task Can be Events, Deadlines, Todos
+     * @throws Exception
+     */
     public static Task createTask(String input) throws Exception {
         String[] arrStrings = input.split("\\s+");
         String command = arrStrings[0];
@@ -39,7 +58,7 @@ public class Duke {
             return new Deadlines(name.substring(0, name.length() - 1), deadline.substring(0, deadline.length() - 1));
         } else if (command.equals("todo")) {
             if (arrStrings.length == 1) {
-                throw new Exception("OOPS!!! The description of a todo cannot be empty");
+                throw new Exception("OOPS!!! The description of a todo cannot be empty.");
             }
             for (int i = 1; i < arrStrings.length; i ++) {
                 name += arrStrings[i] + " ";
@@ -69,6 +88,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Encapsulates the Handling and storing of user input.
+     */
     public static void echo() {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
@@ -77,25 +99,33 @@ public class Duke {
             int choice;
             switch (command) {
                 case "list":
-                    for (int i = 1; i <= Duke.storagePointer; i++) {
-                        Task item = Duke.storage[i - 1];
-                        System.out.printf("%d.%s\n", i, item.toString());
+                    int counter = 0;
+                    System.out.println("Here are the tasks in your list:");
+                    for (Task task : Duke.storage) {
+                        counter ++;
+                        System.out.printf("%d.%s\n", counter, task.toString());
                     }
-                    userInput = scanner.nextLine();
                     break;
                 case "mark":
                     choice = Integer.parseInt(userInput.split("\\s+")[1]);
-                    Duke.storage[choice - 1].markDone();
+                    Duke.storage.get(choice - 1).markDone();
                     System.out.printf("Nice! I've marked this task as done:\n" +
-                            "  %s\n", Duke.storage[choice - 1].toString());
-                    userInput = scanner.nextLine();
+                            "  %s\n", Duke.storage.get(choice - 1).toString());
                     break;
                 case "unmark":
                     choice = Integer.parseInt(userInput.split("\\s+")[1]);
-                    Duke.storage[choice - 1].markUndone();
+                    Duke.storage.get(choice - 1).markUndone();
                     System.out.printf("OK, I've marked this task as not done yet:\n" +
-                            "  %s\n", Duke.storage[choice - 1].toString());
-                    userInput = scanner.nextLine();
+                            "  %s\n", Duke.storage.get(choice - 1).toString());
+                    break;
+                case "delete":
+                    choice = Integer.parseInt(userInput.split("\\s+")[1]);
+//                    System.out.println(Duke.storage.size());
+                    Task removedTask = Duke.storage.remove(choice - 1);
+                    System.out.printf("Noted. I've removed this task:\n" +
+                                        "  %s\n" +
+                                        "Now you have %d tasks in the list.\n"
+                                        , removedTask.toString(), Duke.storage.size());
                     break;
                 default:
                     Task task = null;
@@ -103,16 +133,16 @@ public class Duke {
                         task = createTask(userInput);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
-                        echo();
                     }
-                    Duke.storage[Duke.storagePointer] = task;
-                    Duke.totalTasks ++;
-                    Duke.storagePointer ++;
-                    System.out.printf("Got it. I've added this task:\n" +
-                            "  %s\n" +
-                            "Now you have %d tasks in the list.\n", task.toString(), Duke.totalTasks);
-                    userInput = scanner.nextLine();
+                    if (task != null) {
+                        Duke.storage.add(task);
+                        System.out.printf("Got it. I've added this task:\n" +
+                                "  %s\n" +
+                                "Now you have %d tasks in the list.\n", task.toString(), Duke.storage.size());
+                    }
             }
+            System.out.println(Duke.line);
+            userInput = scanner.nextLine();
         }
     }
 }

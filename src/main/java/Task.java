@@ -1,3 +1,7 @@
+/**
+ * Encapsulates the abstract concept of a Task.
+ * @author Donovan Chan Jia Jun
+ */
 public abstract class Task {
     protected boolean isComplete;
     protected String name;
@@ -6,21 +10,32 @@ public abstract class Task {
         this.name = name;
     }
 
+    /**
+     * Check if task is complete.
+     * @return boolean. True if completed
+     */
     public boolean isComplete() {
         return this.isComplete;
     }
 
+    /**
+     * Marks the task to be completed.
+     */
     public void markDone() {
         this.isComplete = true;
     }
 
+    /**
+     * Marks the task to be incomplete.
+     */
     public void markUndone() {
         this.isComplete = false;
     }
-    public String getName() {
-        return this.name;
-    }
 
+    /**
+     * Obtains the String representation of whether task is completed.
+     * @return String. Symbol of completion
+     */
     public String getMarking() {
         if (isComplete()) {
             return "[X]";

@@ -1,3 +1,7 @@
+/**
+ * Encapsulates the Events Task.
+ * @author Donovan Chan Jia Jun
+ */
 public class Events extends Task {
     private String from;
     private String to;
@@ -7,8 +11,12 @@ public class Events extends Task {
         this.from = from;
     }
 
+    /**
+     * Retrieves the String representation of the Events object.
+     * @return String
+     */
     @Override
     public String toString() {
-        return String.format("[E] %s %s (from: %s to: %s)", super.getMarking(), super.name, this.from, this.to);
+        return String.format("[E]%s %s (from: %s to: %s)", super.getMarking(), super.name, this.from, this.to);
     }
 }
