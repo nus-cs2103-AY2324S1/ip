@@ -47,6 +47,40 @@ public class Duke {
         }
     }
 
+    // Use inheritance
+    private class ToDo extends Task {
+        public ToDo (String taskName) {
+            super(taskName);
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    private class Deadline extends Task {
+        public Deadline (String taskName) {
+            super(taskName);
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString();
+        }
+    }
+
+    private class Event extends Task {
+        public Event (String taskName) {
+            super(taskName);
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString();
+        }
+    }
+
     public static void main(String[] args) {
         // get new duke instance
         Duke duke = new Duke();
@@ -69,9 +103,9 @@ public class Duke {
         duke.sendFarewell();
     }
 
-    private void addToTextList(String text) {
+    private void addToTaskList(Task task) {
         if (taskListSize < taskList.length) {
-            taskList[taskListSize] = new Task(text);
+            taskList[taskListSize] = task;
             taskListSize++;
         } else {
             System.out.println("Error: List is full.");
@@ -102,11 +136,41 @@ public class Duke {
             taskList[taskIndex].unmarkAsDone();
             System.out.println("\tOK, I've marked this task as not done yet:");
             System.out.println("\t\t" + taskList[taskIndex]);
+        // there are only 3 types of tasks.
+        // need override toString() method for each task type.
+        } else if (inputString.startsWith("todo")) {
+            // this excludes the space after todo as well
+            String taskName = inputString.substring(5);
+            Task newTask = new ToDo(taskName);
+            addTaskOutputText(newTask);
+        } else if (inputString.startsWith("deadline")) {
+            // stop before /by
+            String taskName = inputString.substring(9, inputString.indexOf("/by") - 1);
+            // get day
+            String deadline = inputString.substring(inputString.indexOf("/by") + 4);
+            Task newTask = new Deadline(taskName + " (by: " + deadline + ")");
+            addTaskOutputText(newTask);
+        } else if (inputString.startsWith("event")) {
+            String taskName = inputString.substring(6, inputString.indexOf("/from") - 1);
+            String from = inputString.substring(inputString.indexOf("/from") + 6, inputString.indexOf("/to") - 1);
+            String to = inputString.substring(inputString.indexOf("/to") + 4);
+            Task newTask = new Event(taskName + " (from: " + from + " to: " + to + ")");
+            addTaskOutputText(newTask);
         } else {
-            System.out.println("\tadded: " + inputString);
-            addToTextList(inputString);
+            // System.out.println("\tadded: " + inputString);
+            // addToTaskList(inputString);
+            System.out.println("\tCommand not found. Try again using either mark, unmark, todo, deadline, event, or bye.");
         }
         System.out.println(DIVIDER);
+    }
+
+    private void addTaskOutputText(Task newTask) {
+        addToTaskList(newTask);
+        System.out.println("\tGot it. I've added this task:");
+        // can use -1 because we just added it
+        System.out.println("\t\t" + taskList[taskListSize - 1]);
+        String taskWord = taskListSize == 1 ? "task" : "tasks";
+        System.out.println("\tNow you have " + taskListSize + " " + taskWord + " in your list.");
     }
 
     private void sendFarewell() {
