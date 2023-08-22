@@ -18,20 +18,37 @@ public class Mimi {
         while (true) {
             String command = sc.nextLine();
             System.out.println(LINE);
-            Input input = new Input(command);
+            Task task = new Task(command);
 
-            if (input.isExit()) {
-                System.out.println(Input.EXIT_MESSAGE + LINE);
+            if (task.isExit()) {
+                System.out.println(Task.EXIT_MESSAGE + LINE);
                 break;
             }
 
-            if (input.isList()) {
+            if (task.isList()) {
                 PreviousCommands.listItems();
                 System.out.println(LINE);
                 continue;
             }
 
-            PreviousCommands.add(input);
+            if (task.isUnmark()) {
+                int task_Number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+
+                PreviousCommands.unmark(task_Number);
+                System.out.println(LINE);
+                continue;
+            }
+
+            if (task.isMark()) {
+                int task_Number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+
+                PreviousCommands.mark(task_Number);
+                System.out.println(LINE);
+                continue;
+            }
+
+
+            PreviousCommands.add(task);
 
             System.out.println(LINE);
         }
