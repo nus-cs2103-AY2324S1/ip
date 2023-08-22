@@ -80,14 +80,14 @@ public class Duke {
             if (echo.startsWith("mark ")) { // Mark task complete
                 int index = Integer.valueOf(echo.substring(5)) - 1; // Index of task
                 list[index].setDone(); // Item mark complete
-                System.out.println("Congratulations on finishing the task. I will now mark it as complete: \n" +
+                System.out.println("Congratulations on finishing the task. I will now mark it as complete:\n" +
                         list[index].toString());
             }
 
             else if (echo.startsWith("unmark ")) { // Mark task incomplete
                 int index = Integer.valueOf(echo.substring(7)) - 1; // Index of task
                 list[index].setNotDone(); // Item mark complete
-                System.out.println("No worries. I will now mark it as incomplete: \n" +
+                System.out.println("No worries. I will now mark it as incomplete:\n" +
                         list[index].toString());
             }
 
