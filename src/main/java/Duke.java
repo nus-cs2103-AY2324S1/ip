@@ -1,12 +1,19 @@
 public class Duke {
     private static final String NAME = "Jimmy";
 
+    private static void print(String... strings) {
+        for (String s : strings) {
+            System.out.print('\t');
+            System.out.println(s);
+        }
+    }
+
     private static void greet() {
-        System.out.printf("Hello! I'm %s\nWhat can I do for you?%n", NAME);
+        print(String.format("Hello! I'm %s", NAME), "What can I do for you?");
     }
 
     private static void farewell() {
-        System.out.println("Bye. Hope to see you again soon!");
+        print("Bye. Hope to see you again soon!");
     }
 
     public static void main(String[] args) {
