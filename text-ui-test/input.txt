@@ -1,0 +1,25 @@
+hello
+test
+blah
+todo read book
+deadline return book /by June 6th
+event project meeting /from Aug 6th 2pm /to 4pm
+list
+todo join sports club
+todo borrow book
+list
+deadline ip week 2 /by Aug 24th
+deadline tp /by idk
+event test /from blah /to bleh
+list
+mark 5
+mark 1
+mark 4
+list
+unmark 4
+mark 2
+mark 6
+unmark 6
+mark 8
+list
+bye
