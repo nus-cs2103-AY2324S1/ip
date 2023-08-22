@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Duke {
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
@@ -7,8 +9,8 @@ public class Duke {
         System.out.println("____________________________________________________________");
 
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
+
 
         while (true) {
             try {
@@ -21,20 +23,16 @@ public class Duke {
                 if ("list".equalsIgnoreCase(userInput)) {
                     System.out.println("____________________________________________________________");
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        Task task = tasks[i];
+                    for (int i = 0; i < tasks.size(); i++) {
+                        Task task = tasks.get(i);
                         System.out.println((i + 1) + "." + task);
                     }
                     System.out.println("____________________________________________________________");
                 } else if (userInput.startsWith("mark")) {
-                    processTask(userInput, tasks, true, taskCount);
+                    processTask(userInput, tasks, true);
                 } else if (userInput.startsWith("unmark")) {
-                    processTask(userInput, tasks, false, taskCount);
+                    processTask(userInput, tasks, false);
                 } else if (userInput.startsWith("todo")) {
-                    if (taskCount >= 100) {
-                        throw new DukeException("You have reached the task limit. Cannot add more tasks!");
-                    }
-
                     String description = userInput.substring(4).trim();
 
                     if (description.isEmpty()) {
@@ -42,19 +40,14 @@ public class Duke {
                     }
 
                     Todo newTodo = new Todo(description);
-                    tasks[taskCount] = newTodo;
-                    taskCount++;
+                    tasks.add(newTodo);
 
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTodo);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                 } else if (userInput.startsWith("deadline")) {
-                    if (taskCount >= 100) {
-                        throw new DukeException("You have reached the task limit. Cannot add more tasks!");
-                    }
-
                     String content = userInput.substring(8).trim();
                     int index = content.indexOf("/by");
 
@@ -64,19 +57,14 @@ public class Duke {
                         String description = content.substring(0, index).trim();
                         String by = content.substring(index + 4).trim();
                         Deadline newDeadline = new Deadline(description, by);
-                        tasks[taskCount] = newDeadline;
-                        taskCount++;
+                        tasks.add(newDeadline);
                         System.out.println("____________________________________________________________");
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + newDeadline);
-                        System.out.println("Now you have " + taskCount + " tasks in the list.");
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                         System.out.println("____________________________________________________________");
                     }
                 } else if (userInput.startsWith("event")) {
-                    if (taskCount >= 100) {
-                        throw new DukeException("You have reached the task limit. Cannot add more tasks!");
-                    }
-
                     String content = userInput.substring(5).trim();
 
                     String[] parts = content.split("/from | /to ");
@@ -90,14 +78,39 @@ public class Duke {
                     String to = parts[2].trim();
 
                     Event newEvent = new Event(description, from, to);
-                    tasks[taskCount] = newEvent;
-                    taskCount++;
+                    tasks.add(newEvent);
 
                     System.out.println("____________________________________________________________");
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newEvent);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                } else if (userInput.startsWith("delete")) {
+                    int taskNumber;
+                    try {
+                        taskNumber = Integer.parseInt(userInput.split(" ")[1]);
+                        if (taskNumber <= 0 || taskNumber > tasks.size()) {
+                            throw new DukeException("Invalid task number!");
+                        }
+
+                        Task deletedTask = tasks.get(taskNumber - 1);
+
+                        tasks.remove(taskNumber - 1);
+
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Noted. I've removed this task: ");
+                        System.out.println("  " + deletedTask);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                    } catch (NumberFormatException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Please provide a valid task number.");
+                        System.out.println("____________________________________________________________");
+                    } catch (DukeException de) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(de.getMessage());
+                        System.out.println("____________________________________________________________");
+                    }
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -113,15 +126,15 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 
-    public static void processTask(String userInput, Task[] tasks, boolean mark, int taskCount) {
+    public static void processTask(String userInput, ArrayList<Task> tasks, boolean mark) {
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            if (taskNumber <= 0 || taskNumber > taskCount) {
+            if (taskNumber <= 0 || taskNumber > tasks.size()) {
                 throw new IndexOutOfBoundsException();
             }
 
-            Task task = tasks[taskNumber - 1];
+            Task task = tasks.get(taskNumber - 1);
             if (mark) {
                 task.markAsDone();
                 System.out.println("____________________________________________________________");
