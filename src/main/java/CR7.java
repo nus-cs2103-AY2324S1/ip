@@ -21,16 +21,58 @@ public class CR7 {
             return (isDone ? "X" : " "); // mark done task with X
         }
 
-        public String getDescription() {
-            return this.description;
-        }
-
         public void markAsDone() {
             isDone = true;
         }
 
         public void unmarkAsDone() {
             isDone = false;
+        }
+
+        public String toString() {
+            return "[" + this.getStatusIcon() + "] " + this.description;
+        }
+    }
+
+    public static class ToDo extends Task {
+        public ToDo(String description) {
+            super(description);
+        }
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    public static class Event extends Task {
+
+        protected String start;
+        protected String end;
+
+        public Event(String description, String start, String end) {
+            super(description);
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        }
+    }
+
+    public static class Deadline extends Task {
+
+        protected String by;
+
+        public Deadline(String description, String by) {
+            super(description);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + by + ")";
         }
     }
 
@@ -55,31 +97,61 @@ public class CR7 {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 1; i < counter + 1; i++) {
                     Task x = tasks[i-1];
-                    System.out.println(i + ".[" + x.getStatusIcon() + "] " + x.getDescription());
+                    System.out.println(i + "." + x.toString());
                 }
                 System.out.println();
                 printHorizontalLine(40);
-            } else if (input.startsWith("mark ")) {
-                int s = Integer.valueOf(input.substring(5));
-                Task k = tasks[s-1];
-                k.markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  [X] " + k.getDescription() + "\n");
-                printHorizontalLine(40);
-            } else if (input.startsWith("unmark ")) {
-                int s = Integer.valueOf(input.substring(7));
-                Task k = tasks[s-1];
-                k.unmarkAsDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  [ ] " + k.getDescription() + "\n");
-                printHorizontalLine(40);
             } else {
-                Task t = new Task(input);
-                tasks[counter] = t;
-                counter++;
-                printHorizontalLine(40);
-                System.out.println("added: " + input + "\n");
-                printHorizontalLine(40);
+                String[] words = input.split(" ");
+                String first = words[0];
+                if (first.equals("mark")) {
+                    int s = Integer.valueOf(words[1]);
+                    Task k = tasks[s - 1];
+                    k.markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  " + k.toString() + "\n");
+                    printHorizontalLine(40);
+                }
+                if (first.equals("unmark")) {
+                    int s = Integer.valueOf(words[1]);
+                    Task k = tasks[s - 1];
+                    k.unmarkAsDone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("  " + k.toString() + "\n");
+                    printHorizontalLine(40);
+                }
+                if (first.equals("todo")) {
+                    String desc = input.substring(5);
+                    Task t = new ToDo(desc);
+                    tasks[counter] = t;
+                    counter++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + t.toString());
+                    System.out.println("Now you have " + counter + " tasks in the list");
+                }
+                if (first.equals("deadline")) {
+                    String desc = input.substring(9, input.indexOf("/") - 1);
+                    String by = input.substring(input.lastIndexOf("/by ") + 4);
+                    Task t = new Deadline(desc, by);
+                    tasks[counter] = t;
+                    counter++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + t.toString());
+                    System.out.println("Now you have " + counter + " tasks in the list");
+                }
+                if (first.equals("event")) {
+                    String desc = input.substring(6, input.indexOf("/") - 1);
+                    int fromIndex = input.indexOf("/from");
+                    int toIndex = input.indexOf("/to");
+                    String start = input.substring(fromIndex + 6, toIndex).trim();
+                    String end = input.substring(toIndex + 4).trim();
+                    Task t = new Event(desc, start, end);
+                    tasks[counter] = t;
+                    counter++;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + t.toString());
+                    System.out.println("Now you have " + counter + " tasks in the list");
+                }
             }
         }
     }
