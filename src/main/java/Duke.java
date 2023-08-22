@@ -9,11 +9,12 @@ public class Duke {
         // + "|____/ \\__,_|_|\\_\\___|\n";
         // System.out.println("Hello from\n" + logo);
 
+        String lnspace = "____________________________________________________________";
         // Print greeting
-        String greeting = "____________________________________________________________\n"
+        String greeting = lnspace + "\n"
                 + "Hello! I'm Lorem\n"
                 + "What can I do for you?\n"
-                + "____________________________________________________________\n";
+                + lnspace + "\n";
 
         System.out.println(greeting);
 
@@ -21,19 +22,35 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
 
+        // initialise array to store user input
+        String[] arr = new String[100];
+        int counter = 0;
+
         // while loop to continuously take in inputs until user types bye
         while (!userInput.equals("bye")) {
-            System.out.println("____________________________________________________________");
-            System.out.println(userInput);
-            System.out.println("____________________________________________________________");
+            // if user asks for list
+            if (userInput.equals("list")) {
+                System.out.println(lnspace);
+                for (int i = 0; i < counter; i++) {
+                    System.out.printf("%d. %s\n", i + 1, arr[i]);
+                }
+                System.out.println(lnspace);
+                userInput = sc.nextLine();
+                continue;
+            }
+            arr[counter] = userInput;
+            counter += 1;
+            System.out.println(lnspace);
+            System.out.println("added: " + userInput);
+            System.out.println(lnspace);
             userInput = sc.nextLine();
         }
 
         // terminate program: close scanner, print ending message
         sc.close();
-        String ending = "____________________________________________________________\n"
+        String ending = lnspace + "\n"
                 + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________";
+                + lnspace;
         System.out.println(ending);
     }
 }
