@@ -18,7 +18,10 @@ public abstract class Task {
      *
      * @param description The description of the task.
      */
-    public Task(String description) {
+    public Task(String description) throws DukeException{
+        if (description.trim().length() == 0) {
+            throw new DukeException("The description cannot be empty.");
+        }
         this.description = description;
         this.isDone = false;
     }

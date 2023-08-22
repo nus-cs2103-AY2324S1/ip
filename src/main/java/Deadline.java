@@ -1,7 +1,7 @@
 /**
  * A task which holds the date which should be completed by.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     /**
      * The due date of the deadline task.
@@ -15,7 +15,7 @@ public class Deadline extends Task{
      * @param description The description of the task.
      * @param date The due date of the task.
      */
-    public Deadline(String description, String date) {
+    public Deadline(String description, String date) throws DukeException{
         super(description);
         this.date = date;
     }

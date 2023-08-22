@@ -8,7 +8,7 @@ public class Todo extends Task{
      *
      * @param description The description of the task.
      */
-    public Todo(String description) {
+    public Todo(String description) throws DukeException {
         super(description);
     }
 

@@ -54,6 +54,10 @@ public class Ui {
         System.out.println(response);
     }
 
+    public void showError(String error) {
+        System.out.println("OOPS! "+ error);
+    }
+
     /**
      * Retrieves the last message from the history.
      *

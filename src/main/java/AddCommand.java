@@ -12,18 +12,26 @@ public class AddCommand implements Command{
      * @return {@code false} as the program should continue running.
      */
     @Override
-    public boolean execute(TaskList tasks,Ui ui){
+    public boolean execute(TaskList tasks,Ui ui) throws DukeException {
         String userInput = ui.getLastMsg();
         Task task = null;
-        if (userInput.startsWith("todo")) {
-            task = new Todo(userInput.substring(5));
+
+        // Determine the task type based on the message.
+        if (userInput.toLowerCase().startsWith("todo")) {
+            task = new Todo(userInput.substring(4).trim());
             tasks.add(task);
-        } else if (userInput.startsWith("deadline")) {
-            String[] words = userInput.substring(9).split("/by", 2);
+        } else if (userInput.toLowerCase().startsWith("deadline")) {
+            // Check format
+            if (!userInput.contains("/by "))
+                throw new DukeException("Please use the format: deadline [description] /by [date]");
+            String[] words = userInput.substring(8).split("/by", 2);
             task = new Deadline(words[0].trim(), words[1].trim());
             tasks.add(task);
-        } else if (userInput.startsWith("event")) {
-            String[] words = userInput.substring(6).split("/from", 2);
+        } else if (userInput.toLowerCase().startsWith("event")) {
+            // Check format
+            if (!userInput.contains("/from ") || !userInput.contains("/to "))
+                throw new DukeException("Please use the format: event [description] /from [date] /to [date]");
+            String[] words = userInput.substring(5).split("/from", 2);
             String description = words[0].trim();
             String[] time = words[1].split("/to");
             String from = time[0].trim();

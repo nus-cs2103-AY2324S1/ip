@@ -20,7 +20,7 @@ public class Event extends Task{
      * @param from The start time of the task.
      * @param to The end time of the task.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DukeException{
         super(description);
         this.from = from;
         this.to = to;

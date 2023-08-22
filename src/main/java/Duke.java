@@ -22,11 +22,16 @@ public class Duke {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
-            String userInput = ui.readInput();
-            ui.showLine();
-            Command command = Parser.parse(userInput);
-            isExit =  command.execute(this.tasks,ui);;
-            ui.showLine();
+            try {
+                String userInput = ui.readInput();
+                ui.showLine();
+                Command command = Parser.parse(userInput);
+                isExit =  command.execute(this.tasks,ui);;
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
         }
     }
 

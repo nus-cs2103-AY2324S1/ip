@@ -9,7 +9,7 @@ public class Parser {
      * @param userInput The input string from the user.
      * @return The corresponding Command object.
      */
-    public static Command parse(String userInput)  {
+    public static Command parse(String userInput) throws DukeException {
         String[] words = userInput.toLowerCase().split("\\s+");
         switch (words[0]) {
             case "bye":
@@ -20,8 +20,12 @@ public class Parser {
                 return new MarkCommand();
             case "unmark":
                 return new UnmarkCommand();
-            default:
+            case "todo":
+            case "event":
+            case "deadline":
                 return new AddCommand();
+            default:
+                throw new DukeException("Unknown Command!");
         }
     }
 }

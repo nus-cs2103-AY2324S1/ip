@@ -12,7 +12,7 @@ public interface  Command {
      * @return {@code true} if the program should terminate after executing this command, or
      *         {@code false} if the program should continue running.
      */
-    boolean execute(TaskList tasks,Ui ui);
+    boolean execute(TaskList tasks,Ui ui) throws DukeException;
 
 }
 
