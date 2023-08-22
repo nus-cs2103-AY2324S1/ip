@@ -14,9 +14,9 @@ public class Duke {
         System.out.println(greeting);
     }
 
-    static void addTask(String task, String type) throws NoDescriptionException, NoDeadlineException, StartEndException {
+    static void addTask(String task, String type) throws GlubException {
         if (task.equals("")) {
-            throw new NoDescriptionException(type);
+            throw new GlubException(String.format(" OOPS!! The description of a %s cannot be empty.\n", type));
         }
         if (type.equals("todo")) {
             taskList.add(new ToDo(task));
@@ -27,7 +27,7 @@ public class Duke {
                 String deadline = taskPortions[1].split(" ", 2)[1];
                 taskList.add(new Deadline(desc, deadline));
             } catch (ArrayIndexOutOfBoundsException ex) {
-                throw new NoDeadlineException();
+                throw new GlubException(" OOPS!! Please provide a deadline for your deadline task.\n");
             }
         } else {
             String[] taskPortions = task.split("/");
@@ -37,7 +37,7 @@ public class Duke {
                 String end = taskPortions[2].split(" ", 2)[1];
                 taskList.add(new Event(desc, start, end));
             } catch (ArrayIndexOutOfBoundsException ex) {
-                throw new StartEndException();
+                throw new GlubException(" OOPS!! Ensure that your event has a start and end!\n");
             }
         }
         String addMsg = "_________________________________________________\n"
@@ -48,7 +48,7 @@ public class Duke {
         System.out.println(addMsg);
     }
 
-    static void deleteTask(int taskNum) throws IndexOutOfBoundsException {
+    static void deleteTask(int taskNum) throws GlubException {
         try {
             Task deleted = taskList.remove(taskNum - 1);
             String msg = "_________________________________________________\n"
@@ -58,9 +58,7 @@ public class Duke {
                     + "_________________________________________________\n";
             System.out.println(msg);
         } catch (IndexOutOfBoundsException ex) {
-            System.err.println("_________________________________________________\n"
-            + String.format(" Task %d does not exist!\n", taskNum)
-            + "_________________________________________________\n");
+            throw new GlubException(String.format(" OOPS!! Task %d does not exist!\n", taskNum));
         }
     }
 
@@ -97,33 +95,38 @@ public class Duke {
         System.out.println(exitMsg);
         System.exit(0);
     }
-    public static void main(String[] args) throws UnknownCommandException {
+    public static void main(String[] args) {
         greet();
         while (true) {
             Scanner inputScanner = new Scanner(System.in);
             try {
                 String command = inputScanner.next();
-                if (command.equals("bye")) {
-                    exit();
-                } else if (command.equals("list")) {
-                    list();
-                } else if (command.equals("mark")) {
-                    mark(inputScanner.nextInt());
-                } else if (command.equals("unmark")) {
-                    unmark(inputScanner.nextInt());
-                } else if (command.equals("delete")) {
-                    deleteTask(inputScanner.nextInt());
-                } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
-                    String task = inputScanner.nextLine();
-                    try {
+                switch (command) {
+                    case "bye":
+                        exit();
+                        break;
+                    case "list":
+                        list();
+                        break;
+                    case "mark":
+                        mark(inputScanner.nextInt());
+                        break;
+                    case "unmark":
+                        unmark(inputScanner.nextInt());
+                        break;
+                    case "delete":
+                        deleteTask(inputScanner.nextInt());
+                        break;
+                    case "todo":
+                    case "deadline":
+                    case "event":
+                        String task = inputScanner.nextLine();
                         addTask(task, command);
-                    } catch (NoDescriptionException | NoDeadlineException | StartEndException ex) {
-                        System.err.print(ex.getMessage());
-                    }
-                } else {
-                    throw new UnknownCommandException();
+                        break;
+                    default:
+                        throw new GlubException(" OOPS!! I'm sorry, but I don't know what that means :-(\n");
                 }
-            } catch (UnknownCommandException ex) {
+            } catch (GlubException ex) {
                 System.err.print(ex.getMessage());
             }
         }
