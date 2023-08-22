@@ -72,9 +72,28 @@ public class Duke {
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(task.getStatusIcon() + " " + task.description);
 
+            } else if (str.startsWith("delete")) {
+                try {
+                    validateInput(str, 7);
+                } catch (UserInputException e) {
+                    System.out.println(e.getMessage());
+                    continue;
+                }
+
+                int stringLength = str.length();
+                int index = Integer.parseInt(str.substring(stringLength - 1)) - 1;
+                Task task = taskForce.get(index);
+
+                System.out.println("Noted. I have removed this task.");
+                System.out.println(task.getTypeIcon() + task.getStatusIcon()
+                                        + " " + task.description
+                                            + " " + task.getExtras());
+                taskForce.remove(index);
+
+
             } else {
-                if (!(str.startsWith("todo") && str.startsWith("event") 
-                        && str.startsWith("deadline"))) {
+                if (!(str.contains("todo") || str.contains("event") 
+                        || str.contains("deadline"))) {
                     System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(");
                     continue;
                 } else if (str.startsWith("todo")) {
