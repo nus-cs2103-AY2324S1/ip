@@ -1,6 +1,6 @@
 public class Task {
-    private boolean completed;
-    private String nameOfTask;
+    protected boolean completed;
+    protected String nameOfTask;
 
     public Task(String nameOfTask) {
         this.completed = false;
