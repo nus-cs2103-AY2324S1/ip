@@ -73,6 +73,8 @@ public class Duke {
                         throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     } else if (!command.contains("/by")) {
                         throw new DukeException("☹ OOPS!!! Pls provide a date/time for the deadline.");
+                    } else if (!command.contains(" /by")) {
+                        throw new DukeException("☹ OOPS!!! Pls add a space before typing /by");
                     } else if (result2.length == 1 || result2[1].isBlank()) {
                         throw new DukeException("☹ OOPS!!! The date/time for the deadline cannot be empty");
                     } else if (!command.contains("/by ")) {
@@ -96,6 +98,8 @@ public class Duke {
                         throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                     } else if (!command.contains("/from")) {
                         throw new DukeException("☹ OOPS!!! Pls provide a start date/time for the event.");
+                    } else if (!command.contains(" /from")) {
+                        throw new DukeException("☹ OOPS!!! Pls add a space before typing /from");
                     } else if (!command.contains("/to")) {
                         throw new DukeException("☹ OOPS!!! Pls provide an end date/time for the event.");
                     } else if (command.contains("/from ") && command.contains("/to") &&
