@@ -9,7 +9,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     /**
-     * Construct a Task with a given description. Completion of the task
+     * Constructs a Task with a given description. Completion of the task
      * is false by default
      * @param description The description of the task.
      */
@@ -22,12 +22,16 @@ public class Task {
      * Returns the completion status of task with "X" meaning task is completed
      * @return "X" if completed " " if still in progress
      */
-    public String getStatus() {
+    public String getStatusIcon() {
         return isDone ? "X" : " ";
     }
 
-    public String getDescription() {
-        return this.description;
+    /**
+     * Returns a formatted string of the status of the task
+     * @return String containing completion status and description of task
+     */
+    public String toString() {
+        return " [" + getStatusIcon() + "] " + this.description;
     }
 
     /**
@@ -35,6 +39,10 @@ public class Task {
      */
     public void markAsDone() {
         this.isDone = true;
+        System.out.println(Printer.line);
+        System.out.println("Nice! I've Marked this task as done:");
+        System.out.println(this);
+        System.out.println(Printer.line);
     }
 
     /**
@@ -42,6 +50,10 @@ public class Task {
      */
     public void unmarkAsDone() {
         this.isDone = false;
+        System.out.println(Printer.line);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(this);
+        System.out.println(Printer.line);
     }
 
 }
