@@ -1,20 +1,12 @@
 import java.util.function.Consumer;
-import java.util.Dictionary;
-import java.util.Hashtable;
-
+/**
+ * Used to handle input given by chatbot
+ * and call the appropriate commands with
+ * the parsed data
+ * 
+ * @author Alvis Ng (supermii2)
+ */
 public class Invoker {
-    /**
-     * Lookup Table that relates a keyword to a corresponding method.
-     */
-    private static Dictionary<String, Consumer<Parser>> COMMAND_LIST = new Hashtable<String, Consumer<Parser>>() {{
-        put("bye", new CommandBye());
-        put("list", new CommandTaskList());
-        put("mark", new CommandTaskMark(true));
-        put("unmark", new CommandTaskMark(false));
-        put("todo", new CommandTaskCreate(TaskTypes.TODO));
-        put("deadline" ,new CommandTaskCreate(TaskTypes.DEADLINE));
-        put("event", new CommandTaskCreate(TaskTypes.EVENT));
-    }};
     /**
      * Helper function used to obtain the rest of a sentence sans keyword.
      * @param sentence String to be trimmed.
@@ -32,22 +24,11 @@ public class Invoker {
     public static void handle(String inputString) {
         Parser input = new Parser(removeFirstWord(inputString));
         String keyword = inputString.split(" ")[0];
-        Consumer<Parser> calledConsumer = COMMAND_LIST.get(keyword);
-        if (calledConsumer != null) {
-            try {
-                calledConsumer.accept(input);
-            } catch (IllegalArgumentException e) {
-                Rock.respond(e.getMessage());
-            }
-        } else {
-            unknownCommand(inputString);
+        try {
+            Consumer<Parser> calledConsumer = Command.getCommand(keyword);
+            calledConsumer.accept(input);
+        } catch (IllegalArgumentException e) {
+            Rock.respond(e.getMessage());
         }
-    }
-    /**
-     * Handler for unknown commands given by user.
-     * @param input User's input
-     */
-    private static void unknownCommand(String input) {
-        Rock.respond("Unknown command!");
     }
 }

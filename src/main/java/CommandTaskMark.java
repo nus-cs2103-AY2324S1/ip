@@ -1,12 +1,24 @@
 import java.util.List;
-
+/**
+ * Representation of a command
+ * to mark or unmark a task
+ * as completed.
+ * 
+ * @author Alvis Ng (supermii2)
+ */
 public class CommandTaskMark extends Command {
+    /** Represents whether this command marks or unmarks a task. */
     boolean isMarking;
     CommandTaskMark(boolean isMarking) {
         super();
         this.isMarking = isMarking;
     }
     @Override
+    /**
+     * Marks or unmarks task from list
+     * @param input Contains index of task to be
+     * @throws IllegalArgumentException Thrown when invalid index is given.
+     */
     public void accept(Parser input) throws IllegalArgumentException{
         String inputString = input.getDefaultString();
         List<Task> taskList = Rock.taskList;

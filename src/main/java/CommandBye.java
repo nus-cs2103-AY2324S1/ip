@@ -1,5 +1,15 @@
+/**
+ * Representation of command
+ * used to terminate program.
+ * 
+ * @author Alvis Ng (supermii2)
+ */
 public class CommandBye extends Command{
     @Override
+    /**
+     * Terminates chatbot.
+     * @param input Unused.
+     */
     public void accept(Parser input) {
         Rock.terminate();
     }

@@ -1,3 +1,9 @@
+/**
+ * Representation of a command
+ * to list all tasks in list.
+ * 
+ * @author Alvis Ng (supermii2)
+ */
 public class CommandTaskList extends Command{
     @Override
     public void accept(Parser input) {

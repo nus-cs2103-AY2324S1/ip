@@ -1,13 +1,25 @@
+/**
+ * Representation of a deadline task
+ * recorded by the chatbot.
+ * 
+ * @author Alvis Ng (supermii2)
+ */
 public class TaskDeadline extends Task {
-    String deadlineDate;
-    TaskDeadline(String taskName, String deadlineDate) {
+    /** Deadline time of the task */
+    private String deadlineTime;
+    /**
+     * Creates a deadline task.
+     * @param taskName Name of task
+     * @param deadlineTime Deadline
+     */
+    TaskDeadline(String taskName, String deadlineTime) {
         super(taskName);
         super.oneLetterAbbrev = "D";
-        this.deadlineDate = deadlineDate;
+        this.deadlineTime = deadlineTime;
     }
     @Override
     public String toString() {
         return super.toString() + 
-        " (by: " + this.deadlineDate + ")";
+        " (by: " + this.deadlineTime + ")";
     }
 }

@@ -1,12 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 /**
  * Rock is the name of and the main program used
  * to run the chatbot for ip.
  * 
  * @author Alvis Ng (supermii2)
  */
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 public class Rock {
     public static List<Task> taskList;
     /**
@@ -33,13 +33,20 @@ public class Rock {
     public static boolean isTerminated = false;
     /**
      * Prints input string given at an indent.
-     * Indented lines are used to identify when
-     * the printed string is an input or output.
-     * @param words Word to be printed.
+     * Used when message is not the end of
+     * interaction.
+     * @param words Words to be printed.
      */
     public static void say(String words) {
         System.out.println("\t" + words);
     }
+    /**
+     * Prints input string given and creates 
+     * a line break afterwards. Used to 
+     * indicate the end of chatbot output and
+     * that user can input again.
+     * @param words Words to be printed.
+     */
     public static void respond(String words) {
         String response = words + "\n" + LINE_BREAK;
         say(response.replaceAll("\n", "\n\t"));
