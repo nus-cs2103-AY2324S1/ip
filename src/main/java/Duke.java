@@ -30,29 +30,35 @@ public class Duke {
                 continue;
             }
 
-            switch (command) {
-                case "mark":
-                    mark(taskList, userInput);
-                    break;
-                case "unmark":
-                    unmark(taskList, userInput);
-                    break;
-                case "todo":
-                    addTodo(taskList, counter, userInput);
-                    counter++;
-                    break;
-                case "deadline":
-                    addDeadline(taskList, counter, userInput);
-                    counter++;
-                    break;
-                case "event":
-                    addEvent(taskList, counter, userInput);
-                    counter++;
-                    break;
-                default:
-                    add(taskList, counter, userInput);
-                    counter++;
-                    break;
+            try {
+                if (userInput.split(" ").length < 2) {
+                    throw new DukeException("☹ OOPS!!! The description cannot be empty.");
+                }
+
+                switch (command) {
+                    case "mark":
+                        mark(taskList, userInput);
+                        break;
+                    case "unmark":
+                        unmark(taskList, userInput);
+                        break;
+                    case "todo":
+                        addTodo(taskList, counter, userInput);
+                        counter++;
+                        break;
+                    case "deadline":
+                        addDeadline(taskList, counter, userInput);
+                        counter++;
+                        break;
+                    case "event":
+                        addEvent(taskList, counter, userInput);
+                        counter++;
+                        break;
+                    default:
+                        throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException e) {
+                System.out.println(Duke.lineSeparator + "\n" + e.getMessage() + "\n" + Duke.lineSeparator);
             }
         }
         scanner.close();
@@ -91,9 +97,14 @@ public class Duke {
      * @param counter   number of tasks.
      * @param userInput user input.
      */
-    public static void add(Task[] taskList, int counter, String userInput) {
+    public static void add(Task[] taskList, int counter, String userInput) throws DukeException {
+        String description = userInput.split(" ", 2)[1];
+        if (description.isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
+
         // Save user input
-        Task userTask = new Task(getDescriptionFromInput(userInput));
+        Task userTask = new Task(description);
 
         // Display user input has been added
         addTask(taskList, counter, userTask);
@@ -101,8 +112,12 @@ public class Duke {
     }
 
 
-    public static void addTodo(Task[] taskList, int counter, String userInput) {
-        ToDoTask userTask = new ToDoTask(getDescriptionFromInput(userInput));
+    public static void addTodo(Task[] taskList, int counter, String userInput) throws DukeException {
+        String description = userInput.split(" ", 2)[1];
+        if (description.isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
+        ToDoTask userTask = new ToDoTask(description);
 
         addTask(taskList, counter, userTask);
 
@@ -110,19 +125,43 @@ public class Duke {
         Duke.printAddResult(counter, userTask);
     }
 
-    public static void addDeadline(Task[] taskList, int counter, String userInput) {
+    public static void addDeadline(Task[] taskList, int counter, String userInput) throws DukeException {
+        if (userInput.split("/by").length < 2) {
+            throw new DukeException("☹ OOPS!!! The date of deadline cannot be empty.");
+        }
         String by = userInput.split("/by")[1].trim();
+
         String description = userInput.split("/by")[0].trim().split(" ", 2)[1];
+        if (description.isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
+
         DeadlineTask userTask = new DeadlineTask(description, by);
         addTask(taskList, counter, userTask);
         Duke.printAddResult(counter, userTask);
     }
 
-    public static void addEvent(Task[] taskList, int counter, String userInput) {
+    public static void addEvent(Task[] taskList, int counter, String userInput) throws DukeException {
+        if (userInput.split("/from").length < 2) {
+            throw new DukeException("☹ OOPS!!! The date of event cannot be empty.");
+        }
+
         String date = userInput.split("/from")[1];
+
         String from = date.split("/to")[0].trim();
+        if (from.isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The date of 'from' cannot be empty.");
+        }
+
+        if (userInput.split("/to").length < 2) {
+            throw new DukeException("☹ OOPS!!! The date of 'to' cannot be empty.");
+        }
         String to = date.split("/to")[1].trim();
+
         String description = userInput.split("/from")[0].trim().split(" ", 2)[1];
+        if (description.isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
+        }
 
         EventTask userTask = new EventTask(description, from, to);
 
@@ -136,7 +175,7 @@ public class Duke {
      * @param taskList  list of tasks.
      * @param userInput user input.
      */
-    public static void mark(Task[] taskList, String userInput) {
+    public static void mark(Task[] taskList, String userInput) throws DukeException {
         // Get task number from user input (e.g. "done 1)
         int taskNumber = getTaskNumber(userInput);
         Task task = taskList[taskNumber];
@@ -155,7 +194,7 @@ public class Duke {
      * @param taskList  list of tasks.
      * @param userInput user input.
      */
-    public static void unmark(Task[] taskList, String userInput) {
+    public static void unmark(Task[] taskList, String userInput) throws DukeException {
         // Get task number from user input (e.g. "done 1)
         int taskNumber = getTaskNumber(userInput);
         Task task = taskList[taskNumber];
@@ -177,7 +216,10 @@ public class Duke {
      * @param userInput user input.
      * @return task number.
      */
-    public static int getTaskNumber(String userInput) {
+    public static int getTaskNumber(String userInput) throws DukeException {
+        if (userInput.split(" ").length < 2) {
+            throw new DukeException("☹ OOPS!!! The task number cannot be empty.");
+        }
         return Integer.parseInt(userInput.split(" ")[1]) - 1;
     }
 
@@ -187,7 +229,5 @@ public class Duke {
                 + Duke.lineSeparator);
     }
 
-    public static String getDescriptionFromInput(String userInput) {
-        return userInput.split(" ", 2)[1];
-    }
+
 }
