@@ -7,15 +7,31 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
+
+        String line = "_".repeat(40);
+        String[] list = new String[100];
         String name = "DukeKing";
-        String welcome = "Hello! I'm " + name + "\nWhat can I do for you?";
-        System.out.println(welcome + "\n");
+        String welcome = "\nHello! I'm " + name + "\nWhat can I do for you?";
+        System.out.println(line + welcome + "\n" + line);
         Scanner sc = new Scanner(System.in);
         String string = sc.nextLine();
-        while (!string.equals("bye")) {
-            System.out.println(string);
+        int taskInArray = 0;
+        while (true) {
+            if (string.equals("bye")) {
+                break;
+            } else if (string.equals("list")) {
+                System.out.println(line);
+                for (int length = 1; length < taskInArray + 1; length += 1) {
+                    System.out.println(length + ". " + list[length]);
+                }
+            } else {
+                System.out.println(line + "\nadded: " + string);
+                taskInArray += 1;
+                list[taskInArray] = string;
+            }
+            System.out.println(line);
             string = sc.nextLine();
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.println(line + "\nBye. Hope to see you again soon!" + "\n" + line);
     }
 }
