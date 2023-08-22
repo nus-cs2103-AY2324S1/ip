@@ -19,12 +19,18 @@ public class Duke {
 
         chatbot.openConversation();
 
+        System.out.print("> ");
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
+            System.out.println();
+
             if (line.equals("bye")) {
                 break;
             }
+
             chatbot.sendMessageFromUser(line);
+
+            System.out.print("> ");
         }
 
         chatbot.closeConversation();
