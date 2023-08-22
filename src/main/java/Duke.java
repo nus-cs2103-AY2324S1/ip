@@ -45,7 +45,7 @@ public class Duke {
         print(
                 "Got it. I've added this task:",
                 task.toString(),
-                String.format("Now you have %d tasks in the list.", cursor)
+                String.format("Now you have %d %s in the list.", cursor, cursor == 1 ? "task" : "tasks")
         );
     }
 
