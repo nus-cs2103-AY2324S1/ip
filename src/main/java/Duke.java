@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
-    static String HORIZONTAL_LINE = "    ________________________________________"; //40 underscores.
+    static String HORIZONTAL_LINE = "    __________________________________________________"; //50 underscores.
     static String INDENT = "    "; //4 spaces.
     static ArrayList<Task> taskList = new ArrayList<>(100);
 
@@ -43,7 +43,7 @@ public class Duke {
     public static void markTask(int taskIndex) {
         System.out.println(HORIZONTAL_LINE);
         if (taskIndex < 0 || taskIndex >= taskList.size()) {
-            System.out.printf("Invalid Index of Task. You currently have Task 1 to Task %d\n", taskList.size());
+            System.out.printf("     Invalid Index of Task. You currently have Task 1 to Task %d\n", taskList.size());
         } else {
             Task task = taskList.get(taskIndex);
             task.markAsDone();
@@ -111,7 +111,7 @@ public class Duke {
                 } else if (userInput.startsWith("deadline")){
                     Deadline.handleDeadlineTask(userInput);
                 } else if (userInput.startsWith("todo")) {
-                    //handleTodoTask(userInput);
+                    Todo.handleTodoTask(userInput);
                 } else {
                     addTask(userInput);
                 }
@@ -120,8 +120,6 @@ public class Duke {
             System.out.println("Invalid command! Please enter valid commands");
             System.out.println(HORIZONTAL_LINE);
         }
-
-
     }
 }
 
