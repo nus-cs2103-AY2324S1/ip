@@ -4,6 +4,18 @@
 public abstract class Task {
 
     /**
+     * Three different task types
+     */
+    protected enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
+
+    /**
+     * The Task Type of the Task.
+     */
+    protected Task.TaskType TaskType;
+
+    /**
      * The description of the task.
      */
     protected String description;

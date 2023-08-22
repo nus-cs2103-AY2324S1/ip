@@ -22,6 +22,7 @@ public class Event extends Task{
      */
     public Event(String description, String from, String to) throws DukeException{
         super(description);
+        this.TaskType = TaskType.EVENT;
         this.from = from;
         this.to = to;
     }

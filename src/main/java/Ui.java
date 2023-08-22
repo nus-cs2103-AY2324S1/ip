@@ -30,7 +30,7 @@ public class Ui {
      * Prints a line divider for differentiating user and the bot.
      */
     public void showLine() {
-        System.out.println("____________________________________________________________");
+        System.out.println("");
     }
 
     /**
@@ -39,6 +39,7 @@ public class Ui {
      * @return The user input as a string.
      */
     public String readInput() {
+        System.out.println("[You]");
         String userInput = sc.nextLine();  // Read user input
         history.add(userInput); // Update History
         return userInput;
@@ -51,7 +52,7 @@ public class Ui {
      */
     public void respond(String response) {
         history.add(response); // Update History
-        System.out.println(response);
+        System.out.println("[Ken]\n" + response);
     }
 
     public void showError(String error) {

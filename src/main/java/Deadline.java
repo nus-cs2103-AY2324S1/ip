@@ -17,6 +17,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String date) throws DukeException{
         super(description);
+        this.TaskType = TaskType.DEADLINE;
         this.date = date;
     }
 
