@@ -10,13 +10,14 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X": " ");
     }
-    public String getDescription() {
-        return this.description;
-    }
     public void markDone() {
         this.isDone = true;
     }
     public void unMarkDone() {
         this.isDone = false;
+    }
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 }
