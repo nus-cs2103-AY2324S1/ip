@@ -2,14 +2,22 @@ import java.util.*;
 
 public class Duke {
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Maggie " +
+        System.out.println("Hello! I'm Auntie Maggie " +
                 "\nWhat can I do for you?");
         Scanner sc = new Scanner(System.in);
-        String s = sc.next();
+        String s = sc.nextLine();
+        Tasks t = new Tasks();
         while (!s.equals("bye")) {
-            System.out.println(s);
-            s = sc.next();
+            if (s.equals("list")) {
+                t.list();
+                s = sc.nextLine();
+                break;
+            }
+            t.add(s);
+            s = sc.nextLine();
         }
-        System.out.println("Bye. Hope to see you again soon!");
+        if (s.equals("bye")) {
+            System.out.println("Bye! Auntie maggie see you later!");
+        }
     }
 }
