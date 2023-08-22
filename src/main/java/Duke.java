@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Duke {
     public static void main(String[] args) {
         String horizontalLine = "\t____________________________________________________";
@@ -16,26 +17,37 @@ public class Duke {
 
     public static void echo() {
         String horizontalLine = "\t____________________________________________________";
-        ArrayList<String> lst = new ArrayList<>();
+        ArrayList<Task> lst = new ArrayList<>();
 
         Scanner input = new Scanner(System.in);
         String commands = input.nextLine();
-
-        if (commands.equals("bye")) {
-            return;
-        }
 
         while (true) {
             if (commands.equals("bye")) {
                 return;
             } else if (commands.equals("list")) {
                 System.out.println(horizontalLine);
+                System.out.println("\tHere are the task in your list:");
                 for (int i = 0; i < lst.size(); i++) {
-                    System.out.println("\t" + (i + 1) + ". " + lst.get(i));
+                    System.out.println("\t" + (i + 1) + "." + lst.get(i).getStatusIcon() + " " + lst.get(i).taskDescription);
                 }
                 System.out.println(horizontalLine);
+            } else if (commands.indexOf("mark") == 0) {
+                int index = java.lang.Integer.parseInt(commands.substring(5)) - 1;
+                lst.get(index).changeStatus();
+                System.out.println(horizontalLine);
+                System.out.println("\tNice! I've marked this task as done:");
+                System.out.println("\t  " + lst.get(index).getStatusIcon() + " " + lst.get(index).taskDescription);
+                System.out.println(horizontalLine);
+            } else if (commands.indexOf("unmark") == 0) {
+                int index = java.lang.Integer.parseInt(commands.substring(7)) - 1;
+                lst.get(index).changeStatus();
+                System.out.println(horizontalLine);
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("\t  " + lst.get(index).getStatusIcon() + " " + lst.get(index).taskDescription);
+                System.out.println(horizontalLine);
             } else {
-                lst.add(commands);
+                lst.add(new Task(commands, false));
                 System.out.println(horizontalLine);
                 System.out.println("\t added: " + commands);
                 System.out.println(horizontalLine);
@@ -44,5 +56,4 @@ public class Duke {
             commands = input.nextLine();
         }
     }
-
 }
