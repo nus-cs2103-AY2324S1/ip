@@ -23,18 +23,33 @@ public class Duke {
                 System.out.println(bye);
                 break;
             }
-            else if (output.equals("list")) {
+            if (output.equals("list")) {
                 list.display();
-            } else if (output.startsWith("mark")) {
+            }
+            if (output.startsWith("mark")) {
                 String[] inputs = output.split(" ");
                 int key = Integer.parseInt(inputs[1]);
                 list.markDone(key);
-            } else if (output.startsWith("unmark")) {
+            }
+            if (output.startsWith("unmark")) {
                 String[] inputs = output.split(" ");
                 int key = Integer.parseInt(inputs[1]);
                 list.unmark(key);
-            } else {
-                list.add(output);
+            }
+            if (output.startsWith("todo")) {
+                String[] inputs = output.split(" ", 2);
+                list.addToDo(inputs[1]);
+            }
+            if (output.startsWith("deadline")) {
+                String[] inputs = output.split(" ", 2);
+                String[] deadLine = inputs[1].split("/by", 2);
+                list.addDeadline(deadLine[0], deadLine[1]);
+            }
+            if (output.startsWith("event")) {
+                String[] inputs = output.split(" ", 2);
+                String[] from = inputs[1].split("/from", 2);
+                String[] to = from[1].split("/to", 2);
+                list.addEvent(from[0], to[0], to[1]);
             }
         }
     }

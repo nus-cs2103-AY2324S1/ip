@@ -2,16 +2,16 @@
  * The Task class represents a task with a description and a completion status.
  * Tasks can be marked as done or undone.
  */
-public class Task {
+public abstract class Task {
     /**
      * The description of the task.
      */
-    protected String description;
+    private String description;
 
     /**
      * The completion status of the task.
      */
-    protected boolean isDone;
+    private boolean isDone;
 
     /**
      * Constructs a new Task object with the specified description.
@@ -55,6 +55,12 @@ public class Task {
         isDone = false;
     }
 
+    /**
+     * Returns a string representation of the task.
+     *
+     * @return A formatted string indicating the task's completion status and description.
+     */
+    @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
