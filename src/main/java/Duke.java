@@ -1,12 +1,13 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
-    private Task[] list;
+    private ArrayList<Task> list;
     private int size = 0;
 
     public Duke() {
-        this.list = new Task[100];
+        this.list = new ArrayList<>();
     }
 
     private void start() {
@@ -39,6 +40,8 @@ public class Duke {
                 return CommandType.DEADLINE;
             case "event":
                 return CommandType.EVENT;
+            case "delete":
+                return CommandType.DELETE;
             case "bye":
                 return CommandType.BYE;
             default:
@@ -64,7 +67,7 @@ public class Duke {
     private void list() {
         if (size == 0) System.out.println("No items are in the list");
         for (int i = 0; i < size; i++) {
-            String item = String.format("%d. %s", i + 1, list[i]);
+            String item = String.format("%d. %s", i + 1, list.get(i));
             System.out.println(item);
         }
     }
@@ -76,13 +79,13 @@ public class Duke {
             throw new DukeException("!!!: Please provide a number for the task to be marked done");
         }
         int index = Integer.parseInt(options) - 1;
-        if (index < 1 || index > size) {
+        if (index < 0 || index >= size) {
             throw new DukeException(String.format("!!!: Please provide a valid number, " +
                     "there are currently %d items in the list", size));
         }
-        list[index].markDone();
+        list.get(index).markDone();
         System.out.println("This task is marked as done");
-        System.out.println(list[index]);
+        System.out.println(list.get(index));
     }
 
     private void unmarkDone(String options) throws DukeException {
@@ -92,21 +95,21 @@ public class Duke {
             throw new DukeException("!!!: Please provide a number for the task to be marked not done");
         }
         int index = Integer.parseInt(options) - 1;
-        if (index < 1 || index > size) {
+        if (index < 0 || index >= size) {
             throw new DukeException(String.format("!!!: Please provide a valid number, " +
                     "there are currently %d items in the list", size));
         }
-        list[index].unmarkDone();
+        list.get(index).unmarkDone();
         System.out.println("This task is marked as not done");
-        System.out.println(list[index]);
+        System.out.println(list.get(index));
     }
 
     private void addTodoToList(String task) throws DukeException {
         if (task.isBlank()) throw new DukeException("!!!: Please provide a task name");
-        list[size] = new Todo(task);
+        list.add(new Todo(task));
         size++;
         System.out.println("This task is added to the list");
-        System.out.println(list[size - 1]);
+        System.out.println(list.get(size - 1));
         System.out.printf("You now have %d tasks in your list%n", size);
     }
 
@@ -116,10 +119,10 @@ public class Duke {
         if (task.isBlank()) throw new DukeException("!!!: Please provide a task name");
         String dueDate = line.substring(line.indexOf("/by") + 4);
         if (dueDate.isBlank()) throw new DukeException("!!!: Please provide a due date");
-        list[size] = new Deadline(task, dueDate);
+        list.add(new Deadline(task, dueDate));
         size++;
         System.out.println("This task is added to the list");
-        System.out.println(list[size - 1]);
+        System.out.println(list.get(size - 1));
         System.out.printf("You now have %d tasks in your list%n", size);
     }
 
@@ -132,10 +135,29 @@ public class Duke {
         if (dateFrom.isBlank()) throw new DukeException("!!!: Please provide a from date");
         String dateTo = line.substring(line.indexOf("/to") + 4);
         if (dateTo.isBlank()) throw new DukeException("!!!: Please provide a to date");
-        list[size] = new Event(task, dateFrom, dateTo);
+        list.add(new Event(task, dateFrom, dateTo));
         size++;
         System.out.println("This task is added to the list");
-        System.out.println(list[size - 1]);
+        System.out.println(list.get(size - 1));
+        System.out.printf("You now have %d tasks in your list%n", size);
+    }
+
+    private void deleteFromList(String options) throws DukeException {
+        try {
+            Integer.parseInt(options);
+        } catch(NumberFormatException e) {
+            throw new DukeException("!!!: Please provide a number for the task to be deleted");
+        }
+        int index = Integer.parseInt(options) - 1;
+        if (index < 0 || index >= size) {
+            throw new DukeException(String.format("!!!: Please provide a valid number, " +
+                    "there are currently %d items in the list", size));
+        }
+        Task removedTask = list.get(index);
+        list.remove(index);
+        size--;
+        System.out.println("This task is deleted");
+        System.out.println(removedTask);
         System.out.printf("You now have %d tasks in your list%n", size);
     }
 
@@ -164,6 +186,9 @@ public class Duke {
                         break;
                     case EVENT:
                         addEventToList(options);
+                        break;
+                    case DELETE:
+                        deleteFromList(options);
                         break;
                     case BYE:
                         exit();
