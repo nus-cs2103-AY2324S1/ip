@@ -34,6 +34,9 @@ public class Duke {
                     int index = Integer.parseInt(input.substring(7));
                     list.get(index - 1).markAsUndone();
                     printUndone(index);
+                } else if (input.startsWith("delete ")) {
+                    int index = Integer.parseInt(input.substring(7));
+                    deleteTask(index);
                 } else {
                     addTask(input);
                 }
@@ -46,7 +49,8 @@ public class Duke {
     }
 
     public void validateInput(String input) throws DukeException {
-        if (input.equals("todo") || input.equals("deadline") || input.equals("event")) {
+        if (input.equals("todo") || input.equals("deadline") || input.equals("event") || input.equals("mark")
+                || input.equals("unmark") || input.equals("delete")) {
             throw new DukeException("☹ OOPS!!! The description of a " + input + " cannot be empty.");
         }
 
@@ -59,7 +63,8 @@ public class Duke {
         }
 
         if (!input.startsWith("todo ") && !input.startsWith("deadline ") && !input.startsWith("event ")
-                && !input.equals("list") && !input.equals("bye")) {
+                && !input.equals("list") && !input.equals("bye") && !input.startsWith("mark ")
+                && !input.startsWith("unmark ") && !input.startsWith("delete ")) {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
@@ -100,6 +105,15 @@ public class Duke {
             list.add(task);
             printAdded(task);
         }
+        printLine();
+    }
+
+    public void deleteTask(int index) {
+        printLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(list.get(index - 1));
+        list.remove(index - 1);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
         printLine();
     }
 
