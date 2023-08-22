@@ -5,7 +5,11 @@ import java.util.ArrayList;
 public class Cheese {
     private List<Task> CheeseStack = new ArrayList<Task>();
 
-
+    enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
     public void speak() {
         Scanner myObj = new Scanner(System.in);
         String echoedInput = "";
@@ -32,6 +36,7 @@ public class Cheese {
             case "todo":
             case "deadline":
             case "event":
+            case "delete":
                 return true;
             default:
                 return false;
@@ -65,6 +70,14 @@ public class Cheese {
                     String[] eventInfo = taskDescription.split("/from", 2);
                     String[] eventTime = eventInfo[1].split("/to", 2);
                     newTask = new Task('E', eventInfo[0].trim(), eventTime[0].trim(), eventTime[1].trim());
+                    break;
+                case "delete":
+                    System.out.println("\t-----------------------------------------");
+                    System.out.println("\tNoted. I've removed this task:");
+                    System.out.println("\t  " + CheeseStack.get(Integer.parseInt(taskDescription) - 1));
+                    deleteItem(Integer.parseInt(taskDescription) - 1);
+                    System.out.println("\tNow you have " + CheeseStack.size() + " tasks in the list.");
+                    System.out.println("\t-----------------------------------------");
                     break;
                 default:
                     throw new IllegalArgumentException("OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -105,6 +118,7 @@ public class Cheese {
                 }
                 System.out.println("\t-----------------------------------------");
                 break;
+            
             default:
                 addToList(input);
                 break;
@@ -115,6 +129,12 @@ public class Cheese {
         if (index >= 0 && index < CheeseStack.size()) {
             Task task = CheeseStack.get(index);
             task.markAsDone();
+        }
+    }
+    private void deleteItem(int index) {
+        if (index >= 0 && index < CheeseStack.size()) {
+            Task task = CheeseStack.get(index);
+            CheeseStack.remove(index);
         }
     }
 
