@@ -3,6 +3,7 @@ package services.tasklist;
 import command.CommandType;
 import services.Format;
 import services.bizerrors.EmptyArgumentException;
+import services.bizerrors.IndexOutOfRangeException;
 import services.bizerrors.InvalidArgumentException;
 import services.bizerrors.JarvisException;
 import services.tasklist.tasks.Deadline;
@@ -41,13 +42,29 @@ public class List {
         Format.print("added: " + newTask + "\n" + taskCount + " more tasks to do, Sir.");
     }
 
-    public static void markDone(int taskNumber) {
+    public static void delete(int taskNumber) throws IndexOutOfRangeException {
+        if (taskNumber <= 0 || taskNumber > taskCount) {
+            throw new IndexOutOfRangeException(taskNumber, taskCount);
+        }
+        Task deletedTask = taskList.get(taskNumber - 1);
+        taskList.remove(taskNumber - 1);
+        taskCount--;
+        Format.print("removed: " + deletedTask + "\n" + taskCount + " tasks left, Sir.");
+    }
+
+    public static void markDone(int taskNumber) throws IndexOutOfRangeException {
+        if (taskNumber <= 0 || taskNumber > taskCount) {
+            throw new IndexOutOfRangeException(taskNumber, taskCount);
+        }
         Task task = taskList.get(taskNumber - 1);
         task.setDone();
         Format.print("Check.\n\t" + task + "\n" + "Way to go, sir.");
     }
 
-    public static void markUndone(int taskNumber) {
+    public static void markUndone(int taskNumber) throws IndexOutOfRangeException {
+        if (taskNumber <= 0 || taskNumber > taskCount) {
+            throw new IndexOutOfRangeException(taskNumber, taskCount);
+        }
         Task task = taskList.get(taskNumber - 1);
         task.setUndone();
         Format.print("As you wish, sir.\n\t" + task);
