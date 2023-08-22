@@ -2,8 +2,16 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.util.*;
+
+import duke.exceptions.InvalidCommandException;
+import duke.exceptions.InvalidTaskException;
+import duke.exceptions.TaskIndexOutOfBoundsException;
+
 public class Duke {
-    public static String line = "----------------------------------------------------\n";
+    protected static String line = "----------------------------------------------------\n";
+    protected static List<Task> list = new ArrayList<>();
+    protected static Scanner myObj = new Scanner(System.in);
+
     public static String format_response(String response) {
         return response + "\n\n" + line;
     }
@@ -19,7 +27,6 @@ public class Duke {
     public static Matcher regexParse(String regex, String text) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(text);
-        matcher.find();
         return matcher;
     }
 
@@ -47,52 +54,85 @@ public class Duke {
     }
 
     public static void reply() {
-        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
         String response = myObj.nextLine();
-        Matcher matcher;
-        List<Task> list = new ArrayList<Task>();
         while (!response.equals("bye")) {
-            switch(response.split(" ")[0]) {
-                case "list":
+            processResponse(response);
+            response = myObj.nextLine();
+        };
+    }
+
+    public static void processResponse(String response) {
+        Matcher matcher;
+
+        switch(response.split(" ")[0]) {
+            case "list":
+                printList(list);
+                break;
+            case "mark":
+            case "unmark":
+                try {
+                    boolean done = response.split(" ")[0].equals("mark") ? true : false;
+                    int taskIndex = Integer.parseInt(response.split(" ")[1]) - 1;
+                    if (taskIndex < 0 || taskIndex >= list.size()) {
+                        throw new TaskIndexOutOfBoundsException("Invalid task index");
+                    }
+                    list.get(taskIndex).setDone(done);
                     printList(list);
-                    response = myObj.nextLine();
-                    break;
-                case "mark":
-                    list.get(Integer.parseInt(response.split(" ")[1])-1).setDone();
-                    printList(list);
-                    response = myObj.nextLine();
-                    break;
-                case "unmark":
-                    list.get(Integer.parseInt(response.split(" ")[1])-1).setNotDone();
-                    printList(list);
-                    response = myObj.nextLine();
-                    break;
-                case "todo":
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println(format_response("Invalid input. Usage: mark <task_index>"));
+                } catch (TaskIndexOutOfBoundsException e) {
+                    System.out.println(format_response("Invalid task index. Please provide a valid index."));
+                }
+                break;
+            case "todo":
+                try {
                     matcher = regexParse("^todo\\s([\\w\\s]*)$", response);
+                    if (!matcher.find() || matcher.groupCount() != 1) {
+                        throw new InvalidTaskException("Invalid use of todo. Usage: todo <task description>");
+                    }
                     list.add(new ToDo(matcher.group(1)));
                     printList(list);
-                    response = myObj.nextLine();
-                    break;
-                case "deadline":
+                } catch (InvalidTaskException e) {
+                    System.out.println(format_response(e.getMessage()));
+                }
+                break;
+            case "deadline":
+                try {
                     matcher = regexParse("^deadline\\s([\\w\\s]*)\\s\\/by\\s([\\w\\s]*)$", response);
+                    if (!matcher.find() || matcher.groupCount() != 2) {
+                        throw new InvalidTaskException(
+                                "Invalid use of deadline. Usage: deadline <task description> /by <date & time>"
+                        );
+                    }
                     list.add(new Deadlines(matcher.group(1), matcher.group(2)));
                     printList(list);
-                    response = myObj.nextLine();
-                    break;
-                case "event":
+                } catch (InvalidTaskException e) {
+                    System.out.println(format_response(e.getMessage()));
+                }
+                break;
+            case "event":
+                try {
                     matcher = regexParse("^event\\s([\\w\\s]*)\\s\\/from\\s([\\w\\s]*)\\s\\/to\\s([\\w\\s]*)$", response);
+                    if (!matcher.find() || matcher.groupCount() != 3) {
+                        throw new InvalidTaskException(
+                                "Invalid use of event. Usage: event <task description> /from <date & time> /to <date & time>"
+                        );
+                    }
                     list.add(new Event(matcher.group(1), matcher.group(2), matcher.group(3)));
                     printList(list);
-                    response = myObj.nextLine();
-                    break;
-                default: {
-                    System.out.println(format_response(
-                            "Invalid response"
-                    ));
-                    response = myObj.nextLine();
+                } catch (InvalidTaskException e) {
+                    System.out.println(format_response(e.getMessage()));
                 }
+                break;
+            case "delete":
+                list.remove(Integer.parseInt(response.split(" ")[1])-1);
+                printList(list);
+                break;
+            default: {
+                System.out.println(format_response(
+                        "☹ OOPS!!! I'm sorry, but I don't know what that means :-("
+                ));
             }
-
         }
     }
 
@@ -102,10 +142,8 @@ public class Duke {
         ));
     }
     public static void main(String[] args) {
-
         greet();
         reply();
         bye();
-
     }
 }
