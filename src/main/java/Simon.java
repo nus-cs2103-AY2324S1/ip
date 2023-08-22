@@ -4,11 +4,11 @@ public class Simon {
     public static void main(String[] args) {
         String inData = "";
         Scanner scan = new Scanner( System.in );
-        ArrayList<String> tasks = new ArrayList<String>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
         String greetings = "____________________________________________________________\n" +
                 "Hello! I'm Simon\n" +
                 "What can I do for you?\n" +
-                "____________________________________________________________\n";
+                "____________________________________________________________";
 
         String bye = "Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________";
@@ -19,11 +19,17 @@ public class Simon {
             inData = scan.nextLine();
             if (inData.equals("list")) {
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i));
+                    String status = tasks.get(i).isDone ? "[X] " : "[ ] ";
+                    System.out.println((i + 1) + ". " + status + tasks.get(i));
                 }
                 System.out.println("\n____________________________________________________________");
-            } else {
-                tasks.add(inData);
+            } else if (inData.contains("unmark")) {
+                String[] split = inData.split(" ");
+                int index = Integer.parseInt(split[1]) - 1;
+                tasks.get(index).markAsUndone();
+            }
+            else {
+                tasks.add(new Task(inData));
                 System.out.println("added: " + inData + "\n____________________________________________________________");
             }
         }
