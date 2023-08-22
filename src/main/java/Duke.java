@@ -121,6 +121,7 @@ public class Duke {
     private void handleList() {
         if (this.tasks.size() == 0) {
             this.print("Quack Quack, you have not entered anything yet!");
+            this.print("Create new tasks with the todo, deadline or event command");
             return;
         }
         this.print("Quack Quack, here are the tasks in quack's memory:");
