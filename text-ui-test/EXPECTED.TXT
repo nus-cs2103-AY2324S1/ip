@@ -33,7 +33,7 @@ Ding: Okay, I marked this task as done, but I have no idea what that means:
 
 ____________________________________________________________
 
-These are your tasks... If I remember correctly:
+Ding: These are your tasks... If I remember correctly:
 1. [T][X] go
 2. [D][X] sleep and shower (by: 10pm)
 3. [E][ ] visit the museum (from: Wed 10am to: Wed 1pm)
@@ -46,7 +46,7 @@ Ding: Okay, I marked this task as undone, but I have no idea what that means:
 
 ____________________________________________________________
 
-These are your tasks... If I remember correctly:
+Ding: These are your tasks... If I remember correctly:
 1. [T][X] go
 2. [D][ ] sleep and shower (by: 10pm)
 3. [E][ ] visit the museum (from: Wed 10am to: Wed 1pm)
