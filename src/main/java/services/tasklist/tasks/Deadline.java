@@ -1,4 +1,4 @@
-package services.tasklist;
+package services.tasklist.tasks;
 
 public class Deadline extends Task {
     private String endTime;

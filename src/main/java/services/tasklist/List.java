@@ -1,6 +1,10 @@
 package services.tasklist;
 
 import services.Format;
+import services.tasklist.tasks.Deadline;
+import services.tasklist.tasks.Event;
+import services.tasklist.tasks.Task;
+import services.tasklist.tasks.Todo;
 
 import java.util.ArrayList;
 
@@ -47,9 +51,10 @@ public class List {
 
     public static void show() {
         String result = "Sir, there are " + taskCount + " tasks on your calendar:\n";
-        for (int i = 1; i <= taskCount; i++) {
+        for (int i = 1; i < taskCount; i++) {
             result += i + ". " + taskList.get(i - 1) + "\n";
         }
+        result += taskCount + ". " + taskList.get(taskCount - 1);
         Format.print(result);
     }
 }

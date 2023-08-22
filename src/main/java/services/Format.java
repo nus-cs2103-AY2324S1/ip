@@ -5,6 +5,6 @@ public class Format {
 
     public static void print(String message) {
         String messageWithHorizontalLine = horizontalLine + message + "\n" + horizontalLine;
-        System.out.println(messageWithHorizontalLine);
+        System.out.print(messageWithHorizontalLine);
     }
 }
