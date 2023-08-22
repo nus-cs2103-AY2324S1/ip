@@ -4,7 +4,7 @@ import java.util.Scanner;
 import tasks.Task;
 
 public class Corgi {
-    private List<String> tasks;
+    private List<Task> tasks;
 
     public static void main(String[] args) {
         Corgi bot = new Corgi();
@@ -70,7 +70,7 @@ public class Corgi {
      * @param task Task to be added
      */
     private void addTask(String task) {
-        this.tasks.add(task);
+        this.tasks.add(new Task(task));
         System.out.println("Added: " + task);
     }
 }
