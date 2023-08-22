@@ -7,13 +7,15 @@ public class Duke {
     private static final String i4 = "    ";
     private static final String i5 = Duke.i4 + " ";
     private static final String i7 = Duke.i5 + "  ";
-    private static final String line = Duke.i4 + "————————————————————————————————————————————————————";
+    private static final String line = Duke.i4 + "——————————————————————————————————————————————————————————————————";
     private String name;
     private List<Task> list;
+    private Scanner scanner;
 
     public Duke(String name) {
         this.name = name;
         this.list = new ArrayList<>();
+        this.scanner = new Scanner(System.in);
     }
 
     public void line() {
@@ -32,10 +34,11 @@ public class Duke {
     }
 
     public void startService() throws DukeException {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+        String input = this.scanner.nextLine();
+        boolean exceptionOccurs = false;
 
         this.line();
+
         if (input.equals("bye")) {
             scanner.close();
             exit();
@@ -47,45 +50,246 @@ public class Duke {
                 System.out.println(Duke.i5 + (i + 1) + "." + this.list.get(i));
             }
         } else if (input.startsWith("mark")) {
-            int index = Integer.parseInt(input.substring(5)) - 1;
-            this.list.get(index).mark();
+            try {
+                if (input.length() == 4) {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be marked.");
+                }
+                if (input.charAt(4) != ' ') {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+                if (input.length() == 5) {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be marked.");
+                }
+
+                int index = 0;
+
+                try {
+                    index = Integer.parseInt(input.substring(5)) - 1;
+                } catch (NumberFormatException e) {
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be marked.");
+                }
+
+                if (index < 0 || this.list.size() <= index) {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be marked.");
+                }
+                this.list.get(index).mark();
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
         } else if (input.startsWith("unmark")) {
-            int index = Integer.parseInt(input.substring(7)) - 1;
-            this.list.get(index).unmark();
+            try {
+                if (input.length() == 6) {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be unmarked.");
+                }
+                if (input.charAt(6) != ' ') {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+                if (input.length() == 7) {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be unmarked.");
+                }
+
+                int index = 0;
+
+                try {
+                    index = Integer.parseInt(input.substring(7)) - 1;
+                } catch (NumberFormatException e) {
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be unmarked.");
+                }
+
+                if (index < 0 || this.list.size() <= index) {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be unmarked.");
+                }
+
+                this.list.get(index).unmark();
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
         } else if (input.startsWith("delete")) {
-            int index = Integer.parseInt(input.substring(7)) - 1;
-            Task task = this.list.remove(index);
-            System.out.println(Duke.i5 + "Noted. I've removed this task:");
-            System.out.println(Duke.i7 + task);
-            System.out.println(Duke.i5 + "Now you have " + this.list.size() + " tasks in the list.");
+
+            try {
+
+                if (input.length() == 6) {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be deleted.");
+                }
+                if (input.charAt(6) != ' ') {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+                if (input.length() == 7) {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be deleted.");
+                }
+
+                int index = 0;
+
+                try {
+                    index = Integer.parseInt(input.substring(7)) - 1;
+                } catch (NumberFormatException e) {
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be deleted.");
+                }
+
+                if (index < 0 || this.list.size() <= index) {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! Please specify a valid task number to be deleted.");
+                }
+
+                Task task = this.list.remove(index);
+                System.out.println(Duke.i5 + "Noted. I've removed this task:");
+                System.out.println(Duke.i7 + task);
+                System.out.println(Duke.i5 + "Now you have " + this.list.size() + " tasks in the list.");
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+
         } else {
 
             Task task = null;
 
             if (input.startsWith("todo")) {
-                if (input.length() <= 5) {
-                    throw new DukeException(Duke.i5 + "☹ OOPS!!! The description of a todo cannot be empty.");
+                try {
+                    if (input.length() == 4) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    if (input.charAt(4) != ' ') {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    }
+                    if (input.length() == 5) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    task = new Todo(input.substring(5));
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
                 }
-                task = new Todo(input.substring(5));
             } else if (input.startsWith("deadline")) {
-                int slashIndex = input.indexOf('/');
-                String by = input.substring(slashIndex + 4);
-                task = new Deadline(input.substring(9, slashIndex - 1), by);
+                try {
+                    if (input.length() == 8) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The description of a deadline cannot be empty.");
+                    }
+
+                    if (input.charAt(8) != ' ') {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    }
+                    if (input.length() == 9) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The description of a deadline cannot be empty.");
+                    }
+
+                    if (!input.contains("/by ")) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The format of a deadline should be 'deadline YOUR_TASK /by YOUR_DEADLINE'.");
+                    }
+
+                    int slashIndex = input.indexOf('/');
+
+                    if (input.length() < slashIndex + 4) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The format of a deadline should be 'deadline YOUR_TASK /by YOUR_DEADLINE'.");
+                    }
+                    String by = input.substring(slashIndex + 4);
+
+                    if (input.charAt(9) >= slashIndex) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The title of your deadline cannot be empty.");
+                    }
+                    task = new Deadline(input.substring(9, slashIndex - 1), by);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (input.startsWith("event")) {
-                int fromIndex = input.indexOf("/from");
-                int toIndex = input.indexOf("/to");
-                String from = input.substring(fromIndex + 6, toIndex - 1);
-                String to = input.substring(toIndex + 4);
-                task = new Event(input.substring(6, fromIndex - 1), from, to);
+                try {
+                    if (input.length() == 5) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The description of an event cannot be empty.");
+                    }
+                    if (input.charAt(5) != ' ') {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    }
+                    if (input.length() == 6) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The description of an event cannot be empty.");
+                    }
+                    if (!input.contains("/from") || !input.contains("/to")) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The format of an event should be 'event YOUR_EVENT /from START_TIME /to END_TIME'.");
+                    }
+
+                    int fromIndex = input.indexOf("/from");
+                    int toIndex = input.indexOf("/to");
+
+                    if (input.charAt(fromIndex + 5) != ' ') {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The format of an event should be 'event YOUR_EVENT /from START_TIME /to END_TIME'.");
+                    }
+
+                    if (fromIndex >= toIndex) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The format of an event should be 'event YOUR_EVENT /from START_TIME /to END_TIME'.");
+                    }
+
+                    if (toIndex - 1 - (fromIndex + 6) < 1) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The starting time of an event should not be empty.");
+                    }
+                    String from = input.substring(fromIndex + 6, toIndex - 1);
+
+                    if (input.length() < toIndex + 3) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The ending time of an event should not be empty.");
+                    }
+
+                    if (input.charAt(toIndex + 3) != ' ') {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The format of an event should be 'event YOUR_EVENT /from START_TIME /to END_TIME'.");
+                    }
+
+                    String to = input.substring(toIndex + 4);
+
+                    if (fromIndex - 1 - 6 < 1) {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The title of an event should not be empty.");
+                    }
+
+                    if (input.charAt(fromIndex - 1) != ' ') {
+                        exceptionOccurs = true;
+                        throw new DukeException(Duke.i5 + "☹ OOPS!!! The format of an event should be 'event YOUR_EVENT /from START_TIME /to END_TIME'.");
+                    }
+
+                    task = new Event(input.substring(6, fromIndex - 1), from, to);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
-                throw new DukeException(Duke.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                try {
+                    exceptionOccurs = true;
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             }
 
-            this.list.add(task);
+            if (!exceptionOccurs) {
+                this.list.add(task);
 
-            System.out.println(Duke.i5 + "Got it. I've added this task:");
-            System.out.println(Duke.i7 + task);
-            System.out.println(Duke.i5 + "Now you have " + this.list.size() + " tasks in the list.");
+                System.out.println(Duke.i5 + "Got it. I've added this task:");
+                System.out.println(Duke.i7 + task);
+                System.out.println(Duke.i5 + "Now you have " + this.list.size() + " tasks in the list.");
+            }
+
         }
         this.line();
         startService();
