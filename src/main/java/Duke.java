@@ -7,7 +7,7 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
 
-        List<String> tasks = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
 
         String greeting = "Hello! I'm Toothless. \n" +
                 "What can I do for you today? \n" +
@@ -29,10 +29,25 @@ public class Duke {
                 break;
             } else if (nextInput.equals(taskList)) {
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ": " + tasks.get(i));
+                    Task task = tasks.get(i);
+                    System.out.println((i + 1) + ": " + task.getIsDone() + " " + task.getTaskName());
                 }
+
+            } else if (nextInput.contains("unmark")) {
+                int taskNum = Integer.valueOf(nextInput.split(" ")[1]);
+                Task task = tasks.get(taskNum - 1);
+                task.markAsUndone();
+                System.out.println("Task " + task.getTaskName() + " is now not completed :(");
+
+            } else if (nextInput.contains("mark")) {
+                int taskNum = Integer.valueOf(nextInput.split(" ")[1]);
+                Task task = tasks.get(taskNum - 1);
+                task.markAsDone();
+                System.out.println("Task " + task.getTaskName() + " is completed! Good job :)");
+
             } else {
-                tasks.add(nextInput);
+                Task newTask = new Task(nextInput);
+                tasks.add(newTask);
                 System.out.println("Task " + nextInput + " has been added");
             }
             System.out.println("\n---------------------------------");
