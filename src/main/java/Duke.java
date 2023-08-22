@@ -15,6 +15,16 @@ public class Duke {
         System.out.println(ln1);
         System.out.println(ln2);
         System.out.println(horizontal);
+
+        while (true) {
+            String ans = sc.nextLine();
+            if (ans.equalsIgnoreCase("bye")) break;
+            System.out.println(horizontal);
+            System.out.println(ans);
+            System.out.println(horizontal);
+        }
+
+        System.out.println(horizontal);
         System.out.println(ln3);
         System.out.println(horizontal);
 
