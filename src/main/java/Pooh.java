@@ -66,7 +66,6 @@ public class Pooh {
         if (cmd.split(" ", 2).length == 1) {
             throw new EmptyTaskDescriptorsException();
         }
-
         String userArgs = cmd.split(" ", 2)[1];
         Task task;
         if (userAction.equalsIgnoreCase("todo")) {
