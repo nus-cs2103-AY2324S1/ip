@@ -13,10 +13,24 @@ public class Storage {
         System.out.println();
     }
 
-    public void addTask(String taskName) {
-        Task task = new Task(taskName);
+    public void addTask(String taskDescription) {
+        Task task;
+        String[] taskInformation = taskDescription.split(" /");
+        String taskName = taskInformation[0].trim();
+        if (taskInformation.length == 1) {
+            task = new ToDo(taskName);
+        } else if (taskInformation.length == 2) {
+            task = new Deadline(taskName, taskInformation[1].replace("by ", ""));
+        } else if (taskInformation.length == 3) {
+            task = new Event(taskName, taskInformation[1].replace("from",""),
+                    taskInformation[2].replace("to ", ""));
+        } else {
+            formatPrintMessage("Invalid task format");
+            return;
+        }
         this.tasks.add(task);
-        formatPrintMessage("added: " + taskName);
+        formatPrintMessage("Got it. I've added this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
+
     }
 
     public void showAllTasks() {

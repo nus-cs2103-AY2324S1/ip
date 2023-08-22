@@ -48,8 +48,20 @@ public class Duke {
                 int taskNumber2 = Integer.parseInt(inputArr[1]);
                 this.storage.unmarkTaskAsDone(taskNumber2);
                 break;
+            case "todo":
+                String description = input.replace("todo", "");
+                this.storage.addTask(description);
+                break;
+            case "deadline":
+                String description2 = input.replace("deadline", "");
+                this.storage.addTask(description2);
+                break;
+            case "event":
+                String description3 = input.replace("event", "");
+                this.storage.addTask(description3);
+                break;
             default:
-                this.storage.addTask(input);
+                formatPrintMessage("Invalid command");
                 break;
         }
     }
