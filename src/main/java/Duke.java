@@ -139,27 +139,37 @@ public class Duke {
         // there are only 3 types of tasks.
         // need override toString() method for each task type.
         } else if (inputString.startsWith("todo")) {
-            // this excludes the space after todo as well
-            String taskName = inputString.substring(5);
-            Task newTask = new ToDo(taskName);
-            addTaskOutputText(newTask);
+            try {
+                // this excludes the space after todo as well
+                String taskName = inputString.substring(5);
+                Task newTask = new ToDo(taskName);
+                addTaskOutputText(newTask);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
+            }
         } else if (inputString.startsWith("deadline")) {
-            // stop before /by
-            String taskName = inputString.substring(9, inputString.indexOf("/by") - 1);
-            // get day
-            String deadline = inputString.substring(inputString.indexOf("/by") + 4);
-            Task newTask = new Deadline(taskName + " (by: " + deadline + ")");
-            addTaskOutputText(newTask);
+            try {
+                // stop before /by
+                String taskName = inputString.substring(9, inputString.indexOf("/by") - 1);
+                // get day
+                String deadline = inputString.substring(inputString.indexOf("/by") + 4);
+                Task newTask = new Deadline(taskName + " (by: " + deadline + ")");
+                addTaskOutputText(newTask);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("\t☹ OOPS!!! The description of a deadline cannot be empty.");
+            }
         } else if (inputString.startsWith("event")) {
-            String taskName = inputString.substring(6, inputString.indexOf("/from") - 1);
-            String from = inputString.substring(inputString.indexOf("/from") + 6, inputString.indexOf("/to") - 1);
-            String to = inputString.substring(inputString.indexOf("/to") + 4);
-            Task newTask = new Event(taskName + " (from: " + from + " to: " + to + ")");
-            addTaskOutputText(newTask);
+            try {
+                String taskName = inputString.substring(6, inputString.indexOf("/from") - 1);
+                String from = inputString.substring(inputString.indexOf("/from") + 6, inputString.indexOf("/to") - 1);
+                String to = inputString.substring(inputString.indexOf("/to") + 4);
+                Task newTask = new Event(taskName + " (from: " + from + " to: " + to + ")");
+                addTaskOutputText(newTask);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("\t☹ OOPS!!! The description of an event cannot be empty.");
+            }
         } else {
-            // System.out.println("\tadded: " + inputString);
-            // addToTaskList(inputString);
-            System.out.println("\tCommand not found. Try again using either mark, unmark, todo, deadline, event, or bye.");
+            System.out.println("\tI'm not quite sure what that means. Try again using either mark, unmark, todo, deadline, event, or bye.");
         }
         System.out.println(DIVIDER);
     }
