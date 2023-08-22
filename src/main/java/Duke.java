@@ -16,28 +16,38 @@ public class Duke {
         int counter = 0;
 
         while (true) {
-            String userInput = scanner.nextLine().trim().toLowerCase(); // trim() removes leading and trailing spaces
-
+            String userInput = scanner.nextLine().trim();// trim() removes leading and trailing spaces
+            String command = userInput.split(" ", 2)[0].toLowerCase();
             // Guard bye
-            if (userInput.equals("bye")) {
+            if (command.equals("bye")) {
                 goodbye();
                 break;
             }
 
             // Guard list
-            if (userInput.equals("list")) {
+            if (command.equals("list")) {
                 list(taskList, counter);
                 continue;
             }
 
-            String action = userInput.split(" ")[0];
-
-            switch (action) {
+            switch (command) {
                 case "mark":
                     mark(taskList, userInput);
                     break;
                 case "unmark":
                     unmark(taskList, userInput);
+                    break;
+                case "todo":
+                    addTodo(taskList, counter, userInput);
+                    counter++;
+                    break;
+                case "deadline":
+                    addDeadline(taskList, counter, userInput);
+                    counter++;
+                    break;
+                case "event":
+                    addEvent(taskList, counter, userInput);
+                    counter++;
                     break;
                 default:
                     add(taskList, counter, userInput);
@@ -64,11 +74,12 @@ public class Duke {
     public static void list(Task[] taskList, int counter) {
         // Display Ordered list
         System.out.println(Duke.lineSeparator);
+        System.out.println("Here are the tasks in your list:");
+
         for (int i = 0; i < counter; i++) {
             Task task = taskList[i];
-            String status = task.getStatusIcon();
-            String description = task.getDescription();
-            System.out.printf("%d. %s %s\n", i + 1, status, description);
+            String description = task.toString();
+            System.out.printf("%d. %s\n", i + 1, description);
         }
         System.out.println(Duke.lineSeparator);
     }
@@ -82,11 +93,41 @@ public class Duke {
      */
     public static void add(Task[] taskList, int counter, String userInput) {
         // Save user input
-        Task userTask = new Task(userInput);
-        taskList[counter] = userTask;
+        Task userTask = new Task(getDescriptionFromInput(userInput));
 
         // Display user input has been added
-        System.out.println(Duke.lineSeparator + "\n" + "added: " + userTask.getDescription() + "\n" + Duke.lineSeparator);
+        addTask(taskList, counter, userTask);
+        Duke.printAddResult(counter, userTask);
+    }
+
+
+    public static void addTodo(Task[] taskList, int counter, String userInput) {
+        ToDoTask userTask = new ToDoTask(getDescriptionFromInput(userInput));
+
+        addTask(taskList, counter, userTask);
+
+        // Display user input has been added
+        Duke.printAddResult(counter, userTask);
+    }
+
+    public static void addDeadline(Task[] taskList, int counter, String userInput) {
+        String by = userInput.split("/by")[1].trim();
+        String description = userInput.split("/by")[0].trim().split(" ", 2)[1];
+        DeadlineTask userTask = new DeadlineTask(description, by);
+        addTask(taskList, counter, userTask);
+        Duke.printAddResult(counter, userTask);
+    }
+
+    public static void addEvent(Task[] taskList, int counter, String userInput) {
+        String date = userInput.split("/from")[1];
+        String from = date.split("/to")[0].trim();
+        String to = date.split("/to")[1].trim();
+        String description = userInput.split("/from")[0].trim().split(" ", 2)[1];
+
+        EventTask userTask = new EventTask(description, from, to);
+
+        addTask(taskList, counter, userTask);
+        Duke.printAddResult(counter, userTask);
     }
 
     /**
@@ -105,7 +146,7 @@ public class Duke {
 
         // Display task has been marked as done
         System.out.println(Duke.lineSeparator + "\n" + "Nice! I've marked this task as done:" + "\n" +
-                task.getStatusIcon() + " " + task.getDescription() + "\n" + Duke.lineSeparator);
+                task + "\n" + Duke.lineSeparator);
     }
 
     /**
@@ -123,7 +164,11 @@ public class Duke {
 
         // Display task has been deleted
         System.out.println(Duke.lineSeparator + "\n" + "OK, I've marked this task as not done yet:" + "\n" +
-                task.getStatusIcon() + " " + task.getDescription() + "\n" + Duke.lineSeparator);
+                task + "\n" + Duke.lineSeparator);
+    }
+
+    public static void addTask(Task[] taskList, int counter, Task task) {
+        taskList[counter] = task;
     }
 
     /**
@@ -134,5 +179,15 @@ public class Duke {
      */
     public static int getTaskNumber(String userInput) {
         return Integer.parseInt(userInput.split(" ")[1]) - 1;
+    }
+
+    public static void printAddResult(int counter, Task task) {
+        System.out.println(Duke.lineSeparator + "\n" + "Got it. I've added this task:" + "\n"
+                + task.toString() + "\n" + "Now you have " + (counter + 1) + " tasks in the list." + "\n"
+                + Duke.lineSeparator);
+    }
+
+    public static String getDescriptionFromInput(String userInput) {
+        return userInput.split(" ", 2)[1];
     }
 }
