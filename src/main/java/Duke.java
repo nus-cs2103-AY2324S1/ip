@@ -45,11 +45,11 @@ public class Duke {
             System.out.print("> ");
             userInput = scanner.nextLine();
             System.out.println(userInput);
-//            if (userInput.equalsIgnoreCase("list")) {
-//                listAllTasks();
-//            } else if (!userInput.equalsIgnoreCase("bye")) {
-//                addTask(userInput);
-//            }
+            if (userInput.equalsIgnoreCase("list")) {
+                listAllTasks();
+            } else if (!userInput.equalsIgnoreCase("bye")) {
+                addTask(userInput);
+            }
         } while (!userInput.equalsIgnoreCase("bye"));
 
         exit();
