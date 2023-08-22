@@ -1,15 +1,16 @@
-package pkg.command;
+package java.doctor.Invoker;
 
+import java.doctor.Command.Command;
 import java.util.HashMap;
 
-public class invoker {
-    private HashMap<String, command> commands; 
+public class Invoker {
+    private HashMap<String, Command> commands; 
 
-    public invoker() {
-        this.commands = new HashMap<String, command>();
+    public Invoker() {
+        this.commands = new HashMap<String, Command>();
     }
 
-    public void setCommand(String commandName, command command) {
+    public void setCommand(String commandName, Command command) {
         this.commands.put(commandName, command);
     }
 

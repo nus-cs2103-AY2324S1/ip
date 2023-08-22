@@ -1,12 +1,7 @@
-package pkg.task;
+package java.doctor.Task;
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
-
-    public Task(String description) {
-        this.description = description;
-        this.isDone = false;
-    }
+    protected Description description;
+    protected boolean isDone = false;
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -20,8 +15,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public void updateDescription(String description) {
-        this.description = description;
+    public void setDescription(String description) {
+        this.description = new Description(description);
     }
 
     @Override
@@ -29,6 +24,10 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
+
+
+
+
 
 
 
