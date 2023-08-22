@@ -53,7 +53,6 @@ public class Duke {
                     break;
                 case "deadline":
                     fields = input.substring(9).split("/by ");
-                    System.out.println(fields[0]);
                     tasklst[count] = new Deadline(fields[0], fields[1]);
                     Printer.addTask(tasklst[count], count);
                     count++;
