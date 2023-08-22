@@ -70,7 +70,7 @@ public class TaskList {
      * @throws DukeException An exception related to the creation of a todo task
      */
     protected Todo createTodo(String args) throws DukeException{
-        if (args == "") {
+        if (args == null || args.isEmpty()) {
             throw new DukeException("Todo tasks should be created in this format: todo [name]");
         }
         return new Todo(args);
