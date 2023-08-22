@@ -1,10 +1,11 @@
 // do not know how to use DukeException as of 22/8/2023
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) throws DukeException {
         // welcome message
         String line = "_".repeat(40);
-        Task[] list = new Task[100];
+        ArrayList<Task> list = new ArrayList<>();
         String name = "DukeKing";
         String welcome = "\nHello! I'm " + name + "\nWhat can I do for you?";
         System.out.println(line + welcome + "\n" + line);
@@ -13,7 +14,6 @@ public class Duke {
         String output = "";
         Scanner sc = new Scanner(System.in);
         String string = sc.nextLine();
-        int taskInArray = 0;
 
         //looping in the program
         while (true) {
@@ -26,18 +26,18 @@ public class Duke {
                     System.out.println(line);
                     String openingList = "Here are the tasks in your list:";
                     System.out.println(openingList);
-                    for (int length = 1; length < taskInArray + 1; length += 1) {
-                        System.out.println(length + "." + list[length]);
+                    for (int length = 1; length < list.size() + 1; length += 1) {
+                        System.out.println(length + "." + list.get(length - 1));
                     }
                 // marking the task to the list
             } else if (string.startsWith("mark")) {
                 try {
                     String[] splittedInput = string.split(" ");
                     int taskNumber = Integer.parseInt(splittedInput[1]);
-                    if (!list[taskNumber].isDone) {
-                        list[taskNumber].markAsDone();
+                    if (!list.get(taskNumber - 1).isDone) {
+                        list.get(taskNumber - 1).markAsDone();
                         String markingTask = "Nice! I've marked this task as done:";
-                        output = String.format("%s\n%s\n%s", line, markingTask, list[taskNumber]);
+                        output = String.format("%s\n%s\n%s", line, markingTask, list.get(taskNumber - 1));
                         System.out.println(output);
                     } else {
                         output = String.format("%s\n%s\n%s", line, "This task is already done");
@@ -53,10 +53,10 @@ public class Duke {
                 try {
                     String[] splittedInput = string.split(" ");
                     int taskNumber = Integer.parseInt(splittedInput[1]);
-                    if (list[taskNumber].isDone) {
-                        list[taskNumber].markAsUndone();
+                    if (list.get(taskNumber - 1).isDone) {
+                        list.get(taskNumber - 1).markAsUndone();
                         String unMarkingTask = "OK, I've marked this task as not done yet:";
-                        output = String.format("%s\n%s\n%s", line, unMarkingTask, list[taskNumber]);
+                        output = String.format("%s\n%s\n%s", line, unMarkingTask, list.get(taskNumber - 1));
                         System.out.println(output);
                     } else {
                         output = String.format("%s\n%s\n%s", line, "This task is not done yet");
@@ -70,7 +70,7 @@ public class Duke {
                 // if task is a todo
             } else if (string.startsWith("todo")) {
                 String addingTask = "Got it. I've added this task:";
-                int noOfTask = taskInArray + 1;
+                int noOfTask = list.size() + 1;
                 String numberOfTask = "Now you have " + noOfTask + " tasks in the list.";
                 String[] splittedInput = string.split(" ");
                 if (splittedInput.length == 1) {
@@ -78,15 +78,14 @@ public class Duke {
                 } else {
                     String task = string.replace("todo ", "");
                     Task currentTask = new Todo(task);
-                    list[noOfTask] = currentTask;
+                    list.add(currentTask);
                     output = String.format("%s\n%s\n  %s\n%s", line, addingTask, currentTask, numberOfTask);
                     System.out.println(output);
-                    taskInArray += 1;
                 }
                 // if task is a dateline
             } else if (string.startsWith("deadline")) {
                 String addingTask = "Got it. I've added this task:";
-                int noOfTask = taskInArray + 1;
+                int noOfTask = list.size() + 1;
                 String numberOfTask = "Now you have " + noOfTask + " tasks in the list.";
                 String[] splittedInput = string.split(" ");
                 if (splittedInput.length == 1) {
@@ -100,16 +99,15 @@ public class Duke {
                         String taskName = splittedTask[0];
                         String end = splittedTask[1];
                         Task currentTask = new Deadlines(taskName, end);
-                        list[noOfTask] = currentTask;
+                        list.add(currentTask);
                         output = String.format("%s\n%s\n  %s\n%s", line, addingTask, currentTask, numberOfTask);
                         System.out.println(output);
-                        taskInArray += 1;
                     }
                 }
                 // if task is an event
             } else if (string.startsWith("event")) {
                 String addingTask = "Got it. I've added this task:";
-                int noOfTask = taskInArray + 1;
+                int noOfTask = list.size() + 1;
                 String numberOfTask = "Now you have " + noOfTask + " tasks in the list.";
                 String[] splittedInput = string.split(" ");
                 if (splittedInput.length == 1) {
@@ -128,13 +126,21 @@ public class Duke {
                             String start = splitEnd[0];
                             String end = splitEnd[1];
                             Task currentTask = new Events(taskName, start, end);
-                            list[noOfTask] = currentTask;
+                            list.add(currentTask);
                             output = String.format("%s\n%s\n  %s\n%s", line, addingTask, currentTask, numberOfTask);
                             System.out.println(output);
-                            taskInArray += 1;
                         }
                     }
                 }
+            } else if (string.startsWith("delete")) {
+                String[] splittedInput = string.split(" ");
+                int taskNumber = Integer.parseInt(splittedInput[1]);
+                String deletingTask = "Noted. I've removed this task:";
+                int taskInArray = list.size() - 1;
+                Task removedTask = list.remove(taskNumber - 1);
+                String numberOfTask = "Now you have " + taskInArray + " tasks in the list.";
+                output = String.format("%s\n%s\n  %s\n%s", line, deletingTask, removedTask, numberOfTask);
+                System.out.println(output);
             } else {
                 System.out.println(line + "\nOOPS!!! I'm sorry, but I don't know what that means :-C");
             }
