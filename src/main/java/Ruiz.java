@@ -12,8 +12,16 @@ public class Ruiz {
         System.out.println("____________________________________________________________");
     }
 
-    public void markTask(String index) throws BotException{
-        int taskIndex = Integer.parseInt(index) - 1;
+    public void markTask(String input) throws BotException{
+        if (input.split(" ").length < 2) {
+            throw new BotException("OOPS!!! The index of a task cannot be empty.");
+        }
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new BotException("OOPS!!! The index of a task has to be an integer.");
+        }
+        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         if (taskIndex >= 0 && this.tasks.size() > taskIndex) {
             Task task = this.tasks.get(taskIndex);
             task.mark();
@@ -27,8 +35,16 @@ public class Ruiz {
         }
     }
 
-    public void unmarkTask(String index) throws BotException{
-        int taskIndex = Integer.parseInt(index) - 1;
+    public void unmarkTask(String input) throws BotException{
+        if (input.split(" ").length < 2) {
+            throw new BotException("OOPS!!! The index of a task cannot be empty.");
+        }
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new BotException("OOPS!!! The index of a task has to be an integer.");
+        }
+        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         if (taskIndex >= 0 && this.tasks.size() > taskIndex) {
             Task task = this.tasks.get(taskIndex);
             task.unmark();
@@ -41,6 +57,27 @@ public class Ruiz {
             throw new BotException("This task does not exist!");
         }
     }
+    public void deleteTask(String input) throws BotException{
+        if (input.split(" ").length < 2) {
+            throw new BotException("OOPS!!! The index of a task cannot be empty.");
+        }
+        try {
+            int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new BotException("OOPS!!! The index of a task has to be an integer.");
+        }
+        int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
+        if (taskIndex >= 0 && this.tasks.size() > taskIndex) {
+            Task task = this.tasks.get(taskIndex);
+            System.out.println("Noted. I've removed this task:\n" + task);
+            tasks.remove(taskIndex);
+            System.out.println( "\nNow you have " + tasks.size() + " tasks in the list.\n" +
+                    "____________________________________________________________");
+        } else {
+            throw new BotException("This task does not exist!");
+        }
+    }
+
 
     public void addTodo(String input) throws BotException {
         if (input.split(" ", 2).length <= 1) {
@@ -109,23 +146,25 @@ public class Ruiz {
         Scanner inputObj = new Scanner(System.in);
         Ruiz bot = new Ruiz();
         bot.greet();
-        String input = "";
-        while (!input.equals("bye")) {
+        while (true) {
             try {
-                input = inputObj.nextLine();
+                String input = inputObj.nextLine();
                 String keyWord = input.split(" ")[0];
                 switch (keyWord) {
                     case "bye":
                         bot.bye();
-                        break;
+                        return;
                     case "list":
                         bot.getTasks();
                         break;
                     case "mark":
-                        bot.markTask(input.split(" ")[1]);
+                        bot.markTask(input);
                         break;
                     case "unmark":
-                        bot.unmarkTask(input.split(" ")[1]);
+                        bot.unmarkTask(input);
+                        break;
+                    case "delete":
+                        bot.deleteTask(input);
                         break;
                     case "deadline":
                         bot.addDeadline(input);
