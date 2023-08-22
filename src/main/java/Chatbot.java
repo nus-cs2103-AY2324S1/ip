@@ -52,17 +52,18 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
 
     private String name;
     private ArrayList<Message> convoList = new ArrayList<>();
+    private TaskManager taskManager = new TaskManager();
     private boolean closed = true;
 
 
 
     /**
-     * Creates a chatbot with the given name.
+     * Creates a new chatbot with the given custom name.
      * To start talking with it, call {@link Chatbot#openConversation()}.
      *
      * @param name The name of the chatbot.
      */
-    private Chatbot(String name) {
+    public Chatbot(String name) {
         this.name = name;
     }
 
@@ -151,8 +152,40 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
         // Process whatever we need to do!
         switch (message.getSender()) {
             case USER:
-                // TODO: As a POC, this echos the user's message. Should be changed to more useful stuff.
-                this.sendMessage(MessageSender.CHATBOT, message.getMessage());
+                String[] parts = message.getMessage().split(" ", 1);
+                String command = parts[0];
+                String data = parts.length > 1 ? parts[1] : null;
+
+                switch (command) {
+                    case "list":
+                        if (data == null || data.isEmpty()) {
+                            StringBuilder builder = new StringBuilder();
+                            int count = 1;
+                            for (TaskManager.Task item : this.taskManager.getTasks()) {
+                                if (count > 1) {
+                                    builder.append("\n");
+                                }
+
+                                builder.append(count);
+                                builder.append(". ");
+                                builder.append(item.getTitle());
+                                count++;
+                            }
+                            this.sendMessage(MessageSender.CHATBOT, builder.toString());
+                            break;
+                        }
+                    case "bye":
+                        if (data == null || data.isEmpty()) {
+                            this.closeConversation();
+                            break;
+                        }
+                    default:
+                        String text = message.getMessage();
+                        this.taskManager.addTask(new TaskManager.Todo(text));
+                        this.sendMessage(MessageSender.CHATBOT, "added: " + text);
+                        break;
+                }
+
             default:
                 break;
         }
