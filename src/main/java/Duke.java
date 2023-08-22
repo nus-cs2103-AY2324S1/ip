@@ -49,9 +49,17 @@ public class Duke {
 
     public static void markTaskAsUnDone(Task task) {
         System.out.print(horizontalLine);
-        System.out.println("        " + "Okay, I have not yet completed this task.");
+        System.out.println("        " + "Okay, I have not yet completed this task:");
         task.markAsUndone();
         System.out.println("        " + task.toString());
+        System.out.println(horizontalLine);
+    }
+
+    public static void deleteTask(Task task, int numberOfTasks) {
+        System.out.print(horizontalLine);
+        System.out.println("        " + "Okay, I've removed this task:");
+        System.out.println("          " + task.toString());
+        System.out.println("        " + "Now you have " + numberOfTasks + " task(s) in the list.");
         System.out.println(horizontalLine);
     }
 
@@ -64,24 +72,25 @@ public class Duke {
     public static void validateTask(String taskDescription, int numberOfTasks) throws DukeException {
         if (taskDescription.contains("event") && !taskDescription.matches("event .*/from .* /to .*")) {
             // Validate event task format
-            throw new DukeException("☹ OOPS!!! The format of an event task is " +
+            throw new DukeException("OOPS!!! The format of an event task is " +
                     "event TASK_DESCRIPTION /from START /to END");
 
         } else if (taskDescription.contains("deadline") && !taskDescription.matches("deadline .*/by .*")) {
             // Validate deadline task format
-            throw new DukeException("☹ OOPS!!! The format of a deadline task is " +
+            throw new DukeException("OOPS!!! The format of a deadline task is " +
                     "deadline TASK_DESCRIPTION /by DEADLINE");
 
         } else if (taskDescription.contains("todo") && !taskDescription.matches("todo .*")) {
             // Validate todo task format
-            throw new DukeException(" ☹ OOPS!!! The description of a todo cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
 
         } else if ((taskDescription.contains("mark") && taskDescription.matches("mark \\d+")) ||
-                    (taskDescription.contains("unmark") && taskDescription.matches("unmark \\d+"))) {
+                    (taskDescription.contains("unmark") && taskDescription.matches("unmark \\d+")) ||
+                    (taskDescription.contains("delete") && taskDescription.matches("delete \\d+"))) {
             // Validate mark task format
             int taskNumber = Integer.parseInt(taskDescription.split(" ")[1]);
             if (taskNumber > numberOfTasks) {
-                throw new DukeException("☹ OOPS!!! Task " + taskNumber + " does not exist.");
+                throw new DukeException("OOPS!!! Task " + taskNumber + " does not exist.");
             }
         }
     }
@@ -90,7 +99,6 @@ public class Duke {
         greet();
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
-        int numberOfTasks = 0;
 
         while(true) {
             // Get the next task input
@@ -107,25 +115,25 @@ public class Duke {
 
             } else {
                 try {
-                    validateTask(command, numberOfTasks);
+                    validateTask(command, tasks.size());
 
                     String[] splitCommand = command.split(" ", 2);
                     if (splitCommand[0].equals("event")) {
                         // Add event task into task list
                         String[] taskParts = splitCommand[1].split("/");
                         tasks.add(new Event(taskParts[0], taskParts[1], taskParts[2]));
-                        printCommand(tasks.get(numberOfTasks++), numberOfTasks);
+                        printCommand(tasks.get(tasks.size() - 1), tasks.size());
 
                     } else if (splitCommand[0].equals("deadline")) {
-                        // Add deadline task into tasklist
+                        // Add deadline task into task list
                         String[] taskParts = splitCommand[1].split(" /by ");
                         tasks.add(new Deadline(taskParts[0], taskParts[1]));
-                        printCommand(tasks.get(numberOfTasks++), numberOfTasks);
+                        printCommand(tasks.get(tasks.size() - 1), tasks.size());
 
                     } else if (splitCommand[0].equals("todo")) {
-                        // Add to-do task into tasklist
+                        // Add to-do task into task list
                         tasks.add(new ToDo(command.split(" ", 2)[1]));
-                        printCommand(tasks.get(numberOfTasks++), numberOfTasks);
+                        printCommand(tasks.get(tasks.size() - 1), tasks.size());
 
                     } else if (splitCommand[0].equals("mark")) {
                         // Mark tasks as done
@@ -136,6 +144,12 @@ public class Duke {
                         // Mark tasks as undone
                         int taskNumber = Integer.parseInt(command.split(" ", 2)[1]);
                         markTaskAsUnDone(tasks.get(taskNumber - 1));
+
+                    } else if (splitCommand[0].equals("delete")) {
+                        // Delete task from list
+                        int taskNumber = Integer.parseInt(command.split(" ", 2)[1]);
+                        deleteTask(tasks.get(taskNumber - 1), tasks.size() - 1);
+                        tasks.remove(taskNumber - 1);
 
                     } else {
                         // Non-existent task functions
