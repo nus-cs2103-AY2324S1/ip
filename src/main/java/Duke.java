@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
     private static final String NAME = "Jimmy";
     private static final int MAX_ENTRIES = 100;
-    private static final String[] tasks = new String[MAX_ENTRIES];
+    private static final Task[] tasks = new Task[MAX_ENTRIES];
     private static int cursor = 0;
 
     private static void print(String... strings) {
@@ -28,6 +28,17 @@ public class Duke {
         }
     }
 
+    private static void add(String description) {
+        tasks[cursor++] = new Task(description);
+        print(String.format("Added: %s", description));
+    }
+
+    private static void mark(int index) {
+        Task task = tasks[index - 1];
+        task.markAsDone();
+        print("Nice! I've marked this task as done:", task.toString());
+    }
+
     public static void main(String[] args) {
         greet();
 
@@ -35,7 +46,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         while (!shouldTerminate && sc.hasNextLine()) {
-            String command = sc.nextLine();
+            String command = sc.next();
 
             switch (command) {
                 case "bye":
@@ -45,9 +56,12 @@ public class Duke {
                 case "list":
                     list();
                     break;
+                case "mark":
+                    int index = sc.nextInt();
+                    mark(index);
+                    break;
                 default:
-                    tasks[cursor++] = command;
-                    print(String.format("added: %s", command));
+                    add(command);
             }
         }
     }
