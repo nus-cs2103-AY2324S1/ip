@@ -1,8 +1,8 @@
-public class ListItem {
+public class Task {
     private String itemName;
     private boolean isDone;
 
-    public ListItem(String itemName) {
+    public Task(String itemName) {
         this.itemName = itemName;
     }
 
@@ -15,11 +15,11 @@ public class ListItem {
 
         /* Check if o is an instance of Complex or not
           "null instanceof [type]" also returns false */
-        if (!(o instanceof ListItem)) {
+        if (!(o instanceof Task)) {
             return false;
         }
 
-        ListItem otherListItem = (ListItem) o;
+        Task otherListItem = (Task) o;
         return otherListItem.itemName.equals(this.itemName);
     }
 
@@ -32,7 +32,7 @@ public class ListItem {
      */
     public void setDone() {
         this.isDone = true;
-        System.out.println("Nice! I've marked this task as done: \n" + this.toString());
+        System.out.println("Nice! I've marked this task as done: \n    " + this.toString());
     }
 
     /**
@@ -40,7 +40,19 @@ public class ListItem {
      */
     public void setUnDone() {
         this.isDone = false;
+        System.out.println("Nice! I've marked this task as undone: \n    " + this.toString());
     }
+
+
+    /**
+     * Gets an icon to represent the state of the task.
+     *
+     * @return a stringified icon
+     */
+    public String getStatusIcon() {
+        return (isDone ? "X" : " "); // mark done task with X
+    }
+
 
     /**
      * Prints the task, formatted
@@ -49,4 +61,5 @@ public class ListItem {
     public String toString() {
         return "[" + (this.isDone ? "X" : " ") + "] " + this.itemName;
     }
+
 }

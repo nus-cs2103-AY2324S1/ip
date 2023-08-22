@@ -3,8 +3,8 @@ import java.util.ArrayList;
 /**
  * Stores the list of items that the user has.
  */
-public class ListContainer {
-    private static ArrayList<ListItem> list = new ArrayList<>();
+public class TaskList {
+    private static ArrayList<Task> list = new ArrayList<>();
 
     /**
      * Adds an item to the list.
@@ -12,7 +12,7 @@ public class ListContainer {
      * @param name The name of the item
      */
     public void addToList(String name) {
-        list.add(new ListItem(name));
+        list.add(new Task(name));
 
         System.out.println("added: " + name);
     }
@@ -34,6 +34,16 @@ public class ListContainer {
      */
     public void markAsDone(int index) {
         list.get(index - 1).setDone();
+    }
+
+    /**
+     * Marks a specific task in the list as undone.
+     * Indexes start from 1, not 0
+     *
+     * @param index
+     */
+    public void markAsUnDone(int index) {
+        list.get(index - 1).setUnDone();
     }
 
     @Override

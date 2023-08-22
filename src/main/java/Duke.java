@@ -1,8 +1,10 @@
 import java.util.Objects;
 import java.util.Scanner;
+
 public class Duke {
     private static final String SEPARATOR_LINE = "____________________________________________________________";
-    private static ListContainer listContainer = new ListContainer();
+    private static TaskList listContainer = new TaskList();
+
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -15,7 +17,6 @@ public class Duke {
                 "What can I do for you?";
         System.out.println(entranceMsg);
         System.out.println(SEPARATOR_LINE);
-
 
 
         String inputString = "";
@@ -31,13 +32,21 @@ public class Duke {
             if (inputString.equals("list")) {
                 // output the list
                 System.out.println(listContainer.toString());
+            } else if (inputString.startsWith("mark ")) {
+                // mark the index
+                int index = Integer.parseInt(inputString.split(" ")[1]);
+                listContainer.markAsDone(index);
+
+            } else if (inputString.startsWith("unmark ")) {
+                // unmark the index
+                int index = Integer.parseInt(inputString.split(" ")[1]);
+                listContainer.markAsUnDone(index);
             } else {
                 // add to the list
                 listContainer.addToList(inputString);
             }
             System.out.println(SEPARATOR_LINE);
         }
-
 
 
         String exitMsg = "Bye! Hope to see you again soon.";
