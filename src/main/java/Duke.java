@@ -9,7 +9,7 @@ public class Duke {
     String info = "Ask the bunny a question!\n";
     String goodbye = "Bye. See you again! (またね)";
 
-    ArrayList<String> userInputs = new ArrayList<>();
+    ArrayList<Task> taskList = new ArrayList<>();
     System.out.println(greeting);
     System.out.println(info);
 
@@ -29,16 +29,25 @@ public class Duke {
       if (commandString.equals("bye")) {
         break;
       } else if (commandString.equals("list")) {
-        for (int i = 0; i < userInputs.size(); i++) {
+
+        for (int i = 0; i < taskList.size(); i++) {
+
           String index = Integer.toString(i + 1);
-          System.out.println(index + "\t" + userInputs.get(i));
+          Task selectectedTask = taskList.get(i);
+          System.out.println(index + "\t" + "[" + selectectedTask.getDoneIcon() + "] "
+              + selectectedTask.description);
         }
       } else if (commandString.equals("mark")) {
         int index = Integer.parseInt(inputTokens[1]);
-        System.out.println(index);
+        index--;
+        System.out.println("Marked selected task as done");
+        // set current task as done
+        Task selectedTask = taskList.get(index);
+        selectedTask.setDone();
+        System.out.println("[" + selectedTask.getDoneIcon() + "] " + selectedTask.description);
 
       } else {
-        userInputs.add(inputString);
+        taskList.add(new Task(inputString));
         System.out.println("added:\t" + inputString);
       }
     }
