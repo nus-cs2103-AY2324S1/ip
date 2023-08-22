@@ -199,6 +199,26 @@ public class TrackerBot {
   }
 
   /**
+   * Delete function for the app. <br>
+   * Attempts to delete the item in the task list. If the Task does not exist,
+   * prints an appropriate error message.
+   * @param index The index of the list to unmark.
+   */
+  private static void delete(int index) {
+    Task task = getTask(index);
+    // happy path: the task does not exist.
+    if (task == null) {
+      System.out.println("That task is not on the list!");
+      System.out.println("Use \"list\" to display what I am currently tracking.");
+      return;
+    }
+
+    TASK_LIST.remove(index - 1);
+    System.out.println("I have removed this task off of my list.\n  " + task);
+    System.out.println(TASK_LIST.size() + " task(s) remain on my list.");
+  }
+
+  /**
    * Input handler function of the app. <br>
    * Takes in a user input, and acts upon the input based on what input it gets. <br>
    * <ul>
@@ -206,7 +226,8 @@ public class TrackerBot {
    *   <li>If the input is "list", prints the list.</li>
    *   <li>If the input is "mark X", marks the item at index X.</li>
    *   <li>If the input is "unmark X", unmarks the item at index X.</li>
-   *   <li>Otherwise, adds the item to the list.</li>
+   *   <li>If the input is "delete X", deletes the item at index X.</li>
+   *   <li>If the input is one of the add task inputs, adds the item to the list.</li>
    * </ul>
    * @param str The input string that is given to the method.
    * @return true if the handler detects the bye keyword,
@@ -237,6 +258,13 @@ public class TrackerBot {
           unmark(scanner.nextInt());
         } else {
           System.out.println("Compulsory parameter for unmark should be a number.");
+        }
+        break;
+      case DELETE:
+        if (scanner.hasNextInt()) {
+          delete(scanner.nextInt());
+        } else {
+          System.out.println("Compulsory parameter for delete should be a number.");
         }
         break;
       case TODO:
@@ -283,6 +311,8 @@ public class TrackerBot {
     MARK ("mark"),
     /** Command to mark a task as incomplete. **/
     UNMARK ("unmark"),
+    /** Command to delete a task. **/
+    DELETE ("delete"),
     /** Command to denote an unknown keyword call. **/
     UNKNOWN ("");
 
