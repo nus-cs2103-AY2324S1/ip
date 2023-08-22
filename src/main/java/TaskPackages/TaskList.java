@@ -55,6 +55,7 @@ public class TaskList {
       returnString += (i + "." + entry.toString() + "\n");
       i++;
     }
+    returnString += "Now you have " + (i-1) + " tasks in the list.\n";
     return returnString;
   }
 }

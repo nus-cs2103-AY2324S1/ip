@@ -61,7 +61,16 @@ public class Duke {
                 System.out.println(tasklist.markAsDone(command) + line);
             } else if (getFirstWord(command).equals("unmark")) {
                 System.out.println(tasklist.unmarkAsDone(command) + line);
-            }
+            } else if (getFirstWord(command).equals("todo")) {
+                tasklist.addTodo(command);
+                System.out.println("added: " + command + "\n" + line);
+            } else if (getFirstWord(command).equals("deadline")) {
+                tasklist.addDeadline(command);
+                System.out.println("added: " + command + "\n" + line);
+            } else if (getFirstWord(command).equals("event")) {
+                tasklist.addEvent(command);
+                System.out.println("added: " + command + "\n" + line);
+            } 
             
             else {
                 tasklist.addList(command);
