@@ -1,28 +1,38 @@
 import java.util.Scanner;
 public class Duke {
     private final UI ui = new UI();
-    private final Actions action = new Actions();
+    private final Actions actionList = new Actions();
     public void initiateChatbot() {
-        ui.horizontalLines();
-        ui.display("Hello! I'm Whelmed.");
-        ui.display("What can I do for you?");
-        ui.horizontalLines();
+        ui.openingMessage();
         String input = ui.readInput();
         while (!input.toLowerCase().equals("bye")) {
-            ui.horizontalLines();
             if (input.toLowerCase().equals("list")) {
-                ui.displayActions(action.list());
+                ui.lineSandwich(actionList.stringList());
+            } else if (input.toLowerCase().startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                Task markedTask = actionList.mark(taskNumber);
+                if (markedTask != null) {
+                    ui.lineSandwich("Fine. Marked this task as done, you better not change your mind:\n"
+                            + markedTask);
+                } else {
+                    ui.lineSandwich("Task number does not exist, please re-learn arithmetic.");
+                }
+            } else if (input.toLowerCase().startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;
+                Task unmarkedTask = actionList.unmark(taskNumber);
+                if (unmarkedTask != null) {
+                    ui.lineSandwich("Well, you changed your mind :(. Just this once:\n"
+                            + unmarkedTask);
+                } else {
+                    ui.lineSandwich("Task number does not exist, please re-learn arithmetic.");
+                }
             } else {
-                action.add(input);
-                ui.display("added: " + input);
-            }
-            ui.horizontalLines();
-            input = ui.readInput();
-        }
-        ui.horizontalLines();
-        ui.display("Bye. Hope to see you again soon!");
-        ui.horizontalLines();
+                actionList.add(input);
+                ui.lineSandwich("added: " + input);
+            } input = ui.readInput();
+        } ui.lineSandwich("Finally, I can rest.");
     }
+
     public static void main(String[] args) {
         Duke Whelmed = new Duke();
         Whelmed.initiateChatbot();

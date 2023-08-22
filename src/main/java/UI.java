@@ -5,20 +5,18 @@ public class UI {
     public void horizontalLines() {
         System.out.println("____________________________________________________________"); //length taken from sample
     }
-
+    public void lineSandwich(String message) {
+        horizontalLines();
+        display(message);
+        horizontalLines();
+    }
     public String readInput() {
         return scanner.nextLine();
     }
-
     public void display(String message) {
         System.out.println(message);
     }
-
-    public void displayActions(ArrayList<String> actions) {
-        int queNumber = 1;
-        for (String s : actions) {
-            System.out.println(queNumber + ". " + s);
-            queNumber++;
-        }
+    public void openingMessage() {
+        lineSandwich("Hello! I'm Whelmed.\nWhat can I do for you?");
     }
 }
