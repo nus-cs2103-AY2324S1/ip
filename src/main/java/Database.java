@@ -52,4 +52,20 @@ public class Database {
         System.out.println("Okie dokie! I've unmarked it for you:");
         System.out.println(this.db.get(index));
     }
+
+    public void delete(int index) {
+        // check for range of index
+        if (index >= this.total) {
+            throw new IndexOutOfBoundsException(String.format("Sorry you do not have task #%d, try \"list\" to check your current list of tasks!", index + 1));
+        }
+
+        Task t = this.db.get(index);
+        this.db.remove(index);
+        this.total--;
+
+        UI.displayCheems();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(t);
+        System.out.printf("Now you have %d tasks in your list!\n", this.total);
+    }
 }

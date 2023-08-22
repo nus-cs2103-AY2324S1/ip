@@ -31,12 +31,15 @@ public class Parser {
                 switch (currentKey) {
                     case MARK:
                     case UNMARK:
+                    case DELETE:
                         if (words[1].chars().allMatch(Character::isDigit)) {
                             int index = Integer.parseInt(words[1]);
                             if (currentKey == Keyword.MARK) {
                                 this.db.markAsDone(index - 1);
-                            } else {
+                            } else if (currentKey == Keyword.UNMARK) {
                                 this.db.markAsNotDone(index - 1);
+                            } else {
+                                this.db.delete(index - 1);
                             }
                             break;
                         } else {

@@ -4,5 +4,6 @@ public enum Keyword {
     TODO,
     DEADLINE,
     EVENT,
-    LIST
+    LIST,
+    DELETE
 }
