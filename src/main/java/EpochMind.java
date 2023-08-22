@@ -56,6 +56,9 @@ public class EpochMind {
                 case "event":
                     event(command);
                     break;
+                case "delete":
+                    delete(commandList);
+                    break;
 
                 default:
                     EpochMindException e = new EpochMindException("There is no such command in the Arcana of Knowledge");
@@ -94,7 +97,7 @@ public class EpochMind {
                 System.out.println(e);
             } else {
                 System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is completed \n" +
-                        "[X] " + tasks.get(index - 1).description +
+                        tasks.get(index - 1) +
                         "\n___________________________________________________________________________________________________________\n");
                 tasks.get(index - 1).mark();
             }
@@ -112,7 +115,7 @@ public class EpochMind {
                 System.out.println(e);
             } else {
                 System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is not yet completed \n" +
-                        "[ ] " + tasks.get(index - 1).description +
+                        tasks.get(index - 1) +
                         "\n___________________________________________________________________________________________________________\n");
                 tasks.get(index - 1).unmark();
             }
@@ -181,6 +184,25 @@ public class EpochMind {
                     System.out.println("___________________________________________________________________________________________________________\n" + "The Mind has added a new task \n" + event + "\nThere are now " + tasks.size() + " tasks left to complete" +
                             "\n___________________________________________________________________________________________________________\n");
                 }
+            }
+        }
+    }
+
+    public static void delete(String[] commandList) {
+        if (commandList.length == 1) {
+            EpochMindException e = new EpochMindException("Thou hast forgotten to specify thine index");
+            System.out.println(e);
+        } else {
+            int index = parseInt(commandList[1]);
+            if (tasks.size() < index) {
+                EpochMindException e = new EpochMindException("Thou hast specified an index larger than thine list");
+                System.out.println(e);
+            } else {
+                Task task = tasks.remove(index - 1);
+                System.out.println("___________________________________________________________________________________________________________\n" + "The Mind has eradicated the task \n" +
+                        task + "\nThere are now " + tasks.size() + " tasks left to complete" +
+                        "\n___________________________________________________________________________________________________________\n");
+
             }
         }
     }
