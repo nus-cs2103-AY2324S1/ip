@@ -36,9 +36,9 @@ public class Duke {
           for (int i = 0; i < taskList.size(); i++) {
 
             String index = Integer.toString(i + 1);
-            Task selectectedTask = taskList.get(i);
-            System.out.println(index + "\t" + "[" + selectectedTask.getDoneIcon() + "] "
-                + selectectedTask.description);
+            Task selectedTask = taskList.get(i);
+            System.out.println(index + " " + uiFormatter.displayTask(selectedTask));
+
           }
           break;
         case "mark": {
@@ -48,7 +48,8 @@ public class Duke {
           // set current task as done
           Task selectedTask = taskList.get(index);
           selectedTask.setDone();
-          System.out.println("[" + selectedTask.getDoneIcon() + "] " + selectedTask.description);
+
+          System.out.println(uiFormatter.displayTask(selectedTask));
 
           break;
         }
@@ -60,7 +61,7 @@ public class Duke {
           // set current task as un-done
           Task selectedTask = taskList.get(index);
           selectedTask.setUnDone();
-          System.out.println("[" + selectedTask.getDoneIcon() + "] " + selectedTask.description);
+          System.out.println(uiFormatter.displayTask(selectedTask));
 
           break;
         }
@@ -75,9 +76,7 @@ public class Duke {
           break;
         }
         default:
-          taskList.add(new Task(inputString));
-          System.out.println("added:\t" + inputString);
-          break;
+          System.out.println("Please enter a suitable task!");
       }
     }
 
