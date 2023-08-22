@@ -21,6 +21,15 @@ public class TaskList {
         return new TaskList(currentTasks);
     }
 
+    TaskList delete(int index) {
+        System.out.println(" Noted. I've removed this task:\n");
+        ArrayList<Task> currentTasks = this.tasks;
+        System.out.println("    " + currentTasks.remove(index - 1) + "\n");
+        System.out.println(("Now you have " + Integer.toString(currentTasks.size()) +
+                " tasks in the list.\n"));
+        return new TaskList(currentTasks);
+    }
+
     TaskList mark(int index) {
         System.out.println("Nice! I've marked this task as done:\n");
         ArrayList<Task> currentTasks = this.tasks;

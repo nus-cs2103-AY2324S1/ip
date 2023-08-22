@@ -54,6 +54,10 @@ public class Rua {
                     String indexStr = command.replaceAll("[^0-9]", "");
                     int index = Integer.parseInt(indexStr);
                     taskList = taskList.unmark(index);
+                } else if (command.startsWith("delete")) {
+                    String indexStr = command.replaceAll("[^0-9]", "");
+                    int index = Integer.parseInt(indexStr);
+                    taskList = taskList.delete(index);
                 } else {
                     throw new InvalidCommandException();
                 }
