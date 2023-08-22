@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Ruiz {
-    ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     public void getTasks() {
         System.out.println("____________________________________________________________");
@@ -46,8 +46,41 @@ public class Ruiz {
         }
     }
 
-    public void addTask(Task task) {
-        this.tasks.add(task);
+    public void addTask(String input) {
+        String keyWord = input.split(" ")[0];
+        String content = input.split(" ", 2)[1];
+        Task temp;
+        String description;
+        switch (keyWord) {
+            case "todo":
+                temp = new ToDos(content);
+                this.tasks.add(temp);
+                System.out.println("____________________________________________________________\n" +
+                        "Got it. I've added this task:\n" +
+                        temp);
+                break;
+            case "deadline":
+                description = content.split(" /by ")[0];
+                String by = content.split("/by ")[1];
+                temp = new Deadlines(description, by);
+                this.tasks.add(temp);
+                System.out.println("____________________________________________________________\n" +
+                        "Got it. I've added this task:\n" +
+                        temp);
+                break;
+            case "event":
+                description = content.split(" /from")[0];
+                String from = content.split(" /from ")[1].split(" /")[0];
+                String to = content.split(" /from ")[1].split("/to ")[1];
+                temp = new Events(description, from, to);
+                this.tasks.add(temp);
+                System.out.println("____________________________________________________________\n" +
+                        "Got it. I've added this task:\n" +
+                        temp);
+                break;
+        }
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.\n" +
+                "____________________________________________________________");
     }
 
     public void greet() {
@@ -87,8 +120,7 @@ public class Ruiz {
                     bot.unmarkTask(input.split(" ")[1]);
                     break;
                 default:
-                    Task temp = new Task(input);
-                    bot.addTask(temp);
+                    bot.addTask(input);
                     break;
             }
 

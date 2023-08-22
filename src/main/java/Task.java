@@ -1,13 +1,10 @@
 public class Task {
     private boolean completed;
-    private String description;
+    private String description, type;
 
     public Task(String description) {
         this.completed = false;
         this.description = description;
-        System.out.println("____________________________________________________________\n" +
-                "added: " + description + "\n" +
-                "____________________________________________________________");
     }
 
     public void mark() {
