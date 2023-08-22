@@ -19,14 +19,14 @@ public class Duke {
             String command = sc.next();
             System.out.println(separator);
             if (command.equals("bye")) {
-                if (!sc.nextLine().equals("")) {
+                if (!sc.nextLine().isEmpty()) {
                     System.out.println(errorMessage);
                     System.out.println(separator);
                     continue;
                 }
                 break;
             } else if (command.equals("list")) {
-                if (!sc.nextLine().equals("")) {
+                if (!sc.nextLine().isEmpty()) {
                     System.out.println(errorMessage);
                     System.out.println(separator);
                     continue;
@@ -42,7 +42,7 @@ public class Duke {
                 System.out.println(separator);
             } else if (command.equals("mark")) {
                 int index = sc.nextInt();
-                if (!sc.nextLine().equals("")) {
+                if (!sc.nextLine().isEmpty()) {
                     System.out.println(errorMessage);
                     System.out.println(separator);
                     continue;
@@ -58,7 +58,7 @@ public class Duke {
                 System.out.println(separator);
             } else if (command.equals("unmark")) {
                 int index = sc.nextInt();
-                if (!sc.nextLine().equals("")) {
+                if (!sc.nextLine().isEmpty()) {
                     System.out.println(errorMessage);
                     System.out.println(separator);
                     continue;
@@ -113,7 +113,7 @@ public class Duke {
                 try {
                     int index = sc.nextInt();
                     hold = list.get(index - 1);
-                    if (!sc.nextLine().equals("")) {
+                    if (!sc.nextLine().isEmpty()) {
                         System.out.println(errorMessage);
                         System.out.println(separator);
                         continue;
@@ -146,7 +146,7 @@ class Task {
         this.tag = tag;
         this.description = description;
         this.done = false;
-        if (tag.equals("") || description.equals("")) {
+        if (tag.isEmpty() || description.isEmpty()) {
             throw new PukeException();
         }
     }
@@ -170,7 +170,7 @@ class Task {
 }
 
 class ToDo extends Task {
-    private static String tag = "[T]";
+    private final static String tag = "[T]";
 
     public ToDo(String desc) throws PukeException {
         super(tag, desc);
@@ -178,13 +178,13 @@ class ToDo extends Task {
 }
 
 class Deadline extends Task {
-    private static String tag = "[D]";
+    private final static String tag = "[D]";
     private String date;
 
     public Deadline(String[] all) throws PukeException {
         super(tag, all[0]);
         this.date = all[1].split("by ")[1];
-        if (this.date.equals("")) {
+        if (this.date.isEmpty()) {
             throw new PukeException();
         }
     }
@@ -195,7 +195,7 @@ class Deadline extends Task {
 }
 
 class Event extends Task {
-    private static String tag = "[E]";
+    private static final String tag = "[E]";
     private String from;
     private String to;
 
