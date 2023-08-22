@@ -3,12 +3,8 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
+
+        Scanner scanner = new Scanner(System.in);
 
         String greeting = "Hello! I'm Toothless. \n" +
                 "What can I do for you today? \n" +
@@ -18,6 +14,18 @@ public class Duke {
         String name = "Toothless";
 
         System.out.println(greeting);
+
+        String bye = "bye";
+
+        while (true) {
+
+            String nextInput = scanner.nextLine();
+
+            if (nextInput.equals(bye)) {
+                break;
+            }
+            System.out.println(nextInput + "\n---------------------------------");
+        }
 
         System.out.println(farewell);
     }
