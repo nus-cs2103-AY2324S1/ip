@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Duke {
     private static String getNumTasks(int num) {
-        if (num == 1) {
+        if (num == 1 || num == 0) {
             return "\t Now you have " + num + " task in the list.";
         }
         return "\t Now you have " + num + " tasks in the list.";
@@ -37,12 +37,24 @@ public class Duke {
                         System.out.println("\t " + (i + 1) + "." + list.get(i).toString());
                     }
                 } else if (command.startsWith("mark")) {
+                    String[] result = command.split(" ");
+                    if (result.length == 1 && !command.startsWith("mark ") && command.length() > 4) {
+                        throw new DukeException("☹ OOPS!!! Pls add a space after typing mark.");
+                    } else if (result.length == 1) {
+                        throw new DukeException("☹ OOPS!!! Pls select a task to mark.");
+                    }
                     int idx = Character.getNumericValue(command.charAt(5));
                     Task t = list.get(idx - 1);
                     t.markAsDone();
                     System.out.println("\t Nice! I've marked this task as done:");
                     System.out.println("\t\t" + t.toString());
                 } else if (command.startsWith("unmark")) {
+                    String[] result = command.split(" ");
+                    if (result.length == 1 && !command.startsWith("unmark ") && command.length() > 6) {
+                        throw new DukeException("☹ OOPS!!! Pls add a space after typing unmark.");
+                    } else if (result.length == 1) {
+                        throw new DukeException("☹ OOPS!!! Pls select a task to unmark.");
+                    }
                     int idx = Character.getNumericValue(command.charAt(7));
                     Task t = list.get(idx - 1);
                     t.markAsUndone();
@@ -119,8 +131,29 @@ public class Duke {
                     System.out.println("\t Got it. I've added this task:");
                     System.out.println("\t\t" + event.toString());
                     System.out.println(getNumTasks(list.size()));
+                } else if (command.startsWith("delete")) {
+                    String[] result = command.split(" ");
+                    if (result.length == 1 && !command.startsWith("delete ") && command.length() > 6) {
+                        throw new DukeException("☹ OOPS!!! Pls add a space after typing delete.");
+                    } else if (result.length == 1) {
+                        throw new DukeException("☹ OOPS!!! Pls select a task to delete.");
+                    }
+                    int idx = Character.getNumericValue(command.charAt(7));
+                    Task t = list.get(idx - 1);
+                    list.remove(idx - 1);
+                    System.out.println("\t Noted. I've removed this task:");
+                    System.out.println("\t\t" + t.toString());
+                    System.out.println(getNumTasks(list.size()));
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (IndexOutOfBoundsException e) {
+                if (list.isEmpty()) {
+                    System.out.println("\t ☹ OOPS!!! You don't have any task in your list. Pls add a task.");
+                } else if (list.size() == 1) {
+                    System.out.println("\t ☹ OOPS!!! You only have one task in your list. Pls select 1.");
+                } else {
+                    System.out.println("\t ☹ OOPS!!! Pls select a task number between 1 and " + list.size());
                 }
             } catch (DukeException e) {
                 System.out.println("\t " + e.toString());
