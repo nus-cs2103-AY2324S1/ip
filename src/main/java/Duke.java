@@ -1,14 +1,23 @@
+import java.util.Scanner;
+
 public class Duke {
-    private static String Greet() {
+
+    private static String StringFormat(String str) {
         return "_______________________________________________\n"
-                + "Hi there! I'm Bob.\nHow can I help?\n"
+                + str + "\n"
                 + "_______________________________________________";
     }
 
+    private static String Greet() {
+        return StringFormat("Hi there! I'm Bob.\nHow can I help?");
+    }
+
     private static String Exit() {
-        return "_______________________________________________\n"
-                + "See you soon!\n"
-                + "_______________________________________________";
+        return StringFormat("See you soon!");
+    }
+
+    private static String Echo(String input) {
+        return StringFormat(input);
     }
 
     public static void main(String[] args) {
@@ -19,6 +28,16 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println(Greet());
-        System.out.println(Exit());
+
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            String nextLine = sc.nextLine();
+            if (nextLine.equals("bye")) {
+                System.out.println(Exit());
+                sc.close();
+                break;
+            }
+            System.out.println(Echo(nextLine));
+        }
     }
 }
