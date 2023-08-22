@@ -22,6 +22,7 @@ public class Duke {
     }
 
     private static void list() {
+        print("Here are the tasks in your list:");
         for (int i = 0; i < cursor; i++) {
             String taskEntry = String.format("%d. %s", i + 1, tasks[i]);
             print(taskEntry);
