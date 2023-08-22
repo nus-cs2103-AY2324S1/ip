@@ -1,0 +1,7 @@
+todo sleep
+event meeting /from 2pm /to 4pm
+deadline lecture quiz /by 9pm
+list
+mark 1
+unmark 1
+bye
