@@ -1,10 +1,11 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     protected static String name = "Alfred";
 
-    protected static Task[] list = new Task[100];
+    protected static ArrayList<Task> list = new ArrayList<Task>();
     protected static int counter = 0;
 
     public static void println() {
@@ -22,19 +23,15 @@ public class Duke {
     public static void incrementCounter() {
         Duke.counter++;
     }
+    public static void decrementCounter() {
+        Duke.counter--;
+    }
 
     public static void setList(Task item) {
-        list[getCounter()] = item;
-
+        list.add(item);
     }
 
-    public static int listLength() {
-        return list.length;
-    }
 
-    public static Task listOutput(int i) {
-        return list[i];
-    }
 
     public static void main(String[] args) {
 
@@ -56,11 +53,11 @@ public class Duke {
                 if (text.length() > 3 && text.substring(0, 4).equals("list")) {
                     println();
 
-                    for (int i = 0; i < listLength(); i++) {
-                        if (listOutput(i) == null) {
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i) == null) {
                             break;
                         } else {
-                            System.out.println(String.format("%d. [%s] [%s] %s", i + 1, listOutput(i).tag, listOutput(i).getStatusIcon(), listOutput(i)));
+                            System.out.println(String.format("%d. [%s] [%s] %s", i + 1, list.get(i).tag, list.get(i).getStatusIcon(), list.get(i)));
                         }
                     }
                     println();
@@ -70,20 +67,20 @@ public class Duke {
                 else if (text.startsWith("unmark")) {
                     String[] splitText = text.split(" ");
                     int numToUnmark = Integer.parseInt(splitText[1]) - 1;
-                    listOutput(numToUnmark).markAsIncomplete();
+                    list.get(numToUnmark).markAsIncomplete();
                     println();
                     System.out.println("Alright! I'll uncheck this task for you: ");
-                    System.out.println(String.format("\t [%s] [%s] %s", listOutput(numToUnmark).tag, listOutput(numToUnmark).getStatusIcon(), listOutput(numToUnmark)));
+                    System.out.println(String.format("\t [%s] [%s] %s", list.get(numToUnmark).tag, list.get(numToUnmark).getStatusIcon(), list.get(numToUnmark)));
                     println();
 
                     continue;
                 } else if (text.startsWith("mark")) {
                     String[] splitText = text.split(" ");
                     int numToMark = Integer.parseInt(splitText[1]) - 1;
-                    listOutput(numToMark).markAsComplete();
+                    list.get(numToMark).markAsComplete();
                     println();
                     System.out.println("Alright! I'll check this task as complete for you: ");
-                    System.out.println(String.format("\t [%s] [%s] %s", listOutput(numToMark).tag, listOutput(numToMark).getStatusIcon(), listOutput(numToMark)));
+                    System.out.println(String.format("\t [%s] [%s] %s", list.get(numToMark).tag, list.get(numToMark).getStatusIcon(), list.get(numToMark)));
                     println();
 
                     continue;
@@ -94,6 +91,7 @@ public class Duke {
                     println();
                     break;
                 } else if (text.startsWith("todo")) {
+<<<<<<< HEAD
                     String description = text.substring(4);
                     if (description.isEmpty()) {
                         throw new DukeException("I apologise, sir. But the description of todo cannot be empty");
@@ -107,6 +105,20 @@ public class Duke {
                         System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
                         println();
                     }
+=======
+                    String description = text.substring(5);
+                    if (description.equals(" ")){
+                        throw new DukeException( );
+                    }
+                    Todo todo = new Todo(description);
+                    setList(todo);
+                    incrementCounter();
+                    println();
+                    System.out.println("Noted Sir. I've added this task to your list: ");
+                    System.out.println(String.format("\t [%s] [%s] %s", todo.tag, todo.getStatusIcon(), todo.toString()));
+                    System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
+                    println();
+>>>>>>> 21750337ed2e81907cc4712d683fdf4e890b63be
                 } else if (text.startsWith("deadline")) {
                     String[] splitText = text.split("/");
                     String description = splitText[0].substring(8);
@@ -140,6 +152,18 @@ public class Duke {
                     System.out.println(String.format("\t [%s] [%s] %s", event.tag, event.getStatusIcon(), event.toString()));
                     System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
                     println();
+
+                } else if (text.startsWith("delete")) {
+                    String[] splitText = text.split(" ");
+                    int numToDelete = Integer.parseInt(splitText[1]) - 1;
+                    list.remove(numToDelete);
+
+                    println();
+                    System.out.println("Alright Sir, I have removed this task from the list for you.");
+                    System.out.println(String.format("\t %s",list.get(numToDelete).toString()));
+                    decrementCounter();
+                    System.out.println(String.format("Now you have %d tasks left.", getCounter()));
+
 
                 } else {
                     throw new DukeException("I apologise, sir. But I do not understand what you mean.");
