@@ -31,7 +31,7 @@ public class Duke {
         this.line();
     }
 
-    public void startService() {
+    public void startService() throws DukeException {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
@@ -57,6 +57,9 @@ public class Duke {
             Task task = null;
 
             if (input.startsWith("todo")) {
+                if (input.length() <= 5) {
+                    throw new DukeException(Duke.i5 + "☹ OOPS!!! The description of a todo cannot be empty.");
+                }
                 task = new Todo(input.substring(5));
             } else if (input.startsWith("deadline")) {
                 int slashIndex = input.indexOf('/');
@@ -68,6 +71,8 @@ public class Duke {
                 String from = input.substring(fromIndex + 6, toIndex - 1);
                 String to = input.substring(toIndex + 4);
                 task = new Event(input.substring(6, fromIndex - 1), from, to);
+            } else {
+                throw new DukeException(Duke.i5 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
             this.list.add(task);
@@ -80,7 +85,7 @@ public class Duke {
         startService();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         Duke bot = new Duke("Kam_BOT");
         bot.greet();
         bot.startService();
