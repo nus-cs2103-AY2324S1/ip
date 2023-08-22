@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 public class BouncyBob {
     private static final String TOP_BORDER = "╔══════════════════════════════════════════════╗";
     private static final String MIDDLE_BORDER = "║                                              ║";
@@ -7,6 +6,8 @@ public class BouncyBob {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        String[] database = new String[100];
+        int pointer = 0;
         System.out.println(TOP_BORDER);
         System.out.println(MIDDLE_BORDER);
         System.out.println("║                   Hey there! 🎈              ║");
@@ -25,8 +26,15 @@ public class BouncyBob {
                 System.out.println(MIDDLE_BORDER);
                 System.out.println(BOTTOM_BORDER);
                 break;
+            } else if (userInput.equals("list")) {
+                for (int i = 0; i < pointer; i++) {
+                    System.out.println(database[i]);
+                }
+                System.out.println(BOTTOM_BORDER);
             } else {
-                System.out.println(userInput);
+                System.out.println("Added to database: " + userInput);
+                database[pointer] = userInput;
+                pointer++;
                 System.out.println(BOTTOM_BORDER);
             }
         }
