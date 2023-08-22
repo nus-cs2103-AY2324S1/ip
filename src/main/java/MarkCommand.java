@@ -11,12 +11,16 @@ public class MarkCommand implements Command{
      * @return {@code false} as the program should continue running.
      */
     @Override
-    public  boolean execute(TaskList tasks, Ui ui){
+    public  boolean execute(TaskList tasks, Ui ui) throws DukeException {
+        try {
         String msg = ui.getLastMsg();
         String[] words= msg.toLowerCase().split("\\s+");
         int index = Integer.parseInt(words[1])-1;
         tasks.mark(index);
         ui.respond("Nice! I've marked this task as done: "+"\n"+tasks.get(index));
+        } catch (Exception e){
+            throw new DukeException("Wrong index. Try checking your list first.");
+        }
         return false;
     }
 }

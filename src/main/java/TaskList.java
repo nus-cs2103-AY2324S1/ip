@@ -75,6 +75,9 @@ public class TaskList {
      */
     @Override
     public String toString() {
+        if (tasks.size() == 0 ){
+            return "No tasks right now..\nHave a nice rest!";
+        }
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString());

@@ -40,8 +40,8 @@ public class AddCommand implements Command{
             tasks.add(task);
         }
 
-        System.out.println("Got it. I've added this task:" + "\n" + task.toString());
-        System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        ui.respond("Got it. I've added this task:" + "\n" + task.toString() +
+                "\n" + "Now you have " + tasks.size() + " tasks in the list");
         return false;
     }
 }

@@ -24,6 +24,8 @@ public class Parser {
             case "event":
             case "deadline":
                 return new AddCommand();
+            case "delete":
+                return new DeleteCommand();
             default:
                 throw new DukeException("Unknown Command!");
         }
