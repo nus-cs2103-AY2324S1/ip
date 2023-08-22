@@ -103,7 +103,8 @@ public class Duke {
                         break;
                     case UNRECOGNISED:
                         this.print("Quack does not understand your command!!");
-                        this.print("Quack only understands these commands: list, mark, unmark, todo, deadline, event");
+                        this.print(
+                                "Quack only understands these commands: list, mark, unmark, delete, todo, deadline, event");
                         break;
 
                 }
