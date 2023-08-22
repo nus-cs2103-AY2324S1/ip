@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -15,6 +16,7 @@ public class Duke {
 
     public static void echo() {
         String horizontalLine = "\t____________________________________________________";
+        ArrayList<String> lst = new ArrayList<>();
 
         Scanner input = new Scanner(System.in);
         String commands = input.nextLine();
@@ -23,16 +25,23 @@ public class Duke {
             return;
         }
 
-        boolean inLoop = true;
-
-        while (inLoop) {
-            System.out.println(horizontalLine);
-            System.out.println("\t" + commands);
-            System.out.println(horizontalLine);
-            commands = input.nextLine();
+        while (true) {
             if (commands.equals("bye")) {
-                inLoop = false;
+                return;
+            } else if (commands.equals("list")) {
+                System.out.println(horizontalLine);
+                for (int i = 0; i < lst.size(); i++) {
+                    System.out.println("\t" + (i + 1) + ". " + lst.get(i));
+                }
+                System.out.println(horizontalLine);
+            } else {
+                lst.add(commands);
+                System.out.println(horizontalLine);
+                System.out.println("\t added: " + commands);
+                System.out.println(horizontalLine);
             }
+
+            commands = input.nextLine();
         }
     }
 
