@@ -194,7 +194,8 @@ public class Duke {
         printHorizontalLine();
         printWithLevel2Indent("Woof! I've added this task:");
         printWithLevel3Indent(task.toString());
-        printWithLevel2Indent("You now have " + taskCount + " tasks in the list. Now gimme some treats.");
+        String taskWord = taskCount == 1 ? " task" : " tasks";
+        printWithLevel2Indent("You now have " + taskCount + taskWord + " in the list. Now gimme some treats.");
         printHorizontalLine();
     }
 

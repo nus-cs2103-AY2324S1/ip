@@ -1,0 +1,14 @@
+list
+todo Do tutorials
+list
+deadline Prepare for CA1 /by 14 Sept
+list
+mark 1
+event VATSIM Ho Chih Minh - Singapore SeaLink /from 23 Sept 8pm /to 12am
+mark 2
+mark 2
+unmark 2
+unmark 3
+list
+some weird command
+bye
