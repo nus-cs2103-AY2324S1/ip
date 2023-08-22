@@ -7,7 +7,7 @@ public class URChatBot {
         Scanner sc = new Scanner(System.in);
         String logo =
                 "         _____   _____\n"
-                        + "| | | | /  ___| |   ) | \n"
+                        + "| | | | /  ___| |   ) |\n"
                         + "| | | | | |     | ___ /\n"
                         + "| |_| | | |___  |   ) \\\n"
                         + "\\___,_| \\_____| |_____|\n";
