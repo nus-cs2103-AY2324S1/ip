@@ -7,4 +7,19 @@ mark 3
 list
 unmark 1
 list
+abcd
+todo
+event abcd
+event abcd from
+event abcd /from
+event abcd /from /to
+event abcd /from asdf to
+event abcd /from asdf /to
+event abcd /from asdf /to asdf
+deadline
+deadline abcd
+deadline abcd by
+deadline abcd /by
+deadline abcd /by asdf
+list
 bye

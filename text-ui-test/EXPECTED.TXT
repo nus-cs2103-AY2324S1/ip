@@ -2,7 +2,8 @@ Hello I'm Genos
 What can I do for you?
 Please type your command below, I will store what you said
 Usage: "list" to see the list of text stored, "bye" to exit
-"mark (number)" to mark task no. (number) to be done, "unmark (number)" to mark it as undone
+"mark [number]" to mark task no. [number] to be done, "unmark [number]" to mark it as undone
+"todo [description]" to add todo, "event [description] /from [date] /to[date]" to add event, "deadline [description] /by [date]" to add deadline
     Added Todo to the list of tasks:
     [T][ ] borrow book
     You currently have 1 tasks in the list.
@@ -30,4 +31,36 @@ Usage: "list" to see the list of text stored, "bye" to exit
     1. [T][ ] borrow book
     2. [D][ ] return book  (by: Sunday)
     3. [E][X] project meeting  (from: Mon 2pm  to: 4pm)
+    Command given is invalid! You must start with a todo/event/deadline to add tasks, or list/mark/unmark/bye for other purposes
+    Description cannot be empty!
+    Invalid format for adding an event! Please enter in this format:
+event [description] /from [date] /to [date]
+    Invalid format for adding an event! Please enter in this format:
+event [description] /from [date] /to [date]
+    Invalid format for adding an event! Please enter in this format:
+event [description] /from [date] /to [date]
+    Invalid format for adding an event! Please enter in this format:
+event [description] /from [date] /to [date]
+    Invalid format for adding an event! Please enter in this format:
+event [description] /from [date] /to [date]
+    Invalid format for adding an event! Please enter in this format:
+event [description] /from [date] /to [date]
+    Added Event to the list of tasks:
+    [E][ ] abcd  (from: asdf  to: asdf)
+    You currently have 4 tasks in the list.
+    Description cannot be empty!
+    Invalid format for adding a deadline! Please enter in this format:
+deadline [description] /by [date]
+    Invalid format for adding a deadline! Please enter in this format:
+deadline [description] /by [date]
+    Invalid format for adding a deadline! Please enter in this format:
+deadline [description] /by [date]
+    Added Deadline to the list of tasks:
+    [D][ ] abcd  (by: asdf)
+    You currently have 5 tasks in the list.
+    1. [T][ ] borrow book
+    2. [D][ ] return book  (by: Sunday)
+    3. [E][X] project meeting  (from: Mon 2pm  to: 4pm)
+    4. [E][ ] abcd  (from: asdf  to: asdf)
+    5. [D][ ] abcd  (by: asdf)
     Goodbye, Hope to see you again soon.
