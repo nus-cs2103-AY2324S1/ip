@@ -48,14 +48,38 @@ public class Duke {
     }
 
     /**
-     * Adds a task to the local task list.
+     * Adds a task to the local task list. Handles the three different types
+     * class.
      *
-     * @param task the task to be added to the current list of tasks
      * @author Tan Kerway
+     * @param task the task to be added to the current list of tasks
+     * @return the task object created that was just added
      */
-    private void addTask(String task) {
-        // create a new task and store it in the chatbot memory
-        this.items[++this.i] = new Task(task);
+    private Task addTask(String task) {
+        String description;
+        Task createdTask;
+        // handle the 3 different types of class
+        if (task.startsWith("todo")) {
+            description = task.substring(5);
+            createdTask = new Todo(description);
+        } else if (task.startsWith("deadline")) {
+            // cache the start index of the "/by" substring
+            int indexOfBy = task.indexOf("/by");
+            // get the task description
+            description = task.substring(9, indexOfBy - 1);
+            // get the deadline
+            String by = task.substring(indexOfBy + 4);
+            createdTask = new Deadline(description, by);
+        } else {
+            int fromStart = task.lastIndexOf("/from");
+            // get the task description
+            description = task.substring(6, fromStart - 1);
+            // get the string that holds the start and the end
+            String period = task.substring(fromStart);
+            createdTask = new Event(description, period);
+        }
+        this.items[++this.i] = createdTask;
+        return createdTask;
     }
 
     /**
@@ -65,9 +89,10 @@ public class Duke {
      * @author Tan Kerway
      * @param task the task to be echoed to the console
      */
-    void echoTaskAdded(String task) {
+    void echoTaskAdded(Task task) {
         System.out.println("------------------------------------------------------------------------");
-        System.out.println("added: " + task);
+        System.out.println("Got it. I've added this task:\n    " + task.toString());
+        System.out.println("Now you have " + (this.i + 1) + " tasks in the list.");
         System.out.println("------------------------------------------------------------------------");
     }
 
@@ -118,6 +143,43 @@ public class Duke {
     }
 
     /**
+     * Processes user commands. Breaks down the input and
+     * Checks which command the user types in.
+     *
+     * @author Tan Kerway
+     * @param input the input to be processed
+     * @return true if the command is not "bye", false otherwise
+     */
+    private boolean processUserCommand(String input) {
+        // case where the chatbot has been first initialised
+        if (input == null) { return true; }
+        // case where the input is "list" => enumerate all tasks
+        if (input.equals("list")) {
+            listAllTasks();
+            return true;
+        }
+        // case where the input is "bye" => terminate early
+        if (input.equals("bye")) { return false; }
+        // case where the input is the mark command => mark the task as done
+        if (input.startsWith("mark")) {
+            Task currentTask = this.items[Integer.parseInt(input.substring(5, 6)) - 1];
+            handleMarkTask(currentTask);
+            echoTaskMarked(currentTask);
+            return true;
+        }
+        // case where the input is unmark
+        if (input.startsWith("unmark")) {
+            Task currentTask = this.items[Integer.parseInt(input.substring(7, 8)) - 1];
+            handleUnmarkTask(currentTask);
+            echoTaskUnmarked(currentTask);
+            return true;
+        }
+        Task createdTask = addTask(input);
+        echoTaskAdded(createdTask);
+        return true;
+    }
+
+    /**
      * When called, awaits user input. If the input is "list", the tasks
      * that the user has added to the list so far is printed to the console.
      * If the input is "bye" the program will terminate. For other inputs,
@@ -125,34 +187,13 @@ public class Duke {
      *
      * @author Tan Kerway
      */
-    private void handleAddTask() {
+    private void handleUserInput() {
         Scanner sc = new Scanner(System.in);
         String input;
-        while (true) {
-            input = sc.nextLine();
-            // case where the input is "list" => enumerate all tasks
-            if (input.equals("list")) {
-                listAllTasks();
-                continue;
-            }
-            // case where the input is "bye" => terminate early
-            if (input.equals("bye")) { return; }
-            // case where the input is the mark command => mark the task as done
-            if (input.startsWith("mark")) {
-                Task currentTask = this.items[Integer.parseInt(input.substring(5, 6)) - 1];
-                handleMarkTask(currentTask);
-                echoTaskMarked(currentTask);
-                continue;
-            }
-            // case where the input is unmark
-            if (input.startsWith("unmark")) {
-                Task currentTask = this.items[Integer.parseInt(input.substring(7, 8)) - 1];
-                handleUnmarkTask(currentTask);
-                echoTaskUnmarked(currentTask);
-                continue;
-            }
-            addTask(input);
-            echoTaskAdded(input);
+        boolean isNotDone = true;
+        while (isNotDone) {
+            input = sc.nextLine(); // get the input from the user
+            isNotDone = processUserCommand(input); // process the input
         }
     }
 
@@ -189,14 +230,13 @@ public class Duke {
     }
 
     /**
-     * Function that starts a chat with the user
+     * Function that starts a chat with the user.
      *
      * @author Kerway
-     *
      */
     private void initiateChat() {
         greet();
-        handleAddTask();
+        handleUserInput();
         sayGoodBye();
     }
 

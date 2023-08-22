@@ -23,7 +23,7 @@ public class Task {
 
     /**
      * Method that returns the status icon based on whether the task was completed.
-     * If the task has been completed, "X" will be returned, else " " will be returned
+     * If the task has been completed, "X" will be returned, else " " will be returned.
      *
      * @author Tan Kerway
      */
@@ -41,7 +41,7 @@ public class Task {
     }
 
     /**
-     * Sets the isDone task flag to false
+     * Sets the isDone task flag to false.
      *
      * @author Tan Kerway
      */
@@ -50,7 +50,7 @@ public class Task {
     }
 
     /**
-     * Overrides the toString method
+     * Overrides the toString method.
      *
      * @author Tan Kerway
      * @return the string representation of a task
