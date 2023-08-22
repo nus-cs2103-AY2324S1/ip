@@ -2,7 +2,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
-    private static void start() {
+    private void start() {
         System.out.println("____________________________________________________________\n");
         String logo = "  __ _  ___ ___  _   _  _   _  \n" +
                 " / _/ \\| o \\_ _|/ \\ | \\| | / \\ \n" +
@@ -12,12 +12,18 @@ public class Duke {
         System.out.println("____________________________________________________________\n");
     }
 
-    private static void exit() {
+    private void exit() {
         System.out.println("Bye\n");
         System.out.println("____________________________________________________________\n");
     }
 
-    private static void echo() {
+    private void run() {
+        start();
+        echo();
+        exit();
+    }
+
+    private void echo() {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -28,8 +34,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        start();
-        echo();
-        exit();
+        Duke duke = new Duke();
+        duke.run();
     }
 }
