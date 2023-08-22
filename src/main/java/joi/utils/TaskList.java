@@ -41,4 +41,17 @@ public class TaskList {
         System.out.println(newTask);
         System.out.println("Now you have " + this.taskList.size() + " tasks in the list.\n");
     }
+
+    public void deleteTask(int taskIdx) throws InvalidCommandException {
+        if (taskIdx >= this.taskList.size()) {
+            throw new InvalidCommandException("Delete index is out of range.");
+        }
+        Task tmpTask = this.taskList.get(taskIdx);
+
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(tmpTask);
+        System.out.println("Now you have " + this.taskList.size() + " tasks in the list.\n");
+
+        this.taskList.remove(taskIdx);
+    }
 }

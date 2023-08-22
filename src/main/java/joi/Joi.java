@@ -53,6 +53,10 @@ public class Joi {
                     throw(e);
                 }
 
+            } else if (input.startsWith("delete")) {
+                int taskIdx = Integer.parseInt(input.substring(7)) - 1;
+                this.taskList.deleteTask(taskIdx);
+
             } else {
                 throw new InvalidInputException(input);
             }
