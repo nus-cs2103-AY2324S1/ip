@@ -65,13 +65,79 @@ public class TrackerBot {
   }
 
   /**
-   * Add function of the app. <br>
-   * Adds the item to the task list. We do not handle the OutOfBounds case as
-   * the tasks is assumed to be less than 100.
-   * @param str The String of the task to add to the list.
+   * Function that adds a task to the app. <br>
+   * Adds a To-Do, Event or Deadline task to the task list.
+   * We do not handle the OutOfBounds case as the tasks is assumed to be less than 100.
+   * @param input The Pair&lt;Command, String&gt; of the task to add to the list.
    */
-  private static void add(String str) {
-    Task newTask = new Task(str);
+  private static void add(Pair<Command, String> input) {
+    Task newTask;
+    String[] segments;
+    switch(input.getFirst()) {
+      case TODO:
+        if (input.getSecond().equals("")) {
+          System.out.println("I can't track a task that doesn't have a description!");
+          return;
+        }
+        newTask = new Todo(input.getSecond());
+        break;
+      case DEADLINE:
+        segments = input.getSecond().split("/by");
+        if (segments.length < 2) {
+          System.out.println("Use 1 /by flag in the argument, followed by the deadline.");
+          System.out.println("Format: deadline [description] /by [end-date]");
+          return;
+        } else if (segments.length > 2) {
+          System.out.println("Too many flags specified! Use only 1 /by flag.");
+          System.out.println("Format: deadline [description] /by [end-date]");
+          return;
+        }
+
+        if (segments[0].trim().equals("")) {
+          System.out.println("I can't track a task that doesn't have a description!");
+          return;
+        }
+        if (segments[1].trim().equals("")) {
+          System.out.println("Specify a deadline please.");
+          return;
+        }
+
+        newTask = new Deadline(segments[0].trim(), segments[1].trim());
+        break;
+      case EVENT:
+        // this will check for the standard format, and will also guarantee that segment length is min 3.
+        if (!input.getSecond().matches("^.+ /from .+ /to .+")) {
+          System.out.println("event is not used in the correct format.");
+          System.out.println("Format: event [description] /from [start-date] /to [end-date]");
+          return;
+        }
+
+        segments = input.getSecond().split("/from|/to");
+        if (segments.length > 3) {
+          System.out.println("Too many flags specified for event!");
+          System.out.println("Format: deadline [description] /by [end-date]");
+          return;
+        }
+
+        if (segments[0].trim().equals("")) {
+          System.out.println("I can't track a task that doesn't have a description!");
+          return;
+        }
+        if (segments[1].trim().equals("")) {
+          System.out.println("Specify a start date please.");
+          return;
+        }
+        if (segments[2].trim().equals("")) {
+          System.out.println("Specify an end date please.");
+          return;
+        }
+
+        newTask = new Event(segments[0].trim(), segments[1].trim(), segments[2].trim());
+        break;
+      default:
+        System.out.println("That wasn't supposed to happen...");
+        return;
+    }
     TASK_LIST[taskCounter] = newTask;
     taskCounter++;
 
@@ -176,8 +242,13 @@ public class TrackerBot {
           System.out.println("Compulsory parameter for unmark should be a number.");
         }
         break;
+      case TODO:
+      case DEADLINE:
+      case EVENT:
+        add(input);
+        break;
       default:
-        add(str);
+        System.out.println("I could not recognise that keyword. Try another?");
     }
     System.out.println(FORMAT_LINE);
     scanner.close();
@@ -205,8 +276,12 @@ public class TrackerBot {
     BYE ("bye"),
     /** Command to list all tasks in the task list. **/
     LIST ("list"),
-    /** Command to add a new task to the task list. **/
-    ADD ("add"),
+    /** Command to add a new to-do task to the task list. **/
+    TODO ("todo"),
+    /** Command to add a new deadline task to the task list. **/
+    DEADLINE ("deadline"),
+    /** Command to add a new event task to the task list. **/
+    EVENT ("event"),
     /** Command to mark a task to be complete. **/
     MARK ("mark"),
     /** Command to mark a task as incomplete. **/
