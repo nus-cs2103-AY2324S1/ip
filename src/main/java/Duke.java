@@ -8,11 +8,14 @@ public class Duke {
 
     private static List<Task> list = new ArrayList<>();
 
+    private static Scanner scanner;
+
     public static void main(String[] args) {
 
+        scanner = new Scanner(System.in);
 
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
+        String logo = " ____        _\n"
+                + "|  _ \\ _   _| | _____\n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
@@ -56,7 +59,7 @@ public class Duke {
 
     private static void readInput() {
         // change
-        Scanner scanner = new Scanner(System.in);
+        //Scanner scanner = new Scanner(System.in);
         String command = scanner.next();
         //String[] tokens = command.split(" ");
 
@@ -111,7 +114,7 @@ public class Duke {
         ToDo td = new ToDo(task);
         list.add(td);
         System.out.println(drawLine());
-        System.out.println("Chewie gotcha, task added: \n" + td.status() + task);
+        System.out.println("Chewie gotcha, task added:\n" + td.status() + task);
         System.out.println("Chewie now find " + list.size() + " tasks in the list" + "\n");
         System.out.println(drawLine());
     }
@@ -120,7 +123,7 @@ public class Duke {
         Deadline dl = new Deadline(task,date);
         list.add(dl);
         System.out.println(drawLine());
-        System.out.println("Chewie gotcha, task added: \n" + dl.status() + dl.taskName());
+        System.out.println("Chewie gotcha, task added:\n" + dl.status() + dl.taskName());
         System.out.println("Chewie now find " + list.size() + " tasks in the list" + "\n");
         System.out.println(drawLine());
     }
@@ -129,14 +132,14 @@ public class Duke {
         Events ev = new Events(task,start,end);
         list.add(ev);
         System.out.println(drawLine());
-        System.out.println("Chewie gotcha, task added: \n" + ev.status() + ev.taskName());
+        System.out.println("Chewie gotcha, task added:\n" + ev.status() + ev.taskName());
         System.out.println("Chewie now find " + list.size() + " tasks in the list" + "\n");
         System.out.println(drawLine());
     }
 
     private static void readList() {
         System.out.println(drawLine());
-        System.out.println("Chewie found your task list: ");
+        System.out.println("Chewie found your task list:");
         for (int i = 0; i < list.size(); i++) {
             int index = i + 1;
             Task task = list.get(i);
