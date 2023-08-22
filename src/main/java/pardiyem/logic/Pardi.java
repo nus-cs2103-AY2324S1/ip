@@ -6,7 +6,7 @@ import pardiyem.parser.Parser;
 import pardiyem.task.Task;
 
 public class Pardi {
-    private final String GREETING = "\nHello, I'm Pardi\nWhat can I do for you?\n";
+    private final String GREETING = "\nSalve, I'm Pardi\nWhat can I do for you?\n";
     private final String BYE = "\nCiao! See you again!\n";
     private ArrayList<Task> tasklist;
     public Pardi() {
