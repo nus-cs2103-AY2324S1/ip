@@ -27,6 +27,10 @@ public class Simon {
                 String[] split = inData.split(" ");
                 int index = Integer.parseInt(split[1]) - 1;
                 tasks.get(index).markAsUndone();
+            } else if (inData.contains("mark")) {
+                String[] split = inData.split(" ");
+                int index = Integer.parseInt(split[1]) - 1;
+                tasks.get(index).markAsDone();
             }
             else {
                 tasks.add(new Task(inData));
