@@ -1,0 +1,7 @@
+todo task one
+deadline task 2 /by time 1
+event task 3 /from time 2 /to time 3
+list
+mark 1
+unmark 1
+exit
