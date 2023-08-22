@@ -13,4 +13,6 @@ deadline
 event
 deadline return book
 event return book
+delete 2
+list
 bye
