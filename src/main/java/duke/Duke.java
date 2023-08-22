@@ -145,12 +145,13 @@ public class Duke {
                 } else if (text.startsWith("delete")) {
                     String[] splitText = text.split(" ");
                     int numToDelete = Integer.parseInt(splitText[1]) - 1;
-                    list.remove(numToDelete);
+
 
                     println();
                     System.out.println("Alright Sir, I have removed this task from the list for you.");
-                    System.out.println(String.format("\t %s",list.get(numToDelete).toString()));
+                    System.out.println(String.format("\t [%s] [%s] %s",list.get(numToDelete).tag, list.get(numToDelete).getStatusIcon(), list.get(numToDelete).toString()));
                     decrementCounter();
+                    list.remove(numToDelete);
                     System.out.println(String.format("Now you have %d tasks left.", getCounter()));
 
 
