@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import tasks.Task;
+import tasks.ToDo;
+import tasks.Deadline;
+import tasks.Event;
 
 public class Corgi {
     private List<Task> tasks;
@@ -36,17 +39,40 @@ public class Corgi {
         while(true) {
             String userInput = sc.nextLine().trim();
 
-            if (userInput.toLowerCase().equals("bye")) {
-                System.out.println("Bye, take care and see you soon! *tail wags*");
-                break;
-            } else if (userInput.toLowerCase().equals("list")) {
-                this.displayTasks();
-            } else if (userInput.startsWith("mark ")) {
-                this.markTaskAsDone(userInput.substring(5));
-            } else if (userInput.startsWith("unmark ")) {
-                this.markTaskAsNotDone(userInput.substring(7));
+            if (userInput.equals("")) {
+                continue;
+            }
+
+            System.out.println("------------------------------------------------------------");
+
+            String[] parts = userInput.split(" ", 2);
+            
+            if (parts.length == 1) {
+                if (userInput.toLowerCase().equals("bye")) {
+                    System.out.println("Bye, take care and see you soon! *tail wags*");
+                    break;
+                } else if (userInput.toLowerCase().equals("list")) {
+                    this.displayTasks();
+                    System.out.println("------------------------------------------------------------");
+                    continue;
+                }
+            }
+
+            String cmd = parts[0];
+            String details = parts[1];
+
+            if (cmd.equals("mark")) {
+                this.markTaskAsDone(details);
+            } else if (cmd.equals("unmark")) {
+                this.markTaskAsNotDone(details);
+            } else if (cmd.equals("todo")){
+                this.addTask(details,"todo");
+            } else if (cmd.equals("deadline")){
+                this.addTask(details,"deadline");
+            } else if (cmd.equals("event")){
+                this.addTask(details,"event");
             } else {
-                this.addTask(userInput);
+                this.addTask(details);
             }
 
             System.out.println("------------------------------------------------------------");
@@ -108,5 +134,35 @@ public class Corgi {
     private void addTask(String task) {
         this.tasks.add(new Task(task));
         System.out.println("Added: " + task);
+    }
+
+    private void addTask(String taskInfo, String type) {
+        Task newTask = null;
+
+        switch (type) {
+            case "todo":
+                newTask = new ToDo(taskInfo);
+                break;
+            case "deadline":
+                String[] deadlineInfos = taskInfo.split(" /by ");
+                String deadlineDesc = deadlineInfos[0];
+                String by = deadlineInfos[1];
+                newTask = new Deadline(deadlineDesc, by);
+                break;
+            case "event":
+                String[] eventInfos = taskInfo.split(" /from ");
+                String eventDesc = eventInfos[0];
+                String[] eventDuration = eventInfos[1].split(" /to ");
+                String from = eventDuration[0];
+                String to = eventDuration[1];
+                newTask = new Event(eventDesc, from, to);
+                break;
+        } 
+
+        if (newTask != null) {
+            this.tasks.add(newTask);
+            System.out.println("Got it. I've added this task:\n" + 
+                " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.");
+        }
     }
 }
