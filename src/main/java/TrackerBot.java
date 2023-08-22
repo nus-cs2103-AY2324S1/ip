@@ -1,3 +1,5 @@
+import ip.utils.Pair;
+
 import java.util.Scanner;
 
 /**
@@ -197,5 +199,72 @@ public class TrackerBot {
       input = scanner.nextLine();
       isBye = handleInput(input);
     } while (!isBye);
+  }
+
+  /**
+   * Enum for the commands that a user can use.
+   */
+  public enum Command {
+    /** Command to exit the program. **/
+    BYE ("bye"),
+    /** Command to list all tasks in the task list. **/
+    LIST ("list"),
+    /** Command to add a new task to the task list. **/
+    ADD ("add"),
+    /** Command to mark a task to be complete. **/
+    MARK ("mark"),
+    /** Command to mark a task as incomplete. **/
+    UNMARK ("unmark"),
+    /** Command to denote an unknown keyword call. **/
+    UNKNOWN ("");
+
+    /** The String representation of the enum. Used to parse the command into enum. **/
+    private final String keyword;
+
+    /**
+     * Constructor for the enum Command. <br>
+     * Enum constructors are implicitly private, so the tag is not included.
+     * @param keyword The keyword of the task.
+     */
+    Command(String keyword) {
+      this.keyword = keyword;
+    }
+
+    /**
+     * Helper function. Splits the console input string into the invoking keyword
+     * and its description after the invoking keyword. <br>
+     * If no description exists after the keyword, an empty string is returned in the
+     * second half of the Pair structure.
+     *
+     * @param input The unmodified console string that the user inputs.
+     * @return A Pair&lt;Command, String&gt; object containing the enum and description.
+     */
+    public static Pair<Command, String> parse(String input) {
+      Scanner scanner = new Scanner(input);
+      // if the input is empty, return the unknown keyword with an empty description.
+      if (!scanner.hasNext()) {
+        scanner.close();
+        return new Pair<>(Command.UNKNOWN, "");
+      }
+
+      String keyword = scanner.next();
+      Command first = Command.UNKNOWN;
+
+      for (Command command: Command.values()) {
+        if (keyword.equals(command.keyword)) {
+          first = command;
+          break;
+        }
+      }
+
+      if (first.equals(Command.UNKNOWN) || !scanner.hasNextLine()) {
+        scanner.close();
+        return new Pair<>(first, "");
+      }
+
+      String second = scanner.nextLine().trim();
+      scanner.close();
+      return new Pair<>(first, second);
+    }
   }
 }
