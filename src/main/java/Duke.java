@@ -1,20 +1,35 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
+        //greeting
         System.out.println("Hello! I'm Sara");
         System.out.println("What can I do for you?");
+
+        //create scanner to read user inputs
         Scanner scan = new Scanner(System.in);
 
+        //create empty list to store stuff to do
+        List<String> toDoList = new ArrayList<>();
+
+        //processing user commands
         while(true) {
+            //read user input
             String userInput = scan.nextLine();
-            System.out.println(userInput);
+
+            if (userInput.equalsIgnoreCase("list")) {
+                //display list
+                System.out.println("List:");
+                for (int i = 0; i < toDoList.size(); i++) {
+                    System.out.println(((i + 1) + ". " + toDoList.get(i)));
+                }
+            } else {
+                //store input into list
+                toDoList.add(userInput);
+                System.out.println("added: " + userInput);
+            }
 
             if(userInput.equalsIgnoreCase("bye")){
                 break;
