@@ -5,6 +5,8 @@ import tasks.Task;
 import tasks.ToDo;
 import tasks.Deadline;
 import tasks.Event;
+import commands.CommandType;
+import commands.InvalidCommandException;
 
 public class Corgi {
     private List<Task> tasks;
@@ -36,7 +38,7 @@ public class Corgi {
 
         Scanner sc = new Scanner(System.in);
 
-        while(true) {
+        loop: while(true) {
             String userInput = sc.nextLine().trim();
 
             if (userInput.equals("")) {
@@ -45,40 +47,48 @@ public class Corgi {
 
             System.out.println("------------------------------------------------------------");
 
-            String[] parts = userInput.split(" ", 2);
-            
-            if (parts.length == 1) {
-                if (userInput.toLowerCase().equals("bye")) {
-                    System.out.println("Bye, take care and see you soon! *tail wags*");
-                    break;
-                } else if (userInput.toLowerCase().equals("list")) {
-                    this.displayTasks();
-                    System.out.println("------------------------------------------------------------");
-                    continue;
+            String[] inputParts = userInput.split(" ", 2);
+            String cmdStr = inputParts[0];
+
+            try {
+                CommandType cmd = CommandType.getCommandType(cmdStr);
+
+                switch (cmd) {
+                    case BYE:
+                        System.out.println("Bye, take care and see you soon! *tail wags*");
+                        break loop;
+                    case LIST:
+                        this.displayTasks();
+                        System.out.println("------------------------------------------------------------");
+                        break;
+                    case MARK:
+                        markTaskAsDone(inputParts[1]);
+                        break;
+                    case UNMARK:
+                        markTaskAsNotDone(inputParts[1]);
+                        break;
+                    case TODO:
+                        addToDo(inputParts[1]);
+                        break;
+                    case DEADLINE:
+                        addDeadline(inputParts[1]);
+                        break;
+                    case EVENT:
+                        addEvent(inputParts[1]);
+                        break;
                 }
-            }
-
-            String cmd = parts[0];
-            String details = parts[1];
-
-            if (cmd.equals("mark")) {
-                this.markTaskAsDone(details);
-            } else if (cmd.equals("unmark")) {
-                this.markTaskAsNotDone(details);
-            } else if (cmd.equals("todo")){
-                this.addTask(details,"todo");
-            } else if (cmd.equals("deadline")){
-                this.addTask(details,"deadline");
-            } else if (cmd.equals("event")){
-                this.addTask(details,"event");
-            } else {
-                this.addTask(details);
+            } catch (InvalidCommandException e) {
+                this.printException("Can't believe you're asking that! Grrr, what do you want now?");
             }
 
             System.out.println("------------------------------------------------------------");
         }
 
         sc.close();
+    }
+
+    private void printException(String msg) {
+        System.out.println("Woof?! 🤬 \n" + msg);
     }
 
     /**
@@ -126,49 +136,53 @@ public class Corgi {
         }
     }
 
-    /**
-     * Add a new task to the list of tasks.
-     * 
-     * @param task Task to be added
-     */
-    private void addTask(String task) {
-        this.tasks.add(new Task(task));
-        System.out.println("Added: " + task);
-    }
-    
      /**
-      * Add a new task to the list of tasks based on the provided task type.
+      * Add a new ToDo to the list of tasks based on the provided task type.
       *
-      * @param taskInfo Information about the task, including description and date/time details
-      * @param type The type of the task ("todo", "deadline", or "event")
+      * @param taskInfo Information about the todo
       */
-    private void addTask(String taskInfo, String type) {
-        Task newTask = null;
+    private void addToDo(String taskInfo) {
+        Task newTask = new ToDo(taskInfo);
 
-        switch (type) {
-            case "todo":
-                newTask = new ToDo(taskInfo);
-                break;
-            case "deadline":
-                String[] deadlineInfos = taskInfo.split(" /by ");
-                String deadlineDesc = deadlineInfos[0];
-                String by = deadlineInfos[1];
-                newTask = new Deadline(deadlineDesc, by);
-                break;
-            case "event":
-                String[] eventInfos = taskInfo.split(" /from ");
-                String eventDesc = eventInfos[0];
-                String[] eventDuration = eventInfos[1].split(" /to ");
-                String from = eventDuration[0];
-                String to = eventDuration[1];
-                newTask = new Event(eventDesc, from, to);
-                break;
-        } 
+        this.tasks.add(newTask);
+        System.out.println("Got it. I've added this ToDo:\n" + 
+            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.");
+    }
 
-        if (newTask != null) {
-            this.tasks.add(newTask);
-            System.out.println("Got it. I've added this task:\n" + 
-                " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.");
-        }
+    /**
+      * Add a new Deadline to the list of tasks based on the provided task type.
+      *
+      * @param taskInfo Information about the deadline, including description and date/time details
+      */
+    private void addDeadline(String taskInfo) {
+        String[] deadlineInfos = taskInfo.split(" /by ");
+        String deadlineDesc = deadlineInfos[0];
+        String by = deadlineInfos[1];
+
+        Task newTask = new Deadline(deadlineDesc, by);
+
+        this.tasks.add(newTask);
+
+        System.out.println("Got it. I've added this deadline:\n" + 
+            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.");
+    }
+
+    /**
+      * Add a new Event to the list of tasks based on the provided task type.
+      *
+      * @param taskInfo Information about the event, including description and date/time details
+      */
+    private void addEvent(String taskInfo) {
+        String[] eventInfos = taskInfo.split(" /from ");
+        String eventDesc = eventInfos[0];
+        String[] eventDuration = eventInfos[1].split(" /to ");
+        String from = eventDuration[0];
+        String to = eventDuration[1];
+
+        Task newTask = new Event(eventDesc, from, to);
+
+        this.tasks.add(newTask);
+        System.out.println("Got it. I've added this event:\n" + 
+            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.");
     }
 }
