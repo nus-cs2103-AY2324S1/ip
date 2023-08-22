@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
@@ -7,8 +8,9 @@ public class Duke {
         System.out.println("What can I do for you?");
 
         Scanner scanner = new Scanner(System.in);
-        Task[] list = new Task[100];
-        int count = 0;
+        //Task[] list = new Task[100];
+        ArrayList<Task> list = new ArrayList<>();
+        //int count = 0;
 
         while (true) {
             String command = scanner.nextLine();
@@ -22,22 +24,30 @@ public class Duke {
             } else if (command.equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
+            } else if (command.toLowerCase().startsWith("delete")) {
+                int number = Integer.parseInt(command.split(" ")[1]) - 1;
+                Task removedTask = list.remove(number);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(removedTask.toString());
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
+
             } else if (command.equalsIgnoreCase("list")) {
                 System.out.println("Here are the tasks in your list: ");
-                for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1) + ". " + list[i].toString());
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println((i + 1) + ". " + list.get(i).toString());
                 }
+
             } else if (command.toLowerCase().startsWith("mark")) {
                 int number = Integer.parseInt(command.split(" ")[1]) - 1;
-                list[number].markAsDone();
+                list.get(number).markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(list[number].toString());
+                System.out.println(list.get(number).toString());
 
             } else if (command.toLowerCase().startsWith("unmark")) {
                 int number = Integer.parseInt(command.split(" ")[1]) - 1;
-                list[number].markAsNotDone();
+                list.get(number).markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(list[number].toString());
+                System.out.println(list.get(number).toString());
 
             } else if (command.toLowerCase().startsWith("todo")) {
                 String todo = command.substring(4).trim();
@@ -48,12 +58,11 @@ public class Duke {
                         System.out.println(e.getMessage());
                     }
                 } else {
-                    Todo add = new Todo(todo);
-                    list[count] = add;
-                    count++;
+                    Todo newTodo = new Todo(todo);
+                    list.add(newTodo);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(add.toString());
-                    System.out.println("Now you have " + count + " tasks in the list.");
+                    System.out.println(newTodo.toString());
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
                 }
 
             } else if (command.toLowerCase().startsWith("deadline")) {
@@ -72,12 +81,11 @@ public class Duke {
                     String description = sub[0].trim();
                     String by = sub[1].trim();
 
-                    Deadline add = new Deadline(description, by);
-                    list[count] = add;
-                    count++;
+                    Deadline newDeadline = new Deadline(description, by);
+                    list.add(newDeadline);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(add.toString());
-                    System.out.println("Now you have " + count + " tasks in the list.");
+                    System.out.println(newDeadline.toString());
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
                 }
 
             } else if (command.toLowerCase().startsWith("event")) {
@@ -100,12 +108,11 @@ public class Duke {
                     String from = fromTo[0].trim();
                     String to = fromTo[1].trim();
 
-                    Event add = new Event(description, from, to);
-                    list[count] = add;
-                    count++;
+                    Event newEvent = new Event(description, from, to);
+                    list.add(newEvent);
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(add.toString());
-                    System.out.println("Now you have " + count + " tasks in the list.");
+                    System.out.println(newEvent.toString());
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
                 }
             } else {
 //                Task task = new Task(command);
