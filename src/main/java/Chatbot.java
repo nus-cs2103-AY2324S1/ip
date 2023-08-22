@@ -179,16 +179,52 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
                             }
                         }
                         break;
+                    case "todo":
+                    case "deadline":
+                    case "event":
+
+                        if (data != null && !data.isBlank()) {
+                            TaskManager.Task task = null;
+                            String[] dataParts;
+                            switch (command) {
+                                case "todo":
+                                    task = new TaskManager.Todo(data);
+                                    break;
+                                case "deadline":
+                                    dataParts = data.split("/by", 2);
+                                    task = new TaskManager.Deadline(dataParts[0].trim(), dataParts[1].trim());
+                                    break;
+                                case "event":
+                                    dataParts = data.split("/(from|to)", 3);
+                                    task = new TaskManager.Event(dataParts[0].trim(), dataParts[1].trim(), dataParts[2].trim());
+                                    break;
+                            }
+                            this.taskManager.addTask(task);
+                            this.sendMessage(
+                                    MessageSender.CHATBOT,
+                                    String.format(
+                                            "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
+                                            task,
+                                            this.taskManager.getTaskCount()
+                                    )
+                            );
+                        }
+
+                        break;
 
                     case "list":
-                        if (data == null || data.isEmpty()) {
+                        if (data == null || data.isBlank()) {
                             StringBuilder builder = new StringBuilder();
+
+                            if (this.taskManager.getTaskCount() > 0) {
+                                builder.append("Here are your tasks, glhf! :)");
+                            } else {
+                                builder.append("Oh nice! You have no tasks! :>");
+                            }
+
                             int count = 1;
                             for (TaskManager.Task task : this.taskManager.getTasks()) {
-                                if (count > 1) {
-                                    builder.append("\n");
-                                }
-
+                                builder.append("\n");
                                 builder.append(count);
                                 builder.append(". ");
                                 builder.append(task.toString());
@@ -197,23 +233,22 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
                             this.sendMessage(MessageSender.CHATBOT, builder.toString());
                             break;
                         }
-                        // Otherwise, fallthrough.
+                        // Otherwise, fallthrough to default path.
 
                     case "bye":
-                        if (data == null || data.isEmpty()) {
+                        if (data == null || data.isBlank()) {
                             this.closeConversation();
                             break;
                         }
-                        // Otherwise, fallthrough.
+                        // Otherwise, fallthrough to default path.
 
                     default:
-                        String text = message.getMessage();
-                        this.taskManager.addTask(new TaskManager.Todo(text));
-                        this.sendMessage(MessageSender.CHATBOT, "added: " + text);
+                        this.sendMessage(MessageSender.CHATBOT, "Sorry, idgi :(");
                         break;
                 }
 
             default:
+                // Unknown sender.
                 break;
         }
     }
