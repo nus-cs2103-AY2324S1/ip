@@ -1,4 +1,4 @@
-package duke.utils;
+package joi.utils;
 
 public class Task {
     protected String description;
@@ -13,17 +13,18 @@ public class Task {
         this.isDone = false;
     }
 
-    public static Task parseInputAsTask(String input) {
+    public static Task parseInputAsTask(String input) throws InvalidCommandException {
         if (input.startsWith("event")) {
-            return new Event(input.substring(6));
+            return new Event(input);
 
         } else if (input.startsWith("todo")){
-            return new ToDo(input.substring(5));
+            return new ToDo(input);
 
         } else if (input.startsWith("deadline")){
-            return new Deadline(input.substring(9));
+            return new Deadline(input);
+
         } else {
-            return null;
+            throw new InvalidCommandException(input);
         }
     }
 

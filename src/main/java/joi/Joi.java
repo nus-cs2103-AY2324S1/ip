@@ -1,26 +1,27 @@
-package duke;
+package joi;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.utils.Task;
-import duke.utils.TaskList;
+import joi.utils.InvalidInputException;
+import joi.utils.InvalidCommandException;
+import joi.utils.Task;
+import joi.utils.TaskList;
 
-public class Duke {
+public class Joi {
     private static final String NAME = "Joi";
     private boolean isRunning;
     private final Scanner sc;
     private final TaskList taskList;
 
     // constructor for Duke
-    public Duke() {
+    public Joi() {
         this.isRunning = true;
         this.sc = new Scanner(System.in);
         this.taskList = new TaskList();
     }
 
     // the event loop
-    public void run() {
+    public void run() throws InvalidInputException, InvalidCommandException {
         this.greeting();
 
         while (this.isRunning) {
@@ -41,11 +42,19 @@ public class Duke {
                 int taskIdx = Integer.parseInt(input.substring(7)) - 1;
                 this.taskList.unmarkAsDone(taskIdx);
 
-            } else {
-                Task newTask = Task.parseInputAsTask(input);
-                if (newTask != null) {
+            } else if (input.startsWith("event") || input.startsWith("todo") || input.startsWith("deadline")){
+                Task newTask;
+                try {
+                    newTask = Task.parseInputAsTask(input);
                     this.taskList.addTask(newTask);
+
+                } catch (InvalidCommandException e) {
+                    System.err.println("Cannot create a valid task.");
+                    throw(e);
                 }
+
+            } else {
+                throw new InvalidInputException(input);
             }
         }
     }
@@ -56,10 +65,5 @@ public class Duke {
 
     private String getUserInput() {
         return this.sc.nextLine();
-    }
-
-    public static void main(String[] args) {
-        Duke joi = new Duke();
-        joi.run();
     }
 }
