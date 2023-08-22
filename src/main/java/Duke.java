@@ -33,7 +33,6 @@ public class Duke {
                     todolist.get(index - 1).markAsDone();
                     System.out.println("____________________________________________________________\n"
                             + "Nice! I've marked this task as done:\n"
-                            + " [" + todolist.get(index - 1).getStatusIcon() + "] "
                             + todolist.get(index - 1) + "\n"
                             + "____________________________________________________________\n");
                 } else if (userInput.startsWith("unmark")) {
@@ -41,7 +40,6 @@ public class Duke {
                     todolist.get(index - 1).unmark();
                     System.out.println("____________________________________________________________\n"
                             + "OK, I've marked this task as not done yet:\n"
-                            + " [" + todolist.get(index - 1).getStatusIcon() + "] "
                             + todolist.get(index - 1) + "\n"
                             + "____________________________________________________________\n");
                 } else {
@@ -66,13 +64,23 @@ public class Duke {
                         if (userInput.length() < 9) {
                             throw new IllegalArgumentException(
                                     "☹ OOPS!!! The description of a deadline cannot be empty.");
-                        } else if (!userInput.contains("/by")) {
-                            throw new IllegalArgumentException(
-                                    "☹ OOPS!!! The deadline date of a deadline cannot be empty.");
                         }
                         task = new Event(userInput.substring(6).split("/")[0],
                                 userInput.substring(6).split("/")[1].substring(5),
                                 userInput.substring(6).split("/")[2].substring(3));
+                    } else if (userInput.startsWith("delete", 0)) {
+                        int index = Integer.valueOf(userInput.split(" ", 0)[1]);
+                        if (index > todolist.size()) {
+                            throw new IllegalArgumentException("Index beyond size of ToDo List");
+                        }
+                        todolist.get(index - 1).remove();
+                        System.out.println("____________________________________________________________\n"
+                                + "Noted. I've removed this task:\n"
+                                + todolist.get(index - 1) + "\n"
+                                + "Now you have " + Task.getTotal() + " tasks in the list.\n"
+                                + "____________________________________________________________\n");
+                        todolist.remove(index - 1);
+                        continue;
                     } else {
                         throw new IllegalArgumentException("Incorrect Input");
                     }

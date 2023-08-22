@@ -28,4 +28,8 @@ public class Task {
     public static int getTotal() {
         return Task.total;
     }
+
+    public void remove() {
+        Task.total -= 1;
+    }
 }
