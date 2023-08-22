@@ -112,8 +112,11 @@ public class Duke {
                     Deadline.handleDeadlineTask(userInput);
                 } else if (userInput.startsWith("todo")) {
                     Todo.handleTodoTask(userInput);
+                } else if (userInput.startsWith("event")) {
+                    Event.handleEventTask(userInput);
                 } else {
-                    addTask(userInput);
+                    System.out.println("Please input valid commands. Currently SeeWhyAre bot supports:");
+                    System.out.println("todo \ndeadline \nevent \nlist");
                 }
             }
         } catch (Exception e) {

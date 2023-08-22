@@ -1,0 +1,46 @@
+public class Event extends Task {
+
+    protected String startTime;
+    protected String endTime;
+
+    public Event(String description, String startTime, String endTime) {
+        super(description);
+        this.startTime = startTime;
+        this.endTime = endTime;
+
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+    }
+
+    /**
+     * Function to handle an Event Task. If it's inputs are valid, create an Event Task.
+     * Otherwise, print an error message in the console.
+     * @param userInput a valid user input for an Event Task.
+     */
+    public static void handleEventTask(String userInput) {
+        String[] details = userInput.split("/from | /to");
+        //details[0] contains "deadline" plus task description, need to erase "deadline". details[1] contains String deadline timing
+        if (details.length == 3) {
+            String taskDescription = details[0].trim().replace("event", "").trim();
+            String startTime = details[1].trim();
+            String endTime = details[2].trim();
+            Event eventTask = new Event(taskDescription, startTime, endTime);
+            Duke.taskList.add(eventTask); //Deadline <: Task
+
+            //Print details in the console
+            System.out.println(Duke.HORIZONTAL_LINE);
+            System.out.println("     Got it. I've added this task:");
+            System.out.printf("       %s\n", eventTask.toString());
+            System.out.printf("     Now you have %d tasks in the list.\n", Duke.taskList.size());
+            System.out.println(Duke.HORIZONTAL_LINE);
+
+        } else {
+            System.out.println("Invalid Event Task input. \n"
+                    + "Please input in the following format: "
+                    + "event <Task Description> /from <start time> /to <end time>\n");
+        }
+    }
+}
