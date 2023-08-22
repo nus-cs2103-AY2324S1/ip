@@ -39,7 +39,7 @@ public class Duke {
                         System.out.println(tem_order + "." + task.get(i));
                     }
                     System.out.println("_____________________________________\n");
-                } else if (input.startsWith("mark ")) {
+                } else if (input.startsWith("mark")) {
                     if (input.length() <= 5) {
                         throw new DukeException("☹ OOPS!!! The description of a mark cannot be empty.");
                     }
@@ -52,9 +52,9 @@ public class Duke {
                         System.out.println("  " + task.get(input_num));
                         System.out.println("_____________________________________\n");
                     } else {
-                        throw new DukeException("Invalid task number. :( Please provide a valid task number.");
+                        throw new DukeException("Invalid input number. :( Please provide a valid task number.");
                     }
-                } else if (input.startsWith("unmark ")) {
+                } else if (input.startsWith("unmark")) {
                     if (input.length() <= 7) {
                         throw new DukeException("☹ OOPS!!! The description of a unmark cannot be empty.");
                     }
@@ -67,21 +67,21 @@ public class Duke {
                         System.out.println("  " + task.get(input_num));
                         System.out.println("_____________________________________\n");
                     } else {
-                        throw new DukeException("Invalid task number. :( Please provide a valid task number.");
+                        throw new DukeException("Invalid input number. :( Please provide a valid task number.");
                     }
-                } else if (input.startsWith("todo ")) {
+                } else if (input.startsWith("todo")) {
                     if (input.length() <= 5) {
                         throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
                     String description = input.substring(5).trim();
                     task.add(new Todo(description));
                     System.out.println("_____________________________________\n");
-                    System.out.println("Got it. I've added this task:\n");
+                    System.out.println("Got it. I've added this task:");
                     System.out.println("  " + task.get(task.size() - 1).toString());
                     String task_type = (task.size() > 1 ? " tasks" : " task");
                     System.out.println("Now you have " + task.size() + task_type + " in the list.\n");
                     System.out.println("_____________________________________\n");
-                } else if (input.startsWith("deadline ")) {
+                } else if (input.startsWith("deadline")) {
                     if (input.length() <= 9) {
                         throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
@@ -90,12 +90,12 @@ public class Duke {
                     String time = tem[1].trim();
                     task.add(new Deadline(description, time));
                     System.out.println("_____________________________________\n");
-                    System.out.println("Got it. I've added this task:\n");
+                    System.out.println("Got it. I've added this task:");
                     System.out.println("  " + task.get(task.size() - 1).toString());
                     String task_type = (task.size() > 1 ? " tasks" : " task");
                     System.out.println("Now you have " + task.size() + task_type + " in the list.\n");
                     System.out.println("_____________________________________\n");
-                } else if (input.startsWith("event ")) {
+                } else if (input.startsWith("event")) {
                     if (input.length() <= 6) {
                         throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                     }
@@ -106,12 +106,15 @@ public class Duke {
                     String end = tem_2[1].trim();
                     task.add(new Event(description, start, end));
                     System.out.println("_____________________________________\n");
-                    System.out.println("Got it. I've added this task:\n");
+                    System.out.println("Got it. I've added this task:");
                     System.out.println("  " + task.get(task.size() - 1).toString());
                     String task_type = (task.size() > 1 ? " tasks" : " task");
                     System.out.println("Now you have " + task.size() + task_type + " in the list.\n");
                     System.out.println("_____________________________________\n");
-                } else if (input.startsWith("delete ")) {
+                } else if (input.startsWith("delete")) {
+                    if (input.length() <= 6) {
+                        throw new DukeException("☹ OOPS!!! The description of a delete cannot be empty.");
+                    }
                     int task_num = Integer.parseInt(input.substring(7)) - 1;
                     if (task_num >= 0 && task_num < task.size()) {
                         Task removedTask = task.remove(task_num);
@@ -121,7 +124,7 @@ public class Duke {
                         System.out.println("Now you have " + task.size() + " tasks in the list.");
                         System.out.println("_____________________________________\n");
                     } else {
-                        throw new DukeException("Invalid task number. :( Please provide a valid task number.");
+                        throw new DukeException("Invalid input number. :( Please provide a valid task number.");
                     }
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
