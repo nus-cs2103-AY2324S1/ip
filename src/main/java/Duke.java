@@ -11,7 +11,15 @@ public class Duke {
          */
         String start = "Hello! I'm ChatBot" + "\n" + "What can I do for you?" + "\n";
         System.out.println(start);
-        System.out.println("Bye. Hope to see you again soon!");
+        while (true) {
+            BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+            String str = bf.readLine();
+            if (str.equals("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+                break;
+            }
+            System.out.println(str);
+        }
 
         }
 }
