@@ -118,7 +118,7 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
      * @return The resulting message sent.
      */
     public Message sendMessageFromUser(String message) {
-        if (!this.closed) {
+        if (this.closed) {
             throw new RuntimeException("The conversation is not started or has ended, so no messages may be sent!");
         }
 
@@ -151,7 +151,8 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
         // Process whatever we need to do!
         switch (message.getSender()) {
             case USER:
-                // TODO: do something.
+                // TODO: As a POC, this echos the user's message. Should be changed to more useful stuff.
+                this.sendMessage(MessageSender.CHATBOT, message.getMessage());
             default:
                 break;
         }
