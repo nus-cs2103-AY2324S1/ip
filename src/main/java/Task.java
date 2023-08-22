@@ -1,11 +1,13 @@
 /**
  * The Task class for TrackerBot. <br>
- * The Task class abstracts each checklist item inside a Reminder-Type app.
+ * The Task class abstracts each checklist item inside a Reminder-Type app. <br>
+ * As of Level 4, Task should no longer be instantiated as a base task, as To-do
+ * exists as a basic Task. Therefore, Task has been converted to an Abstract class.
  *
  * @author WZWren
- * @version Level-3
+ * @version Level-4
  */
-public class Task {
+public abstract class Task {
   /** The description of the task instance. **/
   private String description;
 
