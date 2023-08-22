@@ -10,4 +10,17 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " ");    // mark done task with X
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", getStatusIcon(), description);
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void markAsUndone() {
+        this.isDone = false;
+    }
 }

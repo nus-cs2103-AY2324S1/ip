@@ -26,7 +26,7 @@ public class Pooh {
     }
 
     public static void exitMsg() {
-        String byeMessage = "      How lucky I am to have something that makes saying goodbye so hard. Pooh says Bye!";
+        String byeMessage = "      How lucky I am to have something that makes saying goodbye so hard. Bye!";
         System.out.println(horizontalLine);
         System.out.println(byeMessage);
         System.out.println(horizontalLine);
@@ -38,20 +38,33 @@ public class Pooh {
         System.out.println(horizontalLine);
     }
 
-    public static void printTasks(List<String> tasks) {
+    public static void printTasksMsg(List<Task> taskList) {
         StringBuilder todoListString = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            String task = String.format("      %d. ", i) + tasks.get(i) + "\n";
+        for (int i = 0; i < taskList.size(); i++) {
+            String task = String.format("      %d. ", i + 1) + taskList.get(i) + "\n";
             todoListString.append(task);
         }
         System.out.println(horizontalLine);
+        System.out.println("      Here are the tasks in your list:");
         System.out.println(todoListString.toString().stripTrailing());
+        System.out.println(horizontalLine);
+    }
+
+    public static void taskDoneMsg(List<Task> taskList, Task task) {
+        System.out.println(horizontalLine);
+        System.out.println("      Nice! I've marked this task as done:\n      " + task);
+        System.out.println(horizontalLine);
+    }
+
+    public static void taskUndoneMsg(List<Task> taskList, Task task) {
+        System.out.println(horizontalLine);
+        System.out.println("      OK, I've marked this task as not done yet:\n      " + task);
         System.out.println(horizontalLine);
     }
 
     public static void main(String[] args) {
         welcomeMsg();
-        List<String> todoList = new ArrayList<String>();
+        List<Task> todoList = new ArrayList<Task>();
         Scanner userInput = new Scanner(System.in);
         while  (userInput.hasNextLine()) {
             String userCmd = userInput.nextLine();
@@ -63,10 +76,20 @@ public class Pooh {
                 if (todoList.isEmpty()) {
                     generalRespond("      No tasks added. Add one now!");
                 } else {
-                    printTasks(todoList);
+                    printTasksMsg(todoList);
                 }
+            } else if (userCmd.startsWith("mark ")) {
+                int index = Integer.parseInt(userCmd.split(" ")[1]) - 1;
+                Task task = todoList.get(index);
+                task.markAsDone();
+                taskDoneMsg(todoList, task);
+            } else if (userCmd.startsWith("unmark ")){
+                int index = Integer.parseInt(userCmd.split(" ")[1]) - 1;
+                Task task = todoList.get(index);
+                task.markAsUndone();
+                taskUndoneMsg(todoList, task);
             } else {
-                todoList.add(userCmd);
+                todoList.add(new Task(userCmd));
                 generalRespond("      added: " + userCmd);
             }
         }
