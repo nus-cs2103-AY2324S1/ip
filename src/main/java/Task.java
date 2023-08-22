@@ -12,14 +12,12 @@ public class Task {
             return (isDone ? "[X]" : "[ ]"); // mark done task with X
         }
 
-        public String markAsDone(boolean isMark){
-            if (isMark) this.isDone = true;
-            else this.isDone=false;
-            return "Here's your modified task:\n"+this.getStatusIcon()+" "+this.getDescription();
+        public void markAsDone(boolean isDone){
+            this.isDone=isDone;
         }
 
-        public String getDescription(){
-            return this.description;
+        @Override
+        public String toString(){
+           return this.getStatusIcon()+" "+this.description;
         }
-
 }
