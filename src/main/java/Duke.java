@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Duke {
     private final String line = "____________________________________________________________";
+    private ArrayList<Task> tasks = new ArrayList<Task>();
 
     public void greet() {
         System.out.println(line);
@@ -17,22 +18,37 @@ public class Duke {
         System.out.println(line);
     }
 
-    public void handleCommand(String command) {
+    public void printTasks() {
         System.out.println(line);
-        System.out.println(command);
-        System.out.println(line);
+        for (int i = 0; i < tasks.size(); i++) {
+            int index = i + 1;
 
-        return;
+            System.out.println(index + ". " + tasks.get(i));
+        }
+        System.out.println(line);
     }
 
-    public void acceptCommands() {
+    public void handleTask(String task) {
+        System.out.println(line);
+        System.out.println("added: " + task);
+        System.out.println(line);
+
+        Task nextTask = new Task(task);
+        this.tasks.add(nextTask);
+    }
+
+    public void acceptTasks() {
         Scanner scanner = new Scanner(System.in);
-        String command = scanner.nextLine();
+        String nextTask = scanner.nextLine();
 
-        while (!command.equals("bye")) {
-            this.handleCommand(command);
+        while (!nextTask.equals("bye")) {
+            if (nextTask.equals("list")) {
+                printTasks();
+            } else {
+                this.handleTask(nextTask);
+            }
 
-            command = scanner.nextLine();
+            nextTask = scanner.nextLine();
         }
 
         scanner.close();
@@ -43,6 +59,6 @@ public class Duke {
     public static void main(String[] args) {
         Duke chatBot = new Duke();
         chatBot.greet();
-        chatBot.acceptCommands();
+        chatBot.acceptTasks();
     }
 }
