@@ -87,7 +87,6 @@ public class Pooh {
             } else {
                 todoList.add(new Task(userCmd));
                 generalRespond("      added: " + userCmd);
-            }
         }
     }
 }
