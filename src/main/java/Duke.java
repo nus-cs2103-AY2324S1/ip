@@ -8,7 +8,7 @@ public class Duke {
 
         // Perform some setups.
         chatbot.addEventListener(message -> {
-            if (message.getSender() != Chatbot.MessageSender.USER) {
+            if (message.getSenderType() != ChatMessage.SenderType.USER) {
                 System.out.println(message.getMessage());
                 System.out.println();
             }

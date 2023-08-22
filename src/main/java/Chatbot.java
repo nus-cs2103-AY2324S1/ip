@@ -1,45 +1,10 @@
 import java.util.ArrayList;
 
 /**
- * A chat-bot to interact with. Provides methods to allow for users to easily
+ * A chatbot to interact with. Provides methods to allow for users to easily
  * interact with the bot and for clients to subscribe to chat messages.
  */
-public class Chatbot extends EventEmitter<Chatbot.Message> {
-
-    /**
-     * The message sender for a conversation message
-     */
-    public enum MessageSender {
-        CHATBOT,
-        USER
-    }
-
-    /**
-     * The read only instance for a single message.
-     */
-    public class Message {
-        private long timestamp;
-        private MessageSender sender;
-        private String message;
-
-        private Message(MessageSender sender, String message) {
-            this.timestamp = System.currentTimeMillis();
-            this.sender = sender;
-            this.message = message;
-        }
-
-        public long getTimestamp() {
-            return this.timestamp;
-        }
-
-        public MessageSender getSender() {
-            return this.sender;
-        }
-
-        public String getMessage() {
-            return this.message;
-        }
-    }
+public class Chatbot extends EventEmitter<ChatMessage> {
 
     /** The default name of the chatbot. */
     public static String DEFAULT_NAME = "Todoify";
@@ -55,7 +20,7 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
 
 
     private String name;
-    private ArrayList<Message> convoList = new ArrayList<>();
+    private ArrayList<ChatMessage> convoList = new ArrayList<>();
     private TaskManager taskManager = new TaskManager();
     private boolean closed = true;
 
@@ -75,7 +40,7 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
      * Obtains an iterable representing the current full conversation.
      * @return An iterable of messages for the current conversation in chronological order.
      */
-    public Iterable<Message> getConversation() {
+    public Iterable<ChatMessage> getConversation() {
         return convoList;
     }
 
@@ -87,7 +52,7 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
             return;
         }
         this.closed = false;
-        this.sendMessage(MessageSender.CHATBOT, String.format("Hello! I'm %s!\nWhat can I do for you?", this.name));
+        this.sendMessage(ChatMessage.SenderType.CHATBOT, String.format("Hello! I'm %s!\nWhat can I do for you?", this.name));
     }
 
     /**
@@ -98,7 +63,7 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
             return;
         }
         this.closed = true;
-        this.sendMessage(MessageSender.CHATBOT, "Bye! Hope to see you again soon! ^-^");
+        this.sendMessage(ChatMessage.SenderType.CHATBOT, "Bye! Hope to see you again soon! ^-^");
     }
 
     /**
@@ -122,12 +87,12 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
      * @param message The message string to send.
      * @return The resulting message sent.
      */
-    public Message sendMessageFromUser(String message) {
+    public ChatMessage sendMessageFromUser(String message) {
         if (this.closed) {
-            throw new RuntimeException("The conversation is not started or has ended, so no messages may be sent!");
+            throw new ChatbotRuntimeException("The conversation is not started or has ended, so no messages may be sent!");
         }
 
-        return this.sendMessage(MessageSender.USER, message);
+        return this.sendMessage(ChatMessage.SenderType.USER, message);
     }
 
 
@@ -138,8 +103,8 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
      * @param message The message to send.
      * @return The resulting message sent.
      */
-    private Message sendMessage(MessageSender sender, String message) {
-        Message msg = new Message(sender, message);
+    private ChatMessage sendMessage(ChatMessage.SenderType sender, String message) {
+        ChatMessage msg = new ChatMessage(sender, message);
         convoList.add(msg);
         this.processMessage(msg);
         return msg;
@@ -149,118 +114,157 @@ public class Chatbot extends EventEmitter<Chatbot.Message> {
      * Internal method to process newly received messages.
      * @param message The message to process.
      */
-    private void processMessage(Message message) {
+    private void processMessage(ChatMessage message) {
         // Let's notify the listeners.
         this.fireEvent(message);
 
-        // Process whatever we need to do!
-        switch (message.getSender()) {
-            case USER:
-                final String FAILURE_MESSAGE_REPLY = "Sorry, idgi :(";
-                final Command command = Command.parse(message.getMessage());
+        if (message.getSenderType() == ChatMessage.SenderType.CHATBOT) {
+            // For now, self messages need no further processing.
+            return;
+        }
 
-                switch (command.getName()) {
-                    case "mark":
-                    case "unmark":
-                        if (command.getData() != null) {
-                            int index = Integer.parseInt(command.getData()) - 1;
-                            boolean completed = command.getName().equals("mark");
+        // Let's see what the other users send!
+        final String FAILURE_MESSAGE_REPLY = "Sorry, idgi :(";
+        final Command command = Command.parse(message.getMessage());
 
-                            TaskManager.Task task = this.taskManager.getTask(index);
-                            task.markCompleted(completed);
+        try {
+            switch (command.getName()) {
+                case "mark":
+                case "unmark":
+                    if (command.getData() != null) {
+                        int index;
+                        TaskManager.Task task;
+                        boolean completed;
 
-                            if (completed) {
-                                this.sendMessage(
-                                        MessageSender.CHATBOT,
-                                        String.format("Nice! I've marked this task as done:\n   %s", task.toString())
-                                );
-                            } else {
-                                this.sendMessage(
-                                        MessageSender.CHATBOT,
-                                        String.format("OK, I've marked this task as not done yet:\n   %s", task.toString())
-                                );
-                            }
+                        // Process the input
+                        try {
+                            index = Integer.parseInt(command.getData()) - 1;
+                        } catch (NumberFormatException e) {
+                            throw new ChatbotException(String.format(
+                                    "The command '%s' must be followed by a number representing the task number!",
+                                    command.getName()
+                            ));
                         }
-                        break;
 
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        if (!command.getData().isBlank()) {
-                            TaskManager.Task task = null;
-                            switch (command.getName()) {
-                                case "todo":
-                                    task = new TaskManager.Todo(command.getData());
-                                    break;
-                                case "deadline":
-                                    task = new TaskManager.Deadline(
-                                            command.getData(),
-                                            command.getParam("by")
-                                    );
-                                    break;
-                                case "event":
-                                    task = new TaskManager.Event(
-                                            command.getData(),
-                                            command.getParam("from"),
-                                            command.getParam("to")
-                                    );
-                                    break;
-                            }
-                            if (task != null) {
-                                this.taskManager.addTask(task);
-                                this.sendMessage(
-                                        MessageSender.CHATBOT,
-                                        String.format(
-                                                "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
-                                                task,
-                                                this.taskManager.getTaskCount()
-                                        )
+                        try {
+                            task = this.taskManager.getTask(index);
+                        } catch (IndexOutOfBoundsException e) {
+                            throw new ChatbotException(String.format(
+                                    "There is no task in the list numbered %d!",
+                                    index + 1
+                            ));
+                        }
+
+                        completed = command.getName().equals("mark");
+
+                        // Mark the task accordingly
+                        if (task.isCompleted() == completed) {
+                            throw new ChatbotException(
+                                    completed ? "The task was already done!" : "The task was already not done!"
+                            );
+                        }
+                        task.markCompleted(completed);
+
+                        // Send an appropriate reply
+                        if (completed) {
+                            this.sendMessage(
+                                    ChatMessage.SenderType.CHATBOT,
+                                    String.format("Nice! I've marked this task as done:\n   %s", task.toString())
+                            );
+                        } else {
+                            this.sendMessage(
+                                    ChatMessage.SenderType.CHATBOT,
+                                    String.format("OK, I've marked this task as not done yet:\n   %s", task.toString())
+                            );
+                        }
+                    }
+                    break;
+
+                case "todo":
+                case "deadline":
+                case "event":
+                    if (!command.getData().isBlank()) {
+                        TaskManager.Task task = null;
+                        switch (command.getName()) {
+                            case "todo":
+                                task = new TaskManager.Todo(command.getData());
+                                break;
+                            case "deadline":
+                                if (command.getParam("by") == null) {
+                                    throw new ChatbotException("The 'deadline' command requires supplying '/by <deadline>'!");
+                                }
+                                task = new TaskManager.Deadline(
+                                        command.getData(),
+                                        command.getParam("by")
                                 );
                                 break;
-                            }
+                            case "event":
+                                if (command.getParam("from") == null || command.getParam("to") == null) {
+                                    throw new ChatbotException("The 'event' command requires supplying both '/from <date>' and '/to <date>'!");
+                                }
+                                task = new TaskManager.Event(
+                                        command.getData(),
+                                        command.getParam("from"),
+                                        command.getParam("to")
+                                );
+                                break;
                         }
-                        this.sendMessage(MessageSender.CHATBOT, FAILURE_MESSAGE_REPLY);
-                        break;
-
-                    case "list":
-                        if (command.getData().isBlank()) {
-                            StringBuilder builder = new StringBuilder();
-
-                            if (this.taskManager.getTaskCount() > 0) {
-                                builder.append("Here are your tasks, glhf! :)");
-                            } else {
-                                builder.append("Oh nice! You have no tasks! :>");
-                            }
-
-                            int count = 1;
-                            for (TaskManager.Task task : this.taskManager.getTasks()) {
-                                builder.append("\n");
-                                builder.append(count);
-                                builder.append(". ");
-                                builder.append(task.toString());
-                                count++;
-                            }
-                            this.sendMessage(MessageSender.CHATBOT, builder.toString());
-                            break;
+                        if (task != null) {
+                            this.taskManager.addTask(task);
+                            this.sendMessage(
+                                    ChatMessage.SenderType.CHATBOT,
+                                    String.format(
+                                            "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
+                                            task,
+                                            this.taskManager.getTaskCount()
+                                    )
+                            );
+                        } else {
+                            throw new ChatbotException("Unexpected error occurred - task could not be created.");
                         }
-                        this.sendMessage(MessageSender.CHATBOT, FAILURE_MESSAGE_REPLY);
-                        break;
+                    } else {
+                        throw new ChatbotException(String.format(
+                                "The command '%s' to create a task requires some title content, but none was found!",
+                                command.getName()
+                        ));
+                    }
+                    break;
 
-                    case "bye":
-                        if (command.getData().isBlank()) {
-                            this.closeConversation();
-                            break;
+                case "list":
+                    if (command.getData().isBlank()) {
+                        StringBuilder builder = new StringBuilder();
+
+                        if (this.taskManager.getTaskCount() > 0) {
+                            builder.append("Here are your tasks, glhf! :)");
+                        } else {
+                            builder.append("Oh nice! You have no tasks! :>");
                         }
-                        this.sendMessage(MessageSender.CHATBOT, FAILURE_MESSAGE_REPLY);
-                        break;
-                    default:
-                        this.sendMessage(MessageSender.CHATBOT, FAILURE_MESSAGE_REPLY);
-                        break;
-                }
 
-            default:
-                // Unknown sender.
-                break;
+                        int count = 1;
+                        for (TaskManager.Task task : this.taskManager.getTasks()) {
+                            builder.append("\n");
+                            builder.append(count);
+                            builder.append(". ");
+                            builder.append(task.toString());
+                            count++;
+                        }
+                        this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
+                        break;
+                    }
+                    throw new ChatbotException(FAILURE_MESSAGE_REPLY);
+                case "bye":
+                    if (command.getData().isBlank()) {
+                        this.closeConversation();
+                        break;
+                    }
+                    throw new ChatbotException(FAILURE_MESSAGE_REPLY);
+                default:
+                    throw new ChatbotException(FAILURE_MESSAGE_REPLY);
+            }
+        } catch (ChatbotException e) {
+            this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oops! " + e.getMessage());
+        } catch (Exception e) {
+            this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oh no, something unexpectedly went wrong! :(");
         }
     }
 
