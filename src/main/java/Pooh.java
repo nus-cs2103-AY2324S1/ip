@@ -50,13 +50,13 @@ public class Pooh {
         System.out.println(horizontalLine);
     }
 
-    public static void taskDoneMsg(List<Task> taskList, Task task) {
+    public static void taskDoneMsg(Task task) {
         System.out.println(horizontalLine);
         System.out.println("      Nice! I've marked this task as done:\n      " + task);
         System.out.println(horizontalLine);
     }
 
-    public static void taskUndoneMsg(List<Task> taskList, Task task) {
+    public static void taskUndoneMsg(Task task) {
         System.out.println(horizontalLine);
         System.out.println("      OK, I've marked this task as not done yet:\n      " + task);
         System.out.println(horizontalLine);
@@ -64,7 +64,7 @@ public class Pooh {
 
     public static void main(String[] args) {
         welcomeMsg();
-        List<Task> todoList = new ArrayList<Task>();
+        List<Task> todoList = new ArrayList<>();
         Scanner userInput = new Scanner(System.in);
         while  (userInput.hasNextLine()) {
             String userCmd = userInput.nextLine();
@@ -78,12 +78,12 @@ public class Pooh {
                 int index = Integer.parseInt(userCmd.split(" ")[1]) - 1;
                 Task task = todoList.get(index);
                 task.markAsDone();
-                taskDoneMsg(todoList, task);
+                taskDoneMsg(task);
             } else if (userCmd.startsWith("unmark ")){
                 int index = Integer.parseInt(userCmd.split(" ")[1]) - 1;
                 Task task = todoList.get(index);
                 task.markAsUndone();
-                taskUndoneMsg(todoList, task);
+                taskUndoneMsg(task);
             } else {
                 todoList.add(new Task(userCmd));
                 generalRespond("      added: " + userCmd);
