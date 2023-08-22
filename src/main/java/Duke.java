@@ -7,9 +7,6 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         List<Task> todoList = new ArrayList<>();
 
-
-
-
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -33,28 +30,39 @@ public class Duke {
                     System.out.println(i + ". " + todoList.get(i - 1).toString());
                 }
             } else if (response.startsWith("mark")) {
-                String[] parts = response.split(" ");
-                int taskIndex = Integer.parseInt(parts[1]) - 1;
-                todoList.get(taskIndex).markDone();
-                System.out.println("Good Job! I have marked this task as done!");
-                System.out.println(todoList.get(taskIndex).toString());
-                for (Task t: todoList) {
-
+                try {
+                    String[] parts = response.split(" ");
+                    int taskIndex = Integer.parseInt(parts[1]) - 1;
+                    todoList.get(taskIndex).markDone();
+                    System.out.println("Good Job! I have marked this task as done!");
+                    System.out.println(todoList.get(taskIndex).toString());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("This task does not exist!");
                 }
             } else if (response.startsWith("unmark")) {
-                String[] parts = response.split(" ");
-                int taskIndex = Integer.parseInt(parts[1]) - 1;
-                todoList.get(taskIndex).markUndone();
-                System.out.println("Aw man! I have marked this task as undone. We go again!");
-                System.out.println(todoList.get(taskIndex).toString());
+                try {
+                    String[] parts = response.split(" ");
+                    int taskIndex = Integer.parseInt(parts[1]) - 1;
+                    todoList.get(taskIndex).markUndone();
+                    System.out.println("Aw man! I have marked this task as undone. We go again!");
+                    System.out.println(todoList.get(taskIndex).toString());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("This task does not exist!");
+                }
+            } else if (response.startsWith("deadline")) {
+
+            } else if (response.startsWith("event")) {
             } else {
-                todoList.add(new Task(response));
-                System.out.println("added: " + response);
+                int toTrim = response.indexOf(" ");
+                String taskTitle = response.substring(toTrim + 1);
+                todoList.add(new ToDo(taskTitle));
+                System.out.println("added: " + taskTitle);
+                }
             }
-        }
         scanner.close();
+        }
     }
-}
+
 
 
 

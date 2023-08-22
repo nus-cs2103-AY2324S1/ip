@@ -1,10 +1,10 @@
-public class Task {
-    private String title;
-    private Boolean done;
+public abstract class Task {
+    protected String title;
+    protected Boolean done;
 
-    public Task(String title) {
+    public Task(String title, boolean done) {
         this.title = title;
-        this.done = false;
+        this.done = done;
     }
 
     public void markDone() {
