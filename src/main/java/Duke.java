@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     public static class Task {
@@ -66,6 +67,7 @@ public class Duke {
     }
 
     Task[] taskList = new Task[100];
+    ArrayList<Task> taskArrayList = new ArrayList<Task>();
     int taskCount = 0;
 
     String line = "~~*~~*~~*~~*~~*~~*~~*~~*~~*~~\n";
@@ -91,7 +93,8 @@ public class Duke {
                 if (input == null) {
                     throw new DukeException("What are you on about? I do not understand...");
                 }
-                taskList[taskCount] = input;
+//                taskList[taskCount] = input;
+                taskArrayList.add(input);
                 taskCount++;
                 System.out.println(line);
                 System.out.println(input.toString() + " has been added to yo list!\n");
@@ -102,6 +105,23 @@ public class Duke {
                 System.out.println(line);
             }
         }
+
+        public void chadRemoveList(int index){
+            try {
+                Task removed = taskArrayList.remove(index - 1);
+                taskCount--;
+                System.out.println("Okay! I have removed this task :\n" + removed);
+
+                if (taskArrayList.size() == 0) {
+                    System.out.println("Your list is currently empty! Good job :)");
+                } else {
+                    System.out.println("Your list is currently " + taskArrayList.size() + " long... Get back to work!");
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Invalid task index! Try again!");
+            }
+
+        }
         public void chadListTask() {
             if (taskCount == 0) {
                 System.out.println("Your task list is EMPTY!");
@@ -109,7 +129,8 @@ public class Duke {
                 System.out.println(line);
                 System.out.println("Your outstanding tasks are...");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println("Task " + (i + 1) + ") " + taskList[i].toString());
+//                    System.out.println("Task " + (i + 1) + ") " + taskList[i].toString());
+                    System.out.println("Task " + (i + 1) + ") " + taskArrayList.get(i)); //<<<<<
                 }
                 System.out.println("\n" + "Get to work NOW!\n");
                 System.out.println(line);
@@ -117,18 +138,22 @@ public class Duke {
         }
 
         public void chadMarkTask(int index) {
-            taskList[index - 1].isComplete = true;
+//            taskList[index - 1].isComplete = true;
+            taskArrayList.get(index - 1).isComplete = true;
             System.out.println(line);
             System.out.println("Good job! Task fulfilled!");
-            System.out.println(taskList[index - 1].name + " [" + taskList[index - 1].getMark() + "]\n");
+//            System.out.println(taskList[index - 1].name + " [" + taskList[index - 1].getMark() + "]\n");
+            System.out.println(taskArrayList.get(index - 1).name + " [" + taskArrayList.get(index - 1).getMark() + "]\n");
             System.out.println(line);
         }
 
         public void chadUnmarkTask(int index) {
-            taskList[index - 1].isComplete = false;
+//            taskList[index - 1].isComplete = false;
+            taskArrayList.get(index - 1).isComplete = false;
             System.out.println(line);
             System.out.println("Boooo! Task is not done!");
-            System.out.println(taskList[index - 1].name + " [" + taskList[index - 1].getMark() + "]\n");
+//            System.out.println(taskList[index - 1].name + " [" + taskList[index - 1].getMark() + "]\n");
+            System.out.println(taskArrayList.get(index - 1).name + " [" + taskArrayList.get(index - 1).getMark() + "]\n");
             System.out.println(line);
         }
 
@@ -178,8 +203,6 @@ public class Duke {
                     System.out.println(e.getMessage() + "\n");
                 }
 
-
-
             } else if (inputArray[0].equals("deadline")) {
                 try {
                     if (inputArray.length < 2 || inputArray[1].isEmpty()){
@@ -212,6 +235,17 @@ public class Duke {
                 } catch(DukeException e) {
                     System.out.println(e.getMessage() + "\n");
                 }
+            } else if (inputArray[0].equals("delete")) {
+                try {
+                    Integer index = Integer.valueOf(inputArray[1]);
+                    chad.chadRemoveList(index);
+
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    System.out.println("The task index is invalid! Try again!");
+
+                }
+
+
             } else {
                 chad.chadOutput("Hmm? You are not making sense!");
             }
