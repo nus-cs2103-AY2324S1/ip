@@ -29,38 +29,74 @@ public class Monke {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
+            String[] temp = input.split(" ", 2);
+            String command = temp[0];
+            String args = temp.length > 1 ? temp[1] : "";
             Monke.printHorizontalLine();
-            if (input.equals("bye")) {
+
+            if (command.equals("bye")) {
                 break;
             }
-            if (input.equals("list")) {
-                Monke.displayList();
-            }
-            else if (input.startsWith("mark")) {
-                int n = Integer.parseInt(input.split(" ", 2)[1]);
-                Task task = Monke.list[n - 1];
-                task.mark();
-                Monke.speak("Ooga booga! I've marked this task as done:");
-                Monke.speak("\t" + task);
-            }
-            else if (input.startsWith("unmark")) {
-                int n = Integer.parseInt(input.split(" ", 2)[1]);
-                Task task = Monke.list[n - 1];
-                task.unmark();
-                Monke.speak("Ooga, I've marked this task as not done yet:");
-                Monke.speak("\t" + task);
-            } else {
-                Monke.speak("added: " + input);
-                Monke.addToList(new Task(input));
+            switch (command) {
+                case "list": {
+                    Monke.displayList();
+                    break;
+                }
+                case "mark": {
+                    int n = Integer.parseInt(args);
+                    Task task = Monke.list[n - 1];
+                    task.mark();
+                    Monke.speak("Ooga booga! I've marked this task as done:");
+                    Monke.speak("\t" + task);
+                    break;
+                }
+                case "unmark": {
+                    int n = Integer.parseInt(args);
+                    Task task = Monke.list[n - 1];
+                    task.unmark();
+                    Monke.speak("Ooga, I've marked this task as not done yet:");
+                    Monke.speak("\t" + task);
+                    break;
+                }
+                case "todo": {
+                    Todo todo = new Todo(args);
+                    Monke.addToList(todo);
+                    break;
+                }
+                case "deadline": {
+                    String[] tmp = args.split(" /by ", 2);
+                    String description = tmp[0];
+                    String date = tmp[1];
+                    Deadline deadline = new Deadline(description, date);
+                    Monke.addToList(deadline);
+                    break;
+                }
+                case "event": {
+                    String[] tmp = args.split(" /from ", 2);
+                    String description = tmp[0];
+                    String[] tmp2 = tmp[1].split(" /to ", 2);
+                    String start = tmp2[0];
+                    String end = tmp2[1];
+                    Event event = new Event(description, start, end);
+                    Monke.addToList(event);
+                    break;
+                }
+                default: {
+                    Monke.speak("invalid command");
+                    break;
+                }
             }
             Monke.printHorizontalLine();
         }
         sc.close();
     }
 
-    public static void addToList(Task item) {
-        Monke.list[index] = item;
+    public static void addToList(Task task) {
+        Monke.speak("Got it. I've added this task:");
+        Monke.speak("\t" + task);
+        Monke.list[index] = task;
         Monke.index++;
+        Monke.speak("Now you have " + index + " tasks in the list.");
     }
 
     public static void displayList() {
