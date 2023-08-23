@@ -33,13 +33,15 @@ public class Duke {
                     }
                     break;
                 case "mark": {
-                    tasks.get(Integer.parseInt(splitInput[1]) - 1).markAsDone();
-                    outputMessage(" Nice! I've marked this task as done:\n");
+                    Task task = tasks.get(Integer.parseInt(splitInput[1]) - 1);
+                    task.markAsDone();
+                    outputMessage(String.format(" Nice! I've marked this task as done:\n  %s\n", task));
                     break;
                 }
                 case "unmark": {
-                    tasks.get(Integer.parseInt(splitInput[1]) - 1).markAsUndone();
-                    outputMessage(" OK, I've marked this task as not done yet:\n");
+                    Task task = tasks.get(Integer.parseInt(splitInput[1]) - 1);
+                    task.markAsUndone();
+                    outputMessage(String.format(" OK, I've marked this task as not done yet:\n  %s\n", task));
                     break;
                 }
                 case "todo": {
