@@ -1,18 +1,18 @@
 import exception.DukeException;
 import exception.InvalidCommandException;
 import exception.InvalidSyntaxException;
+import java.util.ArrayList;
 
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String[] commands = new String[] {"bye", "list", "todo", "deadline", "event",
-                "mark", "unmark"};
+                "mark", "unmark", "delete"};
         boolean listen = true;
-        int index = 0;
         /** Captures user input*/
         Scanner jonBird = new Scanner(System.in);
         /** Stores user input*/
-        Task[] inputList =  new Task[100];
+        ArrayList<Task> inputList =  new ArrayList<Task>();
         /** User input*/
         String input = "";
         String title = "";
@@ -27,7 +27,8 @@ public class Duke {
             if (!isValidCommand(inp[0], commands)) {
                 input = "";
             }
-            if (inp[0].equalsIgnoreCase("mark") || inp[0].equalsIgnoreCase("unmark")) {
+            if (inp[0].equalsIgnoreCase("mark") || inp[0].equalsIgnoreCase("unmark") ||
+                    inp[0].equalsIgnoreCase("delete")) {
                 if (inp.length == 2) {
                     try {
                         taskIndex = Integer.parseInt(inp[1]);
@@ -35,6 +36,8 @@ public class Duke {
                     } catch (NumberFormatException e) {
                     }
                     ;
+                } else {
+                    input = "";
                 }
             } else if (inp[0].equalsIgnoreCase("todo") || inp[0].equalsIgnoreCase("deadline")) {
                 int i = 1;
@@ -89,21 +92,35 @@ public class Duke {
 
             switch (input) {
                 case "":
-                    DukeException excep = new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
-                    System.out.println("JonBird:\n\t" + excep.toString());
+                    DukeException excep;
+                    if (isValidCommand(inp[0], commands)) {
+                        excep = new InvalidSyntaxException("The task number is missing.");
+                        System.out.println("JonBird:\n\t" + excep.toString());
+                    }
+                    else {
+                        excep = new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
+                        System.out.println("JonBird:\n\t" + excep.toString());
+                    }
                     break;
                 case "bye":
                     listen = false;
                     break;
                 case "list":
                     System.out.println("JonBird:");
-                    printList(inputList, index);
+                    printList(inputList);
                     break;
                 case "unmark":
-                    inputList[taskIndex-1].markAsUndone();
+                    inputList.get(taskIndex-1).markAsUndone();
                     break;
                 case "mark":
-                    inputList[taskIndex-1].markAsDone();
+                    inputList.get(taskIndex-1).markAsDone();
+                    break;
+                case "delete":
+                    Task temp = inputList.get(taskIndex-1);
+                    inputList.remove(taskIndex-1);
+                    System.out.println("JonBird:\n\tNoted. I've removed this task:");
+                    System.out.println("\t\t" + temp.printTask());
+                    System.out.println("\tNow you have " + inputList.size() + " tasks in the list.");
                     break;
                 default:
                     if (inp.length < 2) {
@@ -112,7 +129,7 @@ public class Duke {
                         break;
                     }
                     if (inp[0].equals("todo")) {
-                        inputList[index] = new Todos(title);
+                        inputList.add(new Todos(title));
                     }
                     if (inp[0].equals("deadline")) {
                         if (endDate.equals("")) {
@@ -120,7 +137,7 @@ public class Duke {
                             System.out.println("JonBird:\n\t" + excep.toString());
                             break;
                         }
-                        inputList[index] = new Deadlines(title, endDate);
+                        inputList.add(new Deadlines(title, endDate));
                     }
                     if (inp[0].equals("event")) {
                         if (startDate.equals("")) {
@@ -133,22 +150,21 @@ public class Duke {
                             System.out.println("JonBird:\n\t" + excep.toString());
                             break;
                         }
-                        inputList[index] = new Events(title, startDate, endDate);
+                        inputList.add(new Events(title, startDate, endDate));
                     }
-                    index += 1;
                     System.out.println("JonBird:\n\tGot it. I've added this task:");
-                    System.out.println("\t\t" + inputList[index-1].printTask());
-                    System.out.println("\tNow you have " + index + " tasks in the list.");
+                    System.out.println("\t\t" + inputList.get(inputList.size()-1).printTask());
+                    System.out.println("\tNow you have " + inputList.size() + " tasks in the list.");
             }
         }
         jonBird.close();
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void printList(Task[] list, int index) {
+    public static void printList(ArrayList<Task> list) {
         System.out.println("\tHere are the tasks in your list:");
-        for (int i = 0; i < index; i++) {
-            System.out.println("\t\t"+ (i+1) + ". " + list[i].printTask());
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("\t\t"+ (i+1) + ". " + list.get(i).printTask());
         }
     }
 
