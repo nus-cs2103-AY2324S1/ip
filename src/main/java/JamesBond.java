@@ -1,10 +1,12 @@
-public class Duke {
+import java.util.Scanner;
+public class JamesBond {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = "____________________________________________________________\n"
+                + "YO! The name's Bond, James Bond.  \n"
+                + "What can I do for you? \n"
+                + "____________________________________________________________\n" ;
+        System.out.println(logo);
+        Scanner sc = new Scanner(System.in);
+        User user = new User(sc);
+        }
     }
-}
