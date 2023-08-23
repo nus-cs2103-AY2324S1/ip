@@ -1,184 +1,194 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
-    private String message;
-    private Task[] tasks;
-    private int count;
+    private String[] split;
+    private ArrayList<Task> tasks;
 
     public Duke() {
-        this.message = "";
-        this.count = 0;
-        this.tasks = new Task[100];
+        this.tasks = new ArrayList<>();
     }
     public void greet() {
         this.indent();
-        System.out.println("\t \t \t \t Greetings, I am Vision. How may I assist you today?");
+        System.out.println("Greetings, I am Jarvis. How may I assist you today?");
         this.indent();
     }
 
     public void indent() {
-        System.out.println("\t \t \t \t_______________________________________________________________");
+        System.out.println("_______________________________________________________________");
+    }
+
+    public void addCommand() {
+        this.indent();
+        System.out.println("Added the following task to the list.");
+        System.out.println(this.tasks.size() + ") " + this.tasks.get(this.tasks.size() - 1).toString());
+        System.out.println("You currently have " + this.tasks.size() + " tasks in your list.");
+        this.indent();
+    }
+
+    public void markCommand(int index) {
+        this.indent();
+        System.out.println("The following task is marked as complete:");
+        System.out.println(index + ") " + this.tasks.get(index - 1).toString());
+        System.out.println("Is there anything else I can assist you with?");
+        this.indent();
+    }
+
+    public void unmarkCommand(int index) {
+        this.indent();
+        System.out.println("The following task has been unmarked:");
+        System.out.println(index + ") " + this.tasks.get(index - 1).toString());
+        System.out.println("Is there anything else I can assist you with?");
+        this.indent();
     }
 
     public void list() {
         this.indent();
-        System.out.println("\t \t \t \t Tasks displayed. Your guidance is requested.");
-        for (int i = 0; i < this.count; i++) {
-            this.tasks[i].displayTask(i + 1);
+        if (this.tasks.size() == 0) {
+            System.out.println("Your task list is empty! Add a task to view it here.");
+        } else {
+            System.out.println("Tasks displayed. Your guidance is requested.");
+        }
+        for (int i = 0; i < this.tasks.size(); i++) {
+            System.out.println((i + 1) + ") " + this.tasks.get(i).toString());
         }
         this.indent();
     }
 
-//    public void appendList() {
-//        this.tasks[this.count] = new Task(this.message);
-//        this.count++;
-//    }
+    public void mark(boolean flag) throws DukeException {
+        // Check if mark is receiving any input or receiving extra input
+        if (this.split.length != 2) {
+            throw new DukeException("Please enter a valid mark command!");
+        }
 
-    public void mark() {
-        try {
-            int index = Character.getNumericValue(this.message.charAt(5));
-            this.tasks[index - 1].completeTask();
-            this.indent();
-            System.out.println("\t \t \t \t The following task is marked as complete:");
-            this.tasks[index - 1].displayTask(index);
-            System.out.println("\t \t \t \t Is there anything else I can assist you with?");
-            this.indent();
-        } catch (Exception e) {
-            this.indent();
-            System.out.println("\t \t \t \t Something went wrong. Please try again!");
-            this.indent();
+        // Check if mark is not receiving a number.
+        if (!Character.isDigit(this.split[1].charAt(0))) {
+            throw new DukeException("I cannot mark a character! Please enter a number.");
+        }
+
+        int index = Character.getNumericValue(this.split[1].charAt(0));
+
+        // Check if index is invalid or the task is already marked
+        if (index <= 0 || this.tasks.size() <= index || this.tasks.get(index - 1).isCompleted() == flag) {
+            throw new DukeException("The task you are trying to mark either doesnt exist, or is already marked");
+        }
+
+        if (flag) {
+            this.tasks.get(index - 1).completeTask();
+            markCommand(index);
+        } else {
+            this.tasks.get(index - 1).revertTask();
+            unmarkCommand(index);
         }
     }
 
-    public void unmark() {
-        try {
-            int index = Character.getNumericValue(this.message.charAt(7));
-            this.tasks[index - 1].revertTask();
-            this.indent();
-            System.out.println("\t \t \t \t The following task is has been unmarked:");
-            this.tasks[index - 1].displayTask(index);
-            System.out.println("\t \t \t \t Is there anything else I can assist you with?");
-            this.indent();
-        } catch (Exception e) {
-            this.indent();
-            System.out.println("\t \t \t \t Something went wrong. Please try again!");
-            this.indent();
+    public void todo() throws DukeException {
+
+        // Check if task is blank.
+        if (this.split.length <= 1 || this.split[1].isBlank()) {
+            throw new DukeException("Please enter a valid task.");
         }
+
+        this.tasks.add(new Todo(this.split[1]));
+        this.addCommand();
     }
 
-    public void todo() {
-        try {
-            String description = this.message.substring(5);
-            this.tasks[this.count] = new Todo(description);
-            this.indent();
-            System.out.println("\t \t \t \t Added the following task to the list.");
-            this.tasks[this.count].displayTask(this.count + 1);
-            this.count++;
-            System.out.println(String.format("\t \t \t \t You currently have %d tasks in your list.", this.count));
-            this.indent();
-        } catch (Exception e) {
-            this.indent();
-            System.out.println("\t \t \t \t Something went wrong. Please try again!");
-            this.indent();
+    public void deadline() throws DukeException {
+
+        if (this.split.length <= 1 || !this.split[1].contains(" /by ")) {
+            throw new DukeException("Please enter a valid task and deadline");
         }
+
+        String[] task = this.split[1].split(" /by ", 2);
+
+        if (task.length <= 1 || task[1].isBlank()) {
+            throw new DukeException("Please enter a valid task and deadline.");
+        }
+
+        this.tasks.add(new Deadline(task[0], task[1]));
+        this.addCommand();
     }
 
-    public void deadline() {
-        try {
-            int index = this.message.indexOf("/");
-            String description = this.message.substring(9, index - 1);
-            String deadline = this.message.substring(index + 1);
-            this.tasks[this.count] = new Deadline(description, deadline);
-            this.indent();
-            System.out.println("\t \t \t \t Added the following task to the list.");
-            this.tasks[this.count].displayTask(this.count + 1);
-            this.count++;
-            System.out.println(String.format("\t \t \t \t You currently have %d tasks in your list.", this.count));
-            this.indent();
-        } catch (Exception e) {
-            this.indent();
-            System.out.println("\t \t \t \t Something went wrong. Please try again!");
-            this.indent();
-        }
-    }
+    public void event() throws DukeException {
 
-    public void event() {
-        try {
-            int index1 = this.message.indexOf("/");
-            int index2 = this.message.indexOf("/", index1 + 1);
-            String description = this.message.substring(6, index1 - 1);
-            String from = this.message.substring(index1 + 1, index2 - 1);
-            String to = this.message.substring(index2 + 1);
-            this.tasks[this.count] = new Event(description, from, to);
-            this.indent();
-            System.out.println("\t \t \t \t Added the following task to the list.");
-            this.tasks[this.count].displayTask(this.count + 1);
-            this.count++;
-            System.out.println(String.format("\t \t \t \t You currently have %d tasks in your list.", this.count));
-            this.indent();
-        } catch (Exception e) {
-            this.indent();
-            System.out.println("\t \t \t \t Something went wrong. Please try again!");
-            this.indent();
+        // Check if /from is present
+        if (split.length <= 1 || !this.split[1].contains(" /from ")) {
+            throw new DukeException("There is no task and/or from command present. Please try again.");
         }
+
+        String[] task = this.split[1].split(" /from ", 2);
+
+        // Check if task entered is empty
+        if (task.length <= 1 || task[1].isBlank()) {
+            throw new DukeException("Please enter a valid task.");
+        }
+
+        // Check if /to is present
+        if (!task[1].contains(" /to ")) {
+            throw new DukeException("There is no /to command present. Please try again.");
+        }
+
+        String[] to = task[1].split(" /to ", 2);
+
+        if (to.length <= 1 || to[1].isBlank() || to[0].isBlank()) {
+            throw new DukeException("There enter valid to & from dates");
+        }
+
+        this.tasks.add(new Event(task[0], to[0], to[1]));
+        this.addCommand();
     }
 
     public void exit() {
         this.indent();
-        System.out.println("\t \t \t \t I shall now take my leave. Farewell!");
+        System.out.println("I shall now take my leave. Farewell!");
         this.indent();
     }
 
     public void interact() {
         Scanner input = new Scanner(System.in);
-
         while (true) {
-            this.updateMessage(input.nextLine());
-            if (this.message.equals("bye")) {
-                break;
-            } else if (this.message.equals("list")) {
-                this.list();
-            } else if (this.message.startsWith("mark")) {
-                this.mark();
-            } else if (this.message.startsWith("unmark")) {
-                this.unmark();
-            } else if (this.message.startsWith("todo")) {
-                this.todo();
-            } else if (this.message.startsWith("deadline")) {
-                this.deadline();
-            } else if (this.message.startsWith("event")) {
-                this.event();
-            } else {
+            try {
+//                this.updateMessage(input.nextLine());
+                this.split = input.nextLine().split(" ", 2);
+                switch(this.split[0]) {
+                    case "bye":
+                        break;
+                    case "list":
+                        this.list();
+                        break;
+                    case "mark":
+                        this.mark(true);
+                        break;
+                    case "unmark":
+                        this.mark(false);
+                        break;
+                    case "todo":
+                        this.todo();
+                        break;
+                    case "deadline":
+                        this.deadline();
+                        break;
+                    case "event":
+                        this.event();
+                        break;
+                    default:
+                        throw new DukeException("I'm sorry, I couldn't understand that. Please try again!");
+                }
+                if (this.split[0].equals("bye")) {
+                    break;
+                }
+            } catch (DukeException exc) {
                 this.indent();
-                System.out.println("\t \t \t \t " + this.message);
+                System.out.println(exc.toString());
                 this.indent();
             }
-        }
-    }
-
-    public void updateMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        } else if (obj instanceof Duke) {
-            Duke d = (Duke) obj;
-            return this.message == d.message;
-        } else {
-            return false;
         }
     }
 
     public static void main(String[] args) {
         // Create a scanner object to read input
         Duke bot = new Duke();
-
         bot.greet();
         bot.interact();
         bot.exit();
-
-        return;
     }
 }

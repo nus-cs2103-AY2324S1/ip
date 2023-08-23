@@ -9,11 +9,7 @@ public class Event extends Task {
     }
 
     @Override
-    public void displayTask(int index) {
-        if (super.completed) {
-            System.out.println(String.format("\t \t \t \t %d) [Event] [X] " + super.action + " (" + this.from + " " + this.to + ")", index));
-        } else {
-            System.out.println(String.format("\t \t \t \t %d) [Event] [X] " + super.action + " (" + this.from + " " + this.to + ")", index));
-        }
+    public String toString() {
+        return "[Event] " + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 }
