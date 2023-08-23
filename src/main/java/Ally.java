@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class Ally {
 
     private static final String line = "____________________________________________________________";
-    private static final String greeting = "Hello! I'm ALLY\n What can I do for you?\n";
+    private static final String greeting = "Hello! I'm ALLY\nWhat can I do for you?\n";
     private static final String bye = "Bye. Hope to see you again soon!";
     public static void start() {
         System.out.println(line);
@@ -50,21 +50,35 @@ public class Ally {
                 System.out.println(line);
             } else if (split[0].equals("todo")) {
                 System.out.println(line);
-                ally.addTodo(split[1]);
+                if (split.length == 1) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                } else {
+                    ally.addTodo(split[1]);
+                }
                 System.out.println(line);
             } else if (split[0].equals("deadline")) {
                 System.out.println(line);
-                String[] deadline = split[1].split(" /");
-                ally.addDeadline(deadline[0], deadline[1]);
+                if (split.length == 1) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                } else {
+                    String[] deadline = split[1].split(" /");
+                    ally.addDeadline(deadline[0], deadline[1]);
+                }
                 System.out.println(line);
             } else if (split[0].equals("event")) {
                 System.out.println(line);
-                String[] event = split[1].split(" /");
-                ally.addEvent(event[0], event[1], event[2]);
+                if (split.length == 1) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                } else {
+                    String[] event = split[1].split(" /");
+                    ally.addEvent(event[0], event[1], event[2]);
+                }
                 System.out.println(line);
             } else {
                 ally.addElements(ipt);
-                System.out.println(line + "\n" + "added: " + ipt + "\n" + line);
+                System.out.println(line);
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println(line);
             }
         }
         scanner.close();
