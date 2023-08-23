@@ -1,7 +1,5 @@
-import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         String logo  =   "____    ____  ________   ___    ___   __________    _____\n"
                      + "\\   \\  /   / |  ____  |  |  |   |  |  |  _____  |  / ____|\n"
                      + " \\   \\/   /  | |    | |  |  |   |  |  |  |___|  |  | (___\n"
@@ -17,28 +15,7 @@ public class Duke {
         System.out.println(logo);
         System.out.println("____________________________________________________________________________________");
         System.out.println("What can I do for you?");
-
-
-        while (true) {
-            String userInput = scanner.nextLine();
-            if (userInput.equals("bye")) {
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " + name + ": Bye. Hope to see you again soon!");
-                break;
-            } else if (userInput.equals("list")) {
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " +  name + ": list");
-                break;
-            } else if (userInput.equals("blah")) {
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " +  name + ": blah");
-                break;
-            } else {
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " +  name + ": Please enter a valid command: bye, list & blah");
-            }
-        }
-
-
+        System.out.println("____________________________________________________________________________________");
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
