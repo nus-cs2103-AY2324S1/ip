@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Duke {
-    public class Task {
+    public static class Task {
         public String name;
         public boolean isComplete;
 
@@ -13,6 +13,50 @@ public class Duke {
             return (isComplete ? "X" : " ");
         }
 
+        public String toString() {
+            return "[" + getMark() + "] " + name;
+        }
+    }
+
+    public static class Todo extends Task {
+        public Todo(String name) {
+            super(name);
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    public static class Deadline extends Task {
+        public String by;
+
+        public Deadline(String name, String by) {
+            super(name);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + by + ")";
+        }
+    }
+
+    public static class Event extends Task {
+        public String from;
+        public String to;
+
+        public Event(String name, String from, String to) {
+            super(name);
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + " (from: " + from + " to: " + to + " )";
+        }
     }
 
     Task[] taskList = new Task[100];
@@ -36,11 +80,11 @@ public class Duke {
             System.out.println(input + "\n");
             System.out.println(line);
         }
-        public void chadAddList(String input) {
-            taskList[taskCount] = new Task(input);
+        public void chadAddList(Task input) {
+            taskList[taskCount] = input;
             taskCount++;
             System.out.println(line);
-            System.out.println(input + " has been added to yo list!\n");
+            System.out.println(input.toString() + " has been added to yo list!\n");
             System.out.println(line);
         }
         public void chadListTask() {
@@ -50,7 +94,7 @@ public class Duke {
                 System.out.println(line);
                 System.out.println("Your outstanding tasks are...");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println("Task " + (i + 1) + ") " + taskList[i].name + " [" + taskList[i].getMark() + "]");
+                    System.out.println("Task " + (i + 1) + ") " + taskList[i].toString());
                 }
                 System.out.println("\n" + "Get to work NOW!\n");
                 System.out.println(line);
@@ -72,8 +116,6 @@ public class Duke {
             System.out.println(taskList[index - 1].name + " [" + taskList[index - 1].getMark() + "]\n");
             System.out.println(line);
         }
-
-
 
 
     public static void main(String[] args) {
@@ -100,8 +142,20 @@ public class Duke {
                 Integer index = Integer.valueOf(inputArray[1]);
                 chad.chadUnmarkTask(index);
 
+            } else if (inputArray[0].equals("todo")) {
+                chad.chadAddList(new Todo(inputArray[1]));
+
+            } else if (inputArray[0].equals("deadline")) {
+                String[] details = inputArray[1].split(" /by ", 2);
+                chad.chadAddList(new Deadline(details[0],details[1]));
+
+            } else if (inputArray[0].equals("event")) {
+                String[] details = inputArray[1].split(" /from ", 2);
+                String[] timings = details[1].split(" /to", 2);
+                chad.chadAddList(new Event(details[0], timings[0], timings[1]));
+
             } else {
-                chad.chadAddList(input);
+
             }
         }
         scanObj.close();
