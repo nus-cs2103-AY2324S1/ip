@@ -29,6 +29,13 @@ public class Memory {
         return ls.size();
     }
 
+    public void delete(int pos) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(" " + ls.get(pos - 1) );
+        ls.remove(pos - 1);
+        System.out.println("Now you have " + ls.size() + " tasks in the list.");
+    }
+
     public void print() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < ls.size(); i++) {

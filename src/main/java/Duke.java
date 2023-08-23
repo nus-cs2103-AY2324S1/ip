@@ -27,6 +27,10 @@ public class Duke {
         return input.startsWith("unmark ");
     }
 
+    private static boolean isDeleteCommand(String input) {
+        return input.startsWith("delete ");
+    }
+
     private static int extractValue(String input) {
         String[] parts = input.split("\\s+");
         return Integer.parseInt(parts[1]);
@@ -57,6 +61,13 @@ public class Duke {
                     continue;
                 }
                 memory.unmark(pos);
+            } else if (isDeleteCommand(input)) {
+                int pos = extractValue(input);
+                if (pos > memory.size() || pos <= 0) {
+                    System.out.println("Invalid index. Please enter again.");
+                    continue;
+                }
+                memory.delete(pos);
             } else {
                 memory.add(parser.parseTask(input));
             }
