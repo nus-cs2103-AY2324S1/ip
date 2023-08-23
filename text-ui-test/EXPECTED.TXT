@@ -3,19 +3,19 @@ Hello! I'm Elon Musk.
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
-I've added a new task: [T][ ] live happy
+😊 I've added a new task: [T][ ] live happy
 Now you have 1 tasks!
 ____________________________________________________________
 ____________________________________________________________
-I've added a new task: [T][ ] live happier
+😊 I've added a new task: [T][ ] live happier
 Now you have 2 tasks!
 ____________________________________________________________
 ____________________________________________________________
-I've added a new task: [D][ ] submit chatbot  (by: Thursday)
+😊 I've added a new task: [D][ ] submit chatbot  (by: Thursday)
 Now you have 3 tasks!
 ____________________________________________________________
 ____________________________________________________________
-I've added a new task: [E][ ] go to CS2103T lecture  (from: Friday 4pm to: Friday 6pm)
+😊 I've added a new task: [E][ ] go to CS2103T lecture  (from: Friday 4pm to: Friday 6pm)
 Now you have 4 tasks!
 ____________________________________________________________
 ____________________________________________________________

@@ -16,7 +16,7 @@ public class TaskList {
     public void addToList(Task task) {
         list.add(task);
 
-        System.out.println("I've added a new task: " + task.toString());
+        System.out.println("\uD83D\uDE0A I've added a new task: " + task.toString());
     }
 
     /**
