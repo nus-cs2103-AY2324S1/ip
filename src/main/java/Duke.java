@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
@@ -16,6 +17,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         String command = "";
+        ArrayList<String> list = new ArrayList<String>();
 
         System.out.println("Greetings, puny mortal. This is \n" + logo
                 + "\nThe Lord of Time. \nWhat inconsequential errand do you seek to accomplish with my immense powers?");
@@ -25,9 +27,16 @@ public class Duke {
             command = sc.nextLine();
             if (command.equals("bye")) {
                 break;
+            } else if (command.equals("list")) {
+                System.out.println(divider);
+                for (int i = 1; i <= list.size(); i++) {
+                    System.out.println(i + ". " + list.get(i - 1));
+                }
+                System.out.println(divider);
             } else {
                 System.out.println(divider);
-                System.out.println(command);
+                System.out.println("added: " + command);
+                list.add(command);
                 System.out.println(divider);
             }
         }
