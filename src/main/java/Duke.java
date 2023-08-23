@@ -50,6 +50,17 @@ public class Duke {
                         + "   Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
                         + " in the list \n" + divider);
                 break;
+            case "deadline":
+                int lastDescId = userInput.indexOf('/');
+                String desc = userInput.substring(0, lastDescId - 1);
+                String by = userInput.substring(lastDescId + 4);
+
+                Task newDeadline = new Deadline(desc, by);
+                tasksList.add(newDeadline);
+                System.out.println(divider + "   Got it. I've added this task: \n" + "    " + newDeadline.toString() + "\n"
+                        + "   Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
+                        + " in the list \n" + divider);
+                break;
             default:
                 tasksList.add(new Task(userInput));
                 System.out.println(divider + "   added: " + userInput + "\n" + divider);
