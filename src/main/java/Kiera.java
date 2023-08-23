@@ -35,50 +35,60 @@ public class Kiera {
     }
 
     public static String mark(String input) {
-        int unchecked = Integer.valueOf(input.replace("mark ", "")) - 1;
-        Task t = store.get(unchecked);
+        try {
+            int unchecked = Integer.valueOf(input.replace("mark ", "")) - 1;
+            Task t = store.get(unchecked);
 
-        t.markAsDone();
+            t.markAsDone();
 
-        return line
-            + "    yay, one task down: \n"
-            + "    "
-            + t.toString()
-            + "\n"
-            + line;
+            return line
+                + "    \n    yay, one task down: \n"
+                + "     "
+                + t.toString()
+                + "\n"
+                + line;
+        } catch (IndexOutOfBoundsException e) {
+            throw new KieraException("your task number is not in the task list!");
+        }
+        
     }
 
     public static String unmark(String input) {
-        int checked = Integer.valueOf(input.replace("mark ", "")) - 1;
-        Task t = store.get(checked);
+        try {
+            int checked = Integer.valueOf(input.replace("unmark ", "")) - 1;
+            Task t = store.get(checked);
 
-        t.markAsUndone();
+            t.markAsUndone();
 
-       return line
-            + "    ok, this task is not done yet: \n"
-            + "    "
-            + t.toString()
-            + "\n"
-            + line;
+            return line
+                + "    \n    ok, this task is not done yet: \n"
+                + "     "
+                + t.toString()
+                + "\n"
+                + line;
+        } catch (IndexOutOfBoundsException e) {
+            throw new KieraException("your task number is not in the task list!");
+        }
+        
     }
 
-    public static String addTask(String input, String type) {
+    public static String addTask(String input, String type) throws KieraException {
         Task t;
         if (type == "todo") {
             if (input == "") {
-                return "todo can't be empty!";
+                throw new KieraException( "todo can't be empty! follow the format: todo (task).");
             }
             t = new Todo(input);
         } else if (type == "deadline") {
             if (input == "") {
-                return "deadline can't be empty!";
+                throw new KieraException( "deadline can't be empty! follow the format: deadline (task).");
             }
             String deadline = input.split("/")[1].replace("by ", "");
             String desc = input.split("/")[0];
             t = new Deadline(desc, deadline);
         } else {
             if (input == "") {
-                return "event can't be empty!";
+                throw new KieraException( "deadline can't be empty! follow the format: event (task).");
             }
             String end = input.split("/")[2].replace("to ", "");
             String start = input.split("/")[1].replace("from ", "");
@@ -92,7 +102,7 @@ public class Kiera {
             
         return line 
             + "\n    " 
-            + "alright, one more task: \n"
+            + "alright, one more task has been added: \n"
             + "      "
             + t.toString()
             + "\n    "
@@ -104,26 +114,31 @@ public class Kiera {
     }
 
     public static String delete(String input) {
-        int deleted = Integer.valueOf(input.replace("delete ", "")) - 1;
-        Task t = store.get(deleted);
+        try {
+             int deleted = Integer.valueOf(input.replace("delete ", "")) - 1;
+            Task t = store.get(deleted);
 
-        store.remove(deleted);
-        index --;
+            store.remove(deleted);
+            index --;
 
-        String plural = index == 0 ? "task" : "tasks";
+            String plural = index == 0 ? "task" : "tasks";
 
-        return line 
-            + "\n    " 
-            + "alright, this task is gone: \n"
-            + "      "
-            + t.toString()
-            + "\n    "
-            + (index) 
-            + " more "
-            + plural
-            + " left! \n"
-            + line;
+            return line 
+                + "\n    " 
+                + "alright, this task is gone: \n"
+                + "      "
+                + t.toString()
+                + "\n    "
+                + (index) 
+                + " more "
+                + plural
+                + " left! \n"
+                + line;
 
+        } catch (IndexOutOfBoundsException e) {
+            throw new KieraException("your task number is not in the task list!");
+        }
+       
     }
     public static void main(String[] args) {
         
