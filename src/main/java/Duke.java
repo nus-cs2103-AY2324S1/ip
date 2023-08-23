@@ -43,47 +43,118 @@ public class Duke {
                     break;
                 default:
                     if (s.startsWith("mark")) {
-                        int index = s.charAt(s.indexOf(' ') + 1) - 48;
-                        tasks[index - 1].markAsDone();
-                        System.out.print("\t");
-                        System.out.println("Woof Woof! I have marked the task as done.");
-                        System.out.print("\t");
-                        System.out.println(tasks[index - 1].getString());
+                        String markVal = s.substring(s.indexOf(' ') + 1);
+                        if (!Character.isDigit(markVal.charAt(0))) {
+                            System.out.print("\t");
+                            System.out.println("Ruff Ruff! Task numbers to be marked can only be integers! ❌");
+                        }
+                        else {
+                            int index = s.charAt(s.indexOf(' ') + 1) - 48;
+                            if (index > counter) {
+                                System.out.print("\t");
+                                System.out.println("Ruff Ruff! Task numbers to be marked cannot be greater than number of tasks in the list! ❌");
+                            }
+                            else if (index < 0) {
+                                System.out.print("\t");
+                                System.out.println("Ruff Ruff! Task numbers to be marked cannot be negative! ❌");
+                            }
+                            else {
+                                tasks[index - 1].markAsDone();
+                                System.out.print("\t");
+                                System.out.println("Woof Woof! I have marked the task as done.");
+                                System.out.print("\t");
+                                System.out.println(tasks[index - 1].getString());
+                            }
+                        }
                     }
                     else if (s.startsWith("unmark")) {
-                        int index = s.charAt(s.indexOf(' ') + 1) - 48;
-                        tasks[index - 1].unMark();
-                        System.out.print("\t");
-                        System.out.println("OK, I have marked the task as not done yet.");
-                        System.out.print("\t");
-                        System.out.println(tasks[index - 1].getString());
+                        String markVal = s.substring(s.indexOf(' ') + 1);
+                        if (!Character.isDigit(markVal.charAt(0))) {
+                            System.out.print("\t");
+                            System.out.println("Ruff Ruff! Task numbers to be unmarked can only be integers! ❌");
+                        }
+                        else {
+                            int index = s.charAt(s.indexOf(' ') + 1) - 48;
+                            if (index > counter) {
+                                System.out.print("\t");
+                                System.out.println("Ruff Ruff! Task numbers to be unmarked cannot be greater than number of tasks in the list! ❌");
+                            }
+                            else if (index < 0) {
+                                System.out.print("\t");
+                                System.out.println("Ruff Ruff! Task numbers to be unmarked cannot be negative! ❌");
+                            }
+                            else {
+                                tasks[index - 1].unMark();
+                                System.out.print("\t");
+                                System.out.println("OK, I have marked the task as not done yet.");
+                                System.out.print("\t");
+                                System.out.println(tasks[index - 1].getString());
+                            }
+                        }
                     }
                     else {
-                        System.out.print("\t");
-                        System.out.println("Woof. I have added this task:");
-                        switch(s.substring(0, s.indexOf(' '))) {
+                        switch (s.split(" ")[0]) {
                             case "todo": {
-                                String task = s.substring(s.indexOf(' ') + 1);
-                                tasks[counter++] = new ToDo(task);
+                                if (s.split(" ").length == 1) {
+                                    System.out.print("\t");
+                                    System.out.println("Ruff Ruff! Description of ToDo cannot be empty! ❌");
+                                }
+                                else {
+                                    System.out.print("\t");
+                                    System.out.println("Woof. I have added this task:");
+                                    String task = s.substring(s.indexOf(' ') + 1);
+                                    tasks[counter++] = new ToDo(task);
+                                    System.out.println("\t\t" + tasks[counter - 1].getString());
+                                    System.out.println("\tNow you have " + counter + (counter == 1 ? " task" : " tasks") + " in your list.");
+                                }
                                 break;
                             }
                             case "deadline": {
-                                String task = s.substring(s.indexOf(' ') + 1, s.indexOf('/') - 1);
-                                String by = s.substring(s.lastIndexOf('/') + 4);
-                                tasks[counter++] = new Deadline(task, by);
+                                if (s.split(" ").length == 1) {
+                                    System.out.print("\t");
+                                    System.out.println("Ruff Ruff! Description of Deadline cannot be empty! ❌");
+                                }
+                                else if (!s.contains("/by")) {
+                                    System.out.print("\t");
+                                    System.out.println("Ruff Ruff! You cannot add a Deadline task without setting the deadline! ❌");
+                                }
+                                else {
+                                    System.out.print("\t");
+                                    System.out.println("Woof. I have added this task:");
+                                    String task = s.substring(s.indexOf(' ') + 1, s.indexOf('/') - 1);
+                                    String by = s.substring(s.lastIndexOf('/') + 4);
+                                    tasks[counter++] = new Deadline(task, by);
+                                    System.out.println("\t\t" + tasks[counter - 1].getString());
+                                    System.out.println("\tNow you have " + counter + (counter == 1 ? " task" : " tasks") + " in your list.");
+                                }
                                 break;
                             }
                             case "event": {
-                                String task = s.substring(s.indexOf(' ') + 1, s.indexOf('/') - 1);
-                                String from = s.substring(s.indexOf("from") + 5, s.lastIndexOf('/') - 1);
-                                String by = s.substring(s.indexOf("to") + 3);
-                                tasks[counter++] = new Event(task, from, by);
+                                if (s.split(" ").length == 1) {
+                                    System.out.print("\t");
+                                    System.out.println("Ruff Ruff! Description of ToDo cannot be empty! ❌");
+                                }
+                                else if (!s.contains("/from") || !s.contains("/to")) {
+                                    System.out.print("\t");
+                                    System.out.println("Ruff Ruff! You cannot add an Event task without setting start and end time! ❌");
+                                }
+                                else {
+                                    System.out.print("\t");
+                                    System.out.println("Woof. I have added this task:");
+                                    String task = s.substring(s.indexOf(' ') + 1, s.indexOf('/') - 1);
+                                    String from = s.substring(s.indexOf("from") + 5, s.lastIndexOf('/') - 1);
+                                    String by = s.substring(s.indexOf("to") + 3);
+                                    tasks[counter++] = new Event(task, from, by);
+                                    System.out.println("\t\t" + tasks[counter - 1].getString());
+                                    System.out.println("\tNow you have " + counter + (counter == 1 ? " task" : " tasks") + " in your list.");
+                                }
                                 break;
                             }
+                            default: {
+                                System.out.print("\t");
+                                System.out.println("I am sorry, I do not understand what you mean.");
+                            }
                         }
-                        System.out.println("\t\t" + tasks[counter - 1].getString());
-                        System.out.println("\tNow you have " + counter + (counter == 1 ? " task" : " tasks") + " in your list.");
-
                     }
                     display_lines();
                     break;
