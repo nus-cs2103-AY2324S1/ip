@@ -10,7 +10,7 @@ public class Duke {
                 "What can I do for you?\n" + "\n");
         Scanner sc = new Scanner(System.in);
         String cmd = sc.nextLine();
-        List<String> ls = new ArrayList<>();
+        List<Task> ls = new ArrayList<>();
 
         while (true) {
             if (cmd.equals("bye")) {
@@ -21,11 +21,27 @@ public class Duke {
                 int size = ls.size();
                 for(int i = 0; i < size;i++) {
                     int j = i + 1;
-                    System.out.println(j + ". " + ls.get(i));
+                    System.out.println(j + "." + ls.get(i));
                 }
                 cmd = sc.nextLine();
+            } else if (cmd.contains("unmark")) {
+                //int index = sc.nextInt();
+                int index = Integer.parseInt(cmd.substring(7, 8));
+                Task task = ls.get(index-1);
+                task.unmark();
+                ls.add(index-1, task);
+                //ls.get(index-1);
+                System.out.println("OK, I've marked this task as not done yet:\n" + task.toString());
+                cmd = sc.nextLine();
+            } else if (cmd.contains("mark")) {
+                int index = Integer.parseInt(cmd.substring(5, 6));
+                Task task = ls.get(index - 1);
+                task.markAsDone();
+                ls.add(index - 1, task);
+                System.out.println("Nice! I've marked this task as done:\n" + task.toString());
+                cmd = sc.nextLine();
             } else {
-                ls.add(cmd);
+                ls.add(new Task(cmd));
                 System.out.println("added: " + cmd + "\n");
                 cmd = sc.nextLine();
             }
