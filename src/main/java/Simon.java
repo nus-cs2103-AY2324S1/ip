@@ -39,9 +39,7 @@ public class Simon {
                         System.out.println("Bye. Hope to see you again soon!" + NSPACE);
                         return;
                     default:
-                        tasks.add(new Task(inData));
-                        System.out.println("added: " + inData + NSPACE);
-                        break;
+                        throw new SimonException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (SimonException se) {
                 System.out.println(se.getMessage() + NSPACE);
@@ -59,20 +57,40 @@ public class Simon {
 
     private static void addTask(String inData, String taskType) throws SimonException {
         Task task;
-        if (taskType.equals("todo")) {
-            task = new ToDo(inData.split("todo ")[1]);
-        } else if (taskType.equals("deadline")) {
-            String name = inData.split("deadline ")[1].split(" /by ")[0];
-            String endDate = inData.split("deadline ")[1].split(" /by ")[1];
-            task = new Deadline(name, endDate);
-        } else if (taskType.equals("event")) {
-            String name = inData.split("event ")[1].split(" /from ")[0];
-            String startDate = inData.split("event ")[1].split(" /from ")[1].split(" /to ")[0];
-            String endDate = inData.split("event ")[1].split(" /from ")[1].split(" /to ")[1];
-            task = new Event(name, startDate, endDate);
-        } else {
-            throw new SimonException("Unknown task type.");
+        switch (taskType) {
+            case "todo":
+                String description = inData.split("todo ").length > 1 ? inData.split("todo ")[1] : "";
+                if (description.trim().isEmpty()) {
+                    throw new SimonException("☹ OOPS!!! The description of a todo cannot be empty.");
+                }
+                task = new ToDo(description);
+                break;
+
+            case "deadline":
+                String[] deadlineParts = inData.split("deadline ");
+                if (deadlineParts.length <= 1 || !inData.contains(" /by ")) {
+                    throw new SimonException("☹ OOPS!!! The format for deadline is incorrect. Expected format: 'deadline [task description] /by [deadline]'.");
+                }
+                String name = deadlineParts[1].split(" /by ")[0];
+                String endDate = deadlineParts[1].split(" /by ")[1];
+                task = new Deadline(name, endDate);
+                break;
+
+            case "event":
+                String[] eventParts = inData.split("event ");
+                if (eventParts.length <= 1 || !inData.contains(" /from ") || !inData.contains(" /to ")) {
+                    throw new SimonException("☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [start date] /to [end date]'.");
+                }
+                String eventName = eventParts[1].split(" /from ")[0];
+                String startDate = eventParts[1].split(" /from ")[1].split(" /to ")[0];
+                String endDateEvent = eventParts[1].split(" /from ")[1].split(" /to ")[1];
+                task = new Event(eventName, startDate, endDateEvent);
+                break;
+
+            default:
+                throw new SimonException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+
 
         tasks.add(task);
         System.out.println(SPACEN + "Got it. I've added this task:\n" +
