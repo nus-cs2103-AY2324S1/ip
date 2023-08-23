@@ -8,7 +8,7 @@ Greetings from
 Hi! This is your intelligent friend L.
 "Dream big."
 What can I do for you today?
-Sorry! I can't understand you.
+⚠ Sorry! I am not able to understand you. Try another language:D
 Task added:
 [T][ ] write essays
 Now you have 1 task in total.
@@ -35,6 +35,10 @@ Here's your modified task:
 Here's your modified task:
 [D][ ] project (by: tmr)
 "Keep moving forward."
+⚠ Oops! Cannot find the task:(
+⚠ Sorry! I am not able to understand you. Try another language:D
+⚠ Oops! Need description, from and to date for the event:(
+⚠ Oops! Need description and by date for the deadline:(
 Here are your tasks:
 1 [T][ ] write essays
 2 [E][X] interviews (from: today 2pm | to: 3pm)

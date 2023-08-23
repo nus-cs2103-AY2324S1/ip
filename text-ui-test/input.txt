@@ -6,5 +6,9 @@ check list
 mark 3
 mark 2
 unmark 3
+mark 8
+todo
+event test /from test to
+deadline test /by
 list
 88
