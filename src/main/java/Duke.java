@@ -5,11 +5,6 @@ public class Duke {
     ArrayList<Task> list = new ArrayList<>();
 
     String divider = "------------------------------------\n";
-    String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
 
     String greet = divider +
             "Hello! I'm Khaleelur!\n" +
@@ -21,6 +16,13 @@ public class Duke {
             divider;
 
 
+    /**
+     * Adds a task to the task list based on the provided taskArray which has the type of task.
+     *
+     * @param taskArray An array containing information about the task to be added.
+     * @return A message indicating the success of adding the task and the task description.
+     * @throws DukeException If there's an issue with the provided taskArray.
+     */
     public String addTask(String[] taskArray) throws DukeException{
 
         String action = taskArray[0];
@@ -54,12 +56,21 @@ public class Duke {
         return res;
     }
 
-    //get task left as a string
+    /**
+     * Retrieves a formatted string showing the number of tasks left in the list.
+     *
+     * @return A string indicating the number of tasks remaining.
+     */
     public String getTaskLeft() {
         return "Now you have " + list.size() + (list.size()==1 ? " task" : " tasks") + " in the list.";
     }
 
-    //for list command
+    /**
+     * Retrieves a formatted string containing all tasks in the list.
+     *
+     * @return A string listing all tasks in the task list.
+     * @throws DukeException If there are no tasks in the list.
+     */
     public String getAllToDo() throws DukeException{
         StringBuilder res = new StringBuilder();
         if(list.size() == 0) {
@@ -74,7 +85,14 @@ public class Duke {
         return res.toString();
     }
 
-    // for mark and unmark command
+    /**
+     * Retrieves a formatted string indicating the success of marking or unmarking a task.
+     *
+     * @param action The action to perform ("mark" or "unmark").
+     * @param index The index of the task to be marked or unmarked.
+     * @return A message confirming the action's success.
+     * @throws DukeException If there's an issue with the task list or input.
+     */
     public String markToDo(String action, int index) throws DukeException{
         StringBuilder res = new StringBuilder();
 
@@ -94,6 +112,14 @@ public class Duke {
         return list.get(index).setUnmarked();
     }
 
+    /**
+     * Checks if the provided input is valid for a mark or unmark command,
+     * and returns the task index if applicable.
+     *
+     * @param input The user input.
+     * @return The task index to mark or unmark, or -1 if not applicable.
+     * @throws DukeException If there's an issue with the input.
+     */
     public int checkMarkCommand(String input) throws DukeException{
 
         String[] parts = input.split(" ");
@@ -116,6 +142,13 @@ public class Duke {
             return -1;
     }
 
+    /**
+     * Checks if the provided input is valid for a delete command and returns the task index if applicable.
+     *
+     * @param input The user input.
+     * @return The task index to delete, or -1 if not applicable.
+     * @throws DukeException If there's an issue with the input.
+     */
     public int checkDeleteCommand(String input) throws DukeException{
 
         String[] parts = input.split(" ");
@@ -138,6 +171,13 @@ public class Duke {
         return -1;
     }
 
+    /**
+     * Deletes a task from the task list based on the provided index.
+     *
+     * @param index The index of the task to be deleted.
+     * @return A message indicating the success of the deletion.
+     * @throws DukeException If there's an issue with the task list or input.
+     */
     public String deleteTask(int index) throws DukeException{
         StringBuilder res = new StringBuilder();
 
@@ -146,14 +186,21 @@ public class Duke {
             throw new DukeException("No tasks to delete! Add more tasks to mark/unmark!\n");
         }
 
-
         String removedTask = list.get(index).toString();
         list.remove(index);
         return "Noted. I've removed this task: \n " + "  " + removedTask + "\n" + getTaskLeft();
 
     }
 
-    public String[] checkActionAndTask(String input) throws DukeException, InvalidInputExpression{
+    /**
+     * Checks the action, task description, deadlines from the user input and returns relevant details.
+     *
+     * @param input The user input.
+     * @return An array containing the action and task details.
+     * @throws DukeException If there's an issue with the input or description.
+     * @throws InvalidInputExpression If the input is invalid.
+     */
+    public String[] checkActionAndTask(String input) throws DukeException, InvalidInputExpression {
         String action = "";
         String task ="";
         String from="";
@@ -225,6 +272,7 @@ public class Duke {
         }
         return new String[]{action, task, by, from, to};
     }
+
     public static void main(String[] args) {
         Scanner obj = new Scanner(System.in);
         Duke duke = new Duke();
@@ -271,5 +319,4 @@ public class Duke {
 
         System.out.println(duke.exit);
     }
-
 }
