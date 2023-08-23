@@ -18,7 +18,7 @@ public class Duke {
                 break;
 
             // LIST
-            } else if (userCommand.equalsIgnoreCase("list")) {
+            } else if (userCommand.trim().equalsIgnoreCase("list")) {
                 if (userList.size() <= 0) {
                     System.out.println("You currently have no tasks in your list.");
                     continue;
@@ -29,6 +29,35 @@ public class Duke {
                     Task element = userList.get(i);
 
                     System.out.println((i + 1) + ". " + element.toPrint());
+                }
+
+
+            } else if (userCommand.startsWith("delete")) {
+                if (userCommand.trim().equalsIgnoreCase("delete")) {
+                    System.out.println("Oh no! Please specify which task you wish to delete.");
+                } else {
+                    int pos = 0;
+                    try {
+                        // getting the number of the task to check off
+                        pos = Integer.parseInt(userCommand.substring(7).trim());
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Oh, no! Please insert a valid integer.");
+                        continue;
+                    }
+
+                    // Now, we know that the input is an integer. Check if it exists in the List.
+                    if (pos <= 0 || pos > userList.size()) {
+                        System.out.println("Oh, no! The given task does not exist.");
+
+                    } else {
+                        // there is such a position. set as marked.
+                        Task element = userList.get(pos - 1);
+                        userList.remove(pos - 1);
+                        System.out.println("Noted. I've removed this task:\n\t"
+                                + element.toPrint()
+                                + "\nNow you have " + userList.size() + " tasks in the list.");
+                    }
                 }
 
             // MARK
