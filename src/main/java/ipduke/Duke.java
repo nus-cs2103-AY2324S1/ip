@@ -37,34 +37,63 @@ public class Duke {
         }
     }
 
-    public static void list() {
+    public static void setTaskList() {
         Scanner sc = new Scanner(System.in);
-        while(true) {
-            String input = sc.nextLine();
-            if (input.equals("bye")) {
-                break;
-            } else if (input.equals("list")) {
-                System.out.println(divider);
-                for (int i = 0; i < taskList.size(); i++) {
-                    System.out.println("    " + (i + 1) + ". " + taskList.get(i).toString());
-                }
-                System.out.println(divider);
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                taskList.get(index).markTask();
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                taskList.get(index).unmarkTask();
-            } else {
-                System.out.println(divider + "    added: " + input + "\n" + divider);
-                taskList.add(new Task(input));
+        boolean inLoop = true;
+
+        while (inLoop) {
+            String[] input = sc.nextLine().split(" ", 2);
+            String firstWord = input[0];
+            String taskDetails = input.length == 1 ? "" : input[1];
+
+            switch (firstWord) {
+                case "bye":
+                    inLoop = false;
+                    break;
+                case "list":
+                    System.out.println(divider);
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.println("    " + (i + 1) + ". " + taskList.get(i).toString());
+                    }
+                    System.out.println(divider);
+                    break;
+                case "todo":
+                    taskList.add(new Todo(taskDetails));
+                    System.out.println(divider + "    chirp! I've added this task: \n"
+                            + String.format("    %s", taskList.get(taskList.size() - 1).toString()) + "\n"
+                            + String.format("    Now you have %d tasks in the list\n", taskList.size())
+                            + divider);
+                    break;
+                case "deadline":
+                    taskList.add(new Deadline(taskDetails));
+                    System.out.println(divider + "    chirp! I've added this task: \n"
+                            + String.format("    %s", taskList.get(taskList.size() - 1).toString()) + "\n"
+                            + String.format("    Now you have %d tasks in the list\n", taskList.size())
+                            + divider);
+                    break;
+                case "event":
+                    taskList.add(new Event(taskDetails));
+                    System.out.println(divider + "    chirp! I've added this task: \n"
+                            + String.format("    %s", taskList.get(taskList.size() - 1).toString()) + "\n"
+                            + String.format("    Now you have %d tasks in the list\n", taskList.size())
+                            + divider);
+                    break;
+                case "mark":
+                    taskList.get(Integer.parseInt(taskDetails) - 1).markTask();
+                    break;
+                case "unmark":
+                    taskList.get(Integer.parseInt(taskDetails) - 1).unmarkTask();
+                    break;
+                default:
+                    System.out.println("<task type> <task taskDetails>");
+                    break;
             }
         }
     }
     public static void main(String[] args) {
         System.out.println("    chirp chirp!\n" + logo_bird + greet);
 
-        list();
+        setTaskList();
 
         System.out.println(parting);
     }
