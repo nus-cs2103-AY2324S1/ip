@@ -80,7 +80,21 @@ public class Duke {
         } catch (Exception e) {
             throw new InvalidInputException("Invalid input");
         }
+    }
 
+    private static String deleteTask(String input, List<Task> tasks) throws DukeException {
+        try {
+            int taskNum = Integer.valueOf(input.split(" ")[1]);
+            Task deleted = tasks.remove(taskNum - 1);
+            return deleted.getTask() + " has been deleted!";
+
+        } catch (ArrayIndexOutOfBoundsException aoob) {
+            throw new MissingTaskException("Missing Task");
+        } catch (IndexOutOfBoundsException ioob) {
+            throw new MissingTaskException("Missing Task");
+        } catch (Exception e) {
+            throw new InvalidInputException("Invalid input");
+        }
     }
     public static void main(String[] args) {
 
@@ -148,6 +162,10 @@ public class Duke {
 
                     case MARK:
                         System.out.println(changeTaskCompletion(nextInput, Commands.MARK, tasks));
+                        break;
+
+                    case DELETE:
+                        System.out.println(deleteTask(nextInput, tasks));
                         break;
 
                     case BYE:

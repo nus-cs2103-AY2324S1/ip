@@ -1,5 +1,11 @@
 list
 todo return books
+list
+delete
+delete 2
+delete 1
+list
+todo return books
 todo
 deadline write essay /by 25/9
 deadline

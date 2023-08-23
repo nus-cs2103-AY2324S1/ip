@@ -6,6 +6,21 @@ You have no tasks! Yay :)
 A new task has been added!
  To Do -> [ ] return books
 ---------------------------------
+Here's your list of tasks!
+
+1: To Do -> [ ] return books
+---------------------------------
+Task cannot be found :(
+---------------------------------
+Task cannot be found :(
+---------------------------------
+To Do -> [ ] return books has been deleted!
+---------------------------------
+You have no tasks! Yay :)
+---------------------------------
+A new task has been added!
+ To Do -> [ ] return books
+---------------------------------
 Title of the task is missing! Please give your task a name :)
 ---------------------------------
 A new task has been added!
