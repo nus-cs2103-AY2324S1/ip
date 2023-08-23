@@ -1,6 +1,6 @@
 public class Printing {
     public static void printBlock() {
-        System.out.println("████████████████████████████████████████████████");
+        System.out.println("===---===---===---===---===---===---===---===");
     }
 
     public static void greeting() {
