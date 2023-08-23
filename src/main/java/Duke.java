@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import tasks.Deadline;
+import tasks.Event;
 import tasks.Task;
+import tasks.Todo;
 
 public class Duke {
 
@@ -31,7 +34,7 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        while (!input.equalsIgnoreCase("bye")) {
+        while (!input.equals("bye")) {
             printWithTab(line);
             Commands command = Commands.parseCommand(input);
             if (command == null) {
@@ -56,13 +59,33 @@ public class Duke {
                         break;
                     case UNMARK:
                         index = Integer.parseInt(input.split(" ")[1]) - 1;
-                        if (index >= taskList.size()) {
+                        if (index >= taskList.size() || index < 0) {
                             printWithTab("Invalid index!");
                             break;
                         }
                         taskList.get(index).markAsUndone();
                         printWithTab("Ok! I've marked this task as not done yet:");
                         printWithTab(tab + taskList.get(index).toString());
+                        break;
+                    case TODO:
+                        taskList.add(new Todo(Commands.extractTaskDescription(input)));
+                        printWithTab("Got it. I've added this task:");
+                        printWithTab(tab + taskList.get(taskList.size() - 1));
+                        printWithTab("Now you have " + taskList.size() + " tasks in the list.");
+                        break;
+                    case DEADLINE:
+                        Deadline deadline = new Deadline(Commands.extractTaskDescription(input), Commands.extractDeadline(input));
+                        taskList.add(deadline);
+                        printWithTab("Got it. I've added this task:");
+                        printWithTab(tab + deadline);
+                        printWithTab("Now you have " + taskList.size() + " tasks in the list.");
+                        break;
+                    case EVENT:
+                        Event event = new Event(Commands.extractTaskDescription(input), Commands.extractEventFrom(input), Commands.extractEventTo(input));
+                        taskList.add(event);
+                        printWithTab("Got it. I've added this task:");
+                        printWithTab(tab + event);
+                        printWithTab("Now you have " + taskList.size() + " tasks in the list.");
                         break;
                     default:
                         printWithTab("added: " + input);
