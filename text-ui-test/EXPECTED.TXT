@@ -1,73 +1,118 @@
-____________________________________________________________
 Hello! I'm Eepy
 What can I do for you?
-____________________________________________________________
-    ____________________________________________________________
-    Got it. I've added this task:
-      [T][ ] td1
-    Now you have 1 task(s) in the list.
-    ____________________________________________________________
-    ____________________________________________________________
-    Got it. I've added this task:
-      [T][ ] td2
-    Now you have 2 task(s) in the list.
-    ____________________________________________________________
-    ____________________________________________________________
-    Got it. I've added this task:
-      [E][ ] e1 (from: 1 to: 2)
-    Now you have 3 task(s) in the list.
-    ____________________________________________________________
-    ____________________________________________________________
-    Got it. I've added this task:
-      [E][ ] e2 (from: 123 abc to: 456 !!!@@@)
-    Now you have 4 task(s) in the list.
-    ____________________________________________________________
-    ____________________________________________________________
-    Got it. I've added this task:
-      [D][ ] ip (by: 24 Aug 2359)
-    Now you have 5 task(s) in the list.
-    ____________________________________________________________
-    ____________________________________________________________
-    1.[T][ ] td1
-    2.[T][ ] td2
-    3.[E][ ] e1 (from: 1 to: 2)
-    4.[E][ ] e2 (from: 123 abc to: 456 !!!@@@)
-    5.[D][ ] ip (by: 24 Aug 2359)
-    ____________________________________________________________
-    ____________________________________________________________
-    Nice! I've marked this task as done:
-      [T][X] td2
-    ____________________________________________________________
-    ____________________________________________________________
-    Nice! I've marked this task as done:
-      [E][X] e2 (from: 123 abc to: 456 !!!@@@)
-    ____________________________________________________________
-    ____________________________________________________________
-    1.[T][ ] td1
-    2.[T][X] td2
-    3.[E][ ] e1 (from: 1 to: 2)
-    4.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
-    5.[D][ ] ip (by: 24 Aug 2359)
-    ____________________________________________________________
-    ____________________________________________________________
-    OK, I've marked this task as not done yet:
-      [T][ ] td2
-    ____________________________________________________________
-    ____________________________________________________________
-    Nice! I've marked this task as done:
-      [T][X] td1
-    ____________________________________________________________
-    ____________________________________________________________
-    Nice! I've marked this task as done:
-      [E][X] e2 (from: 123 abc to: 456 !!!@@@)
-    ____________________________________________________________
-    ____________________________________________________________
-    1.[T][X] td1
-    2.[T][ ] td2
-    3.[E][ ] e1 (from: 1 to: 2)
-    4.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
-    5.[D][ ] ip (by: 24 Aug 2359)
-    ____________________________________________________________
-    ____________________________________________________________
-    Bye. Hope to see you again soon!
-    ____________________________________________________________
+
+You entered: todo td1
+Got it. I've added this task:
+[T][ ] td1
+Now you have 1 task(s) in the list.
+
+You entered: todo td2
+Got it. I've added this task:
+[T][ ] td2
+Now you have 2 task(s) in the list.
+
+You entered: event e1 /from 1 /to 2
+Got it. I've added this task:
+[E][ ] e1 (from: 1 to: 2)
+Now you have 3 task(s) in the list.
+
+You entered: event e2 /from 123 abc /to 456 !!!@@@
+Got it. I've added this task:
+[E][ ] e2 (from: 123 abc to: 456 !!!@@@)
+Now you have 4 task(s) in the list.
+
+You entered: deadline ip /by 24 Aug 2359
+Got it. I've added this task:
+[D][ ] ip (by: 24 Aug 2359)
+Now you have 5 task(s) in the list.
+
+You entered: list
+List of items:
+1.[T][ ] td1
+2.[T][ ] td2
+3.[E][ ] e1 (from: 1 to: 2)
+4.[E][ ] e2 (from: 123 abc to: 456 !!!@@@)
+5.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: mark 2
+Nice! I've marked this task as done:
+[T][X] td2
+
+You entered: mark 4
+Nice! I've marked this task as done:
+[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+
+You entered: list
+List of items:
+1.[T][ ] td1
+2.[T][X] td2
+3.[E][ ] e1 (from: 1 to: 2)
+4.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+5.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: unmark 2
+OK, I've marked this task as not done yet:
+[T][ ] td2
+
+You entered: mark 1
+Nice! I've marked this task as done:
+[T][X] td1
+
+You entered: mark 4
+Nice! I've marked this task as done:
+[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+
+You entered: list
+List of items:
+1.[T][X] td1
+2.[T][ ] td2
+3.[E][ ] e1 (from: 1 to: 2)
+4.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+5.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: todo 
+⚠ Eek! Description of todo cannot be empty!
+
+You entered: todo           	
+⚠ Eek! Description of todo cannot be empty!
+
+You entered: event 
+⚠ Eek! Please include when the event is from and to! (`event name \from date \to date`)
+
+You entered: event e3
+⚠ Eek! Please include when the event is from and to! (`event name \from date \to date`)
+
+You entered: event e3 /from
+⚠ Eek! Please include when the event is from and to! (`event name \from date \to date`)
+
+You entered: event e3 /to
+⚠ Eek! Please include when the event is from and to! (`event name \from date \to date`)
+
+You entered: event e3 /from /to
+⚠ Eek! Please include the name of the eventand when the event is from and to! (`event name \from date \to date`)
+
+You entered: event /from 1 /to 2
+⚠ Eek! Please include the name of the eventand when the event is from and to! (`event name \from date \to date`)
+
+You entered: deadline
+⚠ Eek! Please include when the deadline is! (`deadline name \by date`)
+
+You entered: deadline d1
+⚠ Eek! Please include when the deadline is! (`deadline name \by date`)
+
+You entered: deadline d1 /by
+⚠ Eek! Please include name and deadline! (`deadline name \by date`)
+
+You entered: deadline /by 4q34
+⚠ Eek! Please include name and deadline! (`deadline name \by date`)
+
+You entered: list
+List of items:
+1.[T][X] td1
+2.[T][ ] td2
+3.[E][ ] e1 (from: 1 to: 2)
+4.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+5.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: bye
+Bye. Hope to see you again soon!

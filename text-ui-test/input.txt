@@ -11,4 +11,17 @@ unmark 2
 mark 1
 mark 4
 list
+todo 
+todo           	
+event 
+event e3
+event e3 /from
+event e3 /to
+event e3 /from /to
+event /from 1 /to 2
+deadline
+deadline d1
+deadline d1 /by
+deadline /by 4q34
+list
 bye
