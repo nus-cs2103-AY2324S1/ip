@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+    private static List<String> archive = new ArrayList<>();
     public static void main(String[] args) {
         String logo = "       ___          \n" +
                 "    . -^   `--,      \n" +
@@ -31,8 +34,14 @@ public class Duke {
             if (input.equals("GET SCHWIFTY")) {
                 System.out.println("I LIKE WHAT YOU'VE GOT. GOOD JOB.");
                 return;
+            } else if (input.equals("list")) {
+                for (int i = 0; i < archive.size(); i++) {
+                    System.out.println(i + ". " + archive.get(i));
+                }
+            } else {
+                System.out.println("added: " + input);
+                archive.add(input);
             }
-            System.out.println(input);
         }
 
     }
