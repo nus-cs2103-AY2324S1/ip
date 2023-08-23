@@ -5,17 +5,33 @@ Hello from
 | |_| | |_| |  |_   __/
 |____/ \__,_|___|\___|
 
-Hello! I'm Duke
+I'm Duke!
 What can I do for you?
 Got it. I've added this task:
-  [T][ ] go to grocery store
+  [T][ ] eat
 Now you have 1 tasks in the list
 
 Got it. I've added this task:
-  [D][ ] 200 (by: 2pm sunday)
+  [T][ ] cs2103 IP
 Now you have 2 tasks in the list
 
+Here are your tasks:
+1. [T][ ] eat
+2. [T][ ] cs2103 IP
 Got it. I've added this task:
-  [E][ ] CCA both (from: tues 3pm to: tues 5pm)
+  [D][ ] return book (by: tues 3pm)
 Now you have 3 tasks in the list
 
+Nice! I've marked this task as done:
+  [T][X] eat
+
+Nice! I've marked this task as done:
+  [T][X] cs2103 IP
+
+MissingKeywordException: Missing keyword: /from
+
+Here are your tasks:
+1. [T][X] eat
+2. [T][X] cs2103 IP
+3. [D][ ] return book (by: tues 3pm)
+Bye. Hope to see you again soon!
