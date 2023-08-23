@@ -19,7 +19,7 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public String getDescription() {
-        return description;
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
