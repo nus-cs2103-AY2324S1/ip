@@ -1,0 +1,33 @@
+nonsense command. next line is empty on purpose.
+
+list
+todo Test my App.
+event Some arbitrary event. /from ABC /to XYZ
+deadline tP Project. /by End of the semester.
+list
+mark 1
+mark 1
+mark 3
+unmark 3
+unmark 3
+list
+event No from parameter. /to XYZ
+event No to parameter. /from ABC
+event Flipped parameters. /to XYZ /from ABC
+event Too many parameters. /from ABC /to XYZ /to 123
+deadline No by parameter.
+deadline Too many parameters. /by XYZ /by XYZ
+list
+todo Placeholder item.
+todo Placeholder item 2.
+delete 2
+list
+delete 2
+list
+mark 0
+mark 4
+unmark 0
+unmark 4
+delete 0
+delete 4
+bye
