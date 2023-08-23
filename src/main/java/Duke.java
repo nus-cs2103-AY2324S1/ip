@@ -16,7 +16,7 @@ public class Duke {
     public void addTodo(String text) {
         ToDos curr = new ToDos(text);
         array.add(curr);
-        System.out.println("Got it i have added this todo to the list: ");
+        System.out.println("Got it i have added this todo to the list:");
         System.out.println(curr.toString());
         System.out.println(String.format("Now you have %d tasks in this list", array.size()));
     }
@@ -24,7 +24,7 @@ public class Duke {
     public void addDeadline(String text, String by) {
         Deadlines curr = new Deadlines(text, by);
         array.add(curr);
-        System.out.println("Got it i have added this todo to the list: ");
+        System.out.println("Got it i have added this todo to the list:");
         System.out.println(curr.toString());
         System.out.println(String.format("Now you have %d tasks in this list", array.size()));
     }
@@ -32,13 +32,13 @@ public class Duke {
     public void addEvent(String text, String from, String to) {
         Events curr = new Events(text, from, to);
         array.add(curr);
-        System.out.println("Got it i have added this todo to the list: ");
+        System.out.println("Got it i have added this todo to the list:");
         System.out.println(curr.toString());
         System.out.println(String.format("Now you have %d tasks in this list", array.size()));
     }
 
     public void list(){
-        System.out.println("Here are the task in your lists: ");
+        System.out.println("Here are the task in your lists:");
         int count = 1;
         for(Task item: array){
             System.out.println(count + ". " + item.toString());
@@ -47,6 +47,7 @@ public class Duke {
     }
 
     public void start(){
+        System.out.println("Hello! I am Adam\n" + "What can I do for you?");
             while (running) {
                 String li = scaner.nextLine();
                 String[] tokens = li.split(" ");
@@ -132,7 +133,6 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
     public static void main(String[] args) {
-        System.out.println("Hello! I am Adam\n" + "What can I do for you?\n");
         Duke test = new Duke();
         test.start();
     }

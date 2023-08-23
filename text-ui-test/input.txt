@@ -1,0 +1,11 @@
+todo test
+list
+mark 1
+event project /from 1am /to 1pm
+deadline homework /by 2 pm
+list
+unmark 1
+mark 2
+mark 3
+list
+bye
