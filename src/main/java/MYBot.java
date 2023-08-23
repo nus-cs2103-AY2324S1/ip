@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class MYBot {
 
     private String bot_Name;
@@ -32,6 +34,9 @@ public class MYBot {
             } else if (input.startsWith("unmark ")) {
                 int task_index = Integer.parseInt(input.substring(7));
                 unmarkTasks(task_index);
+            } else if (input.startsWith("delete ")){
+                int task_index = Integer.parseInt(input.substring(7));
+                removeTasks(task_index);
             } else if (input.isEmpty()) {
                 throw new MYBotExceptions.UnknownCommandException();
             } else if (!input.startsWith("todo ") && !input.startsWith("deadline ") && !input.startsWith("event ")) {
@@ -115,13 +120,13 @@ public class MYBot {
     }
 
     public void listTasks(){
-        Task[] tasks = task_List.getTask_List();
+        List<Task> tasks = task_List.getTask_List();
         int taskCount = task_List.getTask_Count();
 
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++){
-            System.out.println((i+1) + "." + tasks[i].toString());
+            System.out.println((i+1) + "." + tasks.get(i).toString());
         }
         System.out.println("____________________________________________________________");
     }
@@ -159,6 +164,26 @@ public class MYBot {
                 System.out.println(taskTobeMarked.toString());
             } else {
                 throw new MYBotExceptions.NoSuchTaskException();
+            }
+        } catch (MYBotExceptions e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("____________________________________________________________");
+    }
+
+    public void removeTasks(int task_number) {
+
+        System.out.println("____________________________________________________________");
+
+        try {
+            if (task_number >= 0 && task_number < task_List.getTask_Count()) {
+                Task taskToBeRemoved = task_List.getTask(task_number);
+                task_List.removeTask(task_number);
+                System.out.println("Noted. I've removed this task:\n  " + taskToBeRemoved.toString());
+                System.out.println("Now you have " + task_List.getTask_Count() + " tasks in the list.");
+            } else {
+                throw new MYBotExceptions.InvalidTaskException();
             }
         } catch (MYBotExceptions e) {
             System.out.println(e.getMessage());
