@@ -10,7 +10,7 @@ public class Duchess {
     /**
      * An ArrayList to store text in.
      */
-    private static final ArrayList<String> storedText = new ArrayList<>();
+    private static final ArrayList<Task> storedText = new ArrayList<>();
 
     /**
      * Prints text, but with a consistent formatting in Duchess style.
@@ -59,10 +59,11 @@ public class Duchess {
      * @param s - the string to be stored.
      */
     private static void storeText(String s) {
-        Duchess.storedText.add(s);
+        Task t = new Task(s);
+        Duchess.storedText.add(t);
 
         Duchess.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
-        Duchess.duchessPrint(s);
+        Duchess.duchessPrint(t.toString());
     }
 
     /**
@@ -82,7 +83,7 @@ public class Duchess {
     private static void listText() {
         Duchess.duchessPrint("Here are the things you said!! ヽ(^o^)丿");
         for (int i = 0; i < Duchess.storedText.size(); i++) {
-            Duchess.duchessPrint(String.format("%d: %s", i, Duchess.storedText.get(i)));
+            Duchess.duchessPrint(String.format("%d: %s", i, Duchess.storedText.get(i).toString()));
         }
     }
 
