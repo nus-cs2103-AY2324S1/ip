@@ -29,7 +29,7 @@ public class Ally {
         String ipt;
         while(true) {
             ipt = scanner.nextLine();
-            String[] split = ipt.split(" ");
+            String[] split = ipt.split(" ", 2);
 
             if (split[0].equals("bye")) {
                 bye();
@@ -48,8 +48,21 @@ public class Ally {
                 System.out.println(line);
                 ally.unMarkDone(index);
                 System.out.println(line);
-            }
-            else {
+            } else if (split[0].equals("todo")) {
+                System.out.println(line);
+                ally.addTodo(split[1]);
+                System.out.println(line);
+            } else if (split[0].equals("deadline")) {
+                System.out.println(line);
+                String[] deadline = split[1].split(" /");
+                ally.addDeadline(deadline[0], deadline[1]);
+                System.out.println(line);
+            } else if (split[0].equals("event")) {
+                System.out.println(line);
+                String[] event = split[1].split(" /");
+                ally.addEvent(event[0], event[1], event[2]);
+                System.out.println(line);
+            } else {
                 ally.addElements(ipt);
                 System.out.println(line + "\n" + "added: " + ipt + "\n" + line);
             }
