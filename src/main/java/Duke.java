@@ -48,6 +48,43 @@ public class Duke {
                 continue;
             }
 
+            if(inData.startsWith("todo ")) {
+                String des = inData.substring(5);
+                list[count] = new Todo(des);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(list[count]);
+                count++;
+                System.out.println("Now you have " + count + " tasks in the list." );
+                continue;
+            }
+
+            if(inData.startsWith("deadline ")) {
+                String[] split = inData.substring(9).split(" /by ");
+                String description  = split[0];
+                String by = split[1];
+                list[count] = new Deadline(description, by);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(list[count]);
+                count++;
+                System.out.println("Now you have " + count + " tasks in the list." );
+                continue;
+            }
+
+            if(inData.startsWith("event ")) {
+                String[] split = inData.substring(6). split(" /from ");
+                String description = split[0];
+                String[] fromto = split[1].split(" /to ");
+                String from = fromto[0];
+                String to = fromto[1];
+
+                list[count] = new Event(description, from, to);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(list[count]);
+                count++;
+                System.out.println("Now you have " + count + " tasks in the list." );
+                continue;
+            }
+
             list[count] = new Task(inData);
             count++;
             System.out.println("added: "+ inData);
