@@ -29,9 +29,12 @@ public class Duke {
 
         Scanner keyboard = new Scanner(System.in);
 
-        while (!Objects.equals(inputString, "bye")) {
+        while (true) {
             inputString = keyboard.nextLine();
 
+            if (Objects.equals(inputString, "bye")) {
+                break;
+            }
 //            System.out.println(inputString);
             System.out.println(SEPARATOR_LINE);
 
@@ -101,7 +104,7 @@ public class Duke {
             System.out.println(SEPARATOR_LINE);
         }
 
-
+        System.out.println(SEPARATOR_LINE);
         String exitMsg = "Bye! Hope to see you again soon.";
         System.out.println(exitMsg);
         System.out.println(SEPARATOR_LINE);
