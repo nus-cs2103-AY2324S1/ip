@@ -65,13 +65,13 @@ public class Ax {
                 }
             } else if (input.startsWith("deadline")) {
                 if (inputs.length > 1 && dates.length > 1) {
-                    listItems.add((new Deadlines(inputs[1], dates[1])));
+                    listItems.add((new Deadlines(inputs[1].split("/")[0], dates[1])));
                 } else {
                     throw new MissingFormatArgumentException("no arg");
                 }
             } else if (input.startsWith("event")) {
                 if (inputs.length > 1 && dates.length > 2) {
-                    listItems.add((new Events(inputs[1], dates[1], dates[2])));
+                    listItems.add((new Events(inputs[1].split("/")[0], dates[1], dates[2])));
                 } else {
                     throw new MissingFormatArgumentException("no arg");
                 }
