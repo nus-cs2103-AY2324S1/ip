@@ -40,4 +40,6 @@ Now you have 2 tasks in the list.
 Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: June 6th)
+☹ OOPS!!! The task index in invalid
+☹ OOPS!!! The task index in invalid
 Bye. Hope to see you again soon!

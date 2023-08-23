@@ -17,4 +17,6 @@ event /from: 3pm /to: 7pm
 blah
 delete 3
 list
+mark 3
+delete 3
 bye

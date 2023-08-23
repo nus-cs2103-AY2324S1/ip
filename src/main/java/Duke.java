@@ -20,6 +20,9 @@ public class Duke {
                 switch (split[0]) {
                     case "mark":
                         int index = Integer.parseInt(split[1]) - 1;
+                        if (!Duke.isTaskIndexValid(index)) {
+                            throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
+                        }
                         Task task = Duke.tasks.get(index);
                         task.markAsDone();
                         System.out.println("Nice! I've marked this task as done:");
@@ -27,6 +30,9 @@ public class Duke {
                         break;
                     case "unmark":
                         index = Integer.parseInt(split[1]) - 1;
+                        if (!Duke.isTaskIndexValid(index)) {
+                            throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
+                        }
                         task = Duke.tasks.get(index);
                         task.markAsUndone();
                         System.out.println("OK, I've marked this task as not done yet:");
@@ -62,6 +68,9 @@ public class Duke {
                         break;
                     case "delete":
                         index = Integer.parseInt(split[1]) - 1;
+                        if (!Duke.isTaskIndexValid(index)) {
+                            throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
+                        }
                         task = Duke.tasks.remove(index);
                         Duke.printTaskDeletedMessage(task);
                         break;
@@ -89,5 +98,9 @@ public class Duke {
     private static void printTaskCount() {
         int tasksCount = Duke.tasks.size();
         System.out.println("Now you have " + tasksCount + (tasksCount == 1 ? " task" : " tasks") + " in the list.");
+    }
+
+    private static boolean isTaskIndexValid(int index) {
+        return index >= 0 && index < Duke.tasks.size();
     }
 }
