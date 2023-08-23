@@ -87,12 +87,17 @@ public class Duke {
           break;
         }
         case "todo": {
-          int commandLength = commandString.length() + 1;
-          String taskName = inputString.substring(commandLength);
-          Task curentTask = new Todo(taskName);
-          taskList.add(curentTask);
+          try {
+            int commandLength = commandString.length() + 1;
+            String taskName = inputString.substring(commandLength);
+            Task curentTask = new Todo(taskName);
+            taskList.add(curentTask);
 
-          System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+            System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+          } catch (StringIndexOutOfBoundsException ex) {
+
+            System.out.println("Please enter a name after the todo command!");
+          }
 
           break;
         }
