@@ -25,13 +25,27 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    // Marks the task as done by setting its status (isDone) to true
+    /**
+     * Marks the task as done by setting its status (isDone) to true.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
-    // Marks the task as not done by setting its status (isDone) to false
+    /**
+     * Marks the task as not done by setting its status (isDone) to false.
+     */
     public void markAsNotDone() {
         this.isDone = false;
+    }
+
+    /**
+     * Returns a string representation of the task's status and description.
+     *
+     * @return A string indicating the task's status and description.
+     */
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + this.description;
     }
 }
