@@ -15,6 +15,30 @@ public class Pogo {
         }
     }
 
+    private static Task addTask(String input) {
+        Task task;
+        if (input.startsWith("todo")) {
+            String description = input.substring("todo".length() + 1);
+            task = new ToDo (description);
+        } else if (input.startsWith("deadline")) {
+            String[] split = input.substring("deadline".length() + 1).split(" /by ");
+            String description = split[0];
+            String by = split[1];
+            task = new Deadline(description, by);
+        } else if (input.startsWith("event")) {
+            String[] split = input.substring("event".length() + 1).split(" /from ");
+            String description = split[0];
+            String[] temp = split[1].split(" /to ");
+            String from = temp[0];
+            String to = temp[1];
+            task = new Event(description, from, to);
+        } else {
+            task = new Task(input);
+        }
+        tasks.add(task);
+        return task;
+    }
+
     public static void main(String[] args) {
         String horizontalLine = "____________________________________________________________";
 
@@ -47,8 +71,9 @@ public class Pogo {
                 System.out.println(tasks.get(index).getStatusMessage());
             }
             else {
-                tasks.add(new Task(input));
-                System.out.println("added: " + input);
+                Task task = Pogo.addTask(input);
+                System.out.println("added: " + task.getStatusMessage());
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             }
 
             System.out.println(horizontalLine);
