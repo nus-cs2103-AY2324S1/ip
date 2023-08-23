@@ -26,8 +26,10 @@ public class Duke {
         while (true) {
             command = sc.nextLine();
             if (command.equals("bye")) {
+                // End conversation
                 break;
             } else if (command.equals("list")) {
+                // List all tasks
                 System.out.println(divider);
                 System.out.println(
                         "You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:\n");
@@ -37,6 +39,7 @@ public class Duke {
                 }
                 System.out.println(divider);
             } else if (command.startsWith("mark")) {
+                // Mark a task as done
                 System.out.println(divider);
                 int taskNum = Integer.parseInt(command.substring(5));
                 list.get(taskNum - 1).changeStatus(true);
@@ -45,6 +48,7 @@ public class Duke {
                 System.out.println(list.get(taskNum - 1).toString());
                 System.out.println(divider);
             } else if (command.startsWith("unmark")) {
+                // Mark a task as not done
                 System.out.println(divider);
                 int taskNum = Integer.parseInt(command.substring(7));
                 list.get(taskNum - 1).changeStatus(false);
@@ -52,10 +56,43 @@ public class Duke {
                         "In a stunning twist, this task remains untouched by the hands of progress:\n");
                 System.out.println(list.get(taskNum - 1).toString());
                 System.out.println(divider);
-            } else {
+            } else if (command.startsWith("todo")) {
+                // Add a todo task
                 System.out.println(divider);
-                System.out.println("added: " + command);
-                list.add(new Task(command));
+                System.out.println("This task has been reluctantly bestowed upon your ever-growing list:\n");
+                list.add(new ToDo(command.substring(5)));
+                System.out.println(list.get(list.size() - 1).toString());
+                System.out
+                        .println("Congratulations, your pile of tasks has swelled to a whopping " + list.size() + ".");
+                System.out.println(divider);
+            } else if (command.startsWith("deadline")) {
+                // Add a deadline task
+                System.out.println(divider);
+                String[] deadlineTaskComponents = command.substring(9).split(" /by ");
+                System.out.println(
+                        "With your constant mediocrity, it is entirely unlikely that you will be able to meet this deadline I have just added: \n");
+                list.add(new Deadline(deadlineTaskComponents[0], deadlineTaskComponents[1]));
+                System.out.println(list.get(list.size() - 1).toString());
+                System.out
+                        .println("Congratulations, your pile of tasks has swelled to a whopping " + list.size() + ".");
+                System.out.println(divider);
+            } else if (command.startsWith("event")) {
+                // Add an event task
+                System.out.println(divider);
+                String[] eventTaskComponents = command.substring(6).split(" /from ");
+                String eventDescription = eventTaskComponents[0];
+                String[] eventTaskDates = eventTaskComponents[1].split(" /to ");
+                System.out.println(
+                        "Looks like I will have to slow time down myself if you wish to make it to this event I just added:\n");
+                list.add(new Event(eventDescription, eventTaskDates[0], eventTaskDates[1]));
+                System.out.println(list.get(list.size() - 1).toString());
+                System.out
+                        .println("Congratulations, your pile of tasks has swelled to a whopping " + list.size() + ".");
+                System.out.println(divider);
+            } else {
+                // Error message (command unclear)
+                System.out.println(divider);
+                System.out.println("Do not test my patience, mortal. Speak clearly.");
                 System.out.println(divider);
             }
         }
