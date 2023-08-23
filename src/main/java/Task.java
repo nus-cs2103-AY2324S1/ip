@@ -22,4 +22,13 @@ public class Task {
     public String getType() {
         return "task";
     }
+
+    @Override
+    public String toString() {
+        String doneStatus = "[ ]";
+        if (this.isDone()) {
+            doneStatus = "[X]";
+        }
+        return doneStatus + " " + this.description;
+    }
 }
