@@ -50,6 +50,8 @@ public class Action {
                 mark(tasks.get(Integer.parseInt(words[1]) - 1));
             } else if (words[0].equals("unmark")) {
                 unmark(tasks.get(Integer.parseInt(words[1]) - 1));
+            } else if (words[0].equals("delete")) {
+                delete(tasks.get(Integer.parseInt(words[1]) - 1));
             } else {
                 try {
                     addTask(input);
@@ -130,6 +132,20 @@ public class Action {
         task.markAsNotDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(task);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    /**
+     * Deletes the task from the list.
+     * @param task task to be deleted.
+     */
+    public static void delete(Task task) {
+        tasks.remove(task);
+        numOfTasks--;
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
         System.out.println(HORIZONTAL_LINE);
     }
 }
