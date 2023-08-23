@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Task {
     /**
      * name of task
@@ -32,5 +34,10 @@ public class Task {
         } else {
             return "[ ] " + taskName;
         }
+    }
+
+    public static String[] processInput(String[] splitInput) {
+        String joined = String.join(" ", Arrays.copyOfRange(splitInput, 1, splitInput.length));
+        return joined.split(" /");
     }
 }

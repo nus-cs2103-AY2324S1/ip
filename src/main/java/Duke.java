@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -39,11 +40,31 @@ public class Duke {
                     System.out.println("Bye. Hope to see you again soon!");
                     run = false;
                     break;
-                default:
-                    Task newTask = new Task(line);
-                    tasks.add(newTask);
-                    System.out.println("added: " + line);
+                case "todo":
+                    String[] processedToDoInput = ToDo.processInput(split);
+                    ToDo newTodo = new ToDo(processedToDoInput[0]);
+                    tasks.add(newTodo);
+                    Duke.printTaskAddedMessages(newTodo, tasks.size());
+                    break;
+                case "deadline":
+                    String[] processedDeadlineInput = Deadline.processInput(split);
+                    Deadline newDeadline = new Deadline(processedDeadlineInput[0], processedDeadlineInput[1]);
+                    tasks.add(newDeadline);
+                    Duke.printTaskAddedMessages(newDeadline, tasks.size());
+                    break;
+                case "event":
+                    String[] processedEventInput = Event.processInput(split);
+                    Event newEvent = new Event(processedEventInput[0], processedEventInput[1], processedEventInput[2]);
+                    tasks.add(newEvent);
+                    Duke.printTaskAddedMessages(newEvent, tasks.size());
+                    break;
             }
         }
+    }
+
+    private static void printTaskAddedMessages(Task task, int tasksCount) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + tasksCount + (tasksCount == 1 ? " task" : " tasks") + " in the list.");
     }
 }
