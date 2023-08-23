@@ -4,7 +4,24 @@ package commands;
  * Types of commands that can be given to the Corgi chat bot.
  */
 public enum CommandType {
-    MARK, UNMARK, TODO, DEADLINE, EVENT, BYE, LIST;
+    MARK("mark [task no.]"), 
+    UNMARK("unmark [task no.]"), 
+    TODO("todo [task]"), 
+    DEADLINE("deadline [task] /by [deadline]"), 
+    EVENT("event [task] /from [start date/time] /to [end date/time]"), 
+    BYE("bye"), 
+    LIST("list");
+
+    private final String commandFormat;
+
+    /**
+     * Constructs a new CommandType with the given command format.
+     * 
+     * @param commandFormat The command format
+     */
+    CommandType(String commandFormat) {
+        this.commandFormat = commandFormat;
+    }
 
     /**
      * Retrieves the corresponding CommandType enum value based on the given command string.
@@ -33,4 +50,14 @@ public enum CommandType {
                 throw new InvalidCommandException();
         }
     }
+
+    /**
+     * Retrieves the command format string for this CommandType.
+     * 
+     * @return The command format string
+     */
+    public String getCommandFormat() {
+        return this.commandFormat;
+    }
+
 }
