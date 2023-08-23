@@ -1,7 +1,4 @@
 import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.stream.IntStream;
 
 public class Duke {
 
@@ -18,12 +15,17 @@ public class Duke {
             "                     \\ \\_\\   \\ \\/____\\ \\ \\            \\ \\_\\ \n" +
             "                      \\/_/    \\_________\\/             \\/_/";
     private static final String NAME = "404";
-    private static final String INDENT = "     ";
-    private List<Task> tasks = new ArrayList<>();
+    public static final String INDENT = "     ";
+
+    private TaskList taskList;
 
     public static void main(String[] args) {
         Duke robot404 = new Duke();
         robot404.start();
+    }
+
+    public Duke() {
+        this.taskList = new TaskList();
     }
 
     public void start() {
@@ -41,63 +43,73 @@ public class Duke {
             String text = sc.nextLine();
             printLine();
             try {
-                exit = executeCommand(text);
+                exit = parseCommand(text);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } finally {
+                printLine();
+                System.out.println();
             }
-            printLine();
-            System.out.println();
         }
         sc.close();
     }
 
-    private boolean executeCommand(String text) throws DukeException {
+    private boolean parseCommand(String text) throws DukeException {
         String[] split = text.split(" ");
         if (text.isEmpty() || split.length == 0) {
             String message = String.format("%sOOPS!!! You have not entered anything!%n", INDENT);
             throw new DukeException(message);
         }
 
-        Command com;
+        Keyword key;
         try {
-            com = Command.valueOf(split[0].toUpperCase());
+            key = Keyword.valueOf(split[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             String str = String.format("%sOOPS!!! I'm sorry, but I don't know what that means.", INDENT);
             throw new DukeException(str);
         }
 
         if (split.length == 1) {
-            String message = String.format("%sOOPS!!! The description of a %s cannot be empty.%n%s",
-                    INDENT, com.getCommand(), INDENT);
-            switch (com){
-                case BYE:
-                    System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
-                    return true;
-
-                case LIST:
-                    listTask();
-                    return false;
-
-                case TODO:
-                    throw new TodoException(message);
-
-                case DEADLINE:
-                    throw new DeadlineException(message);
-
-                case EVENT:
-                    throw new EventException(message);
-
-                case MARK:
-                case UNMARK:
-                case DELETE:
-                    throw new ManipulateException(message, com.getCommand());
-            }
+            return processOneWordCommand(key);
         }
 
         String rest = text.substring(split[0].length() + 1);
+        return processMultiWordCommand(key, rest);
+    }
+
+    private boolean processOneWordCommand(Keyword key) throws DukeException {
+        String message = String.format("%sOOPS!!! The description of a %s cannot be empty.%n%s",
+                INDENT, key.getKeyword(), INDENT);
+        switch (key){
+            case BYE:
+                System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
+                return true;
+
+            case LIST:
+                taskList.listTask();
+                break;
+
+            case TODO:
+                throw new TodoException(message);
+
+            case DEADLINE:
+                throw new DeadlineException(message);
+
+            case EVENT:
+                throw new EventException(message);
+
+            case MARK:
+            case UNMARK:
+            case DELETE:
+                throw new ManipulateException(message, key.getKeyword());
+        }
+        return false;
+    }
+
+    private boolean processMultiWordCommand(Keyword key, String rest) throws DukeException {
         String message = String.format("%sOOPS!!! The command for %s task is invalid.%n%s",
-                INDENT, com.getCommand(), INDENT);
-        switch (com) {
+                INDENT, key.getKeyword(), INDENT);
+        switch (key) {
             case BYE:
                 if (rest.equals(NAME)) {
                     System.out.printf("%sBye. Hope to see you again soon!%n", INDENT);
@@ -105,114 +117,76 @@ public class Duke {
                 }
             case LIST:
                 String errMessage = String.format("%sOOPS!!! The command for %s is invalid.\n" +
-                        "%sEnter in the form: \"%s\"",
-                        INDENT, com.getCommand(), INDENT, com.getCommand());
+                                "%sEnter in the form: \"%s\"",
+                        INDENT, key.getKeyword(), INDENT, key.getKeyword());
                 throw new DukeException(errMessage);
 
             case MARK:
             case UNMARK:
             case DELETE:
-                int task_num;
-                try {
-                    if (!rest.equals("all")) {
-                        task_num = Integer.parseInt(rest);
-                    } else {
-                        if (tasks.isEmpty()) {
-                            String str = String.format("%sOOPS!!! There are no tasks to %s.",
-                                    INDENT, com.getCommand());
-                            throw new DukeException(str);
-                        }
-                        if (com.equals(Command.DELETE)) {
-                            tasks.clear();
-                        } else {
-                            tasks.forEach(t -> t.mark(com.equals(Command.MARK)));
-                        }
-                        System.out.printf("%sNoted. I will %s all tasks.%n", INDENT, com.getCommand());
-                        break;
-                    }
-                } catch (NumberFormatException e) {
-                    throw new ManipulateException(message, com.getCommand());
-                }
-
-                if (task_num > tasks.size() || task_num < 1) {
-                    String str = String.format("%sOOPS!!! There is no task %d to %s",
-                            INDENT, task_num, com.getCommand());
-                    listTask();
-                    throw new DukeException(str);
-                }
-
-                if (com.equals(Command.DELETE)) {
-                    deleteTask(task_num - 1);
-                } else {
-                    markTask(task_num - 1, com.equals(Command.MARK));
-                }
+                processManipulateCommand(key, rest, message);
                 break;
 
             case TODO:
-                addTask(new Todo(rest));
+            case DEADLINE:
+            case EVENT:
+                processAddCommand(key, rest, message);
+                break;
+        }
+        return false;
+    }
+
+    private void processManipulateCommand(Keyword key, String rest, String err) throws DukeException {
+        int task_num;
+        try {
+            if (!rest.equals("all")) {
+                task_num = Integer.parseInt(rest);
+            } else {
+                taskList.manipulateAllTask(key);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            throw new ManipulateException(err, key.getKeyword());
+        }
+
+        if (key.equals(Keyword.DELETE)) {
+            taskList.deleteTask(task_num - 1);
+        } else {
+            taskList.markTask(task_num - 1, key.equals(Keyword.MARK));
+        }
+    }
+
+    private void processAddCommand(Keyword key, String rest, String err) throws DukeException {
+        switch(key) {
+            case TODO:
+                taskList.addTask(new Todo(rest));
                 break;
 
             case DEADLINE:
                 String[] deadlineTask = rest.split(" /by ");
                 if (deadlineTask.length != 2) {
-                    throw new DeadlineException(message);
+                    throw new DeadlineException(err);
                 }
-                addTask(new Deadline(deadlineTask[0], deadlineTask[1]));
+                taskList.addTask(new Deadline(deadlineTask[0], deadlineTask[1]));
                 break;
 
             case EVENT:
                 String[] eventTask = rest.split(" /from ");
                 if (eventTask.length != 2) {
-                    throw new EventException(message);
+                    throw new EventException(err);
                 }
                 String[] dates = eventTask[1].split(" /to ");
                 if (dates.length != 2) {
-                    throw new EventException(message);
+                    throw new EventException(err);
                 }
-                addTask(new Event(eventTask[0], dates[0], dates[1]));
+                taskList.addTask(new Event(eventTask[0], dates[0], dates[1]));
                 break;
         }
-        return false;
     }
 
     private static void printLine() {
         String line = "    ____________________________________________________________\n" +
                       "   /_____/_____/_____/_____/_____/_____/_____/_____/_____/_____/";
         System.out.println(line);
-    }
-
-    private void addTask(Task task) {
-        tasks.add(task);
-        System.out.printf("%sGot it. I've added this task:%n" +
-                          "%s  %s%n" +
-                          "%sNow you have %d tasks in the list.%n",
-                          INDENT, INDENT, task, INDENT, tasks.size());
-    }
-
-    private void listTask() {
-        if (tasks.isEmpty()) {
-            System.out.printf("%sOOPS!!! There is nothing in the list, yet!%n", INDENT);
-            return;
-        } else {
-            System.out.printf("%sHere are the tasks in your list:%n", INDENT);
-        }
-        IntStream.range(0, tasks.size())
-                 .forEach(i ->
-                         System.out.printf("%s%d.%s%n", INDENT, i + 1, tasks.get(i)));
-    }
-
-    private void markTask(int index, boolean mark) {
-        String task = tasks.get(index).mark(mark);
-        String message = mark ? "Nice! I've marked this task as done:"
-                              : "OK, I've marked this task as not done yet:";
-        System.out.printf("%s%s%n%s  %s%n", INDENT, message, INDENT, task);
-    }
-
-    private void deleteTask(int index) {
-        Task removedTask = tasks.remove(index);
-        System.out.printf("%sNoted. I've removed this task:%n" +
-                          "%s  %s%n" +
-                          "%sNow you have %d tasks in the list.%n",
-                INDENT, INDENT, removedTask, INDENT, tasks.size());
     }
 }
