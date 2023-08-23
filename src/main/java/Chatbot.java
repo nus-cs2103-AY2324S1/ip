@@ -133,10 +133,10 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         final Command command = Command.parse(message.getMessage());
 
         try {
-            switch (command.getName()) {
-                case "mark":
-                case "unmark":
-                case "delete":
+            switch (command.getOperation()) {
+                case Mark:
+                case Unmark:
+                case Delete:
                     if (command.getData() != null) {
                         int index;
                         TaskManager.Task task;
@@ -161,7 +161,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                         }
 
                         // Let's see what we should do!
-                        if (command.getName().equals("delete")) {
+                        if (command.getOperation() == Command.Operation.Delete) {
 
                             // Delete the task accordingly. We already checked the index so it should be correct.
                             this.taskManager.removeTask(index);
@@ -179,7 +179,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                         } else {
 
                             // Mark the task as done or not accordingly
-                            boolean completed = command.getName().equals("mark");
+                            boolean completed = command.getOperation() == Command.Operation.Mark;
                             if (task.isCompleted() == completed) {
                                 throw new ChatbotException(
                                         completed ? "The task was already done!" : "The task was already not done!"
@@ -204,16 +204,19 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                     }
                     break;
 
-                case "todo":
-                case "deadline":
-                case "event":
+                case AddTodo:
+                case AddDeadline:
+                case AddEvent:
                     if (!command.getData().isBlank()) {
+
+                        // Create the appropriate task
                         TaskManager.Task task = null;
-                        switch (command.getName()) {
-                            case "todo":
+                        switch (command.getOperation()) {
+                            case AddTodo:
                                 task = new TaskManager.Todo(command.getData());
                                 break;
-                            case "deadline":
+
+                            case AddDeadline:
                                 if (!command.hasParamWithUsefulValue("by")) {
                                     throw new ChatbotException(
                                             "The 'deadline' command requires supplying '/by <deadline>'!"
@@ -224,7 +227,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                                         command.getParam("by")
                                 );
                                 break;
-                            case "event":
+
+                            case AddEvent:
                                 if (!command.hasParamWithUsefulValue("from") ||
                                         !command.hasParamWithUsefulValue("to")) {
                                     throw new ChatbotException(
@@ -237,20 +241,22 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                                         command.getParam("to")
                                 );
                                 break;
+
+                            default:
+                                throw new ChatbotException("Unexpected internal error: task type was not implemented.");
                         }
-                        if (task != null) {
-                            this.taskManager.addTask(task);
-                            this.sendMessage(
-                                    ChatMessage.SenderType.CHATBOT,
-                                    String.format(
-                                            "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
-                                            task,
-                                            this.taskManager.getTaskCount()
-                                    )
-                            );
-                        } else {
-                            throw new ChatbotException("Unexpected error occurred - task could not be created.");
-                        }
+
+                        // Add the task created
+                        this.taskManager.addTask(task);
+                        this.sendMessage(
+                                ChatMessage.SenderType.CHATBOT,
+                                String.format(
+                                        "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
+                                        task,
+                                        this.taskManager.getTaskCount()
+                                )
+                        );
+
                     } else {
                         throw new ChatbotException(String.format(
                                 "The command '%s' to create a task requires some title content, but none was found!",
@@ -259,7 +265,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                     }
                     break;
 
-                case "list":
+                case List:
                     if (command.getData().isBlank()) {
                         StringBuilder builder = new StringBuilder();
 
@@ -281,12 +287,13 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                         break;
                     }
                     throw new ChatbotException(FAILURE_MESSAGE_REPLY);
-                case "bye":
+                case Exit:
                     if (command.getData().isBlank()) {
                         this.closeConversation();
                         break;
                     }
                     throw new ChatbotException(FAILURE_MESSAGE_REPLY);
+                case Unknown:
                 default:
                     throw new ChatbotException(FAILURE_MESSAGE_REPLY);
             }

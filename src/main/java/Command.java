@@ -6,6 +6,21 @@ import java.util.Map;
  */
 public class Command {
 
+    public enum Operation {
+        Mark,
+        Unmark,
+
+        AddTodo,
+        AddDeadline,
+        AddEvent,
+        Delete,
+
+        List,
+        Exit,
+
+        Unknown
+    }
+
     private String name;
     private String data;
     private Map<String, String> params = new HashMap<>();
@@ -122,6 +137,32 @@ public class Command {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Obtains the operation of the given command by comparing the name against one of the standard operations.
+     *
+     * @return The operation of the given command.
+     */
+    public Operation getOperation() {
+        switch (this.name) {
+            case "mark": return Operation.Mark;
+            case "unmark": return Operation.Unmark;
+
+            case "todo": return Operation.AddTodo;
+            case "event": return Operation.AddEvent;
+            case "deadline": return Operation.AddDeadline;
+
+            case "delete": return Operation.Delete;
+
+            case "list": return Operation.List;
+
+            case "bye":
+            case "exit":
+                return Operation.Exit;
+        }
+
+        return Operation.Unknown;
     }
 
     /**
