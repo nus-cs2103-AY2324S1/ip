@@ -1,0 +1,5 @@
+todo Eat supper
+deadline CS2103 Homework /by Tomorrow
+event CS1010S Tutorial /from 1pm tomorrow /to 2pm tomorrow
+list
+bye
