@@ -45,32 +45,52 @@ public class Duke {
                 cmd = sc.nextLine();
             } else if (cmd.contains("deadline")) {
                 String[] parts = cmd.split("/by");
-                String description = parts[0].replace("deadline", "").trim(); // Remove "deadline"
-                String deadline = parts[1].trim();
-                Task task = new Deadline(description, deadline);
-                ls.add(task);
-                int size = ls.size();
-                System.out.println("Got it. I've added this task:\n" + task.toString() + "\n" + "Now you have " + size + " tasks in the list.\n");
+                if (parts.length == 2) {
+                    String description = parts[0].replace("deadline", "").trim(); // Remove "deadline"
+                    String deadline = parts[1].trim();
+                    Task task = new Deadline(description, deadline);
+                    ls.add(task);
+                    int size = ls.size();
+                    System.out.println("Got it. I've added this task:\n" + task.toString() + "\n" + "Now you have " + size + " tasks in the list.\n");
+                } else {
+                    DukeException exp = new DukeException("deadline");
+                    System.out.println(exp.toString());
+                }
                 cmd = sc.nextLine();
             } else if (cmd.contains("todo")){
                 String[] parts = cmd.split(" ", 2);
-                String desc = parts[1].trim();
-                Task task = new ToDo(desc);
-                ls.add(task);
-                int size = ls.size();
-                System.out.println("Got it. I've added this task:\n" + task.toString() + "\n" + "Now you have " + size + " tasks in the list.\n");
-cmd = sc.nextLine();
+                if (parts.length == 2) {
+                    String desc = parts[1].trim();
+                    Task task = new ToDo(desc);
+                    ls.add(task);
+                    int size = ls.size();
+                    System.out.println("Got it. I've added this task:\n" + task.toString() + "\n" + "Now you have " + size + " tasks in the list.\n");
+                } else {
+                    DukeException exp = new DukeException("todo");
+                    System.out.println(exp.toString());
+                }
+                cmd = sc.nextLine();
             } else if (cmd.contains("event")) {
                 String[] parts = cmd.split("/from");
-                String desc = parts[0].replace("event", "").trim();
-                String rest = parts[1].trim();
-                String[] restParts =  rest.split("/to");
-                String from = restParts[0].trim();
-                String till = restParts[1].trim();
-                Task task = new Event(desc, from, till);
-                ls.add(task);
-                int size = ls.size();
-                System.out.println("Got it. I've added this task:\n" + task.toString() + "\n" + "Now you have " + size + " tasks in the list.\n");
+                if (parts.length == 2) {
+                    String desc = parts[0].replace("event", "").trim();
+                    String rest = parts[1].trim();
+                    String[] restParts = rest.split("/to");
+                        String from = restParts[0].trim();
+                        String till = restParts[1].trim();
+                        Task task = new Event(desc, from, till);
+                        ls.add(task);
+                        int size = ls.size();
+                        System.out.println("Got it. I've added this task:\n" + task.toString() + "\n" + "Now you have " + size + " tasks in the list.\n");
+
+                } else {
+                    DukeException exp = new DukeException("event");
+                    System.out.println(exp.toString());
+                }
+                cmd = sc.nextLine();
+            } else {
+                DukeException exp = new DukeException("");
+                System.out.println(exp.nothing());
                 cmd = sc.nextLine();
             }
         }
