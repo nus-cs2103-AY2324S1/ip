@@ -88,6 +88,23 @@ public class Duke {
 
           break;
         }
+        case "event": {
+
+          int commandLength = commandString.length() + 1;
+          String taskName = inputString.substring(commandLength);
+          String[] parts = taskName.split("/from", 2);
+          String name = parts[0];
+          String dates = parts[1];
+          String[] datesplit = dates.split("/to", 2);
+          String startDate = datesplit[0];
+          String endDate = datesplit[1];
+
+          Task curentTask = new Event(name, startDate, endDate);
+          taskList.add(curentTask);
+
+          System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+          break;
+        }
         default:
           System.out.println("Please enter a suitable task!");
       }
