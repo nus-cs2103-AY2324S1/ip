@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Duke {
@@ -18,8 +19,16 @@ public class Duke {
 
     label:
     while (true) {
-      String inputString = scanner.nextLine();
-      String[] inputTokens = inputString.split(" ");
+
+      String inputString = null;
+      String[] inputTokens = null;
+
+      try {
+        inputString = scanner.nextLine();
+        inputTokens = inputString.split(" ");
+      } catch (NoSuchElementException ex) {
+        break;
+      }
 
       // there is no input
       if (inputTokens.length == 0) {
