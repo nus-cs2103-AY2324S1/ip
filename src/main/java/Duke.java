@@ -31,6 +31,8 @@ public class Duke {
                     markTaskAsDone(userInput, tasks);
                 } else if (userInput.startsWith("unmark")) {
                     unmarkTaskAsDone(userInput, tasks);
+                } else if (userInput.startsWith("delete")) {
+                    deleteTask(userInput, tasks);
                 } else {
                     addTask(userInput, tasks);
                 }
@@ -76,10 +78,27 @@ public class Duke {
         System.out.printf("Now you have %d tasks in the list%n", tasks.size());
     }
 
+    private static void deleteTask(String userInput, List<Task> tasks) throws DukeException {
+        String[] inputParts = userInput.split(" ", 2);
+        if (inputParts.length != 2) throw new NoTaskFoundException();
+        try {
+            int taskId = Integer.parseInt(inputParts[1].trim());
+            if (taskId < 1 || taskId > tasks.size()) throw new InvalidTaskException();
+            Task deletedTask = tasks.remove(taskId - 1);
+            System.out.println("Noted. I've removed this task:\n\t" + deletedTask);
+            System.out.printf("Now you have %d tasks in the list%n", tasks.size());
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskException();
+        }
+    }
+
     private static void unmarkTaskAsDone(String userInput, List<Task> tasks) throws DukeException {
         try {
+            String[] inputParts = userInput.split(" ", 2);
+            // Throw NoTaskFoundException if there is nothing after 'unmark'
+            if (inputParts.length != 2) throw new NoTaskFoundException();
             // Get the id of the task (zero-indexed) from the userInput
-            int taskId = Integer.parseInt(userInput.split(" ")[1]);
+            int taskId = Integer.parseInt(inputParts[1]);
             // Throw InvalidTaskException if task id is out of bounds of task list or is invalid
             if (taskId <= 0 || taskId > tasks.size()) throw new InvalidTaskException();
             // Unmark the selected task as done
@@ -94,8 +113,11 @@ public class Duke {
 
     private static void markTaskAsDone(String userInput, List<Task> tasks) throws DukeException {
         try {
+            String[] inputParts = userInput.split(" ", 2);
+            // Throw NoTaskFoundException if there is nothing after 'mark'
+            if (inputParts.length != 2) throw new NoTaskFoundException();
             // Get the id of the task (zero-indexed) from the userInput
-            int taskId = Integer.parseInt(userInput.split(" ")[1]);
+            int taskId = Integer.parseInt(inputParts[1]);
             // Throw InvalidTaskException if task id is out of bounds of task list or is invalid
             if (taskId <= 0 || taskId > tasks.size()) throw new InvalidTaskException();
             // Mark the selected task as done
@@ -109,13 +131,17 @@ public class Duke {
     }
 
     private static void listTasks(List<Task> tasks) {
-        System.out.println("Here are the tasks in your list:\n");
-        for (int i=0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            String taskLine = String.format("%d.%s",
-                    i+1,
-                    task.toString());
-            System.out.println(taskLine);
+        if (tasks.size() == 0) {
+            System.out.println("Chewy detected no task for you!");
+        } else {
+            System.out.println("Here are the tasks in your list:\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                String taskLine = String.format("%d.%s",
+                        i + 1,
+                        task.toString());
+                System.out.println(taskLine);
+            }
         }
     }
 }

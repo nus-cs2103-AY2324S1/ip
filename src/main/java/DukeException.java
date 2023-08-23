@@ -21,3 +21,9 @@ class NoDescriptionException extends DukeException {
         super("No description found. Please enter a description after your command.");
     }
 }
+
+class NoTaskFoundException extends DukeException {
+    public NoTaskFoundException() {
+        super("No Task Id found. Please enter a Task Id after your command");
+    }
+}

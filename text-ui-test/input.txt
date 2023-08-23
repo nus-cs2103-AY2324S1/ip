@@ -1,3 +1,6 @@
+fakecommand
+list
+todo
 todo run script
 deadline do something
 deadline do something /by friday morning
@@ -7,5 +10,8 @@ mark 1
 mark 3
 list
 unmark 1
+list
+delete
+delete 3
 list
 bye

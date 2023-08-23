@@ -2,6 +2,9 @@ Hello!
 I'm Chewy,
 What can I do for you?
 
+:( Chewy can't understand! Invalid command entered. See 'help' for a list of commands you can enter
+Chewy detected no task for you!
+:( Chewy can't understand! No description found. Please enter a description after your command.
 Got it. I've added this task:
 	[T][ ] run script
 Now you have 1 tasks in the list
@@ -37,4 +40,14 @@ Here are the tasks in your list:
 3.[D][X] do something (by: friday morning)
 4.[E][ ] some lecture (from today 4pm to 6pm)
 5.[E][ ] some recitation (from tomorrow 12pm to 2pm)
+:( Chewy can't understand! No Task Id found. Please enter a Task Id after your command
+Noted. I've removed this task:
+	[D][X] do something (by: friday morning)
+Now you have 4 tasks in the list
+Here are the tasks in your list:
+
+1.[T][ ] run script
+2.[D][ ] do something
+3.[E][ ] some lecture (from today 4pm to 6pm)
+4.[E][ ] some recitation (from tomorrow 12pm to 2pm)
 Bye. Hope to see you again soon!
