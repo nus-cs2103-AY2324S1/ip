@@ -4,9 +4,13 @@ public class Memory {
     private final static ArrayList<Boolean> markList = new ArrayList<>();
 
     public void add(Task task) {
+        if (task == null) {
+            return;
+        }
         System.out.println("Got it. I've added this task:");
         ls.add(task);
         System.out.println(task);
+        System.out.println("Now you have " + this.size() + " tasks in the list.");
     }
 
     public void mark(int pos) {

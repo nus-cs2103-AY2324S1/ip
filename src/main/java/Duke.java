@@ -59,7 +59,6 @@ public class Duke {
                 memory.unmark(pos);
             } else {
                 memory.add(parser.parseTask(input));
-                System.out.println("Now you have " + memory.size() + " tasks in the list.");
             }
         }
     }
