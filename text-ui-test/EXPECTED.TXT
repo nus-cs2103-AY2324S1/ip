@@ -51,4 +51,3 @@ Task 1: [T][X] borrow book
 Task 2: [D][ ] return book (by: Sunday)
 Task 3: [E][ ] project meeting (from: Mon 2pm to 4pm)
 ____________________________________________________________
-Please input valid command
