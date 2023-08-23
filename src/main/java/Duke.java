@@ -59,6 +59,11 @@ public class Duke {
                         tasks.add(newEvent);
                         Duke.printTaskAddedMessages(newEvent, tasks.size());
                         break;
+                    case "delete":
+                        index = Integer.parseInt(split[1]) - 1;
+                        task = tasks.remove(index);
+                        Duke.printTaskDeletedMessage(task, tasks.size());
+                        break;
                     default:
                         throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -71,6 +76,16 @@ public class Duke {
     private static void printTaskAddedMessages(Task task, int tasksCount) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
+        Duke.printTaskCount(tasksCount);
+    }
+
+    private static void printTaskDeletedMessage(Task task, int tasksCount) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        Duke.printTaskCount(tasksCount);
+    }
+
+    private static void printTaskCount(int tasksCount) {
         System.out.println("Now you have " + tasksCount + (tasksCount == 1 ? " task" : " tasks") + " in the list.");
     }
 }

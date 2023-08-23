@@ -15,4 +15,6 @@ event marathon
 event marathon /from: 3pm
 event /from: 3pm /to: 7pm
 blah
+delete 3
+list
 bye
