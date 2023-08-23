@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Emiya {
@@ -19,11 +20,8 @@ public class Emiya {
 
     public static void main(String[] args) {
 
-        // Pointer to determine where to add objects to array
-        int arrayPointer = 0;
-
-        // Represents the list as an array of Task objects
-        Task[] taskArray = new Task[100];
+        // Represents the list as an ArrayList of Task objects
+        ArrayList<Task> taskArrayList = new ArrayList<>();
         String welcomeMessage = "-----------------------------------------\n"
                 + "Hello! I'm Emiya\n"
                 + "What can I do for you?\n"
@@ -67,7 +65,7 @@ public class Emiya {
                 if (input.equals("list")) {
                     StringBuilder listString = new StringBuilder("-----------------------------------------\n" +
                             "Lots of things to do! Get to it!:\n");
-                    for (Task task : taskArray) {
+                    for (Task task : taskArrayList) {
                         if (task == null) {
                             if (listPointer == 1) {
                                 throw new EmiyaException("List is empty! Please add items to list before trying to display list contents!");
@@ -105,45 +103,62 @@ public class Emiya {
                 switch (typeOfTask) {
                     case "mark":
                         if (position != null) {
-                            if (position < 0 || taskArray[position - 1] == null) {
+                            if (position <= 0 || position > taskArrayList.size()) {
                                 throw new EmiyaException("Task does not exist! Please try with a different value");
                             }
-                            taskArray[position - 1].setMarked();
+                            taskArrayList.get(position-1).setMarked();
                             System.out.println("-----------------------------------------\n" +
-                                    "Nice job! I have marked this task as done:\n" + taskArray[position - 1] + "\n"
+                                    "Nice job! I have marked this task as done:\n" + taskArrayList.get(position-1) + "\n"
                                     + "-----------------------------------------\n");
-                            break;
+                        } else {
+                            throw new EmiyaException("Unknown command received! Please try again!");
                         }
-                        // if not a specific mark typeOfTask, continue
+                        break;
                     case "unmark":
                         if (position != null) {
-                            if (position < 0 || taskArray[position - 1] == null) {
+                            if (position <= 0 || position > taskArrayList.size()) {
                                 throw new EmiyaException("Task does not exist! Please try with a different value");
                             }
-                            taskArray[position - 1].setUnmarked();
+                            taskArrayList.get(position-1).setUnmarked();
                             System.out.println("-----------------------------------------\n" +
-                                    "Oof, alright I have set this task as unmarked:\n" + taskArray[position - 1] + "\n"
+                                    "Oof, alright I have set this task as unmarked:\n" + taskArrayList.get(position-1) + "\n"
                                     + "-----------------------------------------\n");
-                            break;
+                        } else {
+                            throw new EmiyaException("Unknown command received! Please try again!");
                         }
-                        // if not a specific unmark typeOfTask, continue
+                        break;
+                    case "delete":
+                        if (position != null) {
+                            if (position <= 0 || position > taskArrayList.size()) {
+                                throw new EmiyaException("Task does not exist! Please try with a different value");
+                            }
+                            Task task = taskArrayList.get(position-1);
+                            taskArrayList.remove(task);
+                            System.out.println("-----------------------------------------\n" +
+                                    "Sure, I shall now delete the following task:\n" + task + "\n"
+                                    + "Now you have " + taskArrayList.size() + " tasks in your list!\n"
+                                    + "-----------------------------------------\n");
+                        } else {
+                            throw new EmiyaException("Unknown command received! Please try again!");
+                        }
+                        break;
                     case "todo":
                         // need to be able to go through the rest of the string and add it inside
                         if (taskDetails.length() < 1) {
                             throw new EmiyaException("Oh no! Todo tasks cannot be empty! Please try again!");
                         }
-                        taskArray[arrayPointer] = new ToDo(taskDetails);
-                        arrayPointer++;
+                        ToDo todo = new ToDo(taskDetails);
+                        taskArrayList.add(todo);
                         String todoOutputMessage = "";
-                        if (arrayPointer == 1) {
+                        if (taskArrayList.size() == 1) {
                             todoOutputMessage = "-----------------------------------------\n" +
-                                    "Sure! I have added this task to the list:\n" + taskArray[arrayPointer - 1] + "\n"
-                                    + "Now you have " + arrayPointer + " task in your list!\n"
+                                    "Sure! I have added this task to the list:\n" + todo + "\n"
+                                    + "Now you have " + taskArrayList.size() + " task in your list!\n"
                                     + "-----------------------------------------\n";
                         } else {
                             todoOutputMessage = "-----------------------------------------\n" +
-                                    "Sure! I have added this task to the list:\n" + taskArray[arrayPointer - 1] + "\n"
-                                    + "Now you have " + arrayPointer + " tasks in your list!\n"
+                                    "Sure! I have added this task to the list:\n" + todo + "\n"
+                                    + "Now you have " + taskArrayList.size() + " tasks in your list!\n"
                                     + "-----------------------------------------\n";
                         }
                         System.out.println(todoOutputMessage);
@@ -156,18 +171,18 @@ public class Emiya {
                         if (deadlineDetails.length <= 1) {
                             throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /by in your input?");
                         }
-                        taskArray[arrayPointer] = new Deadline(deadlineDetails[0], deadlineDetails[1]);
-                        arrayPointer++;
+                        Deadline deadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
+                        taskArrayList.add(deadline);
                         String deadlineOutputMessage = "";
-                        if (arrayPointer == 1) {
+                        if (taskArrayList.size() == 1) {
                             deadlineOutputMessage = "-----------------------------------------\n" +
-                                    "Sure! I have added this task to the list:\n" + taskArray[arrayPointer - 1] + "\n"
-                                    + "Now you have " + arrayPointer + " task in your list!\n"
+                                    "Sure! I have added this task to the list:\n" + deadline + "\n"
+                                    + "Now you have " + taskArrayList.size() + " task in your list!\n"
                                     + "-----------------------------------------\n";
                         } else {
                             deadlineOutputMessage = "-----------------------------------------\n" +
-                                    "Sure! I have added this task to the list:\n" + taskArray[arrayPointer - 1] + "\n"
-                                    + "Now you have " + arrayPointer + " tasks in your list!\n"
+                                    "Sure! I have added this task to the list:\n" + deadline + "\n"
+                                    + "Now you have " + taskArrayList.size() + " tasks in your list!\n"
                                     + "-----------------------------------------\n";
                         }
                         System.out.println(deadlineOutputMessage);
@@ -184,18 +199,18 @@ public class Emiya {
                         if (eventDurationDetails.length <= 1) {
                             throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /to in your input?");
                         }
-                        taskArray[arrayPointer] = new Event(eventDetails[0], eventDurationDetails[0], eventDurationDetails[1]);
-                        arrayPointer++;
+                        Event event = new Event(eventDetails[0], eventDurationDetails[0], eventDurationDetails[1]);
+                        taskArrayList.add(event);
                         String eventOutputMessage = "";
-                        if (arrayPointer == 1) {
+                        if (taskArrayList.size() == 1) {
                             eventOutputMessage = "-----------------------------------------\n" +
-                                    "Sure! I have added this task to the list:\n" + taskArray[arrayPointer - 1] + "\n"
-                                    + "Now you have " + arrayPointer + " task in your list!\n"
+                                    "Sure! I have added this task to the list:\n" + event + "\n"
+                                    + "Now you have " + taskArrayList.size() + " task in your list!\n"
                                     + "-----------------------------------------\n";
                         } else {
                             eventOutputMessage = "-----------------------------------------\n" +
-                                    "Sure! I have added this task to the list:\n" + taskArray[arrayPointer - 1] + "\n"
-                                    + "Now you have " + arrayPointer + " tasks in your list!\n"
+                                    "Sure! I have added this task to the list:\n" + event + "\n"
+                                    + "Now you have " + taskArrayList.size() + " tasks in your list!\n"
                                     + "-----------------------------------------\n";
                         }
 
