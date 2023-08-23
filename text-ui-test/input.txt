@@ -1,0 +1,15 @@
+todo read book
+deadline finish project /by August 23rd
+event project meeting /from June 6th 3pm /to 5pm
+list
+deadline return book /by Sunday
+event study /from Monday 9am /to 10am
+mark 2
+list
+mark 3
+list
+unmark 2
+list
+unmark 3
+list
+bye
