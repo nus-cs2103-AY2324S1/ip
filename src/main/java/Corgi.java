@@ -121,7 +121,10 @@ public class Corgi {
         } catch (InvalidDescFormatException e) {
             this.printException("Are you trying to confuse me with this nonsense? Try again hooman!" + "\n" 
                 + "Format: < " + cmd.getCommandFormat() + " >");
-        } 
+        } catch (Exception e) {
+            this.printException("Oh wonderful, you've broken something. And guess what? I have absolutely no idea what happened either."
+                + "\nError: " + e.getMessage());
+        }
 
         return false;
     }
