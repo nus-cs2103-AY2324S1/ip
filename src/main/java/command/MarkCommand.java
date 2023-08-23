@@ -6,20 +6,22 @@ import task.TaskList;
 public class MarkCommand extends Command {
 
     String commandMessage = "";
-    public MarkCommand() {
-
+    private int taskIndex;
+    public MarkCommand(String[] details) {
+        taskIndex = Integer.valueOf(details[0].replace("mark ", ""));
     }
 
     @Override
     public String getCommandMessage() {
+
         return commandMessage;
     }
 
     @Override
-    public void execute(TaskList taskList, int taskIndex) {
+    public void execute(TaskList taskList) {
         Task currentTask = taskList.getTask(taskIndex);
         currentTask.setMarked();
-        commandMessage = "Wow you are done!" + "\n" + currentTask.showMarked() + currentTask.showDetails();
+        commandMessage = "Wow you are done!" + "\n" + currentTask.toString();
     }
 
 

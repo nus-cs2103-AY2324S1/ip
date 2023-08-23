@@ -13,7 +13,7 @@ public class ListCommand extends Command {
         return commandMessage;
     }
     @Override
-    public void execute(TaskList taskList, int taskIndex) {
+    public void execute(TaskList taskList) {
         commandMessage = "Here are your tasks: " + "\n" + taskList.toString();
     }
 }

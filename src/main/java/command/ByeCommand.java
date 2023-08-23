@@ -12,7 +12,8 @@ public class ByeCommand extends Command {
         return commandMessage;
     }
     @Override
-    public void execute(TaskList taskList, int taskIndex) {
+    public void execute(TaskList taskList) {
+
         commandMessage = "Byebye. See you again!";
     }
 }

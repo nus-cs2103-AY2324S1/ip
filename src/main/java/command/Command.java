@@ -13,5 +13,5 @@ public abstract class Command {
         System.out.println(line + "\n" + output + "\n" +line);
     }
     public abstract String getCommandMessage();
-    public abstract void execute(TaskList taskList, int taskIndex);
+    public abstract void execute(TaskList taskList);
 }

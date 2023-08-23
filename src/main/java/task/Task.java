@@ -1,15 +1,18 @@
 package task;
 
 public class Task {
-    private int num;
+    //private int num;
     private String details;
 
     private boolean isMarked;
 
-    public Task(int index, String name) {
-        num = index;
-        details = name;
+    private String taskType;
+
+    public Task(String info) {
+        //num = index;
+        details = info;
         isMarked = false;
+        //taskType = type;
     }
 
     public void setMarked() {
@@ -34,9 +37,13 @@ public class Task {
         return details;
     }
 
+    public void setTaskType(String type) {
+        taskType = type;
+    }
+
     @Override
     public String toString() {
-        String output = String.format("%d", num) + ". " + showMarked() + details;
+        String output = "[" + taskType + "]" + showMarked() + details;
         return output;
     }
 }
