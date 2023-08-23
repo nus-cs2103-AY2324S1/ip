@@ -132,7 +132,6 @@ public class Duke {
                 }
             }
 
-
             else {
                 Task newElement = new Task(userCommand);
                 userList.add(newElement);
