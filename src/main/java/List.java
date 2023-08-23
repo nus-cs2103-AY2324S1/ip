@@ -3,6 +3,9 @@ import java.util.ArrayList;
 public class List {
     private ArrayList<Task> taskList = new ArrayList<>();
 
+    public int size() {
+        return taskList.size();
+    }
     public void add(Task task) {
         taskList.add(task);
         System.out.println("Got it. I've added this task:\n" + task.toString());
@@ -11,6 +14,12 @@ public class List {
 
     public Task get(int i) {
         return taskList.get(i);
+    }
+
+    public void delete(Task task) {
+        System.out.println("Noted. I've removed this task:\n" + task.toString());
+        taskList.remove(task);
+        System.out.println(this);
     }
 
     public void list() {

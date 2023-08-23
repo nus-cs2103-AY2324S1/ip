@@ -28,6 +28,9 @@ public class Duke {
             exit();
         }
         else if (promptText.equals("list")) {
+            if (taskList.size() == 0) {
+                System.out.println("Your task list is empty!");
+            }
             list();
         }
         else if (promptText.startsWith("todo") || promptText.startsWith("deadline") || promptText.startsWith("event")) {
@@ -36,10 +39,22 @@ public class Duke {
         else if (promptText.startsWith("mark") || promptText.startsWith("unmark")){
             markTask(promptText);
         }
+        else if (promptText.startsWith("delete")) {
+            deleteTask(Integer.valueOf(promptText.substring(7)) - 1);
+        }
         else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         echo();
+    }
+
+    public static void deleteTask(int i) throws DukeException {
+        try {
+            taskList.delete(taskList.get(i));
+        }
+        catch (IndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!! This task doesn't exist!");
+        }
     }
 
     public static void createTask(String promptText) throws DukeException {
