@@ -9,6 +9,5 @@ public class Duke {
 
         System.out.println(Messages.GREET);
         Messages.startChatting();
-
     }
 }
