@@ -41,7 +41,7 @@ public class Event extends Task {
             System.out.println(Duke.HORIZONTAL_LINE);
             System.out.println("     Invalid Event Task input.\n"
                     + "     Please input in the following format:\n"
-                    + "     event <Task Description> /from <start time> /to <end time>\n");
+                    + "     event <Task Description> /from <start time> /to <end time>");
             System.out.println(Duke.HORIZONTAL_LINE);
         }
     }

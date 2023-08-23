@@ -119,7 +119,7 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) throws InvalidCommandException{
+    public static void main(String[] args) throws InvalidCommandException {
         Boolean repeatFlag = true;
         greet();
         Scanner scanner = new Scanner(System.in);

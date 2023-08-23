@@ -37,7 +37,7 @@ public class Deadline extends Task {
             System.out.println(Duke.HORIZONTAL_LINE);
             System.out.println("     Invalid Deadline Task input.\n"
                     + "     Please input in the following format:\n"
-                    + "     deadline <Task Description> /by <deadline timing>\n");
+                    + "     deadline <Task Description> /by <deadline timing>");
             System.out.println(Duke.HORIZONTAL_LINE);
         }
     }
