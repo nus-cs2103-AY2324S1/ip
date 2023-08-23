@@ -9,24 +9,33 @@ public class AiChan {
         String bye = "Ta-da! It's time to go~ Keep smiling till we reunite!\n";
 
         Scanner scn = new Scanner(System.in);
-        ArrayList<String> arrStr = new ArrayList<>();
+        ArrayList<Task> arrTask = new ArrayList<>();
 
         System.out.println(line + greet + line);
+
         while (true) {
             String command = scn.nextLine();
             if (command.equals("bye")) {
                 System.out.println(line + bye + line);
                 break;
             } else if (command.equals("list")){
-                System.out.print(line);
-                int i = 1;
-                for (String str : arrStr) {
-                    System.out.println(i + ". " + str);
-                    i++;
+                System.out.print(line + "Here are the tasks in your list: \n");
+                for (Task t : arrTask) {
+                    System.out.println(t.toStringId());
                 }
-                System.out.print(line);
+                System.out.println(line);
+            } else if (command.startsWith("mark")){
+                int taskId = Integer.parseInt(command.substring(5));
+                Task t = arrTask.get(taskId - 1);
+                t.mark();
+                System.out.println(line + "Nice! I've marked this task as done: \n" + t.toString() + "\n" + line);
+            } else if (command.startsWith("unmark")){
+                int taskId = Integer.parseInt(command.substring(7));
+                Task t = arrTask.get(taskId - 1);
+                t.unmark();
+                System.out.println(line + "OK, I've marked this task as not done yet: \n" + t.toString() + "\n" + line);
             } else {
-                arrStr.add(command);
+                arrTask.add(new Task(command));
                 System.out.println(line + "added: " + command + "\n" + line);
             }
         }
