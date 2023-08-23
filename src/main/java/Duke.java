@@ -2,9 +2,6 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Tasks[] task = new Tasks[100];
-        int count = 0;
-
         String logo  =   "____    ____  ________   ___    ___   __________    _____\n"
                      + "\\   \\  /   / |  ____  |  |  |   |  |  |  _____  |  / ____|\n"
                      + " \\   \\/   /  | |    | |  |  |   |  |  |  |___|  |  | (___\n"
@@ -24,42 +21,16 @@ public class Duke {
 
         while (true) {
             String userInput = scanner.nextLine();
-
             if (userInput.equals("bye")) {
                 System.out.println("   ____________________________________________________________________________________");
                 System.out.println("   " + name + ": Bye. Hope to see you again soon!");
-                System.out.println("   ____________________________________________________________________________________");
                 break;
-            } else if (userInput.equals("list")) {
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " + name + ": Here are the tasks in your list :");
-                for (int i = 0 ; i < count; i ++) {
-                    int j = i + 1;
-                    System.out.println("     " + j + ". " +  task[i].toString());
-                }
-                System.out.println("   ____________________________________________________________________________________");
-            } else if (userInput.startsWith("mark")) {
-                int index = Integer.parseInt(userInput.substring(5));
-                task[index - 1].markDone();
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " + name + ": Well done! I've marked this task as done :");
-                System.out.println("   " + task[index - 1].toString());
-                System.out.println("   ____________________________________________________________________________________");
-            } else if (userInput.startsWith("unmark")) {
-                int index = Integer.parseInt(userInput.substring(7));
-                task[index - 1].markNotDone();
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " + name + ": Alright, I've marked this task as not done yet");
-                System.out.println("   " + task[index - 1].toString());
-                System.out.println("   ____________________________________________________________________________________");
             } else {
-                Tasks newtask = new Tasks(userInput);
                 System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " +  name + ": Help you added a new task - " + userInput);
-                System.out.println("   ____________________________________________________________________________________");
-                task[count] = newtask;
-                count++;
+                System.out.println("   " +  name + ": " + userInput);
             }
         }
+
+
     }
 }
