@@ -11,6 +11,9 @@ public class Duke {
         interact();
     }
 
+    /**
+     * Invoked at the start of the interaction, to greet the user.
+     */
     private void start() {
         System.out.println(Duke.horizontalLine);
         System.out.print("Hello from ");
@@ -19,11 +22,26 @@ public class Duke {
         System.out.println(Duke.horizontalLine);
     }
 
+    /**
+     * Invoked at the end of the programme, to leave an exit message to user.
+     */
     private void exit() {
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(Duke.horizontalLine);
     }
 
+    /**
+     * Main programme to allow user to input and respond accordingly.
+     * Available commands:
+     * - bye: to exit the programme
+     * - list: to list out the current task list
+     * - mark {number}: to mark the task with the corresponding index in the list as done
+     * - unmark {number}: to mark the task with the corresponding index in the list as not done
+     * - todo {taskname}: to add a new task as a to-do item (no deadline or time)
+     * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event (with start time and end time)
+     * - deadline {taskname} /by {time}: to add a new task as a deadline (with deadline time)
+     * Error handling is done in the individual functions, not here.
+     */
     private void interact() {
         this.start();
         label:
@@ -155,6 +173,10 @@ public class Duke {
         this.showTaskCount();
     }
 
+    /**
+     * Perform input checking and add a new task as deadline to the current list of tasks.
+     * @param commandArgs the list of arguments in the command
+     */
     private void addDeadlineToList(String[] commandArgs) {
         // number of arguments
         if (commandArgs.length != 2) {
@@ -187,16 +209,26 @@ public class Duke {
         this.showTaskCount();
     }
 
+    /**
+     * Notify user of how many tasks are currently in the task list.
+     */
     private void showTaskCount() {
         System.out.println("Now you have " + this.taskList.size() + " in the list.");
     }
 
+    /**
+     * Show the current list of tasks to user.
+     */
     private void showList() {
         for (int i = 0; i < this.taskList.size(); i++) {
             System.out.println((i + 1) + ". " + this.taskList.get(i));
         }
     }
 
+    /**
+     * Perform input checking and mark a task with corresponding index as done.
+     * @param commandArgs the list of arguments in the command
+     */
     private void markTaskAsDone(String[] commandArgs) {
         int index = this.getTaskIndexFromCommand(commandArgs);
         if (index == -1) {
@@ -207,6 +239,10 @@ public class Duke {
         System.out.println(this.taskList.get(index));
     }
 
+    /**
+     * Perform input checking and mark a task with corresponding index as not done.
+     * @param commandArgs the list of arguments in the command
+     */
     private void markTaskAsNotDone(String[] commandArgs) {
         int index = this.getTaskIndexFromCommand(commandArgs);
         if (index == -1) {
