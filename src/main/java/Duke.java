@@ -29,8 +29,7 @@ public class Duke {
         while (true) {
             String input = userInput.nextLine();
             if (input.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                line();
+                exit();
                 break;
             } else if (input.equals("list")) {
                 list();
@@ -43,8 +42,33 @@ public class Duke {
                 Task currTask = taskList.get(taskIndex);
                 currTask.taskDone(false);
             } else {
-                taskList.add(new Task(input));
-                System.out.println("added: " + input);
+                System.out.println("Got it. I've added this task:");
+                if (input.startsWith("todo")) {
+                    ToDo toDo = new ToDo(input);
+                    System.out.println(toDo.toString());
+                    taskList.add(toDo);
+
+                } else if (input.startsWith("event")) {
+                    String[] list = input.split("/");
+                    String title = list[0].substring(6);
+                    String start = list[1].substring(5);
+                    String end = list[2].substring(3);
+
+                    Event event = new Event(title, start, end);
+                    System.out.println(event.toString());
+                    taskList.add(event);
+
+                } else {
+                    String[] list = input.split("/");
+                    String title = list[0].substring(9);
+                    String time = list[1].substring(3);
+
+                    Deadline deadline = new Deadline(title, time);
+                    System.out.println(deadline.toString());
+                    taskList.add(deadline);
+                }
+
+                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 line();
             }
         }
@@ -60,32 +84,8 @@ public class Duke {
         }
     }
 
-    public class Task {
-        protected String description;
-        protected boolean isDone;
-
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        public String getStatusIcon() {
-            return (isDone ? "X" : " "); // mark done task with X
-        }
-
-        public void taskDone(boolean status) {
-            this.isDone = status;
-            if (status) {
-                System.out.println("Nice! I've marked this task as done:");
-            } else {
-                System.out.println("OK, I've marked this task as not done yet:");
-            }
-            System.out.println(this.toString());
-        }
-
-        @Override
-        public String toString() {
-            return "[" + this.getStatusIcon() + "] " + this.description;
-        }
+    public void exit() {
+        System.out.println("Bye. Hope to see you again soon!");
+        line();
     }
 }
