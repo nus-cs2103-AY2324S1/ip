@@ -49,7 +49,8 @@ public class Duke {
                         throw new DukeException("☹ OOPS!!! The description of a mark cannot be empty.");
                     }
                     if (input.split(" ").length > 2) {
-                        throw new DukeException("Invalid mark command ?_?");
+                        throw new DukeException("Invalid mark command ?_? " +
+                                "this command should follow by only ONE INTEGER");
                     }
                     int i = Integer.parseInt(inputArr[1]);
                     tasks.get(i - 1).mark();
@@ -60,7 +61,8 @@ public class Duke {
                         throw new DukeException("☹ OOPS!!! The description of a unmark cannot be empty.");
                     }
                     if (input.split(" ").length > 2) {
-                        throw new DukeException("Invalid unmark command ?_?");
+                        throw new DukeException("Invalid unmark command ?_? " +
+                                "this command should follow by only ONE INTEGER");
                     }
                     int i = Integer.parseInt(inputArr[1]);
                     tasks.get(i - 1).unmark();
@@ -77,12 +79,9 @@ public class Duke {
                         throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
                     String details = inputArr[1];
-                    String[] detailsArr = details.split(" /by ");
+                    String[] detailsArr = details.split(" /by ", 2);
                     if (detailsArr.length <= 1) {
-                        throw new DukeException("Do you forget to add the deadline?");
-                    }
-                    if (detailsArr.length > 2) {
-                        throw new DukeException("How many times you type in the deadline?!! Try again!!");
+                        throw new DukeException("Do you forget to add a deadline for the task?");
                     }
                     String des = detailsArr[0];
                     String by = detailsArr[1];
@@ -107,10 +106,11 @@ public class Duke {
                     addTask(new Event(des, start, end));
                 } else if (Objects.equals(command, "delete")) {
                     if (inputArr.length == 1) {
-                        throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
+                        throw new DukeException("☹ OOPS!!! The description of a delete cannot be empty.");
                     }
                     if (input.split(" ").length > 2) {
-                        throw new DukeException("Invalid delete command ?_?");
+                        throw new DukeException("Invalid delete command ?_? " +
+                                "this command should follow by only ONE INTEGER");
                     }
                     int i = Integer.parseInt(inputArr[1]);
                     Task temp = tasks.get(i - 1);

@@ -3,18 +3,41 @@
    > ^ <
 Hello(@.@), I'm NiHao 
 What can I do for you?
+☹ OOPS!!! The description of a todo cannot be empty.
 Got it, I've added this task:
     [T][ ] borrow book
 Now you have 1 tasks in the list.
+☹ OOPS!!! The description of a deadline cannot be empty.
+Do you forget to add a deadline for the task?
 Got it, I've added this task:
     [D][ ] return book (by: Sunday)
 Now you have 2 tasks in the list.
+Ouuuu, I think you miss some information, try again!
+Ouuuu, I think you miss some information, try again!
 Got it, I've added this task:
     [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 3 tasks in the list.
 Got it, I've added this task:
     [D][ ] do homework (by: no idea :-p)
 Now you have 4 tasks in the list.
+Got it, I've added this task:
+    [T][ ] sleeping 10 hours
+Now you have 5 tasks in the list.
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+4.[D][ ] do homework (by: no idea :-p)
+5.[T][ ] sleeping 10 hours
+☹ OOPS!!! The description of a delete cannot be empty.
+Index out the bounds, try another index
+Index out the bounds, try another index
+Noted. I've removed this task:
+    [T][ ] sleeping 10 hours
+Now you have 4 tasks in the list.
+Invalid delete command ?_? this command should follow by only ONE INTEGER
+Please type in INTEGER after this command ^v^
+Invalid mark command ?_? this command should follow by only ONE INTEGER
 Nice! I've marked this task as done:
     [T][X] borrow book
 Nice! I've marked this task as done:
@@ -24,10 +47,18 @@ Here are the tasks in your list:
 2.[D][X] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 4.[D][ ] do homework (by: no idea :-p)
+Invalid unmark command ?_? this command should follow by only ONE INTEGER
 OK, I've marked this task as not done yet:
     [D][ ] return book (by: Sunday)
 Here are the tasks in your list:
 1.[T][X] borrow book
+2.[D][ ] return book (by: Sunday)
+3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+4.[D][ ] do homework (by: no idea :-p)
+OK, I've marked this task as not done yet:
+    [T][ ] borrow book
+Here are the tasks in your list:
+1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 4.[D][ ] do homework (by: no idea :-p)
