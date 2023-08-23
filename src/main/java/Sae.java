@@ -18,26 +18,52 @@ public class Sae {
 
             String command = commandTask[0];
 
-            if (command.equals("bye")) {
-                break;
-            } else if (command.equals("list")) {
-                listTasks(store);
-            } else if (command.equals("mark")) {
-                markTask(store, commandTask);
-            } else if (command.equals("unmark")) {
-                unmarkTask(store, commandTask);
-            } else if (command.equals("todo")) {
-                addTodoTask(store, commandTask);
-            } else if (command.equals("deadline")) {
-                addDeadlineTask(store, commandTask);
-            } else if (command.equals("event")) {
-                addEventTask(store, commandTask);
+            try {
+                executeCommand(store, commandTask);
+            } catch (SaeException e) {
+                System.out.println("☹ " + e.getMessage());
             }
         }
+    }
 
-        input.close();
+    /**
+     * Executes the command provided by the user and performs the corresponding action.
+     *
+     * @param store The ArrayList containing the tasks.
+     * @param commandTask The user's input split into command and content.
+     * @throws SaeException If an error specific to the Sae chatbot occurs.
+     */
+    private static void executeCommand(ArrayList<Task> store, String[] commandTask) throws SaeException {
+        String command = commandTask[0];
 
-        System.out.println("Bye. Hope to see you again soon!");
+        if (command.equals("bye")) {
+            System.out.println("Bye. Hope to see you again soon!");
+        } else if (command.equals("list")) {
+            listTasks(store);
+        } else if (command.equals("mark")) {
+            markTask(store, commandTask);
+        } else if (command.equals("unmark")) {
+            unmarkTask(store, commandTask);
+        } else if (command.equals("todo")) {
+            if (commandTask.length < 2 || commandTask[1].isEmpty()) {
+                throw new SaeException("OOPS!!! The description of a todo cannot be empty.");
+            }
+            else {
+                addTodoTask(store, commandTask);
+            }
+        } else if (command.equals("deadline")) {
+            if (commandTask.length < 2 || !commandTask[1].contains("/by")) {
+                throw new SaeException("OOPS!!! The deadline command should be followed by a description and /by.");
+            }
+            addDeadlineTask(store, commandTask);
+        } else if (command.equals("event")) {
+            if (commandTask.length < 2 || !commandTask[1].contains("/from") || !commandTask[1].contains("/to")) {
+                throw new SaeException("OOPS!!! The event command should be followed by a description, /from, and /to.");
+            }
+            addEventTask(store, commandTask);
+        } else {
+            throw new SaeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
     }
 
     /**
