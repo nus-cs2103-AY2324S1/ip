@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Dude {
   static String logo =
     " _|    _| _    O\n" +
-      "(_||_|(_|(/_  /'\\\n";
+      "(_||_|(_|(/_  /İ\\\n";
 
   /**
    * Print message/prompt to console.
@@ -28,7 +28,6 @@ public class Dude {
     String goodbye =
       "Bye. Hope to see you again soon!";
 
-
     Scanner sc = new Scanner(System.in);
 
     // Print startup greeting
@@ -37,15 +36,16 @@ public class Dude {
     // Input loop -- wait for input, respond, repeat
     while (true) {
       // read user input
-      // strip leading and trailing whitespace
-      String cmd = sc.nextLine().trim();
+      String input = sc.nextLine();
+      // interpret command (strip leading and trailing whitespace, take first word)
+      String cmd = input.split(" ")[0];
 
       // check for quit cmd
       if (cmd.equals("bye")) {
         break;
       }
       // echo input
-      printMessage(cmd);
+      printMessage(input);
     }
     // Print shutdown greeting
     printMessage(goodbye);
