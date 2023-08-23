@@ -32,16 +32,30 @@ public class Duke {
                 System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < lst.size(); i++) {
                     Task task = lst.get(i);
-                    System.out.println(String.valueOf(i + 1) + "." + task.getStatus());
+                    System.out.println(String.valueOf(i + 1) + "." + task.toString());
                 }
             } else if (input.equalsIgnoreCase("bye")) {
                 //break out
                 sc.close();
                 break;
             } else {
-                //add the item into the list
-                lst.add(new Task(input));
-                System.out.println("added: " + input);
+                //add the item into the list according to their type
+                Task tsk = null;
+                if (words[0].equalsIgnoreCase("todo")) {
+                    tsk = new ToDo(input.substring(5));
+                } else if (words[0].equalsIgnoreCase("deadline")) {
+                    String info = input.substring(9);
+                    String[] stringInfo = info.split(" /by ");
+                    tsk = new Deadline(stringInfo[0], stringInfo[1]);
+                } else {
+                    //events
+                    String info = input.substring(6);
+                    String[] stringInfo = info.split(" /from ");
+                    String[] timings = stringInfo[1].split(" /to ");
+                    tsk = new Event(stringInfo[0], timings[0], timings[1]);
+                }
+                lst.add(tsk);
+                System.out.println(tsk.confirmation(lst.size()));
             }
         }
         System.out.println(Duke.byeGreetings);
