@@ -1,15 +1,15 @@
 public class Task {
-    private String title;
+    private String description;
     private boolean done;
 
-    public Task(String title) {
-        this.title = title;
+    public Task(String description) {
+        this.description = description;
     }
 
     @Override
     public String toString() {
         String indicator = done ? "X" : " ";
-        return "[" + indicator + "] " + title;
+        return "[" + indicator + "] " + description;
     }
 
     public void mark() {

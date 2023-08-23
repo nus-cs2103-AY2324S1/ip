@@ -5,29 +5,58 @@ public class TaskList {
     public TaskList() {
         store = new ArrayList<>();
     }
-    public void addTodo(String title) {
-        Task task= new Todo(title);
+    public void addTodo(String description) throws EmptyTaskException {
+        if(description.isEmpty()) {
+            throw new EmptyTaskException("todo", "description");
+        }
+        Task task= new Todo(description);
         store.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
         System.out.println("Now you have " + store.size() + " tasks in the list.");
     }
 
-    public void addDeadline(String input) {
+    public void addDeadline(String input) throws EmptyTaskException {
         String[] splitInput = input.split(" /by ");
-        Task task= new Deadline(splitInput[0], splitInput[1]);
+        String description = splitInput[0];
+        if(description.isEmpty()) {
+            throw new EmptyTaskException("deadline", "description");
+        }
+        if(splitInput.length < 2) {
+            throw new EmptyTaskException("deadline", "by");
+        }
+        String by = splitInput[1];
+        if(by.isEmpty()) {
+            throw new EmptyTaskException("deadline", "by");
+        }
+        Task task= new Deadline(description, by);
         store.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
         System.out.println("Now you have " + store.size() + " tasks in the list.");
     }
 
-    public void addEvent(String input) {
+    public void addEvent(String input) throws EmptyTaskException {
         String[] splitInput = input.split("/");
-        String title = splitInput[0].trim();
+        String description = splitInput[0].trim();
+        if(description.isEmpty()) {
+            throw new EmptyTaskException("event", "description");
+        }
+        if(splitInput.length < 2) {
+            throw new EmptyTaskException("event", "from");
+        }
         String from = splitInput[1].replace("from", "").trim();
+        if(from.isEmpty()) {
+            throw new EmptyTaskException("event", "from");
+        }
+        if(splitInput.length < 3) {
+            throw new EmptyTaskException("event", "to");
+        }
         String to  = splitInput[2].replace("to", "").trim();
-        Task task= new Event(title, from, to);
+        if(to.isEmpty()) {
+            throw new EmptyTaskException("event", "to");
+        }
+        Task task= new Event(description, from, to);
         store.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
