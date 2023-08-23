@@ -1,9 +1,6 @@
 public class Task {
-
     String list;
-
     boolean completed;
-
     TaskType type;
 
     public Task(String list, TaskType type) {
@@ -33,7 +30,7 @@ public class Task {
      */
     public String setUnmarked() throws DukeException{
         if(!this.completed) {
-            throw new DukeException("This task has already been marked as not done!");
+            throw new DukeException("This task has already been marked as not done!\n");
         }
         this.completed = false;
         return "";
@@ -41,11 +38,19 @@ public class Task {
 
     @Override
     public String toString() {
-        String typeSymbol = switch (type) {
-            case TODO -> "[T]";
-            case EVENT -> "[E]";
-            case DEADLINE -> "[D]";
-        };
+        String typeSymbol = "";
+        switch (type) {
+            case TODO:
+                typeSymbol = "[T]";
+                break;
+            case EVENT:
+                typeSymbol = "[E]";
+                break;
+            case DEADLINE:
+                typeSymbol = "[D]";
+                break;
+        }
         return typeSymbol + (this.completed ? "[X] " : "[ ] ") + this.list;
     }
+
 }
