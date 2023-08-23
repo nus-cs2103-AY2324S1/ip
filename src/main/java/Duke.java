@@ -1,14 +1,14 @@
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
-        printHoriLine();
+        printHorizontalLine();
         System.out.println("WEEWOOWEEWOO WELCOME! I'm Siren");
         System.out.println("What can I do for you?");
-        printHoriLine();
+        printHorizontalLine();
         takeInput();
     }
 
-    public static void printHoriLine() {
+    public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
     }
 
@@ -16,46 +16,57 @@ public class Duke {
         Task[] taskArray = new Task[100];
         Scanner sc = new Scanner(System.in);
         int count = 0;
-        boolean loop = true;
+        boolean isLoop = true;
 
-        while (loop) {
+        while (isLoop) {
             String userInput = sc.nextLine();
             String[] input = userInput.split(" ", 2);
-            printHoriLine();
-
-            switch (input[0]) {
+            printHorizontalLine();
+            try {
+                switch (input[0]) {
                 case "list":
                     listTasks(count, taskArray);
                     break;
                 case "mark":
                 case "unmark":
-                    if ((input.length >= 2 && input[1].isBlank()) || input.length == 1) {
-                        System.out.println("BEEPBEEP! You may have forgotten to give a task number!");
-                    } else {
+                    try {
                         int taskNum = Integer.parseInt(input[1]);
-                        if (taskNum > count || taskNum < 1) {
-                            System.out.println("WARBLE WARBLE! This task number does not exist!");
-                        } else {
-                            markTasks(input, taskArray, taskNum);
-                        }
+                        markTasks(input, taskArray, taskNum);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new DukeException("BEEPBEEP! You forgot to give a task number!");
                     }
                     break;
                 case "bye":
                     System.out.println("WEEEWOOWEEWOO GOODBYE! Hope to see you again soon!");
-                    loop = false;
+                    isLoop = false;
                     break;
                 case "todo":
-                    taskArray[count] = new Todo(input[1]);
-                    printAdded(count, taskArray[count]);
-                    count++;
+                    try {
+                        taskArray[count] = new Todo(input[1]);
+                        printAdded(count, taskArray[count]);
+                        count++;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new DukeException("BEEPBEEP! You forgot to give a description!");
+                    }
                     break;
                 case "deadline":
                 case "event":
-                    String[] remainLine = input[1].split("/", 2);
-                    deadlineOrEventTask(input[0], remainLine, taskArray, count);
-                    count++;
+                    try {
+                        String[] remainLine = input[1].split(" /", 2);
+                        deadlineOrEventTask(input[0], remainLine, taskArray, count);
+                        count++;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new DukeException("BEEPBEEP! You forgot to give a description or date/time!");
+                    }
+                    break;
+                default:
+                    throw new DukeException("Can you hear the siren? " +
+                            "Because I don't know what that means!");
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
-            printHoriLine();
+            printHorizontalLine();
         }
         sc.close();
     }
@@ -63,8 +74,7 @@ public class Duke {
     public static void listTasks(int count, Task[] taskArray) {
         if (count == 0) {
             System.out.println("HEYYYYYYYY! There's nothing to show here!");
-        }
-        else {
+        } else {
             System.out.println("WHEET WHEET WHEET! Here are the tasks in your list:");
             for (int i = 0; i < count; i++) {
                 System.out.println(i + 1 + "." + taskArray[i]);
@@ -72,26 +82,27 @@ public class Duke {
         }
     }
 
-    public static void markTasks(String[] input, Task[] taskArray, int taskNum) {
-        if (input[0].equals("mark")) {
-            if (taskArray[taskNum - 1].isDone) {
-                System.out.println("WEEYA! Task was already marked as done!");
+    public static void markTasks(String[] input, Task[] taskArray, int taskNum) throws DukeException {
+        try {
+            if (input[0].equals("mark")) {
+                if (taskArray[taskNum - 1].isDone) {
+                    System.out.println("WEEYA! Task was already marked as done!");
+                } else {
+                    System.out.println("GOTCHYA! I've marked this task as done!");
+                    taskArray[taskNum - 1].markDone();
+                }
+            } else {
+                if (!taskArray[taskNum - 1].isDone) {
+                    System.out.println("OOPSIE! Task was already marked as not done!");
+                } else {
+                    System.out.println("HONKHONK! I've marked this task as not done yet!");
+                    taskArray[taskNum - 1].markNotDone();
+                }
             }
-            else {
-                System.out.println("GOTCHYA! I've marked this task as done!");
-                taskArray[taskNum - 1].markDone();
-            }
+            System.out.println(taskArray[taskNum - 1].toString());
+        } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("WARBLE WARBLE! This task number does not exist!");
         }
-        else {
-            if (!taskArray[taskNum - 1].isDone) {
-                System.out.println("OOPSIE! Task was already marked as not done!");
-            }
-            else {
-                System.out.println("HONKHONK! I've marked this task as not done yet!");
-                taskArray[taskNum - 1].markNotDone();
-            }
-        }
-        System.out.println(taskArray[taskNum - 1].toString());
     }
 
     public static void printAdded(int count, Task action) {
@@ -100,15 +111,19 @@ public class Duke {
         System.out.println("Now you have " + (count + 1) + " tasks in the list.");
     }
 
-    public static void deadlineOrEventTask(String action, String[] remainLine, Task[] taskArray, int count) {
+    public static void deadlineOrEventTask(String action, String[] remainLine, Task[] taskArray, int count)
+            throws DukeException {
         if (action.equals("deadline")) {
             String dateTime = remainLine[1].substring(3);
             taskArray[count] = new Deadline(remainLine[0],dateTime);
-        }
-        else {
-            String[] splitTo = remainLine[1].split("/to ", 2);
-            String fromDateTime = splitTo[0].substring(5, splitTo[0].length() - 1);
-            taskArray[count] = new Event(remainLine[0], fromDateTime, splitTo[1]);
+        } else {
+            try {
+                String[] splitTo = remainLine[1].split("/to ", 2);
+                String fromDateTime = splitTo[0].substring(5, splitTo[0].length() - 1);
+                taskArray[count] = new Event(remainLine[0], fromDateTime, splitTo[1]);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new DukeException("BEEPBEEP! You forget to give a ending date/time for the event!");
+            }
         }
         printAdded(count, taskArray[count]);
     }

@@ -9,52 +9,52 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 DINGDONG GOT IT! I've added this task:
-[E][ ] project meeting  (from: Monday 3pm to: 5pm)
+[E][ ] project meeting (from: Monday 3pm to: 5pm)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 WHEET WHEET WHEET! Here are the tasks in your list:
 1.[T][ ] borrow book
-2.[E][ ] project meeting  (from: Monday 3pm to: 5pm)
+2.[E][ ] project meeting (from: Monday 3pm to: 5pm)
 ____________________________________________________________
 ____________________________________________________________
 DINGDONG GOT IT! I've added this task:
-[D][ ] CS2103T iP  (by: Aug 24th 2359hrs)
+[D][ ] CS2103T iP (by: Aug 24th 2359hrs)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 GOTCHYA! I've marked this task as done!
-[E][X] project meeting  (from: Monday 3pm to: 5pm)
+[E][X] project meeting (from: Monday 3pm to: 5pm)
 ____________________________________________________________
 ____________________________________________________________
 WHEET WHEET WHEET! Here are the tasks in your list:
 1.[T][ ] borrow book
-2.[E][X] project meeting  (from: Monday 3pm to: 5pm)
-3.[D][ ] CS2103T iP  (by: Aug 24th 2359hrs)
+2.[E][X] project meeting (from: Monday 3pm to: 5pm)
+3.[D][ ] CS2103T iP (by: Aug 24th 2359hrs)
 ____________________________________________________________
 ____________________________________________________________
 OOPSIE! Task was already marked as not done!
-[D][ ] CS2103T iP  (by: Aug 24th 2359hrs)
+[D][ ] CS2103T iP (by: Aug 24th 2359hrs)
 ____________________________________________________________
 ____________________________________________________________
 GOTCHYA! I've marked this task as done!
-[D][X] CS2103T iP  (by: Aug 24th 2359hrs)
+[D][X] CS2103T iP (by: Aug 24th 2359hrs)
 ____________________________________________________________
 ____________________________________________________________
 WHEET WHEET WHEET! Here are the tasks in your list:
 1.[T][ ] borrow book
-2.[E][X] project meeting  (from: Monday 3pm to: 5pm)
-3.[D][X] CS2103T iP  (by: Aug 24th 2359hrs)
+2.[E][X] project meeting (from: Monday 3pm to: 5pm)
+3.[D][X] CS2103T iP (by: Aug 24th 2359hrs)
 ____________________________________________________________
 ____________________________________________________________
 HONKHONK! I've marked this task as not done yet!
-[E][ ] project meeting  (from: Monday 3pm to: 5pm)
+[E][ ] project meeting (from: Monday 3pm to: 5pm)
 ____________________________________________________________
 ____________________________________________________________
 WHEET WHEET WHEET! Here are the tasks in your list:
 1.[T][ ] borrow book
-2.[E][ ] project meeting  (from: Monday 3pm to: 5pm)
-3.[D][X] CS2103T iP  (by: Aug 24th 2359hrs)
+2.[E][ ] project meeting (from: Monday 3pm to: 5pm)
+3.[D][X] CS2103T iP (by: Aug 24th 2359hrs)
 ____________________________________________________________
 ____________________________________________________________
 WEEEWOOWEEWOO GOODBYE! Hope to see you again soon!
