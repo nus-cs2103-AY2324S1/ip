@@ -12,19 +12,38 @@ public class Duke {
             + "______________________________________";
 
     static void addToList(String str) {
-        Task t = new Task(str);
-        taskList.add(t);
-        String returnLine = "______________________________________\n"
-                + "added: " + str
-                + "\n______________________________________\n";
-        System.out.println(returnLine);
+        Task t = null;
+        if (str.startsWith("todo")) {
+            t = new ToDo(str.substring(5));
+        } else if (str.startsWith("event")) {
+            int indexFrom = str.lastIndexOf("/from");
+            int indexTo = str.lastIndexOf("/to");
+            t = new Event(str.substring(6, indexFrom-1),
+                    str.substring(indexFrom+6, indexTo-1), str.substring(indexTo+4));
+        } else if (str.startsWith("deadline")) {
+            int indexBy = str.lastIndexOf("/by");
+            t = new Deadline(str.substring(9, indexBy-1), str.substring(indexBy+4));
+        }
+        if (t == null) {
+            System.out.println("______________________________________\n"
+                    + "Uncivilised speech. Please try again with words I can understand.\n"
+                    + "______________________________________\n");
+        } else {
+            taskList.add(t);
+            String returnLine = "______________________________________\n"
+                    + "Ok. Your tasklist has grown longer with this addition:\n"
+                    + t.toString()
+                    + "\nYou now have " + taskList.size() + " things to do.\n"
+                    + "______________________________________\n";
+            System.out.println(returnLine);
+        }
     }
 
     static void listTasks() {
         System.out.println("______________________________________");
         for (int i=1; i<=taskList.size(); i++) {
             Task t = taskList.get((i-1));
-            System.out.format("%d. [%s] %s\n", i, t.getStatusIcon(), t.getDescription());
+            System.out.format("%d. " + t.toString() + "\n", i);
         }
         System.out.println("______________________________________\n");
     }
