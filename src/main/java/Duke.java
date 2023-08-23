@@ -3,23 +3,44 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
+    public static String doneCheckbox = "[X] ";
+    public static String undoneCheckbox = "[ ] ";
+
     public static void main(String[] args) {
-        List<String> lst = new ArrayList<>();
         System.out.println(greet());
+        List<Task> lst = new ArrayList<>();
+
         while (true) {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
+
+            String[] words = input.split("\\s+");
+            if (words.length > 1) {
+                if (words[0].equalsIgnoreCase("mark")) {
+                    //mark as completed
+                    Task tsk = lst.get(Integer.valueOf(words[1]) - 1);
+                    tsk.setCompleted();
+                    continue;
+                } else if (words[0].equalsIgnoreCase("unmark")) {
+                    Task tsk = lst.get(Integer.valueOf(words[1]) - 1);
+                    tsk.setUncompleted();
+                    continue;
+                }
+            }
             if (input.equalsIgnoreCase("list")) {
                 //print out list
+                System.out.println("Here are the tasks in your list: ");
                 for (int i = 0; i < lst.size(); i++) {
-                    System.out.println(String.valueOf(i + 1) + ". " + lst.get(i));
+                    Task task = lst.get(i);
+                    System.out.println(String.valueOf(i + 1) + "." + task.getStatus());
                 }
             } else if (input.equalsIgnoreCase("bye")) {
+                //break out
                 sc.close();
                 break;
             } else {
                 //add the item into the list
-                lst.add(input);
+                lst.add(new Task(input));
                 System.out.println("added: " + input);
             }
         }
