@@ -7,10 +7,16 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * @return a String depending on whether the task is marked as done or not
+     */
     public String getStatusIcon() {
         return isDone ? "[X]" : "[ ]";
     }
 
+    /**
+     * Changes the status of the task from 'not done' to 'done' or vice versa
+     */
     public void changeStatus() {
         if (this.isDone) {
             this.isDone = false;
