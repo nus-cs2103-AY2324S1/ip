@@ -15,7 +15,7 @@ public class TaskMate {
         list, bye, todo, deadline, event, mark, unmark
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidCommandTypeException {
 
         // Greets user
         String greetMessage = "Hello I'm " + chatbotName + "\nWhat can I do for you?";
@@ -28,28 +28,43 @@ public class TaskMate {
             userInput = sc.nextLine();
 
             // Checks if user input is correct (Error handling)
-            try {
-                String commandType = getCommandType(userInput);
-            } catch (InvalidCommandTypeException e) {
-                printReply("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                System.exit(0);
-            }
+            checkInvalidCommandTypeException(userInput);
 
             // exits
-            if (userInput.equals("bye")) {
+            if (getCommandType(userInput).equals("bye")) {
                 break;
             // list
-            } else if (userInput.equals("list")) {
+            } else if (getCommandType(userInput).equals("list")) {
                 processListCommand();
             // Add task OR mark/unmark
-            } else {
-                // Mark/unmark task
-                if (checkIsMarkOrUnmarkCommand(userInput)) {
-                    processMarkUnmarkCommand(userInput);
-                } else {
-                    // Add task
-                    processAddTaskCommand(userInput);
+            } else if (getCommandType(userInput).equals("mark") | getCommandType(userInput).equals("unmark")) {
+                try {
+                    checkValidMarkOrUnmarkCommand(userInput);
+                } catch (InvalidCommandTypeException e) {
+                    printReply("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.exit(0);
+                } catch (InvalidDescriptionException e) {
+                    printReply("☹ OOPS!!! The description of a mark/unmark must be between 1 and " + Task.getAllTasks().size() + ".");
+                    System.exit(0);
                 }
+                processMarkUnmarkCommand(userInput);
+            } else if (getCommandType(userInput).equals("todo")) {
+                try {
+                    checkValidTodoCommand(userInput);
+                } catch (InvalidCommandTypeException e) {
+                    printReply("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.exit(0);
+                } catch (InvalidDescriptionException e) {
+                    printReply("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.exit(0);
+                }
+                processAddTaskCommand(userInput);
+            } else if (getCommandType(userInput).equals("deadline")) {
+                // TODO: Add checks for Deadline-type tasks
+                processAddTaskCommand(userInput);
+            } else if (getCommandType(userInput).equals("event")) {
+                // TODO: Add checks for Event-type tasks
+                processAddTaskCommand(userInput);
             }
         }
 
@@ -67,18 +82,35 @@ public class TaskMate {
         System.out.println();
     }
 
-    static boolean checkIsMarkOrUnmarkCommand(String userInput) {
-        // Checks if the user input command is a "mark" or "unmark" command
-        // by checking if the command starts with "mark"/"unmark", followed by a whitespace, followed by an integer
+    static void checkValidMarkOrUnmarkCommand(String userInput) throws InvalidCommandTypeException, InvalidDescriptionException {
+        // Checks if the user input command is a valid "mark" or "unmark" command
+        // by checking if the command starts with "mark"/"unmark", followed by a whitespace,
+        // followed by an integer from 1 to Task.getAllTasks().size()
         String indexWithinList;
-        if (userInput.startsWith(MARK_COMMAND_NAME)) {
-            indexWithinList = userInput.substring(MARK_COMMAND_NAME.length()).trim();
-            return checkStringIsInteger(indexWithinList);
-        } else if (userInput.startsWith(UNMARK_COMMAND_NAME)) {
-            indexWithinList = userInput.substring(UNMARK_COMMAND_NAME.length()).trim();
-            return checkStringIsInteger(indexWithinList);
+
+        if (userInput.startsWith(CommandTypes.mark.toString())) {
+            indexWithinList = userInput.substring(CommandTypes.mark.toString().length()).trim();
         } else {
-            return false;
+            if (!userInput.startsWith(CommandTypes.unmark.toString())) {
+                throw new InvalidCommandTypeException();
+            }
+            indexWithinList = userInput.substring(CommandTypes.unmark.toString().length()).trim();
+        }
+
+        if (!checkStringIsInteger(indexWithinList)) {
+            throw new InvalidDescriptionException();
+        } else if (Integer.parseInt(indexWithinList) < 1 | Integer.parseInt(indexWithinList) > Task.getAllTasks().size()) {
+            throw new InvalidDescriptionException();
+        }
+    }
+
+    static void checkValidTodoCommand(String userInput) throws InvalidCommandTypeException, InvalidDescriptionException {
+        // Checks if "todo" command is valid by checking if there is text
+        // coming after the word "todo"
+        if (!userInput.startsWith(CommandTypes.todo.toString())) {
+            throw new InvalidCommandTypeException();
+        } else if (userInput.substring(CommandTypes.todo.toString().length()).isEmpty()) {
+            throw new InvalidDescriptionException();
         }
     }
 
@@ -104,6 +136,15 @@ public class TaskMate {
         throw new InvalidCommandTypeException();
     }
 
+    static void checkInvalidCommandTypeException(String userInput) {
+        try {
+            String commandType = getCommandType(userInput);
+        } catch (InvalidCommandTypeException e) {
+            printReply("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            System.exit(0);
+        }
+    }
+
     static void processListCommand() {
         // EDIT
         String allTasksString = "Here are the tasks in your list:\n";
@@ -116,7 +157,7 @@ public class TaskMate {
 
     static void processMarkUnmarkCommand(String userInput) {
         if (userInput.startsWith("mark")) {
-            int indexToMark = Integer.parseInt(userInput.substring(MARK_COMMAND_NAME.length()).trim());
+            int indexToMark = Integer.parseInt(userInput.substring(CommandTypes.mark.toString().length()).trim());
             indexToMark -= 1;
             Task taskToMark = Task.getAllTasks().get(indexToMark);
             taskToMark.markAsDone();
@@ -126,7 +167,7 @@ public class TaskMate {
             printReply(message);
 
         } else {
-            int indexToUnmark = Integer.parseInt(userInput.substring(UNMARK_COMMAND_NAME.length()).trim());
+            int indexToUnmark = Integer.parseInt(userInput.substring(CommandTypes.unmark.toString().length()).trim());
             indexToUnmark -= 1;
             Task taskToUnmark = Task.getAllTasks().get(indexToUnmark);
             taskToUnmark.markAsNotDone();
