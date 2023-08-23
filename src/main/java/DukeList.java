@@ -13,7 +13,7 @@ public class DukeList {
     public void addItem(Task task) {
         this.listOfTexts[count] = task;
         this.count++;
-        System.out.printf("Got it. I've added this task:%n %s%nNow you have %d tasks in the list.",
+        System.out.printf("Got it. I've added this task:%n %s%nNow you have %d tasks in the list.%n",
                 this.listOfTexts[count - 1].printTask(), this.count);
     }
 
