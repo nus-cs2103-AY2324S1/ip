@@ -23,10 +23,16 @@ public class UserInterface {
                         System.out.println(this.store.list());
                         break;
                     case MARK:
-                        this.store.mark(Integer.parseInt(c.getArgs()[0]));
+                        int mark_index = Integer.parseInt(c.getArgs()[0]) - 1;
+                        this.store.mark(mark_index);
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println(this.store.getTaskDescription(mark_index));
                         break;
                     case UNMARK:
-                        this.store.unmark(Integer.parseInt(c.getArgs()[0]));
+                        int unmark_index = Integer.parseInt(c.getArgs()[0]) - 1;
+                        this.store.unmark(unmark_index);
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println(this.store.getTaskDescription(unmark_index));
                         break;
                     case BYE:
                         System.out.println("Bye. Hope to see you again soon!");

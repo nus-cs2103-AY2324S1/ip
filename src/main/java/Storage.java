@@ -19,6 +19,10 @@ public class Storage {
         this.arr[index].incomplete();
     }
 
+    public String getTaskDescription(int index) {
+        return this.arr[index].toString();
+    }
+
     public String list() {
         StringBuilder builder = new StringBuilder();
         if (this.idx == 0) return "";
