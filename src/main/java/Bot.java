@@ -1,19 +1,19 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 public class Bot {
-    Task[] tasks = new Task[100];
-    int numOfTasks = 0;
+    List<Task> tasks = new ArrayList<Task>();
 
-    public static final String LIST_COMMAND = "list";
-    public static final String MARK_COMMAND = "mark";
-    public static final String UNMARK_COMMAND = "unmark";
-
-    public static final String TODO_COMMAND = "todo";
-
-    public static final String DEADLINE_COMMAND = "deadline";
-
-    public static final String EVENT_COMMAND = "event";
-    public static final String BYE_COMMAND = "bye";
-
+    public static enum Command {
+        LIST,
+        MARK,
+        UNMARK,
+        DELETE,
+        TODO,
+        DEADLINE,
+        EVENT,
+        BYE
+    }
 
     public void printWelcomeMessage(){
         String name = "LINUS";
@@ -25,55 +25,81 @@ public class Bot {
         MessagePrint.print( "Bye. Hope to see you again soon!");
     }
 
-    public void list(){
+    public void list() {
         String listOfItems = "Here are the tasks in your list:\n";
-        for(int i = 0; i < numOfTasks; ++i) {
+        for(int i = 0; i < tasks.size(); ++i) {
             listOfItems += (i + 1) + "."
-                    + tasks[i].toString() + "\n" ;
+                    + tasks.get(i).toString() + "\n" ;
         }
         MessagePrint.print(listOfItems);
     }
 
-    public void add(Task task){
-        tasks[numOfTasks++] = task;
+    public void add(Task task) {
+        tasks.add(task);
+        int numOfTasks = tasks.size();
         MessagePrint.print("Got it. I've added this task:\n"
                 +"  " + task + "\n"
-                + "Now you have " + numOfTasks + " task" + (numOfTasks > 1 ? "s": "") +  " in the list.");
+                + "Now you have " + numOfTasks + " task" + ( numOfTasks > 1 ? "s": "") +  " in the list.");
+    }
+
+    public void delete(int index) {
+        Task task = tasks.get(index);
+        tasks.remove(index);
+        int numOfTasks = tasks.size();
+        MessagePrint.print("Noted. I've removed this task:\n"
+                +"  " + task + "\n"
+                + "Now you have " + numOfTasks + " task" + ( numOfTasks > 1 ? "s": "") +  " in the list.");
     }
     public void chat() {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextLine()) {
             try {
-                    String[] items = null;
-                    String description = "";
-                    int index = 0;
+                String[] items = null;
+                String description = "";
+                int index = 0;
                 String input = sc.nextLine();
                 String[] inputSplit = input.split(" ", 2);
                 String command = inputSplit[0];
                 String data = inputSplit.length == 2 ? inputSplit[1] : "";
 
-                switch (command) {
-                    case BYE_COMMAND:
+                switch (Command.valueOf(command.toUpperCase())) {
+                    case BYE:
                         break;
-                    case LIST_COMMAND:
+                    case LIST:
                         this.list();
                         continue;
-                    case MARK_COMMAND:
-                        index = Integer.parseInt(input.split(" ")[1]);
-                        tasks[index - 1].mark();
+                    case MARK:
+                        index = Integer.parseInt(data);
+                        if (index <= 0 || index > tasks.size()) {
+                            throw new LinusException("Cannot mark task. Please provide a valid index.");
+                        }
+
+                        tasks.get(index - 1).mark();
                         continue;
-                    case UNMARK_COMMAND:
-                        index = Integer.parseInt(input.split(" ")[1]);
-                        tasks[index - 1].unmark();
+                    case UNMARK:
+                        index = Integer.parseInt(data);
+                        if (index <= 0 || index > tasks.size()) {
+                            throw new LinusException("Cannot unmark task. Please provide a valid index.");
+                        }
+
+                        tasks.get(index - 1).unmark();
                         continue;
-                    case TODO_COMMAND:
+                    case DELETE:
+                        index = Integer.parseInt(data);
+                        if (index <= 0 || index > tasks.size()) {
+                            throw new LinusException("Cannot delete task. Please provide a valid index.");
+                        }
+
+                        this.delete(index - 1);
+                        continue;
+                    case TODO:
                         if (data == "") {
                             throw new LinusException("☹ OOPS!!! The description of a todo cannot be empty.");
                         }
                         description = data;
                         this.add(new ToDo(description));
                         continue;
-                    case DEADLINE_COMMAND:
+                    case DEADLINE:
                         if (data == "") {
                             throw new LinusException("☹ OOPS!!! The description of a deadline cannot be empty.");
                         }
@@ -88,7 +114,7 @@ public class Bot {
 
                         this.add(new Deadline(description, by));
                         continue;
-                    case EVENT_COMMAND:
+                    case EVENT:
                         if (data == "") {
                             throw new LinusException("☹ OOPS!!! The description of a todo cannot be empty.");
                         }
@@ -103,17 +129,14 @@ public class Bot {
 
                         this.add(new Event(description, from, to));
                         continue;
-                    default:
-                        throw new LinusException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
                 break;
-                } catch(LinusException e) {
-                    MessagePrint.print(e.getMessage());
-                }
+            } catch (IllegalArgumentException e) {
+                MessagePrint.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            } catch(LinusException e) {
+                MessagePrint.print(e.getMessage());
             }
-
-
-
+        }
     }
     public void start() {
         this.printWelcomeMessage();
