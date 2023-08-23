@@ -6,6 +6,7 @@ public class ChatBot {
     private static List<Task> list = new ArrayList<>();
 
     public static void main(String[] args) {
+        // Introduction message
         System.out.println("____________________________________________________________\n" +
                 " Hello! I'm Desolute\n" +
                 " What can I do for you?\n" +
@@ -14,18 +15,25 @@ public class ChatBot {
         Scanner sc = new Scanner(System.in);
         String next = sc.nextLine();
 
+        // Loops till bye command is given
         while (!next.equals("bye")) {
             nextCommand(next);
             next = sc.nextLine();
         }
 
+        // Exit message
         System.out.println("____________________________________________________________\n" +
                 " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________\n");
     }
 
     private static void nextCommand(String str) {
-        switch(str) {
+        // Splitting of string adapted from
+        // https://stackoverflow.com/questions/9378394/remove-first-word-from-a-string-in-java
+        String[] temp = str.split(" ", 2);
+
+        // Checks if any pre determined commands are given
+        switch(temp[0]) {
             case "list":
                 showList();
                 break;
@@ -34,44 +42,32 @@ public class ChatBot {
                         " blah\n" +
                         "____________________________________________________________\n");
                 break;
+            case "mark":
+                markDone(temp[1]);
+                break;
+            case "unmark":
+                unmarkDone(temp[1]);
+                break;
             default:
-                if (str.startsWith("mark ")){
-                    String[] temp = str.split(" ");
-                    try {
-                        int num = Integer.parseInt(temp[1]) - 1;
-                        Task curr = list.get(num);
-                        curr.markDone();
-                    } catch(IndexOutOfBoundsException e) {
-                        System.out.println("This task number is not available. Please try again.");
-                    } catch(NumberFormatException e) {
-                        System.out.println("The task number you have keyed in is not an integer, please try again");
-                    }
-                } else if (str.startsWith("unmark ")) {
-                    String[] temp = str.split(" ");
-                    try {
-                        int num = Integer.parseInt(temp[1]) - 1;
-                        Task curr = list.get(num);
-                        curr.unmarkedDone();
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("This task number is not available. Please try again.");
-                    } catch (NumberFormatException e) {
-                        System.out.println("The task number you have keyed in is not an integer, please try again");
-                    }
-                } else {
-                    // Adds ability to store text
-                    Task curr = new Task(str);
-                    list.add(curr);
-                    System.out.println("____________________________________________________________\n" +
-                            " added: " +
-                            str +
-                            "\n" +
-                            "____________________________________________________________\n");
-                }
+                // Adds ability to store text
+                Task now = new Task(str);
+                list.add(now);
+                System.out.println("____________________________________________________________\n" +
+                        " added: " +
+                        str +
+                        "\n" +
+                        "____________________________________________________________\n");
+
         }
     }
 
     private static void showList() {
         System.out.println("____________________________________________________________");
+        if (list.isEmpty()) {
+            System.out.println(" The list is empty. Please add tasks in!");
+        } else {
+            System.out.println(" Here are the tasks in your list:");
+        }
         for (int i = 0; i < list.size(); i++) {
             Task temp = list.get(i);
             String current = String.format(" %d.%s", i + 1, temp.toString());
@@ -79,4 +75,36 @@ public class ChatBot {
         }
         System.out.println("____________________________________________________________\n");
     }
+
+    private static void markDone(String str) {
+        try {
+            int num = Integer.parseInt(str) - 1;
+            Task curr = list.get(num);
+            curr.markDone();
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println("____________________________________________________________\n" +
+                    "This task number is not available. Please try again." +
+                    "____________________________________________________________\n");
+        } catch(NumberFormatException e) {
+            System.out.println("The task number you have keyed in is not an integer, please try again");
+        }
+    }
+
+    private static void unmarkDone(String str) {
+        try {
+            int num = Integer.parseInt(str) - 1;
+            Task curr = list.get(num);
+            curr.unmarkedDone();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("____________________________________________________________\n" +
+                    "This task number is not available. Please try again." +
+                    "____________________________________________________________\n");
+        } catch (NumberFormatException e) {
+            System.out.println("____________________________________________________________\n" +
+                    "The task number you have keyed in is not an integer, please try again" +
+                    "____________________________________________________________\n");
+        }
+    }
+
+   
 }
