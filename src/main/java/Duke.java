@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -8,8 +9,7 @@ public class Duke {
         String Start = "Hello! I'm Red\nWhat can I do for you?";
         System.out.println(Start);
 
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (true) {
             try {
@@ -22,14 +22,15 @@ public class Duke {
 
                 if (input.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println(i + 1 + "." + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println(i + 1 + "." + tasks.get(i));
                     }
                     continue;
                 }
+
                 if (input.contains("unmark")) {
                     int selected = Integer.parseInt(input.substring(7));
-                    Task selTask = tasks[selected - 1];
+                    Task selTask = tasks.get(selected - 1);
                     selTask.taskNotCompleted();
                     System.out.println("OK, I've marked this task as not done yet:\n" + selTask);
                     continue;
@@ -37,7 +38,7 @@ public class Duke {
 
                 if (input.contains("mark")) {
                     int selected = Integer.parseInt(input.substring(5));
-                    Task selTask = tasks[selected - 1];
+                    Task selTask = tasks.get(selected - 1);
                     selTask.taskCompleted();
                     System.out.println("Nice! I've marked this task as done:\n" + selTask);
                     continue;
@@ -57,10 +58,9 @@ public class Duke {
                     String desc = input.substring(9, input.indexOf("/by") - 1);
                     String by = input.substring(input.indexOf("/by") + 4);
                     Task dl = new Deadline(desc, by);
-                    tasks[taskCount] = dl;
-                    taskCount++;
+                    tasks.add(dl);
                     System.out.println("Got it. I've added this task:\n" + dl +
-                            "\nNow you have " + taskCount + " tasks in the list.");
+                            "\nNow you have " + tasks.size() + " tasks in the list.");
                     continue;
                 }
 
@@ -79,10 +79,9 @@ public class Duke {
                     String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
                     String to = input.substring(input.indexOf("/to") + 4);
                     Task event = new Event(desc, from, to);
-                    tasks[taskCount] = event;
-                    taskCount++;
+                    tasks.add(event);
                     System.out.println("Got it. I've added this task:\n" + event +
-                            "\nNow you have " + taskCount + " tasks in the list.");
+                            "\nNow you have " + tasks.size()  + " tasks in the list.");
                     continue;
                 }
 
@@ -98,10 +97,17 @@ public class Duke {
                         throw new DukeException("Empty todo");
                     }
                     Task todo = new Todo(desc);
-                    tasks[taskCount] = todo;
-                    taskCount++;
+                    tasks.add(todo);
                     System.out.println("Got it. I've added this task:\n" + todo +
-                            "\nNow you have " + taskCount + " tasks in the list.");
+                            "\nNow you have " + tasks.size()  + " tasks in the list.");
+                    continue;
+                }
+
+                if (input.contains("delete")) {
+                    int selected = Integer.parseInt(input.substring(input.indexOf("delete") + 7));
+                    Task task = tasks.remove(selected - 1);
+                    System.out.println("Noted. I've removed this task:\n" + task +
+                            "\nNow you have " + tasks.size()  + " tasks in the list.");
                     continue;
                 }
 
