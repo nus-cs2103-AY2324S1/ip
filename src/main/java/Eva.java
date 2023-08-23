@@ -58,12 +58,44 @@ public class Eva {
                 } else {
                     System.out.println("\t Task not found.");
                 }
-            } else {
-                tasks[taskCount] = new Task(input);
+            } else if (input.startsWith("todo")) {
+                tasks[taskCount] = new Todo(input.substring(5));
                 taskCount++;
                 System.out.println("\t____________________________________________________________");
-                System.out.println("\t added: " + input);
+                System.out.println("\t Got it. I've added this task: ");
+                System.out.println("\t\t" + tasks[taskCount-1]);
+                System.out.println("\t Now you have " + taskCount + " task(s) in the list.");
                 System.out.println("\t____________________________________________________________");
+            } else if (input.startsWith("deadline")) {
+                // Parse the description and by date
+                int byIndex = input.indexOf("/by");
+                if (byIndex != -1) {
+                    String description = input.substring(9, byIndex).trim();
+                    String by = input.substring(byIndex + 3).trim();
+                    tasks[taskCount] = new Deadline(description, by);
+                    taskCount++;
+                    System.out.println("\t____________________________________________________________");
+                    System.out.println("\t Got it. I've added this task: ");
+                    System.out.println("\t\t" + tasks[taskCount-1]);
+                    System.out.println("\t Now you have " + taskCount + " task(s) in the list.");
+                    System.out.println("\t____________________________________________________________");
+                }
+            } else if (input.startsWith("event")) {
+                // Parse the description and from-to dates
+                int fromIndex = input.indexOf("/from");
+                int toIndex = input.indexOf("/to");
+                if (fromIndex != -1 && toIndex != -1) {
+                    String description = input.substring(6, fromIndex).trim();
+                    String from = input.substring(fromIndex + 5, toIndex).trim();
+                    String to = input.substring(toIndex + 3).trim();
+                    tasks[taskCount] = new Event(description, from, to);
+                    taskCount++;
+                    System.out.println("\t____________________________________________________________");
+                    System.out.println("\t Got it. I've added this task: ");
+                    System.out.println("\t\t" + tasks[taskCount-1]);
+                    System.out.println("\t Now you have " + taskCount + " task(s) in the list.");
+                    System.out.println("\t____________________________________________________________");
+                }
             }
         }
         scanner.close();
@@ -89,6 +121,47 @@ public class Eva {
         @Override
         public String toString() {
             return "[" + (isDone ? "X" : " ") + "] " + description;
+        }
+    }
+
+    static class Todo extends Task {
+        public Todo(String description) {
+            super(description);
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    static class Deadline extends Task {
+        protected String by;
+
+        public Deadline(String description, String by) {
+            super(description);
+            this.by = by;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + by + ")";
+        }
+    }
+
+    static class Event extends Task {
+        protected String from;
+        protected String to;
+
+        public Event(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
         }
     }
 }
