@@ -1,6 +1,9 @@
+import java.util.Objects;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
+        // Constants
+        Scanner scanner = new Scanner(System.in);
         String line = "______________________________\n";
         String logo = " ____             _        \n"
                 + "|  _ \\           | | \n"
@@ -8,8 +11,54 @@ public class Duke {
                 + "|  _ /|  _  | ` _|  __\\ \\| |/ _  \\\n"
                 + "| |_| | |_| | |  | |__/ /| |  ___/  \n"
                 + "|____/ \\__,_|_|  |_|\\__/ |_|\\___/\n";
-        System.out.println(line + "Hi Barbie! Hi Ken!\n\nI'm\n" + logo + line);
+        String[] list = new String[100];
+
+        // Intro
+        System.out.println(line
+                + "Hi Barbie! Hi Ken!\n"
+                + "\nI'm\n"
+                + logo
+                + "\nWhat can I do for you?\n" +
+                line);
+
+        // Getting and reading input
+        System.out.println("[you]: ");
+        String input = scanner.nextLine();
+        int itemNumber = 1;
+
+        while (!Objects.equals(input, "bye")) {
+            if (Objects.equals(input, "list")) {
+
+                System.out.println("\t" + line
+                        + "\t [barbie]: ");
+
+                for (int i = 1; i < itemNumber; i++) {
+
+                    System.out.println("\t" + i + ". "
+                            + list[i]);
+                }
+                System.out.println("\t" + line);
+                break;
+            }
+            // Repeat input
+            System.out.println("\t" + line
+                    + "\t [barbie]: added: "
+                    + input
+                    + "\n\t"
+                    + line);
+
+            // Add to list
+            list[itemNumber] = input;
+
+            // Reset
+            System.out.println("[you]:");
+            input = scanner.nextLine();
+            itemNumber += 1;
+        }
+
+        // Exit
         System.out.println(line + "Bye Barbie! Bye Ken!\n" + line);
+
 
     }
 }
