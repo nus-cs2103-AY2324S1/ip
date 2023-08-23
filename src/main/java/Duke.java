@@ -74,6 +74,13 @@ public class Duke {
                             task, tasks.size(), tasks.size() == 1 ? "" : "s"));
                     break;
                 }
+                case "delete": {
+                    Task task = tasks.get(Integer.parseInt(splitInput[1]) - 1);
+                    tasks.remove(task);
+                    outputMessage(String.format(" Noted. I've removed this task:\n  %s\n Now you have %d task%s in the list.\n",
+                            task, tasks.size(), tasks.size() == 1 ? "" : "s"));
+                    break;
+                }
                 default: {
                     outputMessage(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
                 }
