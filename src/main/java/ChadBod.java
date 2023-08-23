@@ -45,7 +45,7 @@
                                 System.out.println("Nice! I've marked this task as done:");
                                 System.out.printf("%s\n", task);
                             } catch (NumberFormatException e) {
-                                System.out.println("☹ OOPS!!! Invalid index input for marking task.");
+                                System.out.println("☹ OOPS!!! Invalid task index.");
                             } catch (TaskIndexOutOfBoundsException e) {
                                 System.out.println(e.getMessage());
                             }
@@ -61,7 +61,7 @@
                                 System.out.println("OK, I've marked this task as not done yet:");
                                 System.out.printf("%s\n", task);
                             } catch (NumberFormatException e) {
-                                System.out.println("☹ OOPS!!! Invalid index input for marking task.");
+                                System.out.println("☹ OOPS!!! Invalid task index.");
                             } catch (TaskIndexOutOfBoundsException e) {
                                 System.out.println(e.getMessage());
                             }
@@ -117,6 +117,22 @@
                                 System.out.println(newEvent);
                                 System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
                             } catch (InvalidTaskException e) {
+                                System.out.println(e.getMessage());
+                            }
+                            break;
+                        case "delete":
+                            try {
+                                int taskNumber = Integer.parseInt(command[1]);
+                                if (taskNumber < 1 || taskNumber > tasks.size()) {
+                                    throw new TaskIndexOutOfBoundsException();
+                                }
+                                Task task = tasks.remove(taskNumber - 1);
+                                System.out.println("Noted. I've removed this task:");
+                                System.out.printf("%s\n", task);
+                                System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
+                            } catch (NumberFormatException e) {
+                                System.out.println("☹ OOPS!!! Invalid task index.");
+                            } catch (TaskIndexOutOfBoundsException e) {
                                 System.out.println(e.getMessage());
                             }
                             break;
