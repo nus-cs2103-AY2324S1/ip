@@ -90,10 +90,10 @@ public class CR7 {
             printHorizontalLine();
             System.out.println("Hello! I'm CR7\n" + "What can I do for you?\n");
             String input = "";
+            Scanner myObj = new Scanner(System.in);
             ArrayList<Task> tasks = new ArrayList<>();
             while (!input.equals("bye")) {
                 try {
-                    Scanner myObj = new Scanner(System.in);
                     input = myObj.nextLine();
                     if (input.equals("bye")) {
                         printHorizontalLine();
