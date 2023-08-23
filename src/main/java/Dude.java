@@ -14,11 +14,16 @@ public class Dude {
   static String taskListPrefix = "Here's your tasks list:\n";
   static String emptyTaskList = "You currently have no tasks in your list.";
   static String invalidCommand =
-    "I don't know what that means. Try checking if you've typed the command correctly.";
+    "I don't know what that means.\nTry checking if you've typed the command correctly.";
   static String noTaskNumber = "Please specify a task number.";
   static String invalidTaskNumber =
-    "I can't find the task numbered \"%s\". Try checking if you've typed the correct task number.";
+    "I can't find the task numbered \"%s\".\nTry checking if you've typed the correct task number.";
   static String addedTask = "Got it! I've added this task:\n\t%s\nYou now have a total of %d task(s).";
+  static String noTaskDescription = "Please specify a task description.";
+  static String noDeadline = "Please specify a task deadline after your task description,\nprefixed by `\\by`.";
+
+  static String noEventStart = "Please specify the event start date after your task description,\nprefixed by `\\from`.";
+  static String noEventEnd = "Please specify the event end date after your task description and start date,\nprefixed by `\\to`.";
   static String markedAsDonePrefix = "Nice! I've marked this task as done:\n\t";
   static String markedAsNotDonePrefix = "Got it. I've marked this task as not done:\n\t";
 
@@ -34,14 +39,11 @@ public class Dude {
   /**
    * Add task to tasks list.
    *
-   * @param description Description of task to add.
-   * @return Task that was added.
+   * @param task Task to add.
    */
-  public static Task addTask(String description) {
-    Task newTask = new Task(description);
-    tasks[numTasks] = newTask;
+  public static void addTask(Task task) {
+    tasks[numTasks] = task;
     numTasks += 1;
-    return newTask;
   }
 
   /**
@@ -76,17 +78,111 @@ public class Dude {
   }
 
   /**
-   * Format and print given message/prompt to console.
+   * Parses mark/unmark commands.
    *
-   * @param message Message to print. Lines separated by \n.
+   * @param input mark/unmark command.
    */
-  public static void printMessage(String message) {
-    String[] lines = message.split("\\n");
-    String prefix = "  ";
-    String output = border + prefix +
-      String.join("\n" + prefix, lines) + "\n" +
-      border;
-    System.out.println(output);
+  public static void parseMarkUnmark(String input) {
+    String[] splitInput = input.split(" ", 3);
+    String cmd = splitInput[0];
+
+    if (splitInput.length < 2) {
+      // task number not specified
+      printMessage(noTaskNumber);
+    } else {
+      String specifiedTask = splitInput[1];
+      try {
+        int taskNumber = Integer.parseInt(specifiedTask);
+        Task task = getTask(taskNumber);
+        if (cmd.equals("mark")) {
+          task.markAsDone();
+          printMessage(markedAsDonePrefix + task);
+        } else if (cmd.equals("unmark")) {
+          task.markAsNotDone();
+          printMessage(markedAsNotDonePrefix + task);
+        }
+      } catch (NumberFormatException | TaskOutOfBoundsException e) {
+        printMessage(String.format(invalidTaskNumber, specifiedTask));
+      }
+    }
+  }
+
+  /**
+   * Parses todo task command.
+   *
+   * @param input command.
+   */
+  public static void parseTodo(String input) {
+    String[] splitInput = input.split(" ", 2);
+
+    if (splitInput.length < 2) {
+      // task description not specified
+      printMessage(noTaskDescription);
+    } else {
+      String description = splitInput[1].trim();
+      Task task = new ToDoTask(description);
+      addTask(task);
+      printMessage(String.format(addedTask, task, numTasks));
+    }
+  }
+
+  /**
+   * Parses deadline task command.
+   *
+   * @param input command.
+   */
+  public static void parseDeadline(String input) {
+    String[] splitInput = input.split(" ", 2);
+
+    if (splitInput.length < 2) {
+      // task description not specified
+      printMessage(noTaskDescription);
+    } else {
+      String[] splitDeadline = splitInput[1].split("/by", 2);
+      if (splitDeadline.length < 2) {
+        // deadline not specified
+        printMessage(noDeadline);
+      } else {
+        String description = splitDeadline[0].trim();
+        String deadline = splitDeadline[1].trim();
+        Task task = new DeadlineTask(description, deadline);
+        addTask(task);
+        printMessage(String.format(addedTask, task, numTasks));
+      }
+    }
+  }
+
+  /**
+   * Parses event task command.
+   *
+   * @param input command.
+   */
+  public static void parseEvent(String input) {
+    String[] splitInput = input.split(" ", 2);
+
+    if (splitInput.length < 2) {
+      // task description not specified
+      printMessage(noTaskDescription);
+    } else {
+      String[] splitStart = splitInput[1].split("/from", 2);
+      if (splitStart.length < 2) {
+        // start date not specified
+        printMessage(noEventStart);
+      } else {
+        String[] splitEnd = splitStart[1].split("/to", 2);
+        if (splitStart.length < 2) {
+          // end date not specified
+          printMessage(noEventEnd);
+        } else {
+          String description = splitStart[0].trim();
+          String start = splitEnd[0].trim();
+          String end = splitEnd[1].trim();
+          Task task = new EventTask(description, start, end);
+          addTask(task);
+          printMessage(String.format(addedTask, task, numTasks));
+        }
+      }
+    }
   }
 
   /**
@@ -97,7 +193,7 @@ public class Dude {
    */
   public static boolean parseInput(String input) {
     // extract command (strip leading and trailing whitespace, take first word)
-    String[] splitInput = input.split(" ");
+    String[] splitInput = input.split(" ", 2);
     String cmd = splitInput[0];
 
     switch (cmd) {
@@ -111,43 +207,39 @@ public class Dude {
         printMessage(getTasksList());
         break;
       case "mark":
-        // mark task as done
-        if (splitInput.length < 2) {
-          printMessage(noTaskNumber);
-        } else {
-          String specifiedTask = splitInput[1];
-          try {
-            int taskNumber = Integer.parseInt(specifiedTask);
-            Task task = getTask(taskNumber);
-            task.markAsDone();
-            printMessage(markedAsDonePrefix + task);
-          } catch (NumberFormatException | TaskOutOfBoundsException e) {
-            printMessage(String.format(invalidTaskNumber, specifiedTask));
-          }
-        }
-        break;
       case "unmark":
-        // mark task as not done
-        if (splitInput.length < 2) {
-          printMessage(noTaskNumber);
-        } else {
-          String specifiedTask = splitInput[1];
-          try {
-            int taskNumber = Integer.parseInt(specifiedTask);
-            Task task = getTask(taskNumber);
-            task.markAsNotDone();
-            printMessage(markedAsNotDonePrefix + task);
-          } catch (NumberFormatException | TaskOutOfBoundsException e) {
-            printMessage(String.format(invalidTaskNumber, specifiedTask));
-          }
-        }
+        parseMarkUnmark(input);
+        break;
+      case "todo":
+        // add todo task to list
+        parseTodo(input);
+        break;
+      case "deadline":
+        // add deadline task to list
+        parseDeadline(input);
+        break;
+      case "event":
+        // add event task to list
+        parseEvent(input);
         break;
       default:
-        // add task to list
-        Task task = addTask(input);
-        printMessage(String.format(addedTask, task, numTasks));
+        printMessage(invalidCommand);
     }
     return true;
+  }
+
+  /**
+   * Format and print given message/prompt to console.
+   *
+   * @param message Message to print. Lines separated by \n.
+   */
+  public static void printMessage(String message) {
+    String[] lines = message.split("\\n");
+    String prefix = "  ";
+    String output = border + prefix +
+      String.join("\n" + prefix, lines) + "\n" +
+      border;
+    System.out.println(output);
   }
 
   public static void main(String[] args) {
