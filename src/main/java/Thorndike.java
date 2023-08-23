@@ -8,6 +8,8 @@ public class Thorndike {
 
     public Thorndike() {
         this.scanner = new Scanner(System.in);
+        this.list = new String[100];
+        this.index = 0;
         this.running = true;
     }
 
@@ -29,11 +31,18 @@ public class Thorndike {
         String command = scanner.nextLine();
 
         switch (command) {
+            case "list":
+                for (int i = 1; i < this.index + 1; i++) {
+                    echo(String.format("%d. %s", i, this.list[i - 1]));
+                }
+                break;
             case "bye":
                 exit();
                 break;
             default:
-                echo(command);
+                this.list[index] = command;
+                this.index++;
+                echo(String.format("added: %s", command));
         }
     }
 
