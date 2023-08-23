@@ -38,6 +38,9 @@ public class Duke {
                     case "event":
                         addEvent(second);
                         break;
+                    case "delete":
+                        delete(second);
+                        break;
                     default:
                         throw new InvalidInputException("OOPS! I do not know what " + first + " means. Please try again :)");
                 }
@@ -158,4 +161,25 @@ public class Duke {
             }
         }
     }
+
+    public static void delete(String x) {
+        if (x == null) {
+            throw new InvalidMarking("Missing index");
+        }
+        int j;
+        try {
+            j = Integer.parseInt(x);
+        } catch (NumberFormatException e) {
+            throw new InvalidMarking("Please provide a valid index");
+        }
+        if (j-1 > my_list.size()-1) {
+            throw new InvalidMarking("There is no corresponding task in the list");
+        }
+        Task t = my_list.get(j-1);
+        my_list.remove(j-1);
+        System.out.println("I've removed this task:");
+        System.out.println(t);
+        System.out.println("Now you have " + my_list.size() + (my_list.size() > 1 ? " tasks" : " task") + " in the list");
+    }
+
 }
