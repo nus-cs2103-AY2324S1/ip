@@ -19,6 +19,10 @@ public class CommandParser {
             }
         }
 
+        if (commandType.equals("delete")) {
+            return new Command(CommandType.DELETE, new String[]{argumentString});
+        }
+
         if (commandType.equals("bye")) {
             return new Command(CommandType.BYE, new String[]{});
         }

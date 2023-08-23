@@ -31,15 +31,22 @@ public class UserInterface {
                         break;
                     case MARK:
                         int mark_index = Integer.parseInt(c.getArgs()[0]) - 1;
-                        this.store.mark(mark_index);
+                        Task markedTask = this.store.mark(mark_index);
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(this.store.getTaskDescription(mark_index));
+                        System.out.println(markedTask);
                         break;
                     case UNMARK:
                         int unmark_index = Integer.parseInt(c.getArgs()[0]) - 1;
-                        this.store.unmark(unmark_index);
+                        Task unmarkedTask = this.store.unmark(unmark_index);
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(this.store.getTaskDescription(unmark_index));
+                        System.out.println(unmarkedTask);
+                        break;
+                    case DELETE:
+                        int delete_index = Integer.parseInt(c.getArgs()[0]) - 1;
+                        Task deletedTask = this.store.delete(delete_index);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(deletedTask);
+                        System.out.printf("Now you have %d tasks in the list.%n", this.store.getStorageSize());
                         break;
                     case BYE:
                         System.out.println("Bye. Hope to see you again soon!");

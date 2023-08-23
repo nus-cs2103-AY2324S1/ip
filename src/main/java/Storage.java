@@ -10,22 +10,31 @@ public class Storage {
         tasks.add(t);
     }
 
-    public void mark(int index) throws InvalidTaskIndexException {
+    public Task mark(int index) throws InvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new InvalidTaskIndexException(index + 1, this.tasks.size());
         }
-        this.tasks.get(index).complete();
+        Task toMark = this.tasks.get(index);
+        toMark.complete();
+        return toMark;
     }
 
-    public void unmark(int index) throws InvalidTaskIndexException {
+    public Task unmark(int index) throws InvalidTaskIndexException {
         if (index < 0 || index >= this.tasks.size()) {
             throw new InvalidTaskIndexException(index + 1, this.tasks.size());
         }
-        this.tasks.get(index).incomplete();
+        Task toUnmark = this.tasks.get(index);
+        toUnmark.complete();
+        return toUnmark;
     }
 
-    public String getTaskDescription(int index) {
-        return this.tasks.get(index).toString();
+    public Task delete(int index) throws InvalidTaskIndexException {
+        if (index < 0 || index >= this.tasks.size()) {
+            throw new InvalidTaskIndexException(index + 1, this.tasks.size());
+        }
+        Task toDelete = this.tasks.get(index);
+        this.tasks.remove(index);
+        return toDelete;
     }
 
     public int getStorageSize() {
