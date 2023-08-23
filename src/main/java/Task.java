@@ -24,6 +24,6 @@ public abstract class Task {
 
   @Override
   public String toString() {
-    return String.format("[%c][%c] %s", type, mark ? 'X' : ' ', description);
+    return String.format("  [%c][%c] %s", type, mark ? 'X' : ' ', description);
   }
 }
