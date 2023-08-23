@@ -128,7 +128,7 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new InvalidMarking("Please provide a valid index");
         }
-        if (j-1 > my_list.size()-1) {
+        if (j-1 > my_list.size()-1 || j-1<0) {
             throw new InvalidMarking("There is no corresponding task in the list");
         }
         Task t = my_list.get(j-1);
@@ -145,7 +145,7 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new InvalidMarking("Please provide a valid index");
         }
-        if (j-1 > my_list.size()-1) {
+        if (j-1 > my_list.size()-1 || j-1<0) {
             throw new InvalidMarking("There is no corresponding task in the list");
         }
         Task t = my_list.get(j-1);
