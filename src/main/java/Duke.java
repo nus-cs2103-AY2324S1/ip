@@ -39,6 +39,10 @@ public class Duke {
                 } else if (input.startsWith("event")) {
                     String removedPrefix = input.substring("event".length()).trim();
                     store.addEvent(removedPrefix);
+                } else if(input.startsWith("delete")) {
+                    String removedPrefix = input.substring("delete".length()).trim();
+                    int index = Integer.parseInt(removedPrefix);
+                    store.deleteTask(index);
                 } else {
                     throw new DukeException();
                 }
@@ -47,6 +51,9 @@ public class Duke {
                 System.out.println(e.getMessage());
                 System.out.println(horizontal);
             } catch (EmptyTaskException e) {
+                System.out.println(e.getMessage());
+                System.out.println(horizontal);
+            } catch (InvalidIndexException e) {
                 System.out.println(e.getMessage());
                 System.out.println(horizontal);
             }

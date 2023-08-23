@@ -63,10 +63,13 @@ public class TaskList {
         System.out.println("Now you have " + store.size() + " tasks in the list.");
     }
 
-    public void addTask(String title) {
-        Task task= new Task(title);
-        store.add(task);
-        System.out.println("Got it. I've added this task:");
+    public void deleteTask(int index) throws InvalidIndexException{
+        if(index >= store.size()) {
+            throw new InvalidIndexException();
+        }
+        Task task = store.get(index - 1);
+        store.remove(index - 1);
+        System.out.println("Noted. I've removed this task:");
         System.out.println("\t" + task);
         System.out.println("Now you have " + store.size() + " tasks in the list.");
     }
@@ -80,14 +83,20 @@ public class TaskList {
         }
     }
 
-    public void markTask(int index) {
+    public void markTask(int index) throws InvalidIndexException{
+        if(index >= store.size()) {
+            throw new InvalidIndexException();
+        }
         Task curr = store.get(index - 1);
         curr.mark();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("\t" + curr);
     }
 
-    public void unmarkTask(int index) {
+    public void unmarkTask(int index) throws InvalidIndexException{
+        if(index >= store.size()) {
+            throw new InvalidIndexException();
+        }
         Task curr = store.get(index - 1);
         curr.unmark();
         System.out.println("OK, I've marked this task as not done yet:");
