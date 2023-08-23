@@ -13,35 +13,42 @@ public class Duke {
 
         while (true) {
             String userInput = scanner.nextLine();
-            String[] inputParts = userInput.split(" ");
-            String command = inputParts[0];
 
-            if (command.equals("bye")) {
+            if (userInput.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
-            } else if (command.equals("list")) {
+            } else if (userInput.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
                     System.out.println((i + 1) + ". " + tasks.get(i));
                 }
-            } else if (command.equals("mark") || command.equals("unmark")) {
-                int taskIndex = Integer.parseInt(inputParts[1]) - 1;
-                if (taskIndex < tasks.size()) {
-                    Task task = tasks.get(taskIndex);
-                    if (command.equals("mark")) {
-                        task.markAsDone();
-                        System.out.println("Nice! I've marked this task as done:");
-                    } else {
-                        task.markAsNotDone();
-                        System.out.println("OK, I've marked this task as not done yet:");
-                    }
-                    System.out.println("  " + task);
+            } else if (userInput.startsWith("todo")) {
+                tasks.add(new ToDoTask(userInput.substring(5)));
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (userInput.startsWith("deadline")) {
+                String[] parts = userInput.split("/by");
+                if (parts.length == 2) {
+                    tasks.add(new DeadlineTask(parts[0].substring(9).trim(), parts[1].trim()));
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 } else {
-                    System.out.println("Index you gave is out of range.");
+                    System.out.println("Invalid deadline format.");
+                }
+            } else if (userInput.startsWith("event")) {
+                String[] parts = userInput.split("/from|/to");
+                if (parts.length == 3) {
+                    tasks.add(new EventTask(parts[0].substring(6).trim(), parts[1].trim(), parts[2].trim()));
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks.get(tasks.size() - 1));
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } else {
+                    System.out.println("Invalid event format.");
                 }
             } else {
-                tasks.add(new Task(userInput));
-                System.out.println("added: " + userInput);
+                System.out.println("I'm sorry, I don't understand.");
             }
         }
 
@@ -50,8 +57,8 @@ public class Duke {
 }
 
 class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -69,5 +76,46 @@ class Task {
     @Override
     public String toString() {
         return "[" + (isDone ? "X" : " ") + "] " + description;
+    }
+}
+
+class ToDoTask extends Task {
+    public ToDoTask(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+class DeadlineTask extends Task {
+    protected String by;
+
+    public DeadlineTask(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+}
+
+class EventTask extends Task {
+    protected String from;
+    protected String to;
+
+    public EventTask(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
