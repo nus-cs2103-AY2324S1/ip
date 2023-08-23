@@ -60,9 +60,18 @@ Got it. I've added this task:
 You have 7 tasks in your list now! :)
 
 > 
+Oops! The 'deadline' command requires supplying '/by <deadline>'!
+
+> 
 Got it. I've added this task:
   <E> [ ] test (from: blah, to: bleh)
 You have 8 tasks in your list now! :)
+
+> 
+Oops! The 'event' command requires supplying both '/from <date>' and '/to <date>'!
+
+> 
+Oops! The 'event' command requires supplying both '/from <date>' and '/to <date>'!
 
 > 
 Here are your tasks, glhf! :)
@@ -119,6 +128,9 @@ Nice! I've marked this task as done:
    <E> [X] test (from: blah, to: bleh)
 
 > 
+Oops! The task was already done!
+
+> 
 Here are your tasks, glhf! :)
 1. <T> [X] read book
 2. <D> [X] return book (by: June 6th)
@@ -128,6 +140,32 @@ Here are your tasks, glhf! :)
 6. <D> [ ] ip week 2 (by: Aug 24th)
 7. <D> [ ] tp (by: idk)
 8. <E> [X] test (from: blah, to: bleh)
+
+> 
+Alright, I've deleted this task:
+   <D> [ ] ip week 2 (by: Aug 24th)
+You're left with 7 tasks now! :)
+
+> 
+Alright, I've deleted this task:
+   <T> [ ] join sports club
+You're left with 6 tasks now! :)
+
+> 
+Alright, I've deleted this task:
+   <E> [X] test (from: blah, to: bleh)
+You're left with 5 tasks now! :)
+
+> 
+Oops! There is no task in the list numbered 6!
+
+> 
+Here are your tasks, glhf! :)
+1. <T> [X] read book
+2. <D> [X] return book (by: June 6th)
+3. <E> [ ] project meeting (from: Aug 6th 2pm, to: 4pm)
+4. <T> [X] borrow book
+5. <D> [ ] tp (by: idk)
 
 > 
 Bye! Hope to see you again soon! ^-^

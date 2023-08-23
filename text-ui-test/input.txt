@@ -10,7 +10,10 @@ todo borrow book
 list
 deadline ip week 2 /by Aug 24th
 deadline tp /by idk
+deadline nonsense
 event test /from blah /to bleh
+event wrong /from /to
+event missing
 list
 mark 5
 mark 1
@@ -21,5 +24,11 @@ mark 2
 mark 6
 unmark 6
 mark 8
+mark 8
+list
+delete 6
+delete 4
+delete 6
+delete 6
 list
 bye
