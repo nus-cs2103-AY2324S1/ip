@@ -15,6 +15,6 @@ public class Event extends Task {
 
     @Override
     public String getTask() {
-        return "Event ->" + super.getTask() + "(" + getDuration() + ")";
+        return "Event ->" + super.getTask() + " (" + getDuration() + ")";
     }
 }

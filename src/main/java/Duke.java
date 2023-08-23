@@ -9,13 +9,13 @@ public class Duke {
 
         List<Task> tasks = new ArrayList<>();
 
-        String greeting = "Hello! I'm Toothless. \n" +
-                "What can I do for you today? \n" +
+        String greeting = "Hello! I'm Toothless.\n" +
+                "What can I do for you today?\n" +
                 "---------------------------------";
         String farewell = "Goodbye. Hope to see you soon!\n" +
                 "---------------------------------";
 
-        String addTask = "A new task has been added! \n ";
+        String addTask = "A new task has been added!\n ";
 
         System.out.println(greeting);
 
@@ -28,12 +28,12 @@ public class Duke {
                 break;
 
             } else if (nextInput.equals("list")) {
+                System.out.println("Here's your list of tasks!\n");
                 for (int i = 0; i < tasks.size(); i++) {
                     Task task = tasks.get(i);
                     output = (i + 1) + ": " + task.getTask();
                     System.out.println(output);
                 }
-                continue;
 
             } else if (nextInput.contains("todo")) {
                 String title = nextInput.split("todo ")[1];
@@ -63,20 +63,18 @@ public class Duke {
                 Task task = tasks.get(taskNum - 1);
                 output = task.markAsUndone();
                 System.out.println(output);
-                continue;
 
             } else if (nextInput.contains("mark")) {
                 int taskNum = Integer.valueOf(nextInput.split(" ")[1]);
                 Task task = tasks.get(taskNum - 1);
                 output = task.markAsDone();
                 System.out.println(output);
-                continue;
 
             } else {
                 System.out.println(nextInput);
             }
 
-            System.out.println("\n---------------------------------");
+            System.out.println("---------------------------------");
         }
 
         System.out.println(farewell);

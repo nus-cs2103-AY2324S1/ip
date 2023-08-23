@@ -1,0 +1,9 @@
+todo return books
+deadline write essay /by 25/9
+event hackathon /from 23/9 /to 25/9
+list
+mark 1
+mark 2
+unmark 1
+list
+bye
