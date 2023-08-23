@@ -1,8 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
     public static String dash = "\t-------------------------------------------------------------";
+    public static ArrayList<String> taskList = new ArrayList<>();
 
     public static void welomeMessage() {
 
@@ -26,13 +28,26 @@ public class Duke {
         System.out.println(dash);
     }
 
-    public static void echo(String message) {
+    public static void addTask(String message) {
 
+        // check out for empty message
         System.out.println(dash);
-        System.out.println("\t" + message + "\n");
+        System.out.println("\t added: " + message + "\n");
         System.out.println(dash);
+        taskList.add(message);
     }
 
+    public static void listAllTask() {
+
+        System.out.println(dash);
+        if (taskList.size() > 0) {
+            for (int i = 1; i < taskList.size() + 1; i++) {
+                System.out.println("\t" + i + ". " + taskList.get(i - 1));
+            }
+        }
+        System.out.println();
+        System.out.println(dash);
+    }
     public static void main(String[] args) {
 
         welomeMessage();
@@ -41,10 +56,15 @@ public class Duke {
 
         while (!message.equals("bye")) {
 
-            echo(message);
+            if (message.equals("list")) {
+                listAllTask();
+            } else {
+                addTask(message);
+            }
+            System.out.println();
             message = sc.nextLine();
+            System.out.println();
         }
-
         farewell();
     }
 }
