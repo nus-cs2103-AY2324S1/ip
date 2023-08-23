@@ -1,3 +1,5 @@
+package task;
+
 public class Task {
     private String name;
     private boolean isDone;
@@ -14,6 +16,7 @@ public class Task {
         return this.isDone;
     }
 
+    @Override
     public String toString(){
         return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
     }

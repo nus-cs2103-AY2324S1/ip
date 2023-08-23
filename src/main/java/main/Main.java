@@ -1,17 +1,32 @@
+package main;
+
+import command.*;
+import task.*;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
     private static Main INSTANCE;
     private String name = "your girlfriend";
-    private HashMap<String,ICommandHandler> commands;
+    private HashMap<String, ICommandHandler> commands;
     private boolean isRunning;
 
+    private TaskList taskList;
+
     public Main(){
+        this.taskList = new TaskList();
         this.commands = new HashMap<String,ICommandHandler>();
-        this.commands.put("intro", new IntroHandler());
-        this.commands.put("list", new ListHandler());
-        this.commands.put("bye", new ExitHandler());
+        this.commands.put("intro", new CommandIntroHandler());
+        this.commands.put("list", new CommandListHandler());
+        this.commands.put("add", new CommandAddTaskHandler());
+        this.commands.put("bye", new CommandExitHandler());
+        CommandMarkUnmarkHandler temp = new CommandMarkUnmarkHandler();
+        this.commands.put("mark", temp);
+        this.commands.put("unmark", temp);
+        this.commands.put("todo", new CommandTodoHandler());
+        this.commands.put("deadline", new CommandDeadlineHandler());
+        this.commands.put("event", new CommandEventHandler());
     }
 
     public static void main(String[] args) {
@@ -35,11 +50,17 @@ public class Main {
         INSTANCE = new Main();
     }
     private void executeCommand(String command){
-        if(!this.commands.containsKey(command)){
-            this.commands.get("list").execute(command);
+        if(command.length() == 0){
+            this.say("You didn't say anything.");
             return;
         }
-        this.commands.get(command).execute(command);
+        String[] splitedCommand = command.split(" ");
+        if(this.commands.containsKey(splitedCommand[0])){
+            this.commands.get(splitedCommand[0]).execute(command, splitedCommand);
+        }
+        else{
+            this.commands.get("add").execute(command, splitedCommand);
+        }
     }
 
     public static Main getInstance(){
@@ -66,5 +87,9 @@ public class Main {
             System.out.println("    ____________________________________________________________");
         }
 
+    }
+
+    public TaskList getTaskList(){
+        return this.taskList;
     }
 }
