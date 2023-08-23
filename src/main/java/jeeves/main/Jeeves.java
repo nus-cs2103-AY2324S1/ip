@@ -1,3 +1,7 @@
+package jeeves.main;
+
+import jeeves.task.Task;
+
 import java.util.Scanner;
 
 /**

@@ -1,3 +1,5 @@
+package jeeves.task;
+
 /**
  * Contains logic related to the Task object.
  */
@@ -34,30 +36,12 @@ public class Task {
     }
 
     /**
-     * Getter method for the Task id
-     *
-     * @return ID of the task
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
      * Getter method for the Task description.
      *
      * @return Description of the task
      */
     public String getDesc() {
         return desc;
-    }
-
-    /**
-     * Getter method for the Task status
-     *
-     * @return Status of the task
-     */
-    public boolean getStatus() {
-        return isDone;
     }
 
     /**
