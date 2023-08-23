@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import task.*;
@@ -44,22 +45,59 @@ public class ChatView {
                 System.out.println(beautifyString(String.format("These are the items in your list!\n%s", chatRecord.listMessage())));
                 break;
             case "todo":
-                out = chatRecord.addTask(commandSplit[1], TaskTypes.TODO);
-                System.out.println(beautifyString(String.format("Recorded to database: %s\nYou now have %d tasks in the list", out.toString(), chatRecord.getCount())));
+                try {
+                    out = chatRecord.addTask(commandSplit[1], TaskTypes.TODO);
+                    System.out.println(beautifyString(String.format("Recorded to database: %s\nYou now have %d tasks in the list", out.toString(), chatRecord.getCount())));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(beautifyString("ERROR!! The description of Todo cannot be empty!"));
+                } catch (Exception e) {
+                    System.out.println(beautifyString("CRITICAL ERROR!!! An unknown error has occurred. Please report the bug to the developers"));
+                }
                 break;
             case "deadline":
-                String[] ddlSplit = commandSplit[1].split(" /by ");
-                out = chatRecord.addTask(ddlSplit[0], TaskTypes.DEADLINE, ddlSplit[1]);
-                System.out.println(beautifyString(String.format("Recorded to database: %s\nYou now have %d tasks in the list", out.toString(), chatRecord.getCount())));
+                try {
+                    String[] ddlSplit = commandSplit[1].split("/by");
+                    if (ddlSplit[0].equals("")){
+                        System.out.println(beautifyString("ERROR!! The name of Deadline cannot be empty!"));
+                        break;
+                    }
+                    try {
+                        out = chatRecord.addTask(ddlSplit[0].trim(), TaskTypes.DEADLINE, ddlSplit[1].trim());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println(beautifyString("ERROR!! The date of Deadline cannot be empty!"));
+                        break;
+                    }
+                    System.out.println(beautifyString(String.format("Recorded to database: %s\nYou now have %d tasks in the list", out.toString(), chatRecord.getCount())));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(beautifyString("ERROR!! The description of Deadline cannot be empty!"));
+                } catch (Exception e) {
+                    System.out.println(beautifyString("CRITICAL ERROR!!! An unknown error has occurred. Please report the bug to the developers"));
+                }
                 break;
             case "event":
-                String[] evSplit = commandSplit[1].split(" /from ");
-                String[] args = evSplit[1].split(" /to ");
-                out = chatRecord.addTask(evSplit[0], TaskTypes.EVENT, args);
-                System.out.println(beautifyString(String.format("Recorded to database: %s\nYou now have %d tasks in the list", out.toString(), chatRecord.getCount())));
+                try {
+                    String[] evSplit = commandSplit[1].split("/from");
+                    if (evSplit[0].equals("")) {
+                        System.out.println(beautifyString("ERROR!! The name of Event cannot be empty!"));
+                        break;
+                    }
+                    String[] args;
+                    try {
+                        args = evSplit[1].split("/to");
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("ERROR!! The time period of event cannot be empty!");
+                        break;
+                    }
+                    out = chatRecord.addTask(evSplit[0].trim(), TaskTypes.EVENT, args);
+                    System.out.println(beautifyString(String.format("Recorded to database: %s\nYou now have %d tasks in the list", out.toString(), chatRecord.getCount())));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(beautifyString("ERROR!! The description of Event cannot be empty!"));
+                } catch (Exception e) {
+                    System.out.println(beautifyString("CRITICAL ERROR!!! An unknown error has occurred. Please report the bug to the developers"));
+                }
                 break;
             default:
-                System.out.println(beautifyString(command));
+                System.out.println(beautifyString("CRITICAL ERROR!!! Command not found! Updates are still ongoing..."));
                 break;
         }
     }

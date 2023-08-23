@@ -24,7 +24,7 @@ public class ChatRecord {
     }
 
     public Task addTask(String name, TaskTypes type, String[] args) {
-        Task ret = new Event(name, args[0], args[1]);
+        Task ret = new Event(name, args[0].trim(), args[1].trim());
         chatRecords.add(ret);
         counter++;
         return ret;
