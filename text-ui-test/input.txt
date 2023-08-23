@@ -1,0 +1,14 @@
+todo td1
+todo td2
+event e1 /from 1 /to 2
+event e2 /from 123 abc /to 456 !!!@@@
+deadline ip /by 24 Aug 2359
+list
+mark 2
+mark 4
+list
+unmark 2
+mark 1
+mark 4
+list
+bye
