@@ -4,19 +4,22 @@ import java.util.Scanner;
 
 public class Peko {
 
-
+    private static String[] todoList = new String[100];
+    private static int pos = 0;
     private static final String lineBreak = "------------------------------------------"; //42
     private static final String introText = "Konpeko, Konpeko, Konpeko! \n" +
             "Usada Pekora-peko! almondo almondo!";
     private static final String exitText = "Otsupeko! Bye bye!";
     private static final String[] commands = new String[]
-            {"echo:","otsupeko", "list", "write:", "tell me a joke"};
+            {"echo:","otsupeko", "list", "write:", "mark", "unmark", "tell me a joke"};
 
     private static final int ECHO = 0;
     private static final int EXIT = 1;
     private static final int READ = 2;
     private static final int WRITE = 3;
-    private static final int COPYPASTA = 4;
+    private static final int MARK = 4;
+    private static final int UNMARK = 5;
+    private static final int COPYPASTA = 6;
     private static String currInput;
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
@@ -28,25 +31,22 @@ public class Peko {
         while (loop) {
             input = interaction();
             responseValue = getResponseValue(input);
+            //System.out.println(responseValue);
             switch (responseValue) {
                 case ECHO:
                     echo(input);
                     System.out.println(lineBreak);
                     break;
                 case READ:
-                    try {
-                        readList();
-                    } catch (FileNotFoundException e) {
-                        System.out.println("Missing File Peko! Pain Peko");
-                    }
+                    readArray();
                     break;
                 case WRITE:
-                    try {
-                        input = input.startsWith(commands[3]) ? leftPad(input.substring(6, input.length())) : input;
-                        addToList(input);
-                    } catch (IOException e) {
-                        System.out.println("Wakaranai Peko!");
-                    }
+                    input = input.startsWith(commands[3]) ? leftPad(input.substring(6, input.length())) : input;
+                    addToArray(input);
+                    break;
+                case MARK:
+                    input = leftPad(input.substring(4, input.length()));
+                    setMarkArray(input);
                     break;
                 case COPYPASTA:
                     try  {
@@ -119,6 +119,18 @@ public class Peko {
         }
         System.out.println(lineBreak);
     }
+    public static void readArray() {
+        int i = 0;
+        System.out.println("--------------LIST-PEKO------------------");
+        while (todoList[i] != null) {
+            System.out.println(i+1 + ". " + todoList[i]);
+            i++;
+        }
+        if (i == 0) {
+            System.out.println("You are FREE PEKO!!!!!");
+        }
+        System.out.println(lineBreak);
+    }
 
     public static void addToList(String s) throws IOException {
         Writer temp;
@@ -126,6 +138,46 @@ public class Peko {
         temp.append("[ ] " + s + "\n");
         temp.close();
         System.out.println("Added: \"" + s + "\" Peko!");
+        System.out.println(lineBreak);
+    }
+    public static void addToArray(String s) {
+        todoList[pos] = "[ ] " + s;
+        System.out.println("Added: \"" + s + "\" Peko!");
+        System.out.println(lineBreak);
+        pos++;
+    }
+
+    public static void setMark(String s) {
+        try {
+            int i = Integer.parseInt(s);
+            File file = new File("src/main/List.txt");
+            Scanner sc = new Scanner(file);
+            for (int j = 1; j < i; j++) {
+                if (sc.hasNextLine()) {
+                    sc.nextLine();
+                } else {
+                    System.out.println("Your list isn't long enough Bakatare");
+                }
+            }
+            System.out.println(sc.nextLine());
+            System.out.println("");
+        } catch (NumberFormatException e) {
+            System.out.println("That's not a number Bakatare!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Missing file peko! Pain Peko!");
+        }
+
+    }
+    public static void setMarkArray(String s) {
+        try {
+            int markIndex = Integer.parseInt(s);
+            String temp = todoList[markIndex-1];
+            todoList[markIndex-1] = "[X]" + temp.substring(3, temp.length());
+            System.out.println("Marked as done peko!");
+            System.out.println("    " + todoList[markIndex-1]);
+        } catch (NumberFormatException e) {
+            System.out.println("That's not a number Bakatare!");
+        }
         System.out.println(lineBreak);
     }
     public static void degen() throws FileNotFoundException {
@@ -147,4 +199,5 @@ public class Peko {
     private static void exit() {
         System.out.println(exitText);
     }
+
 }
