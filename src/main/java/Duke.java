@@ -9,9 +9,9 @@ public class Duke {
         System.out.println("Hello! I'm Mikhil" + '\n' + "What can I do for you");
         boolean flag = true;
         Task[] tasks = new Task[100];
+        Scanner userInput = new Scanner(System.in);
 
         while (flag == true) {
-            Scanner userInput = new Scanner(System.in);
             String input = userInput.nextLine();
             String[] splitStr = input.trim().split("\\s+");
 
@@ -20,7 +20,7 @@ public class Duke {
                 System.out.println("Bye. Hope to see you again soon!");
             }
             else if (input.equals("list")) {
-                System.out.println("  Here are the tasks in your list");
+                System.out.println("  Here are the tasks in your list:");
                 for (int i = 0; i < Task.getSize(); i++) {
                     int index = i+1;
                     System.out.println("  " + index + "." + tasks[i].toString()) ;
