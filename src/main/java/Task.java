@@ -1,5 +1,4 @@
 
-
 /**
  * Tasks are the tasks sent by the user to the Duke class
  */
@@ -37,9 +36,16 @@ public class Task {
      */
     @Override
     public String toString() {
-        String status = taskstatus ? "[X]" : "[ ]";
+        return "[" + this.getStatusIcon() + "] " + taskname;
+    }
 
-        return status + " " + taskname;
+    /**
+     * Shows the status of the current task.
+     *
+     * @return Status of the current task.
+     */
+    public String getStatusIcon() {
+        return (taskstatus ? "X" : " "); // mark done task with X
     }
 
 
