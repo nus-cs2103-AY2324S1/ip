@@ -12,9 +12,9 @@ public class Duke {
 
     private void greet() {
         System.out.println("\t____________________________________________________________");
-        System.out.println(logo);
-        System.out.println("\tHello! I'm Duke.");
-        System.out.println("\tWhat can I do for you?");
+        //System.out.println(logo);
+        System.out.println("\t Hello! I'm Duke.");
+        System.out.println("\t What can I do for you?");
         System.out.println("\t____________________________________________________________");
     }
 
@@ -54,15 +54,15 @@ public class Duke {
 
     private void exit() {
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println("\t Bye. Hope to see you again soon!");
         System.out.println("\t____________________________________________________________");
     }
 
     private void showList() {
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tHere are the tasks in your list:");
+        System.out.println("\t Here are the tasks in your list:");
         for (int i = 0; i < this.list.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + this.list.get(i));
+            System.out.println("\t " + (i + 1) + ". " + this.list.get(i));
         }
         System.out.println("\t____________________________________________________________");
     }
@@ -72,7 +72,7 @@ public class Duke {
             Task task = list.get(taskIndex);
             task.markAsDone();
             System.out.println("\t____________________________________________________________");
-            System.out.println("\tNice! I've marked this task as done:\n" +
+            System.out.println("\t Nice! I've marked this task as done:\n" +
                     "\t\t" + this.list.get(taskIndex));
             System.out.println("\t____________________________________________________________");
         }
@@ -83,7 +83,7 @@ public class Duke {
             Task task = list.get(taskIndex);
             task.markAsNotDone();
             System.out.println("\t____________________________________________________________");
-            System.out.println("\tOK, I've marked this task as not done yet:\n" +
+            System.out.println("\t OK, I've marked this task as not done yet:\n" +
                     "\t\t" + this.list.get(taskIndex));
             System.out.println("\t____________________________________________________________");
         }
@@ -94,7 +94,7 @@ public class Duke {
         list.add(newTask);
 
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tadded: " + userCommand);
+        System.out.println("\t added: " + userCommand);
         System.out.println("\t____________________________________________________________");
     }
 
@@ -103,8 +103,8 @@ public class Duke {
         list.add(newTask);
 
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tGot it. I've added this task:\n" +
-                "\t\t" + newTask + "\n\tNow you have " + list.size() + " tasks in the list.");
+        System.out.println("\t Got it. I've added this task:\n" +
+                "\t\t" + newTask + "\n\t Now you have " + list.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________");
     }
 
@@ -112,8 +112,8 @@ public class Duke {
         Deadline newTask = new Deadline(description, by);
         list.add(newTask);
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tGot it. I've added this task:\n" +
-                "\t\t" + newTask + "\n\tNow you have " + list.size() + " tasks in the list.");
+        System.out.println("\t Got it. I've added this task:\n" +
+                "\t\t" + newTask + "\n\t Now you have " + list.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________");
     }
 
@@ -121,8 +121,8 @@ public class Duke {
         Event newTask = new Event(description, from, to);
         list.add(newTask);
         System.out.println("\t____________________________________________________________");
-        System.out.println("\tGot it. I've added this task:\n" +
-                "\t\t" + newTask + "\n\tNow you have " + list.size() + " tasks in the list.");
+        System.out.println("\t Got it. I've added this task:\n" +
+                "\t\t" + newTask + "\n\t Now you have " + list.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________");
     }
     public static void main(String[] args) {
