@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         System.out.println("____________________________________________________________");
@@ -21,11 +21,22 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 break;
             } else if (command.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    System.out.println((i + 1) + "." + "[" + tasks[i].getStatusIcon() + "]" + " " + tasks[i].getDescription());
                 }
+            } else if (command.startsWith("mark")) {
+                int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+                tasks[taskIndex].markAsDone();
+                System.out.println("Nice! I've marked this task as done:\n  " + "[" + tasks[taskIndex].getStatusIcon()
+                                    + "]" + " " + tasks[taskIndex].getDescription());
+            } else if (command.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(command.split(" ")[1]) - 1;
+                tasks[taskIndex].markAsUndone();
+                System.out.println("OK, I've marked this task as not done yet:\n  " + "["
+                                    + tasks[taskIndex].getStatusIcon() + "]" + " " + tasks[taskIndex].getDescription());
             } else {
-                tasks[taskCount] = command;
+                tasks[taskCount] = new Task(command);
                 taskCount++;
                 System.out.println("added: " + command);
             }
