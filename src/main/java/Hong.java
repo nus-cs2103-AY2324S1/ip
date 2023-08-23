@@ -54,21 +54,31 @@ public class Hong {
 
     private static void handleMark(String userInput) {
         String[] arrInput = userInput.split(" ");
-        Task currentTask = tasks.get(Integer.valueOf(arrInput[1]) - 1);
-        currentTask.markDone();
-        System.out.println(line);
-        System.out.println("Nice! I've marked this task as done:");
-        String currentItem = currentTask.toString();
-        System.out.println(currentItem);
-        System.out.println(line);
+        try {
+            Task currentTask = tasks.get(Integer.valueOf(arrInput[1]) - 1);
+            currentTask.markDone();
+            System.out.println(line);
+            System.out.println("Nice! I've marked this task as done:");
+            String currentItem = currentTask.toString();
+            System.out.println(currentItem);
+            System.out.println(line);
+        } catch (IndexOutOfBoundsException err){
+            throw new DukeException("This Task index does not exist!", err);
+        }
+
     }
 
     private static void createDeadline(String userInput) {
         String newInput = userInput.substring(9);
         String[] arrInput = newInput.split("/by ");
-        Deadline newDeadline = new Deadline(arrInput[1], arrInput[0]);
-        tasks.add(newDeadline);
-        addedMessage(newDeadline.toString());
+        if (arrInput.length != 2) {
+            System.out.println("Error! There is an issue with the format of your message. ");
+        } else {
+            Deadline newDeadline = new Deadline(arrInput[1], arrInput[0]);
+            tasks.add(newDeadline);
+            addedMessage(newDeadline.toString());
+        }
+
     }
 
     private static void createTodo(String userInput) {
