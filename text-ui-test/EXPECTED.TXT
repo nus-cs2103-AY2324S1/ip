@@ -5,22 +5,32 @@ ___ _  _ ___
 Hellos! I'm PHI (Programmed Human Interaction)
 What can I do for you?
 Added:
-[T][ ] borrow book
+[T][ ] write better code
 
-1.[T][ ] borrow book
-
-Added:
-[D][ ] return book (by: Sunday)
+Hey genius, did you mean "todo giveproperinput"...
 
 Added:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[D][ ] get better at coding (by: ASAP)
+
+Look at which moron didn't add a deadline with the "/by" flag
+
+Added:
+[E][ ] code (from: now to: end of time)
+
+Congratulations you're the only idiot who would leave out both "/from" and "/to" flags
+
+1.[T][ ] write better code
+2.[D][ ] get better at coding (by: ASAP)
+3.[E][ ] code (from: now to: end of time)
+
+Nice job did you mean "list" coz what you gave wasn't an accepted input
 
 ALRIGHT NICE I'll mark this as completed :)
-[D][X] return book (by: Sunday)
+[T][X] write better code
 
-1.[T][ ] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+this task does not exist, genius..
+
+OI open ur eyes and give a proper input ITS "mark" AND A NUMBER
 
 SIKE I can't process that! Try again or say "bye" to exit
 

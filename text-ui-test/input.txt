@@ -1,8 +1,13 @@
-todo borrow book
+todo write better code
+todogiveproperinput
+deadline get better at coding /by ASAP
+deadline remember to give the flag
+event code /from now /to end of time
+event do something but I didn't add any flags
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-mark 2
-list
-invalid input
+listbutican'tspell
+mark 1
+mark 4
+marker
+unacceptableinput
 bye
