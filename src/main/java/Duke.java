@@ -2,6 +2,8 @@ import java.util.Scanner;
 public class Duke {
     private static final String botName = "cc";
 
+    private static final TaskParser parser = new TaskParser();
+
     private static final Memory memory = new Memory();
 
     private static void greet() {
@@ -56,7 +58,8 @@ public class Duke {
                 }
                 memory.unmark(pos);
             } else {
-                memory.add(new Task(input));
+                memory.add(parser.parseTask(input));
+                System.out.println("Now you have " + memory.size() + " tasks in the list.");
             }
         }
     }

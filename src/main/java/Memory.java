@@ -4,6 +4,7 @@ public class Memory {
     private final static ArrayList<Boolean> markList = new ArrayList<>();
 
     public void add(Task task) {
+        System.out.println("Got it. I've added this task:");
         ls.add(task);
         System.out.println("added: " + task);
     }
@@ -29,7 +30,7 @@ public class Memory {
         for (int i = 0; i < ls.size(); i++) {
             int order = i + 1;
             Task cur = ls.get(i);
-            System.out.println(order + ". " + cur.getStatusIcon() + " " + cur);
+            System.out.println(order + ". "  + " " + cur);
         }
     }
 }
