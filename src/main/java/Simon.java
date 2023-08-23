@@ -35,6 +35,9 @@ public class Simon {
                     case "mark":
                         markTask(inData, true);
                         break;
+                    case "delete":
+                        deleteTask(inData);
+                        break;
                     case "bye":
                         System.out.println("Bye. Hope to see you again soon!" + NSPACE);
                         return;
@@ -124,6 +127,30 @@ public class Simon {
             tasks.get(index).markAsUndone();
             System.out.println("OK, I've marked this task as not done yet:\n[ ] " + tasks.get(index) + NSPACE);
         }
+    }
+
+    private static void deleteTask(String inData) throws SimonException {
+        String[] split = inData.split(" ");
+
+        int index = 0;
+        try {
+            index = Integer.parseInt(split[1]) - 1;
+        } catch (NumberFormatException e) {
+            System.out.println("Please provide a valid task number." + NSPACE);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Please provide a task number." + NSPACE);
+        }
+
+        if (tasks.isEmpty()) {
+            throw new SimonException("There are no tasks to delete." + NSPACE);
+        }
+        if (index < 0 || index >= tasks.size()) {
+            throw new SimonException("Invalid task number. Choose a number between 1 and " + tasks.size() + "." + NSPACE);
+        }
+
+        tasks.remove(index);
+        System.out.println("Noted. I've removed this task:\n" + tasks.get(index) + String.format("\nNow you have %d %s in the list.",
+                tasks.size(), tasks.size() - 1 > 1 ? "tasks" : "task") + NSPACE);
     }
 
 }
