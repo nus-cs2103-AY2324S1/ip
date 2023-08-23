@@ -26,8 +26,12 @@ public class Sae {
                 markTask(store, commandTask);
             } else if (command.equals("unmark")) {
                 unmarkTask(store, commandTask);
-            } else {
-                addTask(store, str);
+            } else if (command.equals("todo")) {
+                addTodoTask(store, commandTask);
+            } else if (command.equals("deadline")) {
+                addDeadlineTask(store, commandTask);
+            } else if (command.equals("event")) {
+                addEventTask(store, commandTask);
             }
         }
 
@@ -45,7 +49,7 @@ public class Sae {
         int len = store.size();
         for (int i = 0; i < len; i++) {
             Task curr = store.get(i);
-            System.out.println((i + 1) + ".[" + curr.getStatusIcon() + "] " + curr.getDescription());
+            System.out.println((i + 1) + "." + curr.toString());
         }
     }
 
@@ -60,7 +64,7 @@ public class Sae {
         Task curr = store.get(number - 1);
         curr.markAsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[" + curr.getStatusIcon() + "] " + curr.getDescription());
+        System.out.println(curr.toString());
     }
 
     /**
@@ -74,18 +78,51 @@ public class Sae {
         Task curr = store.get(number - 1);
         curr.unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + curr.getStatusIcon() + "] " + curr.getDescription());
+        System.out.println(curr.toString());
     }
 
     /**
-     * Adds a new task to the storage.
+     * Adds a new Todo task to the store.
      *
-     * @param store The ArrayList containing the tasks.
-     * @param str   The user's input representing the task.
+     * @param store       The ArrayList containing the tasks.
+     * @param commandTask The user's input split into command and description.
      */
-    private static void addTask(ArrayList<Task> store, String str) {
-        Task curr = new Task(str);
+    private static void addTodoTask(ArrayList<Task> store, String[] commandTask) {
+        Task curr = new Todo(commandTask[1]);
         store.add(curr);
-        System.out.println("added: " + str);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(curr.toString());
+        System.out.println("Now you have " + store.size() + " tasks in the list.");
+    }
+
+    /**
+     * Adds a new Deadline task to the store.
+     *
+     * @param store       The ArrayList containing the tasks.
+     * @param commandTask The user's input split into command and description.
+     */
+    private static void addDeadlineTask(ArrayList<Task> store, String[] commandTask) {
+        String[] parts = commandTask[1].split("/by");
+        Task curr = new Deadline(parts[0].trim(), parts[1].trim());
+        store.add(curr);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(curr.toString());
+        System.out.println("Now you have " + store.size() + " tasks in the list.");
+    }
+
+    /**
+     * Adds a new Event task to the store.
+     *
+     * @param store       The ArrayList containing the tasks.
+     * @param commandTask The user's input split into command and description.
+     */
+
+    private static void addEventTask(ArrayList<Task> store, String[] commandTask) {
+        String[] parts = commandTask[1].split("/from|/to");
+        Task curr = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        store.add(curr);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(curr.toString());
+        System.out.println("Now you have " + store.size() + " tasks in the list.");
     }
 }
