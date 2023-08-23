@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+    public static String[] tasks = new String[100];
     public static void main(String[] args) {
         String lineSep = "-------------------------------";
         System.out.println(lineSep);
@@ -8,9 +9,22 @@ public class Duke {
         System.out.println("What can I do for you?\n" + lineSep);
         Scanner scanner = new Scanner(System.in);
         String cmd = readCmd(scanner);
-
+        int counter = 0;
         while (!cmd.equals("bye")) {
-            System.out.println(cmd + "\n" + lineSep);
+            if (cmd.equals("list")) {
+                int tempCounter = 0;
+                for (String task : tasks) {
+                    // Don't print nulls
+                    if (task == null) { break; }
+                    System.out.println(tempCounter + ". " + task);
+                    tempCounter++;
+                }
+                System.out.println(lineSep);
+            } else {
+                System.out.println("added: " + cmd + "\n" + lineSep);
+                tasks[counter] = cmd;
+                counter++;
+            }
             cmd = readCmd(scanner);
         }
 
