@@ -5,18 +5,33 @@ deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 mark 2
 list
-mark 3
-list
-unmark 1
+mark 4
 list
 unmark 2
 list
-todo wow this actually works 123 wow
-mark 1
-mark 2
-unmark 3
-mark 4
-mark 5
-mark 1 1
+unmark 4
 list
+unmark 1
+list
+todo todo
+list
+mark 4
+unmark 4
+mark a
+unmark a
+mark 1 1
+unmark 1 1
+markk 1
+unmarkk 1
+mark
+unmark
+markk
+unmarkk
+mark   1
+unmark        1
+deadline      space    test     /by      Sunday
+event      many      spaces      /from     Mon 2pm /to      4pm
+todo             spaces
+list
+
 bye
