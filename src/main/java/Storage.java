@@ -23,6 +23,10 @@ public class Storage {
         return this.arr[index].toString();
     }
 
+    public int getStorageSize() {
+        return idx;
+    }
+
     public String list() {
         StringBuilder builder = new StringBuilder();
         if (this.idx == 0) return "";

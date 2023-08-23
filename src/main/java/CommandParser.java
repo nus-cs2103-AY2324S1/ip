@@ -23,6 +23,20 @@ public class CommandParser {
             return new Command(CommandType.BYE, new String[]{});
         }
 
-        return new Command(CommandType.TASK, new String[]{argumentString});
+        if (commandType.equals("todo")) {
+            return new Command(CommandType.TODO, new String[]{argumentString});
+        }
+
+        if (commandType.equals("deadline")) {
+            String[] deadlineParts = argumentString.split("/by", 2);
+            return new Command(CommandType.DEADLINE, new String[]{deadlineParts[0].trim(), deadlineParts[1].trim()});
+        }
+
+        if (commandType.equals("event")) {
+            String[] eventParts = argumentString.split("/from|/to", 3);
+            return new Command(CommandType.EVENT, new String[]{eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()});
+        }
+
+        return new Command(CommandType.TODO, new String[]{});
     }
 }

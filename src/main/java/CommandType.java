@@ -1,5 +1,7 @@
 public enum CommandType {
-    TASK,
+    TODO,
+    DEADLINE,
+    EVENT,
     LIST,
     MARK,
     UNMARK,

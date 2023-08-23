@@ -1,3 +1,5 @@
+import jdk.jfr.Event;
+
 import java.util.Scanner;
 
 public class UserInterface {
@@ -37,9 +39,27 @@ public class UserInterface {
                     case BYE:
                         System.out.println("Bye. Hope to see you again soon!");
                         System.exit(0);
-                    case TASK:
-                        this.store.add(new Task(input));
-                        System.out.println("added: " + input);
+                    case TODO:
+                        TodoTask newTodo = new TodoTask(c.getArgs()[0]);
+                        this.store.add(newTodo);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(newTodo);
+                        System.out.printf("Now you have %d tasks in the list.%n", this.store.getStorageSize());
+                        break;
+                    case DEADLINE:
+                        DeadlineTask newDeadline = new DeadlineTask(c.getArgs()[0], c.getArgs()[1]);
+                        this.store.add(newDeadline);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(newDeadline);
+                        System.out.printf("Now you have %d tasks in the list.%n", this.store.getStorageSize());
+                        break;
+                    case EVENT:
+                        EventTask newEvent = new EventTask(c.getArgs()[0], c.getArgs()[1], c.getArgs()[2]);
+                        this.store.add(newEvent);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println(newEvent);
+                        System.out.printf("Now you have %d tasks in the list.%n", this.store.getStorageSize());
+                        break;
                 }
 
         }
