@@ -16,6 +16,8 @@ unmark 2
 list
 unmark 1
 list
-deadline /by /by /by
+deadline a /by /by /by
+list
+todo
 list
 bye
