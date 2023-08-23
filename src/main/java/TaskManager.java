@@ -85,4 +85,17 @@ public class TaskManager {
         }
         System.out.println("    ____________________________________________________________");
     }
+
+    public void deleteTask(int index) throws ChatbotException {
+        try {
+            Task removedTask = tasks.remove(index - 1); // Subtracting 1 because ArrayList is 0-based.
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Noted. I've removed this task:");
+            System.out.println("       " + removedTask);
+            System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("    ____________________________________________________________");
+        } catch (IndexOutOfBoundsException e) {
+            throw new ChatbotException("Please provide a valid task number to delete.");
+        }
+    }
 }

@@ -42,9 +42,11 @@ public class Chatbot {
                     handleMark(userInput);
                 } else if (userInput.startsWith("unmark")) {
                     handleUnmark(userInput);
+                } else if (userInput.startsWith("delete")) {
+                    int index = Integer.parseInt(userInput.split(" ")[1]);
+                    taskManager.deleteTask(index);
                 } else {
                     throw new ChatbotException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-
                 }
             } catch (ChatbotException e) {
                 System.out.println("    ____________________________________________________________");
