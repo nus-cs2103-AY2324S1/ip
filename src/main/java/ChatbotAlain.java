@@ -17,6 +17,47 @@ public class ChatbotAlain {
             text = s.nextLine();
             boolean isMatchMark = Pattern.matches("mark\\d+", text);
             boolean isMatchUnmark = Pattern.matches("unmark\\d+", text);
+            boolean isDeadline = Pattern.matches("deadline .+", text);
+            boolean isToDo = Pattern.matches("todo .+", text);
+            boolean isEvent = Pattern.matches("event .+", text);
+            if (isToDo) {
+                String mission = text.substring(4);
+                list[pos] = new ToDos(mission);
+                pos ++;
+                String output = "____________________________________________________________\n"
+                        + "  Got it. I've added this task:\n"
+                        + "   " + list[pos - 1] + "\n"
+                        + "Now you have " + pos + " tasks in the list.\n"
+                        + "____________________________________________________________\n";
+                System.out.println(output);
+                continue;
+            }
+            if (isDeadline) {
+                String mission = text.substring(8);
+                String[] parts = mission.split("/");
+                list[pos] = new Deadlines(parts[0], parts[1]);
+                pos ++;
+                String output = "____________________________________________________________\n"
+                        + "  Got it. I've added this task:\n"
+                        + "   " + list[pos - 1] + "\n"
+                        + "Now you have " + pos + " tasks in the list.\n"
+                        + "____________________________________________________________\n";
+                System.out.println(output);
+                continue;
+            }
+            if (isEvent) {
+                String mission = text.substring(5);
+                String[] parts = mission.split("/");
+                list[pos] = new Events(parts[0], parts[1], parts[2]);
+                pos ++;
+                String output = "____________________________________________________________\n"
+                        + "  Got it. I've added this task:\n"
+                        + "   " + list[pos - 1] + "\n"
+                        + "Now you have " + pos + " tasks in the list.\n"
+                        + "____________________________________________________________\n";
+                System.out.println(output);
+                continue;
+            }
             if (text.equals("bye")) {
                 break;
             } else if (isMatchMark) {
@@ -24,7 +65,7 @@ public class ChatbotAlain {
                 list[Integer.parseInt(numericPart) -1].markAsDone();
                 String output = "____________________________________________________________\n"
                         + " Nice! I've marked this task as done:\n"
-                        + "   [X]" +  list[Integer.parseInt(numericPart) - 1].getName() + "\n"
+                        + "   " + list[Integer.parseInt(numericPart) - 1] + "\n"
                         + "____________________________________________________________\n";
                 System.out.println(output);
             }else if (isMatchUnmark) {
@@ -32,7 +73,7 @@ public class ChatbotAlain {
                 list[Integer.parseInt(numericPart) - 1].markAsUndone();
                 String output = "____________________________________________________________\n"
                         + " OK, I've marked this task as not done yet:\n"
-                        + "   [ ]" +  list[Integer.parseInt(numericPart) - 1].getName() + "\n"
+                        + "   " + list[Integer.parseInt(numericPart) - 1] + "\n"
                         + "____________________________________________________________\n";
                 System.out.println(output);
             }else if (! text.equals("list")){
@@ -48,7 +89,7 @@ public class ChatbotAlain {
                 output += "____________________________________________________________\n"
                  + "Here are the tasks in your list:\n";
                 for (int i = 0; i < pos; i++ ) {
-                    output += " " + (i + 1) + ". " + list[i].getStatusIcon() + list[i].getName() + "\n";
+                    output += " " + (i + 1) + ". " + list[i] + "\n";
                 }
                 output += "____________________________________________________________\n";
                 System.out.println(output);

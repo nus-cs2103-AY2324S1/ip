@@ -7,10 +7,6 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
     }
@@ -21,5 +17,9 @@ public class Task {
 
     public void markAsUndone(){
         this.isDone = false;
+    }
+
+    public String toString() {
+        return this.getStatusIcon() + this.name;
     }
 }
