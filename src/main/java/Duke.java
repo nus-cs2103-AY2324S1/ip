@@ -114,27 +114,35 @@ public class Duke {
             System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
           } catch (ArrayIndexOutOfBoundsException ex) {
             System.out.println("Please include a (/by) command, followed by a date");
-          } catch (StringIndexOutOfBoundsException ex){
-            System.out.println("Please enter a name, followed by a (/by) command, followed by a date");
+          } catch (StringIndexOutOfBoundsException ex) {
+            System.out.println(
+                "Please enter a name, followed by a (/by) command, followed by a date");
           }
 
           break;
         }
         case "event": {
+          try {
+            int commandLength = commandString.length() + 1;
+            String taskName = inputString.substring(commandLength);
+            String[] parts = taskName.split("/from", 2);
+            String name = parts[0];
+            String dates = parts[1];
+            String[] datesplit = dates.split("/to", 2);
+            String startDate = datesplit[0];
+            String endDate = datesplit[1];
 
-          int commandLength = commandString.length() + 1;
-          String taskName = inputString.substring(commandLength);
-          String[] parts = taskName.split("/from", 2);
-          String name = parts[0];
-          String dates = parts[1];
-          String[] datesplit = dates.split("/to", 2);
-          String startDate = datesplit[0];
-          String endDate = datesplit[1];
+            Task curentTask = new Event(name, startDate, endDate);
+            taskList.add(curentTask);
 
-          Task curentTask = new Event(name, startDate, endDate);
-          taskList.add(curentTask);
+            System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+          } catch (StringIndexOutOfBoundsException ex) {
+            System.out.println("The event command cannot be empty!");
+          } catch (ArrayIndexOutOfBoundsException ex){
 
-          System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+            System.out.println(
+                "Please enter a name, followed by a (/from) command, followed by a date, followed by a (/to) command and a date");
+          }
           break;
         }
         default:
