@@ -23,7 +23,7 @@ public class Duke {
                     int index = i + 1;
                     System.out.println(index + ". " + storedList.get(i));
                 }
-
+                System.out.print(line + "\n");
             } else {
                 storedList.add(input);
                 System.out.println("added: "+ input + "\n" + line);
