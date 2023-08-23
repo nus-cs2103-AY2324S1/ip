@@ -17,4 +17,9 @@ public class Task {
     public void setUnmark() {
         status = false;
     }
+    public void reply(int i) {
+
+        System.out.println("Added: \n" + this.toString() + "\nPeko!");
+        System.out.println("You have: " + i + " tasks now Peko");
+    }
 }

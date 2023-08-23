@@ -163,30 +163,26 @@ public class Peko {
     }
     public static void addToArray(String s) {
         todoList[pos] = new Task(s);
+        todoList[pos].reply(pos);
         pos++;
-        System.out.println("Added: \n" +  todoList[pos-1] + "\nPeko!");
-        System.out.println("You have: " + pos + "tasks now Peko");
         System.out.println(lineBreak);
     }
     public static void addToDo(String s) {
         todoList[pos] = new ToDos(s);
+        todoList[pos].reply(pos);
         pos++;
-        System.out.println("Added: \n" + todoList[pos-1] + "\n Peko!");
-        System.out.println("You have: " + pos + " tasks now Peko");
         System.out.println(lineBreak);
     }
     public static void addDeadline(String s) {
         todoList[pos] = new Deadline(s);
+        todoList[pos].reply(pos);
         pos++;
-        System.out.println("Added: \n" + todoList[pos-1] + "\n Peko!");
-        System.out.println("You have: " + pos + " tasks now Peko");
         System.out.println(lineBreak);
     }
     public static void addEvent(String s) {
         todoList[pos] = new Event(s);
+        todoList[pos].reply(pos);
         pos++;
-        System.out.println("Added: \n" + todoList[pos-1] + "\n Peko!");
-        System.out.println("You have: " + pos + " tasks now Peko");
         System.out.println(lineBreak);
     }
 
