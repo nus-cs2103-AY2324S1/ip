@@ -1,14 +1,30 @@
 Hello! I'm Toothless.
 What can I do for you today?
 ---------------------------------
+You have no tasks! Yay :)
+---------------------------------
 A new task has been added!
  To Do -> [ ] return books
+---------------------------------
+Title of the task is missing! Please give your task a name :)
 ---------------------------------
 A new task has been added!
  Deadline -> [ ] write essay By: 25/9
 ---------------------------------
+Title of the task is missing! Please give your task a name :)
+---------------------------------
+Date of the task is missing! Please give your task a date :)
+---------------------------------
 A new task has been added!
  Event -> [ ] hackathon (23/9 - 25/9)
+---------------------------------
+Title of the task is missing! Please give your task a name :)
+---------------------------------
+Date of the task is missing! Please give your task a date :)
+---------------------------------
+Date of the task is missing! Please give your task a date :)
+---------------------------------
+Date of the task is missing! Please give your task a date :)
 ---------------------------------
 Here's your list of tasks!
 
@@ -18,15 +34,24 @@ Here's your list of tasks!
 ---------------------------------
 'return books' is completed! Good job :)
 ---------------------------------
-'write essay' is completed! Good job :)
+Task cannot be found :(
+---------------------------------
+Task cannot be found :(
 ---------------------------------
 'return books' is now not completed :(
+---------------------------------
+Task cannot be found :(
+---------------------------------
+Task cannot be found :(
+---------------------------------
+'write essay' is completed! Good job :)
 ---------------------------------
 Here's your list of tasks!
 
 1: To Do -> [ ] return books
 2: Deadline -> [X] write essay By: 25/9
 3: Event -> [ ] hackathon (23/9 - 25/9)
+---------------------------------
 ---------------------------------
 Goodbye. Hope to see you soon!
 ---------------------------------
