@@ -13,14 +13,11 @@ public class TehO {
 
         while (true) {
             String userCommand = sc.nextLine();
-            //BYE
             if (userCommand.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
-                //LIST
             } else if (userCommand.equals("list")) {
                 listTask(taskList);
-                //MARK
             } else if (userCommand.startsWith("mark")) {
                 //note that split returns a String[]
                 //parseInt returns the integer value which is represented by the argument
@@ -29,14 +26,12 @@ public class TehO {
                 task.markAsDone(taskNumber);
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(task.toString());
-                //UNMARK
             } else if (userCommand.startsWith("unmark")) {
                 int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
                 Task task = taskList.get(taskNumber);
                 task.markAsNotDone(taskNumber);
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(task.toString());
-                //TODO
             } else if (userCommand.startsWith("todo")) { //todo borrow book
                 try {
                     if (userCommand.length() < 6) {
@@ -50,7 +45,6 @@ public class TehO {
                 } catch (EmptyToDoDescriptionException e) {
                     System.out.println(e.toString());
                 }
-                //DEADLINE
             } else if (userCommand.startsWith("deadline")) { //deadline return book /by Sunday
                 try {
                     if (userCommand.length() < 10) {
@@ -66,7 +60,6 @@ public class TehO {
                 } catch (EmptyDeadlineDescriptionException e) {
                     System.out.println(e.toString());
                 }
-                //EVENT
             } else if (userCommand.startsWith("event")) { //need time
                 try {
                     if (userCommand.length() < 6) {
@@ -84,18 +77,14 @@ public class TehO {
                 } catch (EmptyEventDescriptionException e) {
                     System.out.println(e.toString());
                 }
-                //OTHERS
             } else if (userCommand.startsWith("delete")) {
                 int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
                 Task task = taskList.get(taskNumber);
                 taskList.remove(taskNumber);
                 System.out.println("Noted. I've removed this task:");
                 System.out.println(task.toString());
-                //taskCounter--;
                 System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             } else {
-                //Task task = new Task(userCommand);
-                //addTask(task);
                 try {
                     throw new InvalidCommandException();
                 } catch (InvalidCommandException e) {
@@ -103,32 +92,22 @@ public class TehO {
                 }
             }
         }
+        sc.close();
     }
 
 
-//    public static void addTask(Task newTask) {
-//        taskList[taskCounter] = newTask;
-//        taskCounter++;
-//        System.out.println("added: " + newTask.description);
-//    }
-
     public static void addToDo(Task newTask) {
         taskList.add(newTask);
-        //taskList[taskCounter] = newTask;
-        //taskCounter++;
         System.out.println(newTask.toString());
     }
 
     public static void addDeadline(Task newTask, String byDate) {
         taskList.add(newTask);
-        //taskList[taskCounter] = newTask;
-        //taskCounter++;
         System.out.println(newTask.toString() + "(by:" + byDate + ")");
     }
 
     public static void addEvent(Task newTask, String fromDate, String toDate) {
-        taskList.add(newTask); //check if need -1
-        //taskCounter++;
+        taskList.add(newTask);
         System.out.println(newTask.toString() + "(from:" + fromDate
                 + " to:" + toDate + ")");
     }
@@ -141,13 +120,3 @@ public class TehO {
         }
     }
 }
-
-//    public static void delete(int taskNumber) {
-//        //continue here
-//        taskList.remove(taskNumber);
-//        for (int i = 0; i < taskList.size(); i++) {
-//            Task task = taskList.get(i);
-//            System.out.println((i+1) + ". " + task.toString());
-//        }
-//    }
-//}
