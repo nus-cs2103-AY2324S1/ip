@@ -48,6 +48,19 @@ public class Duke {
                 } catch (NumberFormatException e) {
                     System.out.println("    Please enter a number e.g., unmark 1");
                 }
+            } else if (command.equals("delete")) {
+                try {
+                    int toDelete = Integer.parseInt(input[1]);
+                    Task task = list.get(toDelete - 1);
+                    System.out.println("    Noted. I've removed this task:");
+                    System.out.println(String.format("      %s", task.toString()));
+                    list.remove(toDelete - 1);
+                    System.out.println("    Number of tasks: " + list.size());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("    Task does not exist.");
+                } catch (NumberFormatException e) {
+                    System.out.println("    Please enter a number e.g., delete 1");
+                }
             } else if (command.equals("deadline")) {
                 try {
                     String[] s = input[1].split("/by", 2);
