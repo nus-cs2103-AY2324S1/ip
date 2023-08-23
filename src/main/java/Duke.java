@@ -1,3 +1,4 @@
+import java.util.Date;
 import java.util.Scanner;
 
 public class Duke {
@@ -35,16 +36,24 @@ public class Duke {
     }
 
     private static void nextCommand(String command) {
-        String[] commandArraycommand = command.split(" ");
+        String[] commandArraycommand = command.split(" ", 2);
+        if (commandArraycommand.length == 1) {
+            switch (commandArraycommand[0]) {
+                case ("bye"):
+                    exit();
+                    break;
+
+                case ("list"):
+                    taskList.listTasks();
+                    break;
+            }
+            Scanner scanObj = new Scanner(System.in);
+            String newCommand = scanObj.nextLine();
+            nextCommand(newCommand);
+            return;
+        }
+        String[] commandArraycommandfirst = commandArraycommand[1].split("/");
         switch(commandArraycommand[0]) {
-
-            case ("bye"):
-                exit();
-                break;
-
-            case ("list"):
-                taskList.listTasks();
-                break;
 
             case ("mark"):
                 taskList.mark(Integer.valueOf(commandArraycommand[1]));
@@ -54,8 +63,20 @@ public class Duke {
                 taskList.unmark(Integer.valueOf(commandArraycommand[1]));
                 break;
 
-            default:
-                taskList.addTask(command);
+            case ("todo"):
+                taskList.addTask(commandArraycommandfirst[0]);
+                break;
+
+            case ("deadline"):
+                String[] commandArraycommandsecond = commandArraycommandfirst[1].split(" ",2);
+                taskList.addTask(commandArraycommandfirst[0],commandArraycommandsecond[1]);
+                break;
+
+            case ("event"):
+                String[] commandArraycommandthird = commandArraycommandfirst[1].split(" ",2);
+                String[] commandArraycommandforth = commandArraycommandfirst[2].split(" ", 2);
+                taskList.addTask(commandArraycommandfirst[0],commandArraycommandthird[1], commandArraycommandforth[1]);
+                break;
         }
         Scanner scanObj = new Scanner(System.in);
         String newCommand = scanObj.nextLine();
@@ -64,8 +85,10 @@ public class Duke {
 }
 
 class Task {
+
     private String taskName;
     private Boolean done;
+
     public Task(String taskName) {
         this.taskName = taskName;
         this.done = false;
@@ -82,6 +105,44 @@ class Task {
     public void unmark() {
         this.done = false;
     }
+
+    public static class ToDos extends Task {
+        public ToDos(String taskName) {
+            super(taskName);
+        }
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+    }
+
+    public static class Deadlines extends Task {
+        private String dayDate;
+        public Deadlines(String taskName, String dayDate) {
+            super(taskName);
+            this.dayDate = dayDate;
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + "(by: " + dayDate + ")";
+        }
+    }
+
+    public static class Event extends Task {
+        private String startDayDateTime;
+        private String endDayDateTime;
+        public Event(String taskName, String startDayDateTime, String endDayDateTime) {
+            super(taskName);
+            this.endDayDateTime = endDayDateTime;
+            this.startDayDateTime = startDayDateTime;
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + "(from: " + startDayDateTime + " to: " + endDayDateTime +")";
+        }
+    }
 }
 
 class ListOfTask {
@@ -89,7 +150,19 @@ class ListOfTask {
     private static int counter = 0;
 
     public void addTask(String task) {
-        listOfTask[counter] = new Task(task);
+        listOfTask[counter] = new Task.ToDos(task);
+        System.out.println("added: " + listOfTask[counter]);
+        counter++;
+    }
+
+    public void addTask(String task, String dayDate) {
+        listOfTask[counter] = new Task.Deadlines(task, dayDate);
+        counter++;
+        System.out.println("added: " + task);
+    }
+
+    public void addTask(String task, String startDayDateTime, String endDayDateTime) {
+        listOfTask[counter] = new Task.Event(task, startDayDateTime, endDayDateTime);
         counter++;
         System.out.println("added: " + task);
     }
