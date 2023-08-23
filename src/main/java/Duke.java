@@ -4,35 +4,21 @@ import java.util.Scanner;
 public class Duke {
     private static ListOfTask taskList = new ListOfTask();
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
         greet();
     }
 
     private static void greet() {
-        System.out.println("_______________________________\n" +
+        System.out.println(
                 "Hello. I am Luxion. \n" +
-                "What can I do for you?\n" +
-                "_______________________________\n");
+                "What can I do for you?\n");
+
         Scanner scanObj = new Scanner(System.in);
         String command = scanObj.nextLine();
         nextCommand(command);
     }
 
     private static void exit() {
-        System.out.println("_______________________________\n" +
-                "Bye. See you soon.\n" +
-                "_______________________________\n");
-    }
-
-    private static void echo(String command) {
-        System.out.println("_______________________________\n" +
-                command+
-                "\n_______________________________\n");
+        System.out.println("Bye. See you soon.\n");
     }
 
     private static void nextCommand(String command) {
