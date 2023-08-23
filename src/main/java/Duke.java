@@ -1,5 +1,8 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         String lineSpacer = "________________________________________";
         String logo = "   / \\__\n"
                 + "  (    @\\___\n"
@@ -11,7 +14,20 @@ public class Duke {
         System.out.println("Hello I'm Barkley\n" + logo);
         System.out.println("Howl can I help you?");
         System.out.println(lineSpacer);
-        System.out.println("Goodbye! Have a paw-some day :-)");
-        System.out.println(lineSpacer);
+
+        while (true) {
+            String userInput = scanner.nextLine();
+            if (userInput.equals("bye")) {
+                System.out.println(lineSpacer);
+                System.out.println("Goodbye! Have a paw-some day :-)");
+                System.out.println(lineSpacer);
+                break;
+            } else {
+                System.out.println(lineSpacer);
+                System.out.println(userInput);
+                System.out.println(lineSpacer);
+            }
+        }
+
     }
 }
