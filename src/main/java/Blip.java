@@ -120,7 +120,7 @@ public class Blip {
                         Deadline newDeadlineTask = new Deadline(deadlineInfo[0], deadlineInfo[1]);
                         tasks.add(newDeadlineTask);
                         index++;
-                        System.out.println("Alright! I've added this task: \n " + newDeadlineTask.toString()
+                        System.out.println("Alright! I've added this task:\n " + newDeadlineTask.toString()
                                 + "\nNow you have " + (index) + " tasks in the list.");
                         userInput = scanIn.nextLine();
 
@@ -138,7 +138,7 @@ public class Blip {
                         Event newEventTask = new Event(eventInfo[0], eventInfo[1], eventInfo[2]);
                         tasks.add(newEventTask);
                         index++;
-                        System.out.println("Alright! I've added this task: \n " + newEventTask.toString()
+                        System.out.println("Alright! I've added this task:\n " + newEventTask.toString()
                                 + "\nNow you have " + (index) + " tasks in the list.");
                         userInput = scanIn.nextLine();
 
@@ -154,7 +154,7 @@ public class Blip {
                         ToDo newToDoTask = new ToDo(userInput);
                         tasks.add(newToDoTask);
                         index++;
-                        System.out.println("Alright! I've added this task: \n " + newToDoTask.toString()
+                        System.out.println("Alright! I've added this task:\n " + newToDoTask.toString()
                                 + "\nNow you have " + (index) + " tasks in the list.");
                         userInput = scanIn.nextLine();
                     } else {
