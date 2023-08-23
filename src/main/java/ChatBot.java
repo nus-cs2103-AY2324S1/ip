@@ -1,12 +1,23 @@
 import java.util.Scanner;
 
+/**
+ * Represents the chatbot that interacts with the user and manage task
+ */
 public class ChatBot {
     private final TaskList taskList ;
 
+    /**
+     * Initializes the Chatbot with an empty task list
+     */
     public ChatBot() {
         this.taskList = new TaskList();
     }
 
+    /**
+     * Marks a task as done and provides user feedback
+     *
+     * @param taskIndex Index of the task to be marked as done, starts from '1'
+     */
     public void markTaskByBot(int taskIndex) {
         taskList.markTaskAsDone(taskIndex - 1);
         System.out.println("____________________________________________________________\n" +
@@ -15,6 +26,11 @@ public class ChatBot {
                 "\n____________________________________________________________");
     }
 
+    /**
+     * Marks a task as not done and provides user feedback
+     *
+     * @param taskIndex Index of the task to be marked as not done, starts from '1'
+     */
     public void unmarkTaskByBot(int taskIndex) {
         taskList.markTaskAsNotDone(taskIndex - 1);
         System.out.println("____________________________________________________________\n" +
@@ -23,34 +39,73 @@ public class ChatBot {
                 "\n____________________________________________________________");
     }
 
-    private void addTaskByBot(String taskType, String description, String timing) {
+    /**
+     * Adds a task to the task list based on tasl type and desciption
+     *
+     * @param taskType The type of task (todo, deadline, event)
+     * @param description The description of the task
+     * @throws DukeException If there is an error adding the task
+     */
+    private void addTaskByBot(String taskType, String description) throws DukeException {
         Task newTask = null;
+        String taskDescription;
+        String deadlineTiming;
+        String eventFrom;
+        String eventTo;
 
+        // invoke diff task's constructor
         switch (taskType) {
             case "todo":
                 newTask = new Todo(description);
                 break;
             case "deadline":
-                newTask = new Deadline(description, timing);
-                break;
-            case "event":
-                if (timing != null) {
-                    String[] eventTiming = timing.split("/to", 2);
-                    if (eventTiming.length == 2) {
-                        newTask = new Event(description, eventTiming[0].trim(), eventTiming[1].trim());
-                    } else {
-                        System.out.println("Invalid input format for event timing.");
-                    }
+                // make sure /by exist to avoid exception in "split() array"
+                if (!description.contains("/by")) {
+                    throw new DeadlineException();
                 } else {
-                    System.out.println("Event timing information missing.");
+                    // split the description to task description and timing, with /by in between
+                    String[] desArray = description.split("/by", 2);
+                    taskDescription = desArray[0];
+                    deadlineTiming = desArray[1];
+
+                    if (taskDescription.isEmpty() || deadlineTiming.isEmpty()) {
+                        throw new DeadlineException();
+                    }
+                    newTask = new Deadline(taskDescription, deadlineTiming.trim());
+                    break;
                 }
-                break;
+            case "event":
+                // make sure /from and /to exist to avoid exception in "split() array"
+                if (!description.contains("/from") || !description.contains("/to")) {
+                    throw new EventException();
+                } else {
+                    // split the description to task description and timing, with /from in between
+                    String[] desArray = description.split("/from", 2);
+                    taskDescription = desArray[0];
+                    // when from /to comes before /from
+                    if (taskDescription.contains("/to")) {
+                        throw new EventException();
+                    }
+
+                    // split the timing description further, with /to in between
+                    String[] timingArr = desArray[1].split("/to", 2);
+                    eventFrom = timingArr[0];
+                    eventTo = timingArr[1];
+
+                    if (eventFrom.isEmpty() || eventTo.isEmpty()) {
+                        throw new EventException();
+                    }
+
+                    newTask = new Event(taskDescription, eventFrom.trim(), eventTo.trim());
+                    break;
+                }
         }
 
+        // provides feedback for the task created
         if (newTask != null) {
             taskList.addTask(newTask);
             System.out.println("____________________________________________________________\n" +
-                    " Got it. I've added this task:\n" + "  " +
+                    " Got it. I've added this task:\n" +
                     newTask.toString() +
                     "\n Now you have " + taskList.getTaskCount() + " tasks in the list.\n" +
                     "____________________________________________________________");
@@ -58,6 +113,9 @@ public class ChatBot {
     }
 
 
+    /**
+     * Start the chatbot interaction loop, end when "bye" is given
+     */
     public void start() {
         Scanner scanner = new Scanner(System.in);
 
@@ -75,46 +133,42 @@ public class ChatBot {
         String printMessage;
 
         while (true) {
-            input = scanner.nextLine();
-            String[] parts = input.split(" ", 2);
-            String command = parts[0];
-            int taskIndex;
+            try {
+                input = scanner.nextLine();
+                String[] parts = input.split(" ", 2);
+                String command = parts[0];
+                int taskIndex;
 
-            if (command.equals("mark") && parts.length > 1) {
-                taskIndex = Integer.parseInt(parts[1]);
-                this.markTaskByBot(taskIndex);
-            } else if (command.equals("unmark") && parts.length > 1) {
-                taskIndex = Integer.parseInt(parts[1]);
-                this.unmarkTaskByBot(taskIndex);
-            } else if (input.equals("bye")) {
-                System.out.println(byeMessage);
-                break;  // Exit the loop when user types "bye"
-            } else if (input.equals("list")) {
-                taskList.displayTasks();
-            } else if (command.equals("todo") && parts.length > 1) {
-                addTaskByBot("todo", parts[1], null);
+                if (command.equals("mark") && parts.length > 1) {
+                    taskIndex = Integer.parseInt(parts[1]);
+                    this.markTaskByBot(taskIndex);
+                } else if (command.equals("unmark") && parts.length > 1) {
+                    taskIndex = Integer.parseInt(parts[1]);
+                    this.unmarkTaskByBot(taskIndex);
+                } else if (input.equals("bye")) {
+                    System.out.println(byeMessage);
+                    break;  // Exit the loop when user types "bye"
 
-            } else if (command.equals("deadline") && parts.length > 1) {
-                String[] deadlineParts = parts[1].split("/by", 2);
-                if (deadlineParts.length == 2) {
-                    addTaskByBot("deadline", deadlineParts[0].trim(), deadlineParts[1].trim());
+                } else if (input.equals("list")) {
+                    taskList.displayTasks();
+
+                } else if (command.equals("todo") && parts.length > 1) {
+                    addTaskByBot("todo", parts[1]);
+
+                } else if (command.equals("deadline") && parts.length > 1) {
+                    addTaskByBot("deadline", parts[1]);
+
+                } else if (command.equals("event") && parts.length > 1) {
+                    addTaskByBot("event", parts[1]);
+
                 } else {
-                    System.out.println("Invalid input format for deadline.");
+                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
-
-            } else if (command.equals("event") && parts.length > 1) {
-                String[] eventParts = parts[1].split("/from", 2);
-                if (eventParts.length == 2) {
-                    addTaskByBot("event", eventParts[0].trim(), eventParts[1].trim());
-                } else {
-                    System.out.println("Invalid input format for event.");
-                }
-            } else {
-                System.out.println("____________________________________________________________");
-                System.out.println("Please be specific!");
-                System.out.println("____________________________________________________________");
+            } catch (DukeException e) {
+                System.out.println("____________________________________________________________\n" +
+                        " ☹ OOPS!!! " + e.getMessage() + "\n" +
+                        "____________________________________________________________");
             }
-
         }
 
         scanner.close();
