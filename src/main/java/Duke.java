@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-
+/**
+ * Chatbot named YONG that responds to user input using CLI
+ */
 public class Duke {
 
     static String termination_word = "BYE";
@@ -32,6 +34,9 @@ public class Duke {
 
     }
 
+    /**
+     * Method to say Hi to users
+     */
     private static void sayHi() {
         String logo = "YONG";
         System.out.println("Hello I'm " + logo + "\n" +
@@ -40,13 +45,19 @@ public class Duke {
         );
     }
 
+    /**
+     * Method to say bye upon termination of program
+     */
     private static void sayBye() {
         System.out.println("Thank you and have a good day!");
     }
 
 
-
-    private static ArrayList<Task> actions(String inp) {
+    /**
+     * Method that takes in user input and runs the suitable function
+     * @param inp User input in a string format
+     */
+    private static void actions(String inp) {
         inp = inp.toUpperCase();
         String [] parts = inp.split(" ", 2);
         String check = parts[0];
@@ -87,14 +98,21 @@ public class Duke {
             default:
                 throw new DukeException("I do not know what you are saying.");
         }
-        return history;
     }
 
+    /**
+     * Method that displays the list of tasks stored
+     */
     private static void list() {
         for (int i = 0; i < history.size(); i++) {
             System.out.println(i+1 + ": " + history.get(i));
         }
     }
+
+    /**
+     * Method that marks a specific task as being done
+     * @param numberString User input number corresponding to the task that should be marked
+     */
     private static void mark(String numberString) {
         Integer number = Integer.parseInt(numberString);
         if (number > history.size() || number < 0) {
@@ -105,6 +123,10 @@ public class Duke {
         System.out.println("YONG has marked this task as completed! \n" + task.toString() + "\n");
     }
 
+    /**
+     * Method that marks a specific task as being undone
+     * @param numberString User input number corresponding to the task that should be marked
+     */
     private static void unmark(String numberString) {
         Integer number = Integer.parseInt(numberString);
         if (number > history.size() || number < 0) {
@@ -115,6 +137,10 @@ public class Duke {
         System.out.println("YONG has unmarked this task! \n" + task.toString() + "\n");
     }
 
+    /**
+     * Method that deletes a specific task
+     * @param numberString User input number corresponding to the task that should be deleted
+     */
     private static void delete(String numberString) {
         Integer number = Integer.parseInt(numberString);
         if (number > history.size() || number < 0) {
@@ -123,6 +149,12 @@ public class Duke {
         Task task = history.remove(number-1);
         System.out.println("YONG has deleted this task for you! \n" + task.toString() + "\n");
     }
+
+    /**
+     * Method to create a Todo task and add it to the list of tasks
+     * @param inp User input of the entire string corresponding to the TODO task
+     * @return ToDo object with the description provided
+     */
     private static ToDo toDo(String inp) {
         try {
             String[] type_description = inp.split(" ", 2);
@@ -134,6 +166,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Method to create a Deadline task and add it to the list of tasks
+     * @param inp User input of the entire string corresponding to the Deadline task
+     * @return Deadline object with the description provided
+     */
     private static Deadline deadline(String inp) {
         try {
             String[] parts = inp.split("/", 2);
@@ -146,6 +183,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Method to create an Event task and add it to the list of tasks
+     * @param inp User input of the entire string corresponding to the Event task
+     * @return Event object with the description provided
+     */
     private static Event event(String inp) {
         try {
             String[] parts = inp.split("/", 3);
