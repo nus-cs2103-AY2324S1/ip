@@ -7,13 +7,13 @@ import java.util.Map;
 public class Command {
 
     public enum Operation {
-        Mark,
-        Unmark,
-
         AddTodo,
         AddDeadline,
         AddEvent,
         Delete,
+
+        MarkComplete,
+        UnmarkComplete,
 
         List,
         Exit,
@@ -146,14 +146,14 @@ public class Command {
      */
     public Operation getOperation() {
         switch (this.name) {
-            case "mark": return Operation.Mark;
-            case "unmark": return Operation.Unmark;
-
             case "todo": return Operation.AddTodo;
             case "event": return Operation.AddEvent;
             case "deadline": return Operation.AddDeadline;
 
             case "delete": return Operation.Delete;
+
+            case "mark": return Operation.MarkComplete;
+            case "unmark": return Operation.UnmarkComplete;
 
             case "list": return Operation.List;
 

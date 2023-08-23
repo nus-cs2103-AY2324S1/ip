@@ -134,8 +134,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
         try {
             switch (command.getOperation()) {
-                case Mark:
-                case Unmark:
+                case MarkComplete:
+                case UnmarkComplete:
                 case Delete:
                     if (command.getData() != null) {
                         int index;
@@ -179,7 +179,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                         } else {
 
                             // Mark the task as done or not accordingly
-                            boolean completed = command.getOperation() == Command.Operation.Mark;
+                            boolean completed = command.getOperation() == Command.Operation.MarkComplete;
                             if (task.isCompleted() == completed) {
                                 throw new ChatbotException(
                                         completed ? "The task was already done!" : "The task was already not done!"
