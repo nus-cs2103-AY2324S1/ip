@@ -63,12 +63,12 @@ public class Duke {
 
             if (input.startsWith("mark ")) {
                 Task task = inputs.get(Integer.parseInt(input.substring(5)) - 1);
-                task.toggleDone();
+                task.markDone();
                 System.out.println("Mission accomplished.");
                 System.out.println(task);
             } else if (input.startsWith("unmark ")) {
                 Task task = inputs.get(Integer.parseInt(input.substring(7)) - 1);
-                task.toggleDone();
+                task.markUndone();
                 System.out.println("Uncharacteristic of you. More work has been added to the pile.");
                 System.out.println(task);
             } else if (input.equals("list")) {

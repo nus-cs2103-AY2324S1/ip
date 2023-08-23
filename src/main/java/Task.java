@@ -8,8 +8,16 @@ public class Task {
         this.isDone = false;
     }
 
-    public void toggleDone() {
-        this.isDone = !isDone;
+    public void markDone() {
+        if (!this.isDone) {
+            this.isDone = true;
+        }
+    }
+
+    public void markUndone() {
+        if (this.isDone) {
+            this.isDone = false;
+        }
     }
 
     @Override

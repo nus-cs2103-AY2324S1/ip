@@ -1,7 +1,11 @@
 list
-hello
 test
+test test
 list
-more
+mark 1
+more test
+list
+mark 2
+unmark 1
 list
 bye
