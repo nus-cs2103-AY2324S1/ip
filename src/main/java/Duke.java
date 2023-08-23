@@ -304,9 +304,8 @@ public class Duke {
      * Continuously listens for user input until the "bye" command is entered.
      */
     public void handleUserInput() {
-
+        Scanner obj = new Scanner(System.in);
         while (true) {
-            Scanner obj = new Scanner(System.in);
             String userInput = obj.nextLine();
             try {
                 if (userInput.equals("bye")) {
