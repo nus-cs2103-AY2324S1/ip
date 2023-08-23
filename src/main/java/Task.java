@@ -12,13 +12,21 @@ public class Task {
     }
 
     public void markDone() {
-        this.isDone = true;
-        System.out.println("I've marked this task as done!\n" + this.toString());
+        if (this.isDone) {
+            System.out.println("It has already been done");
+        } else {
+            this.isDone = true;
+            System.out.println("I've marked this task as done!\n" + this);
+        }
     }
 
     public void markUndone() {
-        this.isDone = false;
-        System.out.println("I've marked this task as undone!\n" + this.toString());
+        if (!this.isDone) {
+            System.out.println("It was already undone");
+        } else {
+            this.isDone = false;
+            System.out.println("I've marked this task as undone!\n" + this);
+        }
     }
     @Override
     public String toString() {
