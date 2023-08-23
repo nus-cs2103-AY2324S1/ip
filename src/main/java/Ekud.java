@@ -5,7 +5,7 @@ import extensions.TaskList;
 import java.util.Scanner;
 public class Ekud {
     // Basic UI text for the chatbot to print to console
-    private static final String horizontalLine = "##***~-~-~-~-~-~--~-~-~-~-~-~***##";
+    private static final String horizontalLine = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
     private static final String intro = "Hello there! I'm Ekud. :)\nWhat can I do for you? :O";
     private static final String outro = "Goodbye, have a nice day! :p";
     // TaskList object to store all of user's tasks
@@ -71,6 +71,15 @@ public class Ekud {
             case "event":
                 taskList.addEvent(userArgs);
                 break;
+            case "delete":
+                try {
+                    int index = Integer.valueOf(userArgs) - 1;
+                    taskList.deleteTask(index);
+                    break;
+                } catch(NumberFormatException e) {
+                    throw new EkudIllegalArgException("Please input a valid index number :o");
+                }
+
             default:
                 throw new EkudInvalidCommandException(
                         String.format("Command '%s' not found :(",

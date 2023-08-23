@@ -4,7 +4,7 @@ import java.util.List;
 
 public class TaskList {
     // Same horizontalLine from Ekud so TaskList can print outputs in a similar UI style
-    private final String horizontalLine = "##***~-~-~-~-~-~--~-~-~-~-~-~***##";
+    private final String horizontalLine = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
     // Actual list storing the tasks
     private final List<Task> tasks;
     // Constructor for TaskList
@@ -69,7 +69,7 @@ public class TaskList {
      */
     private void addTask(Task task) {
         this.tasks.add(task);
-        echo(String.format(
+        this.echo(String.format(
                 "Got it! I've added this task:\n%s\nNow you have %d task(s) in the list.",
                 task.toString(),
                 tasks.size()));
@@ -124,6 +124,21 @@ public class TaskList {
         } catch(IndexOutOfBoundsException e) {
             throw new EkudIllegalArgException("Event formatted wrongly, " +
                     "ensure 'event <description> /from <start> /to <end>' is followed");
+        }
+    }
+    public void deleteTask(int index) throws EkudIllegalArgException {
+        if (tasks.isEmpty()) {
+            throw new EkudIllegalArgException("You cannot delete from an empty task list :/");
+        }
+        try {
+            Task task = tasks.get(index);
+            this.tasks.remove(index);
+            this.echo(String.format(
+                    "Alright, this task has been removed:\n%s\nNow you have %d task(s) in the list.",
+                    task.toString(),
+                    tasks.size()));
+        } catch(IndexOutOfBoundsException e) {
+            throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
     }
 }
