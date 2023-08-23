@@ -72,16 +72,16 @@ Nice! I've marked this task as done:
 OK! I've marked this task as not done:
  [T][ ] todo
 
-DukeException: Invalid arguments for mark
+Invalid arguments for mark
 Please follow: mark <task_num>
 
-DukeException: Invalid arguments for unmark
+Invalid arguments for unmark
 Please follow: unmark <task_num>
 
-DukeException: Invalid arguments for mark
+Invalid arguments for mark
 Please follow: mark <task_num>
 
-DukeException: Invalid arguments for unmark
+Invalid arguments for unmark
 Please follow: unmark <task_num>
 
 Invalid Input
@@ -90,10 +90,10 @@ Commands: list, todo, deadline, event, mark, unmark, delete, bye
 Invalid Input
 Commands: list, todo, deadline, event, mark, unmark, delete, bye
 
-DukeException: Invalid arguments for mark
+Invalid arguments for mark
 Please follow: mark <task_num>
 
-DukeException: Invalid arguments for unmark
+Invalid arguments for unmark
 Please follow: unmark <task_num>
 
 Invalid Input
@@ -130,7 +130,7 @@ Here are your tasks:
 7.[T][ ] spaces
 
 Noted. I've removed this task:
- [D][ ] return book (by: Sunday)
+ [T][ ] borrow book
 Now you have 6 tasks in the list.
 
 Here are your tasks:
@@ -142,7 +142,7 @@ Here are your tasks:
 6.[T][ ] spaces
 
 Noted. I've removed this task:
- [E][ ] many      spaces      (from: Mon 2pm to: 4pm)
+ [D][ ] space    test     (by: Sunday)
 Now you have 5 tasks in the list.
 
 Here are your tasks:
@@ -155,7 +155,7 @@ Here are your tasks:
 Invalid Input
 Commands: list, todo, deadline, event, mark, unmark, delete, bye
 
-DukeException: Invalid arguments for delete
+Invalid arguments for delete
 Please follow: delete <task_num>
 
 Bye. Hope to see you again soon!

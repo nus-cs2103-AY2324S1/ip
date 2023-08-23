@@ -12,15 +12,15 @@ public class Duke {
 
     greet();
     while (true) {
+
       String input = scanner.nextLine();
 
       Matcher m = commandPattern.matcher(input);
-      if (!m.find()) {
-        handleInvalid();
-        continue;
+      String cmd = "";
+      if (m.find()) {
+        cmd = m.group(1);
       }
 
-      String cmd = m.group(1);
       switch (cmd) {
         case "bye":
           scanner.close();
@@ -32,123 +32,132 @@ public class Duke {
         case "mark":
           try {
             handleMark(input);
-          } catch (DukeException e) {
-            System.out.println(e);
+          } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
           }
           break;
         case "unmark":
           try {
             handleUnmark(input);
-          } catch (DukeException e) {
-            System.out.println(e);
+          } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
           }
           break;
         case "todo":
           try {
             handleTodo(input);
-          } catch (DukeException e) {
-            System.out.println(e);
+          } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
           }
           break;
         case "deadline":
           try {
             handleDeadline(input);
-          } catch (DukeException e) {
-            System.out.println(e);
+          } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
           }
           break;
         case "event":
           try {
             handleEvent(input);
-          } catch (DukeException e) {
-            System.out.println(e);
+          } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
           }
           break;
         case "delete":
           try {
             handleDelete(input);
-          } catch (DukeException e) {
-            System.out.println(e);
+          } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
           }
           break;
         default:
           handleInvalid();
       }
+      System.out.println();
     }
   }
 
-  private static void handleMark(String input) throws DukeException {
+  private static void handleMark(String input) {
     Pattern validPattern = Pattern.compile("^mark\\s+(\\d+)$");
     if (!validPattern.matcher(input).find()) {
-      throw new DukeException("Invalid arguments for mark\nPlease follow: mark <task_num>\n");
+      throw new IllegalArgumentException(
+          "Invalid arguments for mark\nPlease follow: mark <task_num>");
     }
-    int idx = parseMark(input);
-    if (idx != 0) {
+    int idx = parseIndex(input);
+    if (idx < 0 || idx > taskList.size()) {
+      throw new IndexOutOfBoundsException("Task " + idx + " does not exist");
+    } else {
       taskList.get(idx - 1).markAsDone();
-      System.out.printf("Nice! I've marked this task as done:%n %s%n%n", taskList.get(idx - 1));
+      System.out.printf("Nice! I've marked this task as done:%n %s%n", taskList.get(idx - 1));
     }
   }
 
-  private static void handleUnmark(String input) throws DukeException {
+  private static void handleUnmark(String input) {
     Pattern validPattern = Pattern.compile("^unmark\\s+(\\d+)$");
     if (!validPattern.matcher(input).find()) {
-      throw new DukeException("Invalid arguments for unmark\nPlease follow: unmark <task_num>\n");
+      throw new IllegalArgumentException(
+          "Invalid arguments for unmark\nPlease follow: unmark <task_num>");
     }
-    int idx = parseMark(input);
-    if (idx != 0) {
+    int idx = parseIndex(input);
+    if (idx <= 0 || idx > taskList.size()) {
+      throw new IndexOutOfBoundsException("Task " + idx + " does not exist");
+    } else {
       taskList.get(idx - 1).markAsNotDone();
-      System.out.printf("OK! I've marked this task as not done:%n %s%n%n", taskList.get(idx - 1));
+      System.out.printf("OK! I've marked this task as not done:%n %s%n", taskList.get(idx - 1));
     }
   }
 
-  private static void handleDelete(String input) throws DukeException {
+  private static void handleDelete(String input) {
     Pattern validPattern = Pattern.compile("^delete\\s+(\\d+)$");
     if (!validPattern.matcher(input).find()) {
-      throw new DukeException("Invalid arguments for delete\nPlease follow: delete <task_num>\n");
+      throw new IllegalArgumentException(
+          "Invalid arguments for delete\nPlease follow: delete <task_num>");
     }
-    int idx = parseMark(input);
-    if (idx != 0) {
+    int idx = parseIndex(input);
+    if (idx <= 0 || idx > taskList.size()) {
+      throw new IndexOutOfBoundsException("Task " + idx + " does not exist");
+    } else {
       Task deletedTask = taskList.get(idx - 1);
       taskList.remove(idx - 1);
       System.out.printf(
-          "Noted. I've removed this task:%n %s%nNow you have %d tasks in the list.%n%n",
+          "Noted. I've removed this task:%n %s%nNow you have %d tasks in the list.%n",
           deletedTask, taskList.size());
-
     }
   }
 
-  private static void handleTodo(String input) throws DukeException {
+  private static void handleTodo(String input) {
     Pattern p = Pattern.compile("^todo\\s+(.+)");
     Matcher m = p.matcher(input);
     if (m.find()) {
       TodoTask newTask = new TodoTask(m.group(1));
       addTask(newTask);
     } else {
-      throw new DukeException("Invalid arguments for todo\nPlease follow: todo <task>\n");
+      throw new IllegalArgumentException("Invalid arguments for todo\nPlease follow: todo <task>");
     }
   }
 
-  private static void handleDeadline(String input) throws DukeException {
+  private static void handleDeadline(String input) {
     Pattern p = Pattern.compile("^deadline\\s+(.+)\\s+/by\\s+(.+)");
     Matcher m = p.matcher(input);
     if (m.find()) {
       DeadlineTask newTask = new DeadlineTask(m.group(1), m.group(2));
       addTask(newTask);
     } else {
-      throw new DukeException(
-          "Invalid arguments for deadline\nPlease follow: deadline <task> /by <deadline_date>\n");
+      throw new IllegalArgumentException(
+          "Invalid arguments for deadline\nPlease follow: deadline <task> /by <deadline_date>");
     }
   }
 
-  private static void handleEvent(String input) throws DukeException {
+  private static void handleEvent(String input) {
     Pattern p = Pattern.compile("^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)");
     Matcher m = p.matcher(input);
     if (m.find()) {
       EventTask newTask = new EventTask(m.group(1), m.group(2), m.group(3));
       addTask(newTask);
     } else {
-      throw new DukeException(
-          "Invalid arguments for event\nPlease follow: event <task> /from <from_date> /to <to_date>\n");
+      throw new IllegalArgumentException(
+          "Invalid arguments for event\nPlease follow: event <task> /from <from_date> /to <to_date>");
     }
   }
 
@@ -160,17 +169,13 @@ public class Duke {
     System.out.println("Bye. Hope to see you again soon!");
   }
 
-  private static int parseMark(String input) {
+  private static int parseIndex(String input) {
     Pattern indexPattern = Pattern.compile("(\\d+)$");
     Matcher m = indexPattern.matcher(input);
-    int res = 0;
+    int res = -1;
     if (m.find()) {
       String idx = m.group(1);
       res = Integer.parseInt(idx);
-    }
-    if (res > taskList.size()) {
-      System.out.printf("Task %d does not exist%n%n", res);
-      res = 0;
     }
     return res;
   }
@@ -178,7 +183,7 @@ public class Duke {
   private static void addTask(Task newTask) {
     taskList.add(newTask);
     System.out.printf(
-        "Got it, I've added this task:%n %s%nNow you have %d tasks in the list.%n%n",
+        "Got it, I've added this task:%n %s%nNow you have %d tasks in the list.%n",
         newTask, taskList.size());
   }
 
@@ -191,11 +196,12 @@ public class Duke {
       sb.append(taskList.get(i).toString());
       sb.append("\n");
     }
+    sb.setLength(sb.length() - 1);
     return sb.toString();
   }
 
   private static void handleInvalid() {
     System.out.println(
-        "Invalid Input\nCommands: list, todo, deadline, event, mark, unmark, delete, bye\n");
+        "Invalid Input\nCommands: list, todo, deadline, event, mark, unmark, delete, bye");
   }
 }
