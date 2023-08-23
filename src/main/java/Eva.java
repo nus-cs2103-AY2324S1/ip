@@ -59,18 +59,33 @@ public class Eva {
                     System.out.println("\t Task not found.");
                 }
             } else if (input.startsWith("todo")) {
-                tasks[taskCount] = new Todo(input.substring(5));
-                taskCount++;
-                System.out.println("\t____________________________________________________________");
-                System.out.println("\t Got it. I've added this task: ");
-                System.out.println("\t\t" + tasks[taskCount-1]);
-                System.out.println("\t Now you have " + taskCount + " task(s) in the list.");
-                System.out.println("\t____________________________________________________________");
+                try {
+                    if (input.length() <= 5) {
+                        throw new DukeException("\t ☹ OOPS!!! The description of a todo cannot be empty.");
+                    }
+                    tasks[taskCount] = new Todo(input.substring(5));
+                    taskCount++;
+                    System.out.println("\t____________________________________________________________");
+                    System.out.println("\t Got it. I've added this task: ");
+                    System.out.println("\t\t" + tasks[taskCount - 1]);
+                    System.out.println("\t Now you have " + taskCount + " task(s) in the list.");
+                    System.out.println("\t____________________________________________________________");
+                } catch (DukeException e) {
+                    System.out.println("\t____________________________________________________________");
+                    System.out.println("\t" + e.getMessage());
+                    System.out.println("\t____________________________________________________________");
+                }
             } else if (input.startsWith("deadline")) {
                 // Parse the description and by date
-                int byIndex = input.indexOf("/by");
-                if (byIndex != -1) {
+                try{
+                    int byIndex = input.indexOf("/by");
+                    if (byIndex == -1) {
+                        throw new DukeException("\t ☹ OOPS!!! The deadline description must include a /by date.");
+                    }
                     String description = input.substring(9, byIndex).trim();
+                    if (description.isEmpty()) {
+                        throw new DukeException("☹ OOPS!!! The deadline description cannot be empty.");
+                    }
                     String by = input.substring(byIndex + 3).trim();
                     tasks[taskCount] = new Deadline(description, by);
                     taskCount++;
@@ -79,13 +94,23 @@ public class Eva {
                     System.out.println("\t\t" + tasks[taskCount-1]);
                     System.out.println("\t Now you have " + taskCount + " task(s) in the list.");
                     System.out.println("\t____________________________________________________________");
+                } catch (DukeException e) {
+                    System.out.println("\t____________________________________________________________");
+                    System.out.println("\t" + e.getMessage());
+                    System.out.println("\t____________________________________________________________");
                 }
             } else if (input.startsWith("event")) {
                 // Parse the description and from-to dates
-                int fromIndex = input.indexOf("/from");
-                int toIndex = input.indexOf("/to");
-                if (fromIndex != -1 && toIndex != -1) {
+                try {
+                    int fromIndex = input.indexOf("/from");
+                    int toIndex = input.indexOf("/to");
+                    if (fromIndex == -1 && toIndex == -1) {
+                        throw new DukeException("\t ☹ OOPS!!! The event description must include both /from and /to dates.");
+                    }
                     String description = input.substring(6, fromIndex).trim();
+                    if (description.isEmpty()) {
+                        throw new DukeException("☹ OOPS!!! The event description cannot be empty.");
+                    }
                     String from = input.substring(fromIndex + 5, toIndex).trim();
                     String to = input.substring(toIndex + 3).trim();
                     tasks[taskCount] = new Event(description, from, to);
@@ -95,10 +120,24 @@ public class Eva {
                     System.out.println("\t\t" + tasks[taskCount-1]);
                     System.out.println("\t Now you have " + taskCount + " task(s) in the list.");
                     System.out.println("\t____________________________________________________________");
+                } catch (DukeException e) {
+                    System.out.println("\t____________________________________________________________");
+                    System.out.println("\t" + e.getMessage());
+                    System.out.println("\t____________________________________________________________");
                 }
+            } else {
+                System.out.println("\t____________________________________________________________");
+                System.out.println("\t ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("\t____________________________________________________________");
             }
         }
         scanner.close();
+    }
+
+    static class DukeException extends Exception {
+        public DukeException(String message) {
+            super(message);
+        }
     }
 
     static class Task {
