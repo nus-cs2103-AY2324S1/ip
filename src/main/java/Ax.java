@@ -34,27 +34,33 @@ public class Ax {
         System.out.println(input); // repeat the input
         System.out.println();
         hoLine();
+        String[] inputs = input.split(" ");
         if (input.equals("bye")) { // check if it is bye, then return true, so it will exit the loop
             return true;
         } else if (input.equals("list")) {
             // call the list function
             listTheList();
-        } else if (input.startsWith("mark")) {
-            String[] inputs = input.split(" ");
-            if (inputs.length > 1) {
+        }
+        if (inputs.length > 1) {
+            if (input.startsWith("mark")) {
+
                 ListItem task = listItems.get(Integer.parseInt(inputs[1]) - 1);
                 task.setDone(true);
-            }
-        } else if (input.startsWith("unmark")) {
-            String[] inputs = input.split(" ");
-            if (inputs.length > 1) {
+            } else if (input.startsWith("unmark")) {
                 ListItem task = listItems.get(Integer.parseInt(inputs[1]) - 1);
                 task.setDone(false);
+            } else {
+                String[] dates = input.split("/(by|from|to) ");
+                if (input.startsWith("todo")) {
+                    listItems.add(new Todos(inputs[1]));
+                } else if (input.startsWith("deadline")) {
+                    listItems.add((new Deadlines(inputs[1], dates[1])));
+                } else if (input.startsWith("event")) {
+                    listItems.add((new Events(inputs[1], dates[1], dates[2])));
+                    
+                }
             }
-        } else {
-            listItems.add(new ListItem(input));
         }
-
         return false;
     }
 
