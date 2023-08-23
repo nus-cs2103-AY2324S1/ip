@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -23,16 +22,34 @@ public class Duke {
         else if (promptText.equals("list")) {
             list();
         }
-        else if (promptText.startsWith("mark") || promptText.startsWith("unmark")) {
+        else if (promptText.startsWith("todo") || promptText.startsWith("deadline") || promptText.startsWith("event")) {
+            createTask(promptText);
+        }
+        else if (promptText.startsWith("mark") || promptText.startsWith("unmark")){
             markTask(promptText);
         }
         else {
-            Task t = new Task(promptText);
-            taskList.add(t);
+            System.out.println("sorry, i don't recognise that command.");
         }
         echo();
     }
 
+    public static void createTask(String promptText) {
+        if (promptText.startsWith("todo")) {
+            Task todo = new Todo(promptText.substring(5));
+            taskList.add(todo);
+        }
+        else if (promptText.startsWith("deadline")) {
+            String[] parts = promptText.split("/");
+            Task deadline = new Deadline(parts[0].substring(9), parts[1].substring(2));
+            taskList.add(deadline);
+        }
+        else {
+            String[] parts = promptText.split("/");
+            Task event = new Event(parts[0].substring(6), parts[1].substring(4), parts[2].substring(2));
+            taskList.add(event);
+        }
+    }
     public static void markTask(String promptText) {
         int i = Integer.parseInt(promptText.substring(promptText.length() - 1));
         Task t = taskList.get(i-1);
