@@ -33,8 +33,39 @@ public class Duke {
                 String digitString = matcher.group(1);
                 int number = Integer.parseInt(digitString);
                 items.markUndone(number);
+                continue;
+            }
+
+            Pattern deadlinepattern = Pattern.compile( "deadline (.*?)/by (.*)");
+            matcher = deadlinepattern.matcher(echo);
+            if(matcher.matches()) {
+                String task = matcher.group(1);
+                String by = matcher.group(2);
+                items.addDeadline(task, by);
+                continue;
+            }
+
+            Pattern todopattern = Pattern.compile( "todo (.*)");
+            matcher = todopattern.matcher(echo);
+            if(matcher.matches()) {
+                String task = matcher.group(1);
+                items.addTodo(task);
+                continue;
+            }
+
+            Pattern eventpattern = Pattern.compile( "event (.*?)/from (.*?) /to (.*)");
+            matcher = eventpattern.matcher(echo);
+            if(matcher.matches()) {
+                String task = matcher.group(1);
+                String from = matcher.group(2);
+                String to = matcher.group(3);
+                items.addEvent(task, from, to);
+                continue;
             } else {
-                items.additems(echo);
+                System.out.println(Greeting.linebreak);
+                System.out.println("Invalid input");
+                System.out.println(Greeting.linebreak);
+
             }
 
 
