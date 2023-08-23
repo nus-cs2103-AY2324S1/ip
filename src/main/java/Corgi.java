@@ -87,7 +87,7 @@ public class Corgi {
             switch (cmd) {
                 case BYE:
                     if (inputs.length > 1) throw new InvalidCommandException();
-                    System.out.println("\"Fine! Whatever! Just go away then! See if I care! huffs");
+                    System.out.println("Fine! Whatever! Just go away then! See if I care! huffs");
                     return true;
                 case LIST:
                     if (inputs.length > 1) throw new InvalidCommandException();
