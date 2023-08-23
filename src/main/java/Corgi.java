@@ -36,7 +36,7 @@ public class Corgi {
                 + " \\____\\___/|_| \\_\\\\____|___|\n";
         System.out.println(logo);
         System.out.println("Woof! I'm Corgi!");
-        System.out.println("What can I do for you, hooman?\n");
+        System.out.println("So, what's your wish this time, hooman?\n");
 
         Scanner sc = new Scanner(System.in);
 
@@ -87,7 +87,7 @@ public class Corgi {
             switch (cmd) {
                 case BYE:
                     if (inputs.length > 1) throw new InvalidCommandException();
-                    System.out.println("Bye, take care and see you soon! *tail wags*");
+                    System.out.println("\"Fine! Whatever! Just go away then! See if I care! huffs");
                     return true;
                 case LIST:
                     if (inputs.length > 1) throw new InvalidCommandException();
@@ -119,8 +119,8 @@ public class Corgi {
         } catch (EmptyDescException e) {
             this.printException("Seriously? You want me to do something with an empty description?");
         } catch (InvalidDescFormatException e) {
-            this.printException("Are you trying to confuse me with this nonsense? Try again hooman" + "\n" 
-                + cmd.getCommandFormat());
+            this.printException("Are you trying to confuse me with this nonsense? Try again hooman!" + "\n" 
+                + "Format: < " + cmd.getCommandFormat() + " >");
         } 
 
         return false;
@@ -145,9 +145,9 @@ public class Corgi {
         if (index >= 0 && index < this.tasks.size()) {
             Task target = tasks.get(index);
             target.markAsDone();
-            System.out.println("Nice! I've marked this task as done:\n" + target);
+            System.out.println("Congratulations, I guess! You finally managed to do something right 🎉:\n" + target);
         } else {
-            System.out.println("Invalid task number!");
+            System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
         }
     }
 
@@ -161,9 +161,9 @@ public class Corgi {
         if (index >= 0 && index < this.tasks.size()) {
             Task target = tasks.get(index);
             target.markAsNotDone();
-            System.out.println("OK, I've marked this task as not done yet:\n" + target);
+            System.out.println("Oh great, you've undone something 🐕. Just like always:\n" + target);
         } else {
-            System.out.println("Invalid task number!");
+            System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
         }
     }
 
@@ -172,7 +172,7 @@ public class Corgi {
      */
     private void displayTasks() {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks added.");
+            System.out.println("If you haven't noticed, there's nothing here! No tasks to be found.");
         } else {
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println((i+1) + ") " + tasks.get(i));
@@ -189,8 +189,8 @@ public class Corgi {
         Task newTask = new ToDo(taskInfo);
 
         this.tasks.add(newTask);
-        System.out.println("Got it. I've added this ToDo:\n" + 
-            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.");
+        System.out.println("Woof, whatever. I've added this ToDo:\n" + 
+            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
     }
 
     /**
@@ -210,8 +210,8 @@ public class Corgi {
 
         this.tasks.add(newTask);
 
-        System.out.println("Got it. I've added this deadline:\n" + 
-            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.");
+        System.out.println("Woof, whatever. I've added this deadline:\n" + 
+            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
     }
 
     /**
@@ -235,7 +235,7 @@ public class Corgi {
         Task newTask = new Event(eventDesc, from, to);
 
         this.tasks.add(newTask);
-        System.out.println("Got it. I've added this event:\n" + 
-            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.");
+        System.out.println("Woof, whatever. I've added this event:\n" + 
+            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
     }
 }
