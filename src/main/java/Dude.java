@@ -12,9 +12,13 @@ public class Dude {
     "Bye. Hope to see you again soon!";
 
   /**
-   * Tasks
+   * Tasks stored by user.
    */
   public static String[] tasks = new String[100];
+  /**
+   * Number of tasks
+   */
+  public static int numTasks = 0;
 
   /**
    * Format message/prompt to be printed to console.
@@ -46,9 +50,20 @@ public class Dude {
       case "bye":
         // quit
         return false;
+      case "list":
+        // list tasks
+        StringBuilder tasksList = new StringBuilder();
+        for (int i = 0; i < numTasks; i++) {
+          String taskStr = (i + 1) + ". " + tasks[i] + "\n";
+          tasksList.append(taskStr);
+        }
+        System.out.println(formatMessage(tasksList.toString()));
+        break;
       default:
-        // echo input
-        System.out.println(formatMessage(input));
+        // add task to list
+        tasks[numTasks] = input;
+        numTasks += 1;
+        System.out.println(formatMessage("Added: " + input));
     }
     return true;
   }
