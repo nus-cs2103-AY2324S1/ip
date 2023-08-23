@@ -8,6 +8,10 @@ public class Simon {
     private static final String NSPACE = "\n____________________________________________________________";
     private static final String SPACEN = "____________________________________________________________\n";
 
+    enum Command {
+        TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, BYE, UNKNOWN
+    }
+
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
@@ -17,36 +21,45 @@ public class Simon {
 
         while (true) {
             String inData = scan.nextLine();
-            String command = inData.split(" ")[0];
+            Command command = parseCommand(inData.split(" ")[0]);
 
             try {
                 switch (command) {
-                    case "list":
+                    case LIST:
                         listTasks();
                         break;
-                    case "todo":
-                    case "deadline":
-                    case "event":
+                    case TODO:
+                    case DEADLINE:
+                    case EVENT:
                         addTask(inData, command);
                         break;
-                    case "unmark":
+                    case UNMARK:
                         markTask(inData, false);
                         break;
-                    case "mark":
+                    case MARK:
                         markTask(inData, true);
                         break;
-                    case "delete":
+                    case DELETE:
                         deleteTask(inData);
                         break;
-                    case "bye":
+                    case BYE:
                         System.out.println("Bye. Hope to see you again soon!" + NSPACE);
                         return;
+                    case UNKNOWN:
                     default:
                         throw new SimonException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (SimonException se) {
                 System.out.println(se.getMessage() + NSPACE);
             }
+        }
+    }
+
+    private static Command parseCommand(String input) {
+        try {
+            return Command.valueOf(input.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return Command.UNKNOWN;
         }
     }
 
@@ -57,10 +70,10 @@ public class Simon {
         System.out.println(SPACE);
     }
 
-    private static void addTask(String inData, String taskType) throws SimonException {
+    private static void addTask(String inData, Command commandType) throws SimonException {
         Task task;
-        switch (taskType) {
-            case "todo":
+        switch (commandType) {
+            case TODO:
                 String description = inData.split("todo ").length > 1 ? inData.split("todo ")[1] : "";
                 if (description.trim().isEmpty()) {
                     throw new SimonException("☹ OOPS!!! The description of a todo cannot be empty.");
@@ -68,7 +81,7 @@ public class Simon {
                 task = new ToDo(description);
                 break;
 
-            case "deadline":
+            case DEADLINE:
                 String[] deadlineParts = inData.split("deadline ");
                 if (deadlineParts.length <= 1 || !inData.contains(" /by ")) {
                     throw new SimonException("☹ OOPS!!! The format for deadline is incorrect. Expected format: 'deadline [task description] /by [deadline]'.");
@@ -78,7 +91,7 @@ public class Simon {
                 task = new Deadline(name, endDate);
                 break;
 
-            case "event":
+            case EVENT:
                 String[] eventParts = inData.split("event ");
                 if (eventParts.length <= 1 || !inData.contains(" /from ") || !inData.contains(" /to ")) {
                     throw new SimonException("☹ OOPS!!! The format for event is incorrect. Expected format: 'event [event description] /from [start date] /to [end date]'.");
@@ -92,7 +105,6 @@ public class Simon {
             default:
                 throw new SimonException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-
 
         tasks.add(task);
         System.out.println(SPACEN + "Got it. I've added this task:\n" + " " +
@@ -135,16 +147,16 @@ public class Simon {
         try {
             index = Integer.parseInt(split[1]) - 1;
         } catch (NumberFormatException e) {
-            System.out.println("Please provide a valid task number." + NSPACE);
+            throw new SimonException("Please provide a valid task number.");
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please provide a task number." + NSPACE);
+            throw new SimonException("Please provide a task number.");
         }
 
         if (tasks.isEmpty()) {
-            throw new SimonException("There are no tasks to delete." + NSPACE);
+            throw new SimonException("There are no tasks to delete.");
         }
         if (index < 0 || index >= tasks.size()) {
-            throw new SimonException("Invalid task number. Choose a number between 1 and " + tasks.size() + "." + NSPACE);
+            throw new SimonException("Invalid task number. Choose a number between 1 and " + tasks.size() + ".");
         }
 
         Task task = tasks.get(index);
@@ -152,5 +164,4 @@ public class Simon {
         System.out.println("Noted. I've removed this task:\n" + task + String.format("\nNow you have %d %s in the list.",
                 tasks.size(), tasks.size() - 1 > 1 ? "tasks" : "task") + NSPACE);
     }
-
 }
