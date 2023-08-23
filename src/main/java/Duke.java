@@ -40,7 +40,7 @@ public class Duke {
                 } else {
                     list.get(index).markAsDone();
                     System.out.println("\t-----------------------------------------------");
-                    System.out.println("\tNice! I've marked this task as done: ");
+                    System.out.println("\tNice! I've marked this task as done:");
                     System.out.println("\t" + list.get(index));
                     System.out.println("\t-----------------------------------------------");
                 }
@@ -56,7 +56,7 @@ public class Duke {
                 } else {
                     list.get(index).unMark();
                     System.out.println("\t-----------------------------------------------");
-                    System.out.println("\tNice! I've marked this task as not done yet: ");
+                    System.out.println("\tNice! I've marked this task as not done yet:");
                     System.out.println("\t" + list.get(index));
                     System.out.println("\t-----------------------------------------------");
                 }
