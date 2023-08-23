@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -6,10 +7,8 @@ import java.util.Scanner;
  * @author Tan Kerway
  */
 public class Duke {
-    // array to store the user's items, as a Task object
-    private final Task[] items;
-    // pointer that will always point to the last element of the array
-    private int i;
+    // arraylist to store the user's tasks, as a Task object
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an instance of a chatbot class.
@@ -17,8 +16,7 @@ public class Duke {
      * @author Tan Kerway
      */
     public Duke() {
-        this.items = new Task[100];
-        this.i = -1;
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -40,9 +38,8 @@ public class Duke {
     void listAllTasks() {
         System.out.println("------------------------------------------------------------------------");
         System.out.println("Here are the tasks in your list :3");
-        int index = -1;
-        while(this.items[++index] != null) {
-            System.out.println((index + 1) + ". " + this.items[index].toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i).toString());
         }
         System.out.println("------------------------------------------------------------------------");
     }
@@ -63,20 +60,20 @@ public class Duke {
         // handle the 3 different types of class
         if (task.startsWith("todo")) {
             // handle errors
-            if (taskDescriptionLength == 4 || task.substring(4).trim().equals("")) {
-                return handleEmptyCommand("todo");
+            Task error = handleTodoErrors(task, taskDescriptionLength);
+            // case where have error
+            if (error != null) {
+                return error;
             }
             description = task.substring(5);
             createdTask = new Todo(description);
         } else if (task.startsWith("deadline")) {
-            // handle errors
-            if (taskDescriptionLength == 8) {
-                return handleEmptyCommand("deadline");
-            }
             // cache the start index of the "/by" substring
             int indexOfBy = task.indexOf("/by");
-            if (!task.contains("/by") || indexOfBy + 3 == task.length() || task.substring(indexOfBy + 3).trim().equals("")) {
-                return handleNoDate("by");
+            Task error = handleDeadlineErrors(task, taskDescriptionLength, indexOfBy);
+            // case where have error
+            if (error != null) {
+                return error;
             }
             // get the task description
             description = task.substring(9, indexOfBy - 1);
@@ -84,26 +81,12 @@ public class Duke {
             String by = task.substring(indexOfBy + 4);
             createdTask = new Deadline(description, by);
         } else {
-            // handle errors
-            if (!task.startsWith("event")) {
-                return handleInvalidCommand();
-            }
-            if (taskDescriptionLength == 5) {
-                return handleEmptyCommand("event");
-            }
             int fromStart = task.lastIndexOf("/from");
             int toStart = task.lastIndexOf("/to");
-            if (fromStart == -1 && toStart == -1) {
-                return handleNoDate("from and to");
-            }
-            if (fromStart == -1 || fromStart + 5 == toStart) {
-                return handleNoDate("from");
-            }
-            if (toStart == -1 || toStart + 3 == task.length()) {
-                return handleNoDate("to");
-            }
-            if (task.substring(fromStart + 5, toStart).trim().equals("")) {
-                return handleNoDate("from");
+            Task error = handleEverythingElseError(task, fromStart, toStart, taskDescriptionLength);
+            // case where have error
+            if (error != null) {
+                return error;
             }
             // get the task description
             description = task.substring(6, fromStart - 1);
@@ -111,8 +94,76 @@ public class Duke {
             String period = task.substring(fromStart);
             createdTask = new Event(description, period);
         }
-        this.items[++this.i] = createdTask;
+        this.tasks.add(createdTask);
         return createdTask;
+    }
+
+    /**
+     * Returns errors associated with the event command and invalid commands.
+     *
+     * @author Tan Kerway
+     * @param taskString the description of the task
+     * @param fromStart the index of the /from string
+     * @param toStart the index of the /to string
+     * @param taskDescriptionLength the length of the taskString
+     * @return the DukeException if there is error, whose CTT is Task, null otherwise
+     */
+    private Task handleEverythingElseError(String taskString, int fromStart, int toStart, int taskDescriptionLength) {
+        // handle errors
+        if (!taskString.startsWith("event")) {
+            return handleInvalidCommand();
+        }
+        if (taskDescriptionLength == 5) {
+            return handleEmptyCommand("event");
+        }
+        if (fromStart == -1 && toStart == -1) {
+            return handleNoDate("from and to");
+        }
+        if (fromStart == -1 || fromStart + 5 == toStart) {
+            return handleNoDate("from");
+        }
+        if (toStart == -1 || toStart + 3 == taskDescriptionLength) {
+            return handleNoDate("to");
+        }
+        if (taskString.substring(fromStart + 5, toStart).trim().equals("")) {
+            return handleNoDate("from");
+        }
+        return null;
+    }
+
+    /**
+     * Returns errors associated with the deadline command.
+     *
+     * @author Tan Kerway
+     * @param taskString the task description
+     * @param taskDescriptionLength the length of the task
+     * @param indexOfBy the index of the /by string
+     * @return the DukeException whose CTT is Task
+     */
+    private Task handleDeadlineErrors(String taskString, int taskDescriptionLength, int indexOfBy) {
+        // handle errors
+        if (taskDescriptionLength == 8) {
+            return handleEmptyCommand("deadline");
+        }
+        if (!taskString.contains("/by") || indexOfBy + 3 == taskString.length() || taskString.substring(indexOfBy + 3).trim().equals("")) {
+            return handleNoDate("by");
+        }
+        return null;
+    }
+
+    /**
+     * Returns errors associated with the todo command.
+     *
+     * @author Tan Kerway
+     * @param taskString the input that the user typed in
+     * @param taskDescriptionLength the length of the task that the user typed in
+     * @return a Task object whose RTT is a subclass of DukeException
+     */
+    private Task handleTodoErrors(String taskString, int taskDescriptionLength) {
+        if (taskDescriptionLength == 4 || taskString.substring(4).trim().equals("")) {
+            return handleEmptyCommand("todo");
+        }
+        return null;
     }
 
     /**
@@ -125,13 +176,13 @@ public class Duke {
     private Task handleEmptyCommand(String command) {
         Task res = new DukeEmptyInputException(command);
         System.out.println("------------------------------------------------------------------------");
-        System.out.println(res.toString());
+        System.out.println(res);
         System.out.println("------------------------------------------------------------------------");
         return res;
     }
 
     /**
-     * Prints error message telling the user that the command is invalid
+     * Prints error message telling the user that the command is invalid.
      *
      * @author Tan Kerway
      * @return the exception object created
@@ -139,7 +190,7 @@ public class Duke {
     private Task handleInvalidCommand() {
         Task res = new DukeInvalidCommandException();
         System.out.println("------------------------------------------------------------------------");
-        System.out.println(res.toString());
+        System.out.println(res);
         System.out.println("------------------------------------------------------------------------");
         return res;
     }
@@ -156,7 +207,7 @@ public class Duke {
     private Task handleNoDate(String details) {
         Task res = new DukeInvalidTimeException(details);
         System.out.println("------------------------------------------------------------------------");
-        System.out.println(res.toString());
+        System.out.println(res);
         System.out.println("------------------------------------------------------------------------");
         return res;
     }
@@ -174,7 +225,7 @@ public class Duke {
         }
         System.out.println("------------------------------------------------------------------------");
         System.out.println("Got it. I've added this task:\n    " + task.toString());
-        System.out.println("Nyan you have " + (this.i + 1) + " tasks in the list.");
+        System.out.println("Nyan you have " + tasks.size() + " tasks in the list.");
         System.out.println("------------------------------------------------------------------------");
     }
 
@@ -244,21 +295,169 @@ public class Duke {
         if (input.equals("bye")) { return false; }
         // case where the input is the mark command => mark the task as done
         if (input.startsWith("mark")) {
-            Task currentTask = this.items[Integer.parseInt(input.substring(5, 6)) - 1];
-            handleMarkTask(currentTask);
-            echoTaskMarked(currentTask);
+            handleMark(input);
             return true;
         }
         // case where the input is unmark
         if (input.startsWith("unmark")) {
-            Task currentTask = this.items[Integer.parseInt(input.substring(7, 8)) - 1];
-            handleUnmarkTask(currentTask);
-            echoTaskUnmarked(currentTask);
+            handleUnmark(input);
+            return true;
+        }
+        // case where the input is deleted
+        if (input.startsWith("delete")) {
+            handleDelete(input);
             return true;
         }
         Task createdTask = addTask(input);
         echoTaskAdded(createdTask);
         return true;
+    }
+
+    /**
+     * Handles the delete command.
+     *
+     * @author Tan Kerway
+     * @param input the input string that the user entered
+     */
+    private void handleDelete(String input) {
+        // gc: no items to delete
+        if (this.tasks.isEmpty()) {
+            handleEmptyTasksList();
+            return;
+        }
+        // get the string containing the index
+        Integer numberString = parseString(input.substring(6));
+        // gc: string not parsable
+        if (numberString == null) {
+            // handle the error
+            handleInvalidIndex();
+            return;
+        }
+        // delete the task and announce that the task has been deleted
+        echoTaskDeleted(deleteTask(numberString));
+    }
+
+    /**
+     * Handles the unmark command.
+     *
+     * @author Tan Kerway
+     * @param input the input string that the user entered
+     */
+    private void handleUnmark(String input) {
+        // gc: no items to delete
+        if (this.tasks.isEmpty()) {
+            handleEmptyTasksList();
+            return;
+        }
+        // get the string containing the index
+        Integer numberString = parseString(input.substring(7));
+        // gc: string not parsable
+        if (numberString == null) {
+            // handle the error
+            handleInvalidIndex();
+            return;
+        }
+        Task currentTask = this.tasks.get(Integer.parseInt(input.substring(7, 8)) - 1);
+        handleUnmarkTask(currentTask);
+        echoTaskUnmarked(currentTask);
+    }
+
+    /**
+     * Handles the mark command.
+     *
+     * @author Tan Kerway
+     * @param input the input string that the user entered
+     */
+    private void handleMark(String input) {
+        // gc: no items to delete
+        if (this.tasks.isEmpty()) {
+            handleEmptyTasksList();
+            return;
+        }
+        // get the string containing the index
+        Integer numberString = parseString(input.substring(5));
+        // gc: string not parsable
+        if (numberString == null) {
+            // handle the error
+            handleInvalidIndex();
+            return;
+        }
+        Task currentTask = this.tasks.get(numberString - 1);
+        handleMarkTask(currentTask);
+        echoTaskMarked(currentTask);
+    }
+
+    /**
+     * Handles the case where the tasks list is empty but the user enters a delete command.
+     *
+     * @author Tan Kerway
+     */
+    private void handleEmptyTasksList() {
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println(new DukeEmptyTaskListException());
+        System.out.println("------------------------------------------------------------------------");
+    }
+
+    /**
+     * Echos that the task has been deleted.
+     *
+     * @author Tan Kerway
+     * @param removedTask the index of the deleted task
+     */
+    private void echoTaskDeleted(Task removedTask) {
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("    " + removedTask);
+        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
+        System.out.println("------------------------------------------------------------------------");
+    }
+
+    /**
+     * Deletes the task at the given index.
+     *
+     * @author Tan Kerway
+     * @param index the index of the task to delete
+     * @return the deleted task instance
+     */
+    private Task deleteTask(int index) {
+        // remove the task
+        return this.tasks.remove(index - 1);
+    }
+
+    /**
+     * parses the String. if there is error, this method will return null to
+     * indicate unsuccessful parsing.
+     *
+     * @author Tan Kerway
+     * @param numberString the number to parse
+     * @return an integer if parsing was successful, null otherwise
+     */
+    private Integer parseString(String numberString) {
+        int res = 0;
+        // trim and trailing spaces
+        numberString = numberString.trim();
+        for (int i = 0; i < numberString.length(); i++) {
+            // get the current char
+            char currentChar = numberString.charAt(i);
+            // gc: not a number
+            if (!Character.isDigit(currentChar)) {
+                return null;
+            }
+            // else, add to the res
+            res = res * 10 + (currentChar - '0');
+        }
+        return res - 1 < 0 || res - 1 >= tasks.size() ? null : res;
+    }
+
+    /**
+     * Method that deals with invalid indexes.
+     *
+     * @author Tan Kerway
+     */
+    private void handleInvalidIndex() {
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println(new DukeInvalidIndexException());
+        System.out.println("------------------------------------------------------------------------");
     }
 
     /**
