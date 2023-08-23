@@ -5,6 +5,9 @@ public class Duke {
 
     private static ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Print out the tasks that currently in the tasks arraylist.
+     */
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -12,7 +15,12 @@ public class Duke {
         }
     }
 
-    public static void addTask(Task task) throws IndexOutOfBoundsException, NullPointerException{
+    /**
+     * Adding task into the tasks arraylist.
+     *
+     * @param task the task that going to be added into tasks arraylist.
+     */
+    public static void addTask(Task task) {
         tasks.add(task);
         System.out.println("Got it, I've added this task:\n    "  +
                 task.toString() + "\n" +

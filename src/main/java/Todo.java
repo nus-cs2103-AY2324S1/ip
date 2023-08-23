@@ -1,4 +1,10 @@
 public class Todo extends Task{
+
+    /**
+     * Constructor
+     *
+     * @param des Description of the task.
+     */
     public Todo(String des) {
         super(des);
     }
