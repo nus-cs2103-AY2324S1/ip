@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String name;
     protected boolean isDone;
 
@@ -21,5 +21,9 @@ public class Task {
 
     public String showName() {
         return this.name;
+    }
+    public abstract String identifier();
+    public String toString() {
+        return String.format("[%s] [%s] %s", this.identifier(), this.showStatus(), this.showName());
     }
 }

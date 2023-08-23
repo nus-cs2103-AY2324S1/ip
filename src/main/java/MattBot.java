@@ -19,20 +19,22 @@ public class MattBot {
         List<Task> taskList = new ArrayList<Task>();
         String userInput;
         while (true) {
+            // Take user input in, and process user input
             userInput = sc.nextLine();
-            if (userInput.equals("bye")) {
+            String command = userInput.split(" ",2)[0];
+            if (command.equals("bye")) {
                 printTop();
                 System.out.println("Bye, Hope to see you soon!");
                 printBottom();
                 break;
-            } else if (userInput.equals("list")) {
+            } else if (command.equals("list")) {
                 printTop();
                 for (int i = 0; i < taskList.size(); i++) {
                     Task t = taskList.get(i);
-                    System.out.println(String.valueOf(i+1) + ". [" + t.showStatus() + "] " + t.showName() );
+                    System.out.println(String.format("%i. %s", i+1, t));
                 }
                 printBottom();
-            } else if (userInput.split(" ",2)[0].equals("mark")) {
+            } else if (command.equals("mark")) {
                 printTop();
                 int taskId = Integer.parseInt(userInput.split(" ",2)[1]) - 1;
                 Task t = taskList.get(taskId);
@@ -40,7 +42,7 @@ public class MattBot {
                 taskList.set(taskId, t);
                 System.out.println("Great job! You have completed the task " + t.showName());
                 printBottom();
-            } else if (userInput.split(" ",2)[0].equals("unmark")) {
+            } else if (command.equals("unmark")) {
                 printTop();
                 int taskId = Integer.parseInt(userInput.split(" ",2)[1]) - 1;
                 Task t = taskList.get(taskId);
@@ -50,9 +52,27 @@ public class MattBot {
                 printBottom();
             } else {
                 printTop();
-                Task t = new Task(userInput);
+                String arguments = userInput.split(" ",2)[1];
+                Task t;
+                if (command.equals("todo")) {
+                    t = new Todo(arguments);
+                } else if (command.equals("deadline")) {
+                    String name = arguments.split(" /by ",2)[0];
+                    String dueDate = arguments.split(" /by ",2)[1];
+                    t = new Deadline(name, dueDate);
+                } else if (command.equals("event")) {
+                    String name = arguments.split(" /from ",2)[0];
+                    String dates = arguments.split(" /from ",2)[1];
+                    String startDate = dates.split(" /to ")[0];
+                    String endDate = dates.split(" /to ",2)[1];
+                    t = new Event(name, startDate, endDate);
+                } else {
+                    System.out.println("I didn't quite understand your input.");
+                    continue;
+                }
                 taskList.add(t);
-                System.out.println("added: " + userInput);
+                System.out.println("I've added this to your tasks: ");
+                System.out.println(t);
                 printBottom();
             }
         }
