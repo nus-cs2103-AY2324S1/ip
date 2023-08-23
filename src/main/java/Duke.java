@@ -1,6 +1,8 @@
 
+import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         String logo =
                   "\n" +
                           "                                                     \n" +
@@ -10,7 +12,11 @@ public class Duke {
                           "  / /        //       // / /  / / //   / / //   / /  \n" +
                           " / /____/ / ((____   // / /  / / ((___/ / //   / /   \n";
         System.out.println("Hello! I'm " + logo + "! \nWhat can I do for you?");
-        System.out.println("\nBye. Hope to see you again soon!");
-
+        String input = scanner.nextLine();
+        while (!input.equals("bye")) {
+            System.out.println(input);
+            input = scanner.nextLine();
+        }
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
