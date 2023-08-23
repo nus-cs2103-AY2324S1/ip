@@ -75,6 +75,12 @@ public class Ax {
                 } else {
                     throw new MissingFormatArgumentException("no arg");
                 }
+            } else if (input.startsWith("delete")) {
+                if (inputs.length > 1) {
+                    listItems.remove(Integer.parseInt(inputs[1]) - 1);
+                } else {
+                    throw new MissingFormatArgumentException("no arg");
+                }
             } else {
                 throw new NoSuchMethodException();
             }
