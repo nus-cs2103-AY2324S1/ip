@@ -1,7 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ArrayList<String> taskList = new ArrayList<>();
+        int number = 0;
+
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
@@ -17,9 +21,20 @@ public class Duke {
 
         while (loggedIn) {
             String userInput = scanner.nextLine();
-            System.out.println("Taskmaster: " + userInput + "\n");
-            if (userInput.equals("bye")) {
+
+            if (userInput.equalsIgnoreCase("bye")) {
                 loggedIn = false;
+            }
+
+            if (userInput.equalsIgnoreCase("list")) {
+                System.out.println("List:");
+                for (int i = 0; i < number; i ++ ) {
+                    System.out.println("Task " + i + ": " + taskList.get(i) + "\n");
+                }
+            } else {
+                taskList.add(userInput);
+                number++;
+                System.out.println("Item added: " + userInput + "\n");
             }
         }
 
