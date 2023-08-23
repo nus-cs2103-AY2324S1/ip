@@ -1,0 +1,8 @@
+hi
+add todo read book
+add deadline return book /by Sunday
+add event project meeting /from Mon 2pm /to 4pm
+add shop
+list
+mark 2
+bye
