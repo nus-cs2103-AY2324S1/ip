@@ -42,8 +42,7 @@ public class Duke {
                     tasks.add(task);
                     System.out.println("\t" + "added: " + task.taskString());
                 }
-            }
-            else{
+            } else{
                 listTasks(tasks);
             }
             str = sc.nextLine();
