@@ -2,8 +2,32 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static ArrayList<Task> tasksList = new ArrayList<>();
 
+    public enum Commands {
+        LIST("list"),
+        BYE("bye"),
+        MARK("mark"),
+        UNMARK("unmark"),
+        DELETE("delete"),
+        TODO("todo"),
+        DEADLINE("deadline"),
+        EVENT("event"),
+        UNKNOWN;
+
+        private final String command;
+
+        Commands(String command) {
+            this.command = command;
+        }
+
+        Commands() {
+            this.command = "unknown";
+        }
+        public String getCommand() {
+            return command;
+        }
+    }
+    private static ArrayList<Task> tasksList = new ArrayList<>();
     protected static String divider = "   _______________________________________ \n";
     protected static String greeting = "   Hello! I'm Sana \n   What can I do for you? \n";
     protected static String bye = "   Bye. Hope to see you again soon! \n";
@@ -14,49 +38,67 @@ public class Duke {
         System.out.println(divider + greeting + divider);
 
         while(true) {
-            String command = myObj.next();
+            String cmd = myObj.next();
             String userInput = myObj.nextLine();
 
-            if (command.equals("bye")) {
+            Commands command = determineCommand(cmd);
+
+            if (command == Commands.BYE ) {
                 System.out.println(divider + bye + divider);
                 break;
             }
 
             switch (command) {
-            case "list":
-                System.out.println(list(tasksList));
+            case LIST:
+                try {
+                    System.out.println(list(tasksList));
+                } catch (DukeException e) {
+                    System.out.println(divider + "    " + e.getMessage() + "\n" + divider);
+                }
                 break;
-            case "mark":
-                System.out.println(mark(tasksList, userInput));
+            case MARK:
+                try {
+                    System.out.println(mark(tasksList, userInput));
+                } catch (DukeException e) {
+                    System.out.println(divider + "    " + e.getMessage() + "\n" + divider);
+                }
                 break;
-            case "unmark":
-                System.out.println(unmark(tasksList, userInput));
+            case UNMARK:
+                try {
+                    System.out.println(unmark(tasksList, userInput));
+                } catch (DukeException e) {
+                    System.out.println(divider + "    " + e.getMessage() + "\n" + divider);
+                }
                 break;
-            case "delete":
-                System.out.println(delete(tasksList, userInput));
+            case DELETE:
+                try {
+                    System.out.println(delete(tasksList, userInput));
+                } catch (DukeException e) {
+                    System.out.println(divider + "    " + e.getMessage() + "\n" + divider);
+                }
                 break;
-            case "todo":
+            case TODO:
                 try {
                     System.out.println(todo(tasksList, userInput));
                 } catch (DukeException e) {
                     System.out.println(divider + "    " + e.getMessage() + "\n" + divider);
                 }
                 break;
-            case "deadline":
+            case DEADLINE:
                 try {
                     System.out.println(deadline(tasksList, userInput));
                 } catch (DukeException e) {
                     System.out.println(divider + "    " + e.getMessage() + "\n" + divider);
                 }
                 break;
-            case "event":
+            case EVENT:
                 try {
                     System.out.println(event(tasksList, userInput));
                 } catch (DukeException e) {
                     System.out.println(divider + "    " + e.getMessage() + "\n" + divider);
                 }
                 break;
-            default:
+            case UNKNOWN:
                 try {
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 } catch (DukeException e) {
@@ -66,7 +108,11 @@ public class Duke {
         }
     }
 
-    public static String list(ArrayList<Task> tasksList) {
+    public static String list(ArrayList<Task> tasksList) throws DukeException {
+        if (tasksList.isEmpty()) {
+            throw new DukeException("Your list is empty! Add tasks first to display list");
+        }
+
         StringBuilder task = new StringBuilder();
         for (int i = 0; i < tasksList.size(); i++) {
             int id = i + 1;
@@ -76,22 +122,31 @@ public class Duke {
                 + divider);
     }
 
-    public static String mark(ArrayList<Task> tasksList, String userInput) {
-        int taskId = userInput.charAt(1) - '0';
+    public static String mark(ArrayList<Task> tasksList, String userInput) throws DukeException {
+        int taskId = Integer.parseInt(userInput.substring(1));
+        if (taskId > tasksList.size() || taskId == 0) {
+            throw new DukeException("No such task!");
+        }
         tasksList.get(taskId - 1).markAsDone();
         return(divider + "   Nice! I've marked this task as done: \n     "
                 + tasksList.get(taskId - 1).toString() + "\n" + divider);
     }
 
-    public static String unmark(ArrayList<Task> tasksList, String userInput) {
-        int taskId = userInput.charAt(1) - '0';
+    public static String unmark(ArrayList<Task> tasksList, String userInput) throws DukeException {
+        int taskId = Integer.parseInt(userInput.substring(1));
+        if (taskId > tasksList.size() || taskId == 0) {
+            throw new DukeException("No such task!");
+        }
         tasksList.get(taskId - 1).markAsNotDone();
         return(divider + "   OK, I've marked this task as not done yet: \n     "
                 + tasksList.get(taskId - 1).toString() + "\n" + divider);
     }
 
-    public static String delete(ArrayList<Task> tasksList, String userInput) {
-        int taskId = userInput.charAt(1) - '0';
+    public static String delete(ArrayList<Task> tasksList, String userInput) throws DukeException {
+        int taskId = Integer.parseInt(userInput.substring(1));
+        if (taskId > tasksList.size() || taskId == 0) {
+            throw new DukeException("No such task!");
+        }
         Task deletedTask = tasksList.get(taskId - 1);
         tasksList.remove(taskId - 1);
         return(divider + "   Noted. I've removed this task: \n" + "    " + deletedTask.toString() + "\n"
@@ -162,5 +217,14 @@ public class Duke {
 
         Task newEvent = new Event(desc, from, to);
         return newEvent;
+    }
+
+    private static Commands determineCommand(String cmd) {
+        for (Commands command : Commands.values()) {
+            if (command.getCommand().equals(cmd)) {
+                return command;
+            }
+        }
+        return Commands.UNKNOWN;
     }
 }
