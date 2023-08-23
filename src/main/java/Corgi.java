@@ -150,14 +150,14 @@ public class Corgi {
             if (index >= 0 && index < this.tasks.size()) {
                 Task target = tasks.get(index);
                 target.markAsDone();
-                System.out.println("Congratulations, I guess! You finally managed to do something right 🎉:\n" + " " + target);
+                System.out.println("Congratulations, I guess! You finally managed to do something right 🎉:\n" + "\n " + target + "\n");
             } else {
                 System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
             }
         } catch (NumberFormatException e) {
             this.printException("Arf! You're trying to trick me with words instead of numbers?");
         } catch (TaskStatusException e) {
-            this.printException("Woof! This task is already marked as done. What are you trying to do? 🤔");
+            this.printException("This task is already marked as done. What are you trying to do? 🤔");
         }
     }
 
@@ -172,14 +172,14 @@ public class Corgi {
             if (index >= 0 && index < this.tasks.size()) {
                 Task target = tasks.get(index);
                 target.markAsNotDone();
-                System.out.println("Oh great, you've undone something 🐕. Just like always:\n" + " " + target);
+                System.out.println("Oh great, you've undone something 🐕. Just like always:\n" + "\n " + target + "\n");
             } else {
                 System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
             }
         } catch (NumberFormatException e) {
             this.printException("Arf! You're trying to trick me with words instead of numbers?");
         } catch (TaskStatusException e) {
-            this.printException("Woof! This task isn't even marked as done yet. What are you trying to do? 🤔");
+            this.printException("This task isn't even marked as done yet. What are you trying to do? 🤔");
         }
     }
 
@@ -206,7 +206,7 @@ public class Corgi {
 
         this.tasks.add(newTask);
         System.out.println("Woof, whatever. I've added this ToDo:\n" + 
-            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
+            "\n " + newTask + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
     }
 
     /**
@@ -227,7 +227,7 @@ public class Corgi {
         this.tasks.add(newTask);
 
         System.out.println("Woof, whatever. I've added this deadline:\n" + 
-            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
+            "\n " + newTask + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
     }
 
     /**
@@ -252,6 +252,6 @@ public class Corgi {
 
         this.tasks.add(newTask);
         System.out.println("Woof, whatever. I've added this event:\n" + 
-            " " + newTask + "\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
+            "\n " + newTask + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
     }
 }
