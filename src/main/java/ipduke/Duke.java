@@ -42,51 +42,81 @@ public class Duke {
         boolean inLoop = true;
 
         while (inLoop) {
-            String[] input = sc.nextLine().split(" ", 2);
-            String firstWord = input[0];
-            String taskDetails = input.length == 1 ? "" : input[1];
+            try {
+                String[] input = sc.nextLine().split(" ", 2);
+                String firstWord = input[0];
+                String taskDetails = input.length == 1 ? "" : input[1];
 
-            switch (firstWord) {
-                case "bye":
-                    inLoop = false;
+                if (firstWord.equals("bye")) {
+                    System.out.println(parting);
                     break;
-                case "list":
+                }
+
+                if (firstWord.equals("list")) {
                     System.out.println(divider);
                     for (int i = 0; i < taskList.size(); i++) {
                         System.out.println("    " + (i + 1) + ". " + taskList.get(i).toString());
                     }
                     System.out.println(divider);
-                    break;
-                case "todo":
-                    taskList.add(new Todo(taskDetails));
-                    System.out.println(divider + "    chirp! I've added this task: \n"
-                            + String.format("    %s", taskList.get(taskList.size() - 1).toString()) + "\n"
-                            + String.format("    Now you have %d tasks in the list\n", taskList.size())
-                            + divider);
-                    break;
-                case "deadline":
-                    taskList.add(new Deadline(taskDetails));
-                    System.out.println(divider + "    chirp! I've added this task: \n"
-                            + String.format("    %s", taskList.get(taskList.size() - 1).toString()) + "\n"
-                            + String.format("    Now you have %d tasks in the list\n", taskList.size())
-                            + divider);
-                    break;
-                case "event":
-                    taskList.add(new Event(taskDetails));
-                    System.out.println(divider + "    chirp! I've added this task: \n"
-                            + String.format("    %s", taskList.get(taskList.size() - 1).toString()) + "\n"
-                            + String.format("    Now you have %d tasks in the list\n", taskList.size())
-                            + divider);
-                    break;
-                case "mark":
-                    taskList.get(Integer.parseInt(taskDetails) - 1).markTask();
-                    break;
-                case "unmark":
-                    taskList.get(Integer.parseInt(taskDetails) - 1).unmarkTask();
-                    break;
-                default:
-                    System.out.println("<task type> <task taskDetails>");
-                    break;
+                    continue;
+                }
+
+                switch (firstWord) {
+                    case "todo":
+                        if (taskDetails.equals("")) throw new EmptyTodoException(
+                                divider + "    TWEET!!! The description of a todo cannot be empty.\n" + divider
+                        );
+                        taskList.add(new Todo(taskDetails));
+                        System.out.println(divider + "    chirp! I've added this task:\n"
+                                + String.format("    %s", taskList.get(taskList.size() - 1).toString()) + "\n"
+                                + String.format("    Now you have %d tasks in the list\n", taskList.size())
+                                + divider);
+                        break;
+                    case "deadline":
+                        if (taskDetails.equals("")) throw new EmptyDeadlineException(
+                                divider + "    TWEET!!! The description of a deadline cannot be empty.\n" + divider
+                        );
+                        taskList.add(new Deadline(taskDetails));
+                        System.out.println(divider + "    chirp! I've added this task:\n"
+                                + String.format("    %s", taskList.get(taskList.size() - 1).toString()) + "\n"
+                                + String.format("    Now you have %d tasks in the list\n", taskList.size())
+                                + divider);
+                        break;
+                    case "event":
+                        if (taskDetails.equals("")) throw new EmptyEventException(
+                                divider + "    TWEET!!! The description of an event cannot be empty.\n" + divider
+                        );
+                        taskList.add(new Event(taskDetails));
+                        System.out.println(divider + "    chirp! I've added this task:\n"
+                                + String.format("    %s", taskList.get(taskList.size() - 1).toString()) + "\n"
+                                + String.format("    Now you have %d tasks in the list\n", taskList.size())
+                                + divider);
+                        break;
+                    case "mark":
+                        int markIndex = Integer.parseInt(taskDetails) - 1;
+                        if (markIndex <= 0 || markIndex < taskList.size()) throw new InvalidTaskNumberException(
+                                divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
+                        );
+                        System.out.println(divider);
+                        taskList.get(markIndex).markTask();
+                        System.out.println(divider);
+                        break;
+                    case "unmark":
+                        int unmarkIndex = Integer.parseInt(taskDetails) - 1;
+                        if (unmarkIndex <= 0 || unmarkIndex < taskList.size()) throw new InvalidTaskNumberException(
+                                divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
+                        );
+                        System.out.println(divider);
+                        taskList.get(unmarkIndex).unmarkTask();
+                        System.out.println(divider);
+                        break;
+                    default:
+                        throw new EmptyEventException(
+                                divider + "    TWEET!!! I'm sorry, but I don't know how to bark\n" + divider
+                        );
+                }
+            } catch (DukeException e) {
+                System.out.println(e);
             }
         }
     }
@@ -94,8 +124,6 @@ public class Duke {
         System.out.println("    chirp chirp!\n" + logo_bird + greet);
 
         setTaskList();
-
-        System.out.println(parting);
     }
 
 
