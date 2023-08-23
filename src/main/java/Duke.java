@@ -1,53 +1,57 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-	static ArrayList<String> list = new ArrayList<>();
+//	static ArrayList<Task> list = new ArrayList<>();
 
 	public static void main(String[] args) {
 		printLine();
+		TaskList taskList = new TaskList(); // Initialise the list
 		System.out.println("Hello I'm RyamBot");
 		System.out.println("What can I do for you?");
 		printLine();
-		queryBot();
+		queryBot(taskList);
 	}
 
-	static void printLine() {
+	public static void printLine() {
 		System.out.println("____________________________________________________________");
 	}
 
-	static void addToList(String item) {
-		printLine();
-		list.add(item);
-		System.out.println("added: " + item);
-		printLine();
-	}
-
-	static void printList() {
-		printLine();
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(i + 1 + ". " + list.get(i));
+	static void queryBot(TaskList taskList) {
+		Scanner myObj = new Scanner(System.in);  // Create a Scanner object
+		String query = myObj.nextLine();  // Read user input
+		if (query.equals("bye")) {
+			exit();
+		} else if (query.equals("list")) {
+			taskList.printList();
+			queryBot(taskList);
+		} else if (query.startsWith("mark")) {
+			String[] queryArr = query.split(" ");
+			int index = Integer.parseInt(queryArr[1]) - 1;
+			printLine();
+			System.out.println("Nice! I've marked this task as done: ");
+			taskList.get(index).mark();
+			System.out.println("[" + taskList.get(index).getStatusIcon() + "] " + taskList.get(index).description);
+			printLine();
+			queryBot(taskList);
+		} else if (query.startsWith("unmark")) {
+			String[] queryArr = query.split(" ");
+			int index = Integer.parseInt(queryArr[1]) - 1;
+			printLine();
+			System.out.println("OK, I've marked this task as not done yet: ");
+			taskList.get(index).unmark();
+			System.out.println("[" + taskList.get(index).getStatusIcon() + "] " + taskList.get(index).description);
+			printLine();
+			queryBot(taskList);
+		} else {
+			Task newTask = new Task(query);
+			taskList.addToList(newTask);
+			queryBot(taskList);
 		}
-		printLine();
 	}
 
 	static void exit() {
 		printLine();
 		System.out.println("Bye. Hope to see you again soon!");
 		printLine();
-	}
-
-	static void queryBot() {
-		Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-		String query = myObj.nextLine();  // Read user input
-		if (query.equals("bye")) {
-			exit();
-		} else if (query.equals("list")) {
-			printList();
-			queryBot();
-		} else {
-			addToList(query);
-			queryBot();
-		}
 	}
 }
