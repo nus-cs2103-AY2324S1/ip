@@ -3,10 +3,6 @@ public class Printing {
         System.out.println("████████████████████████████████████████████████");
     }
 
-    public static void print(String str) {
-        System.out.println(str);
-    }
-
     public static void greeting() {
         Printing.printBlock();
         System.out.println("Hello I'm Anto\nWhat can I do for you?");
@@ -26,8 +22,8 @@ public class Printing {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < length; i++) {
             int temp = i + 1;
-            System.out.println(String.format("%d. [%s] %s",
-                    temp, storage[i].getStatusIcon(), storage[i].description));
+            System.out.println(String.format("%d. %s",
+                    temp, storage[i]));
         }
         Printing.printBlock();
     }
@@ -36,8 +32,7 @@ public class Printing {
         Task[] storage = Storage.getStorage();
         Printing.printBlock();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(String.format("[%s] %s",
-                storage[index].getStatusIcon(), storage[index].description));
+        System.out.println(storage[index]);
         Printing.printBlock();
     }
 
@@ -45,8 +40,15 @@ public class Printing {
         Task[] storage = Storage.getStorage();
         Printing.printBlock();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(String.format("[%s] %s",
-                storage[index].getStatusIcon(), storage[index].description));
+        System.out.println(storage[index]);
+        Printing.printBlock();
+    }
+
+    public static void printAdded(Task task) {
+        Printing.printBlock();
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println(String.format("Now you have %d tasks in the list.", Storage.getLength()));
         Printing.printBlock();
     }
 }

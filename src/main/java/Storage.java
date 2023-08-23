@@ -2,8 +2,7 @@ public class Storage {
     private static Task[] storage = new Task[100];
     private static int length = 0;
 
-    public static void addToStorage(String str) {
-        Task newTask = new Task(str);
+    public static void addToStorage(Task newTask) {
         Storage.storage[Storage.length] = newTask;
         Storage.length++;
     }

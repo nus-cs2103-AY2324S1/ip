@@ -21,13 +21,32 @@ public class Input {
                 int index = Character.getNumericValue(input.charAt(7)) - 1;
                 Storage.unmark(index);
                 Printing.printUnmark(index);
+            } else if (input.startsWith("todo")) {
+                String[] arr = input.split(" ", 2);
+                Task newTask = new Todo(arr[1]);
+                Storage.addToStorage(newTask);
+                Printing.printAdded(newTask);
+            } else if (input.startsWith("deadline")) {
+                String[] arr = input.split("/by");
+                String taskDesc = arr[0].trim().split(" ", 2)[1];
+                String by = arr[1].trim();
+                Task newTask = new Deadline(taskDesc, by);
+                Storage.addToStorage(newTask);
+                Printing.printAdded(newTask);
+            } else if (input.startsWith("event")) {
+                String[] arr = input.split("/from");
+                String taskDesc = arr[0].trim().split(" ", 2)[1];
+                String[] arrBack = arr[1].split(" /to ");
+                String from = arrBack[0].trim();
+                String to = arrBack[1];
+                Task newTask = new Event(taskDesc, from, to);
+                Storage.addToStorage(newTask);
+                Printing.printAdded(newTask);
             } else {
-                Printing.printBlock();
-                Storage.addToStorage(input);
-                Printing.print("added: " + input);
-                Printing.printBlock();
+                Task newTask = new Todo(input);
+                Storage.addToStorage(newTask);
+                Printing.printAdded(newTask);
             }
         }
-
     }
 }
