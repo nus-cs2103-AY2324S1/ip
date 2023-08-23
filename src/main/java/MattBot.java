@@ -31,7 +31,7 @@ public class MattBot {
                 printTop();
                 for (int i = 0; i < taskList.size(); i++) {
                     Task t = taskList.get(i);
-                    System.out.println(String.format("%i. %s", i+1, t));
+                    System.out.println(String.format("%d. %s", i+1, t));
                 }
                 printBottom();
             } else if (command.equals("mark")) {
