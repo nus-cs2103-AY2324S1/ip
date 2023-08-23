@@ -23,7 +23,7 @@ public class UserInput {
 
     @Override
     public String toString() {
-        return this.text;
+        return "[" + getStatusIcon() + "]" + this.text;
     }
 
 }
