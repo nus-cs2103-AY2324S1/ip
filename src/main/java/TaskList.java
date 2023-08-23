@@ -14,7 +14,12 @@ public class TaskList {
      * @param commandArr array of the command split by whitespace
      * @return the added task
      */
-    public Task addTask(String[] commandArr) {
+    public Task addTask(String[] commandArr) throws InsufficientArguments {
+        if (commandArr.length <= 1) {
+            throw new InsufficientArguments();
+        }
+        
+
         if (commandArr[0].equals("todo")) {
             StringBuilder builder = new StringBuilder();
             for (int i = 1; i < commandArr.length; i++) {
