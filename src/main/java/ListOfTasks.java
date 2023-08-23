@@ -5,8 +5,8 @@
  * @author Anthony Tamzil
  */
 public class ListOfTasks {
-    Task[] list;
-    int numOfTasks = 0;
+    private Task[] list;
+    private int numOfTasks = 0;
 
     /**
      * A constructor to initialize the ListOfTasks class.
@@ -24,7 +24,9 @@ public class ListOfTasks {
         list[numOfTasks] = task;
         numOfTasks++;
 
-        System.out.println("Added: " + task.getDescription());
+        System.out.println("Got it. I have added this task to do:");
+        System.out.println("  " + task.toString());
+        System.out.println("You now have " + numOfTasks + " tasks in the list.");
     }
 
     /**
@@ -37,7 +39,7 @@ public class ListOfTasks {
         completedTask.markAsDone();
 
         System.out.println("Good job! I've marked this task as completed:");
-        System.out.println(completedTask);
+        System.out.println("  " + completedTask);
     }
 
     /**
@@ -50,7 +52,7 @@ public class ListOfTasks {
         unmarkedTask.markAsNotDone();
 
         System.out.println("OK! I've marked this task as not done yet:");
-        System.out.println(unmarkedTask);
+        System.out.println("  " + unmarkedTask);
     }
 
     /**

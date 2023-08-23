@@ -19,7 +19,7 @@ public class Chatter {
     }
 
     /**
-     * Add the user's commands through a Scanner object, if user says bye,
+     * Add the user's tasks through a Scanner object, if user says bye,
      * print exit statement, if user says list, prints list of tasks.
      */
     private static void run() {
@@ -35,6 +35,8 @@ public class Chatter {
                 tasks.markTaskAsDone(Character.getNumericValue(userInput.charAt(5)));
             } else if (userInput.startsWith("unmark")){
                 tasks.markTaskAsNotDone(Character.getNumericValue(userInput.charAt(7)));
+            } else if (userInput.startsWith("todo")){
+                tasks.addTask(new ToDo(userInput.substring(5)));
             } else {
                 tasks.addTask(new Task(userInput));
             }
