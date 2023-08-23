@@ -12,14 +12,6 @@ import java.util.Scanner;
 public class Duke {
     private static final String HORZ_LINE = "____________________________________________________________";
     private static final String BOT_NAME = "SHIBA-BOT";
-    private static final String BYE_COMMAND = "bye";
-    private static final String LIST_COMMAND = "list";
-    private static final String MARK_COMMAND = "mark";
-    private static final String UNMARK_COMMAND = "unmark";
-    private static final String TODO_COMMAND = "todo";
-    private static final String DEADLINE_COMMAND = "deadline";
-    private static final String EVENT_COMMAND = "event";
-    private static final String DELETE_COMMAND = "delete";
 
     private static final ArrayList<ShibaTask> tasks = new ArrayList<>();
 
@@ -119,33 +111,36 @@ public class Duke {
             String[] cmd = input.split(" ");
 
             try {
-                switch (cmd[0]) {
-                    case LIST_COMMAND:
+                Command command = Command.valueOf(cmd[0].toUpperCase());
+                switch (command) {
+                    case LIST:
                         listTasks();
                         break;
-                    case MARK_COMMAND:
-                    case UNMARK_COMMAND:
-                        handleMarkTask(cmd);
+                    case MARK:
+                        markTask(cmd);
                         break;
-                    case TODO_COMMAND:
+                    case UNMARK:
+                        unmarkTask(cmd);
+                        break;
+                    case TODO:
                         addTodo(input);
                         break;
-                    case DEADLINE_COMMAND:
+                    case DEADLINE:
                         addDeadline(input);
                         break;
-                    case EVENT_COMMAND:
+                    case EVENT:
                         addEvent(input);
                         break;
-                    case DELETE_COMMAND:
+                    case DELETE:
                         deleteTask(cmd);
                         break;
-                    case BYE_COMMAND:
+                    case BYE:
                         return;
-                    default:
-                        printUnknownCommand();
                 }
             } catch (ShibaException e) {
                 printException(e);
+            } catch (IllegalArgumentException e) {
+                printUnknownCommand();
             }
         }
     }
@@ -252,34 +247,42 @@ public class Duke {
     }
 
     /**
-     * Performs actions to mark/unmark a task based on the input command parameters
+     * Performs actions to mark a task based on the input command parameters
      * @param cmd Input command parameters, split by spaces.
      * @throws ShibaException If the task number is missing or invalid.
      */
-    private static void handleMarkTask(String[] cmd) throws ShibaException {
+    private static void markTask(String[] cmd) throws ShibaException {
         int taskNumber = checkTaskNumber(cmd);
 
         ShibaTask task = tasks.get(taskNumber - 1);
-        if (cmd[0].equals(MARK_COMMAND)) {
-            boolean res = task.markDone();
-            printHorizontalLine();
-            if (res) {
-                printWithLevel2Indent("Woof! I've marked this task as done:");
-            } else {
-                printWithLevel2Indent("Woof! This task is already done!");
-            }
-            printWithLevel3Indent(task.toString());
-            printHorizontalLine();
+        boolean res = task.markDone();
+        printHorizontalLine();
+        if (res) {
+            printWithLevel2Indent("Woof! I've marked this task as done:");
         } else {
-            boolean res = task.markNotDone();
-            printHorizontalLine();
-            if (res) {
-                printWithLevel2Indent("Woof! I've marked this task as not done yet:");
-            } else {
-                printWithLevel2Indent("Woof! You have not done this task yet!");
-            }
-            printWithLevel3Indent(task.toString());
-            printHorizontalLine();
+            printWithLevel2Indent("Woof! This task is already done!");
         }
+        printWithLevel3Indent(task.toString());
+        printHorizontalLine();
+    }
+
+    /**
+     * Performs actions to unmark a task based on the input command parameters
+     * @param cmd Input command parameters, split by spaces.
+     * @throws ShibaException If the task number is missing or invalid.
+     */
+    private static void unmarkTask(String[] cmd) throws ShibaException {
+        int taskNumber = checkTaskNumber(cmd);
+
+        ShibaTask task = tasks.get(taskNumber - 1);
+        boolean res = task.markNotDone();
+        printHorizontalLine();
+        if (res) {
+            printWithLevel2Indent("Woof! I've marked this task as not done yet:");
+        } else {
+            printWithLevel2Indent("Woof! You have not done this task yet!");
+        }
+        printWithLevel3Indent(task.toString());
+        printHorizontalLine();
     }
 }
