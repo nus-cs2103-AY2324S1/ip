@@ -6,10 +6,13 @@ public class Messages {
     public static final String GREET = "Hello! I'm Chatty!\nWhat can I do for you?";
     public static final String EXIT = "Bye. Hope to see you again soon!";
     private static ArrayList<String> commandsList = new ArrayList<>();
+    private static TaskList taskList = new TaskList();
 
     public static void startChatting() {
         String exitCommand = "bye";
         String listCommand = "list";
+        String markDoneCommand = "mark";
+        String markUndoneCommand = "unmark";
 
         Scanner scanner = new Scanner(System.in);
 
@@ -18,9 +21,18 @@ public class Messages {
             userCommands = scanner.nextLine();
             if (!userCommands.equalsIgnoreCase(exitCommand)) {
                 if (userCommands.equalsIgnoreCase(listCommand)) {
-                    listOutCommand();
+                    taskList.listOutTasks();
+                } else if (userCommands.startsWith(markDoneCommand)) {
+                    String getIndex = userCommands.substring(markDoneCommand.length() + 1);
+                    int taskIndex = Integer.parseInt(getIndex) - 1;
+                    taskList.markAsDone(taskIndex);
+                } else if (userCommands.startsWith(markUndoneCommand)) {
+                    String getIndex = userCommands.substring(markUndoneCommand.length() + 1);
+                    int taskIndex = Integer.parseInt(getIndex) - 1;
+                    taskList.markAsUndone(taskIndex);
                 } else {
                     addToList(userCommands);
+                    taskList.addTask(new Task(userCommands));
                 }
             }
         } while (!userCommands.equalsIgnoreCase(exitCommand));
