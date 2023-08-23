@@ -3,6 +3,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A chatbot that helps you keep track of tasks.
+ */
 public class Duke {
     private static final String line = "____________________________________________________________\n";
     private static final String greetingMessage = "Hello! I'm EnPassant\n"
@@ -28,7 +31,7 @@ public class Duke {
             + "Usage: deadline <description> /by <date>\n";
     private static final String invalidEventMessage = "Great heavens! Invalid usage of event!\n"
             + "Usage: event <description> /from <start> /to <end>\n";
-    private static final String invalidDeleteMessage = "Great heavens! The index of delete cannot be wmpty!\n"
+    private static final String invalidDeleteMessage = "Great heavens! The index of delete cannot be empty!\n"
             + "Usage: delete <index>\n";
     private static final String markDoneMessage = "Great success! I have marked this task as done:\n";
     private static final String markUndoneMessage = "Very nice! I have marked this task as not done yet:\n";
@@ -41,10 +44,21 @@ public class Duke {
     private static final String taskDeletedMessage = "Task went on vacation, never came back.\n";
     private static final String totalTaskCountMessage = "You now have %d tasks in the list!\n";
 
+    /**
+     * Helper method to print a message with horizontal lines above and below it.
+     *
+     * @param message The message to be printed.
+     */
     private static void printWithLines(String message) {
         System.out.print(line + message + line);
     }
 
+    /**
+     * Helper method to print all the Tasks in the list with their respective indices,
+     * surrounded by horizontal lines.
+     *
+     * @param list The list containing the tasks.
+     */
     private static void printList(ArrayList<Task> list) {
         System.out.print(line + listMessage);
         for (int i = 0; i < list.size(); i++) {
@@ -53,6 +67,13 @@ public class Duke {
         System.out.print(line);
     }
 
+    /**
+     * Helper method to print the new task added along with its associated message,
+     * the new count of tasks, surrounded by horizontal lines.
+     *
+     * @param task The new task added.
+     * @param totalTasks The total count of tasks in the list.
+     */
     private static void printTaskAdded(Task task, int totalTasks) {
         System.out.print(line + newTaskAddedMessage);
         System.out.print("  " + task + "\n");
@@ -60,6 +81,13 @@ public class Duke {
         System.out.print(line);
     }
 
+    /**
+     * Helper method to print the task deleted along with its associated message,
+     * the new count of tasks, surrounded by horizontal lines.
+     *
+     * @param task The deleted task.
+     * @param totalTasks The total count of tasks in the list.
+     */
     private static void printTaskDeleted(Task task, int totalTasks) {
         System.out.print(line + taskDeletedMessage);
         System.out.print("  " + task + "\n");
@@ -90,6 +118,7 @@ public class Duke {
                     break;
                 }
 
+                // match against the command given
                 switch (matcher.group(1)) {
                     case "list":
                         printList(tasks);
