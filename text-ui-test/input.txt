@@ -1,0 +1,6 @@
+event lecture /from 2pm /to 4pm
+deadline pset 1 /by Sunday
+mark 1
+unmark 1
+bah
+bye

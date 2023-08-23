@@ -1,7 +1,29 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+  _   _   _
+ / \ / \ / \
+( 안 | 녕 )
+ \_/ \_/ \_/
+Hello, I am your chatbot Kora!
+How can I help you today?
+------------------------------
+------------------------------
+Okay! I have added this task
+[E][ ] lecture (from: 2pm to: 4pm)
+Now you have 1 tasks!
+------------------------------
+------------------------------
+Okay! I have added this task
+[D][ ] pset1 (by: Sunday)
+Now you have 2 tasks!
+------------------------------
+------------------------------
+Wow you are done!
+[E][X] lecture
+------------------------------
+------------------------------
+Wow you are not done!
+[E][ ] lecture (from: 2pm to: 4pm)
+------------------------------
+I do not understand
+------------------------------
+Byebye. See you again!
+------------------------------
