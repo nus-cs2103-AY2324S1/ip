@@ -1,9 +1,15 @@
 import java.util.Scanner;
 
 public class Dude {
+  // Messages
   static String logo =
     " _|    _| _    O\n" +
       "(_||_|(_|(/_  /İ\\\n";
+  static String hello = logo + "\n" +
+    "Hello! I'm dude.\n" +
+    "What can I do for you?";
+  static String goodbye =
+    "Bye. Hope to see you again soon!";
 
   /**
    * Print message/prompt to console.
@@ -21,15 +27,7 @@ public class Dude {
   }
 
   public static void main(String[] args) {
-    /* Messages */
-    String hello = logo + "\n" +
-      "Hello! I'm dude.\n" +
-      "What can I do for you?";
-    String goodbye =
-      "Bye. Hope to see you again soon!";
-
     Scanner sc = new Scanner(System.in);
-
     // Print startup greeting
     printMessage(hello);
 
@@ -47,6 +45,7 @@ public class Dude {
       // echo input
       printMessage(input);
     }
+
     // Print shutdown greeting
     printMessage(goodbye);
   }
