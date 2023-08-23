@@ -6,7 +6,9 @@ import tasks.ToDo;
 import tasks.Deadline;
 import tasks.Event;
 import commands.CommandType;
+import commands.EmptyDescException;
 import commands.InvalidCommandException;
+import commands.InvalidDescFormatException;
 
 public class Corgi {
     private List<Task> tasks;
@@ -38,7 +40,7 @@ public class Corgi {
 
         Scanner sc = new Scanner(System.in);
 
-        loop: while(true) {
+        while(true) {
             String userInput = sc.nextLine().trim();
 
             if (userInput.equals("")) {
@@ -50,43 +52,78 @@ public class Corgi {
             String[] inputParts = userInput.split(" ", 2);
             String cmdStr = inputParts[0];
 
-            try {
-                CommandType cmd = CommandType.getCommandType(cmdStr);
+            CommandType cmd = null;
 
-                switch (cmd) {
-                    case BYE:
-                        if (inputParts.length > 1) throw new InvalidCommandException();
-                        System.out.println("Bye, take care and see you soon! *tail wags*");
-                        break loop;
-                    case LIST:
-                        if (inputParts.length > 1) throw new InvalidCommandException();
-                        this.displayTasks();
-                        System.out.println("------------------------------------------------------------");
-                        break;
-                    case MARK:
-                        markTaskAsDone(inputParts[1]);
-                        break;
-                    case UNMARK:
-                        markTaskAsNotDone(inputParts[1]);
-                        break;
-                    case TODO:
-                        addToDo(inputParts[1]);
-                        break;
-                    case DEADLINE:
-                        addDeadline(inputParts[1]);
-                        break;
-                    case EVENT:
-                        addEvent(inputParts[1]);
-                        break;
-                }
+            try {
+                cmd = CommandType.getCommandType(cmdStr);
             } catch (InvalidCommandException e) {
                 this.printException("Can't believe you're asking that! Grrr, what do you want now?");
             }
 
-            System.out.println("------------------------------------------------------------");
+            boolean breakLoop = false;
+
+            if (cmd != null) {
+                breakLoop = this.executeCommand(cmd, inputParts);
+            }
+
+            System.out.println("------------------------------------------------------------\n");
+
+            if (breakLoop) break;
         }
 
         sc.close();
+    }
+
+    /**
+     * Executes a command based on the provided CommandType and input arguments.
+     *
+     * @param cmd The CommandType representing the command to execute
+     * @param inputs The array of input arguments for the command
+     * @return True if the command execution should exit the chatbot, false otherwise
+     */
+    private boolean executeCommand(CommandType cmd, String[] inputs) {
+
+        try {
+            switch (cmd) {
+                case BYE:
+                    if (inputs.length > 1) throw new InvalidCommandException();
+                    System.out.println("Bye, take care and see you soon! *tail wags*");
+                    return true;
+                case LIST:
+                    if (inputs.length > 1) throw new InvalidCommandException();
+                    this.displayTasks();
+                    break;
+                case MARK:
+                    if (inputs.length < 2) throw new EmptyDescException();
+                    markTaskAsDone(inputs[1]);
+                    break;
+                case UNMARK:
+                    if (inputs.length < 2) throw new EmptyDescException();
+                    markTaskAsNotDone(inputs[1]);
+                    break;
+                case TODO:
+                    if (inputs.length < 2) throw new EmptyDescException();
+                    addToDo(inputs[1]);
+                    break;
+                case DEADLINE:
+                    if (inputs.length < 2) throw new EmptyDescException();
+                    addDeadline(inputs[1]);
+                    break;
+                case EVENT:
+                    if (inputs.length < 2) throw new EmptyDescException();
+                    addEvent(inputs[1]);
+                    break;
+            }
+        } catch (InvalidCommandException e) {
+            this.printException("Can't believe you're asking that! Grrr, what do you want now?");
+        } catch (EmptyDescException e) {
+            this.printException("Seriously? You want me to do something with an empty description?");
+        } catch (InvalidDescFormatException e) {
+            this.printException("Are you trying to confuse me with this nonsense? Try again hooman" + "\n" 
+                + cmd.getCommandFormat());
+        } 
+
+        return false;
     }
 
     /**
@@ -161,8 +198,11 @@ public class Corgi {
       *
       * @param taskInfo Information about the deadline, including description and date/time details
       */
-    private void addDeadline(String taskInfo) {
+    private void addDeadline(String taskInfo) throws InvalidDescFormatException{
         String[] deadlineInfos = taskInfo.split(" /by ");
+
+        if (deadlineInfos.length < 2) throw new InvalidDescFormatException();
+
         String deadlineDesc = deadlineInfos[0];
         String by = deadlineInfos[1];
 
@@ -179,10 +219,16 @@ public class Corgi {
       *
       * @param taskInfo Information about the event, including description and date/time details
       */
-    private void addEvent(String taskInfo) {
+    private void addEvent(String taskInfo) throws InvalidDescFormatException{
         String[] eventInfos = taskInfo.split(" /from ");
+
+        if (eventInfos.length < 2) throw new InvalidDescFormatException();
+
         String eventDesc = eventInfos[0];
         String[] eventDuration = eventInfos[1].split(" /to ");
+
+        if (eventDuration.length < 2) throw new InvalidDescFormatException();
+
         String from = eventDuration[0];
         String to = eventDuration[1];
 
