@@ -11,10 +11,10 @@ public class ToDoTask extends Task {
   /**
    * Gets Todo task formatted with type and status icon
    *
-   * @return Task formatted as a string. e.g. {T}[X] completed task
+   * @return Task formatted as a string.
    */
   @Override
   public String toString() {
-    return "{T}" + super.toString();
+    return "<T>" + super.toString();
   }
 }

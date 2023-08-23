@@ -17,10 +17,10 @@ public class DeadlineTask extends Task {
   /**
    * Gets Deadline task formatted with type and status icon
    *
-   * @return Task formatted as a string. e.g. {D}[X] completed task
+   * @return Task formatted as a string.
    */
   @Override
   public String toString() {
-    return String.format("{D}%s (by: %s)", super.toString(), this.deadline);
+    return String.format("<D>%s (by: %s)", super.toString(), this.deadline);
   }
 }

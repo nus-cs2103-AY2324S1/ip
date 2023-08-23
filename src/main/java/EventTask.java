@@ -24,10 +24,10 @@ public class EventTask extends Task {
   /**
    * Gets Event task formatted with type and status icon
    *
-   * @return Task formatted as a string. e.g. {E}[X] completed task
+   * @return Task formatted as a string.
    */
   @Override
   public String toString() {
-    return String.format("{E}%s (from: %s, to: %s)", super.toString(), this.startTime, this.endTime);
+    return String.format("<E>%s (from: %s, to: %s)", super.toString(), this.startTime, this.endTime);
   }
 }
