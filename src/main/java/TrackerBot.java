@@ -113,7 +113,7 @@ public class TrackerBot {
         segments = input.getSecond().split("/from|/to");
         if (segments.length > 3) {
           System.out.println("Too many flags specified for event!");
-          System.out.println("Format: deadline [description] /by [end-date]");
+          System.out.println("Format: event [description] /from [start-date] /to [end-date]");
           return;
         }
 
