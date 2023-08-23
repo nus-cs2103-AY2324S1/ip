@@ -66,15 +66,11 @@ public class HelpBuddy {
                 System.out.println(printMessageBlock("OK, I've marked this task as not done yet:\n      " + t + "\n"));
             } else if (inputMessage.equalsIgnoreCase("list")){
                 Object[] inputArray = this.userInput.toArray();
-                String outputMessage = "Here are the tasks in your list:\n    ";
+                String outputMessage = "Here are the tasks in your list:\n";
                 for (int i = 0; i < inputArray.length; i++) {
                     int index = i + 1;
                     Task curr = (Task) inputArray[i];
-                    if (i != inputArray.length - 1) {
-                        outputMessage +=  index + "." + curr + "\n    ";
-                    } else {
-                        outputMessage +=  index + "." + curr + "\n";
-                    }
+                    outputMessage +=  "    " + index + "." + curr + "\n";
                 }
                 System.out.println(printMessageBlock(outputMessage));
             } else if (inputMessage.equalsIgnoreCase("bye")) {
