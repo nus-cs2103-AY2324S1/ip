@@ -77,10 +77,11 @@ public class ItemList {
     }
 
     public void showitems() {
-        if (this.len == 0) {
+        if (this.len <= 0) {
             System.out.println(Greeting.linebreak);
             System.out.println("No item in the list.");
             System.out.println(Greeting.linebreak);
+            return;
         }
         System.out.println(Greeting.linebreak);
         System.out.println("Here are the tasks in your list:");
@@ -118,6 +119,34 @@ public class ItemList {
         System.out.println(Greeting.linebreak);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(this.items[i].showTaskinList());
+        System.out.println(Greeting.linebreak);
+    }
+
+    public void delete(int index) {
+        if(this.len == 0) {
+            System.out.println(Greeting.linebreak);
+            System.out.println("Nothing to delete");
+            System.out.println(Greeting.linebreak);
+            return;
+        }
+
+        if(index > this.len) {
+            System.out.println(Greeting.linebreak);
+            System.out.println("Nothing to delete");
+            System.out.println(Greeting.linebreak);
+            return;
+        }
+        int pos = index - 1;
+        Task todelete = this.items[pos];
+        this.items[pos] = null;
+        for(int i = pos; i < this.len - 1; i++) {
+            this.items[i] = this.items[i+1];
+        }
+        this.items[this.len - 1] = null;
+        this.len--;
+        System.out.println(Greeting.linebreak);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(todelete.showTaskinList());
         System.out.println(Greeting.linebreak);
     }
 

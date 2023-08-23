@@ -36,6 +36,16 @@ public class Duke {
                     items.markUndone(number);
                     continue;
                 }
+
+                Pattern deletepattern = Pattern.compile("delete (\\d+).*");
+                matcher = deletepattern.matcher(echo);
+                if(matcher.matches()) {
+                    String digitString = matcher.group(1);
+                    int number = Integer.parseInt(digitString);
+                    items.delete(number);
+                    continue;
+                }
+
                 if(echo.startsWith("deadline ")) {
 
                     Pattern deadlinepattern = Pattern.compile( "deadline (.*?)/by (.*)");
