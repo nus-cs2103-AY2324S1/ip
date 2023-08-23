@@ -57,6 +57,15 @@ public class Duke {
                             task, tasks.size(), tasks.size() == 1 ? "" : "s"));
                     break;
                 }
+                case "event": {
+                    String[] splitInputFrom = splitInput[1].split("/from", 2);
+                    String[] splitInputTo = splitInputFrom[1].split("/to", 2);
+                    Task task = new Event(splitInputFrom[0], splitInputTo[0], splitInputTo[1]);
+                    tasks.add(task);
+                    outputMessage(String.format(" Got it. I've added this task:\n  %s\n Now you have %d task%s in the list.\n",
+                            task, tasks.size(), tasks.size() == 1 ? "" : "s"));
+                    break;
+                }
             }
         }
     }
