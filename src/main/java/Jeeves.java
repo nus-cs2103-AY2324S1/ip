@@ -35,6 +35,24 @@ public class Jeeves {
                 }
                 // Prints an empty line for output clarity
                 System.out.print("\n");
+            }  else if (currentCommand.startsWith("mark ")) {
+                // Gets the task ID that the user wish to mark
+                int id = Integer.parseInt(currentCommand.substring(5));
+                // Update the task's status and notifies the user
+                taskList[id].setStatus(true);
+                System.out.println("Understood, I have marked the following task as done:");
+                Jeeves.displayTask(id);
+                // Prints an empty line for output clarity
+                System.out.print("\n");
+            } else if (currentCommand.startsWith("unmark ")) {
+                // Gets the task ID that the user wish to unmark
+                int id = Integer.parseInt(currentCommand.substring(7));
+                // Update the task's status and notifies the user
+                taskList[id].setStatus(false);
+                System.out.println("Understood, I have marked the following task as not done:");
+                Jeeves.displayTask(id);
+                // Prints an empty line for output clarity
+                System.out.print("\n");
             } else if (currentCommand.equals("bye")) {
                 // Displays the farewell message and terminates the application
                 System.out.println("I bid you farewell, Master");
