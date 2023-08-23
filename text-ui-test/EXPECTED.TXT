@@ -1,7 +1,61 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+-----------------------
+Hello! I'm Chatter
+How can i help you today?
+-----------------------
+-----------------------
+Got it. I have added this task to do:
+  [T][ ] borrow book
+You now have 1 tasks in the list.
+-----------------------
+-----------------------
+These are all the tasks in your list:
+  1.[T][ ] borrow book
+-----------------------
+-----------------------
+Got it. I have added this task to do:
+  [D][ ] return book (by: Sunday)
+You now have 2 tasks in the list.
+-----------------------
+-----------------------
+Got it. I have added this task to do:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+You now have 3 tasks in the list.
+-----------------------
+-----------------------
+These are all the tasks in your list:
+  1.[T][ ] borrow book
+  2.[D][ ] return book (by: Sunday)
+  3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+-----------------------
+-----------------------
+Good job! I've marked this task as completed:
+  [T][X] borrow book
+-----------------------
+-----------------------
+These are all the tasks in your list:
+  1.[T][X] borrow book
+  2.[D][ ] return book (by: Sunday)
+  3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+-----------------------
+-----------------------
+Good job! I've marked this task as completed:
+  [D][X] return book (by: Sunday)
+-----------------------
+-----------------------
+These are all the tasks in your list:
+  1.[T][X] borrow book
+  2.[D][X] return book (by: Sunday)
+  3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+-----------------------
+-----------------------
+OK! I've marked this task as not done yet:
+  [T][ ] borrow book
+-----------------------
+-----------------------
+These are all the tasks in your list:
+  1.[T][ ] borrow book
+  2.[D][X] return book (by: Sunday)
+  3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+-----------------------
+-----------------------
+Bye. Hope to see you again soon!
