@@ -1,6 +1,6 @@
-public class Task {
-    private String title;
-    private boolean isMarked = false;
+public abstract class Task {
+    protected String title;
+    protected boolean isMarked = false;
 
     public Task(String title) {
         this.title = title;
@@ -17,6 +17,7 @@ public class Task {
     @Override
     public String toString(){
         String mark = this.isMarked ? "[X] " : "[ ] ";
-        return mark + title;
+        return  mark + title;
+
     }
 }
