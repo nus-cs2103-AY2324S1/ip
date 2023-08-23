@@ -22,7 +22,7 @@ public class Task {
             this.isDone = false;
         }
 
-        public void splitDescription(){
+        public void splitDescription() {
             if (!isSplit) {
                 String[] splitDesc = description.split("\\s+", 2);
                 this.description = splitDesc[1];

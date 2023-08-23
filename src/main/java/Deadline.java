@@ -7,6 +7,7 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + deadline.replace("by", "(by:") + ")";
