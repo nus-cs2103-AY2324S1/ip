@@ -42,26 +42,33 @@ public class Duke {
           }
           break;
         case "mark": {
-          int index = Integer.parseInt(inputTokens[1]);
-          index--;
-          System.out.println("Marked selected task as done");
-          // set current task as done
-          Task selectedTask = taskList.get(index);
-          selectedTask.setDone();
-
-          System.out.println(uiFormatter.displayTask(selectedTask));
+          try {
+            int index = Integer.parseInt(inputTokens[1]);
+            index--;
+            // set current task as done
+            Task selectedTask = taskList.get(index);
+            selectedTask.setDone();
+            System.out.println("Marked selected task as done");
+            System.out.println(uiFormatter.displayTask(selectedTask));
+          } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Please enter a valid index!");
+          }
 
           break;
         }
         case "unmark": {
 
-          int index = Integer.parseInt(inputTokens[1]);
-          index--;
-          System.out.println("Marked selected task as un-done desu");
-          // set current task as un-done
-          Task selectedTask = taskList.get(index);
-          selectedTask.setUnDone();
-          System.out.println(uiFormatter.displayTask(selectedTask));
+          try {
+            int index = Integer.parseInt(inputTokens[1]);
+            index--;
+            // set current task as un-done
+            Task selectedTask = taskList.get(index);
+            System.out.println("Marked selected task as un-done desu");
+            selectedTask.setUnDone();
+            System.out.println(uiFormatter.displayTask(selectedTask));
+          } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Please enter a valid index!");
+          }
 
           break;
         }
