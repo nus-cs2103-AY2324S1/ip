@@ -42,6 +42,11 @@ public class Duke {
           break label;
         case "list":
 
+          if (taskList.isEmpty()) {
+            System.out.println("list is empty!");
+            break;
+          }
+
           for (int i = 0; i < taskList.size(); i++) {
 
             String index = Integer.toString(i + 1);
