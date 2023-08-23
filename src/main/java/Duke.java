@@ -33,7 +33,6 @@ public class Duke {
                 System.out.println(divider);
                 System.out.println(
                         "You have somehow found the audacity to conjure up this laughable list of inconsequential endeavours:\n");
-                System.out.println(divider);
                 for (int i = 1; i <= list.size(); i++) {
                     System.out.println(i + ". " + list.get(i - 1));
                 }
@@ -73,11 +72,12 @@ public class Duke {
                     if (command.substring(5).equals("")) {
                         throw new Exception("The description of a todo cannot be empty.");
                     }
+                    list.add(new ToDo(command.substring(5)));
                     System.out.println(list.get(list.size() - 1).toString());
                     System.out
                             .println("Congratulations, your pile of tasks has swelled to a whopping " + list.size()
                                     + ".");
-                    list.add(new ToDo(command.substring(5)));
+                    ;
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 } finally {
@@ -142,6 +142,22 @@ public class Duke {
                                     + ".");
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
+                } finally {
+                    System.out.println(divider);
+                }
+            } else if (command.startsWith("delete")) {
+                // Delete a task
+                System.out.println(divider);
+                int taskNum = Integer.parseInt(command.substring(7));
+                try {
+                    System.out.println(
+                            "One less annoyance to plague your feeble list. This task has been banished:\n");
+                    System.out.println(list.get(taskNum - 1).toString());
+                    list.remove(taskNum - 1);
+                    System.out.println(
+                            "Congratulations, your pile of tasks has shrunk to a measly " + list.size() + ".");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("You have no such task, mortal.");
                 } finally {
                     System.out.println(divider);
                 }
