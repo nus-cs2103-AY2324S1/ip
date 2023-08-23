@@ -28,7 +28,7 @@ public class TaskList {
     }
 
     public void removeTask(int task_number) {
-        if (task_number >= 0 && task_number < task_List.size()) {
+        if (task_number >= 0 && task_number <= task_List.size()) {
             task_List.remove(task_number - 1);
         }
     }

@@ -177,7 +177,7 @@ public class MYBot {
         System.out.println("____________________________________________________________");
 
         try {
-            if (task_number >= 0 && task_number < task_List.getTask_Count()) {
+            if (task_number >= 0 && task_number <= task_List.getTask_Count()) {
                 Task taskToBeRemoved = task_List.getTask(task_number);
                 task_List.removeTask(task_number);
                 System.out.println("Noted. I've removed this task:\n  " + taskToBeRemoved.toString());
