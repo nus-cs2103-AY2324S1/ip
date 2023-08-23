@@ -5,14 +5,6 @@ public class Jarvis {
     private static ArrayList<Task> taskList = new ArrayList<Task>(); // list of Tasks
 
     private static final String name = "Jarvis";
-    private static final String logo = "      **     **     *******   **      ** **  ********\n" +
-            "     /**    ****   /**////** /**     /**/** **////// \n" +
-            "     /**   **//**  /**   /** /**     /**/**/**       \n" +
-            "     /**  **  //** /*******  //**    ** /**/*********\n" +
-            "     /** **********/**///**   //**  **  /**////////**\n" +
-            " **  /**/**//////**/**  //**   //****   /**       /**\n" +
-            "//***** /**     /**/**   //**   //**    /** ******** \n" +
-            " /////  //      // //     //     //     // ////////  ";
     private static final String line = "____________________________________________________________";
     private static final String greeting = "Good day Sir! I'm ";
     private static final String question = "How can I help you today Sir?";
@@ -21,9 +13,9 @@ public class Jarvis {
     private static final String markInforming = "Roger that Sir, I've marked this task as done:";
     private static final String unmarkInforming = "Noted Sir, I've marked this task as NOT done yet:";
     private static final String taskInforming = "As you please Sir, I've added the task:";
+    private static final String errorInforming = "My apologies Sir, this request cannot be processed.";
 
     private static void printGreeting() {
-        System.out.println(logo);
         System.out.println(line);
         System.out.println(greeting + name + "!");
         System.out.println(question);
@@ -69,13 +61,19 @@ public class Jarvis {
         System.out.println(line);
     }
 
+    private static void printError() {
+        System.out.println(line);
+        System.out.println(errorInforming);
+        System.out.println(line);
+    }
+
     public static void main(String[] args) {
 
         printGreeting();
 
+        Scanner scanner = new Scanner(System.in);
         while (true) {
-            Scanner userInput = new Scanner(System.in);
-            String command = userInput.nextLine();
+            String command = scanner.nextLine().trim();
 
             if (command.equals("list")) { // if "list" is entered
                 printList();
@@ -84,7 +82,8 @@ public class Jarvis {
                 printBye();
                 break;
 
-            } else if (command.contains("mark") || command.contains("unmark")) { // if "mark" or "unmark" is entered
+            } else if (command.contains("mark") ||
+                    command.contains("unmark")) { // if "mark" or "unmark" is entered
                 int taskNum = Integer.parseInt(command.substring(command.length() - 1));
                 if (command.contains("unmark")) { // if "unmark" is entered
                     Task currentTask = taskList.get(taskNum - 1);
@@ -96,7 +95,9 @@ public class Jarvis {
                     printMark(currentTask);
                 }
 
-            } else { // if task command is entered
+            } else if (command.contains("todo") ||
+                    command.contains("deadline") ||
+                    command.contains("event")) { // if task command is entered
                 if (command.contains("todo")) { // if "todo" is entered
                     String taskDescription = command.substring(5);
                     ToDo todo = new ToDo(taskDescription);
@@ -120,7 +121,11 @@ public class Jarvis {
                     taskList.add(event);
                     printTask(event);
                 }
+
+            } else { // if command given is invalid
+                printError();
             }
         }
+        scanner.close(); // closing the user input scanner
     }
 }

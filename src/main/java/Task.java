@@ -14,9 +14,9 @@ public class Task {
     public String toString() { // generates the string of marking and task
         String marking = "";
         if (this.isDone) {
-            marking = "[✓]";
+            marking = "[X]";
         } else {
-            marking = "[✕]";
+            marking = "[ ]";
         }
         return marking + " " + this.description;
     }

@@ -1,0 +1,11 @@
+todo borrow book
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+deadline finish assignment /by Saturday
+todo start on vlog
+list
+mark 1
+mark 3
+unmark 3
+list
+bye
