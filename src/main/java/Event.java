@@ -1,6 +1,6 @@
 public class Event extends Task {
-    String fromDate;
-    String toDate;
+    private String fromDate;
+    private String toDate;
     public Event(String description, String fromDate, String toDate) {
         super(description);
         this.fromDate = fromDate;

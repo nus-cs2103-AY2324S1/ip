@@ -21,9 +21,9 @@ public class TehO {
                 markTask(userCommand);
             } else if (userCommand.startsWith("unmark")) {
                 unmarkTask(userCommand);
-            } else if (userCommand.startsWith("todo")) { //todo borrow book
+            } else if (userCommand.startsWith("todo")) {
                 addToDo(userCommand);
-            } else if (userCommand.startsWith("deadline")) { //deadline return book /by Sunday
+            } else if (userCommand.startsWith("deadline")) {
                 addDeadline(userCommand);
             } else if (userCommand.startsWith("event")) {
                 addEvent(userCommand);
