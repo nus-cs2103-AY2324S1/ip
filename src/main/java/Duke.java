@@ -5,6 +5,12 @@ public class Duke {
     private final String line = "_____________________________________________________";
     private final ArrayList<Task> lst = new ArrayList<>();
 
+    private enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
@@ -85,7 +91,18 @@ public class Duke {
                     }
 
                 } else {
+                    TaskType taskType;
                     if (input.startsWith("todo")) {
+                        taskType = TaskType.TODO;
+                    } else if (input.startsWith("deadline")) {
+                        taskType = TaskType.DEADLINE;
+                    } else if (input.startsWith("event")) {
+                        taskType = TaskType.EVENT;
+                    } else {
+                        taskType = null;
+                    }
+
+                    if (taskType == TaskType.TODO) {
 
                         if (input.replaceAll("\\s", "").equals(input)) {
                             throw new DukeInvalidCommandException("todo");
@@ -97,7 +114,7 @@ public class Duke {
                             throw new DukeInvalidCommandException(command);
                         }
                         this.addTodo(description);
-                    } else if (input.startsWith("deadline")) {
+                    } else if (taskType == TaskType.DEADLINE) {
 
                         if (input.replaceAll("\\s", "").equals(input)) {
                             throw new DukeInvalidCommandException("deadline");
@@ -120,7 +137,7 @@ public class Duke {
                         } else {
                             this.addDeadline(description, by);
                         }
-                    } else if (input.startsWith("event")) {
+                    } else if (taskType == TaskType.EVENT) {
 
                         if (input.replaceAll("\\s", "").equals(input)) {
                             throw new DukeInvalidCommandException("event");
