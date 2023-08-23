@@ -35,6 +35,19 @@ public class Duke {
         System.out.println("\t____________________________________________________________");
     }
 
+    public static void deleteTask(int i) throws DukeException {
+        if (i >= 1 && i <= tasks.size()) {
+            Task deletedTask = tasks.remove(i - 1);
+            System.out.println("\t____________________________________________________________");
+            System.out.println("\t Noted. I've removed this task:");
+            System.out.println("\t   " + deletedTask.toString());
+            System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("\t____________________________________________________________");
+        } else {
+            throw new DukeException("Cannot delete a task that is out of range!");
+        }
+    }
+
     public static void printList() {
         System.out.println("\t____________________________________________________________");
         System.out.println("\t Here are the tasks in your list:");
@@ -88,10 +101,29 @@ public class Duke {
                 if (message.equals("bye")) break;
                 if (message.equals("list")) {
                     printList();
-                } else if (message.startsWith("mark ")) {
-                    markAsDone(Integer.parseInt(message.substring(5)));
-                } else if (message.startsWith("unmark ")) {
-                    unmarkAsDone(Integer.parseInt(message.substring(7)));
+                } else if (message.startsWith("mark")) {
+                    if (message.length() <= 5) throw new DukeException("You need to specify the index of the task to mark.");
+                    try {
+                        markAsDone(Integer.parseInt(message.substring(5)));
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("The index of the task to mark is not a valid integer.");
+                    }
+                } else if (message.startsWith("unmark")) {
+                    if (message.length() <= 7)
+                        throw new DukeException("You need to specify the index of the task to unmark.");
+                    try {
+                        unmarkAsDone(Integer.parseInt(message.substring(7)));
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("The index of the task to unmark is not a valid integer.");
+                    }
+                } else if (message.startsWith("delete")) {
+                    if (message.length() <= 7)
+                        throw new DukeException("You need to specify the index of the task to delete.");
+                    try {
+                        deleteTask(Integer.parseInt(message.substring(7)));
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("The index of the task to delete is not a valid integer.");
+                    }
                 } else if (message.startsWith("todo")) {
                     if (message.length() <= 5) throw new DukeException("The description of a todo cannot be empty.");
                     addTodo(message.substring(5));
