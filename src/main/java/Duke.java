@@ -56,6 +56,10 @@ public class Duke {
                     String description3 = validateEventCommand(input);
                     this.storage.addTask(description3);
                     break;
+                case "delete":
+                    int taskNumber3 = Integer.parseInt(inputArr[1]);
+                    this.storage.deleteTask(taskNumber3);
+                    break;
                 default:
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

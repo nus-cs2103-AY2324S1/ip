@@ -33,6 +33,17 @@ public class Storage {
 
     }
 
+    public void deleteTask(int taskNumber) {
+        if (taskNumber > this.tasks.size()) {
+            formatPrintMessage("Task number does not exist");
+            return;
+        }
+
+        Task task = this.tasks.get(taskNumber - 1);
+        this.tasks.remove(task);
+        formatPrintMessage("Noted. I've removed this task:\n  " + task + "\nNow you have " + this.tasks.size() + " task(s) in the list.");
+    }
+
     public void showAllTasks() {
         if (this.tasks.size() == 0) {
             formatPrintMessage("You have no tasks in your list.");
