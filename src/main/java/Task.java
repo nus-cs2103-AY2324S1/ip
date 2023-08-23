@@ -1,4 +1,4 @@
-public class Task {
+abstract public class Task {
     protected String description;
     protected boolean isDone;
 
@@ -6,13 +6,13 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
-    public String printTask() {
-        return "[" + (isDone ? "X" : " ") + "] " + this.description;
-    }
     public void markAsDone() {
         this.isDone = true;
     }
     public void markAsUndone() {
         this.isDone = false;
+    }
+    public String toString() {
+        return String.format("[%s] %s", this.isDone ? "X" : " ", this.description);
     }
 }
