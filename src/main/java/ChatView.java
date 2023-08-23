@@ -45,18 +45,18 @@ public class ChatView {
                 break;
             case "todo":
                 out = chatRecord.addTask(commandSplit[1], TaskTypes.TODO);
-                System.out.println(beautifyString(String.format("Recorded to database: %s", out.toString())));
+                System.out.println(beautifyString(String.format("Recorded to database: %s\nYou now have %d tasks in the list", out.toString(), chatRecord.getCount())));
                 break;
             case "deadline":
                 String[] ddlSplit = commandSplit[1].split(" /by ");
                 out = chatRecord.addTask(ddlSplit[0], TaskTypes.DEADLINE, ddlSplit[1]);
-                System.out.println(beautifyString(String.format("Recorded to database: %s", out.toString())));
+                System.out.println(beautifyString(String.format("Recorded to database: %s\nYou now have %d tasks in the list", out.toString(), chatRecord.getCount())));
                 break;
             case "event":
                 String[] evSplit = commandSplit[1].split(" /from ");
                 String[] args = evSplit[1].split(" /to ");
                 out = chatRecord.addTask(evSplit[0], TaskTypes.EVENT, args);
-                System.out.println(beautifyString(String.format("Recorded to database: %s", out.toString())));
+                System.out.println(beautifyString(String.format("Recorded to database: %s\nYou now have %d tasks in the list", out.toString(), chatRecord.getCount())));
                 break;
             default:
                 System.out.println(beautifyString(command));
