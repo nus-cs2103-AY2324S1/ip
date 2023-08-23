@@ -38,16 +38,15 @@ public class Duke {
                 switch (words[0]) {
                     case "list":
                         if(words.length > 1) {
-                            throw new InvalidArgumentException("Error: There are too many inputs. " +
-                                    "Please enter 'list' without any extra arguments or use a different " +
+                            throw new InvalidArgumentException("Please enter 'list' without any extra arguments " +
+                                    "or use a different " +
                                     "keyword");
                         }
                         Printer.printList(tasklst);
                         break;
                     case "mark":
                         if(words.length != 2) {
-                            throw new InvalidArgumentException("Error: There are too many inputs. " +
-                                    "Please enter 'mark {task number}' or use a different " +
+                            throw new InvalidArgumentException("Please enter 'mark {task number}' or use a different " +
                                     "keyword");
                         }
                         int temp = Character.getNumericValue(input.charAt(5));
@@ -55,8 +54,8 @@ public class Duke {
                         break;
                     case "unmark":
                         if(words.length != 2) {
-                            throw new InvalidArgumentException("Error: There are too many inputs. " +
-                                    "Please enter 'unmark {task number}' or use a different " +
+                            throw new InvalidArgumentException("Please enter 'unmark {task number}' " +
+                                    "or use a different " +
                                     "keyword");
                         }
                         int temp2 = Character.getNumericValue(input.charAt(7));
@@ -70,8 +69,8 @@ public class Duke {
                     case "deadline":
                         fields = input.substring(9).split("/by ");
                         if(fields.length != 2) {
-                            throw new InvalidArgumentException("Error: Invalid number of args. " +
-                                    "Please enter 'deadline {task description} '/by' {date}' or use a different " +
+                            throw new InvalidArgumentException("Please enter 'deadline {task description} " +
+                                    "'/by' {date}' or use a different " +
                                     "keyword");
                         }
                         tasklst[count] = new Deadline(fields[0], fields[1]);
@@ -81,8 +80,8 @@ public class Duke {
                     case "event":
                         fields = input.substring(6).split("/from |/to ");
                         if(fields.length != 3) {
-                            throw new InvalidArgumentException("Error: Invalid number of args. " +
-                                    "Please enter 'event {task description} '/from' {start} '/to' {finish}" +
+                            throw new InvalidArgumentException("Please enter 'event {task description} " +
+                                    "'/from' {start} '/to' {finish} " +
                                     "or use a different " +
                                     "keyword");
                         }
@@ -93,7 +92,15 @@ public class Duke {
                     default:
                         throw new UnknownActionException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
-            } catch (DukeException e){
+            } catch (UnknownActionException e){
+                Printer.printLine();
+                System.out.println(e.getMessage());
+                Printer.printLine();
+            } catch (InvalidArgumentException e) {
+                Printer.printLine();
+                System.out.println("OOPS! Invalid number of arguments "+ e.getMessage());
+                Printer.printLine();
+            } catch (NoTaskException e) {
                 Printer.printLine();
                 System.out.println(e.getMessage());
                 Printer.printLine();
