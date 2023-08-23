@@ -7,7 +7,10 @@ public class TaskManager {
     public TaskManager(){
         this.tasks = new ArrayList<Task>();
     }
-    public void addTodo(String t) {
+    public void addTodo(String t) throws ChatbotException {
+        if (t == null || t.trim().isEmpty()) {
+            throw new ChatbotException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
         Task task = new Todos(t);
         tasks.add(task);
         System.out.println("    ____________________________________________________________");
@@ -16,7 +19,13 @@ public class TaskManager {
         System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
         System.out.println("    ____________________________________________________________");
     }
-    public void addDeadlines(String t, String date) {
+    public void addDeadlines(String t, String date) throws ChatbotException {
+        if (t == null || t.trim().isEmpty()) {
+            throw new ChatbotException("☹ OOPS!!! The description of a deadlines cannot be empty.");
+        }
+        else if (date == null || date.trim().isEmpty()) {
+            throw new ChatbotException("☹ OOPS!!! The date of a deadlines cannot be empty.");
+        }
         Task task = new Deadlines(t, date);
         tasks.add(task);
         System.out.println("    ____________________________________________________________");
@@ -26,7 +35,15 @@ public class TaskManager {
         System.out.println("    ____________________________________________________________");
     }
 
-    public void addEvents(String t, String start, String end) {
+    public void addEvents(String t, String start, String end) throws ChatbotException {
+        if (t == null || t.trim().isEmpty()) {
+            throw new ChatbotException("☹ OOPS!!! The description of a event cannot be empty.");
+        }
+        else if (start == null || start.trim().isEmpty()) {
+            throw new ChatbotException("☹ OOPS!!! The starting date of a event cannot be empty.");
+        } else if (end == null || end.trim().isEmpty()) {
+            throw new ChatbotException("☹ OOPS!!! The end time of a event cannot be empty.");
+        }
         Task task = new Events(t, start, end);
         tasks.add(task);
         System.out.println("    ____________________________________________________________");
