@@ -1,3 +1,4 @@
+import java.awt.geom.NoninvertibleTransformException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -7,6 +8,18 @@ public class Duke {
   protected static ArrayList<Task> taskList = new ArrayList<Task>();
   private static final Pattern commandPattern = Pattern.compile("^(\\S+)\\s*");
 
+  enum Command {
+    LIST,
+    TODO,
+    DEADLINE,
+    EVENT,
+    MARK,
+    UNMARK,
+    DELETE,
+    BYE,
+    INVALID
+  }
+
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
 
@@ -15,56 +28,52 @@ public class Duke {
 
       String input = scanner.nextLine();
 
-      Matcher m = commandPattern.matcher(input);
-      String cmd = "";
-      if (m.find()) {
-        cmd = m.group(1);
-      }
+      Command cmd = getCommand(input);
 
       switch (cmd) {
-        case "bye":
+        case BYE:
           scanner.close();
           exit();
           return;
-        case "list":
+        case LIST:
           System.out.println(listString());
           break;
-        case "mark":
+        case MARK:
           try {
             handleMark(input);
           } catch (IllegalArgumentException | DukeIOBException e) {
             System.out.println(e.getMessage());
           }
           break;
-        case "unmark":
+        case UNMARK:
           try {
             handleUnmark(input);
           } catch (IllegalArgumentException | DukeIOBException e) {
             System.out.println(e.getMessage());
           }
           break;
-        case "todo":
+        case TODO:
           try {
             handleTodo(input);
           } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
           }
           break;
-        case "deadline":
+        case DEADLINE:
           try {
             handleDeadline(input);
           } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
           }
           break;
-        case "event":
+        case EVENT:
           try {
             handleEvent(input);
           } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
           }
           break;
-        case "delete":
+        case DELETE:
           try {
             handleDelete(input);
           } catch (IllegalArgumentException | DukeIOBException e) {
@@ -72,9 +81,22 @@ public class Duke {
           }
           break;
         default:
-          handleInvalid();
+          handleInvalidCommands();
       }
       System.out.println();
+    }
+  }
+
+  private static Command getCommand(String input) {
+    Matcher m = commandPattern.matcher(input);
+    String commandString = "";
+    if (m.find()) {
+      commandString = m.group(1).toUpperCase();
+    }
+    try {
+      return Command.valueOf(commandString);
+    } catch (IllegalArgumentException e) {
+      return Command.INVALID;
     }
   }
 
@@ -200,8 +222,16 @@ public class Duke {
     return sb.toString();
   }
 
-  private static void handleInvalid() {
-    System.out.println(
-        "Invalid Input\nCommands: list, todo, deadline, event, mark, unmark, delete, bye");
+  private static void handleInvalidCommands() {
+    StringBuilder sb = new StringBuilder();
+    for (Command cmd : Command.values()) {
+      if (Command.INVALID.equals(cmd)) {
+        continue;
+      }
+      sb.append(cmd.toString().toLowerCase());
+      sb.append(", ");
+    }
+    sb.setLength(sb.length() - 2);
+    System.out.printf("Invalid Input%nCommands: %s%n", sb);
   }
 }
