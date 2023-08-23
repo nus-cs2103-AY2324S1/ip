@@ -96,23 +96,27 @@ public class Corgi {
                     break;
                 case MARK:
                     if (inputs.length < 2) throw new EmptyDescException();
-                    markTaskAsDone(inputs[1]);
+                    this.markTaskAsDone(inputs[1]);
                     break;
                 case UNMARK:
                     if (inputs.length < 2) throw new EmptyDescException();
-                    markTaskAsNotDone(inputs[1]);
+                    this.markTaskAsNotDone(inputs[1]);
                     break;
                 case TODO:
                     if (inputs.length < 2) throw new EmptyDescException();
-                    addToDo(inputs[1]);
+                    this.addToDo(inputs[1]);
                     break;
                 case DEADLINE:
                     if (inputs.length < 2) throw new EmptyDescException();
-                    addDeadline(inputs[1]);
+                    this.addDeadline(inputs[1]);
                     break;
                 case EVENT:
                     if (inputs.length < 2) throw new EmptyDescException();
-                    addEvent(inputs[1]);
+                    this.addEvent(inputs[1]);
+                    break;
+                case DELETE:
+                    if (inputs.length < 2) throw new EmptyDescException();
+                    this.deleteTask(inputs[1]);
                     break;
             }
         } catch (InvalidCommandException e) {
