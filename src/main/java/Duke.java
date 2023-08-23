@@ -29,6 +29,7 @@ public class Duke {
                 for (i = 1; i < todoList.size() + 1; i++) {
                     System.out.println(i + ". " + todoList.get(i - 1).toString());
                 }
+                System.out.println(String.format("You have %d task(s) currently in the list", todoList.size()));
             } else if (response.startsWith("mark")) {
                 try {
                     String[] parts = response.split(" ");
@@ -49,6 +50,18 @@ public class Duke {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("This task does not exist!");
                 }
+            } else if (response.startsWith("delete")) {
+                try {
+                    String[] parts = response.split(" ");
+                    int taskIndex = Integer.parseInt(parts[1]) - 1;
+                    Task toRemove = todoList.get(taskIndex);
+                    todoList.remove(toRemove);
+                    System.out.println("Okay! I have removed this task from the list");
+                    System.out.println(toRemove.toString());
+                    System.out.println(String.format("You have %d task(s) currently in the list", todoList.size()));
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("This task does not exist!");
+                }
             } else if (response.startsWith("deadline")) {
                 if (response.equals("deadline")) {
                     System.out.println("Task description cannot be empty!");
@@ -56,7 +69,9 @@ public class Duke {
                     try {
                         Deadline newDeadline = new Deadline(response);
                         todoList.add(newDeadline);
-                        System.out.println("added: " + newDeadline.toString());
+                        System.out.println("Roger! I have added the following task to the list");
+                        System.out.println(newDeadline.toString());
+                        System.out.println(String.format("You have %d task(s) currently in the list", todoList.size()));
                     } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("Please specify the deadline!");
                     }
@@ -68,7 +83,9 @@ public class Duke {
                     try {
                         Event newEvent = new Event(response);
                         todoList.add(newEvent);
-                        System.out.println("added: " + newEvent.toString());
+                        System.out.println("Roger! I have added the following task to the list");
+                        System.out.println(newEvent.toString());
+                        System.out.println(String.format("You have %d task(s) currently in the list", todoList.size()));
                     } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("Please specify both the start and end time!");
                     }
@@ -79,7 +96,9 @@ public class Duke {
                 } else {
                     ToDo newTodo = new ToDo(response);
                     todoList.add(newTodo);
-                    System.out.println("added: " + newTodo.toString());
+                    System.out.println("Roger! I have added the following task to the list");
+                    System.out.println(newTodo.toString());
+                    System.out.println(String.format("You have %d task(s) currently in the list", todoList.size()));
                 }
             } else {
                 System.out.println("Sorry! Don't know what that is!");

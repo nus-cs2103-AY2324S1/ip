@@ -14,12 +14,19 @@ Task description cannot be empty!
 Please specify the deadline!
 Please specify both the start and end time!
 Please specify both the start and end time!
-added: [T] [ ] go gym
-added: [D] [ ] go gym (by: 2pm)
-added: [E] [ ] go gym (from: 2pm to: 3pm)
+Roger! I have added the following task to the list
+[T] [ ] go gym
+You have 1 task(s) currently in the list
+Roger! I have added the following task to the list
+[D] [ ] go gym (by: 2pm)
+You have 2 task(s) currently in the list
+Roger! I have added the following task to the list
+[E] [ ] go gym (from: 2pm to: 3pm)
+You have 3 task(s) currently in the list
 1. [T] [ ] go gym
 2. [D] [ ] go gym (by: 2pm)
 3. [E] [ ] go gym (from: 2pm to: 3pm)
+You have 3 task(s) currently in the list
 Good Job! I have marked this task as done!
 [T] [X] go gym
 Good Job! I have marked this task as done!
@@ -34,7 +41,11 @@ Aw man! I have marked this task as undone. We go again!
 [D] [ ] go gym (by: 2pm)
 Aw man! I have marked this task as undone. We go again!
 [T] [ ] go gym
+This task does not exist!
+Okay! I have removed this task from the list
+[E] [ ] go gym (from: 2pm to: 3pm)
+You have 2 task(s) currently in the list
 1. [T] [ ] go gym
 2. [D] [ ] go gym (by: 2pm)
-3. [E] [ ] go gym (from: 2pm to: 3pm)
+You have 2 task(s) currently in the list
 Bye. Hope to see you again!
