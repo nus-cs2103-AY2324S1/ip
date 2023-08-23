@@ -1,9 +1,11 @@
 
+import Tasks.Task;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] tasks = new String[100];
+        ArrayList<Task> tasks = new ArrayList<Task>(100);
         int counter = 0;
         String logo =
                   "\n" +
@@ -17,12 +19,25 @@ public class Duke {
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
             if (input.equals("list")) {
-                for (int i = 0; i < counter; i++ ){
-                    System.out.println(i + 1 + ". " + tasks[i]);
+                System.out.println("Here are the tasks in your list: \n");
+                for (int i = 0; i < counter; i++ ) {
+                    Task nextTask = tasks.get(i);
+                    System.out.println(i + 1 + ". [" + nextTask.getStatusIcon() + "] " + nextTask.getTaskDesc());
                 }
-            } else {
+            } else if (input.split(" ")[0].equals("mark")) {
+                int indexToMark = Integer.valueOf(input.split(" ")[1]);
+                Task markedTask = tasks.get(indexToMark - 1);
+                markedTask.markAsDone();
+                System.out.println("Nice! I've marked this task as done: \n [" + markedTask.getStatusIcon() + "] " + markedTask.getTaskDesc() + "\n");
+            }  else if (input.split(" ")[0].equals("unmark")) {
+                int indexToMark = Integer.valueOf(input.split(" ")[1]);
+                Task markedTask = tasks.get(indexToMark - 1);
+                markedTask.markAsUndone();
+                System.out.println("OK, I've marked this task as not done yet: \n [" + markedTask.getStatusIcon() + "] " + markedTask.getTaskDesc() + "\n");
+            }
+            else {
                 System.out.println("added: " + input);
-                tasks[counter] = input;
+                tasks.add(new Task(input));
                 counter++;
             }
             input = scanner.nextLine();
