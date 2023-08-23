@@ -1,9 +1,11 @@
 import java.util.Scanner;
 
 public class Duke {
+
     private static String greetingString =  "Hello! I'm ChampionSOS\nWhat can I do for you?";
     private static String exitString =  "Bye. Hope to see you again soon!";
     private static DukeList listOfTexts = new DukeList();
+
     public static void main(String[] args) {
 
         /**
@@ -25,7 +27,7 @@ public class Duke {
                     Duke.listOfTexts.toggleDone(Integer.parseInt(userInput.substring(5)), "mark");
                 } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
                     System.out.println("☹ OOPS!!! Please indicate a task to mark.");
-                } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                } catch (NullPointerException | IndexOutOfBoundsException e) {
                     System.out.println("☹ OOPS!!! Please indicate an appropriate index.");
                 }
 
@@ -69,6 +71,14 @@ public class Duke {
                     System.out.println(e.getMessage());
                 } catch (Exception e) {
                     System.out.println("☹ OOPS!!! There are missing details for the event.");
+                }
+
+            } else if (userInput.startsWith("delete")) {
+
+                try {
+                    listOfTexts.removeItem(Integer.parseInt(userInput.substring(7)));
+                } catch (Exception e) {
+                    System.out.println(e);
                 }
 
             } else {
