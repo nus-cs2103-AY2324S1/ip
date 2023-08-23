@@ -8,5 +8,5 @@ public interface Command {
      *
      * @param input
      */
-    public void run(String input);
+    void run(String input);
 }
