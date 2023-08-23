@@ -47,6 +47,8 @@ public class DukeHandler {
                 output = tasklist.addDeadline(rest);
             } else if (command.equals("event")) {
                 output = tasklist.addEvent(rest);
+            } else if (command.equals("delete")) {
+                output = tasklist.delete(rest);
             } else {
                 throw new InvalidCommandException();
             }

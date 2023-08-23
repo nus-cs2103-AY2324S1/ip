@@ -85,7 +85,7 @@ public class TaskList {
     } 
   }
 
-  public String unmarkAsDone(String input) throws DukeException{
+  public String unmarkAsDone(String input) throws DukeException {
     try {int index = Integer.parseInt(input) - 1;
       if (index < 0 || index + 1 > list.size()) {
           throw new NoSuchEntryException();
@@ -100,6 +100,20 @@ public class TaskList {
     } catch (NumberFormatException e) {
       throw new InvalidNumberException();
     } 
+  }
+
+  public String delete(String input) throws DukeException {
+    try {int index = Integer.parseInt(input) - 1;
+      if (index < 0 || index + 1 > list.size()) {
+          throw new NoSuchEntryException();
+      } else {
+        String tempString =  list.get(index).toString();
+        list.remove(index);
+        return String.format("I've removed this task:\n%s\nNow you have %d task(s) in the list.\n", tempString, list.size());
+      }
+    } catch (NumberFormatException e) {
+      throw new InvalidNumberException();
+    }
   }
 
   public String toString() {

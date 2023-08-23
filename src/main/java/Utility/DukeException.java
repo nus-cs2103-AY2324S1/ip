@@ -9,7 +9,7 @@ public class DukeException extends Exception{
     }
 
     public String toString() {
-        return this.errDescription;
+        return "OOPS! " + this.errDescription;
     }
     
 }
