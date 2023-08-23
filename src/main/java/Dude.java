@@ -75,21 +75,18 @@ public class Dude {
     return tasksList.toString();
   }
 
-  // todo: make this fn print
-
   /**
-   * Format message/prompt to be printed to console.
+   * Format and print given message/prompt to console.
    *
-   * @param message Message to format. Lines separated by \n.
-   * @return Formatted message.
+   * @param message Message to print. Lines separated by \n.
    */
-  public static String formatMessage(String message) {
+  public static void printMessage(String message) {
     String[] lines = message.split("\\n");
     String prefix = "  ";
     String output = border + prefix +
       String.join("\n" + prefix, lines) + "\n" +
       border;
-    return output;
+    System.out.println(output);
   }
 
   /**
@@ -107,48 +104,48 @@ public class Dude {
       case "bye":
         // quit
         // Print shutdown greeting
-        System.out.println(formatMessage(goodbye));
+        printMessage(goodbye);
         return false;
       case "list":
         // list tasks
-        System.out.println(formatMessage(getTasksList()));
+        printMessage(getTasksList());
         break;
       case "mark":
         // mark task as done
         if (splitInput.length < 2) {
-          System.out.println(formatMessage(noTaskNumber));
+          printMessage(noTaskNumber);
         } else {
           String specifiedTask = splitInput[1];
           try {
             int taskNumber = Integer.parseInt(specifiedTask);
             Task task = getTask(taskNumber);
             task.markAsDone();
-            System.out.println(formatMessage(markedAsDonePrefix + task.getTaskString()));
+            printMessage(markedAsDonePrefix + task.getTaskString());
           } catch (NumberFormatException | TaskOutOfBoundsException e) {
-            System.out.println(formatMessage(String.format(invalidTaskNumber, specifiedTask)));
+            printMessage(String.format(invalidTaskNumber, specifiedTask));
           }
         }
         break;
       case "unmark":
         // mark task as not done
         if (splitInput.length < 2) {
-          System.out.println(formatMessage(noTaskNumber));
+          printMessage(noTaskNumber);
         } else {
           String specifiedTask = splitInput[1];
           try {
             int taskNumber = Integer.parseInt(specifiedTask);
             Task task = getTask(taskNumber);
             task.markAsNotDone();
-            System.out.println(formatMessage(markedAsNotDonePrefix + task.getTaskString()));
+            printMessage(markedAsNotDonePrefix + task.getTaskString());
           } catch (NumberFormatException | TaskOutOfBoundsException e) {
-            System.out.println(formatMessage(String.format(invalidTaskNumber, specifiedTask)));
+            printMessage(String.format(invalidTaskNumber, specifiedTask));
           }
         }
         break;
       default:
         // add task to list
         Task task = addTask(input);
-        System.out.println(formatMessage(String.format(addedTask, task.getTaskString(), numTasks)));
+        printMessage(String.format(addedTask, task.getTaskString(), numTasks));
     }
     return true;
   }
@@ -156,7 +153,7 @@ public class Dude {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
     // Print startup greeting
-    System.out.println(formatMessage(hello));
+    printMessage(hello);
 
     // Input loop -- wait for input, respond, repeat
     boolean shouldContinue = true;
