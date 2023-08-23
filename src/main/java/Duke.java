@@ -1,17 +1,26 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-
     public static void main(String[] args) {
+        List<String> lst = new ArrayList<>();
         System.out.println(greet());
         while (true) {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
+            if (input.equalsIgnoreCase("list")) {
+                //print out list
+                for (int i = 0; i < lst.size(); i++) {
+                    System.out.println(String.valueOf(i + 1) + ". " + lst.get(i));
+                }
+            } else if (input.equalsIgnoreCase("bye")) {
                 sc.close();
                 break;
             } else {
-                System.out.println(input);
+                //add the item into the list
+                lst.add(input);
+                System.out.println("added: " + input);
             }
         }
         System.out.println(Duke.byeGreetings);
