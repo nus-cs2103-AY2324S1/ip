@@ -1,14 +1,18 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Duke {
     static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     static List<Task> tasks = new ArrayList<>();
 
+    private static void outputMessage(String message) {
+        System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+    }
+
     public static void main(String[] args) {
-        String greeting = HORIZONTAL_LINE + " Hello! I'm Pixel\n What can I do for you?\n" + HORIZONTAL_LINE;
-        System.out.println(greeting);
+        outputMessage(" Hello! I'm Pixel\n What can I do for you?\n");
 
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
@@ -16,32 +20,24 @@ public class Duke {
             String command = input.split(" ", 2)[0];
             switch (command) {
                 case "bye":
-                    System.out.println(HORIZONTAL_LINE + " Bye. Hope to see you again soon!\n" + HORIZONTAL_LINE);
+                    outputMessage(" Bye. Hope to see you again soon!\n");
                     break;
                 case "list":
-                    System.out.println(HORIZONTAL_LINE);
-                    for (Task task : tasks) {
-                        System.out.println(task.printTask());
-                    }
-                    System.out.println(HORIZONTAL_LINE);
+                    outputMessage(tasks.stream().map(task -> task.printTask() + "\n").collect(Collectors.joining()));
                     break;
                 case "mark": {
-                    Task task = tasks.get(Integer.parseInt(input.split(" ", 2)[1]) - 1);
-                    task.markAsDone();
-                    System.out.println(HORIZONTAL_LINE + " Nice! I've marked this task as done:\n" +
-                            task.printTask() + "\n" + HORIZONTAL_LINE);
+                    tasks.get(Integer.parseInt(input.split(" ", 2)[1]) - 1).markAsDone();
+                    outputMessage(" Nice! I've marked this task as done:\n");
                     break;
                 }
                 case "unmark": {
-                    Task task = tasks.get(Integer.parseInt(input.split(" ", 2)[1]) - 1);
-                    task.markAsUndone();
-                    System.out.println(HORIZONTAL_LINE + " OK, I've marked this task as not done yet:\n" +
-                            task.printTask() + "\n" + HORIZONTAL_LINE);
+                    tasks.get(Integer.parseInt(input.split(" ", 2)[1]) - 1).markAsUndone();
+                    outputMessage(" OK, I've marked this task as not done yet:\n");
                     break;
                 }
                 default:
                     tasks.add(new Task(input));
-                    System.out.println(HORIZONTAL_LINE + "added: " + input + "\n" + HORIZONTAL_LINE);
+                    outputMessage(String.format("added: %s\n", input));
                     break;
             }
         }
