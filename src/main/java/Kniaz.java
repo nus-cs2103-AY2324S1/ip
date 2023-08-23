@@ -1,8 +1,17 @@
 
 
 import java.util.Scanner;
+import java.util.List;
 
-import task.*;
+import exceptions.KniazRuntimeException;
+import logic.taskhandling.*;
+import parser.KniazCommand;
+import parser.KniazParser;
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.TaskList;
+import task.ToDo;
 
 public class Kniaz {
 
@@ -22,11 +31,7 @@ public class Kniaz {
      * Message to print when exiting.
      */
     private static final String EXITMESSAGE = "Bye. Hope to see you again soon!";
-    /**
-     * String that, when entered into the command line interface of Kniaz, result in Kniaz exiting, and
-     * printing the exit message.
-     */
-    public static final String EXITSTRING = "bye";
+
 
 
     /**
@@ -55,97 +60,90 @@ public class Kniaz {
         System.out.println("What can I do for you?");
         System.out.println(Kniaz.SEPERATOR);
 
-        String next = ""; //Initialise the input
+        KniazCommand nextCommand; //Initialise the input
         while (true) { // I find this a bit icky but we rely on guard clauses to break instead
 
-            next = input.nextLine();
+            try {
+                nextCommand = KniazParser.parseCommand(input.nextLine());
+            } catch (KniazRuntimeException e) {
+                System.out.println(e.getUserMessage());
+                System.out.println(Kniaz.SEPERATOR);
+                continue;
+            }
 
-            if (next.equals(Kniaz.EXITSTRING)) {
+
+            if (nextCommand.instructionEquals(KniazParser.InstructionType.QUIT)) {
 
                 break; // Used here instead of in the while because of timing of next
             }
 
-            if (next.equals("list")) {
+            if (nextCommand.instructionEquals(KniazParser.InstructionType.LIST)) {
 
                 System.out.println(taskList.toPrintString());
                 // print out if we are asked to list
-            } else if (next.startsWith("mark")) {
+            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.MARK)) {
 
-                // handle parsing which entry the user wants to mark here
-                String entryAsString = Kniaz.getAfter(next,"mark");
-                int entryAsInt = Integer.parseInt(entryAsString.strip());
-                int entryToMark = entryAsInt - 1;
+                try {
 
-                // handle actual marking here
-                taskList.get(entryToMark).markAsDone();
+                    String taskString = MarkHandler.handle(taskList ,nextCommand.getArgs());
+                    System.out.println("As you say. The task has been marked as done.");
+                    System.out.println(taskString);
 
-                // give user feedback
-                System.out.println("As you say. The task has been marked as done.");
-                System.out.println(taskList.get(entryToMark).toPrintString());
-
-            } else if (next.startsWith("unmark")) {
-
-                // handle parsing which entry user wants to unmark here
-                String entryAsString = Kniaz.getAfter(next,"unmark");
-                int entryAsInt = Integer.parseInt(entryAsString.strip());
-                int entryToMark = entryAsInt - 1;
-
-                // handle unmarking here
-                Kniaz.taskList.get(entryToMark).markAsUndone();
-
-                // give user feedback
-                System.out.println("Ah, so you didn't actually finish it. Correcting your mistake.");
-                System.out.println(taskList.get(entryToMark).toPrintString());
-
-            } else if (next.startsWith(("todo"))) {
-
-                String taskName = Kniaz.getAfter(next,"todo").strip();
-                // interpret everything else that isn't special as a task to add
-                Task taskToAdd = new ToDo((taskName));
-                // next currently holds the name of this new task
-
-                Kniaz.taskList.add(taskToAdd);
-
-                System.out.printf("added: %s%n",taskToAdd.toPrintString());
-            } else if (next.startsWith("deadline")) {
-
-                // pull the args for this command
-                String deadlineArgs = Kniaz.getAfter(next, "deadline");
-
-                String[] tokenizedDlineArgs = deadlineArgs.split("/");
-                // Split it up by the slash
+                } catch (KniazRuntimeException e) {
+                    System.out.println(e.getUserMessage());
+                }
 
 
-                String deadlineName = tokenizedDlineArgs[0].strip();
-                String deadlineTime = Kniaz.getAfter(tokenizedDlineArgs[1], "by").strip();
-                // we getAfter("by"), to get all after the by, as that's the actual date/time
-                // Of note, this means that if it's lacking "by", no time will be specified.
-                // strip to remove excess whitespace
 
-                Task taskToAdd = new Deadline(deadlineName,deadlineTime);
-                Kniaz.taskList.add(taskToAdd);
-                // make a new Deadline to add
+            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.UNMARK)) {
 
-                System.out.printf("added: %s%n",taskToAdd.toPrintString());
-                // remember to print our message to the user!
+                try {
 
-            } else if (next.startsWith("event")) {
-                String eventArgs = Kniaz.getAfter(next, "event");
+                    String taskString = UnmarkHandler.handle(taskList ,nextCommand.getArgs());
+                    System.out.println("Ah, so you didn't actually finish it. Correcting your mistake.");
+                    System.out.println(taskString);
 
-                String[] tokenizedEventArgs = eventArgs.split("/");
+                } catch (KniazRuntimeException e) {
+                    System.out.println(e.getUserMessage());
+                }
 
-                String eventName = tokenizedEventArgs[0].strip();
-                String eventStart = Kniaz.getAfter(tokenizedEventArgs[1], " from").strip();
-                String eventEnd = Kniaz.getAfter(tokenizedEventArgs[2], "to").strip();
-                // we use getAfter here to get all after the "from" or "to", as that's the actual date/time
-                // strip to remove excess whitespace
+            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.TODO)) {
 
-                Task taskToAdd = new Event(eventName, eventStart, eventEnd);
-                Kniaz.taskList.add(taskToAdd);
-                // add a new Event to the tasklist
+                try {
 
-                System.out.printf("added: %s%n",taskToAdd.toPrintString());
-                // and remember to give feedback to user
+                    String taskString = ToDoHandler.handle(taskList ,nextCommand.getArgs());
+                    System.out.println("As you say. The task has been added To-Do : ");
+                    System.out.println(taskString);
+
+                } catch (KniazRuntimeException e) {
+                    System.out.println(e.getUserMessage());
+                }
+
+            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.DEADLINE)) {
+
+                try {
+
+                    String taskString = DeadlineHandler.handle(taskList ,nextCommand.getArgs());
+                    System.out.println("As you say. The task has been added as a Deadline : ");
+                    System.out.println(taskString);
+
+                } catch (KniazRuntimeException e) {
+                    System.out.println(e.getUserMessage());
+                }
+
+            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.EVENT)) {
+
+
+                try {
+
+                    String taskString = EventHandler.handle(taskList ,nextCommand.getArgs());
+                    System.out.println("As you say. The task has been added To-Do : ");
+                    System.out.println(taskString);
+
+                } catch (KniazRuntimeException e) {
+                    System.out.println(e.getUserMessage());
+                }
+
             }
 
             // Each command input will invariable result in a seperator line being printed
@@ -160,17 +158,6 @@ public class Kniaz {
         System.out.println(Kniaz.SEPERATOR);
     }
 
-    /**
-     * Helper function to get the substring after a provided substring
-     * @param fullString The whole string to scan
-     * @param subString The substring to scan fullString for
-     * @return the substring of everything after the provided subString
-     */
-    private static String getAfter(String fullString, String subString) {
-        int indexOfSubString = fullString.indexOf(subString);
-        return fullString.substring(indexOfSubString + subString.length());
-        // add the substring length to skip to the end of it
-    }
 
 
 

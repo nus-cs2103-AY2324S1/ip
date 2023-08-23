@@ -33,6 +33,14 @@ public class TaskList extends ArrayList<Task> {
         return out.toString();
     }
 
+    public void markAsUndone(int index) {
+        this.get(index).markAsUndone();
+    }
+
+    public void markAsDone(int index) {
+        this.get(index).markAsDone();
+    }
+
 
 
 
