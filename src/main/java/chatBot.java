@@ -1,5 +1,10 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+
 public class chatBot {
+    private static List<Task> list = new ArrayList<>();
+
     public static void main(String[] args) {
         System.out.println("____________________________________________________________\n" +
                 " Hello! I'm Desolute\n" +
@@ -7,11 +12,11 @@ public class chatBot {
                 "____________________________________________________________\n");
 
         Scanner sc = new Scanner(System.in);
-        String next = sc.next();
+        String next = sc.nextLine();
 
         while (!next.equals("bye")) {
             nextCommand(next);
-            next = sc.next();
+            next = sc.nextLine();
         }
 
         System.out.println("____________________________________________________________\n" +
@@ -22,9 +27,7 @@ public class chatBot {
     private static void nextCommand(String str) {
         switch(str) {
             case "list":
-                System.out.println("____________________________________________________________\n" +
-                        " list\n" +
-                        "____________________________________________________________\n");
+                showList();
                 break;
             case "blah":
                 System.out.println("____________________________________________________________\n" +
@@ -32,9 +35,24 @@ public class chatBot {
                         "____________________________________________________________\n");
                 break;
             default:
+                // Adds ability to store text
+                Task curr = new Task(str);
+                list.add(curr);
                 System.out.println("____________________________________________________________\n" +
-                        " No such command! Please try again!\n" +
+                        " added: " +
+                        str +
+                        "\n" +
                         "____________________________________________________________\n");
         }
+    }
+
+    private static void showList() {
+        System.out.println("____________________________________________________________");
+        for (int i = 0; i < list.size(); i++) {
+            Task temp = list.get(i);
+            String current = String.format(" %d. %s", i + 1, temp.toString());
+            System.out.println(current);
+        }
+        System.out.println("____________________________________________________________\n");
     }
 }
