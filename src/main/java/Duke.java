@@ -55,14 +55,47 @@ public class Duke {
                     }
 
                 }
-            } else {
-                //add new task to to-do list
-                Task newTask = new Task(userInput);
+            } else if (userInput.startsWith("todo")){
+                //add new to-do task
+                String description = userInput.substring(5).trim();
+                Task newTask = new Todo(description);
                 toDoList.add(newTask);
-                System.out.println("added: " + userInput);
+                System.out.println("Got it. I've added this task:\n " + newTask);
+                System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+
+            } else if (userInput.startsWith("deadline")) {
+                //add new deadline
+                String[] splitInput = userInput.split("/by");
+                if (splitInput.length == 2) {
+                    String description = splitInput[0].substring(9).trim();
+                    String by = splitInput[1].trim();
+                    Task newTask = new Deadline(description, by);
+                    toDoList.add(newTask);
+                    System.out.println("Got it. I've added this task:\n " + newTask);
+                    System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+                } else { break;}
+
+            } else if (userInput.startsWith("event")) {
+                //add new event
+                String[] splitInput = userInput.split("/from");
+                if (splitInput.length == 2) {
+                    String description = splitInput[0];
+                    String[] eventDetails = splitInput[1].split("/to");
+                    if (eventDetails.length == 2 ) {
+                        String from = eventDetails[0].trim();
+                        String to = eventDetails[1].trim();
+                        Task newTask = new Event(description, from, to);
+                        toDoList.add(newTask);
+                        System.out.println("Got it. I've added this task:\n " + newTask);
+                        System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+                    }
+                }
+
+            } else {
+                //invalid input
+                System.out.println("invalid command :(");
             }
         }
-
         System.out.println("Bye. Hope to see you again soon!");
     }
 }
@@ -85,5 +118,43 @@ class Task {
     @Override
     public String toString() {
         return "[" + (isDone? "X" : " ") + "] " + this.description;
+    }
+}
+
+class Todo extends Task {
+    public Todo(String description) {
+        super(description);
+    }
+    @Override
+    public String toString () {
+        return "[T]" + super.toString();
+    }
+}
+
+class Deadline extends Task {
+    private String by;
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString () {
+        return "[D]" + super.toString() + " (by: " + this.by + ")";
+    }
+}
+
+class Event extends Task {
+    private String from;
+    private String to;
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString () {
+        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 }
