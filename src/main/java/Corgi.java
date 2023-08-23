@@ -196,6 +196,26 @@ public class Corgi {
         }
     }
 
+    /**
+     * Remove task from list.
+     * 
+     * @param indexStr Target task index.
+     */
+    private void deleteTask(String indexStr) {
+        try {
+            int index = Integer.parseInt(indexStr) - 1;
+            if (index >= 0 && index < this.tasks.size()) {
+                Task target = this.tasks.get(index);
+                this.tasks.remove(index);
+                System.out.println("Finally got rid of that task. Took you long enough... uninterested woof\n" + "\n " + target + "\n");
+            } else {
+                System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
+            }
+        } catch (NumberFormatException e) {
+            this.printException("Arf! You're trying to trick me with words instead of numbers?");
+        } 
+    }
+
      /**
       * Add a new ToDo to the list of tasks based on the provided task type.
       *
