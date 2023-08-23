@@ -18,6 +18,7 @@ public class UserInterface {
         while (true) {
             String input = sc.nextLine();
 
+            try {
                 Command c = this.parser.parse(input);
                 switch (c.getType()) {
                     case LIST:
@@ -61,7 +62,9 @@ public class UserInterface {
                         System.out.printf("Now you have %d tasks in the list.%n", this.store.getStorageSize());
                         break;
                 }
-
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
