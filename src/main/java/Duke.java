@@ -3,52 +3,31 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    private static List<Task> taskList = new ArrayList<>();
-
-    public static void greet() {
+    private static void greet() {
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
     }
 
-    public static void exit() {
+    private static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void addTask(String description) {
-        taskList.add(new Task(description));
-        System.out.println("added: " + description);
+    private static String extractAfterKeyword(String userInput, String keyword, String... additionalKeywords) {
+        String[] tokens = userInput.split(keyword);
+        if (additionalKeywords != null && additionalKeywords.length > 0) {
+            String[] tokensAfterSecondKeyword = tokens[1].split(additionalKeywords[0]);
+            return tokensAfterSecondKeyword[0];
+        }
+        return tokens[1];
     }
 
-    public static void listAllTasks() {
-        if (taskList.isEmpty()) {
-            System.out.println("You have no tasks.");
-        } else {
-            System.out.println("Here are your tasks:");
-            for (int i = 0; i < taskList.size(); i++) {
-                Task task = taskList.get(i);
-                System.out.println((i + 1) + ". " + task.getDescription());
-            }
-        }
-    }
+    private static String extractTaskDetails(String userInput, String command, String keyword) {
+        int startIndex = userInput.indexOf(command) + command.length();
+        int endIndex = userInput.indexOf(keyword);
 
-    public static void markTask(int i) {
-        Task targetTask = taskList.get(i - 1);
-        if (targetTask.getMarkedStatus()) {
-            System.out.println("Already marked!");
-        } else {
-            targetTask.mark();
-            System.out.println("Nice! I've marked this task as done:\n  " + targetTask.getDescription());
+        if (startIndex != -1 && endIndex != -1 && endIndex > startIndex) {
+            return userInput.substring(startIndex, endIndex).trim();
         }
-    }
-
-    public static void unMarkTask(int i) {
-        Task targetTask = taskList.get(i - 1);
-        if (targetTask.getMarkedStatus()) {
-            targetTask.unMark();
-            System.out.println("I've unmarked this task:\n  " + targetTask.getDescription());
-        } else {
-            System.out.println("Already unmarked");
-        }
-
+        return "";  // Return an empty string if extraction is not possible
     }
 
     public static void main(String[] args) {
@@ -63,32 +42,49 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String userInput;
         boolean ongoing = true;
-//        while (!userInput.equalsIgnoreCase("bye")) {
         while(ongoing) {
             System.out.print("> ");
             userInput = scanner.nextLine();
             if (userInput.equals("list")) {
-                listAllTasks();
+                Task.listAllTasks();
             } else if (userInput.equals("bye")) {
                 ongoing = false;
             } else if (userInput.startsWith("mark ")) {
-                String[] parts = userInput.split(" ");
+                String[] parts = userInput.split(" ", 2);
                 if (parts.length != 2) {
-                    addTask(userInput);
+                    Task task = new Task(parts[1]);
+                    Task.addTask(task);
                 } else {
                     int taskIndex = Integer.parseInt(parts[1]);
-                    markTask(taskIndex);
+                    Task.mark(taskIndex);
                 }
             } else if (userInput.startsWith("unmark ")) {
-                String[] parts = userInput.split(" ");
+                String[] parts = userInput.split(" ", 2);
                 if (parts.length != 2) {
-                    addTask(userInput);
+                    Task task = new Task(parts[1]);
+                    Task.addTask(task);
                 } else {
                     int taskIndex = Integer.parseInt(parts[1]);
-                    unMarkTask(taskIndex);
+                    Task.unMark(taskIndex);
                 }
+            } else if (userInput.startsWith("todo")) {
+                String[] parts = userInput.split(" ", 2);
+                Task todoTask = new Todo(parts[1]);
+                Task.addTask(todoTask);
+            } else if (userInput.startsWith("deadline")) {
+                String details = extractTaskDetails(userInput, "deadline", "/by");
+                String date = extractAfterKeyword(userInput, "/by");
+                Task deadlineTask = new Deadline(details, date);
+                Task.addTask(deadlineTask);
+            } else if (userInput.startsWith("event")) {
+                String details = extractTaskDetails(userInput, "event", "/from");
+                String from = extractAfterKeyword(userInput, "/from", "/to");
+                String to = extractAfterKeyword(userInput, "/to");
+                Task eventTask = new Event(details, from, to);
+                Task.addTask(eventTask);
             } else {
-                addTask(userInput);
+                Task task = new Task(userInput);
+                Task.addTask(task);
             }
         }
 
