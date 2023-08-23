@@ -5,33 +5,35 @@ public class Monday {
         String chatBotName = "Monday";
         Scanner scanner = new Scanner(System.in);
 
+        printSeparator();
         greet(chatBotName);
-
+        printSeparator();
         while (true) {
             String userInput = scanner.nextLine();
+            printSeparator();
             if (userInput.equals("bye")) {
                 exit();
                 break;
+            } else if (userInput.equals("list")) {
+                Storage.displayList();
+            } else {
+                Storage.add(userInput);
+                echo(userInput);
             }
-            echo(userInput);
+            printSeparator();
         }
     }
 
     private static void echo(String word) {
-        printSeparator();
-        System.out.println(word);
-        printSeparator();
+        System.out.println("added: " + word);
     }
 
     private static void greet(String chatBotName) {
-        printSeparator();
         System.out.println("Hello! I'm " + chatBotName);
         System.out.println("What can I do for you?");
-        printSeparator();
     }
 
     private static void exit() {
-        printSeparator();
         System.out.println("Bye. Hope to see you again soon!");
         printSeparator();
     }
