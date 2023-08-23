@@ -1,10 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
     static String indent = "   ";
     static String megaIndent = "     ";
     static String horizontalLines = indent  + "__________________________________________";
-    static Task taskArray[] = new Task[100];
-    static int count = 0;
+    static ArrayList<Task> taskArray = new ArrayList<>();
     public static void printWithIndent(String string) {
         System.out.println(horizontalLines);
         System.out.println(indent + string);
@@ -13,29 +13,29 @@ public class Duke {
     public static void displayList() {
         System.out.println(horizontalLines);
         System.out.println(indent + "Here are the tasks in your list:");
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < taskArray.size(); i++) {
             int num = i + 1;
-            Task curr = taskArray[i];
+            Task curr = taskArray.get(i);
             System.out.println(indent + num + "." + curr.toString());
         }
         System.out.println(horizontalLines);
     }
     public static void whichTask(String letter, String string) {
         try {
-            if (letter == "T") {
-                taskArray[count] = new ToDo(string);
+            if (letter.equals("T")) {
+                taskArray.add(new ToDo(string));
             }
-            if (letter == "D") {
-                taskArray[count] = new Deadline(getDescription(string), getBy(string));
+            if (letter.equals("D")) {
+                taskArray.add(new Deadline(getDescription(string), getBy(string)));
             }
-            if (letter == "E") {
-                taskArray[count] = new Event(getDescription(string), getFrom(string), getTo(string));
+            if (letter.equals("E")) {
+                taskArray.add(new Event(getDescription(string), getFrom(string), getTo(string)));
             }
+            int arrayLength = taskArray.size();
             System.out.println(horizontalLines);
             System.out.println(indent + "Got it. I've added this task:");
-            System.out.println(megaIndent + taskArray[count].toString());
-            count++;
-            System.out.println(indent + "Now you have " + count + " tasks in the list.");
+            System.out.println(megaIndent + taskArray.get(arrayLength - 1).toString());
+            System.out.println(indent + "Now you have " + arrayLength + " tasks in the list.");
             System.out.println(horizontalLines);
         } catch (DukeException e) {
             printWithIndent(e.getMessage());
@@ -91,7 +91,7 @@ public class Duke {
         try {
             String clean = string.replaceAll("\\D+", ""); //remove non-digits
             int pos = Integer.parseInt(clean) - 1;
-            Task curr = taskArray[pos];
+            Task curr = taskArray.get(pos);
 
             if (string.contains("unmark")) {
                 curr.markAsUnDone();
@@ -104,11 +104,25 @@ public class Duke {
             }
             System.out.println(megaIndent + curr.getStatusIcon() + " " + curr.description);
             System.out.println(horizontalLines);
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             printWithIndent("You are trying to access a Task that does not exist!");
         }
     }
 
+    public static void deleteTask(String string) {
+        String clean = string.replaceAll("\\D+", ""); //remove non-digits
+        int pos = Integer.parseInt(clean);
+        if (pos > taskArray.size()) {
+            printWithIndent("You are trying to delete a Task that does not exist");
+        } else {
+            System.out.println(horizontalLines);
+            System.out.println(indent + "Noted. I've removed this task:");
+            System.out.println(megaIndent + taskArray.get(pos - 1).toString());
+            taskArray.remove(pos - 1);
+            System.out.println(indent + "Now you have " + taskArray.size() + " tasks in the list.");
+            System.out.println(horizontalLines);
+        }
+    }
 
     public static void main(String[] args) {
         String name = "zac";
@@ -123,40 +137,33 @@ public class Duke {
             String userInput = obj.nextLine();
             if (userInput.equals("list")) {
                 displayList();
-                continue;
             } else if (userInput.equals("bye")) {
                 printWithIndent("Bye. Hope to see you again soon!");
                 break;
             } else if (userInput.contains("unmark")) {
                 markDescription(userInput);
-                continue;
             } else if (userInput.contains("mark")) {
                 markDescription(userInput);
-                continue;
             } else if (userInput.contains("todo")) {
                 try {
                     whichTask("T", userInput.substring(5));
                 } catch (StringIndexOutOfBoundsException e) {
                     printWithIndent("OOPS!!! The description of a todo cannot be empty.");
-                } finally {
-                    continue;
                 }
             } else if (userInput.contains("deadline")) {
                 try {
                     whichTask("D", userInput.substring(9));
                 } catch (StringIndexOutOfBoundsException e) {
                     printWithIndent("OOPS!!! The description of a deadline cannot be empty.");
-                } finally {
-                    continue;
                 }
             } else if (userInput.contains("event")) {
                 try {
                     whichTask("E", userInput.substring(6));
                 } catch (StringIndexOutOfBoundsException e) {
                     printWithIndent("OOPS!!! The description of a deadline cannot be empty.");
-                } finally {
-                    continue;
                 }
+            } else if (userInput.contains("delete")) {
+                deleteTask(userInput);
             } else {
                 printWithIndent("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }

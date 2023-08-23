@@ -62,5 +62,15 @@
    You are trying to access a Task that does not exist!
    __________________________________________
    __________________________________________
+   Noted. I've removed this task:
+     [E][X] project meeting (from: Mon 2pm to: 4pm)
+   Now you have 2 tasks in the list.
+   __________________________________________
+   __________________________________________
+   Here are the tasks in your list:
+   1.[T][X] borrow book
+   2.[D][ ] return book (by: Sunday)
+   __________________________________________
+   __________________________________________
    Bye. Hope to see you again soon!
    __________________________________________
