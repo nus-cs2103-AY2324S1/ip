@@ -1,3 +1,5 @@
+import exceptions.InvalidArgumentException;
+
 public class TaskManager {
     private Task[] list = new Task[100];
     private int index = 0;
@@ -26,13 +28,19 @@ public class TaskManager {
         printLine();
     }
 
-    public void mark(int index) {
+    public void mark(int index) throws InvalidArgumentException {
+        if (index > numOfTasks) {
+            throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + "tasks.");
+        }
         index -= 1; // since 0 indexed
         Task task = list[index];
         task.mark();
     }
 
-    public void unmark(int index) {
+    public void unmark(int index) throws InvalidArgumentException {
+        if (index > numOfTasks) {
+            throw new InvalidArgumentException("I'm sorry but that task does not exist. There are only " + numOfTasks + " tasks.");
+        }
         index -= 1; // since 0 indexed
         Task task = list[index];
         task.unmark();
