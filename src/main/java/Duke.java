@@ -23,7 +23,7 @@ public class Duke {
 
     private static void greet() {
         System.out.println(SPACER);
-        System.out.println("Howdy, I'm + " + NAME + ", your friendly personal assistant!");
+        System.out.println("Howdy, I'm " + NAME + ", your friendly personal assistant!");
         System.out.println("What can I do for you today?");
         System.out.println(SPACER);
         IS_RECEIVING_INPUT = true;
@@ -225,7 +225,7 @@ public class Duke {
         System.out.println(SPACER);
         System.out.println("Okay, so here is the new thing to keep you occupied:");
         System.out.println(newTask.toString());
-        System.out.println("Get going! You have " + TASK_LIST.size() + " on record!!");
+        System.out.println("Get going! You have " + TASK_LIST.size() + " tasks on record!!");
         System.out.println(SPACER);
     }
 
