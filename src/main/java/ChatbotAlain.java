@@ -37,6 +37,7 @@ public class ChatbotAlain {
         String endingLine = "____________________________________________________________\n"
                 + " Bye. Hope to see you again soon!\n"
                 + "____________________________________________________________\n";
+        
         System.out.println(endingLine);
     }
 }
