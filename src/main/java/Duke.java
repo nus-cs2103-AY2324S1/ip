@@ -1,14 +1,29 @@
+import java.util.Scanner;
+
 public class Duke {
+
+    public static void talk(String str) {
+        String line = "\u2500".repeat(50);
+        System.out.println(line);
+        System.out.println(str);
+        System.out.println(line);
+    }
+
     public static void main(String[] args) {
         String greeting = "Hello! I'm JED, your personal chat-bot!\nWhat can I do for you?";
         String goodbye = "Bye. Hope to see you again soon!";
 
-        String line = "\u2500".repeat(50);
+        Scanner sc = new Scanner(System.in);
 
-        System.out.println(line);
-        System.out.println(greeting);
-        System.out.println(line);
-        System.out.println(goodbye);
-        System.out.println(line);
+        talk(greeting);
+
+        while (true) {
+            String input = sc.nextLine();
+            if (input.equals("bye")) {
+                break;
+            }
+            talk(input);
+        }
+        talk(goodbye);
     }
 }
