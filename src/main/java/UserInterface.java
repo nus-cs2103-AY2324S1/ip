@@ -22,6 +22,10 @@ public class UserInterface {
                 Command c = this.parser.parse(input);
                 switch (c.getType()) {
                     case LIST:
+                        if (this.store.getStorageSize() == 0) {
+                            System.out.println("There are no tasks in your list.");
+                            break;
+                        }
                         System.out.println("Here are the tasks in your list:");
                         System.out.println(this.store.list());
                         break;
@@ -62,6 +66,8 @@ public class UserInterface {
                         System.out.printf("Now you have %d tasks in the list.%n", this.store.getStorageSize());
                         break;
                 }
+            } catch (NumberFormatException nfe) {
+                System.out.println("That is not an integer!");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

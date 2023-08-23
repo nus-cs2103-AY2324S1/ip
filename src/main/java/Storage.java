@@ -11,11 +11,17 @@ public class Storage {
         this.idx++;
     }
 
-    public void mark(int index) {
+    public void mark(int index) throws InvalidTaskIndexException {
+        if (index < 0 || index >= this.idx) {
+            throw new InvalidTaskIndexException(index + 1, this.idx);
+        }
         this.arr[index].complete();
     }
 
-    public void unmark(int index) {
+    public void unmark(int index) throws InvalidTaskIndexException {
+        if (index < 0 || index >= this.idx) {
+            throw new InvalidTaskIndexException(index + 1, this.idx);
+        }
         this.arr[index].incomplete();
     }
 
@@ -29,7 +35,6 @@ public class Storage {
 
     public String list() {
         StringBuilder builder = new StringBuilder();
-        if (this.idx == 0) return "";
         for (int i = 0; i < idx; i++) {
             if (i == idx - 1) {
                 builder.append(String.format("%d.%s", i + 1, this.arr[i]));
