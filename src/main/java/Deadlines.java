@@ -1,20 +1,20 @@
 public class Deadlines extends ListItem {
 
-  String end;
+    String end;
 
-  /**
-   * Constructor for Deadlines.
-   */
-  public Deadlines(String text, String end) {
-    super(text);
-    this.end = end;
-  }
+    /**
+     * Constructor for Deadlines.
+     */
+    public Deadlines(String text, String end) {
+        super(text);
+        this.end = end;
+    }
 
-  @Override
-  /**
-   * Returns string representation of Deadlines.
-   */
-  public String toString() {
-    return "[D] " + super.toString() + String.format(" (by: %s)", this.end);
-  }
+    /**
+     * Returns string representation of Deadlines.
+     */
+    @Override
+    public String toString() {
+        return "[D] " + super.toString() + String.format(" (by: %s)", this.end);
+    }
 }
