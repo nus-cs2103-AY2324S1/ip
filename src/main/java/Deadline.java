@@ -2,7 +2,7 @@ public class Deadline extends Task {
     String deadline;
 
     public Deadline(String msg, String deadline) {
-        super("D",false, msg);
+        super(Type.D,false, msg);
         this.deadline = deadline;
     }
 
@@ -20,7 +20,11 @@ public class Deadline extends Task {
             throw new IllegalArgumentException("Look at which moron didn't add a deadline with the \"/by\" flag");
         }
         int byFlag = input.indexOf("/by");
-        return new Deadline(input.substring(9, byFlag - 1),
-                input.substring(byFlag + 4));
+        if (byFlag == 9) {
+            throw new IllegalArgumentException("Come on you have to fill in something...");
+        } else if (input.endsWith("/by")) {
+            throw new IllegalArgumentException("Hey you have to give me a deadline!");
+        }
+        return new Deadline(input.substring(9, byFlag - 1), input.substring(byFlag + 4));
     }
 }

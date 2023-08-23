@@ -59,6 +59,7 @@ public class TaskList {
             System.out.println(String.format("Alright say bye bye to task %d!", number));
             System.out.println(t);
             this.taskList.remove(t);
+            System.out.println(String.format("There's %d task(s) in the list now.", taskList.size()));
         }
         catch (NumberFormatException n) {
             System.out.println("Ugh to delete stuff, you have to input \"delete\" and the number...");

@@ -3,7 +3,7 @@ public class Event extends Task {
     String end;
 
     public Event(String msg, String start, String end) {
-        super("E", false, msg);
+        super(Type.E, false, msg);
         this.start = start;
         this.end = end;
     }
@@ -20,16 +20,29 @@ public class Event extends Task {
                     String.format("Hey genius, did you mean \"event %s\"...", input.substring(5)));
         } else if (!input.contains("/from") && !input.contains("/to")) {
             throw new IllegalArgumentException("Congratulations you're the only idiot who would leave out both " +
-                                                "\"/from\" and \"/to\" flags");
+                    "\"/from\" and \"/to\" flags");
         } else if (!input.contains("/from")) {
-            throw new IllegalArgumentException("You need to add a \"/from\" flag, halfwit");
+            throw new IllegalArgumentException("You need to add a \"/from\" flag before the \"/to\" flag, halfwit");
         } else if (!input.contains("/to")) {
-            throw new IllegalArgumentException("You need to add a \"/to\" flag, dimwit");
+            throw new IllegalArgumentException("You need to add a \"/to\" flag after the \"/from\" flag, dimwit");
         }
-        int fromFlag = input.indexOf("/from");
-        int toFlag = input.indexOf("/to");
-        return new Event(input.substring(6, fromFlag - 1),
-                    input.substring(fromFlag + 6, toFlag - 1),
-                    input.substring(toFlag + 4));
+
+        int fromFlagStart = input.indexOf("/from");
+        int fromFlagEnd = fromFlagStart + 6;
+        int toFlagStart = input.indexOf("/to");
+        int toFlagEnd = toFlagStart + 4;
+
+        if (fromFlagStart > toFlagStart) {
+            throw new IllegalArgumentException("Please put the \"/from\" flag before the \"/to\" flag, thanksss");
+        } else if (fromFlagStart == 6) {
+            throw new IllegalArgumentException("Come on you have to fill in something...");
+        } else if (toFlagStart == fromFlagEnd) {
+            throw new IllegalArgumentException("Your \"/from\" flag can't be empty! Leave a space if you want it blank.");
+        } else if (input.endsWith("/to")) {
+            throw new IllegalArgumentException("Your \"/to\" flag can't be empty! Leave a space if you want it blank.");
+        } else {
+            return new Event(input.substring(6, fromFlagStart - 1), input.substring(fromFlagEnd, toFlagStart - 1),
+                    input.substring(toFlagEnd));
+        }
     }
 }

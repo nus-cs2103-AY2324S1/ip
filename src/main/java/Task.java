@@ -1,10 +1,12 @@
 public abstract class Task {
-    String type;
+    enum Type {T, D, E}
+
+    Type taskType;
     boolean done;
     String taskName;
 
-    public Task(String type, boolean done, String taskName) {
-        this.type = type;
+    public Task(Type taskType, boolean done, String taskName) {
+        this.taskType = taskType;
         this.done = done;
         this.taskName = taskName;
     }
@@ -20,7 +22,7 @@ public abstract class Task {
     @Override
     public String toString() {
         return done
-                ? String.format("[%s][X] %s", type, taskName)
-                : String.format("[%s][ ] %s", type, taskName);
+                ? String.format("[%s][X] %s", taskType, taskName)
+                : String.format("[%s][ ] %s", taskType, taskName);
     }
 }

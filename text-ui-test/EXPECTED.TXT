@@ -14,10 +14,18 @@ Added:
 
 Look at which moron didn't add a deadline with the "/by" flag
 
+Come on you have to fill in something...
+
+Hey you have to give me a deadline!
+
 Added:
 [E][ ] code (from: now to: end of time)
 
 Congratulations you're the only idiot who would leave out both "/from" and "/to" flags
+
+You need to add a "/from" flag before the "/to" flag, halfwit
+
+Come on you have to fill in something...
 
 1.[T][ ] write better code
 2.[D][ ] get better at coding (by: ASAP)
@@ -40,6 +48,7 @@ SIKE I can't process that! Try again or say "bye" to exit
 
 Alright say bye bye to task 2!
 [D][ ] get better at coding (by: ASAP)
+There's 2 task(s) in the list now.
 
 1.[T][X] write better code
 2.[E][ ] code (from: now to: end of time)
