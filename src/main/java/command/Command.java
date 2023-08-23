@@ -2,10 +2,12 @@ package command;
 
 import java.util.HashMap;
 
+import error.EkudException;
+
 public abstract class Command {
     public static Command parse(String line) {
         if (line.isEmpty()) {
-            throw new IllegalArgumentException("Cannot parse command from empty string");
+            throw new IllegalArgumentException("Empty line passed to Command.parse");
         }
 
         String[] componentStrings = line.split("\\\\");
@@ -27,22 +29,37 @@ public abstract class Command {
                 return new ListCommand();
             }
             case "todo": {
+                if (argument.isEmpty()) {
+                    throw new EkudException("The description of a todo cannot be empty.");
+                }
                 return new TodoCommand(argument);
             }
             case "deadline": {
+                if (argument.isEmpty()) {
+                    throw new EkudException("The description of a deadline cannot be empty.");
+                }
                 String by = getFlagValue(flags, "by");
                 return new DeadlineCommand(argument, by);
             }
             case "event": {
+                if (argument.isEmpty()) {
+                    throw new EkudException("The description of an event cannot be empty.");
+                }
                 String from = getFlagValue(flags, "from");
                 String to = getFlagValue(flags, "to");
                 return new EventCommand(argument, from, to);
             }
             case "mark": {
+                if (argument.isEmpty()) {
+                    throw new EkudException("A task identifier must be provided.");
+                }
                 int taskId = parseIntArgument(argument);
                 return new MarkCommand(taskId);
             }
             case "unmark": {
+                if (argument.isEmpty()) {
+                    throw new EkudException("A task identifier must be provided.");
+                }
                 int taskId = parseIntArgument(argument);
                 return new UnmarkCommand(taskId);
             }
@@ -50,7 +67,7 @@ public abstract class Command {
                 return new ByeCommand();
             }
             default:
-                throw new ParseException("Unrecognised command");
+                throw new EkudException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -74,7 +91,7 @@ public abstract class Command {
 
     private static Component parseComponent(String component) {
         if (component.isEmpty()) {
-            throw new ParseException("Cannot parse component from empty string");
+            throw new IllegalArgumentException("Empty string passed to Command.parseComponent");
         }
 
         String trimmedComponent = component.trim();
@@ -91,14 +108,14 @@ public abstract class Command {
         try {
             return Integer.parseInt(argument);
         } catch (NumberFormatException error) {
-            throw new ParseException("Invalid argument format, expected integer");
+            throw new EkudException("Expected an integer but received a string");
         }
     }
 
     private static String getFlagValue(HashMap<String, String> flags, String name) {
         String value = flags.get(name);
         if (value == null) {
-            throw new ParseException("Missing flag: " + name);
+            throw new EkudException("Missing an option: \\" + name);
         }
         return value;
     }

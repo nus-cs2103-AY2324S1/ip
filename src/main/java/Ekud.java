@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import command.*;
+import error.EkudException;
 import task.*;
 
 public class Ekud {
@@ -15,8 +16,8 @@ public class Ekud {
         System.out.println("Here are the tasks in your list:");
 
         for (int taskId = 1; taskId <= store.getTaskCount(); taskId++) {
-            // Add padding to align single-digit numbers if we'll render
-            // two-digit numbers later on.
+            // Add padding to align single-digit numbers if we'll render two-digit numbers
+            // later on.
             if (store.getTaskCount() > 9 && taskId < 10) {
                 System.out.print(" ");
             }
@@ -30,8 +31,7 @@ public class Ekud {
         int taskId = command.getTaskId();
 
         if (taskId < 1 || taskId > store.getTaskCount()) {
-            System.out.println("Invalid task number provided.");
-            return;
+            throw new EkudException("Invalid task identifier provided.");
         }
 
         Task task = store.getTask(taskId);
@@ -82,7 +82,7 @@ public class Ekud {
         Command command;
         try {
             command = Command.parse(line);
-        } catch (ParseException error) {
+        } catch (EkudException error) {
             System.out.println(error.getMessage());
             return false;
         }
