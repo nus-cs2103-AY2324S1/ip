@@ -1,4 +1,6 @@
+import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
     private static final String name = "Bartholomew Hamish Montgomery";
     private static final String line = "______________________________________________________________________________________\n";
@@ -14,7 +16,8 @@ public class Duke {
     }
 
     private static void startChat() {
-        Task[] tasks = new Task[5];
+        ArrayList<Task> tasks = new ArrayList<>();
+//        Task[] tasks = new Task[5];
         int taskCount = 0;
         int taskId = 1;
         Scanner scanner = new Scanner(System.in);
@@ -33,7 +36,7 @@ public class Duke {
                     String nameOfTask = userInput.substring(5);
                     ToDos task = new ToDos(nameOfTask, taskId);
                     addToList(task, tasks, taskCount);
-                    if (taskCount < tasks.length) {
+                    if (taskCount < tasks.size()) {
                         taskCount++;
                         taskId++;
                     }
@@ -42,7 +45,7 @@ public class Duke {
                     String nameOfTask = parts[0].trim().substring(9);
                     Deadlines task = new Deadlines(nameOfTask, taskId, parts[1].trim());
                     addToList(task, tasks, taskCount);
-                    if (taskCount < tasks.length) {
+                    if (taskCount < tasks.size()) {
                         taskCount++;
                         taskId++;
                     }
@@ -53,7 +56,7 @@ public class Duke {
                     String nameOfTask = parts[0].trim().substring(6);
                     Events task = new Events(nameOfTask, taskId, start, end);
                     addToList(task, tasks, taskCount);
-                    if (taskCount < tasks.length) {
+                    if (taskCount < tasks.size()) {
                         taskCount++;
                         taskId++;
                     }
@@ -69,13 +72,14 @@ public class Duke {
         scanner.close();
     }
 
-    private static void displayList(Task[] tasks, int taskCount){
+    private static void displayList(ArrayList<Task> tasks, int taskCount){
         try {
             if (taskCount == 0) {
                 throw new DukeException("Error: There are no items in the list!");
             }
+            System.out.println(line);
             for(int i = 0; i < taskCount; i++){
-                System.out.println(tasks[i].getTask());
+                System.out.println(tasks.get(i).getTask());
             }
             System.out.println(line);
         } catch (DukeException emptyList) {
@@ -83,49 +87,41 @@ public class Duke {
         }
     }
 
-    public static void mark(String input, Task[] tasks, int taskCount) {
+    public static void mark(String input, ArrayList<Task> tasks, int taskCount) {
         int taskIndex = Integer.parseInt(input.substring(5)) - 1;
         try {
             if (taskIndex > taskCount || taskIndex < 0) {
                 throw new DukeException("Error: Invalid Task Index!");
-            } else if (tasks[taskIndex].isMarked()) {
+            } else if (tasks.get(taskIndex).isMarked()) {
                 throw new DukeException("Error: Task is already completed!");
             } else {
-                tasks[taskIndex].mark();
+                tasks.get(taskIndex).mark();
             }
         } catch (DukeException exception) {
             System.out.println(line + exception.getMessage() + "\n" + line);
         }
     }
 
-    public static void unMark(String input, Task[] tasks, int taskCount) {
+    public static void unMark(String input, ArrayList<Task> tasks, int taskCount) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         try {
             if (taskIndex > taskCount || taskIndex < 0) {
                 throw new DukeException("Error: Invalid Task Index!");
-            } else if (!tasks[taskIndex].isMarked()) {
+            } else if (!tasks.get(taskIndex).isMarked()) {
                 throw new DukeException("Error: Task is already marked as incomplete!");
             } else {
-                tasks[taskIndex].unMark();
+                tasks.get(taskIndex).unMark();
             }
         } catch (DukeException exception) {
             System.out.println(line + exception.getMessage() + "\n" + line);
         }
     }
 
-    private static void addToList(Task task, Task[] tasks, int taskId) {
-        try {
-            if (taskId == tasks.length) {
-                throw new DukeException("Error: List is full!");
-            }
-
-            int taskCount = taskId + 1;
-            String response = line + "Got it! I've added this task:" + "\n" + task.toString() + "\n"
-                    + "You now have " + taskCount + " task(s) in the list" + "\n" + line;
-            tasks[taskId] = task;
-            System.out.println(response);
-        } catch (DukeException fullList) {
-            System.out.println(line + fullList.getMessage() + "\n" + line);
-        }
+    private static void addToList(Task task, ArrayList<Task> tasks, int taskId) {
+        int taskCount = taskId + 1;
+        String response = line + "Got it! I've added this task:" + "\n" + task.toString() + "\n"
+                + "You now have " + taskCount + " task(s) in the list" + "\n" + line;
+        tasks.add(taskId, task);
+        System.out.println(response);
     }
 }
