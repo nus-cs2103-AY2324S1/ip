@@ -1,3 +1,5 @@
+import Tasks.Task;
+
 public class Commands {
     static String name = "Nichbot";
 
@@ -52,7 +54,7 @@ public class Commands {
             return;
         }
         if (task > count + 1) {
-            System.out.println(String.format("Task %d has not been recorded",task));
+            System.out.println(String.format("Tasks.Task %d has not been recorded",task));
             return;
         }
         Task current = tasks[task - 1];
