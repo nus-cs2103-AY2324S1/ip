@@ -10,5 +10,7 @@ unmark 100
 list
 todo
 blah
+delete 1
+list
 bye
 ```
