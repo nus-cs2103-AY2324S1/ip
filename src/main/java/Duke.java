@@ -32,6 +32,9 @@ public class Duke {
             case "unmark":
                 System.out.println(unmark(tasksList, userInput));
                 break;
+            case "delete":
+                System.out.println(delete(tasksList, userInput));
+                break;
             case "todo":
                 try {
                     System.out.println(todo(tasksList, userInput));
@@ -85,6 +88,15 @@ public class Duke {
         tasksList.get(taskId - 1).markAsNotDone();
         return(divider + "   OK, I've marked this task as not done yet: \n     "
                 + tasksList.get(taskId - 1).toString() + "\n" + divider);
+    }
+
+    public static String delete(ArrayList<Task> tasksList, String userInput) {
+        int taskId = userInput.charAt(1) - '0';
+        Task deletedTask = tasksList.get(taskId - 1);
+        tasksList.remove(taskId - 1);
+        return(divider + "   Noted. I've removed this task: \n" + "    " + deletedTask.toString() + "\n"
+                + "   Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
+                + " in the list \n" + divider);
     }
 
     public static String todo(ArrayList<Task> tasksList, String userInput) throws DukeException {
