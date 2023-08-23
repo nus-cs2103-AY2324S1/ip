@@ -1,9 +1,7 @@
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
-public class Duke {
+public class DuckBot {
 
     private final String name = "Duck";
     private final String exitMessage = "bye";
@@ -41,29 +39,31 @@ public class Duke {
 
     public boolean checkToDo(String str) {return str.contains("todo");}
 
-
     public void typeMessage() {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         while (!isBye(str)){
             //echo(str);
-            if (checkList(str)) {
-                display();
-            } else if (checkUnMark(str)) {
-                setUndone(str);
-            } else if (checkMark(str)) {
-                setDone(str);
-            } else if (checkDeadline(str)) {
-                setDeadline(str.substring(8));
-            } else if (checkEvent(str)) {
-                setEvent(str.substring(5));
-            } else if(checkToDo(str)) {
-                setToDo(str.substring(4));
-            }
-
-            else {
-                echo(str);
-                list.add(new Task(str));
+            try {
+                if (checkList(str)) {
+                    display();
+                } else if (checkUnMark(str)) {
+                    setUndone(str);
+                } else if (checkMark(str)) {
+                    setDone(str);
+                } else if (checkDeadline(str)) {
+                    setDeadline(str.substring(8));
+                } else if (checkEvent(str)) {
+                    setEvent(str.substring(5));
+                } else if(checkToDo(str)) {
+                    setToDo(str.substring(4));
+                } else {
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException e) {
+                divider();
+                System.out.println(e.getMessage());
+                divider();
             }
             str = sc.nextLine();
         }
@@ -78,16 +78,9 @@ public class Duke {
         divider();
         while (count < list.size()) {
             System.out.println(serial + "." + list.get(count));
-//            System.out.println(serial + "." +  " " + list.get(count));
             count++;
             serial++;
         }
-        divider();
-    }
-
-    public void echo(String str) {
-        divider();
-        System.out.println("added: " + str);
         divider();
     }
 
@@ -135,14 +128,25 @@ public class Duke {
         echoAdd(tmp);
     }
 
-    public void setToDo(String str) {
+    public void setToDo(String str)
+    throws DukeException{
         String[] todo = str.split(" ");
-        ToDo toDo = new ToDo(todo[1]);
-        list.add(toDo);
-        echoAdd(toDo);
+        try {
+            if (todo.length == 2) {
+                ToDo toDo = new ToDo(todo[1]);
+                list.add(toDo);
+                echoAdd(toDo);
+            } else {
+                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            }
+        } catch (DukeException e) {
+            divider();
+            System.out.println(e.getMessage());
+            divider();
+        }
     }
     public static void main(String[] args) {
-        Duke duck = new Duke();
+        DuckBot duck = new DuckBot();
         duck.welcomeMessage();
         duck.typeMessage();
     }
