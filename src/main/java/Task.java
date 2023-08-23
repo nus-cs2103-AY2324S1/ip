@@ -1,6 +1,6 @@
 public class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
     /**
      * Creates an instance of task.
@@ -39,12 +39,9 @@ public class Task {
      *
      * @return Task description.
      */
-    public String getDescription() {
-        return description;
+    public String toString() {
+        return "[" + this.getStatusIcon() + "]" + this.description;
     }
 
-    public boolean getIsDone() {
-        return isDone;
-    }
 
 }
