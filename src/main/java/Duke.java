@@ -33,6 +33,10 @@ public class Duke {
 
         System.out.println("Here's a log of the your past inputs:");
 
+        if (inputs.isEmpty()) {
+            System.out.println("...\n" + "You haven't said anything yet...");
+        }
+
         for (int i = 0; i < inputs.size(); i++) {
             System.out.println((i + 1) + ". " + inputs.get(i));
         }
