@@ -8,6 +8,7 @@ public class Duke {
     final static String TODO = "todo";
     final static String DEADLINE = "deadline";
     final static String EVENT = "event";
+    final static String DELETE = "delete";
 
     public static void main(String[] args) {
         ArrayList<Task> storedList = new ArrayList<>();
@@ -80,6 +81,14 @@ public class Duke {
                         Task todo = new Todo(inputArr[1]);
                         storedList.add(todo);
                         System.out.println(added + todo.toString() + "\n");
+                        System.out.println("Now you have " + storedList.size() + " tasks in the list. \n" + line);
+                        break;
+                    case DELETE:
+                        int deleteIndex = input.charAt(7) - 49;
+                        Task deleted = storedList.get(deleteIndex);
+                        storedList.remove(deleteIndex);
+                        System.out.println("Noted. I've removed the task: \n");
+                        System.out.println(deleted.toString() + "\n");
                         System.out.println("Now you have " + storedList.size() + " tasks in the list. \n" + line);
                         break;
                     default:
