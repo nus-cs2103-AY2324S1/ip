@@ -28,6 +28,19 @@ public class Duke {
     }
     public static void main(String[] args) {
         Duke.greet();
-        Duke.echo();
+        ToDoList list = new ToDoList();
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+
+        while (!input.equals("bye")) {
+            if (input.equals("list")) {
+                list.listTasks();
+            } else {
+                list.addTask(input);
+            }
+            input = scanner.nextLine();
+        }
+
+        Duke.exit();
     }
 }
