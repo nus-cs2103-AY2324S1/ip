@@ -1,5 +1,5 @@
 // Task Class to handle each individual task that is either marked or unmarked
-public class Task {
+public abstract class Task {
 
     // Description/Content of the task itself
     private String description;
@@ -27,6 +27,11 @@ public class Task {
 
     public void unmark() {
         this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.getStatusIcon() + "] " + this.getDescription();
     }
 
 }

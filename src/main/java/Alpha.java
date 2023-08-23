@@ -7,7 +7,7 @@ public class Alpha {
 
         Scanner sc = new Scanner(System.in);
 
-        // End trigger word to trigger outro and end the program
+        //End trigger to end the program
         String END = "bye";
 
         // List trigger word to display a log of stored text
@@ -16,6 +16,12 @@ public class Alpha {
         String CHECK = "mark";
 
         String UNCHECK = "unmark";
+
+        String TODO = "todo";
+
+        String DEADLINE = "deadline";
+
+        String EVENT = "event";
 
         // Intro message
         String intro = "____________________________________________________________\n" +
@@ -40,8 +46,17 @@ public class Alpha {
                 taskList.mark(Integer.parseInt(splitInput[1]));
             } else if (splitInput[0].equals(UNCHECK)) {
                 taskList.unmark(Integer.parseInt(splitInput[1]));
-            } else {
-                taskList.add(input);
+            } else if (splitInput[0].equals(DEADLINE)) {
+                String[] splitDeadline = input.split("/");
+                Deadline deadline = new Deadline(splitDeadline[0].split(" ")[1], splitDeadline[1]);
+                taskList.add(deadline);
+            } else if (splitInput[0].equals(EVENT)) {
+                String[] splitEvent = input.split("/");
+                Event event = new Event(splitEvent[0].split(" ")[1], splitEvent[1], splitEvent[2]);
+                taskList.add(event);
+            } else if (splitInput[0].equals(TODO)) {
+                ToDo todo = new ToDo(splitInput[1]);
+                taskList.add(todo);
             }
             input = sc.nextLine();
             splitInput = input.split(" "); // Splits string to check for "mark" or "unmark"

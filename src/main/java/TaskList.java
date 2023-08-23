@@ -11,12 +11,17 @@ public class TaskList {
         taskList = new ArrayList<>();
     }
 
+    public int size() {
+        return taskList.size();
+    }
+
     // Adds an item to the list while notifying the user
-    public void add(String text) {
-        taskList.add(new Task(text));
+    public void add(Task task) {
+        taskList.add(task);
         System.out.println("____________________________________________________________\n" +
-                "added: " + text + "\n" +
-                "____________________________________________________________");
+                "Alright! I've added this task: \n " + task
+                        + "\nNow you have " + taskList.size() + " tasks in the list.\n" +
+                "____________________________________________________________\n");
     }
 
     // Displays all items to the user
@@ -25,7 +30,7 @@ public class TaskList {
                 "Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
             int plusOne = i + 1; // Increment by one so starting display index is 1
-            System.out.println(plusOne + ". [" + taskList.get(i).getStatusIcon() + "] " + taskList.get(i).getDescription());
+            System.out.println(plusOne + ". " + taskList.get(i));
         }
         System.out.println("____________________________________________________________");
     }
@@ -36,8 +41,8 @@ public class TaskList {
         curr.mark();
         System.out.println("____________________________________________________________\n" +
                 "Nice! I've marked this task as done: \n" +
-                "[" + curr.getStatusIcon() + "] " + curr.getDescription() + "\n" +
-                "____________________________________________________________");
+                curr +
+                "\n____________________________________________________________");
 
     }
 
@@ -47,8 +52,8 @@ public class TaskList {
         curr.unmark();
         System.out.println("____________________________________________________________\n" +
                 "Cool! I've marked this task as not done yet: \n" +
-                "[" + curr.getStatusIcon() + "] " + curr.getDescription() + "\n" +
-                "____________________________________________________________");
+                curr +
+                "\n____________________________________________________________");
 
     }
 }
