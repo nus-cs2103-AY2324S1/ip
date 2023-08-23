@@ -30,8 +30,23 @@ public class Task {
      */
     @Override
     public String toString() {
+        String printType;
+        switch (type) {
+            case TODO:
+                printType = "T";
+                break;
+            case EVENT:
+                printType = "E";
+                break;
+            case DEADLINE:
+                printType = "D";
+                break;
+            default:
+                printType = "";
+                break;
+        }
         String indicator = done ? "X" : " ";
-        return "[" + type + "][" + indicator + "] " + description;
+        return "[" + printType + "][" + indicator + "] " + description;
     }
 
     /**

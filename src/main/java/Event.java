@@ -2,7 +2,6 @@
  * Represents a task that occurs during a specific period.
  */
 public class Event extends Task{
-    private String type = "E";
     private String from;
     private String to;
 
