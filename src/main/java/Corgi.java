@@ -157,7 +157,7 @@ public class Corgi {
         } catch (NumberFormatException e) {
             this.printException("Arf! You're trying to trick me with words instead of numbers?");
         } catch (TaskStatusException e) {
-            this.printException("Woof! This task is already marked as done. What are you trying to do? \u1F644");
+            this.printException("Woof! This task is already marked as done. What are you trying to do? 🤔");
         }
     }
 
@@ -179,7 +179,7 @@ public class Corgi {
         } catch (NumberFormatException e) {
             this.printException("Arf! You're trying to trick me with words instead of numbers?");
         } catch (TaskStatusException e) {
-            this.printException("Woof! This task isn't even marked as done yet. What are you trying to do? \u1F644");
+            this.printException("Woof! This task isn't even marked as done yet. What are you trying to do? 🤔");
         }
     }
 
