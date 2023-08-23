@@ -145,6 +145,27 @@ public class Duke {
                 list(tasks);
                 break;
 
+            case "delete":
+
+                if (detail.isBlank())
+                    throw new DukeException("I can't read your mind. Provide a suitable index.");
+                try {
+                    int index = Integer.parseInt(detail) - 1;
+                    Task task = tasks.get(index);
+                    tasks.remove(index);
+                    System.out.println("As you wish. This task has been removed:");
+                    System.out.println(task);
+                    System.out.println("You now have " + tasks.size() + " tasks in your list.");
+                    if (tasks.isEmpty()) {
+                        System.out.println("Congratulations!");
+                    }
+                } catch (NumberFormatException e) {
+                    throw new DukeException("I can't understand that number.");
+                } catch (IndexOutOfBoundsException e) {
+                    throw new DukeException("Provide a number within range, please.");
+                }
+                break;
+
             case "thanks":
 
                 System.out.println("...No problem.");
