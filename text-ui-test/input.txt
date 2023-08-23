@@ -1,0 +1,4 @@
+hello
+todo homework
+list
+bye
