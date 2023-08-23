@@ -7,7 +7,7 @@ public class Task {
     /** Unique identification number for the task */
     private final int id;
     /** The description of the task */
-    private String desc;
+    private final String desc;
     private boolean isDone;
 
     /**
@@ -49,15 +49,6 @@ public class Task {
      */
     public String getDesc() {
         return desc;
-    }
-
-    /**
-     * Setter method for the Task description.
-     *
-     * @param desc Description of the task
-     */
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     /**
