@@ -1,8 +1,11 @@
+package ipduke;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 public class Duke {
-    static List<String> wordsList = new ArrayList<>();
+    static List<Task> taskList = new ArrayList<>();
     static String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
@@ -42,14 +45,19 @@ public class Duke {
                 break;
             } else if (input.equals("list")) {
                 System.out.println(divider);
-                for (int i = 0; i < wordsList.size(); i++) {
-                    System.out.println("    " + (i + 1) + ". " + wordsList.get(i));
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println("    " + (i + 1) + ". " + taskList.get(i).toString());
                 }
                 System.out.println(divider);
+            } else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                taskList.get(index).markTask();
+            } else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                taskList.get(index).unmarkTask();
             } else {
                 System.out.println(divider + "    added: " + input + "\n" + divider);
-                wordsList.add(input);
-                System.out.println(wordsList.size());
+                taskList.add(new Task(input));
             }
         }
     }
