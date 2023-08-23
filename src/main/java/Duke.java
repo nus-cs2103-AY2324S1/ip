@@ -35,6 +35,8 @@ public class Duke {
                     this.addDeadline(userCommand);
                 } else if (userCommand.startsWith("event")) {
                     this.addEvent(userCommand);
+                } else if (userCommand.startsWith("delete")) {
+                    this.deleteTask(userCommand);
                 } else {
                     throw new UnknownCommandException();
                 }
@@ -157,6 +159,29 @@ public class Duke {
                 "\t\t" + newTask + "\n\t Now you have " + list.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________");
         System.out.println();
+    }
+
+    private void deleteTask(String userCommand) throws InvalidTaskIndexException{
+        try {
+            int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
+
+            if (taskIndex < 0 || taskIndex >= list.size()) {
+                throw new InvalidTaskIndexException(taskIndex + 1);
+            }
+
+            Task removedTask = list.remove(taskIndex);
+
+            System.out.println("\t____________________________________________________________");
+            System.out.println("\t Noted. I've removed this task:\n" +
+                    "\t\t" + removedTask +
+                    "\n\t Now you have " + list.size() + " tasks in the list.");
+            System.out.println("\t____________________________________________________________");
+            System.out.println();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("\t____________________________________________________________");
+            System.out.println("\t ☹ OOPS!!! Please provide a valid task number to delete.");
+            System.out.println("\t____________________________________________________________");
+        }
     }
 
     public static void main(String[] args) {
