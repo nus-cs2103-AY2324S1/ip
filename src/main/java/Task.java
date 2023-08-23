@@ -1,6 +1,6 @@
 public class Task {
-    private boolean done;
-    private String name;
+    protected boolean done;
+    protected String name;
 
     /**
      * Constructor for the Task class.

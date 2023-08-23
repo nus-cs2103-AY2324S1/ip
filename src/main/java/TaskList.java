@@ -27,7 +27,9 @@ public class TaskList {
     public void addTask(Task task) {
         this.taskList.add(task);
         this.index++;
-        System.out.println("added: " + task.getName());
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + this.index + " tasks in the list.");
     }
 
     /**
