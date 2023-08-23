@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+/**
+ * Dude (Duke, but renamed)
+ */
 public class Dude {
   // Messages
   static String logo =
