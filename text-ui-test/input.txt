@@ -10,4 +10,8 @@ mark 1
 mark 4
 marker
 unacceptableinput
+list
+delete 2
+list
+delete one
 bye

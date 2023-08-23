@@ -26,6 +26,8 @@ public class Phi {
                     taskList.addTask(Deadline.newDeadline(input));
                 } else if (input.startsWith("event")) {
                     taskList.addTask(Event.newEvent(input));
+                } else if (input.startsWith("delete")) {
+                    taskList.deleteTask(input);
                 } else {
                     System.out.println("SIKE I can't process that! Try again or say \"bye\" to exit");
                 }
@@ -41,10 +43,10 @@ public class Phi {
     }
 
     public static void greeting() {
-        String logo = "___ _  _ ___ \n"
-                + "| _ \\ || |_ _|\n"
-                + "|  _/ __ || | \n"
-                + "|_| |_||_|___| \n";
+        String logo = " ___ _  _ ___\n" +
+                      "| _ \\ || |_ _|\n" +
+                      "|  _/ __ || | \n" +
+                      "|_| |_||_|___| \n";
         String greetingMsg = "Hellos! I'm PHI (Programmed Human Interaction)\nWhat can I do for you?";
 
         System.out.println(logo + greetingMsg);
