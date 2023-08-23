@@ -9,6 +9,20 @@ import java.util.Scanner;
  */
 public class Duke {
 
+    /**
+     * Represents the different commands accepted by the chatbot
+     */
+    enum Command {
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE
+    }
+
     public static void main(String[] args) {
         List<Task> tasks = new ArrayList<>();
 
@@ -33,16 +47,19 @@ public class Duke {
                 String input = scanner.nextLine();
                 System.out.println(LINE);
 
+                // Use Regex to extract the first word even with preceding whitespace
+                String command = input.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase();
+
                 try { // In case there are exceptions
                     // User wants to end the chatbot
-                    if (input.equalsIgnoreCase("bye")) {
+                    if (command.equals(Command.BYE.name())) {
                         System.out.println("Bye. Hope to see you again soon!");
                         System.out.println(LINE);
                         break;
                     }
 
                     // List out all the tasks in the chatbot
-                    if (input.equalsIgnoreCase("list")) {
+                    if (command.equals(Command.LIST.name())) {
 
                         if (tasks.size() == 0) {
                             throw new EmptyTaskListException();
@@ -57,7 +74,7 @@ public class Duke {
                     }
 
                     // Mark a task as done
-                    if (input.startsWith("mark")) {
+                    if (command.equals(Command.MARK.name())) {
                         String desc = input.replaceAll("[^0-9]", "");
                         if (desc.equals("")) {
                             throw new NoIndexException("No Index");
@@ -76,7 +93,7 @@ public class Duke {
                     }
 
                     // Unmark a done task
-                    if (input.startsWith("unmark")) {
+                    if (command.equals(Command.UNMARK.name())) {
                         String desc = input.replaceAll("[^0-9]", "");
                         if (desc.equals("")) {
                             throw new NoIndexException("No Index");
@@ -95,7 +112,7 @@ public class Duke {
                     }
 
                     // Add a todo to the chatbot
-                    if (input.startsWith("todo")) {
+                    if (command.equals(Command.TODO.name())) {
                         String desc = input.replaceAll("^\\s*todo\\s*", "");
                         if (desc.equals("")) {
                             throw new NoDescriptionException("todo");
@@ -112,7 +129,7 @@ public class Duke {
 
 
                     // Add a deadline
-                    if (input.startsWith("deadline")) {
+                    if (command.equals(Command.DEADLINE.name())) {
                         String desc_time = input.replaceAll("^\\s*deadline\\s*", "");
 
                         String[] strings = desc_time.split(" /by ");
@@ -134,7 +151,7 @@ public class Duke {
                     }
 
                     // Add an Event
-                    if (input.startsWith("event")) {
+                    if (command.equals(Command.EVENT.name())) {
                         String content = input.replaceAll("^\\s*event\\s*", "");
                         if (content.equals("")) {
                             throw new NoDescriptionException("event");
@@ -157,7 +174,7 @@ public class Duke {
                     }
 
                     // Delete a task from the chatbot
-                    if (input.startsWith("delete")) {
+                    if (command.equals(Command.DELETE.name())) {
                         String desc = input.replaceAll("[^0-9]", "");
                         if (desc.equals("")) {
                             throw new NoIndexException("No Index");
