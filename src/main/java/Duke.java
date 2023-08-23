@@ -36,6 +36,38 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public static void deleteTask(String deleteInput) throws EmptyDescriptionException {
+        String[] words = deleteInput.split("\\s+"); // Split input by space, put into array
+        //Check for valid length
+        if (words.length <= 1) {
+            throw new EmptyDescriptionException("Please provide the task index to be deleted.");
+        }
+
+        //Try parsing into integer to get deleteIndex
+        try {
+            int deleteIndex = Integer.parseInt(words[1]) - 1; // Potential Error cannot parse to integer
+            System.out.println(HORIZONTAL_LINE);
+
+            if (deleteIndex >= 0 && deleteIndex < taskList.size()) {
+                Task removedTask = taskList.remove(deleteIndex); //Actual task can be todo, deadline, or event
+                System.out.println("     Noted. I've removed this task:");
+                System.out.printf("       %s\n", removedTask.toString());
+                System.out.printf("     Now you have %d tasks in the list.\n", taskList.size());
+            } else {
+                System.out.println("     ☹ OOPS!!! The task index is invalid.\n");
+                System.out.printf("    You currently have %d Task(s).\n", taskList.size());
+            }
+            System.out.println(HORIZONTAL_LINE);
+
+        } catch (NumberFormatException e) {
+            System.out.println(HORIZONTAL_LINE);
+            System.out.println("     ☹ OOPS!!! Please enter the index after 'delete' command.");
+            System.out.println("     For example: delete 5");
+            System.out.println("     This will remove Task 5 from your Task List, assuming you have at least 5 tasks.");
+            System.out.println(HORIZONTAL_LINE);
+        }
+    }
+
     /**
      * Function to mark a given task as done.
      * @param taskIndex the index of the task to be marked as done.
@@ -43,7 +75,7 @@ public class Duke {
     public static void markTask(int taskIndex) {
         System.out.println(HORIZONTAL_LINE);
         if (taskIndex < 0 || taskIndex >= taskList.size()) {
-            System.out.printf("     Invalid Index of Task. You currently have Task 1 to Task %d\n", taskList.size());
+            System.out.printf("     Invalid Index of Task. You currently have %d Task(s)\n", taskList.size());
         } else {
             Task task = taskList.get(taskIndex);
             task.markAsDone();
@@ -60,7 +92,7 @@ public class Duke {
     public static void unmarkTask(int taskIndex) {
         System.out.println(HORIZONTAL_LINE);
         if (taskIndex < 0 || taskIndex >= taskList.size()) {
-            System.out.printf("    Invalid Index of Task. You currently have Task 1 to Task %d\n", taskList.size());
+            System.out.printf("    Invalid Index of Task. You currently have %d Task(s)\n", taskList.size());
         } else {
             Task task = taskList.get(taskIndex);
             task.markAsNotDone();
@@ -109,6 +141,8 @@ public class Duke {
                 } else if (words[0].equals("unmark")) {
                     int taskIndex = Integer.parseInt(words[1]) - 1; // Potential Error if next input is can't be converted to Integer
                     unmarkTask(taskIndex);
+                } else if (userInput.startsWith("delete")) {
+                    deleteTask(userInput);
                 } else if (userInput.startsWith("deadline")) {
                     Deadline.handleDeadlineTask(userInput);
                 } else if (userInput.startsWith("todo")) {
