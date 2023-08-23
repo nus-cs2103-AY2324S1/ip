@@ -102,15 +102,21 @@ public class Duke {
           break;
         }
         case "deadline": {
-          int commandLength = commandString.length() + 1;
-          String taskName = inputString.substring(commandLength);
-          String[] parts = taskName.split("/by", 2);
-          String name = parts[0];
-          String endDate = parts[1];
-          Task curentTask = new Deadline(name, endDate);
-          taskList.add(curentTask);
+          try {
+            int commandLength = commandString.length() + 1;
+            String taskName = inputString.substring(commandLength);
+            String[] parts = taskName.split("/by", 2);
+            String name = parts[0];
+            String endDate = parts[1];
+            Task curentTask = new Deadline(name, endDate);
+            taskList.add(curentTask);
 
-          System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+            System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
+          } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("Please include a (/by) command, followed by a date");
+          } catch (StringIndexOutOfBoundsException ex){
+            System.out.println("Please enter a name, followed by a (/by) command, followed by a date");
+          }
 
           break;
         }
