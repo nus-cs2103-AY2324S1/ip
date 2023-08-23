@@ -147,8 +147,9 @@ public class Simon {
             throw new SimonException("Invalid task number. Choose a number between 1 and " + tasks.size() + "." + NSPACE);
         }
 
+        Task task = tasks.get(index);
         tasks.remove(index);
-        System.out.println("Noted. I've removed this task:\n" + tasks.get(index) + String.format("\nNow you have %d %s in the list.",
+        System.out.println("Noted. I've removed this task:\n" + task + String.format("\nNow you have %d %s in the list.",
                 tasks.size(), tasks.size() - 1 > 1 ? "tasks" : "task") + NSPACE);
     }
 
