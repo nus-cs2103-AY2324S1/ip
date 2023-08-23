@@ -19,6 +19,7 @@ public class Duke {
             String userCommand = scanner.nextLine();
 
             if ("bye".equals(userCommand)) {
+                scanner.close();
                 break;
             } else if ("list".equals(userCommand)) {
                 System.out.println(horizontal_line);
