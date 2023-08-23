@@ -2,53 +2,48 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private String logo = "\t ____        _        \n"
-            + "\t|  _ \\ _   _| | _____ \n"
-            + "\t| | | | | | | |/ / _ \\\n"
-            + "\t| |_| | |_| |   <  __/\n"
-            + "\t|____/ \\__,_|_|\\_\\___|\n";
     Scanner scanner = new Scanner(System.in);
     private ArrayList<Task> list = new ArrayList<>();
 
     private void greet() {
         System.out.println("\t____________________________________________________________");
-        //System.out.println(logo);
         System.out.println("\t Hello! I'm Duke.");
         System.out.println("\t What can I do for you?");
         System.out.println("\t____________________________________________________________");
+        System.out.println();
     }
 
     private void getUserInput() {
         while (true) {
-            String userCommand = scanner.nextLine();
+            try {
+                String userCommand = scanner.nextLine();
 
-            if (userCommand.equals("bye")) {
-                this.exit();
-                break;
-            } else if (userCommand.equals("list")) {
-                this.showList();
-            } else if (userCommand.startsWith("mark")) {
-                int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
-                this.markTaskAsDone(taskIndex);
-            } else if (userCommand.startsWith("unmark")) {
-                int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
-                this.markTaskAsNotDone(taskIndex);
-            } else if (userCommand.startsWith("todo")) {
-                String description = userCommand.substring(5).trim();
-                this.addTodo(description);
-            } else if (userCommand.startsWith("deadline")) {
-                String description = userCommand.substring(9).split("/by")[0].trim();
-                String by = userCommand.substring(9).split("/by")[1].trim();
-                this.addDeadline(description, by);
-            } else if (userCommand.startsWith("event")) {
-                String description = userCommand.substring(6).split("/from")[0].trim();
-                String from = userCommand.substring(6).split("/from")[1].split("/to")[0].trim();
-                String to = userCommand.substring(6).split("/to")[1].trim();
-                this.addEvent(description, from, to);
-            } else {
-                this.addTask(userCommand);
+                if (userCommand.isEmpty()) {
+                    throw new EmptyCommandException();
+                } else if (userCommand.equals("bye")) {
+                    this.exit();
+                    break;
+                } else if (userCommand.equals("list")) {
+                    this.showList();
+                } else if (userCommand.startsWith("mark")) {
+                    this.markTaskAsDone(userCommand);
+                } else if (userCommand.startsWith("unmark")) {
+                    this.markTaskAsNotDone(userCommand);
+                } else if (userCommand.startsWith("todo")) {
+                    this.addTodo(userCommand);
+                } else if (userCommand.startsWith("deadline")) {
+                    this.addDeadline(userCommand);
+                } else if (userCommand.startsWith("event")) {
+                    this.addEvent(userCommand);
+                } else {
+                    throw new UnknownCommandException();
+                }
+            } catch (DukeException e) {
+                System.out.println("\t____________________________________________________________");
+                System.out.println("\t" + e.getMessage());
+                System.out.println("\t____________________________________________________________");
+                System.out.println();
             }
-
         }
     }
 
@@ -65,66 +60,93 @@ public class Duke {
             System.out.println("\t " + (i + 1) + ". " + this.list.get(i));
         }
         System.out.println("\t____________________________________________________________");
+        System.out.println();
     }
 
-    private void markTaskAsDone(int taskIndex) {
-        if (taskIndex >= 0 && taskIndex <= list.size()) {
-            Task task = list.get(taskIndex);
-            task.markAsDone();
-            System.out.println("\t____________________________________________________________");
-            System.out.println("\t Nice! I've marked this task as done:\n" +
-                    "\t\t" + this.list.get(taskIndex));
-            System.out.println("\t____________________________________________________________");
+    private void markTaskAsDone(String userCommand) throws InvalidTaskIndexException {
+        int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
+
+        if (taskIndex < 0 || taskIndex >= list.size()) {
+            throw new InvalidTaskIndexException(taskIndex + 1);
         }
+
+        Task task = list.get(taskIndex);
+        task.markAsDone();
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t Nice! I've marked this task as done:\n" +
+                "\t\t" + this.list.get(taskIndex));
+        System.out.println("\t____________________________________________________________");
+        System.out.println();
     }
 
-    private void markTaskAsNotDone(int taskIndex) {
-        if (taskIndex >= 0 && taskIndex <= list.size()) {
-            Task task = list.get(taskIndex);
-            task.markAsNotDone();
-            System.out.println("\t____________________________________________________________");
-            System.out.println("\t OK, I've marked this task as not done yet:\n" +
-                    "\t\t" + this.list.get(taskIndex));
-            System.out.println("\t____________________________________________________________");
+    private void markTaskAsNotDone(String userCommand) throws InvalidTaskIndexException {
+        int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
+
+        if (taskIndex < 0 || taskIndex >= list.size()) {
+            throw new InvalidTaskIndexException(taskIndex + 1);
         }
+
+        Task task = list.get(taskIndex);
+        task.markAsNotDone();
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t OK, I've marked this task as not done yet:\n" +
+                "\t\t" + this.list.get(taskIndex));
+        System.out.println("\t____________________________________________________________");
+        System.out.println();
+
     }
 
-    private void addTask(String userCommand) {
-        Task newTask = new Task(userCommand);
-        list.add(newTask);
+    private void addTodo(String userCommand) throws EmptyDescriptionException {
+        if (userCommand.length() <= 5) {
+            throw new EmptyDescriptionException("todo");
+        }
 
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t added: " + userCommand);
-        System.out.println("\t____________________________________________________________");
-    }
-
-    private void addTodo(String userCommand) {
-        Todo newTask = new Todo(userCommand);
+        String description = userCommand.substring(5).trim();
+        Todo newTask = new Todo(description);
         list.add(newTask);
 
         System.out.println("\t____________________________________________________________");
         System.out.println("\t Got it. I've added this task:\n" +
                 "\t\t" + newTask + "\n\t Now you have " + list.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________");
+        System.out.println();
     }
 
-    private void addDeadline(String description, String by) {
+    private void addDeadline(String userCommand) throws EmptyDescriptionException {
+        if (userCommand.length() <= 9) {
+            throw new EmptyDescriptionException("deadline");
+        }
+
+        String description = userCommand.substring(9).split("/by")[0].trim();
+        String by = userCommand.substring(9).split("/by")[1].trim();
+
         Deadline newTask = new Deadline(description, by);
         list.add(newTask);
         System.out.println("\t____________________________________________________________");
         System.out.println("\t Got it. I've added this task:\n" +
                 "\t\t" + newTask + "\n\t Now you have " + list.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________");
+        System.out.println();
     }
 
-    private void addEvent(String description, String from, String to) {
+    private void addEvent(String userCommand) throws EmptyDescriptionException {
+        if (userCommand.length() <= 6) {
+            throw new EmptyDescriptionException("event");
+        }
+
+        String description = userCommand.substring(6).split("/from")[0].trim();
+        String from = userCommand.substring(6).split("/from")[1].split("/to")[0].trim();
+        String to = userCommand.substring(6).split("/to")[1].trim();
+
         Event newTask = new Event(description, from, to);
         list.add(newTask);
         System.out.println("\t____________________________________________________________");
         System.out.println("\t Got it. I've added this task:\n" +
                 "\t\t" + newTask + "\n\t Now you have " + list.size() + " tasks in the list.");
         System.out.println("\t____________________________________________________________");
+        System.out.println();
     }
+
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.greet();
