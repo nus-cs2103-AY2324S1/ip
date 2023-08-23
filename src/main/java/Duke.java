@@ -43,7 +43,18 @@ public class Duke {
                 String[] descr = restOfSentence.split("/"); //you get 0: taskName, 1: deadline/start, 2: end
                 String taskName = descr[0];
 
-                if (keyword.equals("todo")) {
+                if (keyword.equals("delete")) {
+                    if (restOfSentence.isEmpty()) {
+                        throw new DukeException("☹ OOPS!!! The description of a task cannot be empty.");
+                    }
+                    int taskID = Integer.parseInt(restOfSentence) - 1;
+                    Task taskChanged = taskList.get(taskID);
+                    taskList.remove(taskID);
+                    count--;
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(taskChanged);
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                } else if (keyword.equals("todo")) {
                     if (restOfSentence.isEmpty()) {
                         throw new DukeException("☹ OOPS!!! The description of a task cannot be empty.");
                     }
@@ -95,7 +106,7 @@ public class Duke {
                     taskChanged.markUndone();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(taskChanged);
-                } else {
+                } else { //covers unknown words and empty input
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (DukeException e) {

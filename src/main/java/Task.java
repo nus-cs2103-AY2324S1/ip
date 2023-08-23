@@ -15,6 +15,9 @@ public abstract class Task {
         isDone = false;
     }
 
+    public void delete() {
+
+    }
     public String marking() {
         return (isDone ? "X" : " ");
     }
