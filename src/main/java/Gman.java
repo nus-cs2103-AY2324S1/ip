@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class Gman {
     public static String userInput;
-    public static String inputList[] = new String[100];
+    public static Task taskList[] = new Task[100];
     public static void main(String[] args) {
         Scanner myScanner = new Scanner(System.in);
         System.out.println("Hello! I'm Gman! \nWhat can I do for you?");
@@ -11,12 +11,20 @@ public class Gman {
         int counter = 0;
         while (!userInput.equals(exitWord) && counter < 100) {
             if (userInput.equals("list") && counter != 0) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < counter; i++) {
-                    System.out.println(inputList[i]);
+                    (taskList[i]).display();
                 }
-            } else {
-                String toAdd = String.valueOf(counter + 1) + ". " + userInput;
-                inputList[counter] = toAdd;
+            } else if (userInput.contains("unmark") && counter != 0) {
+                String words[] = userInput.split(" ");
+                int number = Integer.valueOf(words[1]) - 1;
+                taskList[number].unmark();
+            } else if (userInput.contains("mark") && counter != 0) {
+                String words[] = userInput.split(" ");
+                int number = Integer.valueOf(words[1]) - 1;
+                taskList[number].mark();
+            }else {
+                taskList[counter] = new Task(userInput, counter + 1);
                 System.out.println("    added: " + userInput);
                 counter++;
             }
