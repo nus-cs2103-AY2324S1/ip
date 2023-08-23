@@ -22,10 +22,14 @@ public class TaskMate {
             if (userInput.equals("bye")) {
                 break;
             } else if (userInput.equals("list")) {
+                String allTasksString = "Here are the tasks in your list:\n";
                 for (int i = 0; i < Task.getAllTasks().size(); i++) {
                     Task newTask = Task.getAllTasks().get(i);
-                    System.out.println(Integer.toString(i+1) + ". " + newTask);
+                    boolean isDone = newTask.getDone();
+                    char isDoneString = isDone ? 'X' : ' ';
+                    allTasksString += Integer.toString(i+1) + ".[" + isDoneString + "] " + newTask + "\n";
                 }
+                printReply(allTasksString);
             } else {
                 Task newTask = new Task(userInput);
                 printReply("added: " + userInput);
