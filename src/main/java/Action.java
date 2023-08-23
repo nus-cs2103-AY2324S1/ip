@@ -11,6 +11,7 @@ public class Action {
      * An ArrayList that stores all tasks entered by the user.
      */
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private static int numOfTasks = 0;
 
     /**
      * Greets the user by printing the greeting messages.
@@ -62,9 +63,21 @@ public class Action {
      * @param input description of the task to be added
      */
     public static void addTask(String input) {
-        tasks.add(new Task(input));
+        String cmd = input.split(" ")[0];
+        Task newTask = null;
+        if (cmd.equals("deadline")) {
+            newTask = Deadline.generateDeadlineFromInput(input);
+        } else if (cmd.equals("event")) {
+            newTask = Event.generateEventFromInput(input);
+        } else {
+            newTask = Todo.generateTodoFromInput(input);
+        }
+        tasks.add(newTask);
+        numOfTasks++;
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("added: " + input);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(newTask);
+        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
         System.out.println(HORIZONTAL_LINE);
     }
 
