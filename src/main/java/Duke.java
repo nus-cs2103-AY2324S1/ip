@@ -37,14 +37,14 @@ public class Duke {
                     Duke.listOfTexts.toggleDone(Integer.parseInt(userInput.substring(7)), "unmark");
                 } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
                     System.out.println("☹ OOPS!!! Please indicate a task to unmark.");
-                } catch (NullPointerException e) {
+                } catch (NullPointerException | IndexOutOfBoundsException e) {
                     System.out.println("☹ OOPS!!! Please indicate an appropriate index.");
                 }
 
             } else if (userInput.startsWith("todo")) {
 
                 try {
-                    listOfTexts.addItem(new ToDos(userInput.substring(5)));
+                    Duke.listOfTexts.addItem(new ToDos(userInput.substring(5)));
                 } catch (Exception e) {
                     System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
                 }
@@ -54,7 +54,7 @@ public class Duke {
                 try {
                     // Split input into an array containing the task description, and 'by' date
                     String[] inputs = userInput.split("/");
-                    listOfTexts.addItem(new Deadlines(inputs[0].substring(9), inputs[1]));
+                    Duke.listOfTexts.addItem(new Deadlines(inputs[0].substring(9), inputs[1]));
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 } catch (Exception e) {
@@ -66,7 +66,7 @@ public class Duke {
                 try {
                     // Split input into an array containing the task description, 'from' and 'to' date
                     String[] inputs = userInput.split("/");
-                    listOfTexts.addItem(new Events(inputs[0].substring(6), inputs[1], inputs[2]));
+                    Duke.listOfTexts.addItem(new Events(inputs[0].substring(6), inputs[1], inputs[2]));
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 } catch (Exception e) {
@@ -76,9 +76,11 @@ public class Duke {
             } else if (userInput.startsWith("delete")) {
 
                 try {
-                    listOfTexts.removeItem(Integer.parseInt(userInput.substring(7)));
-                } catch (Exception e) {
-                    System.out.println(e);
+                    Duke.listOfTexts.removeItem(Integer.parseInt(userInput.substring(7)));
+                } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                    System.out.println("☹ OOPS!!! Please indicate a task to delete.");
+                } catch (NullPointerException e) {
+                    System.out.println("☹ OOPS!!! Please indicate an appropriate index.");
                 }
 
             } else {
