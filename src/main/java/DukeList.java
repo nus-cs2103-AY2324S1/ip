@@ -8,12 +8,13 @@ public class DukeList {
 
     /**
      * Function to store text written by user into a list.
-     * @param text
+     * @param task
      */
-    public void addItem(String text) {
-        this.listOfTexts[count] = new Task(text);
+    public void addItem(Task task) {
+        this.listOfTexts[count] = task;
         this.count++;
-        System.out.printf("added: %s%n", text);
+        System.out.printf("Got it. I've added this task:%n %s%nNow you have %d tasks in the list.",
+                this.listOfTexts[count - 1].printTask(), this.count);
     }
 
     /**
