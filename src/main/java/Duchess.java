@@ -1,6 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Duchess {
     /**
      * Name for the Duchess AI.
@@ -34,7 +37,7 @@ public class Duchess {
      * @param s - the command to check for exit operations
      */
     private static boolean isExitCommand(String s) {
-        return s.toLowerCase().equals("bye");
+        return Duchess.matchesRegex(s, "^bye$", true);
     }
 
     /**
@@ -51,6 +54,41 @@ public class Duchess {
      */
     private static void echo(String s) {
         Duchess.duchessPrint(s);
+    }
+
+    /**
+     * Checks whether the given string matches the given regex pattern.
+     *
+     * @param s               - the string to check if it matches the pattern.
+     * @param patternString   - the pattern to match against.
+     * @param caseInsensitive - whether the match should be performed ignoring the case.
+     * @return                  whether the string matches the pattern.
+     */
+    private static boolean matchesRegex(String s, String patternString, boolean caseInsensitive) {
+        Pattern pattern;
+
+        if (caseInsensitive) {
+            pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
+        }
+        else {
+            pattern = Pattern.compile(patternString);
+        }
+
+        Matcher matcher = pattern.matcher(s);
+        boolean matchFound = matcher.find();
+
+        return matchFound;
+    }
+
+    /**
+     * Checks whether the given string matches the given regex pattern. Defaults to case-sensitive matching.
+     *
+     * @param s               - the string to check if it matches the pattern.
+     * @param patternString   - the pattern to match against.
+     * @return                  whether the string matches the pattern.
+     */
+    private static boolean matchesRegex(String s, String patternString) {
+        return Duchess.matchesRegex(s, patternString, false);
     }
 
     /**
@@ -72,7 +110,7 @@ public class Duchess {
      * @param s - the command to check for "list text" command.
      */
     private static boolean isListTasksCommand(String s) {
-        return s.toLowerCase().equals("list");
+        return Duchess.matchesRegex(s, "^list$");
     }
 
     /**
@@ -85,6 +123,44 @@ public class Duchess {
         for (int i = 0; i < Duchess.storedTasks.size(); i++) {
             Duchess.duchessPrint(String.format("%d: %s", i, Duchess.storedTasks.get(i).toString()));
         }
+    }
+
+    /**
+     * Returns true if the command is recognized as a "mark task" command.
+     *
+     * @param s - the command to check for "mark task" command.
+     */
+    private static boolean isMarkTaskCommand(String s) {
+        return Duchess.matchesRegex(s, "^mark[ ]*([0-9]+)$");
+    }
+
+    /**
+     * Marks a task.
+     *
+     * @param i - the index of the task to be marked.
+     */
+    private static void markTask(int index) {
+        Duchess.duchessPrint("Task has been marked!! (＾▽＾)");
+        Duchess.storedTasks.get(index).changeStatus(TaskStatus.MARKED);
+    }
+
+    /**
+     * Returns true if the command is recognized as an "unmark task" command.
+     *
+     * @param s - the command to check for "unmark task" command.
+     */
+    private static boolean isUnmarkTaskCommand(String s) {
+        return Duchess.matchesRegex(s, "^unmark[ ]*([0-9]+)$");
+    }
+
+    /**
+     * Unmarks a task.
+     *
+     * @param i - the index of the task to be unmarked.
+     */
+    private static void unmarkTask(int index) {
+        Duchess.duchessPrint("Task has been unmarked!! (＾▽＾)");
+        Duchess.storedTasks.get(index).changeStatus(TaskStatus.UNMARKED);
     }
 
     public static void main(String[] args) {
@@ -106,6 +182,14 @@ public class Duchess {
                 Duchess.listTasks();
                 continue;
             }
+
+            // Check if this command is a mark task command.
+            // TODO: Use a function that accepts a lambda function to check if a particular regex matches the
+            // comamnd for all is****Command() functions.
+            // if (Duchess.isMarkTaskCommand(userInput)) {
+                // Duchess.markTask(Integer.parseInt(userInput));
+                // continue;
+            // }
 
             // Otherwise, store the command.
             Duchess.storeTasks(userInput);

@@ -28,6 +28,10 @@ public class Task {
         this.status = TaskStatus.UNMARKED;
     }
 
+    public void changeStatus(TaskStatus newStatus) {
+        this.status = newStatus;
+    }
+
     /**
      * Returns a String representation of this task.
      */
