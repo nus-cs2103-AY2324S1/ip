@@ -75,10 +75,8 @@ public class Ax {
      *
      * @param scanner the scanner to use for input
      * @return true if the user wants to exit, false otherwise
-     * @throws NoSuchMethodException          if the input is not recognized
-     * @throws MissingFormatArgumentException if the input is missing an argument
      */
-    private static boolean getInput(Scanner scanner) throws NoSuchMethodException, MissingFormatArgumentException {
+    private static boolean getInput(Scanner scanner) {
         try {
             String input = scanner.nextLine(); // get next input
             System.out.println(input); // repeat the input
@@ -132,7 +130,7 @@ public class Ax {
                     throw new MissingFormatArgumentException("no arg");
                 }
             } else {
-                throw new NoSuchMethodException();
+                throw new NoSuchMethodException("no method");
             }
         } catch (MissingFormatArgumentException e) {
             System.out.println(
