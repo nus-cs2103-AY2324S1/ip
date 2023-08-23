@@ -3,3 +3,7 @@ list
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
 deadline do homework /by no idea :-p
+todo
+blah
+delete 1
+list
