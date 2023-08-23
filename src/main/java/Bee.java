@@ -1,3 +1,5 @@
+import java.util.Objects;
+import java.util.Scanner;
 public class Bee {
     public static void main(String[] args) {
         String logo = " \n" +
@@ -8,7 +10,22 @@ public class Bee {
                 " |______  /\\___  >\\___  >\n" +
                 "        \\/     \\/     \\/ \n";
         System.out.println("Hello! I'm " + logo + ".\n");
-        System.out.println("What can I do for you?");
-        System.out.println("Bye. Hope to see you again!");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("~Bzzzz~ What may I assist you with today? ~Bzzzz~\n");
+
+        boolean isRunning = true;
+        while (isRunning) {
+            String userInput = scanner.nextLine();
+
+            // If user enters "bye", ends the program and says goodbye to the user.
+            if (userInput.equals("bye")) {
+                System.out.println("By-ee!. ~Bzzzz~");
+                break;
+            }
+
+            // Else, echo back the user input.
+            System.out.println(userInput + " ~Bzzzz~\n");
+        }
     }
 }
