@@ -211,7 +211,8 @@ public class Corgi {
             if (index >= 0 && index < this.tasks.size()) {
                 Task target = this.tasks.get(index);
                 this.tasks.remove(index);
-                System.out.println("Finally got rid of that task. Took you long enough... uninterested woof\n" + "\n " + target + "\n");
+                System.out.println("Finally got rid of that task. Took you long enough... uninterested woof\n" 
+                    + "\n " + target + "\n\nNow you have " + this.tasks.size() + " tasks in the list.🐾");
             } else {
                 System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
             }
