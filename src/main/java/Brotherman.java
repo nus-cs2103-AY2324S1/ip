@@ -98,6 +98,23 @@ public class Brotherman {
                     );
                 }
 
+            } else if (userCommand.split(" ")[0].equals("delete")) {
+
+                int task = Integer.parseInt(userCommand.split(" ")[1]) - 1;
+                if (task < 0 || task >= userList.size()) {
+                    System.out.println("Brotherman the value you put in wrong.  Try again.");
+                } else {
+                    System.out.println(
+                            "___________________________________________________________\n"
+                                    + "The task is now deleted Brotherman \n"
+                                    + userList.get(task).toString()
+                                    + " \n"
+                                    + "___________________________________________________________\n"
+                    );
+
+                    userList.remove(task);
+                }
+
             } else if (userCommand.split(" ")[0].equals("todo")) {
 
                 userList.add(new Todo(userCommand.split("todo")[1]));
