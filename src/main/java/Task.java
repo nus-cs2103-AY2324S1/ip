@@ -16,16 +16,12 @@ public class Task extends Duke {
         taskList.add(task);
         String message = String.format("Got it. I've added this task:\n  "
                 + task
-                + "\nNow you have %s tasks in the list", taskList.size());
+                + "\nNow you have %s tasks in the list\n", taskList.size());
         System.out.println(message);
-    }
-
-    public static List<Task> getAllTasks() {
-        return taskList;
     }
     public static void listAllTasks() {
         if (taskList.isEmpty()) {
-            System.out.println("You have no tasks.");
+            System.out.println("You have no tasks.\n");
         } else {
             System.out.println("Here are your tasks:");
             for (int i = 0; i < taskList.size(); i++) {
@@ -35,22 +31,28 @@ public class Task extends Duke {
         }
     }
 
-    public static void mark(int i) {
+    public static void mark(int i) throws TaskException {
+        if (i > taskList.size()) {
+            throw new TaskException("   TaskException: Invalid task index. Greater than taskList size\n");
+        }
         Task taskToMark = taskList.get(i - 1);
         if (taskToMark.isMarked) {
-            System.out.println("Already marked!");
+            System.out.println("Already marked!\n");
         } else {
             taskToMark.isMarked = true;
-            System.out.println("Nice! I've marked this task as done:\n  " + taskToMark);
+            System.out.println("Nice! I've marked this task as done:\n  " + taskToMark + "\n");
         }
     }
-    public static void unMark(int i) {
+    public static void unMark(int i) throws TaskException{
+        if (i > taskList.size()) {
+            throw new TaskException("   TaskException: Invalid task index. Greater than taskList size\n");
+        }
         Task taskToMark = taskList.get(i - 1);
         if (taskToMark.isMarked) {
             taskToMark.isMarked = false;
-            System.out.println("I've unmarked this task:\n  " + taskToMark);
+            System.out.println("I've unmarked this task:\n  " + taskToMark + "\n");
         } else {
-            System.out.println("Already unmarked");
+            System.out.println("Task already unmarked\n");
         }
     }
 
