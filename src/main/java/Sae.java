@@ -38,6 +38,8 @@ public class Sae {
 
         if (command.equals("bye")) {
             System.out.println("Bye. Hope to see you again soon!");
+        } else if (command.equals("delete")) {
+            deleteTask(store, commandTask);
         } else if (command.equals("list")) {
             listTasks(store);
         } else if (command.equals("mark")) {
@@ -148,7 +150,17 @@ public class Sae {
         Task curr = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
         store.add(curr);
         System.out.println("Got it. I've added this task:");
-        System.out.println(curr.toString());
+        System.out.println("  " + curr.toString());
         System.out.println("Now you have " + store.size() + " tasks in the list.");
+    }
+
+    private static void deleteTask(ArrayList<Task> store, String[] commandTask) {
+        int number = Integer.parseInt(commandTask[1]);
+        Task curr = store.get(number - 1);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + curr.toString());
+        store.remove(curr);
+        System.out.println("Now you have " + store.size() + " tasks in the list.");
+
     }
 }
