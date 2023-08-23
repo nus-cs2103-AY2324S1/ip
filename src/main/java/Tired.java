@@ -2,6 +2,9 @@ import java.util.Scanner;
 public class Tired {
    public static void main(String[] args) {
 
+       String[] list = new String[100];
+       int pos = 0;
+
        String name = "Tired";
        String horizontalLine = "____________________________________________________________";
 
@@ -15,7 +18,15 @@ public class Tired {
 
        while (!input.equals("bye")) {
            System.out.println(horizontalLine);
-           System.out.println(input);
+           if (input.equals("list")) {
+               for (int i = 0; i < pos; i++) {
+                   System.out.println((i + 1) + "." + list[i]);
+               }
+           } else {
+               list[pos] = input;
+               System.out.println("added: " + input);
+               pos += 1;
+           }
            System.out.println(horizontalLine + "\n");
            input = sc.nextLine();
        }
