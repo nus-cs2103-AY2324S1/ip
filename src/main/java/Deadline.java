@@ -9,10 +9,16 @@ public class Deadline extends Task {
      * A constructor for tasks with deadline
      * @param description Name of task
      * @param by Deadline of task to be completed by.
+     * @throws HelpBuddyException If description or deadline is empty.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws HelpBuddyException {
         super(description);
         this.by = by;
+        if (description.isBlank()) {
+            throw new HelpBuddyException("The description of a deadline cannot be empty.\n");
+        } else if (by.isBlank()) {
+            throw new HelpBuddyException("Please enter a deadline.\n");
+        }
     }
 
     /**

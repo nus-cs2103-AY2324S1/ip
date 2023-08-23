@@ -12,11 +12,19 @@ public class Event extends Task {
      * @param description Name of event
      * @param from Start of event
      * @param to End of event
+     * @throws HelpBuddyException If description, start and end time of event is empty.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws HelpBuddyException {
         super(description);
         this.from = from;
         this.to = to;
+        if (description.isBlank()) {
+            throw new HelpBuddyException("The description of a event cannot be empty.\n");
+        } else if (from.isBlank()) {
+            throw new HelpBuddyException("Please enter a start time of event.\n");
+        } else if (to.isBlank()) {
+            throw new HelpBuddyException("Please enter an end time of event.\n");
+        }
     }
 
     /**

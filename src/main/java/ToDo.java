@@ -5,9 +5,13 @@ public class ToDo extends Task {
     /**
      * A constructor for todo task object.
      * @param description Name of todo task
+     * @throws HelpBuddyException If the description is empty
      */
-    public ToDo(String description) {
+    public ToDo(String description) throws HelpBuddyException {
         super(description);
+        if (description.isBlank()) {
+            throw new HelpBuddyException("The description of a todo cannot be empty.\n");
+        }
     }
 
     /**
