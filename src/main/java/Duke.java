@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    private static int id = 1;
+    private static int count = 0;
     private static ArrayList<Task> taskList = new ArrayList<>(); //universal task list in memory
 
     public static void main(String[] args) {
@@ -18,7 +18,6 @@ public class Duke {
 
         while (true) {
             input = scanner.nextLine();
-            Task newTask = new Task(input);
 
             if (input.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
@@ -35,26 +34,57 @@ public class Duke {
                 continue;
             }
 
+            //for identifying first word keyword: mark/ unmark, todo, deadline, event
             String[] parts = input.split(" ");
-            if (parts.length >= 2) {
-                String cmd = parts[0];
-                int taskID = Integer.parseInt(parts[1]) - 1;
+            String keyword = parts[0]; //first word is command
+            String restOfSentence = input.substring(keyword.length()).trim();
+            String[] descr = restOfSentence.split("/"); //you get 0: taskName, 1: deadline/start, 2: end
+            String taskName = descr[0];
+
+
+            if (keyword.equals("todo")) {
+                //new todo
+                Task newTask = new ToDo(taskName);
+                taskList.add(newTask);
+                count++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newTask);
+                System.out.println("Now you have " + count + " tasks in the list.");
+            } else if (keyword.equals("deadline")) {
+                //new deadline
+                if (descr.length > 1) {
+                    String st = descr[1];
+                Task newTask = new Deadline(taskName, st);
+                taskList.add(newTask);
+                count++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newTask);
+                System.out.println("Now you have " + count + " tasks in the list.");
+                }
+            } else if (keyword.equals("event")) {
+                //new event
+                if (descr.length > 1) {
+                    String st = descr[1];
+                    String end = descr[2];
+                Task newTask = new Event(taskName, st, end);
+                taskList.add(newTask);
+                count++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + newTask);
+                System.out.println("Now you have " + count + " tasks in the list.");
+                }
+            } else {
+                int taskID = Integer.parseInt(restOfSentence) - 1;
                 Task taskChanged = taskList.get(taskID);
-                if (cmd.equals("mark")) {
+                if (keyword.equals("mark")) {
                     taskChanged.markDone();
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + taskChanged);
                 } else {
                     taskChanged.markUndone();
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + taskChanged);
                 }
-                continue;
+                System.out.println(taskChanged);
             }
-
-            taskList.add(newTask);
-            System.out.println("added: " + input);
-
         }
         scanner.close();
     }

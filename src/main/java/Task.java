@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private final String descr;
     private boolean isDone;
 
@@ -19,7 +19,7 @@ public class Task {
         return (isDone ? "X" : " ");
     }
     public String toString() {
-        return "[" + marking() + "] " + this.descr; //groups "1. [ ] task" tgt
+        return "[" + marking() + "] " + this.descr; //groups "[ ] task" tgt
     }
 
 }
