@@ -48,9 +48,8 @@ public class Duke {
         }
         return result;
     }
-    public static String[] input() {
-        Scanner myInput = new Scanner(System.in);
-        String reply = myInput.nextLine();
+    public static String[] input(Scanner sc) {
+        String reply = sc.nextLine();
         System.out.println("--------------------------------");
         return reply.split(" ", 2);
     }
@@ -58,7 +57,8 @@ public class Duke {
         System.out.println("Hello.. I'm ekuD..");
         System.out.println("I probably won't be much of a help.. But ask me something..");
         System.out.println("--------------------------------");
-        String[] input = input();
+        Scanner sc = new Scanner(System.in);
+        String[] input = input(sc);
         while (continueOrNot(input)) {
             if (input[0].equals("list")) {
                 listTask();
@@ -82,7 +82,7 @@ public class Duke {
             } else {
                 System.out.println("not working.");
             }
-            input = input();
+            input = input(sc);
         }
         System.out.println("    bye...");
     }
