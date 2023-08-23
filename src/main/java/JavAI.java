@@ -3,16 +3,20 @@ import java.util.Scanner;
 public class JavAI {
 
     public static void main(String[] args) {
+
         Task[] arr = new Task[100];
         int counter = 0;
         Scanner sc = new Scanner(System.in);
         String line = "     ____________________________________________________________";
+
         System.out.println(line + "\n      Hello, I'm JavAI.\n      What can I do for you?\n" + line);
         String output = sc.nextLine();
+
         while (!output.equals("bye")) {
             String[] words = output.split(" ");
             String description = "";
             int iterator = 1;
+
             if (words[0].equals("todo")) {
                 while (iterator < words.length) {
                     description+= words[iterator] + " ";
@@ -24,6 +28,7 @@ public class JavAI {
                         "       " + arr[counter] +
                         "\n      Now you have " + (counter+1) + " task(s) in the list.\n" + line);
                 counter++;
+
             } else if (words[0].equals("deadline")) {
                 String by = "";
                 while (!words[iterator].equals("/by")) {
@@ -65,6 +70,7 @@ public class JavAI {
                         "       " + arr[counter] +
                         "\n      Now you have " + (counter+1) + " task(s) in the list.\n" + line);
                 counter++;
+
             } else if (words[0].equals("mark") && words.length == 2) {
                 int iden = Integer.parseInt(words[1]) - 1;
                 if (iden >= 0 && arr[iden] != null) {
@@ -75,6 +81,7 @@ public class JavAI {
                 } else {
                     System.out.println("Improper input. Please retry!");
                 }
+
             } else if (words[0].equals("unmark") && words.length == 2) {
                 int iden = Integer.parseInt(words[1]) - 1;
                 if (iden >= 0 && arr[iden] != null) {
@@ -85,6 +92,7 @@ public class JavAI {
                 } else {
                     System.out.println("Improper input. Please retry!");
                 }
+
             } else if (output.equals("list")) {
                 System.out.println(line);
                 System.out.println("      " + "Here are the tasks in your list:");
@@ -92,11 +100,13 @@ public class JavAI {
                     System.out.println("      " + (i+1) + "." + arr[i].toString());
                 }
                 System.out.println(line);
+
             } else {
                 System.out.println("Improper input. Please retry!");
             }
             output = sc.nextLine();
         }
+
         System.out.println(line + "\n" + "      Bye. Hope to see you again soon!\n" + line);
 
     }
