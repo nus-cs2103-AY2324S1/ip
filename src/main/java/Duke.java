@@ -1,8 +1,12 @@
 public class Duke {
     public static void main(String[] args) {
         String line = "____________________________________________________________\n";
-        String logo = "  _  ._ _   _  \n"
-                + " (_) | (/_ (_) \n";
+        String logo = "                   .-\"-.\n"
+                + "                  /|6 6|\\\n"
+                + "  _  ._ _   _    {/(_0_)\\}\n"
+                + " (_) | (/_ (_)    _/ ^ \\_\n"
+                + "                 (/ /^\\ \\)-'\n"
+                + "                  \"\"' '\"\"\n";
         String greet = line + logo
                 + "Woof! I'm Oreo! How may I help you?\n"
                 + line;
