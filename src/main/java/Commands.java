@@ -1,4 +1,7 @@
+import Tasks.Deadlines;
+import Tasks.Events;
 import Tasks.Task;
+import Tasks.ToDos;
 
 public class Commands {
     static String name = "Nichbot";
@@ -28,26 +31,70 @@ public class Commands {
 
     //  Level-1, Echo user input
     public static void echoUserInput(Task task) {
-        System.out.println(task + "\n____________________________________________________________");
+        System.out.println(task);
+        System.out.println("____________________________________________________________\n");
     }
 
     //    Level-2, Add, list
     public static void addList(String input) {
-        Task newTask = new Task(input);
-        tasks[count++] = newTask;
-        System.out.print("____________________________________________________________\n" + "added: ");
-        echoUserInput(newTask);
+        Task newTask = null;
+
+        // check if input begins with todo, deadline or event to categorise task type
+        if (input.length() > 5 && input.substring(0,4).toLowerCase().equals("todo")) newTask = new ToDos(input.substring(5,input.length()));
+        if (input.length() > 9 && input.substring(0,8).toLowerCase().equals("deadline")) {
+            String[] parts = input.split("/");
+
+            /*
+            split input array into description and deadline.
+            "deadline return book /by Sunday" -> parts[0] = deadline return book  and parts[1] = by Sunday
+            using substring, deadline return book -> return book
+            */
+
+            String description = parts[0].substring(8, parts[0].length());
+            String deadline = parts[1];
+            newTask = new Deadlines(description, deadline);
+        }
+
+        if (input.length() > 5 && input.substring(0,5).toLowerCase().equals("event")) {
+            String[] parts = input.split("/");
+            /*
+            similar logic as above. additionally, splits input into start and end time
+             */
+            String description = parts[0].substring(6, parts[0].length());
+            String startTime = parts[1];
+            String endTime = parts[2];
+            newTask = new Events(description, startTime, endTime);
+        }
+
+        if (newTask == null) newTask = new Task(input);
+
+            tasks[count++] = newTask;
+            System.out.println("____________________________________________________________\n" +
+                    "I have added this task to your list\n" +
+                    String.format("[%s]",newTask.getTaskType()) + "[ ]" + newTask.getDescription() + "\n" +
+                    String.format("You now have %d tasks in your list.", count));
+            System.out.println("____________________________________________________________\n");
     }
 
     public static void printList() {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < count; i++) {
-            String current = String.format("%d:[%s] %s",i + 1, tasks[i].getStatusIcon(),tasks[i]);
+            // for each task in task[], prints out a simple line describing the task
+            Character taskType = tasks[i].getTaskType();
+            String current = String.format("%d: [%c][%s] %s ", i+1, taskType, tasks[i].getStatusIcon(),tasks[i]);
+
+            if (tasks[i] instanceof Deadlines) {
+                current += (String.format("(%s)", ((Deadlines) tasks[i]).getDeadline()));
+            } else if (tasks[i] instanceof Events) {
+                current += (String.format("(%s, %s)", ((Events) tasks[i]).getStartTime(), ((Events) tasks[i]).getEndTime()));
+            }
+
             System.out.println(current);
         }
-        System.out.print("____________________________________________________________\n");
+        System.out.print("\n____________________________________________________________\n");
     }
 
+    // function to mark task as done or undone
     public static void markDoneOrUndone(int task, boolean done) {
         if (task < 1 || task > 100) {
             System.out.println("Invalid Input written.");
@@ -71,6 +118,7 @@ public class Commands {
         }
     }
 
+    // overall input handler which determines which function to run
     public static void handleInput(String userInput){
             if (userInput.toLowerCase().equals("bye")) return;
             if (userInput.toLowerCase().equals("list")) {
