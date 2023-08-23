@@ -19,70 +19,39 @@ public class Duke {
         printWelcome();
 
         while (isRunning) {
-            runCommand();
+            try {
+                runCommand();
+            } catch (DukeException exception) {
+                printMessage("☹ OOPS!!! " + exception.getMessage());
+            }
         }
 
         printExit();
     }
 
-    private void runCommand() {
-        String command = scanner.nextLine().trim();
+    private void runCommand() throws DukeException {
+        String input = scanner.nextLine().trim();
+        String args = input.contains(" ")
+                ? input.split(" ", 2)[1]
+                : "";
 
-        String[] args = command.split(" ");
-
-        if (args[0].equals("bye")) {
+        if (isCommand(input, "bye")) {
             isRunning = false;
-            return;
-        } else if (args[0].equals("list")) {
-            printTasks();
-            return;
-        } else if (args[0].equals("todo") && args.length > 1) {
-            String description = command.replaceFirst("todo ", "");
-            if (description.equals("")) {
-                return;
-            }
-            ToDo toDo = new ToDo(description);
-            addToTasks(toDo);
-            return;
-        } else if (args[0].equals("mark")) {
-            int taskNumber = Integer.parseInt(args[1]);
-            doTask(taskNumber);
-            return;
-        } else if (args[0].equals("unmark")) {
-            int taskNumber = Integer.parseInt(args[1]);
-            undoTask(taskNumber);
-            return;
-        } else if (args[0].equals("deadline") && args.length > 1) {
-            if (!command.contains(" /")) {
-                return;
-            }
-
-            String by = command.split(" /by ", 2)[1];
-            String description = command
-                    .replaceFirst("deadline ", "")
-                    .replaceFirst(" /by " + by, "");
-            Deadline deadline = new Deadline(description, by);
-            addToTasks(deadline);
-            return;
-        } else if (args[0].equals("event") && args.length > 1) {
-            if (!command.contains(" /from ") || !command.contains(" /to ")) {
-                return;
-            }
-
-            String to = command.split(" /to ", 2)[1];
-            command = command.replaceFirst(" /to " + to, "");
-
-            String from = command.split(" /from ", 2)[1];
-
-            String description = command
-                    .replaceFirst("event ", "")
-                    .replaceFirst(" /from " + from, "");
-            Event event = new Event(description, from, to);
-            addToTasks(event);
-            return;
+        } else if (isCommand(input, "list")) {
+            performListCommand();
+        } else if (isCommand(input, "todo")) {
+            performTodoCommand(args);
+        } else if (isCommand(input, "deadline")) {
+            performDeadlineCommand(args);
+        } else if (isCommand(input, "event")) {
+            performEventCommand(args);
+        } else if (isCommand(input, "mark")) {
+            performMarkCommand(args);
+        } else if (isCommand(input, "unmark")) {
+            performUnmarkCommand(args);
+        } else {
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
-
-        printMessage("Unrecognized command. Try again?");
     }
 
 
@@ -117,14 +86,14 @@ public class Duke {
     private void addToTasks(Task task) {
         tasks.add(task);
         String[] message = {
-                "Go it. I've added this task:",
+                "Got it. I've added this task:",
                 "\t" + task,
                 "Now you have " + tasks.size() + " tasks in the list."
         };
         printMessage(message);
     }
 
-    private void printTasks() {
+    private void performListCommand() {
         System.out.println(line);
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("\t%d. %s\n", i + 1, tasks.get(i));
@@ -133,9 +102,17 @@ public class Duke {
         System.out.println("\n" + line + "\n");
     }
 
-    private void doTask(int taskNumber) {
+    private void performMarkCommand(String args) throws DukeException {
+        int taskNumber;
+
+        try {
+            taskNumber = Integer.parseInt(args);
+        } catch (NumberFormatException exception) {
+            throw new DukeException("The task number must be specified.");
+        }
+
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            return;
+            throw new DukeException("No such task exists.");
         }
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
@@ -148,9 +125,17 @@ public class Duke {
         printMessage(message);
     }
 
-    private void undoTask(int taskNumber) {
+    private void performUnmarkCommand(String args) throws DukeException {
+        int taskNumber;
+
+        try {
+            taskNumber = Integer.parseInt(args);
+        } catch (NumberFormatException exception) {
+            throw new DukeException("The task number must be specified.");
+        }
+
         if (taskNumber < 1 || taskNumber > tasks.size()) {
-            return;
+            throw new DukeException("No such task exists.");
         }
         Task task = tasks.get(taskNumber - 1);
         task.markAsUndone();
@@ -162,5 +147,67 @@ public class Duke {
 
         printMessage(message);
     }
+
+    private void performTodoCommand(String args) throws DukeException {
+        if (args.isEmpty()) {
+            throw new DukeException("The description of a todo cannot be empty.");
+        }
+
+        ToDo toDo = new ToDo(args);
+        addToTasks(toDo);
+    }
+
+    private void performDeadlineCommand(String args) throws DukeException {
+        if (args.startsWith("/by")) {
+            throw new DukeException("The description of a deadline cannot be empty.");
+        } else if (!args.contains(" /by ")) {
+            throw new DukeException("The deadline must be specified.");
+        }
+
+        String by = args.split(" /by ", 2)[1];
+        if (by.isEmpty()) {
+            throw new DukeException("The deadline cannot be empty.");
+        }
+
+        String description = args.replaceFirst(" /by " + by, "");
+
+        Deadline deadline = new Deadline(description, by);
+        addToTasks(deadline);
+    }
+
+    private void performEventCommand(String args) throws DukeException {
+        if (args.startsWith("/from")) {
+            throw new DukeException("The description of a deadline cannot be empty.");
+        } else if (!args.contains(" /from ") || !args.contains(" /to ")) {
+            throw new DukeException("The from and to must be specified.");
+        }
+
+        String to = args.split(" /to ", 2)[1];
+        if (to.isEmpty()) {
+            throw new DukeException("The to cannot be empty.");
+        }
+        args = args.replaceFirst(" /to " + to, "");
+
+        String from = args.split(" /from ", 2)[1];
+        if (from.isEmpty()) {
+            throw new DukeException("The from cannot be empty.");
+        }
+
+        String description = args.replaceFirst(" /from " + from, "");
+
+        if (description.isEmpty()) {
+            throw new DukeException("The description of an event cannot be empty.");
+        }
+
+        Event event = new Event(description, from, to);
+        addToTasks(event);
+    }
+
+
+
+    private static boolean isCommand(String text, String command) {
+        return text.equals(command) || text.startsWith(command + " ");
+    }
+
 
 }
