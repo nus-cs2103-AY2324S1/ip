@@ -115,8 +115,10 @@ public class Duke {
                 } else if (userInput.startsWith("event")) {
                     Event.handleEventTask(userInput);
                 } else {
-                    System.out.println("Please input valid commands. Currently SeeWhyAre bot supports:");
-                    System.out.println("todo \ndeadline \nevent \nlist");
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("     Please input valid commands. Currently SeeWhyAre bot supports:");
+                    System.out.println("     todo \n     deadline \n     event \n     list");
+                    System.out.println(HORIZONTAL_LINE);
                 }
             }
         } catch (Exception e) {
