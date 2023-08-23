@@ -1,9 +1,6 @@
 public class ToDo extends Task {
-    public ToDo(String taskName) throws EmptyToDoException {
+    public ToDo(String taskName) {
         super(taskName);
-        if (taskName.isEmpty()) {
-            throw new EmptyToDoException("empty todo");
-        }
     }
 
     @Override

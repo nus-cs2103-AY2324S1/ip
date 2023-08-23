@@ -48,6 +48,9 @@ public class Duke {
                                     "    ____________________________________________________________\n");
 
                 } else if (userInput.startsWith("mark")) {
+                    if (userInput.equals("mark")) {
+                        throw new EmptyTaskException("mark");
+                    }
                     String[] parts = userInput.split("\\s+");
                     int taskIndex = Integer.parseInt(parts[1]) - 1;
                     Task currentTask = taskArray[taskIndex];
@@ -59,6 +62,9 @@ public class Duke {
                                     "    ____________________________________________________________\n");
 
                 } else if (userInput.startsWith("unmark")) {
+                    if (userInput.equals("unmark")) {
+                        throw new EmptyTaskException("unmark");
+                    }
                     String[] parts = userInput.split("\\s+");
                     int taskIndex = Integer.parseInt(parts[1]) - 1;
                     Task currentTask = taskArray[taskIndex];
@@ -69,8 +75,11 @@ public class Duke {
                                     "       " + currentTask.toString() + "\n" +
                                     "    ____________________________________________________________\n");
                 } else if (userInput.startsWith("todo")) {
-                    String taskName = userInput.substring("todo".length());
-                    taskArray[inputNum] = new ToDo(taskName.trim());
+                    if (userInput.equals("todo")) {
+                        throw new EmptyTaskException("todo");
+                    }
+                    String taskName = userInput.substring("todo".length()).trim();
+                    taskArray[inputNum] = new ToDo(taskName);
                     System.out.println(
                             "    ____________________________________________________________\n" +
                                     "     Got it. I've added this task:\n" +
@@ -80,10 +89,9 @@ public class Duke {
                     inputNum++;
 
                 } else if (userInput.startsWith("deadline")) {
-                    String description = userInput.substring("deadline".length());
-                    String[] parts = description.split(" /by ");
-                    String taskName = parts[0];
-                    String by = parts[1];
+                    String[] parts = getPartsDeadline(userInput);
+                    String taskName = parts[0].trim();
+                    String by = parts[1].trim();
                     taskArray[inputNum] = new Deadline(taskName, by);
                     System.out.println(
                             "    ____________________________________________________________\n" +
@@ -93,13 +101,19 @@ public class Duke {
                                     "    ____________________________________________________________\n");
                     inputNum++;
 
-                } else if (userInput.startsWith("event ")) {
-                    String description = userInput.substring("event ".length());
-                    String[] partsA = description.split(" /from ");
-                    String taskName = partsA[0];
-                    String[] partsB = partsA[1].split(" /to ");
-                    String start = partsB[0];
-                    String end = partsB[1];
+                } else if (userInput.startsWith("event")) {
+                    if (userInput.equals("event")) {
+                        throw new EmptyTaskException("event");
+                    }
+                    String description = userInput.substring("event".length()).trim();
+                    String[] partsA = description.split("/from");
+                    String taskName = partsA[0].trim();
+                    String[] partsB = partsA[1].split("/to");
+                    if (partsB.length == 1 || partsB[0].trim().isEmpty() || partsB[1].trim().isEmpty()) {
+                        throw new EmptyDateException("event");
+                    }
+                    String start = partsB[0].trim();
+                    String end = partsB[1].trim();
                     taskArray[inputNum] = new Event(taskName, start, end);
                     System.out.println(
                             "    ____________________________________________________________\n" +
@@ -112,10 +126,24 @@ public class Duke {
                 } else {
                     throw new InvalidInputException("Invalid Input");
                 }
-            } catch (InvalidInputException | EmptyToDoException e) {
+            } catch (InvalidInputException | EmptyTaskException | EmptyDateException e) {
                 System.out.println(e);
             }
         }
         scan.close();
+    }
+
+    private static String[] getPartsDeadline(String userInput) throws EmptyTaskException, EmptyDateException {
+        if (userInput.equals("deadline")) {
+            throw new EmptyTaskException("deadline");
+        } else if (userInput.endsWith("/by")) {
+            throw new EmptyDateException("deadline");
+        }
+        String description = userInput.substring("deadline".length()).trim();
+        String[] parts = description.split("/by");
+        if (parts.length == 1) {
+            throw new EmptyDateException("deadline");
+        }
+        return parts;
     }
 }
