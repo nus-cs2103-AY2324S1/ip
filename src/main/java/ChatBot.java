@@ -51,7 +51,7 @@ public class ChatBot {
                     try {
                         int num = Integer.parseInt(temp[1]) - 1;
                         Task curr = list.get(num);
-                        curr.unmarkDone();
+                        curr.unmarkedDone();
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("This task number is not available. Please try again.");
                     } catch (NumberFormatException e) {
