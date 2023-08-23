@@ -1,22 +1,36 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+
+/**
+ * The Duke class contains the code for interacting
+ * with Jarvis, a task manager bot.
+ *
+ * @author: Shishir
+ **/
 public class Duke {
+    /** Contains the user inputted message which is split on the basis of ' ' **/
     private String[] split;
+    /** Contains the list of all tasks. **/
     private ArrayList<Task> tasks;
 
+    /** Constructor for Duke Class. **/
     public Duke() {
         this.tasks = new ArrayList<>();
     }
+
+    /** The command to greet the user. **/
     public void greet() {
         this.indent();
         System.out.println("Greetings, I am Jarvis. How may I assist you today?");
         this.indent();
     }
 
+    /** The command to provide the lines. **/
     public void indent() {
         System.out.println("_______________________________________________________________");
     }
 
+    /** The command to add tasks into the tasks list. **/
     public void addCommand() {
         this.indent();
         System.out.println("Added the following task to the list.");
@@ -25,6 +39,9 @@ public class Duke {
         this.indent();
     }
 
+    /** The command to mark tasks in the tasks list.
+     * @param index The index to mark
+     * **/
     public void markCommand(int index) {
         this.indent();
         System.out.println("The following task is marked as complete:");
@@ -33,6 +50,9 @@ public class Duke {
         this.indent();
     }
 
+    /** The command to unmark tasks in the tasks list.
+     * @param index The index to unmark
+     * **/
     public void unmarkCommand(int index) {
         this.indent();
         System.out.println("The following task has been unmarked:");
@@ -41,6 +61,9 @@ public class Duke {
         this.indent();
     }
 
+    /** The command to delete tasks from the tasks list.
+     * @param index The index to delete
+     * **/
     public void deleteCommand(int index) {
         this.indent();
         System.out.println("The following task has been removed:");
@@ -49,6 +72,7 @@ public class Duke {
         this.indent();
     }
 
+    /** The command to list all tasks from the tasks list. **/
     public void list() {
         this.indent();
         if (this.tasks.size() == 0) {
@@ -62,6 +86,10 @@ public class Duke {
         this.indent();
     }
 
+    /** The function to mark/unmark tasks
+     * @param flag If flag is true, it is marked, otherwise unmarked.
+     * @throws DukeException Throws error on incorrect input.
+     *  **/
     public void mark(boolean flag) throws DukeException {
         // Check if mark is receiving any input or receiving extra input
         if (this.split.length != 2) {
@@ -89,6 +117,9 @@ public class Duke {
         }
     }
 
+    /** The function to delete tasks.
+     * @throws DukeException Throws error on incorrect input.
+     *  **/
     public void delete() throws DukeException {
         // Check if mark is receiving any input or receiving extra input
         if (this.split.length != 2) {
@@ -111,6 +142,9 @@ public class Duke {
         this.tasks.remove(index - 1);
     }
 
+    /** The function to add todo tasks.
+     * @throws DukeException Throws error on incorrect input.
+     *  **/
     public void todo() throws DukeException {
 
         // Check if task is blank.
@@ -122,6 +156,9 @@ public class Duke {
         this.addCommand();
     }
 
+    /** The function to add deadline tasks.
+     * @throws DukeException Throws error on incorrect input.
+     *  **/
     public void deadline() throws DukeException {
 
         if (this.split.length <= 1 || !this.split[1].contains(" /by ")) {
@@ -138,6 +175,9 @@ public class Duke {
         this.addCommand();
     }
 
+    /** The function to add event tasks.
+     * @throws DukeException Throws error on incorrect input.
+     *  **/
     public void event() throws DukeException {
 
         // Check if /from is present
@@ -167,12 +207,14 @@ public class Duke {
         this.addCommand();
     }
 
+    /** The exit command when user types "bye" **/
     public void exit() {
         this.indent();
         System.out.println("I shall now take my leave. Farewell!");
         this.indent();
     }
 
+    /** The function where user interacts with Jarvis using Scanner. **/
     public void interact() {
         Scanner input = new Scanner(System.in);
         while (true) {
@@ -216,6 +258,9 @@ public class Duke {
         }
     }
 
+    /** The main function where Jarvis is initialised.
+     * @param args Input args.
+     **/
     public static void main(String[] args) {
         // Create a scanner object to read input
         Duke bot = new Duke();
