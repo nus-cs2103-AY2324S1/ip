@@ -1,20 +1,22 @@
+import Tasks.Task;
+
 import java.util.ArrayList;
 
 /**
  * Stores the list of items that the user has.
  */
 public class TaskList {
-    private static ArrayList<Task> list = new ArrayList<>();
+    private ArrayList<Task> list = new ArrayList<>();
 
     /**
      * Adds an item to the list.
      *
-     * @param name The name of the item
+     * @param task The user's task
      */
-    public void addToList(String name) {
-        list.add(new Task(name));
+    public void addToList(Task task) {
+        list.add(task);
 
-        System.out.println("added: " + name);
+        System.out.println("I've added a new task: " + task.toString());
     }
 
     /**
@@ -44,6 +46,10 @@ public class TaskList {
      */
     public void markAsUnDone(int index) {
         list.get(index - 1).setUnDone();
+    }
+
+    public int getSize() {
+        return this.list.size();
     }
 
     @Override

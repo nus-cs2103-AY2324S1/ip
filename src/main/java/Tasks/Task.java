@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Task {
     private String itemName;
     private boolean isDone;
@@ -53,13 +55,22 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Gets the task name.
+     *
+     * @return the task name
+     */
+    public String getName() {
+        return this.itemName;
+    }
+
 
     /**
      * Prints the task, formatted
      */
     @Override
     public String toString() {
-        return "[" + (this.isDone ? "X" : " ") + "] " + this.itemName;
+        return "[" + getStatusIcon() + "] " + this.itemName;
     }
 
 }

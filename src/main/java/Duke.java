@@ -1,5 +1,11 @@
+import Tasks.DeadlineTask;
+import Tasks.EventTask;
+import Tasks.TodoTask;
+
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Duke {
     private static final String SEPARATOR_LINE = "____________________________________________________________";
@@ -43,7 +49,54 @@ public class Duke {
                 listContainer.markAsUnDone(index);
             } else {
                 // add to the list
-                listContainer.addToList(inputString);
+
+                // check the type - todo, deadline, or event
+                if (inputString.startsWith("todo ")) {
+                    // add a todo
+                    String itemName = inputString.replace("todo ", "");
+                    TodoTask todoTask = new TodoTask(itemName);
+
+                    listContainer.addToList(todoTask);
+                }
+                if (inputString.startsWith("deadline ")) {
+                    // TODO: potential error handling here
+                    // format of entry: "deadline return book /by Sunday"
+                    String itemName = inputString.replace("deadline ", "").split("/by ")[0];
+                    String deadline = inputString.replace("deadline ", "").split("/by ")[1];
+                    DeadlineTask deadlineTask = new DeadlineTask(itemName, deadline);
+
+                    listContainer.addToList(deadlineTask);
+                }
+
+                if (inputString.startsWith("event ")) {
+                    String inputArgs = inputString.replace("event ", "");
+
+                    // sample format: event project meeting /from Mon 2pm /to 4pm
+                    // get the name
+                    String itemName = inputArgs.split("/from ")[0];
+
+                    // get the 'from...to'
+                    // @see https://stackoverflow.com/questions/4662215/how-to-extract-a-substring-using-regex
+                    Pattern patternFrom = Pattern.compile("(/from )(.*?)( /to)");
+                    Matcher matcherFrom = patternFrom.matcher(inputArgs);
+
+                    String from = "";
+                    if (matcherFrom.find()) {
+                        // yes, formatted correctly
+                        from = matcherFrom.group(2);
+                    } else {
+//                        System.out.println("ERROR: no pattern found");
+                    }
+
+                    // get the to...
+                    String to = inputArgs.split("/to ")[1];
+
+                    EventTask eventTask = new EventTask(itemName, from, to);
+
+                    listContainer.addToList(eventTask);
+                }
+                System.out.println("Now you have " + listContainer.getSize() + " tasks!");
+//                listContainer.addToList();
             }
             System.out.println(SEPARATOR_LINE);
         }
