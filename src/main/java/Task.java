@@ -31,9 +31,18 @@ public class Task extends Duke {
         }
     }
 
+    public static void deleteTask(int i) throws TaskException{
+        if (i > taskList.size()) {
+            throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
+        }
+        Task taskToDekete = taskList.get(i - 1);
+        taskList.remove(i - 1);
+        System.out.println("Noted. I've removed this task:" + "\n  " + taskToDekete + "\n");
+    }
+
     public static void mark(int i) throws TaskException {
         if (i > taskList.size()) {
-            throw new TaskException("   TaskException: Invalid task index. Greater than taskList size\n");
+            throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
         }
         Task taskToMark = taskList.get(i - 1);
         if (taskToMark.isMarked) {
@@ -45,7 +54,7 @@ public class Task extends Duke {
     }
     public static void unMark(int i) throws TaskException{
         if (i > taskList.size()) {
-            throw new TaskException("   TaskException: Invalid task index. Greater than taskList size\n");
+            throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
         }
         Task taskToMark = taskList.get(i - 1);
         if (taskToMark.isMarked) {

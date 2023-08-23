@@ -83,11 +83,11 @@ public class Duke {
                 ongoing = false;
             } else if (userInput.equals("list")) {
                 Task.listAllTasks();
-            } else if (userInput.startsWith("mark" )) {
+            } else if (userInput.startsWith("delete")) {
                 String[] parts = userInput.split(" ", 2);
                 try {
                     int taskIndex = Integer.parseInt(parts[1]);
-                    Task.mark(taskIndex);
+                    Task.deleteTask(taskIndex);
                 } catch (NumberFormatException e) {
                     // to catch if integer is not passed. e.g. "mark e"
                     System.out.println("   Invalid task index. Please provide a valid integer. e.g. mark 3");
@@ -95,7 +95,17 @@ public class Duke {
                     // to catch if there is a task exception e.g. input > taskList size
                     System.out.println(e.getMessage());
                 }
-            } else if (userInput.startsWith("unmark" )) {
+            } else if (userInput.startsWith("mark ")) {
+                String[] parts = userInput.split(" ", 2);
+                try {
+                    int taskIndex = Integer.parseInt(parts[1]);
+                    Task.mark(taskIndex);
+                } catch (NumberFormatException e) {
+                    System.out.println("   Invalid task index. Please provide a valid integer. e.g. mark 3");
+                } catch (TaskException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (userInput.startsWith("unmark ")) {
                 String[] parts = userInput.split(" ", 2);
                 try {
                     int taskIndex = Integer.parseInt(parts[1]);
@@ -135,7 +145,7 @@ public class Duke {
                 }
             } else {
                 try {
-                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
