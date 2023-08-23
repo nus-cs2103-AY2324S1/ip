@@ -12,4 +12,13 @@ unmark 2
 list
 unmark 3
 list
+mark
+unmark
+mark 10
+todo
+deadline
+event
+deadline do something
+event do something
+event do something /from 2pm
 bye
