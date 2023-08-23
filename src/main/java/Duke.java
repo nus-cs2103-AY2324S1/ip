@@ -26,6 +26,7 @@ public class Duke {
 
     private void interact() {
         this.start();
+        label:
         while (true) {
             // receive input
             System.out.print("In: ");
@@ -34,43 +35,45 @@ public class Duke {
             String[] commandArgs = command.split(" ", 2);
 
             // exit
-            if (commandArgs[0].equals("bye")) {
-                break;
-            }
+            switch (commandArgs[0]) {
+                case "bye":
+                    break label;
 
-            // show list
-            else if (commandArgs[0].equals("list")) {
-                this.showList();
-            }
 
-            // mark as done
-            else if (commandArgs[0].equals("mark")) {
-                this.markTaskAsDone(commandArgs);
-            }
+                // show list
+                case "list":
+                    this.showList();
+                    break;
 
-            // mark as not done
-            else if (commandArgs[0].equals("unmark")) {
-                this.markTaskAsNotDone(commandArgs);
-            }
+                // mark as done
+                case "mark":
+                    this.markTaskAsDone(commandArgs);
+                    break;
 
-            // add to-do
-            else if (commandArgs[0].equals("todo")) {
-                this.addToDoToList(commandArgs);
-            }
+                // mark as not done
+                case "unmark":
+                    this.markTaskAsNotDone(commandArgs);
+                    break;
 
-            // add event
-            else if (commandArgs[0].equals("event")) {
-                this.addEventToList(commandArgs);
-            }
+                // add to-do
+                case "todo":
+                    this.addToDoToList(commandArgs);
+                    break;
 
-            // add deadline
-            else if (commandArgs[0].equals("deadline")) {
-                this.addDeadlineToList(commandArgs);
-            }
+                // add event
+                case "event":
+                    this.addEventToList(commandArgs);
+                    break;
 
-            // anything else
-            else {
-                this.echo(command);
+                // add deadline
+                case "deadline":
+                    this.addDeadlineToList(commandArgs);
+                    break;
+
+                // anything else
+                default:
+                    this.echo(command);
+                    break;
             }
 
             System.out.println(Duke.horizontalLine);
@@ -83,8 +86,14 @@ public class Duke {
      * @param commandArgs the arguments provided in the command
      */
     private void addToDoToList(String[] commandArgs) {
+        // number of arguments
         if (commandArgs.length != 2) {
             System.out.println("Quack, you did not provide me with the to-do task!");
+            return;
+        }
+        // no empty to-do task
+        if (commandArgs[1].equals("")) {
+            System.out.println("Quack, no empty to-do please!");
             return;
         }
 
@@ -108,6 +117,12 @@ public class Duke {
 
         // /from keyword
         String[] separateByFrom = commandArgs[1].split("/from", 2);
+        // no empty event
+        if (separateByFrom[0].equals("")) {
+            System.out.println("Quack, no empty event please!");
+            return;
+        }
+        // /from keyword must exist
         if (separateByFrom.length != 2) {
             System.out.println("Quack, keyword '/from' not found. " +
                     "It must be present for me to mark the start time!");
@@ -116,9 +131,20 @@ public class Duke {
 
         // /to keyword
         String[] separateByTo = separateByFrom[1].split("/to", 2);
+        // no empty start time
+        if (separateByTo[0].equals("")) {
+            System.out.println("Quack, no empty start time please!");
+            return;
+        }
+        // /to keyword must exist
         if (separateByTo.length != 2) {
             System.out.println("Quack, keyword '/to' not found. " +
                     "It must be present after the '/from' keyword for me to mark the end time!");
+            return;
+        }
+        // no empty end time
+        if (separateByTo[1].equals("")) {
+            System.out.println("Quack, no empty end time please!");
             return;
         }
 
@@ -130,15 +156,27 @@ public class Duke {
     }
 
     private void addDeadlineToList(String[] commandArgs) {
+        // number of arguments
         if (commandArgs.length != 2) {
             System.out.println("Quack, you did not provide me with the deadline!");
             return;
         }
 
         String[] separateByBy = commandArgs[1].split("/by", 2);
+        // /by keyword must exist
         if (separateByBy.length != 2) {
             System.out.println("Quack, keyword '/by' not found." +
                     "It must be present for me to mark the deadline time!");
+            return;
+        }
+        // no empty deadline
+        if (separateByBy[0].equals("")) {
+            System.out.println("Quack, no empty deadline task please!");
+            return;
+        }
+        // no empty end time
+        if (separateByBy[1].equals("")) {
+            System.out.println("Quack, no empty deadline time please!");
             return;
         }
 
@@ -216,7 +254,11 @@ public class Duke {
      * @param command the command from the user
      */
     private void echo(String command) {
-        System.out.println(command);
+        if (command.equals("quack")) {
+            System.out.println("Quack quack quack");
+        } else {
+            System.out.println("Quack, what do you mean when you say " + command);
+        }
     }
 
     public static void main(String[] args) {

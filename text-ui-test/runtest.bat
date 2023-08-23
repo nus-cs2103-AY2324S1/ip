@@ -14,10 +14,11 @@ IF ERRORLEVEL 1 (
 )
 REM no error here, errorlevel == 0
 
-REM run the tests and output to the actual folder
 java -classpath ..\bin Duke < .\input\mark-as-done.txt > .\actual\mark-as-done.txt
-java -classpath ..\bin Duke < .\input\task-type.txt > .\actual\task-type.txt
-
-REM compare the actual outputs with the expected ones
 FC .\actual\mark-as-done.txt .\expected\mark-as-done.txt
+
+java -classpath ..\bin Duke < .\input\task-type.txt > .\actual\task-type.txt
 FC .\actual\task-type.txt .\expected\task-type.txt
+
+java -classpath ..\bin Duke < .\input\add-task-error.txt > .\actual\add-task-error.txt
+FC .\actual\add-task-error.txt .\expected\add-task-error.txt
