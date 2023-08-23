@@ -5,7 +5,7 @@ public class List {
 
     public void add(Task task) {
         taskList.add(task);
-        System.out.println("\tGot it. I've added this task: \n" + task.toString());
+        System.out.println("Got it. I've added this task:\n" + task.toString());
         System.out.println(this);
     }
 
