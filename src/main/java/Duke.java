@@ -11,10 +11,20 @@ public class Duke {
             if (s.equals("list")) {
                 t.list();
                 s = sc.nextLine();
-                break;
+            }else if (s.matches(".*\\bmark\\b.*")) {
+                String[] parts = s.split(" ");
+                int number = Integer.parseInt(parts[1]);
+                t.mark(number - 1);
+                s = sc.nextLine();
+            } else if (s.matches(".*\\bunmark\\b.*")) {
+                String[] parts = s.split(" ");
+                int number = Integer.parseInt(parts[1]);
+                t.unmark(number - 1);
+                s = sc.nextLine();
+            } else {
+                t.add(s);
+                s = sc.nextLine();
             }
-            t.add(s);
-            s = sc.nextLine();
         }
         if (s.equals("bye")) {
             System.out.println("Bye! Auntie maggie see you later!");
