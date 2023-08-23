@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String HORIZONTAL_LINE = "____________________________________________________________ \n";
+        String HORIZONTAL_LINE = "____________________________________________________________\n";
 
         String entryMessage = HORIZONTAL_LINE
                 + "Hello! I'm Chad \n"
@@ -19,7 +19,7 @@ public class Duke {
         ArrayList<Task> list = new ArrayList<>();
 
         System.out.println(entryMessage);
-        while (!input.equals("bye")) {
+        while (scanner.hasNextLine()) {
             input = scanner.nextLine();
             if (input.equals("list")) {
                 System.out.print(HORIZONTAL_LINE);
@@ -81,15 +81,11 @@ public class Duke {
                 System.out.println(todo);
                 System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
                 System.out.println(HORIZONTAL_LINE);
-            } else if (!input.equals("bye")) {
-                list.add(new Task(input));
-                
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("added: " + input);
-                System.out.println(HORIZONTAL_LINE);
+            } else if (input.equals("bye")) {
+                System.out.println(exitMessage);
+                break;
             }
         }
         scanner.close();
-        System.out.println(exitMessage);
     }
 }
