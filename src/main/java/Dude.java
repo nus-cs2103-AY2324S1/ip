@@ -17,8 +17,6 @@ public class Dude {
     "Bye. Hope to see you again soon!";
   static String taskListPrefix = "Here's your tasks list:\n";
   static String emptyTaskList = "You currently have no tasks in your list.";
-  static String invalidCommand =
-    "I don't know what that means.\nTry checking if you've typed the command correctly.";
   static String noTaskNumber = "Please specify a task number.";
   static String invalidTaskNumber =
     "I can't find the task numbered \"%s\".\nTry checking if you've typed the correct task number.";
@@ -195,7 +193,7 @@ public class Dude {
    * @param input Input to parse.
    * @return `true` if a subsequent command can be taken, `false` if not (i.e. quit)
    */
-  public static boolean parseInput(String input) {
+  public static boolean parseInput(String input) throws DudeException {
     // extract command (strip leading and trailing whitespace, take first word)
     String[] splitInput = input.split(" ", 2);
     String cmd = splitInput[0];
@@ -227,7 +225,7 @@ public class Dude {
         parseEvent(input);
         break;
       default:
-        printMessage(invalidCommand);
+        throw new InvalidCommandException();
     }
     return true;
   }
@@ -256,7 +254,11 @@ public class Dude {
     while (shouldContinue) {
       // read user input
       String input = sc.nextLine();
-      shouldContinue = parseInput(input);
+      try {
+        shouldContinue = parseInput(input);
+      } catch (DudeException e) {
+        printMessage(e.getMessage());
+      }
     }
   }
 }
