@@ -43,6 +43,13 @@ public class Duke {
                 ls.add(index - 1, task);
                 System.out.println("Nice! I've marked this task as done:\n" + task.toString());
                 cmd = sc.nextLine();
+            } else if (cmd.contains("delete")) {
+                int index = Integer.parseInt(cmd.substring(7, 8));
+                Task task = ls.get(index - 1);
+                ls.remove(index - 1);
+                int size = ls.size();
+                System.out.println("Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have " + size + " tasks in the list.");
+                cmd = sc.nextLine();
             } else if (cmd.contains("deadline")) {
                 String[] parts = cmd.split("/by");
                 if (parts.length == 2) {
