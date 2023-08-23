@@ -1,14 +1,20 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Glen {
     static final String HORLINE = "_____________________________________________________\n";
+    static ArrayList<String> tasks = new ArrayList<String>();
     
     public static void main(String[] args) {
         System.out.println(intro());
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
         while (!input.toLowerCase().equals("bye")) {
-            System.out.println(repeater(input));
+            if (input.toLowerCase().equals("list")) {
+                System.out.println(lst());
+            } else {
+                System.out.println(add(input));
+            }
             input = scan.nextLine();
         }
         System.out.println(exit());
@@ -27,8 +33,17 @@ public class Glen {
         return HORLINE + logo + introText + HORLINE;
     }
 
-    static String repeater(String inp) {
-        return HORLINE + inp + "\n" + HORLINE;
+    static String add(String inp) {
+        tasks.add(inp);
+        return HORLINE + "added: " + inp + "\n" + HORLINE;
+    }
+
+    static String lst() {
+        String temp = "";
+        for(int i = 0; i < tasks.size(); i++) {   
+            temp += String.valueOf(i + 1) + ". " + tasks.get(i) + "\n";
+        }  
+        return HORLINE + temp + HORLINE;
     }
 
     static String exit() {
