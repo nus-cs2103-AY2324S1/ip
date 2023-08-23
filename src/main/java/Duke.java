@@ -43,6 +43,44 @@ public class Duke {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(task);
                 System.out.println(HORIZONTAL_LINE);
+            } else if (input.startsWith("deadline")) {
+                int byIndex = input.indexOf("/");
+                String description = input.substring(9, byIndex - 1);
+                String by = input.substring(byIndex + 4);
+
+                Deadline deadline = new Deadline(description, by);
+                list.add(deadline);
+
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(deadline);
+                System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
+                System.out.println(HORIZONTAL_LINE);
+            } else if (input.startsWith("event")) {
+                int fromIndex = input.indexOf("/");
+                int toIndex = input.indexOf("/", fromIndex + 1);
+
+                String description = input.substring(6, fromIndex - 1);
+                String from = input.substring(fromIndex + 6, toIndex - 1);
+                String to = input.substring(toIndex + 4);
+
+                Event event = new Event(description, from, to);
+                list.add(event);
+
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(event);
+                System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
+                System.out.println(HORIZONTAL_LINE);
+            } else if (input.startsWith("todo")) {
+                ToDo todo = new ToDo(input.substring(5));
+                list.add(todo);
+
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(todo);
+                System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
+                System.out.println(HORIZONTAL_LINE);
             } else if (!input.equals("bye")) {
                 list.add(new Task(input));
                 
