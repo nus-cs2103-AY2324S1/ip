@@ -35,19 +35,19 @@ public class Duke {
         switch (action) {
             case "todo" : {
                 list.add(new ToDo(task, TaskType.TODO));
-                res = "Got it. I've added this task : \n" + list.get(list.size()-1).toString() + "\n";
+                res = "Got it. I've added this task :\n" + list.get(list.size()-1).toString() + "\n";
                 res += getTaskLeft();
                 break;
             }
             case "deadline" : {
                 list.add(new Deadline(task, by, TaskType.DEADLINE));
-                res = "Got it. I've added this task : \n" + list.get(list.size()-1).toString() + "\n";
+                res = "Got it. I've added this task :\n" + list.get(list.size()-1).toString() + "\n";
                 res += getTaskLeft();
                 break;
             }
             case "event" : {
                 list.add(new Event(task,from,to, TaskType.EVENT));
-                res = "Got it. I've added this task : \n" + list.get(list.size()-1).toString() + "\n";
+                res = "Got it. I've added this task :\n" + list.get(list.size()-1).toString() + "\n";
                 res += getTaskLeft();
                 break;
             }
@@ -73,10 +73,13 @@ public class Duke {
      */
     public String getAllToDo() throws DukeException{
         StringBuilder res = new StringBuilder();
-        if(list.size() == 0) {
+
+        if (list.size() == 0) {
             throw new DukeException("Oh no! No tasks for now! Add more tasks :)");
         }
+
         res.append("Here are the tasks in your list:\n");
+
         for (int i = 0; i < list.size(); i++) {
             res.append(i + 1).append(".")
                     .append(list.get(i).toString());
@@ -94,7 +97,6 @@ public class Duke {
      * @throws DukeException If there's an issue with the task list or input.
      */
     public String markToDo(String action, int index) throws DukeException{
-        StringBuilder res = new StringBuilder();
 
         //No task to mark/unmark
         if(list.size() == 0) {
@@ -217,7 +219,9 @@ public class Duke {
 
         switch(action) {
             case "deadline" : {
+
                 boolean found = false;
+
                 for(int i=1;i< parts.length;i++) {
                     if(parts[i].equals("/by")) {
                         found = true;
@@ -231,8 +235,10 @@ public class Duke {
                 break;
             }
             case "event" : {
+
                 boolean startFound = false;
                 boolean endFound = false;
+
                 for(int i=1;i< parts.length;i++) {
                     if (parts[i].equals("/from")) {
                         startFound = true;
@@ -287,6 +293,8 @@ public class Duke {
 
             try {
                 int resultIndex = duke.checkMarkCommand(userInput);
+
+                //mark/unmark command
                 if (resultIndex != -1) {
                     System.out.println(duke.divider +
                             duke.markToDo((userInput.charAt(0) == 'u' ? "unmark" : "mark"), resultIndex - 1)
@@ -295,23 +303,21 @@ public class Duke {
                     System.out.println(duke.divider +
                             duke.getAllToDo()
                             + "\n" + duke.divider);
+                    //delete command
                 } else if (duke.checkDeleteCommand(userInput) != -1) {
                     int index = duke.checkDeleteCommand(userInput);
                     System.out.println(duke.divider +
                             duke.deleteTask(index - 1)
                             + "\n" + duke.divider);
-                } else
-                    {
-                        try {
-                            String[] taskEvent = duke.checkActionAndTask(userInput);
-                            System.out.println(duke.divider +
-                                    duke.addTask(taskEvent)
-                                    + "\n" + duke.divider);
-                        } catch (InvalidInputExpression | DukeException e) {
-                            System.out.println(e.getMessage() + "\n");
-                        }
+                    //task command
+                } else {
+                    try {
+                        String[] taskEvent = duke.checkActionAndTask(userInput);
+                        System.out.println(duke.divider + duke.addTask(taskEvent) + "\n" + duke.divider);
+                    } catch (InvalidInputExpression | DukeException e) {
+                        System.out.println(e.getMessage() + "\n");
                     }
-
+                }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }

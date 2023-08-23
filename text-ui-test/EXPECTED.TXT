@@ -5,7 +5,7 @@ What can I do for you?
 
 ------------------------------------
 Got it. I've added this task :
-[T][ ] play soccer
+[T][ ] play soccer 
 Now you have 1 task in the list.
 ------------------------------------
 
@@ -22,7 +22,7 @@ Nice! I've marked this task as done:
 
 ------------------------------------
 Here are the tasks in your list:
-1.[T][ ] play soccer
+1.[T][ ] play soccer 
 2.[E][X] NUSMS WT  ( from: 5pm  to: 11pm )
 ------------------------------------
 

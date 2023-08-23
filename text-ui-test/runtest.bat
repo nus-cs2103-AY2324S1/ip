@@ -19,10 +19,3 @@ java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT
-
-@REM REM check the error level
-@REM IF %ERRORLEVEL% EQU 0 (
-@REM     echo Passed! The test cases have matched.
-@REM ) ELSE (
-@REM     echo Failed! The test cases did not match.
-@REM )
