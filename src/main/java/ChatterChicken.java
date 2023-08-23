@@ -13,6 +13,10 @@ public class ChatterChicken {
         while(!input.equals("bye")) {
             if (input.equals("list")) {
                 list.printList();
+            } else if (input.startsWith("mark ")) {
+                list.markTask(input);
+            } else if (input.startsWith("unmark ")) {
+                list.unmarkTask(input);
             } else {
                 list.addTask(new Task(input));
             }
