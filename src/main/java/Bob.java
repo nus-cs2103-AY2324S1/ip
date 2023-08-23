@@ -34,8 +34,12 @@ public class Bob {
         System.out.println("added: " + desc);
         System.out.println(horizontal);
     }
-    public void addTodo(String text) {
-        Todo task = new Todo(text);
+    public void addTodo(String[] text) throws IllegalChatBotExceptions {
+        if (text.length < 2) {
+            throw new IllegalChatBotExceptions("todo");
+        }
+
+        Todo task = new Todo(text[1]);
         list[this.count] = task;
         this.count++;
 
@@ -46,7 +50,12 @@ public class Bob {
         System.out.println(horizontal);
     }
 
-    public void addDeadline(String text) {
+    public void addDeadline(String[] textArr) throws IllegalChatBotExceptions {
+        if (textArr.length < 2) {
+            throw new IllegalChatBotExceptions("deadline");
+        }
+
+        String text = textArr[1];
         String[] split = text.split(" /by ", 2);
         String desc = split[0];
         String by = split[1];
@@ -61,7 +70,12 @@ public class Bob {
         System.out.println(horizontal);
     }
 
-    public void addEvent(String text) {
+    public void addEvent(String[] textArr) throws IllegalChatBotExceptions {
+        if (textArr.length < 2) {
+            throw new IllegalChatBotExceptions("event");
+        }
+
+        String text = textArr[1];
         String[] slice = text.split(" /from ", 2);
         String desc = slice[0];
         String[] slicess = slice[1].split(" /to ", 2);
@@ -99,4 +113,5 @@ public class Bob {
         Task task = list[index];
         task.unmark();
     }
+
 }
