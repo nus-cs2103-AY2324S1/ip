@@ -1,0 +1,13 @@
+todo borrow book
+deadline URGENT TASK! /by Saturday
+event NUSCO Welcome Tea /from 11am /to 4pm
+list
+mark 1
+mark 3
+unmark 3
+mark 2
+list
+deadline erroneous deadline by now
+event wrong event input from 6pm to 8pm
+invalid input
+bye
