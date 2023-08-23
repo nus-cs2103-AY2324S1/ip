@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -22,10 +23,28 @@ public class Duke {
         else if (promptText.equals("list")) {
             list();
         }
-        //System.out.println("\t" + promptText);
-        taskList.add(promptText);
+        else if (promptText.startsWith("mark") || promptText.startsWith("unmark")) {
+            markTask(promptText);
+        }
+        else {
+            Task t = new Task(promptText);
+            taskList.add(t);
+        }
         echo();
     }
+
+    public static void markTask(String promptText) {
+        int i = Integer.parseInt(promptText.substring(promptText.length() - 1));
+        Task t = taskList.get(i-1);
+        if (promptText.startsWith("unmark")) {
+            t.unmark();
+        }
+        else {
+            t.mark();
+        }
+    }
+
+
 
     public static void list() {
         taskList.list();
