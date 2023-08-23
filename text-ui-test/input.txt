@@ -1,0 +1,10 @@
+todo get groceries
+deadline finish quiz /by Thursday
+event dinner /from Fri 6pm /to 8pm
+list
+mark 1
+list
+mark 3
+unmark 1
+list
+end

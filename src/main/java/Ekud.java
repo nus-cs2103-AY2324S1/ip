@@ -48,7 +48,7 @@ public class Ekud {
     }
     public void showTasks() {
         System.out.println(horizontalLine);
-        System.out.println("Here is your to-do list: d(･∀･○)");
+        System.out.println("Here is your to-do list:");
         int len = tasks.size();
         for (int i = 0; i < len; i++) {
             System.out.println(String.format("%d. %s", i + 1, tasks.get(i).toString()));
