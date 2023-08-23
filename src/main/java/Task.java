@@ -3,7 +3,7 @@
         protected boolean isDone;
 
         public Task(String description) {
-            this.description = description;
+            this.description = description.strip();
             this.isDone = false;
         }
 
@@ -29,10 +29,6 @@
 
         public void markAsDone() {
             isDone = true;
-            System.out.println("____________________________________________________________");
-            System.out.println(doneMessage());
-            System.out.println(Box() + description);
-            System.out.println("____________________________________________________________");
         }
         public int getIndexOfMark(String str) {
             return Integer.parseInt(str.substring(5));
@@ -44,14 +40,10 @@
 
         public void markUndone() {
             isDone = false;
-            System.out.println("____________________________________________________________");
-            System.out.println(undoneMessage());
-            System.out.println(Box() + description);
-            System.out.println("____________________________________________________________");
         }
 
      @Override
      public String toString() {
-         return this.description;
+         return "[ ]" + this.Box() + this.description;
      }
  }
