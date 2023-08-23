@@ -1,7 +1,54 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+Hello! I am TaskMaster!
+What can I do for you today?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this to-do task:
+  [T][ ] borrow book
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+Task 1: [T][ ] borrow book
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this deadline:
+  [D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this event:
+  [E][ ] project meeting (from: Mon 2pm to 4pm)
+Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+Task 1: [T][ ] borrow book
+Task 2: [D][ ] return book (by: Sunday)
+Task 3: [E][ ] project meeting (from: Mon 2pm to 4pm)
+____________________________________________________________
+____________________________________________________________
+Good job! I have marked this task as completed:
+  [T][X] borrow book
+____________________________________________________________
+____________________________________________________________
+Good job! I have marked this task as completed:
+  [D][X] return book (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+Task 1: [T][X] borrow book
+Task 2: [D][X] return book (by: Sunday)
+Task 3: [E][ ] project meeting (from: Mon 2pm to 4pm)
+____________________________________________________________
+____________________________________________________________
+OK, I have marked this as undone:
+  [D][ ] return book (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+Task 1: [T][X] borrow book
+Task 2: [D][ ] return book (by: Sunday)
+Task 3: [E][ ] project meeting (from: Mon 2pm to 4pm)
+____________________________________________________________
+Please input valid command
