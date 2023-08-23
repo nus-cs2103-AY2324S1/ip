@@ -1,4 +1,3 @@
-import java.sql.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
@@ -14,15 +13,16 @@ public class Duke {
         String str = sc.nextLine();
         while (!str.equals("bye")) {
             try {
-                String command = str.split(" ")[0];
+                String command_word = str.split(" ")[0];
+                Command command = Command.valueOf(command_word.toUpperCase());
                 switch (command) {
-                    case "list":
+                    case LIST:
                         System.out.println("Ding: These are your tasks... If I remember correctly:");
                         for (int i = 0; i < tasks.size(); i++) {
                             System.out.println(String.format("%d. %s", i + 1, tasks.get(i)));
                         }
                         break;
-                    case "mark":
+                    case MARK:
                         if (str.split(" ").length == 2) {
                             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
                             if (taskIndex + 1 > tasks.size() || taskIndex < 0) {
@@ -36,7 +36,7 @@ public class Duke {
                             throw new MissingTaskIndexException("Task Index Missing.");
                         }
                         break;
-                    case "unmark":
+                    case UNMARK:
                         if (str.split(" ").length == 2) {
                             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
                             if (taskIndex + 1 > tasks.size() || taskIndex < 0) {
@@ -50,7 +50,7 @@ public class Duke {
                             throw new MissingTaskIndexException("Task Index Missing.");
                         }
                         break;
-                    case "todo":
+                    case TODO:
                         if (str.split(" ").length > 1) {
                             ToDo todo = new ToDo(str.split(" ")[1]);
                             tasks.add(todo);
@@ -60,7 +60,7 @@ public class Duke {
                             throw new InvalidDescriptionException("Invalid description.");
                         }
                         break;
-                    case "deadline":
+                    case DEADLINE:
                         if (str.split(" ").length > 3) {
                             String fullTaskDescription = str.split(" ", 2)[1];
                             String description = fullTaskDescription.split(" /by ")[0];
@@ -74,7 +74,7 @@ public class Duke {
                             throw new InvalidDescriptionException("Invalid description.");
                         }
                         break;
-                    case "event":
+                    case EVENT:
                         if (str.split(" ").length > 4) {
                             String fullTaskDescription = str.split(" ", 2)[1];
                             String description = fullTaskDescription.split(" /from ")[0];
@@ -89,7 +89,7 @@ public class Duke {
                             throw new InvalidDescriptionException("Invalid description.");
                         }
                         break;
-                    case "delete":
+                    case DELETE:
                         if (str.split(" ").length == 2) {
                             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
                             if (taskIndex + 1 > tasks.size() || taskIndex < 0) {
@@ -105,21 +105,16 @@ public class Duke {
                             throw new MissingTaskIndexException("Task Index Missing.");
                         }
                         break;
-                    default:
-                        System.out.println("Ding: I seriously have no idea what I need to do here");
-                        throw new InvalidCommandException("No Command found.");
-
                 }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Ding: I seriously have no idea what I need to do here");
+                System.out.println("Ding: No way you forgot to even input a proper command...");
+                System.out.println("Ding: Available commands are 'todo', 'deadline', 'event', 'list', 'mark', 'unmark', 'delete', 'bye'");
             } catch (InvalidDescriptionException e) {
-                System.err.println(e);
                 System.out.println("Ding: I may be forgetful but you're so bad you even forgot the task description...");
                 System.out.println("Ding: For ToDos, input 'todo (task)'");
                 System.out.println("Ding: For Deadlines, input 'deadline (task) /by (date or time)");
                 System.out.println("Ding: For Events, input 'event (task) /from (date or time) /to (date or time)");
-            } catch (InvalidCommandException e) {
-                System.out.println("Ding: No way you forgot to even input a proper command...");
-                System.out.println("Ding: Available commands are 'todo', 'deadline', 'event', 'list', 'mark', 'unmark', 'bye'");
-
             } catch (InvalidTaskIndexException e) {
                 System.out.println("Ding: Oh wait it's not lost, the task number you gave just doesn't exist in your list...");
                 if (tasks.size() > 0) {
@@ -129,7 +124,7 @@ public class Duke {
                 }
             } catch (MissingTaskIndexException e) {
                 System.out.println("Ding: I don't quite understand what you want to do...");
-                System.out.println("Ding: Please input '(command) (number)'...");
+                System.out.println("Ding: Please input '(command) (task number)'...");
             } finally {
                 System.out.println("\n____________________________________________________________\n");
                 str = sc.nextLine();
