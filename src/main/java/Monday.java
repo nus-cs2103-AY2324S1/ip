@@ -19,14 +19,34 @@ public class Monday {
             } else if (userInput.contains("mark")) {
                 String[] details = userInput.split(" ");
                 int index = Integer.parseInt(details[1]);
+
                 if (details[0].equals("mark")) {
                     Storage.mark(index);
                 } else {
                     Storage.unMark(index);
                 }
+            } else if (userInput.startsWith("todo")) {
+                String details = userInput.substring(5).trim();
+
+                Storage.addToTask(new ToDos(details));
+            } else if (userInput.startsWith("deadline")) {
+                String details = userInput.substring(9);
+                String[] taskDetails = details.split("/by");
+
+                Storage.addToTask(new Deadlines(taskDetails[0].trim(),
+                        taskDetails[1].trim()));
+            } else if (userInput.startsWith("event")) {
+                String details = userInput.substring(6);
+                String[] taskDetails = details.split("/from");
+                String[] taskTiming = taskDetails[1].split("/to");
+
+                Storage.addToTask(new Events(taskDetails[0].trim(),
+                        taskTiming[0].trim(),
+                        taskTiming[1].trim()));
             } else {
-                Storage.add(userInput);
-                echo(userInput);
+                    Task newTask = new Task(userInput);
+                    Storage.addToTask(newTask);
+                    echo(userInput);
             }
             printSeparator();
         }
