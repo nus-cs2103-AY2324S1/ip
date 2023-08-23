@@ -88,6 +88,11 @@ public class Duke {
                     this.addDeadlineToList(commandArgs);
                     break;
 
+                // delete task
+                case "delete":
+                    this.deleteTask(commandArgs);
+                    break;
+
                 // anything else
                 default:
                     this.echo(command);
@@ -251,6 +256,22 @@ public class Duke {
         this.taskList.get(index).markAsNotDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(this.taskList.get(index));
+    }
+
+    /**
+     * Perform input checking and delete the task if input is valid, given a command.
+     * @param commandArgs the list of arguments in the command.
+     */
+    private void deleteTask(String[] commandArgs) {
+        int index = this.getTaskIndexFromCommand(commandArgs);
+        if (index == -1) {
+            return;
+        }
+        Task taskToDelete = this.taskList.get(index);
+        this.taskList.remove(index);
+        System.out.println("Noted, I've removed this task:");
+        System.out.println(taskToDelete);
+        this.showTaskCount();
     }
 
     /**

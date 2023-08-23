@@ -22,3 +22,6 @@ FC .\actual\task-type.txt .\expected\task-type.txt
 
 java -classpath ..\bin Duke < .\input\add-task-error.txt > .\actual\add-task-error.txt
 FC .\actual\add-task-error.txt .\expected\add-task-error.txt
+
+java -classpath ..\bin Duke < .\input\delete-task.txt > .\actual\delete-task.txt
+FC .\actual\delete-task.txt .\expected\delete-task.txt
