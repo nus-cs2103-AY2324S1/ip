@@ -11,7 +11,7 @@ public class Duke {
                 + HORIZONTAL_LINE;
 
         String exitMessage = HORIZONTAL_LINE
-                + "Bye. Hope to see you again soon! \n"
+                + "Bye. Hope to see you again soon!\n"
                 + HORIZONTAL_LINE;
 
         Scanner scanner = new Scanner(System.in);
