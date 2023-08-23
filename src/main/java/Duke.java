@@ -7,7 +7,7 @@ public class Duke {
     private static String line =
         "\t____________________________________________________________";
     private Scanner scanner = new Scanner(System.in);
-    private ArrayList<String> list = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         Duke duke = new Duke();
@@ -19,12 +19,17 @@ public class Duke {
 
         while (true) {
             String command = scanner.nextLine();
-            if (command.equals("bye")) {
+            String[] args = command.split(" ");
+
+            if (args[0].equals("bye")) {
                 break;
-            } else if (command.equals("list")) {
-                printList();
+            } else if (args[0].equals("list")) {
+                printTasks();
+            } else if (args[0].equals("done")) {
+                int target = Integer.parseInt(args[1]);
+                doTask(target);
             } else {
-                addToList(command);
+                addToTasks(command);
             }
         }
 
@@ -58,18 +63,34 @@ public class Duke {
         printMessage("Bye. Hope to see you again soon!");
     }
 
-    private void addToList(String text) {
-        list.add(text);
-        printMessage("added: " + text);
+    private void addToTasks(String text) {
+        Task task = new Task(text);
+        tasks.add(task);
+        printMessage("added: " + task);
     }
 
-    private void printList() {
+    private void printTasks() {
         System.out.println(line);
-        for (int i = 0; i < list.size(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, list.get(i));
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("\t%d. %s\n", i + 1, tasks.get(i));
         }
 
         System.out.println("\n" + line + "\n");
+    }
+
+    private void doTask(int taskNumber) {
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
+            return;
+        }
+        Task task = tasks.get(taskNumber - 1);
+        task.markAsDone();
+
+        String[] message = {
+                "Nice! I've marked this task as done:",
+                "\t " + task
+        };
+
+        printMessage(message);
     }
 
 }
