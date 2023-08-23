@@ -5,16 +5,27 @@ public class Dude {
   static String logo =
     " _|    _| _    O\n" +
       "(_||_|(_|(/_  /İ\\\n";
+  static String border = "-----------------------------------------------------------\n";
   static String hello = logo + "\n" +
     "Hello! I'm dude.\n" +
     "What can I do for you?";
   static String goodbye =
     "Bye. Hope to see you again soon!";
+  static String taskListPrefix = "Here's your tasks list:\n";
+  static String emptyTaskList = "You currently have no tasks in your list.";
+  static String invalidCommand =
+    "I don't know what that means. Try checking if you've typed the command correctly.";
+  static String noTaskNumber = "Please specify a task number.";
+  static String invalidTaskNumber =
+    "I can't find the task numbered \"%s\". Try checking if you've typed the correct task number.";
+  static String addedTask = "Got it! I've added this task:\n\t%s\nYou now have a total of %d task(s).";
+  static String markedAsDonePrefix = "Nice! I've marked this task as done:\n\t";
+  static String markedAsNotDonePrefix = "Got it. I've marked this task as not done:\n\t";
 
   /**
    * Tasks stored by user.
    */
-  public static String[] tasks = new String[100];
+  public static Task[] tasks = new Task[100];
   /**
    * Number of tasks
    */
@@ -23,11 +34,27 @@ public class Dude {
   /**
    * Add task to tasks list.
    *
-   * @param task Task to add.
+   * @param description Description of task to add.
+   * @return Task that was added.
    */
-  public static void addTask(String task) {
-    tasks[numTasks] = task;
+  public static Task addTask(String description) {
+    Task newTask = new Task(description);
+    tasks[numTasks] = newTask;
     numTasks += 1;
+    return newTask;
+  }
+
+  /**
+   * Get task from list.
+   *
+   * @param task 1-based index of task to get.
+   * @throws TaskOutOfBoundsException if task number does not exist
+   */
+  public static Task getTask(int task) throws TaskOutOfBoundsException {
+    if (task > numTasks || task <= 0) {
+      throw new TaskOutOfBoundsException();
+    }
+    return tasks[task - 1];
   }
 
   /**
@@ -37,15 +64,18 @@ public class Dude {
    */
   public static String getTasksList() {
     if (numTasks == 0) {
-      return "You currently have no tasks in your list.";
+      return emptyTaskList;
     }
-    StringBuilder tasksList = new StringBuilder("Here's your tasks list:\n");
+    StringBuilder tasksList = new StringBuilder(taskListPrefix);
     for (int i = 0; i < numTasks; i++) {
-      String taskStr = (i + 1) + ". " + tasks[i] + "\n";
+      String taskNumberPrefix = String.format("%3s-", i + 1);
+      String taskStr = taskNumberPrefix + tasks[i].getTaskString() + "\n";
       tasksList.append(taskStr);
     }
     return tasksList.toString();
   }
+
+  // todo: make this fn print
 
   /**
    * Format message/prompt to be printed to console.
@@ -55,7 +85,6 @@ public class Dude {
    */
   public static String formatMessage(String message) {
     String[] lines = message.split("\\n");
-    String border = "-----------------------------------------------------------\n";
     String prefix = "  ";
     String output = border + prefix +
       String.join("\n" + prefix, lines) + "\n" +
@@ -71,20 +100,55 @@ public class Dude {
    */
   public static boolean parseInput(String input) {
     // extract command (strip leading and trailing whitespace, take first word)
-    String cmd = input.split(" ")[0];
+    String[] splitInput = input.split(" ");
+    String cmd = splitInput[0];
 
     switch (cmd) {
       case "bye":
         // quit
+        // Print shutdown greeting
+        System.out.println(formatMessage(goodbye));
         return false;
       case "list":
         // list tasks
         System.out.println(formatMessage(getTasksList()));
         break;
+      case "mark":
+        // mark task as done
+        if (splitInput.length < 2) {
+          System.out.println(formatMessage(noTaskNumber));
+        } else {
+          String specifiedTask = splitInput[1];
+          try {
+            int taskNumber = Integer.parseInt(specifiedTask);
+            Task task = getTask(taskNumber);
+            task.markAsDone();
+            System.out.println(formatMessage(markedAsDonePrefix + task.getTaskString()));
+          } catch (NumberFormatException | TaskOutOfBoundsException e) {
+            System.out.println(formatMessage(String.format(invalidTaskNumber, specifiedTask)));
+          }
+        }
+        break;
+      case "unmark":
+        // mark task as not done
+        if (splitInput.length < 2) {
+          System.out.println(formatMessage(noTaskNumber));
+        } else {
+          String specifiedTask = splitInput[1];
+          try {
+            int taskNumber = Integer.parseInt(specifiedTask);
+            Task task = getTask(taskNumber);
+            task.markAsNotDone();
+            System.out.println(formatMessage(markedAsNotDonePrefix + task.getTaskString()));
+          } catch (NumberFormatException | TaskOutOfBoundsException e) {
+            System.out.println(formatMessage(String.format(invalidTaskNumber, specifiedTask)));
+          }
+        }
+        break;
       default:
         // add task to list
-        addTask(input);
-        System.out.println(formatMessage("Added: " + input));
+        Task task = addTask(input);
+        System.out.println(formatMessage(String.format(addedTask, task.getTaskString(), numTasks)));
     }
     return true;
   }
@@ -101,8 +165,5 @@ public class Dude {
       String input = sc.nextLine();
       shouldContinue = parseInput(input);
     }
-
-    // Print shutdown greeting
-    System.out.println(formatMessage(goodbye));
   }
 }
