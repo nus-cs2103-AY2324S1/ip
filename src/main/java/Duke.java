@@ -3,12 +3,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
+    private static ArrayList<Task> tasks;
     public static void main(String[] args) {
         String name = "Derek";
         System.out.println("Hello! I'm " + name);
         System.out.println("What can I do for you?");
 
-        ArrayList<Task> tasks = new ArrayList<>();
+        Duke.tasks = new ArrayList<>();
 
         Scanner in = new Scanner(System.in);
         boolean run = true;
@@ -19,22 +20,22 @@ public class Duke {
                 switch (split[0]) {
                     case "mark":
                         int index = Integer.parseInt(split[1]) - 1;
-                        Task task = tasks.get(index);
+                        Task task = Duke.tasks.get(index);
                         task.markAsDone();
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(task);
                         break;
                     case "unmark":
                         index = Integer.parseInt(split[1]) - 1;
-                        task = tasks.get(index);
+                        task = Duke.tasks.get(index);
                         task.markAsUndone();
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(task);
                         break;
                     case "list":
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < tasks.size(); i++) {
-                            System.out.println((i + 1) + "." + tasks.get(i));
+                        for (int i = 0; i < Duke.tasks.size(); i++) {
+                            System.out.println((i + 1) + "." + Duke.tasks.get(i));
                         }
                         break;
                     case "bye":
@@ -44,25 +45,25 @@ public class Duke {
                     case "todo":
                         String[] processedToDoInput = ToDo.processInput(split);
                         ToDo newTodo = new ToDo(processedToDoInput[0]);
-                        tasks.add(newTodo);
-                        Duke.printTaskAddedMessages(newTodo, tasks.size());
+                        Duke.tasks.add(newTodo);
+                        Duke.printTaskAddedMessages(newTodo);
                         break;
                     case "deadline":
                         String[] processedDeadlineInput = Deadline.processInput(split);
                         Deadline newDeadline = new Deadline(processedDeadlineInput[0], processedDeadlineInput[1]);
-                        tasks.add(newDeadline);
-                        Duke.printTaskAddedMessages(newDeadline, tasks.size());
+                        Duke.tasks.add(newDeadline);
+                        Duke.printTaskAddedMessages(newDeadline);
                         break;
                     case "event":
                         String[] processedEventInput = Event.processInput(split);
                         Event newEvent = new Event(processedEventInput[0], processedEventInput[1], processedEventInput[2]);
-                        tasks.add(newEvent);
-                        Duke.printTaskAddedMessages(newEvent, tasks.size());
+                        Duke.tasks.add(newEvent);
+                        Duke.printTaskAddedMessages(newEvent);
                         break;
                     case "delete":
                         index = Integer.parseInt(split[1]) - 1;
-                        task = tasks.remove(index);
-                        Duke.printTaskDeletedMessage(task, tasks.size());
+                        task = Duke.tasks.remove(index);
+                        Duke.printTaskDeletedMessage(task);
                         break;
                     default:
                         throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -73,19 +74,20 @@ public class Duke {
         }
     }
 
-    private static void printTaskAddedMessages(Task task, int tasksCount) {
+    private static void printTaskAddedMessages(Task task) {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        Duke.printTaskCount(tasksCount);
+        Duke.printTaskCount();
     }
 
-    private static void printTaskDeletedMessage(Task task, int tasksCount) {
+    private static void printTaskDeletedMessage(Task task) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
-        Duke.printTaskCount(tasksCount);
+        Duke.printTaskCount();
     }
 
-    private static void printTaskCount(int tasksCount) {
+    private static void printTaskCount() {
+        int tasksCount = Duke.tasks.size();
         System.out.println("Now you have " + tasksCount + (tasksCount == 1 ? " task" : " tasks") + " in the list.");
     }
 }
