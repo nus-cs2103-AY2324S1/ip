@@ -34,6 +34,15 @@ List of items:
 4.[E][ ] e2 (from: 123 abc to: 456 !!!@@@)
 5.[D][ ] ip (by: 24 Aug 2359)
 
+You entered: mark 0
+⚠ Eek! Index out of range!
+
+You entered: mark 100
+⚠ Eek! Index out of range!
+
+You entered: mark
+⚠ Eek! Please enter a valid number!
+
 You entered: mark 2
 Nice! I've marked this task as done:
 [T][X] td2
@@ -49,6 +58,15 @@ List of items:
 3.[E][ ] e1 (from: 1 to: 2)
 4.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
 5.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: unmark 0
+⚠ Eek! Index out of range!
+
+You entered: unmark 100
+⚠ Eek! Index out of range!
+
+You entered: unmark
+⚠ Eek! Please enter a valid number!
 
 You entered: unmark 2
 OK, I've marked this task as not done yet:
@@ -69,6 +87,38 @@ List of items:
 3.[E][ ] e1 (from: 1 to: 2)
 4.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
 5.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: delete 1
+Noted. I've removed this task:
+[T][X] td1
+Now you have 4 task(s) in the list.
+
+You entered: list
+List of items:
+1.[T][ ] td2
+2.[E][ ] e1 (from: 1 to: 2)
+3.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+4.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: delete 2
+Noted. I've removed this task:
+[E][ ] e1 (from: 1 to: 2)
+Now you have 3 task(s) in the list.
+
+You entered: list
+List of items:
+1.[T][ ] td2
+2.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+3.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: delete
+⚠ Eek! Please enter a valid number!
+
+You entered: delete 0
+⚠ Eek! Index out of range!
+
+You entered: delete 100
+⚠ Eek! Index out of range!
 
 You entered: todo 
 ⚠ Eek! Description of todo cannot be empty!
@@ -108,11 +158,12 @@ You entered: deadline /by 4q34
 
 You entered: list
 List of items:
-1.[T][X] td1
-2.[T][ ] td2
-3.[E][ ] e1 (from: 1 to: 2)
-4.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
-5.[D][ ] ip (by: 24 Aug 2359)
+1.[T][ ] td2
+2.[E][X] e2 (from: 123 abc to: 456 !!!@@@)
+3.[D][ ] ip (by: 24 Aug 2359)
+
+You entered: eep
+⚠ Eek! I do not understand :(((
 
 You entered: bye
 Bye. Hope to see you again soon!

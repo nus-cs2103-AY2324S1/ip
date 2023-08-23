@@ -1,14 +1,26 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static Task[] items = new Task[100];
+//    private static Task[] items = new Task[100];
+    private static ArrayList<Task> items = new ArrayList<>();
     private static int itemsCount = 0;
 
     public static void addTask(Task t) {
-        items[itemsCount] = t;
+//        items[itemsCount] = t;
+        items.add(t);
         itemsCount++;
 
         System.out.println("Got it. I've added this task:");
+        System.out.println(t);
+        System.out.println("Now you have " + itemsCount + " task(s) in the list.");
+    }
+
+    public static void removeTask(Task t) {
+        items.remove(t);
+        itemsCount--;
+
+        System.out.println("Noted. I've removed this task:");
         System.out.println(t);
         System.out.println("Now you have " + itemsCount + " task(s) in the list.");
     }
@@ -35,7 +47,7 @@ public class Duke {
                     System.out.println("List of items:");
                     for (int i = 0; i < itemsCount; i++) {
                         int index = i + 1;
-                        System.out.println(index + "." + items[i]);
+                        System.out.println(index + "." + items.get(i));
                     }
                 } else if (s.startsWith("mark")) {
                     // Mark item as done
@@ -44,7 +56,7 @@ public class Duke {
                         if (index <= 0 || index >= itemsCount) {
                             throw new DukeException("Index out of range!");
                         }
-                        items[index - 1].markAsDone();
+                        items.get(index - 1).markAsDone();
                     } catch (NumberFormatException e) {
                         throw new DukeException("Please enter a valid number!");
                     }
@@ -55,7 +67,7 @@ public class Duke {
                         if (index <= 0 || index >= itemsCount) {
                             throw new DukeException("Index out of range!");
                         }
-                        items[index - 1].markAsUndone();
+                        items.get(index - 1).markAsUndone();
                     } catch (NumberFormatException e) {
                         throw new DukeException("Please enter a valid number!");
                     }
@@ -104,6 +116,17 @@ public class Duke {
                     }
 
                     addTask(new Event(name, from, to));
+                } else if (s.startsWith("delete")) {
+                    // Delete item
+                    try {
+                        int index = Integer.parseInt(s.substring(6).trim());
+                        if (index <= 0 || index >= itemsCount) {
+                            throw new DukeException("Index out of range!");
+                        }
+                        removeTask(items.get(index - 1));
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("Please enter a valid number!");
+                    }
                 } else {
                     throw new DukeException("I do not understand :(((");
                 }
