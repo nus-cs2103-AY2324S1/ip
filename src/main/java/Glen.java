@@ -1,8 +1,18 @@
+import java.util.Scanner;
+
 public class Glen {
-    static final String HORLINE = "____________________________________________________________\n";    
+    static final String HORLINE = "_____________________________________________________\n";
+    
     public static void main(String[] args) {
-        System.out.print(intro());
+        System.out.println(intro());
+        Scanner scan = new Scanner(System.in);
+        String input = scan.nextLine();
+        while (!input.toLowerCase().equals("bye")) {
+            System.out.println(repeater(input));
+            input = scan.nextLine();
+        }
         System.out.println(exit());
+        scan.close();
     }
 
     static String intro() {
@@ -17,8 +27,11 @@ public class Glen {
         return HORLINE + logo + introText + HORLINE;
     }
 
+    static String repeater(String inp) {
+        return HORLINE + inp + "\n" + HORLINE;
+    }
+
     static String exit() {
-        String exitTxt = "Bye. Hope to see you again soon!\n";
-        return exitTxt + HORLINE;
+        return HORLINE + "Bye. Hope to see you again soon!\n" + HORLINE;
     }
 }
