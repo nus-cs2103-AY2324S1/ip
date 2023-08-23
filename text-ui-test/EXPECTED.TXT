@@ -38,6 +38,20 @@ Here are the tasks in your list:
 3. [E][X] go home (from: friday to: sunday)
 ____________________________________________________________
 ____________________________________________________________
+Great heavens! You have entered an invalid index!
+____________________________________________________________
+____________________________________________________________
+Great heavens! You have entered an invalid input!
+Here are the valid commands:
+  bye
+  list
+  mark|unmark <index>
+  delete <index>
+  todo <description>
+  deadline <description> /by <date>
+  event <description> /from <start> /to <end>
+____________________________________________________________
+____________________________________________________________
 Very nice! I have marked this task as not done yet:
   [D][ ] complete assignment (by: tomorrow)
 ____________________________________________________________
@@ -49,6 +63,16 @@ Here are the tasks in your list:
 ____________________________________________________________
 ____________________________________________________________
 Great heavens! You have entered an invalid index!
+____________________________________________________________
+____________________________________________________________
+Task went on vacation, never came back.
+  [D][ ] complete assignment (by: tomorrow)
+You now have 2 tasks in the list!
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [E][X] go home (from: friday to: sunday)
 ____________________________________________________________
 ____________________________________________________________
 Bye! Hope to see you again soon!
