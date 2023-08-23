@@ -16,6 +16,14 @@ public class Monday {
                 break;
             } else if (userInput.equals("list")) {
                 Storage.displayList();
+            } else if (userInput.contains("mark")) {
+                String[] details = userInput.split(" ");
+                int index = Integer.parseInt(details[1]);
+                if (details[0].equals("mark")) {
+                    Storage.mark(index);
+                } else {
+                    Storage.unMark(index);
+                }
             } else {
                 Storage.add(userInput);
                 echo(userInput);
