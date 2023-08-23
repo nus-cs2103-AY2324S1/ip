@@ -1,4 +1,3 @@
-import java.util.Date;
 import java.util.Scanner;
 
 public class Duke {
@@ -21,48 +20,155 @@ public class Duke {
         System.out.println("Bye. See you soon.\n");
     }
 
-    private static void nextCommand(String command) {
-        String[] commandArraycommand = command.split(" ", 2);
-        if (commandArraycommand.length == 1) {
-            switch (commandArraycommand[0]) {
-                case ("bye"):
-                    exit();
-                    break;
+    static class Parse {
 
-                case ("list"):
-                    taskList.listTasks();
-                    break;
-            }
-            Scanner scanObj = new Scanner(System.in);
-            String newCommand = scanObj.nextLine();
-            nextCommand(newCommand);
-            return;
+        private String command;
+        private String[] initialParse;
+        private String[] phaseParse;
+        public Parse(String command) {
+            this.command = command;
         }
-        String[] commandArraycommandfirst = commandArraycommand[1].split("/");
-        switch(commandArraycommand[0]) {
+        public String mainCommand() {
+            this.initialParse = command.split(" ",2);
+            return initialParse[0];
+        }
 
-            case ("mark"):
-                taskList.mark(Integer.valueOf(commandArraycommand[1]));
-                break;
+        public String secondWord() {
+            try {
+                if (this.initialParse[1] == "") {
+                    return null;
+                } else {
+                    return this.initialParse[1];
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return null;
+            }
+        }
 
-            case ("unmark"):
-                taskList.unmark(Integer.valueOf(commandArraycommand[1]));
+        public String phaseParse() {
+            try {
+                this.phaseParse = this.initialParse[1].split("/");
+                return phaseParse[0];
+            } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                return null;
+            }
+        }
+
+        public String phaseTwo() {
+            try {
+                return this.phaseParse[1];
+            } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                return null;
+            }
+        }
+
+        public String phaseThree() {
+            try {
+                return this.phaseParse[2];
+            } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+                return null;
+            }
+        }
+    }
+
+    public static void nextCommand(String command) {
+        Parse cmd = new Parse(command);
+        String firstWord = cmd.mainCommand();
+        switch (firstWord) {
+            case ("bye"):
+                exit();
+                return;
+
+            case ("list"):
+                taskList.listTasks();
                 break;
 
             case ("todo"):
-                taskList.addTask(commandArraycommandfirst[0]);
+                if (cmd.secondWord() != null) {
+                    taskList.addTask(cmd.secondWord());
+                } else {
+                    System.out.println("Please add a task for ToDo");
+                }
                 break;
 
             case ("deadline"):
-                String[] commandArraycommandsecond = commandArraycommandfirst[1].split(" ",2);
-                taskList.addTask(commandArraycommandfirst[0],commandArraycommandsecond[1]);
+                try {
+                    String task = cmd.phaseParse();
+                    try {
+                        String dayDate = cmd.phaseTwo();
+                        Parse parseDayDate = new Parse(dayDate);
+                        if (parseDayDate.mainCommand().equals("by") && parseDayDate.secondWord() != null) {
+                            taskList.addTask(task, parseDayDate.secondWord());
+                        } else {
+                            System.out.println("The format for the command is: deadline task /by DayOrDate");
+                        }
+                    } catch (NullPointerException e) {
+                        System.out.println("Please add the day/date that the task is due by");
+                    }
+                } catch (NullPointerException e) {
+                    System.out.println("Please add the task that has to been done");
+                }
                 break;
 
             case ("event"):
-                String[] commandArraycommandthird = commandArraycommandfirst[1].split(" ",2);
-                String[] commandArraycommandforth = commandArraycommandfirst[2].split(" ", 2);
-                taskList.addTask(commandArraycommandfirst[0],commandArraycommandthird[1], commandArraycommandforth[1]);
+                try {
+                    String task = cmd.phaseParse();
+                    try {
+                        String startDayDateTime = cmd.phaseTwo();
+                        Parse parseStartDayDateTime = new Parse(startDayDateTime);
+                        if (parseStartDayDateTime.mainCommand().equals("from") && parseStartDayDateTime.secondWord() != null) {
+                            try {
+                                String endDayDateTime = cmd.phaseThree();
+                                Parse parseEndDayDateTime = new Parse(endDayDateTime);
+                                if (parseEndDayDateTime.mainCommand().equals("to") && parseEndDayDateTime.secondWord() != null) {
+                                    taskList.addTask(task, parseStartDayDateTime.secondWord(), parseEndDayDateTime.secondWord());
+                                } else {
+                                    System.out.println("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
+                                }
+                            } catch (NullPointerException e) {
+                                System.out.println("Please add the day/date/time the event will end");
+                            }
+                        } else {
+                            System.out.println("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
+                        }
+                    } catch (NullPointerException e) {
+                        System.out.println("Please add the day/date/time the event will start");
+                    }
+                } catch (NullPointerException e) {
+                    System.out.println("Please add the event that is happening");
+                }
                 break;
+
+            case ("mark"):
+                if (cmd.secondWord() != null) {
+                    try {
+                        int n = Integer.parseInt(cmd.secondWord());
+                        taskList.mark(n);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please input only 1 number after mark");
+                    }
+                } else {
+                    System.out.println("Please input only 1 number after mark");
+                }
+                break;
+
+            case ("unmark"):
+                if (cmd.secondWord() != null) {
+                    try {
+                        int n = Integer.parseInt(cmd.secondWord());
+                        taskList.unmark(n);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please input only 1 number after unmark");
+                    }
+                } else {
+                    System.out.println("Please input only 1 number after unmark");
+                }
+                break;
+
+            case ("delete"):
+
+            default:
+                System.out.println("Unknown command");
         }
         Scanner scanObj = new Scanner(System.in);
         String newCommand = scanObj.nextLine();
@@ -126,7 +232,7 @@ class Task {
 
         @Override
         public String toString() {
-            return "[E]" + super.toString() + "(from: " + startDayDateTime + " to: " + endDayDateTime +")";
+            return "[E]" + super.toString() + "(from: " + startDayDateTime + "to: " + endDayDateTime +")";
         }
     }
 }
@@ -143,14 +249,14 @@ class ListOfTask {
 
     public void addTask(String task, String dayDate) {
         listOfTask[counter] = new Task.Deadlines(task, dayDate);
+        System.out.println("added: " + listOfTask[counter]);
         counter++;
-        System.out.println("added: " + task);
     }
 
     public void addTask(String task, String startDayDateTime, String endDayDateTime) {
         listOfTask[counter] = new Task.Event(task, startDayDateTime, endDayDateTime);
+        System.out.println("added: " + listOfTask[counter]);
         counter++;
-        System.out.println("added: " + task);
     }
 
     public void listTasks() {
@@ -160,12 +266,34 @@ class ListOfTask {
     }
 
     public void mark(int index) {
+        if (counter == 0) {
+            System.out.println("There is nothing in the list");
+            return;
+        }
+        if (index-1 > counter || index <= 0) {
+            System.out.println("Please select from index 1 to " + counter + 1);
+            return;
+        }
         listOfTask[index - 1].mark();
         System.out.println(listOfTask[index - 1].toString());
     }
 
     public void unmark(int index) {
+        if (counter == 0) {
+            System.out.println("There is nothing in the list");
+            return;
+        }
+        if (index-1 > counter || index-1 <= 0) {
+            System.out.println("Please select from index 1 to " + counter + 1);
+            return;
+        }
         listOfTask[index - 1].unmark();
         System.out.println(listOfTask[index - 1].toString());
+    }
+}
+
+class DukeException extends Exception {
+    public DukeException(String message) {
+        super(message);
     }
 }
