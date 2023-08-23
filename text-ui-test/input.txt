@@ -1,0 +1,8 @@
+todo help me
+deadline boooo /by tmr
+event whyyyy /from yesterday /to next fri
+list
+delete 2
+mark 2
+list
+bye
