@@ -3,11 +3,7 @@ import java.util.Set;
 
 public class Ren {
     public static void main(String[] args) throws InvalidRenCommand {
-        String LS_COMMAND = "list";
-        String DELETE_COMMAND = "delete";
-        String EXIT_COMMAND = "bye";
-        String MARK_COMMAND = "mark";
-        String UNMARK_COMMAND = "unmark";
+
         Set<String> TASK_TYPES = Set.of(
                 "todo", "deadline", "event"
         );
@@ -25,13 +21,13 @@ public class Ren {
 
         System.out.println(welcomeMsg);
         String inputStr = input.nextLine();
-        while (!inputStr.equals(EXIT_COMMAND)) {
+        while (!inputStr.equals(Commands.EXIT_COMMAND.getValue())) {
             String[] commandArr = inputStr.split(" ");
-            if (commandArr[0].equals(LS_COMMAND)) {
+            if (commandArr[0].equals(Commands.LS_COMMAND.getValue())) {
                 System.out.println("____________________________________________________________\n");
                 tasks.listTasks();
                 System.out.println("____________________________________________________________\n");
-            } else if (commandArr[0].equals(DELETE_COMMAND)) {
+            } else if (commandArr[0].equals(Commands.DELETE_COMMAND.getValue())) {
                 try {
                     Task task = tasks.deleteTask(commandArr);
 
@@ -44,11 +40,12 @@ public class Ren {
                     System.out.println(e.getMessage());
                     System.out.println("____________________________________________________________\n");
                 }
-            } else if (commandArr[0].equals(MARK_COMMAND) || commandArr[0].equals(UNMARK_COMMAND)) {
+            } else if (commandArr[0].equals(Commands.MARK_COMMAND.getValue())
+                    || commandArr[0].equals(Commands.UNMARK_COMMAND.getValue())) {
                 Task task = tasks.toggleTask(commandArr);
                 System.out.println("____________________________________________________________\n" +
                         String.format("Marked as %s!\n %s\n",
-                                commandArr[0].equals(MARK_COMMAND) ? "done" : "undone",
+                                commandArr[0].equals(Commands.MARK_COMMAND.getValue()) ? "done" : "undone",
                                 task) +
                         "____________________________________________________________\n");
             } else if (TASK_TYPES.contains(commandArr[0])) {
