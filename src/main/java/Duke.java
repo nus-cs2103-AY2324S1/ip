@@ -97,7 +97,6 @@ public class Duke {
             }
             System.out.println();
             message = sc.nextLine();
-            System.out.println();
         }
         farewell();
     }
