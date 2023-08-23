@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Duke {
 
     public static void main(String[] args) {
-        ArrayList<String> store = new ArrayList<>();
+        TaskList store = new TaskList();
         String name = "CodeBuddy";
         String horizontal = "----------------------------------------";
         Scanner inputScanner = new Scanner(System.in);
@@ -20,14 +20,17 @@ public class Duke {
                 System.out.println(horizontal);
                 break;
             } else if(input.equals("list")) {
-                int counter = 1;
-                for(String text: store) {
-                    System.out.println(counter + ". " + text);
-                    counter++;
-                }
+                store.listTasks();
+            } else if(input.startsWith("mark")) {
+                String[] splitInput = input.split(" ");
+                int index = Integer.parseInt(splitInput[1]);
+                store.markTask(index);
+            } else if(input.startsWith("unmark")) {
+                String[] splitInput = input.split(" ");
+                int index = Integer.parseInt(splitInput[1]);
+                store.unmarkTask(index);
             } else {
-                System.out.println("added: " + input);
-                store.add(input);
+                store.addTask(input);
             }
             System.out.println(horizontal);
         }
