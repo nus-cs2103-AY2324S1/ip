@@ -2,14 +2,18 @@ import java.util.ArrayList;
 
 public class List {
 
-    ArrayList<String> storagePile;
+    private int taskNumber;
+
+    private ArrayList<Task> storagePile;
 
     public List() {
-        storagePile = new ArrayList<String>();
+        taskNumber = 1;
+        storagePile = new ArrayList<>();
     }
 
     public void input(String item) {
-        storagePile.add(item);
+        storagePile.add(new Task(item));
+        taskNumber++;
     }
 
     public String toString() {
@@ -20,5 +24,19 @@ public class List {
                     i, storagePile.get(i-1)) +" \n" ;
         }
         return listed;
+    }
+
+    public void checkItem(int x) {
+        storagePile.get(x-1).markDone();
+    }
+
+    public void notDoneItem(int x) {
+        storagePile.get(x-1).markUndone();
+    }
+
+
+
+    public String showThisTask(int x) {
+        return storagePile.get(x-1).toString();
     }
 }

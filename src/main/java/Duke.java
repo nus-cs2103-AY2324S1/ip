@@ -16,14 +16,27 @@ public class Duke {
         List lst = new List();
         while (true) {
             String entry = sc.nextLine();
+            String[] words = entry.split(" ");
 
             if (entry.equals("bye")) {
                 break;
             } else if (entry.equals("list")) {
                 String condemn = " _______________ \n\n "
                         + " What a terrible day to be alive. \n"
-                        +  String.format("%s \n\n  _______________ \n\n ", lst.toString());
+                        + String.format("%s \n\n  _______________ \n\n ", lst.toString());
                 System.out.println(condemn);
+            } else if (words[0].equals("mark")) {
+                int index = Integer.parseInt(words[1]);
+                lst.checkItem(index);
+                System.out.println(" _______________ \n\n "
+                        + "A proud moment of your life I am sure... \n  "
+                        + lst.showThisTask(index) + " \n\n" + " _______________");
+            }  else if (words[0].equals("unmark")) {
+                int index = Integer.parseInt(words[1]);
+                lst.notDoneItem(index);
+                System.out.println(" _______________ \n\n "
+                        + "I'm not juding at all... \n  "
+                        + lst.showThisTask(index) + " \n\n" + " _______________");
             } else {
                 lst.input(entry);
                 System.out.println(" _______________ \n\n "
