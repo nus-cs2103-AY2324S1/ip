@@ -1,18 +1,7 @@
 import java.util.Scanner;
 
-import command.ByeCommand;
-import command.Command;
-import command.DeadlineCommand;
-import command.EventCommand;
-import command.ListCommand;
-import command.MarkCommand;
-import command.ParseException;
-import command.TodoCommand;
-import command.UnmarkCommand;
-import task.DeadlineTask;
-import task.EventTask;
-import task.Task;
-import task.TodoTask;
+import command.*;
+import task.*;
 
 public class Ekud {
     public Store store = new Store();
@@ -48,7 +37,7 @@ public class Ekud {
         Task task = store.getTask(taskId);
         task.mark();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + task);
+        System.out.println("   " + task);
     }
 
     public void processUnmark(UnmarkCommand command) {
@@ -62,14 +51,14 @@ public class Ekud {
         Task task = store.getTask(taskId);
         task.unmark();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
+        System.out.println("   " + task);
     }
 
     public void processEvent(EventCommand command) {
         Task task = new EventTask(command.getTitle(), command.getFrom(), command.getTo());
         store.addTask(task);
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
+        System.out.println("   " + task);
         System.out.println("Now you have " + store.getTaskCount() + " tasks in the list.");
     }
 
@@ -77,7 +66,7 @@ public class Ekud {
         Task task = new DeadlineTask(command.getTitle(), command.getBy());
         store.addTask(task);
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
+        System.out.println("   " + task);
         System.out.println("Now you have " + store.getTaskCount() + " tasks in the list.");
     }
 
@@ -85,7 +74,7 @@ public class Ekud {
         Task task = new TodoTask(command.getTitle());
         store.addTask(task);
         System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
+        System.out.println("   " + task);
         System.out.println("Now you have " + store.getTaskCount() + " tasks in the list.");
     }
 
