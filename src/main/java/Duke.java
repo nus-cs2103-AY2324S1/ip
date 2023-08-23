@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class Duke {
     private static final String botName = "cc";
 
-    private static final ToDo toDo = new ToDo();
+    private static final Memory memory = new Memory();
 
     private static void greet() {
         System.out.println("Hello! I'm " + botName);
@@ -40,23 +40,23 @@ public class Duke {
                 Duke.bye();
                 running = false;
             } else if (input.equals("list")) {
-                toDo.print();
+                memory.print();
             } else if (isMarkCommand(input)) {
                 int pos = extractValue(input);
-                if (pos > toDo.size() || pos <= 0) {
+                if (pos > memory.size() || pos <= 0) {
                     System.out.println("Invalid index. Please enter again.");
                     continue;
                 }
-                toDo.mark(pos);
+                memory.mark(pos);
             } else if (isUnmarkCommand(input)) {
                 int pos = extractValue(input);
-                if (pos > toDo.size() || pos <= 0) {
+                if (pos > memory.size() || pos <= 0) {
                     System.out.println("Invalid index. Please enter again.");
                     continue;
                 }
-                toDo.unmark(pos);
+                memory.unmark(pos);
             } else {
-                toDo.add(new Task(input));
+                memory.add(new Task(input));
             }
         }
     }
