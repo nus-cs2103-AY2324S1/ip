@@ -19,7 +19,15 @@ public class Task {
         return this.name;
     }
 
+    public String getDescription() {
+        getName();
+    }
+
     public boolean isDone() {
         return this.isDone;
+    }
+
+    public String getSymbol() {
+        return null;
     }
 }
