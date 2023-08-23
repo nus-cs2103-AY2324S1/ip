@@ -1,8 +1,48 @@
+import java.awt.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 
 public class Brotherman {
+
+    public static boolean isValidCommands(String command) throws BrothermanException{
+        if (!command.equals("list")) {
+            return true;
+        }
+
+        if (command.split(" ")[0].equals("mark") && command.split(" ").length <= 1) {
+            throw new BrothermanException("Error! Something has to be marked!");
+        }
+
+        if (command.split(" ")[0].equals("unmark") && command.split(" ").length <= 1) {
+            throw new BrothermanException("Error! Something has to be unmarked!");
+        }
+
+        if (command.split(" ")[0].equals("todo") && command.split(" ").length <= 1) {
+            throw new BrothermanException("Error! There must be a description!!!");
+        }
+
+        if (command.split(" ")[0].equals("deadline") && command.split(" ")[1].equals("/by")) {
+            throw new BrothermanException("Error! There has to be a description!!");
+        }
+
+        if (command.split(" ")[0].equals("deadline") && !command.contains("/by")) {
+            throw new BrothermanException("Error! There has to be a due date/time!");
+        }
+
+        if (command.split(" ")[0].equals("event") && !command.contains("/from")) {
+            throw new BrothermanException("Error! There has to be a start date/time!");
+        }
+
+        if (command.split(" ")[0].equals("event") && !command.contains("/to")) {
+            throw new BrothermanException("Error! There has to be a end date/time!");
+        }
+
+        if (command.split(" ")[0].equals("event") && command.split(" ")[1].equals("/from")) {
+            throw new BrothermanException("Error! There has to be a description");
+        }
+        return true;
+    }
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
@@ -17,6 +57,7 @@ public class Brotherman {
                 + "____________________________________________________________\n");
 
         String userCommand = input.nextLine();
+
 
         while (!userCommand.equals("bye")) {
 
