@@ -27,22 +27,9 @@ public class Duke {
         int itemNumber = 1;
 
         while (!Objects.equals(input, "bye")) {
-            if (Objects.equals(input, "list")) {
-
-                System.out.println("\t" + line
-                        + "\t [barbie]: ");
-
-                for (int i = 1; i < itemNumber; i++) {
-
-                    System.out.println("\t" + i + ". "
-                            + list[i]);
-                }
-                System.out.println("\t" + line);
-                break;
-            }
             // Repeat input
             System.out.println("\t" + line
-                    + "\t [barbie]: added: "
+                    + "\t [barbie]: "
                     + input
                     + "\n\t"
                     + line);
@@ -51,9 +38,8 @@ public class Duke {
             list[itemNumber] = input;
 
             // Reset
-            System.out.println("[you]:");
+            System.out.println("[you]: ");
             input = scanner.nextLine();
-            itemNumber += 1;
         }
 
         // Exit
