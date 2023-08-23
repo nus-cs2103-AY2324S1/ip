@@ -1,7 +1,54 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+___________________________________
+Hello! I'm Duke!!!!!
+What can I do for you?
+___________________________________
+
+___________________________________
+
+Okay! I added a new TODO:
+	[T][ ] new Task
+Now you have 1 tasks in the list.
+___________________________________
+
+___________________________________
+
+Got it. I've added the Deadline:
+	[D][ ] new Deadline (by: Sunday)
+Now you have 2 tasks in the list.
+___________________________________
+
+___________________________________
+
+Got it. I've added the Event:
+	[E][ ] new Event (from: Sunday to: Monday)
+Now you have 3 tasks in the list.
+___________________________________
+
+___________________________________
+
+Nice! I have marked this task as done:
+[T][X] new Task
+___________________________________
+
+___________________________________
+
+Okay! I have marked this task as not done yet
+[T][ ] new Task
+___________________________________
+
+___________________________________
+Here are the tasks in your list:
+1. [T][ ] new Task
+2. [D][ ] new Deadline (by: Sunday)
+3. [E][ ] new Event (from: Sunday to: Monday)
+___________________________________
+
+___________________________________
+
+That's not a valid action! Try again
+___________________________________
+
+___________________________________
+Bye Bye. Hope to see you again soon!
+___________________________________
 

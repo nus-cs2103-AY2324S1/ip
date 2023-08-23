@@ -1,0 +1,8 @@
+todo new Task
+deadline new Deadline /by Sunday
+event new Event /from Sunday /to Monday
+mark 1
+unmark 1
+list
+BLAH BLAH BLAH
+bye

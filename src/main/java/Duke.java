@@ -42,7 +42,7 @@ public class Duke {
                 System.out.println(line);
 
             } else if (type.equals("deadline")) {
-                String[] deadline = arr[1].split("/by", 2);
+                String[] deadline = arr[1].split("/by ", 2);
                 Task newTask = new Deadline(deadline[0], deadline[1]);
                 list[counter] = newTask;
                 System.out.println(line);
