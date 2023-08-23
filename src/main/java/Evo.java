@@ -1,4 +1,6 @@
+import java.util.Objects;
 import java.util.Scanner;
+
 
 public class Evo {
     public static void main(String[] args) {
@@ -14,7 +16,16 @@ public class Evo {
         String byeMsg = "Bye. Hope to see you again soon!";
 
         System.out.println(welcomeMsg);
-        System.out.println(byeMsg);
 
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            String instruction = scanner.nextLine();
+            if (Objects.equals(instruction, "bye")) {
+                System.out.println(byeMsg);
+                break;
+            }
+            System.out.println(instruction);
+        }
     }
 }
