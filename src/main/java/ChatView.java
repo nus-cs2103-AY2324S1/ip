@@ -1,5 +1,6 @@
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import task.*;
 
 public class ChatView {
     static String LINE_BREAK = "____________________________";
@@ -19,28 +20,46 @@ public class ChatView {
         if (command.toLowerCase().contains("unmark")) {
             int n = getInt(command);
             chatRecord.setUnmark(n);
-            System.out.println(String.format("\t%s\n\tI have marked this task as undone!\n\t%s", LINE_BREAK, chatRecord.getTask(n)));
+            System.out.println(beautifyString(String.format("I have marked this task as undone!\n%s", chatRecord.getTask(n))));
             return;
         }
 
         if (command.toLowerCase().contains("mark")) {
             int n = getInt(command);
             chatRecord.setMark(n);
-            System.out.println(String.format("\t%s\n\tI have marked this task as done!\n\t%s", LINE_BREAK, chatRecord.getTask(n)));
+            System.out.println(beautifyString(String.format("I have marked this task as done!\n%s", chatRecord.getTask(n))));
             return;
         }
 
-        switch(command.toLowerCase()) {
+        String[] commandSplit = command.split(" ", 2);
+        String commandType = commandSplit[0].toLowerCase();
+        Task out;
+
+        switch(commandType) {
             case "bye":
                 System.out.println(String.format("%s\nAccess Terminated! Hope to see you again soon!\n%s", LINE_BREAK, LINE_BREAK));
                 System.exit(0);
                 break;
             case "list":
-                System.out.println(String.format("\t%s\n\tThese are the items in your list!\n%s\t%s", LINE_BREAK, chatRecord.listMessage(), LINE_BREAK));
+                System.out.println(beautifyString(String.format("These are the items in your list!\n%s", chatRecord.listMessage())));
+                break;
+            case "todo":
+                out = chatRecord.addTask(commandSplit[1], TaskTypes.TODO);
+                System.out.println(beautifyString(String.format("Recorded to database: %s", out.toString())));
+                break;
+            case "deadline":
+                String[] ddlSplit = commandSplit[1].split(" /by ");
+                out = chatRecord.addTask(ddlSplit[0], TaskTypes.DEADLINE, ddlSplit[1]);
+                System.out.println(beautifyString(String.format("Recorded to database: %s", out.toString())));
+                break;
+            case "event":
+                String[] evSplit = commandSplit[1].split(" /from ");
+                String[] args = evSplit[1].split(" /to ");
+                out = chatRecord.addTask(evSplit[0], TaskTypes.EVENT, args);
+                System.out.println(beautifyString(String.format("Recorded to database: %s", out.toString())));
                 break;
             default:
-                chatRecord.addMessage(command);
-                System.out.println(String.format("\t%s\n\tRecorded to database: %s\n\t%s", LINE_BREAK, command, LINE_BREAK));
+                System.out.println(beautifyString(command));
                 break;
         }
     }
@@ -52,5 +71,9 @@ public class ChatView {
             m.append(matcher.group());
         }
         return Integer.parseInt(m.toString());
+    }
+
+    private String beautifyString(String str) {
+        return String.format("\t%s\n%s\n%s", LINE_BREAK, str, LINE_BREAK).replace("\n", "\n\t");
     }
 }
