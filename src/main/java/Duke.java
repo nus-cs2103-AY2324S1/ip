@@ -26,7 +26,7 @@ public class Duke {
                 }
                 if (parsed_str.length > 1) {
                     //error handling
-                   System.out.println("Do not input another argument beside list");
+                    System.out.println("Do not input another argument beside list");
                 }
             } else if (parsed_str[0].equals("mark")) {
                 if (parsed_str.length < 2) {
@@ -115,16 +115,16 @@ public class Duke {
                         reachFrom = true;
                         continue;
                     } else if (parsed_str[i].equals("/to")) {
-                       reachTo = true;
-                       continue;
+                        reachTo = true;
+                        continue;
                     }
                     if (reachFrom == true && reachTo == false) {
                         fromDate += parsed_str[i] + " ";
                     } else if (reachFrom == false && reachTo == false) {
-                       //part for description
-                       description += parsed_str[i] + " ";
+                        //part for description
+                        description += parsed_str[i] + " ";
                     } else {
-                       toDate += parsed_str[i] + " ";
+                        toDate += parsed_str[i] + " ";
                     }
                 }
                 if (description.equals("")) {
@@ -138,10 +138,18 @@ public class Duke {
                     continue;
                 }
                 System.out.println("Got it. I've added this task:");
-                //todo here
                 Event curr = new Event(description, fromDate, toDate);
                 tdlist.add(curr);
                 System.out.println(curr);
+                System.out.println("Now you have " + tdlist.size() + " tasks in the list.");
+
+            } else if (parsed_str[0].equals("delete")){
+                //no error handling here yet
+                int index = Integer.parseInt(parsed_str[1]) - 1;
+                System.out.println("Noted. I've removed this task:");
+                Task curr = tdlist.get(index);
+                System.out.println(curr);
+                tdlist.remove(index);
                 System.out.println("Now you have " + tdlist.size() + " tasks in the list.");
 
             } else {
