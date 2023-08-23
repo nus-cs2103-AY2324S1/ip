@@ -88,4 +88,8 @@ public class Task {
         return "☹";
     }
 
+    public boolean isDelete() {
+        return this.task.contains("delete");
+    }
+
 }

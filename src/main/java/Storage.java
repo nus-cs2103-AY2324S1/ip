@@ -38,8 +38,8 @@ public class Storage {
         task.toggleDone();
         System.out.println(
                 String.format(
-                        "Nice! I've marked this task as done: [%s] %s",
-                        task.getStatusIcon(), task.get()
+                        "Nice! I've marked this task as done: %s",
+                        task.toString()
                         )
         );
     }
@@ -60,10 +60,22 @@ public class Storage {
         task.toggleDone();
         System.out.println(
                 String.format(
-                        "Ok, I've marked this task as not done yet: [%s] %s",
-                        task.getStatusIcon(), task.get()
+                        "Ok, I've marked this task as not done yet: %s",
+                        task.toString()
                 )
         );
+    }
+
+    public void delete(int taskNumber) {
+        if (taskNumber > previous_Commands.size() || taskNumber <= 0) {
+            System.out.println("☹ OOPS!!! Such a task does not exist!");
+            return;
+        }
+
+        Task task = previous_Commands.get(taskNumber -1);
+        previous_Commands.remove(taskNumber -1);
+
+        System.out.println(String.format("Noted. I've removed this task: %s", task));
     }
 
 

@@ -47,6 +47,14 @@ public class Mimi {
                 continue;
             }
 
+            if (task.isDelete()) {
+                int task_Number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
+
+                PreviousCommands.delete(task_Number);
+                System.out.println(LINE);
+                continue;
+            }
+
             try {
                 if (task.isCompleteCommand()) {
                     int i = task.get().indexOf(' ');
