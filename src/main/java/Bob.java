@@ -100,9 +100,9 @@ public class Bob {
     public static void main(String[] args) {
         System.out.println("Hello! I'm Bob");
         System.out.println("What can I do for you?");
+        Scanner obj = new Scanner(System.in);
 
         while (true) {
-            Scanner obj = new Scanner(System.in);
             String input = obj.nextLine();
             boolean isMark = false;
             int markNo = 0;
