@@ -11,11 +11,10 @@ public class Invoker {
         this.commands.put(commandName, command);
     }
 
-    public void execute(String input) {
+    public void execute(String input) throws DukeException {
         String commandName = input.split(" ")[0];
         if (this.commands.get(commandName) == null) {
-            System.out.println("Command not found");
-            return;
+            throw new InvalidInputException("Command not found");
         }
 
         this.commands.get(commandName).execute(input);

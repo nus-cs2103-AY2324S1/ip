@@ -8,5 +8,7 @@ list
 unmark 1
 unmark 100
 list
+todo
+blah
 bye
 ```

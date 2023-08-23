@@ -1,3 +1,3 @@
 public interface Command {
-    public void execute(String input);
+    public void execute(String input) throws DukeException;
 }

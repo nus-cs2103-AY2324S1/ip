@@ -5,7 +5,7 @@ public class DeadlineBuilder implements Builder<Task> {
     private String pattern = "deadline\\s+(.*?)\\s+/by\\s+(.*)";
 
     @Override
-    public Task buildFromString(String input) {
+    public Task buildFromString(String input) throws DukeException{
          Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(input);
         if (m.matches()) {
@@ -15,7 +15,9 @@ public class DeadlineBuilder implements Builder<Task> {
             deadline.setDescription(description);
             deadline.setBy(by);
             return deadline;
+        } else {
+            throw new InvalidInputException("expected format: deadline <description> /by <by>");
         }
-        return null; 
+    
     }  
 }

@@ -6,7 +6,7 @@ public class TodoBuilder implements Builder<Task> {
     
 
     @Override
-    public Todo buildFromString(String input) {
+    public Todo buildFromString(String input) throws DukeException{
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(input);
         if (m.matches()) {
@@ -15,7 +15,9 @@ public class TodoBuilder implements Builder<Task> {
             todo.setDescription(description);
             return todo;
         }
-        return null;
+        else {
+            throw new InvalidInputException("expected format: todo <description>");
+        }
     }
 }
 

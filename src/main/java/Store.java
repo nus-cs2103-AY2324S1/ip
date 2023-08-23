@@ -10,64 +10,64 @@ public class Store {
         return store;
     }
 
-    public boolean addTask(Task task) {
+    public void addTask(Task task) throws DukeException {
         if (taskCount == 100) {
-            return false;
+            throw new DukeException("task list is full");
         }
         tasks[taskCount] = task;
         taskCount++;
-        return true;
     }
 
     public Task[] getTasks() {
         return tasks;
     }
 
-    public Task getTask(int index) {
+    public Task getTask(int index) throws DukeException{
         if (index > taskCount || index < 1) {
-            return null;
+            throw new DukeException("index out of bounds when calling getTask from store");
         }
         return tasks[index - 1];
     }
 
-    public boolean deleteTask(int index) {
+    public void deleteTask(int index) throws DukeException{
         if (index > taskCount || index < 1) {
-            return false;
+            throw new InvalidInputException("index out of bounds");
         }
         for (int i = index - 1; i < taskCount - 1; i++) {
             tasks[i] = tasks[i + 1];
         }
         taskCount--;
-        return true;
     }
 
-    public boolean mark(int index) {
+    public void mark(int index) throws DukeException {
         if (index > taskCount || index < 1) {
-            return false;
+           throw new InvalidInputException("index out of bounds");
         }
         tasks[index-1].mark();
-        return true;
+       
     }
 
-    public boolean unmark(int index) {
+    public void unmark(int index) throws DukeException {
         if (index > taskCount || index < 1) {
-            return false;
+            throw new InvalidInputException("index out of bounds");
         }
 
-        tasks[index-1].unmark();
-        return true;
+        tasks[index-1].unmark(); 
     }
 
-    public boolean updateDescription(int index, String description) {
+    public void updateDescription(int index, String description) throws DukeException{
         if (index > taskCount || index < 1) {
-            return false;
+            throw new InvalidInputException("index out of bounds");
         }
-        tasks[index-1].setDescription(description);
-        return true;
+        tasks[index-1].setDescription(description);  
     }  
 
     public int getTaskCount() {
         return taskCount;
+    }
+
+    public boolean hasTaskAtIndex(int index) {
+        return index <= taskCount && index > 0;
     }
 
     @Override

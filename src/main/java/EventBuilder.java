@@ -6,7 +6,7 @@ public class EventBuilder implements Builder<Task> {
     
 
     @Override
-    public Task buildFromString(String input) {
+    public Task buildFromString(String input) throws DukeException {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(input);
         if (m.matches()) {
@@ -18,8 +18,10 @@ public class EventBuilder implements Builder<Task> {
             event.setFrom(start);
             event.setTo(end);
             return event;
+        } else {
+            throw new InvalidInputException("expected format: event <description> /from <start> /to <end>");
         }
-        return null;
+       
     }
     
 }

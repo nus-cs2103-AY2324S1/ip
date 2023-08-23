@@ -5,17 +5,14 @@ public class AddTask implements Command {
     }
 
     @Override
-    public void execute(String input) {
+    public void execute(String input) throws DukeException{
         Store s = Store.getInstance();
         Task task = taskBuilder.buildFromString(input);
         if (task == null) {
             System.out.println("Invalid input");
             return;
         }
-        if(!s.addTask(task)) {
-            System.out.println("Task list is full");
-            return;
-        }
+        s.addTask(task);
         System.out.println("Got it. I’ve added this task:");
         System.out.println(task);
         System.out.println("Now you have " + s.getTaskCount() + " tasks in the list.");
