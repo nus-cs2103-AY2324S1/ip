@@ -64,35 +64,47 @@ public class Duke {
     }
 
     private void markTaskAsDone(String userCommand) throws InvalidTaskIndexException {
-        int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
+        try {
+            int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
 
-        if (taskIndex < 0 || taskIndex >= list.size()) {
-            throw new InvalidTaskIndexException(taskIndex + 1);
+            if (taskIndex < 0 || taskIndex >= list.size()) {
+                throw new InvalidTaskIndexException(taskIndex + 1);
+            }
+
+            Task task = list.get(taskIndex);
+            task.markAsDone();
+            System.out.println("\t____________________________________________________________");
+            System.out.println("\t Nice! I've marked this task as done:\n" +
+                    "\t\t" + this.list.get(taskIndex));
+            System.out.println("\t____________________________________________________________");
+            System.out.println();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("\t____________________________________________________________");
+            System.out.println("\t ☹ OOPS!!! Please provide a valid task number to mark as done.");
+            System.out.println("\t____________________________________________________________");
         }
-
-        Task task = list.get(taskIndex);
-        task.markAsDone();
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t Nice! I've marked this task as done:\n" +
-                "\t\t" + this.list.get(taskIndex));
-        System.out.println("\t____________________________________________________________");
-        System.out.println();
     }
 
     private void markTaskAsNotDone(String userCommand) throws InvalidTaskIndexException {
-        int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
+        try {
+            int taskIndex = Integer.parseInt(userCommand.split(" ")[1]) - 1;
 
-        if (taskIndex < 0 || taskIndex >= list.size()) {
-            throw new InvalidTaskIndexException(taskIndex + 1);
+            if (taskIndex < 0 || taskIndex >= list.size()) {
+                throw new InvalidTaskIndexException(taskIndex + 1);
+            }
+
+            Task task = list.get(taskIndex);
+            task.markAsNotDone();
+            System.out.println("\t____________________________________________________________");
+            System.out.println("\t OK, I've marked this task as not done yet:\n" +
+                    "\t\t" + this.list.get(taskIndex));
+            System.out.println("\t____________________________________________________________");
+            System.out.println();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("\t____________________________________________________________");
+            System.out.println("\t ☹ OOPS!!! Please provide a valid task number to mark as undone.");
+            System.out.println("\t____________________________________________________________");
         }
-
-        Task task = list.get(taskIndex);
-        task.markAsNotDone();
-        System.out.println("\t____________________________________________________________");
-        System.out.println("\t OK, I've marked this task as not done yet:\n" +
-                "\t\t" + this.list.get(taskIndex));
-        System.out.println("\t____________________________________________________________");
-        System.out.println();
 
     }
 
