@@ -48,14 +48,39 @@ public class ChatBot {
             case "unmark":
                 unmarkDone(temp[1]);
                 break;
-            default:
-                // Adds ability to store text
-                Task now = new Task(str);
-                list.add(now);
+            case "todo":
+                Task toDo = new ToDo(temp[1]);
+                list.add(toDo);
                 System.out.println("____________________________________________________________\n" +
-                        " added: " +
-                        str +
-                        "\n" +
+                        " Got it. I've added this task:\n  " +
+                        toDo.toString() +
+                        getTaskCount() +
+                        "____________________________________________________________\n");
+                break;
+            case "deadline":
+                String[] temp2 = temp[1].split(" /by");
+                Task deadline = new Deadline(temp2[0], temp2[1]);
+                list.add(deadline);
+                System.out.println("____________________________________________________________\n" +
+                        " Got it. I've added this task:\n  " +
+                        deadline.toString() +
+                        getTaskCount() +
+                        "____________________________________________________________\n");
+                break;
+            case "event":
+                String[] temp3 = temp[1].split(" /from");
+                String[] temp4 = temp3[1].split("/to");
+                Task event = new Event(temp3[0], temp4[0], temp4[1]);
+                list.add(event);
+                System.out.println("____________________________________________________________\n" +
+                        " Got it. I've added this task:\n  " +
+                        event.toString() +
+                        getTaskCount() +
+                        "____________________________________________________________\n");
+                break;
+            default:
+                System.out.println("____________________________________________________________\n" +
+                        "Invalid command. Please try again." +
                         "____________________________________________________________\n");
 
         }
@@ -106,5 +131,7 @@ public class ChatBot {
         }
     }
 
-   
+    private static String getTaskCount() {
+        return String.format("\n Now you have %d tasks in the list.\n", list.size());
+    }
 }
