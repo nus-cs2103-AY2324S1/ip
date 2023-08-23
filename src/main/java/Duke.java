@@ -16,7 +16,7 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
 
-        List<String> list = new ArrayList<>();
+        List<Task> list = new ArrayList<>();
 
         while(true) {
             String command = scanner.nextLine().strip();
@@ -29,11 +29,53 @@ public class Duke {
             }
             else if(command.equalsIgnoreCase("list")){
                 for(int index=0;index<list.size();index++) {
-                    System.out.printf("%d. %s\n", index+1, list.get(index));
+                    System.out.printf("%d. %s\n", index+1, list.get(index).toString());
+                }
+            }
+            else if(command.length() >= 5 && command.substring(0, 5).equalsIgnoreCase("mark ")){
+                String markIndexStr = command.substring(5).strip();
+                if(markIndexStr.matches("^\\d+$")) {
+                    int markIndex = Integer.parseInt(markIndexStr) - 1;
+                    if(0 <= markIndex && markIndex < list.size()){
+                        boolean wasNotMarked = list.get(markIndex).markDone();
+                        if(wasNotMarked){
+                            System.out.println("Marking task as done: " + list.get(markIndex).toString());
+                        }
+                        else{
+                            System.out.println("Task was already marked as done: " + list.get(markIndex).toString());
+                        }
+                    }
+                    else{
+                        System.out.println("Invalid task to mark: " + markIndexStr);
+                    }
+                }
+                else{
+                    System.out.println("Invalid task to mark: " + markIndexStr);
+                }
+            }
+            else if(command.length() >= 7 && command.substring(0, 7).equalsIgnoreCase("unmark ")){
+                String unmarkIndexStr = command.substring(7).strip();
+                if(unmarkIndexStr.matches("^\\d+$")) {
+                    int markIndex = Integer.parseInt(unmarkIndexStr) - 1;
+                    if(0 <= markIndex && markIndex < list.size()){
+                        boolean wasNotMarked = list.get(markIndex).unmarkDone();
+                        if(wasNotMarked){
+                            System.out.println("Marking task as undone: " + list.get(markIndex).toString());
+                        }
+                        else{
+                            System.out.println("Task was already marked as undone: " + list.get(markIndex).toString());
+                        }
+                    }
+                    else{
+                        System.out.println("Invalid task to unmark: " + unmarkIndexStr);
+                    }
+                }
+                else{
+                    System.out.println("Invalid task to unmark: " + unmarkIndexStr);
                 }
             }
             else {
-                list.add(command);
+                list.add(new Task(command));
                 System.out.println("Added: " + command);
             }
             System.out.println(HORIZONTAL_LINE);
