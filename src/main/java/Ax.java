@@ -24,11 +24,7 @@ public class Ax {
         System.out.println(input);
         System.out.println();
         hoLine();
-        if (input.equals("bye")) {
-            return true;
-        } else {
-            return false;
-        }
+        return input.equals("bye");
     }
 
     public static void main(String[] args) {
@@ -51,7 +47,7 @@ public class Ax {
         System.out.println("Hello from\n" + newLogo);
         greet();
         while (true) {
-            Boolean done = getInput(scanner);
+            boolean done = getInput(scanner);
             if (done) {
                 break;
             }
