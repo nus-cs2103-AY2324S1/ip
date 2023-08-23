@@ -1,8 +1,6 @@
 import java.util.Scanner;
 
 public class Duke {
-//	static ArrayList<Task> list = new ArrayList<>();
-
 	public static void main(String[] args) {
 		printLine();
 		TaskList taskList = new TaskList(); // Initialise the list
@@ -17,84 +15,96 @@ public class Duke {
 	}
 
 	static void queryBot(TaskList taskList) {
-		Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-		String query = myObj.nextLine();  // Read user input
-		if (query.equals("bye")) {
-			exit();
-		} else if (query.equals("list")) {
-			taskList.printList();
-			queryBot(taskList);
-		} else if (query.startsWith("mark")) {
+		try (Scanner input = new Scanner(System.in)) {
+			while (input.hasNextLine()) {
+				String query = input.nextLine();  // Read user input
+				printLine();
+				if (query.equals("bye")) {
+					exit();
+					printLine();
+					break;
+				} else if (query.equals("list")) {
+					taskList.printList();
+				} else if (query.startsWith("mark")) {
+					mark(taskList, query);
+				} else if (query.startsWith("unmark")) {
+					unmark(taskList, query);
+				} else if (query.startsWith("event")) {
+					event(taskList, query);
+				} else if (query.startsWith("deadline")) {
+					deadline(taskList, query);
+				} else if (query.startsWith("todo")) {
+					todo(taskList, query);
+				} else {
+					System.out.println("I'm sorry, but I don't know what that means :-(");
+				}
+				printLine();
+			}
+		}
+	}
+
+	static void todo(TaskList taskList, String query) {
+		try {
 			String[] splitted = query.split(" ", 2);
-			int index = Integer.parseInt(splitted[1]) - 1;
-			printLine();
-			if (index >= taskList.length()) {
-				System.out.println("No such task exists!");
-			} else {
-				taskList.get(index).mark();
-				System.out.println("Nice! I've marked this task as done: ");
-				System.out.println("[" + taskList.get(index).getStatusIcon() + "] " + taskList.get(index).description);
-			}
-			printLine();
-			queryBot(taskList);
-		} else if (query.startsWith("unmark")) {
+			Task newTask = new ToDo(splitted[1]);
+			taskList.addToList(newTask);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Please enter a valid todo!");
+		}
+	}
+
+	static void deadline(TaskList taskList, String query) {
+		try {
 			String[] splitted = query.split(" ", 2);
-			int index = Integer.parseInt(splitted[1]) - 1;
-			printLine();
-			if (index >= taskList.length()) {
-				System.out.println("No such task exists!");
-			} else {
-				taskList.get(index).unmark();
-				System.out.println("OK, I've marked this task as not done yet: ");
-				System.out.println(taskList.get(index).toString());
-			}
-			printLine();
-			queryBot(taskList);
-		} else if (query.startsWith("event")) {
-			try {
-				String[] splitted = query.split(" ", 2); // Split into 2 parts: tasktype and the rest
-				String[] parts = splitted[1].split("\\s*/from\\s+|\\s*/to\\s+");
-				String taskName = parts[0];
-				String from = parts[1];
-				String to = parts[2];
-				Task newTask = new Event(taskName, from, to);
-				taskList.addToList(newTask);
-				queryBot(taskList);
-			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("Please enter a valid event!");
-				queryBot(taskList);
-			}
-		} else if (query.startsWith("deadline")) {
-			try {
-				String[] splitted = query.split(" ", 2);
-				String[] parts = splitted[1].split("\\s*/by\\s+");
-				String taskName = parts[0];
-				String deadline = parts[1];
-				Task newTask = new Deadline(taskName, deadline);
-				taskList.addToList(newTask);
-				queryBot(taskList);
-			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("Please enter a valid deadline!");
-				queryBot(taskList);
-			}
-		} else if (query.startsWith("todo")) {
-			try {
-				String[] splitted = query.split(" ", 2);
-				Task newTask = new ToDo(splitted[1]);
-				taskList.addToList(newTask);
-				queryBot(taskList);
-			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("Please enter a valid todo!");
-				queryBot(taskList);
-			}
+			String[] parts = splitted[1].split("\\s*/by\\s+");
+			String taskName = parts[0];
+			String deadline = parts[1];
+			Task newTask = new Deadline(taskName, deadline);
+			taskList.addToList(newTask);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Please enter a valid deadline!");
+		}
+	}
+
+	static void event(TaskList taskList, String query) {
+		try {
+			String[] splitted = query.split(" ", 2); // Split into 2 parts: tasktype and the rest
+			String[] parts = splitted[1].split("\\s*/from\\s+|\\s*/to\\s+");
+			String taskName = parts[0];
+			String from = parts[1];
+			String to = parts[2];
+			Task newTask = new Event(taskName, from, to);
+			taskList.addToList(newTask);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Please enter a valid event!");
+		}
+	}
+
+	static void unmark(TaskList taskList, String query) {
+		String[] splitted = query.split(" ", 2);
+		int index = Integer.parseInt(splitted[1]) - 1;
+		if (index >= taskList.length()) {
+			System.out.println("No such task exists!");
 		} else {
-			queryBot(taskList);
+			taskList.get(index).unmark();
+			System.out.println("OK, I've marked this task as not done yet:");
+			System.out.println(taskList.get(index).toString());
+		}
+	}
+
+	static void mark(TaskList taskList, String query) {
+		String[] splitted = query.split(" ", 2);
+		int index = Integer.parseInt(splitted[1]) - 1;
+		if (index >= taskList.length()) {
+			System.out.println("No such task exists!");
+		} else {
+			taskList.get(index).mark();
+			System.out.println("Nice! I've marked this task as done:");
+			System.out.println(taskList.get(index).toString());
 		}
 	}
 
 	static void exit() {
-		printLine();
 		System.out.println("Bye. Hope to see you again soon!");
-		printLine();
 	}
 }

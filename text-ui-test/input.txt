@@ -1,0 +1,10 @@
+list
+event hello world /from today /to tomorrow
+deadline my man is cool /by 2020-10-10
+todo watch movie
+list
+mark 1
+mark 2
+unmark 1
+list
+bye
