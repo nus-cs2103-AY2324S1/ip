@@ -1,9 +1,12 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskMate {
 
     static String horizontalLine = "--------------------";
     static String chatbotName = "TaskMate";
+
 
     public static void main(String[] args) {
 
@@ -18,8 +21,14 @@ public class TaskMate {
             userInput = sc.nextLine();
             if (userInput.equals("bye")) {
                 break;
+            } else if (userInput.equals("list")) {
+                for (int i = 0; i < Task.getAllTasks().size(); i++) {
+                    Task newTask = Task.getAllTasks().get(i);
+                    System.out.println(Integer.toString(i+1) + ". " + newTask);
+                }
             } else {
-                printReply(userInput);
+                Task newTask = new Task(userInput);
+                printReply("added: " + userInput);
             }
         }
 
