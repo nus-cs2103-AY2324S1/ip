@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    private static List<String> archive = new ArrayList<>();
+    private static List<Task> archive = new ArrayList<>();
     public static void main(String[] args) {
         String logo = "       ___          \n" +
                 "    . -^   `--,      \n" +
@@ -38,9 +38,23 @@ public class Duke {
                 for (int i = 0; i < archive.size(); i++) {
                     System.out.println(i + ". " + archive.get(i));
                 }
-            } else {
+            } else if (input.length() > 5 && input.substring(0,4).equals("mark")) {
+                int item = input.charAt(5) - '0';
+                Task curr = archive.get(item);
+                curr.mark();
+                System.out.println("I HAVE MARKED THIS TASK: ");
+                System.out.println(curr);
+            } else if (input.length() > 7 &&input.substring(0,6).equals("unmark")) {
+                int item = input.charAt(7) - '0';
+                Task curr = archive.get(item);
+                curr.unmark();
+                System.out.println("YOU LIED. I HAVE UNMARKED THIS TASK: ");
+                System.out.println(curr);
+            }
+            else {
                 System.out.println("added: " + input);
-                archive.add(input);
+                Task curr = new Task(input);
+                archive.add(curr);
             }
         }
 
