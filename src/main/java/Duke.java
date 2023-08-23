@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> taskList = new ArrayList<>();
+        ArrayList<Task> taskList = new ArrayList<>();
         int number = 0;
 
         String logo = " ____        _        \n"
@@ -29,10 +29,41 @@ public class Duke {
             if (userInput.equalsIgnoreCase("list")) {
                 System.out.println("List:");
                 for (int i = 0; i < number; i ++ ) {
-                    System.out.println("Task " + i + ": " + taskList.get(i) + "\n");
+                    System.out.println("Task " + (i + 1)+ ": " + taskList.get(i) + "\n");
+                }
+            } else if (userInput.startsWith("mark")) {
+                String[] parts = userInput.split(" ");
+                if (parts.length == 2) {
+                    int taskIndex = Integer.parseInt(parts[1]) - 1;
+                    System.out.println(taskIndex);
+                    System.out.println(number);
+                    if (taskIndex >= 0 && taskIndex < number) {
+                        taskList.get(taskIndex).markAsDone();
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Good job! I have marked this task as completed:");
+                        System.out.println("  " + taskList.get(taskIndex));
+                        System.out.println("____________________________________________________________");
+                    } else {
+                        System.out.println("Sorry! you have input an invalid task!");
+                    }
+                }
+            } else if (userInput.startsWith("unmark")) {
+                String[] parts = userInput.split(" ");
+                if (parts.length == 2) {
+                    int taskIndex = Integer.parseInt(parts[1]) - 1;
+                    if (taskIndex >= 0 && taskIndex < number) {
+                        taskList.get(taskIndex).markAsNotDone();
+                        System.out.println("____________________________________________________________");
+                        System.out.println("OK, I have marked this as undone:");
+                        System.out.println("  " + taskList.get(taskIndex));
+                        System.out.println("____________________________________________________________");
+                    } else {
+                        System.out.println("Sorry! you have input an invalid task!");
+                    }
                 }
             } else {
-                taskList.add(userInput);
+                Task newTask = new Task(userInput);
+                taskList.add(newTask);
                 number++;
                 System.out.println("Item added: " + userInput + "\n");
             }
@@ -43,3 +74,4 @@ public class Duke {
         System.out.println("____________________________________________________________");
     }
 }
+
