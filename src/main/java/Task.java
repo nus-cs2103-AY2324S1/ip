@@ -39,10 +39,10 @@ public class Task {
      */
     public void markAsDone() {
         this.isDone = true;
-        System.out.println(Printer.line);
+        Printer.printLine();
         System.out.println("Nice! I've Marked this task as done:");
         System.out.println(this);
-        System.out.println(Printer.line);
+        Printer.printLine();
     }
 
     /**
@@ -50,10 +50,22 @@ public class Task {
      */
     public void unmarkAsDone() {
         this.isDone = false;
-        System.out.println(Printer.line);
+        Printer.printLine();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(this);
-        System.out.println(Printer.line);
+        Printer.printLine();
+    }
+
+    /**
+     * Deletes the task from the list
+     * @param count the remaining lists in the tasklist
+     */
+    public void deleteTask(int count) {
+        Printer.printLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(this);
+        System.out.println("Now you have " + count + " task(s) in the list");
+        Printer.printLine();
     }
 
 }

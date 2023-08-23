@@ -9,6 +9,12 @@ public class ToDo extends Task{
         super(description);
     }
 
+    /**
+     * Factory method for the construction of a todo
+     * @param description description of the todo
+     * @return instance of a todo task
+     * @throws NoTaskException throws an exception if no description is provided
+     */
     public static Task of(String description) throws NoTaskException {
         if(!description.isEmpty()) {
             return new ToDo(description);

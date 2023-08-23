@@ -1,7 +1,8 @@
 public class InvalidArgumentException extends DukeException{
     /**
-     *
-     * @param errorMessage
+     * Invalid argument exception that throws error when invalid
+     * arguments are inputted with a function
+     * @param errorMessage message describing the error
      */
     public InvalidArgumentException(String errorMessage) {
         super(errorMessage);

@@ -1,5 +1,4 @@
-
-
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * This program is a chatbot, somebodyhaha, used to mark completion of tasks
@@ -14,9 +13,8 @@ public class Duke {
      * add, edit, track and delete tasks inputted
      */
     public static void main(String[] args) {
-        int count = 0;
 
-        Task[] tasklst = new Task[100];
+        ArrayList<Task> tasklst = new ArrayList<>();
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -35,6 +33,7 @@ public class Duke {
             try {
                 String[] words = input.split("\\s+");
                 String[] fields;
+                Task tempTask;
                 switch (words[0]) {
                     case "list":
                         if(words.length > 1) {
@@ -50,7 +49,7 @@ public class Duke {
                                     "keyword");
                         }
                         int temp = Character.getNumericValue(input.charAt(5));
-                        tasklst[temp - 1].markAsDone();
+                        tasklst.get(temp - 1).markAsDone();
                         break;
                     case "unmark":
                         if(words.length != 2) {
@@ -59,12 +58,22 @@ public class Duke {
                                     "keyword");
                         }
                         int temp2 = Character.getNumericValue(input.charAt(7));
-                        tasklst[temp2 - 1].unmarkAsDone();
+                        tasklst.get(temp2 - 1).unmarkAsDone();
+                        break;
+                    case "delete":
+                        if(words.length != 2) {
+                            throw new InvalidArgumentException("Please enter 'delete {task number}' " +
+                                    "or use a different " +
+                                    "keyword");
+                        }
+                        int delNum = Character.getNumericValue(input.charAt(7));
+                        tempTask = tasklst.remove(delNum - 1);
+                        tempTask.deleteTask(tasklst.size());
                         break;
                     case "todo":
-                        tasklst[count] = ToDo.of(input.substring(4));
-                        Printer.addTask(tasklst[count], count);
-                        count++;
+                        tempTask = ToDo.of(input.substring(4));
+                        tasklst.add(tempTask);
+                        Printer.addTask(tempTask, tasklst.size());
                         break;
                     case "deadline":
                         fields = input.substring(9).split("/by ");
@@ -73,9 +82,9 @@ public class Duke {
                                     "'/by' {date}' or use a different " +
                                     "keyword");
                         }
-                        tasklst[count] = new Deadline(fields[0], fields[1]);
-                        Printer.addTask(tasklst[count], count);
-                        count++;
+                        tempTask = new Deadline(fields[0], fields[1]);
+                        tasklst.add(tempTask);
+                        Printer.addTask(tempTask, tasklst.size());
                         break;
                     case "event":
                         fields = input.substring(6).split("/from |/to ");
@@ -85,9 +94,9 @@ public class Duke {
                                     "or use a different " +
                                     "keyword");
                         }
-                        tasklst[count] = new Event(fields[0], fields[1], fields[2]);
-                        Printer.addTask(tasklst[count], count);
-                        count++;
+                        tempTask = new Event(fields[0], fields[1], fields[2]);
+                        tasklst.add(tempTask);
+                        Printer.addTask(tempTask, tasklst.size());
                         break;
                     default:
                         throw new UnknownActionException("OOPS!!! I'm sorry, but I don't know what that means :-(");

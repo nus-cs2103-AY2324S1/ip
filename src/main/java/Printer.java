@@ -1,5 +1,7 @@
 //public printer class that abstracts and does the printing of the outputs
 
+import java.util.ArrayList;
+
 public class Printer {
 
     /** line to be drawn on screen */
@@ -23,6 +25,9 @@ public class Printer {
         print(exiting);
     }
 
+    /**
+     * Prints line onto the console
+     */
     public static void printLine() {
         System.out.println(line);
     }
@@ -41,7 +46,7 @@ public class Printer {
      * Prints the items found in the task list
      * @param lst The list to be printed
      */
-    public static void printList(Task[] lst){
+    public static void printList(ArrayList<Task> lst){
         printLine();
         System.out.println("Here are the tasks in your list:");
         int count = 1;
@@ -66,8 +71,9 @@ public class Printer {
         printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.toString());
-        System.out.println("Now you have " + (count + 1) + " tasks in the list.");
+        System.out.println("Now you have " + (count) + " tasks in the list.");
         printLine();
     }
+
 
 }
