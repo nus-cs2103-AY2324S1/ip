@@ -1,7 +1,7 @@
 public class Printer {
 	public void print(Object... toPrint) {
 		printLine();
-		for(Object o: toPrint) {
+		for (Object o : toPrint) {
 			print(o);
 		}
 		printLine();
@@ -13,6 +13,6 @@ public class Printer {
 
 	private void printLine() {
 		String line = "  ____________________________________________________________";
-    System.out.println(line);
+		System.out.println(line);
 	}
 }
