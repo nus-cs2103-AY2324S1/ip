@@ -17,6 +17,13 @@ public abstract class Task {
         return allTasks;
     }
 
+    static Task removeTask(int index) {
+        // Takes in an index (starting from 0 to n-1) and removes that task from Task.allTasks
+        Task removedTask = allTasks.get(index);
+        allTasks.remove(index);
+        return removedTask;
+    }
+
     boolean markAsDone() {
         this.isDone = true;
         return getDone();

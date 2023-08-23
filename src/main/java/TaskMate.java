@@ -6,13 +6,9 @@ public class TaskMate {
 
     static String horizontalLine = "--------------------";
     static String chatbotName = "TaskMate";
-    static String MARK_COMMAND_NAME = "mark ";
-    static String UNMARK_COMMAND_NAME = "unmark ";
-    static String TODO_COMMAND_NAME = "todo ";
-    static String DEADLINE_COMMAND_NAME = "deadline ";
-    static String EVENT_COMMAND_NAME = "event ";
+
     static enum CommandTypes {
-        list, bye, todo, deadline, event, mark, unmark
+        list, bye, todo, deadline, event, mark, unmark, delete
     }
 
     public static void main(String[] args) throws InvalidCommandTypeException {
@@ -65,6 +61,17 @@ public class TaskMate {
             } else if (getCommandType(userInput).equals(CommandTypes.event.toString())) {
                 // TODO: Add checks for Event-type tasks
                 processAddTaskCommand(userInput);
+            } else if (getCommandType(userInput).equals(CommandTypes.delete.toString())) {
+                try {
+                    checkValidDeleteCommand(userInput);
+                } catch (InvalidCommandTypeException e) {
+                    printReply("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.exit(0);
+                } catch (InvalidDescriptionException e) {
+                    printReply("☹ OOPS!!! The description of a delete must be between 1 and " + Task.getAllTasks().size() + ".");
+                    System.exit(0);
+                }
+                processDeleteCommand(userInput);
             }
         }
 
@@ -110,6 +117,25 @@ public class TaskMate {
         if (!userInput.startsWith(CommandTypes.todo.toString())) {
             throw new InvalidCommandTypeException();
         } else if (userInput.substring(CommandTypes.todo.toString().length()).isEmpty()) {
+            throw new InvalidDescriptionException();
+        }
+    }
+
+    static void checkValidDeleteCommand(String userInput) throws InvalidCommandTypeException, InvalidDescriptionException {
+        // Checks if the user input command is a valid "delete" command
+        // by checking if the command starts with "delete", followed by a whitespace,
+        // followed by an integer from 1 to Task.getAllTasks().size()
+        String indexWithinList;
+
+        if (userInput.startsWith(CommandTypes.delete.toString())) {
+            indexWithinList = userInput.substring(CommandTypes.delete.toString().length()).trim();
+        } else {
+            throw new InvalidCommandTypeException();
+        }
+
+        if (!checkStringIsInteger(indexWithinList)) {
+            throw new InvalidDescriptionException();
+        } else if (Integer.parseInt(indexWithinList) < 1 | Integer.parseInt(indexWithinList) > Task.getAllTasks().size()) {
             throw new InvalidDescriptionException();
         }
     }
@@ -182,16 +208,16 @@ public class TaskMate {
     static Task processAddTaskCommand(String userInput) {
         Task newTask;
         if (userInput.startsWith("todo ")) {
-            newTask = new Todo(userInput.substring(TODO_COMMAND_NAME.length()));
+            newTask = new Todo(userInput.substring(CommandTypes.todo.toString().length()+1)); // +1 because we do not want the task name to start from the space character
         } else if (userInput.startsWith("deadline ")) {
-            userInput = userInput.substring(DEADLINE_COMMAND_NAME.length());
+            userInput = userInput.substring(CommandTypes.deadline.toString().length()+1); // +1 because we do not want the task name to start from the space character
             String[] splitUserInput = userInput.split(" /");
             newTask = new Deadline(
                     splitUserInput[0],
                     splitUserInput[1].replace("by ", "")
             );
         } else {
-            userInput = userInput.substring(EVENT_COMMAND_NAME.length());
+            userInput = userInput.substring(CommandTypes.event.toString().length()+1); // +1 because we do not want the task name to start from the space character
             String[] splitUserInput = userInput.split(" /");
             newTask = new Event(
                     splitUserInput[0],
@@ -202,5 +228,12 @@ public class TaskMate {
 
         printReply("Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + Task.getAllTasks().size() + " task(s) in the list.");
         return newTask;
+    }
+
+    static void processDeleteCommand(String userInput) {
+        int indexToDelete = Integer.parseInt(userInput.substring(CommandTypes.delete.toString().length()).trim());
+        indexToDelete -= 1; // subtract 1 as the arraylist is zero-indexed
+        Task removedTask = Task.removeTask(indexToDelete);
+        printReply("Noted. I've removed this task:\n  " + removedTask.toString() + "\nNow you have " + Task.getAllTasks().size() + " task(s) in the list.");
     }
 }
