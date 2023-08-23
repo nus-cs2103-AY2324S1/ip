@@ -31,7 +31,7 @@ public class Jeeves {
             if (currentCommand.equals("list")) {
                 // Displays the current list of tasks tracked and their status
                 for (int i = 1; i <= Task.getTaskCount(); i++) {
-                    Jeeves.displayTask(i);
+                    System.out.println(taskList[i].toString());
                 }
                 // Prints an empty line for output clarity
                 System.out.print("\n");
@@ -41,18 +41,14 @@ public class Jeeves {
                 // Update the task's status and notifies the user
                 taskList[id].setStatus(true);
                 System.out.println("Understood, I have marked the following task as done:");
-                Jeeves.displayTask(id);
-                // Prints an empty line for output clarity
-                System.out.print("\n");
+                System.out.println(taskList[id].toString() + "\n");
             } else if (currentCommand.startsWith("unmark ")) {
                 // Gets the task ID that the user wish to unmark
                 int id = Integer.parseInt(currentCommand.substring(7));
                 // Update the task's status and notifies the user
                 taskList[id].setStatus(false);
                 System.out.println("Understood, I have marked the following task as not done:");
-                Jeeves.displayTask(id);
-                // Prints an empty line for output clarity
-                System.out.print("\n");
+                System.out.println(taskList[id].toString() + "\n");
             } else if (currentCommand.equals("bye")) {
                 // Displays the farewell message and terminates the application
                 System.out.println("I bid you farewell, Master");
@@ -66,17 +62,4 @@ public class Jeeves {
         }
     }
 
-    private static void displayTask(int id) {
-        // Checks if a task has its status marked as complete
-        // and displays the appropriate visual
-        if (taskList[id].getStatus()) {
-            System.out.println(id + "."
-                    + "[X] "
-                    + taskList[id].getDesc());
-        } else {
-            System.out.println(id + "."
-                    + "[ ] "
-                    + taskList[id].getDesc());
-        }
-    }
 }

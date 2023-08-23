@@ -69,4 +69,25 @@ public class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * {@inheritDoc}
+     * Obtain a string representation of a Task object
+     *
+     * @return String representation of Task
+     */
+    @Override
+    public String toString() {
+        // Checks if a task has its status marked as complete
+        // and displays the appropriate visual
+        if (isDone) {
+            return String.format(id + "."
+                    + "[X] "
+                    + this.getDesc());
+        } else {
+            return String.format(id + "."
+                    + "[ ] "
+                    + this.getDesc());
+        }
+    }
+
 }
