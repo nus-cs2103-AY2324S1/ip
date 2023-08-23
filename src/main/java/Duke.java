@@ -5,7 +5,7 @@ public class Duke {
     private static ArrayList<Task> tasksList = new ArrayList<>();
 
     public static void main(String[] args) {
-        String divider = "   ____________________________________ \n";
+        String divider = "   _______________________________________ \n";
         String greeting = "   Hello! I'm Sana \n   What can I do for you? \n";
         String bye = "   Bye. Hope to see you again soon! \n";
 
@@ -13,20 +13,8 @@ public class Duke {
         System.out.println(divider + greeting + divider);
 
         while(true) {
+            String command = myObj.next();
             String userInput = myObj.nextLine();
-            StringBuilder cmd = new StringBuilder();
-
-            for (int i = 0; i < userInput.length(); i++) {
-                char c = userInput.charAt(i);
-
-                if (!Character.isWhitespace(c)) {
-                    cmd.append(c);
-                } else {
-                    break;
-                }
-            }
-
-            String command = cmd.toString();
 
             if (command.equals("bye")) {
                 System.out.println(divider + bye + divider);
@@ -38,24 +26,29 @@ public class Duke {
                 StringBuilder task = new StringBuilder();
                 for (int i = 0; i < tasksList.size(); i++) {
                     int id = i + 1;
-                    String statusIcon = tasksList.get(i).getStatusIcon();
-                    task.append("   " + id + "." + "[" + statusIcon + "]" + " "
-                            + tasksList.get(i).getDescription() + "\n");
+                    task.append("   " + id + "." + tasksList.get(i).toString() + "\n");
                 }
                 System.out.println(divider + "   Here are the tasks in your list: \n" + task
                         + divider);
                 break;
             case "mark":
-                int taskId = userInput.charAt(5) - '0';
+                int taskId = userInput.charAt(1) - '0';
                 tasksList.get(taskId - 1).markAsDone();
-                System.out.println(divider + "   Nice! I've marked this task as done: \n     [X] "
-                        + tasksList.get(taskId - 1).getDescription() + "\n" + divider);
+                System.out.println(divider + "   Nice! I've marked this task as done: \n     "
+                        + tasksList.get(taskId - 1).toString() + "\n" + divider);
                 break;
             case "unmark":
-                taskId = userInput.charAt(7) - '0';
+                taskId = userInput.charAt(1) - '0';
                 tasksList.get(taskId - 1).markAsNotDone();
-                System.out.println(divider + "   OK, I've marked this task as not done yet: \n     [ ] "
-                        + tasksList.get(taskId - 1).getDescription() + "\n" + divider);
+                System.out.println(divider + "   OK, I've marked this task as not done yet: \n     "
+                        + tasksList.get(taskId - 1).toString() + "\n" + divider);
+                break;
+            case "todo":
+                Task newTodo = new Todo(userInput);
+                tasksList.add(newTodo);
+                System.out.println(divider + "   Got it. I've added this task: \n" + "    " + newTodo.toString() + "\n"
+                        + "   Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
+                        + " in the list \n" + divider);
                 break;
             default:
                 tasksList.add(new Task(userInput));
