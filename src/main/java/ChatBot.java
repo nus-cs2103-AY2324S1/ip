@@ -40,7 +40,46 @@ public class ChatBot {
     }
 
     /**
-     * Adds a task to the task list based on tasl type and desciption
+     * Check if input str is a number
+     *
+     * @param str input string
+     * @return true if str is a number, false otherwise
+     */
+    public static boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Deletes a task from the task list based on the provided input.
+     *
+     * @param inputStr The input string containing the index of the task to be deleted.
+     * @throws deleteException If the input string is not numeric or if the task index is out of valid range.
+     */
+    public void deleteTaskByBot(String inputStr) throws deleteException {
+        if (!isNumeric(inputStr)) {
+            throw new deleteException();
+        }
+
+        int taskIndex = Integer.parseInt(inputStr);
+        if (taskIndex < 1 || taskIndex > taskList.getTaskCount()) {
+            throw new deleteException();
+        } else {
+            System.out.println("____________________________________________________________\n" +
+                    " Noted. I've removed this task:\n" +
+                    this.taskList.getTaskDetails(taskIndex - 1).toString() +
+                    "\n Now you have " + (taskList.getTaskCount() - 1 )+ " tasks in the list.\n" +
+                    "____________________________________________________________");
+            taskList.deleteTask(taskIndex - 1);
+        }
+    }
+
+    /**
+     * Adds a task to the task list based on task type and description
      *
      * @param taskType The type of task (todo, deadline, event)
      * @param description The description of the task
@@ -142,9 +181,11 @@ public class ChatBot {
                 if (command.equals("mark") && parts.length > 1) {
                     taskIndex = Integer.parseInt(parts[1]);
                     this.markTaskByBot(taskIndex);
+
                 } else if (command.equals("unmark") && parts.length > 1) {
                     taskIndex = Integer.parseInt(parts[1]);
                     this.unmarkTaskByBot(taskIndex);
+
                 } else if (input.equals("bye")) {
                     System.out.println(byeMessage);
                     break;  // Exit the loop when user types "bye"
@@ -161,6 +202,8 @@ public class ChatBot {
                 } else if (command.equals("event") && parts.length > 1) {
                     addTaskByBot("event", parts[1]);
 
+                } else if (command.equals("delete") && parts.length > 1) {
+                    deleteTaskByBot(parts[1]);
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }

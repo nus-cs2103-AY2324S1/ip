@@ -1,16 +1,17 @@
+import java.util.ArrayList;
+
 /**
  * Represents a list of tasks and provides methods to manipulate them
  */
 public class TaskList {
     private int taskCount;
-    private final Task[] tasks;
-    private final int MAX_TASKS = 100;
+    private final ArrayList<Task> tasks;
 
     /**
-     * Initializes an empty task list with a maximum capacity.
+     * Initializes a dynamic empty task list with a maximum capacity.
      */
     public TaskList() {
-        tasks = new Task[MAX_TASKS];
+        tasks = new ArrayList<Task>();
         taskCount = 0;
     }
 
@@ -18,11 +19,11 @@ public class TaskList {
     /**
      * Checks if the given task index is valid within the task list.
      *
-     * @param taskIndex The index of the task to be checked.
+     * @param taskListIndex The index of the task to be checked.
      * @return True if the task index is valid, otherwise false.
      */
-    public boolean isValidListIndex(int taskIndex) {
-        return (taskIndex >= 0 && taskIndex < taskCount);
+    public boolean isValidListIndex(int taskListIndex) {
+        return (taskListIndex >= 0 && taskListIndex < taskCount);
     }
 
     /**
@@ -33,7 +34,7 @@ public class TaskList {
      */
     public String getTaskDetails(int taskListIndex) {
         if(isValidListIndex(taskListIndex)) {
-            Task task = tasks[taskListIndex];
+            Task task = tasks.get(taskListIndex);
             return task.toString();
         } else {
             System.out.println("Invalid Index of task!");
@@ -56,12 +57,13 @@ public class TaskList {
      * @param task The task to be added to the task list.
      */
     public void addTask(Task task) {
-        if (taskCount >= MAX_TASKS) {
-            System.out.println("No more space to add Task :((");
-        } else {
-            this.tasks[taskCount] = task;
-            this.taskCount++;
-        }
+        this.tasks.add(task);
+        this.taskCount++;
+    }
+
+    public void deleteTask(int taskListIndex) {
+        this.tasks.remove(taskListIndex);
+        this.taskCount--;
     }
 
     /**
@@ -71,7 +73,7 @@ public class TaskList {
      */
     public void markTaskAsDone(int taskListIndex) {
         if (isValidListIndex(taskListIndex)) {
-            this.tasks[taskListIndex].markAsDone();
+            this.tasks.get(taskListIndex).markAsDone();
         }
     }
 
@@ -82,7 +84,7 @@ public class TaskList {
      */
     public void markTaskAsNotDone(int taskListIndex) {
         if (isValidListIndex(taskListIndex)) {
-            this.tasks[taskListIndex].markAsNotDone();
+            this.tasks.get(taskListIndex).markAsNotDone();
         }
     }
 
