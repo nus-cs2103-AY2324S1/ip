@@ -38,7 +38,7 @@ public class Ren {
             } else if (TASK_TYPES.contains(commandArr[0])) {
 
                 Task task = tasks.addTask(commandArr);
-                
+
                 System.out.println("____________________________________________________________\n" +
                         String.format("Added %s\n", task) +
                         tasks.declareNumOfTasks() +
@@ -47,7 +47,8 @@ public class Ren {
 
             inputStr = input.nextLine();
         }
-
+        
+        input.close();
         System.out.println(goodbyeMsg);
     }
 }
