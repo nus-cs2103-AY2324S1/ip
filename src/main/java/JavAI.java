@@ -1,10 +1,23 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * JavAI is a simple chatbot that allows users to add, mark, unmark, delete,
+ * and list tasks.
+ */
 public class JavAI {
 
+    /**
+     * The main method that starts the JavAI chatbot.
+     *
+     * @param args Command-line arguments.
+     * @throws JavAIException If there's an exception in the JavAI program.
+     * @throws Exception If there's an exception in the JavAI program.
+     */
     public static void main(String[] args) throws JavAIException, Exception {
 
-        Task[] arr = new Task[100];
+        ArrayList<Task> arr = new ArrayList<>();
         int counter = 0;
         Scanner sc = new Scanner(System.in);
         String line = "     ____________________________________________________________";
@@ -27,9 +40,9 @@ public class JavAI {
                     if (description.equals("")) {
                         throw new JavAIException("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
-                    arr[counter] = todo;
+                    arr.add(todo);
                     System.out.println(line + "\n      Got it. I've added this task:\n" +
-                            "       " + arr[counter] +
+                            "       " + arr.get(counter) +
                             "\n      Now you have " + (counter + 1) + " task(s) in the list.\n" + line);
                     counter++;
                 } catch (JavAIException e) {
@@ -52,9 +65,9 @@ public class JavAI {
                         iterator++;
                     }
                     Deadline deadline = new Deadline(description, by);
-                    arr[counter] = deadline;
+                    arr.add(deadline);
                     System.out.println(line + "\n      Got it. I've added this task:\n" +
-                            "       " + arr[counter] +
+                            "       " + arr.get(counter) +
                             "\n      Now you have " + (counter + 1) + " task(s) in the list.\n" + line);
                     counter++;
                 } catch (JavAIException e) {
@@ -82,9 +95,9 @@ public class JavAI {
                         iterator++;
                     }
                     Event event = new Event(description, from, to);
-                    arr[counter] = event;
+                    arr.add(event);
                     System.out.println(line + "\n      Got it. I've added this task:\n" +
-                            "       " + arr[counter] +
+                            "       " + arr.get(counter) +
                             "\n      Now you have " + (counter + 1) + " task(s) in the list.\n" + line);
                     counter++;
                 } catch (JavAIException e) {
@@ -92,37 +105,58 @@ public class JavAI {
                 }
             } else if (words[0].equals("mark")) {
                 try {
+
                     int iden = Integer.parseInt(words[1]) - 1;
-                        arr[iden].markAsDone();
+                        arr.get(iden).markAsDone();
                         System.out.println(line + "\n" + "     " + "  Nice! I've marked this task as done:");
-                        System.out.println("       " + arr[iden].toString());
+                        System.out.println("       " + arr.get(iden).toString());
                         System.out.println(line);
 
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
                 } catch (NullPointerException e) {
-                    System.out.println("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
+                    System.out.println("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
+                } catch (NumberFormatException e) {
+                    System.out.println("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
                 }
             } else if (words[0].equals("unmark")) {
                 try {
 
                     int iden = Integer.parseInt(words[1]) - 1;
-                    arr[iden].markAsUndone();
+                    arr.get(iden).markAsUndone();
                     System.out.println(line + "\n" + "     " + "  OK, I've marked this task as not done yet:");
-                    System.out.println("       " + arr[iden].toString());
+                    System.out.println("       " + arr.get(iden).toString());
                     System.out.println(line);
 
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("☹ OOPS!!! Please input a valid numeric value after 'unmark'.");
                 } catch (NullPointerException e) {
                     System.out.println("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
+                } catch (NumberFormatException e) {
+                    System.out.println("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
+                }
+
+            } else if (words[0].equals("delete")) {
+                try {
+                    System.out.println(line + "\n" + "     " + "  Noted. I've removed this task:\n" +
+                            "       " + arr.get(Integer.parseInt(words[1]) - 1).toString() +
+                            "\n       Now you have " + (counter - 1) + " task(s) in the list.\n" + line);
+                    arr.remove(Integer.parseInt(words[1]) - 1);
+                    counter--;
+
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! Please input a valid numerical value after 'delete'.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! Please input a valid numerical value after 'delete'.");
+                } catch (NumberFormatException e) {
+                    System.out.println("☹ OOPS!!! Please input a valid numerical value after 'delete'.");
                 }
 
             } else if (output.equals("list")) {
                 System.out.println(line);
                 System.out.println("      " + "Here are the tasks in your list:");
                 for ( int i = 0; i < counter ; i++ ) {
-                    System.out.println("      " + (i+1) + "." + arr[i].toString());
+                    System.out.println("      " + (i+1) + "." + arr.get(i).toString());
                 }
                 System.out.println(line);
 
