@@ -6,6 +6,8 @@ public class TaskMate {
 
     static String horizontalLine = "--------------------";
     static String chatbotName = "TaskMate";
+    static String MARK_COMMAND_NAME = "mark";
+    static String UNMARK_COMMAND_NAME = "unmark";
 
 
     public static void main(String[] args) {
@@ -19,8 +21,12 @@ public class TaskMate {
         String userInput;
         while (true) {
             userInput = sc.nextLine();
+
+            // Exits
             if (userInput.equals("bye")) {
                 break;
+
+            // list
             } else if (userInput.equals("list")) {
                 String allTasksString = "Here are the tasks in your list:\n";
                 for (int i = 0; i < Task.getAllTasks().size(); i++) {
@@ -30,9 +36,40 @@ public class TaskMate {
                     allTasksString += Integer.toString(i+1) + ".[" + isDoneString + "] " + newTask + "\n";
                 }
                 printReply(allTasksString);
+
+
+            // Add task OR mark/unmark
             } else {
-                Task newTask = new Task(userInput);
-                printReply("added: " + userInput);
+
+                // Mark/unmark task
+                if (checkIsMarkOrUnmarkCommand(userInput)) {
+                    if (userInput.startsWith("mark")) {
+                        int indexToMark = Integer.parseInt(userInput.substring(MARK_COMMAND_NAME.length()).trim());
+                        indexToMark -= 1;
+                        Task taskToMark = Task.getAllTasks().get(indexToMark);
+                        taskToMark.markAsDone();
+
+                        // print message when marking as done
+                        String message = "[X] " + taskToMark;
+                        message = "Nice! I've marked this task as done:\n" + message;
+                        printReply(message);
+
+                    } else {
+                        int indexToUnmark = Integer.parseInt(userInput.substring(UNMARK_COMMAND_NAME.length()).trim());
+                        indexToUnmark -= 1;
+                        Task taskToUnmark = Task.getAllTasks().get(indexToUnmark);
+                        taskToUnmark.markAsNotDone();
+
+                        // print message when unmarking as done
+                        String message = "[ ] " + taskToUnmark;
+                        message = "OK, I've marked this task as not done yet:\n" + message;
+                        printReply(message);
+                    }
+                } else {
+                    // Add task
+                    Task newTask = new Task(userInput);
+                    printReply("added: " + userInput);
+                }
             }
         }
 
@@ -47,5 +84,32 @@ public class TaskMate {
         System.out.println(text);
         System.out.println(horizontalLine);
         System.out.println();
+    }
+
+    static boolean checkIsMarkOrUnmarkCommand(String userInput) {
+        // Checks if the user input command is a "mark" or "unmark" command
+        String indexWithinList;
+        if (userInput.startsWith(MARK_COMMAND_NAME)) {
+            indexWithinList = userInput.substring(MARK_COMMAND_NAME.length()).trim();
+            return checkStringIsInteger(indexWithinList);
+        } else if (userInput.startsWith(UNMARK_COMMAND_NAME)) {
+            indexWithinList = userInput.substring(UNMARK_COMMAND_NAME.length()).trim();
+            return checkStringIsInteger(indexWithinList);
+        } else {
+            return false;
+        }
+    }
+
+    static boolean checkStringIsInteger(String s) {
+        try {
+            Integer i = Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
+    static void getCommandType(String userInput) {
+
     }
 }
