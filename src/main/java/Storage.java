@@ -9,27 +9,28 @@ public class Storage {
         this.tasks = new ArrayList<>();
     }
 
-    public String addTask(String taskType, String description) throws DukeException {
+    public String addTask(TaskType taskType, String description) throws DukeException {
         description=description.trim();
-        if (taskType.equals("todo")){
-            if (description.length()>0) this.tasks.add(new ToDo(description));
-            else throw new DukeException("todo error");
-        } else if (taskType.equals("deadline")){
-            Pattern pattern = Pattern.compile("(.+) /by (.+)");
-            Matcher matcher = pattern.matcher(description);
-            if (matcher.matches() && matcher.group(1).length()>0 && matcher.group(2).length()>0){
-                this.tasks.add(new Deadline(matcher.group(1),matcher.group(2)));
-            }
-            else throw new DukeException("deadline error");
-        } else if (taskType.equals("event")){
-            Pattern pattern = Pattern.compile("(.+) /from (.+) /to (.+)");
-            Matcher matcher = pattern.matcher(description);
-            if (matcher.matches() && matcher.group(1).length()>0 && matcher.group(2).length()>0 && matcher.group(3).length()>0){
-                this.tasks.add(new Event(matcher.group(1),matcher.group(2),matcher.group(3)));
-            }
-            else throw new DukeException("event error");
-        } else {
-            throw new DukeException("task error");
+        switch(taskType){
+            case TODO:
+                if (description.length()>0) this.tasks.add(new ToDo(description));
+                else throw new DukeException("todo error");
+                break;
+            case DEADLINE:
+                Pattern pattern = Pattern.compile("(.+) /by (.+)");
+                Matcher matcher = pattern.matcher(description);
+                if (matcher.matches() && matcher.group(1).length()>0 && matcher.group(2).length()>0){
+                    this.tasks.add(new Deadline(matcher.group(1),matcher.group(2)));
+                }
+                else throw new DukeException("deadline error");
+                break;
+            default:
+                pattern = Pattern.compile("(.+) /from (.+) /to (.+)");
+                matcher = pattern.matcher(description);
+                if (matcher.matches() && matcher.group(1).length()>0 && matcher.group(2).length()>0 && matcher.group(3).length()>0){
+                    this.tasks.add(new Event(matcher.group(1),matcher.group(2),matcher.group(3)));
+                }
+                else throw new DukeException("event error");
         }
         int size = this.tasks.size();
         String taskInTotal = size > 1 ? " tasks in total." : " task in total.";

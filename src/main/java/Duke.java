@@ -20,9 +20,7 @@ public class Duke {
                 Matcher markMatcher = markPattern.matcher(repeat);
                 Pattern taskPattern = Pattern.compile("(todo|deadline|event) (.+)");
                 Matcher taskMatcher = taskPattern.matcher(repeat);
-                if (repeat.equals("")) {
-                    throw new DukeException("empty message");
-                } else if (repeat.contains("bye") || repeat.contains("88")) {
+                if (repeat.contains("bye") || repeat.contains("88")) {
                     System.out.println("Bye!\n\"Beware the barrenness of a busy life.\"");
                     break;
                 } else if (markMatcher.matches()) {
@@ -34,7 +32,7 @@ public class Duke {
                         System.out.println(storage.markTask(taskIndex, isDone));
                     }
                 } else if (taskMatcher.matches()) {
-                    System.out.println(storage.addTask(taskMatcher.group(1), taskMatcher.group(2)));
+                    System.out.println(storage.addTask(TaskType.valueOf(taskMatcher.group(1).toUpperCase()), taskMatcher.group(2)));
                 } else if (repeat.contains("list") || repeat.contains("List")) {
                     System.out.println(storage.getTasks());
                 } else {
@@ -42,9 +40,7 @@ public class Duke {
                 }
             } catch (DukeException e){
                 String message = e.getMessage();
-                if (message.equals("Empty message")) {
-                    System.out.println("⚠ Empty message. Please tell me more.");
-                } else if (message.equals("undefined")){
+                if (message.equals("undefined")){
                     System.out.println("⚠ Sorry! I am not able to understand you. Try another language:D");
                 } else if (message.equals("task not found")){
                     System.out.println("⚠ Oops! Cannot find the task:(");
@@ -54,8 +50,6 @@ public class Duke {
                     System.out.println("⚠ Oops! Need description and by date for the deadline:(");
                 } else if (message.equals("event error")){
                     System.out.println("⚠ Oops! Need description, from and to date for the event:(");
-                } else if (message.equals("task error")) {
-                    System.out.println("⚠ Oops! Invalid task input:(");
                 }
             }
         }
