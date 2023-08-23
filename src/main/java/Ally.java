@@ -29,15 +29,27 @@ public class Ally {
         String ipt;
         while(true) {
             ipt = scanner.nextLine();
-            if (ipt.equals("bye")) {
+            String[] split = ipt.split(" ");
+
+            if (split[0].equals("bye")) {
                 bye();
                 break;
-            } else if (ipt.equals("list")){
+            } else if (split[0].equals("list")) {
                 System.out.println(line);
                 ally.printElements();
                 System.out.println(line);
-
-            } else {
+            } else if (split[0].equals("mark")) {
+                int index = Integer.parseInt(split[1]) - 1;
+                System.out.println(line);
+                ally.markAsDone(index);
+                System.out.println(line);
+            } else if (split[0].equals("unmark")) {
+                int index = Integer.parseInt(split[1]) - 1;
+                System.out.println(line);
+                ally.unMarkDone(index);
+                System.out.println(line);
+            }
+            else {
                 ally.addElements(ipt);
                 System.out.println(line + "\n" + "added: " + ipt + "\n" + line);
             }
