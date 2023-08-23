@@ -24,7 +24,7 @@ public class Ax {
 
     private static void listTheList() {
         for (int i = 0; i < listItems.size(); i++) {
-            System.out.println(String.format("%d. %s", i, listItems.get(i)));
+            System.out.printf("%d. %s%n", i, listItems.get(i));
         }
     }
 
