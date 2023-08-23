@@ -5,24 +5,24 @@ public class Duke {
     private static int taskCount = 0;
 
     public void startChat() {
-        System.out.println("----------------------------------------------------------");
+        System.out.println("---------------------------------------------");
         System.out.println(" Hello! I'm zy");
         System.out.println(" What can I do for you?");
-        System.out.println("----------------------------------------------------------");
+        System.out.println("---------------------------------------------");
 
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
 
         while (!command.equals("bye")) {
-            System.out.println("----------------------------------------------------------");
+            System.out.println("---------------------------------------------");
             this.readNewTask(command);
-            System.out.println("----------------------------------------------------------");
+            System.out.println("---------------------------------------------");
             command = scanner.nextLine();
         }
         scanner.close();
-        System.out.println("----------------------------------------------------------");
+        System.out.println("---------------------------------------------");
         System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println("----------------------------------------------------------");
+        System.out.println("---------------------------------------------");
     }
 
     public void readNewTask(String command) {
