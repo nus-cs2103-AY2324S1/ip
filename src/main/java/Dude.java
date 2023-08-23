@@ -24,6 +24,18 @@ public class Dude {
         }
     }
 
+    public static void mark(int n) {
+        taskList[n-1].setDone(true);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.printf("%d. [x] %s \n", n, taskList[n-1].getDescription());
+    }
+
+    public static void unmark(int n) {
+        taskList[n-1].setDone(false);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.printf("%d. [ ] %s \n", n, taskList[n-1].getDescription());
+    }
+
     public static void bye() {
         String greeting = "Bye. Hope to see you again soon!";
         System.out.println(greeting);
@@ -44,6 +56,10 @@ public class Dude {
             } else if (words[0].equals("bye")) {
                 bye();
                 break;
+            } else if (words[0].equals("mark")) {
+                mark(Integer.valueOf(words[1]));
+            } else if (words[0].equals("unmark")) {
+                unmark(Integer.valueOf(words[1]));
             } else {
                 addTask(input);
             }
