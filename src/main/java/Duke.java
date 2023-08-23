@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
 //        ArrayList<Task> items = new ArrayList<>();
         FunnyList items = new FunnyList();
@@ -10,30 +10,75 @@ public class Duke {
         System.out.println("\tHello! I'm FUNNY.\n\tWhat can I do for you?");
         printLine();
         String input = scanner.nextLine().trim();
-        while (!input.equals("bye")) {
-            if (input.equals("list")) {
 
-                items.displayList();
-            } else {
-                String command = input.split(" ")[0];
-                if (command.equals("mark")) {
-                    Task item = items.get(Integer.valueOf(input.split(" ")[1]) - 1);
-                    item.completeTask();
-                } else if (command.equals("unmark")) {
-                    Task item = items.get(Integer.valueOf(input.split(" ")[1]) - 1);
-                    item.undoTask();
-                } else if (command.equals("todo")) {
-                    items.add(new ToDo(input.split(" ", 2)[1]));
-                } else if (command.equals("deadline")) {
-                    String[] data = input.split(" /by ");
-                    items.add(new Deadline(data[0].split(" ", 2)[1], data[1]));
-                } else if (command.equals("event")) {
-                    String[] data = input.split(" /from ");
-                    String[] period = data[1].split( "/to ");
-                    items.add(new Event(data[0].split(" ", 2)[1], period));
+        while (!input.equals("bye")) {
+            try {
+                if (input.equals("list")) {
+
+                    items.displayList();
+                } else {
+                    String command = input.split(" ")[0];
+                    if (command.equals("mark")) {
+                        String[] data = input.split(" ", 2);
+//                        if (data.length < 2) {
+//                            throw new DukeException("There must be a selected task");
+//                        }
+                        Task item = items.get(Integer.valueOf(data[1]) - 1);
+                        item.completeTask();
+                    } else if (command.equals("unmark")) {
+                        String[] data = input.split(" ", 2);
+//                        if (data.length < 2) {
+//                            throw new DukeException("There must be a selected task");
+//                        }
+                        Task item = items.get(Integer.valueOf(data[1]) - 1);
+                        item.undoTask();
+                    } else if (command.equals("todo")) {
+                        String[] data = input.split(" ", 2);
+                        if (data.length < 2) {
+                            throw new DukeException("The description of a todo cannot be empty.");
+                        }
+                        items.add(new ToDo(input.split(" ", 2)[1]));
+                    } else if (command.equals("deadline")) {
+                        String[] data = input.split(" /by ", 2);
+                        if (data.length < 2) {
+                            throw new DukeException("A task with deadline requires a /by (timedate) descriptor");
+                        }
+                        if (data[0].split(" ", 2).length < 2) {
+                            throw new DukeException("The description of a deadline cannot be empty.");
+                        }
+
+                        items.add(new Deadline(data[0].split(" ", 2)[1], data[1]));
+                    } else if (command.equals("event")) {
+                        String[] data = input.split(" /from ", 2);
+                        if (data.length < 2) {
+                            throw new DukeException("An event requires a /from (timedate) descriptor");
+                        }
+
+                        String[] period = data[1].split( "/to ");
+                        if (period.length < 2) {
+                            throw new DukeException("An event requires a /to (timedate) descriptor");
+                        }
+
+                        if (data[0].split(" ", 2).length < 2) {
+                            throw new DukeException("The description of an event cannot be empty.");
+                        }
+
+                        items.add(new Event(data[0].split(" ", 2)[1], period));
+                    } else {
+                        throw new DukeException("I'm sorry, but I don't know what that means :-(");
+                    }
                 }
+            } catch (DukeException e) {
+                printLine();
+                System.out.println(e);
+                printLine();
+            } catch (NumberFormatException e) {
+                printLine();
+                System.out.println(new DukeException("Please specify the index of the task (Numbers only)"));
+                printLine();
+            } finally {
+                input = scanner.nextLine().trim(); // Get next input
             }
-            input = scanner.nextLine().trim(); // Get next input
         }
         printLine();
         System.out.println("\tBye. Hope to see you again soon!");

@@ -16,7 +16,10 @@ public class FunnyList {
         Duke.printLine();
     }
 
-    public Task get(int i) {
+    public Task get(int i) throws DukeException {
+        if (i < 0 || i >= this.taskList.size()) {
+            throw new DukeException("Index does not exist");
+        }
         return taskList.get(i);
     }
 
