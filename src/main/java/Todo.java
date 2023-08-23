@@ -10,8 +10,15 @@ public class Todo extends Task {
      * @param input input entered by user.
      * @return a Todo.
      */
-    public static Todo generateTodoFromInput(String input) {
+    public static Todo generateTodoFromInput(String input) throws EmptyTodoDescriptionException {
         String[] words = input.split(" ");
+        if (words.length == 1) {
+            throw new EmptyTodoDescriptionException(
+                    Action.HORIZONTAL_LINE + "\n" +
+                    "You did not provide any description to this Todo.\n" +
+                    "To add a Todo, enter \"todo <description>\".\n" +
+                    Action.HORIZONTAL_LINE);
+        }
         ArrayList<String> desWords = new ArrayList<>();
         for (int i = 1; i < words.length; i++) {
             desWords.add(words[i]);

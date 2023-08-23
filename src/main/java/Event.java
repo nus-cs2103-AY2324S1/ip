@@ -15,7 +15,15 @@ public class Event extends Task {
      * @param input input entered by user.
      * @return an Event.
      */
-    public static Event generateEventFromInput(String input) {
+    public static Event generateEventFromInput(String input) throws EmptyEventDescriptionException{
+        if (input.split(" ").length == 1) {
+            throw new EmptyEventDescriptionException(
+                    Action.HORIZONTAL_LINE + "\n" +
+                    "You did not provide any description to this Event.\n" +
+                    "To add an Event, enter \"event <description> /from <startTime> /to <endTime>\".\n" +
+                    Action.HORIZONTAL_LINE);
+        }
+
         String front = input.split("/")[0];
         String[] frontWords = front.split(" ");
         ArrayList<String> desWords = new ArrayList<>();

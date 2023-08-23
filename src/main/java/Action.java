@@ -5,7 +5,7 @@ import java.util.Scanner;
  * A class that encapsulates all actions the Bell Curve God can do.
  */
 public class Action {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    public static final String HORIZONTAL_LINE = "____________________________________________________________";
 
     /**
      * An ArrayList that stores all tasks entered by the user.
@@ -33,7 +33,7 @@ public class Action {
     }
 
     /**
-     * Echos commands entered by the user,
+     * Respond to commands entered by the user,
      * and exits when the user types the command bye.
      */
     public static void respond() {
@@ -51,7 +51,13 @@ public class Action {
             } else if (words[0].equals("unmark")) {
                 unmark(tasks.get(Integer.parseInt(words[1]) - 1));
             } else {
-                addTask(input);
+                try {
+                    addTask(input);
+                } catch (InvalidCommandException e) {
+                    System.out.println(e.getMessage());
+                } catch (EmptyDescriptionException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
         exit();
@@ -62,9 +68,18 @@ public class Action {
      * Adds a task to the storage.
      * @param input description of the task to be added
      */
-    public static void addTask(String input) {
+    public static void addTask(String input) throws InvalidCommandException, EmptyDescriptionException {
         String cmd = input.split(" ")[0];
         Task newTask = null;
+
+        if (!(cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event"))) {
+            throw new InvalidCommandException(
+                    HORIZONTAL_LINE + "\n" +
+                    "You have entered an invalid command word!\n" +
+                    "To add a new Task, use \"todo\", \" deadline\", or \"event\".\n" +
+                    HORIZONTAL_LINE);
+        }
+
         if (cmd.equals("deadline")) {
             newTask = Deadline.generateDeadlineFromInput(input);
         } else if (cmd.equals("event")) {
@@ -72,6 +87,7 @@ public class Action {
         } else {
             newTask = Todo.generateTodoFromInput(input);
         }
+
         tasks.add(newTask);
         numOfTasks++;
         System.out.println(HORIZONTAL_LINE);

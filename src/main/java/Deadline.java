@@ -13,7 +13,15 @@ public class Deadline extends Task {
      * @param input input entered by user.
      * @return a Deadline.
      */
-    public static Deadline generateDeadlineFromInput(String input) {
+    public static Deadline generateDeadlineFromInput(String input) throws EmptyDeadlineDescriptionException {
+        if (input.split(" ").length == 1) {
+            throw new EmptyDeadlineDescriptionException(
+                    Action.HORIZONTAL_LINE + "\n" +
+                    "You did not provide any description to this Deadline.\n" +
+                    "To add a Deadline, enter \"deadline <description> /by <deadline>\".\n" +
+                    Action.HORIZONTAL_LINE);
+        }
+
         String front = input.split("/")[0];
         String[] frontWords = front.split(" ");
         ArrayList<String> desWords = new ArrayList<>();
