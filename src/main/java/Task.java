@@ -10,12 +10,12 @@ public class Task {
 
     public void markAsDone() {
         this.done = true;
-        System.out.println("\nNice! I've marked this task as done:\n" + this + "\n");
+        System.out.println("\nNice! I've marked this task as done:\n  " + this + "\n");
     }
 
     public void unmarkAsDone() {
         this.done = false;
-        System.out.println("\nNice! I've unmarked this task as done:\n" + this + "\n");
+        System.out.println("\nNice! I've unmarked this task as done:\n  " + this + "\n");
     }
 
     @Override
