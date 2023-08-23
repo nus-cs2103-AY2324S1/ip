@@ -59,7 +59,7 @@ public class Ally {
             } else if (split[0].equals("deadline")) {
                 System.out.println(line);
                 if (split.length == 1) {
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
                 } else {
                     String[] deadline = split[1].split(" /");
                     ally.addDeadline(deadline[0], deadline[1]);
@@ -68,7 +68,7 @@ public class Ally {
             } else if (split[0].equals("event")) {
                 System.out.println(line);
                 if (split.length == 1) {
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
                 } else {
                     String[] event = split[1].split(" /");
                     ally.addEvent(event[0], event[1], event[2]);
@@ -77,7 +77,7 @@ public class Ally {
             }  else if (split[0].equals("delete")) {
                 System.out.println(line);
                 if (split.length == 1) {
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("☹ OOPS!!! The description of a delete cannot be empty.");
                 } else {
                     int index = Integer.parseInt(split[1]) - 1;
                     ally.deleteElement(index);
