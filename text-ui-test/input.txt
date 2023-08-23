@@ -1,13 +1,21 @@
+list
+todo
 todo read
 list
-deadline play /by 10pm
-list
 mark 1
+mark 0
+mark 1
+deadline read
+deadline /by 5
+deadline play /from
+deadline play /by 3
 list
-event cook /from idk /to tmr
+event /from 5 /to 2
+event cook /from 2
+event cook /to 3
+event
+event cook /from 5 /to 2
 list
-mark 3
-list
+unmark 2
 unmark 1
-list
 bye
