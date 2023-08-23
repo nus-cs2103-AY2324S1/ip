@@ -9,7 +9,7 @@ public class Deadline extends Task {
     private final String by;
 
     /**
-     * Constructor for the Deadline class
+     * Constructor for the Deadline class.
      *
      * @author Tan Kerway
      * @param description the description of the task
@@ -21,7 +21,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the String representation of a Deadline class
+     * Returns the String representation of a Deadline class.
      *
      * @author Tan Kerway
      * @return the String representation of a Deadline class

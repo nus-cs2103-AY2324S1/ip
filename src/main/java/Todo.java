@@ -5,7 +5,7 @@
  */
 public class Todo extends Task {
     /**
-     * Constructor for the class
+     * Constructor for the class.
      *
      * @author Tan Kerway
      * @param description the task description to be added

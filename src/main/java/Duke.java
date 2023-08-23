@@ -58,20 +58,53 @@ public class Duke {
     private Task addTask(String task) {
         String description;
         Task createdTask;
+        // get the length of the task
+        int taskDescriptionLength = task.length();
         // handle the 3 different types of class
         if (task.startsWith("todo")) {
+            // handle errors
+            if (taskDescriptionLength == 4 || task.substring(4).trim().equals("")) {
+                return handleEmptyCommand("todo");
+            }
             description = task.substring(5);
             createdTask = new Todo(description);
         } else if (task.startsWith("deadline")) {
+            // handle errors
+            if (taskDescriptionLength == 8) {
+                return handleEmptyCommand("deadline");
+            }
             // cache the start index of the "/by" substring
             int indexOfBy = task.indexOf("/by");
+            if (!task.contains("/by") || indexOfBy + 3 == task.length() || task.substring(indexOfBy + 3).trim().equals("")) {
+                return handleNoDate("by");
+            }
             // get the task description
             description = task.substring(9, indexOfBy - 1);
             // get the deadline
             String by = task.substring(indexOfBy + 4);
             createdTask = new Deadline(description, by);
         } else {
+            // handle errors
+            if (!task.startsWith("event")) {
+                return handleInvalidCommand();
+            }
+            if (taskDescriptionLength == 5) {
+                return handleEmptyCommand("event");
+            }
             int fromStart = task.lastIndexOf("/from");
+            int toStart = task.lastIndexOf("/to");
+            if (fromStart == -1 && toStart == -1) {
+                return handleNoDate("from and to");
+            }
+            if (fromStart == -1 || fromStart + 5 == toStart) {
+                return handleNoDate("from");
+            }
+            if (toStart == -1 || toStart + 3 == task.length()) {
+                return handleNoDate("to");
+            }
+            if (task.substring(fromStart + 5, toStart).trim().equals("")) {
+                return handleNoDate("from");
+            }
             // get the task description
             description = task.substring(6, fromStart - 1);
             // get the string that holds the start and the end
@@ -83,6 +116,52 @@ public class Duke {
     }
 
     /**
+     * Prints error message telling the user that the command cannot be empty
+     *
+     * @author Tan Kerway
+     * @param command the input command that the user typed in
+     * @return the exception object created
+     */
+    private Task handleEmptyCommand(String command) {
+        Task res = new DukeEmptyInputException(command);
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println(res.toString());
+        System.out.println("------------------------------------------------------------------------");
+        return res;
+    }
+
+    /**
+     * Prints error message telling the user that the command is invalid
+     *
+     * @author Tan Kerway
+     * @return the exception object created
+     */
+    private Task handleInvalidCommand() {
+        Task res = new DukeInvalidCommandException();
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println(res.toString());
+        System.out.println("------------------------------------------------------------------------");
+        return res;
+    }
+
+    /**
+     * Prints error message telling the user that the command is invalid.
+     * Applicable for the deadline and event command.
+     *
+     * @author Tan Kerway
+     * @param details the String containing the missing info that the user did
+     *                not type in
+     * @return the exception object created
+     */
+    private Task handleNoDate(String details) {
+        Task res = new DukeInvalidTimeException(details);
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println(res.toString());
+        System.out.println("------------------------------------------------------------------------");
+        return res;
+    }
+
+    /**
      * Echos the task that was added to the task list to
      * the console.
      *
@@ -90,6 +169,9 @@ public class Duke {
      * @param task the task to be echoed to the console
      */
     void echoTaskAdded(Task task) {
+        if (task instanceof DukeException) {
+            return;
+        }
         System.out.println("------------------------------------------------------------------------");
         System.out.println("Got it. I've added this task:\n    " + task.toString());
         System.out.println("Nyan you have " + (this.i + 1) + " tasks in the list.");
