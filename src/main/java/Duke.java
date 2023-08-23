@@ -28,6 +28,7 @@ public class Duke {
                 //int index = sc.nextInt();
                 int index = Integer.parseInt(cmd.substring(7, 8));
                 Task task = ls.get(index-1);
+                ls.remove(index-1);
                 task.unmark();
                 ls.add(index-1, task);
                 //ls.get(index-1);
@@ -36,6 +37,8 @@ public class Duke {
             } else if (cmd.contains("mark")) {
                 int index = Integer.parseInt(cmd.substring(5, 6));
                 Task task = ls.get(index - 1);
+                ls.remove(index-1);
+
                 task.markAsDone();
                 ls.add(index - 1, task);
                 System.out.println("Nice! I've marked this task as done:\n" + task.toString());
