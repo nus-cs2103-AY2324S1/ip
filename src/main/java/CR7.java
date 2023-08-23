@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class CR7 {
     // Function to print a horizontal line
     public static void printHorizontalLine() {
@@ -89,8 +90,7 @@ public class CR7 {
             printHorizontalLine();
             System.out.println("Hello! I'm CR7\n" + "What can I do for you?\n");
             String input = "";
-            Task[] tasks = new Task[100];
-            int counter = 0;
+            ArrayList<Task> tasks = new ArrayList<>();
             while (!input.equals("bye")) {
                 try {
                     Scanner myObj = new Scanner(System.in);
@@ -104,8 +104,8 @@ public class CR7 {
                     if (input.equals("list")) {
                         printHorizontalLine();
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 1; i < counter + 1; i++) {
-                            Task x = tasks[i - 1];
+                        for (int i = 1; i < tasks.size() + 1; i++) {
+                            Task x = tasks.get(i-1);
                             System.out.println(i + "." + x.toString());
                         }
                         System.out.println();
@@ -113,9 +113,17 @@ public class CR7 {
                     } else {
                         String[] words = input.split(" ");
                         String first = words[0];
-                        if (first.equals("mark")) {
+                        if (first.equals("delete")) {
                             int s = Integer.valueOf(words[1]);
-                            Task k = tasks[s - 1];
+                            Task k = tasks.remove(s-1);
+                            printHorizontalLine();
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println("  " + k.toString());
+                            System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+                            printHorizontalLine();
+                        } else if (first.equals("mark")) {
+                            int s = Integer.valueOf(words[1]);
+                            Task k = tasks.get(s-1);
                             k.markAsDone();
                             printHorizontalLine();
                             System.out.println("Nice! I've marked this task as done:");
@@ -123,7 +131,7 @@ public class CR7 {
                             printHorizontalLine();
                         } else if (first.equals("unmark")) {
                             int s = Integer.valueOf(words[1]);
-                            Task k = tasks[s - 1];
+                            Task k = tasks.get(s-1);
                             k.unmarkAsDone();
                             printHorizontalLine();
                             System.out.println("OK, I've marked this task as not done yet:");
@@ -135,11 +143,12 @@ public class CR7 {
                             } else {
                                 String desc = input.substring(5);
                                 Task t = new ToDo(desc);
-                                tasks[counter] = t;
-                                counter++;
+                                tasks.add(t);
+                                printHorizontalLine();
                                 System.out.println("Got it. I've added this task:");
                                 System.out.println("  " + t.toString());
-                                System.out.println("Now you have " + counter + " tasks in the list");
+                                System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
+                                printHorizontalLine();
                             }
                         } else if (first.equals("deadline")) {
                             if (input.length() <= 9) {
@@ -152,11 +161,12 @@ public class CR7 {
                                     String desc = input.substring(9, y - 1);
                                     String by = input.substring(y + 4);
                                     Task t = new Deadline(desc, by);
-                                    tasks[counter] = t;
-                                    counter++;
+                                    tasks.add(t);
+                                    printHorizontalLine();
                                     System.out.println("Got it. I've added this task:");
                                     System.out.println("  " + t.toString());
-                                    System.out.println("Now you have " + counter + " tasks in the list");
+                                    System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
+                                    printHorizontalLine();
                                 }
                             }
                         } else if (first.equals("event")) {
@@ -172,11 +182,12 @@ public class CR7 {
                                     String start = input.substring(fromIndex + 6, toIndex).trim();
                                     String end = input.substring(toIndex + 4).trim();
                                     Task t = new Event(desc, start, end);
-                                    tasks[counter] = t;
-                                    counter++;
+                                    tasks.add(t);
+                                    printHorizontalLine();
                                     System.out.println("Got it. I've added this task:");
                                     System.out.println("  " + t.toString());
-                                    System.out.println("Now you have " + counter + " tasks in the list");
+                                    System.out.println("Now you have " + tasks.size() + " tasks in the list\n");
+                                    printHorizontalLine();
                                 }
                             }
                         } else {
