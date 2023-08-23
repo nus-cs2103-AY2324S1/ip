@@ -32,14 +32,14 @@ public class Duke {
         case "mark":
           try {
             handleMark(input);
-          } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+          } catch (IllegalArgumentException | DukeIOBException e) {
             System.out.println(e.getMessage());
           }
           break;
         case "unmark":
           try {
             handleUnmark(input);
-          } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+          } catch (IllegalArgumentException | DukeIOBException e) {
             System.out.println(e.getMessage());
           }
           break;
@@ -67,7 +67,7 @@ public class Duke {
         case "delete":
           try {
             handleDelete(input);
-          } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+          } catch (IllegalArgumentException | DukeIOBException e) {
             System.out.println(e.getMessage());
           }
           break;
@@ -86,7 +86,7 @@ public class Duke {
     }
     int idx = parseIndex(input);
     if (idx < 0 || idx > taskList.size()) {
-      throw new IndexOutOfBoundsException("Task " + idx + " does not exist");
+      throw new DukeIOBException(idx);
     } else {
       taskList.get(idx - 1).markAsDone();
       System.out.printf("Nice! I've marked this task as done:%n %s%n", taskList.get(idx - 1));
@@ -101,7 +101,7 @@ public class Duke {
     }
     int idx = parseIndex(input);
     if (idx <= 0 || idx > taskList.size()) {
-      throw new IndexOutOfBoundsException("Task " + idx + " does not exist");
+      throw new DukeIOBException(idx);
     } else {
       taskList.get(idx - 1).markAsNotDone();
       System.out.printf("OK! I've marked this task as not done:%n %s%n", taskList.get(idx - 1));
@@ -116,7 +116,7 @@ public class Duke {
     }
     int idx = parseIndex(input);
     if (idx <= 0 || idx > taskList.size()) {
-      throw new IndexOutOfBoundsException("Task " + idx + " does not exist");
+      throw new DukeIOBException(idx);
     } else {
       Task deletedTask = taskList.get(idx - 1);
       taskList.remove(idx - 1);
