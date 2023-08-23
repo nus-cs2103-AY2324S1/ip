@@ -92,21 +92,29 @@ public class Duke {
                                 + String.format("    Now you have %d tasks in the list\n", taskList.size())
                                 + divider);
                         break;
-                    case "mark":
-                        int markIndex = Integer.parseInt(taskDetails) - 1;
-                        if (markIndex <= 0 || markIndex < taskList.size()) throw new InvalidTaskNumberException(
+                    case "delete":
+                        int deleteIndex = Integer.parseInt(taskDetails) - 1;
+                        if (deleteIndex < 0 || deleteIndex >= taskList.size()) throw new InvalidTaskNumberException(
                                 divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
                         );
-                        System.out.println(divider);
+                        taskList.remove(deleteIndex);
+                        System.out.print(divider + "    chirp! chirp! Task right out the window!\n" + divider);
+                        break;
+                    case "mark":
+                        int markIndex = Integer.parseInt(taskDetails) - 1;
+                        if (markIndex < 0 || markIndex >= taskList.size()) throw new InvalidTaskNumberException(
+                                divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
+                        );
+                        System.out.print(divider);
                         taskList.get(markIndex).markTask();
                         System.out.println(divider);
                         break;
                     case "unmark":
                         int unmarkIndex = Integer.parseInt(taskDetails) - 1;
-                        if (unmarkIndex <= 0 || unmarkIndex < taskList.size()) throw new InvalidTaskNumberException(
+                        if (unmarkIndex < 0 || unmarkIndex >= taskList.size()) throw new InvalidTaskNumberException(
                                 divider + "    TWEET!!! I can't find the task you are looking for!\n" + divider
                         );
-                        System.out.println(divider);
+                        System.out.print(divider);
                         taskList.get(unmarkIndex).unmarkTask();
                         System.out.println(divider);
                         break;
