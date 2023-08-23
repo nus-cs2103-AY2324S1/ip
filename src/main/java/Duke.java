@@ -22,6 +22,8 @@ public class Duke {
             if (userInput.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
+            } else if (userInput.equals("help")) {
+                HelpMessage.displayHelpMessage();
             } else if (userInput.equals("list")) {
                 listTasks(tasks);
             } else if (userInput.startsWith("mark")) {
@@ -37,26 +39,40 @@ public class Duke {
     private static void addTask(String userInput, List<Task> tasks) {
         try {
             String[] inputParts = userInput.split(" ", 2);
-            String taskType = inputParts[0];
+
+            // Check if a valid addTask command is entered
+            String inputCommand = inputParts[0];
+            if (!(inputCommand.equals("todo") || inputCommand.equals("deadline") || inputCommand.equals("event"))) {
+                throw new InvalidCommandException();
+            }
+
+            // Throw InvalidCommandException if there is no description
+            if (inputParts.length == 1) throw new NoDescriptionException();
+
             String taskDesc = inputParts[1];
             Task task;
-
-            if (taskType.equals("todo")) {
-                task = new Todo(taskDesc);
-            } else if (taskType.equals("deadline")) {
-                task = new Deadline(taskDesc);
-            } else if (taskType.equals("event")) {
-                task = new Event(taskDesc);
-            } else {
-                System.out.println("Invalid task. Please start with 'todo', 'deadline' or 'event'");
-                return;
+            switch (inputCommand) {
+                case "todo":
+                    task = new Todo(taskDesc);
+                    break;
+                case "deadline":
+                    task = new Deadline(taskDesc);
+                    break;
+                case "event":
+                    task = new Event(taskDesc);
+                    break;
+                default:
+                    // Throw InvalidCommandException as invalid command was entered
+                    throw new DukeException("Error, see 'help' for a list of commands");
             }
             // Add task to task list
             tasks.add(task);
-            System.out.println("Got it. I've added this task:\n\t" + task.toString());
-            System.out.println(String.format("Now you have %d tasks in the list", tasks.size()));
+            System.out.println("Got it. I've added this task:\n\t" + task);
+            System.out.printf("Now you have %d tasks in the list%n", tasks.size());
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e) {
-            System.out.println("Invalid input. Try starting with 'todo', 'deadline' or 'event'\n");
+            System.out.println("Error, see 'help' for a list of commands");
         }
     }
 
@@ -64,15 +80,17 @@ public class Duke {
         try {
             // Get the id of the task (zero-indexed) from the userInput
             int taskId = Integer.parseInt(userInput.split(" ")[1]);
+            // Throw InvalidTaskException if task id is out of bounds of task list or is invalid
+            if (taskId <= 0 || taskId > tasks.size()) throw new InvalidTaskException();
             // Unmark the selected task as done
             Task selectedTask = tasks.get(taskId - 1);
             selectedTask.unmarkAsDone();
             System.out.println("OK, I've marked this task as not done yet:\n"
-                    + selectedTask.toString());
+                    + selectedTask);
+        } catch (DukeException e) {
+          System.out.println(e.getMessage());
         } catch (NumberFormatException e) {
-            System.out.println("Invalid use of 'unmark' command. Please follow the format 'unmark [task id]'");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid task number. Please ensure that the id of the task is within the task list");
+            System.out.println("Please ensure task id is an integer within task list");
         } catch (Exception e) {
             System.out.println("Error. Please follow the format 'unmark [task id]'");
         }
@@ -80,15 +98,19 @@ public class Duke {
 
     private static void markTaskAsDone(String userInput, List<Task> tasks) {
         try {
+            // Get the id of the task (zero-indexed) from the userInput
             int taskId = Integer.parseInt(userInput.split(" ")[1]);
+            // Throw InvalidTaskException if task id is out of bounds of task list or is invalid
+            if (taskId <= 0 || taskId > tasks.size()) throw new InvalidTaskException();
+            // Mark the selected task as done
             Task selectedTask = tasks.get(taskId - 1);
             selectedTask.markAsDone();
             System.out.println("Nice! I've marked this task as done:\n"
-                    + selectedTask.toString());
+                    + selectedTask);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
         } catch (NumberFormatException e) {
-            System.out.println("Invalid use of 'mark' command. Please follow the format 'mark [task id]'");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid task number. Please ensure that the id of the task is within the task list");
+            System.out.println("Please ensure task id is an integer within task list");
         } catch (Exception e) {
             System.out.println("Error. Please follow the format 'mark [task id]'");
         }
