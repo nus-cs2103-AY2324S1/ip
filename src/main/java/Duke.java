@@ -8,7 +8,7 @@ public class Duke {
         String Start = "Hello! I'm Red \nWhat can I do for you?";
         System.out.println(Start);
 
-        String[] tasks = new String[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         while (true) {
@@ -17,13 +17,29 @@ public class Duke {
                 break;
 
             if (input.equals("list")) {
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskCount; i++) {
-                    System.out.println(i + 1 + ". " + tasks[i]);
+                    System.out.println(i + 1 + "." + tasks[i]);
                 }
                 continue;
             }
+            if (input.contains("unmark")) {
+                int selected = Integer.parseInt(input.substring(7));
+                Task selTask = tasks[selected - 1];
+                selTask.taskNotCompleted();
+                System.out.println("OK, I've marked this task as not done yet:\n" + selTask);
+                continue;
+            }
 
-            tasks[taskCount] = input;
+            if (input.contains("mark")) {
+                int selected = Integer.parseInt(input.substring(5));
+                Task selTask = tasks[selected - 1];
+                selTask.taskCompleted();
+                System.out.println("Nice! I've marked this task as done:\n" + selTask);
+                continue;
+            }
+
+            tasks[taskCount] = new Task(input);
             taskCount++;
             System.out.println("added: " + input);
 
