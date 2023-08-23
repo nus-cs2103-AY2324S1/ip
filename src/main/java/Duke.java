@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -17,18 +19,28 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println();
 
-        // Echoing User Input
+        // Task List Storage
+        ArrayList<String> taskList = new ArrayList<String>();
+
+        // Saving User input into a list
         while (true) {
             String userInput = scanner.nextLine();
 
-            // If user types bye, goodbye message is printed without echoing the command
+            // If user types bye, goodbye message is printed.
             if (userInput.equalsIgnoreCase("bye")) {
                 System.out.println("Bye. Hope to see you again");
                 break;
             }
+            // If user types list, the list is printed.
+            else if (userInput.equalsIgnoreCase("list")){
+                for (int i = 0; i < taskList.size(); i++){
+                    System.out.println(Integer.toString(i+1) + ". " + taskList.get(i));
+                }
+            }
+            // If user types neither list nor bye, the task is added to the list and displayed.
             else {
-                // Command is echoed if command is not "bye"
-                System.out.println(userInput);
+                taskList.add(userInput);
+                System.out.println("added: " + userInput);
             }
         }
         scanner.close();
