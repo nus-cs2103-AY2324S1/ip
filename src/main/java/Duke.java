@@ -1,6 +1,16 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+/**
+ * Duke is a class in-charge of task management.
+ * It allows users to add, delete, mark, unmark, specify, and list tasks.
+ */
 public class Duke {
+    /**
+     * The main function of the Duke application.
+     *
+     * @param args Command line arguments
+     * @throws DukeException If an error has occurred in the Duke application.
+     */
     public static void main(String[] args) throws DukeException {
         System.out.println("Hello! I'm Chatty\n" + "What can I do for you?");
         Scanner scanner = new Scanner(System.in);
@@ -37,13 +47,25 @@ public class Duke {
                         }
                     }
 
+                    if (words[0].equals("delete")) {
+                        int taskIndex = Integer.parseInt(words[1]) - 1;
+                        if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                            Task deletedTask = taskList.remove(taskIndex);
+                            System.out.println("Noted. I've removed this task:\n " + deletedTask
+                                    + "\nNow you have " + taskList.size() + " tasks in the list.");
+                            continue;
+                        } else {
+                            throw new InvalidRangeException("Invalid task index. You have " +
+                                    taskList.size() + " tasks in the list.");
+                        }
+                    }
                 }
 
                 if (userInput.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
                     for (int j = 0; j < taskList.size(); j++) {
                         int index = j + 1;
-                        System.out.println(index + ". " + taskList.get(j).toString());
+                        System.out.println(index + "." + taskList.get(j).toString());
                     }
                 } else if (userInput.equals("bye")) {
                     break;
@@ -65,10 +87,23 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Checks if the user input is a valid task type.
+     *
+     * @param userInput The user's input.
+     * @return True if the input is a valid task type, false otherwise.
+     */
     private static boolean isValid(String userInput) {
         return userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event");
     }
 
+    /**
+     * Creates a new task based on the user's input.
+     *
+     * @param userInput The user's input.
+     * @return A new Task object.
+     * @throws DukeException If userInput does not meet task requirements.
+     */
     private static Task createNewTask(String userInput) throws DukeException {
         Task newTask;
         //Remove first word
