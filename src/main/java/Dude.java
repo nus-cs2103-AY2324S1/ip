@@ -60,7 +60,7 @@ public class Dude {
                 mark(Integer.valueOf(words[1]));
             } else if (words[0].equals("unmark")) {
                 unmark(Integer.valueOf(words[1]));
-            } else {
+            } else if (words[0].equals("todo")) {
                 addTask(input);
             }
 
