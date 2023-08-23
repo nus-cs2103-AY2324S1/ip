@@ -37,16 +37,16 @@ public class Duke {
     }
     public static void main(String[] args) {
 
-        System.out.println("─────────────────────");
+//        System.out.println("----------------");
         System.out.println("Hello I'm Robot!");
         System.out.println("What can I do for you?");
-        System.out.println("─────────────────────");
+//        System.out.println("----------------");
 
 
         while(true){
             String userInput = sc.nextLine();
             String[] splitStr = userInput.split("\\s+");
-            System.out.println("─────────────────────");
+//            System.out.println("----------------");
             if(userInput.equals("bye")) break;
 
             if(userInput.equals("list")){
@@ -68,6 +68,9 @@ public class Duke {
                 System.out.println(formatItem(x));
 
             }else if(splitStr[0].equals("todo")){
+                if(splitStr.length == 1){
+                    throw new RuntimeException("The description of a todo cannot be empty.");
+                }
                 tt[counter] = TaskType.ToDo;
                 store[counter++] = getString(splitStr, 1, splitStr.length);;
                 System.out.println("Got it, I've added this task:");
@@ -97,13 +100,15 @@ public class Duke {
                 }
                 System.out.println(formatItem(counter-1));
                 System.out.println("Now you have " + counter + " tasks in the list.");
+            }else{
+                throw new RuntimeException("Sorry, I don't understand that command");
             }
-            System.out.println("─────────────────────");
+//            System.out.println("----------------");
 
         }
 
 
         System.out.println("Bye! Hope to see you again soon!");
-        System.out.println("─────────────────────");
+//        System.out.println("----------------");
     }
 }
