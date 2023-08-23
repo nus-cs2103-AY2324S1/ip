@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Duke {
     final static String LIST = "list";
     final static String MARK = "mark";
@@ -7,6 +8,7 @@ public class Duke {
     final static String TODO = "todo";
     final static String DEADLINE = "deadline";
     final static String EVENT = "event";
+
     public static void main(String[] args) {
         ArrayList<Task> storedList = new ArrayList<>();
         String line = "____________________________________________________________";
@@ -17,6 +19,7 @@ public class Duke {
                 + "        ┗━━┻━┓┏┻━━┛\n"
                 + "        ╋╋╋┏━┛┃\n"
                 + "        ╋╋╋┗━━┛\n";
+        String added = "Got it. I've added this task: \n";
         System.out.println("\nHello! I'm \n" + logo);
         System.out.println("How can I help you? \n" + line);
         Scanner userInput = new Scanner(System.in);
@@ -52,19 +55,22 @@ public class Duke {
                     String[] deadlineArr = inputArr[1].split("/by ", 2);
                     Task deadline = new Deadline(deadlineArr[0], deadlineArr[1]);
                     storedList.add(deadline);
-                    System.out.println(deadline.toString() + "\n" + line);
+                    System.out.println(added + deadline.toString() + "\n");
+                    System.out.println("Now you have " + storedList.size() + " tasks in the list. \n" + line);
                     break;
                 case EVENT:
                     String[] eventArr1 = inputArr[1].split("/from ", 2);
                     String[] eventArr2 = eventArr1[1].split("/to ", 2);
                     Task event = new Event(eventArr1[0], eventArr2[0], eventArr2[1]);
                     storedList.add(event);
-                    System.out.println(event.toString() + "\n" + line);
+                    System.out.println(added + event.toString() + "\n");
+                    System.out.println("Now you have " + storedList.size() + " tasks in the list. \n" + line);
                     break;
                 case TODO:
                     Task todo = new Todo(inputArr[1]);
                     storedList.add(todo);
-                    System.out.println(todo.toString() + "\n" + line);
+                    System.out.println(added + todo.toString() + "\n");
+                    System.out.println("Now you have " + storedList.size() + " tasks in the list. \n" + line);
                     break;
             }
 

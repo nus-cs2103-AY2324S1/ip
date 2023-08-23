@@ -1,0 +1,8 @@
+todo read a book
+deadline buy groceries /by tmr
+mark 1
+list
+event dinner /from Monday 6pm /to Monday 7pm
+mark 3
+unmark 1
+list
