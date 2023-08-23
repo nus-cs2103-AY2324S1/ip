@@ -4,7 +4,7 @@ public class Simon {
     public static void main(String[] args) {
         String inData = "";
         Scanner scan = new Scanner( System.in );
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
         String space = "____________________________________________________________";
         String nSpace = "\n____________________________________________________________";
         String spaceN = "____________________________________________________________\n";
