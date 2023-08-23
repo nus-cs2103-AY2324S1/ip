@@ -28,6 +28,7 @@ public class Phi {
             } else {
                 System.out.println("SIKE I can't process that! Try again or say \"bye\" to exit");
             }
+            System.out.println();
             input = sc.nextLine();
         }
 
@@ -39,7 +40,7 @@ public class Phi {
                 + "| _ \\ || |_ _|\n"
                 + "|  _/ __ || | \n"
                 + "|_| |_||_|___| \n";
-        String greetingMsg = "Hellos! I'm PHI (Programmed Human Interaction) \n What can I do for you?";
+        String greetingMsg = "Hellos! I'm PHI (Programmed Human Interaction)\nWhat can I do for you?";
 
         System.out.println(logo + greetingMsg);
     }
