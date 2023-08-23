@@ -6,4 +6,5 @@ list
 test
 test2
 event bad event /to 4pm from 2pm
+delete 2
 bye

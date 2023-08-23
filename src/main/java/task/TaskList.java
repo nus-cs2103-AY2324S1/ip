@@ -33,13 +33,25 @@ public class TaskList extends ArrayList<Task> {
         return out.toString();
     }
 
+    /**
+     * Marks a given task specified by index as done
+     * @param index the index of the task to mark as done
+     */
     public void markAsUndone(int index) {
+
         this.get(index).markAsUndone();
     }
 
+    /**
+     * Marks the given task specified by index as not done
+     * @param index the index of the task marked as not done
+     */
     public void markAsDone(int index) {
+
         this.get(index).markAsDone();
     }
+
+
 
 
 

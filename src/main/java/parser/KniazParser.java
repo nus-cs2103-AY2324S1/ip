@@ -30,6 +30,7 @@ public abstract class KniazParser {
         UNMARK("unmark"),
         LIST("list"),
         QUIT("bye"),
+        DELETE("delete"),
         INVALID(""); // placeholder for anything not recognised
 
         public final String alias;
@@ -56,40 +57,47 @@ public abstract class KniazParser {
         // The lines below are fairly self-explanatory
         // Just checks for each alias in our enum and makes the right KniazCommand
         // TODO : refactor this to get rid of the giant if-else ladder (if we can!)
-        if (rawLine.equals(InstructionType.QUIT.alias)) {
+        if (strippedLine.equals(InstructionType.QUIT.alias)) {
             return new KniazCommand(InstructionType.QUIT);
         }
 
-        if (rawLine.equals(InstructionType.LIST.alias)) {
+        if (strippedLine.equals(InstructionType.LIST.alias)) {
 
             return new KniazCommand((InstructionType.LIST));
 
             // print out if we are asked to list
-        } else if (rawLine.startsWith(InstructionType.MARK.alias)) {
+        } else if (strippedLine.startsWith(InstructionType.MARK.alias)) {
 
             // handle parsing which entry the user wants to mark here
-            String entryAsString = KniazParser.getAfter(rawLine,"mark");
+            String entryAsString = KniazParser.getAfter(strippedLine,InstructionType.MARK.alias);
 
             return new KniazCommand(InstructionType.MARK, entryAsString);
 
-        } else if (rawLine.startsWith(InstructionType.UNMARK.alias)) {
+        } else if (strippedLine.startsWith(InstructionType.UNMARK.alias)) {
 
             // handle parsing which entry user wants to unmark here
-            String entryAsString = KniazParser.getAfter(rawLine,"unmark");
-            int entryAsInt = Integer.parseInt(entryAsString.strip());
-            int entryToMark = entryAsInt - 1;
+            String entryAsString = KniazParser.getAfter(strippedLine,InstructionType.UNMARK.alias);
 
             return new KniazCommand(InstructionType.UNMARK, entryAsString);
-        } else if (rawLine.startsWith(InstructionType.TODO.alias)) {
 
 
-            String taskName = KniazParser.getAfter(rawLine,"todo").strip();
+        } else if (strippedLine.startsWith(InstructionType.DELETE.alias)) {
+
+            //handle parsing which entry user wants to delete here
+            String entryAsString = KniazParser.getAfter(strippedLine,InstructionType.DELETE.alias);
+
+            return new KniazCommand(InstructionType.DELETE,entryAsString);
+
+        } else if (strippedLine.startsWith(InstructionType.TODO.alias)) {
+
+
+            String taskName = KniazParser.getAfter(strippedLine,InstructionType.TODO.alias).strip();
             return new KniazCommand(InstructionType.TODO, taskName);
 
-        } else if (rawLine.startsWith(InstructionType.DEADLINE.alias)) {
+        } else if (strippedLine.startsWith(InstructionType.DEADLINE.alias)) {
 
             // pull the args for this command
-            String deadlineArgs = KniazParser.getAfter(rawLine, "deadline");
+            String deadlineArgs = KniazParser.getAfter(strippedLine, InstructionType.DEADLINE.alias);
 
             String[] tokenizedDlineArgs = deadlineArgs.split("\\s*/\\s*(by)\\s*");
             // regex \s* represents any arbitrary number of whitespace
@@ -98,8 +106,8 @@ public abstract class KniazParser {
             // Split it up by the slash and strip whitespace
             return new KniazCommand(InstructionType.DEADLINE, tokenizedDlineArgs);
 
-        } else if (rawLine.startsWith(InstructionType.EVENT.alias)) {
-            String eventArgs = KniazParser.getAfter(rawLine, "event");
+        } else if (strippedLine.startsWith(InstructionType.EVENT.alias)) {
+            String eventArgs = KniazParser.getAfter(strippedLine, InstructionType.EVENT.alias);
 
             if (!eventArgs.matches(KniazParser.EVENTPATTERN)) { //Handles format validation here for Events
                 throw new KniazRuntimeException(
@@ -113,8 +121,8 @@ public abstract class KniazParser {
             return new KniazCommand(InstructionType.EVENT, tokenizedEventArgs);
         } else {
             throw new KniazRuntimeException(
-                    String.format("Unrecognised input : %s", rawLine),
-                    String.format("I did not recognise %s as an input, try again.", rawLine),
+                    String.format("Unrecognised input : %s", strippedLine),
+                    String.format("I did not recognise %s as an input, try again.", strippedLine),
                     null);
         }
     }

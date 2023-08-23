@@ -103,7 +103,7 @@ public class Kniaz {
 
                 try {
 
-                    String taskString = UnmarkHandler.handle(taskList ,nextCommand.getArgs());
+                    String taskString = UnmarkHandler.handle(taskList, nextCommand.getArgs());
                     System.out.println("Ah, so you didn't actually finish it. Correcting your mistake.");
                     System.out.println(taskString);
 
@@ -111,6 +111,16 @@ public class Kniaz {
                     System.out.println(e.getUserMessage());
                 }
 
+            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.DELETE)){
+
+                try {
+                    String taskString = DeleteHandler.handle(taskList, nextCommand.getArgs());
+                    System.out.println("This task has been erased, mercy on its data :");
+                    System.out.println(taskString);
+                    System.out.println(String.format("Only %s tasks remain.",taskList.size()));
+                } catch (KniazRuntimeException e) {
+                    System.out.println(e.getUserMessage());
+                }
             } else if (nextCommand.instructionEquals(KniazParser.InstructionType.TODO)) {
 
                 try {
