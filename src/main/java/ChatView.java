@@ -17,26 +17,26 @@ public class ChatView {
      * @param command The input received.
      */
     public void commandInput(String command) {
-
-        if (command.toLowerCase().contains("unmark")) {
-            int n = getInt(command);
-            chatRecord.setUnmark(n);
-            System.out.println(beautifyString(String.format("I have marked this task as undone!\n%s", chatRecord.getTask(n))));
-            return;
-        }
-
-        if (command.toLowerCase().contains("mark")) {
-            int n = getInt(command);
-            chatRecord.setMark(n);
-            System.out.println(beautifyString(String.format("I have marked this task as done!\n%s", chatRecord.getTask(n))));
-            return;
-        }
-
         String[] commandSplit = command.split(" ", 2);
         String commandType = commandSplit[0].toLowerCase();
         Task out;
 
         switch(commandType) {
+            case "unmark":
+                int n = getInt(command);
+                chatRecord.setUnmark(n);
+                System.out.println(beautifyString(String.format("I have marked this task as undone!\n%s", chatRecord.getTask(n))));
+                break;
+            case "mark":
+                n = getInt(command);
+                chatRecord.setMark(n);
+                System.out.println(beautifyString(String.format("I have marked this task as done!\n%s", chatRecord.getTask(n))));
+                break;
+            case "delete":
+                n = getInt(command);
+                Task del = chatRecord.deleteTask(n);
+                System.out.println(beautifyString(String.format("The following task has been deleted: %s\nYou now have %d tasks in the list", del, chatRecord.getCount())));
+                break;
             case "bye":
                 System.out.println(String.format("%s\nAccess Terminated! Hope to see you again soon!\n%s", LINE_BREAK, LINE_BREAK));
                 System.exit(0);

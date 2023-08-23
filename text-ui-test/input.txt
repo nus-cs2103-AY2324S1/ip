@@ -5,4 +5,7 @@ event project meeting /from Aug 6th 2pm /to 4pm
 list
 unmark 1
 list
+idk
+delete 1
+list
 bye

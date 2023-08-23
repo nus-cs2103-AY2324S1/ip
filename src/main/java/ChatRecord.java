@@ -30,6 +30,11 @@ public class ChatRecord {
         return ret;
     }
 
+    public Task deleteTask(int n) {
+        counter--;
+        return chatRecords.remove(n - 1);
+    }
+
     public String listMessage() {
         StringBuilder ret = new StringBuilder();
         for (int i = 0; i < chatRecords.size(); i++) {
