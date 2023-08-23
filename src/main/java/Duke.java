@@ -4,17 +4,25 @@ public class Duke {
 
     private static Scanner prompt = new Scanner(System.in);
     private static List taskList = new List();
-    public static void main(String[] args) {
-        greet();
+    public static void main(String[] args) throws DukeException {
+        try {
+            greet();
+        }
+        catch (DukeException exception) {
+            System.out.println(exception);
+        }
+        finally {
+            echo();
+        }
     }
 
-    public static void greet() {
+    public static void greet() throws DukeException {
         System.out.println("Hello! I'm Oranges.");
         System.out.println("What can I do for you?");
         echo();
     }
 
-    public static void echo() {
+    public static void echo() throws DukeException {
         String promptText = prompt.nextLine();
         if (promptText.equals("bye")) {
             exit();
@@ -29,41 +37,64 @@ public class Duke {
             markTask(promptText);
         }
         else {
-            System.out.println("sorry, i don't recognise that command.");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         echo();
     }
 
-    public static void createTask(String promptText) {
+    public static void createTask(String promptText) throws DukeException {
         if (promptText.startsWith("todo")) {
-            Task todo = new Todo(promptText.substring(5));
-            taskList.add(todo);
+            try {
+                Task todo = new Todo(promptText.substring(5));
+                taskList.add(todo);
+            }
+            catch (StringIndexOutOfBoundsException s) {
+                throw new DukeException("OOPS!! The description of a todo cannot be empty.");
+            }
         }
         else if (promptText.startsWith("deadline")) {
-            String[] parts = promptText.split("/");
-            Task deadline = new Deadline(parts[0].substring(9), parts[1].substring(2));
-            taskList.add(deadline);
+            try {
+                String[] parts = promptText.split("/");
+                Task deadline = new Deadline(parts[0].substring(9), parts[1].substring(2));
+                taskList.add(deadline);
+            }
+            catch (StringIndexOutOfBoundsException s) {
+                throw new DukeException("OOPS!! The description of a deadline cannot be empty.");
+            }
         }
         else {
-            String[] parts = promptText.split("/");
-            Task event = new Event(parts[0].substring(6), parts[1].substring(4), parts[2].substring(2));
-            taskList.add(event);
+            try {
+                String[] parts = promptText.split("/");
+                Task event = new Event(parts[0].substring(6), parts[1].substring(4), parts[2].substring(2));
+                taskList.add(event);
+            }
+            catch (StringIndexOutOfBoundsException s) {
+                throw new DukeException("OOPS!! The description of an event cannot be empty.");
+            }
         }
     }
-    public static void markTask(String promptText) {
-        int i = Integer.parseInt(promptText.substring(promptText.length() - 1));
-        Task t = taskList.get(i-1);
-        if (promptText.startsWith("unmark")) {
-            t.unmark();
+    public static void markTask(String promptText) throws DukeException {
+        try {
+            int i = Integer.parseInt(promptText.substring(promptText.length() - 1));
+            Task t = taskList.get(i-1);
+            if (promptText.startsWith("unmark")) {
+                t.unmark();
+            }
+            else {
+                t.mark();
+            }
         }
-        else {
-            t.mark();
+        catch (NumberFormatException n) {
+            throw new DukeException("OOPS!! You must mark/unmark an index.");
+        }
+        catch (IndexOutOfBoundsException i) {
+            throw new DukeException("OOPS!! This index doesn't exist.");
         }
     }
 
 
 
-    public static void list() {
+    public static void list() throws DukeException {
         taskList.list();
         echo();
     }
