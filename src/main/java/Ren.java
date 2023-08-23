@@ -4,6 +4,7 @@ import java.util.Set;
 public class Ren {
     public static void main(String[] args) throws InvalidRenCommand {
         String LS_COMMAND = "list";
+        String DELETE_COMMAND = "delete";
         String EXIT_COMMAND = "bye";
         String MARK_COMMAND = "mark";
         String UNMARK_COMMAND = "unmark";
@@ -30,6 +31,19 @@ public class Ren {
                 System.out.println("____________________________________________________________\n");
                 tasks.listTasks();
                 System.out.println("____________________________________________________________\n");
+            } else if (commandArr[0].equals(DELETE_COMMAND)) {
+                try {
+                    Task task = tasks.deleteTask(commandArr);
+
+                    System.out.println("____________________________________________________________\n" +
+                            String.format("Deleted %s\n", task) +
+                            tasks.declareNumOfTasks() +
+                            "____________________________________________________________\n");
+                } catch (InsufficientArguments e) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println(e.getMessage());
+                    System.out.println("____________________________________________________________\n");
+                }
             } else if (commandArr[0].equals(MARK_COMMAND) || commandArr[0].equals(UNMARK_COMMAND)) {
                 Task task = tasks.toggleTask(commandArr);
                 System.out.println("____________________________________________________________\n" +

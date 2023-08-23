@@ -18,7 +18,7 @@ public class TaskList {
         if (commandArr.length <= 1) {
             throw new InsufficientArguments();
         }
-        
+
 
         if (commandArr[0].equals("todo")) {
             StringBuilder builder = new StringBuilder();
@@ -89,6 +89,24 @@ public class TaskList {
             System.out.printf("%d %s\n%n", i + 1, tasks.get(i));
         }
     }
+
+    /**
+     * Adds Task into TaskList.
+     *
+     * @param commandArr array of the command split by whitespace
+     * @return the added task
+     */
+    public Task deleteTask(String[] commandArr) throws InsufficientArguments {
+        if (commandArr.length <= 1) {
+            throw new InsufficientArguments();
+        }
+
+        int indexToBeDeleted = Integer.parseInt(commandArr[1]) - 1;
+        Task taskDeleted = this.tasks.get(indexToBeDeleted);
+        this.tasks.remove(indexToBeDeleted);
+        return taskDeleted;
+    }
+
 
     public String declareNumOfTasks() {
         return String.format("%d tasks in the list\n", tasks.size());
