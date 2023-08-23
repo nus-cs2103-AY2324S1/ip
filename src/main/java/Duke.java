@@ -4,7 +4,7 @@ import java.util.ArrayList;
 //emoticons taken from: https://kaomojikuma.com/ and https://www.emoticonstext.com/
 
 public class Duke {
-    private static String line = "--------------------------------------------------";
+    private static String line = "--------------------------------------------------------------------";
 
     public static void newTaskAdded(Task task) {
         System.out.println("(｀･ω･´)ﾉ New task added:\n" + task);
@@ -57,38 +57,89 @@ public class Duke {
                     System.out.println(line);
 
                 } else if (command.equals("todo")) {
-                    String rest = scanner.nextLine().substring(1); //get rid of space
-                    ToDo toDo = new ToDo(0, rest);
-                    list.add(toDo);
-                    newTaskAdded(toDo);
-                    getNumberOfTasks(list);
+                    if (scanner.hasNextLine()) {
+                        String rest = scanner.nextLine();
+
+                        if (rest.isBlank()) { //no task specified
+                            System.out.println("(・´з`・) Uh oh... please add a description\n" + line);
+                        } else {
+                            ToDo toDo = new ToDo(0, rest.substring(1));
+                            list.add(toDo);
+                            newTaskAdded(toDo);
+                            getNumberOfTasks(list);
+                        }
+                    } else {
+                        System.out.println("(・´з`・) Uh oh... please add a description");
+                    }
 
                 } else if (command.equals("deadline")) {
-                    String rest = scanner.nextLine().substring(1);
-                    String[] arr = rest.split("/by ", 2);
-                    String task = arr[0];
-                    String date = arr[1];
-                    Deadline deadline = new Deadline(0, task, date);
-                    list.add(deadline);
-                    newTaskAdded(deadline);
-                    getNumberOfTasks(list);
-
-                } else if (command.equals("event")) {
-                    String rest = scanner.nextLine().substring(1);
-                    String[] arr = rest.split("/from ", 2);
-                    String task = arr[0];
-                    String start = arr[1].split(" /to ", 2)[0];
-                    String end = rest.split("/to ", 2)[1];
-                    Event event = new Event(0, task, start, end);
-                    list.add(event);
-                    newTaskAdded(event);
-                    getNumberOfTasks(list);
-
-                } else {
-                    if (scanner.hasNext()) {
+                    if (scanner.hasNextLine()) {
                         String rest = scanner.nextLine();
+
+                        if (rest.isBlank()) { //no task specified
+                            System.out.println("(・´з`・) Uh oh... please add a description\n" + line);
+                        } else {
+                            String afterSpace = rest.substring(1);
+                            String[] arr = afterSpace.split("/by ", 2);
+
+                            if (arr.length == 1) { //cannot find /by ie. incorrect format
+                                System.out.println("(・´з`・) Uh oh... please add a deadline after '/by '\n" + line);
+                            } else {
+                                String task = arr[0];
+                                String date = arr[1];
+                                if (date.isBlank()) { //no date added
+                                    System.out.println("(・´з`・) Uh oh... please add a deadline after '/by '\n" + line);
+                                } else {
+                                    Deadline deadline = new Deadline(0, task, date);
+                                    list.add(deadline);
+                                    newTaskAdded(deadline);
+                                    getNumberOfTasks(list);
+                                }
+                            }
+                        }
                     }
+                } else if (command.equals("event")) {
+                    if (scanner.hasNextLine()) {
+                        String rest = scanner.nextLine();
+                        if (rest.isBlank()) { //no task specified
+                            System.out.println("(・´з`・) Uh oh... please add a description\n" + line);
+                        } else {
+                            String afterSpace = rest.substring(1);
+                            String[] arr = afterSpace.split("/from ", 2);
+
+                            if (arr.length == 1) { //no start date added
+                                System.out.println("(・´з`・) Uh oh... please add a start date\n" + line);
+                            } else {
+                                String task = arr[0];
+                                String start = arr[1].split(" /to ", 2)[0];
+                                if (start.isBlank()) {
+                                    System.out.println("(・´з`・) Uh oh... please add a start date\n" + line);
+
+                                } else {
+                                    String[] arrWithEnd = afterSpace.split("/to ", 2);
+
+                                    if (arrWithEnd.length == 1) { //no end date added
+                                        System.out.println("(・´з`・) Uh oh... please add an end date\n" + line);
+                                    } else {
+                                        String end = arrWithEnd[1];
+                                        if (end.isBlank()) {
+                                            System.out.println("(・´з`・) Uh oh... please add an end date\n" + line);
+                                        } else {
+                                            Event event = new Event(0, task, start, end);
+                                            list.add(event);
+                                            newTaskAdded(event);
+                                            getNumberOfTasks(list);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
                     System.out.println("Sorry, I don't understand what you mean ><\n" + line);
+                    if (scanner.hasNext()) {
+                        String rest = scanner.nextLine(); //scan the rest of the line to get to next valid input
+                    }
                 }
             }
         }

@@ -36,4 +36,42 @@ mark 4
 
 list
 
+todo
+
+todo
+
+deadline
+
+deadline bake cookies
+
+deadline bake cookies 6pm
+
+deadline bake cookies /by
+
+deadline bake cookies /by
+
+deadline bake cookies /by 6pm
+
+event
+
+event
+
+event food fest
+
+event food fest /from
+
+event food fest /from 6pm
+
+event food fest /from 6pm /to
+
+event food fest /from 6pm /to 11pm
+
+byebye
+
+byeeeee
+
+todooo
+
+dateline bake cookies /by 12pm
+
 bye
