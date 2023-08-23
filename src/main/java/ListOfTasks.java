@@ -27,12 +27,30 @@ public class ListOfTasks {
         System.out.println("Added: " + task.getDescription());
     }
 
+    /**
+     * Marks specific Task in list as completed.
+     *
+     * @param taskNumber Number of task in list to be mark as completed.
+     */
     public void markTaskAsDone(int taskNumber) {
         Task completedTask = list[taskNumber - 1];
         completedTask.markAsDone();
 
         System.out.println("Good job! I've marked this task as completed:");
         System.out.println(completedTask);
+    }
+
+    /**
+     * Marks specific Task in list as uncompleted.
+     *
+     * @param taskNumber Number of task in list to be mark as uncompleted.
+     */
+    public void markTaskAsNotDone(int taskNumber) {
+        Task unmarkedTask = list[taskNumber - 1];
+        unmarkedTask.markAsNotDone();
+
+        System.out.println("OK! I've marked this task as not done yet:");
+        System.out.println(unmarkedTask);
     }
 
     /**

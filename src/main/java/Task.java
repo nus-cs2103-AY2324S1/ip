@@ -46,6 +46,13 @@ public class Task {
     }
 
     /**
+     * Changes isDone boolean to true, marking task as done.
+     */
+    public void markAsNotDone() {
+        this.isDone = false;
+    }
+
+    /**
      * Returns string representation of the status of the Task.
      *
      * @return The string representation of the status.
