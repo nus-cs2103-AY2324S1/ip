@@ -1,6 +1,6 @@
 import java.util.Scanner;
 public class Duke {
-    private static String chatBotName = "CHAD CCP";
+    private static final String chatBotName = "CHAD CCP";
     public static void main(String[] args) {
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
