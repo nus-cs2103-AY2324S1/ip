@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Duke {
     public static void display_lines() {
@@ -20,9 +22,8 @@ public class Duke {
         System.out.println("Woof Woof! I'm " + name + " 🐾");
         System.out.println("How can I help you?");
         display_lines();
-        Task[] tasks = new Task[100];
+        List<Task> list = new ArrayList<>();
         String s = "";
-        int counter = 0;
         outer: do {
             s = sc.nextLine();
             display_lines();
@@ -36,9 +37,9 @@ public class Duke {
                     case "list":
                         System.out.print("\t");
                         System.out.println("Here are the tasks in your list:");
-                        for (int i = 0; i < counter; i++) {
+                        for (int i = 0; i < list.size(); i++) {
                             System.out.print("\t\t");
-                            System.out.println((i + 1) + ". " + tasks[i].getString());
+                            System.out.println((i + 1) + ". " + list.get(i).getString());
                         }
                         display_lines();
                         break;
@@ -50,18 +51,18 @@ public class Duke {
                                 throw new DukeIntegerMismatchException("mark");
                             } else {
                                 int index = s.charAt(s.indexOf(' ') + 1) - 48;
-                                if (index > counter) {
+                                if (index > list.size()) {
                                     System.out.print("\t");
                                     throw new DukeIndexOutOfBoundsException("mark");
                                 } else if (index < 0) {
                                     System.out.print("\t");
                                     throw new DukeNegativeArgException("mark");
                                 } else {
-                                    tasks[index - 1].markAsDone();
+                                    list.get(index - 1).markAsDone();
                                     System.out.print("\t");
                                     System.out.println("Woof Woof! I have marked the task as done.");
                                     System.out.print("\t");
-                                    System.out.println(tasks[index - 1].getString());
+                                    System.out.println(list.get(index - 1).getString());
                                 }
                             }
                         } else if (s.startsWith("unmark")) {
@@ -71,18 +72,18 @@ public class Duke {
                                 throw new DukeIntegerMismatchException("unmark");
                             } else {
                                 int index = s.charAt(s.indexOf(' ') + 1) - 48;
-                                if (index > counter) {
+                                if (index > list.size()) {
                                     System.out.print("\t");
                                     throw new DukeIndexOutOfBoundsException("unmark");
                                 } else if (index < 0) {
                                     System.out.print("\t");
                                     throw new DukeNegativeArgException("unmark");
                                 } else {
-                                    tasks[index - 1].unMark();
+                                    list.get(index - 1).unMark();
                                     System.out.print("\t");
                                     System.out.println("OK, I have marked the task as not done yet.");
                                     System.out.print("\t");
-                                    System.out.println(tasks[index - 1].getString());
+                                    System.out.println(list.get(index - 1).getString());
                                 }
                             }
                         } else if (s.startsWith("delete")) {
@@ -92,28 +93,20 @@ public class Duke {
                                 throw new DukeIntegerMismatchException("delete");
                             } else {
                                 int index = s.charAt(s.indexOf(' ') + 1) - 48;
-                                if (index > counter) {
+                                if (index > list.size()) {
                                     System.out.print("\t");
                                     throw new DukeIndexOutOfBoundsException("delete");
                                 } else if (index < 0) {
                                     System.out.print("\t");
                                     throw new DukeNegativeArgException("delete");
                                 } else {
-                                    String s1 = tasks[index - 1].getString();
-                                    if (index == counter) {
-                                        tasks[index] = null;
-                                    }
-                                    else {
-                                        for (int i = index - 1; i < counter; i++) {
-                                            tasks[i] = tasks[i + 1];
-                                        }
-                                    }
-                                    counter--;
+                                    String s1 = list.get(index - 1).getString();
+                                    list.remove(index - 1);
                                     System.out.print("\t");
                                     System.out.println("I have removed this task from your list:");
                                     System.out.print("\t");
                                     System.out.println(s1);
-                                    System.out.println("\tNow you have " + counter + (counter == 1 ? " task" : " tasks") + " in your list.");
+                                    System.out.println("\tNow you have " + list.size() + (list.size() == 1 ? " task" : " tasks") + " in your list.");
                                 }
                             }
                         } else {
@@ -126,9 +119,9 @@ public class Duke {
                                         System.out.print("\t");
                                         System.out.println("Woof. I have added this task:");
                                         String task = s.substring(s.indexOf(' ') + 1);
-                                        tasks[counter++] = new ToDo(task);
-                                        System.out.println("\t\t" + tasks[counter - 1].getString());
-                                        System.out.println("\tNow you have " + counter + (counter == 1 ? " task" : " tasks") + " in your list.");
+                                        list.add(new ToDo(task));
+                                        System.out.println("\t\t" + list.get(list.size() - 1).getString());
+                                        System.out.println("\tNow you have " + list.size() + (list.size() == 1 ? " task" : " tasks") + " in your list.");
                                     }
                                     break;
                                 }
@@ -144,9 +137,9 @@ public class Duke {
                                         System.out.println("Woof. I have added this task:");
                                         String task = s.substring(s.indexOf(' ') + 1, s.indexOf('/') - 1);
                                         String by = s.substring(s.lastIndexOf('/') + 4);
-                                        tasks[counter++] = new Deadline(task, by);
-                                        System.out.println("\t\t" + tasks[counter - 1].getString());
-                                        System.out.println("\tNow you have " + counter + (counter == 1 ? " task" : " tasks") + " in your list.");
+                                        list.add(new Deadline(task, by));
+                                        System.out.println("\t\t" + list.get(list.size() - 1).getString());
+                                        System.out.println("\tNow you have " + list.size() + (list.size() == 1 ? " task" : " tasks") + " in your list.");
                                     }
                                     break;
                                 }
@@ -163,9 +156,9 @@ public class Duke {
                                         String task = s.substring(s.indexOf(' ') + 1, s.indexOf('/') - 1);
                                         String from = s.substring(s.indexOf("from") + 5, s.lastIndexOf('/') - 1);
                                         String by = s.substring(s.indexOf("to") + 3);
-                                        tasks[counter++] = new Event(task, from, by);
-                                        System.out.println("\t\t" + tasks[counter - 1].getString());
-                                        System.out.println("\tNow you have " + counter + (counter == 1 ? " task" : " tasks") + " in your list.");
+                                        list.add(new Event(task, from, by));
+                                        System.out.println("\t\t" + list.get(list.size() - 1).getString());
+                                        System.out.println("\tNow you have " + list.size() + (list.size() == 1 ? " task" : " tasks") + " in your list.");
                                     }
                                     break;
                                 }
