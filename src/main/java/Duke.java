@@ -27,7 +27,8 @@ public class Duke {
     }
     public static void evaluate(String command, ArrayList<Task> tasks) {
         final String HORIZONTAL = "_____________________________________________________________";
-        String words[] = command.split(" ");
+        // split the command into 2(words[0] first word, words[1] the rest)
+        String[] words = command.split(" ", 2);
         if(command.equals("bye")) {
             System.out.println(HORIZONTAL);
             System.out.println("Bye. Hope to see you again soon!");
@@ -35,14 +36,12 @@ public class Duke {
         } else if(command.equals("list")) {
             int length = tasks.size();
             System.out.println(HORIZONTAL);
+            System.out.println("Here are the tasks in your list:");
             for(int i = 0;i < length; i++) {
                 int task_number = i + 1;
                 Task t =  tasks.get(i);
-                System.out.println(task_number + ". "
-                        + "["
-                        + t.getStatusIcon()
-                        + "]"
-                        + " "
+                System.out.println(task_number
+                        + ". "
                         + t);
             }
             System.out.println(HORIZONTAL);
@@ -51,7 +50,7 @@ public class Duke {
             t.markDone();
             System.out.println(HORIZONTAL);
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("[" + t.getStatusIcon() + "] " + t);
+            System.out.println(t);
             System.out.println(HORIZONTAL);
 
         } else if(words[0].equals(("unmark"))){
@@ -59,13 +58,42 @@ public class Duke {
             t.markUndone();
             System.out.println(HORIZONTAL);
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("[" + t.getStatusIcon() + "] " + t);
+            System.out.println(t);
             System.out.println(HORIZONTAL);
-        } else{
-            Task t = new Task(command);
+        } else if(words[0].equals("todo")){
+            // no need to split words[1] further since no deadline
+            Todo t = new Todo(words[1]);
             tasks.add(t);
             System.out.println(HORIZONTAL);
-            System.out.println("added: " + t);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(t);
+            System.out.println("Now you have " + tasks.size() + " in the list.");
+            System.out.println(HORIZONTAL);
+        } else if(words[0].equals("deadline")) {
+            //split words[1] into 2
+            String[] taskWithDeadline = words[1].split("/", 2);
+            String c = taskWithDeadline[0];
+            String deadline = taskWithDeadline[1].split(" " , 2)[1];
+            Deadline t =  new Deadline(c, deadline);
+            tasks.add(t);
+            System.out.println(HORIZONTAL);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(t);
+            System.out.println("Now you have " + tasks.size() + " in the list.");
+            System.out.println(HORIZONTAL);
+        } else{
+            //split based on /from first
+            String[] splitCommand = words[1].split("/", 2);
+            String c = splitCommand[0];
+            String[] splitDeadline = splitCommand[1].split("/", 2);
+            String from = splitDeadline[0].split(" ", 2)[1];
+            String to = splitDeadline[1].split(" ", 2)[1];
+            Event t = new Event(c, from, to);
+            tasks.add(t);
+            System.out.println(HORIZONTAL);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(t);
+            System.out.println("Now you have " + tasks.size() + " in the list.");
             System.out.println(HORIZONTAL);
         }
     }
