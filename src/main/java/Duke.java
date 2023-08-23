@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Duke {
     private static final String botName = "cc";
 
@@ -9,8 +10,18 @@ public class Duke {
     private static void bye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
+
+    private static void echo(String input) {
+        System.out.println(input);
+    }
     public static void main(String[] args) {
         Duke.greet();
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        while (!input.equals("bye")) {
+            echo(input);
+            input = scanner.nextLine();
+        }
         Duke.bye();
     }
 }
