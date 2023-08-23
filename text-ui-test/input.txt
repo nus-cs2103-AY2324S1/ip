@@ -1,0 +1,16 @@
+todo buy eggs
+todo break eggs
+todo cook eggs
+deadline take bread out of oven /by 6pm
+mark 1
+mark 2
+list
+event cooking session /from 7pm /to 9pm
+mark 3
+mark 5
+list
+unmark 1
+unmark 2
+unmark 3
+list
+bye

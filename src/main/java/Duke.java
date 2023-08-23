@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class Duke {
     public static void display_lines() {
         for (int i = 0; i < 20; i++) {
-            System.out.print("- ");
+            System.out.print((i==0 ? "-" : " -"));
         }
         System.out.println();
     }
@@ -13,7 +13,7 @@ public class Duke {
                 ":-….,———-‘`----/   ._.*\n" +
                 " `-,,,   BRUNO   ,’\n" +
                 "     ;   ,~.——;  /\n" +
-                "     :  |     :  | \n" +
+                "     :  |     :  |\n" +
                 "     `_ ’     `_ ‘";
         System.out.println(logo);
         String name = "Bruno";
@@ -60,7 +60,7 @@ public class Duke {
                     }
                     else {
                         System.out.print("\t");
-                        System.out.println("Woof. I have added this task: ");
+                        System.out.println("Woof. I have added this task:");
                         switch(s.substring(0, s.indexOf(' '))) {
                             case "todo": {
                                 String task = s.substring(s.indexOf(' ') + 1);
