@@ -6,6 +6,9 @@ public class Deadlines extends Task {
         if (!details.startsWith("by")) {
             throw new DukeException("☹ OOPS!!! Please use the proper format for the deadline.");
         }
+        if (details.substring(3).isEmpty()) {
+            throw new DukeException("☹ OOPS!!! There are missing details for the deadline.");
+        }
         this.by = details.substring(3);
 
     }

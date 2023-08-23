@@ -1,7 +1,10 @@
 public class Task {
     private String task;
     private boolean done;
-    public Task(String task) {
+    public Task(String task) throws DukeException {
+        if (task.isEmpty()) {
+            throw new DukeException("☹ OOPS!!! Task description should not be empty.");
+        }
         this.task = task;
         this.done = false;
     }

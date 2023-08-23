@@ -6,6 +6,9 @@ public class Events extends Task {
         if (!from.startsWith("from") || !to.startsWith("to")) {
             throw new DukeException("☹ OOPS!!! Please use the proper format for the event.");
         }
+        if (from.substring(5).isEmpty() || to.substring(3).isEmpty()) {
+            throw new DukeException("☹ OOPS!!! There are missing details for the event.");
+        }
         this.from = from.substring(5);
         this.to = to.substring(3);
     }
