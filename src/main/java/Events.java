@@ -23,5 +23,6 @@ public class Events extends Task {
     @Override
     public String getDescription() {
         String description = String.format("%s (from: %s to: %s)", super.getName(), from, to);
+        return description;
     }
 }

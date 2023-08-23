@@ -20,7 +20,7 @@ public class Task {
     }
 
     public String getDescription() {
-        getName();
+        return getName();
     }
 
     public boolean isDone() {
