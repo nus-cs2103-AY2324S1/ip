@@ -13,6 +13,6 @@ public class Event extends Task{
   
   @Override
   public String toString() {
-    return "[E][" + this.getStatusIcon() + "] " + this.description;
+    return String.format("[E][%s] %s (from: %s to: %s)", this.getStatusIcon(), this.description, this.from, this.to);
   }
 }
