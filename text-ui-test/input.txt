@@ -1,0 +1,13 @@
+todo ToDo1
+deadline Deadline1 /by deadlineDate
+event Event1 /from startTime /to endTime
+list
+mark 1
+list
+mark 2
+list
+mark 3
+list
+unmark 1
+list
+bye
