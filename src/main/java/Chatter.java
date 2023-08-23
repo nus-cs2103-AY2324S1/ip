@@ -30,6 +30,7 @@ public class Chatter {
 
         while (!userInput.equals("bye")) {
             System.out.println("-----------------------");
+
             if (userInput.equals("list")) {
                 tasks.listTasks();
             } else if (userInput.startsWith("mark")){
@@ -42,9 +43,16 @@ public class Chatter {
                 int deadlineIndex = userInput.indexOf("/by");
                 tasks.addTask(new Deadline(userInput.substring(9, deadlineIndex - 1),
                         userInput.substring(deadlineIndex + 4)));
+            } else if (userInput.startsWith("event")){
+                int startIndex = userInput.indexOf("/from");
+                int endIndex = userInput.indexOf("/to");
+                tasks.addTask(new Event(userInput.substring(6, startIndex - 1),
+                        userInput.substring(startIndex + 6, endIndex - 1),
+                        userInput.substring(endIndex + 4)));
             } else {
                 tasks.addTask(new Task(userInput));
             }
+
             System.out.println("-----------------------");
             userInput = scanner.nextLine();
         }
