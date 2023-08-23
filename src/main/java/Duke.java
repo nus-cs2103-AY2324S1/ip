@@ -97,6 +97,17 @@ public class Duke {
                             System.out.println("Got it. I've added this task: " + newEventTask.toString());
                             System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
                             break;
+                        case "delete":
+                            int inputDelete = Integer.valueOf(input.split(" ", 2)[1]) - 1;
+                            try {
+                                String taskToDelete = tasks.get(inputDelete).toString();
+                                System.out.println("Noted. I've removed this task:\n" + taskToDelete);
+                                tasks.remove(inputDelete);
+                                System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+                            } catch (IndexOutOfBoundsException e) {
+                                throw new InvalidTaskIndexException("");
+                            }
+                            break;
                         default:
                             throw new InvalidTaskException("");
                     }
