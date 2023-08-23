@@ -1,6 +1,9 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
+        ArrayList<String> storedList = new ArrayList<>();
         String line = "____________________________________________________________";
         String logo = "        ┏┓\n"
                 + "        ┃┃\n"
@@ -15,7 +18,17 @@ public class Duke {
         String input = userInput.nextLine();
 
         while (!input.equals("bye")) {
-            System.out.println(input + "\n" + line);
+            if (input.equals("list")) {
+                for (int i = 0; i < storedList.size(); i++) {
+                    int index = i + 1;
+                    System.out.println(index + ". " + storedList.get(i));
+                }
+
+            } else {
+                storedList.add(input);
+                System.out.println("added: "+ input + "\n" + line);
+            }
+
             input = userInput.nextLine();
         }
 
