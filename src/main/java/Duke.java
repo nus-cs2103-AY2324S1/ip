@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static ListOfTask taskList = new ListOfTask();
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -42,11 +43,32 @@ public class Duke {
                 break;
 
             case ("list"):
-                //list();
+                taskList.listTasks();
                 break;
 
             default:
-                echo(command);
+                taskList.addTask(command);
+        }
+        Scanner scanObj = new Scanner(System.in);
+        String newCommand = scanObj.nextLine();
+        nextCommand(newCommand);
+    }
+}
+
+class ListOfTask {
+    private static String[] listOfTask = new String[100];
+    private static int counter = 0;
+
+    public void addTask(String task) {
+        listOfTask[counter] = task;
+        counter++;
+        System.out.println(counter);
+        System.out.println("added: " + task);
+    }
+
+    public void listTasks() {
+        for(int i = 0; i < counter; i++) {
+            System.out.println(i+1 + ". " + listOfTask[i]);
         }
     }
 }
