@@ -17,6 +17,7 @@ public class Simon {
         // Start Program
         System.out.println(spaceN + SimonAscii.toStr());
         System.out.println(greetings);
+
         while (!inData.equals("bye")) {
             inData = scan.nextLine();
             if (inData.equals("list")) {
@@ -43,6 +44,7 @@ public class Simon {
                 System.out.println("added: " + inData + nSpace);
             }
         }
+        
         System.out.println(bye);
     }
 }
