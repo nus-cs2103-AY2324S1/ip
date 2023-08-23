@@ -40,21 +40,44 @@ public class Duke {
                     System.out.println(i++ + "." + task.toString());
                 }
             } else if (s.equals("mark")) { // mark tasks
-                int temp = sc.nextInt() - 1;
-                tasks[temp].markTask(true);
+                int index = sc.nextInt() - 1;
+                tasks[index].markTask(true);
                 System.out.println("Good job on completing a task ! You deserve a cookie C:");
-                System.out.println("\t" + tasks[temp].toString());
+                System.out.println("\t" + tasks[index].toString());
             } else if (s.equals("unmark")) { // unmark tasks
-                int temp = sc.nextInt() - 1;
-                tasks[temp].markTask(false);
+                int index = sc.nextInt() - 1;
+                tasks[index].markTask(false);
                 System.out.println("Oh nyo, did someone make a mistake ?");
-                System.out.println("\t" + tasks[temp].toString());
+                System.out.println("\t" + tasks[index].toString());
             } else { // adding tasks
-                String temp = s + sc.nextLine(); // sc.nextLine() to add the remaining words
-                System.out.println("added: " + temp); // echo command
+                System.out.println("Mama mia ! I've just added this task:");
+                String words = sc.nextLine(); // sc.nextLine() to get the remaining words
 
-                tasks[tasksCounter] = new Task(temp); // store into 'tasks'
+                if (s.equals("todo")) { // to-do task
+                    tasks[tasksCounter] = new ToDos(words);
+                    System.out.println("\t" + tasks[tasksCounter].toString());
+                } else if (s.equals("deadline")) { // deadline task
+                    int split = words.indexOf("/");
+                    // substring w/o the spaces
+                    String taskDescription = words.substring(0, split - 1);
+                    String taskDeadline = words.substring(split + 4, words.length());
+
+                    tasks[tasksCounter] = new Deadline(taskDescription, taskDeadline);
+                    System.out.println("\t" + tasks[tasksCounter].toString());
+                } else if (s.equals("event")) { // event task
+                    // substring w/o the spaces
+                    int startSplit = words.indexOf("/");
+                    String taskDesription = words.substring(0, startSplit - 1);
+                    int endSplit = words.indexOf("/", startSplit + 1); // find "/" after startSplit index
+                    String start = words.substring(startSplit + 6, endSplit - 1);
+                    String end = words.substring(endSplit + 4, words.length());
+
+                    tasks[tasksCounter] = new Event(taskDesription, start, end);
+                    System.out.println("\t" + tasks[tasksCounter].toString());
+                }
+
                 tasksCounter++;
+                System.out.println("You now have " + tasksCounter + " task(s) in your list");
             }
         }
 
