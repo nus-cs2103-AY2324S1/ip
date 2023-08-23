@@ -4,6 +4,16 @@ import java.util.regex.*;
 import dukeExceptions.*;
 
 public class Duke {
+
+    enum Commands {
+        list,
+        mark,
+        unmark,
+        taskaddition,
+        delete,
+        unknown
+    }
+
     public static void main(String[] args) throws DukeException {
         // Print greeting
         String lnspace = "____________________________________________________________";
@@ -27,6 +37,7 @@ public class Duke {
 
             try {
                 // basic user input processing
+                boolean isList = userInput.equals("list");
                 boolean isMark = Pattern.compile("^mark").matcher(userInput).find();
                 boolean isUnmark = Pattern.compile("^unmark").matcher(userInput).find();
                 boolean isTodo = Pattern.compile("^todo").matcher(userInput).find();
@@ -35,76 +46,89 @@ public class Duke {
                 boolean isDelete = Pattern.compile("^delete").matcher(userInput).find();
                 boolean isValidTask = isTodo || isDeadline || isEvent;
 
-                // if user asks for list
-                if (userInput.equals("list")) {
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < arr.length(); i++) {
-                        System.out.printf("%d. %s\n", i + 1, arr.taskToString(i));
-                    }
-                }
+                Commands command = isList
+                        ? Commands.list
+                        : isMark
+                                ? Commands.mark
+                                : isUnmark
+                                        ? Commands.unmark
+                                        : isValidTask
+                                                ? Commands.taskaddition
+                                                : isDelete
+                                                        ? Commands.delete
+                                                        : Commands.unknown;
 
-                // if user wants to mark task
-                else if (isMark) {
-                    int markTask = Integer.parseInt(userInput.split(" ")[1]);
-                    try {
-                        arr.markTaskAsDone(markTask - 1);
-                        System.out.println("Nice! I've marked this task as done:");
-                        System.out.println(arr.taskToString(markTask - 1));
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-
-                // if user wants to unmark task
-                else if (isUnmark) {
-                    int unmarkTask = Integer.parseInt(userInput.split(" ")[1]);
-                    try {
-                        arr.markTaskAsNotDone(unmarkTask - 1);
-                        System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(arr.taskToString(unmarkTask - 1));
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-
-                // if user wants to add todo, deadline or event
-                else if (isValidTask) {
-                    try {
-                        if (isTodo) {
-                            arr.addTask(Todo.of(userInput));
-                        } else if (isDeadline) {
-                            arr.addTask(Deadline.of(userInput));
-                        } else if (isEvent) {
-                            arr.addTask(Event.of(userInput));
+                switch (command) {
+                    case list: {
+                        System.out.println("Here are the tasks in your list:");
+                        for (int i = 0; i < arr.length(); i++) {
+                            System.out.printf("%d. %s\n", i + 1, arr.taskToString(i));
                         }
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(arr.taskToString(arr.length() - 1));
-                        System.out.println("Now you have " + arr.numTasksToString() + " in the list.");
-                    } catch (MissingInformationException e) {
-                        System.out.println(e.getMessage());
+                        break;
                     }
-                }
-
-                // if user wants to delete task
-                else if (isDelete) {
-                    try {
-                        Matcher matcher = Pattern.compile("delete ").matcher(userInput);
-                        if (!matcher.find()) {
-                            // return error
+                    case mark: {
+                        int markTask = Integer.parseInt(userInput.split(" ")[1]);
+                        try {
+                            arr.markTaskAsDone(markTask - 1);
+                            System.out.println("Nice! I've marked this task as done:");
+                            System.out.println(arr.taskToString(markTask - 1));
+                        } catch (DukeException e) {
+                            System.out.println(e.getMessage());
                         }
-                        int index = Integer.parseInt(userInput.substring(matcher.end()).trim());
-                        String description = arr.getTask(index - 1).toString();
-                        arr.delete(index - 1);
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println(description);
-                        System.out.println("Now you have " + arr.numTasksToString() + " in the list.");
-                    } catch (DukeException e) {
-                        System.out.println(e.getMessage());
+                        break;
                     }
-                }
-
-                else {
-                    throw new UnknownTaskTypeException();
+                    case unmark: {
+                        int unmarkTask = Integer.parseInt(userInput.split(" ")[1]);
+                        try {
+                            arr.markTaskAsNotDone(unmarkTask - 1);
+                            System.out.println("OK, I've marked this task as not done yet:");
+                            System.out.println(arr.taskToString(unmarkTask - 1));
+                        } catch (DukeException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    }
+                    case taskaddition: {
+                        try {
+                            if (isTodo) {
+                                arr.addTask(Todo.of(userInput));
+                            } else if (isDeadline) {
+                                arr.addTask(Deadline.of(userInput));
+                            } else if (isEvent) {
+                                arr.addTask(Event.of(userInput));
+                            }
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println(arr.taskToString(arr.length() - 1));
+                            System.out.println("Now you have " + arr.numTasksToString() + " in the list.");
+                        } catch (MissingInformationException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    }
+                    case delete: {
+                        try {
+                            Matcher matcher = Pattern.compile("delete ").matcher(userInput);
+                            if (!matcher.find()) {
+                                // return error
+                            }
+                            int index = Integer.parseInt(userInput.substring(matcher.end()).trim());
+                            String description = arr.getTask(index - 1).toString();
+                            arr.delete(index - 1);
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(description);
+                            System.out.println("Now you have " + arr.numTasksToString() + " in the list.");
+                        } catch (DukeException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    }
+                    case unknown: {
+                        throw new UnknownTaskTypeException();
+                    }
+                    default: {
+                        System.out.println(lnspace);
+                        userInput = sc.nextLine();
+                    }
                 }
 
             } catch (Exception e) {
