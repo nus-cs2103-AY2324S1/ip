@@ -30,9 +30,13 @@ dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 diff ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
-    echo "Test result: PASSED"
+    echo "Test1 result: PASSED"
     exit 0
 else
-    echo "Test result: FAILED"
+    echo "Test1 result: FAILED"
     exit 1
 fi
+
+
+
+

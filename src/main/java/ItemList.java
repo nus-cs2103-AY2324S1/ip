@@ -42,7 +42,7 @@ public class ItemList {
         System.out.println(Greeting.linebreak);
         System.out.println("Got it. I've added this task:");
         System.out.println(items[this.len - 1].showTaskinList());
-        System.out.println("Now you have " + String.valueOf(len) + " tasks in this list");
+        System.out.println("Now you have " + String.valueOf(len) + " tasks in this list.");
         System.out.println(Greeting.linebreak);
     }
 
