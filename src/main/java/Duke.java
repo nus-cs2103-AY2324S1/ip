@@ -1,10 +1,9 @@
 import java.util.Scanner;
-import java.util.ArrayList;
+
 
 public class Duke {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
-//        ArrayList<Task> items = new ArrayList<>();
         FunnyList items = new FunnyList();
         printLine();
         System.out.println("\tHello! I'm FUNNY.\n\tWhat can I do for you?");
