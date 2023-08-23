@@ -11,6 +11,14 @@ public class Storage {
         this.idx++;
     }
 
+    public void mark(int index) {
+        this.arr[index].complete();
+    }
+
+    public void unmark(int index) {
+        this.arr[index].incomplete();
+    }
+
     public String list() {
         StringBuilder builder = new StringBuilder();
         if (this.idx == 0) return "";
