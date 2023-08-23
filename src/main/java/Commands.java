@@ -16,7 +16,12 @@ public class Commands {
         String greet = String.format(
                 "____________________________________________________________\n" +
                         " Hello! I'm %s\n" +
-                        " What can I do for you?\n" +
+                        " I am a task planning bot that will help you record your tasks.\n"+
+                        " I currently can record 3 types of tasks. tasks to do, tasks with deadlines and events\n" +
+                        " Here is how you can record down your events.\n" +
+                        " To record tasks to do, simply begin your command with \"todo\" followed by a space and the task you need to do. \n" +
+                        " To record tasks with deadlines, simply begin your command with \"deadlines\" followed by the task and a / then the due date. \n" +
+                        " To record events, simply begin your command with \"events\" followed by the event, / and start time , then / with the end time\n" +
                         "____________________________________________________________\n", name);
         System.out.println(greet);
     }
@@ -40,8 +45,10 @@ public class Commands {
         Task newTask = null;
 
         // check if input begins with todo, deadline or event to categorise task type
-        if (input.length() > 5 && input.substring(0,4).toLowerCase().equals("todo")) newTask = new ToDos(input.substring(5,input.length()));
-        if (input.length() > 9 && input.substring(0,8).toLowerCase().equals("deadline")) {
+        String[] wordSeparator = input.split(" ");
+        String firstWord = wordSeparator[0];
+        if (firstWord.toLowerCase().equals("todo")) newTask = new ToDos(input.substring(5,input.length()));
+        if (firstWord.toLowerCase().equals("deadline")) {
             String[] parts = input.split("/");
 
             /*
@@ -55,7 +62,7 @@ public class Commands {
             newTask = new Deadlines(description, deadline);
         }
 
-        if (input.length() > 5 && input.substring(0,5).toLowerCase().equals("event")) {
+        if (firstWord.toLowerCase().equals("event")) {
             String[] parts = input.split("/");
             /*
             similar logic as above. additionally, splits input into start and end time
