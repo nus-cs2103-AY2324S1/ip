@@ -100,10 +100,21 @@ public class Simon {
 
     private static void markTask(String inData, boolean markAsDone) throws SimonException {
         String[] split = inData.split(" ");
-        int index = Integer.parseInt(split[1]) - 1;
 
+        int index;
+        try {
+            index = Integer.parseInt(split[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new SimonException("Please provide a valid task number.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new SimonException("Please provide a task number.");
+        }
+
+        if (tasks.isEmpty()) {
+            throw new SimonException("There are no tasks to mark.");
+        }
         if (index < 0 || index >= tasks.size()) {
-            throw new SimonException("Invalid task number.");
+            throw new SimonException("Invalid task number. Choose a number between 1 and " + tasks.size() + ".");
         }
 
         if (markAsDone) {
@@ -114,4 +125,5 @@ public class Simon {
             System.out.println("OK, I've marked this task as not done yet:\n[ ] " + tasks.get(index) + NSPACE);
         }
     }
+
 }
