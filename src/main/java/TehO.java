@@ -4,10 +4,9 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 public class TehO {
-    //static int taskCounter = 0; //remove all
     static ArrayList<Task> taskList = new ArrayList<Task>();
 
-    public static void main(String[] args) throws InvalidCommandException {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Hello! I'm TehO \nWhat can I do for you?");
 
@@ -60,7 +59,7 @@ public class TehO {
 
     public static void addToDo(String userCommand) {
         try {
-            if (userCommand.length() < 6) {
+            if (userCommand.length() < 5) {
                 throw new EmptyToDoDescriptionException();
             }
             System.out.println("Got it. I've added this task:");
@@ -76,16 +75,16 @@ public class TehO {
 
     public static void addDeadline(String userCommand) {
         try {
-            if (userCommand.length() < 10) {
+            if (userCommand.length() < 9) {
                 throw new EmptyDeadlineDescriptionException();
             }
             System.out.println("Got it. I've added this task:");
             String commandWithDate = userCommand.substring(9); //"todo " 9 index
-            String cDeadline = commandWithDate.split("/by")[0];
-            Task task = new Deadline(cDeadline);
-            String byDate = commandWithDate.split("/by")[1];
+            String cDeadline = commandWithDate.split("/by")[0]; //just description
+            String byDate = commandWithDate.split("/by")[1]; //just byDate
+            Task task = new Deadline(cDeadline, byDate);
             taskList.add(task);
-            System.out.println(task.toString() + "(by:" + byDate + ")");
+            System.out.println(task.toString());
             System.out.println("Now you have " + taskList.size() + " tasks in the list.");
         } catch (EmptyDeadlineDescriptionException e) {
             System.out.println(e.toString());
@@ -99,14 +98,13 @@ public class TehO {
             }
             System.out.println("Got it. I've added this task:");
             String commandWithDate = userCommand.substring(6); //"todo " 6 index
-            String cEvent = commandWithDate.split("/from")[0];
-            String dates = commandWithDate.split("/from")[1];
-            Task task = new Event(cEvent);
-            String fromDate = dates.split("/to")[0];
-            String toDate = dates.split("/to")[1];
+            String cEvent = commandWithDate.split("/from")[0]; //just description
+            String dates = commandWithDate.split("/from")[1]; //bothDates
+            String fromDate = dates.split("/to")[0]; //just fromDate
+            String toDate = dates.split("/to")[1]; //just toDate
+            Task task = new Event(cEvent, fromDate, toDate);
             taskList.add(task);
-            System.out.println(task.toString() + "(from:" + fromDate
-                    + " to:" + toDate + ")");
+            System.out.println(task.toString());
             System.out.println("Now you have " + taskList.size() + " tasks in the list.");
         } catch (EmptyEventDescriptionException e) {
             System.out.println(e.toString());
