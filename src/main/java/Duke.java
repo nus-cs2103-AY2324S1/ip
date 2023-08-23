@@ -20,16 +20,16 @@ public class Duke {
                     String command = input.split(" ")[0];
                     if (command.equals("mark")) {
                         String[] data = input.split(" ", 2);
-//                        if (data.length < 2) {
-//                            throw new DukeException("There must be a selected task");
-//                        }
+                        if (data.length < 2) {
+                            throw new DukeException("There must be a selected task");
+                        }
                         Task item = items.get(Integer.valueOf(data[1]) - 1);
                         item.completeTask();
                     } else if (command.equals("unmark")) {
                         String[] data = input.split(" ", 2);
-//                        if (data.length < 2) {
-//                            throw new DukeException("There must be a selected task");
-//                        }
+                        if (data.length < 2) {
+                            throw new DukeException("There must be a selected task");
+                        }
                         Task item = items.get(Integer.valueOf(data[1]) - 1);
                         item.undoTask();
                     } else if (command.equals("todo")) {
