@@ -69,7 +69,7 @@ public class Dude {
     StringBuilder tasksList = new StringBuilder(taskListPrefix);
     for (int i = 0; i < numTasks; i++) {
       String taskNumberPrefix = String.format("%3s-", i + 1);
-      String taskStr = taskNumberPrefix + tasks[i].getTaskString() + "\n";
+      String taskStr = taskNumberPrefix + tasks[i].toString() + "\n";
       tasksList.append(taskStr);
     }
     return tasksList.toString();
@@ -120,7 +120,7 @@ public class Dude {
             int taskNumber = Integer.parseInt(specifiedTask);
             Task task = getTask(taskNumber);
             task.markAsDone();
-            printMessage(markedAsDonePrefix + task.getTaskString());
+            printMessage(markedAsDonePrefix + task);
           } catch (NumberFormatException | TaskOutOfBoundsException e) {
             printMessage(String.format(invalidTaskNumber, specifiedTask));
           }
@@ -136,7 +136,7 @@ public class Dude {
             int taskNumber = Integer.parseInt(specifiedTask);
             Task task = getTask(taskNumber);
             task.markAsNotDone();
-            printMessage(markedAsNotDonePrefix + task.getTaskString());
+            printMessage(markedAsNotDonePrefix + task);
           } catch (NumberFormatException | TaskOutOfBoundsException e) {
             printMessage(String.format(invalidTaskNumber, specifiedTask));
           }
@@ -145,7 +145,7 @@ public class Dude {
       default:
         // add task to list
         Task task = addTask(input);
-        printMessage(String.format(addedTask, task.getTaskString(), numTasks));
+        printMessage(String.format(addedTask, task, numTasks));
     }
     return true;
   }

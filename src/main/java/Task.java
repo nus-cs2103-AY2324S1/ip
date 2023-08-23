@@ -27,7 +27,8 @@ public class Task {
    *
    * @return Task formatted as a string. e.g. [X] completed task
    */
-  public String getTaskString() {
+  @Override
+  public String toString() {
     return String.format("[%s] %s", this.getStatusIcon(), this.description);
   }
 
