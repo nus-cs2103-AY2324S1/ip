@@ -179,7 +179,7 @@ public class BenBen {
 
     public static void iterList() {
         System.out.println(line);
-        System.out.println("Here are the tasks in your list: ");
+        System.out.println("Here are the tasks in your list:");
       for(int i = 0; i < counter; i++) {
               System.out.println((i + 1) + "." + arr[i].toString());
       }
