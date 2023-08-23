@@ -1,42 +1,38 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Task {
-    protected String message;
-    protected boolean isDone;
-
-    Task(String message) {
-        this.message = message;
-        this.isDone = false;
-    }
-
-    public String getStatusIcon() {
-        return isDone ? "[X]" : "[ ]";
-    }
-
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void unmarkAsDone() {
-        this.isDone = false;
-    }
-
-    public String toString() {
-        return this.getStatusIcon() + " " + this.message;
-    }
-}
-
 public class Duke {
 
     public static ArrayList<Task> tasks = new ArrayList<>();
 
-    public static void addToList(String message) {
-        String addMessage = "\t____________________________________________________________\n"
-                + "\t Added: " + message + "\n"
-                + "\t____________________________________________________________\n";
-        tasks.add(new Task(message));
-        System.out.println(addMessage);
+    public static void addTodo(String message) {
+        Task newTask = new Todo(message);
+        tasks.add(newTask);
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t Got it. I've added this task:");
+        System.out.println("\t   " + newTask.toString());
+        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("\t____________________________________________________________");
+    }
+
+    public static void addDeadline(String message, String deadline) {
+        Task newTask = new Deadline(message, deadline);
+        tasks.add(newTask);
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t Got it. I've added this task:");
+        System.out.println("\t   " + newTask.toString());
+        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("\t____________________________________________________________");
+    }
+
+    public static void addEvent(String message, String from, String to) {
+        Task newTask = new Event(message, from, to);
+        tasks.add(newTask);
+        System.out.println("\t____________________________________________________________");
+        System.out.println("\t Got it. I've added this task:");
+        System.out.println("\t   " + newTask.toString());
+        System.out.println("\t Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("\t____________________________________________________________");
     }
 
     public static void printList() {
@@ -91,8 +87,14 @@ public class Duke {
                 markAsDone(Integer.parseInt(message.substring(5)));
             } else if (message.startsWith("unmark ")) {
                 unmarkAsDone(Integer.parseInt(message.substring(7)));
-            } else {
-                addToList(message);
+            } else if (message.startsWith("todo ")) {
+                addTodo(message.substring(5));
+            } else if (message.startsWith("deadline ")) {
+                String[] deadline = message.substring(9).split(" /by ");
+                addDeadline(deadline[0], deadline[1]);
+            } else if (message.startsWith("event ")) {
+                String[] event = message.substring(6).split(" /to | /from ");
+                addEvent(event[0], event[1], event[2]);
             }
         }
 
