@@ -22,15 +22,19 @@ public class Duke {
                         if (data.length < 2) {
                             throw new DukeException("There must be a selected task");
                         }
-                        Task item = items.get(Integer.valueOf(data[1]) - 1);
-                        item.completeTask();
+                        items.completeTask(Integer.valueOf(data[1]) - 1);
                     } else if (command.equals("unmark")) {
                         String[] data = input.split(" ", 2);
                         if (data.length < 2) {
                             throw new DukeException("There must be a selected task");
                         }
-                        Task item = items.get(Integer.valueOf(data[1]) - 1);
-                        item.undoTask();
+                        items.undoTask(Integer.valueOf(data[1]) - 1);
+                    } else if (command.equals("delete")) {
+                        String[] data = input.split(" ", 2);
+                        if (data.length < 2) {
+                            throw new DukeException("There must be a selected task");
+                        }
+                        items.deleteTask(Integer.valueOf(data[1]) - 1);
                     } else if (command.equals("todo")) {
                         String[] data = input.split(" ", 2);
                         if (data.length < 2) {

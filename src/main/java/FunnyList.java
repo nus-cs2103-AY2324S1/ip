@@ -16,13 +16,32 @@ public class FunnyList {
         Duke.printLine();
     }
 
-    public Task get(int i) throws DukeException {
-        if (i < 0 || i >= this.taskList.size()) {
+    public void completeTask(int index) throws DukeException {
+        if (index < 0 || index >= this.taskList.size()) {
             throw new DukeException("Index does not exist");
         }
-        return taskList.get(i);
+        taskList.get(index).completeTask();
     }
 
+    public void undoTask(int index) throws DukeException {
+        if (index < 0 || index >= this.taskList.size()) {
+            throw new DukeException("Index does not exist");
+        }
+        taskList.get(index).undoTask();
+    }
+
+    public void deleteTask(int index) throws DukeException {
+        if (index < 0 || index >= this.taskList.size()) {
+            throw new DukeException("Index does not exist");
+        }
+        Task task = taskList.get(index);
+        taskList.remove(index);
+        Duke.printLine();
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t\t" + task);
+        System.out.println("\tNow you have " + String.valueOf(this.taskList.size()) + " tasks in the list");
+        Duke.printLine();
+    }
     public void add(Task task) {
         this.taskList.add(task);
         Duke.printLine();
