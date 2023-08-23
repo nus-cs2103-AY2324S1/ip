@@ -15,6 +15,30 @@ public class TaskList {
         return "added: " + newTask;
     }
 
+    public String addToDo(String name) {
+        ToDo newToDo = new ToDo(name);
+        this.taskList.add(newToDo);
+        return "Got it. I've added this task: \n\t\t" +
+                newToDo +
+                "\n\tNow you have " + this.taskList.size() + " tasks in the list.";
+    }
+
+    public String addEvent(String name, String startTime, String endTime) {
+        Event newEvent = new Event(name, startTime, endTime);
+        this.taskList.add(newEvent);
+        return "Got it. I've added this task: \n\t\t" +
+                newEvent +
+                "\n\tNow you have " + this.taskList.size() + " tasks in the list.";
+    }
+
+    public String addDeadline(String name, String deadline) {
+        Deadline newDeadline = new Deadline(name, deadline);
+        this.taskList.add(newDeadline);
+        return "Got it. I've added this task: \n\t\t" +
+                newDeadline +
+                "\n\tNow you have " + this.taskList.size() + " tasks in the list.";
+    }
+
     public String list() {
         StringBuilder listOutput = new StringBuilder();
         listOutput.append("Here are the tasks in your list: ");
@@ -22,7 +46,7 @@ public class TaskList {
         for (int i = 0; i < this.taskList.size(); i++) {
             listOutput.append("\n\t").
                     append((i + 1)).
-                    append(". ").
+                    append(".").
                     append(this.taskList.get(i));
         }
 

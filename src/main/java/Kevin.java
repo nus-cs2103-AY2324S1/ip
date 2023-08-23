@@ -52,7 +52,23 @@ public class Kevin {
             } else if (command.equals("unmark")) {
                 int toDoIndex = Integer.parseInt(fullCommand.split(" ")[1]);
                 wrapInHorizontalLines(taskList.unmark(toDoIndex));
-            }  else {
+            } else if (command.equals("todo")) {
+                String name = fullCommand.split(" ", 2)[1];
+                wrapInHorizontalLines(taskList.addToDo(name));
+            } else if (command.equals("event")) {
+                String eventInfo = fullCommand.split(" ", 2)[1];
+                String[] splitEventInfo = eventInfo.split(" /");
+                String name = splitEventInfo[0];
+                String startTime = splitEventInfo[1].replace("from ", "");
+                String endTime = splitEventInfo[2].replace("to ", "");
+                wrapInHorizontalLines(taskList.addEvent(name, startTime, endTime));
+            } else if (command.equals("deadline")) {
+                String deadlineInfo = fullCommand.split(" ", 2)[1];
+                String[] splitDeadlineInfo = deadlineInfo.split(" /");
+                String name = splitDeadlineInfo[0];
+                String deadline = splitDeadlineInfo[1].replace("by", "");
+                wrapInHorizontalLines(taskList.addDeadline(name, deadline));
+            } else {
                 wrapInHorizontalLines(taskList.addList(fullCommand));
             }
         }
