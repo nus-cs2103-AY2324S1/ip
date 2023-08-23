@@ -74,4 +74,14 @@ todooo
 
 dateline bake cookies /by 12pm
 
+list
+
+mark 0
+
+mark 9
+
+delete 2
+
+delete 0
+
 bye
