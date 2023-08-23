@@ -32,7 +32,7 @@ public class Chatter {
             if (userInput.equals("list")) {
                 tasks.listTasks();
             } else {
-                tasks.addTask(userInput);
+                tasks.addTask(new Task(userInput));
             }
             System.out.println("-----------------------");
             userInput = scanner.nextLine();
