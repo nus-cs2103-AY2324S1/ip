@@ -5,6 +5,8 @@ public class Duke {
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        Scripts script = new Scripts();
+        script.sayhi();
+        script.saybye();
     }
 }
