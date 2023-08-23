@@ -1,9 +1,10 @@
 package extensions;
 public class Task {
-    protected String text;
+    protected String description;
     protected boolean isDone;
-    public Task(String text) {
-        this.text = text;
+    public Task(String description) {
+        this.description = description;
+        this.isDone = false;
     }
     public void markAsDone() {
         this.isDone = true;
@@ -11,8 +12,13 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+    public char getDoneStatus() {
+        return isDone ? 'X': ' ';
+    }
     @Override
     public String toString() {
-        return String.format("[%c] %s", this.isDone ? 'X': ' ', this.text);
+        return String.format("[%c] %s",
+                this.getDoneStatus(),
+                this.description);
     }
 }

@@ -1,4 +1,7 @@
 import extensions.Task;
+import extensions.ToDo;
+import extensions.Deadline;
+import extensions.Event;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,9 +22,29 @@ public class Ekud {
                 message,
                 this.horizontalLine));
     }
-    public void addToTasks(String text) {
-        tasks.add(new Task(text));
-        this.echo("added: " + text);
+    public void addTask(Task task) {
+        tasks.add(task);
+        this.echo(String.format(
+                "Got it! I've added this task:\n%s\nNow you have %d task(s) in the list.",
+                task.toString(),
+                tasks.size()));
+    }
+    public void addToDo(String description) {
+        this.addTask(new ToDo(description));
+    }
+    public void addDeadline(String deadlineInfo) {
+        String[] params = deadlineInfo.split(" /by ");
+        String description = params[0];
+        String day = params[1];
+        this.addTask(new Deadline(description, day));
+    }
+    public void addEvent(String eventInfo) {
+        String[] params = eventInfo.split(" /from ");
+        String[] timings = params[1].split(" /to ");
+        String description = params[0];
+        String from = timings[0];
+        String to = timings[1];
+        this.addTask(new Event(description, from, to));
     }
     public void showTasks() {
         System.out.println(horizontalLine);
@@ -55,14 +78,19 @@ public class Ekud {
         String command = firstSpace == -1 ? userInput : userInput.substring(0, firstSpace);
         // main chatbot functionality
         while (!command.equals("end")) {
+            String params = userInput.substring(firstSpace + 1);
             if (command.equals("list")) {
                 chatbot.showTasks();
             } else if (command.equals("mark") || command.equals("unmark")) {
-                int index = Integer.valueOf(userInput.substring(firstSpace + 1)) - 1;
+                int index = Integer.valueOf(params) - 1;
                 if (command.equals("mark")) chatbot.markAsDone(index);
                 else chatbot.markAsNotdone(index);
-            } else {
-                chatbot.addToTasks(userInput);
+            } else if (command.equals("todo")) {
+                chatbot.addToDo(params);
+            } else if (command.equals("deadline")) {
+                chatbot.addDeadline(params);
+            } else if (command.equals("event")) {
+                chatbot.addEvent(params);
             }
             userInput = scanner.nextLine();
             firstSpace = userInput.indexOf(' ');
