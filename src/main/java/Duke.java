@@ -59,6 +59,9 @@ public class Duke {
                     // unmark the index
                     int index = Integer.parseInt(inputString.split(" ")[1]);
                     listContainer.markAsUnDone(index);
+                } else if (inputString.startsWith("delete ")) {
+                    int index = Integer.parseInt(inputString.split(" ")[1]);
+                    listContainer.removeFromList(index);
                 } else if (inputString.startsWith("todo ")) {
                     // add a todo
                     String itemName = inputString.replace("todo ", "");
@@ -132,10 +135,12 @@ public class Duke {
                     EventTask eventTask = new EventTask(itemName, from, to);
 
                     listContainer.addToList(eventTask);
+
+
                 } else {
                     throw new DukeException(UNKNOWN_COMMAND);
                 }
-                System.out.println("Now you have " + listContainer.getSize() + " tasks!");
+
 //                listContainer.addToList();
 
             } catch (DukeException e) {

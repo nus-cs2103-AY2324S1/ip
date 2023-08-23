@@ -17,15 +17,21 @@ public class TaskList {
         list.add(task);
 
         System.out.println("\uD83D\uDE0A I've added a new task: " + task.toString());
+        System.out.println("Now you have " + getSize() + " tasks!");
     }
 
     /**
      * Removes an item from the list.
+     * Indexes start from 1, not zero
      *
-     * @param name The name of the item to remove
+     * @param index the index of the task to remove.
      */
-    public void removeFromList(String name) {
-        list.removeIf(item -> item.getItemName().equals(name));
+    public void removeFromList(int index) {
+        Task task = list.get(index - 1);
+        list.remove(index - 1);
+        System.out.println("\uD83D\uDE0A I've removed this task: " + task.toString());
+
+//        list.removeIf(item -> item.getItemName().equals(name));
     }
 
     /**
