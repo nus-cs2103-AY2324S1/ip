@@ -116,17 +116,32 @@ public class Duke {
                     printList(inputList);
                     break;
                 case UNMARK:
-                    inputList.get(taskIndex-1).markAsUndone();
+                    if (taskIndex > inputList.size()) {
+                        excep = new InvalidSyntaxException("The task does not exist.");
+                        System.out.println("JonBird:\n\t" + excep.toString());
+                    } else {
+                        inputList.get(taskIndex-1).markAsUndone();
+                    }
                     break;
                 case MARK:
-                    inputList.get(taskIndex-1).markAsDone();
+                    if (taskIndex > inputList.size()) {
+                        excep = new InvalidSyntaxException("The task does not exist.");
+                        System.out.println("JonBird:\n\t" + excep.toString());
+                    } else {
+                        inputList.get(taskIndex - 1).markAsDone();
+                    }
                     break;
                 case DELETE:
-                    Task temp = inputList.get(taskIndex-1);
-                    inputList.remove(taskIndex-1);
-                    System.out.println("JonBird:\n\tNoted. I've removed this task:");
-                    System.out.println("\t\t" + temp.printTask());
-                    System.out.println("\tNow you have " + inputList.size() + " tasks in the list.");
+                    if (taskIndex > inputList.size()) {
+                        excep = new InvalidSyntaxException("The task does not exist.");
+                        System.out.println("JonBird:\n\t" + excep.toString());
+                    } else {
+                        Task temp = inputList.get(taskIndex - 1);
+                        inputList.remove(taskIndex - 1);
+                        System.out.println("JonBird:\n\tNoted. I've removed this task:");
+                        System.out.println("\t\t" + temp.printTask());
+                        System.out.println("\tNow you have " + inputList.size() + " tasks in the list.");
+                    }
                     break;
                 default:
                     if (inp.length < 2) {
