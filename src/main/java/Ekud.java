@@ -9,7 +9,6 @@ import command.MarkCommand;
 import command.ParseException;
 import command.TodoCommand;
 import command.UnmarkCommand;
-import javafx.css.CssParser.ParseError;
 import task.DeadlineTask;
 import task.EventTask;
 import task.Task;
@@ -19,52 +18,49 @@ public class Ekud {
     public Store store = new Store();
 
     public void processList(ListCommand command) {
-        if (store.isTasksEmpty()) {
+        if (!store.hasTasks()) {
             System.out.println("No tasks yet. Add one!");
             return;
         }
 
         System.out.println("Here are the tasks in your list:");
 
-        for (int index = 0; index < store.getTasks().size(); index++) {
+        for (int taskId = 1; taskId <= store.getTaskCount(); taskId++) {
             // Add padding to align single-digit numbers if we'll render
             // two-digit numbers later on.
-            if (store.getTasks().size() > 9 && index < 9) {
+            if (store.getTaskCount() > 9 && taskId < 10) {
                 System.out.print(" ");
             }
-            System.out.print(index + 1);
-
-            Task task = store.getTasks().get(index);
+            System.out.print(taskId);
+            Task task = store.getTask(taskId);
             System.out.println(". " + task.toString());
         }
     }
 
     public void processMark(MarkCommand command) {
-        int index = command.getTaskId() - 1;
+        int taskId = command.getTaskId();
 
-        if (index < 0 || index >= store.getTasks().size()) {
+        if (taskId < 1 || taskId > store.getTaskCount()) {
             System.out.println("Invalid task number provided.");
             return;
         }
 
-        Task task = store.getTasks().get(index);
+        Task task = store.getTask(taskId);
         task.mark();
-
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("  " + task);
     }
 
     public void processUnmark(UnmarkCommand command) {
-        int index = command.getTaskId() - 1;
+        int taskId = command.getTaskId();
 
-        if (index < 0 || index >= store.getTasks().size()) {
+        if (taskId < 1 || taskId > store.getTaskCount()) {
             System.out.println("Invalid task number provided.");
             return;
         }
 
-        Task task = store.getTasks().get(index);
+        Task task = store.getTask(taskId);
         task.unmark();
-
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + task);
     }
@@ -72,28 +68,25 @@ public class Ekud {
     public void processEvent(EventCommand command) {
         Task task = new EventTask(command.getTitle(), command.getFrom(), command.getTo());
         store.addTask(task);
-
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + store.getTasks().size() + " tasks in the list.");
+        System.out.println("Now you have " + store.getTaskCount() + " tasks in the list.");
     }
 
     public void processDeadline(DeadlineCommand command) {
         Task task = new DeadlineTask(command.getTitle(), command.getBy());
         store.addTask(task);
-
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + store.getTasks().size() + " tasks in the list.");
+        System.out.println("Now you have " + store.getTaskCount() + " tasks in the list.");
     }
 
     public void processTodo(TodoCommand command) {
         Task task = new TodoTask(command.getTitle());
         store.addTask(task);
-
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task);
-        System.out.println("Now you have " + store.getTasks().size() + " tasks in the list.");
+        System.out.println("Now you have " + store.getTaskCount() + " tasks in the list.");
     }
 
     public boolean processLine(String line) {

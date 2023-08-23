@@ -10,11 +10,19 @@ public final class Store {
         tasks.add(task);
     }
 
-    public boolean isTasksEmpty() {
-        return tasks.isEmpty();
+    public boolean hasTasks() {
+        return !tasks.isEmpty();
+    }
+
+    public int getTaskCount() {
+        return tasks.size();
     }
 
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    public Task getTask(int taskId) {
+        return tasks.get(taskId - 1);
     }
 }
