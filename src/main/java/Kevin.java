@@ -1,4 +1,4 @@
-import ToDoList.ToDoList;
+import TaskList.TaskList;
 
 import java.util.Scanner;
 
@@ -35,7 +35,7 @@ public class Kevin {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ToDoList toDoList = new ToDoList();
+        TaskList taskList = new TaskList();
 
         hello();
 
@@ -45,15 +45,15 @@ public class Kevin {
             if (command.equals("bye")) {
                 break;
             } else if (command.equals("list")) {
-                wrapInHorizontalLines(toDoList.list());
+                wrapInHorizontalLines(taskList.list());
             } else if (command.equals("mark")) {
                 int toDoIndex = Integer.parseInt(fullCommand.split(" ")[1]);
-                wrapInHorizontalLines(toDoList.mark(toDoIndex));
+                wrapInHorizontalLines(taskList.mark(toDoIndex));
             } else if (command.equals("unmark")) {
                 int toDoIndex = Integer.parseInt(fullCommand.split(" ")[1]);
-                wrapInHorizontalLines(toDoList.unmark(toDoIndex));
+                wrapInHorizontalLines(taskList.unmark(toDoIndex));
             }  else {
-                wrapInHorizontalLines(toDoList.addList(fullCommand));
+                wrapInHorizontalLines(taskList.addList(fullCommand));
             }
         }
 

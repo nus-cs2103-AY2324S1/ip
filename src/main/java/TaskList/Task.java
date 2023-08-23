@@ -1,12 +1,10 @@
-package ToDoList;
+package TaskList;
 
-import java.util.ArrayList;
-
-public class ToDo {
+public class Task {
     private final String name;
     private boolean isDone;
 
-    public ToDo(String name) {
+    public Task(String name) {
         this.name = name;
         this.isDone = false;
     }
