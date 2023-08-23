@@ -123,7 +123,7 @@ public class Corgi {
                 + "Format: < " + cmd.getCommandFormat() + " >");
         } catch (Exception e) {
             this.printException("Oh wonderful, you've broken something. And guess what? I have absolutely no idea what happened either."
-                + "\nAn error of type " + e.getClass().getSimpleName() + " occurred: " + e.getMessage());
+                + "\n\n❗An error of type " + e.getClass().getSimpleName() + " occurred: " + e.getMessage());
         }
 
         return false;
