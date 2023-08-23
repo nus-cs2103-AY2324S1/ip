@@ -13,7 +13,6 @@ public class Duke {
         System.out.println(greeting);
     }
 
-    // issues --> list not working
     private static void startChat() {
         Task[] tasks = new Task[5];
         int taskCount = 0;
@@ -81,15 +80,11 @@ public class Duke {
     public static void mark(String input, Task[] tasks) {
         int taskIndex = Integer.parseInt(input.substring(5)) - 1;
         tasks[taskIndex].mark();
-        System.out.println(line + "Okay, I have marked this task as completed!" + "\n" + tasks[taskIndex].checkBox());
-        System.out.println(line);
     }
 
     public static void unMark(String input, Task[] tasks) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         tasks[taskIndex].unMark();
-        System.out.println(line + "Okay, I have marked this task as incomplete!" + "\n" + tasks[taskIndex].checkBox());
-        System.out.println(line);
     }
 
     private static void addToList(Task task, Task[] tasks, int taskId) {
@@ -97,7 +92,7 @@ public class Duke {
             System.out.println("List is full!");
         } else{
             int taskCount = taskId + 1;
-            String response = line + "Got it! I've added this task:" + "\n" + task.checkBox() + "\n"
+            String response = line + "Got it! I've added this task:" + "\n" + task.toString() + "\n"
                     + "You now have " + taskCount + " task(s) in the list" + "\n" + line;
             tasks[taskId] = task;
             System.out.println(response);

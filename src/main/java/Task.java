@@ -2,6 +2,7 @@ public class Task {
     Boolean done = false;
     String task;
     int taskId;
+    static String line = "______________________________________________________________________________________\n";
 
     public Task(String task, int taskId) {
         this.task = task;
@@ -15,11 +16,15 @@ public class Task {
         this.done = false;
     }
 
+    public String line() {
+        return line;
+    }
+
     public String getTask() {
         String checkbox = this.done ? "[X] " : "[ ] ";
         return taskId + "." + checkbox + task;
     }
-    public String checkBox() {
+    public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";
         return checkbox + task;
     }
