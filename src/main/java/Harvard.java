@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+//write javacoc documentaion for the javadoc tool
 public class Harvard {
     public static void main(String[] args) {
         String line = "----------------------------------------";
