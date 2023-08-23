@@ -51,9 +51,9 @@ public class Task {
         return "";
     }
 
-    public boolean isValidTask() throws InvalidTask {
+    public boolean isCompleteCommand() throws InvalidTask {
         if (!this.task.contains(" ")) {
-            throw new InvalidTask();
+            return false;
         }
 
         int i = this.task.indexOf(' ');
@@ -68,10 +68,24 @@ public class Task {
         throw new InvalidTask();
     }
 
+    public boolean isValidCommand() throws InvalidTask {
+        for (ValidTasks v : ValidTasks.values()) {
+            if (v.toString().equals(this.task)) {
+                return true;
+            }
+        }
+
+        throw new InvalidTask();
+    }
+
     //returns the event string without the prefix word
     public String eventDescription() {
         int i = this.get().indexOf(' ');
         return this.get().substring(i + 1);
+    }
+
+    public String missingDescription() {
+        return "☹";
     }
 
 }

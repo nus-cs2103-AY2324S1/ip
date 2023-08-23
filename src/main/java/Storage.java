@@ -24,6 +24,11 @@ public class Storage {
     }
 
     public void mark(int taskNumber) {
+        if (taskNumber > previous_Commands.size() || taskNumber <= 0) {
+            System.out.println("☹ OOPS!!! Such a task does not exist!");
+            return;
+        }
+
         Task task = previous_Commands.get(taskNumber - 1);
 
         if (task.isDone()) {
@@ -40,6 +45,12 @@ public class Storage {
     }
 
     public void unmark(int taskNumber) {
+
+        if (taskNumber > previous_Commands.size() || taskNumber <= 0) {
+            System.out.println("☹ OOPS!!! Such a task does not exist!");
+            return;
+        }
+
         Task task = previous_Commands.get(taskNumber - 1);
 
         if (!task.isDone()) {

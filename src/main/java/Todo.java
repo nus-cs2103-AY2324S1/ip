@@ -16,6 +16,11 @@ public class Todo extends Task{
         return String.format("[%s][%s] %s", this.eventCode(), this.getStatusIcon(), this.eventDescription());
     }
 
+    @Override
+    public String missingDescription() {
+        return "☹ OOPS!!! The description of a todo cannot be empty.";
+    }
+
 
 
 }

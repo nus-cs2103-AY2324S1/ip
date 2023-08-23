@@ -26,4 +26,9 @@ public class Event extends Task{
     public String toString() {
         return String.format("[%s][%s] %s", this.eventCode(), this.getStatusIcon(), this.eventDescription());
     }
+
+    @Override
+    public String missingDescription() {
+        return "☹ OOPS!!! The description of an event cannot be empty.";
+    }
 }

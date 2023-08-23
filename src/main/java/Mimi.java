@@ -48,7 +48,7 @@ public class Mimi {
             }
 
             try {
-                if (task.isValidTask()) {
+                if (task.isCompleteCommand()) {
                     int i = task.get().indexOf(' ');
                     String actual_task = task.get().substring(0, i);
 
@@ -69,9 +69,25 @@ public class Mimi {
                             System.out.println(LINE);
                             break;
                     }
+                } else {
+                    if (task.isValidCommand()) {
+                        Task temp = new Task("");
+                        switch(command) {
+                            case "todo":
+                                temp = new Todo(command);
+                                break;
+                            case "deadline":
+                                temp = new Deadline(command);
+                                break;
+                            case "event":
+                                temp = new Event(command);
+                                break;
+                        }
+                        System.out.println(temp.missingDescription() + "\n" + LINE);
+                    }
                 }
             } catch (InvalidTask e) {
-                System.out.println("works");
+                System.out.println("☹ OOPS!!! I'm sorry but I don't know what that means :-(\n" + LINE);
             }
 
 
