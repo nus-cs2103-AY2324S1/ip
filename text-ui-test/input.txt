@@ -33,5 +33,10 @@ deadline      space    test     /by      Sunday
 event      many      spaces      /from     Mon 2pm /to      4pm
 todo             spaces
 list
-
+delete 1
+list
+delete 4
+list
+deletee 1
+delete 1 1
 bye

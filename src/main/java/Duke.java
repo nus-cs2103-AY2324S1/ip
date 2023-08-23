@@ -16,8 +16,7 @@ public class Duke {
 
       Matcher m = commandPattern.matcher(input);
       if (!m.find()) {
-        System.out.println(
-            "Invalid Input\nCommands: list, todo, deadline, event, mark, unmark, bye\n");
+        handleInvalid();
         continue;
       }
 
@@ -65,9 +64,15 @@ public class Duke {
             System.out.println(e);
           }
           break;
+        case "delete":
+          try {
+            handleDelete(input);
+          } catch (DukeException e) {
+            System.out.println(e);
+          }
+          break;
         default:
-          System.out.println(
-              "Invalid Input\nCommands: list, todo, deadline, event, mark, unmark, bye\n");
+          handleInvalid();
       }
     }
   }
@@ -75,7 +80,7 @@ public class Duke {
   private static void handleMark(String input) throws DukeException {
     Pattern validPattern = Pattern.compile("^mark\\s+(\\d+)$");
     if (!validPattern.matcher(input).find()) {
-      throw new DukeException("Invalid arguments for mark\n");
+      throw new DukeException("Invalid arguments for mark\nPlease follow: mark <task_num>\n");
     }
     int idx = parseMark(input);
     if (idx != 0) {
@@ -87,12 +92,28 @@ public class Duke {
   private static void handleUnmark(String input) throws DukeException {
     Pattern validPattern = Pattern.compile("^unmark\\s+(\\d+)$");
     if (!validPattern.matcher(input).find()) {
-      throw new DukeException("Invalid arguments for unmark\n");
+      throw new DukeException("Invalid arguments for unmark\nPlease follow: unmark <task_num>\n");
     }
     int idx = parseMark(input);
     if (idx != 0) {
       taskList.get(idx - 1).markAsNotDone();
       System.out.printf("OK! I've marked this task as not done:%n %s%n%n", taskList.get(idx - 1));
+    }
+  }
+
+  private static void handleDelete(String input) throws DukeException {
+    Pattern validPattern = Pattern.compile("^delete\\s+(\\d+)$");
+    if (!validPattern.matcher(input).find()) {
+      throw new DukeException("Invalid arguments for delete\nPlease follow: delete <task_num>\n");
+    }
+    int idx = parseMark(input);
+    if (idx != 0) {
+      Task deletedTask = taskList.get(idx - 1);
+      taskList.remove(idx - 1);
+      System.out.printf(
+          "Noted. I've removed this task:%n %s%nNow you have %d tasks in the list.%n%n",
+          deletedTask, taskList.size());
+
     }
   }
 
@@ -103,7 +124,7 @@ public class Duke {
       TodoTask newTask = new TodoTask(m.group(1));
       addTask(newTask);
     } else {
-      throw new DukeException("Invalid arguments for todo\nPlease follow: todo <task>");
+      throw new DukeException("Invalid arguments for todo\nPlease follow: todo <task>\n");
     }
   }
 
@@ -115,7 +136,7 @@ public class Duke {
       addTask(newTask);
     } else {
       throw new DukeException(
-          "Invalid arguments for deadline\nPlease follow: deadline <task> /by <deadline_date>");
+          "Invalid arguments for deadline\nPlease follow: deadline <task> /by <deadline_date>\n");
     }
   }
 
@@ -127,7 +148,7 @@ public class Duke {
       addTask(newTask);
     } else {
       throw new DukeException(
-          "Invalid arguments for event\nPlease follow: event <task> /from <from_date> /to <to_date>");
+          "Invalid arguments for event\nPlease follow: event <task> /from <from_date> /to <to_date>\n");
     }
   }
 
@@ -171,5 +192,10 @@ public class Duke {
       sb.append("\n");
     }
     return sb.toString();
+  }
+
+  private static void handleInvalid() {
+    System.out.println(
+        "Invalid Input\nCommands: list, todo, deadline, event, mark, unmark, delete, bye\n");
   }
 }
