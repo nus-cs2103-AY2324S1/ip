@@ -1,0 +1,10 @@
+todo get eggs
+deadline make cake /by this Friday
+event birthday /from next Saturday /to next Sunday
+mark 1
+mark 4
+todo get candles
+mark 4
+deadline
+unmark 1
+bye
