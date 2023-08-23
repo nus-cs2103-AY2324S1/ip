@@ -39,6 +39,8 @@ public class DuckBot {
 
     public boolean checkToDo(String str) {return str.contains("todo");}
 
+    public boolean checkDelete(String str) {return str.contains("delete");}
+
     public void typeMessage() {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
@@ -57,6 +59,8 @@ public class DuckBot {
                     setEvent(str.substring(5));
                 } else if(checkToDo(str)) {
                     setToDo(str.substring(4));
+                } else if (checkDelete(str)) {
+                    deleteTask(str);
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
@@ -105,12 +109,15 @@ public class DuckBot {
     public void divider() {
         System.out.println("____________________________________________________________");
     }
+    public void numberOfTasks() {
+        System.out.println("Now you have " + list.size() +" tasks in the list.");
+    }
 
     public void echoAdd(Task t) {
         divider();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + t);
-        System.out.println("Now you have " + list.size() +" tasks in the list.");
+        numberOfTasks();
         divider();
     }
 
@@ -144,6 +151,17 @@ public class DuckBot {
             System.out.println(e.getMessage());
             divider();
         }
+    }
+
+    public void deleteTask(String str) {
+        String[] string = str.split(" ");
+        int index = Integer.parseInt(string[1]);
+        Task t = list.remove(index);
+        divider();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(" " + t.toString());
+        numberOfTasks();
+        divider();
     }
     public static void main(String[] args) {
         DuckBot duck = new DuckBot();
