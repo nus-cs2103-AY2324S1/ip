@@ -22,7 +22,16 @@ public class Duke {
         printWithTab(line);
         printWithTab("Hello! I'm Forine");
         printWithTab("What can I do for you?");
-
+        
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        while (!input.equals("bye")) {
+            printWithTab(line);
+            printWithTab(input);
+            printWithTab(line);
+            input = sc.nextLine();
+        }
+        sc.close();
         printWithTab("Bye. Hope to see you again soon!");
         printWithTab(line);   
     }
