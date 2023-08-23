@@ -3,9 +3,9 @@ import java.util.ArrayList;
 
 public class Duke {
     public static void printLine(String message) {
-        System.out.println(" ────────────────────────────────────────\n"
+        System.out.println(" ----------------------------------------\n"
                 + message
-                + "\n ────────────────────────────────────────");
+                + "\n ----------------------------------------");
     }
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -21,13 +21,13 @@ public class Duke {
             }
             if (input.equals("list")) {
                 int index = 1;
-                System.out.println(" ────────────────────────────────────────\n"
+                System.out.println(" ----------------------------------------\n"
                         + "Here are the tasks in your list:");
                 for (Task task : tasks) {
-                    System.out.println(String.format(" %d. %s ", index, task.toString()));
+                    System.out.println(String.format(" %d. %s", index, task.toString()));
                     index++;
                 }
-                System.out.println(" ────────────────────────────────────────");
+                System.out.println(" ----------------------------------------");
             } else {
                 try {
                     String[] substrings = input.split(" ", 2);

@@ -1,0 +1,28 @@
+mark 1
+unmark 1
+delete 1
+mark
+unmark
+delete
+todo
+deadline
+deadline homework
+event
+event meeting
+event meeting /from
+event meeting /to
+mark abc
+blah
+todo borrow book
+deadline homework /by thursday
+event meeting /from 2pm /to 4pm
+list
+mark 1
+mark 2
+unmark 1
+mark 4
+unmark 4
+delete 4
+delete 2
+list
+bye

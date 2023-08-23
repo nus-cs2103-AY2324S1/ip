@@ -1,7 +1,104 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+ ----------------------------------------
+  Hello! I'm Handsome
+  What can I do for you?
+ ----------------------------------------
+ ----------------------------------------
+You have no tasks! Please add some tasks first
+ ----------------------------------------
+ ----------------------------------------
+You have no tasks! Please add some tasks first
+ ----------------------------------------
+ ----------------------------------------
+You have no tasks! Please add some tasks first
+ ----------------------------------------
+ ----------------------------------------
+Invalid command! Please include the index of the task you wish to mark
+ ----------------------------------------
+ ----------------------------------------
+Invalid command! Please include the index of the task you wish to unmark
+ ----------------------------------------
+ ----------------------------------------
+Invalid command! Please include the index of the task you wish to delete
+ ----------------------------------------
+ ----------------------------------------
+Invalid command! Please include details of this task
+ ----------------------------------------
+ ----------------------------------------
+Invalid command! Please include details of this task
+ ----------------------------------------
+ ----------------------------------------
+Invalid command! Please include the deadline of this task
+ ----------------------------------------
+ ----------------------------------------
+Invalid command! Please include details of this task
+ ----------------------------------------
+ ----------------------------------------
+Invalid command! Please include when the event starts
+ ----------------------------------------
+ ----------------------------------------
+Invalid command! Please include when the event ends
+ ----------------------------------------
+ ----------------------------------------
+Invalid command! Please include when the event starts
+ ----------------------------------------
+ ----------------------------------------
+Invalid command! Please enter only one valid task ID
+ ----------------------------------------
+ ----------------------------------------
+Sorry! I do not recognise this command
+ ----------------------------------------
+ ----------------------------------------
+ Got it. I've added this task:
+     [T][ ] borrow book
+ Now you have 1 tasks in the list.
+ ----------------------------------------
+ ----------------------------------------
+ Got it. I've added this task:
+     [D][ ] homework (by: thursday)
+ Now you have 2 tasks in the list.
+ ----------------------------------------
+ ----------------------------------------
+ Got it. I've added this task:
+     [E][ ] meeting (from: 2pm to: 4pm)
+ Now you have 3 tasks in the list.
+ ----------------------------------------
+ ----------------------------------------
+Here are the tasks in your list:
+ 1. [T][ ] borrow book
+ 2. [D][ ] homework (by: thursday)
+ 3. [E][ ] meeting (from: 2pm to: 4pm)
+ ----------------------------------------
+ ----------------------------------------
+  Nice! I've marked this task as done:
+     [T][X] borrow book
+ ----------------------------------------
+ ----------------------------------------
+  Nice! I've marked this task as done:
+     [D][X] homework (by: thursday)
+ ----------------------------------------
+ ----------------------------------------
+  OK, I've marked this task as not done yet:
+     [T][ ] borrow book
+ ----------------------------------------
+ ----------------------------------------
+No such task! Please enter a task ID between 1 and 3
+ ----------------------------------------
+ ----------------------------------------
+No such task! Please enter a task ID between 1 and 3
+ ----------------------------------------
+ ----------------------------------------
+No such task! Please enter a task ID between 1 and 3
+ ----------------------------------------
+ ----------------------------------------
+ Noted. I've removed this task:
+     [D][X] homework (by: thursday)
+ Now you have 2 tasks in the list.
+ ----------------------------------------
+ ----------------------------------------
+Here are the tasks in your list:
+ 1. [T][ ] borrow book
+ 2. [E][ ] meeting (from: 2pm to: 4pm)
+ ----------------------------------------
+ ----------------------------------------
+  Bye. Hope to see you again soon!
+ ----------------------------------------
