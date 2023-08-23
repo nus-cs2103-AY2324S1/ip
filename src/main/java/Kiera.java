@@ -1,22 +1,96 @@
 
 public class Kiera {
-    public static void main(String[] args) {
-        String name = "Kiera";
-        String line = "    -------------------------------------";
-        String hello = line
+    protected static String name = "Kiera";
+    protected static String line = "   -------------------------------------";
+    protected static String hello = line
                 + "\n"
                 + "    " 
                 + "hi, it's kiera.\n" 
                 + "    " 
                 + "what do you want?\n"
                 + line;
-        String bye =  line
+    protected static String bye =  line
                 + "\n"
                 + "    " 
                 + "muaks! <3\n"
                 + line;
-        Task[] store = new Task[100];
-        Integer index = 0;
+    protected static Task[] store = new Task[100];
+    protected static Integer index = 0;
+
+
+    public static String list() {
+        String result = "";
+            for (int i = 0; i < index; i++) {
+                Task t = store[i];
+                String status = t.getStatusIcon();
+                String desc = t.getDescription();
+
+                result = result +  "    " + (i + 1) + ". " + t.toString() +  "\n";
+
+            }
+        return line + "\n    you need to get these done today:\n" + result + line;
+    }
+
+    public static String mark(String input) {
+        Integer unchecked = Integer.valueOf(input.replace("mark ", "")) - 1;
+        Task t = store[unchecked];
+
+        t.markAsDone();
+
+        return line
+            + "    yay, one task down: \n"
+            + "    "
+            + t.toString()
+            + "\n"
+            + line;
+    }
+
+    public static String unmark(String input) {
+        Integer checked = Integer.valueOf(input.replace("mark ", "")) - 1;
+        Task t = store[checked];
+
+        t.markAsUndone();
+
+       return line
+            + "    ok, this task is not done yet: \n"
+            + "    "
+            + t.toString()
+            + "\n"
+            + line;
+    }
+
+    public static String addTask(String input, String type) {
+        Task t;
+        if (type == "todo") {
+            t = new Todo(input);
+        } else if (type == "deadline") {
+            String deadline = input.split("/")[1].replace("by ", "");
+            String desc = input.split("/")[0];
+            t = new Deadline(desc, deadline);
+        } else {
+            String end = input.split("/")[2].replace("to ", "");
+            String start = input.split("/")[1].replace("from ", "");
+            String desc = input.split("/")[0];
+            t = new Event(desc, start, end);
+        }
+        
+        store[index] = t;
+        String plural = index == 0 ? "task" : "tasks";
+            
+        return line 
+            + "\n    " 
+            + "alright, one more task: \n"
+            + "      "
+            + t.toString()
+            + "\n    "
+            + (index + 1) 
+            + " more "
+            + plural
+            + " to go! \n"
+            + line;
+    }
+    public static void main(String[] args) {
+        
 
         System.out.println(hello);
         
@@ -25,71 +99,31 @@ public class Kiera {
             if (input.equals("bye")) {
                 break;
             }
-            System.out.println(line);
 
             if (input.startsWith("mark")) {
-                Integer unchecked = Integer.valueOf(input.replace("mark ", "")) - 1;
-                Task t = store[unchecked];
-
-                t.markAsDone();
-
-                String status = t.getStatusIcon();
-                String desc = t.getDescription();
-
-                System.out.println("    yay, one task down: \n"
-                            + "    "
-                            + "["
-                            + status
-                            + "] "
-                            + desc
-                            + "\n"
-                            + line);
+                System.out.println(mark(input));
                 continue;
-            } 
-            
-            if (input.startsWith("unmark")){
-                Integer checked = Integer.valueOf(input.replace("mark ", "")) - 1;
-                Task t = store[checked];
-
-                t.markAsUndone();
-
-                String status = t.getStatusIcon();
-                String desc = t.getDescription();
-
-                System.out.println("    ok, this task is not done yet: \n"
-                            + "    "
-                            + "["
-                            + status
-                            + "] "
-                            + desc
-                            + "\n"
-                            + line);
+            } else if (input.startsWith("unmark")){
+                System.out.println(unmark(input));
                 continue;
             }
 
             if (input.equals("list")) {
-                System.out.println("    you need to get these done today:");
-                for (int i = 0; i < index; i++) {
-                    Task t = store[i];
-                    String status = t.getStatusIcon();
-                    String desc = t.getDescription();
-
-                    System.out.println("    " + (i + 1) + ". ["  +  status + "] " + desc);
-
-                }
-                System.out.println(line);
+                System.out.println(list());
                 continue;
             }
-                
-            Task t = new Task(input);
-            store[index] = t;
-            index ++;
             
-            System.out.println("    " 
-                        + "added: "
-                        + t.getDescription());
-                
-            System.out.println(line);
+            if (input.startsWith("todo")) {
+                String desc = input.replace("todo ", "");
+                System.out.println(addTask(desc, "todo"));
+            } else if (input.startsWith("deadline")) {
+                String desc = input.replace("deadline ", "");
+                System.out.println(addTask(desc, "deadline"));
+            } else if (input.startsWith("event")) {
+                String desc = input.replace("event ", "");
+                System.out.println(addTask(desc, "event"));
+            }
+            index ++;
         }
 
         System.out.println(bye);
