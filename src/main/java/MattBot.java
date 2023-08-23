@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 public class MattBot {
@@ -17,27 +16,51 @@ public class MattBot {
         System.out.println("____________________________________________________________");
 
         Scanner sc = new Scanner(System.in);
-        List<String> taskList = new ArrayList<String>();
+        List<Task> taskList = new ArrayList<Task>();
         String userInput;
         while (true) {
             userInput = sc.nextLine();
             if (userInput.equals("bye")) {
-                System.out.println("____________________________________________________________");
+                printTop();
                 System.out.println("Bye, Hope to see you soon!");
-                System.out.println("____________________________________________________________");
+                printBottom();
                 break;
             } else if (userInput.equals("list")) {
-                System.out.println("____________________________________________________________");
+                printTop();
                 for (int i = 0; i < taskList.size(); i++) {
-                    System.out.println(String.valueOf(i+1) + ". " + taskList.get(i));
+                    Task t = taskList.get(i);
+                    System.out.println(String.valueOf(i+1) + ". [" + t.showStatus() + "] " + t.showName() );
                 }
-                System.out.println("____________________________________________________________");
+                printBottom();
+            } else if (userInput.split(" ",2)[0].equals("mark")) {
+                printTop();
+                int taskId = Integer.parseInt(userInput.split(" ",2)[1]) - 1;
+                Task t = taskList.get(taskId);
+                t.markAsDone();
+                taskList.set(taskId, t);
+                System.out.println("Great job! You have completed the task " + t.showName());
+                printBottom();
+            } else if (userInput.split(" ",2)[0].equals("unmark")) {
+                printTop();
+                int taskId = Integer.parseInt(userInput.split(" ",2)[1]) - 1;
+                Task t = taskList.get(taskId);
+                t.markAsNotDone();
+                taskList.set(taskId, t);
+                System.out.println("Oh no, you have uncompleted " + t.showName());
+                printBottom();
             } else {
-                System.out.println("____________________________________________________________");
-                taskList.add(userInput);
+                printTop();
+                Task t = new Task(userInput);
+                taskList.add(t);
                 System.out.println("added: " + userInput);
-                System.out.println("____________________________________________________________");
+                printBottom();
             }
         }
+    }
+    public static void printTop() {
+        System.out.println("____________________________________________________________");
+    }
+    public static void printBottom() {
+        System.out.println("____________________________________________________________");
     }
 }
