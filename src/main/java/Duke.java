@@ -19,6 +19,11 @@ public class Duke {
             //read user input
             String userInput = scan.nextLine();
 
+            //check for exit command first
+            if(userInput.equalsIgnoreCase("bye")){
+                break;
+            }
+
             if (userInput.equalsIgnoreCase("list")) {
                 //display list
                 System.out.println("List:");
@@ -29,10 +34,6 @@ public class Duke {
                 //store input into list
                 toDoList.add(userInput);
                 System.out.println("added: " + userInput);
-            }
-
-            if(userInput.equalsIgnoreCase("bye")){
-                break;
             }
         }
 
