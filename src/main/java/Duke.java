@@ -44,7 +44,7 @@ public class Duke {
     private static void handleToDo(String task) {
         ToDo item = new ToDo(task);
         store.add(item);
-        System.out.println(formatOutput("Got it. I've added this task: \n   " +
+        System.out.println(formatOutput("Got it. I've added this task:\n   " +
                 INDENTATION + item + "\n " + INDENTATION + "Now you have " +
                 store.size() +  " tasks in the list."));
     }
@@ -57,7 +57,7 @@ public class Duke {
         }
         Deadline item = new Deadline(arr[0], arr[1]);
         store.add(item);
-        System.out.println(formatOutput("Got it. I've added this task: \n   " +
+        System.out.println(formatOutput("Got it. I've added this task:\n   " +
                 INDENTATION + item + "\n " + INDENTATION + "Now you have " +
                 store.size() +  " tasks in the list."));
     }
@@ -80,7 +80,7 @@ public class Duke {
 
         Event item = new Event(desc, start, end);
         store.add(item);
-        System.out.println(formatOutput("Got it. I've added this task: \n   " +
+        System.out.println(formatOutput("Got it. I've added this task:\n   " +
                 INDENTATION + item + "\n " + INDENTATION + "Now you have " +
                 store.size() +  " tasks in the list."));
     }
@@ -93,7 +93,7 @@ public class Duke {
 
         while (true) {
             commandString = sc.nextLine();
-            commandArray = commandString.split(" ");
+            commandArray = commandString.split(" ", 2);
             command = commandArray[0];
 
             if (command.equals("bye")) {
@@ -105,14 +105,11 @@ public class Duke {
                 commandIndex = Integer.parseInt(commandArray[1]) - 1;
                 handleMarking(commandIndex, command);
             } else if (command.equals("todo")) {
-                String newStr = commandString.replaceFirst(command + " ", "");
-                handleToDo(newStr);
+                handleToDo(commandArray[1]);
             } else if (command.equals("deadline")) {
-                String newStr = commandString.replaceFirst(command + " ", "");
-                handleDeadline(newStr);
+                handleDeadline(commandArray[1]);
             } else if (command.equals("event")) {
-                String newStr = commandString.replaceFirst(command + " ", "");
-                handleEvent(newStr);
+                handleEvent(commandArray[1]);
             }
             else {
                 store.add(new Task(commandString));
