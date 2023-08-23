@@ -1,4 +1,9 @@
+import java.util.Scanner;
+
 public class Duke {
+    private static Scanner sc = new Scanner(System.in);
+    private static boolean running = true;
+
     public static void main(String[] args) {
         String logo =" ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣶⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n"
                     + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⠿⠛⠋⠉⠩⣄⠘⢿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n"
@@ -37,10 +42,22 @@ public class Duke {
         String msg = "------------------------------------------------ \n"
                 + "Hello! I'm Paimon! \n"
                 + "What can I do for you? \n"
-                + "------------------------------------------------ \n"
-                + "Bye. Hope to see you again soon! \n"
                 + "------------------------------------------------ \n";
 
         System.out.println(logo + "\n" + msg);
+
+        String input;
+
+        while (running == true) {
+            System.out.println(" ");
+            input = sc.nextLine();
+
+            if (input.equals("bye")) {
+                System.out.println("Bye Bye! See you soon :D");
+                running = false;
+            } else {
+                System.out.println(input);
+            }
+        }
     }
 }
