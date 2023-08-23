@@ -5,15 +5,19 @@ What can I do for you?
 Got it. I've added this task:
 [T][ ] borrow book
 now you have 1 tasks in the list
+Sorry I don't understand your input!
 1.[T][ ] borrow book
 Got it. I've added this task:
 [D][ ] return book (by: Sunday)
 now you have 2 tasks in the list
+You forgot to specify when the deadline ends!
 Got it. I've added this task:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 now you have 3 tasks in the list
+You forgot to enter the task!
 Nice! I've marked this task as done:
 [D][X] return book (by: Sunday)
+Task already done
 1.[T][ ] borrow book
 2.[D][X] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
@@ -22,4 +26,16 @@ Nice! I've marked this task as done:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Noted. I've removed this task:
+[T][ ] borrow book
+Now you have 2 tasks in the list
+1.[D][ ] return book (by: Sunday)
+2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Noted. I've removed this task:
+[D][ ] return book (by: Sunday)
+Now you have 1 tasks in the list
+Noted. I've removed this task:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 0 tasks in the list
+There are no tasks to delete
 Bye. Hope to see you again soon!

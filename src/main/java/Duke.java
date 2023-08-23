@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
@@ -18,11 +19,17 @@ public class Duke {
                 this.isDone = false;
             }
 
-            public void mark() {
+            public void mark() throws DukeException {
+                if (this.isDone) {
+                    throw new DukeException("Task already done");
+                }
                 this.isDone = true;
             }
 
-            public void unmark() {
+            public void unmark() throws DukeException {
+                if (!this.isDone) {
+                    throw new DukeException("Task still undone");
+                }
                 this.isDone = false;
             }
 
@@ -88,37 +95,34 @@ public class Duke {
         }
 
         Scanner scan = new Scanner(System.in);
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         String name = "Chaty";
-        int taskNo = 0;
         System.out.println("Hello! I'm " + name + "\n" +
                 "What can I do for you?" + "\n\n");
         String next = scan.nextLine();
         while (!next.equals("bye")) {
             try {
-                if (next.split(" ").length < 2) {
-                    throw new DukeException("You forgot to enter the task!");
-                }
             if (next.equals("list")) {
-                for (int i = 0; i < taskNo ; i++) {
-                    System.out.println((i + 1) + "." + tasks[i]);
+                for (int i = 0; i < tasks.size() ; i++) {
+                    System.out.println((i + 1) + "." + tasks.get(i));
                 }
-            } else if (next.startsWith("mark")) {
+            } else if (next.split(" ").length < 2) {
+                throw new DukeException("You forgot to enter the task!");
+            }else if (next.startsWith("mark")) {
                 int tasknum = Integer.parseInt(next.split(" ")[1]) - 1;
-                tasks[tasknum].mark();
-                System.out.println("Nice! I've marked this task as done:\n" + tasks[tasknum]);
+                tasks.get(tasknum).mark();
+                System.out.println("Nice! I've marked this task as done:\n" + tasks.get(tasknum));
             } else if (next.startsWith("unmark")) {
                 int tasknum = Integer.parseInt(next.split(" ")[1]) - 1;
-                tasks[tasknum].unmark();
-                System.out.println(" OK, I've marked this task as not done yet:\n" + tasks[tasknum]);
+                tasks.get(tasknum).unmark();
+                System.out.println(" OK, I've marked this task as not done yet:\n" + tasks.get(tasknum));
             } else if (next.startsWith("deadline")){
                 if (!next.contains("/by") || next.length() <= next.indexOf("/by") + 4) {
                     throw new DukeException("You forgot to specify when the deadline ends!");
                 }
                     Task nextTask = new Deadline(next);
-                    tasks[taskNo] = nextTask;
-                    taskNo++;
-                    System.out.println("Got it. I've added this task: \n" + nextTask + "\nnow you have " + taskNo + " tasks in the list");
+                    tasks.add(nextTask);
+                    System.out.println("Got it. I've added this task: \n" + nextTask + "\nnow you have " + tasks.size() + " tasks in the list");
             } else if (next.startsWith("event")){
                 if (!next.contains("/from")) {
                     throw new DukeException("You forgot to specify when the event starts!");
@@ -127,16 +131,21 @@ public class Duke {
                     throw new DukeException("You forgot to specify when the event ends!");
                 }
                 Task nextTask = new Event(next);
-                tasks[taskNo] = nextTask;
-                taskNo++;
-                System.out.println("Got it. I've added this task: \n" + nextTask + "\nnow you have " + taskNo + " tasks in the list");
+                tasks.add(nextTask);
+                System.out.println("Got it. I've added this task: \n" + nextTask + "\nnow you have " + tasks.size() + " tasks in the list");
             } else if (next.startsWith("todo")){
                 Task nextTask = new Todo(next);
-                tasks[taskNo] = nextTask;
-                taskNo++;
-                System.out.println("Got it. I've added this task: \n" + nextTask + "\nnow you have " + taskNo + " tasks in the list");
+                tasks.add(nextTask);
+                System.out.println("Got it. I've added this task: \n" + nextTask + "\nnow you have " + tasks.size() + " tasks in the list");
+            } else if (next.startsWith("delete")){
+                if (tasks.size() <= 0) {
+                    throw new DukeException("There are no tasks to delete");
+                }
+                int deleteIndex = Integer.parseInt(next.split(" ")[1]) - 1;
+                Task deleted = tasks.remove(deleteIndex);
+                System.out.println("Noted. I've removed this task:\n" + deleted + "\nNow you have " + tasks.size() + " tasks in the list");
             } else {
-                throw new DukeException("Sorry I don't understand you input!");
+                throw new DukeException("Sorry I don't understand your input!");
             }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
