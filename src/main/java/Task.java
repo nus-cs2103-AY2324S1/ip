@@ -15,8 +15,9 @@ public class Task {
         }
     }
 
-    public String getDescription() {
-        return this.description;
+    @Override
+    public String toString() {
+        return this.checkDone() + " " + this.description;
     }
 
     public void markDone() {

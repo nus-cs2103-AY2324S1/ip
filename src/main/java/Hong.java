@@ -16,6 +16,12 @@ public class Hong {
                 printTasks();
             } else if (userInput.startsWith("mark")) {
                 handleMark(userInput);
+            } else if (userInput.startsWith("deadline")) {
+                createDeadline(userInput);
+            } else if (userInput.startsWith("event")) {
+                createEvent(userInput);
+            } else if (userInput.startsWith("todo")) {
+                createTodo(userInput);
             } else {
                 Task currentTask = new Task(userInput);
                 String currentMessage = line + "\n" + "added: " + userInput + "\n" + line;
@@ -40,7 +46,7 @@ public class Hong {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task currentTask = tasks.get(i);
-            String currentItem = (i + 1) + "." + currentTask.checkDone() + " " + currentTask.getDescription();
+            String currentItem = (i + 1) + "." + currentTask.toString();
             System.out.println(currentItem);
         }
         System.out.println(line);
@@ -52,8 +58,40 @@ public class Hong {
         currentTask.markDone();
         System.out.println(line);
         System.out.println("Nice! I've marked this task as done:");
-        String currentItem = currentTask.checkDone() + " " + currentTask.getDescription();
+        String currentItem = currentTask.toString();
         System.out.println(currentItem);
         System.out.println(line);
     }
+
+    private static void createDeadline(String userInput) {
+        String newInput = userInput.substring(9);
+        String[] arrInput = newInput.split("/by ");
+        Deadline newDeadline = new Deadline(arrInput[1], arrInput[0]);
+        tasks.add(newDeadline);
+        addedMessage(newDeadline.toString());
+    }
+
+    private static void createTodo(String userInput) {
+        String newInput = userInput.substring(5);
+        Todo newTodo = new Todo(newInput);
+        tasks.add(newTodo);
+        addedMessage(newTodo.toString());
+    }
+
+    private static void createEvent(String userInput) {
+        String newInput = userInput.substring(6);
+        String[] arrInput = newInput.split("/from ");
+        String eventDetails = arrInput[0];
+        String[] fromToArr = arrInput[1].split(" /to ");
+        Event newEvent = new Event(fromToArr[0], fromToArr[1], eventDetails);
+        tasks.add(newEvent);
+        addedMessage(newEvent.toString());
+    }
+
+    private static void addedMessage(String taskMessage) {
+        String message = line + "\nGot it. I've added this task:\n" + taskMessage + "\nNow you have " + tasks.size() +
+                " tasks in the list.\n" + line;
+        System.out.println(message);
+    }
+
 }
