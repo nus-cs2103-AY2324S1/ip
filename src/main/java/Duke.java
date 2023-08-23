@@ -59,6 +59,12 @@ public class Duke {
         }
     }
 
+    public static class DukeException extends Exception {
+        public DukeException(String message) {
+            super(message);
+        }
+    }
+
     Task[] taskList = new Task[100];
     int taskCount = 0;
 
@@ -81,11 +87,20 @@ public class Duke {
             System.out.println(line);
         }
         public void chadAddList(Task input) {
-            taskList[taskCount] = input;
-            taskCount++;
-            System.out.println(line);
-            System.out.println(input.toString() + " has been added to yo list!\n");
-            System.out.println(line);
+            try {
+                if (input == null) {
+                    throw new DukeException("What are you on about? I do not understand...");
+                }
+                taskList[taskCount] = input;
+                taskCount++;
+                System.out.println(line);
+                System.out.println(input.toString() + " has been added to yo list!\n");
+                System.out.println(line);
+            } catch (DukeException e) {
+                System.out.println(line);
+                System.out.println(e.getMessage() + "\n");
+                System.out.println(line);
+            }
         }
         public void chadListTask() {
             if (taskCount == 0) {
@@ -135,27 +150,70 @@ public class Duke {
                 chad.chadListTask();
 
             } else if (inputArray[0].equals("mark")) {
-                Integer index = Integer.valueOf(inputArray[1]);
-                chad.chadMarkTask(index);
+                try {
+                    Integer index = Integer.valueOf(inputArray[1]);
+                    chad.chadMarkTask(index);
 
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    System.out.println("The task index is invalid! Try again!");
+
+                }
             } else if (inputArray[0].equals("unmark")) {
-                Integer index = Integer.valueOf(inputArray[1]);
-                chad.chadUnmarkTask(index);
+                try {
+                    Integer index = Integer.valueOf(inputArray[1]);
+                    chad.chadUnmarkTask(index);
+
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    System.out.println("The task index is invalid! Try again!");
+
+                }
 
             } else if (inputArray[0].equals("todo")) {
-                chad.chadAddList(new Todo(inputArray[1]));
+                try {
+                    if (inputArray.length == 1 || inputArray[1].isEmpty()) {
+                        throw new DukeException("Hey! You forgot what you needed to do?");
+                    }
+                    chad.chadAddList(new Todo(inputArray[1]));
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage() + "\n");
+                }
+
+
 
             } else if (inputArray[0].equals("deadline")) {
-                String[] details = inputArray[1].split(" /by ", 2);
-                chad.chadAddList(new Deadline(details[0],details[1]));
+                try {
+                    if (inputArray.length < 2 || inputArray[1].isEmpty()){
+                        throw new DukeException("Hey! You forgot what you needed to do?");
+                    }
+                    String[] details = inputArray[1].split(" /by ", 2);
+
+                    if (details.length < 2) {
+                        throw new DukeException("Umm you forgot the deadline! Remember to use /by before the deadline!");
+                    }
+                    chad.chadAddList(new Deadline(details[0], details[1]));
+                } catch (DukeException e){
+                    System.out.println(e.getMessage() + "\n");
+                }
 
             } else if (inputArray[0].equals("event")) {
-                String[] details = inputArray[1].split(" /from ", 2);
-                String[] timings = details[1].split(" /to", 2);
-                chad.chadAddList(new Event(details[0], timings[0], timings[1]));
-
+                try {
+                    if (inputArray.length < 2 || inputArray[1].isEmpty()) {
+                        throw new DukeException("Hey! You forgot what you needed to do?");
+                    }
+                    String[] details = inputArray[1].split(" /from ", 2);
+                    if (details.length < 2) {
+                        throw new DukeException("Hey you are missing the start date! Remember to use /from before the deadline!");
+                    }
+                    String[] timings = details[1].split(" /to", 2);
+                    if (timings.length < 2) {
+                        throw new DukeException("The end date is missing! Do better! Use /to!");
+                    }
+                    chad.chadAddList(new Event(details[0], timings[0], timings[1]));
+                } catch(DukeException e) {
+                    System.out.println(e.getMessage() + "\n");
+                }
             } else {
-
+                chad.chadOutput("Hmm? You are not making sense!");
             }
         }
         scanObj.close();
