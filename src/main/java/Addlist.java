@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Addlist {
-    int counter = 0;
-    String[] storage = new String[100];
+    private int counter = 0;
+    private String[] storage = new String[100];
 
     public void addnlist() {
         Scanner sn = new Scanner(System.in);
