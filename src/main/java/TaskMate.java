@@ -11,6 +11,9 @@ public class TaskMate {
     static String TODO_COMMAND_NAME = "todo ";
     static String DEADLINE_COMMAND_NAME = "deadline ";
     static String EVENT_COMMAND_NAME = "event ";
+    static enum CommandTypes {
+        list, bye, todo, deadline, event, mark, unmark
+    }
 
     public static void main(String[] args) {
 
@@ -23,6 +26,15 @@ public class TaskMate {
         String userInput;
         while (true) {
             userInput = sc.nextLine();
+
+            // Checks if user input is correct (Error handling)
+            try {
+                String commandType = getCommandType(userInput);
+            } catch (InvalidCommandTypeException e) {
+                printReply("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.exit(0);
+            }
+
             // exits
             if (userInput.equals("bye")) {
                 break;
@@ -80,16 +92,16 @@ public class TaskMate {
         return true;
     }
 
-    static String getCommandType(String userInput) {
+    static String getCommandType(String userInput) throws InvalidCommandTypeException {
         // Returns the type of command input by the user
-        // Possible values: "bye", "list", "mark/unmark", "add task"
-        if (userInput.equals("list") | userInput.equals("bye")) {
-            return userInput;
-        } else if (checkIsMarkOrUnmarkCommand(userInput)) {
-            return "mark/unmark";
-        } else {
-            return "add task";
+        // Possible values: "todo", "deadline", "event", "bye", "list", "mark", "unmark"
+        for (CommandTypes type : CommandTypes.values()) {
+            String typeString = type.toString();
+            if (userInput.startsWith(typeString)) {
+                return typeString;
+            }
         }
+        throw new InvalidCommandTypeException();
     }
 
     static void processListCommand() {
