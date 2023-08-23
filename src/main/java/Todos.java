@@ -1,10 +1,17 @@
-public class Todos extends ListItem{
-    public Todos (String text) {
-        super(text);
-    }
+public class Todos extends ListItem {
 
-    @Override
-    public String toString() {
-        return "[T] " + super.toString();
-    }
+  /**
+   * Constructor for Todos.
+   */
+  public Todos(String text) {
+    super(text);
+  }
+
+  @Override
+  /**
+   * Returns string representation of Todos.
+   */
+  public String toString() {
+    return "[T] " + super.toString();
+  }
 }
