@@ -70,29 +70,62 @@ public class Duke {
         boolean endBot = false;
         while (!endBot) {
             String input = this.sc.nextLine();
-            if (input.equals("bye")) {
-                endBot = true;
-            } else if (input.equals("list")) {
-                this.printList();
-            } else if (input.startsWith("mark")) {
-                int currIndex = Integer.parseInt(input.replace("mark ", ""));
-                this.markTask(currIndex);
-            } else if (input.startsWith("unmark")) {
-                int currIndex = Integer.parseInt(input.replace("unmark ", ""));
-                this.unmarkTask(currIndex);
-            } else if (input.startsWith("todo")) {
-                String description = input.replace("todo", "");
-                this.addToList(description);
-            } else if (input.startsWith("deadline")) {
-                String description = input.replace("deadline ", "");
-                String[] details = description.split(" /by ");
-                this.addToList(details[0], details[1]);
-            } else {
-                String description = input.replace("event", "");
-                String[] details = description.split(" /");
-                details[1] = details[1].replace("from ", "");
-                details[2] = details[2].replace("to ", "");
-                this.addToList(details[0], details[1], details[2]);
+            try {
+                if (input.equals("bye")) {
+                    endBot = true;
+                } else if (input.equals("list")) {
+                    this.printList();
+                } else if (input.startsWith("mark")) {
+                    if (input.equals("mark")) {
+                        throw new DukeException("OOPS! You need to include the task number!");
+                    }
+                    int currIndex = Integer.parseInt(input.replace("mark ", ""));
+                    if (currIndex > arr.size() || currIndex <= 0) {
+                        throw new DukeException("OOPS! Please put in a valid number!");
+                    } 
+                    this.markTask(currIndex);
+                } else if (input.startsWith("unmark")) {
+                    if (input.equals("unmark")) {
+                        throw new DukeException("OOPS! You need to include the task number!");
+                    }
+                    int currIndex = Integer.parseInt(input.replace("unmark ", ""));
+                    if (currIndex > arr.size() || currIndex <= 0) {
+                        throw new DukeException("OOPS! Please put in a valid number!");
+                    }
+                    this.unmarkTask(currIndex);
+                } else if (input.startsWith("todo")) {
+                    if (input.equals("todo")) {
+                        throw new DukeException("OOPS! You need to include the description!");
+                    }
+                    String description = input.replace("todo ", "");
+                    this.addToList(description);
+                } else if (input.startsWith("deadline")) {
+                    if (input.equals("deadline")) {
+                        throw new DukeException("OOPS!! You need to include the deadline!");
+                    }
+                    String description = input.replace("deadline ", "");
+                    String[] details = description.split(" /by ");
+                    if (details.length != 2) {
+                        throw new DukeException("OOPS!! You need to include the deadline!");
+                    }
+                    this.addToList(details[0], details[1]);
+                } else if (input.startsWith("event")) {
+                    if (input.equals("event")) {
+                        throw new DukeException("OOPS! You need to include more details on the event!");
+                    }
+                    String description = input.replace("event ", "");
+                    String[] details = description.split(" /");
+                    if (details.length != 3) {
+                        throw new DukeException("OOPS!! You need to include the details!");
+                    }
+                    details[1] = details[1].replace("from ", "");
+                    details[2] = details[2].replace("to ", "");
+                    this.addToList(details[0], details[1], details[2]);
+                } else {
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException e) {
+                System.out.println((e.getMessage()));
             }
         }
         this.printExitMessage();
