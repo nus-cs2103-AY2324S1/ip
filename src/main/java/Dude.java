@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Dude {
   static String logo =
     " _|    _| _    O\n" +
@@ -19,12 +21,33 @@ public class Dude {
   }
 
   public static void main(String[] args) {
+    /* Messages */
     String hello = logo + "\n" +
       "Hello! I'm dude.\n" +
       "What can I do for you?";
     String goodbye =
       "Bye. Hope to see you again soon!";
+
+
+    Scanner sc = new Scanner(System.in);
+
+    // Print startup greeting
     printMessage(hello);
+
+    // Input loop -- wait for input, respond, repeat
+    while (true) {
+      // read user input
+      // strip leading and trailing whitespace
+      String cmd = sc.nextLine().trim();
+
+      // check for quit cmd
+      if (cmd.equals("bye")) {
+        break;
+      }
+      // echo input
+      printMessage(cmd);
+    }
+    // Print shutdown greeting
     printMessage(goodbye);
   }
 }
