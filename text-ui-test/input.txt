@@ -1,0 +1,21 @@
+qwertyuiop
+hello.....
+list
+todo
+todo learn how to use the deadline command /by now
+deadline
+deadline discussion post
+deadline essay /by sunday 2359
+event
+event anyhow
+event project meeting /to 1330h /from 1300h
+event project meeting /from mon 1300h /to 1330h
+event party /from mon 2200h /to tue 0330h
+list
+mark 2
+mark 5
+mark 81 483
+list
+unmark 2
+list
+bye
