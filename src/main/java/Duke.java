@@ -8,6 +8,6 @@ public class Duke {
 //        System.out.println("Hello from\n" + logo);
 
         System.out.println(Messages.GREET);
-        System.out.println(Messages.EXIT);
+        Messages.startChatting();
     }
 }
