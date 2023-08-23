@@ -4,14 +4,6 @@ public class Duke {
     private Scanner scanner;
     private TaskList taskList;
 
-    private static String logo =
-                    "██████╗░██╗░░░░░░█████╗░░█████╗░██████╗░\n" +
-                    "██╔══██╗██║░░░░░██╔══██╗██╔══██╗██╔══██╗\n" +
-                    "██████╦╝██║░░░░░██║░░██║██║░░██║██████╔╝\n" +
-                    "██╔══██╗██║░░░░░██║░░██║██║░░██║██╔═══╝░\n" +
-                    "██████╦╝███████╗╚█████╔╝╚█████╔╝██║░░░░░\n" +
-                    "╚═════╝░╚══════╝░╚════╝░░╚════╝░╚═╝░░░░░";
-
     public Duke() {
         scanner = new Scanner(System.in);
         taskList = new TaskList();
@@ -48,11 +40,11 @@ public class Duke {
     }
 
     public void start() {
-        System.out.println("Hello from\n" + logo);
+        System.out.println("Hello from\n" + "Bloooooooop");
         System.out.println("____________________________________________________________");
         System.out.println(" Hello! I'm BloopBot");
         System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+        System.out.println("\n____________________________________________________________");
 
         boolean isEcho = true;
 
@@ -94,8 +86,8 @@ public class Duke {
                 }
             } else {
                 System.out.println(" Echo!! " + strInput);
-                System.out.println("____________________________________________________________");
             }
+            System.out.println("\n____________________________________________________________");
         }
     }
 
