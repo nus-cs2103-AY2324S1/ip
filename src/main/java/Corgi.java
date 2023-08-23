@@ -48,7 +48,7 @@ public class Corgi {
                 continue;
             }
 
-            System.out.println("------------------------------------------------------------");
+            System.out.println("---------------------------------------------------------------------");
 
             String[] inputParts = userInput.split(" ", 2);
             String cmdStr = inputParts[0];
@@ -67,7 +67,7 @@ public class Corgi {
                 breakLoop = this.executeCommand(cmd, inputParts);
             }
 
-            System.out.println("------------------------------------------------------------\n");
+            System.out.println("---------------------------------------------------------------------\n");
 
             if (breakLoop) break;
         }
@@ -150,7 +150,7 @@ public class Corgi {
             if (index >= 0 && index < this.tasks.size()) {
                 Task target = tasks.get(index);
                 target.markAsDone();
-                System.out.println("Congratulations, I guess! You finally managed to do something right 🎉:\n" + target);
+                System.out.println("Congratulations, I guess! You finally managed to do something right 🎉:\n" + " " + target);
             } else {
                 System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
             }
@@ -172,7 +172,7 @@ public class Corgi {
             if (index >= 0 && index < this.tasks.size()) {
                 Task target = tasks.get(index);
                 target.markAsNotDone();
-                System.out.println("Oh great, you've undone something 🐕. Just like always:\n" + target);
+                System.out.println("Oh great, you've undone something 🐕. Just like always:\n" + " " + target);
             } else {
                 System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
             }
