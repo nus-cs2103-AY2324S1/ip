@@ -1,5 +1,6 @@
 package command;
 
+import exception.KoraException;
 import task.Task;
 import task.Deadline;
 import task.TaskList;
@@ -7,9 +8,9 @@ import task.TaskList;
 public class DeadlineCommand extends Command {
     private String taskDetails;
     private String timeDetails;
-    public DeadlineCommand(String[] details) {
+    public DeadlineCommand(String[] details) throws KoraException {
         if (details.length != 2) {
-            System.out.println("Deadline needs to have a due date!");
+            throw new KoraException("Deadline needs to have a due date!");
         }
         taskDetails = details[0].replace("deadline ", "");
         timeDetails = "by: " + details[1].replace("by ", "");

@@ -1,5 +1,6 @@
 package command;
 
+import exception.KoraException;
 import task.Deadline;
 import task.Task;
 import task.TaskList;
@@ -10,9 +11,9 @@ public class EventCommand extends Command {
     private String timeDetails;
 
     private Task currentTask;
-    public EventCommand(String[] details) {
+    public EventCommand(String[] details) throws KoraException {
         if (details.length != 3) {
-            System.out.println("Event needs to have a due date!");
+            throw new KoraException("Event needs to have a due date!");
         }
         taskDetails = details[0].replace("event ", "");
         String startTime = details[1].replace("from ", "");

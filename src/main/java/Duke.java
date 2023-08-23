@@ -70,7 +70,7 @@ public class Duke {
                 System.out.println("I do not understand");
             }
         } catch (Exception e) {
-            System.out.println(line + e.getMessage() + e.toString() + e.getCause() + e.getStackTrace());
+            System.out.println(e.getMessage());
         }
     }
     public static void main(String[] args) {
