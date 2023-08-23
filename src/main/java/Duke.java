@@ -18,7 +18,8 @@ public class Duke {
 
         while (notBye) {
             String input = scanner.nextLine();
-            String[] splited = input.split(" ");
+            String[] splited = input.split(" ", 2);
+
 
             if (splited[0].equals("bye")) {
                 notBye = false;
@@ -31,10 +32,18 @@ public class Duke {
             } else if (splited[0].equals("unmark")) {
                 int number = Integer.parseInt(splited[1]);
                 dukelist.setUndone(number);
-            }
-            else {
-                dukelist.addToList(input);
-
+            } else if (splited[0].equals("todo")) {
+                String[] job = input.split(" ", 2);
+                dukelist.addTodo(job[1]);
+            } else if (splited[0].equals("deadline")) {
+                String[] splitted = input.split(" ", 2);
+                String[] deadline = splitted[1].split("/by", 2);
+                dukelist.addDeadline(deadline[0], deadline[1]);
+            } else if (splited[0].equals("event")) {
+                String[] splitted = input.split(" ", 2);
+                String[] from = splitted[1].split("/from", 2);
+                String[] to = from[1].split("/to", 2);
+                dukelist.addEvent(from[0], to[0], to[1]);
             }
         }
 
