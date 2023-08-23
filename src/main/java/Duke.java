@@ -17,14 +17,18 @@ public class Duke {
             } else if (cmd.split(" ")[0].equals("mark")) {
                 String arr[] = cmd.split(" ", 2);
                 int taskNumber = Integer.parseInt(arr[1]) - 1;
-                list.get(taskNumber).markTask();
+                Task task = list.get(taskNumber);
+                task.markTask();
+                printMarkedTaskMessage(task);
             } else if (cmd.split(" ")[0].equals("unmark")) {
                 String arr[] = cmd.split(" ", 2);
                 int taskNumber = Integer.parseInt(arr[1]) - 1;
-                list.get(taskNumber).unMarkTask();
+                Task task = list.get(taskNumber);
+                task.unMarkTask();
+                printUnmarkedTaskMessage(task);
             } else {    // else, echo command and add to the list
-                printEcho(cmd);
                 Task newTask = new Task(cmd);
+                printAddTaskMessage(newTask);
                 list.add(newTask);
             }
             cmd = sc.nextLine();
@@ -51,11 +55,11 @@ public class Duke {
         System.out.println(intro);
     }
 
-    public static void printEcho(String cmd) {
-        String echo = "____________________________________________________________\n" +
-                " added: " + cmd + "\n" +
+    public static void printAddTaskMessage(Task task) {
+        String message = "____________________________________________________________\n" +
+                " added: " + task.name + "\n" +
                 "____________________________________________________________";
-        System.out.println(echo);
+        System.out.println(message);
     }
 
     public static void printExit() {
@@ -63,5 +67,21 @@ public class Duke {
                 " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________";
         System.out.println(exitMessage);
+    }
+
+    public static void printMarkedTaskMessage(Task task) {
+        String message = "____________________________________________________________\n" +
+                " Nice! I've marked this task as done:\n" +
+                "   " + task.getStatusIcon() + " " + task.name + "\n" +
+                "____________________________________________________________";
+        System.out.println(message);
+    }
+
+    public static void printUnmarkedTaskMessage(Task task) {
+        String message = "____________________________________________________________\n" +
+                " OK. I've marked this task as not done yet:\n" +
+                "   " + task.getStatusIcon() + " " + task.name + "\n" +
+                "____________________________________________________________";
+        System.out.println(message);
     }
 }
