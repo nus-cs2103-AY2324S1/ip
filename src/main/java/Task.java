@@ -9,6 +9,14 @@ class Task {
         return isDone ? "[X]" : "[ ]";
     }
 
+    public String getTaskType() {
+        return "";
+    }
+
+    public String getTimeInfo() {
+        return "";
+    }
+
     public void markTask() {
         this.isDone = true;
     }
