@@ -11,7 +11,8 @@ public class Peko {
             "Usada Pekora-peko! almondo almondo!";
     private static final String exitText = "Otsupeko! Bye bye!";
     private static final String[] commands = new String[]
-            {"echo:","otsupeko", "list", "write:", "mark", "unmark", "tell me a joke"};
+            {"echo:","otsupeko", "list", "write:", "mark", "unmark",
+                    "todo", "deadline", "event","tell me a joke"};
 
     private static final int ECHO = 0;
     private static final int EXIT = 1;
@@ -19,7 +20,11 @@ public class Peko {
     private static final int WRITE = 3;
     private static final int MARK = 4;
     private static final int UNMARK = 5;
-    private static final int COPYPASTA = 6;
+    private static final int TODO = 6;
+    private static final int DEADLINE = 7;
+    private static final int EVENT = 8;
+
+    private static final int COPYPASTA = 9;
     private static String currInput;
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
@@ -51,6 +56,18 @@ public class Peko {
                 case UNMARK:
                     input = leftPad(input.substring(6, input.length()));
                     setUnmarkArray(input);
+                    break;
+                case TODO:
+                    input = input.startsWith(commands[6]) ? leftPad(input.substring(6, input.length())) : input;
+                    addToDo(input);
+                    break;
+                case DEADLINE:
+                    input = input.startsWith(commands[7]) ? leftPad(input.substring(8, input.length())) : input;
+                    addDeadline(input);
+                    break;
+                case EVENT:
+                    input = input.startsWith(commands[8]) ? leftPad(input.substring(8, input.length())) : input;
+                    addEvent(input);
                     break;
                 case COPYPASTA:
                     try  {
@@ -146,9 +163,31 @@ public class Peko {
     }
     public static void addToArray(String s) {
         todoList[pos] = new Task(s);
-        System.out.println("Added: \"" + s + "\" Peko!");
-        System.out.println(lineBreak);
         pos++;
+        System.out.println("Added: \n" +  todoList[pos-1] + "\nPeko!");
+        System.out.println("You have: " + pos + "tasks now Peko");
+        System.out.println(lineBreak);
+    }
+    public static void addToDo(String s) {
+        todoList[pos] = new ToDos(s);
+        pos++;
+        System.out.println("Added: \n" + todoList[pos-1] + "\n Peko!");
+        System.out.println("You have: " + pos + " tasks now Peko");
+        System.out.println(lineBreak);
+    }
+    public static void addDeadline(String s) {
+        todoList[pos] = new Deadline(s);
+        pos++;
+        System.out.println("Added: \n" + todoList[pos-1] + "\n Peko!");
+        System.out.println("You have: " + pos + " tasks now Peko");
+        System.out.println(lineBreak);
+    }
+    public static void addEvent(String s) {
+        todoList[pos] = new Event(s);
+        pos++;
+        System.out.println("Added: \n" + todoList[pos-1] + "\n Peko!");
+        System.out.println("You have: " + pos + " tasks now Peko");
+        System.out.println(lineBreak);
     }
 
     public static void setMark(String s) {

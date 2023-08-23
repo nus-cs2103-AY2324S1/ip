@@ -1,6 +1,6 @@
 public class Task {
-    String name;
-    boolean status;
+    protected String name;
+    private boolean status;
     public Task(String s) {
         name = s;
         status = false;
