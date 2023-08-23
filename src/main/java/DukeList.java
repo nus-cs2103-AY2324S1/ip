@@ -3,7 +3,7 @@
  */
 public class DukeList {
     /**The array used to store all tasks accordingly, up to a total of 100 tasks*/
-    private String[] tasks = new String[100];
+    private Task[] tasks = new Task[100];
     /**The current number of tasks stored*/
     private int index;
 
@@ -21,7 +21,7 @@ public class DukeList {
      * @param task takes in the task given by the user.
      */
     public void store(String task) {
-        this.tasks[index] = task;
+        this.tasks[index] = new Task(task);
         System.out.println("Added! You want to: " + task + "\n" +
                 "____________________________________________________________");
         index++;
@@ -32,9 +32,33 @@ public class DukeList {
     public void display() {
         for (int i = 0; i < index; i++) {
             int curr = i + 1;
-            System.out.println(curr + ". " + tasks[i] +"\n");
+            System.out.println(curr + ". " + tasks[i].toString() +"\n");
         }
 
         System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Marks the i-th task as done.
+     * @param i takes in the index of the task to be set as done.
+     */
+    public void mark(int i) {
+        tasks[i - 1].done();
+
+        System.out.println("NICEEEEE. Good job on completing the task!\n" +
+                tasks[i - 1].toString() + "\n" +
+                "____________________________________________________________");
+    }
+
+    /**
+     * Marks the i-th task as undone.
+     * @param i takes in the index of the task to be set as undone.
+     */
+    public void unmark(int i) {
+        tasks[i - 1].undo();
+
+        System.out.println("Ohhh... uhm, okay, task undone!\n" +
+                tasks[i - 1].toString() + "\n" +
+                "____________________________________________________________");
     }
 }

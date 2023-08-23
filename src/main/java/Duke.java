@@ -37,8 +37,9 @@ public class Duke {
     }
 
     /**
-     * Helps to store user inputs into the list variable and show its
-     * contents if the "list" command is inputted.
+     * Helps to manage the user's inputs. "list" shows the current list, "mark / unmark"
+     * helps to mark or unmark the specific task in the list, and any other input is
+     * added as a task to the list.
      *
      * @param tally takes in the input string.
      */
@@ -46,7 +47,14 @@ public class Duke {
         if (tally.equals("list")) {
             list.display();
         } else {
-            list.store(tally);
+            String[] set = tally.split(" ");
+            if (set[0].equals("mark")) {
+                list.mark(Integer.parseInt(set[1]));
+            } else if (set[0].equals("unmark")) {
+                list.unmark(Integer.parseInt(set[1]));
+            } else {
+                list.store(tally);
+            }
         }
     }
 
