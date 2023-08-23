@@ -1,7 +1,10 @@
 public class Task {
     protected String name;
     private boolean status;
-    public Task(String s) {
+    public Task(String s) throws InvalidTaskException {
+        if (s.isBlank()) {
+            throw new InvalidTaskException();
+        }
         name = s;
         status = false;
     }

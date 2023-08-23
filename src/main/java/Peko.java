@@ -27,7 +27,7 @@ public class Peko {
     private static final int COPYPASTA = 9;
     private static String currInput;
     private static final Scanner scanner = new Scanner(System.in);
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidTaskException {
         String input;
         boolean loop = true;
         int responseValue;
@@ -47,7 +47,12 @@ public class Peko {
                     break;
                 case WRITE:
                     input = input.startsWith(commands[3]) ? leftPad(input.substring(6, input.length())) : input;
-                    addToArray(input);
+                    try {
+                        addToArray(input);
+                    } catch (InvalidTaskException e) {
+                        System.out.println(e);
+                        System.out.println(lineBreak);
+                    }
                     break;
                 case MARK:
                     input = leftPad(input.substring(4, input.length()));
@@ -58,16 +63,31 @@ public class Peko {
                     setUnmarkArray(input);
                     break;
                 case TODO:
-                    input = input.startsWith(commands[6]) ? leftPad(input.substring(6, input.length())) : input;
-                    addToDo(input);
+                    input = input.startsWith(commands[6]) ? leftPad(input.substring(4, input.length())) : input;
+                    try {
+                        addToDo(input);
+                    } catch (InvalidTaskException e) {
+                        System.out.println(e);
+                        System.out.println(lineBreak);
+                    }
                     break;
                 case DEADLINE:
                     input = input.startsWith(commands[7]) ? leftPad(input.substring(8, input.length())) : input;
-                    addDeadline(input);
+                    try {
+                        addDeadline(input);
+                    } catch (InvalidTaskException e) {
+                        System.out.println(e);
+                        System.out.println(lineBreak);
+                    }
                     break;
                 case EVENT:
-                    input = input.startsWith(commands[8]) ? leftPad(input.substring(8, input.length())) : input;
-                    addEvent(input);
+                    input = input.startsWith(commands[8]) ? leftPad(input.substring(5, input.length())) : input;
+                    try {
+                        addEvent(input);
+                    } catch (InvalidTaskException e) {
+                        System.out.println(e);
+                        System.out.println(lineBreak);
+                    }
                     break;
                 case COPYPASTA:
                     try  {
@@ -161,25 +181,25 @@ public class Peko {
         System.out.println("Added: \"" + s + "\" Peko!");
         System.out.println(lineBreak);
     }
-    public static void addToArray(String s) {
+    public static void addToArray(String s) throws InvalidTaskException {
         todoList[pos] = new Task(s);
         todoList[pos].reply(pos);
         pos++;
         System.out.println(lineBreak);
     }
-    public static void addToDo(String s) {
+    public static void addToDo(String s) throws InvalidTaskException {
         todoList[pos] = new ToDos(s);
         todoList[pos].reply(pos);
         pos++;
         System.out.println(lineBreak);
     }
-    public static void addDeadline(String s) {
+    public static void addDeadline(String s) throws InvalidTaskException {
         todoList[pos] = new Deadline(s);
         todoList[pos].reply(pos);
         pos++;
         System.out.println(lineBreak);
     }
-    public static void addEvent(String s) {
+    public static void addEvent(String s) throws InvalidTaskException {
         todoList[pos] = new Event(s);
         todoList[pos].reply(pos);
         pos++;

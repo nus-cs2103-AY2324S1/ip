@@ -1,6 +1,6 @@
 public class ToDos extends Task{
     char type = 'T';
-    public ToDos(String s) {
+    public ToDos(String s) throws InvalidTaskException {
         super(s);
     }
     @Override
