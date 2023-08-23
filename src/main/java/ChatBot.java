@@ -98,13 +98,16 @@ public class ChatBot {
                         getTaskCount() +
                         lineBreak);
                 break;
+            case "delete":
+                delete(temp[1]);
+                break;
             default:
-                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+                throw new DukeException(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         }
     }
 
     private static void showList() {
-        System.out.println(lineBreak);
+        System.out.print(lineBreak);
         if (list.isEmpty()) {
             System.out.println(" The list is empty. Please add tasks in!");
         } else {
@@ -123,13 +126,13 @@ public class ChatBot {
         boolean isInteger = str.matches("\\b[1-9][0-9]*\\b");
 
         if (!isInteger) {
-            throw new DukeException("The task number you have keyed in is not valid. Please try again.\n");
+            throw new DukeException(" The task number you have keyed in is not valid. Please try again.\n");
         }
 
         int num = Integer.parseInt(str) - 1;
 
         if (list.size() <= num) {
-            throw new DukeException("This task number is not available. Please try again.\n");
+            throw new DukeException(" This task number is not available. Please try again.\n");
         }
         Task curr = list.get(num);
         curr.markDone();
@@ -140,17 +143,39 @@ public class ChatBot {
         boolean isInteger = str.matches("\\b[1-9][0-9]*\\b");
 
         if (!isInteger) {
-            throw new DukeException("The task number you have keyed in is not valid. Please try again.\n");
+            throw new DukeException(" The task number you have keyed in is not valid. Please try again.\n");
         }
 
         int num = Integer.parseInt(str) - 1;
 
         if (list.size() <= num) {
-            throw new DukeException("This task number is not available. Please try again.\n");
+            throw new DukeException(" This task number is not available. Please try again.\n");
         }
         Task curr = list.get(num);
         curr.unmarkedDone();
 
+    }
+
+    private static void delete(String str) throws DukeException {
+        // Adapted from https://stackoverflow.com/questions/43156077/how-to-check-if-a-string-is-float-or-int
+        boolean isInteger = str.matches("\\b[1-9][0-9]*\\b");
+
+        if (!isInteger) {
+            throw new DukeException(" The task number you have keyed in is not valid. Please try again.\n");
+        }
+
+        int num = Integer.parseInt(str) - 1;
+
+        if (list.size() <= num) {
+            throw new DukeException(" This task number is not available. Please try again.\n");
+        }
+        Task curr = list.get(num);
+        list.remove(num);
+        System.out.println(lineBreak +
+                " Noted. I've removed this task:\n  " +
+                curr.toString() +
+                getTaskCount() +
+                lineBreak);
     }
 
     private static String getTaskCount() {

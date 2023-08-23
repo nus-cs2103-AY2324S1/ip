@@ -15,5 +15,7 @@ deadline
 deadline run
 event
 event marathon
-event marathon /from Aug 10th 1pm
+event marathon /from Aug 10th
+delete 2
+list
 bye
