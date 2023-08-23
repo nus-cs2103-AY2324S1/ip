@@ -116,7 +116,7 @@ public class Duke {
                     printList(inputList);
                     break;
                 case UNMARK:
-                    if (taskIndex > inputList.size()) {
+                    if (taskIndex > inputList.size() || taskIndex < 1) {
                         excep = new InvalidSyntaxException("The task does not exist.");
                         System.out.println("JonBird:\n\t" + excep.toString());
                     } else {
@@ -124,7 +124,7 @@ public class Duke {
                     }
                     break;
                 case MARK:
-                    if (taskIndex > inputList.size()) {
+                    if (taskIndex > inputList.size() || taskIndex < 1) {
                         excep = new InvalidSyntaxException("The task does not exist.");
                         System.out.println("JonBird:\n\t" + excep.toString());
                     } else {
@@ -132,7 +132,7 @@ public class Duke {
                     }
                     break;
                 case DELETE:
-                    if (taskIndex > inputList.size()) {
+                    if (taskIndex > inputList.size() || taskIndex < 1) {
                         excep = new InvalidSyntaxException("The task does not exist.");
                         System.out.println("JonBird:\n\t" + excep.toString());
                     } else {
