@@ -50,6 +50,14 @@ public class Duke {
                     System.out.println("You have this many stuff to complete: " + list.size());
                 } catch (NoDescException e) {
                 }
+            } else if (input.startsWith("delete")) {
+                String parts[] = input.split(" ");
+                int taskNo = Integer.parseInt(parts[1]);
+                Task checkedTask = list.get(taskNo - 1);
+                list.remove(checkedTask);
+                System.out.println("not you running away from your responsibilities, i guess you don't have to do this now:");
+                System.out.println(checkedTask.toString());
+                System.out.println("sucks to be you, you still have " + list.size() +" tasks");
             } else if (input.startsWith("deadline")) {
                 try {
                     String parts[] = input.split("/by");
