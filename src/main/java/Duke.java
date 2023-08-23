@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -18,6 +19,8 @@ public class Duke {
         |_|  \\___/|_|  |_|_| |_|\\___|
                       """;
 
+        ArrayList<String> chatHistory = new ArrayList<String>();
+
         System.out.println(logo);
         printWithTab(line);
         printWithTab("Hello! I'm Forine");
@@ -27,7 +30,15 @@ public class Duke {
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             printWithTab(line);
-            printWithTab(input);
+            if (input.equals("list")) {
+                for (int i = 0; i < chatHistory.size(); i++) {
+                    printWithTab(i + ". " + chatHistory.get(i));
+                }
+            }
+            else {
+                printWithTab("added: " + input);
+                chatHistory.add(input);
+            }
             printWithTab(line);
             input = sc.nextLine();
         }
