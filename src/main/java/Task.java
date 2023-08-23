@@ -13,21 +13,22 @@ public class Task {
         return this.status ? "X" : " ";
     }
 
-    public String getDescription() {
-        return "[" + this.getStatus() + "] " + this.description;
-    }
-
     public String changeStatus(String userInput) {
         if (!this.status && userInput.equals("mark")) {
             this.status = !this.status;
-            return "Nice! Task completed successfully!" + "\n" + indent + this.getDescription();
+            return "Nice! Task completed successfully!" + "\n" + indent + this.toString();
         } else if (!this.status && userInput.equals("unmark")) {
-            return "Task already unmarked! Please try again..." + "\n" + indent + this.getDescription();
+            return "Task already unmarked! Please try again..." + "\n" + indent + this.toString();
         } else if (this.status && userInput.equals("unmark")) {
             this.status = !this.status;
-            return "Sure! Task status unchecked!" + "\n" + indent + this.getDescription();
+            return "Sure! Task status unchecked!" + "\n" + indent + this.toString();
         } else {
-            return "Task already unchecked. Please try again..." + "\n" + indent + this.getDescription();
+            return "Task already unchecked. Please try again..." + "\n" + indent + this.toString();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "[" + this.getStatus() + "] " + this.description;
     }
 }
