@@ -1,18 +1,14 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String[] tasks = new String[10];
-        String[] completed = new String[10];
-        Arrays.fill(completed, " ");
-        String horizontal_line = "____________________________________________________________";
+        Task[] tasks = new Task[10];
+        String horizontal_line = "____________________________________________________________\n";
         int count = 0;
-        String welcomeMessage = "____________________________________________________________\n" +
+        String welcomeMessage = horizontal_line +
                 " Hello! I'm Blob\n" +
                 " What can I do for you?\n" +
-                "____________________________________________________________\n" +
-                "____________________________________________________________\n";
+                horizontal_line;
         System.out.println(welcomeMessage);
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -25,30 +21,36 @@ public class Duke {
                 System.out.println(horizontal_line);
                 System.out.println("here are the tasks in your list: ");
                 for (int i = 0; i < count; i++) {
-                    System.out.println((i + 1) + ". " + "[" + completed[i] + "] " + tasks[i]);
+                    Task task = tasks[i];
+                    String completed = task.getCompleted() ? "X" : " ";
+                    System.out.println((i + 1) + ". " + "[" + completed + "] " + task.getDescription());
                 }
                 System.out.println(horizontal_line);
             } else if (userCommand.startsWith("mark ")) {
                 String[] parts = userCommand.split(" ");
                 if (parts.length == 2) {
                     int num = Integer.parseInt(parts[1]);
+                    Task task = tasks[num];
+                    task.toggleCompleted();
                     System.out.println("Nice! I've marked this task as done:");
-                    completed[num] = "X";
-                    System.out.println("[" + completed[num] + "] " + tasks[num]);
+                    String completed = task.getCompleted() ? "X" : " ";
+                    System.out.println("[" + completed + "] " + task.getDescription());
                 }
             } else if (userCommand.startsWith("unmark ")) {
                 String[] parts = userCommand.split(" ");
                 if (parts.length == 2) {
                     int num = Integer.parseInt(parts[1]);
-                    System.out.println("Okay. I see you have not done this task yet");
-                    completed[num] = " ";
-                    System.out.println("[" + completed[num] + "] " + tasks[num]);
+                    Task task = tasks[num];
+                    task.toggleCompleted();
+                    System.out.println("Okay. I see you haven't done this task yet");
+                    String completed = task.getCompleted() ? "X" : " ";
+                    System.out.println("[" + completed + "] " + task.getDescription());
                 }
             } else {
                 System.out.println(horizontal_line);
                 System.out.println("added: " + userCommand);
                 System.out.println(horizontal_line);
-                tasks[count] = userCommand;
+                tasks[count] = new Task(userCommand);
                 count++;
             }
         }
