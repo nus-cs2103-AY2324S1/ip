@@ -1,17 +1,19 @@
+import java.util.Scanner;
+
 public class Kevin {
     public static final String HORIZONTAL_LINE = "_".repeat(70);
-    public static final String BOT_NAME = "\n" +
-            " _   __ _____ _   _ _____ _   _ \n" +
-            "| | / /|  ___| | | |_   _| \\ | |\n" +
-            "| |/ / | |__ | | | | | | |  \\| |\n" +
-            "|    \\ |  __|| | | | | | | . ` |\n" +
-            "| |\\  \\| |___\\ \\_/ /_| |_| |\\  |\n" +
-            "\\_| \\_/\\____/ \\___/ \\___/\\_| \\_/\n";
+    public static final String BOT_NAME = "\t \n" +
+            "\t" + " _   __ _____ _   _ _____ _   _ \n" +
+            "\t" +"| | / /|  ___| | | |_   _| \\ | |\n" +
+            "\t" +"| |/ / | |__ | | | | | | |  \\| |\n" +
+            "\t" +"|    \\ |  __|| | | | | | | . ` |\n" +
+            "\t" +"| |\\  \\| |___\\ \\_/ /_| |_| |\\  |\n" +
+            "\t" +"\\_| \\_/\\____/ \\___/ \\___/\\_| \\_/\n";
 
     public static void wrapInHorizontalLines(String str) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(str);
-        System.out.println(HORIZONTAL_LINE);
+        System.out.println("\t" + HORIZONTAL_LINE);
+        System.out.println("\t" + str);
+        System.out.println("\t" + HORIZONTAL_LINE);
     }
 
     public static void echo(String command) {
@@ -19,7 +21,7 @@ public class Kevin {
     }
 
     public static void hello() {
-        String welcomeMessage = "Hello! I'm" + BOT_NAME + "\n" + "What can I do for you?";
+        String welcomeMessage = "Hello! I'm" + BOT_NAME + "\n\t" + "What can I do for you?";
         wrapInHorizontalLines(welcomeMessage);
     }
 
@@ -28,7 +30,15 @@ public class Kevin {
         wrapInHorizontalLines(goodbyeMessage);
     }
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         hello();
+        while (true) {
+            String command = scanner.nextLine();
+            if (command.equals("bye")) {
+                break;
+            }
+            echo(command);
+        }
         bye();
     }
 }
