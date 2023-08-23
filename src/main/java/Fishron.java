@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Fishron {
     private String name;
+    private String[] storage = new String[100];
+    private int taskCount = 0;
 
     public Fishron(String name) {
         this.name = name;
@@ -16,9 +18,19 @@ public class Fishron {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public void echoCommand(String input) {
+    public void addTask(String task) {
+        storage[taskCount] = task;
+        taskCount++;
         System.out.println("____________________________________________________________");
-        System.out.println(input);
+        System.out.println("added: " + task);
+        System.out.println("____________________________________________________________");
+    }
+
+    public void listTasks() {
+        System.out.println("____________________________________________________________");
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println((i + 1) + ". " + storage[i]);
+        }
         System.out.println("____________________________________________________________");
     }
 
@@ -33,7 +45,11 @@ public class Fishron {
         String input;
         do {
             input = scanner.nextLine();
-            chatBot.echoCommand(input);
+            if (input.equalsIgnoreCase("list")) {
+                chatBot.listTasks();
+            } else if (!input.equalsIgnoreCase("bye")) {
+                chatBot.addTask(input);
+            }
         } while (!input.equalsIgnoreCase("bye"));
 
         chatBot.farewell();
