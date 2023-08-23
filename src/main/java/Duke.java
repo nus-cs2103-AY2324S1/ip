@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
-
 public class Duke {
     public static Task[] taskList = new Task[100];
     public static int taskListIndex = 0;
@@ -32,7 +30,7 @@ public class Duke {
         System.out.println("    Got it... I've added this task...");
         System.out.println("      " + newTask.getStatus());
         taskListIndex++;
-        System.out.println("Now you have " + (taskListIndex) + " tasks in the list.");
+        System.out.println("    Now you have " + (taskListIndex) + " tasks in the list...");
         System.out.println("--------------------------------");
     }
     public static boolean continueOrNot(String[] input) {
@@ -41,50 +39,64 @@ public class Duke {
         }
         return true;
     }
-    public static String combineStringParts(String[] parts) {
-        String result = "";
-        for (int i = 1; i < parts.length; i++) {
-            result += parts[i] + " ";
-        }
-        return result;
-    }
-    public static String[] input(Scanner sc) {
+    public static String input(Scanner sc) {
         String reply = sc.nextLine();
         System.out.println("--------------------------------");
-        return reply.split(" ", 2);
+        return reply;
     }
+
+    public static String[] splitBy(String input, String regex) {
+        String [] parts = input.split(regex, 2);
+        if (parts.length <= 1) {
+            parts = new String[]{parts[0], ""};
+        }
+        return parts;
+    }
+
     public static void greeting() {
         System.out.println("Hello.. I'm ekuD..");
         System.out.println("I probably won't be much of a help.. But ask me something..");
         System.out.println("--------------------------------");
         Scanner sc = new Scanner(System.in);
-        String[] input = input(sc);
+        String [] input = splitBy(input(sc), " ");
+
         while (continueOrNot(input)) {
-            if (input[0].equals("list")) {
-                listTask();
-            } else if (input[0].equals("mark")) {
-                markAsDone(Integer.parseInt(input[1]));
-            } else if (input[0].equals("unmark")) {
-                unmark(Integer.parseInt(input[1]));
-            } else if (input[0].equals("todo")) {
-                addTask(new Todo(input[1]));
-            } else if (input[0].equals("deadline")) {
-                String newString = input[1];
-                String[] splitBy = newString.split(" /by ");
-                addTask(new Deadline(splitBy[0].strip(), splitBy[1].strip()));
-            } else if (input[0].equals("event")) {
-                String newString = input[1].strip();
-                String[] splitFrom = newString.split("/from ", 2);
-                String[] splitTo = splitFrom[1].split("/to", 2);
-                String startDate = splitTo[0].strip();
-                String endDate = splitTo[1].strip();
-                addTask(new Event(splitFrom[0].strip(), startDate, endDate));
-            } else {
-                System.out.println("not working.");
+            try {
+                if (input[0].equals("list")) {
+                    listTask();
+                } else if (input[0].equals("mark")) {
+                    markAsDone(Integer.parseInt(input[1]));
+                } else if (input[0].equals("unmark")) {
+                    unmark(Integer.parseInt(input[1]));
+                } else if (input[0].equals("todo")) {
+                    addTask(new Todo(input[1]));
+                } else if (input[0].equals("deadline")) {
+                    if (input[1].isBlank()) {
+                        addTask(new Deadline("", ""));
+                    }
+                    String newString = input[1];
+                    String[] parts = splitBy(newString, "/by");
+                    addTask(new Deadline(parts[0].strip(), parts[1].strip()));
+                } else if (input[0].equals("event")) {
+                    if (input[1].isBlank()) {
+                        addTask(new Event("", "", ""));
+                    }
+                    String newString = input[1].strip();
+                    String[] splitFrom = splitBy(newString, "/from");
+                    String[] splitTo = splitBy(splitFrom[1], "/to");;
+                    String startDate = splitTo[0].strip();
+                    String endDate = splitTo[1].strip();
+                    addTask(new Event(splitFrom[0].strip(), startDate, endDate));
+                } else {
+                    throw new DukeUnknownCommandException();
+                }
             }
-            input = input(sc);
+            catch (DukeException e) {
+                System.out.println(e.getMessage());
+            }
+            input = splitBy(input(sc), " ");
         }
-        System.out.println("    bye...");
+        System.out.println("   bye...");
     }
     public static void main(String[] args) {
         String logo = " ____        _        \n"
