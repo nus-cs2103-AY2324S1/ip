@@ -4,9 +4,10 @@ public class Dude {
   // Messages
   static String logo =
     " _|    _| _    O\n" +
-      "(_||_|(_|(/_  /İ\\\n";
+      "(_||_|(_|(/_  /İ\\\n" +
+      "------------  ```\n";
   static String border = "-----------------------------------------------------------\n";
-  static String hello = logo + "\n" +
+  static String hello = logo +
     "Hello! I'm dude.\n" +
     "What can I do for you?";
   static String goodbye =
@@ -237,8 +238,8 @@ public class Dude {
     String[] lines = message.split("\\n");
     String prefix = "  ";
     String output = border + prefix +
-      String.join("\n" + prefix, lines) + "\n" +
-      border;
+      String.join("\n" + prefix, lines) +
+      "\n" + border;
     System.out.println(output);
   }
 
