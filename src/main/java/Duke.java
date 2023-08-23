@@ -85,6 +85,37 @@ public class Duke {
                                     System.out.println(tasks[index - 1].getString());
                                 }
                             }
+                        } else if (s.startsWith("delete")) {
+                            String markVal = s.substring(s.indexOf(' ') + 1);
+                            if (!Character.isDigit(markVal.charAt(0))) {
+                                System.out.print("\t");
+                                throw new DukeIntegerMismatchException("delete");
+                            } else {
+                                int index = s.charAt(s.indexOf(' ') + 1) - 48;
+                                if (index > counter) {
+                                    System.out.print("\t");
+                                    throw new DukeIndexOutOfBoundsException("delete");
+                                } else if (index < 0) {
+                                    System.out.print("\t");
+                                    throw new DukeNegativeArgException("delete");
+                                } else {
+                                    String s1 = tasks[index - 1].getString();
+                                    if (index == counter) {
+                                        tasks[index] = null;
+                                    }
+                                    else {
+                                        for (int i = index - 1; i < counter; i++) {
+                                            tasks[i] = tasks[i + 1];
+                                        }
+                                    }
+                                    counter--;
+                                    System.out.print("\t");
+                                    System.out.println("I have removed this task from your list:");
+                                    System.out.print("\t");
+                                    System.out.println(s1);
+                                    System.out.println("\tNow you have " + counter + (counter == 1 ? " task" : " tasks") + " in your list.");
+                                }
+                            }
                         } else {
                             switch (s.split(" ")[0]) {
                                 case "todo": {
