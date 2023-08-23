@@ -1,11 +1,24 @@
+import Task.Task;
+import Task.Deadline;
+import Task.Event;
+import Task.Todo;
+import Exception.UnknownCommandException;
+import Exception.EmptyDescriptionException;
+
 import java.util.Scanner;
 
 public class Duke {
-    public static boolean filterInput(String[] words) {
+    public static void filterInput(String[] words) throws UnknownCommandException, EmptyDescriptionException {
         // Only allows commands that are listed below
         String command = words[0];
-        return command.equals("bye") || command.equals("todo") || command.equals("deadline") || command.equals("event")
+        boolean validCommand = command.equals("bye") || command.equals("todo") || command.equals("deadline") || command.equals("event")
                 || command.equals("list") || command.equals("mark") || command.equals("unmark");
+
+        if (!validCommand) {
+            throw new UnknownCommandException();
+        } else if (words.length < 2) {
+            throw new EmptyDescriptionException();
+        }
     }
 
     public static void main(String[] args) {
@@ -28,8 +41,10 @@ public class Duke {
             input = scanner.nextLine().toLowerCase();
             String[] words = input.split(" ", 2); // splits into the command and the rest
 
-            if (!filterInput(words)) {
-                System.out.println(line + "Invalid command! Please try again.\n" + line);
+            try {
+                filterInput(words);
+            } catch (UnknownCommandException | EmptyDescriptionException e) {
+                System.out.println(line + e.getMessage() + "\n" + line);
                 continue;
             }
 
@@ -73,14 +88,14 @@ public class Duke {
                 }
                 System.out.println(line);
             } else if (words[0].equals("mark") && words.length > 1) {
-                int index = Integer.parseInt(words[1]) - 1;
+                int index = Integer.parseInt(words[1]) - 1; // string -> int
                 tasks[index].markDone();
                 System.out.println(line + "\nNice! I've marked this task as done:\n  " +
                         tasks[index] +
                         "\n" +
                         line);
             } else if (words[0].equals("unmark") && words.length > 1) {
-                int index = Integer.parseInt(words[1]) - 1;
+                int index = Integer.parseInt(words[1]) - 1; // string -> int
                 tasks[index].unmarkDone();
                 System.out.println(line +
                         "\nOK, I've marked this task as not done yet:\n  " +
