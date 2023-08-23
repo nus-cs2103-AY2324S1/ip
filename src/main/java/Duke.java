@@ -50,19 +50,41 @@ public class Duke {
                     System.out.println("This task does not exist!");
                 }
             } else if (response.startsWith("deadline")) {
-                Deadline newDeadline = new Deadline(response);
-                todoList.add(newDeadline);
-                System.out.println("added: " + newDeadline.toString());
-            } else if (response.startsWith("event")) {
-                Event newEvent = new Event(response);
-                todoList.add(newEvent);
-                System.out.println("added: " + newEvent.toString());
-            } else {
-                ToDo newTodo = new ToDo(response);
-                todoList.add(newTodo);
-                System.out.println("added: " + newTodo.toString());
+                if (response.equals("deadline")) {
+                    System.out.println("Task description cannot be empty!");
+                } else {
+                    try {
+                        Deadline newDeadline = new Deadline(response);
+                        todoList.add(newDeadline);
+                        System.out.println("added: " + newDeadline.toString());
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Please specify the deadline!");
+                    }
                 }
+            } else if (response.startsWith("event")) {
+                if (response.equals("event")) {
+                    System.out.println("Task description cannot be empty!");
+                } else {
+                    try {
+                        Event newEvent = new Event(response);
+                        todoList.add(newEvent);
+                        System.out.println("added: " + newEvent.toString());
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Please specify both the start and end time!");
+                    }
+                }
+            } else if (response.startsWith("todo")) {
+                if (response.equals("todo")) {
+                    System.out.println("Task description cannot be empty!");
+                } else {
+                    ToDo newTodo = new ToDo(response);
+                    todoList.add(newTodo);
+                    System.out.println("added: " + newTodo.toString());
+                }
+            } else {
+                System.out.println("Sorry! Don't know what that is!");
             }
+        }
         scanner.close();
         }
     }

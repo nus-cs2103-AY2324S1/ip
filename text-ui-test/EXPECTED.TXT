@@ -7,6 +7,13 @@ Hello from
 
 Hello! I am Dukey.
 What can I do for you?
+Sorry! Don't know what that is!
+Task description cannot be empty!
+Task description cannot be empty!
+Task description cannot be empty!
+Please specify the deadline!
+Please specify both the start and end time!
+Please specify both the start and end time!
 added: [T] [ ] go gym
 added: [D] [ ] go gym (by: 2pm)
 added: [E] [ ] go gym (from: 2pm to: 3pm)
