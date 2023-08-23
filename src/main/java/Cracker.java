@@ -1,21 +1,48 @@
-public class Cracker {
-    private static String line = "____________________________________________________________";
-    public static void main(String[] args) {
+import java.util.Scanner;
 
-        System.out.println(line);
-        System.out.println("Hello! I'm Cracker");
-        query();
-        close();
+public class Cracker {
+
+
+    private static class Reply {
+        private String line = "____________________________________________________________";
+        private String content;
+        Reply(String s){
+            this.content = s;
+        }
+
+        public void echo(){
+            System.out.println(line);
+            System.out.println(content);
+            System.out.println(line);
+        }
+    }
+    public static void main(String[] args) {
+        boolean talking = true;
+        Reply greet = new Reply("What can I do for you?");
+        Reply bye = new Reply("Bye. Hope to see you again soon!");
+
+        greet.echo();
+
+        while(talking){
+            Scanner sc = new Scanner(System.in);
+            String input = sc.next();
+
+            if(input.equals("bye")){
+                sc.close();
+                break;
+            }
+            Reply something = new Reply(input);
+            something.echo();
+
+        }
+
+
+
+        bye.echo();
+
+
 
         
     }
 
-    public static void query(){
-        System.out.println("What can I do for you?");
-        System.out.println(line);
-    }
-    public static void close(){
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
-    }
 }
