@@ -1,10 +1,40 @@
 import java.util.Scanner;
 
 public class BenBen {
-    private static String[] arr;
-    private static boolean[] bool;
-    private static String line ="_______________________________________\n";
+    //private static String[] arr;
+    private static Task[] arr;
+    //private static boolean[] bool;
+    private static final String line ="_______________________________________\n";
     private static int counter = 0;
+
+    public static class Task {
+        protected String description;
+        protected boolean isDone;
+        public Task(String description) {
+            this.description = description;
+            this.isDone = false;
+        }
+
+        public String getStatusIcon() {
+            return (isDone ? "X" : " "); // mark done task with X
+        }
+
+        public void mark() {
+            this.isDone = true;
+        }
+
+        public void unmark() {
+            this.isDone = false;
+        }
+
+        public String toString() {
+            return "[" + this.getStatusIcon() + "] " + this.description;
+        }
+
+        public String description() {
+            return this.description;
+        }
+    }
 
     public static void exit() {
         System.out.println(line);
@@ -12,11 +42,12 @@ public class BenBen {
         System.exit(0);
     }
 
-    public static void add(String task) {
-        arr[counter] = task;
+    public static void add(String str) {
+        Task t = new Task(str);
+        arr[counter] = t;
         counter++;
         System.out.println(line);
-        System.out.println("added: " + task);
+        System.out.println("added: " + t.description());
         System.out.println(line);
     }
 
@@ -24,13 +55,7 @@ public class BenBen {
         System.out.println(line);
         System.out.println("Here are the tasks in your list: ");
       for(int i = 0; i < counter; i++) {
-          if (bool[i]) {
-              System.out.println((i + 1) + ".[X] " + arr[i]);
-          } else {
-              System.out.println((i + 1) + ".[ ] " + arr[i]);
-          }
-
-
+              System.out.println((i + 1) + "." + arr[i].toString());
       }
         System.out.println(line);
     }
@@ -39,13 +64,12 @@ public class BenBen {
         String[] strSplit = str.split("\\s+");
         Integer x = null;
 
-
         try {
             x = Integer.parseInt(strSplit[1]);
-            bool[x - 1] = true;
+            arr[x - 1].mark();
             System.out.println(line);
             System.out.println("Nice! I've marked this task as done:\n" +
-                    "    [X] " + arr[x - 1]);
+                    "    " + arr[x - 1].toString());
             System.out.println(line);
         } catch(NumberFormatException e) {
             System.out.println("Please indicate the integer index of the task that you want to mark");
@@ -63,29 +87,22 @@ public class BenBen {
 
         try {
             x = Integer.parseInt(strSplit[1]);
-            bool[x - 1] = false;
+            arr[x - 1].unmark();
 
             System.out.println(line);
             System.out.println("OK, I've marked this task as not done yet:\n" +
-                    "    [ ] " + arr[x - 1]);
+                    "    " + arr[x - 1].toString());
             System.out.println(line);
         } catch(NumberFormatException e) {
             System.out.println("Please indicate the integer index of the task that you want to unmark");
         } catch(NullPointerException e) {
             System.out.println("Please indicate the integer index of the task that you want to unmark");
         }
-
-
-
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        arr = new String[100];
-        bool = new boolean[100];
-        for (int i = 0; i < 100; i++) {
-            bool[i] = false;
-        }
+        arr = new Task[100];
         System.out.println(line);
         System.out.println("Hello! I'm BenBen.\n" +
                 "What can I do for you?");
