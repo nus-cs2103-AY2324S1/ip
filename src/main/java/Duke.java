@@ -18,10 +18,11 @@ public class Duke {
             String[] splitInput = scanner.nextLine().split(" ", 2);
             String command = splitInput[0];
             switch (command) {
-                case "bye":
+                case "bye": {
                     outputMessage(" Bye. Hope to see you again soon!\n");
                     break;
-                case "list":
+                }
+                case "list": {
                     if (tasks.size() == 0) {
                         outputMessage(" There are no tasks in your list!\n");
                     } else {
@@ -32,6 +33,7 @@ public class Duke {
                         outputMessage(String.format(" Here are the tasks in your list:\n%s", tasksString));
                     }
                     break;
+                }
                 case "mark": {
                     Task task = tasks.get(Integer.parseInt(splitInput[1]) - 1);
                     task.markAsDone();
@@ -45,6 +47,10 @@ public class Duke {
                     break;
                 }
                 case "todo": {
+                    if (splitInput.length == 1) {
+                        outputMessage(" ☹ OOPS!!! The description of a todo cannot be empty.\n");
+                        break;
+                    }
                     Task task = new Todo(splitInput[1]);
                     tasks.add(task);
                     outputMessage(String.format(" Got it. I've added this task:\n  %s\n Now you have %d task%s in the list.\n",
@@ -67,6 +73,9 @@ public class Duke {
                     outputMessage(String.format(" Got it. I've added this task:\n  %s\n Now you have %d task%s in the list.\n",
                             task, tasks.size(), tasks.size() == 1 ? "" : "s"));
                     break;
+                }
+                default: {
+                    outputMessage(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
                 }
             }
         }
