@@ -28,25 +28,22 @@ public class Jeeves {
             // Performs a different action depending on the input received
             // By default the program creates and adds a new Task to the taskList unless
             // a specific pre-defined command is received.
-            switch (currentCommand) {
-            case "list":
+            if (currentCommand.equals("list")) {
                 // Displays the current list of tasks tracked and their status
                 for (int i = 1; i <= Task.getTaskCount(); i++) {
                     Jeeves.displayTask(i);
                 }
-                // Prints an empty line for aesthetic reasons
+                // Prints an empty line for output clarity
                 System.out.print("\n");
-                break;
-            case "bye":
+            } else if (currentCommand.equals("bye")) {
                 // Displays the farewell message and terminates the application
                 System.out.println("I bid you farewell, Master");
                 System.exit(0);
-            default :
+            } else {
                 // By default, create a new Task with the provided description and add it to the taskList.
                 Task newTask = new Task(currentCommand);
                 taskList[Task.getTaskCount()] = newTask;
                 System.out.println("Task added: " + currentCommand + "\n");
-                break;
             }
         }
     }
