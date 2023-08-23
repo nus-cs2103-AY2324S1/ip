@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Ax {
 
     private static void hoLine() {
@@ -17,6 +19,18 @@ public class Ax {
         hoLine();
     }
 
+    private static boolean getInput(Scanner scanner) {
+        String input = scanner.nextLine();
+        System.out.println(input);
+        System.out.println();
+        hoLine();
+        if (input.equals("bye")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         String newLogo = "                \n" +
                 "                \n" +
@@ -31,8 +45,17 @@ public class Ax {
                 "##   ## ##  ##  \n" +
                 "                \n" +
                 "                \n";
+
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("Hello from\n" + newLogo);
         greet();
+        while (true) {
+            Boolean done = getInput(scanner);
+            if (done) {
+                break;
+            }
+        }
         bye();
     }
 }
