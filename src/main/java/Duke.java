@@ -64,6 +64,13 @@ public class Duke {
         System.out.println("What can I do for you?\n" + partition);
     }
 
+    public void deleteTask(int index) {
+        Task curr = arr.get(index - 1);
+        arr.remove(index - 1);
+        System.out.println(partition + "\nOK, I've deleted the task:\n" 
+        + curr + "\nNow you have " + arr.size() + " tasks in the list.");
+    }
+
     public void runRion() {
         this.initialise();
 
@@ -121,6 +128,15 @@ public class Duke {
                     details[1] = details[1].replace("from ", "");
                     details[2] = details[2].replace("to ", "");
                     this.addToList(details[0], details[1], details[2]);
+                } else if (input.startsWith("delete")) {
+                    if (input.equals("delete")) {
+                        throw new DukeException("OOPS! Please include the task number!");
+                    }
+                    int currIndex = Integer.parseInt(input.replace("delete ", ""));
+                    if (currIndex > arr.size() || currIndex <= 0) {
+                        throw new DukeException("OOPS! Please put a valid number!");
+                    }
+                    this.deleteTask(currIndex);
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
