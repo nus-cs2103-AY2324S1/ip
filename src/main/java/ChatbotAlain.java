@@ -5,8 +5,7 @@ public class ChatbotAlain {
         String renameAndGreeting = "____________________________________________________________\n"
                 + " Hello! I'm Alain\n"
                 + " What can I do for you?\n"
-                + "____________________________________________________________\n"
-                + " Bye. Hope to see you again soon!\n";
+                + "____________________________________________________________\n";
         System.out.println(renameAndGreeting);
         while (true) {
             Scanner s = new Scanner(System.in);
