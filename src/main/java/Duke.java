@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static Scanner sc = new Scanner(System.in);
-    private static boolean running = true;
 
     public static void main(String[] args) {
         String logo =" ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣶⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n"
@@ -40,34 +38,56 @@ public class Duke {
                     + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⡇⠀⠀⣀⡀⠈⢿⣧⠀⠉⠙⠛⠛⠛⠛⠛⠛⠉⠁⠀⠀⠀⠀⠀⠀⢿⡄⠀⠀⠀⠀⠀⠀ \n"
                     + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣴⣿⣿⡏⠛⠉⢻⣿⣿⣿⣾⣿⣿⠀⢸⣿⠀⠀⠀⠀⠀⠙⠓⠢⠀⠀⠀⠀⠀⠸⠀⠀⠀⠘⣿⡄⠀⠀⠀⠀⠀ \n";
 
-        String msg = "------------------------------------------------ \n"
+        String msg = "----------------------------------------------------------------- \n"
                 + "Hello! I'm Paimon! \n"
                 + "What can I do for you? \n"
-                + "------------------------------------------------ \n";
+                + "----------------------------------------------------------------- \n";
 
         System.out.println(logo + "\n" + msg);
 
+        Scanner sc = new Scanner(System.in);
+
+        boolean running = true;
+
         String input;
 
-        ArrayList<String> ls = new ArrayList<>();
+        int num;
+
+        ArrayList<Task> ls = new ArrayList<>();
 
         while (running == true) {
-            System.out.println(" ");
-            input = sc.nextLine();
+            input = sc.next();
 
-            if (input.equals("bye")) {
+            if (input.equals("mark")) {
+                num = sc.nextInt();
+                Task t = ls.get(num - 1);
+                t.markDone();
+                System.out.println("Nice! I've marked this task as done: \n"
+                        + t.toString());
+            } else if (input.equals("unmark")) {
+                num = sc.nextInt();
+                Task t = ls.get(num - 1);
+                t.markUndone();
+                System.out.println("OK, I've marked this task as not done yet: \n"
+                        + t.toString());
+            } else if (input.equals("bye")) {
                 System.out.println("Bye Bye! See you soon :D");
                 running = false;
             } else if (input.equals("list")) {
                 int i = 1;
-                for (String s : ls) {
-                    System.out.println(i + ". " + s);
+                System.out.println("Here are the tasks in your list: ");
+                for (Task t : ls) {
+                    System.out.println(i + ". " + t.toString());
                     i++;
                 }
             } else {
-                System.out.println("added: " + input);
-                ls.add(input);
+                String des = input + sc.nextLine();
+                Task t = new Task(des);
+                ls.add(t);
+                System.out.println("added: " + des);
             }
         }
+        sc.close();
     }
 }
+
