@@ -18,14 +18,48 @@
    Now you have 3 tasks in the list.
    __________________________________________
    __________________________________________
+   Here are the tasks in your list:
+   1.[T][ ] borrow book
+   2.[D][ ] return book (by: Sunday)
+   3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+   __________________________________________
+   __________________________________________
+   OOPS!!! The description of a todo cannot be empty.
+   __________________________________________
+   __________________________________________
+   You need to add a by timing!
+   __________________________________________
+   __________________________________________
+   You need to add a by timing!
+   __________________________________________
+   __________________________________________
+   You need to add a /from and /to for events
+   __________________________________________
+   __________________________________________
+   You need to add a /from and /to for events
+   __________________________________________
+   __________________________________________
+   You need to add a /from and /to for events
+   __________________________________________
+   __________________________________________
+   You need to add a /to for events
+   __________________________________________
+   __________________________________________
    Nice! I've marked this task as done:
      [X] borrow book
+   __________________________________________
+   __________________________________________
+   Nice! I've marked this task as done:
+     [X] project meeting
    __________________________________________
    __________________________________________
    Here are the tasks in your list:
    1.[T][X] borrow book
    2.[D][ ] return book (by: Sunday)
-   3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+   3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+   __________________________________________
+   __________________________________________
+   You are trying to access a Task that does not exist!
    __________________________________________
    __________________________________________
    Bye. Hope to see you again soon!
