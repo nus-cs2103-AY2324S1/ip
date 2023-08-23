@@ -21,6 +21,33 @@ public class Dude {
   public static int numTasks = 0;
 
   /**
+   * Add task to tasks list.
+   *
+   * @param task Task to add.
+   */
+  public static void addTask(String task) {
+    tasks[numTasks] = task;
+    numTasks += 1;
+  }
+
+  /**
+   * Gets list of all tasks as a string.
+   *
+   * @return Tasks list formatted as a string.
+   */
+  public static String getTasksList() {
+    if (numTasks == 0) {
+      return "You currently have no tasks in your list.";
+    }
+    StringBuilder tasksList = new StringBuilder("Here's your tasks list:\n");
+    for (int i = 0; i < numTasks; i++) {
+      String taskStr = (i + 1) + ". " + tasks[i] + "\n";
+      tasksList.append(taskStr);
+    }
+    return tasksList.toString();
+  }
+
+  /**
    * Format message/prompt to be printed to console.
    *
    * @param message Message to format. Lines separated by \n.
@@ -52,17 +79,11 @@ public class Dude {
         return false;
       case "list":
         // list tasks
-        StringBuilder tasksList = new StringBuilder();
-        for (int i = 0; i < numTasks; i++) {
-          String taskStr = (i + 1) + ". " + tasks[i] + "\n";
-          tasksList.append(taskStr);
-        }
-        System.out.println(formatMessage(tasksList.toString()));
+        System.out.println(formatMessage(getTasksList()));
         break;
       default:
         // add task to list
-        tasks[numTasks] = input;
-        numTasks += 1;
+        addTask(input);
         System.out.println(formatMessage("Added: " + input));
     }
     return true;
