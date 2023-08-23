@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+// Class to handle keeping track of tasks
 public class TaskList {
 
     // ArrayList of tasks to keep track of all tasks
