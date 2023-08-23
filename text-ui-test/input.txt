@@ -1,0 +1,11 @@
+list
+deadline Submit Tutorial 1 \by Thursday
+event Birthday celebration \from 5pm \to 9pm           
+todo Clear the trash
+list
+mark 1
+mark 2
+unmark 1
+mark 3
+list
+bye
