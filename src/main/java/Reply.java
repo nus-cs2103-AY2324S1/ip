@@ -12,6 +12,7 @@ public class Reply {
 
     public void iterate(TodoList list){
         System.out.println(line);
+        System.out.println("Here are the tasks in your list:");
         list.iterate();
         System.out.println(line);
     }
