@@ -1,6 +1,14 @@
+import java.util.Scanner;
+
 public class Thea {
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
         greet();
+        String command = input.nextLine();
+        while(!command.equals("bye")) {
+            System.out.println(command);
+            command = input.nextLine();
+        }
         exit();
     }
     public static void greet() {
