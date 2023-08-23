@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 import java.util.Scanner;
 public class Duke {
+
+    public enum Command {
+        BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNKNOWN
+    };
     public static void main(String[] args) {
-        String[] commands = new String[] {"bye", "list", "todo", "deadline", "event",
-                "mark", "unmark", "delete"};
         boolean listen = true;
         /** Captures user input*/
         Scanner jonBird = new Scanner(System.in);
@@ -15,6 +17,7 @@ public class Duke {
         ArrayList<Task> inputList =  new ArrayList<Task>();
         /** User input*/
         String input = "";
+        Command currentCommand = Command.UNKNOWN;
         String title = "";
         String startDate = "";
         String endDate = "";
@@ -24,77 +27,80 @@ public class Duke {
             input = jonBird.nextLine().trim();
             String[] inp = input.split("\\s+");
             int taskIndex = 0;
-            if (!isValidCommand(inp[0], commands)) {
-                input = "";
+            if (!isValidCommand(inp[0])) {
+                currentCommand = Command.UNKNOWN;
+            } else {
+                currentCommand = Command.valueOf(inp[0].toUpperCase());
+                if (currentCommand == Command.MARK || currentCommand == Command.UNMARK ||
+                        currentCommand == Command.DELETE) {
+                    if (inp.length == 2) {
+                        try {
+                            taskIndex = Integer.parseInt(inp[1]);
+                        } catch (NumberFormatException e) {
+                            currentCommand = Command.UNKNOWN;
+                        }
+                        ;
+                    } else {
+                        currentCommand = Command.UNKNOWN;
+                    }
+                } else if (currentCommand == Command.TODO || currentCommand == Command.DEADLINE) {
+                    int i = 1;
+                    title = "";
+                    endDate = "";
+                    for (; i < inp.length; i++) {
+                        if (inp[i].equals("/by")) break;
+                        if (title.equals("")) {
+                            title = inp[i];
+                        } else {
+                            title += " " + inp[i];
+                        }
+                    }
+                    for (int j = i + 1; j < inp.length; j++) {
+                        if (endDate.equals("")) {
+                            endDate = inp[j];
+                        } else {
+                            endDate += " " + inp[j];
+                        }
+                    }
+                } else if (currentCommand == Command.EVENT) {
+                    int start = 1;
+                    int end = 0;
+                    title = "";
+                    startDate = "";
+                    endDate = "";
+                    for (; start < inp.length; start++) {
+                        if (inp[start].equals("/from")) break;
+                        if (title.equals("")) {
+                            title = inp[start];
+                        } else {
+                            title += " " + inp[start];
+                        }
+                    }
+
+                    for (end = start + 1; end < inp.length; end++) {
+                        if (inp[end].equals("/to")) break;
+                        if (startDate.equals("")) {
+                            startDate = inp[end];
+                        } else {
+                            startDate += " " + inp[end];
+                        }
+                    }
+
+                    for (int j = end + 1; j < inp.length; j++) {
+                        if (endDate.equals("")) {
+                            endDate = inp[j];
+                        } else {
+                            endDate += " " + inp[j];
+                        }
+                    }
+                }
             }
-            if (inp[0].equalsIgnoreCase("mark") || inp[0].equalsIgnoreCase("unmark") ||
-                    inp[0].equalsIgnoreCase("delete")) {
-                if (inp.length == 2) {
-                    try {
-                        taskIndex = Integer.parseInt(inp[1]);
-                        input = inp[0];
-                    } catch (NumberFormatException e) {
-                    }
-                    ;
-                } else {
-                    input = "";
-                }
-            } else if (inp[0].equalsIgnoreCase("todo") || inp[0].equalsIgnoreCase("deadline")) {
-                int i = 1;
-                title = "";
-                endDate = "";
-                for (; i < inp.length; i++) {
-                    if (inp[i].equals("/by")) break;
-                    if (title.equals("")) {
-                        title = inp[i];
-                    } else {
-                        title += " " + inp[i];
-                    }
-                }
-                for (int j = i + 1; j < inp.length; j++) {
-                    if (endDate.equals("")) {endDate = inp[j]; }
-                    else {
-                        endDate += " " + inp[j];
-                    }
-                }
-            } else if (inp[0].equalsIgnoreCase("event")) {
-                int start = 1;
-                int end = 0;
-                title = "";
-                startDate = "";
-                endDate = "";
-                for (; start < inp.length; start++) {
-                    if (inp[start].equals("/from")) break;
-                    if (title.equals("")) {
-                        title = inp[start];
-                    } else {
-                        title += " " + inp[start];
-                    }
-                }
 
-                for (end = start + 1; end < inp.length; end++) {
-                    if (inp[end].equals("/to")) break;
-                    if (startDate.equals("")) {
-                        startDate = inp[end];
-                    } else {
-                        startDate += " " + inp[end];
-                    }
-                }
-
-                for (int j = end + 1; j < inp.length; j++) {
-                    if (endDate.equals("")) {
-                        endDate = inp[j];
-                    } else {
-                        endDate += " " + inp[j];
-                    }
-                }
-            }
-
-            switch (input) {
-                case "":
+            switch (currentCommand) {
+                case UNKNOWN:
                     DukeException excep;
-                    if (isValidCommand(inp[0], commands)) {
-                        excep = new InvalidSyntaxException("The task number is missing.");
+                    if (isValidCommand(inp[0])) {
+                        excep = new InvalidSyntaxException("The format of the command is invalid.");
                         System.out.println("JonBird:\n\t" + excep.toString());
                     }
                     else {
@@ -102,20 +108,20 @@ public class Duke {
                         System.out.println("JonBird:\n\t" + excep.toString());
                     }
                     break;
-                case "bye":
+                case BYE:
                     listen = false;
                     break;
-                case "list":
+                case LIST:
                     System.out.println("JonBird:");
                     printList(inputList);
                     break;
-                case "unmark":
+                case UNMARK:
                     inputList.get(taskIndex-1).markAsUndone();
                     break;
-                case "mark":
+                case MARK:
                     inputList.get(taskIndex-1).markAsDone();
                     break;
-                case "delete":
+                case DELETE:
                     Task temp = inputList.get(taskIndex-1);
                     inputList.remove(taskIndex-1);
                     System.out.println("JonBird:\n\tNoted. I've removed this task:");
@@ -168,12 +174,12 @@ public class Duke {
         }
     }
 
-    public static boolean isValidCommand(String value, String[] commands) {
-        for (String str: commands) {
-            if (str.equals(value)) {
-                return true;
-            }
+    public static boolean isValidCommand(String value) {
+        try {
+            Command val = Command.valueOf(value.toUpperCase());
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
         }
-        return false;
     }
 }
