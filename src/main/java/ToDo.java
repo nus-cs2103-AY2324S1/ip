@@ -1,22 +1,27 @@
-public class ToDo extends Task {
+public class ToDo implements Task {
+    private final String name;
+    private boolean isDone;
 
-    public ToDo(String taskDescription) {
-        super(taskDescription, taskDescription);
+    public ToDo(String input) {
+        this.name = input.substring("todo ".length());
+        this.isDone = false;
     }
 
-    /**
-     * Generates the formatted representation of the todo task.
-     * The format includes the task status, task type, and description.
-     *
-     * @return The formatted representation of the todo task.
-     */
-    @Override
-    public String getTaskForPrinting() {
-        return String.format("[%s][T] %s", super.checkDone(), super.getName());
+    public String getTask() {
+        return String.format("[%s][T] %s", checkDone(), name);
     }
 
-    @Override
-    public String getTaskDescription() {
-        return "todo " + super.getTaskDescription();
+    public void markDone() {
+        isDone = true;
+        System.out.println(ChatterChicken.INDENT_BIG + this.getTask());
+    }
+
+    public void unmarkDone() {
+        isDone = false;
+        System.out.println(ChatterChicken.INDENT_BIG + this.getTask());
+    }
+
+    private String checkDone() {
+        return isDone ? "X" : " ";
     }
 }

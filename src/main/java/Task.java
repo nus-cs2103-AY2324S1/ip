@@ -1,42 +1,8 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+public interface Task {
 
-public abstract class Task {
+    public String getTask();
 
-    private final String taskDescription;
-    private final String name;
-    private boolean isDone;
+    public void markDone();
 
-    public Task(String taskDescription, String name) {
-        this.taskDescription = taskDescription;
-        this.name = name;
-        this.isDone = false;
-    }
-
-    protected String checkDone() {
-        return isDone ? "X" : " ";
-    }
-
-    public String formatDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return date.format(formatter);
-    }
-
-    protected String getName() {
-        return this.name;
-    }
-
-    protected String getTaskDescription() {
-        return this.taskDescription;
-    }
-
-    public abstract String getTaskForPrinting();
-
-    public String getTaskForSaving() {
-        return checkDone() + getTaskDescription();
-    }
-
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
-    }
+    public void unmarkDone();
 }

@@ -3,60 +3,35 @@ import java.util.Scanner;
 
 public class ChatterChicken {
 
-    public static final String LINE = "\n    _____________________________________________________________________________\n";
-
+    public static final String LINE = "\n    _____________________________________________________________________________\n      ";
     public static final String INDENT = "      ";
     public static final String INDENT_BIG = "        ";
 
-    public static final String PATH = "src/main/data/task-list.txt";
-
-    private TaskList tasks;
-
-    private Parser parser;
-    private Storage storage;
-
-    public ChatterChicken() {
-        this.parser = new Parser();
-        this.storage = new Storage(parser);
-    }
-
     public static void main(String[] args) {
-        ChatterChicken chatterChicken = new ChatterChicken();
-        chatterChicken.run();
-    }
+        Scanner sc = new Scanner(System.in);
+        List list = new List();
 
-    /**
-     * Displays a greeting message to the user to introduce ChatterChicken.
-     */
-    private void greet() {
-        System.out.println(LINE
-                + INDENT + "Hello! I'm ChatterChicken!\n"
-                + INDENT + "What can I do for you?"
-                + LINE);
-    }
+        System.out.println(LINE + "Hello! I'm ChatterChicken!\n" + INDENT + "What can I do for you?" + LINE);
+        String input = sc.nextLine();
 
-    /**
-     * Displays a farewell message to the user as they exit the ChatterChicken application.
-     */
-    private void exit() {
-        System.out.println(LINE + INDENT + "Bye. Hope to see you again soon!" + LINE);
-    }
-
-    /**
-     * Initiates the main loop of the ChatterChicken application.
-     * Reads user input, processes commands, and provides responses until the user chooses to exit.
-     * Catches and displays exceptions.
-     */
-    private void run() {
-        try (Scanner sc = new Scanner(System.in)) {
-            tasks = new TaskList(storage.loadTasksFromFile());
-            greet();
-            String input = sc.nextLine();
-            while (!input.equals("bye")) {
-                Command command = parser.parseInput(input);
-                executeCommand(command);
-                storage.saveTasksToFile(tasks);
-                input = sc.nextLine();
+        while(!input.equals("bye")) {
+            if (input.equals("list")) {
+                list.printList();
+            } else {
+                String action = input.substring(0, input.indexOf(' '));
+                switch (action) {
+                    case "mark":
+                        list.markTask(input);
+                        break;
+                    case "unmark":
+                        list.unmarkTask(input);
+                        break;
+                    case "todo":
+                    case "deadline":
+                    case "event":
+                        list.addTask(action, input);
+                        break;
+                }
             }
         } catch (CCException e) {
             System.err.println(e.getMessage());
@@ -94,5 +69,6 @@ public class ChatterChicken {
             default:
                 throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
         }
+        System.out.println(LINE + "Bye. Hope to see you again soon!" + LINE);
     }
 }
