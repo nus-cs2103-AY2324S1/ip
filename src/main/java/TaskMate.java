@@ -110,7 +110,7 @@ public class TaskMate {
             taskToMark.markAsDone();
 
             // print message when marking as done
-            String message = "Nice! I've marked this task as done:\n" + taskToMark;
+            String message = "Nice! I've marked this task as done:\n  " + taskToMark;
             printReply(message);
 
         } else {
@@ -147,7 +147,7 @@ public class TaskMate {
             );
         }
 
-        printReply("Got it. I've added this task:\n" + newTask.toString() + "\nNow you have " + Task.getAllTasks().size() + " task(s) in the list.");
+        printReply("Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + Task.getAllTasks().size() + " task(s) in the list.");
         return newTask;
     }
 }
