@@ -12,8 +12,8 @@ public class Duke {
         while (!str.equals("bye")) {
             if (!str.equals("list")) {
                 if (str.startsWith("mark")) {
-                    char num = str.charAt(5);
-                    int number = Character.getNumericValue(num);
+                    String num = str.substring(5);
+                    int number = Integer.valueOf(num);
                     if (number <= 0 || number > tasks.size()) {
                         System.out.println("Invalid input");
                     }
@@ -25,8 +25,8 @@ public class Duke {
                             "\t" + "[" + done.getStatusIcon() + "] " +
                             done.taskString());
                 } else if (str.startsWith("unmark")) {
-                    char num = str.charAt(7);
-                    int number = Character.getNumericValue(num);
+                    String num = str.substring(7);
+                    int number = Integer.valueOf(num);
                     if (number <= 0 || number > tasks.size()) {
                         System.out.println("Invalid input");
                     }
