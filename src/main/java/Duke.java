@@ -16,7 +16,7 @@ public class Duke {
         String str = "";
         int len = storeList.size();
         for (int i = 0; i < len; i++) {
-            str = str + Integer.toString(i + 1) + ". " + storeList.get(i);
+            str = str + (i + 1) + ". " + storeList.get(i);
             if (i != (len - 1)) {
                 str += "\n " + INDENTATION;
             }
@@ -24,8 +24,11 @@ public class Duke {
         return str;
     }
 
-    private static void handleMarking(int index, String status) throws DukeException {
-        if (index > store.size() || index < 0) {
+    private static void handleMarking(String commandNum, String status) throws DukeException {
+
+        int index = Integer.parseInt(commandNum) - 1;
+
+        if (index > store.size() - 1 || index < 0) {
             throw new DukeException("Invalid Task Index provided!");
         }
         Task selectedTask = store.get(index);
@@ -38,7 +41,19 @@ public class Duke {
             System.out.println(formatOutput("OK, I've marked this task as not done yet:\n   " +
                     INDENTATION + selectedTask));
         }
+    }
 
+    private static void handleDelete(String commandNum, String status) throws DukeException {
+
+        int index = Integer.parseInt(commandNum) - 1;
+
+        if (index > store.size() - 1 || index < 0) {
+            throw new DukeException("Invalid Task Index provided!");
+        }
+        Task selectedTask = store.remove(index);
+        System.out.println(formatOutput("Noted. I've removed this task:\n   " +
+                INDENTATION + selectedTask + "\n " + INDENTATION + "Now you have " +
+                store.size() + " tasks in the list."));
     }
 
     private static void handleToDo(String task) throws DukeException {
@@ -108,7 +123,6 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         String command, commandString;
         String[] commandArray;
-        int commandIndex = 0;
 
         while (true) {
             commandString = sc.nextLine();
@@ -132,8 +146,10 @@ public class Duke {
 
                 if (command.equals("mark") || command.equals("unmark")) {
                     checkCommandArguments(commandArray);
-                    commandIndex = Integer.parseInt(commandArray[1]) - 1;
-                    handleMarking(commandIndex, command);
+                    handleMarking(commandArray[1], command);
+                } else if (command.equals("delete")) {
+                    checkCommandArguments(commandArray);
+                    handleDelete(commandArray[1], command);
                 } else if (command.equals("todo")) {
                     checkCommandArguments(commandArray);
                     handleToDo(commandArray[1]);
