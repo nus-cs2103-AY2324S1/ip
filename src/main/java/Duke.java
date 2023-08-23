@@ -22,13 +22,22 @@ public class Duke {
             } else if(input.equals("list")) {
                 store.listTasks();
             } else if(input.startsWith("mark")) {
-                String[] splitInput = input.split(" ");
-                int index = Integer.parseInt(splitInput[1]);
+                String removedPrefix = input.substring("mark".length() + 1);
+                int index = Integer.parseInt(removedPrefix);
                 store.markTask(index);
             } else if(input.startsWith("unmark")) {
-                String[] splitInput = input.split(" ");
-                int index = Integer.parseInt(splitInput[1]);
+                String removedPrefix = input.substring("unmark".length() + 1);
+                int index = Integer.parseInt(removedPrefix);
                 store.unmarkTask(index);
+            } else if(input.startsWith("todo")) {
+                String removedPrefix = input.substring("todo".length() + 1);
+              store.addTodo(removedPrefix);
+            } else if(input.startsWith("deadline")) {
+                String removedPrefix = input.substring("deadline".length() + 1);
+                store.addDeadline(removedPrefix);
+            } else if (input.startsWith("event")) {
+                String removedPrefix = input.substring("event".length() + 1);
+                store.addEvent(removedPrefix);
             } else {
                 store.addTask(input);
             }
