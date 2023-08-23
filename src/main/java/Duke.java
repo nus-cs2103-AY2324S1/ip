@@ -26,20 +26,23 @@ public class Duke {
 
 
     /**
-     * Displays a list of the user's past inputs.
-     * @param inputs An array containing the user's inputs.
+     * Displays a list of the user's past tasks.
+     * @param tasks An array containing the user's tasks.
      */
-    private static void list(ArrayList<Task> inputs) {
+    private static void list(ArrayList<Task> tasks) {
 
         System.out.println("Here are your tasks for today.");
 
-        if (inputs.isEmpty()) {
-            System.out.println("...\n" + "You haven't said anything yet...");
+        if (tasks.isEmpty()) {
+            System.out.println("...\n" + "You don't have any tasks. Enjoy your day off.");
+            return;
         }
 
-        for (int i = 0; i < inputs.size(); i++) {
-            System.out.println((i + 1) + ". " + inputs.get(i));
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
+
+        System.out.println("You now have " + tasks.size() + " tasks in your list.");
 
     }
 
@@ -47,7 +50,7 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Task> inputs = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         greet();
 
@@ -61,21 +64,80 @@ public class Duke {
 
             System.out.println(softbreak);
 
-            if (input.startsWith("mark ")) {
-                Task task = inputs.get(Integer.parseInt(input.substring(5)) - 1);
+            if (input.startsWith("todo ")) {
+
+                System.out.println("Understood. No rest for the weary, eh?");
+                tasks.add(new Todo(input.substring(5)));
+                System.out.println(tasks.get(tasks.size() - 1));
+
+            } else if (input.startsWith("deadline ")) {
+
+                String[] parts = input.split("/");
+                if (parts.length != 2) {
+                    System.out.println("Please enter your request properly.\n" + hardbreak);
+                    continue;
+                }
+                System.out.println("Alright. I'll make sure you don't forget it.");
+                tasks.add(new Deadline(parts[0].substring(9), parts[1].substring(3)));
+                System.out.println(tasks.get(tasks.size() - 1));
+
+            } else if (input.startsWith("event ")) {
+
+                String[] parts = input.split("/");
+                if (parts.length != 3) {
+                    System.out.println("Please enter your request properly.\n" + hardbreak);
+                    continue;
+                }
+                System.out.println("Roger that. Preparations will be underway.");
+                tasks.add(new Event(parts[0].substring(6), parts[1].substring(5),
+                        parts[2].substring(3)));
+                System.out.println(tasks.get(tasks.size() - 1));
+
+            } else if (input.startsWith("mark ")) {
+
+                int index = Integer.parseInt(input.substring(5)) - 1;
+                if (tasks.size() <= index || index < 0) {
+                    System.out.println("That isn't a valid input. Please try again.\n" + hardbreak);
+                    continue;
+                }
+                Task task = tasks.get(index);
                 task.markDone();
                 System.out.println("Mission accomplished.");
                 System.out.println(task);
+
             } else if (input.startsWith("unmark ")) {
-                Task task = inputs.get(Integer.parseInt(input.substring(7)) - 1);
+
+                int index = Integer.parseInt(input.substring(7)) - 1;
+                if (tasks.size() <= index || index < 0) {
+                    System.out.println("That isn't a valid input. Please try again.\n" + hardbreak);
+                    continue;
+                }
+                Task task = tasks.get(index);
                 task.markUndone();
                 System.out.println("Uncharacteristic of you. More work has been added to the pile.");
                 System.out.println(task);
+
             } else if (input.equals("list")) {
-                list(inputs);
+
+                list(tasks);
+
+            } else if (input.equals("thanks")) {
+
+                System.out.println("...No problem.");
+
+            } else if (input.equals("zzz")) {
+
+                if (!tasks.isEmpty()) {
+                    System.out.println("There's still lots of work that needs to be done." +
+                            "We can't afford to have you resting.");
+                } else {
+                    System.out.println("...have a good rest.");
+                }
+
             } else {
-                System.out.println("added: " + input);
-                inputs.add(new Task(input));
+
+                System.out.println("Sorry, I didn't quite catch that. Are you having enough sleep?");
+
             }
 
             System.out.println(hardbreak);
