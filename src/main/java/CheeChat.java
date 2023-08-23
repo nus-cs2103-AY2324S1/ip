@@ -15,9 +15,9 @@ public class CheeChat {
         Scanner input = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
         String cmd = input.nextLine();
-        int counter = 0;
-        while(!cmd.equals("bye")){
 
+        while(!cmd.equals("bye")){
+            int counter = tasks.size();
 
             if (cmd.equals("list")) {
                 for (int x = 0; x < counter; x++) {
@@ -31,7 +31,7 @@ public class CheeChat {
                     int number = c - 48 - 1;
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println("  " + tasks.get(number).description(0));
-                } else if (cmd.equals("unmark")) {
+                } else if (cmd.startsWith("unmark")) {
                     int index = cmd.length() - 1;
                     char c = cmd.charAt(index);
                     int number = c - 48 - 1;
@@ -41,7 +41,6 @@ public class CheeChat {
                     System.out.println("added: " + cmd);
                     Task instance = new Task(cmd);
                     tasks.add(instance);
-                    counter++;
                 }
             }
             cmd = input.nextLine();
