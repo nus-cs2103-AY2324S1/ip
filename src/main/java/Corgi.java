@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import tasks.Task;
+import tasks.TaskStatusException;
 import tasks.ToDo;
 import tasks.Deadline;
 import tasks.Event;
@@ -155,6 +156,8 @@ public class Corgi {
             }
         } catch (NumberFormatException e) {
             this.printException("Arf! You're trying to trick me with words instead of numbers?");
+        } catch (TaskStatusException e) {
+            this.printException("Woof! This task is already marked as done. What are you trying to do? \u1F644");
         }
     }
 
@@ -175,6 +178,8 @@ public class Corgi {
             }
         } catch (NumberFormatException e) {
             this.printException("Arf! You're trying to trick me with words instead of numbers?");
+        } catch (TaskStatusException e) {
+            this.printException("Woof! This task isn't even marked as done yet. What are you trying to do? \u1F644");
         }
     }
 

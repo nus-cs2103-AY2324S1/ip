@@ -20,14 +20,20 @@ public class Task {
     /**
      * Mark task as done.
      */
-    public void markAsDone() {
+    public void markAsDone() throws TaskStatusException{
+        if(this.status == true) {
+            throw new TaskStatusException("The task is already marked as done.");
+        }
         this.status = true;
     }
 
     /**
      * Mark task as not done.
      */
-    public void markAsNotDone() {
+    public void markAsNotDone() throws TaskStatusException{
+        if(this.status == false) {
+            throw new TaskStatusException("The task is already marked as not done.");
+        }
         this.status = false;
     }
 
