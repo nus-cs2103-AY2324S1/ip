@@ -39,10 +39,13 @@ Here's your modified task:
 ⚠ Sorry! I am not able to understand you. Try another language:D
 ⚠ Oops! Need description, from and to date for the event:(
 ⚠ Oops! Need description and by date for the deadline:(
+I've successfully deleted this task:
+[T][ ] write essays
+Now you have 2 tasks in total.
+"Ride the waves."
 Here are your tasks:
-1 [T][ ] write essays
-2 [E][X] interviews (from: today 2pm | to: 3pm)
-3 [D][ ] project (by: tmr)
+1 [E][X] interviews (from: today 2pm | to: 3pm)
+2 [D][ ] project (by: tmr)
 "One thing at a time."
 Bye!
 "Beware the barrenness of a busy life."
