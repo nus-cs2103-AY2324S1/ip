@@ -1,7 +1,11 @@
 public class ToDo extends Task {
+    private String title;
 
-    public ToDo(String title) {
-        super(title, false);
+    public ToDo(String response) {
+        super(false);
+        int toTrim = response.indexOf(" ");
+        String taskTitle = response.substring(toTrim + 1);
+        this.title = taskTitle;
     }
 
     @Override

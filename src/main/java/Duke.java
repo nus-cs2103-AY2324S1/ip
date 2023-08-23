@@ -50,13 +50,17 @@ public class Duke {
                     System.out.println("This task does not exist!");
                 }
             } else if (response.startsWith("deadline")) {
-
+                Deadline newDeadline = new Deadline(response);
+                todoList.add(newDeadline);
+                System.out.println("added: " + newDeadline.toString());
             } else if (response.startsWith("event")) {
+                Event newEvent = new Event(response);
+                todoList.add(newEvent);
+                System.out.println("added: " + newEvent.toString());
             } else {
-                int toTrim = response.indexOf(" ");
-                String taskTitle = response.substring(toTrim + 1);
-                todoList.add(new ToDo(taskTitle));
-                System.out.println("added: " + taskTitle);
+                ToDo newTodo = new ToDo(response);
+                todoList.add(newTodo);
+                System.out.println("added: " + newTodo.toString());
                 }
             }
         scanner.close();

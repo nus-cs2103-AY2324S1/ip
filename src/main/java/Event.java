@@ -1,19 +1,27 @@
 public class Event extends Task {
+    private String title;
     private String start;
     private String end;
 
-    public Event(String title, String start, String end) {
-        super(title, false);
-        this.start = start;
-        this.end = end;
+    public Event(String response) {
+        super(false);
+        int toTrim = response.indexOf(" ");
+        int info = response.indexOf("/");
+        this.title = response.substring(toTrim + 1, info - 1);
+        String startingEnding = response.substring(info + 1);
+        int endTime = startingEnding.indexOf("/");
+        this.start = startingEnding.substring(5, endTime - 1);
+        this.end = startingEnding.substring(endTime + 4);
     }
 
     @Override
     public String toString() {
+        String s = String.format("(from: %s to: %s)", start, end);
         if (this.done == true) {
-            return "[E] " + "[X] " + this.title;
+            return "[E] " + "[X] " + this.title + " " + s;
         }
-        return "[E] " + "[ ] " + this.title;
+        return "[E] " + "[ ] " + this.title + " " + s;
     }
 }
+
 
