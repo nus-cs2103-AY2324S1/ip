@@ -144,13 +144,17 @@ public class Corgi {
      * @param indexStr Target task index.
      */
     private void markTaskAsDone(String indexStr) {
-        int index = Integer.parseInt(indexStr) - 1;
-        if (index >= 0 && index < this.tasks.size()) {
-            Task target = tasks.get(index);
-            target.markAsDone();
-            System.out.println("Congratulations, I guess! You finally managed to do something right 🎉:\n" + target);
-        } else {
-            System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
+        try {
+            int index = Integer.parseInt(indexStr) - 1;
+            if (index >= 0 && index < this.tasks.size()) {
+                Task target = tasks.get(index);
+                target.markAsDone();
+                System.out.println("Congratulations, I guess! You finally managed to do something right 🎉:\n" + target);
+            } else {
+                System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
+            }
+        } catch (NumberFormatException e) {
+            this.printException("Arf! You're trying to trick me with words instead of numbers?");
         }
     }
 
@@ -160,13 +164,17 @@ public class Corgi {
      * @param indexStr Target task index.
      */
     private void markTaskAsNotDone(String indexStr) {
-        int index = Integer.parseInt(indexStr) - 1;
-        if (index >= 0 && index < this.tasks.size()) {
-            Task target = tasks.get(index);
-            target.markAsNotDone();
-            System.out.println("Oh great, you've undone something 🐕. Just like always:\n" + target);
-        } else {
-            System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
+        try {
+            int index = Integer.parseInt(indexStr) - 1;
+            if (index >= 0 && index < this.tasks.size()) {
+                Task target = tasks.get(index);
+                target.markAsNotDone();
+                System.out.println("Oh great, you've undone something 🐕. Just like always:\n" + target);
+            } else {
+                System.out.println("Arf! Invalid task number? Seriously, can't you count? 💢");
+            }
+        } catch (NumberFormatException e) {
+            this.printException("Arf! You're trying to trick me with words instead of numbers?");
         }
     }
 
