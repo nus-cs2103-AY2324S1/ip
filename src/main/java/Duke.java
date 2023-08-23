@@ -16,21 +16,37 @@ public class Duke {
         DukeList ItemList = new DukeList();
         while (notEnd) {
             String input = scanner.nextLine();
-            String[] splitted = input.split(" ");
             if (input.equals("bye")) {
                 notEnd = false;
                 System.out.println("Bye. Hope to see you again soon!");
-            } else if (input.equals("list")) {
+            }
+            if (input.equals("list")) {
                 ItemList.displayList();
-            } else if (splitted[0].equals("mark")) {
+            }
+            if (input.startsWith("mark")) {
+                String[] splitted = input.split(" ");
                 int taskNum = Integer.parseInt(splitted[1]);
                 ItemList.setTaskAsDone(taskNum);
-            } else if (splitted[0].equals("unmark")) {
+            }
+            if (input.startsWith("unmark")) {
+                String[] splitted = input.split(" ");
                 int taskNum = Integer.parseInt(splitted[1]);
                 ItemList.setTaskAsUndone(taskNum);
-            } else {
+            }
+            if (input.startsWith("todo")) {
                 //add items to the array
-                ItemList.addToList(input);
+                String[] splitted = input.split(" ", 2);
+                ItemList.addToDo(splitted[1]);
+            }
+            if (input.startsWith("deadline")) {
+                String[] splitted = input.split(" ", 2);
+                String[] deadline = splitted[1].split("/by", 2);
+                ItemList.addDeadline(deadline[0], deadline[1]);
+            } else if (input.startsWith("event")) {
+                String[] splitted = input.split(" ", 2);
+                String[] from = splitted[1].split("/from", 2);
+                String[] to = from[1].split("/to", 2);
+                ItemList.addEvent(from[0], to[0], to[1]);
             }
         }
     }
