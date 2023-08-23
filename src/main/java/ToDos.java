@@ -16,11 +16,6 @@ public class ToDos extends Task {
         System.out.println(super.line());
     }
     @Override
-    public String getTask() {
-        String checkbox = this.done ? "[X] " : "[ ] ";
-        return taskId + "." + "[T]" + checkbox + task;
-    }
-    @Override
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";
         return "[T]" + checkbox + task;

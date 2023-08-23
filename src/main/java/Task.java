@@ -9,6 +9,10 @@ public class Task {
         this.taskId = taskId;
     }
 
+    public Boolean isMarked() {
+        return this.done;
+    }
+
     public void mark() {
         this.done = true;
     }
@@ -21,8 +25,7 @@ public class Task {
     }
 
     public String getTask() {
-        String checkbox = this.done ? "[X] " : "[ ] ";
-        return taskId + "." + checkbox + task;
+        return taskId + "." + this.toString();
     }
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";

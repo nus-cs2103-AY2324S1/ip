@@ -1,9 +1,13 @@
+list
 todo go for a walk
+unmark 0
+unmark 1
+mark 1
+mark 1
 deadline CS2103T Quiz /by Friday
 event CS2103T lecture /from 4pm /to 6pm
-list
-mark 2
-list
-unmark 2
+todo cook and clean
+todo exercise
+todo study
 list
 bye

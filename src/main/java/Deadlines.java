@@ -17,13 +17,6 @@ public class Deadlines extends Task {
         System.out.println(super.line() + "Okay, I have marked this task as incomplete!" + "\n" + this.toString());
         System.out.println(super.line());
     }
-
-    @Override
-    public String getTask() {
-        String checkbox = this.done ? "[X] " : "[ ] ";
-        String submitDate = "(by: " + deadline.substring(3) + ")";
-        return taskId + "." + "[D]" + checkbox + task + " " + submitDate;
-    }
     @Override
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";

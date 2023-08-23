@@ -22,42 +22,46 @@ public class Duke {
         String goodbye = line + "Until we meet once more in the near future, I bid you farewell." + "\n" + line;
 
         while (!userInput.equals("bye")){
-            if (userInput.equals("list")){
-                displayList(tasks, taskCount);
-            } else if (userInput.startsWith("mark ")) {
-                mark(userInput, tasks);
-            } else if (userInput.startsWith("unmark ")) {
-                unMark(userInput, tasks);
-            } else if (userInput.startsWith("todo ")) {
-                String nameOfTask = userInput.substring(5);
-                ToDos task = new ToDos(nameOfTask, taskId);
-                addToList(task, tasks, taskCount);
-                if (taskCount < tasks.length) {
-                    taskCount++;
-                    taskId++;
+            try {
+                if (userInput.equals("list")){
+                    displayList(tasks, taskCount);
+                } else if (userInput.startsWith("mark ")) {
+                    mark(userInput, tasks, taskCount);
+                } else if (userInput.startsWith("unmark ")) {
+                    unMark(userInput, tasks, taskCount);
+                } else if (userInput.startsWith("todo ")) {
+                    String nameOfTask = userInput.substring(5);
+                    ToDos task = new ToDos(nameOfTask, taskId);
+                    addToList(task, tasks, taskCount);
+                    if (taskCount < tasks.length) {
+                        taskCount++;
+                        taskId++;
+                    }
+                } else if (userInput.startsWith("deadline ")) {
+                    String[] parts = userInput.split("/");
+                    String nameOfTask = parts[0].trim().substring(9);
+                    Deadlines task = new Deadlines(nameOfTask, taskId, parts[1].trim());
+                    addToList(task, tasks, taskCount);
+                    if (taskCount < tasks.length) {
+                        taskCount++;
+                        taskId++;
+                    }
+                } else if (userInput.startsWith("event ")) {
+                    String[] parts = userInput.split("/");
+                    String start = parts[1].trim();
+                    String end = parts[2].trim();
+                    String nameOfTask = parts[0].trim().substring(6);
+                    Events task = new Events(nameOfTask, taskId, start, end);
+                    addToList(task, tasks, taskCount);
+                    if (taskCount < tasks.length) {
+                        taskCount++;
+                        taskId++;
+                    }
+                } else {
+                    throw new DukeException("Error: Invalid Command!");
                 }
-            } else if (userInput.startsWith("deadline ")) {
-                String[] parts = userInput.split("/");
-                String nameOfTask = parts[0].trim().substring(9);
-                Deadlines task = new Deadlines(nameOfTask, taskId, parts[1].trim());
-                addToList(task, tasks, taskCount);
-                if (taskCount < tasks.length) {
-                    taskCount++;
-                    taskId++;
-                }
-            } else if (userInput.startsWith("event ")) {
-                String[] parts = userInput.split("/");
-                String start = parts[1].trim();
-                String end = parts[2].trim();
-                String nameOfTask = parts[0].trim().substring(5);
-                Events task = new Events(nameOfTask, taskId, start, end);
-                addToList(task, tasks, taskCount);
-                if (taskCount < tasks.length) {
-                    taskCount++;
-                    taskId++;
-                }
-            } else {
-                System.out.println("invalid task!");
+            } catch (DukeException exception) {
+                System.out.println(line + exception.getMessage() + "\n" + line);
             }
             userInput = scanner.nextLine();
         }
@@ -66,36 +70,62 @@ public class Duke {
     }
 
     private static void displayList(Task[] tasks, int taskCount){
-        if (tasks[0] == null) {
-            System.out.println(line + "There are no items in the list!" + "\n" + line);
-        } else {
-            System.out.println(line + "Here are the tasks in your list:");
+        try {
+            if (taskCount == 0) {
+                throw new DukeException("Error: There are no items in the list!");
+            }
             for(int i = 0; i < taskCount; i++){
                 System.out.println(tasks[i].getTask());
             }
             System.out.println(line);
+        } catch (DukeException emptyList) {
+            System.out.println(line + emptyList.getMessage() + "\n" + line);
         }
     }
 
-    public static void mark(String input, Task[] tasks) {
+    public static void mark(String input, Task[] tasks, int taskCount) {
         int taskIndex = Integer.parseInt(input.substring(5)) - 1;
-        tasks[taskIndex].mark();
+        try {
+            if (taskIndex > taskCount || taskIndex < 0) {
+                throw new DukeException("Error: Invalid Task Index!");
+            } else if (tasks[taskIndex].isMarked()) {
+                throw new DukeException("Error: Task is already completed!");
+            } else {
+                tasks[taskIndex].mark();
+            }
+        } catch (DukeException exception) {
+            System.out.println(line + exception.getMessage() + "\n" + line);
+        }
     }
 
-    public static void unMark(String input, Task[] tasks) {
+    public static void unMark(String input, Task[] tasks, int taskCount) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
-        tasks[taskIndex].unMark();
+        try {
+            if (taskIndex > taskCount || taskIndex < 0) {
+                throw new DukeException("Error: Invalid Task Index!");
+            } else if (!tasks[taskIndex].isMarked()) {
+                throw new DukeException("Error: Task is already marked as incomplete!");
+            } else {
+                tasks[taskIndex].unMark();
+            }
+        } catch (DukeException exception) {
+            System.out.println(line + exception.getMessage() + "\n" + line);
+        }
     }
 
     private static void addToList(Task task, Task[] tasks, int taskId) {
-        if (taskId == tasks.length) {
-            System.out.println("List is full!");
-        } else{
+        try {
+            if (taskId == tasks.length) {
+                throw new DukeException("Error: List is full!");
+            }
+
             int taskCount = taskId + 1;
             String response = line + "Got it! I've added this task:" + "\n" + task.toString() + "\n"
                     + "You now have " + taskCount + " task(s) in the list" + "\n" + line;
             tasks[taskId] = task;
             System.out.println(response);
+        } catch (DukeException fullList) {
+            System.out.println(line + fullList.getMessage() + "\n" + line);
         }
     }
 }
