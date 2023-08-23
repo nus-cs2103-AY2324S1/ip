@@ -65,16 +65,20 @@ public class Kniaz {
 
             try {
                 nextCommand = KniazParser.parseCommand(input.nextLine());
+                // We try to parse...
+
             } catch (KniazRuntimeException e) {
+                // And if there's an issue in parsing, we feedback user input!
                 System.out.println(e.getUserMessage());
                 System.out.println(Kniaz.SEPERATOR);
+                // this needs to be here, because we skip the rest.
                 continue;
             }
 
 
             if (nextCommand.instructionEquals(KniazParser.InstructionType.QUIT)) {
 
-                break; // Used here instead of in the while because of timing of next
+                break; // exit if we are told to quit
             }
 
             if (nextCommand.instructionEquals(KniazParser.InstructionType.LIST)) {
@@ -146,7 +150,7 @@ public class Kniaz {
 
             }
 
-            // Each command input will invariable result in a seperator line being printed
+            // Each command input will invariably result in a seperator line being printed
             // Helps to keep it looking nice
             System.out.println((Kniaz.SEPERATOR));
 

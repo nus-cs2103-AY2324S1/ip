@@ -3,13 +3,25 @@ package parser;
 import exceptions.KniazRuntimeException;
 
 
+/**
+ * Abstract class encapsulating logic of parsing & tokenizing commands given to Kniaz
+ */
 public abstract class KniazParser {
     // doesn't need to be instantiated to do its job
     // contains just the logic for parsing input/outputs after Kniaz decides what kind of input it is
     // helps keep Kniaz neat
 
+    /**
+     * Valid pattern for Event commands
+     * TODO : Implement similar regex for all commands
+     */
     private static final String EVENTPATTERN  = ".*from.*to.*";
 
+    /**
+     * The types of instructions that Kniaz can accept
+     * Each member of this enum has an alias, that represents the command typed into Kniaz
+     * E.g. the DEADLINE InstructionType is related to the command "deadline".
+     */
     public enum InstructionType {
         TODO("todo"),
         DEADLINE("deadline"),
@@ -18,7 +30,7 @@ public abstract class KniazParser {
         UNMARK("unmark"),
         LIST("list"),
         QUIT("bye"),
-        INVALID("");
+        INVALID(""); // placeholder for anything not recognised
 
         public final String alias;
 
@@ -30,70 +42,89 @@ public abstract class KniazParser {
 
     }
 
-    public static KniazCommand parseCommand(String line) throws KniazRuntimeException {
+    /**
+     * Parses the given line and breaks it down into a KniazCommand
+     * If an unknown instruction is entered, throws a KniazRunTimeException
+     * @param rawLine the line to parse
+     * @return the Command that line represented
+     * @throws KniazRuntimeException what went wrong, such as invalid commands
+     */
+    public static KniazCommand parseCommand(String rawLine) throws KniazRuntimeException {
+        String strippedLine = rawLine.strip();
 
-        if (line.equals(InstructionType.QUIT.alias)) {
 
+        // The lines below are fairly self-explanatory
+        // Just checks for each alias in our enum and makes the right KniazCommand
+        // TODO : refactor this to get rid of the giant if-else ladder (if we can!)
+        if (rawLine.equals(InstructionType.QUIT.alias)) {
             return new KniazCommand(InstructionType.QUIT);
         }
 
-        if (line.equals(InstructionType.LIST.alias)) {
+        if (rawLine.equals(InstructionType.LIST.alias)) {
 
             return new KniazCommand((InstructionType.LIST));
 
             // print out if we are asked to list
-        } else if (line.startsWith(InstructionType.MARK.alias)) {
+        } else if (rawLine.startsWith(InstructionType.MARK.alias)) {
 
             // handle parsing which entry the user wants to mark here
-            String entryAsString = KniazParser.getAfter(line,"mark");
+            String entryAsString = KniazParser.getAfter(rawLine,"mark");
 
             return new KniazCommand(InstructionType.MARK, entryAsString);
 
-        } else if (line.startsWith(InstructionType.UNMARK.alias)) {
+        } else if (rawLine.startsWith(InstructionType.UNMARK.alias)) {
 
             // handle parsing which entry user wants to unmark here
-            String entryAsString = KniazParser.getAfter(line,"unmark");
+            String entryAsString = KniazParser.getAfter(rawLine,"unmark");
             int entryAsInt = Integer.parseInt(entryAsString.strip());
             int entryToMark = entryAsInt - 1;
 
             return new KniazCommand(InstructionType.UNMARK, entryAsString);
-        } else if (line.startsWith(InstructionType.TODO.alias)) {
+        } else if (rawLine.startsWith(InstructionType.TODO.alias)) {
 
-            String taskName = KniazParser.getAfter(line,"todo").strip();
-            // interpret everything else that isn't special as a task to add
+
+            String taskName = KniazParser.getAfter(rawLine,"todo").strip();
             return new KniazCommand(InstructionType.TODO, taskName);
 
-        } else if (line.startsWith(InstructionType.DEADLINE.alias)) {
+        } else if (rawLine.startsWith(InstructionType.DEADLINE.alias)) {
 
             // pull the args for this command
-            String deadlineArgs = KniazParser.getAfter(line, "deadline");
+            String deadlineArgs = KniazParser.getAfter(rawLine, "deadline");
 
             String[] tokenizedDlineArgs = deadlineArgs.split("\\s*/\\s*(by)\\s*");
             // regex \s* represents any arbitrary number of whitespace
+            // Also strips the by out
             // so this split input strips whitespace in between delims
             // Split it up by the slash and strip whitespace
             return new KniazCommand(InstructionType.DEADLINE, tokenizedDlineArgs);
 
-        } else if (line.startsWith(InstructionType.EVENT.alias)) {
-            String eventArgs = KniazParser.getAfter(line, "event");
+        } else if (rawLine.startsWith(InstructionType.EVENT.alias)) {
+            String eventArgs = KniazParser.getAfter(rawLine, "event");
 
-            if (!eventArgs.matches(KniazParser.EVENTPATTERN)) {
+            if (!eventArgs.matches(KniazParser.EVENTPATTERN)) { //Handles format validation here for Events
                 throw new KniazRuntimeException(
                         String.format("Wrong input format in %s",eventArgs),
                         "Your input is formatted wrongly, try again.",
                         null);
             }
             String[] tokenizedEventArgs = eventArgs.split("\\s*/\\s*(from|to)\\s*");
+            // gets rid of the from/to also, in addition to splitting and stripping whitespace
 
             return new KniazCommand(InstructionType.EVENT, tokenizedEventArgs);
         } else {
             throw new KniazRuntimeException(
-                    String.format("Unrecognised input : %s", line),
-                    String.format("I did not recognise %s as an input, try again.", line),
+                    String.format("Unrecognised input : %s", rawLine),
+                    String.format("I did not recognise %s as an input, try again.", rawLine),
                     null);
         }
     }
 
+    /**
+     * Helper function to get after a given substring
+     * @param fullString full string to scan
+     * @param subString what substring to look for
+     * @return everything in fullString that comes after subString
+     */
     private static String getAfter(String fullString, String subString) {
         int indexOfSubString = fullString.indexOf(subString);
         return fullString.substring(indexOfSubString + subString.length()).strip();
