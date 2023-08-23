@@ -1,8 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Duke {
-    private final static Task[] tasks = new Task[100];
-    private static int taskCount = 0;
+    private List<Task> tasks = new ArrayList<>();
 
     public void startChat() {
         System.out.println("---------------------------------------------\n Hello! I'm zy\n" +
@@ -31,18 +32,18 @@ public class Duke {
             this.listAllTasks();
         } else if (command.startsWith("mark") || command.startsWith("unmark")) {
             try {
-                if (separateCommand.length > 2 || Integer.parseInt(separateCommand[1]) > taskCount) {
+                if (separateCommand.length > 2 || Integer.parseInt(separateCommand[1]) > tasks.size()) {
                     throw new DukeException("☹ OOPS!!! Invalid number");
                 }
                 int taskNumber = Integer.parseInt(separateCommand [1]);
                 if (command.startsWith("mark")) {
-                    tasks[taskNumber - 1].markAsDone();
+                    tasks.get(taskNumber - 1).markAsDone();
                     System.out.println(" Nice! I've marked this task as done:");
                 } else if (command.startsWith("unmark")) {
-                    tasks[taskNumber - 1].markAsUndone();
+                    tasks.get(taskNumber - 1).markAsUndone();
                     System.out.println(" OK, I've marked this task as not done yet:");
                 }
-                System.out.println("   " + tasks[taskNumber - 1].toString());
+                System.out.println("   " + tasks.get(taskNumber - 1).toString());
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("☹ OOPS!!! Invalid number");
             }
@@ -55,8 +56,8 @@ public class Duke {
 
     public void listAllTasks() {
         System.out.println(" Here are the tasks in your list:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println(" " + (i + 1) + "." + tasks[i].toString());
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println(" " + (i + 1) + "." + tasks.get(i).toString());
         }
     }
 
@@ -67,7 +68,7 @@ public class Duke {
                 if (description.length() == 0) {
                     throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                 }
-                tasks[taskCount] = new ToDo(description);
+                tasks.add(new ToDo(description));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
             }
@@ -79,7 +80,7 @@ public class Duke {
                     throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                 }
                 String by = parts[1].trim();
-                tasks[taskCount] = new Deadline(description, by);
+                tasks.add(new Deadline(description, by));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
             }
@@ -93,16 +94,15 @@ public class Duke {
                 String[] timeParts = parts[1].split("/to");
                 String start = timeParts[0].trim();
                 String end = timeParts[1].trim();
-                tasks[taskCount] = new Event(description, start, end);
+                tasks.add(new Event(description, start, end));
             } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
             }
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        taskCount++;
-        System.out.println(" Got it. I've added this task:" + "\n" + "   " + tasks[taskCount - 1].toString() + "\n"
-                            + " Now you have " + taskCount + " tasks in the list.");
+        System.out.println(" Got it. I've added this task:" + "\n" + "   " + tasks.get(tasks.size() - 1).toString() + "\n"
+                            + " Now you have " + tasks.size() + " tasks in the list.");
     }
 
     public static void main(String[] args) {
