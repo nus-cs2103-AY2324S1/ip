@@ -13,6 +13,12 @@ public class UiFormatter {
           "[" + Deadline.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.description + "("
               + deadTask.getDeadDate() + ")";
 
+    } else if (task instanceof Event) {
+      Event eventTask = (Event) task;
+
+      answer =
+          "[" + Event.taskType + "]" + "[" + task.getDoneIcon() + "] " + task.description + "("
+              + eventTask.getStartDate() + " to " + eventTask.getEndDate() + ")";
     }
 
     return answer;
