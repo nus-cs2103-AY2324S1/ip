@@ -3,7 +3,7 @@ import java.util.Objects;
 import java.util.Scanner;
 public class Duke {
     private static String chatbot = "chuababyy chatbot";
-    private static String line = "------------------------";
+    private static String line = "------------------------------------";
 
     public static void main(String[] args) {
         ArrayList fullList = new ArrayList();
@@ -26,6 +26,21 @@ public class Duke {
                 for (int i = 1; i <= fullList.size(); i++) {
                     System.out.println(i + ". " + fullList.get(i - 1));
                 }
+                continue;
+            }
+
+            if (userInput.equals("")) {
+                System.out.println(line);
+                System.out.println("Item to be added cannot be empty");
+                System.out.println(line);
+                continue;
+            }
+
+            char lastChar = userInput.charAt(userInput.length() - 1);
+            if (lastChar == ' ') {
+                System.out.println(line);
+                System.out.println("Last character should not be an empty space");
+                System.out.println(line);
                 continue;
             }
 
