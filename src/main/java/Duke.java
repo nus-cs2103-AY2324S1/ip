@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
 
         String logo =
                 "██████╗░██╗░░░░░░█████╗░░█████╗░██████╗░\n" +
@@ -12,7 +12,7 @@ public class Duke {
                 "██████╦╝███████╗╚█████╔╝╚█████╔╝██║░░░░░\n" +
                 "╚═════╝░╚══════╝░╚════╝░░╚════╝░╚═╝░░░░░";
 
-        boolean isEcho = true;
+//        boolean isEcho = true;
 
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________");
@@ -20,16 +20,16 @@ public class Duke {
         System.out.println(" What can I do for you?");
         System.out.println("____________________________________________________________");
 
-        while (isEcho) {
-            String strInput = scanner.nextLine();
-            System.out.println("____________________________________________________________");
-            System.out.println(strInput);
-            System.out.println("____________________________________________________________");
-
-            if (strInput.equalsIgnoreCase("bye")) {
-                isEcho = false;
-            }
-        }
+//        while (isEcho) {
+//            String strInput = scanner.nextLine();
+//            System.out.println("____________________________________________________________");
+//            System.out.println(strInput);
+//            System.out.println("____________________________________________________________");
+//
+//            if (strInput.equalsIgnoreCase("bye")) {
+//                isEcho = false;
+//            }
+//        }
         System.out.println(" Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
     }
