@@ -6,6 +6,17 @@ public class Duke {
 
     public static final String HORIZONTAL_LINE = "____________________________________________________________";
 
+    private static int checkIndexArg(String indexArg, int lstSize){
+        if (!indexArg.matches("^\\d+$")) {
+            return -1;
+        }
+        int index = Integer.parseInt(indexArg) - 1;
+        if (0 > index || index >= lstSize){
+            return -1;
+        }
+        return index;
+    }
+
     public static void main(String[] args) {
         String name = "Ip Bot";
         System.out.println(HORIZONTAL_LINE);
@@ -42,11 +53,8 @@ public class Duke {
                             System.out.printf("%d. %s\n", index + 1, list.get(index).toString());
                         }
                     } else if (commandName.equals("mark")) {
-                        if (!commandArgs.matches("^\\d+$")) {
-                            throw new CommandArgumentException("Invalid task to mark: " + commandArgs);
-                        }
-                        int markIndex = Integer.parseInt(commandArgs) - 1;
-                        if (0 > markIndex || markIndex >= list.size()){
+                        int markIndex = checkIndexArg(commandArgs, list.size());
+                        if(markIndex == -1) {
                             throw new CommandArgumentException("Invalid task to mark: " + commandArgs);
                         }
                         boolean wasNotMarked = list.get(markIndex).markDone();
@@ -56,11 +64,8 @@ public class Duke {
                             System.out.println("Task was already marked as done: " + list.get(markIndex).toString());
                         }
                     } else if (commandName.equals("unmark")) {
-                        if (!commandArgs.matches("^\\d+$")) {
-                            throw new CommandArgumentException("Invalid task to unmark: " + commandArgs);
-                        }
-                        int unmarkIndex = Integer.parseInt(commandArgs) - 1;
-                        if (0 > unmarkIndex || unmarkIndex >= list.size()){
+                        int unmarkIndex = checkIndexArg(commandArgs, list.size());
+                        if(unmarkIndex == -1) {
                             throw new CommandArgumentException("Invalid task to unmark: " + commandArgs);
                         }
                         boolean wasNotMarked = list.get(unmarkIndex).unmarkDone();
@@ -120,6 +125,13 @@ public class Duke {
                         }
                         list.add(new Event(desc, from, to));
                         System.out.println("Added event item: " + list.get(list.size() - 1));
+                    } else if(commandName.equals("delete")) {
+                        int deleteIndex = checkIndexArg(commandArgs, list.size());
+                        if(deleteIndex == -1) {
+                            throw new CommandArgumentException("Invalid task to delete: " + commandArgs);
+                        }
+                        Task task = list.remove(deleteIndex);
+                        System.out.println("Deleted item: " + task.toString());
                     } else {
                         System.out.println("Error: " + commandName + " is not a valid command!");
                     }

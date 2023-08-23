@@ -20,4 +20,7 @@ deadline a /by /by /by
 list
 todo
 list
+mark
+delete 2
+list
 bye
