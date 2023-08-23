@@ -20,9 +20,9 @@ public class TaskList {
     public void add(Task task) {
         taskList.add(task);
         System.out.println("____________________________________________________________\n" +
-                "Alright! I've added this task: \n " + task
+                "Alright! I've added this task:\n " + " " + task
                         + "\nNow you have " + taskList.size() + " tasks in the list.\n" +
-                "____________________________________________________________\n");
+                "____________________________________________________________");
     }
 
     // Displays all items to the user
@@ -41,7 +41,7 @@ public class TaskList {
         Task curr = taskList.get(index - 1); // Decrement by 1 to match display index
         curr.mark();
         System.out.println("____________________________________________________________\n" +
-                "Nice! I've marked this task as done: \n" +
+                "Nice! I've marked this task as done:\n" + "  " +
                 curr +
                 "\n____________________________________________________________");
 
@@ -52,9 +52,18 @@ public class TaskList {
         Task curr = taskList.get(index - 1); // Decrement by 1 to match display index
         curr.unmark();
         System.out.println("____________________________________________________________\n" +
-                "Cool! I've marked this task as not done yet: \n" +
+                "Cool! I've marked this task as not done yet:\n" + "  " +
                 curr +
                 "\n____________________________________________________________");
 
+    }
+
+    public void delete(int index) {
+        Task curr =taskList.get(index - 1);
+        taskList.remove(index - 1);
+        System.out.println("____________________________________________________________\n" +
+                "Noted. I've removed this task:\n" + "  " + curr + "\n Now You have " + this.size() +
+                " tasks in the list.\n"  +
+                "____________________________________________________________");
     }
 }

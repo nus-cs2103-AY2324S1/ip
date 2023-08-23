@@ -22,10 +22,12 @@ public class Alpha {
 
         String EVENT = "event";
 
+        String DELETE = "delete";
+
         // Intro message
         String intro = "____________________________________________________________\n" +
                 " Hello! I'm Alpha\n" +
-                " What can I do for you?\n";
+                " What can I do for you?\n" + "____________________________________________________________";
 
         //Outro message
         String end = "____________________________________________________________\n" +
@@ -44,7 +46,7 @@ public class Alpha {
                 } else if (splitInput[0].equals(CHECK)) {
                     if (splitInput.length == 1) {
                         throw new MissingIndexException("Missing Index!");
-                    } else if (Integer.parseInt(splitInput[1]) > taskList.size()) {
+                    } else if (Integer.parseInt(splitInput[1]) > taskList.size() || splitInput.length > 2) {
                         throw new InvalidIndexException("Invalid Index!");
                     } else {
                         taskList.mark(Integer.parseInt(splitInput[1]));
@@ -53,44 +55,55 @@ public class Alpha {
             } else if (splitInput[0].equals(UNCHECK)) {
                     if (splitInput.length == 1) {
                         throw new MissingIndexException("Missing Index!");
-                    } else if (Integer.parseInt(splitInput[1]) > taskList.size()) {
+                    } else if (Integer.parseInt(splitInput[1]) > taskList.size() || splitInput.length > 2) {
                         throw new InvalidIndexException("Invalid Index!");
                     } else {
                         taskList.unmark(Integer.parseInt(splitInput[1]));
                     }
 
                 } else if (splitInput[0].equals(DEADLINE)) {
-                if (splitInput.length == 1) {
+                if (splitInput.length < 2) {
                     throw new MissingInfoException("Missing Information!", TaskException.TaskType.DEADLINE);
-                } else if(input.split("/").length != 2) {
+                } else if(input.split("/by").length != 2) {
                     throw new InvalidFormatException("Invalid Format!", TaskException.TaskType.DEADLINE);
                 } else {
-                    String[] splitDeadline = input.split("/");
-                    Deadline deadline = new Deadline(splitDeadline[0].split(" ")[1], splitDeadline[1]);
+                    String[] splitDeadline = input.split("/by");
+                    Deadline deadline = new Deadline(splitDeadline[0].substring(9), splitDeadline[1]);
                     taskList.add(deadline);
                 }
             } else if (splitInput[0].equals(EVENT)) {
                     if (splitInput.length < 3) {
                         throw new MissingInfoException("Missing Information!", TaskException.TaskType.EVENT);
-                    } else if (input.split("/").length != 3 ||
-                            input.split("/")[0].split(" ").length == 1){
-                        throw new InvalidFormatException("Invalid Format!", TaskException.TaskType.EVENT);
                     } else {
                         String[] splitEvent = input.split("/");
-                        Event event = new Event(splitEvent[0].split(" ")[1], splitEvent[1], splitEvent[2]);
-                        taskList.add(event);
+                         if (splitEvent[1].startsWith("from") && splitEvent[2].startsWith("to")) {
+                             Event event = new Event(splitEvent[0].substring(6),
+                                     splitEvent[1].substring(5),
+                                     splitEvent[2].substring(3));
+                             taskList.add(event);
+                         } else {
+                             throw new InvalidFormatException("Invalid Format!", TaskException.TaskType.EVENT);
+                         }
+
                     }
 
             } else if (splitInput[0].equals(TODO)) {
-                    if (splitInput.length > 2) {
-                        throw new InvalidFormatException("Invalid Format!", TaskException.TaskType.TODO);
-                    } else if (splitInput.length == 1) {
+                    if (splitInput.length == 1) {
                         throw new MissingInfoException("Missing Information!", TaskException.TaskType.TODO);
                     } else {
-                        ToDo todo = new ToDo(splitInput[1]);
+                        ToDo todo = new ToDo(input.substring(5));
                         taskList.add(todo);
                     }
-                } else {
+                } else if (splitInput[0].equals(DELETE)) {
+                    if (splitInput.length == 1) {
+                        throw new MissingIndexException("Missing Index!");
+                    } else if (Integer.parseInt(splitInput[1]) > taskList.size()) {
+                        throw new InvalidIndexException("Invalid Index!");
+                    } else {
+                        taskList.delete(Integer.parseInt(splitInput[1]));
+                    }
+                }
+                else {
                     throw new InvalidInputException("Invalid Input!");
             }
 
@@ -107,11 +120,11 @@ public class Alpha {
                             "format \"todo YOUR_DESCRIPTION\"");
                 } else if (e5.getTask() == TaskException.TaskType.DEADLINE) {
                     System.out.println(e5.getMessage() + " Please enter a deadline in the format " +
-                            "\"deadline YOUR_DESCRIPTION /YOUR_TIME\" ");
+                            "\"deadline YOUR_DESCRIPTION /by YOUR_TIME\" ");
                 } else if (e5.getTask() == TaskException.TaskType.EVENT) {
                     System.out.println(e5.getMessage() + " Please enter an event in the format " +
                             "\"event YOUR_DESCRIPTION " +
-                            "/START_TIME /END_TIME\" ");
+                            "/from START_TIME /to END_TIME\" ");
                 }
             } finally {
                 input = sc.nextLine();

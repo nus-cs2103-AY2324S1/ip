@@ -1,4 +1,4 @@
-// Exception thrown when mark or unmark is called without an index
+// Exception thrown when using a missing index to mark, delete or unmark a task
 public class MissingIndexException extends AlphaException{
     public MissingIndexException(String errorMessage) {
         super(errorMessage);
