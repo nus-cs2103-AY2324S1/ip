@@ -28,33 +28,42 @@ public class DukeHandler {
         }
     }
 
+    public DukeEnum map(String command) throws DukeException {
+        for(DukeEnum e: DukeEnum.values()) {
+            if (command.equals(e.getText())) {
+                return e;
+            }  
+        }
+        throw new InvalidCommandException();
+    }
+
     public String handle(String input) throws DukeException{
         String[] parsedInput = inputParser(input);
         String command = parsedInput[0];
         String rest = parsedInput[1];
-        String output = "";
         
         try {
-            if (command.equals("list")) {
-                output = tasklist.toString();
-            } else if (command.equals("mark")) {
-                output = tasklist.markAsDone(rest);
-            } else if (command.equals("unmark")) {
-                output = tasklist.unmarkAsDone(rest);
-            } else if (command.equals("todo")) {
-                output = tasklist.addTodo(rest);
-            } else if (command.equals("deadline")) {
-                output = tasklist.addDeadline(rest);
-            } else if (command.equals("event")) {
-                output = tasklist.addEvent(rest);
-            } else if (command.equals("delete")) {
-                output = tasklist.delete(rest);
-            } else {
-                throw new InvalidCommandException();
+            DukeEnum commandtype = map(command);
+            switch (commandtype) {
+                case LIST:
+                    return tasklist.toString();
+                case MARK:
+                    return tasklist.markAsDone(rest);
+                case UNMARK:
+                    return tasklist.unmarkAsDone(rest);
+                case TODO:
+                    return tasklist.addTodo(rest);
+                case DEADLINE:
+                    return tasklist.addDeadline(rest);
+                case EVENT:
+                    return tasklist.addEvent(rest);
+                case DELETE:
+                    return tasklist.delete(rest);
+                default:
+                    throw new InvalidCommandException();
             }
-            return output;
         } catch (DukeException e) {
             throw e;
-        }
+        } 
     }
 }
