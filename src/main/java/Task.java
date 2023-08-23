@@ -11,7 +11,7 @@ public class Task {
         this.isDone = done;
     }
 
-    public String getTaskString() { // generates the string of marking and task
+    public String toString() { // generates the string of marking and task
         String marking = "";
         if (this.isDone) {
             marking = "[✓]";
