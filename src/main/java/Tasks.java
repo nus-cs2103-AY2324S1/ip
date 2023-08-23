@@ -16,7 +16,14 @@ public class Tasks {
 
     @Override
     public String toString() {
-        return this.str;
+        String x;
+        if (this.status) {
+            x = "X";
+        } else {
+            x = " ";
+        }
+        String str1 = String.format("", x);
+        return str1 + this.str;
     }
 
 

@@ -38,6 +38,20 @@ public class Duke {
                     System.out.println("     " + j + ". " +  task[i].toString());
                 }
                 System.out.println("   ____________________________________________________________________________________");
+            } else if (userInput.startsWith("mark")) {
+                int index = Integer.parseInt(userInput.substring(5));
+                task[index - 1].markDone();
+                System.out.println("   ____________________________________________________________________________________");
+                System.out.println("   " + name + ": Well done! I've marked this task as done :");
+                System.out.println("   " + task[index - 1].toString());
+                System.out.println("   ____________________________________________________________________________________");
+            } else if (userInput.startsWith("unmark")) {
+                int index = Integer.parseInt(userInput.substring(7));
+                task[index - 1].markNotDone();
+                System.out.println("   ____________________________________________________________________________________");
+                System.out.println("   " + name + ": Alright, I've marked this task as not done yet");
+                System.out.println("   " + task[index - 1].toString());
+                System.out.println("   ____________________________________________________________________________________");
             } else {
                 Tasks newtask = new Tasks(userInput);
                 System.out.println("   ____________________________________________________________________________________");
