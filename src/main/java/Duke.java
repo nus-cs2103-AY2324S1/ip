@@ -1,15 +1,16 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
     private static final String chatbot = "War Room";
-    private static Task[] userData = new Task[100];
+    private static ArrayList<Task> userData = new ArrayList<>(100);
     private static int index = 0;
 
     public static String[] validStartingCommands = {"todo", "deadline", "event"};
 
-    public static String[] validMarkingCommands = {"mark", "unmark"};
+    public static String[] validMarkingCommands = {"mark", "unmark", "delete"};
 
     public static void main(String[] args) throws DukeException {
         System.out.println("Hello! I'm " + chatbot);
@@ -25,7 +26,7 @@ public class Duke {
                     if (Objects.equals(words[0], "list")) {
                         System.out.println("Here are the tasks in your list:");
                         for (int i = 0; i < index; i++) {
-                            Task currentTask = userData[i];
+                            Task currentTask = userData.get(i);
                             System.out.println((i + 1) + "." + currentTask.toString());
                         }
                     } else if (Objects.equals(words[0], "bye")) {
@@ -65,7 +66,7 @@ public class Duke {
                     /* Time to head into the specific details */
                     if (Objects.equals(words[0], "todo")) {
                         Task newTask = new Todo(taskDescription);
-                        userData[index] = newTask;
+                        userData.add(newTask);
                         index++;
                         System.out.println("Got it. I've added this task:");
                         System.out.println(newTask.toString());
@@ -82,7 +83,7 @@ public class Duke {
                             }
 
                             Task newTask = new Deadline(taskDescription, deadline);
-                            userData[index] = newTask;
+                            userData.add(newTask);
                             index++;
                             System.out.println("Got it. I've added this task:");
                             System.out.println(newTask.toString());
@@ -117,7 +118,7 @@ public class Duke {
                             }
 
                             Task newTask = new Event(taskDescription, fromChar, toChar);
-                            userData[index] = newTask;
+                            userData.add(newTask);
                             index++;
 
                             System.out.println("Got it. I've added this task:");
@@ -130,7 +131,7 @@ public class Duke {
                 } else if (Arrays.asList(validMarkingCommands).contains(words[0])) {
                     try {
                         if (words.length > 2) {
-                            throw new DukeException("Mark/UnMark commands can only take a maximum of 2 words!");
+                            throw new DukeException("Mark/UnMark/Delete commands can only take a maximum of 2 words!");
                         }
                     } catch (DukeException DE) {
                         System.out.println(DE.getMessage());
@@ -140,24 +141,31 @@ public class Duke {
                         try {
                             Integer.parseInt(words[1]);
                         } catch (NumberFormatException e) {
-                            throw new DukeException("Mark/UnMark commands can only take numbers as a parameter");
+                            throw new DukeException("Mark/UnMark/Delete commands can only take numbers as a parameter");
                         }
 
-                        if (Integer.parseInt(words[1]) < 0 || Integer.parseInt(words[1]) > index) {
+                        if (Integer.parseInt(words[1]) <= 0 || Integer.parseInt(words[1]) > index) {
                             throw new DukeException("Please input a valid number!");
                         }
 
                         int referenceIndex = Integer.parseInt(words[1]);
                         if (Objects.equals(words[0], "mark")) {
-                            Task currentTask = userData[referenceIndex - 1];
+                            Task currentTask = userData.get(referenceIndex - 1);
                             currentTask.isDone = true;
                             System.out.println("Nice! I've marked this task as done:");
                             System.out.println(currentTask.toString());
-                        } else {
-                            Task currentTask = userData[referenceIndex - 1];
+                        } else if (Objects.equals(words[0], "unmark")) {
+                            Task currentTask = userData.get(referenceIndex - 1);
                             currentTask.isDone = false;
                             System.out.println("OK, I've marked this task as not done yet:");
                             System.out.println(currentTask.toString());
+                        } else {
+                            Task removedTask = userData.get(referenceIndex - 1);
+                            userData.remove(referenceIndex - 1);
+                            index--;
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(removedTask.toString());
+                            System.out.println(String.format("Now you have %d tasks in the list.", index));
                         }
                     } catch (DukeException DE) {
                         System.out.println(DE.getMessage());
