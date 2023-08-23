@@ -7,5 +7,6 @@ mark 2
 mark 3
 unmark 2
 list
-d
+delete 3
+list
 bye
