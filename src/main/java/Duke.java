@@ -3,40 +3,12 @@ import java.util.ArrayList;
 
 public class Duke {
 
-    /** An ArrayList to hold tasks entered by the User. */
-    private static ArrayList<String> tasks;
-
     /**
      * Draws a line separating each conversation.
      *
      */
     public static void drawLine() {
         System.out.println("\t____________________________________________________________");
-    }
-
-    /**
-     * Adds the given task to the tasks ArrayList.
-     * Prints that the task has been added.
-     *
-     * @param task The task to add.
-     *
-     */
-    public static void addTask(String task) {
-        tasks.add(task);
-        System.out.println("\tadded: " + task);
-        drawLine();
-    }
-
-    /**
-     * Lists the tasks present in tasks ArrayList.
-     */
-    public static void listTasks() {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.print("\t");
-            System.out.print(i + 1);
-            System.out.print(". " + tasks.get(i) + "\n");
-        }
-        drawLine();
     }
 
 
@@ -47,21 +19,58 @@ public class Duke {
     public static void handleUserInput() {
 
         Scanner scanner = new Scanner(System.in);
-        tasks = new ArrayList<String>();
+        TaskList taskList = new TaskList();
         System.out.println();
         String userInput;
         userInput = scanner.nextLine();
+        String[] formattedUserInput = userInput.split(" ");
+        String instruction  = formattedUserInput[0];
         drawLine();
 
-        while (!userInput.equals("bye")) {
-            if (userInput.equals("list")) {
-                listTasks();
-            } else {
-                addTask(userInput);
+        while (true) {
+            if (instruction.equals("bye")) {
+                break;
             }
+            switch (instruction) {
+            case "list":
+                if (formattedUserInput.length > 1) {
+                    System.out.println("\tInvalid Input. Try again.");
+                } else {
+                    taskList.listTasks();
+                }
+                break;
+            case "mark":
+                if (formattedUserInput.length != 2) {
+                   System.out.println("\tInvalid Input. Try again.");
+                } else {
+                    try {
+                        taskList.markTask(Integer.parseInt(formattedUserInput[1]));
+                    } catch (NumberFormatException e) {
+                        System.out.println("\tInvalid input. Try again.");
+                    }
+                }
+                break;
+            case "unmark":
+                if (formattedUserInput.length != 2) {
+                    System.out.println("\tInvalid Input. Try again.");
+                } else {
+                    try {
+                        taskList.unmarkTask(Integer.parseInt(formattedUserInput[1]));
+                    } catch (NumberFormatException e) {
+                        System.out.println("\tInvalid Input. Try again.");
+                    }
+                }
+                break;
+            default:
+                taskList.addTask(userInput);
+                break;
 
+            }
+            drawLine();
             System.out.println();
             userInput = scanner.nextLine();
+            formattedUserInput = userInput.split(" ");
+            instruction = formattedUserInput[0];
             drawLine();
         }
     }
