@@ -15,7 +15,7 @@ public class Chatter {
     private static void greet() {
         System.out.println("-----------------------");
         System.out.println("Hello! I'm Chatter");
-        System.out.println("What can I do for you?");
+        System.out.println("How can i help you today?");
     }
 
     /**
@@ -31,6 +31,10 @@ public class Chatter {
             System.out.println("-----------------------");
             if (userInput.equals("list")) {
                 tasks.listTasks();
+            } else if (userInput.startsWith("mark")){
+                tasks.markTaskAsDone(Character.getNumericValue(userInput.charAt(5)));
+            } else if (userInput.startsWith("unmark")){
+                tasks.markTaskAsNotDone(Character.getNumericValue(userInput.charAt(7)));
             } else {
                 tasks.addTask(new Task(userInput));
             }
