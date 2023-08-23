@@ -10,18 +10,18 @@ abstract public class Task {
     public void mark() {
         if (this.status == 0) {
             this.status = 1;
-            System.out.println("Yay! This task is completed: \n" + this.toString() + "\n");
+            System.out.println("ଘ(੭ˊᵕˋ)੭ Yay! This task is completed:\n" + this.toString());
         } else {
-            System.out.println("This task is already marked as completed!");
+            System.out.println("┐(´～｀)┌ This task is already marked as completed!");
         }
     }
 
     public void unmark() {
         if (this.status != 0) {
             this.status = 0;
-            System.out.println("All righty, I've marked this task as uncompleted: \n" + this.toString() + "\n");
+            System.out.println("໒( ̿･ ᴥ ̿･ )ʋ All righty, I've marked this task as uncompleted:\n" + this.toString());
         } else {
-            System.out.println("This task is already marked as uncompleted!");
+            System.out.println("┐(´～｀)┌ This task is already marked as uncompleted!");
         }
     }
     @Override
