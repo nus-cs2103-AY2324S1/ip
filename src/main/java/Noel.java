@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Noel {
 
     static int maxSize = 100;
-    static String[] taskList = new String[maxSize];
+    static Task[] taskList = new Task[maxSize];
 
     // headPointer points to the first item in the taskList
     static int headPointer = -1;
@@ -17,18 +17,24 @@ public class Noel {
         System.out.println(filler + "\n" + message + "\n" + filler);
     }
 
-    public static boolean checkFull(){
-        if (headPointer == -1 && tailPointer == -1) {
+    public static boolean checkFull() {
+        if (headPointer == -1) {
             return false;
         }
         return tailPointer == headPointer;
     }
 
+    public static boolean checkEmpty() {
+        return headPointer == -1;
+    }
+
     public static void addTaskList(String task){
+        Task taskToAdd;
         if (checkFull()) {
             System.out.println("Array is full!");
         } else {
-            taskList[tailPointer] = task;
+            taskToAdd = new Task(task);
+            taskList[tailPointer] = taskToAdd;
             tailPointer = (tailPointer+1)%maxSize;
             String updateAdd = "added: " + task;
             printFunction(updateAdd);
@@ -39,7 +45,7 @@ public class Noel {
     }
 
     public static void printTaskList(){
-        if (tailPointer == -1) {
+        if (checkEmpty()) {
             System.out.println("List is empty!");
         } else {
             String filler = "____________________________________________________________";
@@ -67,6 +73,16 @@ public class Noel {
 
             if (nextLine.equals("list")){
                 printTaskList();
+            } else if (nextLine.contains("mark")) {
+                String[] result = nextLine.split(" ", 2);
+                int taskNum = Integer.parseInt(result[1]);
+                taskNum = ((headPointer + taskNum) - 1)%maxSize;
+
+                if (result[0].equals("mark")) {
+                    taskList[taskNum].markAsDone();
+                } else {
+                    taskList[taskNum].unMark();
+                }
             } else {
                 addTaskList(nextLine);
             }
@@ -76,3 +92,4 @@ public class Noel {
         printFunction(byeMsg);
     }
 }
+
