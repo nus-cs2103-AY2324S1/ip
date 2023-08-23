@@ -61,9 +61,19 @@ public class Duke {
                         + "   Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
                         + " in the list \n" + divider);
                 break;
-            default:
-                tasksList.add(new Task(userInput));
-                System.out.println(divider + "   added: " + userInput + "\n" + divider);
+            case "event":
+                lastDescId = userInput.indexOf('/');
+                desc = userInput.substring(0, lastDescId - 1);
+                int lastFromId = userInput.indexOf('/', lastDescId + 1);
+                String from = userInput.substring(lastDescId + 6, lastFromId - 1);
+                String to = userInput.substring(lastFromId + 4);
+
+                Task newEvent = new Event(desc, from, to);
+                tasksList.add(newEvent);
+                System.out.println(divider + "   Got it. I've added this task: \n" + "    " + newEvent.toString() + "\n"
+                        + "   Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
+                        + " in the list \n" + divider);
+                break;
             }
         }
     }
