@@ -33,6 +33,14 @@ public class Task {
         System.out.println("  " + this);
 
     }
+
+    public void delete(){
+        size = size -1;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + this);
+        System.out.println("Now you have " + size + " tasks in the list.");
+
+    }
     @Override
     public String toString() {
         return "[" + this.getStatusIcon()+ "] " + this.description;

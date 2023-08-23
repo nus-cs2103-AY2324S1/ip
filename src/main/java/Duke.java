@@ -14,7 +14,7 @@ public class Duke {
 
         System.out.println("Hello! I'm Mikhil" + '\n' + "What can I do for you");
         boolean flag = true;
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner userInput = new Scanner(System.in);
 
         while (flag == true) {
@@ -29,7 +29,7 @@ public class Duke {
                 System.out.println("  Here are the tasks in your list:");
                 for (int i = 0; i < Task.getSize(); i++) {
                     int index = i+1;
-                    System.out.println("  " + index + "." + tasks[i].toString()) ;
+                    System.out.println("  " + index + "." + tasks.get(i).toString()) ;
 
                 }
             }
@@ -37,8 +37,7 @@ public class Duke {
                 try{
                     inputChecker(splitStr, "todo");
                     Todo t = new Todo(input.substring(5));
-                    int totalTasks = Task.getSize();
-                    tasks[totalTasks-1] = t;
+                    tasks.add(t);
                 }
                 catch (DukeException e){
                     System.out.println(e.getMessage());
@@ -51,8 +50,7 @@ public class Duke {
                     String[] deadline = input.split("/");
                     inputChecker(deadline, "deadline");
                     Deadline d = new Deadline(deadline[0].substring(9), deadline[1].substring(3));
-                    int totalTasks = Task.getSize();
-                    tasks[totalTasks-1] = d;
+                    tasks.add(d);
                 }
                 catch (DukeException e){
                     System.out.println(e.getMessage());
@@ -67,8 +65,7 @@ public class Duke {
                     inputChecker(event, "deadline");
 
                     Event e = new Event(event[0].substring(6),event[1].substring(5), event[2].substring(3));
-                    int totalTasks = Task.getSize();
-                    tasks[totalTasks-1] = e;
+                    tasks.add(e);
                 }
                 catch (DukeException e){
                     System.out.println(e.getMessage());
@@ -77,12 +74,28 @@ public class Duke {
 
             }
             else if(splitStr[0].equals("mark") || splitStr[0].equals("unmark")){
+                try {
+                    inputChecker(splitStr, "mark/unmark");
+                    int index = Integer.parseInt(splitStr[1]);
+                    Task item = tasks.get(index - 1);
+                    item.setAction(splitStr[0]);
+                }
+                catch (DukeException e){
+                    System.out.println(e.getMessage());
+                }
 
-                int index = Integer.parseInt(splitStr[1]);
-                Task item = tasks[index-1];
-                item.setAction(splitStr[0]);
+            }
 
-
+            else if(splitStr[0].equals("delete")){
+                try {
+                    inputChecker(splitStr, "delete");
+                    int index = Integer.parseInt(splitStr[1]);
+                    Task item = tasks.remove(index - 1);
+                    item.delete();
+                }
+                catch (DukeException e){
+                    System.out.println(e.getMessage());
+                }
             }
             else{
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
