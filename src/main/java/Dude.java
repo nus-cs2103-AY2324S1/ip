@@ -21,10 +21,10 @@ public class Dude {
     "I can't find the task numbered \"%s\".\nTry checking if you've typed the correct task number.";
   static String addedTask = "Got it! I've added this task:\n\t%s\nYou now have a total of %d task(s).";
   static String noTaskDescription = "Please specify a task description.";
-  static String noDeadline = "Please specify a task deadline after your task description,\nprefixed by `\\by`.";
+  static String noDeadline = "Please specify a task deadline after the task\ndescription, prefixed by `\\by`.";
 
-  static String noEventStart = "Please specify the event start date after your task description,\nprefixed by `\\from`.";
-  static String noEventEnd = "Please specify the event end date after your task description and start date,\nprefixed by `\\to`.";
+  static String noEventStart = "Please specify the event start date after the task\ndescription, prefixed by `\\from`.";
+  static String noEventEnd = "Please specify the event end date after the task\n description and start date, prefixed by `\\to`.";
   static String markedAsDonePrefix = "Nice! I've marked this task as done:\n\t";
   static String markedAsNotDonePrefix = "Got it. I've marked this task as not done:\n\t";
 
