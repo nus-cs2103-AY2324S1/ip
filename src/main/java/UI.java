@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 public class UI {
     private final Scanner scanner = new Scanner(System.in);
@@ -21,6 +20,6 @@ public class UI {
     }
 
     public void openingMessage() {
-        lineSandwich("Hello there. I'm Whelmed.\nWhat do you want?");
+        lineSandwich(" Hello there. I'm Whelmed.\n What do you want?");
     }
 }
