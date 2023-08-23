@@ -11,7 +11,7 @@ public class Duke {
 
         while (!str.equals("bye")) {
             if (!str.equals("list")) {
-                if (str.startsWith("mark")) {
+                if (str.startsWith("mark ")) {
                     String num = str.substring(5);
                     int number = Integer.valueOf(num);
                     if (number <= 0 || number > tasks.size()) {
@@ -24,7 +24,7 @@ public class Duke {
                             "as done:" + "\n" +
                             "\t" + "[" + done.getStatusIcon() + "] " +
                             done.taskString());
-                } else if (str.startsWith("unmark")) {
+                } else if (str.startsWith("unmark ")) {
                     String num = str.substring(7);
                     int number = Integer.valueOf(num);
                     if (number <= 0 || number > tasks.size()) {
