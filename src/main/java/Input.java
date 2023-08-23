@@ -3,11 +3,6 @@ import java.util.Scanner;
 public class Input {
 
     private static Scanner scanner = new Scanner(System.in);
-    public static String getInput() {
-        String output = Input.scanner.nextLine();
-        Input.scanner.close();
-        return output;
-    }
 
     public static void echo() {
         while (Input.scanner.hasNext()) {
@@ -18,6 +13,14 @@ public class Input {
                 return;
             } else if (input.equals("list")) {
                 Printing.list();
+            } else if (input.startsWith("mark")) {
+                int index = Character.getNumericValue(input.charAt(5)) - 1;
+                Storage.markAsDone(index);
+                Printing.printMarkAsDone(index);
+            } else if (input.startsWith("unmark")) {
+                int index = Character.getNumericValue(input.charAt(7)) - 1;
+                Storage.unmark(index);
+                Printing.printUnmark(index);
             } else {
                 Printing.printBlock();
                 Storage.addToStorage(input);

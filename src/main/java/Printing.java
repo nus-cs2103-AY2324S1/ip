@@ -20,13 +20,33 @@ public class Printing {
     }
 
     public static void list() {
-        String[] storage = Storage.getStorage();
+        Task[] storage = Storage.getStorage();
         int length = Storage.getLength();
         Printing.printBlock();
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < length; i++) {
             int temp = i + 1;
-            System.out.println(temp + ". " + storage[i]);
+            System.out.println(String.format("%d. [%s] %s",
+                    temp, storage[i].getStatusIcon(), storage[i].description));
         }
+        Printing.printBlock();
+    }
+
+    public static void printMarkAsDone(int index) {
+        Task[] storage = Storage.getStorage();
+        Printing.printBlock();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(String.format("[%s] %s",
+                storage[index].getStatusIcon(), storage[index].description));
+        Printing.printBlock();
+    }
+
+    public static void printUnmark(int index) {
+        Task[] storage = Storage.getStorage();
+        Printing.printBlock();
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(String.format("[%s] %s",
+                storage[index].getStatusIcon(), storage[index].description));
         Printing.printBlock();
     }
 }
