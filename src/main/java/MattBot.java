@@ -51,6 +51,14 @@ public class MattBot {
                 System.out.println("Oh no, you have uncompleted " + t.showName());
                 printBottom();
             } else {
+                int len = userInput.split(" ",2).length;
+                if (len <= 1) {
+                    printTop();
+                    System.out.println("Oh no, your input is bad.");
+                    System.out.println(command + " requires an argument.");
+                    printBottom();
+                    continue;
+                }
                 printTop();
                 String arguments = userInput.split(" ",2)[1];
                 Task t;
