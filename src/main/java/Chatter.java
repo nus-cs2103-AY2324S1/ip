@@ -16,6 +16,7 @@ public class Chatter {
         System.out.println("-----------------------");
         System.out.println("Hello! I'm Chatter");
         System.out.println("How can i help you today?");
+        System.out.println("-----------------------");
     }
 
     /**
@@ -37,6 +38,10 @@ public class Chatter {
                 tasks.markTaskAsNotDone(Character.getNumericValue(userInput.charAt(7)));
             } else if (userInput.startsWith("todo")){
                 tasks.addTask(new ToDo(userInput.substring(5)));
+            } else if (userInput.startsWith("deadline")){
+                int deadlineIndex = userInput.indexOf("/by");
+                tasks.addTask(new Deadline(userInput.substring(9, deadlineIndex - 1),
+                        userInput.substring(deadlineIndex + 4)));
             } else {
                 tasks.addTask(new Task(userInput));
             }

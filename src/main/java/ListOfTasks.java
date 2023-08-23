@@ -61,7 +61,7 @@ public class ListOfTasks {
     public void listTasks() {
         System.out.println("These are all the tasks in your list:");
         for (int i = 0; i < numOfTasks; i++) {
-            System.out.println((i + 1) + "." + list[i].toString());
+            System.out.println("  " + (i + 1) + "." + list[i].toString());
         }
     }
 }

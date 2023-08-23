@@ -16,7 +16,7 @@ public class ToDo extends Task {
      * Returns the string representation of the ToDo that will
      * be displayed to the user in the list.
      *
-     * @return The string representation of the ToDo.
+     * @return The string representation of the ToDo object.
      */
     @Override
     public String toString() {
