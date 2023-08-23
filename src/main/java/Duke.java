@@ -7,6 +7,8 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         Scripts script = new Scripts();
         script.sayhi();
+        Echoplex echoplex = new Echoplex();
+        echoplex.echo();
         script.saybye();
     }
 }

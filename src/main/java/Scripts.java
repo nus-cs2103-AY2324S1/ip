@@ -8,6 +8,7 @@ public class Scripts {
     public void sayhi() {
         System.out.println(greeting);
     }
+
     public void saybye() {
         System.out.println(bye);
     }
