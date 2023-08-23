@@ -1,0 +1,9 @@
+todo run script
+deadline do something
+deadline do something /by friday morning
+event some lecture /from today 4pm /to 6pm
+event some recitation /to 2pm /from tomorrow 12pm
+mark 1
+mark 3
+unmark 1
+bye
