@@ -86,6 +86,7 @@ public class Duke {
                     listen = false;
                     break;
                 case "list":
+                    System.out.println("JonBird:");
                     printList(inputList, index);
                     break;
                 case "unmark":
@@ -105,7 +106,7 @@ public class Duke {
                         inputList[index] = new Events(title, startDate, endDate);
                     }
                     index += 1;
-                    System.out.println("\tGot it. I've added this task:");
+                    System.out.println("JonBird:\n\tGot it. I've added this task:");
                     System.out.println("\t\t" + inputList[index-1].printTask());
                     System.out.println("\tNow you have " + index + " tasks in the list.");
             }
@@ -115,9 +116,9 @@ public class Duke {
     }
 
     public static void printList(Task[] list, int index) {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < index; i++) {
-            System.out.println("\t"+ (i+1) + ". " + list[i].printTask());
+            System.out.println("\t\t"+ (i+1) + ". " + list[i].printTask());
         }
     }
 }
