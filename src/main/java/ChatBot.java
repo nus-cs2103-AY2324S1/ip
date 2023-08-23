@@ -4,43 +4,45 @@ import java.util.ArrayList;
 
 public class ChatBot {
     private static List<Task> list = new ArrayList<>();
+    private static final String lineBreak = "____________________________________________________________\n";
 
     public static void main(String[] args) {
         // Introduction message
-        System.out.println("____________________________________________________________\n" +
+        System.out.println(lineBreak +
                 " Hello! I'm Desolute\n" +
                 " What can I do for you?\n" +
-                "____________________________________________________________\n");
+                lineBreak);
 
         Scanner sc = new Scanner(System.in);
         String next = sc.nextLine();
 
         // Loops till bye command is given
         while (!next.equals("bye")) {
-            nextCommand(next);
+            try {
+                nextCommand(next);
+            } catch (DukeException e) {
+                System.out.println(lineBreak +
+                        e.getMessage()+
+                        lineBreak);
+            }
             next = sc.nextLine();
         }
 
         // Exit message
-        System.out.println("____________________________________________________________\n" +
+        System.out.println(lineBreak +
                 " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n");
+                lineBreak);
     }
 
-    private static void nextCommand(String str) {
+    private static void nextCommand(String str) throws DukeException {
         // Splitting of string adapted from
         // https://stackoverflow.com/questions/9378394/remove-first-word-from-a-string-in-java
         String[] temp = str.split(" ", 2);
 
         // Checks if any pre determined commands are given
-        switch(temp[0]) {
+        switch (temp[0]) {
             case "list":
                 showList();
-                break;
-            case "blah":
-                System.out.println("____________________________________________________________\n" +
-                        " blah\n" +
-                        "____________________________________________________________\n");
                 break;
             case "mark":
                 markDone(temp[1]);
@@ -49,45 +51,60 @@ public class ChatBot {
                 unmarkDone(temp[1]);
                 break;
             case "todo":
+                if (temp.length != 2) {
+                    throw new DukeException(" ☹ OOPS!!! The description of a todo cannot be empty.\n");
+                }
                 Task toDo = new ToDo(temp[1]);
                 list.add(toDo);
-                System.out.println("____________________________________________________________\n" +
+                System.out.println(lineBreak +
                         " Got it. I've added this task:\n  " +
                         toDo.toString() +
                         getTaskCount() +
-                        "____________________________________________________________\n");
+                        lineBreak);
                 break;
             case "deadline":
+                if (temp.length != 2) {
+                    throw new DukeException(" ☹ OOPS!!! The description of a deadline cannot be empty.\n");
+                }
                 String[] temp2 = temp[1].split(" /by");
+                if (temp2.length != 2) {
+                    throw new DukeException(" ☹ OOPS!!! The date of a deadline cannot be empty.\n");
+                }
                 Task deadline = new Deadline(temp2[0], temp2[1]);
                 list.add(deadline);
-                System.out.println("____________________________________________________________\n" +
+                System.out.println(lineBreak +
                         " Got it. I've added this task:\n  " +
                         deadline.toString() +
                         getTaskCount() +
-                        "____________________________________________________________\n");
+                        lineBreak);
                 break;
             case "event":
+                if (temp.length != 2) {
+                    throw new DukeException(" ☹ OOPS!!! The description of an event cannot be empty.\n");
+                }
                 String[] temp3 = temp[1].split(" /from");
+                if (temp3.length != 2) {
+                    throw new DukeException(" ☹ OOPS!!! The date and time of an event cannot be empty.\n");
+                }
                 String[] temp4 = temp3[1].split("/to");
+                if (temp4.length != 2) {
+                    throw new DukeException(" ☹ OOPS!!! The end time of an event cannot be empty.\n");
+                }
                 Task event = new Event(temp3[0], temp4[0], temp4[1]);
                 list.add(event);
-                System.out.println("____________________________________________________________\n" +
+                System.out.println(lineBreak +
                         " Got it. I've added this task:\n  " +
                         event.toString() +
                         getTaskCount() +
-                        "____________________________________________________________\n");
+                        lineBreak);
                 break;
             default:
-                System.out.println("____________________________________________________________\n" +
-                        "Invalid command. Please try again." +
-                        "____________________________________________________________\n");
-
+                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         }
     }
 
     private static void showList() {
-        System.out.println("____________________________________________________________");
+        System.out.println(lineBreak);
         if (list.isEmpty()) {
             System.out.println(" The list is empty. Please add tasks in!");
         } else {
@@ -98,37 +115,42 @@ public class ChatBot {
             String current = String.format(" %d.%s", i + 1, temp.toString());
             System.out.println(current);
         }
-        System.out.println("____________________________________________________________\n");
+        System.out.println(lineBreak);
     }
 
-    private static void markDone(String str) {
-        try {
-            int num = Integer.parseInt(str) - 1;
-            Task curr = list.get(num);
-            curr.markDone();
-        } catch(IndexOutOfBoundsException e) {
-            System.out.println("____________________________________________________________\n" +
-                    "This task number is not available. Please try again." +
-                    "____________________________________________________________\n");
-        } catch(NumberFormatException e) {
-            System.out.println("The task number you have keyed in is not an integer, please try again");
+    private static void markDone(String str) throws DukeException {
+        // Adapted from https://stackoverflow.com/questions/43156077/how-to-check-if-a-string-is-float-or-int
+        boolean isInteger = str.matches("\\b[1-9][0-9]*\\b");
+
+        if (!isInteger) {
+            throw new DukeException("The task number you have keyed in is not valid. Please try again.\n");
         }
+
+        int num = Integer.parseInt(str) - 1;
+
+        if (list.size() <= num) {
+            throw new DukeException("This task number is not available. Please try again.\n");
+        }
+        Task curr = list.get(num);
+        curr.markDone();
     }
 
-    private static void unmarkDone(String str) {
-        try {
-            int num = Integer.parseInt(str) - 1;
-            Task curr = list.get(num);
-            curr.unmarkedDone();
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("____________________________________________________________\n" +
-                    "This task number is not available. Please try again." +
-                    "____________________________________________________________\n");
-        } catch (NumberFormatException e) {
-            System.out.println("____________________________________________________________\n" +
-                    "The task number you have keyed in is not an integer, please try again" +
-                    "____________________________________________________________\n");
+    private static void unmarkDone(String str) throws DukeException {
+        // Adapted from https://stackoverflow.com/questions/43156077/how-to-check-if-a-string-is-float-or-int
+        boolean isInteger = str.matches("\\b[1-9][0-9]*\\b");
+
+        if (!isInteger) {
+            throw new DukeException("The task number you have keyed in is not valid. Please try again.\n");
         }
+
+        int num = Integer.parseInt(str) - 1;
+
+        if (list.size() <= num) {
+            throw new DukeException("This task number is not available. Please try again.\n");
+        }
+        Task curr = list.get(num);
+        curr.unmarkedDone();
+
     }
 
     private static String getTaskCount() {
