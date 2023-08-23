@@ -5,18 +5,37 @@ ____________________
 What can I do for you?
 ____________________
 
-added: [T][ ] read book
+As you say. The task has been added To-Do :
+[T][ ] read book
 ____________________
 
 1. [T][ ] read book
 
 ____________________
 
-added: [D][ ] return book(by : Sunday)
+As you say. The task has been added as a Deadline :
+[D][ ] return book(by : Sunday)
 ____________________
 
-added: [E][ ] project meeting from : Mon 2pm to: 4pm
+As you say. The task has been added To-Do :
+[E][ ] project meeting from : Mon 2pm to: 4pm
+____________________
+
+1. [T][ ] read book
+2. [D][ ] return book(by : Sunday)
+3. [E][ ] project meeting from : Mon 2pm to: 4pm
+
+____________________
+
+I did not recognise test as an input, try again.
+____________________
+
+I did not recognise test2 as an input, try again.
+____________________
+
+Your input is formatted wrongly, try again.
 ____________________
 
 Bye. Hope to see you again soon!
 ____________________
+
