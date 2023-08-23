@@ -54,6 +54,7 @@ public class Duke {
             // Add task to task list
             tasks.add(task);
             System.out.println("Got it. I've added this task:\n\t" + task.toString());
+            System.out.println(String.format("Now you have %d tasks in the list", tasks.size()));
         } catch (Exception e) {
             System.out.println("Invalid input. Try starting with 'todo', 'deadline' or 'event'\n");
         }
