@@ -1,19 +1,32 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
+
+        Scanner scanner = new Scanner(System.in);
+
         String welcomeMessage = "──────────────────────────────────── \n" +
-                                "Hello! I'm BIGMODE \n" +
-                                "What can I do for you? \n" +
+                                "Hello >u<! I'm OwO_bot \n" +
+                                "How can I help ♥w♥ ? \n" +
                                 "────────────────────────────────────";
 
-        String exitMessage = "Bye! Hope to see you again soon! \n" +
+        String exitMessage = "──────────────────────────────────── \n" +
+                             "Bye! Hope to see you again soon! \n" +
                              "────────────────────────────────────";
 
         System.out.println(welcomeMessage);
+
+        String userInput = scanner.nextLine();
+
+        while (!userInput.equals("bye")) {
+            String echo = "──────────────────────────────────── \n" +
+                          "" + userInput + "\n" +
+                          "────────────────────────────────────";
+            System.out.println(echo);
+
+            userInput = scanner.nextLine();
+        }
+
         System.out.println(exitMessage);
     }
 }
