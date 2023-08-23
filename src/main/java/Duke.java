@@ -17,7 +17,6 @@ public class Duke {
         while (true) {
             String entry = sc.nextLine();
             String[] words = entry.split(" ");
-
             if (entry.equals("bye")) {
                 break;
             } else if (entry.equals("list")) {
@@ -39,10 +38,12 @@ public class Duke {
                         + lst.showThisTask(index) + " \n\n" + " _______________");
             } else {
                 lst.input(entry);
-                System.out.println(" _______________ \n\n "
+                System.out.println(" _______________ \n\n"
                         + "I'm totally not judging...  "
-                        + entry
-                        + " ... added to the list \n\n  _______________ \n ");
+                        + lst.showThisTask(lst.numOfItems())
+                        + " ... added to the list \n"
+                        + "I wonder how you'll mess up this... " + lst.numOfItems() + "\n\n"
+                        + " _______________ \n ");
             }
         }
         String logo = " _______________ \n\n"

@@ -1,10 +1,10 @@
 public class Task {
     private Boolean done;
 
-    private String name;
+    private String task;
 
     public Task(String input) {
-        name = input;
+        task = input;
         done = false;
     }
 
@@ -16,11 +16,15 @@ public class Task {
         done = false;
     }
 
+    protected boolean isDone() {
+        return done;
+    }
+
     public String toString() {
         if (done) {
-            return "[X] " + name;
+            return "[X] " + task;
         } else {
-            return "[ ] " + name;
+            return "[ ] " + task;
         }
     }
 

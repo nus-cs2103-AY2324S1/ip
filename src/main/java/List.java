@@ -2,18 +2,22 @@ import java.util.ArrayList;
 
 public class List {
 
-    private int taskNumber;
-
     private ArrayList<Task> storagePile;
 
     public List() {
-        taskNumber = 1;
         storagePile = new ArrayList<>();
     }
 
     public void input(String item) {
-        storagePile.add(new Task(item));
-        taskNumber++;
+        String firstWord = item.split(" ")[0];
+        String task = item.split(" ", 2)[1];
+        if (firstWord.equals("todo")) {
+            storagePile.add(new ToDoTask(task));
+        } else if (firstWord.equals("deadline")) {
+            storagePile.add(new DeadlineTask(task));
+        } else {
+            storagePile.add(new EventTask(task));
+        }
     }
 
     public String toString() {
@@ -38,5 +42,9 @@ public class List {
 
     public String showThisTask(int x) {
         return storagePile.get(x-1).toString();
+    }
+
+    public int numOfItems() {
+        return storagePile.size();
     }
 }
