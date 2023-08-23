@@ -1,5 +1,3 @@
-import javax.sound.midi.SysexMessage;
-import java.net.UnknownServiceException;
 import java.util.Scanner;
 
 public class Duke {
