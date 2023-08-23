@@ -11,8 +11,11 @@ Hello from
 ---------------------
 ---------------------
 Got it. I've added this task:
-  [T] [ ] read book
+  [T] [ ]  read book
 Now you have 1 tasks in the list.
+---------------------
+---------------------
+NoTaskException: OOPS!!! The description of a todo cannot be empty.
 ---------------------
 ---------------------
 Got it. I've added this task:
@@ -26,21 +29,24 @@ Now you have 3 tasks in the list.
 ---------------------
 ---------------------
 Got it. I've added this task:
-  [T] [ ] join sports club
+  [T] [ ]  join sports club
 Now you have 4 tasks in the list.
 ---------------------
 ---------------------
 Got it. I've added this task:
-  [T] [ ] borrow book
+  [T] [ ]  borrow book
 Now you have 5 tasks in the list.
 ---------------------
 ---------------------
-Nice! I've Marked this task as done:
-[T] [X] read book
+UnknownActionException: OOPS!!! I'm sorry, but I don't know what that means :-(
 ---------------------
 ---------------------
 Nice! I've Marked this task as done:
-[T] [X] join sports club
+[T] [X]  read book
+---------------------
+---------------------
+Nice! I've Marked this task as done:
+[T] [X]  join sports club
 ---------------------
 ---------------------
  Bye. Hope to See you again soon!

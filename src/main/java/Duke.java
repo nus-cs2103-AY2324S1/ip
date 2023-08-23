@@ -31,44 +31,72 @@ public class Duke {
         String input = sc.nextLine();
 
         // while loop containing possible inputs
-        while(!input.equals("bye")) {
-            String[] words = input.split("\\s+");
-            String[] fields;
-            switch(words[0]) {
-                case "list":
-                    Printer.printList(tasklst);
-                    break;
-                case "mark":
-                    int temp = Character.getNumericValue(input.charAt(5));
-                    tasklst[temp - 1].markAsDone();
-                    break;
-                case "unmark":
-                    int temp2 = Character.getNumericValue(input.charAt(7));
-                    tasklst[temp2 - 1].unmarkAsDone();
-                    break;
-                case "todo":
-                    tasklst[count] = new ToDo(input.substring(5));
-                    Printer.addTask(tasklst[count], count);
-                    count++;
-                    break;
-                case "deadline":
-                    fields = input.substring(9).split("/by ");
-                    tasklst[count] = new Deadline(fields[0], fields[1]);
-                    Printer.addTask(tasklst[count], count);
-                    count++;
-                    break;
-                case "event":
-                    fields = input.substring(6).split("/from |/to ");
-                    tasklst[count] = new Event(fields[0], fields[1], fields[2]);
-                    Printer.addTask(tasklst[count], count);
-                    count++;
-                    break;
-                default:
-                    Printer.print("added: " + input);
-                    Task newtsk = new Task(input);
-                    tasklst[count] = newtsk;
-                    count++;
-                    break;
+        while (!input.equals("bye")) {
+            try {
+                String[] words = input.split("\\s+");
+                String[] fields;
+                switch (words[0]) {
+                    case "list":
+                        if(words.length > 1) {
+                            throw new InvalidArgumentException("Error: There are too many inputs. " +
+                                    "Please enter 'list' without any extra arguments or use a different " +
+                                    "keyword");
+                        }
+                        Printer.printList(tasklst);
+                        break;
+                    case "mark":
+                        if(words.length != 2) {
+                            throw new InvalidArgumentException("Error: There are too many inputs. " +
+                                    "Please enter 'mark {task number}' or use a different " +
+                                    "keyword");
+                        }
+                        int temp = Character.getNumericValue(input.charAt(5));
+                        tasklst[temp - 1].markAsDone();
+                        break;
+                    case "unmark":
+                        if(words.length != 2) {
+                            throw new InvalidArgumentException("Error: There are too many inputs. " +
+                                    "Please enter 'unmark {task number}' or use a different " +
+                                    "keyword");
+                        }
+                        int temp2 = Character.getNumericValue(input.charAt(7));
+                        tasklst[temp2 - 1].unmarkAsDone();
+                        break;
+                    case "todo":
+                        tasklst[count] = ToDo.of(input.substring(4));
+                        Printer.addTask(tasklst[count], count);
+                        count++;
+                        break;
+                    case "deadline":
+                        fields = input.substring(9).split("/by ");
+                        if(fields.length != 2) {
+                            throw new InvalidArgumentException("Error: Invalid number of args. " +
+                                    "Please enter 'deadline {task description} '/by' {date}' or use a different " +
+                                    "keyword");
+                        }
+                        tasklst[count] = new Deadline(fields[0], fields[1]);
+                        Printer.addTask(tasklst[count], count);
+                        count++;
+                        break;
+                    case "event":
+                        fields = input.substring(6).split("/from |/to ");
+                        if(fields.length != 3) {
+                            throw new InvalidArgumentException("Error: Invalid number of args. " +
+                                    "Please enter 'event {task description} '/from' {start} '/to' {finish}" +
+                                    "or use a different " +
+                                    "keyword");
+                        }
+                        tasklst[count] = new Event(fields[0], fields[1], fields[2]);
+                        Printer.addTask(tasklst[count], count);
+                        count++;
+                        break;
+                    default:
+                        throw new UnknownActionException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException e){
+                Printer.printLine();
+                System.out.println(e.getMessage());
+                Printer.printLine();
             }
             input = sc.nextLine();
         }

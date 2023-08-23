@@ -23,14 +23,18 @@ public class Printer {
         print(exiting);
     }
 
+    public static void printLine() {
+        System.out.println(line);
+    }
+
     /**
      * Prints the input provided
      * @param input String to be printed
      */
     public static void print(String input) {
-        System.out.println(line);
+        printLine();
         System.out.println(input);
-        System.out.println(line);
+        printLine();
     }
 
     /**
@@ -38,7 +42,7 @@ public class Printer {
      * @param lst The list to be printed
      */
     public static void printList(Task[] lst){
-        System.out.println(line);
+        printLine();
         System.out.println("Here are the tasks in your list:");
         int count = 1;
         if(lst != null) {
@@ -50,7 +54,7 @@ public class Printer {
                 count++;
             }
         }
-        System.out.println(line);
+        printLine();
     }
 
     /**
@@ -59,10 +63,11 @@ public class Printer {
      * @param count current number of tasks
      */
     public static void addTask(Task task, int count) {
-        System.out.println(line);
+        printLine();
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + task.toString());
         System.out.println("Now you have " + (count + 1) + " tasks in the list.");
-        System.out.println(line);
+        printLine();
     }
+
 }

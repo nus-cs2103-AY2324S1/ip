@@ -5,8 +5,16 @@ public class ToDo extends Task{
      *
      * @param description The description of the task.
      */
-    public ToDo(String description) {
+    private ToDo(String description) {
         super(description);
+    }
+
+    public static Task of(String description) throws NoTaskException {
+        if(!description.isEmpty()) {
+            return new ToDo(description);
+        } else {
+            throw new NoTaskException("OOPS!!! The description of a todo cannot be empty.");
+        }
     }
 
     /**

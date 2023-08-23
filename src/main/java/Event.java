@@ -17,6 +17,8 @@ public class Event extends Task{
         this.to = to;
     }
 
+
+
     /**
      * Returns a formatted string of the status of the task
      * @return String containing completion status, type, description, from
