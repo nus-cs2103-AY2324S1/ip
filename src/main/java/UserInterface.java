@@ -18,10 +18,11 @@ public class UserInterface {
                     System.out.println("Bye. Hope to see you again soon!");
                     System.exit(0);
                 case "list":
+                    System.out.println("Here are the tasks in your list:");
                     System.out.println(this.store.list());
                     break;
                 default:
-                    this.store.add(input);
+                    this.store.add(new Task(input));
                     System.out.println("added: " + input);
             }
         }

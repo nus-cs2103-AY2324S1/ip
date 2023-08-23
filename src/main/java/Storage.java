@@ -1,13 +1,13 @@
 public class Storage {
-    private final String[] arr;
+    private final Task[] arr;
     private int idx;
     public Storage(int size) {
-        this.arr = new String[size];
+        this.arr = new Task[size];
         this.idx = 0;
     }
 
-    public void add(String s) {
-        arr[idx] = s;
+    public void add(Task t) {
+        arr[idx] = t;
         this.idx++;
     }
 
@@ -16,9 +16,9 @@ public class Storage {
         if (this.idx == 0) return "";
         for (int i = 0; i < idx; i++) {
             if (i == idx - 1) {
-                builder.append(String.format("%d. %s", i + 1, this.arr[i]));
+                builder.append(String.format("%d.%s", i + 1, this.arr[i]));
             } else {
-                builder.append(String.format("%d. %s\n", i + 1, this.arr[i]));
+                builder.append(String.format("%d.%s\n", i + 1, this.arr[i]));
             }
         }
         return builder.toString();
