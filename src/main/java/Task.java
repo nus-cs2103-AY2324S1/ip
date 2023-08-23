@@ -4,7 +4,7 @@ public class Task {
     int taskId;
     static String line = "______________________________________________________________________________________\n";
 
-    public Task(String task, int taskId) {
+    public Task(String task) {
         this.task = task;
         this.taskId = taskId;
     }
@@ -25,7 +25,7 @@ public class Task {
     }
 
     public String getTask() {
-        return taskId + "." + this.toString();
+        return "." + this.toString();
     }
     public String toString() {
         String checkbox = this.done ? "[X] " : "[ ] ";

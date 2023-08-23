@@ -1,8 +1,8 @@
 public class Events extends Task{
     private final String start;
     private final String end;
-    public Events(String task, int taskId, String start, String end) {
-        super(task, taskId);
+    public Events(String task, String start, String end) {
+        super(task);
         this.start = start;
         this.end = end;
     }

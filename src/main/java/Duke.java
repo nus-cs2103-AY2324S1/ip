@@ -17,7 +17,6 @@ public class Duke {
 
     private static void startChat() {
         ArrayList<Task> tasks = new ArrayList<>();
-//        Task[] tasks = new Task[5];
         int taskCount = 0;
         int taskId = 1;
         Scanner scanner = new Scanner(System.in);
@@ -32,9 +31,14 @@ public class Duke {
                     mark(userInput, tasks, taskCount);
                 } else if (userInput.startsWith("unmark ")) {
                     unMark(userInput, tasks, taskCount);
+                } else if (userInput.startsWith("delete ")) {
+                    delete(userInput, tasks, taskCount);
+                    if (taskCount > 0) {
+                        taskCount--;
+                    }
                 } else if (userInput.startsWith("todo ")) {
                     String nameOfTask = userInput.substring(5);
-                    ToDos task = new ToDos(nameOfTask, taskId);
+                    ToDos task = new ToDos(nameOfTask);
                     addToList(task, tasks, taskCount);
                     if (taskCount < tasks.size()) {
                         taskCount++;
@@ -43,7 +47,7 @@ public class Duke {
                 } else if (userInput.startsWith("deadline ")) {
                     String[] parts = userInput.split("/");
                     String nameOfTask = parts[0].trim().substring(9);
-                    Deadlines task = new Deadlines(nameOfTask, taskId, parts[1].trim());
+                    Deadlines task = new Deadlines(nameOfTask, parts[1].trim());
                     addToList(task, tasks, taskCount);
                     if (taskCount < tasks.size()) {
                         taskCount++;
@@ -54,7 +58,7 @@ public class Duke {
                     String start = parts[1].trim();
                     String end = parts[2].trim();
                     String nameOfTask = parts[0].trim().substring(6);
-                    Events task = new Events(nameOfTask, taskId, start, end);
+                    Events task = new Events(nameOfTask, start, end);
                     addToList(task, tasks, taskCount);
                     if (taskCount < tasks.size()) {
                         taskCount++;
@@ -79,11 +83,30 @@ public class Duke {
             }
             System.out.println(line);
             for(int i = 0; i < taskCount; i++){
-                System.out.println(tasks.get(i).getTask());
+                Task task = tasks.get(i);
+                int index = i + 1;
+                System.out.println(index + task.getTask());
             }
             System.out.println(line);
         } catch (DukeException emptyList) {
             System.out.println(line + emptyList.getMessage() + "\n" + line);
+        }
+    }
+
+    public static void delete(String input, ArrayList<Task> tasks, int taskCount) {
+        int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+        try {
+            if (taskIndex > taskCount || taskIndex < 0) {
+                throw new DukeException("Error: Invalid Task Index!");
+            } else {
+                int remainingTasks = taskCount - 1;
+                String response = line + "Got it! I've removed this task:" + "\n" + tasks.get(taskIndex).toString() + "\n"
+                        + "You now have " + remainingTasks + " task(s) in the list" + "\n" + line;
+                tasks.remove(taskIndex);
+                System.out.println(response);
+            }
+        } catch (DukeException exception) {
+            System.out.println(line + exception.getMessage() + "\n" + line);
         }
     }
 
