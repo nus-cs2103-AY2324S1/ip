@@ -60,6 +60,9 @@ public class Duke {
                 case "event":
                     handleAddEventTask(entireLine);
                     break;
+                case "delete":
+                    handleDeleteTask(entireLine);
+                    break;
                 default:
                     handleInvalidInput();
                     break;
@@ -214,10 +217,44 @@ public class Duke {
         }
     }
 
+    private static void handleDeleteTask(String userInput) {
+        String[] wordsInInput = userInput.split(" ");
+        if (wordsInInput.length > 2) {
+            handleInvalidInput();
+        } else {
+            try {
+                int index = Integer.parseInt(wordsInInput[1]) - 1;
+                if (wordsInInput[0].equals("delete")) {
+                    Task deletedTask = TASK_LIST.get(index);
+                    deleteTaskFromList(index);
+                    System.out.println(SPACER);
+                    System.out.println("Guess you've got one less thing to do now.");
+                    System.out.println(deletedTask.toString());
+                    System.out.println("Get going! You have " + TASK_LIST.size() + " tasks on record!!");
+                    System.out.println(SPACER);
+                } else {
+                    handleInvalidInput();
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(SPACER);
+                System.out.println("HOLD UP! Invalid input for delete command. Input must be a positive non-zero integer.");
+                System.out.println(SPACER);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println(SPACER);
+                System.out.println("HOLD UP! There is no such task in your list!");
+                System.out.println(SPACER);
+            }
+        }
+    }
+
     private static void handleInvalidInput() {
         System.out.println(SPACER);
         System.out.println("HOLD UP! What on earth do you mean??");
         System.out.println(SPACER);
+    }
+
+    private static void deleteTaskFromList(int index) {
+        TASK_LIST.remove(index);
     }
 
     private static void addTaskToList(Task newTask) {
