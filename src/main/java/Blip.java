@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Blip {
 
@@ -31,11 +31,14 @@ public class Blip {
         // Constant to do trigger word to create new task with deadline.
         String TODO_TRIGGER = "todo";
 
+        // Constant delete trigger to delete task from list.
+        String DELETE_TRIGGER = "delete";
+
         // Constant empty string for exception handling.
         String EMPTY = "";
 
         // Fixed-size array of tasks to do.
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int index = 0;
 
 
@@ -63,7 +66,7 @@ public class Blip {
                         if (taskNum >= index) {
                             throw new WrongNumberException("!!! Wrong Task Number Error !!!\n");
                         }
-                        Task taskToUpdate = tasks[taskNum];
+                        Task taskToUpdate = tasks.get(taskNum);
 
                         taskToUpdate.markStatus();
                         System.out.println("Nice! I've marked this task as done:\n" + taskToUpdate.toString());
@@ -79,14 +82,31 @@ public class Blip {
                         int taskNum = Integer.parseInt(userInput.split(" ")[1]) - 1;
 
                         // Task number does not exist.
-                        if (taskNum < tasks.length) {
+                        if (taskNum >= index) {
                             throw new WrongNumberException("!!! Wrong Task Number Error !!!\n");
                         }
-                        Task taskToUpdate = tasks[taskNum];
+                        Task taskToUpdate = tasks.get(taskNum);
                         taskToUpdate.unmarkStatus();
                         System.out.println("Ok, I've marked this task as not done yet:\n" + taskToUpdate.toString());
                         userInput = scanIn.nextLine();
+                        // To delete a task.
+                    } else if (userInput.split(" ")[0].equals(DELETE_TRIGGER)) {
 
+                        // Missing task number to delete.
+                        if (userInput.split("\\s+", 2).length < 2) {
+                            throw new EmptyTaskNumberException("!!! Missing Task Number error !!!");
+                        }
+                        int taskNum = Integer.parseInt(userInput.split(" ")[1]) - 1;
+
+                        // Task number does not exist.
+                        if (taskNum >= index) {
+                            throw new WrongNumberException("!!! Wrong Task Number Error !!!\n");
+                        }
+                        Task taskToDelete = tasks.get(taskNum);
+                        System.out.println("Ok, I've removed this task:\n" + taskToDelete.toString());
+                        tasks.remove(taskNum);
+                        index--;
+                        userInput = scanIn.nextLine();
                         // For a deadline task.
                     } else if (userInput.split(" ")[0].equals(DEADLINE_TRIGGER)) {
                         String[] test = userInput.split("\\s+", 2);
@@ -98,7 +118,7 @@ public class Blip {
 
                         String[] deadlineInfo = userInput.split("/");
                         Deadline newDeadlineTask = new Deadline(deadlineInfo[0], deadlineInfo[1]);
-                        tasks[index] = newDeadlineTask;
+                        tasks.add(newDeadlineTask);
                         index++;
                         System.out.println("Alright! I've added this task: \n " + newDeadlineTask.toString()
                                 + "\nNow you have " + (index) + " tasks in the list.");
@@ -116,7 +136,7 @@ public class Blip {
 
                         String[] eventInfo = userInput.split("/");
                         Event newEventTask = new Event(eventInfo[0], eventInfo[1], eventInfo[2]);
-                        tasks[index] = newEventTask;
+                        tasks.add(newEventTask);
                         index++;
                         System.out.println("Alright! I've added this task: \n " + newEventTask.toString()
                                 + "\nNow you have " + (index) + " tasks in the list.");
@@ -132,7 +152,7 @@ public class Blip {
                         }
 
                         ToDo newToDoTask = new ToDo(userInput);
-                        tasks[index] = newToDoTask;
+                        tasks.add(newToDoTask);
                         index++;
                         System.out.println("Alright! I've added this task: \n " + newToDoTask.toString()
                                 + "\nNow you have " + (index) + " tasks in the list.");
@@ -145,7 +165,7 @@ public class Blip {
                 } else {
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < index; i++) {
-                        System.out.println((i + 1) + "." + tasks[i].toString());
+                        System.out.println((i + 1) + "." + tasks.get(i).toString());
                     }
                     userInput = scanIn.nextLine();
                 }
