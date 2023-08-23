@@ -4,7 +4,7 @@ public class Task {
 
     public Task(String title) throws DukeException {
         if (title.isBlank()) {
-            throw new DukeException("   Title of a " + this + " cannot be blank...\n--------------------------------");
+            throw new DukeException("    Title of a " + this + " cannot be blank...\n--------------------------------");
         }
         this.title = title;
         this.done = false;

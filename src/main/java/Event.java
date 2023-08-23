@@ -4,11 +4,11 @@ public class Event extends Task {
     public Event(String title, String startTime, String endTime) throws DukeException {
         super(title);
         if (startTime.isBlank()) {
-            throw new DukeException("   Start time of an event cannot be blank...\n--------------------------------");
+            throw new DukeException("    Start time of an event cannot be blank...\n--------------------------------");
         }
         this.startTime = startTime;
         if (endTime.isBlank()) {
-            throw new DukeException("   End time of an event cannot be blank...\n--------------------------------");
+            throw new DukeException("    End time of an event cannot be blank...\n--------------------------------");
         }
         this.endTime = endTime;
     }

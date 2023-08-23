@@ -5,7 +5,7 @@ public class Deadline extends Task {
     public Deadline(String title, String deadline) throws DukeException {
         super(title);
         if (deadline.isBlank()) {
-            throw new DukeException("   Deadline cannot be blank...\n--------------------------------");
+            throw new DukeException("    Deadline cannot be blank...\n--------------------------------");
         }
         this.deadline = deadline;
     }
