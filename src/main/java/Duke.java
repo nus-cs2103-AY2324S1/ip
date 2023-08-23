@@ -1,3 +1,7 @@
+/**
+ * The Duke class is responsible for responding to user's input.
+ * It provides functionalities to add, mark, unmark, and delete tasks.
+ */
 import exception.EmptyChoiceException;
 import exception.EmptyTodoException;
 import exception.UnknownCommandException;
@@ -6,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     private static ArrayList<Task> taskList = new ArrayList<Task>();
+
     public static void main(String[] args) {
         String name = "Botty";
         String tmp = "";
@@ -30,6 +35,13 @@ public class Duke {
         bye();
     }
 
+    /**
+     * Parses the user's input and performs the requested action on the task list.
+     * @param input The user's input.
+     * @throws UnknownCommandException If the input command is not recognized.
+     * @throws EmptyTodoException If the description of a todo is empty.
+     * @throws EmptyChoiceException If the task number to be marked or unmarked is not provided.
+     */
     public static void parseInput(String input) throws UnknownCommandException, EmptyTodoException, EmptyChoiceException {
         String[] stringArray = input.split(" ", 2);
         switch (stringArray[0]) {
@@ -101,10 +113,18 @@ public class Duke {
                 throw new UnknownCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
         }
     }
+    /**
+     * Greets the user with a welcome message.
+     * @param name The bot name to use in the greeting.
+     */
     public static void greet(String name) {
         System.out.println("Hello! I'm " + name + "\n" +
                 "What can I do for you?\n");
     }
+
+    /**
+     * Prints a goodbye message.
+     */
     public static void bye() {
         System.out.println("Bye. Hope to see you again soon!\n");
     }
