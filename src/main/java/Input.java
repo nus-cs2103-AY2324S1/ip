@@ -12,13 +12,18 @@ public class Input {
     public static void echo() {
         while (Input.scanner.hasNext()) {
             String input = Input.scanner.nextLine();
+
             if (input.equals("bye")) {
                 Printing.bye();
                 return;
+            } else if (input.equals("list")) {
+                Printing.list();
+            } else {
+                Printing.printBlock();
+                Storage.addToStorage(input);
+                Printing.print("added: " + input);
+                Printing.printBlock();
             }
-            Printing.printBlock();
-            Printing.print(input);
-            Printing.printBlock();
         }
 
     }
