@@ -16,8 +16,34 @@ public class Duke {
                 System.out.println("     " + "Here are the tasks in your list:");
                 for (int i = 0; i < list.size(); i++) {
                     Task task = list.get(i);
-                    System.out.println("     " + (i + 1) + ".[" + task.getStatusIcon() + "] " + task.getDescription());
+                    System.out.println("     " + (i + 1) + "." + task.toString());
                 }
+                System.out.println("    ____________________________________________________________");
+            } else if (input.startsWith("todo ") && input.length() > 5) {
+                Task task = new ToDo(input.substring(5));
+                list.add(task);
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     Got it. I've added this task:");
+                System.out.println("       " + task.toString());
+                System.out.println("     Now you have " + list.size() + " tasks in the list.");
+                System.out.println("    ____________________________________________________________");
+            } else if (input.startsWith("deadline ") && input.length() > 9) {
+                String[] details = input.substring(9).split(" /by ");
+                Task task = new Deadline(details[0], details[1]);
+                list.add(task);
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     Got it. I've added this task:");
+                System.out.println("       " + task.toString());
+                System.out.println("     Now you have " + list.size() + " tasks in the list.");
+                System.out.println("    ____________________________________________________________");
+            } else if (input.startsWith("event ") && input.length() > 6) {
+                String[] details = input.substring(6).split(" /from | /to ");
+                Task task = new Event(details[0], details[1], details[2]);
+                list.add(task);
+                System.out.println("    ____________________________________________________________");
+                System.out.println("     Got it. I've added this task:");
+                System.out.println("       " + task.toString());
+                System.out.println("     Now you have " + list.size() + " tasks in the list.");
                 System.out.println("    ____________________________________________________________");
             } else if (input.startsWith("mark ") && input.length() > 5 && input.substring(5).matches("\\d+")) {
                 int number = Integer.parseInt(input.substring(5));
@@ -26,13 +52,12 @@ public class Duke {
                     task.mark();
                     System.out.println("    ____________________________________________________________");
                     System.out.println("     " + "Nice! I've marked this task as done:");
-                    System.out.println("       [X] " + task.getDescription());
+                    System.out.println("       " + task.toString());
                     System.out.println("    ____________________________________________________________");
                 } else {
                     System.out.println("    ____________________________________________________________");
-                    System.out.println("     " + "added: " + input);
+                    System.out.println("     Invalid");
                     System.out.println("    ____________________________________________________________\n");
-                    list.add(new Task(input));
                 }
             } else if (input.startsWith("unmark ") && input.length() > 7 && input.substring(7).matches("\\d+")) {
                 int number = Integer.parseInt(input.substring(7));
@@ -41,19 +66,17 @@ public class Duke {
                     task.unmark();
                     System.out.println("    ____________________________________________________________");
                     System.out.println("     " + "OK, I've marked this task as not done yet:");
-                    System.out.println("       [ ] " + task.getDescription());
+                    System.out.println("       " + task.toString());
                     System.out.println("    ____________________________________________________________");
                 } else {
                     System.out.println("    ____________________________________________________________");
-                    System.out.println("     " + "added: " + input);
+                    System.out.println("     Invalid");
                     System.out.println("    ____________________________________________________________\n");
-                    list.add(new Task(input));
                 }
             } else {
                 System.out.println("    ____________________________________________________________");
-                System.out.println("     " + "added: " + input);
+                System.out.println("     Invalid");
                 System.out.println("    ____________________________________________________________\n");
-                list.add(new Task(input));
             }
             input = scan.nextLine();
         }
