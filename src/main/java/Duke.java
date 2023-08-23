@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -9,12 +10,25 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
+        String[] list = new String[100];
+        int i = 0;
 
         while (!str.equals("bye") && !str.equals("Bye")) {
-            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
-            System.out.println(str);
-            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
-            str = sc.nextLine();
+            if (!str.equals("list") && !str.equals("List")) {
+                System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
+                System.out.println("Added: " + str);
+                list[i] = str;
+                i++;
+                System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
+                str = sc.nextLine();
+            } else {
+                System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
+                for (int j = 0; j < i; j++){
+                    System.out.println(j+1 +". " + list[j]);
+                }
+                System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
+                str = sc.nextLine();
+            }
         }
 
         sc.close();
