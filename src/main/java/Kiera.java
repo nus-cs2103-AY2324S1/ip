@@ -1,13 +1,13 @@
 
 public class Kiera {
     protected static String name = "Kiera";
-    protected static String line = "   -------------------------------------";
+    protected static String line = "   ---------------------------------------------";
     protected static String hello = line
                 + "\n"
                 + "    " 
                 + "hi, it's kiera.\n" 
                 + "    " 
-                + "what do you want?\n"
+                + "what do you need?\n"
                 + line;
     protected static String bye =  line
                 + "\n"
@@ -62,12 +62,21 @@ public class Kiera {
     public static String addTask(String input, String type) {
         Task t;
         if (type == "todo") {
+            if (input == "") {
+                return "todo can't be empty!";
+            }
             t = new Todo(input);
         } else if (type == "deadline") {
+            if (input == "") {
+                return "deadline can't be empty!";
+            }
             String deadline = input.split("/")[1].replace("by ", "");
             String desc = input.split("/")[0];
             t = new Deadline(desc, deadline);
         } else {
+            if (input == "") {
+                return "event can't be empty!";
+            }
             String end = input.split("/")[2].replace("to ", "");
             String start = input.split("/")[1].replace("from ", "");
             String desc = input.split("/")[0];
@@ -93,7 +102,7 @@ public class Kiera {
         
 
         System.out.println(hello);
-        
+
         while (true) {
             String input = System.console().readLine();
             if (input.equals("bye")) {
@@ -116,18 +125,22 @@ public class Kiera {
             if (input.startsWith("todo")) {
                 String desc = input.replace("todo ", "");
                 System.out.println(addTask(desc, "todo"));
+                index ++;
             } else if (input.startsWith("deadline")) {
                 String desc = input.replace("deadline ", "");
                 System.out.println(addTask(desc, "deadline"));
+                index ++;
             } else if (input.startsWith("event")) {
                 String desc = input.replace("event ", "");
                 System.out.println(addTask(desc, "event"));
+                index ++;
+            } else {
+                System.out.println(line + "\n    sorry, i don't know what this means... \n" + line);
             }
-            index ++;
-        }
 
+            
+        }
         System.out.println(bye);
-        
      
     }
 }
