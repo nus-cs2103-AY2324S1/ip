@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -19,9 +20,10 @@ public class Duke {
             " ON        `-.     _\\,)\n" +
             "              `.  |,-||\n" +
             "                `.|| ||\n";
+
     public static void main(String[] args) {
         greet();
-        echo();
+        addAndList();
     }
 
     /**
@@ -35,22 +37,40 @@ public class Duke {
     }
 
     /**
-     * Echoes command of users until user enters bye.
+     * Allows adding of item into an ArrayList and list all items in the ArrayList.
      */
-    public static void echo() {
+    public static void addAndList() {
         boolean isChatting = true;
         Scanner inputs = new Scanner(System.in);
         String command;
+        ArrayList<String> taskList = new ArrayList<>();
 
         while (isChatting) {
             command = inputs.nextLine();
-            if (command.equals("bye")) {
-                System.out.println("Goodbye, it was nice chatting with you.");
-                break;
+            switch(command) {
+                case ("bye"): {
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("Goodbye, it was nice chatting with you.");
+                    System.out.println(HORIZONTAL_LINE);
+                    isChatting = false;
+                    break;
+                }
+                case ("list"): {
+                    System.out.println(HORIZONTAL_LINE);
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.println(i + 1 + ". " + taskList.get(i));
+                    }
+                    System.out.println(HORIZONTAL_LINE);
+                    break;
+                }
+                default: {
+                    taskList.add(command);
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("I have added \"" + command + "\" to the list.");
+                    System.out.println(HORIZONTAL_LINE);
+                    break;
+                }
             }
-            System.out.println(HORIZONTAL_LINE);
-            System.out.println("     " + command);
-            System.out.println(HORIZONTAL_LINE);
         }
     }
 }
