@@ -49,6 +49,14 @@ public class Duke {
                             task, tasks.size(), tasks.size() == 1 ? "" : "s"));
                     break;
                 }
+                case "deadline": {
+                    String[] splitInputBy = splitInput[1].split("/by", 2);
+                    Task task = new Deadline(splitInputBy[0], splitInputBy[1]);
+                    tasks.add(task);
+                    outputMessage(String.format(" Got it. I've added this task:\n  %s\n Now you have %d task%s in the list.\n",
+                            task, tasks.size(), tasks.size() == 1 ? "" : "s"));
+                    break;
+                }
             }
         }
     }
