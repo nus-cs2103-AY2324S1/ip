@@ -20,8 +20,8 @@ public class Duke {
                     int index = number - 1; //index for task list
                     Task done = tasks.get(index);
                     done.markAsDone();
-                    System.out.println("\t" + "Nice! I've marked this task" +
-                            " as done:" + "\n" +
+                    System.out.println("\t" + "Nice! I've marked this task " +
+                            "as done:" + "\n" +
                             "\t" + "[" + done.getStatusIcon() + "] " +
                             done.taskString());
                 } else if (str.startsWith("unmark ")) {
