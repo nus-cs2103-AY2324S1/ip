@@ -77,6 +77,24 @@ public class HelpBuddy {
     }
 
     /**
+     * A method that prints response for command delete.
+     * @param i The value keyed in by user
+     * @throws HelpBuddyException If the input value by user is invalid.
+     */
+    public void printDeleteOutput(int i) throws HelpBuddyException {
+        int numOfTasks = userInput.size();
+        if (numOfTasks == 0 || i < 0 || i > numOfTasks - 1) {
+            throw new HelpBuddyException("Invalid task number.\n");
+        } else {
+            String output = "Noted. I've removed this task:\n      ";
+            Task deletedTask = this.userInput.get(i);
+            this.userInput.remove(i);
+            numOfTasks--;
+            printMessageBlock(output + deletedTask + "\n    Now you have " + numOfTasks + " tasks in this list.\n");
+        }
+    }
+
+    /**
      * A method that displays error messages from HelpBuddy.
      *
      * @param error A String that contains error details.
@@ -99,6 +117,7 @@ public class HelpBuddy {
         String toDoPattern = "^todo.*";
         String deadlinePattern = "^deadline.*";
         String eventPattern = "^event.*";
+        String deletePattern = "^delete.*";
         String inputMessage = sc.nextLine();
 
         while(inputMessage != "") {
@@ -122,6 +141,17 @@ public class HelpBuddy {
                     if (!taskIndex.isBlank()) {
                         int intTaskValue = Integer.valueOf(taskIndex) - 1;
                         printUnmarkOutput(intTaskValue);
+                    } else {
+                        throw new HelpBuddyException("Please enter a task number.\n");
+                    }
+                } else if (inputMessage.matches(deletePattern)) {
+                    if (inputMessage.matches("delete")) {
+                        throw new HelpBuddyException("Please enter a task number.\n");
+                    }
+                    String taskIndex = inputMessage.replaceAll("delete\\s+", "");
+                    if (!taskIndex.isBlank()) {
+                        int intTaskValue = Integer.valueOf(taskIndex) - 1;
+                        printDeleteOutput(intTaskValue);
                     } else {
                         throw new HelpBuddyException("Please enter a task number.\n");
                     }

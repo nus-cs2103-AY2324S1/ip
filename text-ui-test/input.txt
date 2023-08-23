@@ -22,4 +22,9 @@ mark 1
 unmark
 unmark 1
 unmark 1
+delete
+delete -1
+delete 4
+delete 1
+list
 bye
