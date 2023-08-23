@@ -8,25 +8,11 @@ public class Ally {
         System.out.println(line);
         System.out.println(greeting);
         System.out.println(line);
+    }
+
+    public void bye () {
+        System.out.println(line);
         System.out.println(bye);
-        System.out.println(line);
-    }
-
-    public void list() {
-        System.out.println(line);
-        System.out.println("\tlist");
-        System.out.println(line);
-    }
-
-    public void blah() {
-        System.out.println(line);
-        System.out.println("\tblah");
-        System.out.println(line);
-    }
-
-    public void bye() {
-        System.out.println(line);
-        System.out.println("\tBye. Hope to see you again soon!");
         System.out.println(line);
     }
     public static void main(String[] args) {
@@ -35,22 +21,23 @@ public class Ally {
 //                + "| | | | | | | |/ / _ \\\n"
 //                + "| |_| | |_| |   <  __/\n"
 //                + "|____/ \\__,_|_|\\_\\___|\n";
+        
+
+        Scanner scanner = new Scanner(System.in);
         Ally ally = new Ally();
         ally.start();
-        Scanner scanner = new Scanner(System.in);
         String ipt;
         while(true) {
             ipt = scanner.nextLine();
             if (ipt.equals("bye")) {
+                ally.bye();
                 break;
-            } else if (ipt.equals("list")){
-                ally.list();
-            } else if (ipt.equals("blah")) {
-                ally.blah();
+            } else {
+                System.out.println(line + "\n" + ipt + "\n" + line);
             }
         }
-            ally.bye();
-            scanner.close();
+        scanner.close();
+
 
     }
 }
