@@ -22,4 +22,9 @@ public class Task {
     public void setDone() {
         isDone = true;
     }
+
+    @Override
+    public String toString() {
+        return this.getDescription();
+    }
 }
