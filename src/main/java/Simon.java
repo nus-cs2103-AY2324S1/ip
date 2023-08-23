@@ -26,6 +26,30 @@ public class Simon {
                     System.out.println((i + 1) + ". " + status + tasks.get(i));
                 }
                 System.out.println(space);
+            } else if (inData.contains("todo")) {
+                String name = inData.split("todo ")[1];
+                ToDo todo = new ToDo (name);
+                tasks.add(todo);
+                System.out.println(spaceN + "Got it. I've added this task:\n" +
+                        todo + String.format("\nNow you have %d %s in the list.",
+                        tasks.size(), tasks.size() > 1 ? "tasks" : "task") + nSpace);
+            } else if (inData.contains("deadline")) {
+                String name = inData.split("deadline ")[1].split(" /by ")[0];
+                String endDate = inData.split("deadline ")[1].split(" /by ")[1];
+                Deadline deadline = new Deadline(name, endDate);
+                tasks.add(deadline);
+                System.out.println(spaceN + "Got it. I've added this task:\n" +
+                        deadline + String.format("\nNow you have %d %s in the list.",
+                        tasks.size(), tasks.size() > 1 ? "tasks" : "task") + nSpace);
+            } else if (inData.contains("event")) {
+                String name = inData.split("event ")[1].split(" /from ")[0];
+                String startDate = inData.split("event ")[1].split(" /from ")[1].split(" /to ")[0];
+                String endDate = inData.split("event ")[1].split(" /from ")[1].split(" /to ")[1];
+                Event event = new Event(name, startDate, endDate);
+                tasks.add(event);
+                System.out.println(spaceN + "Got it. I've added this task:\n" +
+                        event + String.format("\nNow you have %d %s in the list.",
+                        tasks.size(), tasks.size() > 1 ? "tasks" : "task") + nSpace);
             } else if (inData.contains("unmark")) {
                 String[] split = inData.split(" ");
                 int index = Integer.parseInt(split[1]) - 1;
@@ -44,7 +68,7 @@ public class Simon {
                 System.out.println("added: " + inData + nSpace);
             }
         }
-        
+
         System.out.println(bye);
     }
 }
