@@ -1,4 +1,6 @@
-public class Task {
+package Tasks;
+
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -29,7 +31,10 @@ public class Task {
     /**
      * Print status of the task
      */
-    public void printStatus() {
-        System.out.printf("[%s] %s\n", this.isDone ? "X" : " ", this.description);
+    public abstract void printStatus();
+
+    @Override
+    public String toString() {
+        return this.description;
     }
 }
