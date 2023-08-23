@@ -8,7 +8,9 @@ public class Task {
     private String task;
     private boolean isDone = false;
 
-
+    enum ValidTasks {
+        todo, deadline, event
+    }
     Task(String task) {
         this.task = task;
     }
@@ -43,6 +45,33 @@ public class Task {
 
     public boolean isDone() {
         return this.isDone;
+    }
+
+    public String eventCode() {
+        return "";
+    }
+
+    public boolean isValidTask() throws InvalidTask {
+        if (!this.task.contains(" ")) {
+            throw new InvalidTask();
+        }
+
+        int i = this.task.indexOf(' ');
+        String command = this.task.substring(0, i);
+
+        for (ValidTasks v : ValidTasks.values()) {
+            if (v.toString().equals(command)) {
+                return true;
+            }
+        }
+
+        throw new InvalidTask();
+    }
+
+    //returns the event string without the prefix word
+    public String eventDescription() {
+        int i = this.get().indexOf(' ');
+        return this.get().substring(i + 1);
     }
 
 }

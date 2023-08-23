@@ -47,10 +47,34 @@ public class Mimi {
                 continue;
             }
 
+            try {
+                if (task.isValidTask()) {
+                    int i = task.get().indexOf(' ');
+                    String actual_task = task.get().substring(0, i);
 
-            PreviousCommands.add(task);
+                    switch (actual_task) {
+                        case "todo":
+                            Todo todo = new Todo(command);
+                            PreviousCommands.add(todo);
+                            System.out.println(LINE);
+                            break;
+                        case "deadline":
+                            Deadline deadline = new Deadline(command);
+                            PreviousCommands.add(deadline);
+                            System.out.println(LINE);
+                            break;
+                        case "event":
+                            Event event = new Event(command);
+                            PreviousCommands.add(event);
+                            System.out.println(LINE);
+                            break;
+                    }
+                }
+            } catch (InvalidTask e) {
+                System.out.println("works");
+            }
 
-            System.out.println(LINE);
+
         }
     }
 }

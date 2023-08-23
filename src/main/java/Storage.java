@@ -6,16 +6,18 @@ public class Storage {
     public void add(Task task) {
         this.previous_Commands.add(task);
         System.out.println(
-                String.format("Added: %s", task.get())
+                String.format("Got it. I've added this task: %s\nNow you have %d tasks in the list.",
+                        task.toString(), previous_Commands.size())
         );
     }
 
     public void listItems() {
+        System.out.println("Here are the tasks in your list:\n");
         for (int i = 0; i < this.previous_Commands.size(); ++i) {
             Task task = this.previous_Commands.get(i);
             System.out.println(
-                    String.format("%d. [%s] %s",
-                            i + 1, task.getStatusIcon(), task.get()
+                    String.format("%d. %s",
+                            i + 1, task.toString()
                     )
             );
         }
