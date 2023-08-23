@@ -4,12 +4,12 @@ public class Duke {
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        String logo = "       .__               \n"
-                + "  ____ |__| ____   ____  \n"
+        String logo = "       .__\n"
+                + "  ____ |__| ____   ____\n"
                 + "/    \\|  |/    \\ /  _  \\\n"
                 + "|   |  \\  |   |  (  <_> )\n"
-                + "|___|  /__|___|  /\\____/ \n"
-                + "     \\/        \\/        ";
+                + "|___|  /__|___|  /\\____/\n"
+                + "     \\/        \\/";
         final String HORIZONTAL = "_____________________________________________________________";
         System.out.println("Hello from\n" + logo);
         System.out.println(HORIZONTAL);
