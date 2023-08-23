@@ -31,6 +31,7 @@ public class Duke {
         while (true) {
             System.out.println("SHOW ME WHAT YOU'VE GOT");
             String input = sc.nextLine();
+            int len = input.length();
             if (input.equals("GET SCHWIFTY")) {
                 System.out.println("I LIKE WHAT YOU'VE GOT. GOOD JOB.");
                 return;
@@ -38,13 +39,13 @@ public class Duke {
                 for (int i = 0; i < archive.size(); i++) {
                     System.out.println(i + ". " + archive.get(i));
                 }
-            } else if (input.length() > 5 && input.substring(0,4).equals("mark")) {
+            } else if (input.startsWith("mark")) {
                 int item = input.charAt(5) - '0';
                 Task curr = archive.get(item);
                 curr.mark();
                 System.out.println("I HAVE MARKED THIS TASK: ");
                 System.out.println(curr);
-            } else if (input.length() > 7 &&input.substring(0,6).equals("unmark")) {
+            } else if (input.startsWith("unmark")) {
                 int item = input.charAt(7) - '0';
                 Task curr = archive.get(item);
                 curr.unmark();
@@ -52,11 +53,30 @@ public class Duke {
                 System.out.println(curr);
             }
             else {
-                System.out.println("added: " + input);
-                Task curr = new Task(input);
-                archive.add(curr);
+                Task added = null;
+                if (input.startsWith("todo")) {
+                    String title = input.substring(5);
+                    added = new Todo(title);
+                } else if (input.startsWith("deadline")) {
+                    int index = input.indexOf("/by");
+                    String title = input.substring(9,index - 1);
+                    String dueDate = input.substring(index + 4);
+                    added = new Deadline(title,dueDate);
+                } else if (input.startsWith("event")){
+                    int fromIndex = input.indexOf("/from");
+                    String title = input.substring(6 ,fromIndex - 1);
+                    int toIndex = input.indexOf("/to");
+                    String from = input.substring(fromIndex + 6, toIndex - 1);
+                    String to = input.substring(toIndex + 4);
+                    added = new Event(title,from,to);
+                }
+                if (added != null) {
+                    archive.add(added);
+                    System.out.println("I'VE ADDED THIS TASK: ");
+                    System.out.println(added);
+                    System.out.println("YOU HAVE " + archive.size() + " TASKS IN THE LIST");
+                }
             }
         }
-
     }
 }

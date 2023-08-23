@@ -5,6 +5,6 @@ public class Todo extends Task{
      @Override
      public String toString(){
         String mark = super.isMarked ? "[X] " : "[ ] ";
-        return "[T] " + mark + title;
+        return "[T]" + mark + title;
      }
 }

@@ -18,6 +18,5 @@ public abstract class Task {
     public String toString(){
         String mark = this.isMarked ? "[X] " : "[ ] ";
         return  mark + title;
-
     }
 }

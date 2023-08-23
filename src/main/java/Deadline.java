@@ -9,6 +9,6 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         String mark = super.isMarked ? "[X] " : "[ ] ";
-        return "[D] " + mark + title + "(by: " + this.dueDate + ")";
+        return "[D]" + mark + title + " (by: " + this.dueDate + ")";
     }
 }
