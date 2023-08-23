@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static final String LINEBREAK = "    ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿";
+    private static ArrayList<String> tasks = new ArrayList<>();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -9,11 +11,30 @@ public class Duke {
 
         String input = sc.nextLine();
         while (!input.equals("bye")) {
-            displayMessage(input);
+            if (input.equals("list")) {
+                displayList();
+            } else {
+                addToList(input);
+            }
             input = sc.nextLine();
         }
 
         bye();
+    }
+
+    private static void addToList(String input) {
+        tasks.add(input);
+        String msg = "added: " + input;
+        displayMessage(msg);
+    }
+
+    private static void displayList() {
+        String list = "";
+        for (int i = 1; i <= tasks.size(); i++) {
+            list += i + ". " + tasks.get(i - 1) + "\n";
+        }
+
+        displayMessage(list);
     }
 
     private static void bye() {
@@ -32,7 +53,6 @@ public class Duke {
                         + "What can I do for you?\n";
 
         System.out.println("Hello from\n" + logo);
-
         displayMessage(greetingMsg);
     }
 
