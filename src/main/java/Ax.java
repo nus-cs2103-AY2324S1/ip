@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Ax {
-    private static List<String> listItems = new ArrayList<String>();
+    private static List<ListItem> listItems = new ArrayList<>();
 
     private static void hoLine() {
         System.out.println();
@@ -23,9 +23,10 @@ public class Ax {
     }
 
     private static void listTheList() {
-        for (int i = 0; i < listItems.size(); i++) {
-            System.out.printf("%d. %s%n", i, listItems.get(i));
+        for (int i = 1; i < listItems.size() + 1; i++) {
+            System.out.printf("%d. %s%n", i, listItems.get(i - 1));
         }
+        hoLine();
     }
 
     private static boolean getInput(Scanner scanner) {
@@ -33,13 +34,25 @@ public class Ax {
         System.out.println(input); // repeat the input
         System.out.println();
         hoLine();
-        if (input.equals("bye")) { // check if it is bye, then return true so it will exit the loop
+        if (input.equals("bye")) { // check if it is bye, then return true, so it will exit the loop
             return true;
         } else if (input.equals("list")) {
             // call the list function
             listTheList();
+        } else if (input.startsWith("mark")) {
+            String[] inputs = input.split(" ");
+            if (inputs.length > 1) {
+                ListItem task = listItems.get(Integer.parseInt(inputs[1]) - 1);
+                task.setDone(true);
+            }
+        } else if (input.startsWith("unmark")) {
+            String[] inputs = input.split(" ");
+            if (inputs.length > 1) {
+                ListItem task = listItems.get(Integer.parseInt(inputs[1]) - 1);
+                task.setDone(false);
+            }
         } else {
-            listItems.add(input);
+            listItems.add(new ListItem(input));
         }
 
         return false;
