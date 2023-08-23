@@ -3,8 +3,8 @@ public class Event extends Task{
     protected String start;
     protected String end;
 
-    public Event(String list, String start, String end) {
-        super(list);
+    public Event(String list, String start, String end, TaskType type) {
+        super(list, type);
         this.start = start;
         this.end = end;
     }
@@ -23,9 +23,7 @@ public class Event extends Task{
     //Check index is calling correct method in task
     @Override
     public String toString() {
-        return "[E]"+ super.toString() + " ( from: " + this.start + " to: " + this.end +")";
+        return super.toString() + " ( from: " + this.start + " to: " + this.end +")";
     }
-
-
 
 }

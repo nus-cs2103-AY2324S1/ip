@@ -1,8 +1,8 @@
 public class Deadline extends Task{
     protected String deadline;
 
-    public Deadline (String list, String deadline) {
-        super(list);
+    public Deadline (String list, String deadline ,TaskType type) {
+        super(list, type);
         this.deadline = deadline;
     }
     //Check index is calling correct method in task
@@ -19,6 +19,6 @@ public class Deadline extends Task{
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "( by: " + this.deadline + ")";
+        return super.toString() + "( by: " + this.deadline + ")";
     }
 }

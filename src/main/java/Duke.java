@@ -32,19 +32,19 @@ public class Duke {
         String res = "";
         switch (action) {
             case "todo" : {
-                list.add(new ToDo(task));
+                list.add(new ToDo(task, TaskType.TODO));
                 res = "Got it. I've added this task : \n" + list.get(list.size()-1).toString() + "\n";
                 res += getTaskLeft();
                 break;
             }
             case "deadline" : {
-                list.add(new Deadline(task, by));
+                list.add(new Deadline(task, by, TaskType.DEADLINE));
                 res = "Got it. I've added this task : \n" + list.get(list.size()-1).toString() + "\n";
                 res += getTaskLeft();
                 break;
             }
             case "event" : {
-                list.add(new Event(task,from,to));
+                list.add(new Event(task,from,to, TaskType.EVENT));
                 res = "Got it. I've added this task : \n" + list.get(list.size()-1).toString() + "\n";
                 res += getTaskLeft();
                 break;

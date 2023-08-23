@@ -1,6 +1,6 @@
 public class ToDo extends Task{
-    public ToDo(String list) {
-        super(list);
+    public ToDo(String list, TaskType type) {
+        super(list, type);
     }
 
     @Override
@@ -17,7 +17,7 @@ public class ToDo extends Task{
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return super.toString();
     }
     
  }
