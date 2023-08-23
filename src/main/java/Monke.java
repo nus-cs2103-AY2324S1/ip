@@ -1,8 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Monke {
-    private static Task[] list = new Task[100];
-    private static int index = 0;
+    private static ArrayList<Task> list = new ArrayList<>();
 
     public static void speak(String msg) {
         System.out.println("\t" + msg);
@@ -25,29 +25,6 @@ public class Monke {
         System.out.println();
     }
 
-    public static void listen() {
-        Scanner sc = new Scanner(System.in);
-        while (true) {
-            String input = sc.nextLine();
-            String[] temp = input.split(" ", 2);
-            String command = temp[0];
-            String args = temp.length > 1 ? temp[1] : "";
-            Monke.printHorizontalLine();
-
-            if (command.equals("bye")) {
-                break;
-            }
-
-            try {
-                Monke.execute(command, args);
-            } catch (MonkeException e) {
-                Monke.speak(e.getMessage());
-            }
-            Monke.printHorizontalLine();
-        }
-        sc.close();
-    }
-
     public static void execute(String command, String args) throws MonkeException{
         switch (command) {
             case "list": {
@@ -56,7 +33,7 @@ public class Monke {
             }
             case "mark": {
                 int n = Monke.getListNumber(args);
-                Task task = Monke.list[n - 1];
+                Task task = Monke.list.get(n - 1);
                 task.mark();
                 Monke.speak("Ooga booga! I've marked this task as done:");
                 Monke.speak("\t" + task);
@@ -64,7 +41,7 @@ public class Monke {
             }
             case "unmark": {
                 int n = Monke.getListNumber(args);
-                Task task = Monke.list[n - 1];
+                Task task = Monke.list.get(n - 1);
                 task.unmark();
                 Monke.speak("Ooga booga! I've marked this task as done:");
                 Monke.speak("\t" + task);
@@ -85,6 +62,11 @@ public class Monke {
                 Monke.addToList(event);
                 break;
             }
+            case "delete": {
+                int n = getListNumber(args);
+                Monke.deleteFromList(n);
+                break;
+            }
             default: {
                 throw new MonkeException("OOGA??!! I'm sorry, but I don't know what that means :-(");
             }
@@ -94,7 +76,7 @@ public class Monke {
     public static int getListNumber(String args) throws MonkeException {
         try {
             int n = Integer.parseInt(args);
-            if (n > index) {
+            if (n > Monke.list.size()) {
                 throw new MonkeException("OOGA BOOGA!! Your number is out of range. :(");
             }
             return n;
@@ -137,21 +119,50 @@ public class Monke {
     public static void addToList(Task task) {
         Monke.speak("Got it. I've added this task:");
         Monke.speak("\t" + task);
-        Monke.list[index] = task;
-        Monke.index++;
-        Monke.speak("Now you have " + index + " tasks in the list.");
+        Monke.list.add(task);
+        Monke.speak("Now you have " + Monke.list.size() + " tasks in the list.");
+    }
+
+    public static void deleteFromList(int n) {
+        Task task = Monke.list.get(n - 1);
+        Monke.speak("Noted. I've removed this task:");
+        Monke.speak("\t" + task);
+        Monke.list.remove(n - 1);
+        Monke.speak("Now you have " + Monke.list.size() + " tasks in the list.");
     }
 
     public static void displayList() {
-        for (int i = 0; i < Monke.index; i++) {
-            Monke.speak((i + 1) + ". " + Monke.list[i]);
+        for (int i = 0; i < Monke.list.size(); i++) {
+            Monke.speak((i + 1) + ". " + Monke.list.get(i));
         }
     }
 
     public static void main(String[] args) {
         Monke.printHorizontalLine();
         Monke.greet();
-        Monke.listen();
+
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            String input = sc.nextLine();
+            String[] temp = input.split(" ", 2);
+            String command = temp[0];
+            String commandArgs = temp.length > 1 ? temp[1] : "";
+            Monke.printHorizontalLine();
+
+            if (command.equals("bye")) {
+                break;
+            }
+
+            try {
+                Monke.execute(command, commandArgs);
+            } catch (MonkeException e) {
+                Monke.speak(e.getMessage());
+            }
+
+            Monke.printHorizontalLine();
+        }
+        sc.close();
+
         Monke.exit();
     }
 }

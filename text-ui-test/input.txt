@@ -21,4 +21,9 @@ event
 deadline do something
 event do something
 event do something /from 2pm
+delete 1
+delete 4
+delete 2
+delete 10
+delete not a number
 bye
