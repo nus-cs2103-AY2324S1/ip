@@ -9,7 +9,7 @@ public class UnknownCommandException extends DukeException {
     }
 
     @Override
-    public String toString() {
-        return super.toString() + this.message;
+    public String getMessage() {
+        return super.getMessage() + this.message;
     }
 }

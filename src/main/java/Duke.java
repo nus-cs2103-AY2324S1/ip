@@ -56,6 +56,9 @@
                         case "event":
                             handleEvent(input, taskManager);
                             break;
+                        case "delete":
+                            handleDelete(input, taskManager);
+                            break;
                         default:
                             throw new UnknownCommandException("I may be the GOAT but I don't know what that means.");
                     }
@@ -150,5 +153,15 @@
                         "Please use: event task_name /from start /to end");
             }
 
+        }
+
+        private static void handleDelete(String input, TaskManager taskManager) throws InvalidArgumentException {
+            String[] words = input.split(" ");
+            try {
+                int index = Integer.parseInt(words[1]);
+                taskManager.delete(index);
+            } catch (NumberFormatException e) {
+                throw new InvalidArgumentException("Please enter a numerical index!");
+            }
         }
     }
