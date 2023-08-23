@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Action {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
-
+    private static ArrayList<String> tasks = new ArrayList<>();
 
     /**
      * Greets the user by printing the greeting messages.
@@ -27,20 +28,42 @@ public class Action {
      * Echos commands entered by the user,
      * and exits when the user types the command bye.
      */
-    public static void echo() {
+    public static void respond() {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
 
             if (input.equals("bye")) {
                 break;
+            } else if (input.equals("list")) {
+                listTasks();
             } else {
-                System.out.println(HORIZONTAL_LINE);
-                System.out.println(input);
-                System.out.println(HORIZONTAL_LINE);
+                addTask(input);
             }
         }
         exit();
         sc.close();
+    }
+
+    /**
+     * Adds a task to the storage.
+     * @param input the task to be added
+     */
+    public static void addTask(String input) {
+        tasks.add(input);
+        System.out.println(HORIZONTAL_LINE);
+        System.out.println("added: " + input);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    /**
+     * List all tasks stored.
+     */
+    public static void listTasks() {
+        System.out.println(HORIZONTAL_LINE);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+        System.out.println(HORIZONTAL_LINE);
     }
 }
