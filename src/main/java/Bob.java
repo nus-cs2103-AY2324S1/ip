@@ -22,7 +22,7 @@ public class Bob {
         System.out.println("Now you have " + String.valueOf(list.size()) + " tasks in the list.");
     }
 
-    public static void checkAndAddTask(String task) {
+    public static void checkAndAddTask(String task) throws BobException {
         char[] charArray = task.toCharArray();
         String taskName = "";
 
@@ -31,8 +31,15 @@ public class Bob {
             for (int i = 5; i < charArray.length; i++) {
                 taskName = taskName + charArray[i];
             }
-            Todo thisTask = new Todo(taskName);
-            addTask(thisTask);
+
+            if (taskName.isBlank()) {
+                throw new BobException("OOPS!!! The description of a todo cannot be empty.");
+            } else {
+                Todo thisTask = new Todo(taskName);
+                addTask(thisTask);
+            }
+
+            return;
         }
 
         //deadline
@@ -55,8 +62,14 @@ public class Bob {
 
             }
 
-            Deadline thisTask = new Deadline(taskName, by);
-            addTask(thisTask);
+            if (taskName.isBlank()) {
+                throw new BobException("OOPS!!! The description of a deadline cannot be empty.");
+            } else {
+                Deadline thisTask = new Deadline(taskName, by);
+                addTask(thisTask);
+            }
+
+            return;
         }
 
         //event
@@ -85,9 +98,18 @@ public class Bob {
 
             }
 
-            Event thisTask = new Event(taskName, from, to);
-            addTask(thisTask);
+            if (taskName.isBlank()) {
+                throw new BobException("OOPS!!! The description of a event cannot be empty.");
+            } else {
+                Event thisTask = new Event(taskName, from, to);
+                addTask(thisTask);
+            }
+
+            return;
         }
+
+        //not a task
+        throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
     public static void printTasks() {
@@ -122,9 +144,14 @@ public class Bob {
             } else if (isMark) {
                 markTask(markNo);
             } else {
-                checkAndAddTask(input);
+                try {
+                    checkAndAddTask(input);
+                } catch (BobException e) {
+                    System.out.println(e.toString());
+                }
             }
         }
+
     }
 
 }
