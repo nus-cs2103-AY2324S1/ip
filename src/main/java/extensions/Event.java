@@ -9,7 +9,7 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return String.format("[D][%c] %s (from: %s, to: %s)",
+        return String.format("[E][%c] %s (from: %s, to: %s)",
                 this.getDoneStatus(),
                 this.description,
                 this.from,
