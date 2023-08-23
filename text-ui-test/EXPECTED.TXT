@@ -5,3 +5,29 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+Hello! I am Dukey.
+What can I do for you?
+added: [T] [ ] go gym
+added: [D] [ ] go gym (by: 2pm)
+added: [E] [ ] go gym (from: 2pm to: 3pm)
+1. [T] [ ] go gym
+2. [D] [ ] go gym (by: 2pm)
+3. [E] [ ] go gym (from: 2pm to: 3pm)
+Good Job! I have marked this task as done!
+[T] [X] go gym
+Good Job! I have marked this task as done!
+[D] [X] go gym (by: 2pm)
+Good Job! I have marked this task as done!
+[E] [X] go gym (from: 2pm to: 3pm)
+This task does not exist!
+This task does not exist!
+Aw man! I have marked this task as undone. We go again!
+[E] [ ] go gym (from: 2pm to: 3pm)
+Aw man! I have marked this task as undone. We go again!
+[D] [ ] go gym (by: 2pm)
+Aw man! I have marked this task as undone. We go again!
+[T] [ ] go gym
+1. [T] [ ] go gym
+2. [D] [ ] go gym (by: 2pm)
+3. [E] [ ] go gym (from: 2pm to: 3pm)
+Bye. Hope to see you again!
