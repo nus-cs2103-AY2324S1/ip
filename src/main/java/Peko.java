@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Peko {
 
-    private static String[] todoList = new String[100];
+    private static Task[] todoList = new Task[100];
     private static int pos = 0;
     private static final String lineBreak = "------------------------------------------"; //42
     private static final String introText = "Konpeko, Konpeko, Konpeko! \n" +
@@ -47,6 +47,10 @@ public class Peko {
                 case MARK:
                     input = leftPad(input.substring(4, input.length()));
                     setMarkArray(input);
+                    break;
+                case UNMARK:
+                    input = leftPad(input.substring(6, input.length()));
+                    setUnmarkArray(input);
                     break;
                 case COPYPASTA:
                     try  {
@@ -141,7 +145,7 @@ public class Peko {
         System.out.println(lineBreak);
     }
     public static void addToArray(String s) {
-        todoList[pos] = "[ ] " + s;
+        todoList[pos] = new Task(s);
         System.out.println("Added: \"" + s + "\" Peko!");
         System.out.println(lineBreak);
         pos++;
@@ -171,9 +175,19 @@ public class Peko {
     public static void setMarkArray(String s) {
         try {
             int markIndex = Integer.parseInt(s);
-            String temp = todoList[markIndex-1];
-            todoList[markIndex-1] = "[X]" + temp.substring(3, temp.length());
+            todoList[markIndex-1].setMark();
             System.out.println("Marked as done peko!");
+            System.out.println("    " + todoList[markIndex-1]);
+        } catch (NumberFormatException e) {
+            System.out.println("That's not a number Bakatare!");
+        }
+        System.out.println(lineBreak);
+    }
+    public static void setUnmarkArray(String s) {
+        try {
+            int markIndex = Integer.parseInt(s);
+            todoList[markIndex-1].setUnmark();
+            System.out.println("You haven't done this yet peko?!");
             System.out.println("    " + todoList[markIndex-1]);
         } catch (NumberFormatException e) {
             System.out.println("That's not a number Bakatare!");
