@@ -12,7 +12,7 @@ public class Duke {
     }
 
     private static void bye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.print("Bye. Hope to see you again soon!");
     }
 
     private static void echo(String input) {

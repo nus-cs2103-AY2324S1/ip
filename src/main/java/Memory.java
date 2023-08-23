@@ -6,7 +6,7 @@ public class Memory {
     public void add(Task task) {
         System.out.println("Got it. I've added this task:");
         ls.add(task);
-        System.out.println("added: " + task);
+        System.out.println(task);
     }
 
     public void mark(int pos) {
