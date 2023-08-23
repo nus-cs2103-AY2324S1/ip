@@ -1,6 +1,7 @@
 public class SingleTask {
     String description;
     boolean done;
+
     public SingleTask(String s) {
         this.description = s;
         this.done = false;
@@ -19,7 +20,9 @@ public class SingleTask {
                 "[" +this.getStatusIcon() +"] " + this.description);
     }
     public String getStatusIcon() {
-        return (this.done ? "X" : " "); // mark done task with X
+        return (this.done ? "X" : " ");
     }
-
+    public String listString() {
+        return "";
+    }
 }
