@@ -13,21 +13,36 @@ public class Duke {
 
         Scanner sc = new Scanner(System.in);
         String[] store = new String[100];
+        boolean[] completed = new boolean[100];
         int counter = 0;
         while(true){
             String userInput = sc.nextLine();
+            String[] splitStr = userInput.split("\\s+");
             System.out.println("─────────────────────");
             if(userInput.equals("bye")) break;
+
             if(userInput.equals("list")){
+                System.out.println("Here are the tasks in your list:");
                 for(int i=0;i<counter;i++){
-                    System.out.println(Integer.toString(i+1) + ". " + store[i]);
+                    System.out.println( Integer.toString(i+1)  + "." + "[" + (completed[i] ? "X" : " ") + "] " + store[i]);
                 }
-                System.out.println("─────────────────────");
+            }else if(splitStr.length == 2 && splitStr[0].equals("mark")){
+                System.out.println("Nice! I've marked this task as done:");
+                int x = Integer.parseInt(splitStr[1])-1;
+                completed[x] = true;
+                System.out.println( splitStr[1]  + "." + "[" + (completed[x] ? "X" : " ") + "] " + store[x]);
+
+            }else if(splitStr.length == 2 && splitStr[0].equals("unmark")){
+                System.out.println("Ok, I've marked this task as not done yet:");
+                int x = Integer.parseInt(splitStr[1])-1;
+                completed[x] = false;
+                System.out.println( splitStr[1]  + "." + "[" + (completed[x] ? "X" : " ") + "] " + store[x]);
+
             }else{
                 store[counter++] = userInput;
                 System.out.println("added: " + userInput);
-                System.out.println("─────────────────────");
             }
+            System.out.println("─────────────────────");
 
         }
 
