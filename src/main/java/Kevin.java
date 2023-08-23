@@ -1,3 +1,5 @@
+import ToDoList.ToDoList;
+
 import java.util.Scanner;
 
 public class Kevin {
@@ -31,14 +33,21 @@ public class Kevin {
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        ToDoList toDoList = new ToDoList();
+
         hello();
+
         while (true) {
             String command = scanner.nextLine();
             if (command.equals("bye")) {
                 break;
+            } else if (command.equals("list")) {
+                wrapInHorizontalLines(toDoList.list());
+            } else {
+                wrapInHorizontalLines(toDoList.addList(command));
             }
-            echo(command);
         }
+
         bye();
     }
 }
