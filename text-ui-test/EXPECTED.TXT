@@ -1,7 +1,21 @@
 Hello from
  ____        _        
 |  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+| | | | | | | | / _ \
+| |_| | |_| |  |_   __/
+|____/ \__,_|___|\___|
+
+Hello! I'm Duke
+What can I do for you?
+Got it. I've added this task:
+  [T][ ] go to grocery store
+Now you have 1 tasks in the list
+
+Got it. I've added this task:
+  [D][ ] 200 (by: 2pm sunday)
+Now you have 2 tasks in the list
+
+Got it. I've added this task:
+  [E][ ] CCA both (from: tues 3pm to: tues 5pm)
+Now you have 3 tasks in the list
 

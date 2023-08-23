@@ -1,0 +1,3 @@
+todo go to grocery store
+deadline 200 /by 2pm sunday
+event CCA both /from tues 3pm /to tues 5pm
