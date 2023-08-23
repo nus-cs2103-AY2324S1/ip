@@ -35,10 +35,28 @@ public class Duke {
     }
 
     private static void addTask(String userInput, List<Task> tasks) {
-        // Add userInput to tasks
-        tasks.add(new Task(userInput));
-        // Echo the user's input
-        System.out.println("added: " + userInput);
+        try {
+            String[] inputParts = userInput.split(" ", 2);
+            String taskType = inputParts[0];
+            String taskDesc = inputParts[1];
+            Task task;
+
+            if (taskType.equals("todo")) {
+                task = new Todo(taskDesc);
+            } else if (taskType.equals("deadline")) {
+                task = new Deadline(taskDesc);
+            } else if (taskType.equals("event")) {
+                task = new Event(taskDesc);
+            } else {
+                System.out.println("Invalid task. Please start with 'todo', 'deadline' or 'event'");
+                return;
+            }
+            // Add task to task list
+            tasks.add(task);
+            System.out.println("Got it. I've added this task:\n\t" + task.toString());
+        } catch (Exception e) {
+            System.out.println("Invalid input. Try starting with 'todo', 'deadline' or 'event'\n");
+        }
     }
 
     private static void unmarkTaskAsDone(String userInput, List<Task> tasks) {
@@ -49,7 +67,7 @@ public class Duke {
             Task selectedTask = tasks.get(taskId - 1);
             selectedTask.unmarkAsDone();
             System.out.println("OK, I've marked this task as not done yet:\n"
-                    + String.format("[%s] %s",selectedTask.getStatusIcon(),selectedTask.description));
+                    + selectedTask.toString());
         } catch (NumberFormatException e) {
             System.out.println("Invalid use of 'unmark' command. Please follow the format 'unmark [task id]'");
         } catch (IndexOutOfBoundsException e) {
@@ -65,7 +83,7 @@ public class Duke {
             Task selectedTask = tasks.get(taskId - 1);
             selectedTask.markAsDone();
             System.out.println("Nice! I've marked this task as done:\n"
-                    + String.format("[%s] %s", selectedTask.getStatusIcon(), selectedTask.description));
+                    + selectedTask.toString());
         } catch (NumberFormatException e) {
             System.out.println("Invalid use of 'mark' command. Please follow the format 'mark [task id]'");
         } catch (IndexOutOfBoundsException e) {
@@ -76,12 +94,12 @@ public class Duke {
     }
 
     private static void listTasks(List<Task> tasks) {
+        System.out.println("Here are the tasks in your list:\n");
         for (int i=0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            String taskLine = String.format("%d.[%s] %s",
+            String taskLine = String.format("%d.%s",
                     i+1,
-                    task.getStatusIcon(),
-                    task.description);
+                    task.toString());
             System.out.println(taskLine);
         }
     }
