@@ -17,6 +17,36 @@ public class Duke {
         taskList = new TaskList();
     }
 
+    private Task parseTaskInput(String input) {
+        String[] words = input.split(" ");
+        String taskType = words[0].toLowerCase();
+
+        String taskDescription = input.substring(taskType.length()).trim();
+
+        switch (taskType) {
+            case "add":
+                return new Add(taskDescription);
+            case "todo":
+                return new ToDo(taskDescription);
+            case "deadline":
+                String[] deadlineParts = taskDescription.split("/by", 2);
+                if (deadlineParts.length == 2) {
+                    return new DeadLine(deadlineParts[0].trim(), deadlineParts[1].trim());
+                }
+                break;
+            case "event":
+                String[] eventParts = taskDescription.split("/from", 2);
+                if (eventParts.length == 2) {
+                    String[] toParts = eventParts[1].split("/to", 2);
+                    if (toParts.length == 2) {
+                        return new Event(eventParts[0].trim(), toParts[0].trim(), toParts[1].trim());
+                    }
+                }
+                break;
+        }
+        return null;
+    }
+
     public void start() {
         System.out.println("Hello from\n" + logo);
         System.out.println("____________________________________________________________");
@@ -54,9 +84,16 @@ public class Duke {
                 } else {
                     System.out.println("Task already unmarked");
                 }
+            } else if (firstWord.equals("add") || firstWord.equals("todo") ||
+                    firstWord.equals("deadline") || firstWord.equals("event")){
+                Task newTasks = parseTaskInput(strInput);
+                if (newTasks != null) {
+                    taskList.addTask(newTasks);
+                } else {
+                    System.out.println("Invalid command or task input.");
+                }
             } else {
-                taskList.addTask(strInput);
-                System.out.println(" added: " + strInput);
+                System.out.println(" Echo!! " + strInput);
                 System.out.println("____________________________________________________________");
             }
         }

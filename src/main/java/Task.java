@@ -19,8 +19,25 @@ public class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
+    public String getTask() {
+        return "[" + getTypeIcon() + "]";
+    }
+
+    public String getTypeIcon() {
+        if (this instanceof Add) {
+            return "A";
+        } else if (this instanceof ToDo) {
+            return "T";
+        } else if (this instanceof DeadLine) {
+            return "D";
+        } else if (this instanceof Event) {
+            return "E";
+        }
+        return "Error: No Such Task";
+    }
+
     @Override
     public String toString() {
-        return getStatusIcon() + " " + description;
+        return getTask() + getStatusIcon() + " " + description;
     }
 }

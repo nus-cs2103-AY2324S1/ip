@@ -8,9 +8,17 @@ public class TaskList {
         counter = 0;
     }
 
-    void addTask(String taskDesc) {
-        tasksDescArray[counter] = new Task(taskDesc);
-        counter++;
+    void addTask(Task taskDesc) {
+        if (counter < tasksDescArray.length) {
+            tasksDescArray[counter] = taskDesc;
+            counter++;
+            System.out.println(" Got it. I've added this task:");
+            System.out.println("   " + taskDesc);
+            System.out.println(" Now you have " + counter + " tasks in the list.");
+        } else {
+            System.out.println(" 100/100 Task limit reached.");
+            System.out.println(" Pay to upgrade your account.");
+        }
     }
 
     public void displayTasks() {
