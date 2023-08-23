@@ -6,6 +6,6 @@ public class Deadline extends Task{
     }
 
     public String toString(){
-        return "  [D]" + (super.isDone ? "[X] " : "[ ] ") +  super.toString() + " (by: " + endDate + ")";
+        return " [D]" + (super.isDone ? "[X] " : "[ ] ") +  super.toString() + " (by: " + endDate + ")";
     }
 }

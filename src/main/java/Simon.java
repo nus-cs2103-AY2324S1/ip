@@ -52,8 +52,7 @@ public class Simon {
 
     private static void listTasks() {
         for (int i = 0; i < tasks.size(); i++) {
-            String status = tasks.get(i).isDone ? "[X] " : "[ ] ";
-            System.out.println((i + 1) + ". " + status + tasks.get(i));
+            System.out.println((i + 1) + "." + tasks.get(i));
         }
         System.out.println(SPACE);
     }
@@ -96,7 +95,7 @@ public class Simon {
 
 
         tasks.add(task);
-        System.out.println(SPACEN + "Got it. I've added this task:\n" +
+        System.out.println(SPACEN + "Got it. I've added this task:\n" + " " +
                 task + String.format("\nNow you have %d %s in the list.",
                 tasks.size(), tasks.size() > 1 ? "tasks" : "task") + NSPACE);
     }

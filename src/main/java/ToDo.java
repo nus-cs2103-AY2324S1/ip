@@ -5,6 +5,6 @@ public class ToDo extends  Task {
 
     @Override
     public String toString() {
-        return "  [T]" + (super.isDone ? "[X] " : "[ ] ") +  super.toString();
+        return " [T]" + (super.isDone ? "[X] " : "[ ] ") +  super.toString();
     }
 }
