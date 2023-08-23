@@ -15,10 +15,15 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 
-    public static String[] processInput(String[] splitInput) {
-        splitInput = Deadline.processInput(splitInput);
-        String[] deadlineArray = splitInput[2].split(" ");
-        splitInput[2] = String.join(" ", Arrays.copyOfRange(deadlineArray, 1, deadlineArray.length));
+    public static String[] processInput(String[] splitInput) throws InvalidTaskException {
+        splitInput = Task.processInput(splitInput);
+        if (splitInput.length < 3) {
+            throw new InvalidTaskException("☹ OOPS!!! The description, start and end of a event cannot be empty.");
+        }
+        String[] startArray = splitInput[1].split(" ");
+        splitInput[1] = String.join(" ", Arrays.copyOfRange(startArray, 1, startArray.length));
+        String[] endArray = splitInput[2].split(" ");
+        splitInput[2] = String.join(" ", Arrays.copyOfRange(endArray, 1, endArray.length));
         return splitInput;
     }
 }

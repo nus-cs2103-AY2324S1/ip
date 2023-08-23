@@ -6,4 +6,13 @@ mark 2
 list
 unmark 2
 list
+todo
+deadline
+deadline math homework
+deadline /by Jan 2nd
+event
+event marathon
+event marathon /from: 3pm
+event /from: 3pm /to: 7pm
+blah
 bye

@@ -12,8 +12,11 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
 
-    public static String[] processInput(String[] splitInput) {
+    public static String[] processInput(String[] splitInput) throws InvalidTaskException {
         splitInput = Task.processInput(splitInput);
+        if (splitInput.length < 2) {
+            throw new InvalidTaskException("☹ OOPS!!! The description and date of a deadline cannot be empty.");
+        }
         String[] deadlineArray = splitInput[1].split(" ");
         splitInput[1] = String.join(" ", Arrays.copyOfRange(deadlineArray, 1, deadlineArray.length));
         return splitInput;

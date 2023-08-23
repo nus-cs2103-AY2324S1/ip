@@ -25,4 +25,13 @@ Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: June 6th)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+☹ OOPS!!! The description of a todo cannot be empty.
+☹ OOPS!!! The description and date of a deadline cannot be empty.
+☹ OOPS!!! The description and date of a deadline cannot be empty.
+☹ OOPS!!! The description and date of a deadline cannot be empty.
+☹ OOPS!!! The description, start and end of a event cannot be empty.
+☹ OOPS!!! The description, start and end of a event cannot be empty.
+☹ OOPS!!! The description, start and end of a event cannot be empty.
+☹ OOPS!!! The description, start and end of a event cannot be empty.
+☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 Bye. Hope to see you again soon!

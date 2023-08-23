@@ -8,7 +8,11 @@ public class ToDo extends Task{
         return "[T]" + super.toString();
     }
 
-    public static String[] processInput(String[] splitInput) {
-        return Task.processInput(splitInput);
+    public static String[] processInput(String[] splitInput) throws InvalidTaskException {
+        splitInput = Task.processInput(splitInput);
+        if (splitInput[0] == "") {
+            throw new InvalidTaskException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
+        return splitInput;
     }
 }
