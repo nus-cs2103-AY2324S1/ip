@@ -1,0 +1,9 @@
+todo hello
+deadline world /by thursday
+event find bunnies /from monday /to sunday
+list
+mark 1
+mark 2
+list
+unmark 1
+list
