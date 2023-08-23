@@ -5,7 +5,7 @@ public class Duke {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        String Start = "Hello! I'm Red \nWhat can I do for you?";
+        String Start = "Hello! I'm Red\nWhat can I do for you?";
         System.out.println(Start);
 
         Task[] tasks = new Task[100];
@@ -39,13 +39,52 @@ public class Duke {
                 continue;
             }
 
-            tasks[taskCount] = new Task(input);
-            taskCount++;
-            System.out.println("added: " + input);
+            if (input.contains("deadline")) {
+                String desc = input.substring(9 ,input.indexOf("/by") - 1);
+                String by = input.substring(input.indexOf("/by") + 4);
+                Task dl = new Deadline(desc, by);
+                tasks[taskCount] = dl;
+                taskCount++;
+
+                System.out.println("Got it. I've added this task:\n" + dl +
+                        "\nNow you have " + taskCount + " tasks in the list.");
+
+                continue;
+            }
+
+            if (input.contains("event")) {
+                String desc = input.substring(6 ,input.indexOf("/from") - 1);
+                String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
+                String to = input.substring(input.indexOf("/to") + 4);
+                Task event = new Event(desc, from, to);
+                tasks[taskCount] = event;
+                taskCount++;
+
+                System.out.println("Got it. I've added this task:\n" + event +
+                        "\nNow you have " + taskCount + " tasks in the list.");
+
+                continue;
+            }
+
+            if (input.contains("todo")) {
+                String desc = input.substring(input.indexOf("/todo") + 6);
+                Task todo = new Todo(desc);
+                tasks[taskCount] = todo;
+                taskCount++;
+
+                System.out.println("Got it. I've added this task:\n" + todo +
+                        "\nNow you have " + taskCount + " tasks in the list.");
+
+                continue;
+            }
+
+//            tasks[taskCount] = new Task(input);
+//            taskCount++;
+//            System.out.println("added: " + input);
 
         }
 
-        String End = "Bye. Hope to see you again soon!\n";
+        String End = "Bye. Hope to see you again soon!";
         System.out.println(End);
     }
 }
