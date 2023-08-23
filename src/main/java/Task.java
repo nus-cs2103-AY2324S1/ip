@@ -8,6 +8,7 @@ public class Task {
     private final int id;
     /** The description of the task */
     private String desc;
+    private boolean isDone;
 
     /**
      * Default constructor for the Task object.
@@ -20,6 +21,7 @@ public class Task {
         Task.taskCount += 1;
         id = Task.taskCount;
         this.desc = desc;
+        isDone = false;
     }
 
     /**
@@ -56,6 +58,24 @@ public class Task {
      */
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    /**
+     * Getter method for the Task status
+     *
+     * @return Status of the task
+     */
+    public boolean getStatus() {
+        return isDone;
+    }
+
+    /**
+     * Setter method for the Task status
+     *
+     * @param isDone Status of the task
+     */
+    public void setStatus(boolean isDone) {
+        this.isDone = isDone;
     }
 
 }
