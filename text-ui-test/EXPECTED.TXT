@@ -26,4 +26,7 @@ Now you have 3 tasks in the list.
 1. [D] [ ] Submit Tutorial 1 (by: Thursday)
 2. [E] [X] Birthday celebration (from: 5pm to: 9pm)
 3. [T] [X] Clear the trash
+> Noted. I've removed this task:
+   [E] [X] Birthday celebration (from: 5pm to: 9pm)
+Now you have 2 tasks in the list.
 > Bye. Hope to see you again soon!

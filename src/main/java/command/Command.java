@@ -63,6 +63,13 @@ public abstract class Command {
                 int taskId = parseIntArgument(argument);
                 return new UnmarkCommand(taskId);
             }
+            case "delete": {
+                if (argument.isEmpty()) {
+                    throw new EkudException("A task identifier must be provided.");
+                }
+                int taskId = parseIntArgument(argument);
+                return new DeleteCommand(taskId);
+            }
             case "bye": {
                 return new ByeCommand();
             }

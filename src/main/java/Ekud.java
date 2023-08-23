@@ -29,11 +29,6 @@ public class Ekud {
 
     public void processMark(MarkCommand command) {
         int taskId = command.getTaskId();
-
-        if (taskId < 1 || taskId > store.getTaskCount()) {
-            throw new EkudException("Invalid task identifier provided.");
-        }
-
         Task task = store.getTask(taskId);
         task.mark();
         System.out.println("Nice! I've marked this task as done:");
@@ -42,16 +37,18 @@ public class Ekud {
 
     public void processUnmark(UnmarkCommand command) {
         int taskId = command.getTaskId();
-
-        if (taskId < 1 || taskId > store.getTaskCount()) {
-            System.out.println("Invalid task number provided.");
-            return;
-        }
-
         Task task = store.getTask(taskId);
         task.unmark();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("   " + task);
+    }
+
+    public void processDelete(DeleteCommand command) {
+        int taskId = command.getTaskId();
+        Task task = store.deleteTask(taskId);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("   " + task);
+        System.out.println("Now you have " + store.getTaskCount() + " tasks in the list.");
     }
 
     public void processEvent(EventCommand command) {
@@ -103,6 +100,10 @@ public class Ekud {
             processMark((MarkCommand) command);
         } else if (command instanceof UnmarkCommand) {
             processUnmark((UnmarkCommand) command);
+        } else if (command instanceof DeleteCommand) {
+            processDelete((DeleteCommand) command);
+        } else {
+            throw new Error("Unimplemented command: " + command);
         }
 
         return false;
