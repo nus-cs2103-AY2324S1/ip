@@ -21,8 +21,8 @@ public class Duke {
                     i++;
                 }
                 System.out.println("\t" + output);
-                output = ""; //reset list
-                i = 1; //reset count
+                output = ""; //resetting list
+                i = 1; //resetting count
             }
             str = sc.nextLine();
         }
