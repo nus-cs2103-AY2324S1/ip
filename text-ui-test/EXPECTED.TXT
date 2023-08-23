@@ -3,20 +3,19 @@ Dook here.
 What can I do for you?
 _______________________________________
 _______________________________________
-
-You have 0 tasks in the list
+You have 0 tasks in the list.
 _______________________________________
 _______________________________________
 added: [E][ ] abc (from: 1 to: 2).
- Now you have 1 tasks in the list
+Now you have 1 task in the list.
 _______________________________________
 _______________________________________
 added: [T][ ] def.
- Now you have 2 tasks in the list
+Now you have 2 tasks in the list.
 _______________________________________
 _______________________________________
 added: [D][ ] ghi (by: 3).
- Now you have 3 tasks in the list
+Now you have 3 tasks in the list.
 _______________________________________
 _______________________________________
 I have marked this task as done:
@@ -26,8 +25,7 @@ _______________________________________
 1. [E][X] abc (from: 1 to: 2)
 2. [T][ ] def
 3. [D][ ] ghi (by: 3)
-
-You have 3 tasks in the list
+You have 3 tasks in the list.
 _______________________________________
 _______________________________________
 That task does not exist on the list.
