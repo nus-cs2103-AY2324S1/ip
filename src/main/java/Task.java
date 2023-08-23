@@ -12,7 +12,6 @@ public class Task {
     this.isDone = false;
   }
 
-
   /**
    * Gets text status icon of task's completion status.
    *
@@ -31,16 +30,7 @@ public class Task {
   public String toString() {
     return String.format("[%s] %s", this.getStatusIcon(), this.description);
   }
-
-  /**
-   * Checks if task is done.
-   *
-   * @return true if task is completed; false otherwise
-   */
-  public boolean isDone() {
-    return this.isDone;
-  }
-
+  
   /**
    * Marks task as done.
    */
@@ -54,5 +44,4 @@ public class Task {
   public void markAsNotDone() {
     this.isDone = false;
   }
-
 }
