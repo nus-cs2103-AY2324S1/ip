@@ -1,11 +1,24 @@
 import java.util.Scanner;
 
 /**
- * Represents the main class for the Duke application.
+ * Represents the main class for the Friday application.
  */
-public class Duke {
+public class Friday {
+
+    private TaskList taskList;
+    private Scanner input;
+
+    public Friday() {
+        this.taskList = new TaskList();
+        this.input = new Scanner(System.in);
+    }
 
     public static void main(String[] args) {
+        Friday friday = new Friday();
+        friday.start();
+    }
+
+    public void start() {
         System.out.println("Hello! I'm FRIDAY!\n" +
                 "What can I do for you?");
         echo();
@@ -15,9 +28,7 @@ public class Duke {
      * Processes user inputs and interacts with the TaskList to execute user commands.
      * Continues to run until the user inputs the "bye" command.
      */
-    public static void echo() {
-        TaskList taskList = new TaskList();
-        Scanner input = new Scanner(System.in);
+    public void echo() {
         while (input.hasNextLine()) {
             try {
                 String userInput = input.nextLine();
@@ -41,7 +52,7 @@ public class Duke {
                 } else if (userInput.contains("todo")) {
                     String[] todoInput = userInput.split(" ", 2);
                     if (todoInput.length < 2 || todoInput[1].trim().isEmpty()) {
-                        throw new DukeException("OOPS!!! The description of a todo cannot be empty.\n");
+                        throw new FridayException("OOPS!!! The description of a todo cannot be empty.\n");
                     }
                     Todo todo = new Todo(todoInput[1]);
                     System.out.println("added: " + todo);
@@ -50,11 +61,11 @@ public class Duke {
                 } else if (userInput.contains("deadline")) {
                     String[] commandAndDetails = userInput.split(" ", 2);
                     if (commandAndDetails.length < 2 || !userInput.contains("/by")) {
-                        throw new DukeException("Incorrect format for 'deadline'. Here is a sample:\ndeadline return book /by Sunday\n");
+                        throw new FridayException("Incorrect format for 'deadline'. Here is a sample:\ndeadline return book /by Sunday\n");
                     }
                     String[] taskAndDate = commandAndDetails[1].split(" /by ", 2);
                     if (taskAndDate.length < 2) {
-                        throw new DukeException("Please provide both a task description and a deadline date.");
+                        throw new FridayException("Please provide both a task description and a deadline date.");
                     }
                     String taskDescription = taskAndDate[0];
                     String deadlineDate = taskAndDate[1];
@@ -65,11 +76,11 @@ public class Duke {
                 } else if (userInput.contains("event")) {
                     String[] commandAndDetails = userInput.split(" ", 2);
                     if (commandAndDetails.length < 2 || !userInput.contains("/from") || !userInput.contains("/to")) {
-                        throw new DukeException("Incorrect format for 'event'. Expected format: event TASK_DESCRIPTION /from START_TIME /to END_TIME");
+                        throw new FridayException("Incorrect format for 'event'. Expected format: event TASK_DESCRIPTION /from START_TIME /to END_TIME");
                     }
                     String[] taskAndTimes = commandAndDetails[1].split(" /from | /to ", 3);
                     if (taskAndTimes.length < 3) {
-                        throw new DukeException("Please provide a task description, start time, and end time.");
+                        throw new FridayException("Please provide a task description, start time, and end time.");
                     }
                     String taskDescription = taskAndTimes[0];
                     String startTime = taskAndTimes[1];
@@ -79,9 +90,9 @@ public class Duke {
                     taskList.add(event);
                     taskList.message();
                 } else {
-                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+                    throw new FridayException("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
                 }
-            } catch (DukeException e) {
+            } catch (FridayException e) {
                 System.out.println(e.getMessage());
             }
         }
