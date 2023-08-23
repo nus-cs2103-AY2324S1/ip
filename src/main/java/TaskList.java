@@ -11,26 +11,28 @@ public class TaskList {
         return taskList.get(i - 1);
     }
 
-    public void doTask(int i) {
-        getTask(i).markDone();
+    public void doTask(String input) {
+        int number = Integer.parseInt(input.substring(5));
+        getTask(number).markDone();
         System.out.println("ALRIGHT NICE I'll mark this as completed :)");
-        System.out.println(getTask(i));
+        System.out.println(getTask(number));
     }
 
-    public void undoTask(int i) {
-        getTask(i).markUndone();
+    public void undoTask(String input) {
+        int number = Integer.parseInt(input.substring(7));
+        getTask(number).markUndone();
         System.out.println("Oh nooo I will mark this undone then :(");
-        System.out.println(getTask(i));
+        System.out.println(getTask(number));
     }
 
-    public void addTask(String item) {
-        this.taskList.add(Task.newTask(taskList.size() + 1, item));
-        System.out.println("Added: " + item);
+    public void addTask(Task task) {
+        this.taskList.add(task);
+        System.out.println("Added: \n" + task.toString());
     }
 
     public void printList() {
         for (Task t : taskList) {
-            System.out.println(t.toString());
+            System.out.printf("%d.%s%n",taskList.indexOf(t) + 1, t.toString());
         }
     }
 }

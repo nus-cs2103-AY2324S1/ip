@@ -11,17 +11,22 @@ public class Phi {
         greeting();
 
         String input = sc.nextLine();
+
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 taskList.printList();
             } else if (input.startsWith("mark")) {
-                int number = Integer.parseInt(input.substring(5));
-                taskList.doTask(number);
+                taskList.doTask(input);
             } else if (input.startsWith("unmark")) {
-                int number = Integer.parseInt(input.substring(7));
-                taskList.undoTask(number);
+                taskList.undoTask(input);
+            } else if (input.startsWith("todo")){
+                taskList.addTask(ToDo.newToDo(input));
+            } else if (input.startsWith("deadline") && input.contains("/by")){
+                taskList.addTask(Deadline.newDeadline(input));
+            } else if (input.startsWith("event") && input.contains("/from") && input.contains("/to")) {
+                taskList.addTask(Event.newEvent(input));
             } else {
-                taskList.addTask(input);
+                System.out.println("SIKE I can't process that! Try again or say \"bye\" to exit");
             }
             input = sc.nextLine();
         }

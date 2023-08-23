@@ -1,16 +1,12 @@
-public class Task {
-    int number;
+public abstract class Task {
+    String type;
     boolean done;
     String taskName;
 
-    private Task(int number, boolean done, String taskName) {
-        this.number = number;
+    public Task(String type, boolean done, String taskName) {
+        this.type = type;
         this.done = done;
         this.taskName = taskName;
-    }
-
-    public static Task newTask(int number, String taskName) {
-        return new Task(number, false, taskName);
     }
 
     public void markDone() {
@@ -24,7 +20,7 @@ public class Task {
     @Override
     public String toString() {
         return done
-                ? String.format("%d.[X] %s",number, taskName)
-                : String.format("%d.[ ] %s",number, taskName);
+                ? String.format("[%s][X] %s", type, taskName)
+                : String.format("[%s][ ] %s", type, taskName);
     }
 }
