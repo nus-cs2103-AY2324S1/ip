@@ -29,9 +29,9 @@ public class Duke {
      * Displays a list of the user's past inputs.
      * @param inputs An array containing the user's inputs.
      */
-    private static void list(ArrayList<String> inputs) {
+    private static void list(ArrayList<Task> inputs) {
 
-        System.out.println("Here's a log of the your past inputs:");
+        System.out.println("Here are your tasks for today.");
 
         if (inputs.isEmpty()) {
             System.out.println("...\n" + "You haven't said anything yet...");
@@ -47,23 +47,35 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<String> inputs = new ArrayList<>();
+        ArrayList<Task> inputs = new ArrayList<>();
 
         greet();
 
         while (true) {
-            String input = scanner.next();
+
+            String input = scanner.nextLine();
+
             if (Objects.equals(input, "bye")) {
                 break;
             }
 
             System.out.println(softbreak);
 
-            if (Objects.equals(input, "list")) {
+            if (input.startsWith("mark ")) {
+                Task task = inputs.get(Integer.parseInt(input.substring(5)) - 1);
+                task.toggleDone();
+                System.out.println("Mission accomplished.");
+                System.out.println(task);
+            } else if (input.startsWith("unmark ")) {
+                Task task = inputs.get(Integer.parseInt(input.substring(7)) - 1);
+                task.toggleDone();
+                System.out.println("Uncharacteristic of you. More work has been added to the pile.");
+                System.out.println(task);
+            } else if (input.equals("list")) {
                 list(inputs);
             } else {
                 System.out.println("added: " + input);
-                inputs.add(input);
+                inputs.add(new Task(input));
             }
 
             System.out.println(hardbreak);
