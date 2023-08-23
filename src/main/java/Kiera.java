@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Kiera {
     protected static String name = "Kiera";
@@ -14,26 +15,28 @@ public class Kiera {
                 + "    " 
                 + "muaks! <3\n"
                 + line;
-    protected static Task[] store = new Task[100];
-    protected static Integer index = 0;
+    
+    protected static ArrayList<Task> store = new ArrayList<Task>();
+    protected static int index = 0;
 
 
     public static String list() {
         String result = "";
-            for (int i = 0; i < index; i++) {
-                Task t = store[i];
-                String status = t.getStatusIcon();
-                String desc = t.getDescription();
+        if (index == 0) {
+            return line + "\n    nothing for you to do yet! \n" + result + line;
+        }
+        for (int i = 0; i < index; i++) {
+            Task t = store.get(i);
 
-                result = result +  "    " + (i + 1) + ". " + t.toString() +  "\n";
+            result = result +  "    " + (i + 1) + ". " + t.toString() +  "\n";
 
-            }
+        }
         return line + "\n    you need to get these done today:\n" + result + line;
     }
 
     public static String mark(String input) {
-        Integer unchecked = Integer.valueOf(input.replace("mark ", "")) - 1;
-        Task t = store[unchecked];
+        int unchecked = Integer.valueOf(input.replace("mark ", "")) - 1;
+        Task t = store.get(unchecked);
 
         t.markAsDone();
 
@@ -46,8 +49,8 @@ public class Kiera {
     }
 
     public static String unmark(String input) {
-        Integer checked = Integer.valueOf(input.replace("mark ", "")) - 1;
-        Task t = store[checked];
+        int checked = Integer.valueOf(input.replace("mark ", "")) - 1;
+        Task t = store.get(checked);
 
         t.markAsUndone();
 
@@ -83,8 +86,9 @@ public class Kiera {
             t = new Event(desc, start, end);
         }
         
-        store[index] = t;
-        String plural = index == 0 ? "task" : "tasks";
+        store.add(t);
+        index ++;
+        String plural = index == 1 ? "task" : "tasks";
             
         return line 
             + "\n    " 
@@ -92,11 +96,34 @@ public class Kiera {
             + "      "
             + t.toString()
             + "\n    "
-            + (index + 1) 
+            + (index) 
             + " more "
             + plural
             + " to go! \n"
             + line;
+    }
+
+    public static String delete(String input) {
+        int deleted = Integer.valueOf(input.replace("delete ", "")) - 1;
+        Task t = store.get(deleted);
+
+        store.remove(deleted);
+        index --;
+
+        String plural = index == 0 ? "task" : "tasks";
+
+        return line 
+            + "\n    " 
+            + "alright, this task is gone: \n"
+            + "      "
+            + t.toString()
+            + "\n    "
+            + (index) 
+            + " more "
+            + plural
+            + " left! \n"
+            + line;
+
     }
     public static void main(String[] args) {
         
@@ -121,19 +148,21 @@ public class Kiera {
                 System.out.println(list());
                 continue;
             }
+
+            if (input.startsWith("delete")) {
+                System.out.println(delete(input));
+                continue;
+            }
             
             if (input.startsWith("todo")) {
                 String desc = input.replace("todo ", "");
                 System.out.println(addTask(desc, "todo"));
-                index ++;
             } else if (input.startsWith("deadline")) {
                 String desc = input.replace("deadline ", "");
                 System.out.println(addTask(desc, "deadline"));
-                index ++;
             } else if (input.startsWith("event")) {
                 String desc = input.replace("event ", "");
                 System.out.println(addTask(desc, "event"));
-                index ++;
             } else {
                 System.out.println(line + "\n    sorry, i don't know what this means... \n" + line);
             }
