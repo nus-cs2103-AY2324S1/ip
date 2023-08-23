@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
-    static String HORIZONTAL_LINE = "    __________________________________________________"; //50 underscores.
+    static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
     static String INDENT = "    "; //4 spaces.
     static ArrayList<Task> taskList = new ArrayList<>(100);
 
@@ -87,11 +87,12 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidCommandException{
+        Boolean repeatFlag = true;
         greet();
-        try (Scanner scanner = new Scanner(System.in)) {
-            Boolean repeatFlag = true;
-            while (repeatFlag) {
+        Scanner scanner = new Scanner(System.in);
+        while (repeatFlag) {
+            try {
                 String userInput = scanner.nextLine();
                 //Level-4 Inrement: Use userInput.startWith() to check first word before splitting
 
@@ -108,22 +109,24 @@ public class Duke {
                 } else if (words[0].equals("unmark")) {
                     int taskIndex = Integer.parseInt(words[1]) - 1; // Potential Error if next input is can't be converted to Integer
                     unmarkTask(taskIndex);
-                } else if (userInput.startsWith("deadline")){
+                } else if (userInput.startsWith("deadline")) {
                     Deadline.handleDeadlineTask(userInput);
                 } else if (userInput.startsWith("todo")) {
                     Todo.handleTodoTask(userInput);
                 } else if (userInput.startsWith("event")) {
                     Event.handleEventTask(userInput);
                 } else {
-                    System.out.println(HORIZONTAL_LINE);
-                    System.out.println("     Please input valid commands. Currently SeeWhyAre bot supports:");
-                    System.out.println("     todo \n     deadline \n     event \n     list");
-                    System.out.println(HORIZONTAL_LINE);
+                    throw new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
                 }
+            } catch (EmptyDescriptionException e) {
+                e.printExceptionMessage();
+            } catch (InvalidCommandException e) {
+                e.printExceptionMessage();
+            } catch (Exception e) {
+                System.out.println(HORIZONTAL_LINE);
+                System.out.println("     Very Invalid command! Please enter valid commands");
+                System.out.println(HORIZONTAL_LINE);
             }
-        } catch (Exception e) {
-            System.out.println("Invalid command! Please enter valid commands");
-            System.out.println(HORIZONTAL_LINE);
         }
     }
 }
