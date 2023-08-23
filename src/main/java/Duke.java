@@ -40,23 +40,44 @@ public class Duke {
                 System.out.println("I see you're not going to " + checkedTask.description + " but remember to do it later!");
                 System.out.println(checkedTask.toString());
             } else if (input.startsWith("todo")) {
-                Task item = new ToDo(input.replace("todo ", ""));
-                list.add(item);
-                System.out.println("todo added: " + item.toString());
-                System.out.println("You have this many stuff to complete: " + list.size());
-            } else if (input.startsWith("deadline ")) {
-                String parts[] = input.split("/by");
-                Task item = new Deadline(parts[0].replace("deadline ", ""), parts[1]);
-                list.add(item);
-                System.out.println("deadline added: " + item.toString());
-                System.out.println("You need to complete " + list.size() + " more tasks");
+                try {
+                    Task item = new ToDo(input.replace("todo", ""));
+                    if (item.description.isEmpty()) {
+                        throw new NoDescException("here's literally how to create a todo: todo [task name]");
+                    }
+                    list.add(item);
+                    System.out.println("todo added: " + item.toString());
+                    System.out.println("You have this many stuff to complete: " + list.size());
+                } catch (NoDescException e) {
+                }
+            } else if (input.startsWith("deadline")) {
+                try {
+                    String parts[] = input.split("/by");
+                    if (input.replace("deadline", "").isEmpty()) {
+                        throw new NoDescException("how am i suppose to know what is due...");
+                    }
+                    if (!input.contains("/by")) {
+                        throw new DeadlineNoEndException("here's literally how to create a deadline: deadline [task name] /by [date]");
+                    }
+                    Task item = new Deadline(parts[0].replace("deadline ", ""), parts[1]);
+                    list.add(item);
+                    System.out.println("deadline added: " + item.toString());
+                    System.out.println("You have this many stuff to complete: " + list.size());
+                } catch (NoDescException e) {
+                } catch (DeadlineNoEndException e){}
             } else if (input.startsWith("event")) {
-                String parts[] = input.split("/from");
-                String time[] = parts[1].split("/to");
-                Task item = new Event(parts[0].replace("event ", ""), time[0], time[1]);
-                list.add(item);
-                System.out.println("event added: " + item.toString());
-                System.out.println("You need to complete " + list.size() + " more tasks");
+                try {
+                    String parts[] = input.split("/from");
+                    if (parts.length == 1) {
+                        throw new NoDescException("how am i suppose to know what is going on...");
+                    }
+                    String time[] = parts[1].split("/to");
+                    Task item = new Event(parts[0].replace("event", ""), time[0], time[1]);
+                    list.add(item);
+                    System.out.println("event added: " + item.toString());
+                    System.out.println("You have this many stuff to complete: " + list.size());
+                } catch (NoDescException e) {
+                }
             }
         }
     }
