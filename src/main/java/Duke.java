@@ -13,12 +13,20 @@ public class Duke {
         System.out.println("You... can call me... Bocchi. They usually... call me Bocchi chan...");
         System.out.println("What can... can I do for you? (°□°;) ");
         System.out.println("____________________________________________________________");
+        TaskList tasks = new TaskList();
         Scanner echoObject = new Scanner(System.in);
         String echo = echoObject.nextLine();
         while(!echo.equals("bye")) {
-            System.out.println("____________________________________________________________");
-            System.out.println(echo);
-            System.out.println("____________________________________________________________");
+            if(!echo.equals("list")) {
+                System.out.println("____________________________________________________________");
+                System.out.println("added: " + echo);
+                tasks.addToList(echo);
+                System.out.println("____________________________________________________________");
+            } else {
+                System.out.println("____________________________________________________________");
+                tasks.printList();
+                System.out.println("____________________________________________________________");
+            }
             Scanner nextEchoObject = new Scanner(System.in);
             echo = nextEchoObject.nextLine();
         }
