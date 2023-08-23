@@ -10,7 +10,7 @@ public class Duchess {
     /**
      * An ArrayList to store text in.
      */
-    private static final ArrayList<Task> storedText = new ArrayList<>();
+    private static final ArrayList<Task> storedTasks = new ArrayList<>();
 
     /**
      * Prints text, but with a consistent formatting in Duchess style.
@@ -58,9 +58,9 @@ public class Duchess {
      *
      * @param s - the string to be stored.
      */
-    private static void storeText(String s) {
+    private static void storeTasks(String s) {
         Task t = new Task(s);
-        Duchess.storedText.add(t);
+        Duchess.storedTasks.add(t);
 
         Duchess.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
         Duchess.duchessPrint(t.toString());
@@ -71,7 +71,7 @@ public class Duchess {
      *
      * @param s - the command to check for "list text" command.
      */
-    private static boolean isListTextCommand(String s) {
+    private static boolean isListTasksCommand(String s) {
         return s.toLowerCase().equals("list");
     }
 
@@ -80,10 +80,10 @@ public class Duchess {
      *
      * @param s - the string to be stored.
      */
-    private static void listText() {
+    private static void listTasks() {
         Duchess.duchessPrint("Here are the things you said!! ヽ(^o^)丿");
-        for (int i = 0; i < Duchess.storedText.size(); i++) {
-            Duchess.duchessPrint(String.format("%d: %s", i, Duchess.storedText.get(i).toString()));
+        for (int i = 0; i < Duchess.storedTasks.size(); i++) {
+            Duchess.duchessPrint(String.format("%d: %s", i, Duchess.storedTasks.get(i).toString()));
         }
     }
 
@@ -102,13 +102,13 @@ public class Duchess {
             }
 
             // Check if this command is a list.
-            if (Duchess.isListTextCommand(userInput)) {
-                Duchess.listText();
+            if (Duchess.isListTasksCommand(userInput)) {
+                Duchess.listTasks();
                 continue;
             }
 
             // Otherwise, store the command.
-            Duchess.storeText(userInput);
+            Duchess.storeTasks(userInput);
         }
 
         sc.close();
