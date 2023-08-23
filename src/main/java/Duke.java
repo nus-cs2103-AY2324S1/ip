@@ -11,23 +11,31 @@ public class Duke {
             + "Bye. Don't come back!\n"
             + "______________________________________";
 
-    static void addToList(String str) {
+    static void addToList(String str) throws DukeException {
         Task t = null;
         if (str.startsWith("todo")) {
-            t = new ToDo(str.substring(5));
+            if (str.length() <= 5) {
+                throw new DukeException("So um, what exactly do you need to do? Add it as the description of the todo.");
+            } else {
+                t = new ToDo(str.substring(5));
+            }
         } else if (str.startsWith("event")) {
+            if (str.length() <= 6) {
+                throw new DukeException("So um, what exactly do you have? Add it as the description of the event.");
+            }
             int indexFrom = str.lastIndexOf("/from");
             int indexTo = str.lastIndexOf("/to");
             t = new Event(str.substring(6, indexFrom-1),
                     str.substring(indexFrom+6, indexTo-1), str.substring(indexTo+4));
         } else if (str.startsWith("deadline")) {
+            if (str.length() <= 9) {
+                throw new DukeException("So um, what exactly do you need to do? Add it as the description of the deadline.");
+            }
             int indexBy = str.lastIndexOf("/by");
             t = new Deadline(str.substring(9, indexBy-1), str.substring(indexBy+4));
         }
         if (t == null) {
-            System.out.println("______________________________________\n"
-                    + "Uncivilised speech. Please try again with words I can understand.\n"
-                    + "______________________________________\n");
+            throw new DukeException("Uncivilised speech. Please try again with words I can understand.");
         } else {
             taskList.add(t);
             String returnLine = "______________________________________\n"
@@ -48,11 +56,8 @@ public class Duke {
         System.out.println("______________________________________\n");
     }
 
-    public static void main(String[] args) {
-        System.out.println(greeting);
-        while (isEnd == false) {
-            Scanner sc = new Scanner(System.in);
-            String command = sc.nextLine();
+    static boolean awaitCommand(String command) {
+        try {
             if (command.equals("bye")) {
                 isEnd = true;
             } else if (command.equals("list")) {
@@ -66,6 +71,22 @@ public class Duke {
             } else {
                 addToList(command);
             }
+            return true;
+        } catch (DukeException e) {
+            System.out.println("______________________________________\n");
+            e.printMessage();
+            System.out.println("______________________________________\n");
+        } finally {
+            return true;
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(greeting);
+        Scanner sc = new Scanner(System.in);
+        while (isEnd == false) {
+            String command = sc.nextLine();
+            awaitCommand(command);
         }
         System.out.println(goodbye);
     }
