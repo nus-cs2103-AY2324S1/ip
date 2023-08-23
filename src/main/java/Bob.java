@@ -34,6 +34,50 @@ public class Bob {
         System.out.println("added: " + desc);
         System.out.println(horizontal);
     }
+    public void addTodo(String text) {
+        Todo task = new Todo(text);
+        list[this.count] = task;
+        this.count++;
+
+        System.out.println(horizontal);
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(task);
+        System.out.println("Now you have " + count + " tasks in the list.");
+        System.out.println(horizontal);
+    }
+
+    public void addDeadline(String text) {
+        String[] split = text.split(" /by ", 2);
+        String desc = split[0];
+        String by = split[1];
+        Deadline task = new Deadline(desc, by);
+        list[this.count] = task;
+        this.count++;
+
+        System.out.println(horizontal);
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(task);
+        System.out.println("Now you have " + count + " tasks in the list.");
+        System.out.println(horizontal);
+    }
+
+    public void addEvent(String text) {
+        String[] slice = text.split(" /from ", 2);
+        String desc = slice[0];
+        String[] slicess = slice[1].split(" /to ", 2);
+        String from = slicess[0];
+        String to = slicess[1];
+
+        Event task = new Event(desc, from, to);
+        list[this.count] = task;
+        this.count++;
+
+        System.out.println(horizontal);
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(task);
+        System.out.println("Now you have " + count + " tasks in the list. ");
+        System.out.println(horizontal);
+    }
 
     public void listOut() {
         System.out.println(horizontal);

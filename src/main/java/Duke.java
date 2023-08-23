@@ -12,7 +12,7 @@ public class Duke {
 
         while (true) {
             String line = sc.nextLine();
-            String[] words = line.split(" ");
+            String[] words = line.split(" ", 2);
             String firstWord = words[0];
 
             if (firstWord.equalsIgnoreCase("bye")) {
@@ -25,6 +25,12 @@ public class Duke {
             } else if (words.length > 1 && firstWord.equalsIgnoreCase("unmark")) {
                 int index = Integer.parseInt(words[1]);
                 bob.unmarkTask(index - 1);
+            } else if (words.length > 1 && firstWord.equalsIgnoreCase("todo")) {
+                bob.addTodo(words[1]);
+            } else if (words.length > 1 && firstWord.equalsIgnoreCase("deadline")) {
+                bob.addDeadline(words[1]);
+            }else if (words.length > 1 && firstWord.equalsIgnoreCase("event")) {
+                bob.addEvent(words[1]);
             } else {
                 bob.addTask(line);
             }
