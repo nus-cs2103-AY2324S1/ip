@@ -1,8 +1,13 @@
+/***
+ * Task class, superclass to Todo, Deadline and Event subclasses
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    //total number of tasks
     protected static int size = 0;
+
 
     public Task(String description) {
         this.description = description;
@@ -20,6 +25,10 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /***
+     * Sets isDone to true or false depending on user input
+     * @param action string mark or unmark
+     */
     public void setAction(String action){
         String s = "";
         if(action.equals("mark")){
@@ -34,6 +43,9 @@ public class Task {
 
     }
 
+    /***
+     * reduce size of tasks and print remaining number
+     */
     public void delete(){
         size = size -1;
         System.out.println("Noted. I've removed this task:");

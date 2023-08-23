@@ -3,6 +3,12 @@ import java.util.ArrayList;
 
 public class Duke {
 
+    /***
+     * Checks user inputs, if invalid throws DukeException
+     * @param str User input split by each word
+     * @param task type of task - todo,event,deadline,mark/unmark
+     * @throws DukeException
+     */
     public static void inputChecker(String[] str, String task) throws DukeException{
 
         if (str.length <2 ) {
@@ -25,6 +31,8 @@ public class Duke {
                 flag = false;
                 System.out.println("Bye. Hope to see you again soon!");
             }
+
+            //list out each task from tasks ArrayList
             else if (input.equals("list")) {
                 System.out.println("  Here are the tasks in your list:");
                 for (int i = 0; i < Task.getSize(); i++) {
@@ -33,6 +41,7 @@ public class Duke {
 
                 }
             }
+            //create Todo object
             else if (splitStr[0].equals("todo")){
                 try{
                     inputChecker(splitStr, "todo");
@@ -44,6 +53,7 @@ public class Duke {
                 }
 
             }
+            //create deadline object, splitting the due date by "/" and stripping off the by:
             else if (splitStr[0].equals("deadline")){
                 try{
                     inputChecker(splitStr, "deadline");
@@ -55,9 +65,9 @@ public class Duke {
                 catch (DukeException e){
                     System.out.println(e.getMessage());
                 }
-
-
             }
+
+            //create event object, splitting the due date by "/" and stripping off the to: and from:
             else if (splitStr[0].equals("event")){
                 try{
                     inputChecker(splitStr, "event");
@@ -70,9 +80,9 @@ public class Duke {
                 catch (DukeException e){
                     System.out.println(e.getMessage());
                 }
-
-
             }
+
+            //mark or unmark an existing task
             else if(splitStr[0].equals("mark") || splitStr[0].equals("unmark")){
                 try {
                     inputChecker(splitStr, "mark/unmark");
@@ -86,6 +96,7 @@ public class Duke {
 
             }
 
+            //delete task from tasks ArrayList
             else if(splitStr[0].equals("delete")){
                 try {
                     inputChecker(splitStr, "delete");
@@ -97,6 +108,8 @@ public class Duke {
                     System.out.println(e.getMessage());
                 }
             }
+
+            //unknown command
             else{
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
