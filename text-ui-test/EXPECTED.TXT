@@ -16,14 +16,14 @@ OOPS!!! The description of a deadline cannot be empty and the deadline for the d
 Got it. I've added this task:
  [D][ ] lecture quiz (by: 9pm)
 Now you have 3 task(s) in the list.
-Here are the task(s) in your list:
+Here are the tasks in your list:
 1.[T][ ] sleep
 2.[E][ ] meeting (from: 2pm to: 4pm)
 3.[D][ ] lecture quiz (by: 9pm)
-OOPS!! Invalid task number. The task number has to be from one to the number of tasks in the list.
+OOPS!! Task number cannot empty. Please indicate a task number from one to the number of tasks in the list.
 Nice! I've marked this task as done:
 [T][X] sleep
-OOPS!! Task number cannot empty. Please indicate a task number from one to the number of tasks in the list.
+OOPS!! Invalid task number. The task number has to be from one to the number of tasks in the list.
 OK, I've marked this task as not done yet:
 [T][ ] sleep
 OOPS!! Invalid task number. The task number has to be from one to the number of tasks in the list.

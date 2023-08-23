@@ -1,5 +1,15 @@
+/**
+ * Represents a task of type todo
+ *
+ * @author Celestine
+ */
 public class Todo extends Task {
 
+    /**
+     * A constructor for a task of type todo
+     *
+     * @param description the task details
+     */
     public Todo(String description) {
         super(description);
     }

@@ -1,7 +1,18 @@
+/**
+ * Represents a task of type Deadline
+ *
+ * @author Celestine
+ */
 public class Deadline extends Task {
 
     protected String by;
 
+    /**
+     * A constructor for a task of type Deadline
+     *
+     * @param description the task details
+     * @param by the deadline for the task
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;

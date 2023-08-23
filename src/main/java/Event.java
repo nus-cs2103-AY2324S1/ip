@@ -1,15 +1,27 @@
+/**
+ * Represents a task of type Event
+ *
+ * @author Celestine
+ */
 public class Event extends Task {
 
-    protected String period;
+    protected String from;
+    protected String to;
 
-    public Event(String description, String period) {
+    /**
+     * A constructor for task of type Event
+     *
+     * @param description the task details
+     * @param period the start and end date/time for the task
+     */
+    public Event(String description, String from, String to) {
         super(description);
-        this.period = period;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
     public String toString() {
-        String[] interval = period.split(" /to ");
-        return "[E]" + super.toString() + " (from: " + interval[0] + " to: " + interval[1] + ")";
+        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 }
