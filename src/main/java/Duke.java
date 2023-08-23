@@ -41,6 +41,14 @@ public class Duke {
         this.indent();
     }
 
+    public void deleteCommand(int index) {
+        this.indent();
+        System.out.println("The following task has been removed:");
+        System.out.println(index + ") " + this.tasks.get(index - 1).toString());
+        System.out.println("Is there anything else I can assist you with?");
+        this.indent();
+    }
+
     public void list() {
         this.indent();
         if (this.tasks.size() == 0) {
@@ -61,7 +69,7 @@ public class Duke {
         }
 
         // Check if mark is not receiving a number.
-        if (!Character.isDigit(this.split[1].charAt(0))) {
+        if (this.split[1].isBlank() || !Character.isDigit(this.split[1].charAt(0))) {
             throw new DukeException("I cannot mark a character! Please enter a number.");
         }
 
@@ -79,6 +87,28 @@ public class Duke {
             this.tasks.get(index - 1).revertTask();
             unmarkCommand(index);
         }
+    }
+
+    public void delete() throws DukeException {
+        // Check if mark is receiving any input or receiving extra input
+        if (this.split.length != 2) {
+            throw new DukeException("Please enter a valid delete command!");
+        }
+
+        // Check if mark is not receiving a number.
+        if (this.split[1].isBlank() || !Character.isDigit(this.split[1].charAt(0))) {
+            throw new DukeException("I cannot delete a character index! Please enter a number.");
+        }
+
+        int index = Character.getNumericValue(this.split[1].charAt(0));
+
+        // Check if index is invalid or the task exists.
+        if (index <= 0 || this.tasks.size() <= index) {
+            throw new DukeException("The task you are trying to delete either doesnt exist, or is already marked");
+        }
+
+        deleteCommand(index);
+        this.tasks.remove(index - 1);
     }
 
     public void todo() throws DukeException {
@@ -111,7 +141,7 @@ public class Duke {
     public void event() throws DukeException {
 
         // Check if /from is present
-        if (split.length <= 1 || !this.split[1].contains(" /from ")) {
+        if (this.split.length <= 1 || !this.split[1].contains(" /from ")) {
             throw new DukeException("There is no task and/or from command present. Please try again.");
         }
 
@@ -147,7 +177,6 @@ public class Duke {
         Scanner input = new Scanner(System.in);
         while (true) {
             try {
-//                this.updateMessage(input.nextLine());
                 this.split = input.nextLine().split(" ", 2);
                 switch(this.split[0]) {
                     case "bye":
@@ -169,6 +198,9 @@ public class Duke {
                         break;
                     case "event":
                         this.event();
+                        break;
+                    case "delete":
+                        this.delete();
                         break;
                     default:
                         throw new DukeException("I'm sorry, I couldn't understand that. Please try again!");
