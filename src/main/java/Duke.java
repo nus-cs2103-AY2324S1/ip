@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
@@ -7,8 +8,7 @@ public class Duke {
                 "____________________________________________________________";
         System.out.println(intro);
 
-        int counter = 1;
-        String list = "";
+        ArrayList<String> list = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
         // Get user command
@@ -18,14 +18,15 @@ public class Duke {
         while (!cmd.equals("bye")) {
             // If cmd is "list", list items and wait for next command
             if (cmd.equals("list")) {
-                System.out.println(list);
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println(i+1 + ". " + list.get(i));
+                }
             } else {    // else, echo command and add to the list
                 String echo = "____________________________________________________________\n" +
                         " added: " + cmd + "\n" +
                         "____________________________________________________________";
                 System.out.println(echo);
-                list += counter + ". " + cmd + "\n";
-                counter++;
+                list.add(cmd);
             }
             cmd = sc.nextLine();
         }
