@@ -13,10 +13,10 @@ public class Messages {
         String userCommands;
         do {
             userCommands = scanner.nextLine();
-            if (!userCommands.equals(exitCommand)) {
+            if (!userCommands.equalsIgnoreCase(exitCommand)) {
                 System.out.println(userCommands);
             }
-        } while (!userCommands.equals(exitCommand));
+        } while (!userCommands.equalsIgnoreCase(exitCommand));
 
         System.out.println(EXIT);
     }
