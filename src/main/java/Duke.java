@@ -1,3 +1,6 @@
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Duke {
     private static String name = "WallE";
@@ -13,12 +16,20 @@ public class Duke {
         System.out.println("\tHello! I'm " + name + "!");
         System.out.println("\tWhat can I do for you?");
         printDivider(true);
+        List<String> inputs = new ArrayList<>();
         String input;
         do {
             input = scanner.nextLine();
             if (!input.equals("bye")) {
                 printDivider(true);
-                System.out.println('\t' + input);
+                if (!input.equals("list")) {
+                    inputs.add(input);
+                    System.out.println("\tadded: " + input);
+                } else {
+                    for (int i = 0; i < inputs.size(); i++) {
+                        System.out.println(String.format("\t%d. %s", i + 1, inputs.get(i)));
+                    }
+                }
                 printDivider(true);
             } else {
                 break;
