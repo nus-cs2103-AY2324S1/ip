@@ -74,6 +74,15 @@ public class Ally {
                     ally.addEvent(event[0], event[1], event[2]);
                 }
                 System.out.println(line);
+            }  else if (split[0].equals("delete")) {
+                System.out.println(line);
+                if (split.length == 1) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                } else {
+                    int index = Integer.parseInt(split[1]) - 1;
+                    ally.deleteElement(index);
+                }
+                System.out.println(line);
             } else {
                 ally.addElements(ipt);
                 System.out.println(line);

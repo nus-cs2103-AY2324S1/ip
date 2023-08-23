@@ -53,4 +53,11 @@ public class AllyList {
         printNewList(event);
     }
 
+    public void deleteElement(int index) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("\t" + arr.get(index));
+        arr.remove(index);
+        System.out.println("Now you have " + arr.size() + " tasks in the list.");
+    }
+
 }
