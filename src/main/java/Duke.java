@@ -49,6 +49,8 @@ public class Duke {
             performMarkCommand(args);
         } else if (isCommand(input, "unmark")) {
             performUnmarkCommand(args);
+        } else if (isCommand(input, "delete")) {
+            performDeleteCommand(args);
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
@@ -142,6 +144,30 @@ public class Duke {
 
         String[] message = {
                 "Ok, I've marked this task as not done yet:",
+                "\t " + task
+        };
+
+        printMessage(message);
+    }
+
+    private void performDeleteCommand(String args) throws DukeException {
+        int taskNumber;
+
+        try {
+            taskNumber = Integer.parseInt(args);
+        } catch (NumberFormatException exception) {
+            throw new DukeException("The task number must be specified.");
+        }
+
+        if (taskNumber < 1 || taskNumber > tasks.size()) {
+            throw new DukeException("No such task exists.");
+        }
+
+        Task task = tasks.get(taskNumber - 1);
+        tasks.remove(taskNumber - 1);
+
+        String[] message = {
+                "Noted. I've removed this task:",
                 "\t " + task
         };
 
