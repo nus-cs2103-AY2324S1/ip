@@ -1,31 +1,21 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static class Task {
-        public String name;
-        public boolean done;
+    private static String line = "____________________________________________________________";
+    private static Task[] items = new Task[100];
+    private static int itemsCount = 0;
 
-        public Task(String name) {
-            this.name = name;
-            this.done = false;
-        }
+    public static void addTask(Task t) {
+        items[itemsCount] = t;
+        itemsCount++;
 
-        public void markAsDone() {
-            this.done = true;
-        }
-
-        public void markAsUndone() {
-            this.done = false;
-        }
-
-        public String toString() {
-            return String.format("[%s] %s", this.done ? "X" : " ", this.name);
-        }
+        System.out.println("    Got it. I've added this task:");
+        System.out.println("      " + t);
+        System.out.println("    Now you have " + itemsCount + " task(s) in the list.");
+        System.out.println("    " + line);
     }
 
     public static void main(String[] args) {
-        String line = "____________________________________________________________";
-
         // Greeting
         System.out.println(line);
         System.out.println("Hello! I'm Eepy\nWhat can I do for you?");
@@ -33,8 +23,6 @@ public class Duke {
 
         // Get input and store it
         Scanner in = new Scanner(System.in);
-        Task[] items = new Task[100];
-        int itemsCount = 0;
 
         while (true) {
             String s = in.nextLine();
@@ -64,12 +52,30 @@ public class Duke {
                 items[index - 1].markAsUndone();
                 System.out.println("    OK, I've marked this task as not done yet:\n\t  " + items[index - 1]);
                 System.out.println("    " + line);
-            } else {
-                // Add item
-                items[itemsCount] = new Task(s);
-                itemsCount++;
+            } else if (s.startsWith("todo ")) {
+                // New ToDo item
+                String name = s.substring(5);
+                addTask(new ToDo(name));
+            } else if (s.startsWith("deadline ")) {
+                // New Deadline item
+                // Extract name and by
+                int byIndex = s.indexOf("/by");
+                String name = s.substring(9, byIndex).trim();
+                String by = s.substring(byIndex + 4).trim();
 
-                System.out.println("    added: " + s);
+                addTask(new Deadline(name, by));
+            } else if (s.startsWith("event ")) {
+                // New Event item
+                // Extract name, from and to
+                int fromIndex = s.indexOf("/from");
+                int toIndex = s.indexOf("/to");
+                String name = s.substring(6, fromIndex).trim();
+                String from = s.substring(fromIndex + 6, toIndex).trim();
+                String to = s.substring(toIndex + 4).trim();
+
+                addTask(new Event(name, from, to));
+            } else {
+                System.out.println("    I don't understand :(");
                 System.out.println("    " + line);
             }
         }
