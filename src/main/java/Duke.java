@@ -22,8 +22,7 @@ public class Duke {
                 System.out.println("here are the tasks in your list: ");
                 for (int i = 0; i < count; i++) {
                     Task task = tasks[i];
-                    String completed = task.getCompleted() ? "X" : " ";
-                    System.out.println((i + 1) + ". " + "[" + completed + "] " + task.getDescription());
+                    System.out.println((i + 1) + ". " + task.getString());
                 }
                 System.out.println(horizontal_line);
             } else if (userCommand.startsWith("mark ")) {
@@ -33,8 +32,7 @@ public class Duke {
                     Task task = tasks[num];
                     task.toggleCompleted();
                     System.out.println("Nice! I've marked this task as done:");
-                    String completed = task.getCompleted() ? "X" : " ";
-                    System.out.println("[" + completed + "] " + task.getDescription());
+                    System.out.println(task.getString());
                 }
             } else if (userCommand.startsWith("unmark ")) {
                 String[] parts = userCommand.split(" ");
@@ -43,14 +41,33 @@ public class Duke {
                     Task task = tasks[num];
                     task.toggleCompleted();
                     System.out.println("Okay. I see you haven't done this task yet");
-                    String completed = task.getCompleted() ? "X" : " ";
-                    System.out.println("[" + completed + "] " + task.getDescription());
+                    System.out.println(task.getString());
                 }
             } else {
+                Task currTask;
+                String[] parts = userCommand.split(" ", 2);
+                if (userCommand.startsWith("todo")) {
+                    currTask = new ToDos(parts[1]);
+                } else if (userCommand.startsWith("deadline")) {
+                    String secondPart = parts[1];
+                    String[] finalParts = secondPart.split(" /by ", 2);
+                    currTask = new Deadlines(finalParts[0], finalParts[1]);
+                } else if (userCommand.startsWith("event")) {
+                    String[] secondPartSplits = parts[1].split(" /from ", 2);
+                    String[] dates = secondPartSplits[1].split(" /to ", 2);
+                    String fromDate = dates[0].trim();
+                    String byDate = dates[1].trim();
+                    String description = secondPartSplits[0];
+                    currTask = new Events(description, fromDate, byDate);
+                } else {
+                    System.out.println("Cannot find task name");
+                    break;
+                }
+                tasks[count] = currTask;
+                String numTasks = String.valueOf(count + 1);
+                System.out.println("Got it I have added this task: " + "\n" +  currTask.getString());
+                System.out.println("Now you have " + numTasks + " task(s) in the list");
                 System.out.println(horizontal_line);
-                System.out.println("added: " + userCommand);
-                System.out.println(horizontal_line);
-                tasks[count] = new Task(userCommand);
                 count++;
             }
         }

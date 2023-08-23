@@ -17,4 +17,14 @@ public class Task {
     public void toggleCompleted() {
         this.completed = !this.completed;
     }
+
+    public String getType() {
+        return "";
+    }
+
+    public String getString() {
+        String completed = this.getCompleted() ? "[X]" : "[ ]";
+        String taskType = "[" + this.getType() + "] ";
+        return taskType + completed + description;
+    }
 }
