@@ -26,6 +26,7 @@ public class CommandParser {
         }
 
         if (commandType.equals("todo")) {
+            argumentString = argumentString.trim();
             if (argumentString.isEmpty()) {
                 throw new InvalidTaskFormatException("description", "todo");
             }
@@ -34,18 +35,30 @@ public class CommandParser {
 
         if (commandType.equals("deadline")) {
             String[] deadlineParts = argumentString.split("/by", 2);
+            for (int i = 0; i < deadlineParts.length; i++) {
+                deadlineParts[i] = deadlineParts[i].trim();
+                if (deadlineParts[i].isEmpty()) {
+                    throw new InvalidTaskFormatException("description or /by", "deadline");
+                }
+            }
             if (deadlineParts.length < 2) {
                 throw new InvalidTaskFormatException("description or /by", "deadline");
             }
-            return new Command(CommandType.DEADLINE, new String[]{deadlineParts[0].trim(), deadlineParts[1].trim()});
+            return new Command(CommandType.DEADLINE, new String[]{deadlineParts[0], deadlineParts[1]});
         }
 
         if (commandType.equals("event")) {
             String[] eventParts = argumentString.split("/from|/to", 3);
+            for (int i = 0; i < eventParts.length; i++) {
+                eventParts[i] = eventParts[i].trim();
+                if (eventParts[i].isEmpty()) {
+                    throw new InvalidTaskFormatException("description or /from or /to", "event");
+                }
+            }
             if (eventParts.length < 3) {
                 throw new InvalidTaskFormatException("description or /from or /to", "event");
             }
-            return new Command(CommandType.EVENT, new String[]{eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()});
+            return new Command(CommandType.EVENT, new String[]{eventParts[0], eventParts[1], eventParts[2]});
         }
 
         throw new InvalidCommandException();
