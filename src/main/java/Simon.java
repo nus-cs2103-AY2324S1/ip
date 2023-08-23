@@ -62,6 +62,8 @@ public class Simon {
                 tasks.get(index).markAsDone();
                 System.out.println("Nice! I've marked this task as done:\n" +
                         "[X] " + tasks.get(index) + nSpace);
+            } else if (inData.equals("bye")) {
+                break;
             }
             else {
                 tasks.add(new Task(inData));
