@@ -22,10 +22,19 @@ public class Task {
     }
 
     // Setters
-    public Task markTaskCompleted(){
-        return new Task(this.name, true);
+    public void markTaskCompleted(){
+        this.status = true;
     }
-    public Task markTaskUncompleted(){
-        return new Task(this.name, false);
+    public void markTaskUncompleted(){
+        this.status = false;
+    }
+
+    @Override
+    public String toString(){
+        if (this.status){
+            return "[X] " + this.name ;
+        } else {
+            return "[ ] " + this.name ;
+        }
     }
 }
