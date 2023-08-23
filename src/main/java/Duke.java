@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        int itemsAdded = 0;
+        // do not put line 7 in the while loop
+        String[] listToDisplay = new String[100]; // assume there will be <= 100 tasks
         System.out.println("Hello friend :> My name is John, nice to meet you!\n" +
                 "Feel free to ask me anything.\n");
 
@@ -14,14 +17,20 @@ public class Duke {
                 System.out.println("Bye for now, hope to see you soon.");
                 sc.close();
                 break;
+            } else if (command.equals("list")) {
+                for (int i = 1; i <= itemsAdded; i++) {
+                    System.out.println(i + ". " + listToDisplay[i - 1]);
+                }
             } else {
-                System.out.println(command);
+                listToDisplay[itemsAdded] = command; // add new command
+                System.out.println("added: " + command); // show user that it is added
+                itemsAdded++; // increment number of items
             }
         }
 
     }
 }
-
+ 
 /*
 public class Duke {
     public static void main(String[] args) {
