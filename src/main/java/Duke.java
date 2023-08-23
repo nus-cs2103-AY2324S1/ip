@@ -1,6 +1,12 @@
+import exception.DukeException;
+import exception.InvalidCommandException;
+import exception.InvalidSyntaxException;
+
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
+        String[] commands = new String[] {"bye", "list", "todo", "deadline", "event",
+                "mark", "unmark"};
         boolean listen = true;
         int index = 0;
         /** Captures user input*/
@@ -15,9 +21,12 @@ public class Duke {
 
         System.out.println("Hello! I'm JonBird.\nWhat can I do for you?\n");
         while (listen) {
-            input = jonBird.nextLine();
+            input = jonBird.nextLine().trim();
             String[] inp = input.split("\\s+");
             int taskIndex = 0;
+            if (!isValidCommand(inp[0], commands)) {
+                input = "";
+            }
             if (inp[0].equalsIgnoreCase("mark") || inp[0].equalsIgnoreCase("unmark")) {
                 if (inp.length == 2) {
                     try {
@@ -33,7 +42,11 @@ public class Duke {
                 endDate = "";
                 for (; i < inp.length; i++) {
                     if (inp[i].equals("/by")) break;
-                    title += " " + inp[i];
+                    if (title.equals("")) {
+                        title = inp[i];
+                    } else {
+                        title += " " + inp[i];
+                    }
                 }
                 for (int j = i + 1; j < inp.length; j++) {
                     if (endDate.equals("")) {endDate = inp[j]; }
@@ -76,11 +89,8 @@ public class Duke {
 
             switch (input) {
                 case "":
-                    if (inp.length == 0) {
-                        System.out.println("Please enter something!");
-                    } else {
-                        System.out.println("Unknown command!");
-                    }
+                    DukeException excep = new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
+                    System.out.println("JonBird:\n\t" + excep.toString());
                     break;
                 case "bye":
                     listen = false;
@@ -96,13 +106,33 @@ public class Duke {
                     inputList[taskIndex-1].markAsDone();
                     break;
                 default:
+                    if (inp.length < 2) {
+                        excep = new InvalidSyntaxException("The description of a " + inp[0] + " cannot be empty.");
+                        System.out.println("JonBird:\n\t" + excep.toString());
+                        break;
+                    }
                     if (inp[0].equals("todo")) {
                         inputList[index] = new Todos(title);
                     }
                     if (inp[0].equals("deadline")) {
+                        if (endDate.equals("")) {
+                            excep = new InvalidSyntaxException("The end date of a " + inp[0] + " cannot be empty.");
+                            System.out.println("JonBird:\n\t" + excep.toString());
+                            break;
+                        }
                         inputList[index] = new Deadlines(title, endDate);
                     }
                     if (inp[0].equals("event")) {
+                        if (startDate.equals("")) {
+                            excep = new InvalidSyntaxException("The start date of a " + inp[0] + " cannot be empty.");
+                            System.out.println("JonBird:\n\t" + excep.toString());
+                            break;
+                        }
+                        if (endDate.equals("")) {
+                            excep = new InvalidSyntaxException("The end date of a " + inp[0] + " cannot be empty.");
+                            System.out.println("JonBird:\n\t" + excep.toString());
+                            break;
+                        }
                         inputList[index] = new Events(title, startDate, endDate);
                     }
                     index += 1;
@@ -120,5 +150,14 @@ public class Duke {
         for (int i = 0; i < index; i++) {
             System.out.println("\t\t"+ (i+1) + ". " + list[i].printTask());
         }
+    }
+
+    public static boolean isValidCommand(String value, String[] commands) {
+        for (String str: commands) {
+            if (str.equals(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
