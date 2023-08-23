@@ -1,10 +1,10 @@
+import java.sql.Array;
 import java.util.Scanner;
-import java.util.Arrays;
+import java.util.ArrayList;
 public class Duke {
 
     public static void main(String[] args) {
-        Task[] tasks = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> tasks = new ArrayList<Task>();
         System.out.println(
                 "____________________________________________________________\n" +
                 "Hello! I'm Ding!\n" +
@@ -18,19 +18,19 @@ public class Duke {
                 switch (command) {
                     case "list":
                         System.out.println("Ding: These are your tasks... If I remember correctly:");
-                        for (int i = 0; i < taskCount; i++) {
-                            System.out.println(String.format("%d. %s", i + 1, tasks[i]));
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println(String.format("%d. %s", i + 1, tasks.get(i)));
                         }
                         break;
                     case "mark":
                         if (str.split(" ").length == 2) {
                             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
-                            if (taskIndex + 1 > taskCount || taskIndex < 0) {
+                            if (taskIndex + 1 > tasks.size() || taskIndex < 0) {
                                 System.out.println("Ding: I can't find that task :( I may have lost it...");
                                 throw new InvalidTaskIndexException("Invalid Task Index.");
                             }
-                            tasks[taskIndex].markAsDone();
-                            System.out.println(String.format("Ding: Okay, I marked this task as done, but I have no idea what that means:\n %s", tasks[taskIndex]));
+                            tasks.get(taskIndex).markAsDone();
+                            System.out.println(String.format("Ding: Okay, I marked this task as done, but I have no idea what that means:\n %s", tasks.get(taskIndex)));
                         } else {
                             System.out.println("Ding: Which task do you want to mark as done?");
                             throw new MissingTaskIndexException("Task Index Missing.");
@@ -39,12 +39,12 @@ public class Duke {
                     case "unmark":
                         if (str.split(" ").length == 2) {
                             int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
-                            if (taskIndex + 1 > taskCount || taskIndex < 0) {
+                            if (taskIndex + 1 > tasks.size() || taskIndex < 0) {
                                 System.out.println("Ding: I can't find that task :( I may have lost it...");
                                 throw new InvalidTaskIndexException("Invalid Task Index.");
                             }
-                            tasks[taskIndex].markAsUndone();
-                            System.out.println(String.format("Ding: Okay, I marked this task as undone, but I have no idea what that means:\n %s", tasks[taskIndex]));
+                            tasks.get(taskIndex).markAsUndone();
+                            System.out.println(String.format("Ding: Okay, I marked this task as undone, but I have no idea what that means:\n %s", tasks.get(taskIndex)));
                         } else {
                             System.out.println("Ding: Which task do you want to mark as undone?");
                             throw new MissingTaskIndexException("Task Index Missing.");
@@ -53,11 +53,8 @@ public class Duke {
                     case "todo":
                         if (str.split(" ").length > 1) {
                             ToDo todo = new ToDo(str.split(" ")[1]);
-                            tasks[taskCount] = todo;
-                            if (taskCount < 100) {
-                                taskCount++;
-                            }
-                            System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n You have like %d tasks now", str, taskCount));
+                            tasks.add(todo);
+                            System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n You have like %d tasks now", str, tasks.size()));
                         } else {
                             System.out.println("Ding: I seriously have no idea what I need to do here");
                             throw new InvalidDescriptionException("Invalid description.");
@@ -70,11 +67,8 @@ public class Duke {
                             String by = fullTaskDescription.split(" /by ")[1];
 
                             Deadline deadline = new Deadline(description, by);
-                            tasks[taskCount] = deadline;
-                            if (taskCount < 100) {
-                                taskCount++;
-                            }
-                            System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n You have like %d tasks now", str, taskCount));
+                            tasks.add(deadline);
+                            System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n You have like %d tasks now", str, tasks.size()));
                         } else {
                             System.out.println("Ding: I seriously have no idea what I need to do here");
                             throw new InvalidDescriptionException("Invalid description.");
@@ -88,14 +82,27 @@ public class Duke {
                             String to = fullTaskDescription.split(" /to ")[1];
 
                             Event event = new Event(description, from, to);
-                            tasks[taskCount] = event;
-                            if (taskCount < 100) {
-                                taskCount++;
-                            }
-                            System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n You have like %d tasks now", str, taskCount));
+                            tasks.add(event);
+                            System.out.println(String.format("Ding: What does '%s' mean? I'll just add it anyway.\n You have like %d tasks now", str, tasks.size()));
                         } else {
                             System.out.println("Ding: I seriously have no idea what I need to do here");
                             throw new InvalidDescriptionException("Invalid description.");
+                        }
+                        break;
+                    case "delete":
+                        if (str.split(" ").length == 2) {
+                            int taskIndex = Integer.parseInt(str.split(" ")[1]) - 1;
+                            if (taskIndex + 1 > tasks.size() || taskIndex < 0) {
+                                System.out.println("Ding: I can't find that task :( I may have lost it...");
+                                throw new InvalidTaskIndexException("Invalid Task Index.");
+                            }
+                            Task toRemove = tasks.get(taskIndex);
+                            tasks.remove(taskIndex);
+                            System.out.println(String.format("Ding: Okay, I've forgotten this task, so don't expect me to remember it:\n %s", toRemove));
+                            System.out.println(String.format("Ding: Right so now you have like %d tasks left", tasks.size()));
+                        } else {
+                            System.out.println("Ding: Which task do you want delete?");
+                            throw new MissingTaskIndexException("Task Index Missing.");
                         }
                         break;
                     default:
@@ -115,14 +122,14 @@ public class Duke {
 
             } catch (InvalidTaskIndexException e) {
                 System.out.println("Ding: Oh wait it's not lost, the task number you gave just doesn't exist in your list...");
-                if (taskCount > 0) {
-                    System.out.println(String.format("Ding: Please input a task number from 1 to %d", taskCount));
+                if (tasks.size() > 0) {
+                    System.out.println(String.format("Ding: Please input a task number from 1 to %d", tasks.size()));
                 } else {
-                    System.out.println("Ding: You have nothing in your task list... What are you even trying to get me to mark or unmark?");
+                    System.out.println("Ding: You have nothing in your task list... What are you even trying to get me to do?");
                 }
             } catch (MissingTaskIndexException e) {
-                System.out.println("Ding: I don't quite understand what you want to mark or unmark...");
-                System.out.println("Ding: Please input 'mark (number)' or 'unmark (number)'...");
+                System.out.println("Ding: I don't quite understand what you want to do...");
+                System.out.println("Ding: Please input '(command) (number)'...");
             } finally {
                 System.out.println("\n____________________________________________________________\n");
                 str = sc.nextLine();
