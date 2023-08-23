@@ -1,8 +1,9 @@
 import java.sql.Array;
 import java.util.ArrayList;
 
-public class Task {
+public abstract class Task {
     static ArrayList<Task> allTasks = new ArrayList<Task>();
+
     String name;
     boolean isDone;
 
@@ -34,4 +35,16 @@ public class Task {
     public String toString() {
         return this.name;
     }
+
+//    static int getNumIncompleteTasks() {
+//        int totalCount = 0;
+//        for (Task t : allTasks) {
+//            if (!t.getDone()) {
+//                totalCount++;
+//            }
+//        }
+//        return totalCount;
+//    }
+
+    abstract String getTaskType();
 }

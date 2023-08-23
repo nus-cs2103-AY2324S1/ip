@@ -6,9 +6,11 @@ public class TaskMate {
 
     static String horizontalLine = "--------------------";
     static String chatbotName = "TaskMate";
-    static String MARK_COMMAND_NAME = "mark";
-    static String UNMARK_COMMAND_NAME = "unmark";
-
+    static String MARK_COMMAND_NAME = "mark ";
+    static String UNMARK_COMMAND_NAME = "unmark ";
+    static String TODO_COMMAND_NAME = "todo ";
+    static String DEADLINE_COMMAND_NAME = "deadline ";
+    static String EVENT_COMMAND_NAME = "event ";
 
     public static void main(String[] args) {
 
@@ -21,7 +23,7 @@ public class TaskMate {
         String userInput;
         while (true) {
             userInput = sc.nextLine();
-            // Exits
+            // exits
             if (userInput.equals("bye")) {
                 break;
             // list
@@ -91,12 +93,11 @@ public class TaskMate {
     }
 
     static void processListCommand() {
+        // EDIT
         String allTasksString = "Here are the tasks in your list:\n";
         for (int i = 0; i < Task.getAllTasks().size(); i++) {
             Task newTask = Task.getAllTasks().get(i);
-            boolean isDone = newTask.getDone();
-            char isDoneString = isDone ? 'X' : ' ';
-            allTasksString += Integer.toString(i+1) + ".[" + isDoneString + "] " + newTask + "\n";
+            allTasksString += Integer.toString(i+1) + "." + newTask.toString() + "\n";
         }
         printReply(allTasksString);
     }
@@ -109,8 +110,7 @@ public class TaskMate {
             taskToMark.markAsDone();
 
             // print message when marking as done
-            String message = "[X] " + taskToMark;
-            message = "Nice! I've marked this task as done:\n" + message;
+            String message = "Nice! I've marked this task as done:\n" + taskToMark;
             printReply(message);
 
         } else {
@@ -127,8 +127,27 @@ public class TaskMate {
     }
 
     static Task processAddTaskCommand(String userInput) {
-        Task newTask = new Task(userInput);
-        printReply("added: " + userInput);
+        Task newTask;
+        if (userInput.startsWith("todo ")) {
+            newTask = new Todo(userInput.substring(TODO_COMMAND_NAME.length()));
+        } else if (userInput.startsWith("deadline ")) {
+            userInput = userInput.substring(DEADLINE_COMMAND_NAME.length());
+            String[] splitUserInput = userInput.split(" /");
+            newTask = new Deadline(
+                    splitUserInput[0],
+                    splitUserInput[1].replace("by ", "")
+            );
+        } else {
+            userInput = userInput.substring(EVENT_COMMAND_NAME.length());
+            String[] splitUserInput = userInput.split(" /");
+            newTask = new Event(
+                    splitUserInput[0],
+                    splitUserInput[1].replace("from ", ""),
+                    splitUserInput[2].replace("to ", "")
+            );
+        }
+
+        printReply("Got it. I've added this task:\n" + newTask.toString() + "\nNow you have " + Task.getAllTasks().size() + " task(s) in the list.");
         return newTask;
     }
 }
