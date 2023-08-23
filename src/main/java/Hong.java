@@ -22,6 +22,8 @@ public class Hong {
                 createEvent(userInput);
             } else if (userInput.startsWith("todo")) {
                 createTodo(userInput);
+            } else if (userInput.startsWith("delete")) {
+                deleteTask(userInput);
             } else {
                 Task currentTask = new Task(userInput);
                 String currentMessage = line + "\n" + "added: " + userInput + "\n" + line;
@@ -102,6 +104,23 @@ public class Hong {
         String message = line + "\nGot it. I've added this task:\n" + taskMessage + "\nNow you have " + tasks.size() +
                 " tasks in the list.\n" + line;
         System.out.println(message);
+    }
+
+    private static void deleteTask(String userInput) {
+        String[] arrInput = userInput.split(" ");
+        try {
+
+            Task currentTask = tasks.get(Integer.valueOf(arrInput[1]) - 1);
+            tasks.remove(Integer.valueOf(arrInput[1]) - 1);
+            System.out.println(line);
+            System.out.println("Noted. I've removed this task:");
+            String currentItem = currentTask.toString();
+            System.out.println(currentItem);
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println(line);
+        } catch (IndexOutOfBoundsException err){
+            throw new DukeException("This Task index does not exist!", err);
+        }
     }
 
 }
