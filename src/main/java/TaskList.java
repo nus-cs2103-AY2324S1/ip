@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 public class TaskList {
     /**
      * A task list that stores the user's tasks.
      */
-    private String[] taskList;
+    private ArrayList<Task> taskList;
     /**
      * An index that tracks the current newest position in the task list.
      */
@@ -12,28 +14,57 @@ public class TaskList {
      * Constructor for the TaskList class.
      */
     public TaskList() {
-        this.taskList = new String[100];
+        this.taskList = new ArrayList<>(100);
         this.index = 0;
     }
 
     /**
      * Adds a task to the task list.
+     * Prints the name of the task added.
      *
      * @param task The task to be added into the task list.
      */
-    public void addTask(String task) {
-        this.taskList[this.index] = task;
+    public void addTask(Task task) {
+        this.taskList.add(task);
         this.index++;
+        System.out.println("added: " + task.getName());
     }
 
     /**
      * Prints the contents of the task list in the order they were added.
      */
     public void printTaskList() {
-        for (int i = 0; i < this.taskList.length; i++) {
-            if (this.taskList[i] != null) {
-                System.out.println((i+1) + ". " + this.taskList[i]);
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < this.taskList.size(); i++) {
+            if (this.taskList.get(i) != null) {
+                System.out.println((i+1) + ". " + this.taskList.get(i).toString());
             }
         }
+    }
+
+    /**
+     * Marks the task with the specified index as done.
+     * Prints a notification indicating that the specified task has been marked done.
+     *
+     * @param index
+     */
+    public void markDone(int index) {
+        Task task = this.taskList.get(index - 1);
+        task.setDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task);
+    }
+
+    /**
+     * Marks the task with the specified index as not done.
+     * Prints a notification indicating that the specified task has been marked not done.
+     *
+     * @param index
+     */
+    public void markNotDone(int index) {
+        Task task = this.taskList.get(index - 1);
+        task.setNotDone();
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task);
     }
 }
