@@ -1,12 +1,15 @@
 
+import Tasks.Deadline;
+import Tasks.Event;
 import Tasks.Task;
+import Tasks.Todo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<Task>(100);
-        int counter = 0;
         String logo =
                   "\n" +
                           "                                                     \n" +
@@ -15,31 +18,60 @@ public class Duke {
                           "   / /        //___) ) // ) )  ) ) //   ) ) //   ) ) \n" +
                           "  / /        //       // / /  / / //   / / //   / /  \n" +
                           " / /____/ / ((____   // / /  / / ((___/ / //   / /   \n";
-        System.out.println("Hello! I'm " + logo + "! \nWhat can I do for you?");
+        System.out.println("Hello! I'm Lemon!" + logo + "\nWhat can I do for you?");
         String input = scanner.nextLine();
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 System.out.println("Here are the tasks in your list: \n");
-                for (int i = 0; i < counter; i++ ) {
+                for (int i = 0; i < tasks.size(); i++ ) {
                     Task nextTask = tasks.get(i);
-                    System.out.println(i + 1 + ". [" + nextTask.getStatusIcon() + "] " + nextTask.getTaskDesc());
+                    System.out.println(i + 1 + ". " + nextTask.toString());
                 }
-            } else if (input.split(" ")[0].equals("mark")) {
-                int indexToMark = Integer.valueOf(input.split(" ")[1]);
-                Task markedTask = tasks.get(indexToMark - 1);
-                markedTask.markAsDone();
-                System.out.println("Nice! I've marked this task as done: \n [" + markedTask.getStatusIcon() + "] " + markedTask.getTaskDesc() + "\n");
-            }  else if (input.split(" ")[0].equals("unmark")) {
-                int indexToMark = Integer.valueOf(input.split(" ")[1]);
-                Task markedTask = tasks.get(indexToMark - 1);
-                markedTask.markAsUndone();
-                System.out.println("OK, I've marked this task as not done yet: \n [" + markedTask.getStatusIcon() + "] " + markedTask.getTaskDesc() + "\n");
+                System.out.println("\n");
+            } else {
+                String command = input.split(" ")[0].toLowerCase();
+                switch (command) {
+                    case "mark":
+                        int indexToMark = Integer.valueOf(input.split(" ")[1]);
+                        Task markedTask = tasks.get(indexToMark - 1);
+                        markedTask.markAsDone();
+                        System.out.println("Nice! I've marked this task as done: \n " + markedTask.toString() + "\n");
+                        break;
+                    case "unmark":
+                        int indexToUnmark = Integer.valueOf(input.split(" ")[1]);
+                        Task unmarkedTask = tasks.get(indexToUnmark - 1);
+                        unmarkedTask.markAsUndone();
+                        System.out.println("OK, I've marked this task as not done yet: \n " + unmarkedTask.toString() + "\n");
+                        break;
+                    case "todo":
+                        String taskDescription = input.split(" ", 2)[1];
+                        tasks.add(new Todo(taskDescription));
+                        System.out.println("Got it. I've added this task: " + taskDescription);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+                        break;
+                    case "deadline":
+                        String task = input.split(" ", 2)[1];
+                        String taskDesc = task.split("/by ", 2)[0];
+                        String by = task.split( "/by ", 2)[1];
+                        Task newDeadlineTask = new Deadline(taskDesc, by);
+                        tasks.add(newDeadlineTask);
+                        System.out.println("Got it. I've added this task: " + newDeadlineTask.toString());
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+                        break;
+                    case "event":
+                        String inputTask = input.split(" ", 2)[1];
+                        String taskDetails = inputTask.split("/from ", 2)[0];
+                        String from = inputTask.split("/from ", 2)[1].split( "/to ", 2)[0];
+                        String to = inputTask.split("/from ", 2)[1].split("/to ", 2)[1];
+                        Task newEventTask = new Event(taskDetails, from, to);
+                        tasks.add(newEventTask);
+                        System.out.println("Got it. I've added this task: " + newEventTask.toString());
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.\n");
+                        break;
+
+                }
             }
-            else {
-                System.out.println("added: " + input);
-                tasks.add(new Task(input));
-                counter++;
-            }
+
             input = scanner.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
