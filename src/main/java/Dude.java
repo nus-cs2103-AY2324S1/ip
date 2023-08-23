@@ -171,7 +171,7 @@ public class Dude {
         printMessage(noEventStart);
       } else {
         String[] splitEnd = splitStart[1].split("/to", 2);
-        if (splitStart.length < 2) {
+        if (splitEnd.length < 2) {
           // end date not specified
           printMessage(noEventEnd);
         } else {
