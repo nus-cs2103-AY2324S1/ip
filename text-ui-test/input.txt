@@ -1,0 +1,21 @@
+test
+
+todo apple Pen 2
+list
+list 1
+list apple Pen 2
+deadline eat apple
+deadline eat apple /by  tonight
+event something cool /to  today  /from  yesterday
+list
+mark 1
+list
+mark 1
+list
+unmark 2
+list
+unmark 1
+list
+deadline /by /by /by
+list
+bye
