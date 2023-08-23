@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Kevin {
     public static final String HORIZONTAL_LINE = "_".repeat(70);
+
     public static final String BOT_NAME = "\t \n" +
             "\t" + " _   __ _____ _   _ _____ _   _ \n" +
             "\t" +"| | / /|  ___| | | |_   _| \\ | |\n" +
@@ -31,6 +32,7 @@ public class Kevin {
         String goodbyeMessage = "Bye. Hope to see you again soon!";
         wrapInHorizontalLines(goodbyeMessage);
     }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ToDoList toDoList = new ToDoList();
@@ -38,13 +40,20 @@ public class Kevin {
         hello();
 
         while (true) {
-            String command = scanner.nextLine();
+            String fullCommand = scanner.nextLine();
+            String command = fullCommand.split(" ")[0];
             if (command.equals("bye")) {
                 break;
             } else if (command.equals("list")) {
                 wrapInHorizontalLines(toDoList.list());
-            } else {
-                wrapInHorizontalLines(toDoList.addList(command));
+            } else if (command.equals("mark")) {
+                int toDoIndex = Integer.parseInt(fullCommand.split(" ")[1]);
+                wrapInHorizontalLines(toDoList.mark(toDoIndex));
+            } else if (command.equals("unmark")) {
+                int toDoIndex = Integer.parseInt(fullCommand.split(" ")[1]);
+                wrapInHorizontalLines(toDoList.unmark(toDoIndex));
+            }  else {
+                wrapInHorizontalLines(toDoList.addList(fullCommand));
             }
         }
 
