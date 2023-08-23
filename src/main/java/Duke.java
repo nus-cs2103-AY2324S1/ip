@@ -1,12 +1,21 @@
+import com.sun.source.util.TaskListener;
+
 import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
     private static ArrayList<Task> taskList = new ArrayList<>();
-
     private static int number = 0;
     private static boolean activated = true;
     private static final String line = "____________________________________________________________";
+    private enum TaskType {
+        TODO, EVENT, DEADLINE
+    }
+
+    private enum MarkStatus {
+        MARK, UNMARK
+    }
+
 
     public static void printHello() {
         System.out.println(line);
@@ -30,18 +39,18 @@ public class Duke {
         System.out.println(line);
     }
 
-    public static void toggleMark(String mark, ArrayList<Task> taskList, String userInput) {
+    public static void toggleMark(MarkStatus mark, ArrayList<Task> taskList, String userInput) {
         String[] parts = userInput.split(" ");
         if (parts.length == 2) {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             if (taskIndex >= 0 && taskIndex < Duke.number) {
-                if (mark == "unmark") {
+                if (mark == MarkStatus.UNMARK) {
                     taskList.get(taskIndex).markAsNotDone();
                     System.out.println(line);
                     System.out.println("OK, I have marked this as undone:");
                     System.out.println("  " + taskList.get(taskIndex));
                     System.out.println(line);
-                } else {
+                } else if (mark == MarkStatus.MARK){
                     taskList.get(taskIndex).markAsDone();
                     System.out.println(line);
                     System.out.println("Good job! I have marked this task as completed:");
@@ -68,8 +77,8 @@ public class Duke {
         }
     }
 
-    public static void addTask(String taskType, String userInput) throws DukeException{
-        if (taskType == "todo") {
+    public static void addTask(TaskType taskType, String userInput) throws DukeException{
+        if (taskType == TaskType.TODO) {
             String description = userInput.substring(5).trim();
             if (description.isEmpty()) {
                 throw new DukeException("The description of a todo cannot be empty.");
@@ -81,7 +90,7 @@ public class Duke {
             System.out.println("  " + Duke.taskList.get(Duke.taskList.size() - 1));
             System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             System.out.println(line);
-        } else if (taskType == "event") {
+        } else if (taskType == TaskType.EVENT) {
             boolean wrongInput = false;
             String input = userInput.substring(5);
             String[] parts = input.split("/from");
@@ -108,7 +117,7 @@ public class Duke {
                 System.out.println("Now you have " + Duke.taskList.size() + " tasks in the list.");
                 System.out.println(line);
             }
-        } else if (taskType == "deadline") {
+        } else if (taskType == TaskType.DEADLINE) {
             boolean wrongInput = false;
             String input = userInput.substring(8);
             String[] parts = input.split("/by");
@@ -146,15 +155,15 @@ public class Duke {
             } else if (userInput.equalsIgnoreCase("list")) {
                 printList(Duke.taskList);
             } else if (userInput.startsWith("todo")) {
-                addTask("todo", userInput);
+                addTask(TaskType.TODO, userInput);
             } else if (userInput.startsWith("event")) {
-                addTask("event", userInput);
+                addTask(TaskType.EVENT, userInput);
             } else if (userInput.startsWith("deadline")) {
-                addTask("deadline", userInput);
+                addTask(TaskType.DEADLINE, userInput);
             } else if (userInput.startsWith("mark")) {
-                toggleMark("mark", Duke.taskList, userInput);
+                toggleMark(MarkStatus.MARK, Duke.taskList, userInput);
             } else if (userInput.startsWith("unmark")) {
-                toggleMark("unmark", Duke.taskList, userInput);
+                toggleMark(MarkStatus.UNMARK, Duke.taskList, userInput);
             } else if (userInput.startsWith("delete")) {
                 String[] parts = userInput.split(" ");
                 if (parts.length == 2) {
