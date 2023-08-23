@@ -9,15 +9,16 @@ public class Duke {
     private static final String invalidIndexMessage = "Great heavens! You have entered an invalid index!\n";
     private static final String markDoneMessage = "Great success! I have marked this task as done:\n";
     private static final String markUndoneMessage = "Very nice! I have marked this task as not done yet:\n";
+    private static final String listMessage = "Here are the tasks in your list:\n";
 
     private static void printWithLines(String message) {
         System.out.print(line + message + line);
     }
 
     private static void printList(ArrayList<Task> list) {
-        System.out.print(line);
+        System.out.print(line + listMessage);
         for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + ": " + list.get(i));
+            System.out.println((i + 1) + ". " + list.get(i));
         }
         System.out.print(line);
     }
