@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
-        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String logo = "       .__               \n"
                 + "  ____ |__| ____   ____  \n"
@@ -25,8 +25,9 @@ public class Duke {
             }
         }
     }
-    public static void evaluate(String command, ArrayList<String> tasks) {
+    public static void evaluate(String command, ArrayList<Task> tasks) {
         final String HORIZONTAL = "_____________________________________________________________";
+        String words[] = command.split(" ");
         if(command.equals("bye")) {
             System.out.println(HORIZONTAL);
             System.out.println("Bye. Hope to see you again soon!");
@@ -36,13 +37,35 @@ public class Duke {
             System.out.println(HORIZONTAL);
             for(int i = 0;i < length; i++) {
                 int task_number = i + 1;
-                System.out.println(task_number + ". " + tasks.get(i));
+                Task t =  tasks.get(i);
+                System.out.println(task_number + ". "
+                        + "["
+                        + t.getStatusIcon()
+                        + "]"
+                        + " "
+                        + t);
             }
             System.out.println(HORIZONTAL);
-        } else {
-            tasks.add(command);
+        } else if(words[0].equals("mark")) {
+            Task t = tasks.get(Integer.parseInt(words[1]) - 1);
+            t.markDone();
             System.out.println(HORIZONTAL);
-            System.out.println("added: " + command);
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("[" + t.getStatusIcon() + "] " + t);
+            System.out.println(HORIZONTAL);
+
+        } else if(words[0].equals(("unmark"))){
+            Task t = tasks.get(Integer.parseInt(words[1]) - 1);
+            t.markUndone();
+            System.out.println(HORIZONTAL);
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("[" + t.getStatusIcon() + "] " + t);
+            System.out.println(HORIZONTAL);
+        } else{
+            Task t = new Task(command);
+            tasks.add(t);
+            System.out.println(HORIZONTAL);
+            System.out.println("added: " + t);
             System.out.println(HORIZONTAL);
         }
     }
