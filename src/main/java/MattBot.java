@@ -64,23 +64,38 @@ public class MattBot {
                 Task t;
                 if (command.equals("todo")) {
                     t = new Todo(arguments);
+                    taskList.add(t);
+                    System.out.println("I've added this to your tasks: ");
+                    System.out.println(t);
                 } else if (command.equals("deadline")) {
                     String name = arguments.split(" /by ",2)[0];
                     String dueDate = arguments.split(" /by ",2)[1];
                     t = new Deadline(name, dueDate);
+                    taskList.add(t);
+                    System.out.println("I've added this to your tasks: ");
+                    System.out.println(t);
                 } else if (command.equals("event")) {
                     String name = arguments.split(" /from ",2)[0];
                     String dates = arguments.split(" /from ",2)[1];
                     String startDate = dates.split(" /to ")[0];
                     String endDate = dates.split(" /to ",2)[1];
                     t = new Event(name, startDate, endDate);
+                    taskList.add(t);
+                    System.out.println("I've added this to your tasks: ");
+                    System.out.println(t);
+                } else if (command.equals("delete")) {
+                    if (taskList.size() == 0 || taskList.size() < Integer.parseInt(arguments)) {
+                        System.out.println("Oops, you're deleting a task that doesn't exist.");
+                        continue;
+                    }
+                    t = taskList.get(Integer.parseInt(arguments)-1);
+                    System.out.println("I have removed this task:");
+                    System.out.println(t);
+                    taskList.remove(Integer.parseInt(arguments)-1);
                 } else {
                     System.out.println("I didn't quite understand your input.");
                     continue;
                 }
-                taskList.add(t);
-                System.out.println("I've added this to your tasks: ");
-                System.out.println(t);
                 printBottom();
             }
         }
