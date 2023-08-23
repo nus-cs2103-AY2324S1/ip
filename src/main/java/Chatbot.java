@@ -2,21 +2,25 @@ import java.util.ArrayList;
 
 /**
  * A chatbot to interact with. Provides methods to allow for users to easily
- * interact with the bot and for clients to subscribe to chat messages.
+ * interact with the bot and for UI clients to subscribe to chat messages.
  */
 public class Chatbot extends EventEmitter<ChatMessage> {
 
     /** The default name of the chatbot. */
     public static String DEFAULT_NAME = "Todoify";
 
+
+    private static Chatbot sharedInstance = null;
     /**
-     * Returns a global singleton for the chatbot with the default name.
+     * Returns the global singleton for the chatbot with the default name.
      * To start talking with it, call {@link Chatbot#openConversation()}.
      */
-    public static Chatbot getInstance() {
-        return new Chatbot(Chatbot.DEFAULT_NAME);
+    public static Chatbot getSharedInstance() {
+        if (sharedInstance == null) {
+            sharedInstance = new Chatbot(Chatbot.DEFAULT_NAME);
+        }
+        return sharedInstance;
     }
-
 
 
     private String name;

@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static final Chatbot chatbot = Chatbot.getInstance();
+    private static final Chatbot chatbot = Chatbot.getSharedInstance();
 
     public static void main(String[] args) {
 
