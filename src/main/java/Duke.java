@@ -46,6 +46,14 @@ public class Duke {
                 taskList.listTasks();
                 break;
 
+            case ("mark"):
+                taskList.mark(Integer.valueOf(commandArraycommand[1]));
+                break;
+
+            case ("unmark"):
+                taskList.unmark(Integer.valueOf(commandArraycommand[1]));
+                break;
+
             default:
                 taskList.addTask(command);
         }
@@ -55,20 +63,50 @@ public class Duke {
     }
 }
 
+class Task {
+    private String taskName;
+    private Boolean done;
+    public Task(String taskName) {
+        this.taskName = taskName;
+        this.done = false;
+    }
+    @Override
+    public String toString() {
+        return ("[" + (this.done ? "X] " : " ] ") + this.taskName);
+    }
+
+    public void mark() {
+        this.done = true;
+    }
+
+    public void unmark() {
+        this.done = false;
+    }
+}
+
 class ListOfTask {
-    private static String[] listOfTask = new String[100];
+    private static Task[] listOfTask = new Task[100];
     private static int counter = 0;
 
     public void addTask(String task) {
-        listOfTask[counter] = task;
+        listOfTask[counter] = new Task(task);
         counter++;
-        System.out.println(counter);
         System.out.println("added: " + task);
     }
 
     public void listTasks() {
         for(int i = 0; i < counter; i++) {
-            System.out.println(i+1 + ". " + listOfTask[i]);
+            System.out.println(i+1 + "." + listOfTask[i].toString());
         }
+    }
+
+    public void mark(int index) {
+        listOfTask[index - 1].mark();
+        System.out.println(listOfTask[index - 1].toString());
+    }
+
+    public void unmark(int index) {
+        listOfTask[index - 1].unmark();
+        System.out.println(listOfTask[index - 1].toString());
     }
 }
