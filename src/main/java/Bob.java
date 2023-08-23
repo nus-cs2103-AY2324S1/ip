@@ -5,6 +5,11 @@ public class Bob {
 
     static ArrayList<Task> list = new ArrayList<Task>();
 
+    /**
+     * Marks a task as completed according to specified task index
+     *
+     * @param markNo index of the task in the list to be marked
+     */
     public static void markTask(int markNo) {
         if (markNo > 0 && markNo <= list.size()) {
             System.out.println("Nice! I've marked this task as done:");
@@ -15,6 +20,23 @@ public class Bob {
         }
     }
 
+    /**
+     * Deletes a task from the list according to specified task index
+     *
+     * @param deleteNo index of the task in the list to be deleted
+     */
+    public static void deleteTask(int deleteNo) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(list.get(deleteNo - 1).toString());
+        list.remove(deleteNo - 1);
+        System.out.println("Now you have " + String.valueOf(list.size()) + " tasks in the list.");
+    }
+
+    /**
+     * Adds a task into the list of tasks
+     *
+     * @param newTask the new Task object that is to be added into the list
+     */
     public static void addTask(Task newTask) {
         list.add(newTask);
         System.out.println("Got it. I've added this task:");
@@ -22,6 +44,13 @@ public class Bob {
         System.out.println("Now you have " + String.valueOf(list.size()) + " tasks in the list.");
     }
 
+    /**
+     * Checks what type of task is given in the input, Identifies the task name and dates/times (if applicable),
+     * then instantiates the Task of the specified type and adds it to list by calling addTask method.
+     *
+     * @param task the input string given
+     * @throws BobException
+     */
     public static void checkAndAddTask(String task) throws BobException {
         char[] charArray = task.toCharArray();
         String taskName = "";
@@ -112,6 +141,10 @@ public class Bob {
         throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 
+    /**
+     * Prints all the tasks in the list.
+     *
+     */
     public static void printTasks() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= list.size(); i++) {
@@ -128,12 +161,21 @@ public class Bob {
             String input = obj.nextLine();
             boolean isMark = false;
             int markNo = 0;
+            boolean isDelete = false;
+            int deleteNo = 0;
             char[] charArray = input.toCharArray();
 
             if (charArray[0] == 'm' && charArray[1] == 'a' && charArray[2] == 'r' && charArray[3] == 'k'
                     && Character.isWhitespace(charArray[4]) && Character.isDigit(charArray[5])) {
                 isMark = true;
                 markNo = Character.getNumericValue(charArray[5]);
+            }
+
+            if (charArray[0] == 'd' && charArray[1] == 'e' && charArray[2] == 'l' && charArray[3] == 'e' &&
+                    charArray[4] == 't' && charArray[5] == 'e' && Character.isWhitespace(charArray[6]) &&
+                    Character.isDigit(charArray[7])) {
+                isDelete = true;
+                deleteNo = Character.getNumericValue(charArray[7]);
             }
 
             if (input.equals("bye")) {
@@ -143,6 +185,8 @@ public class Bob {
                 printTasks();
             } else if (isMark) {
                 markTask(markNo);
+            } else if (isDelete) {
+                deleteTask(deleteNo);
             } else {
                 try {
                     checkAndAddTask(input);
