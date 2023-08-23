@@ -31,13 +31,13 @@ public class TaskMate {
             checkInvalidCommandTypeException(userInput);
 
             // exits
-            if (getCommandType(userInput).equals("bye")) {
+            if (getCommandType(userInput).equals(CommandTypes.bye.toString())) {
                 break;
             // list
-            } else if (getCommandType(userInput).equals("list")) {
+            } else if (getCommandType(userInput).equals(CommandTypes.list.toString())) {
                 processListCommand();
             // Add task OR mark/unmark
-            } else if (getCommandType(userInput).equals("mark") | getCommandType(userInput).equals("unmark")) {
+            } else if (getCommandType(userInput).equals(CommandTypes.mark.toString()) | getCommandType(userInput).equals(CommandTypes.unmark.toString())) {
                 try {
                     checkValidMarkOrUnmarkCommand(userInput);
                 } catch (InvalidCommandTypeException e) {
@@ -48,7 +48,7 @@ public class TaskMate {
                     System.exit(0);
                 }
                 processMarkUnmarkCommand(userInput);
-            } else if (getCommandType(userInput).equals("todo")) {
+            } else if (getCommandType(userInput).equals(CommandTypes.todo.toString())) {
                 try {
                     checkValidTodoCommand(userInput);
                 } catch (InvalidCommandTypeException e) {
@@ -59,10 +59,10 @@ public class TaskMate {
                     System.exit(0);
                 }
                 processAddTaskCommand(userInput);
-            } else if (getCommandType(userInput).equals("deadline")) {
+            } else if (getCommandType(userInput).equals(CommandTypes.deadline.toString())) {
                 // TODO: Add checks for Deadline-type tasks
                 processAddTaskCommand(userInput);
-            } else if (getCommandType(userInput).equals("event")) {
+            } else if (getCommandType(userInput).equals(CommandTypes.event.toString())) {
                 // TODO: Add checks for Event-type tasks
                 processAddTaskCommand(userInput);
             }
