@@ -36,6 +36,44 @@ public class BenBen {
         }
     }
 
+    public static class Todo extends Task {
+        public Todo(String description) {
+            super(description);
+        }
+
+        @Override
+        public String toString() {
+            return "[T] " + super.toString();
+        }
+    }
+
+    public static class Deadline extends Task {
+        protected String ddl;
+        public Deadline(String description, String ddl) {
+            super(description);
+            this.ddl = ddl;
+        }
+        @Override
+        public String toString() {
+            return "[D] " + super.toString() + " (by: " + ddl + ")";
+        }
+    }
+
+    public static class Event extends Task {
+        protected String startTime;
+        protected String endTime;
+        public Event(String description, String startTime, String endTime) {
+            super(description);
+            this.startTime = startTime;
+            this.endTime = endTime;
+        }
+        @Override
+        public String toString() {
+            return "[E] " + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        }
+    }
+
+
     public static void exit() {
         System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!\n" + line);
@@ -48,6 +86,94 @@ public class BenBen {
         counter++;
         System.out.println(line);
         System.out.println("added: " + t.description());
+        System.out.println(line);
+    }
+
+    public static void todo(String str) {
+        String[] strSplit = str.split("\\s+");
+        String des = "";
+        for (int i =  1; i < strSplit.length; i++) {
+            des = des + " " + strSplit[i];
+        }
+        des = des.trim();
+        Task t = new Todo(des);
+        arr[counter] = t;
+        counter++;
+        System.out.println(line);
+        System.out.println("Got it. I've added this task:\n");
+        System.out.println(t.toString());
+        System.out.println("Now you have " + counter + " tasks in the list.");
+        System.out.println(line);
+    }
+
+    public static void deadline(String str) {
+        String[] strSplit = str.split("\\s+");
+        String des = "";
+        String ddl = "";
+        boolean isDes = true;
+        for (int i =  1; i < strSplit.length; i++) {
+            if (strSplit[i].equals("/by")) {
+                isDes = false;
+                continue;
+            }
+
+            if (isDes) {
+                des = des + " " + strSplit[i];
+            } else {
+                ddl = ddl + " " + strSplit[i];
+            }
+        }
+        des = des.trim();
+        ddl = ddl.trim();
+
+        Task t = new Deadline(des, ddl);
+        arr[counter] = t;
+        counter++;
+        System.out.println(line);
+        System.out.println("Got it. I've added this task:\n");
+        System.out.println(t.toString());
+        System.out.println("Now you have " + counter + " tasks in the list.");
+        System.out.println(line);
+    }
+
+    public static void event (String str) {
+        String[] strSplit = str.split("\\s+");
+        String des = "";
+        String start = "";
+        String end = "";
+        boolean isDes = true;
+        boolean isStart = false;
+        for (int i =  1; i < strSplit.length; i++) {
+            if (strSplit[i].equals("/from")) {
+                isDes = false;
+                isStart = true;
+                continue;
+            }
+            if (strSplit[i].equals("/to")) {
+                isStart = false;
+                continue;
+            }
+
+
+            if (isDes && !isStart) {
+                des = des + " " + strSplit[i];
+            } else if (!isDes && isStart) {
+                start = start + " " + strSplit[i];
+            } else {
+                end = end + " " + strSplit[i];
+            }
+        }
+        des = des.trim();
+        start = start.trim();
+        end = end.trim();
+
+        Task t = new Event(des, start, end);
+        arr[counter] = t;
+        counter++;
+        System.out.println(line);
+        System.out.println("Got it. I've added this task:\n");
+        System.out.println(t.toString());
+        System.out.println("Now you have " + counter + " tasks in the list.");
         System.out.println(line);
     }
 
@@ -131,7 +257,19 @@ public class BenBen {
                 continue;
             }
 
-            add(next);
+            if (next.startsWith("todo")) {
+                todo(next);
+            }
+
+            if (next.startsWith("deadline")) {
+                deadline(next);
+            }
+
+            if (next.startsWith("event")) {
+                event(next);
+            }
+
+            //add(next);
         }
         System.exit(0);
     }
