@@ -1,9 +1,8 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     private static final String botName = "cc";
 
-    private static final ArrayList<String> memory = new ArrayList<>();
+    private static final ToDo toDo = new ToDo();
 
     private static void greet() {
         System.out.println("Hello! I'm " + botName);
@@ -17,26 +16,48 @@ public class Duke {
     private static void echo(String input) {
         System.out.println(input);
     }
+
+    private static boolean isMarkCommand(String input) {
+        return input.startsWith("mark ");
+    }
+
+    private static boolean isUnmarkCommand(String input) {
+        return input.startsWith("unmark ");
+    }
+
+    private static int extractValue(String input) {
+        String[] parts = input.split("\\s+");
+        return Integer.parseInt(parts[1]);
+    }
+
     public static void main(String[] args) {
         Duke.greet();
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-        while (input != null) {
+        boolean running = true;
+        while (running) {
+            String input = scanner.nextLine();
             if (input.equals("bye")) {
-                break;
+                Duke.bye();
+                running = false;
             } else if (input.equals("list")) {
-                for (int i = 0; i < memory.size(); i++) {
-                    int order = i + 1;
-                    System.out.println(order + ". " + memory.get(i));
+                toDo.print();
+            } else if (isMarkCommand(input)) {
+                int pos = extractValue(input);
+                if (pos > toDo.size() || pos <= 0) {
+                    System.out.println("Invalid index. Please enter again.");
+                    continue;
                 }
-                input = scanner.nextLine();
+                toDo.mark(pos);
+            } else if (isUnmarkCommand(input)) {
+                int pos = extractValue(input);
+                if (pos > toDo.size() || pos <= 0) {
+                    System.out.println("Invalid index. Please enter again.");
+                    continue;
+                }
+                toDo.unmark(pos);
             } else {
-                System.out.print("added: ");
-                echo(input);
-                memory.add(input);
-                input = scanner.nextLine();
+                toDo.add(new Task(input));
             }
         }
-        Duke.bye();
     }
 }
