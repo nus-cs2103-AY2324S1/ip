@@ -8,6 +8,7 @@ public class MarkCommand extends Command {
     String commandMessage = "";
     private int taskIndex;
     public MarkCommand(String[] details) {
+
         taskIndex = Integer.valueOf(details[0].replace("mark ", ""));
     }
 

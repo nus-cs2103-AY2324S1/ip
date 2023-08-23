@@ -66,6 +66,10 @@ public class Duke {
                 Command command = new ToDoCommand(userInputArray);
                 command.execute(taskList);
                 command.printOutput(command.getCommandMessage());
+            } else if (userInputArray[0].contains("delete")) {
+                Command command = new DeleteCommand(userInputArray);
+                command.execute(taskList);
+                command.printOutput(command.getCommandMessage());
             } else {
                 System.out.println("I do not understand");
             }

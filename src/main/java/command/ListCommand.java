@@ -14,6 +14,10 @@ public class ListCommand extends Command {
     }
     @Override
     public void execute(TaskList taskList) {
-        commandMessage = "Here are your tasks: " + "\n" + taskList.toString();
+        if (taskList.getLength() == 0) {
+            commandMessage = "Wow! You have no tasks!";
+        } else {
+            commandMessage = "Here are your tasks: " + "\n" + taskList.toString();
+        }
     }
 }
