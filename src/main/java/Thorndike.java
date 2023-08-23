@@ -1,6 +1,14 @@
-public class Thorndike {
-    public Thorndike() {
+import java.util.Scanner;
 
+public class Thorndike {
+    Scanner scanner;
+    String[] list;
+    int index;
+    Boolean running;
+
+    public Thorndike() {
+        this.scanner = new Scanner(System.in);
+        this.running = true;
     }
 
     /**
@@ -8,22 +16,50 @@ public class Thorndike {
      */
     public void start() {
         greet();
-        end();
+        while (running) {
+            listen();
+        }
+    }
+
+    /**
+     * Listens to command given to user.
+     */
+    private void listen() {
+        System.out.print(">> ");
+        String command = scanner.nextLine();
+
+        switch (command) {
+            case "bye":
+                exit();
+                break;
+            default:
+                echo(command);
+        }
+    }
+
+    /**
+     * Prints to terminal.
+     * 
+     * @param str The message to print.
+     */
+    private void echo(String str) {
+        System.out.println("    " + str);
     }
 
     /**
      * Sends greetings to user.
      */
     private void greet() {
-        System.out.println("Meow! I'm Thorndike.");
-        System.out.println("What can I do for you?");
+        echo("Meow! I'm Thorndike.");
+        echo("What can I do for you?");
     }
 
     /**
      * Terminates the chatbot.
      */
-    private void end() {
-        System.out.println("Bye meow! Hope to see you again soon!");
+    private void exit() {
+        this.running = false;
+        echo("Bye meow! Hope to see you again soon!");
     }
 
     public static void main(String[] args) {
