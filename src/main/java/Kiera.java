@@ -15,11 +15,7 @@ public class Kiera {
                 + "    " 
                 + "muaks! <3\n"
                 + line;
-        String[] store = new String[100];
-        Boolean[] done = new Boolean[100];
-        for (int i = 0; i < 100; i++) {
-            done[i] = false;
-        }
+        Task[] store = new Task[100];
         Integer index = 0;
 
         System.out.println(hello);
@@ -32,41 +28,66 @@ public class Kiera {
             System.out.println(line);
 
             if (input.startsWith("mark")) {
-                Integer unchecked = Integer.valueOf(input.replace("mark ", ""));
-                System.out.println("    yay, one task down: ");
-                done[unchecked] = true;
-                System.out.println("    [X] " + store[unchecked]);
-                System.out.println(line);
+                Integer unchecked = Integer.valueOf(input.replace("mark ", "")) - 1;
+                Task t = store[unchecked];
+
+                t.markAsDone();
+
+                String status = t.getStatusIcon();
+                String desc = t.getDescription();
+
+                System.out.println("    yay, one task down: \n"
+                            + "    "
+                            + "["
+                            + status
+                            + "] "
+                            + desc
+                            + "\n"
+                            + line);
                 continue;
             } 
             
             if (input.startsWith("unmark")){
-                Integer checked = Integer.valueOf(input.replace("unmark ", ""));
-                System.out.println("    ok, this task is not done yet: ");
-                done[checked] = false;
-                System.out.println("    [ ] " + store[checked]);
-                System.out.println(line);
+                Integer checked = Integer.valueOf(input.replace("mark ", "")) - 1;
+                Task t = store[checked];
+
+                t.markAsUndone();
+
+                String status = t.getStatusIcon();
+                String desc = t.getDescription();
+
+                System.out.println("    ok, this task is not done yet: \n"
+                            + "    "
+                            + "["
+                            + status
+                            + "] "
+                            + desc
+                            + "\n"
+                            + line);
                 continue;
             }
 
             if (input.equals("list")) {
                 System.out.println("    you need to get these done today:");
                 for (int i = 0; i < index; i++) {
-                    
-                    String checkbox = done[i] ? "[X] " : "[ ] ";
-                    System.out.println("    " + (i + 1) + ". " + checkbox + store[i]);
+                    Task t = store[i];
+                    String status = t.getStatusIcon();
+                    String desc = t.getDescription();
+
+                    System.out.println("    " + (i + 1) + ". ["  +  status + "] " + desc);
 
                 }
                 System.out.println(line);
                 continue;
             }
                 
-            store[index] = input;
+            Task t = new Task(input);
+            store[index] = t;
             index ++;
             
             System.out.println("    " 
                         + "added: "
-                        + input);
+                        + t.getDescription());
                 
             System.out.println(line);
         }
