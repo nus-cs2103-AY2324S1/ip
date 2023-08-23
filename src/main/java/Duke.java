@@ -9,6 +9,10 @@ public class Duke {
         Task[] inputList =  new Task[100];
         /** User input*/
         String input = "";
+        String title = "";
+        String startDate = "";
+        String endDate = "";
+
         System.out.println("Hello! I'm JonBird.\nWhat can I do for you?\n");
         while (listen) {
             input = jonBird.nextLine();
@@ -23,6 +27,51 @@ public class Duke {
                     }
                     ;
                 }
+            } else if (inp[0].equalsIgnoreCase("todo") || inp[0].equalsIgnoreCase("deadline")) {
+                int i = 1;
+                title = "";
+                endDate = "";
+                for (; i < inp.length; i++) {
+                    if (inp[i].equals("/by")) break;
+                    title += " " + inp[i];
+                }
+                for (int j = i + 1; j < inp.length; j++) {
+                    if (endDate.equals("")) {endDate = inp[j]; }
+                    else {
+                        endDate += " " + inp[j];
+                    }
+                }
+            } else if (inp[0].equalsIgnoreCase("event")) {
+                int start = 1;
+                int end = 0;
+                title = "";
+                startDate = "";
+                endDate = "";
+                for (; start < inp.length; start++) {
+                    if (inp[start].equals("/from")) break;
+                    if (title.equals("")) {
+                        title = inp[start];
+                    } else {
+                        title += " " + inp[start];
+                    }
+                }
+
+                for (end = start + 1; end < inp.length; end++) {
+                    if (inp[end].equals("/to")) break;
+                    if (startDate.equals("")) {
+                        startDate = inp[end];
+                    } else {
+                        startDate += " " + inp[end];
+                    }
+                }
+
+                for (int j = end + 1; j < inp.length; j++) {
+                    if (endDate.equals("")) {
+                        endDate = inp[j];
+                    } else {
+                        endDate += " " + inp[j];
+                    }
+                }
             }
 
             switch (input) {
@@ -32,7 +81,7 @@ public class Duke {
                     } else {
                         System.out.println("Unknown command!");
                     }
-
+                    break;
                 case "bye":
                     listen = false;
                     break;
@@ -46,9 +95,19 @@ public class Duke {
                     inputList[taskIndex-1].markAsDone();
                     break;
                 default:
-                    inputList[index] = new Task(input);
+                    if (inp[0].equals("todo")) {
+                        inputList[index] = new Todos(title);
+                    }
+                    if (inp[0].equals("deadline")) {
+                        inputList[index] = new Deadlines(title, endDate);
+                    }
+                    if (inp[0].equals("event")) {
+                        inputList[index] = new Events(title, startDate, endDate);
+                    }
                     index += 1;
-                    System.out.println("\tadded: " + input);
+                    System.out.println("\tGot it. I've added this task:");
+                    System.out.println("\t\t" + inputList[index-1].printTask());
+                    System.out.println("\tNow you have " + index + " tasks in the list.");
             }
         }
         jonBird.close();

@@ -27,12 +27,16 @@ public class Task {
 
     /** Return icon based on whether task is done or undone*/
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (this.isDone ? "[X] " : "[ ] "); // mark done task with X
     }
 
     /** Method to print the task*/
     public String printTask() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return this.getStatusIcon() + this.description;
+    }
+
+    public String getTypeIcon() {
+        return ("[Tk]");
     }
 
 }
