@@ -5,7 +5,7 @@ import java.util.ArrayList;
  */
 public class DukeList {
     /**The ArrayList used to store all tasks accordingly, up to a total of 100 tasks*/
-    private ArrayList<Task> tasks = new ArrayList();
+    private ArrayList<Task> tasks = new ArrayList<();
 
 
     /**
@@ -20,7 +20,6 @@ public class DukeList {
         System.out.println("Added! You want to: " + task + "\n" +
                 "Now you have " + index + (index > 1 ? " tasks!" : " task!") + "\n" +
                 "____________________________________________________________");
-        index++;
     }
 
     /**
@@ -36,7 +35,6 @@ public class DukeList {
         System.out.println("Added! You want to: " + task + "\n" +
                 "Now you have " + index + (index > 1 ? " tasks!" : " task!") + "\n" +
                 "____________________________________________________________");
-        index++;
     }
 
     /**
@@ -53,7 +51,6 @@ public class DukeList {
         System.out.println("Added! You want to: " + task + "\n" +
                 "Now you have " + index + (index > 1 ? " tasks!" : " task!") + "\n" +
                 "____________________________________________________________");
-        index++;
     }
     /**
      * Displays all contents of the list stored within an instance of DukeList.
