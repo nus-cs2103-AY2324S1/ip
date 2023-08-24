@@ -4,6 +4,9 @@ public class Duke {
     static String HORIZONTAL_LINE = "    ____________________________________________________________"; //60 underscores.
     static String INDENT = "    "; //4 spaces.
     static ArrayList<Task> taskList = new ArrayList<>(100);
+    enum Command {
+        BYE, LIST, MARK, UNMARK, DELETE, DEADLINE, TODO, EVENT, UNKNOWN
+    }
 
     /**
      * Function to greet the User.
@@ -123,6 +126,7 @@ public class Duke {
         Boolean repeatFlag = true;
         greet();
         Scanner scanner = new Scanner(System.in);
+
         while (repeatFlag) {
             try {
                 String userInput = scanner.nextLine();
@@ -130,32 +134,54 @@ public class Duke {
 
                 String[] words = userInput.split("\\s+"); // Split input by space, put into array
                 String formattedInput = userInput.toLowerCase();
-                if (formattedInput.equals("bye")) {
-                    farewell();
-                    repeatFlag = false;
-                } else if (userInput.equals("list")) {
-                    listAllTasks();
-                } else if (words[0].equals("mark")) {
-                    int taskIndex = Integer.parseInt(words[1]) - 1; // Potential Error if next input is can't be converted to Integer
-                    markTask(taskIndex);
-                } else if (words[0].equals("unmark")) {
-                    int taskIndex = Integer.parseInt(words[1]) - 1; // Potential Error if next input is can't be converted to Integer
-                    unmarkTask(taskIndex);
-                } else if (userInput.startsWith("delete")) {
-                    deleteTask(userInput);
-                } else if (userInput.startsWith("deadline")) {
-                    Deadline.handleDeadlineTask(userInput);
-                } else if (userInput.startsWith("todo")) {
-                    Todo.handleTodoTask(userInput);
-                } else if (userInput.startsWith("event")) {
-                    Event.handleEventTask(userInput);
-                } else {
-                    throw new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
+                String firstWord = words[0].toUpperCase();
+
+                Command command; //Use enum
+                try {
+                    command = Command.valueOf(firstWord);
+                } catch (IllegalArgumentException e) {
+                    command = Command.UNKNOWN;
+                }
+
+                //A-Enum: Use switch-case instead of if-else for neater code
+                switch (command) {
+                    case BYE:
+                        farewell();
+                        repeatFlag = false;
+                        break;
+                    case LIST:
+                        listAllTasks();
+                        break;
+                    case MARK:
+                        int taskIndex = Integer.parseInt(words[1]) - 1;
+                        markTask(taskIndex);
+                        break;
+                    case UNMARK:
+                        taskIndex = Integer.parseInt(words[1]) - 1; //Same variable name taskIndex as above
+                        unmarkTask(taskIndex);
+                        break;
+                    case DELETE:
+                        deleteTask(userInput);
+                        break;
+                    case DEADLINE:
+                        Deadline.handleDeadlineTask(userInput);
+                        break;
+                    case TODO:
+                        Todo.handleTodoTask(userInput);
+                        break;
+                    case EVENT:
+                        Event.handleEventTask(userInput);
+                        break;
+                    case UNKNOWN:
+                        throw new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
                 }
             } catch (EmptyDescriptionException e) {
                 e.printExceptionMessage();
             } catch (InvalidCommandException e) {
                 e.printExceptionMessage();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("     Please enter valid Integer index!");
+                System.out.printf("     You currently have %d tasks", taskList.size());
             } catch (Exception e) {
                 System.out.println(HORIZONTAL_LINE);
                 System.out.println("     Very Invalid command! Please enter valid commands");
