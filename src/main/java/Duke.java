@@ -31,7 +31,7 @@ public class Duke {
         }
     }
 
-    public static void handleMarking(String s) {
+    public static void handleMarking(String s) throws Exception {
         if (s.startsWith("mark ")) {
             int index;
             int len = storedTasks.size();
@@ -43,9 +43,11 @@ public class Duke {
                 return;
             }
 
-            if (index < len + 1) {
+            if (index > 0 && index < len + 1) {
                 addStr = false;
                 storedTasks.get(index - 1).markAsDone();
+            } else {
+                throw new InvalidTaskNumberException(indexStr);
             }
 
         } else if (s.startsWith("unmark ")) {
@@ -59,9 +61,11 @@ public class Duke {
                 return;
             }
 
-            if (index < len + 1) {
+            if (index > 0 && index < len + 1) {
                 addStr = false;
                 storedTasks.get(index - 1).markAsUndone();
+            } else {
+                throw new InvalidTaskNumberException(indexStr);
             }
         }
     }
@@ -134,7 +138,36 @@ public class Duke {
         storedTasks.add(t);
 
         int len = storedTasks.size();
-        System.out.println("You have a total of " + len + " task(s) in your list.");
+        System.out.println("You now have " + len + " task(s) in your list.");
+    }
+
+    public static void handleDelete(String s) throws Exception {
+        if (s.startsWith("delete ")) {
+            int index;
+            int len = storedTasks.size();
+            String indexStr = s.substring(7);
+
+            try {
+                index = Integer.parseInt(indexStr);
+            } catch (NumberFormatException nfe) {
+                return;
+            }
+
+            if (index > 0 && index < len + 1) {
+                addStr = false;
+                System.out.println("Task successfully deleted: " + storedTasks.get(index - 1));
+                deleteTaskSuccess(index);
+            } else {
+                throw new InvalidTaskNumberException(indexStr);
+            }
+        }
+    }
+
+    public static void deleteTaskSuccess(int index) {
+        storedTasks.remove(index - 1);
+
+        int len = storedTasks.size();
+        System.out.println("You now have " + len + " task(s) in your list.");
     }
 
 
@@ -146,18 +179,19 @@ public class Duke {
 
         while (allowNext) {
             String str = input.nextLine();
-            handleExit(str);
-            handleList(str);
-            handleMarking(str);
+            try {
+                handleExit(str);
+                handleList(str);
+                handleMarking(str);
+                handleDelete(str);
 
-            if (allowNext && addStr) {
-                try {
+                if (allowNext && addStr) {
                     handleTaskAdd(str);
-                } catch (Exception e) {
-                    System.out.println(e);
+                } else if (!addStr) {
+                    addStr = true;
                 }
-            } else if (!addStr) {
-                addStr = true;
+            } catch (Exception e) {
+                System.out.println(e);
             }
         }
     }
