@@ -64,6 +64,15 @@ public class Duke {
                     } else {
                         System.out.println("Invalid task index.");
                     }
+                }  else if (command.startsWith("delete")) {
+                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                    if (index >= 0 && index < tasks.size()) {
+                        Task removedTask = tasks.remove(index);
+                        System.out.println("Noted. I've removed this task:\n  " + removedTask);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    } else {
+                        System.out.println("Invalid task index.");
+                    }
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
