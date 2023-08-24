@@ -37,143 +37,193 @@ public class Evo {
         Task[] taskList = new Task[100];
 
         while (true) {
-            // Assign the text to this string variable called instruction
-            String instruction = scanner.nextLine();
-
-            // If the text entered is bye, then print out the bye message and exit the loop
-            if (Objects.equals(instruction, "bye")) {
-                System.out.println(byeMsg);
-                break;
-            }
-
-            /**
-             * If the text entered is list, then print out the status and description of tasks added before by the user.
-             * For Deadline and Event objects, the due date and duration will also be printed respectively.
-             * Then exit the current while loop and move to the next iteration.
-             */
-            if (Objects.equals(instruction, "list")) {
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskIndex; i++) {
-                    if (i == taskIndex - 1) {
-                        System.out.println(i + 1 + "." + taskList[i].toString() + "\n");
-                    } else {
-                        System.out.println(i + 1 + "." + taskList[i].toString());
-                    }
+            try {
+                // Assign the text to this string variable called instruction
+                String instruction = scanner.nextLine();
+                // If the text entered is bye, then print out the bye message and exit the loop
+                if (Objects.equals(instruction, "bye")) {
+                    System.out.println(byeMsg);
+                    break;
                 }
-                continue;
-            }
 
-            /**
-             * Split the text entered by user by "/" to differentiate the ToDo task with Deadline and Event object.
-             * If the text entered does not contain "/", then split the text entered by user by space and store it in
-             * a string array called actionType. Then, determine which action to be taken, whether is to mark a task
-             * done, mark a task not done or add a ToDo task to the taskList.
-             * If the text entered contain "/", then split the text entered by user by "/" and store it in in a string
-             * array called typeAndDates. Then, determine which action to be taken, whether is to add a deadline task
-             * to the taskList or add an event task to the taskList.
-             */
-            if (!instruction.contains("/")) {
-
-                String[] actionType = instruction.split(" ");
-                if (Objects.equals(actionType[0], "mark")) {
-                    // Mark a task as done
-                    int taskNumberInList = Integer.parseInt(actionType[1]) - 1;
-                    taskList[taskNumberInList].markAsDone();
-
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + taskList[taskNumberInList].toString() + "\n");
-                } else if (Objects.equals(actionType[0], "unmark")) {
-                    // Mark a task as not done
-                    int taskNumberInList = Integer.parseInt(actionType[1]) - 1;
-                    taskList[taskNumberInList].markAsNotDone();
-
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + taskList[taskNumberInList].toString() + "\n");
-                } else if (Objects.equals(actionType[0], "todo")) {
-                    // Add ToDo object
-                    String taskDescription = "";
-                    for (int i = 1; i < actionType.length; i++) {
-                        if (i == actionType.length - 1) {
-                            taskDescription += actionType[i];
+                /**
+                 * If the text entered is list, then print out the status and description of tasks added before by the
+                 * user. For Deadline and Event objects, the due date and duration will also be printed respectively.
+                 * Then exit the current while loop and move to the next iteration.
+                 */
+                if (Objects.equals(instruction, "list")) {
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < taskIndex; i++) {
+                        if (i == taskIndex - 1) {
+                            System.out.println(i + 1 + "." + taskList[i].toString() + "\n");
                         } else {
+                            System.out.println(i + 1 + "." + taskList[i].toString());
+                        }
+                    }
+                    continue;
+                }
+
+                /**
+                 * Split the text entered by user by "/" to differentiate the ToDo task with Deadline and Event object.
+                 * If the text entered does not contain "/", then split the text entered by user by space and store it
+                 * in a string array called actionType. Then, determine which action to be taken, whether is to mark a
+                 * task done, mark a task not done or add a ToDo task to the taskList.
+                 * If the text entered contain "/", then split the text entered by user by "/" and store it in in a
+                 * string array called typeAndDates. Then, determine which action to be taken, whether is to add a
+                 * deadline task to the taskList or add an event task to the taskList.
+                 */
+                if (!instruction.contains("/")) {
+                    String[] actionType = instruction.split(" ");
+                    if (Objects.equals(actionType[0], "mark")) {
+                        if (actionType.length == 1) {
+                            throw new MissingTaskToMarkException();
+                        }
+                        // Mark a task as done
+                        int taskNumberInList = Integer.parseInt(actionType[1]) - 1;
+                        taskList[taskNumberInList].markAsDone();
+
+                        System.out.println("Nice! I've marked this task as done:");
+                        System.out.println("  " + taskList[taskNumberInList].toString() + "\n");
+                    } else if (Objects.equals(actionType[0], "unmark")) {
+                        if (actionType.length == 1) {
+                            throw new MissingTaskToUnmarkException();
+                        }
+                        // Mark a task as not done
+                        int taskNumberInList = Integer.parseInt(actionType[1]) - 1;
+                        taskList[taskNumberInList].markAsNotDone();
+
+                        System.out.println("OK, I've marked this task as not done yet:");
+                        System.out.println("  " + taskList[taskNumberInList].toString() + "\n");
+                    } else if (Objects.equals(actionType[0], "todo")) {
+                        // Add ToDo object
+                        if (actionType.length == 1) {
+                            throw new MissingToDoDescriptionException();
+                        }
+                        String taskDescription = "";
+                        for (int i = 1; i < actionType.length; i++) {
+                            if (i == actionType.length - 1) {
+                                taskDescription += actionType[i];
+                            } else {
+                                taskDescription += actionType[i] + " ";
+                            }
+                        }
+
+                        ToDo toDo = new ToDo(taskDescription);
+                        taskList[taskIndex] = toDo;
+                        taskIndex++;
+
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + toDo.toString());
+                        System.out.println("Now you have " + taskIndex + " tasks in the list.\n");
+                    } else if (Objects.equals(actionType[0], "deadline")) {
+                        if (actionType.length == 1) {
+                            throw new MissingDescriptionAndDeadlineException();
+                        } else {
+                            throw new MissingDeadlineException();
+                        }
+                    } else if (Objects.equals(actionType[0], "event")) {
+                        if (actionType.length == 1) {
+                            throw new MissingDescriptionAndDurationException();
+                        } else {
+                            throw new MissingDurationException();
+                        }
+                    } else {
+                        throw new InvalidOperationException();
+                    }
+                } else {
+                    String[] typeAndDates = instruction.split("/");
+                    String[] actionType = typeAndDates[0].split(" ");
+                    // Add Deadline object to the taskList
+                    if (Objects.equals(actionType[0], "deadline")) {
+                        // Construct the description of the deadline task from the user input
+                        String taskDescription = "";
+
+                        for (int i = 1; i < actionType.length; i++) {
                             taskDescription += actionType[i] + " ";
                         }
+
+                        // Construct the task due date/time
+                        String[] dates = typeAndDates[1].split(" ");
+                        String taskBy = "";
+
+                        for (int i = 1; i < dates.length; i++) {
+                            if (i == dates.length - 1) {
+                                taskBy += dates[i];
+                            } else {
+                                taskBy += dates[i] + " ";
+                            }
+                        }
+                        // Create the deadline object with the taskDescription and taskBy
+                        Deadline deadline = new Deadline(taskDescription, taskBy);
+                        taskList[taskIndex] = deadline;
+                        taskIndex++;
+
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + deadline.toString());
+                        System.out.println("Now you have " + taskIndex + " tasks in the list.\n");
+                    } else if (Objects.equals(actionType[0], "event")) {
+                        // Add Event object to the taskList
+                        String[] datesFrom = typeAndDates[1].split(" ");
+                        String[] datesTo = typeAndDates[2].split(" ");
+                        String taskDescription = "";
+                        // Construct the description of the event task from the user input
+                        for (int i = 1; i < actionType.length; i++) {
+                            taskDescription += actionType[i] + " ";
+                        }
+                        // Construct the task due date/time duration
+                        String taskDuration = "";
+                        for (int i = 0; i < datesFrom.length; i++) {
+                            if (i == 0) {
+                                taskDuration += datesFrom[i] + ": ";
+                            } else {
+                                taskDuration += datesFrom[i] + " ";
+                            }
+                        }
+                        for (int i = 0; i < datesTo.length; i++) {
+                            if (i == 0) {
+                                taskDuration += datesTo[i] + ": ";
+                            } else {
+                                taskDuration += datesTo[i];
+                            }
+                        }
+                        // Create the event object with the taskDescription and taskDuration
+                        Event event = new Event(taskDescription, taskDuration);
+                        taskList[taskIndex] = event;
+                        taskIndex++;
+
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("  " + event.toString());
+                        System.out.println("Now you have " + taskIndex + " tasks in the list.\n");
                     }
-
-                    ToDo toDo = new ToDo(taskDescription);
-                    taskList[taskIndex] = toDo;
-                    taskIndex++;
-
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + toDo.toString());
-                    System.out.println("Now you have " + taskIndex + " tasks in the list.\n");
                 }
-            } else {
-                String[] typeAndDates = instruction.split("/");
-                String[] actionType = typeAndDates[0].split(" ");
-
-                // Add Deadline object to the taskList
-                if (Objects.equals(actionType[0], "deadline")) {
-                    // Construct the description of the deadline task from the user input
-                    String taskDescription = "";
-
-                    for (int i = 1; i < actionType.length; i++) {
-                        taskDescription += actionType[i] + " ";
-                    }
-
-                    // Construct the task due date/time
-                    String[] dates = typeAndDates[1].split(" ");
-                    String taskBy = "";
-
-                    for (int i = 1; i < dates.length; i++) {
-                        if (i == dates.length - 1) {
-                            taskBy += dates[i];
-                        } else {
-                            taskBy += dates[i] + " ";
-                        }
-                    }
-                    // Create the deadline object with the taskDescription and taskBy
-                    Deadline deadline = new Deadline(taskDescription, taskBy);
-                    taskList[taskIndex] = deadline;
-                    taskIndex++;
-
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + deadline.toString());
-                    System.out.println("Now you have " + taskIndex + " tasks in the list.\n");
-                } else if (Objects.equals(actionType[0], "event")) {
-                    // Add Event object to the taskList
-                    String[] datesFrom = typeAndDates[1].split(" ");
-                    String[] datesTo = typeAndDates[2].split(" ");
-                    String taskDescription = "";
-                    // Construct the description of the event task from the user input
-                    for (int i = 1; i < actionType.length; i++) {
-                        taskDescription += actionType[i] + " ";
-                    }
-                    // Construct the task due date/time duration
-                    String taskDuration = "";
-                    for (int i = 0; i < datesFrom.length; i++) {
-                        if (i == 0) {
-                            taskDuration += datesFrom[i] + ": ";
-                        } else {
-                            taskDuration += datesFrom[i] + " ";
-                        }
-                    }
-                    for (int i = 0; i < datesTo.length; i++) {
-                        if (i == 0) {
-                            taskDuration += datesTo[i] + ": ";
-                        } else {
-                            taskDuration += datesTo[i];
-                        }
-                    }
-                    // Create the event object with the taskDescription and taskDuration
-                    Event event = new Event(taskDescription, taskDuration);
-                    taskList[taskIndex] = event;
-                    taskIndex++;
-
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + event.toString());
-                    System.out.println("Now you have " + taskIndex + " tasks in the list.\n");
-                }
+            } catch (InvalidOperationException invalidOpExp) {
+                // Catch the exception when the operation is invalid
+                System.out.println("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+            } catch (MissingToDoDescriptionException missToDoExp) {
+                // Catch the exception when the description of ToDo task is missing
+                System.out.println("Description of this task is missing. " +
+                        "Please specify the description of this task.\n");
+            } catch (MissingTaskToMarkException missingTaskToMarkExp) {
+                // Catch the exception when user never specifies which task to be marked
+                System.out.println("Please specify the task to be marked.\n");
+            } catch (MissingTaskToUnmarkException missingTaskToUnmarkExp) {
+                // Catch the exception when user never specifies which task to be unmarked
+                System.out.println("Please specify the task to be unmarked.\n");
+            } catch (MissingDescriptionAndDeadlineException missingDescAndDeadlineExp) {
+                // Catch the exception when the description and deadline of Deadline object are missing.
+                System.out.println("Description and deadline of this task are missing. " +
+                        "Please specify the description and the deadline of this task.\n");
+            } catch (MissingDescriptionAndDurationException missingDescAndDurationExp) {
+                // Catch the exception when the description and duration of Event object are missing.
+                System.out.println("Description and duration of this event are missing. " +
+                        "Please specify the description and the duration of this event.\n");
+            } catch (MissingDeadlineException missingDeadlineException) {
+                // Catch the exception when the deadline of Deadline object is missing.
+                System.out.println("Deadline of this task is missing. Please specify the deadline of this task.\n");
+            } catch (MissingDurationException missingDurationException) {
+                // Catch the exception when the duration of Event object is missing.
+                System.out.println("Duration of this event is missing. " +
+                        "Please specify the start date/time and end date/time.\n");
             }
         }
     }
