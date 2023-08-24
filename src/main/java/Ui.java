@@ -1,38 +1,52 @@
-import java.util.Arrays;
-import java.util.List;
+import java.util.Scanner;
 
 /**
  * Represents the Ui of the chatbot.
  */
 public class Ui {
-    private static final String line = "\t____________________________________________________________\n";
+    private static final String DIVIDER = "\t____________________________________________________________\n";
+    private final Scanner sc;
+
+    public Ui() {
+        this.sc = new Scanner(System.in);
+    }
+
+    public String readCommand() {
+        return sc.nextLine();
+    }
+
     /**
      * Pretty prints string(s).
      * @param args string(s) to be printed.
      */
     public void print(String... args){
-        String text = line;
+        String text = DIVIDER;
         for(int i = 0; i < args.length; i++) {
             text += String.format("\t%s\n", args[i]);
         }
-        text += line;
+        text += DIVIDER;
         System.out.println(text);
     }
     /**
      * Function to say hi to the user.
      */
-    public void sayHi(){
-        this.print("Hello! I'm Minion!", "What can I do for you?");
+    public void showWelcome(){
+        this.print(Messages.MESSAGE_WELCOME);
     }
 
     /**
      * Function to say bye to the user.
      */
-    public void sayBye(){
-        this.print("Bye. Hope to see you again soon!");
+    public void showGoodbye(){
+        this.print(Messages.MESSAGE_GOODBYE);
     }
 
     public void showLoadingError() {
-        this.print("Cannot load the file!");
+        this.print(Messages.MESSAGE_FILE_NOT_FOUND);
+    }
+
+    public void tearDown() {
+        this.showGoodbye();
+        sc.close();
     }
 }
