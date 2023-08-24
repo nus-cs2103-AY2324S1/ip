@@ -99,21 +99,20 @@ public class Duke {
 
     private static String getUsingCommand(String[] splitText, String command) {
         boolean found = false;
-        String text = "";
-        for (int i = 0; i < splitText.length; i++) {
-            System.out.println(splitText[i]);
+        StringBuilder text = new StringBuilder();
+        for (String s : splitText) {
             if (!found) {
-                if (splitText[i].equals("/" + command)) {
+                if (s.equals("/" + command)) {
                     found = true;
                 }
             } else {
-                if (splitText[i].charAt(0) == '/')
+                if (s.charAt(0) == '/')
                     break;
-                text = text + " " + splitText[i];
+                text.append(" ").append(s);
             }
         }
 
-       if (found && !text.isEmpty()) {
+       if (found && (text.length() > 0)) {
            return text.substring(1);
        } else if (found)
            return "Add something after the command " + command;
