@@ -39,5 +39,12 @@ ____________________________________________________________
 Ohhh... uhm, okay, task undone!
 [E][ ] rocket jumping competition (From: Tuesday 9 am to: Tuesday 3 pm)
 ____________________________________________________________
+Guess you don't want to do that anymore: [E][ ] rocket jumping competition (From: Tuesday 9 am to: Tuesday 3 pm)
+Now you have 2 tasks!
+____________________________________________________________
+Ehh? What do you want to mark? Type mark <index>
+Ehh? What do you want to mark? Type unmark <index>
+Whoops, wrong command! Type event <task> /from <date> /to <date>
+Whoops, wrong command! Type todo <task>
  Byeeeeee. Hope to see you again soon~~
 ____________________________________________________________

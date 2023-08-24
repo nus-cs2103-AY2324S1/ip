@@ -7,4 +7,11 @@ list
 mark 3
 list
 unmark 3
+remove 3
+list
+mark -2
+unmark -2
+deadline error
+event error
+todo error
 bye

@@ -105,6 +105,14 @@ public class Duke {
                     throw new IllegalArgumentException("Ehh? What do you want to mark? Type unmark <index>");
                 }
                 break;
+            case "delete":
+                try {
+                    String indexunmark = tally.split(" ")[1];
+                    list.delete(Integer.parseInt(indexunmark));
+                } catch (NullPointerException e) {
+                    throw new IllegalArgumentException("Ehh? What do you want to mark? Type remove <index>");
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Error, unknown command.");
         }
