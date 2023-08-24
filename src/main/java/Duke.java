@@ -8,6 +8,7 @@ public class Duke {
     public static void main(String[] args) {
         printGreetings();
         Scanner s = new Scanner(System.in);
+        Tasks tasks = new Tasks();
 
         while (true) {
             String text = s.nextLine();
@@ -18,8 +19,14 @@ public class Duke {
                 continue;
             }
 
+            if (text.equals("list")) {
+                tasks.listTasks();
+                continue;
+            }
+
             System.out.println(line);
-            System.out.println("    " + text);
+            System.out.println("    added: " + text);
+            tasks.addTask(new Task(text));
             System.out.println(line);
 
             if (text.equals("bye")) {
