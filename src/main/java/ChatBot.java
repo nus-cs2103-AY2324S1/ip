@@ -1,6 +1,12 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/*
+ * A chat bot that can be renamed, and responds to inputs from users
+ * 
+ * @author Owen Yeo
+ * Version Level-3
+ */
 public class ChatBot {
 
     //Name of the user's ChatBot.
@@ -13,10 +19,35 @@ public class ChatBot {
     private boolean hasEnded = false;
 
     //Array of Tasks to store in the list.
-    private ArrayList<Task> list = new ArrayList<Task>();
+    private ArrayList<Task> list = new ArrayList<>();
 
     private static final String BORDER = "____________________________________________________________\n";
 
+    private static enum Command {
+        BYE("bye"),
+        DISPLAY_LIST("list"),
+        MARK("mark"),
+        UNMARK("unmark"),
+        ADD_TODO("todo"),
+        ADD_DEADLINE("deadline"),
+        ADD_EVENT("event");
+
+        private final String input;
+
+        private Command(String input) {
+            this.input = input;
+        }
+
+        public static Command parseInput(String input) {
+            for(Command command: Command.values()) {
+                if (command.input.equals(input)) {
+                    return command;
+                }
+            }
+
+            return null;
+        }
+    }
 
     //Constructor that allows for the naming of your own bot.
     public ChatBot(String name) {
@@ -61,10 +92,29 @@ public class ChatBot {
      * @param String message User input, parsed in readInput.
      * @return void
      */
-    public void addToList(String item) {
-        list.add(new Task(item));
+    public void addToList(String taskString, Command command) {
+        switch(command) {
+            case ADD_TODO:
+                list.add(new ToDo(taskString));
+                break;
+
+            case ADD_DEADLINE:
+                String[] deadlineParts = taskString.split("/by");
+                list.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+                break;
+
+            case ADD_EVENT:
+                String[] eventParts = taskString.split("/from");
+                String eventLabel = eventParts[0];
+                String[] eventParts2 = eventParts[1].split("/to");
+                list.add(new Event(eventLabel.trim(), eventParts2[0].trim(), eventParts2[1].trim()));
+                break;
+                
+        }
         System.out.println(BORDER);
-        System.out.println("Added: " + item + "\n");
+        System.out.println("What? You ain't finishing it. Added: \n");
+        System.out.println(list.get(list.size() - 1) + "\n");
+        System.out.println("Now you have an overwhelming " + list.size() + " things to do.\n");
         System.out.println(BORDER);
     }
 
@@ -83,6 +133,12 @@ public class ChatBot {
         System.out.println(BORDER);
     }
 
+    /*
+     * To mark tasks as done.
+     * 
+     * @param int listNum the item on the list to mark.
+     * @return void
+     */
     public void mark(int listNum) {
         int index = listNum - 1;
 
@@ -94,6 +150,12 @@ public class ChatBot {
         System.out.println(BORDER);
     }
 
+    /*
+     * To unmark a list item as undone.
+     * 
+     * @param int listNum item on the list to unmark.
+     * @return void
+     */
     public void unmark(int listNum) {
         int index = listNum - 1;
 
@@ -114,52 +176,45 @@ public class ChatBot {
      */
     public void readInput(String input) {
         //Split the input so that we can read integers.
-        String[] inputStrings = input.split(" ");
+        String[] inputStrings = input.split(" ", 2);
+        Command command = Command.parseInput(inputStrings[0]);
+        if (command == null) {
+            System.out.println(BORDER);
+            System.out.println("What are you saying?");
+            System.out.println(BORDER);
+            return;
+        }
 
-        switch(inputStrings[0]) {
-
-            case("bye"):
+        switch(command) {
+            case BYE:
                 this.exitChat();
                 break;
 
-            case("list"):
+            case DISPLAY_LIST:
                 this.displayList();
                 break;
 
-            case("mark"):
+            case MARK:
                 mark(Integer.parseInt(inputStrings[1]));
                 break;
-            case("unmark"):
+            case UNMARK:
                 unmark(Integer.parseInt(inputStrings[1]));
                 break;
+
+            case ADD_TODO:
+                addToList(inputStrings[1], command);
+                break;
+
+            case ADD_DEADLINE:
+                addToList(inputStrings[1], command);
+                break;
+            
+            case ADD_EVENT:
+                addToList(inputStrings[1], command);
+                break;
+
             default:
-                this.addToList(input);
-        }
-    }
-
-    private class Task {
-        private String label;
-        private boolean done;
-
-        Task(String label) {
-            this.label = label;
-            this.done = false;
-        }
-
-        public void done() {
-            done = true;
-        }
-
-        public void undone() {
-            done = false;
-        }
-
-        @Override
-        public String toString() {
-            if (done) {
-                return "[X] " + label;
-            }
-            return "[ ] " + label;
+                System.out.println("What in the world are you saying?");
         }
     }
 
@@ -169,6 +224,7 @@ public class ChatBot {
         ChatBot chatbot = new ChatBot("Bobby Wasabi");
         chatbot.intro();
 
+        //While chat has not ended, keep reading input.
         while(!chatbot.isEnded()) {
             String input = sc.nextLine();
             chatbot.readInput(input);
