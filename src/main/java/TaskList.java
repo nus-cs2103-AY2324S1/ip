@@ -10,6 +10,12 @@ public class TaskList {
         System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
     }
 
+    public void deleteTask(int index) {
+        Task removedTask = listOfTasks.remove(index);
+        System.out.println("Noted. I've removed this task: ");
+        System.out.println(removedTask.toString());
+        System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
+    }
 
     public void listOutTasks() {
         if (listOfTasks.isEmpty()) {
