@@ -8,16 +8,11 @@ public class Duke {
     }
 
     public static void greet() {
-        lines();
-        System.out.println("Hello! I'm Max");
-        System.out.println("What can I do for you?");
-        lines();
+        display("Hello! I'm Max\n" + "What can I do for you?");
     }
 
     public static void exit() {
-        lines();
-        System.out.println("Bye. Hope to see you again soon!");
-        lines();
+        display("Bye. Hope to see you again soon!");
     }
 
     public static void getUserInput() {
