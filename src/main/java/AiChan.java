@@ -14,50 +14,77 @@ public class AiChan {
         System.out.println(line + greet + line);
 
         while (true) {
-            String command = scn.nextLine();
-            if (command.equals("bye")) {
-                System.out.println(line + bye + line);
-                break;
-            } else if (command.equals("list")){
-                System.out.print(line + "Here are the tasks in your list:\n");
-                for (Task t : arrTask) {
-                    System.out.println(t.toStringId());
+            try{
+                String command = scn.nextLine();
+                if (command.equals("bye")) {
+                    System.out.println(line + bye + line);
+                    break;
+                } else if (command.equals("list")){
+                    System.out.print(line + "Here are the tasks in your list:\n");
+                    for (Task t : arrTask) {
+                        System.out.println(t.toStringId());
+                    }
+                    System.out.println(line);
+                } else if (command.startsWith("mark")){
+                    // get the number behind "mark "
+                    int taskId = Integer.parseInt(command.substring(5));
+                    Task t = arrTask.get(taskId - 1);
+                    t.mark();
+                    System.out.println(line + "Nice! I've marked this task as done:\n"
+                            + t.toString() + "\n" + line);
+                } else if (command.startsWith("unmark")){
+                    // get the number behind "unmark "
+                    int taskId = Integer.parseInt(command.substring(7));
+                    Task t = arrTask.get(taskId - 1);
+                    t.unmark();
+                    System.out.println(line + "OK, I've marked this task as not done yet:\n"
+                            + t.toString() + "\n" + line);
+                } else if (command.startsWith("todo")){
+                    if (command.length() < 6) {
+                        throw new AiChanException("oops~ The description of a todo cannot be empty.");
+                    } else if (command.charAt(4) != ' ') {
+                        throw new AiChanException("Please leave a space behind 'todo'");
+                    }
+                    Task t = new ToDo(command.substring(5));
+                    arrTask.add(t);
+                    System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
+                            "Now you have %d tasks in the list\n%s", line, t, t.getId(), line));
+                } else if (command.startsWith("deadline")){
+                    if (command.length() < 10) {
+                        throw new AiChanException("oops~ The description of a deadline cannot be empty.");
+                    } else if (command.charAt(8) != ' ') {
+                        throw new AiChanException("Please leave a space behind 'deadline'");
+                    }
+                    // split the substring behind "deadline " into two
+                    String[] arr = command.substring(9).split(" /by ");
+                    if(arr.length < 2) {
+                        throw new AiChanException("Behind description, please provide the deadline after ' /by '");
+                    }
+                    Task t = new Deadline(arr);
+                    arrTask.add(t);
+                    System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
+                            "Now you have %d tasks in the list\n%s", line, t, t.getId(), line));
+                } else if (command.startsWith("event")){
+                    if (command.length() < 7) {
+                        throw new AiChanException("oops~ The description of a event cannot be empty.");
+                    } else if (command.charAt(5) != ' ') {
+                        throw new AiChanException("Please leave a space behind 'event'");
+                    }
+                    // split the substring behind "event " into three elements
+                    String[] arr = command.substring(6).split(" /from | /to ");
+                    if(arr.length < 3) {
+                        throw new AiChanException("Behind description, " +
+                                "please provide \nthe respective date/time after ' /from ' and ' /to '");
+                    }
+                    Task t = new Event(arr);
+                    arrTask.add(t);
+                    System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
+                            "Now you have %d tasks in the list\n%s", line, t, t.getId(), line));
+                } else {
+                    throw new AiChanException("oops~ I'm so sorry, but I don't know what that means :'(");
                 }
-                System.out.println(line);
-            } else if (command.startsWith("mark")){
-                // get the number behind "mark "
-                int taskId = Integer.parseInt(command.substring(5));
-                Task t = arrTask.get(taskId - 1);
-                t.mark();
-                System.out.println(line + "Nice! I've marked this task as done:\n"
-                        + t.toString() + "\n" + line);
-            } else if (command.startsWith("unmark")){
-                // get the number behind "unmark "
-                int taskId = Integer.parseInt(command.substring(7));
-                Task t = arrTask.get(taskId - 1);
-                t.unmark();
-                System.out.println(line + "OK, I've marked this task as not done yet:\n"
-                        + t.toString() + "\n" + line);
-            } else if (command.startsWith("todo")){
-                Task t = new ToDo(command.substring(5));
-                arrTask.add(t);
-                System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
-                        "Now you have %d tasks in the list\n%s", line, t, t.getId(), line));
-            } else if (command.startsWith("deadline")){
-                // split the substring behind "deadline " into two
-                Task t = new Deadline(command.substring(9).split(" /by "));
-                arrTask.add(t);
-                System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
-                        "Now you have %d tasks in the list\n%s", line, t, t.getId(), line));
-            } else if (command.startsWith("event")){
-                // split the substring behind "event " into three elements
-                Task t = new Event(command.substring(6).split(" /from | /to "));
-                arrTask.add(t);
-                System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
-                        "Now you have %d tasks in the list\n%s", line, t, t.getId(), line));
-            } else {
-                arrTask.add(new Task(command));
-                System.out.println(line + "added: " + command + "\n" + line);
+            } catch(AiChanException err) {
+                System.out.println(line + err.getMessage() + "\n" + line);
             }
         }
     }
