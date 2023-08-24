@@ -16,7 +16,7 @@ public class Duke {
         System.out.println("Ok byeee\n");
         shutdownCommand = true;
     }
-    public void processInput() {
+    public void processInput() throws InvalidCommandException, InvalidVarException {
         String input = reader.nextLine();
         if (input.equals("bye")) {
             shutdownDuke();
@@ -33,7 +33,7 @@ public class Duke {
         } else if (input.startsWith("deadline ")) {
             processDeadline(input.substring(9));
         } else {
-            System.out.println("Error, unknown command!?!");
+            throw new InvalidCommandException();
         }
     }
 
@@ -48,17 +48,35 @@ public class Duke {
         }
     }
 
-    public void markTask(String input) {
-        int number = Integer.parseInt(input.substring(5));
-        list[number - 1].markDone();
+    public void markTask(String input) throws InvalidVarException {
+        int number = -1;
+        try {
+            number = Integer.parseInt(input.substring(5));
+        } catch (Exception e) {
+            throw new InvalidVarException("Task number could not be read");
+        }
+        try {
+            list[number - 1].markDone();
+        } catch (Exception e) {
+            throw new InvalidVarException("Task not found");
+        }
     }
 
-    public void unmarkTask(String input) {
-        int number = Integer.parseInt(input.substring(7));
-        list[number - 1].markUndone();
+    public void unmarkTask(String input) throws InvalidVarException {
+        int number = -1;
+        try {
+            number = Integer.parseInt(input.substring(7));
+        } catch (Exception e) {
+            throw new InvalidVarException("Task number could not be read");
+        }
+        try {
+            list[number - 1].markUndone();
+        } catch (Exception e) {
+            throw new InvalidVarException("Task not found");
+        }
     }
 
-    public void processToDo(String input) {
+    public void processToDo(String input) throws InvalidVarException {
         ToDo task = new ToDo(input);
         addTask(task);
     }
@@ -92,7 +110,15 @@ public class Duke {
         Duke luke = new Duke();
         luke.introDuke();
         while (!luke.shutdownCommand) {
-            luke.processInput();
+            try {
+                luke.processInput();
+            }
+            catch (InvalidCommandException e) {
+                System.out.println("Unknown command given!!!");
+            }
+            catch (InvalidVarException e) {
+                System.out.println("Invalid input; " + e.getMessage());
+            }
         }
     }
 }
