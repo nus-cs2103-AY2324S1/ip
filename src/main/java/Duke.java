@@ -52,6 +52,8 @@ public class Duke {
 					break;
 				} else if (query.equals("list")) {
 					list(taskList);
+				} else if (query.startsWith("delete")) {
+					delete(taskList, query);
 				} else if (query.startsWith("mark")) {
 					mark(taskList, query);
 				} else if (query.startsWith("unmark")) {
@@ -82,6 +84,35 @@ public class Duke {
 			throw new DukeException("☹ OOPS!!! I'm sorry, but you don't have any tasks yet!");
 		}
 		taskList.printList();
+	}
+
+	/**
+	 * @param taskList
+	 * @param query
+	 * @throws DukeException
+	 */
+	static void delete(TaskList taskList, String query) throws DukeException {
+		if (query.split(" ").length == 1) {
+			throw new DukeException("☹ OOPS!!! You are missing a number\n" +
+							"Please enter a valid delete query - delete 1");
+		}
+		if (query.split(" ").length > 2) {
+			throw new DukeException("☹ OOPS!!! You have too many numbers\n" +
+							"Please enter a valid delete query - delete 1");
+		}
+		String[] splitted = query.split(" ", 2);
+		if (!isNumeric(splitted[1])) {
+			throw new DukeException("☹ OOPS!!! You entered a non-numeric item!\n" +
+							"Please enter a valid delete query - delete 1");
+		}
+		int index = Integer.parseInt(splitted[1]) - 1;
+		if (index >= taskList.length() || index < 0) {
+			throw new DukeException("No such task exists! Please enter a valid number within following list!\n" +
+							"Please use the command list to see the list of tasks\n" +
+							"and then delete the following task that you would like");
+		} else {
+			taskList.delete(index);
+		}
 	}
 
 	/**

@@ -21,14 +21,22 @@ public class TaskList {
 
 	public void printList() {
 		System.out.println("Here are the tasks in your list:");
-		for (int i = 0; i < list.size(); i++) {
-			Task currTask = list.get(i);
+		for (int i = 0; i < this.list.size(); i++) {
+			Task currTask = this.list.get(i);
 //			System.out.println((i + 1) + ". " + "[" + currTask.getLetter() + "][" + currTask.getStatusIcon() + "] " + currTask.description);
 			System.out.println((i + 1) + "." + currTask.toString());
 		}
 	}
-	
+
 	public int length() {
 		return this.list.size();
+	}
+
+	public void delete(int index) {
+		Task currTask = this.list.get(index);
+		System.out.println("Noted. I've removed this task:");
+		System.out.println(currTask.toString());
+		this.list.remove(index);
+		System.out.println("Now you have " + this.list.size() + " tasks in the list.");
 	}
 }
