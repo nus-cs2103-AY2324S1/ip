@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static ToDoList list = new ToDoList();
     private static void greet() {
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
         System.out.println("Hello! I'm Bot");
@@ -28,13 +29,14 @@ public class Duke {
     }
     public static void main(String[] args) {
         Duke.greet();
-        ToDoList list = new ToDoList();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
         while (!input.equals("bye")) {
             if (input.equals("list")) {
                 list.listTasks();
+            } else if (input.startsWith("mark")) {
+                list.markAsDone(Character.getNumericValue(input.charAt(5)));
             } else {
                 list.addTask(input);
             }
