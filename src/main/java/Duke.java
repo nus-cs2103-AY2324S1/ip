@@ -9,9 +9,9 @@ public class Duke {
     public static void main(String[] args) {
         System.out.println(greet());
         List<Task> lst = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
 
         while (true) {
-            Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
             try {
                 String[] words = input.split("\\s+");
