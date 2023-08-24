@@ -27,4 +27,8 @@ public class TaskList {
     public int getLength() {
         return taskLists.size();
     }
+
+    public void remove(int index) {
+        taskLists.remove(index);
+    }
 }

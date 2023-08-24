@@ -88,4 +88,27 @@ public class Handler {
         this.taskList.addTask(deadline);
         return ui.taskText(deadline, taskList.getLength());
     }
+
+    public String handleDelete(String command) throws DukeInvalidDescriptionException, DukeInvalidIndexException {
+        String[] parsed = Parser.splitSpace(command);
+        if (parsed.length < 2) {
+            throw new DukeInvalidDescriptionException();
+        }
+        boolean valid = true;
+        try {
+            int i = Integer.parseInt(parsed[1]);
+        } catch (NumberFormatException nfe) {
+            valid = false;
+        }
+        if (!valid) {
+            throw new DukeInvalidDescriptionException();
+        }
+        int ind = Integer.parseInt(parsed[1]);
+        if (ind > taskList.getLength()) {
+            throw new DukeInvalidIndexException();
+        }
+        Task t = taskList.getTask(ind-1);
+        taskList.remove(ind-1);
+        return ui.removeText(t, taskList.getLength());
+    }
 }

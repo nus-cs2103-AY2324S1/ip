@@ -8,6 +8,7 @@ public class Ui {
     private static String done = "It is accomplished.\n";
     private static String undone = "It is unfinished.\n";
     private static String addTask = "Another task? Very well.\n";
+    private static String removeTask = "It is gone with the wind.\n";
 
     public Ui() {
         this.sc = new Scanner(System.in);
@@ -35,6 +36,11 @@ public class Ui {
 
     public String taskText(Task task, int len) {
         return line + addTask + task.toString() + "\n" + "There are now "
+                + len + " task(s) in your backlog.\n" + line;
+    }
+
+    public String removeText(Task task, int len) {
+        return line + removeTask + task.toString() + "\n" + "There are now "
                 + len + " task(s) in your backlog.\n" + line;
     }
 
