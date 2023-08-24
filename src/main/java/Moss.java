@@ -1,4 +1,3 @@
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -79,7 +78,7 @@ public class Moss {
             if (message.startsWith("todo")) {
                 // check if the command is valid otherwise throw errors
                 if (message.length() <= 5) {
-                    throw new MossException("☹ OOPS!!! The description of a todo cannot be empty.");
+                    throw new MossException("OOPS!!! The description of a todo cannot be empty.");
                 }
                 ToDo task = new ToDo(message.substring(5));
                 things.add(task);
@@ -88,7 +87,7 @@ public class Moss {
             else if (message.startsWith("deadline")) {
                 // Find the position of "/by" in the input
                 if (message.length() <= 9) {
-                    throw new MossException("☹ OOPS!!! The description of a todo cannot be empty.");
+                    throw new MossException("OOPS!!! The description of a todo cannot be empty.");
                 }
                 int byIndex = message.indexOf("/by");
 
@@ -109,7 +108,7 @@ public class Moss {
             // Add an event task
             else if (message.startsWith("event")) {
                 if (message.length() <= 6) {
-                    throw new MossException("☹ OOPS!!! The description of a todo cannot be empty.");
+                    throw new MossException("OOPS!!! The description of a todo cannot be empty.");
                 }
                 int byIndex = message.indexOf("/from");
 
@@ -128,7 +127,7 @@ public class Moss {
             // check if the command is valid otherwise throw errors
             else {
                 // Invalid command
-                throw new MossException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new MossException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
 
             // Provide feedback about the added task
