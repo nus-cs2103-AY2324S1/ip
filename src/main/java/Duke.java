@@ -51,9 +51,7 @@ public class Duke {
     }
 
     private static void bye() {
-        String byeMsg = "Bye. Hope to see you again soon!";
-
-        Util.displayMessage(byeMsg);
+        Util.displayMessage("Bye. Hope to see you again soon!");
     }
 
     private static void greet() {
