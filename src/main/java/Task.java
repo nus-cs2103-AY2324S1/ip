@@ -35,10 +35,6 @@ public abstract class Task {
                 this.getDetails());
     }
 
-    public String getDescription() {
-        return String.format(this.description );
-    }
-
     public void markAsDone() {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
