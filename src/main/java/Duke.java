@@ -82,6 +82,7 @@ public class Duke {
         }
     }
 
+
     private static String helper(String task, String taskType, boolean isDone) {
         String taskIcon;
         if (taskType.equals("T")) {
