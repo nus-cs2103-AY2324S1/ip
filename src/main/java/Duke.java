@@ -123,6 +123,16 @@ public class Duke {
                         talk("Got it. I've added this task:\n  " + items.get(items.size() - 1) + "\n Now you have " + items.size()
                                 + " tasks in your list.");
                         break;
+                    case "delete":
+                        if (inputArr.length != 2) {
+                            throw new DukeException("OOPS!!! Please include the task number you would like to delete.");
+                        }
+                        description = input.split(" ", 2)[1];
+                        int indexDelete = Integer.parseInt(description) - 1;
+                        Task deleted = items.get(indexDelete);
+                        items.remove(indexDelete);
+                        talk("Noted. I've removed this task:\n " + deleted + "\n Now you have " + items.size() + " tasks in your list");
+                        break;
                     default:
                         throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
