@@ -1,10 +1,13 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Noac {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+
+        ArrayList<String> list = new ArrayList<>();
 
         String logo =  " _   _  ___    _    ____\n" +
                 "| \\ | |/ _ \\  / \\  / ___|\n" +
@@ -22,14 +25,25 @@ public class Noac {
         System.out.println(welcomeMessage);
 
 
-        String userInput = scanner.nextLine().replaceAll("(.{60})", "$1\n");
+        String userInput = scanner.nextLine();
 
         while (!userInput.equals("bye")) {
-            System.out.println("    ____________________________________________________________");
-            System.out.println("    " + userInput);
-            System.out.println("    ____________________________________________________________");
+            if (userInput.equals("list")) {
+                System.out.println("    ____________________________________________________________");
+                for (int i = 1; i <= list.size(); i++) {
+                    System.out.println("    " + i + ". " + list.get(i-1));
+                }
+                System.out.println("    ____________________________________________________________");
+            } else {
+                System.out.println("    ____________________________________________________________");
+                System.out.println("    added: " + userInput);
+                System.out.println("    ____________________________________________________________");
 
-            userInput = scanner.nextLine().replaceAll("(.{60})", "$1\n    ");
+                String temp = userInput;
+                list.add(temp);
+            }
+
+            userInput = scanner.nextLine();
 
         }
 
