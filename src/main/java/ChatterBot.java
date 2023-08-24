@@ -53,7 +53,7 @@ public class ChatterBot {
                         Todo td = new Todo(userMessage.substring(5));
                         list.add(td);
                         System.out.println("Got it. I've added this task:\n" + td.toString() + "\nNow you have " + list.size() + " tasks in the list.");
-                    } catch (IllegalArgumentException e){
+                    } catch (IllegalArgumentException e) {
                         System.out.println("OOPS!!! Invalid input!");
                     }
                 } else if (userMessage.startsWith("event")) {
@@ -71,6 +71,9 @@ public class ChatterBot {
                     } catch (IllegalArgumentException e) {
                         System.out.println("OOPS!!! Invalid input!");
                     }
+                } else if (userMessage.startsWith("delete") && isInteger(userMessage.substring(7))) {
+                    System.out.println("Noted. I've removed this task:\n" + list.get((Integer.parseInt(userMessage.substring(7)))-1) + "\nNow you have " + (list.size() - 1) + " tasks in the list.");
+                    list.remove((Integer.parseInt(userMessage.substring(7))) - 1);
                 } else {
                     System.out.println("Unknown command: " + userMessage);
                 }
