@@ -28,9 +28,16 @@ public class Duke {
                 Duke.list.listTasks();
                 break;
             case "mark":
-                Duke.list.markAsDone(Integer.parseInt(details));
+                try {
+                    Duke.list.markAsDone(Integer.parseInt(details));
+                } catch (NumberFormatException e) {
+                    throw new DukeException("Please enter a valid number...");
+                }
                 break;
             case "todo":
+                if (details.equals("")) {
+                    throw new DukeException("So what exactly do you want to do?");
+                }
                 Duke.list.addTask(new ToDo(details));
                 break;
             case "deadline":
@@ -44,8 +51,7 @@ public class Duke {
                 break;
             default:
                 System.out.println("–––––––––––––––––––––––––––––––––––––––––");
-                System.out.println("Unknown command...");
-                System.out.println("–––––––––––––––––––––––––––––––––––––––––");
+                throw new DukeException("I have no idea what that means...");
         }
         return true;
     }
