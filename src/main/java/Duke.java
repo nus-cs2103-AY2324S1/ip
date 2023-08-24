@@ -74,7 +74,7 @@ public class Duke {
                         + "\n-----------------------------------------------------------------");
             } else if (input.equals("bye")) {
                 System.out.println("Bye Bye! See you soon :D"
-                    + "\n-----------------------------------------------------------------");
+                        + "\n-----------------------------------------------------------------");
                 running = false;
             } else if (input.equals("list")) {
                 int i = 1;
@@ -150,6 +150,13 @@ public class Duke {
                                 + e.toString()
                                 + "\nNow you have " + ls.size() + " tasks in the list"
                                 + "\n-----------------------------------------------------------------");
+            } else if (input.equals("delete")) {
+                num = sc.nextInt();
+                Task task = ls.get(num - 1);
+                ls.remove(num - 1);
+                System.out.println("Noted. I've removed this task: \n"
+                    + task.toString()
+                    + "\nNow you have " + ls.size() + " tasks in the list");
             } else {
                 // throws exception and prints error message if no keyphrase is given
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
