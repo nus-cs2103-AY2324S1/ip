@@ -11,7 +11,7 @@ public class Duke {
      * @param index Index of the given task.
      */
     public static void markAsDone(List<Task> list, int index) {
-        if (index >= 0 && index <= list.size()) {
+        if (index >= 0 && index < list.size()) {
             Task task = list.get(index);
             task.markAsDone();
 
@@ -33,13 +33,36 @@ public class Duke {
      * @param index Index of the given task.
      */
     public static void markAsUndone(List<Task> list, int index) {
-        if (index >= 0 && index <= list.size()) {
+        if (index >= 0 && index < list.size()) {
             Task task = list.get(index);
             task.markAsUndone();
 
             System.out.println(DIVIDER);
             System.out.println("         OK! I've marked this task as not done yet:");
             System.out.println("            " + task);
+            System.out.println(DIVIDER);
+
+        } else {
+            System.out.println(DIVIDER);
+            System.out.println("        Oops! Task not found!");
+            System.out.println(DIVIDER);
+        }
+    }
+
+    /**
+     * Method that deletes a task from the list.
+     * @param list List containing user inputs.
+     * @param index Index of the task that wants to be deleted.
+     */
+    public static void deleteTask(List<Task> list, int index) {
+        if (index >= 0 && index < list.size()) {
+            Task task = list.get(index);
+            list.remove(index);
+
+            System.out.println(DIVIDER);
+            System.out.println("        Noted. I've removed this task:");
+            System.out.println("            " + task);
+            System.out.println("        Now you have " + list.size() + " tasks in the list.");
             System.out.println(DIVIDER);
 
         } else {
@@ -199,6 +222,25 @@ public class Duke {
                     System.out.println("        Got it! I've added this task: ");
                     System.out.println("            " + newTask);
                     System.out.println("        Now you have " + userList.size() + " tasks in the list.");
+                    System.out.println(DIVIDER);
+                }
+
+            } else if (userInput.startsWith("delete")) {
+                // If user wants to delete a task
+                String[] parts = userInput.split(" ");
+                if (parts.length == 2) {
+                    try {
+                        int index = Integer.parseInt(parts[1]) - 1;
+                        deleteTask(userList, index);
+                    } catch (NumberFormatException e) {
+                        System.out.println(DIVIDER);
+                        System.out.println("        Invalid task number!");
+                        System.out.println(DIVIDER);
+                    }
+                } else {
+                    // Invalid command format
+                    System.out.println(DIVIDER);
+                    System.out.println("        Oops! Invalid command format!");
                     System.out.println(DIVIDER);
                 }
 
