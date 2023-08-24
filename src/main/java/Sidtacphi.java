@@ -10,6 +10,8 @@ import java.util.Scanner;
  * @author Yu Lexuan
  */
 public class Sidtacphi {
+    private static String[] list = new String[100];
+    private static int list_ptr = 0;
     
     public static void main(String[] args) {
         String logo = " _______  ___   ______   _______  _______  _______  _______  __   __  ___  \n"
@@ -36,7 +38,19 @@ public class Sidtacphi {
         System.out.print("\nYou: ");
         String input = "";
         while (!scan.hasNext("bye")) {
+            if (scan.hasNext("list")) {
+                scan.next();
+                System.out.println("Sidtacphi:");
+                for (int i = 0; i < list_ptr; i++) {
+                    System.out.println("" + (i + 1) + ". " + list[i]);
+                }
+                System.out.print("\nYou: ");
+                input = scan.nextLine();
+                continue;
+            }
             input = scan.nextLine();
+            list[list_ptr] = input;
+            list_ptr++;
             System.out.print("\nSidtacphi: " + input + "\n");
             System.out.print("\nYou: ");
         }
