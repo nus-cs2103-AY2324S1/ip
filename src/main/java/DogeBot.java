@@ -31,9 +31,11 @@ public class DogeBot {
                 case "mark":
                     try {
                         mark(sc.nextInt() - 1);
-                    } catch (InputMismatchException e) { // not 'int' datatype
+                    } catch (InputMismatchException e) { // input not 'int' datatype
                         sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
                         System.out.println("Oops ! Integers only please :c");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Oh no ! I think that number is too big~");
                     } catch (DogeBotException e) { // no tasks added yet
                         System.out.println(e.getMessage());
                     }
@@ -41,9 +43,11 @@ public class DogeBot {
                 case "unmark":
                     try {
                         unmark(sc.nextInt() - 1);
-                    } catch (InputMismatchException e) { // not 'int' datatype
+                    } catch (InputMismatchException e) { // input not 'int' datatype
                         sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
                         System.out.println("Oops ! Integers only please :c");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Oh no ! I think that number is too big~");
                     } catch (DogeBotException e) { // no tasks added yet
                         System.out.println(e.getMessage());
                     }
@@ -72,9 +76,11 @@ public class DogeBot {
                 case "delete":
                     try {
                         delete(sc.nextInt() - 1);
-                    } catch (InputMismatchException e) {
+                    } catch (InputMismatchException e) { // input not 'int' datatype
                         sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
                         System.out.println("Oops ! Integers only please :c");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Oh no :( I think that number is too big~");
                     } catch (DogeBotException e) {
                         System.out.println(e.getMessage());
                     }
@@ -161,8 +167,9 @@ public class DogeBot {
     public static void delete(int index) throws DogeBotException {
         if (tasks.size() == 0) throw new DogeBotException("Oops ! There's no tasks in your list to delete :O");
 
+        Task curr = tasks.get(index);
         System.out.println("Got it~ This task has been removed:");
-        System.out.println("\t" + tasks.get(index).toString());
+        System.out.println("\t" + curr.toString());
         tasks.remove(index);
         updateTasksCounter();
     }
