@@ -31,50 +31,207 @@ public class Noac {
         String userInput = scanner.nextLine();
 
         while (!userInput.equals("bye")) {
-            if (userInput.equals("list")) {
-                System.out.println("    ____________________________________________________________");
-                for (int i = 1; i <= list.size(); i++) {
-                    System.out.println("    " + i + "." + list.get(i-1).toString());
-                }
-                System.out.println("    ____________________________________________________________");
-            } else if (userInput.split(" ")[0].equals("mark") || (userInput.split(" ")[0].equals("unmark"))) {
 
-                String[] temp = userInput.split(" ");
+            String[] userInputArr = userInput.split(" ");
+            String command = userInputArr[0];
 
-                if(!checkValidMarkInput(userInput, list.size())){
-
-
-                } else {
-                    int taskNo = Integer.parseInt(temp[1]);
-
+            switch(command) {
+                case "list":
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Here are the tasks in your list:");
+                    for (int i = 1; i <= list.size(); i++) {
+                        System.out.println("     " + i + "." + list.get(i-1).toString());
+                    }
                     System.out.println("    ____________________________________________________________");
 
-                    if (temp[0].equals("mark")) {
-                        list.get(taskNo - 1).markAsDone();
+                    break;
 
-                        System.out.println("     Nice! I've marked this task as done:");
+                case "mark": case "unmark":
+                    String[] temp = userInput.split(" ");
+
+                    if(!checkValidMarkInput(userInput, list.size())){
+
 
                     } else {
-                        list.get(taskNo - 1).unmarkAsDone();
+                        int taskNo = Integer.parseInt(temp[1]);
 
-                        System.out.println("     OK, I've marked this task as not done yet:");
+                        System.out.println("    ____________________________________________________________");
+
+                        if (command.equals("mark")) {
+                            list.get(taskNo - 1).markAsDone();
+
+                            System.out.println("     Nice! I've marked this task as done:");
+
+                        } else {
+                            list.get(taskNo - 1).unmarkAsDone();
+
+                            System.out.println("     OK, I've marked this task as not done yet:");
+
+                        }
+                        System.out.println("       " + list.get(taskNo-1).toString());
+                        System.out.println("    ____________________________________________________________");
+
 
                     }
-                    System.out.println("       " + list.get(taskNo-1).toString());
+
+                    break;
+
+                case "todo":
+                    if (userInputArr.length > 1) {
+                        String description = "";
+
+                        for(int i = 1; i < userInputArr.length; i++) {
+                            description += userInputArr[i] + " ";
+                        }
+
+                        description = description.substring(0, description.length() - 1);
+
+                        Todo t = new Todo(description);
+
+                        list.add(t);
+
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     Got it. I've added this task:");
+                        System.out.println("       " + t.toString());
+                        System.out.println("     Now you have " + list.size() + " tasks in the list.");
+                        System.out.println("    ____________________________________________________________");
+
+
+
+                    } else {
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     ☹ OOPS!!! The description of a todo cannot be empty.");
+                        System.out.println("    ____________________________________________________________");
+
+                    }
+                    break;
+
+                case "deadline":
+
+
+                    String description = "";
+                    String by = "";
+
+                    boolean afterBy = false;
+
+                    for(int i = 1; i < userInputArr.length; i++) {
+                        if (userInputArr[i].equals("/by")){
+                            afterBy = true;
+                            continue;
+                        }
+                        if (afterBy) {
+                            by += userInputArr[i] + " ";
+                        } else {
+                            description += userInputArr[i] + " ";
+                        }
+
+                    }
+
+                    if (!afterBy) {
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     ☹ OOPS!!! The input must contain the command /by");
+                        System.out.println("    ____________________________________________________________");
+
+                        break;
+                    }
+
+                    if(by.length() == 0 || description.length() == 0) {
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     ☹ OOPS!!! The description and by of a deadline cannot \n     be empty");
+                        System.out.println("    ____________________________________________________________");
+
+                        break;
+                    }
+
+                    by = by.substring(0, by.length() - 1);
+                    description = description.substring(0, description.length() - 1);
+
+                    Deadline d = new Deadline(description, by);
+
+                    list.add(d);
+
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + d.toString());
+                    System.out.println("     Now you have " + list.size() + " tasks in the list.");
                     System.out.println("    ____________________________________________________________");
 
 
-                }
+                    break;
 
+
+                case "event":
+
+                    String descript = "";
+                    String from = "";
+                    String to = "";
+
+                    String status = "event";
+
+
+                    for(int i = 1; i < userInputArr.length; i++) {
+                        if (userInputArr[i].equals("/from")){
+                            status = "from";
+                            continue;
+                        }
+                        if (userInputArr[i].equals("/to")){
+                            status = "to";
+                            continue;
+                        }
+
+                        if (status.equals("event")) {
+                            descript += userInputArr[i] + " ";
+                        } else if (status.equals("from")) {
+                            from += userInputArr[i] + " ";
+                        } else if (status.equals("to")) {
+                            to += userInputArr[i] + " ";
+                        }
+
+                    }
+
+                    if (!status.equals("to")) {
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     ☹ OOPS!!! The input must contain the command /from and /to");
+                        System.out.println("    ____________________________________________________________");
+
+                        break;
+                    }
+
+                    if(descript.length() == 0 || from.length() == 0 || to.length() == 0) {
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     ☹ OOPS!!! The description, from and to of a event cannot \n     be empty");
+                        System.out.println("    ____________________________________________________________");
+
+                        break;
+                    }
+
+                    from = from.substring(0, from.length() - 1);
+                    to = to.substring(0, to.length() - 1);
+                    descript = descript.substring(0, descript.length() - 1);
+
+                    Event e = new Event(descript, from, to);
+
+                    list.add(e);
+
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     Got it. I've added this task:");
+                    System.out.println("       " + e.toString());
+                    System.out.println("     Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("    ____________________________________________________________");
+
+
+
+                    break;
+
+                default:
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.out.println("    ____________________________________________________________");
+
+
+                    break;
             }
-            else {
-                System.out.println("    ____________________________________________________________");
-                System.out.println("    added: " + userInput);
-                System.out.println("    ____________________________________________________________");
 
-                list.add(new Task(userInput));
-
-            }
 
             userInput = scanner.nextLine();
 
@@ -110,6 +267,9 @@ public class Noac {
 
         return true;
     }
+
+
+
 }
 
 
