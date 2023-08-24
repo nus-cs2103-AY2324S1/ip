@@ -145,7 +145,7 @@ public class Duchess {
     private static void listTasks() {
         Duchess.duchessPrint("Here are the things you said!! ヽ(^o^)丿");
         for (int i = 0; i < Duchess.storedTasks.size(); i++) {
-            Duchess.duchessPrint(String.format("%d: %s", i, Duchess.storedTasks.get(i).toString()));
+            Duchess.duchessPrint(String.format("%d: %s", i + 1, Duchess.storedTasks.get(i).toString()));
         }
     }
 
@@ -178,7 +178,7 @@ public class Duchess {
     private static void markTask(int index) {
         Duchess.duchessPrint("Task has been marked!! (＾▽＾)");
         Duchess.storedTasks.get(index).changeStatus(TaskStatus.MARKED);
-        duchessPrint(String.format("%d: %s", index, Duchess.storedTasks.get(index).toString()));
+        duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.get(index).toString()));
     }
 
     /**
@@ -211,29 +211,29 @@ public class Duchess {
     private static void unmarkTask(int index) {
         Duchess.duchessPrint("Task has been unmarked!! (＾▽＾)");
         Duchess.storedTasks.get(index).changeStatus(TaskStatus.UNMARKED);
-        duchessPrint(String.format("%d: %s", index, Duchess.storedTasks.get(index).toString()));
+        duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.get(index).toString()));
     }
 
     /**
-     * Returns true if the command is recognized as an "unmark task" command.
+     * Returns true if the command is recognized as a "todo" command.
      *
-     * @param s - the command to check for "unmark task" command.
+     * @param s - the command to check for "todo" command.
      * @return    whether the command is recognized as a ToDo command.
      */
     private static boolean isToDoCommand(String s) {
-        return Duchess.matchesRegex(s, "^todo ([A-Za-z ]+)$");
+        return Duchess.matchesRegex(s, "^todo ([A-Za-z0-9 ]+)$");
     }
 
     /**
-     * Parses a ToDo command, returning the string that should be marked as a ToDo.
+     * Parses a ToDo command, returning a ToDo task that was parsed from the command.
      *
-     * @param s - the command to parse for "unmark task" command.
-     * @return    the String that represents the ToDo task.
+     * @param s - the command to parse for "todo" command.
+     * @return    the ToDo task.
      */
-    private static String parseToDoCommand(String s) {
-        Matcher m = Duchess.parseRegex(s, "^todo ([A-Za-z ]+)$");
+    private static ToDo parseToDoCommand(String s) {
+        Matcher m = Duchess.parseRegex(s, "^todo ([A-Za-z0-9 ]+)$");
 
-        return m.group(1);
+        return new ToDo(m.group(1));
     }
 
     /**
@@ -241,13 +241,82 @@ public class Duchess {
      *
      * @param s - the title of the ToDo.
      */
-    private static void addToDoTask(String s) {
-        Task todo = new ToDo(s);
+    private static void addToDoTask(ToDo todo) {
         Duchess.storedTasks.add(todo);
 
         Duchess.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
-        Duchess.duchessPrint(todo.toString());
+        Duchess.duchessPrint(String.format("%d: %s", Duchess.storedTasks.indexOf(todo) + 1, todo.toString()));
     }
+
+    /**
+     * Returns true if the command is recognized as an "deadline" command.
+     *
+     * @param s - the command to check for "deadline" command.
+     * @return    whether the command is recognized as a Deadline command.
+     */
+    private static boolean isDeadlineCommand(String s) {
+        return Duchess.matchesRegex(s, "^deadline ([A-Za-z0-9 ]+) /by ([A-Za-z0-9 ]+)$");
+    }
+
+    /**
+     * Parses a deadline command, returning the deadline object parsed from the command.
+     *
+     * @param s - the command to parse for "deadline" command.
+     * @return    the Deadline task.
+     */
+    private static Deadline parseDeadlineCommand(String s) {
+        Matcher m = Duchess.parseRegex(s, "^deadline ([A-Za-z0-9 ]+) /by ([A-Za-z0-9 ]+)$");
+
+        return new Deadline(m.group(1), m.group(2));
+    }
+
+    /**
+     * Adds a new ToDo task with the specified title.
+     *
+     * @param s - the title of the ToDo.
+     */
+    private static void addDeadlineTask(Deadline deadline) {
+        Duchess.storedTasks.add(deadline);
+
+        Duchess.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
+        Duchess.duchessPrint(String.format("%d: %s", Duchess.storedTasks.indexOf(deadline) + 1, deadline.toString()));
+    }
+
+    /**
+     * Returns true if the command is recognized as an "event" command.
+     *
+     * @param s - the command to check for "event" command.
+     * @return    whether the command is recognized as an "event" command.
+     */
+    private static boolean isEventCommand(String s) {
+        return Duchess.matchesRegex(s, "^event ([A-Za-z0-9 ]+) /from ([A-Za-z0-9 ]+) /to ([A-Za-z0-9 ]+)$");
+    }
+
+    /**
+     * Parses a event command, returning the event object parsed from the command.
+     *
+     * @param s - the command to parse for "event" command.
+     * @return    the Event task.
+     */
+    private static Event parseEventCommand(String s) {
+        Matcher m = Duchess.parseRegex(s, "^event ([A-Za-z0-9 ]+) /from ([A-Za-z0-9 ]+) /to ([A-Za-z0-9 ]+)$");
+
+        return new Event(m.group(1), m.group(2), m.group(3));
+    }
+
+    /**
+     * Adds a new Event task with the specified title.
+     *
+     * @param event - the Event object to be added
+     */
+    private static void addEventTask(Event event) {
+        Duchess.storedTasks.add(event);
+
+        Duchess.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
+        Duchess.duchessPrint(String.format("%d: %s", Duchess.storedTasks.indexOf(event) + 1, event.toString()));
+    }
+
+
 
     public static void main(String[] args) {
         Duchess.printGreeting();
@@ -270,21 +339,41 @@ public class Duchess {
             }
 
             // Check if this command is a mark task command.
-             if (Duchess.isMarkTaskCommand(userInput)) {
-                 int index = Duchess.parseMarkTaskCommand(userInput);
-                 Duchess.markTask(index);
-                 continue;
-             }
+            if (Duchess.isMarkTaskCommand(userInput)) {
+                int index = Duchess.parseMarkTaskCommand(userInput);
+                index -= 1; // 1-indexing for user-facing side
+                Duchess.markTask(index);
+                continue;
+            }
 
-            // Check if this command is a mark task command.
-             if (Duchess.isUnmarkTaskCommand(userInput)) {
-                 int index = Duchess.parseUnmarkTaskCommand(userInput);
-                 Duchess.unmarkTask(index);
-                 continue;
-             }
+            // Check if this command is an unmarked task command.
+            if (Duchess.isUnmarkTaskCommand(userInput)) {
+                int index = Duchess.parseUnmarkTaskCommand(userInput);
+                index -= 1; // 1-indexing for user-facing side
+                Duchess.unmarkTask(index);
+                continue;
+            }
 
-            // Otherwise, store the command.
-            Duchess.storeTasks(userInput);
+            // Check if this command is a ToDo command.
+            if (Duchess.isToDoCommand(userInput)) {
+                ToDo todo = Duchess.parseToDoCommand(userInput);
+                Duchess.addToDoTask(todo);
+                continue;
+            }
+
+            // Check if this command is a Deadline command.
+            if (Duchess.isDeadlineCommand(userInput)) {
+                Deadline deadline = Duchess.parseDeadlineCommand(userInput);
+                Duchess.addDeadlineTask(deadline);
+                continue;
+            }
+
+            // Check if this command is a Event command.
+            if (Duchess.isEventCommand(userInput)) {
+                Event event = Duchess.parseEventCommand(userInput);
+                Duchess.addEventTask(event);
+                continue;
+            }
         }
 
         sc.close();

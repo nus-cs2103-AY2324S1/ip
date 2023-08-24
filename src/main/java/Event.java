@@ -10,10 +10,11 @@ class Event extends Task {
      * @param endTime   - the endTime in String format.
      * @param status    - the current task status of the Event.
      */
-    public Event(String name, String startTime, TaskStatus status) {
+    public Event(String name, String startTime, String endTime, TaskStatus status) {
         super(name, status);
 
         this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
@@ -24,10 +25,11 @@ class Event extends Task {
      * @param startTime - the startTime in String format.
      * @param endTime   - the endTime in String format.
      */
-    public Event(String name, String startTime) {
+    public Event(String name, String startTime, String endTime) {
         super(name);
 
         this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**
