@@ -16,7 +16,7 @@ class TaskList {
      * @param task Task to be added
      * @return Task list with added task
      */
-    public TaskList add(Task task) {
+    public TaskList addTask(Task task) {
         ArrayList<Task> updatedTasks = this.tasks;
         updatedTasks.add(task);
         return new TaskList(updatedTasks);
