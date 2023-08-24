@@ -44,7 +44,44 @@ public class Duke {
                 System.out.println("____________________________________________________________");
 
             }
-
+            else if(str.contains("todo")){
+                str=str.substring(5);
+                list.add(new Todo(str));
+                System.out.println("____________________________________________________________\n" +
+                        "Got it. I've added this task:");
+                System.out.println("\t"+list.get(list.size()-1));
+                System.out.println("____________________________________________________________");
+            }
+            else if(str.startsWith("todo")){
+                str=str.substring(5);
+                list.add(new Todo(str));
+                System.out.println("____________________________________________________________\n" +
+                        "Got it. I've added this task:");
+                System.out.println("\t"+list.get(list.size()-1));
+                System.out.println("Now you have "+ list.size()+" tasks in your list");
+                System.out.println("____________________________________________________________");
+            }
+            else if(str.startsWith("deadline")){
+                str=str.substring(9);
+                String[] arr=str.split(" /by ");
+                list.add(new Deadline(arr[0],arr[1]));
+                System.out.println("____________________________________________________________\n" +
+                        "Got it. I've added this task:");
+                System.out.println("\t"+list.get(list.size()-1));
+                System.out.println("Now you have "+ list.size()+" tasks in your list");
+                System.out.println("____________________________________________________________");
+            }
+            else if(str.startsWith("event")){
+                str=str.substring(9);
+                String[] arr=str.split(" /from ");
+                String[] time=arr[1].split(" /to ");
+                list.add(new Event(arr[0],time[0],time[1]));
+                System.out.println("____________________________________________________________\n" +
+                        "Got it. I've added this task:");
+                System.out.println("\t"+list.get(list.size()-1));
+                System.out.println("Now you have "+ list.size()+" tasks in your list");
+                System.out.println("____________________________________________________________");
+            }
             else {
                 list.add(new Task(str));
 
