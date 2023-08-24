@@ -15,10 +15,28 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE + "\n" + s + "\n" + HORIZONTAL_LINE);
     }
 
-    public void addTask(String s) {
-        tasks[countTasks] = new Task(s);
+    public void printTask(String s) {
+        printWithLines("Got it. I've added this task:" + "\n"
+                + s + "\n"
+                + "Now you have " + this.countTasks + " tasks in the list.");
+    }
+
+    public void addToDo(String description) {
+        tasks[countTasks] = new ToDo(description);
         countTasks++;
-        printWithLines("added: " + s);
+        printTask(tasks[countTasks - 1].toString());
+    }
+
+    public void addDeadline(String description, String by) {
+        tasks[countTasks] = new Deadline(description, by);
+        countTasks++;
+        printTask(tasks[countTasks - 1].toString());
+    }
+
+    public void addEvent(String description, String from, String to) {
+        tasks[countTasks] = new Event(description, from, to);
+        countTasks++;
+        printTask(tasks[countTasks - 1].toString());
     }
 
     public void printList() {
@@ -49,8 +67,14 @@ public class Duke {
                 tasks[index - 1].unmarkAsDone();
                 printWithLines("OK, I've marked this task as not done yet:" + "\n"
                         + tasks[index - 1]);
-            } else {
-                addTask(input);
+            } else if (input.startsWith("todo ")) {
+                addToDo(input.replace("todo ", ""));
+            } else if (input.startsWith("deadline ")) {
+                String[] split = input.replace("deadline ", "").split(" /by ");
+                addDeadline(split[0], split[1]);
+            } else if (input.startsWith("event ")) {
+                String[] split = input.replace("event ", "").split(" /from | /to ");
+                addEvent(split[0], split[1], split[2]);
             }
         }
     }
