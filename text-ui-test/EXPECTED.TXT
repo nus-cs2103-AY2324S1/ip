@@ -1,2 +1,7 @@
-java.util.InputMismatchException: invalid input
-java.util.InputMismatchException: task blank
+Got it. I've added this task:
+[T][ ] ah
+Now you have 1 tasks in the list.
+Noted. I've removed this task:
+[T][ ] ah
+Now you have 0 tasks in the list.
+Here are the tasks in your list:

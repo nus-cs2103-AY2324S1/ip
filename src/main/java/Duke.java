@@ -28,6 +28,7 @@ public class Duke {
         StringBuffer str = new StringBuffer(s);
         String check1 = "";
         String check2 = "";
+        //2 over so that delete and mark cannot have blank input
         if (s.length() >= 6) {
             check1 = str.substring(0, 4).toString();
         }
@@ -45,6 +46,9 @@ public class Duke {
             return true;
         } else if (check2.equals(unmark)) {
             unmark(Integer.parseInt(str.substring(7, str.length())));
+            return true;
+        } else if (check2.equals("delete")) {
+            delete(Integer.parseInt(str.substring(7, str.length())));
             return true;
         } else {
             try {
@@ -68,7 +72,6 @@ public class Duke {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(todolist.get(i - 1).toString());
     }
-
     private void addtolist(String s) {
         StringBuffer str = new StringBuffer(s);
         String check1 = "";
@@ -120,6 +123,13 @@ public class Duke {
         }
         System.out.println("Now you have " + todolist.size() + " tasks in the list.");
 
+    }
+
+    private void delete(int i) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(todolist.get(i - 1).toString());
+        todolist.remove(i - 1);
+        System.out.println("Now you have " + todolist.size() + " tasks in the list.");
     }
 
     private void printlist() {
