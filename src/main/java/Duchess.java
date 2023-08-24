@@ -176,6 +176,7 @@ public class Duchess {
     private static void markTask(int index) {
         Duchess.duchessPrint("Task has been marked!! (＾▽＾)");
         Duchess.storedTasks.get(index).changeStatus(TaskStatus.MARKED);
+        duchessPrint(String.format("%d: %s", index, Duchess.storedTasks.get(index).toString()));
     }
 
     /**
@@ -207,6 +208,7 @@ public class Duchess {
     private static void unmarkTask(int index) {
         Duchess.duchessPrint("Task has been unmarked!! (＾▽＾)");
         Duchess.storedTasks.get(index).changeStatus(TaskStatus.UNMARKED);
+        duchessPrint(String.format("%d: %s", index, Duchess.storedTasks.get(index).toString()));
     }
 
     public static void main(String[] args) {
