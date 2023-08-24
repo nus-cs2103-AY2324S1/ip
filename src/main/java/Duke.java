@@ -7,7 +7,7 @@ public class Duke {
     }
 
     public static void froggie() throws DukeException {
-        System.out.println("Hello! I'm froggie! ");
+        System.out.println("Hello! I'm froggie!");
         System.out.println("What can I do for you?");
         Scanner scanner = new Scanner(System.in);
         DukeList dukelist = new DukeList();
@@ -54,7 +54,11 @@ public class Duke {
                         throw new DukeException("The description of an event cannot be empty.");
                     }
 
-                } else {
+                } else if (splited[0].equals("delete")){
+                    int num = Integer.parseInt(splited[1]);
+                    dukelist.deleteTask(num - 1);
+                }
+                else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
             } catch (DukeException error) {

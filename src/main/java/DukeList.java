@@ -13,6 +13,15 @@ public class DukeList {
         System.out.println("Now you have " + arr.size() +  " tasks in the list");
     }
 
+    public void deleteTask (int number) {
+        Task chosenTask = arr.get(number);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("\t" + chosenTask.toString());
+        arr.remove(number);
+        System.out.println("Now you have " + arr.size() +  " tasks in the list");
+
+    }
+
     public void addTodo(String input) {
             Todo todo = new Todo(input);
             arr.add(todo);
