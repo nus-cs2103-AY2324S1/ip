@@ -1,6 +1,7 @@
 package penguin;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 /**
  * Penguin is the main logic of Penguin chatbot; its main responsibility is to parse commands and handle errors.
@@ -93,6 +94,8 @@ public class Penguin {
                 ui.out("Fishes!! " + e.getMessage());
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.out("No fishes? One or more fields in your command is empty or malformed.");
+            } catch(DateTimeParseException e) {
+                ui.out("Dates must be in penguin format yyyy-mm-dd!");
             } catch (Exception e) {
                 ui.out("Flap flap flap flap!! An unexpected error occurred...");
             }
