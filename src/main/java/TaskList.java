@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * A class to hold a list of tasks and perform operations on
+ * this list.
+ */
 public class TaskList {
     /** An ArrayList to hold tasks entered by the User. */
     private ArrayList<Task> tasks;
@@ -16,9 +20,11 @@ public class TaskList {
      * @param task The task to add.
      *
      */
-    public void addTask(String task) {
-        tasks.add(new Task(task));
-        System.out.println("\tadded: " + task);
+    public void addTask(Task task) {
+        tasks.add(task);
+        System.out.println("\tGot it. I've added this task:");
+        System.out.println("\t " + task);
+        System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
 
     }
 
@@ -26,6 +32,7 @@ public class TaskList {
      * Lists the tasks present in tasks ArrayList.
      */
     public void listTasks() {
+        System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.print("\t");
             System.out.print(i + 1);
@@ -35,35 +42,36 @@ public class TaskList {
     }
 
     /**
-     * Marks a given Task as done if it exists.
+     * Marks a given Task.
      *
      * @param index The location of the task in tasks ArrayList.
      */
     public void markTask(int index) {
-        if (index > tasks.size() || index <= 0) {
-            System.out.println("\tInvalid Input. Try again.");
 
-        } else {
-            tasks.get(index - 1).markAsDone();
-            System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t  " + tasks.get(index - 1));
-        }
+        tasks.get(index - 1).setAsDone();
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t  " + tasks.get(index - 1));
+
     }
 
     /**
-     * Marks a given Task as not done if it exists.
+     * Marks a given Task as not done.
      *
      * @param index The location of the task in tasks ArrayList.
      */
     public void unmarkTask(int index) {
-        if (index > tasks.size() || index <= 0) {
-            System.out.println("\tInvalid input. Try again.");
 
-        } else {
-            tasks.get(index - 1).markAsNotDone();
-            System.out.println("\tOk. I have marked this task as not done yet:");
-            System.out.println("\t  " + tasks.get(index - 1));
-        }
+        tasks.get(index - 1).setAsNotDone();
+        System.out.println("\tOk. I have marked this task as not done yet:");
+        System.out.println("\t  " + tasks.get(index - 1));
+    }
 
+
+    /**
+     * Returns the size of the taskList.
+     * @return Returns the size of the current taskList.
+     */
+    public int size() {
+        return tasks.size();
     }
 }

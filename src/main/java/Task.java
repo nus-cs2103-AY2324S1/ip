@@ -1,10 +1,15 @@
-public class Task {
+/**
+ * An abstract class which can only be inherited from.
+ * Serves as parent class of all tasks.
+ */
+public abstract class Task {
 
     /** The name of the task. */
     protected String description;
 
     /** Boolean variable indicating whether task is done. */
     protected boolean isDone;
+
 
     /**
      * Initialises name of task and isDone.
@@ -31,7 +36,7 @@ public class Task {
      * Sets isDone to true.
      *
      */
-    public void markAsDone() {
+    public void setAsDone() {
         this.isDone = true;
     }
 
@@ -39,7 +44,7 @@ public class Task {
      * Sets isDone to false.
      *
      */
-    public void markAsNotDone() {
+    public void setAsNotDone() {
         this.isDone = false;
     }
 
