@@ -8,12 +8,13 @@ public class CommandFactory {
         BYE,
         MARK,
         UNMARK,
-        LIST
+        LIST,
+        DELETE
     }
 
     public static void CommandActions() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> inputs = new ArrayList<>();
+        ArrayList<Task> tasklists = new ArrayList<>();
         while (true) {
             String input = scanner.nextLine().trim();
             String[] parts = input.split(" ");
@@ -31,10 +32,12 @@ public class CommandFactory {
                     Task newTask = null;
                     Task oldtask = null;
                     int number = 0;
-                    if (command == Command.MARK || command == Command.UNMARK){
+                    if (command == Command.MARK
+                            || command == Command.UNMARK
+                            || command == Command.DELETE){
                         try {
                             number = Integer.parseInt(parts[1]);
-                            oldtask = inputs.get(number-1);
+                            oldtask = tasklists.get(number-1);
                         } catch (Exception e) {
                             throw new InvalidListNumberException();
                         }
@@ -43,11 +46,14 @@ public class CommandFactory {
                         case BYE:
                             System.out.println("Bye. Hope to see you again soon!");
                             break;
-
+                        case DELETE:
+                            oldtask.deleteTask();
+                            tasklists.remove(number-1);
+                            break;
                         case LIST:
                             System.out.println("Here are the tasks in your list:");
-                            for (int i = 1; i < inputs.size()+1; i++) {
-                                Task taskToPrint = inputs.get(i - 1);
+                            for (int i = 1; i < tasklists.size()+1; i++) {
+                                Task taskToPrint = tasklists.get(i - 1);
                                 System.out.println(i + ". " + taskToPrint.getStatusAndDescription());
                             }
                             break;
@@ -65,7 +71,7 @@ public class CommandFactory {
                                 throw new InvalidToDoException();
                             } else {
                                 newTask = new ToDo(details[0].substring(5));
-                                inputs.add(newTask);
+                                tasklists.add(newTask);
                             }
                             break;
 
@@ -75,7 +81,7 @@ public class CommandFactory {
                             } else {
                                 newTask = new Deadline(details[0].split("/")[0].substring(9),
                                         details[1].split("by ")[1].trim());
-                                inputs.add(newTask);
+                                tasklists.add(newTask);
                             }
                             break;
 
@@ -86,7 +92,7 @@ public class CommandFactory {
                                 newTask = new Event(details[0].split("/")[0].substring(6),
                                         details[1].split("from ")[1].trim(),
                                         details[2].split("to ")[1].trim());
-                                inputs.add(newTask);
+                                tasklists.add(newTask);
                             }
                             break;
 

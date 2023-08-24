@@ -46,4 +46,13 @@ public abstract class Task {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("  " + this.getStatusAndDescription());
     }
+
+    public void deleteTask() {
+        taskCount -= 1;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("   " + this.getStatusAndDescription());
+        System.out.println(String.format("Now you have %s tasks in the list.",Task.taskCount));
+
+    }
+
 }
