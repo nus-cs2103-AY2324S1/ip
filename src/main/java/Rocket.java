@@ -10,7 +10,14 @@ public class Rocket {
         System.out.println(LINE + "\n    Hello! I'm Rocket\n" +
                 "    What can I do for you?\n" + LINE);
         command = scanner.nextLine();
-        System.out.println(LINE + "\n    " + command + "\n" + LINE);
+        while (true) {
+            if (!command.equals("bye")) {
+                System.out.println(LINE + "\n    " + command + "\n" + LINE);
+                command = scanner.nextLine();
+            } else {
+                break;
+            }
+        }
         System.out.println(LINE + "\n    Bye. Hope to see you again soon!\n" + LINE);
 
 
