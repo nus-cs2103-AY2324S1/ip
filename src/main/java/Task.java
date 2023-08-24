@@ -1,12 +1,16 @@
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
+    protected int id;
     protected String description;
     protected boolean completed;
 
     public static int numberOfTasks = 0;
+    private static int idTracker = 0;
     public static int numberOfCompletedTasks = 0;
 
 
     public Task(String d) {
+        this.id = idTracker;
+        idTracker++;
         this.description = d;
         this.completed = false;
         numberOfTasks++;
@@ -30,6 +34,15 @@ public abstract class Task {
                 numberOfTasks +
                 " tasks in the list!"));
         return newTask;
+    }
+
+    public static void deleteTask(Task toDelete) {
+        numberOfTasks--;
+        System.out.println(TextFormat.botReply("Happily scratched this off your list:\n" +
+                TextFormat.indentLineBy(toDelete.toString(), 2) +
+                "Now you have " +
+                numberOfTasks +
+                " tasks in the list!"));
     }
 
     public void markDone() {
@@ -61,4 +74,9 @@ public abstract class Task {
 
     @Override
     public abstract String toString();
+
+    @Override
+    public int compareTo(Task other) {
+        return this.id - other.id;
+    }
 }

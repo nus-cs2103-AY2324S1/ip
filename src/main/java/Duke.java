@@ -1,5 +1,5 @@
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;  // Import the Scanner class
 
 public class Duke {
@@ -12,10 +12,10 @@ public class Duke {
 
     static String greet = logo + "Woof! I'm Oreo! How may I help you?\n";
     static String exit = "I will be sad to see you go! bye!\n";
-    private Task[] taskList;
+    private ArrayList<Task> taskList;
 
     public Duke() {
-        this.taskList = new Task[100];
+        this.taskList = new ArrayList<>();
     }
 
     private void list() {
@@ -33,7 +33,7 @@ public class Duke {
                 displayList.append("Here are the things you told me to keep track of:\n");
             }
             for (int i = 0; i < Task.numberOfTasks; i++) {
-                displayList.append(i + 1 + ".").append(taskList[i].toString());
+                displayList.append(i + 1 + ".").append(taskList.get(i).toString());
             }
             System.out.println(TextFormat.botReply(displayList.toString()));
         }
@@ -45,12 +45,12 @@ public class Duke {
             System.out.println(TextFormat.botReply("Uh-oh... this task does not exist :("));
         } else {
             if (command.equals("mark")) {
-                taskList[id - 1].markDone();
+                taskList.get(id - 1).markDone();
                 if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
                     this.list();
                 }
             } else {
-                taskList[id - 1].markNotDone();}
+                taskList.get(id - 1).markNotDone();}
         }
     }
 
@@ -74,9 +74,17 @@ public class Duke {
                     changeMark(command, tokeniser);
                     continue;
                 }
+            } else if (command.equals("delete")) {
+                if (tokeniser.hasNext()) {
+                    int id = Integer.parseInt(tokeniser.next());
+                    Task.deleteTask(taskList.get(id - 1));
+                    taskList.remove(id - 1);
+                    Collections.sort(taskList);
+                    continue;
+                }
             }
             Task newTask = Task.addTask(command, tokeniser.nextLine());
-            taskList[Task.numberOfTasks - 1] = newTask;
+            taskList.add(newTask);
         }
         System.out.println(TextFormat.botReply(exit));
     }
