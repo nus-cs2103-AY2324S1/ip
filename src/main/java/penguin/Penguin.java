@@ -89,7 +89,7 @@ public class Penguin {
                 } else {
                     throw new PenguinUnknownCommandException();
                 }
-                memory.save(taskList);
+                memory.save(taskList); 
             } catch (PenguinException e) {
                 ui.out("Fishes!! " + e.getMessage());
             } catch (ArrayIndexOutOfBoundsException e) {
