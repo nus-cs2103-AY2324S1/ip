@@ -18,6 +18,10 @@ public class Duke {
                 continue;
             }
 
+            System.out.println(line);
+            System.out.println("    " + text);
+            System.out.println(line);
+
             if (text.equals("bye")) {
                 break;
             }
