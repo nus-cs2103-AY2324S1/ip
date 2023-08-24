@@ -37,13 +37,13 @@ public class Duke {
                 } else if (input.equals("list")) {
                     list();
                 } else if (input.startsWith("mark")) {
-                    testMark(input);
+                    testMarkAndDelete(input);
 
                     int taskIndex = Integer.parseInt(input.substring(5)) - 1;
                     Task currTask = taskList.get(taskIndex);
                     currTask.taskDone(true);
                 } else if (input.startsWith("unmark")) {
-                    testMark(input);
+                    testMarkAndDelete(input);
 
                     int taskIndex = Integer.parseInt(input.substring(7)) - 1;
                     Task currTask = taskList.get(taskIndex);
@@ -88,6 +88,15 @@ public class Duke {
                         Deadline deadline = new Deadline(title, time);
                         System.out.println(deadline.toString());
                         taskList.add(deadline);
+                    } else if (input.startsWith("delete")) {
+
+                        testMarkAndDelete(input);
+
+                        int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(taskList.get(taskIndex));
+                        taskList.remove(taskIndex);
+
                     } else {
                         throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
@@ -123,12 +132,12 @@ public class Duke {
         }
     }
 
-    private void testMark(String description) throws DukeException {
+    private void testMarkAndDelete(String description) throws DukeException {
         String[] words = description.split(" ");
         String index = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
 
         if (index.isEmpty() || !index.matches("-?(0|[1-9]\\d*)")) {
-            throw new DukeException("Following \"mark\" or \"unmark\", an integer value is expected. Blanks or" +
+            throw new DukeException("Following \"mark\" or \"unmark\" or \"delete\", an integer value is expected. Blanks or" +
                     " non-integer values are invalid.");
         }
 
