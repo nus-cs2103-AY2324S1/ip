@@ -38,9 +38,24 @@ public class Duke {
         String markUndone(String position) {
             try {
                 int index = Integer.parseInt(position) - 1;
-                Task task = list.get(index);
-                task.markAsNotDone();
+                Task task = list.remove(index);
                 return String.format("Ok! Task marked undone:\n    %s", task);
+            } catch (NumberFormatException e) {
+                return "Err: Index provided is not an integer";
+            } catch (IndexOutOfBoundsException e) {
+                return "Err: Index provided is out of position of the list";
+            }
+        }
+
+        String delete(String position) {
+            try {
+                int index = Integer.parseInt(position) - 1;
+                Task task = list.remove(index);
+                return String.format(
+                        "removed: %s\nYou have %d tasks.",
+                        task,
+                        list.size()
+                );
             } catch (NumberFormatException e) {
                 return "Err: Index provided is not an integer";
             } catch (IndexOutOfBoundsException e) {
@@ -79,45 +94,51 @@ public class Duke {
             String[] instruction = line.split(" ", 2);
             Commands cmd = Commands.get(instruction[0]);
             boolean hasSecondPart = instruction.length == 2;
+            String response;
             switch (cmd) {
                 case bye:
-                    printer("Goodbye.");
+                    response = "Goodbye.";
                     sc.close();
+                    printer(response);
                     break Reading;
                 case list:
-                    printer(list.toString());
-                    continue Reading;
+                    response = list.toString();
+                    break;
                 case deadline:
                 case todo:
                 case event:
                     if (!hasSecondPart) {
-                        printer(missingDetails(cmd));
-                        continue Reading;
+                        response = missingDetails(cmd);
+                        break;
                     }
-                    String taskResponse = list.add(cmd, instruction[1]);
-                    printer(taskResponse);
-                    continue Reading;
+                    response = list.add(cmd, instruction[1]);
+                    break;
                 case mark:
                     if (!hasSecondPart) {
-                        printer(missingDetails(cmd));
-                        continue Reading;
+                        response = missingDetails(cmd);
+                        break;
                     }
-                    String markedResponse = list.markDone(instruction[1]);
-                    printer(markedResponse);
-                    continue Reading;
+                    response = list.markDone(instruction[1]);
+                    break;
                 case unmark:
                     if (!hasSecondPart) {
-                        printer(missingDetails(cmd));
-                        continue Reading;
+                        response = missingDetails(cmd);
+                        break;
                     }
-                    String response = list.markUndone(instruction[1]);
-                    printer(response);
-                    continue Reading;
+                    response = list.markUndone(instruction[1]);
+                    break;
+                case delete:
+                    if (!hasSecondPart) {
+                        response = missingDetails(cmd);
+                        break;
+                    }
+                    response = list.delete(instruction[1]);
+                    break;
                 default:
-                    printer("Err: Unknown command - " + instruction[0]);
-                    continue Reading;
-
+                    response = "Err: Unknown command - " + instruction[0];
+                    break;
             }
+            printer(response);
         }
     }
 
