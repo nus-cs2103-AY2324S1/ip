@@ -65,19 +65,7 @@ public class Duchess {
      * @return                  whether the string matches the pattern.
      */
     private static boolean matchesRegex(String s, String patternString, boolean caseInsensitive) {
-        Pattern pattern;
-
-        if (caseInsensitive) {
-            pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
-        }
-        else {
-            pattern = Pattern.compile(patternString);
-        }
-
-        Matcher matcher = pattern.matcher(s);
-        boolean matchFound = matcher.find();
-
-        return matchFound;
+        return Duchess.parseRegex(s, patternString, caseInsensitive).matches();
     }
 
     /**
@@ -88,7 +76,41 @@ public class Duchess {
      * @return                  whether the string matches the pattern.
      */
     private static boolean matchesRegex(String s, String patternString) {
-        return Duchess.matchesRegex(s, patternString, false);
+        return Duchess.parseRegex(s, patternString).matches();
+    }
+
+    /**
+     * Returns the regex groups that is parsed from the regex pattern.
+     *
+     * @param s               - the string to check if it matches the pattern.
+     * @param patternString   - the pattern to match against.
+     * @param caseInsensitive - whether the match should be performed ignoring the case.
+     * @return                  the matcher containing the parsed regex groups.
+     */
+    private static Matcher parseRegex(String s, String patternString, boolean caseInsensitive) {
+        Pattern pattern;
+
+        if (caseInsensitive) {
+            pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
+        }
+        else {
+            pattern = Pattern.compile(patternString);
+        }
+
+        Matcher matcher = pattern.matcher(s);
+        matcher.find();
+        return matcher;
+    }
+
+    /**
+     * Returns the regex groups that is parsed from the regex pattern. By default, is case sensitive.
+     *
+     * @param s               - the string to check if it matches the pattern.
+     * @param patternString   - the pattern to match against.
+     * @return                  the matcher containing the parsed regex groups.
+     */
+    private static Matcher parseRegex(String s, String patternString) {
+        return Duchess.parseRegex(s, patternString, false);
     }
 
     /**
@@ -129,9 +151,21 @@ public class Duchess {
      * Returns true if the command is recognized as a "mark task" command.
      *
      * @param s - the command to check for "mark task" command.
+     * @return    whether the command is a "mark task" command.
      */
     private static boolean isMarkTaskCommand(String s) {
         return Duchess.matchesRegex(s, "^mark[ ]*([0-9]+)$");
+    }
+
+    /**
+     * Parses a mark task command, returning the index of the task to be marked.
+     *
+     * @param s - the command to parse for "mark task" command.
+     * @return    an integer describing the index of the task to be marked.
+     */
+    private static int parseMarkTaskCommand(String s) {
+        Matcher m = Duchess.parseRegex(s, "^mark[ ]*([0-9]+)$");
+        return Integer.parseInt(m.group(1));
     }
 
     /**
@@ -151,6 +185,18 @@ public class Duchess {
      */
     private static boolean isUnmarkTaskCommand(String s) {
         return Duchess.matchesRegex(s, "^unmark[ ]*([0-9]+)$");
+    }
+
+    /**
+     * Parses an unmark task command, returning the index of the task to be unmarked.
+     *
+     * @param s - the command to parse for "unmark task" command.
+     * @return    an integer describing the index of the task to be unmarked.
+     */
+    private static int parseUnmarkTaskCommand(String s) {
+        Matcher m = Duchess.parseRegex(s, "^unmark[ ]*([0-9]+)$");
+
+        return Integer.parseInt(m.group(1));
     }
 
     /**
@@ -184,12 +230,18 @@ public class Duchess {
             }
 
             // Check if this command is a mark task command.
-            // TODO: Use a function that accepts a lambda function to check if a particular regex matches the
-            // comamnd for all is****Command() functions.
-            // if (Duchess.isMarkTaskCommand(userInput)) {
-                // Duchess.markTask(Integer.parseInt(userInput));
-                // continue;
-            // }
+             if (Duchess.isMarkTaskCommand(userInput)) {
+                 int index = Duchess.parseMarkTaskCommand(userInput);
+                 Duchess.markTask(index);
+                 continue;
+             }
+
+            // Check if this command is a mark task command.
+             if (Duchess.isUnmarkTaskCommand(userInput)) {
+                 int index = Duchess.parseUnmarkTaskCommand(userInput);
+                 Duchess.unmarkTask(index);
+                 continue;
+             }
 
             // Otherwise, store the command.
             Duchess.storeTasks(userInput);
