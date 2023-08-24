@@ -1,0 +1,11 @@
+todo borrow book
+todo drink water
+event st1131 /from 1000 /to 1200
+deadline cs2103t /by thurs 2359
+list
+mark 1
+mark 3
+unmark 3
+mark 2
+list
+bye
