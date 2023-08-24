@@ -7,4 +7,11 @@ mark 1
 list
 unmark 2
 list
+bleh
+todo
+deadline
+deadline meow
+event
+event meowies /from 2 Past Meow
+event meowies /from 2 Past Meow /to 2 Past Meow
 bye
