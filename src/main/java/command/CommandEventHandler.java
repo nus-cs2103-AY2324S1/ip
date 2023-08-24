@@ -7,7 +7,7 @@ import task.EventTask;
 public class CommandEventHandler implements ICommandHandler{
 
     @Override
-    public void execute(String command, String[] parameters) {
+    public void execute(String command, String[] parameters) throws CommandException {
         String taskName = "";
         int length = parameters.length;
         int i;
@@ -34,8 +34,7 @@ public class CommandEventHandler implements ICommandHandler{
             to += parameters[i] + (i != length - 1 ? " " : "");
         }
         if(from.equals("") || to.equals("")){
-            Main.getInstance().say("Error: No from/to time is given.");
-            return;
+            throw new CommandException("Error: No from/to time is given.");
         }
         Main.getInstance().getTaskList().addTask(new EventTask(taskName, from, to));
     }

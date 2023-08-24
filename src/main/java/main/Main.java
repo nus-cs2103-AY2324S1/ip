@@ -55,12 +55,21 @@ public class Main {
             return;
         }
         String[] splitedCommand = command.split(" ");
-        if(this.commands.containsKey(splitedCommand[0])){
-            this.commands.get(splitedCommand[0]).execute(command, splitedCommand);
+        try{
+            if(command.equals("blah")){
+                throw new CommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            }
+            if(this.commands.containsKey(splitedCommand[0])){
+                this.commands.get(splitedCommand[0]).execute(command, splitedCommand);
+            }
+            else{
+                this.commands.get("add").execute(command, splitedCommand);
+            }
         }
-        else{
-            this.commands.get("add").execute(command, splitedCommand);
+        catch (CommandException e){
+            this.say("An exception happened when executing this command: " + e.getMessage());
         }
+
     }
 
     public static Main getInstance(){

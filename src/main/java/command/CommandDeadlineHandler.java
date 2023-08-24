@@ -6,7 +6,7 @@ import task.DeadlineTask;
 public class CommandDeadlineHandler implements ICommandHandler{
 
     @Override
-    public void execute(String command, String[] parameters) {
+    public void execute(String command, String[] parameters) throws CommandException {
         String taskName = "";
         int length = parameters.length;
         int i;
@@ -23,8 +23,7 @@ public class CommandDeadlineHandler implements ICommandHandler{
             deadline += parameters[i] + (i != length - 1 ? " " : "");
         }
         if(deadline.equals("")){
-            Main.getInstance().say("Error: No deadline time is given.");
-            return;
+            throw new CommandException("Error: No deadline time is given.");
         }
         Main.getInstance().getTaskList().addTask(new DeadlineTask(taskName, deadline));
     }

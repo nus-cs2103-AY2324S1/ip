@@ -1,5 +1,6 @@
 package task;
 
+import command.CommandException;
 import main.Main;
 
 import java.util.function.BiConsumer;
@@ -25,14 +26,12 @@ public class TaskList {
         return null;
     }
 
-    public void addTask(Task newTask){
+    public void addTask(Task newTask) throws CommandException {
         if(this.count >= 100){
-            Main.getInstance().say("Error: task list is full.");
-            return;
+            throw new CommandException("Error: task list is full.");
         }
         if(this.findTaskByName(newTask.getName()) != null){
-            Main.getInstance().say("Error: A task with name '" + newTask.getName() + "' already exists.");
-            return;
+            throw new CommandException("Error: A task with name '" + newTask.getName() + "' already exists.");
         }
         this.list[this.count] = newTask;
         this.count++;
