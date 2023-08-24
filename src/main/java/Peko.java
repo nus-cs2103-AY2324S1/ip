@@ -1,5 +1,6 @@
 import java.io.*;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Peko {
@@ -37,6 +38,22 @@ public class Peko {
         boolean loop = true;
         int responseValue;
         CommandsInternal temp;
+        try {
+            System.out.println("Loading peko!");
+            start(todoList);
+        } catch (FileNotFoundException e) {
+            File file = new File("src/main/List.txt");
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            main(null);
+            return;
+        } catch (InvalidTaskException e) {
+            System.out.println(e.errorToString());
+
+        }
         intro();
 
         while (loop) {
@@ -112,6 +129,35 @@ public class Peko {
         exit();
     }
 
+    public static void start(Task[] tasks) throws FileNotFoundException, InvalidTaskException {
+        File file = new File("src/main/List.txt");
+        Scanner sc = new Scanner(file);
+        while (sc.hasNextLine()) {
+            String s = sc.nextLine();
+            String[] temp = s.split(" \\| ");
+            Task t;
+            switch (temp[0]) {
+                case "T":
+                   t = new ToDos(temp[2]);
+                   if (temp[1] == "1") {
+                       t.setMark();
+                   }
+                case "D":
+                    t = new Deadline(temp[2] + " /by " + temp[3]);
+                    if (temp[1] == "1") {
+                        t.setMark();
+                    }
+                case "E":
+                    t = new Event(temp[2] + " /from " + temp[3] + " /to " + temp[4]);
+                    if (temp[1] == "1") {
+                        t.setMark();
+                    }
+                default:
+                    throw new InvalidTaskException(s);
+
+            }
+        }
+    }
     public static void intro() {
         String pekoLogo = " _____      _\n"
                 + "|     |___ | | ______\n"
@@ -211,27 +257,6 @@ public class Peko {
         System.out.println(lineBreak);
     }
 
-    public static void setMark(String s) {
-        try {
-            int i = Integer.parseInt(s);
-            File file = new File("src/main/List.txt");
-            Scanner sc = new Scanner(file);
-            for (int j = 1; j < i; j++) {
-                if (sc.hasNextLine()) {
-                    sc.nextLine();
-                } else {
-                    System.out.println("Your list isn't long enough Bakatare");
-                }
-            }
-            System.out.println(sc.nextLine());
-            System.out.println("");
-        } catch (NumberFormatException e) {
-            System.out.println("That's not a number Bakatare!");
-        } catch (FileNotFoundException e) {
-            System.out.println("Missing file peko! Pain Peko!");
-        }
-
-    }
     public static void setMarkArray(String s) {
         try {
             int markIndex = Integer.parseInt(s);
@@ -270,6 +295,60 @@ public class Peko {
             System.out.println("That's not a number in the list Peko!");
         }
     }
+    public static void storeArray(Task[] tasks) {
+        File file = new File("src/main/List.txt");
+        PrintWriter printWriter;
+        try {
+            printWriter = new PrintWriter("src/main/List.txt");
+            printWriter.write("");
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                System.out.println("Error, Cannot create file peko. Pain Peko.");
+            }
+        } finally {
+            for (Task t : tasks) {
+                if (t == null) {
+                    break;
+                }
+                String toStore = t.toStore() + "\n";
+                System.out.println(toStore);
+                try {
+                    Writer temp;
+                    temp = new BufferedWriter(new FileWriter("src/main/List.txt", true));
+                    temp.append(toStore);
+                    temp.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }
+    }
+
+    public static void setMark(String s) {
+        try {
+            int i = Integer.parseInt(s);
+            File file = new File("src/main/List.txt");
+            Scanner sc = new Scanner(file);
+            for (int j = 1; j < i; j++) {
+                if (sc.hasNextLine()) {
+                    sc.nextLine();
+                } else {
+                    System.out.println("Your list isn't long enough Bakatare");
+                }
+            }
+            System.out.println(sc.nextLine());
+            System.out.println("");
+        } catch (NumberFormatException e) {
+            System.out.println("That's not a number Bakatare!");
+        } catch (FileNotFoundException e) {
+            System.out.println("Missing file peko! Pain Peko!");
+        }
+
+    }
     public static void degen() throws FileNotFoundException {
         File text = new File("src/main/Copypasta.txt");
         Scanner sc = new Scanner(text);
@@ -287,6 +366,7 @@ public class Peko {
         return s;
     }
     private static void exit() {
+        storeArray(todoList);
         System.out.println(exitText);
     }
 
