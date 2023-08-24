@@ -1,3 +1,8 @@
+import exceptions.BocchiException;
+import exceptions.EmptyTaskException;
+import exceptions.InvalidInputException;
+import exceptions.InvalidSyntaxException;
+
 import java.util.Scanner;
 
 public class Bocchi {
@@ -29,15 +34,22 @@ public class Bocchi {
      * @param taskList Current list of tasks
      * @return Updated task list
      */
-    private static TaskList addTask(String input, String action, TaskList taskList) {
+    private static TaskList addTask(String input, String action, TaskList taskList)
+            throws InvalidSyntaxException {
         Task task;
         switch (action) {
             case "deadline":
+                if (!input.contains("/by")) {
+                    throw new InvalidSyntaxException("deadline");
+                }
                 // Further tokenize into action and deadline
                 String[] deadlineTokens = input.split("\\s*/by\\s*");
                 task = new Deadline(deadlineTokens[0], deadlineTokens[1]);
                 break;
             case "event":
+                if (!input.contains("/from") || !input.contains("/to")) {
+                    throw new InvalidSyntaxException("event");
+                }
                 // Further tokenize into action, start time and end time
                 // Regex identified by /to OR /from
                 String[] eventTokens = input.split(
@@ -112,20 +124,35 @@ public class Bocchi {
         String[] tokens = message.split(" ", 2);
         String action = tokens[0];
         while (!action.equals("bye")) {
-            switch (action) {
-                case "list":
-                    displayTasks(taskList);
-                    break;
-                case "mark":
-                    taskList = markTask(Integer.parseInt(tokens[1]), taskList);
-                    break;
-                case "unmark":
-                    taskList = unmarkTask(Integer.parseInt(tokens[1]), taskList);
-                    break;
-                default:
-                    // tokens[1] which is the remaining input is parsed based on the action
-                    taskList = addTask(tokens[1], action, taskList);
+            try {
+                switch (action) {
+                    case "list":
+                        displayTasks(taskList);
+                        break;
+                    case "mark":
+                        taskList = markTask(Integer.parseInt(tokens[1]), taskList);
+                        break;
+                    case "unmark":
+                        taskList = unmarkTask(Integer.parseInt(tokens[1]), taskList);
+                        break;
+                    case "todo":
+                    case "deadline":
+                    case "event":
+                        // tokens[1] which is the remaining input is parsed based on the action
+                        if (tokens.length == 1) {
+                            throw new EmptyTaskException(action);
+                        }
+                        taskList = addTask(tokens[1], action, taskList);
+                        break;
+                    default:
+                        throw new InvalidInputException();
+                }
+            } catch (BocchiException e) {
+                System.out.println(LINE_BREAK);
+                System.out.println(e.getMessage());
+                System.out.println(LINE_BREAK);
             }
+
             message = sc.nextLine();
             tokens = message.split(" ", 2);
             action = tokens[0];
