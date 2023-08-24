@@ -48,8 +48,8 @@ public class TaskList {
             int index = Integer.valueOf(userArg) - 1;
             Task task = tasks.get(index);
             task.markAsDone();
-            String message = "The following task is marked done, sheeesh:\n" + task.toString();
-            this.echo(message);
+            this.echo("The following task is marked done, sheeesh:\n"
+                        + task.toString());
         } catch(NumberFormatException e) {
             throw new EkudIllegalArgException("Please input a valid index number :o");
         } catch(IndexOutOfBoundsException e) {
@@ -66,8 +66,8 @@ public class TaskList {
             int index = Integer.valueOf(userArg) - 1;
             Task task = tasks.get(index);
             task.markAsNotDone();
-            String message = "The following task is marked as not done yet:\n" + task.toString();
-            this.echo(message);
+            this.echo("The following task is marked as not done yet:\n"
+                        + task.toString());
         } catch(NumberFormatException e) {
             throw new EkudIllegalArgException("Please input a valid index number :o");
         } catch(IndexOutOfBoundsException e) {
