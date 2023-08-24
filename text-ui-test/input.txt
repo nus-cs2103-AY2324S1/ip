@@ -1,0 +1,8 @@
+deadline hw /by tonight
+todo sleep
+event club /from 3 /to 5
+mark 2
+mark 3
+mark 1
+unmark 1
+bye
