@@ -3,41 +3,27 @@ import java.util.List;
 import java.util.Scanner;
 public class Duke {
     private static String name = "WallE";
-    private static class Task {
-        private String name;
-        private boolean isDone;
-        public Task(String name, boolean isDone) {
-            this.name = name;
-            this.isDone = isDone;
-        }
-        public String getName() {
-            return this.name;
-        }
-        public boolean isDone() {
-            return this.isDone;
-        }
-        public void markAsDone() {
-            this.isDone = true;
-        }
-        public void markAsUndone() {
-            this.isDone = false;
-        }
-        public String getStatusIcon() {
-            return this.isDone() ? "[X]" : "[]";
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%s %s", this.getStatusIcon(), this.getName());
-
-        }
-    }
     private static List<Task> tasks = new ArrayList<>();
     public static void printDivider(boolean isIndented) {
         if (isIndented)
             System.out.println('\t' + "_________________________________________");
         else
             System.out.println("_________________________________________");
+    }
+
+    public static void printTaskAddedMessage(Task task) {
+        System.out.println("\t\t Got it. I've added this task:");
+        System.out.println(String.format("\t\t\t %s", task.toString()));
+        System.out.println(String.format("\t\tNow you have %d tasks in the list.", tasks.size()));
+    }
+
+    public static String extractSecondWordOnwards(String str) {
+        String[] wordArray = str.split(" ");
+        String secondWordOnwards = wordArray.length >= 2 ? wordArray[1] : "";
+        for (int i = 2; i < wordArray.length; i++)  {
+            secondWordOnwards += " " + wordArray[i];
+        }
+        return secondWordOnwards;
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -52,26 +38,46 @@ public class Duke {
                 printDivider(true);
                 if (!input.equals("list")) {
                     String[] inputWords = input.split(" ");
-                    if (inputWords[0].equals("mark") || inputWords[0].equals("unmark")) {
-                        try {
-                            int id = Integer.valueOf(inputWords[1]) - 1;
-                            switch (inputWords[0]) {
-                                case "mark":
-                                    tasks.get(id).markAsDone();
-                                    System.out.println("\tNice! I've marked this task as done:");
-                                    System.out.println("\t\t" + tasks.get(id).toString());
-                                    break;
-                                case "unmark":
-                                    tasks.get(id).markAsUndone();
-                                    System.out.println("\tOk, I've marked this task as not done yet:");
-                                    System.out.println("\t\t" + tasks.get(id).toString());
-                            }
-                        } catch (Exception e) {
-                            throw e;
-                        }
-                    } else {
-                        tasks.add(new Task(input, false));
-                        System.out.println("\tadded: " + input);
+                    int id;
+                    switch (inputWords[0]) {
+                        case "todo":
+                            String todoName = extractSecondWordOnwards(input);
+                            Task todo = new ToDo(todoName, false);
+                            tasks.add(todo);
+                            System.out.println("\tadded: " + input);
+                            printTaskAddedMessage(todo);
+                            break;
+                        case "deadline":
+                            String[] twoParts = input.split ("/by ");
+                            String deadlineName = extractSecondWordOnwards(twoParts[0]);
+                            String deadlineString = twoParts[1];
+                            Task deadline = new Deadline(deadlineName, false, deadlineString);
+                            tasks.add(deadline);
+                            System.out.println("\tadded: " + input);
+                            printTaskAddedMessage(deadline);
+                            break;
+                        case "event":
+                            String[] threeParts = input.split ("/");
+                            String eventName = extractSecondWordOnwards(threeParts[0]);
+                            String eventStart = extractSecondWordOnwards(threeParts[1]);
+                            String eventEnd = extractSecondWordOnwards(threeParts[2]);
+                            Task event = new Event(eventName, false, eventStart, eventEnd);
+                            tasks.add(event);
+                            System.out.println("\tadded: " + input);
+                            printTaskAddedMessage(event);
+                            break;
+                        case "mark":
+                            id = Integer.valueOf(inputWords[1]) - 1;
+                            tasks.get(id).markAsDone();
+                            System.out.println("\tNice! I've marked this task as done:");
+                            System.out.println("\t\t" + tasks.get(id).toString());
+                            break;
+                        case "unmark":
+                            id = Integer.valueOf(inputWords[1]) - 1;
+                            tasks.get(id).markAsUndone();
+                            System.out.println("\tOk, I've marked this task as not done yet:");
+                            System.out.println("\t\t" + tasks.get(id).toString());
+                            break;
                     }
                 } else {
                     for (int i = 0; i < tasks.size(); i++) {
