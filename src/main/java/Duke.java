@@ -6,14 +6,9 @@ public class Duke {
         String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", botName);
         String endMessage = "Bye! Hope to see you again soon!";
 
-        String divider = String.format("%80s", "").replace(" ", "-");
-
-        System.out.println(divider);
-        System.out.println(startMessage);
-        System.out.println(divider);
+        echo(startMessage);
         startParse();
-        System.out.println(endMessage);
-        System.out.println(divider);
+        echo(endMessage);
     }
 
     private static void startParse() {
@@ -30,6 +25,9 @@ public class Duke {
         }
     }
     private static void echo(String input) {
+        String divider = String.format("%80s", "").replace(" ", "-");
+        System.out.println(divider);
         System.out.println(input);
+        System.out.println(divider);
     }
 }
