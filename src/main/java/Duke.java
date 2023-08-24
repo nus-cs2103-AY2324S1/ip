@@ -62,6 +62,22 @@ public class Duke {
                         }
                     }
 
+                } else if (userInput.contains("delete")) {
+                    if (userInput.substring(6).isBlank()) {
+                        throw new DukeException("More information is required to delete a task");
+                    } else {
+                        String[] unparsedTaskIndex = userInput.split(" ");
+                        int taskIndex = Integer.parseInt(unparsedTaskIndex[1]) - 1;
+                        if (taskIndex >= (taskList.size()) || taskIndex < 0) {
+                            throw new DukeException("There are only " + taskList.size() + " tasks");
+                        } else {
+                            System.out.println("Okay! Another dog-gone task down:  \n" +
+                                    taskList.get(taskIndex).toString());
+                            taskList.remove(taskIndex);
+                            System.out.println("You now have " + taskList.size() + " tasks in the list");
+                        }
+                    }
+
                 } else if (userInput.contains("todo")) {
                     String taskInfo = userInput.substring(4);
                     if (taskInfo.isBlank()) {
