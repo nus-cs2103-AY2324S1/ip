@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public String obtainDate(String input) {
-        return "";
-    }
-
+    /**
+     * Returns the command that is called by the user.
+     * @param input The user input.
+     * @return The type of command called.
+     */
     private static Commands determineCommand(String input) {
         for (Commands command: Commands.values()) {
             if (input.contains(command.name().toLowerCase())) {
@@ -17,6 +18,14 @@ public class Duke {
         return Commands.UNKNOWN;
     }
 
+    /**
+     * Returns the title of the task.
+     * @param input The user input.
+     * @param command Type of command given by the user.
+     * @return The title of the task.
+     * @throws DukeException InvalidInputException thrown if input cannot be recognised. MissingTitleException thrown
+     * if user did not give a title for their task.
+     */
     private static String obtainTitle(String input, Commands command) throws DukeException{
         try {
             if (command.equals(Commands.TODO)) {
@@ -39,6 +48,14 @@ public class Duke {
         }
     }
 
+    /**
+     * Returns the date specified by the user for their task.
+     * @param input The user input.
+     * @param command Type of command given by the user.
+     * @return By date of deadlines or From and To date of events.
+     * @throws DukeException InvalidInputException thrown if input cannot be recognised. MissingDateException thrown
+     * if user did not give a by date for their deadline or either a from or to date for their event.
+     */
     private static String obtainDate(String input, Commands command) throws DukeException{
         try {
             if (command.equals(Commands.DEADLINE)) {
@@ -59,6 +76,15 @@ public class Duke {
         }
     }
 
+    /**
+     * Updates the completion status of their task and returns a String as the dialogue.
+     * @param input The user input.
+     * @param command Type of command given by the user.
+     * @param tasks List of tasks added by the user.
+     * @return Dialogue for the bot to confirm status of the task.
+     * @throws DukeException InvalidInputException thrown if input cannot be recognised. MissingTaskException thrown
+     * if task cannot be found in the task list.
+     */
     private static String changeTaskCompletion(String input, Commands command, List<Task> tasks) throws DukeException{
         try {
             int taskNum = Integer.valueOf(input.split(" ")[1]);
@@ -82,6 +108,14 @@ public class Duke {
         }
     }
 
+    /**
+     * Deletes a task from the task list and returns a String as the dialogue.
+     * @param input The user input.
+     * @param tasks List of tasks added by the user.
+     * @return Dialogue to confirm the deletion of the task from the list.
+     * @throws DukeException InvalidInputException thrown if input cannot be recognised. MissingTaskException thrown
+     * if task cannot be found in the task list.
+     */
     private static String deleteTask(String input, List<Task> tasks) throws DukeException {
         try {
             int taskNum = Integer.valueOf(input.split(" ")[1]);
