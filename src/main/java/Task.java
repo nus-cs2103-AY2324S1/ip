@@ -22,4 +22,9 @@ public class Task {
     public void unmarkTask() {
         this.isDone = false;
     }
+
+    @Override
+    public String toString() {
+        return this.getStatusIcon() + " " + this.description;
+    }
 }
