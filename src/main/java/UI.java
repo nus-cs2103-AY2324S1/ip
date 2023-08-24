@@ -10,16 +10,16 @@ public class UI {
                 "| \\__.   | | | |  | \\__., | \\__.,  | | | | | |   `'.'.  \n" +
                 "'.___.' [___]|__]  '.__.'  '.__.' [___||__||__] [\\__) ) \n" +
                 "                                                        \n";
-        String hello = "Heyo I'm Cheems! Nice to meet you:)" + "\n" + "Want to get some fries on the pier together?";
+        System.out.println("Hello from");
         System.out.println(logo);
-        displayCheems();
-        System.out.println(hello);
+
+        String hello = "Heyo I'm Cheems! Nice to meet you:)" + "\n" + "Want to get some fries on the pier together?";
+        printWithFormat(hello);
     }
 
     public void showExitMsg() {
         String bye = "Okay bye:( Let's get the fries next time.";
-        displayCheems();
-        System.out.println(bye);
+        printWithFormat(bye);
     }
 
     public String getInput(Scanner scanner) {
@@ -27,10 +27,8 @@ public class UI {
         return scanner.nextLine();
     }
 
-    /*
-    May be referenced by other components to display messages.
-     */
-    public static void displayCheems() {
+    public static void printWithFormat(String msg) {
         System.out.println("> Cheems: ");
+        System.out.println(msg);
     }
 }

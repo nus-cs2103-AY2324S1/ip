@@ -43,7 +43,8 @@ public class Parser {
                             }
                             break;
                         } else {
-                            throw new NumberFormatException("Sorry you must provide the task number to mark/unmark it!");
+                            String errMsg = "Sorry you must provide the task number to mark/unmark it!";
+                            throw new NumberFormatException(errMsg);
                         }
 
                         // input of tasks are assumed to be in correct format
@@ -67,8 +68,8 @@ public class Parser {
                 }
             }
         } else {
-            UI.displayCheems();
-            System.out.println("Now tell me, do you want some fries?");
+            String resp = "Please give me instructions, if not, I'll serve you some fries.";
+            UI.printWithFormat(resp);
         }
     }
 
