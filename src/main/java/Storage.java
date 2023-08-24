@@ -78,7 +78,7 @@ public class Storage {
     public void writeToFile(List<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(this.filePath);
         for(Task task: tasks) {
-            fw.write(task.storageTaskRep() + "\n");
+            fw.write(task.toStringStorage() + "\n");
         }
         fw.close();
     }

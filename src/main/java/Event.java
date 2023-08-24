@@ -4,7 +4,6 @@
 public class Event extends Task {
     protected String start;
     protected String end;
-    protected String duration;
 
     /**
      * Creates an event object. This is the main constructor of the Event class.
@@ -43,7 +42,7 @@ public class Event extends Task {
      * @return string representation of the event for storage.
      */
     @Override
-    public String storageTaskRep() {
+    public String toStringStorage() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start + " - " + end;
     }
 }

@@ -1,5 +1,0 @@
-T | 0 | buy book
-D | 1 | buy book | 2 oct
-E | 1 | job fair | 8 aug 3am - 10am
-E | 0 | buy potatoes | 3pm - 4pm sat 7 aug
-D | 1 | return book | 7 aug

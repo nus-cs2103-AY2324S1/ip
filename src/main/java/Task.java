@@ -45,5 +45,5 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public abstract String storageTaskRep();
+    public abstract String toStringStorage();
 }
