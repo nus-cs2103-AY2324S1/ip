@@ -1,6 +1,7 @@
-import java.util.Objects;
 import java.util.Scanner;
 public class Bee {
+    private static TaskList listOfTasks = new TaskList();
+
     public static void main(String[] args) {
         String logo = " \n" +
                 "__________               \n" +
@@ -9,37 +10,30 @@ public class Bee {
                 " |    |   \\  ___/\\  ___/ \n" +
                 " |______  /\\___  >\\___  >\n" +
                 "        \\/     \\/     \\/ \n";
-        System.out.println("Hello! I'm " + logo + ".\n");
+        System.out.println("Hello! I'm " + logo);
 
         Scanner scanner = new Scanner(System.in);
-        String[] list = new String[100];
-        int listIndex = 0;
         System.out.println("~Bzzzz~ What may I assist you with today? ~Bzzzz~\n");
 
         boolean isRunning = true;
         while (isRunning) {
             String userInput = scanner.nextLine();
-
             // If user enters "bye", ends the program and says goodbye to the user.
             if (userInput.equals("bye")) {
-                System.out.println("By-ee!. ~Bzzzz~");
+                System.out.println("By-ee!. Hope to see you soon! ~Bzzz~");
                 break;
             } else if (userInput.equals("list")) {
-                for (int i=0; i < list.length; i++) {
-                    if (list[i] != null) {
-                        int order = i + 1;
-                        System.out.println(order + ". " + list[i]);
-                    } else {
-                        break;
-                    }
-                }
-                continue;
+                listOfTasks.listAllTasks();
+            } else if (userInput.startsWith("mark")) {
+                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                listOfTasks.setTaskDone(taskIndex);
+            } else if (userInput.startsWith("unmark")) {
+                int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                listOfTasks.setTaskNotDone(taskIndex);
+            } else {
+                // Else, echo back the user input and add to list
+                listOfTasks.addTask(new Task(userInput));
             }
-
-            // Else, echo back the user input and add to list
-            list[listIndex] = userInput;
-            listIndex++;
-            System.out.println("Added: " + userInput + " ~Bzzzz~\n");
         }
     }
 }
