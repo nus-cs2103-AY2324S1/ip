@@ -7,7 +7,7 @@ public class Duke {
         String[] actions = new String[100];
         boolean[] isDone = new boolean[100];
         String[] type = new String[100];
-        String logo = "Hello! I'm bob \nWhat can I do for you?";
+        String logo = "Hello! I'm bob\nWhat can I do for you?";
         System.out.println(logo);
         while (true) {
             String input = scanner.nextLine();
@@ -23,12 +23,12 @@ public class Duke {
                     isDone[j] = isDone[j+1];
                 }
                 counter = counter - 1;
-                System.out.println( "Noted. I've removed this task: \n " + action2);
+                System.out.println( "Noted. I've removed this task:\n " + action2);
                 System.out.println("Now you have " + counter + " tasks in the list.");
             } else if (input.startsWith("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < counter; i++) {
-                    System.out.println(" " + (i + 1) + "." + helper(actions[i], type[i], isDone[i]));
+                    System.out.println((i + 1) + "." + helper(actions[i], type[i], isDone[i]));
                 }
             } else if (input.startsWith("todo")) {
                 if (input.length() <= 4) {
@@ -39,7 +39,7 @@ public class Duke {
                     actions[counter] = action;
                     type[counter] = "T";
                     counter++;
-                    System.out.println("Got it. I've added this task: \n" + helper(action, "T", false));
+                    System.out.println("Got it. I've added this task:\n  " + helper(action, "T", false));
                     System.out.println("Now you have " + counter + " tasks in the list.");
                 }
             } else if (input.startsWith("deadline")) {
@@ -49,8 +49,8 @@ public class Duke {
                 type[counter] = "D";
                 isDone[counter] = false;
                 counter++;
-                System.out.println(" Got it. I've added this task: \n" + helper(action, "D", false) + " (by: " + by + ")");
-                System.out.println(" Now you have " + counter + " tasks in the list.");
+                System.out.println("Got it. I've added this task: \n  " + helper(action, "D", false) + " (by: " + by + ")");
+                System.out.println("Now you have " + counter + " tasks in the list.");
             } else if (input.startsWith("event")) {
                 String action = input.substring(6, input.indexOf("/from")).trim();
                 String from = input.substring(input.indexOf("/from") + 6, input.indexOf("/to")).trim();
@@ -59,21 +59,21 @@ public class Duke {
                 isDone[counter] = false;
                 type[counter] = "E";
                 counter++;
-                System.out.println(" Got it. I've added this task:\n   " + helper(action, "E", false) + " (from: " + from + " to: " + to + ")");
-                System.out.println(" Now you have " + counter + " tasks in the list.");
+                System.out.println("Got it. I've added this task:\n  " + helper(action, "E", false) + " (from: " + from + " to: " + to + ")");
+                System.out.println("Now you have " + counter + " tasks in the list.");
             } else if (input.startsWith("mark")) {
                 int num = Integer.parseInt(input.substring(5).trim());
                 if (num-1 < counter) {
                     isDone[num-1] = true;
-                    System.out.println(" Nice! I've marked this task as done:");
-                    System.out.println("   " + helper(actions[num-1], type[num-1], isDone[num-1]));
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  " + helper(actions[num-1], type[num-1], isDone[num-1]));
                 }
             } else if (input.startsWith("unmark")) {
                 int num2 = Integer.parseInt(input.substring(7).trim());
                 if (num2-1 < counter) {
                     isDone[num2-1] = false;
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("   " + helper(actions[num2-1], type[num2-1], isDone[num2-1]));
+                    System.out.println("  " + helper(actions[num2-1], type[num2-1], isDone[num2-1]));
                 } else {
                       System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 
