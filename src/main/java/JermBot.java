@@ -49,9 +49,9 @@ public class JermBot {
                                 addedTask = new Todo(todoSplit[1].trim());
                                 break;
                             case "deadline":
-                                String subStr1 = currStr.split("deadline ")[1];
-                                String[] subStr2 = subStr1.split(" /by ");
-                                addedTask = new Deadline(subStr2[0], subStr2[1]);
+                                String splitStr1 = currStr.split("deadline ")[1];
+                                String[] splitStr2 = splitStr1.split(" /by ");
+                                addedTask = new Deadline(splitStr2[0], splitStr2[1]);
                                 break;
                             case "event":
                                 String splitStr3 = currStr.split("event ")[1];
