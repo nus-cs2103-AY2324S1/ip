@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class DogeBot {
@@ -16,27 +17,57 @@ public class DogeBot {
         boolean loop = true;
 
         while (loop) {
-            switch (sc.next()) {
+            switch (sc.next().toLowerCase()) {
                 case "bye":
                     loop = false;
                     break;
                 case "list":
-                    list();
+                    try {
+                        list();
+                    } catch (DogeBotException e) { // empty list
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "mark":
-                    mark(sc.nextInt() - 1);
+                    try {
+                        mark(sc.nextInt() - 1);
+                    } catch (InputMismatchException e) { // not 'int' datatype
+                        sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
+                        System.out.println("Oops ! Integers only please :(");
+                    } catch (DogeBotException e) { // no tasks added yet
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "unmark":
-                    unmark(sc.nextInt() - 1);
+                    try {
+                        unmark(sc.nextInt() - 1);
+                    } catch (InputMismatchException e) { // not 'int' datatype
+                        sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
+                        System.out.println("Oops ! Integers only please :(");
+                    } catch (DogeBotException e) { // no tasks added yet
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "todo":
-                    todo(sc.nextLine()); // sc.nextLine() to get the remaining words
+                    try {
+                        todo(sc.nextLine()); // sc.nextLine() to get the remaining words
+                    } catch (DogeBotException e) { // description blank
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "deadline":
-                    deadline(sc.nextLine());
+                    try {
+                        deadline(sc.nextLine());
+                    } catch (DogeBotException e) { // description blank
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "event":
-                    event(sc.nextLine());
+                    try {
+                        event(sc.nextLine());
+                    } catch (DogeBotException e) { // description blank
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 default:
                     System.out.println("Wuff, I'm not sure what that means :(");
@@ -47,7 +78,9 @@ public class DogeBot {
         sc.close();
     }
 
-    public static void list() {
+    public static void list() throws DogeBotException {
+        if (tasksCounter == 0) throw new DogeBotException("Oops ! Your list is empty ! Try adding some tasks first c:");
+
         System.out.println("Stuff to do:");
         int i = 1;
         for (Task task : tasks) {
@@ -56,13 +89,17 @@ public class DogeBot {
         }
     }
 
-    public static void mark(int index) {
+    public static void mark(int index) throws DogeBotException {
+        if (tasksCounter == 0) throw new DogeBotException("Oops ! Try adding some tasks first c:");
+
         tasks[index].markTask(true);
         System.out.println("Good job on completing a task ! You deserve a cookie C:");
         System.out.println("\t" + tasks[index].toString());
     }
 
-    public static void unmark (int index) {
+    public static void unmark (int index) throws DogeBotException {
+        if (tasksCounter == 0) throw new DogeBotException("Oops ! Try adding some tasks first c:");
+
         tasks[index].markTask(false);
         System.out.println("Oh nyo, did someone make a mistake ?");
         System.out.println("\t" + tasks[index].toString());
@@ -73,13 +110,17 @@ public class DogeBot {
         System.out.println("You now have " + tasksCounter + " task(s) in your list");
     }
 
-    public static void todo(String words) {
+    public static void todo(String words) throws DogeBotException {
+        if (words.isBlank()) throw new DogeBotException("Oops ! The description of a todo cannot be empty :(");
+
         tasks[tasksCounter] = new ToDos(words);
         System.out.println("\t" + tasks[tasksCounter].toString());
         updateTasksCounter();
     }
 
-    public static void deadline(String words) {
+    public static void deadline(String words) throws DogeBotException {
+        if (words.isBlank()) throw new DogeBotException("Oops ! The description of a deadline cannot be empty :(");
+
         int split = words.indexOf("/");
         // substring w/o the spaces
         String taskDescription = words.substring(0, split - 1);
@@ -90,7 +131,9 @@ public class DogeBot {
         updateTasksCounter();
     }
 
-    public static void event(String words) {
+    public static void event(String words) throws DogeBotException {
+        if (words.isBlank()) throw new DogeBotException("Oops ! The description of an event cannot be empty :(");
+
         // substring w/o the spaces
         int startSplit = words.indexOf("/");
         String taskDesription = words.substring(0, startSplit - 1);
