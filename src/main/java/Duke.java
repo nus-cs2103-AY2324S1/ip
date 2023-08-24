@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 public class Duke {
     private static String chatbot = "chuababyy chatbot";
@@ -18,6 +17,35 @@ public class Duke {
             + "8. bye\n"
             + line ;
 
+    public enum CommandType {
+        TODO, DEADLINE, EVENT, MARK,
+        UNMARK, DELETE, LIST, BYE, UNKNOWN, EMPTY
+    }
+
+    public static CommandType parseCommand(String input) {
+        if (input.equals("list")) {
+            return CommandType.LIST;
+        } else if (input.equals("mark")) {
+            return CommandType.MARK;
+        } else if (input.equals("unmark")) {
+            return CommandType.UNMARK;
+        } else if (input.equals("todo")) {
+            return CommandType.TODO;
+        } else if (input.equals("deadline")) {
+            return CommandType.DEADLINE;
+        } else if (input.equals("event")) {
+            return CommandType.EVENT;
+        } else if (input.equals("delete")) {
+            return CommandType.DELETE;
+        } else if (input.equals("bye")) {
+            return CommandType.BYE;
+        } else if (input.equals("")) {
+            return CommandType.EMPTY;
+        } else {
+            return CommandType.UNKNOWN;
+        }
+    }
+
     public static void main(String[] args) {
         TaskList fullList = new TaskList();
 
@@ -31,120 +59,110 @@ public class Duke {
         while (true) {
             String userInput = scanner.nextLine().trim();
             String[] userInputParts = userInput.split(" ", 2);
-            String command = userInputParts[0];
+            String command_user = userInputParts[0];
+            CommandType command = parseCommand(command_user);
 
-            // Error message when user enters empty response
-            if (userInput.equals("")) {
-                System.out.println(line);
-                System.out.println("Item to be added cannot be empty");
-                System.out.println(line);
-            }
+            switch (command) {
+                case EMPTY:
+                    System.out.println(line);
+                    System.out.println("Item to be added cannot be empty");
+                    System.out.println(line);
+                    continue;
 
-            // Closes chatbot when user says bye
-            else if (command.equals("bye")) {
-                break;
-            }
-
-            // List out all items when user says list
-            else if (command.equals("list")) {
-                if (userInputParts.length > 1) {
+                case UNKNOWN:
                     System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
                     continue;
-                }
-                System.out.println("Here are the tasks in your list:");
-                System.out.println(fullList.toString());
-            }
 
-            // Mark done
-            else if (command.equals("mark")) {
-                String[] split_index = userInput.split(" ");
-                if (split_index.length <= 1 || split_index.length > 2) {
-                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                case BYE:
+                    System.out.println(line);
+                    System.out.println("Bye. Hope to see you again soon!");
+                    System.out.println(line);
+                    break;
+
+                case LIST:
+                    if (userInputParts.length > 1) {
+                        System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                        continue;
+                    }
+                    System.out.println("Here are the tasks in your list:");
+                    System.out.println(fullList.toString());
                     continue;
-                }
-                int index = Integer.parseInt(split_index[1]) - 1;
-                fullList.markItem(index);
-            }
 
-            // Mark not done
-            else if (command.equals("unmark")) {
-                String[] split_index = userInput.split(" ");
-                if (split_index.length <= 1 || split_index.length > 2) {
-                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                case MARK:
+                    String[] split_index = userInput.split(" ");
+                    if (split_index.length <= 1 || split_index.length > 2) {
+                        System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                        continue;
+                    }
+                    int index = Integer.parseInt(split_index[1]) - 1;
+                    fullList.markItem(index);
                     continue;
-                }
-                int index = Integer.parseInt(split_index[1]) - 1;
-                fullList.unMarkItem(index);
-            }
 
-            // create new ToDos object
-            else if (command.equals("todo")) {
-                if (userInputParts.length <= 1) {
-                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                case UNMARK:
+                    String[] split_index_unmark = userInput.split(" ");
+                    if (split_index_unmark.length <= 1 || split_index_unmark.length > 2) {
+                        System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                        continue;
+                    }
+                    int index_unmark = Integer.parseInt(split_index_unmark[1]) - 1;
+                    fullList.unMarkItem(index_unmark);
                     continue;
-                }
-                ToDos toDo = new ToDos(userInputParts[1].trim());
-                fullList.addToList(toDo);
-            }
 
-            // create new Deadline object
-            else if (command.equals("deadline")) {
-                String[] details = userInputParts[1].split("/by");
-                String description = details[0].trim();
-
-                if (details.length <= 1) {
-                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                case TODO:
+                    if (userInputParts.length <= 1) {
+                        System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                        continue;
+                    }
+                    ToDos toDo = new ToDos(userInputParts[1].trim());
+                    fullList.addToList(toDo);
                     continue;
-                }
 
-                String by = details[1].trim();
-                Deadline deadline = new Deadline(description, by);
-                fullList.addToList(deadline);
-            }
+                case DEADLINE:
+                    String[] details = userInputParts[1].split("/by");
+                    String description = details[0].trim();
 
-            // create new Event object
-            else if (command.equals("event")) {
-                String[] details = userInputParts[1].split("/from");
-                if (details.length <=1) {
-                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                    if (details.length <= 1) {
+                        System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                        continue;
+                    }
+
+                    String by = details[1].trim();
+                    Deadline deadline = new Deadline(description, by);
+                    fullList.addToList(deadline);
                     continue;
-                }
-                String[] dateParts = details[1].trim().split("/to");
-                if (dateParts.length <=1) {
-                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+
+                case EVENT:
+                    String[] det = userInputParts[1].split("/from");
+                    if (det.length <=1) {
+                        System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                        continue;
+                    }
+                    String[] dateParts = det[1].trim().split("/to");
+                    if (dateParts.length <=1) {
+                        System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                        continue;
+                    }
+
+                    String descr = det[0].trim();
+                    String from = dateParts[0].trim();
+                    String to = dateParts[1].trim();
+
+                    Event event = new Event(descr, from, to);
+                    fullList.addToList(event);
                     continue;
-                }
 
-                String description = details[0].trim();
-                String from = dateParts[0].trim();
-                String to = dateParts[1].trim();
-
-                Event event = new Event(description, from, to);
-                fullList.addToList(event);
-            }
-
-            else if (command.equals("delete")) {
-                String[] split_index = userInput.split(" ");
-                if (split_index.length <= 1 || split_index.length > 2) {
-                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                case DELETE:
+                    String[] split_i = userInput.split(" ");
+                    if (split_i.length <= 1 || split_i.length > 2) {
+                        System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                        continue;
+                    }
+                    int ind = Integer.parseInt(split_i[1]) - 1;
+                    fullList.deleteFromList(ind);
                     continue;
-                }
-                int index = Integer.parseInt(split_index[1]) - 1;
-                fullList.deleteFromList(index);
             }
-
-            // Invalid commands
-            else {
-                System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
-            }
-
+            break;
         }
-
-        System.out.println(line);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
-
         scanner.close();
-
     }
 }
