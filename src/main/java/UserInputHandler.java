@@ -67,6 +67,7 @@ public class UserInputHandler {
     private void addToArray() throws InvalidTaskException {
         Task t = new Task(input);
         Peko.addToArray(t);
+        System.out.println(lineBreak);
     }
     private void mark(String s) {
         try {
@@ -86,69 +87,67 @@ public class UserInputHandler {
         }
         System.out.println(lineBreak);
     }
+    private void todo(String s) throws InvalidTaskException{
+        Task t = new ToDos(input);
+        Peko.addToArray(t);
+        System.out.println(lineBreak);
     }
-    public boolean run() {
-        switch (command) {
-            case ECHO:
-                echo();
-                break;
-            case LIST:
-                readArray();
-                break;
-            case WRITE:
-                try {
-                    addToArray();
-                } catch (InvalidTaskException e) {
-                    System.out.println(e);
-                    System.out.println(lineBreak);
-                }
-                break;
-            case MARK:
-                mark(input);
-                break;
-            case UNMARK:
-                unmark(input);
-                break;
-            case TODO:
-                try {
-                    addToDo(input);
-                } catch (InvalidTaskException e) {
-                    System.out.println(e);
-                    System.out.println(lineBreak);
-                }
-                break;
-            case DEADLINE:
-                try {
-                    addDeadline(input);
-                } catch (InvalidTaskException e) {
-                    System.out.println(e);
-                    System.out.println(lineBreak);
-                }
-                break;
-            case EVENT:
-                try {
-                    addEvent(input);
-                } catch (InvalidTaskException e) {
-                    System.out.println(e);
-                    System.out.println(lineBreak);
-                }
-                break;
-            case DELETE:
-                setDelete(input);
-                break;
-            case COPYPASTA:
-                try  {
-                    degen();
-                } catch (FileNotFoundException e) {
-                    System.out.println("Hentai!");
-                } finally {
-                    return false;
-                }
-                break;
-            case OTSUPEKO:
-                return false;
+    private void deadline(String s) throws InvalidTaskException {
+        Task t = new Deadline(input);
+        Peko.addToArray(t);
+        System.out.println(lineBreak);
+    }
+    private void Event(String s) throws InvalidTaskException {
+        Task t = new Event(input);
+        Peko.addToArray(t);
+        System.out.println(lineBreak);
+    }
 
-            default:
+    public boolean run() {
+        try {
+            switch (command) {
+                case ECHO:
+                    echo();
+                    break;
+                case LIST:
+                    readArray();
+                    break;
+                case WRITE:
+                    addToArray();
+                    break;
+                case MARK:
+                    mark(input);
+                    break;
+                case UNMARK:
+                    unmark(input);
+                    break;
+                case TODO:
+                    todo(input);
+                    break;
+                case DEADLINE:
+                    deadline(input);
+                    break;
+                case EVENT:
+                    Event(input);
+                case DELETE:
+                    setDelete(input);
+                    break;
+                case COPYPASTA:
+                    try  {
+                        degen();
+                    } catch (FileNotFoundException e) {
+                        System.out.println("Hentai!");
+                    } finally {
+                        return false;
+                    }
+                    break;
+                case OTSUPEKO:
+                    return false;
+
+                default:
+            }
+        } catch (InvalidTaskException e) {
+            System.out.println(e);
         }
     }
 
