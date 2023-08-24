@@ -21,6 +21,9 @@ public class TaskList {
     public String printTask(int taskNum) {
         return this.tasks.get(taskNum).toString();
     }
+    public void numOfTask() {
+        System.out.println("N... Now you have... " + this.tasks.size() + " tasks in the list. ( ‘-ωก̀ )");
+    }
 
     public void printList() {
         for(int i = 0; i < tasks.size(); i++) {

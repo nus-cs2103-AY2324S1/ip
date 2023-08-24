@@ -21,11 +21,41 @@ public class Duke {
                 String[] parts = echo.split(" ");
                 if (!parts[0].equals("mark")) {
                     if(!parts[0].equals("unmark")) {
-                        System.out.println("____________________________________________________________");
-                        Task new1 = new Task(echo);
-                        System.out.println("added: " + echo);
-                        tasks.addToList(new1);
-                        System.out.println("____________________________________________________________");
+                        if(parts[0].equals("deadline")) {
+                            String removeDdl = echo.replace("deadline", "");
+                            String removeBy = removeDdl.replace("by", "");
+                            String[] ddl = removeBy.split("/");
+                            Deadline x = new Deadline(ddl[0], ddl[1]);
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Okk... I've... I've added this task:");
+                            tasks.addToList(x);
+                            System.out.println(x.toString());
+                            tasks.numOfTask();
+                            System.out.println("____________________________________________________________");
+                        }
+                        if(parts[0].equals("event")) {
+                            String removeEvent = echo.replace("event", "");
+                            String removeFrom = removeEvent.replace("from", "");
+                            String removeTo = removeFrom.replace("to", "");
+                            String[] event = removeTo.split("/");
+                            Event x = new Event(event[0], event[1], event[2]);
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Okk... I've... I've added this task:");
+                            tasks.addToList(x);
+                            System.out.println(x.toString());
+                            tasks.numOfTask();
+                            System.out.println("____________________________________________________________");
+                        }
+                        if(parts[0].equals("todo")) {
+                            String removeTodo = echo.replace("todo", "");
+                            ToDo x = new ToDo(removeTodo);
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Okk... I've... I've added this task:");
+                            tasks.addToList(x);
+                            System.out.println(x.toString());
+                            tasks.numOfTask();
+                            System.out.println("____________________________________________________________");
+                        }
                     } else { //equals unmarked
                         int taskNum = Integer.parseInt(parts[1]);
                         System.out.println("____________________________________________________________");
@@ -42,8 +72,9 @@ public class Duke {
                     System.out.println(tasks.printTask(taskNum - 1));
                     System.out.println("____________________________________________________________");
                 }
-            } else {
+            } else { //equals list
                 System.out.println("____________________________________________________________");
+                System.out.println("Here are the tasks in your list:");
                 tasks.printList();
                 System.out.println("____________________________________________________________");
             }
