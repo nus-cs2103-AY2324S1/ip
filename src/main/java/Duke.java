@@ -40,10 +40,26 @@ public class Duke {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 items[index].markUnDone();
                 talk("OK, I've marked this task as not done yet:\n  " + items[index]);
+
             } else if (input.startsWith("todo")) {
                 String name = input.split(" ", 2)[1];
                 items[count] = new ToDo(name);
-                talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + count + " tasks in your list.");
+                talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
+                count++;
+
+            } else if (input.startsWith("deadline")) {
+                String name = "";
+                String by = "";
+                String[] descriptionArr = input.split(" ", 2)[1].split("/");
+                for (String str: descriptionArr) {
+                    if (str.startsWith("by")) {
+                        by = str.split(" ", 2)[1];
+                    } else {
+                        name = str.trim();
+                    }
+                }
+                items[count] = new Deadline(name, by);
+                talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
                 count++;
             } else {
                 items[count] = new Task(input);
