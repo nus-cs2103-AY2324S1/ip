@@ -30,6 +30,16 @@ public class Duke {
                             list.setTaskIncomplete(taskNo);
                         }
                     }
+                } else if (input.startsWith("delete")) {
+                    String[] inputSplit = input.split(" ");
+                    if (inputSplit.length == 1) {
+                        throw new DukeException("Input the task number");
+                    } else if (inputSplit.length > 2) {
+                        throw new DukeException("Invalid command");
+                    } else {
+                        int taskNo = Integer.parseInt(inputSplit[1]) - 1;
+                        list.deleteTask(taskNo);
+                    }
                 } else {
                     if (input.startsWith("todo")) {
                         if (input.length() == 4 || input.equals("todo ")) {
