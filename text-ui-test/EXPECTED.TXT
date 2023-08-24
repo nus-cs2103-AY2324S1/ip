@@ -29,7 +29,7 @@ _______         _
      ____________________________________________________________
      ____________________________________________________________
      OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: mark fail
+	 You typed: mark fail, there isnt an exception to handle this, it just isnt caught in the regex
      ____________________________________________________________
      ____________________________________________________________
      OOPS!!! I'm sorry, but I don't know what that means :-(
