@@ -31,6 +31,20 @@ public class Duke {
             if (firstInput.equals("list")) {
                 taskArrayList.printTaskArrayList();
 
+            } else if (firstInput.equals("delete")){
+                if(inputArray.length != 2){
+                    System.out.println(horiLine);
+                    System.out.println("☹ OOPS!!! Invalid Index!");
+                    System.out.println(horiLine);
+
+                    input = scanner.nextLine();
+                    inputArray= input.split(" ");
+                    firstInput = inputArray[0];
+                    continue;
+                }
+                int index = Integer.parseInt(inputArray[1]);
+                taskArrayList.removeTask(index - 1);
+
             } else if (firstInput.equals("mark")){
                 int index = Integer.parseInt(inputArray[1]);
                 taskArrayList.get(index - 1).mark();

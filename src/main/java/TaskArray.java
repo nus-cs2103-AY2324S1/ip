@@ -35,6 +35,22 @@ public class TaskArray {
         return taskArrayList.size();
     }
 
+    public void removeTask(int index){
+        if(index < 0 && index >=taskArrayList.size()){
+            System.out.println(horiLine);
+            System.out.println("Invalid Index");
+            System.out.println(horiLine);
+            return;
+        }
+        Task removingTask = taskArrayList.get(index);
+        System.out.println(horiLine);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(removingTask.getTypeCheckedText());
+        taskArrayList.remove(index);
+        System.out.println("Now you have "+ getTaskCount()+" tasks in the list.");
+        System.out.println(horiLine);
+    }
+
 
 
 }
