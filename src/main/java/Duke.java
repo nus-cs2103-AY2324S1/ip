@@ -19,7 +19,11 @@ public class Duke {
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         Duke.printWelcomeMessage();
-        processResponse();
+        try {
+            processResponse();
+        } catch (DukeException e) {
+            System.out.println(e.getMessage() + divider);
+        }
     }
 
     private static void printWelcomeMessage() {
@@ -40,7 +44,15 @@ public class Duke {
         }
     }
 
-    private static void processResponse() {
+    private static Commands parseCommand(String keyword) {
+        try {
+            return Commands.valueOf(keyword);
+        } catch (IllegalArgumentException e) {
+            return Commands.INVALID;
+        }
+    }
+
+    private static void processResponse() throws DukeException{
         String displayMessage = "I gotchu. New task added to the list:\n";
 
         String input = Duke.scanner.nextLine();
@@ -51,128 +63,132 @@ public class Duke {
         if (inputSplit.length > 1) {
             argument = inputSplit[1];
         }
-
-        switch (Commands.valueOf(command)) {
-            case BYE:
-                Duke.printGoodbyeMessage();
-                Duke.isActive = false;
-                break;
-            case LIST:
-                if (pointer == 0) {
-                    System.out.println("You don't have any tasks. Good job!" + divider);
+        try {
+            switch (parseCommand(command)) {
+                case BYE:
+                    Duke.printGoodbyeMessage();
+                    Duke.isActive = false;
                     break;
-                }
-                for (int i = 0; i < pointer; i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i).toString());
-                }
-                System.out.println(divider);
-                break;
-            case MARK:
-                if (argument.isBlank()) {
-                    System.out.println("Tell me which task to mark as done! Give me an integer number!" + divider);
+                case LIST:
+                    if (pointer == 0) {
+                        System.out.println("You don't have any tasks. Good job!" + divider);
+                        break;
+                    }
+                    for (int i = 0; i < pointer; i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i).toString());
+                    }
+                    System.out.println(divider);
                     break;
-                }
-                try {
-                    int markIndex = Integer.parseInt(argument);
-                    tasks.get(markIndex - 1).markAsDone();
-                    System.out.println("Great Job! I've helped mark this task as done:\n" +
-                            tasks.get(markIndex - 1).toString() + divider);
-                } catch (NumberFormatException e) {
-                    System.out.println("The mark command must be followed by an integer number." + divider);
-                } catch (NullPointerException | IndexOutOfBoundsException e) {
-                    System.out.println("You are trying to mark a non-existent task, ensure you mark a task that you have created :O" + divider);
-                }
-                break;
-            case UNMARK:
-                if (argument.isBlank()) {
-                    System.out.println("Tell me which task to mark as done! Give me an integer number!" + divider);
+                case MARK:
+                    if (argument.isBlank()) {
+                        System.out.println("Tell me which task to mark as done! Give me an integer number!" + divider);
+                        break;
+                    }
+                    try {
+                        int markIndex = Integer.parseInt(argument);
+                        tasks.get(markIndex - 1).markAsDone();
+                        System.out.println("Great Job! I've helped mark this task as done:\n" +
+                                tasks.get(markIndex - 1).toString() + divider);
+                    } catch (NumberFormatException e) {
+                        System.out.println("The mark command must be followed by an integer number." + divider);
+                    } catch (NullPointerException | IndexOutOfBoundsException e) {
+                        System.out.println("You are trying to mark a non-existent task, ensure you mark a task that you have created :O" + divider);
+                    }
                     break;
-                }
-                try {
-                    int unmarkIndex = Integer.parseInt(argument);
-                    tasks.get(unmarkIndex - 1).unmarkTask();
-                    System.out.println("No worries! I will help you unmark this task:\n" +
-                            tasks.get(unmarkIndex - 1).toString() + divider);
-                } catch (NumberFormatException e) {
-                    System.out.println("The mark command must be followed by an integer number." + divider);
-                } catch (NullPointerException | IndexOutOfBoundsException e) {
-                    System.out.println("You are trying to unmark a non-existent task, ensure you mark a task that you have created :O" + divider);
-                }
-                break;
-            case TODO:
-                if (argument.isBlank()) {
-                    System.out.println("The description of your todo should not be empty! Try:\ntodo [description]" + divider);
+                case UNMARK:
+                    if (argument.isBlank()) {
+                        System.out.println("Tell me which task to mark as done! Give me an integer number!" + divider);
+                        break;
+                    }
+                    try {
+                        int unmarkIndex = Integer.parseInt(argument);
+                        tasks.get(unmarkIndex - 1).unmarkTask();
+                        System.out.println("No worries! I will help you unmark this task:\n" +
+                                tasks.get(unmarkIndex - 1).toString() + divider);
+                    } catch (NumberFormatException e) {
+                        System.out.println("The mark command must be followed by an integer number." + divider);
+                    } catch (NullPointerException | IndexOutOfBoundsException e) {
+                        System.out.println("You are trying to unmark a non-existent task, ensure you mark a task that you have created :O" + divider);
+                    }
                     break;
-                }
-                Duke.tasks.add(new Todo(argument));
-                System.out.println(displayMessage + Duke.tasks.get(pointer).toString());
-                Duke.pointer++;
-                printListMessage();
-                break;
-            case DEADLINE:
-                if (argument.isBlank()) {
-                    System.out.println("The description of your deadline should not be empty! Try:\ndeadline [description] /by [duedate]" + divider);
-                    break;
-                }
-                String[] bySplit = argument.split(" /by ", 2);
-                if (bySplit.length != 2) {
-                    System.out.println("Incorrect deadline command format! It should be:\ndeadline [description] /by [duedate]" + divider);
-                    break;
-                }
-                Duke.tasks.add(new Deadline(bySplit[0], bySplit[1]));
-                System.out.println(displayMessage + Duke.tasks.get(pointer).toString());
-                Duke.pointer++;
-                printListMessage();
-                break;
-            case EVENT:
-                if (argument.isBlank()) {
-                    System.out.println("The description of your event should not be empty! Try:\nevent [description] /from [start] /to [end]" + divider);
-                    break;
-                }
-                String[] descSplit = argument.split(" /from ", 2);
-                if (descSplit.length != 2) {
-                    System.out.println("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]" + divider);
-                    break;
-                }
-                String[] periodSplit = descSplit[1].split(" /to ",2);
-                if (periodSplit.length != 2) {
-                    System.out.println("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]" + divider);
-                    break;
-                }
-                Duke.tasks.add(new Event(descSplit[0], periodSplit[0], periodSplit[1]));
-                System.out.println(displayMessage + Duke.tasks.get(pointer).toString());
-                Duke.pointer++;
-                printListMessage();
-                break;
-            case DELETE:
-                if (argument.isBlank()) {
-                    System.out.println("Tell me which task to delete! Give me an integer number!" + divider);
-                    break;
-                }
-                try {
-                    int delIndex = Integer.parseInt(argument);
-                    Task deletedTask = tasks.remove(delIndex - 1);
-                    System.out.println("Foosh! Let it be gone! I've helped delete the task:\n" +
-                            deletedTask.toString());
-                    Duke.pointer--;
+                case TODO:
+                    if (argument.isBlank()) {
+                        System.out.println("The description of your todo should not be empty! Try:\ntodo [description]" + divider);
+                        break;
+                    }
+                    Duke.tasks.add(new Todo(argument));
+                    System.out.println(displayMessage + Duke.tasks.get(pointer).toString());
+                    Duke.pointer++;
                     printListMessage();
-                } catch (NumberFormatException e) {
-                    System.out.println("The delete command must be followed by an integer number." + divider);
-                } catch (NullPointerException | IndexOutOfBoundsException e) {
-                    System.out.println("You are trying to delete a non-existent task, ensure you delete a task that you have created :3" + divider);
-                }
-                break;
-            default:
-                System.out.println("I'm sorry! I don't understand the command :( " + divider);
-                break;
-        }
+                    break;
+                case DEADLINE:
+                    if (argument.isBlank()) {
+                        System.out.println("The description of your deadline should not be empty! Try:\ndeadline [description] /by [duedate]" + divider);
+                        break;
+                    }
+                    String[] bySplit = argument.split(" /by ", 2);
+                    if (bySplit.length != 2) {
+                        System.out.println("Incorrect deadline command format! It should be:\ndeadline [description] /by [duedate]" + divider);
+                        break;
+                    }
+                    Duke.tasks.add(new Deadline(bySplit[0], bySplit[1]));
+                    System.out.println(displayMessage + Duke.tasks.get(pointer).toString());
+                    Duke.pointer++;
+                    printListMessage();
+                    break;
+                case EVENT:
+                    if (argument.isBlank()) {
+                        System.out.println("The description of your event should not be empty! Try:\nevent [description] /from [start] /to [end]" + divider);
+                        break;
+                    }
+                    String[] descSplit = argument.split(" /from ", 2);
+                    if (descSplit.length != 2) {
+                        System.out.println("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]" + divider);
+                        break;
+                    }
+                    String[] periodSplit = descSplit[1].split(" /to ", 2);
+                    if (periodSplit.length != 2) {
+                        System.out.println("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]" + divider);
+                        break;
+                    }
+                    Duke.tasks.add(new Event(descSplit[0], periodSplit[0], periodSplit[1]));
+                    System.out.println(displayMessage + Duke.tasks.get(pointer).toString());
+                    Duke.pointer++;
+                    printListMessage();
+                    break;
+                case DELETE:
+                    if (argument.isBlank()) {
+                        System.out.println("Tell me which task to delete! Give me an integer number!" + divider);
+                        break;
+                    }
+                    try {
+                        int delIndex = Integer.parseInt(argument);
+                        Task deletedTask = tasks.remove(delIndex - 1);
+                        System.out.println("Foosh! Let it be gone! I've helped delete the task:\n" +
+                                deletedTask.toString());
+                        Duke.pointer--;
+                        printListMessage();
+                    } catch (NumberFormatException e) {
+                        System.out.println("The delete command must be followed by an integer number." + divider);
+                    } catch (NullPointerException | IndexOutOfBoundsException e) {
+                        System.out.println("You are trying to delete a non-existent task, ensure you delete a task that you have created :3" + divider);
+                    }
+                    break;
+                case INVALID:
+                    System.out.println("I'm sorry! I don't understand the command :( " + divider);
+                    break;
+            }
 
-        if (Duke.isActive) {
-            processResponse();
+            if (Duke.isActive) {
+                processResponse();
+            }
+
+        } catch (Exception e) {
+            throw new DukeException("An unknown error has occurred. I'll shut myself off for now.");
         }
     }
 
     public enum Commands {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
     }
 }
