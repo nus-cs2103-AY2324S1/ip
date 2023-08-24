@@ -4,7 +4,7 @@ What can I do for you?
 --------------------------------------
 --------------------------------------
 added:
-[T][ ]  read book
+[T][ ] read book
 You have 1 tasks in the list.
 --------------------------------------
 --------------------------------------
@@ -14,33 +14,33 @@ You have 2 tasks in the list.
 --------------------------------------
 --------------------------------------
 added:
-[E][ ]  project meeting (from: Aug 6th 2pm to: 4pm)
+[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 You have 3 tasks in the list.
 --------------------------------------
 --------------------------------------
 added:
-[T][ ]  join sports club
+[T][ ] join sports club
 You have 4 tasks in the list.
 --------------------------------------
 --------------------------------------
 Nice! I've marked this task as done:
-[T][X]  read book
+[T][X] read book
 --------------------------------------
 --------------------------------------
 Nice! I've marked this task as done:
-[T][X]  join sports club
+[T][X] join sports club
 --------------------------------------
 --------------------------------------
 added:
-[T][ ]  borrow book
+[T][ ] borrow book
 You have 5 tasks in the list.
 --------------------------------------
 --------------------------------------
-1. [T][X]  read book
+1. [T][X] read book
 2. [D][ ] return book (by: June 6th)
-3. [E][ ]  project meeting (from: Aug 6th 2pm to: 4pm)
-4. [T][X]  join sports club
-5. [T][ ]  borrow book
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4. [T][X] join sports club
+5. [T][ ] borrow book
 --------------------------------------
 --------------------------------------
 added:
@@ -49,7 +49,7 @@ You have 6 tasks in the list.
 --------------------------------------
 --------------------------------------
 added:
-[E][ ]  project meeting (from: Mon 2pm to: 4pm)
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
 You have 7 tasks in the list.
 --------------------------------------
 --------------------------------------
