@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Noel {
@@ -6,15 +7,7 @@ public class Noel {
     static String byeMsg = " Bye. Hope to see you again soon!";
 
     static int maxSize = 100;
-    static Task[] taskList = new Task[maxSize];
-
-    // headPointer points to the first item in the taskList
-    static int headPointer = 0;
-
-    // tailPointer points to the next free space in the taskList
-    static int tailPointer = 0;
-
-    static int sizeOfList = 0;
+    static ArrayList<Task> taskList = new ArrayList<>();
 
     static String addedMessageStart = "Got it. I've added this task:";
 
@@ -25,11 +18,11 @@ public class Noel {
     }
 
     public static boolean checkFull() {
-        return sizeOfList == maxSize;
+        return taskList.size() == maxSize;
     }
 
     public static boolean checkEmpty() {
-        return sizeOfList == 0;
+        return taskList.size() == 0;
     }
 
     public static void addToDo(String task) {
@@ -40,12 +33,9 @@ public class Noel {
             System.out.println("Array is full!");
         }
 
-        taskList[tailPointer] = taskToAdd;
+        taskList.add(taskToAdd);
 
-        tailPointer = (tailPointer + 1) % maxSize;
-        sizeOfList++;
-
-        String addedMessageEnd = "Now you have " + sizeOfList + " tasks in the list.";
+        String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
         String updateAdd = addedMessageStart + "\n" +  taskToAdd + "\n" + addedMessageEnd;
         printFunction(updateAdd);
 
@@ -59,12 +49,9 @@ public class Noel {
             System.out.println("Array is full!");
         }
 
-        taskList[tailPointer] = taskToAdd;
+        taskList.add(taskToAdd);
 
-        tailPointer = (tailPointer + 1) % maxSize;
-        sizeOfList++;
-
-        String addedMessageEnd = "Now you have " + sizeOfList + " tasks in the list.";
+        String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
         String updateAdd = addedMessageStart + "\n" +  taskToAdd + "\n" + addedMessageEnd;
         printFunction(updateAdd);
 
@@ -78,12 +65,9 @@ public class Noel {
             System.out.println("Array is full!");
         }
 
-        taskList[tailPointer] = taskToAdd;
+        taskList.add(taskToAdd);
 
-        tailPointer = (tailPointer + 1) % maxSize;
-        sizeOfList++;
-
-        String addedMessageEnd = "Now you have " + sizeOfList + " tasks in the list.";
+        String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
         String updateAdd = addedMessageStart + "\n" +  taskToAdd + "\n" + addedMessageEnd;
         printFunction(updateAdd);
 
@@ -95,10 +79,9 @@ public class Noel {
         } else {
             String filler = "____________________________________________________________";
             System.out.println(filler);
-            int j = 1;
-            for (int i = headPointer; i != tailPointer; i = (i + 1) % maxSize) {
-                System.out.println(j + ". " + taskList[i]);
-                j++;
+            int maxLength = taskList.size();
+            for (int i = 0; i < maxLength; i++) {
+                System.out.println(i + 1 + ". " + taskList.get(i));
             }
             System.out.println(filler);
         }
@@ -126,16 +109,16 @@ public class Noel {
                 command = result[0];
 
                 switch (command) {
+
                     case "mark": {
                         int taskNum = Integer.parseInt(result[1]);
-                        taskNum = ((headPointer + taskNum) - 1) % maxSize;
-                        taskList[taskNum].markAsDone();
+                        taskNum = taskNum - 1;
+                        taskList.get(taskNum).markAsDone();
                         break;
                     }
                     case "unmark": {
                         int taskNum = Integer.parseInt(result[1]);
-                        taskNum = ((headPointer + taskNum) - 1) % maxSize;
-                        taskList[taskNum].unMark();
+                        taskList.get(taskNum).unMark();
                         break;
                     }
                     case "todo":
@@ -180,6 +163,21 @@ public class Noel {
                             }
                         }
                         break;
+
+                    case "delete":
+                        result = nextLine.split("delete ");
+                        if (result.length == 0) {
+                            System.out.println("OOPS!!! The description of a delete cannot be empty.");
+                        } else {
+                            int intToRemove = Integer.parseInt(result[1]) - 1;
+                            Task taskToDel = taskList.get(intToRemove);
+                            taskList.remove(intToRemove);
+
+                            String delStart = "Noted. I've removed this task:\n";
+                            String delEnd = "Now you have " + taskList.size() + " tasks in the list.";
+                            printFunction(delStart + taskToDel + "\n" + delEnd);
+                            break;
+                        }
 
                     default:
                         System.out.println("Invalid Option!");
