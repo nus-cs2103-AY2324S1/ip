@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import exception.InvalidInputException;
+import exception.UnknownCommandException;
 
 public class Messages {
 
@@ -23,32 +25,49 @@ public class Messages {
         do {
             userCommands = scanner.nextLine();
             if (!userCommands.equalsIgnoreCase(exitC)) {
-                if (userCommands.equalsIgnoreCase(listC)) {
-                    taskList.listOutTasks();
-                } else if (userCommands.startsWith(doneC)) {
-                    String getIndex = userCommands.substring(doneC.length() + 1);
-                    int taskIndex = Integer.parseInt(getIndex) - 1;
-                    taskList.markAsDone(taskIndex);
-                } else if (userCommands.startsWith(undoneC)) {
-                    String getIndex = userCommands.substring(undoneC.length() + 1);
-                    int taskIndex = Integer.parseInt(getIndex) - 1;
-                    taskList.markAsUndone(taskIndex);
-                } else if (userCommands.startsWith(deadlineC)) {
-                    String taskDescription = userCommands.substring(deadlineC.length() + 1, userCommands.indexOf("/by") - 1);
-                    String deadlineInfo = userCommands.substring(userCommands.indexOf("/by") + 4);
-                    Deadline task = new Deadline(taskDescription, deadlineInfo);
-                    taskList.addTask(task);
-                } else if (userCommands.startsWith(eventC)) {
-                    String taskDescription = userCommands.substring(eventC.length() + 1, userCommands.indexOf("/from") - 1);
-                    String startDetails = userCommands.substring(userCommands.indexOf("/from") + 6, userCommands.indexOf("/to") - 1);
-                    String endDetails = userCommands.substring(userCommands.indexOf("/to") + 4);
-                    Event task = new Event(taskDescription, startDetails, endDetails);
-                    taskList.addTask(task);
-                } else if (userCommands.startsWith(todoC)) {
-                    ToDo task = new ToDo(userCommands);
-                    taskList.addTask(task);
-                } else {
-                    taskList.addTask(new Task(userCommands));
+                try {
+                    if (userCommands.equalsIgnoreCase(listC)) {
+                        taskList.listOutTasks();
+                    } else if (userCommands.startsWith(doneC)) {
+                        String getIndex = userCommands.substring(doneC.length() + 1);
+                        int taskIndex = Integer.parseInt(getIndex) - 1;
+                        taskList.markAsDone(taskIndex);
+                    } else if (userCommands.startsWith(undoneC)) {
+                        String getIndex = userCommands.substring(undoneC.length() + 1);
+                        int taskIndex = Integer.parseInt(getIndex) - 1;
+                        taskList.markAsUndone(taskIndex);
+                    } else if (userCommands.startsWith(deadlineC)) {
+                        String taskDescription = userCommands.substring(deadlineC.length() + 1, userCommands.indexOf("/by") - 1);
+                        String deadlineInfo = userCommands.substring(userCommands.indexOf("/by") + 4);
+                        if (taskDescription.isEmpty() || deadlineInfo.isEmpty()) {
+                            throw new InvalidInputException();
+                        }
+                        Deadline task = new Deadline(taskDescription, deadlineInfo);
+                        taskList.addTask(task);
+                    } else if (userCommands.startsWith(eventC)) {
+                        String taskDescription = userCommands.substring(eventC.length() + 1, userCommands.indexOf("/from") - 1);
+                        String startDetails = userCommands.substring(userCommands.indexOf("/from") + 6, userCommands.indexOf("/to") - 1);
+                        String endDetails = userCommands.substring(userCommands.indexOf("/to") + 4);
+                        if (taskDescription.isEmpty() || startDetails.isEmpty() || endDetails.isEmpty()) {
+                            throw new InvalidInputException();
+                        }
+                        Event task = new Event(taskDescription, startDetails, endDetails);
+                        taskList.addTask(task);
+                    } else if (userCommands.startsWith(todoC)) {
+                        if (userCommands.length() <= todoC.length() + 1) {
+                            throw new InvalidInputException();
+                        }
+                        ToDo task = new ToDo(userCommands);
+                        taskList.addTask(task);
+                    } else {
+                        throw new UnknownCommandException();
+                    }
+                } catch (InvalidInputException e) {
+                    System.out.println("OOPS!!! " + e.getMessage());
+                } catch (UnknownCommandException e) {
+                    System.out.println("OPPS!!! " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("OPPS!!! Something went wrong");
                 }
             }
         } while (!userCommands.equalsIgnoreCase(exitC));
