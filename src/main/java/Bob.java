@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Duke {
+public class Bob {
     private static ArrayList<Task> lst = new ArrayList<>();
 
     private static String stringFormat(String[] strArray) {
