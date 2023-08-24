@@ -60,20 +60,26 @@ public class Duke {
                 int fromIndex = input.indexOf("/");
                 int toIndex = input.indexOf("/", fromIndex + 1);
 
-                String description = input.substring(6, fromIndex - 1);
-                String from = input.substring(fromIndex + 6, toIndex - 1);
-                String to = input.substring(toIndex + 4);
+                try {
+                    String description = input.substring(6, fromIndex - 1);
+                    String from = input.substring(fromIndex + 6, toIndex - 1);
+                    String to = input.substring(toIndex + 4);
 
-                Event event = new Event(description, from, to);
-                list.add(event);
+                    Event event = new Event(description, from, to);
+                    list.add(event);
 
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(event);
-                System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
-                System.out.println(HORIZONTAL_LINE);
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(event);
+                    System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
+                    System.out.println(HORIZONTAL_LINE);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("☹ OOPS!!! Missing information for your Event task.");
+                    System.out.println("Valid Format: event (description) /from (date-time) /to (date-time)");
+                    System.out.println(HORIZONTAL_LINE);
+                }
             } else if (input.startsWith("todo")) {
-
                 try {
                     ToDo todo = new ToDo(input.substring(5));
                     list.add(todo);
