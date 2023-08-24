@@ -52,7 +52,9 @@ public class Bocchi {
         }
         System.out.println(LINE_BREAK);
         TaskList newTaskList = taskList.add(task);
-        System.out.printf("added: %s%n", task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.printf("Now you have %d tasks in the list.%n", taskList.size());
         System.out.println(LINE_BREAK);
         return newTaskList;
     }

@@ -61,6 +61,13 @@ class TaskList {
     }
 
     /**
+     * Returns the size of the list
+     */
+    public int size() {
+        return this.tasks.size();
+    }
+    
+    /**
      * Returns the list of tasks to be done.
      * @return List of tasks to be done
      */
