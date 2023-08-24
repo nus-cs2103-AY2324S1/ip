@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Corubi {
@@ -16,6 +17,21 @@ public class Corubi {
 
         // Allow user input
         String input = sc.nextLine();
+
+        // List of accpeted commands
+        ArrayList<String> commands = new ArrayList<>();
+        String[] commandList = {"todo", "deadline", "event", "mark", "unmark", "bye"};
+        Collections.addAll(commands, commandList);
+
+        // Check if input command is in the list of accepted commands
+        try {
+            if (!commands.contains(input.split(" ")[0])) {
+                throw new WrongCommandException(input);
+            }
+        } catch (WrongCommandException e) {
+            System.out.println(e.getMessage());
+            input = sc.nextLine();
+        }
 
         // Exit the chatbot if the user says "bye"
         while (!input.equals("bye") && !input.equals("Bye")) {
@@ -37,10 +53,17 @@ public class Corubi {
                 for (String num : splitInput) {
                     try {
                         int number = Integer.parseInt(num);
-                        enteredText.get(number - 1).unmarkDone();
-                        System.out.println(divider);
-                        input = sc.nextLine();
-                        break; // Stop searching after first number is found
+
+                        // Handle the exception if number provided is beyond the size of list
+                        try {
+                            enteredText.get(number - 1).unmarkDone();
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println(number + " is too high! List size is only " + enteredText.size());
+                        } finally {
+                            System.out.println(divider);
+                            input = sc.nextLine();
+                            break; // Stop searching after first number is found
+                        }
                     } catch (NumberFormatException e) {
                         // Not a number, continue searching
                     }
@@ -55,10 +78,17 @@ public class Corubi {
                 for (String num : splitInput) {
                     try {
                         int number = Integer.parseInt(num);
-                        enteredText.get(number - 1).markDone();
-                        System.out.println(divider);
-                        input = sc.nextLine();
-                        break; // Stop searching after first number is found
+
+                        // Handle the exception if number provided is beyond the size of list
+                        try {
+                            enteredText.get(number - 1).markDone();
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println(number + " is too high! List size is only " + enteredText.size());
+                        } finally {
+                            System.out.println(divider);
+                            input = sc.nextLine();
+                            break; // Stop searching after first number is found
+                        }
                     } catch (NumberFormatException e) {
                         // Not a number, continue searching
                     }
