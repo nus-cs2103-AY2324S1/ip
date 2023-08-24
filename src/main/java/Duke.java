@@ -42,21 +42,24 @@ public class Duke {
      * 2. "list" to list tasks in arrayList
      * 3. "mark" to mark task in arrayList
      * 4. "unmark" to unmark task in arrayList
-     * 5. default behaviour is to add task into arrayList
+     * 5. "todo" to create a todo in arrayList
+     * 6. "deadline" to create a deadline in arrayList
+     * 7. "event" to create an event in arrayList
+     * 8. default behaviour is to add task into arrayList
      */
     public static void handleCommand() {
         boolean isChatting = true;
         Scanner scanner= new Scanner(System.in);
-        String input, command, param = "";
+        String input, command, params = "";
         String[] inputArray;
         ArrayList<Task> taskList = new ArrayList<>();
 
         while (isChatting) {
             input = scanner.nextLine();
-            inputArray = input.split(" ");
+            inputArray = input.split(" ", 2);
             command = inputArray[0];
-            if (inputArray.length > 1){
-                param = inputArray[1];
+            if (inputArray.length > 1) {
+                params = inputArray[1];
             }
 
             switch(command) {
@@ -76,8 +79,8 @@ public class Duke {
                     break;
                 }
                 case ("mark"): {
-                    if (param != "") {
-                        int index = Integer.parseInt(param) - 1;
+                    if (params != "") {
+                        int index = Integer.parseInt(params.split(" ", 2)[0]) - 1;
                         taskList.get(index).setDone(true);
                         System.out.println(HORIZONTAL_LINE);
                         System.out.println("The following item has been marked as done.");
@@ -86,13 +89,50 @@ public class Duke {
                     break;
                 }
                 case ("unmark"): {
-                    if (param != "") {
+                    if (inputArray.length > 1) {
+                        String param = inputArray[1];
                         int index = Integer.parseInt(param) - 1;
                         taskList.get(index).setDone(false);
                         System.out.println(HORIZONTAL_LINE);
                         System.out.println("The following item been unmarked and is now uncompleted.");
                         System.out.println(taskList.get(index));
                     }
+                    break;
+                }
+                case ("todo"): {
+                    ToDo todoTask = new ToDo(params);
+                    taskList.add(todoTask);
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("The following ToDo has been added.");
+                    System.out.println(todoTask);
+                    System.out.println("You now have " + taskList.size()  + " items in the list.");
+                    System.out.println(HORIZONTAL_LINE);
+                    break;
+                }
+                case ("deadline"): {
+                    String description = params.split(" /by ")[0];
+                    String deadline = params.split(" /by ")[1];
+                    Deadline deadlineTask = new Deadline(description, deadline);
+                    taskList.add(deadlineTask);
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("The following deadline has been added.");
+                    System.out.println(deadlineTask);
+                    System.out.println("You now have " + taskList.size()  + " items in the list.");
+                    System.out.println(HORIZONTAL_LINE);
+                    break;
+                }
+                case ("event"): {
+                    String description = params.split(" /from ")[0];
+                    String fromAndToTime = params.split(" /from ")[1];
+                    String from = fromAndToTime.split(" /to ")[0];
+                    String to = fromAndToTime.split(" /to ")[1];
+                    Event eventTask = new Event(description, from, to);
+                    taskList.add(eventTask);
+                    System.out.println(HORIZONTAL_LINE);
+                    System.out.println("The following event has been added.");
+                    System.out.println(eventTask);
+                    System.out.println("You now have " + taskList.size()  + " items in the list.");
+                    System.out.println(HORIZONTAL_LINE);
                     break;
                 }
                 default: {
