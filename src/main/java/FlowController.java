@@ -7,7 +7,8 @@ public abstract class FlowController {
 
     public enum Commands {
         NULL(null), LIST("list"), BYE("bye"), MARK("mark"), UNMARK("unmark"),
-        TODO("todo"), DEADLINE("deadline"), EVENT("event");
+        TODO("todo"), DEADLINE("deadline"), EVENT("event"),
+        DELETE("delete");
         private final String invocation;
 
         private Commands(String invocation) {
@@ -73,9 +74,10 @@ public abstract class FlowController {
                     io.send("Added: " + io.task(task, taskList.size()));
                     break;
 
-                //cases: MARK
+                //cases: MANIPULATE TASKS
                 case MARK:
                 case UNMARK:
+                case DELETE:
                     try {
                         index = Integer.parseInt(io.getArgs())-1;
                     } catch (NumberFormatException exception) {
@@ -90,15 +92,17 @@ public abstract class FlowController {
                             case MARK:
                                 if (task.isDone()) io.warn("Task is already done.");
                                 else task.done();
-                                break;
+                                io.send(io.task(task, index+1)); break;
                             case UNMARK:
                                 if (!task.isDone()) io.warn("Task is already not done.");
                                 else task.undone();
-                                break;
+                                io.send(io.task(task, index+1)); break;
+                            case DELETE:
+                                taskList.remove(index);
+                                io.send("Deleted task: " + task); break;
                             default:
                                 throw new AssertionError("Unhandled task state transition");
                         }
-                        io.send(io.task(task, index+1));
                     }
                     break;
 
