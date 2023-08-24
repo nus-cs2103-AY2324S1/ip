@@ -37,40 +37,64 @@ Okay! I have marked this task as not done yet
 ___________________________________
 
 ___________________________________
+
+Okay I have deleted this task:
+	[T][ ] new Task
+Now you have 2 tasks in the list.
+___________________________________
+
+___________________________________
 Here are the tasks in your list:
-1. [T][ ] new Task
-2. [D][ ] new Deadline (by: Sunday)
-3. [E][ ] new Event (from: Sunday to: Monday)
+1. [D][ ] new Deadline (by: Sunday)
+2. [E][ ] new Event (from: Sunday to: Monday)
 ___________________________________
 
 ___________________________________
-
 That's not a valid action! Try again
 ___________________________________
 
 ___________________________________
-
 ☹ OOPS!!! The description of an Event cannot be empty.
 ___________________________________
 
 ___________________________________
-
 ☹ OOPS!!! Please provide a valid start and end date
 ___________________________________
 
 ___________________________________
-
 ☹ OOPS!!! The description of a deadline cannot be empty.
 ___________________________________
 
 ___________________________________
-
 ☹ OOPS!!! Please provide a valid deadline
 ___________________________________
 
 ___________________________________
-
 ☹ OOPS!!! The description of a todo cannot be empty.
+___________________________________
+
+___________________________________
+☹ OOPS!!! That's not a valid item!
+___________________________________
+
+___________________________________
+☹ OOPS!!! That's not a valid item!
+___________________________________
+
+___________________________________
+☹ OOPS!!! That's not a valid item!
+___________________________________
+
+___________________________________
+☹ OOPS!!! Please indicate which item you wish to delete
+___________________________________
+
+___________________________________
+☹ OOPS!!! Please indicate which item you wish to mark
+___________________________________
+
+___________________________________
+☹ OOPS!!! Please indicate which item you wish to unmark
 ___________________________________
 
 ___________________________________
