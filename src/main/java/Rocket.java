@@ -6,7 +6,7 @@ public class Rocket {
     public static void main(String[] args) {
         String LINE = "    ____________________________________________________________";
         // Initialise string variable to store command
-        String command;
+        String input;
         // Create scanner to read user input
         Scanner scanner = new Scanner(System.in);
 
@@ -14,10 +14,19 @@ public class Rocket {
         List<Task> taskList = new ArrayList<>();
         System.out.println(LINE + "\n    Hello! I'm Rocket\n" +
                 "    What can I do for you?\n" + LINE);
-        command = scanner.nextLine();
+        input = scanner.nextLine();
+
         while (true) {
             // Split string
-            String[] words = command.split(" ");
+            int firstWordIndex = input.indexOf(' ');
+            String command = "";
+            String arguments = "";
+            if (firstWordIndex == -1) {
+                command = input;
+            } else {
+                command = input.substring(0, firstWordIndex);
+                arguments = input.substring(firstWordIndex + 1);
+            }
             if (command.equals("bye")) {
                 System.out.println(LINE + "\n    Bye. Hope to see you again soon!\n" + LINE);
                 break;
@@ -25,33 +34,45 @@ public class Rocket {
                 System.out.println(LINE);
                 for (int i = 0; i < taskList.size(); i++) {
                     Task task = taskList.get(i);
-                    System.out.println("    " + (i + 1) + ".[" + task.getStatusIcon() + "] "
-                            + task.getDescription());
+                    System.out.println("    " + (i + 1) + "." + task);
                 }
                 System.out.println(LINE);
-                command = scanner.nextLine();
-            } else if (words[0].equals("mark")) {
-                int taskNumber = Integer.parseInt(words[1]) - 1;
+                input = scanner.nextLine();
+            } else if (command.equals("mark")) {
+                int taskNumber = Integer.parseInt(arguments) - 1;
                 Task task = taskList.get(taskNumber);
                 task.markAsDone();
                 System.out.println(LINE);
                 System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("      [" + task.getStatusIcon() + "] " + task.getDescription());
+                System.out.println("      " + task);
                 System.out.println(LINE);
-                command = scanner.nextLine();
-            } else if (words[0].equals("unmark")) {
-                int taskNumber = Integer.parseInt(words[1]) - 1;
+                input = scanner.nextLine();
+            } else if (command.equals("unmark")) {
+                int taskNumber = Integer.parseInt(arguments) - 1;
                 Task task = taskList.get(taskNumber);
                 task.markAsUndone();
                 System.out.println(LINE);
                 System.out.println("    OK, I've marked this task as not done yet:");
-                System.out.println("      [" + task.getStatusIcon() + "] " + task.getDescription());
+                System.out.println("      " + task);
                 System.out.println(LINE);
-                command = scanner.nextLine();
+                input = scanner.nextLine();
+            } else if (command.equals("deadline")) {
+                int descriptionIndex = arguments.indexOf(" /by");
+                String description = arguments.substring(0, descriptionIndex);
+                String by = arguments.substring(descriptionIndex + 5);
+                Deadline deadline = new Deadline(description, by);
+                taskList.add(deadline);
+                System.out.println(LINE);
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("      " + deadline);
+                System.out.println("    Now you have " + taskList.size() + "tasks in the list");
+                System.out.println(LINE);
+                input = scanner.nextLine();
             } else {
-                System.out.println(LINE + "\n    added: " + command + "\n" + LINE);
-                taskList.add(new Task(command));
-                command = scanner.nextLine();
+                System.out.println(LINE + "\n    Got it. I've added this task: " +
+                        input + "\n" + LINE);
+                taskList.add(new Task(input));
+                input = scanner.nextLine();
             }
         }
     }
