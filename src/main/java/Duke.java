@@ -1,5 +1,7 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Duke {
     private static String horiLine = "____________________________________________________________";
@@ -14,31 +16,29 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
 
         greetFunction("Jack");
-
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
-        ArrayList<String> textArray = new ArrayList<>();
+        TaskArray taskArrayList = new TaskArray();
 
-        while(!input.equals("bye")){
-            if(input.equals("list")){
-                System.out.println(horiLine);
-                for(int i = 0; i < textArray.size(); i++ ){
-                    int index = i + 1;
-                    System.out.println(index +": " + textArray.get(i));
-                }
-                System.out.println(horiLine);
+        while(!input.equals("bye")) {
+            if (input.equals("list")) {
+                taskArrayList.printTaskArrayList();
+            } else if (input.split(" ")[0].equals("mark")){
+                int index = Integer.parseInt(input.split(" ")[1]);
+                taskArrayList.get(index - 1).mark();
+            } else if (input.split(" ")[0].equals("unmark")){
+                int index = Integer.parseInt(input.split(" ")[1]);
+                taskArrayList.get(index - 1).unmark();
             }else{
-                textArray.add(input);
-                addSuccess(input);
+                Task newTask =new Task(input);
+                taskArrayList.add(newTask);
             }
 
             input = scanner.nextLine();
         }
         byeFunction();
         scanner.close();
-
-
 
     }
 
@@ -56,12 +56,12 @@ public class Duke {
         String byeword = horiLine +"\n" + text + "\n" + horiLine;
         System.out.println(byeword);
     }
-    public static void addSuccess(String text){
 
-        String word = horiLine +"\nadded:" + text + "\n" + horiLine;
+    public static void printTaskList(ArrayList<Task> taskArray){
 
-        System.out.println(word);
     }
+
+
 
 
 
