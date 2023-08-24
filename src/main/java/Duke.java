@@ -1,6 +1,13 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
+
+    private ArrayList<String> l;
+
+    private Duke() {
+        this.l = new ArrayList<>();
+    }
 
     private static final String greet = "Hello! I'm ";
     private static final String name = "siri";
@@ -8,22 +15,41 @@ public class Duke {
 
     private static final String bye = "Bye. Hope to see you again soon!";
 
-    private static void respond(String s) {
-        if (s.equals("bye")) {
-            System.out.println(bye);
-        } else {
-            System.out.println(s);
+    private void hello() {
+        System.out.println(greet + name);
+        System.out.println(msg);
+    }
+
+    private void start() {
+        hello();
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNextLine()) {
+            String s = sc.nextLine();
+            respond(s);
         }
-        
+    }
+
+    private void end() {
+        System.out.println(bye);
+    }
+
+    private void respond(String s) {
+        if (s.equals("list")) {
+            int count = 1;
+            for(String ss : this.l) {
+                String res = String.format("%d. %s", count++, ss);
+                System.out.println(res);
+            }
+        } else if (s.equals("bye")) {
+            end();
+        } else {
+            this.l.add(s);
+            String res = String.format("added: %s", s);
+            System.out.println(res);
+        }
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String s = sc.next();
-        System.out.println(greet +  name);
-        System.out.println(msg);
-
-        respond(s);
-
+        new Duke().start();
     }
 }
