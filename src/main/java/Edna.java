@@ -1,6 +1,6 @@
 import java.util.*;
 public class Edna {
-    public static ArrayList<String> inputList = new ArrayList<String>();
+    public static ArrayList<Task> taskList = new ArrayList<Task>();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input;
@@ -12,17 +12,25 @@ public class Edna {
         System.out.println("What can I do for you?");
         System.out.println(partition);
 
-        input = sc.nextLine();
+        input = sc.next();
 
         while(input.equals("bye") == false) {
             if (input.equals("list")) {
-                 print();
-                 System.out.println(partition);
+                print();
+                System.out.println(partition);
+            } else if (input.equals("mark")) {
+                int num = sc.nextInt();
+                taskList.get(num - 1).markDone();
+                System.out.println(partition);
+            } else if (input.equals("unmark")) {
+                int num = sc.nextInt();
+                taskList.get(num - 1).unmarkDone();
+                System.out.println(partition);
             } else {
                 add(input);
                 System.out.println(partition);
             }
-            input = sc.nextLine();
+            input = sc.next();
         }
 
         System.out.println("Bye. Hope to see you again soon!");
@@ -30,14 +38,14 @@ public class Edna {
     }
 
     public static void add(String input) {
-        inputList.add(input);
+        taskList.add(new Task(input));
         System.out.println("added: " + input);
     }
 
     public static void print() {
         int num = 1;
-        for(String temp: inputList) {
-            System.out.println(num + ". " + temp);
+        for(Task temp: taskList) {
+            System.out.println(num + ". " + temp.getStatus());
             num++;
         }
     }
