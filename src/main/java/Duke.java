@@ -53,6 +53,9 @@ public class Duke {
                     }
                     String[] parts = userInput.split("\\s+");
                     int taskIndex = Integer.parseInt(parts[1]) - 1;
+                    if (taskIndex >= inputNum || taskIndex < 0 || taskArray[taskIndex] == null) {
+                        throw new OutOfRangeException("Mark");
+                    }
                     Task currentTask = taskArray[taskIndex];
                     currentTask.markDone();
                     System.out.println(
@@ -67,6 +70,9 @@ public class Duke {
                     }
                     String[] parts = userInput.split("\\s+");
                     int taskIndex = Integer.parseInt(parts[1]) - 1;
+                    if (taskIndex >= inputNum || taskIndex < 0 || taskArray[taskIndex] == null) {
+                        throw new OutOfRangeException("Unmark");
+                    }
                     Task currentTask = taskArray[taskIndex];
                     currentTask.unmarkDone();
                     System.out.println(
@@ -126,7 +132,7 @@ public class Duke {
                 } else {
                     throw new InvalidInputException("Invalid Input");
                 }
-            } catch (InvalidInputException | EmptyTaskException | EmptyDateException e) {
+            } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException e) {
                 System.out.println(e);
             }
         }
