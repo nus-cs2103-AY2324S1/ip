@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    private static List<Task> tasks = new ArrayList<Task>();
+    private static List<Task> tasks = new ArrayList<>();
     private static final String lineSep = "-------------------------------";
     public static void main(String[] args) {
         System.out.println(lineSep);
@@ -21,16 +21,24 @@ public class Duke {
                     markTask(split);
                 }
             } else {
-                System.out.println("Got it. I've added this task:\n" + cmd + "\n" + lineSep);
+//                System.out.println("Got it. I've added this task:\n" + cmd + "\n" + lineSep);
+                System.out.println("Got it. I've added this task:");
                 String[] split = cmd.split(" ");
                 String taskType = split[0];
                 if (taskType.equals("todo")) {
-                    tasks.add(new Todo(split[1]));
+                    Todo todo = new Todo(split[1]);
+                    tasks.add(todo);
+                    System.out.println(todo);
                 } else if (taskType.equals("deadline")) {
-                    tasks.add(new Deadline(split[1], split[3]));
+                    Deadline deadline = new Deadline(split[1], split[3]);
+                    tasks.add(deadline);
+                    System.out.println(deadline);
                 } else {
-                    tasks.add(new Event(split[1], split[3], split[5]));
+                    Event event = new Event(split[1], split[3], split[5]);
+                    tasks.add(event);
+                    System.out.println(event);
                 }
+                System.out.println(lineSep);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             }
             cmd = readCmd(scanner);
@@ -59,7 +67,7 @@ public class Duke {
             } else if (task instanceof Deadline) {
                 Deadline t = (Deadline) task;
                 System.out.println(tempCounter + "." + t);
-            } else {
+            } else if (task instanceof Event) {
                 Event t = (Event) task;
                 System.out.println(tempCounter + "." + t);
             }
