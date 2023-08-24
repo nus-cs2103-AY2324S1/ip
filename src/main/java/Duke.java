@@ -1,6 +1,8 @@
+import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         hello_world();
+        converse();
         goodbye_world();
     }
 
@@ -9,6 +11,18 @@ public class Duke {
         printName();
         System.out.println("What can I do for you?");
         print_divider_line();
+    }
+
+    public static void converse(){
+        String TERMINAL_WORD = "bye";
+        String response = "";
+        Scanner scanner = new Scanner(System.in);
+        while (!response.equals(TERMINAL_WORD)){
+            System.out.print("Message:");
+            response = scanner.nextLine();
+            System.out.println("Response:" + response);
+            print_divider_line();
+        }
     }
 
     public static void goodbye_world(){
