@@ -29,6 +29,23 @@ public class Duke {
         System.out.println(INDENT + message);
     }
 
+    public static void printList() {
+        printHorizontalLine();
+        printIndented("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            printIndented((i + 1) + "." + tasks.get(i));
+        }
+        printHorizontalLine();
+    }
+
+    public static void printTaskAdded(Task task) {
+        printHorizontalLine();
+        printIndented("Got it. I've added this task:");
+        printIndented("  " + task);
+        printIndented("Now you have " + tasks.size() + " tasks in the list.");
+        printHorizontalLine();
+    }
+
     public static void echoMessages() {
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -42,12 +59,19 @@ public class Duke {
                 printExit();
                 break;
             } else if ("list".equalsIgnoreCase(input)) {
-                printHorizontalLine();
-                printIndented("Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    printIndented((i + 1) + "." + tasks.get(i));
-                }
-                printHorizontalLine();
+                printList();
+            } else if (input.startsWith("todo ")) {
+                tasks.add(new ToDo(input.substring(5)));
+                printTaskAdded(tasks.get(tasks.size() - 1));
+            } else if (input.startsWith("deadline ")) {
+                String[] parts = input.substring(9).split(" /by ");
+                tasks.add(new Deadline(parts[0], parts[1]));
+                printTaskAdded(tasks.get(tasks.size() - 1));
+            } else if (input.startsWith("event ")) {
+                String[] parts = input.substring(6).split(" /from ");
+                String[] timeParts = parts[1].split(" /to ");
+                tasks.add(new Event(parts[0], timeParts[0], timeParts[1]));
+                printTaskAdded(tasks.get(tasks.size() - 1));
             } else if (input.startsWith("mark ")) {
                 int taskNumber = Integer.parseInt(input.split(" ")[1]);
                 tasks.get(taskNumber - 1).markAsDone();
@@ -64,9 +88,7 @@ public class Duke {
                 printHorizontalLine();
             } else {
                 tasks.add(new Task(input));
-                printHorizontalLine();
-                printIndented("added: " + input);
-                printHorizontalLine();
+                printTaskAdded(tasks.get(tasks.size() - 1));
             }
         }
 
