@@ -86,6 +86,23 @@ public class Duke {
                 System.out.println("Now you have "+ list.size()+" tasks in your list");
                 System.out.println("____________________________________________________________");
             }
+            else if(str.startsWith("delete ")){
+                str=str.substring(7);
+                String val= str.replaceAll("[^0-9]", "");
+                int index = Integer.parseInt(val);
+                if(str.isEmpty())
+                    throw new DukeException("\n____________________________________________________________\n" +
+                            "☹ OOPS!!! The description of a todo cannot be empty.\n" +
+                            "____________________________________________________________");
+
+                System.out.println("____________________________________________________________\n" +
+                        "Noted. I've removed this task:");
+                System.out.println("\t"+list.get(index-1));
+                list.remove(index-1);
+                System.out.println("Now you have "+ list.size()+" tasks in your list");
+                System.out.println("____________________________________________________________");
+
+            }
             else {
                 throw new DukeException("\n____________________________________________________________\n" +
                         "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
