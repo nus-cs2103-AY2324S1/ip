@@ -1,0 +1,14 @@
+public class Event extends Task{
+    private String start;
+    private String deadline;
+    public Event(String task, String start, String deadline) {
+        super(task);
+        this.start = start;
+        this.deadline = deadline;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (from: " + this.start + " to: " + this.deadline + ")";
+    }
+}

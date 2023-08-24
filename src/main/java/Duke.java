@@ -1,8 +1,9 @@
+import java.util.List;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
-//    public static String[] tasks = new String[100];
-    private static Task[] tasks = new Task[100];
+    private static List<Task> tasks = new ArrayList<Task>();
     private static final String lineSep = "-------------------------------";
     public static void main(String[] args) {
         System.out.println(lineSep);
@@ -10,7 +11,6 @@ public class Duke {
         System.out.println("What can I do for you?\n" + lineSep);
         Scanner scanner = new Scanner(System.in);
         String cmd = readCmd(scanner);
-        int counter = 0;
         while (!cmd.equals("bye")) {
             if (cmd.equals("list")) {
                 listTasks();
@@ -21,9 +21,17 @@ public class Duke {
                     markTask(split);
                 }
             } else {
-                System.out.println("added: " + cmd + "\n" + lineSep);
-                tasks[counter] = new Task(cmd);
-                counter++;
+                System.out.println("Got it. I've added this task:\n" + cmd + "\n" + lineSep);
+                String[] split = cmd.split(" ");
+                String taskType = split[0];
+                if (taskType.equals("todo")) {
+                    tasks.add(new Todo(split[1]));
+                } else if (taskType.equals("deadline")) {
+                    tasks.add(new Deadline(split[1], split[3]));
+                } else {
+                    tasks.add(new Event(split[1], split[3], split[5]));
+                }
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             }
             cmd = readCmd(scanner);
         }
@@ -45,16 +53,26 @@ public class Duke {
         for (Task task : tasks) {
             // Don't print nulls
             if (task == null) { break; }
-            System.out.println(tempCounter + "." + task);
+            if (task instanceof Todo) {
+                Todo t = (Todo) task;
+                System.out.println(tempCounter + "." + t);
+            } else if (task instanceof Deadline) {
+                Deadline t = (Deadline) task;
+                System.out.println(tempCounter + "." + t);
+            } else {
+                Event t = (Event) task;
+                System.out.println(tempCounter + "." + t);
+            }
             tempCounter++;
         }
     }
 
     private static void markTask(String[] split) {
         int idx = Integer.parseInt(split[1]);
-        tasks[idx].setCompleted(split[0].equals("mark"));
+        tasks.get(idx).setCompleted(split[0].equals("mark"));
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println(tasks[idx].toString());
+        System.out.println(tasks.get(idx).toString());
         System.out.println(lineSep);
     }
+
 }
