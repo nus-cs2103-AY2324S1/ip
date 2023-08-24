@@ -16,7 +16,7 @@ public class Duke {
     /**
      * An array to store inputs by the user
      */
-    private static String[] taskArray = new String[100];
+    private static Task[] taskArray = new Task[100];
     private static int numOfTasks = 0;
 
     /**
@@ -30,7 +30,7 @@ public class Duke {
      * Sends a greeting message on startup of the chatbot.
      */
     private static void greet() {
-        System.out.println(horizontalLine +
+        System.out.print(horizontalLine +
                 "YOU DIDN'T SEE\n" +
                 name +
                 "COMING DID YOU!?\n" +
@@ -41,7 +41,7 @@ public class Duke {
      * Sends a departing message on chatbot shutdown.
      */
     private static void exit() {
-        System.out.println(horizontalLine +
+        System.out.print(horizontalLine +
                 "NOW GET OUTTA HERE!\n" +
                 "RESPECTFULLY,\n" +
                 name +
@@ -62,10 +62,12 @@ public class Duke {
      */
     private static void list() {
         int count = 1;
-        for (String task : taskArray) {
+        System.out.print(horizontalLine);
+        for (Task task : taskArray) {
             if (task == null) break;
-            System.out.println(count++ + ". " + task);
+            System.out.println(count++ + ". " + "[" + task.getStatusIcon() + "] " + task.toString());
         }
+        System.out.print(horizontalLine);
     }
 
     /**
@@ -74,8 +76,57 @@ public class Duke {
      * @param task The task inputted by the user
      */
     private static void append(String task) {
-        taskArray[numOfTasks++] = task;
-        System.out.println(horizontalLine + "YOU WANT TO " + task + "?\nSURE, WHATEVER.\n" + horizontalLine);
+        taskArray[numOfTasks++] = new Task(task);
+        System.out.print(horizontalLine + "YOU WANT TO " + task + "?\nSURE, WHATEVER.\n" + horizontalLine);
+    }
+
+    /**
+     * Attempts to mark a task in the task array
+     *
+     * @param toMark
+     */
+    private static void mark(String toMark) {
+        System.out.print(horizontalLine);
+        try {
+            Task task = taskArray[Integer.parseInt(toMark.substring(5)) - 1];
+            if (task == null) throw new NullPointerException();
+            if (task.isDone) throw new IllegalArgumentException();
+            System.out.println("MARKED:\n" + task);
+            task.markAsDone();
+        } catch (NumberFormatException e) {
+            System.out.print("NOT A NUMBER IDIOT!!!\n");
+        } catch (NullPointerException e) {
+            System.out.print("NOTHING THERE IDIOT!!!\n");
+        } catch (IllegalArgumentException e) {
+            System.out.print("ALREADY DONE BRO!\n");
+        } finally {
+            System.out.print(horizontalLine);
+        }
+    }
+
+    /**
+     * Attempts to unmark a task in the task array
+     *
+     * @param toUnmark the task to be unmarked
+     */
+    private static void unmark(String toUnmark) {
+        System.out.print(horizontalLine);
+        try {
+            int index = Integer.parseInt(toUnmark.substring(7)) - 1;
+            Task task = taskArray[index];
+            if (task == null) throw new NullPointerException();
+            if (!task.isDone) throw new IllegalArgumentException();
+            System.out.println("UNMARKED:\n" + task);
+            task.markAsUndone();
+        } catch (NumberFormatException e) {
+            System.out.print("NOT A NUMBER IDIOT!!!\n");
+        } catch (NullPointerException e) {
+            System.out.print("NOTHING THERE IDIOT!!!\n");
+        } catch (IllegalArgumentException e) {
+            System.out.print("ALREADY UNDONE BRO!\n");
+        } finally {
+            System.out.print(horizontalLine);
+        }
     }
 
     public static void main(String[] args) {
@@ -85,6 +136,14 @@ public class Duke {
 
         while (botStatus == Status.RUNNING) {
             String nextLine = textInput.nextLine();
+            if (nextLine.startsWith("mark")) {
+                mark(nextLine);
+                continue;
+            }
+            if (nextLine.startsWith("unmark")) {
+                unmark(nextLine);
+                continue;
+            }
             switch(nextLine) {
                 case "bye":
                     botStatus = Status.STOPPING;
