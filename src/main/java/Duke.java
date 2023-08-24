@@ -1,10 +1,39 @@
+import java.util.Scanner;
+
 public class Duke {
+    private static void greet() {
+        System.out.println("Hello! I'm Duke");
+        System.out.println("What can I do for you?");
+    }
+
+    private static void bye() {
+        System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    private static boolean parseCommand(String input) {
+        switch (input) {
+            case "bye": {
+                Duke.bye();
+                return false;
+            }
+
+            default: {
+                System.out.println(input);
+                return true;
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        Duke.greet();
+        Scanner scanner = new Scanner(System.in);
+
+        boolean parse = true;
+        while (parse) {
+            String input = scanner.nextLine();
+            parse = Duke.parseCommand(input);
+        }
+
     }
 }
