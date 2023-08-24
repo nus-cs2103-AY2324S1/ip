@@ -32,8 +32,17 @@ public class Moss {
                 int index = Integer.parseInt(indexSubstring) - 1;
                 things.get(index).markUndone();
             }
+            else if (message.startsWith("delete")) {
+                String indexSubstring = message.substring(7);
+                int index = Integer.parseInt(indexSubstring) - 1;
+                Task temp = things.remove(index);
+                System.out.println("____________________________________________________________");
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(temp.toString());
+                System.out.println("Now you have " + things.size() + " tasks in the list.");
+            }
             else {
-                add(message);
+                command(message);
             }
             message = sc.nextLine();
         }
@@ -47,7 +56,7 @@ public class Moss {
      *
      * @param message The description of the task to be added.
      */
-    public static void add(String message) {
+    public static void command(String message) {
         try {
             if (message.startsWith("todo")) {
                 // check if the command is valid otherwise throw errors
@@ -111,5 +120,6 @@ public class Moss {
             System.out.println("____________________________________________________________");
         }
     }
+
 
 }
