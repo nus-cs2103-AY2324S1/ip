@@ -25,8 +25,7 @@ public class ToDoList {
 
     public void addTask(Task task) {
         taskList.add(task);
-        String taskName = task.name;
-        System.out.println("added: " + taskName);
+        System.out.println("added: " + task);
     }
 
     public void markTask(int i) {
@@ -37,5 +36,12 @@ public class ToDoList {
     public void unmarkTask(int i) {
         int order = i - 1;
         taskList.get(order).markAsNotDone();
+    }
+
+    public void deleteTask(int i) {
+        int order = i - 1;
+        Task task = taskList.get(order);
+        taskList.remove(order);
+        System.out.println("Noted. I've removed this task: " + task);
     }
 }

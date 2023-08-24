@@ -75,6 +75,9 @@ public class Tong {
                     Event event = new Event(eventName, from, to);
                     list.addTask(event);
                     break;
+                case "delete":
+                    order = Integer.parseInt(split[1]);
+                    list.deleteTask(order);
             }
 
             currentLine = input.nextLine();
