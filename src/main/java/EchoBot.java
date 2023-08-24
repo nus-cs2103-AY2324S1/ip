@@ -23,6 +23,52 @@ class Task {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "]" + " " + getDescription();
+    }
+}
+
+class Todo extends Task {
+    public Todo(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString();
+    }
+}
+
+class Deadline extends Task {
+    protected String by;
+
+    public Deadline(String description, String by) {
+        super(description);
+        this.by = by;
+    }
+
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+}
+
+class Event extends Task {
+    protected String from;
+    protected String to;
+
+    public Event(String description, String from, String to) {
+        super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
 }
 
 public class EchoBot {
@@ -30,6 +76,10 @@ public class EchoBot {
         String taskNumberStr = userInput.substring(command.length()).trim();
         return Integer.parseInt(taskNumberStr);
     }
+    public static String extractTaskDesc(String userInput, String command) {
+        return userInput.substring(command.length()).trim();
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String logo = "     ____        _        \n"
@@ -58,10 +108,39 @@ public class EchoBot {
 
                 for (int i = 0; i < numOfTask; i++) {
                     Task task = tasks[i];
-                    System.out.println("    " + (i + 1) + "." + "[" + task.getStatusIcon() + "]" + " " + task.getDescription());
+                    System.out.println("    " + (i + 1) + "." + task);
                 }
 
                 System.out.println(horizontalLine);
+            } else if (userInput.startsWith("todo")) {
+                String taskDescription = extractTaskDesc(userInput, "todo");
+                tasks[numOfTask] = new Todo(taskDescription);
+                numOfTask++;
+
+                System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + tasks[numOfTask - 1].toString());
+                System.out.println("    Now you have " + numOfTask + " tasks in the list.\n" + horizontalLine);
+            } else if (userInput.startsWith("deadline")) {
+                String taskDescription = extractTaskDesc(userInput, "deadline");
+                int indexOfBy = taskDescription.indexOf("/by");
+                String deadlineDescription = taskDescription.substring(0, indexOfBy).trim();
+                String by = taskDescription.substring(indexOfBy + 3).trim();
+                tasks[numOfTask] = new Deadline(deadlineDescription, by);
+                numOfTask++;
+
+                System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + tasks[numOfTask - 1].toString());
+                System.out.println("    Now you have " + numOfTask + " tasks in the list.\n" + horizontalLine);
+            } else if (userInput.startsWith("event")) {
+                String taskDescription = extractTaskDesc(userInput, "event");
+                int indexOfFrom = taskDescription.indexOf("/from");
+                int indexOfTo = taskDescription.indexOf("/to");
+                String eventDescription = taskDescription.substring(0, indexOfFrom).trim();
+                String from = taskDescription.substring(indexOfFrom + 5, indexOfTo).trim();
+                String to = taskDescription.substring(indexOfTo + 3).trim();
+                tasks[numOfTask] = new Event(eventDescription, from, to);
+                numOfTask++;
+
+                System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + tasks[numOfTask - 1].toString());
+                System.out.println("    Now you have " + numOfTask + " tasks in the list.\n" + horizontalLine);
             } else if (userInput.startsWith("mark")) {
                 int taskNum = extractTaskNum(userInput, "mark");
 
@@ -83,13 +162,7 @@ public class EchoBot {
                     System.out.println(horizontalLine + "    OK, I've marked this task as not done yet:");
                     System.out.println("      " + "[" + task.getStatusIcon() + "]" + " " + task.getDescription());
                     System.out.println(horizontalLine);
-            }
-        } else {
-                //Store the task inputted by user
-                tasks[numOfTask] = new Task(userInput);
-                numOfTask++;
-
-                System.out.println(horizontalLine + "    added: " + userInput + "\n" + horizontalLine);
+                }
             }
         }
     }
