@@ -63,6 +63,13 @@ public class Duke {
         }
     }
 
+    public static void deleteTask(int index) {
+        System.out.println("    Noted. I've removed this task:");
+        System.out.println("      " + arr.get(index - 1).toString());
+        arr.remove(index - 1);
+        System.out.println("    Now you have " + arr.size() + " tasks in the list.");
+    }
+
     public static void markTaskDone(int index) {
         arr.get(index - 1).markAsDone();
         System.out.println("    Nice! I've marked this task as done:");
@@ -97,6 +104,14 @@ public class Duke {
                 index += command.charAt(i) - 48;
             }
             markTaskNotDone(index);
+        }
+        else if (command.startsWith("delete")) {
+            int index = 0;
+            for (int i = 7; i < command.length(); ++i) {
+                index *= 10;
+                index += command.charAt(i) - 48;
+            }
+            deleteTask(index);
         }
         else {
             addTask(command);
