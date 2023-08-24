@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Pogo {
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private static final String QUIT_MESSAGE = "Bye. Hope to see you again soon!";
 
     private static int parseTaskIndex(String input) {
         return Integer.parseInt(input.split(" ")[1]) - 1;
@@ -39,53 +41,56 @@ public class Pogo {
         return task;
     }
 
-    public static void main(String[] args) {
-        String horizontalLine = "____________________________________________________________";
+    private static boolean handleInput(String input) {
+        if (input.equals("bye")) {
+            System.out.println(QUIT_MESSAGE);
+            return true;
+        } else if (input.equals("list")) {
+            Pogo.printTasks();
+        } else if (input.startsWith("mark")) {
+            int index = Pogo.parseTaskIndex(input);
+            tasks.get(index).markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(tasks.get(index).getStatusMessage());
+        } else if (input.startsWith("unmark")) {
+            int index = Pogo.parseTaskIndex(input);
+            tasks.get(index).markAsUndone();
+            System.out.println("Ok, I've marked this task as not done yet:");
+            System.out.println(tasks.get(index).getStatusMessage());
+        }
+        else {
+            try {
+                Task task = Pogo.addTask(input);
+                System.out.println("added: " + task.getStatusMessage());
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } catch (PogoInvalidTaskException e) {
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            } catch (PogoEmptyTaskException e) {
+                System.out.println("☹ OOPS!!! The description of a task cannot be empty.\n");
+            } catch (PogoException e) {
+                System.out.println("☹ OOPS!!! An error has occurred.");
+            }
+        }
+        return false;
+    }
 
-        System.out.println(horizontalLine);
+    public static void main(String[] args) {
+        System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Pogo\nWhat can I do for you?");
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTAL_LINE);
 
         Scanner scanner = new Scanner(System.in);
-        String quitMessage = "Bye. Hope to see you again soon!";
 
         while (true) {
             String input = scanner.nextLine();
-            System.out.println(horizontalLine);
+            System.out.println(HORIZONTAL_LINE);
 
-            // Convert switch statement to if-else statement
-            if (input.equals("bye")) {
-                System.out.println(quitMessage);
+            boolean quit = Pogo.handleInput(input);
+            if (quit) {
                 break;
-            } else if (input.equals("list")) {
-                Pogo.printTasks();
-            } else if (input.startsWith("mark")) {
-                int index = Pogo.parseTaskIndex(input);
-                tasks.get(index).markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks.get(index).getStatusMessage());
-            } else if (input.startsWith("unmark")) {
-                int index = Pogo.parseTaskIndex(input);
-                tasks.get(index).markAsUndone();
-                System.out.println("Ok, I've marked this task as not done yet:");
-                System.out.println(tasks.get(index).getStatusMessage());
+            } else {
+                System.out.println(HORIZONTAL_LINE);
             }
-            else {
-                try {
-                    Task task = Pogo.addTask(input);
-                    System.out.println("added: " + task.getStatusMessage());
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                } catch (PogoInvalidTaskException e) {
-                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                } catch (PogoEmptyTaskException e) {
-                    System.out.println("☹ OOPS!!! The description of a task cannot be empty.\n")
-                } catch (PogoException e) {
-                    System.out.println("☹ OOPS!!! An error has occurred.");
-                }
-            }
-
-            System.out.println(horizontalLine);
-
         }
     }
 }
