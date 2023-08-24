@@ -38,9 +38,31 @@ public class CheeChat {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println("  " + tasks.get(number).description(1));
                 } else {
-                    System.out.println("added: " + cmd);
-                    Task instance = new Task(cmd);
-                    tasks.add(instance);
+                    System.out.println("Got it. I've added this task:");
+
+                    if (cmd.startsWith("todo")) {
+                        Task instance = new Todo(cmd.substring(5));
+                        tasks.add(instance);
+                        System.out.println("  " + instance);
+                    } else if (cmd.startsWith("deadline")) {
+                        int index = cmd.indexOf(47);
+                        String description = cmd.substring(9, index - 1);
+                        String time = cmd.substring(index + 4);
+                        Task instance = new Deadline(description, time);
+                        tasks.add(instance);
+                        System.out.println("  " + instance);
+                    } else if (cmd.startsWith("event")){
+                        int index1 = cmd.indexOf(47);
+                        String description = cmd.substring(6, index1 - 1);
+                        String duration = cmd.substring(index1 + 5);
+                        int index2 = duration.indexOf(47);
+                        String from = duration.substring(0, index2);
+                        String to = duration.substring(index2 + 3);
+                        Task instance = new Event(description, from, to);
+                        tasks.add(instance);
+                        System.out.println("  " + instance);
+                    }
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                 }
             }
             cmd = input.nextLine();
