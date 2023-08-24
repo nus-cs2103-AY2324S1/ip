@@ -3,9 +3,9 @@ import jdk.jfr.Event;
 import java.util.Scanner;
 import java.util.regex.*;
 public class BouncyBob {
-    private static final String TOP_BORDER = "╔══════════════════════════════════════════════╗";
-    private static final String MIDDLE_BORDER = "║                                              ║";
-    private static final String BOTTOM_BORDER = "╚══════════════════════════════════════════════╝";
+    private static final String TOP_BORDER = "================================================";
+    private static final String MIDDLE_BORDER = "|                                              |";
+    private static final String BOTTOM_BORDER = "================================================";
 
     public static void printTaskStatus(Task task) {
         String marking = " ";
@@ -18,14 +18,14 @@ public class BouncyBob {
     public static void printBye() {
         System.out.println(TOP_BORDER);
         System.out.println(MIDDLE_BORDER);
-        System.out.println("║        BouncyBob: Bye! Bounce back soon!     ║");
+        System.out.println("|        BouncyBob: Bye! Bounce back soon!     |");
         System.out.println(MIDDLE_BORDER);
         System.out.println(BOTTOM_BORDER);
     }
 
     public static void printDatabase(Task[] database, int pointer) {
         System.out.println(TOP_BORDER);
-        System.out.println("Here are your tasks! ");
+        System.out.println("Here are your tasks!");
         for (int i = 0; i < pointer; i++) {
             Task curTask = database[i];
             printTaskStatus(curTask);
@@ -45,7 +45,7 @@ public class BouncyBob {
                 printTaskStatus(task);
                 break;
             case "unmark":
-                System.out.println("Gotta pump for air! It's unmarked! ");
+                System.out.println("Gotta pump for air! It's unmarked!");
                 task.setUnDone();
                 printTaskStatus(task);
                 break;
@@ -69,7 +69,6 @@ public class BouncyBob {
         switch (taskType) {
             case "todo":
                 taskName = arrayToString(parts, 1); // we skip the string in pos -, which is the command
-                System.out.println(taskName);
                 database[pointer] = new ToDos(taskName);
                 break;
             case "deadline":
@@ -94,7 +93,10 @@ public class BouncyBob {
     private static String arrayToString(String[] arr, int index) {
         String combinedString = "";
         for (int i = index; i < arr.length; i++) {
-            combinedString = combinedString + arr[i] + " ";
+            combinedString = combinedString + arr[i];
+            if (i != arr.length - 1) {
+                combinedString += " ";
+            }
         }
         return combinedString;
     }
@@ -130,14 +132,14 @@ public class BouncyBob {
         int pointer = 0;
         System.out.println(TOP_BORDER);
         System.out.println(MIDDLE_BORDER);
-        System.out.println("║                   Hey there! 🎈              ║");
-        System.out.println("║      I'm BouncyBob, your bubbly chatbot!     ║");
-        System.out.println("║ Wow you look very round today, like a ball!  ║");
+        System.out.println("|                   Hey there!                 |");
+        System.out.println("|      I'm BouncyBob, your bubbly chatbot!     |");
+        System.out.println("| Wow you look very round today, like a ball!  |");
         System.out.println(MIDDLE_BORDER);
         System.out.println(BOTTOM_BORDER);
 
         while (true) {
-            System.out.println("Enter something: ");
+            System.out.println("Enter something:");
             String userInput = scanner.nextLine();
             String[] parts = userInput.split(" ");
             if (userInput.equals("bye")) {
