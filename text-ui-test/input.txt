@@ -11,4 +11,9 @@ mark my answer
 list
 unmark 3
 list
+deadline
+todo
+deadline a /by x
+event
+event /to y
 bye
