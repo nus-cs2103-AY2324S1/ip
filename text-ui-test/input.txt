@@ -1,0 +1,10 @@
+todo eat
+todo shit
+deadline cs2103t /by today
+event run /from now /to tomorrow
+list
+mark 1
+unmark 1
+delete 2
+list
+blahh
