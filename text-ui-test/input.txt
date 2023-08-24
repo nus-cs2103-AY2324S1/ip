@@ -1,3 +1,4 @@
+list
 todo
 todo Todo
 deadline
@@ -12,8 +13,10 @@ event Event with random argument specified /random argument
 list
 mark 1
 mark 3
+mark one
 list
 unmark 1
+unmark one
 unmark 3
 list
 mark 100
