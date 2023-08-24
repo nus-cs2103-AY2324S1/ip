@@ -11,7 +11,7 @@ public class Duke {
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo + "Raman");*/
 
-        String greeting = "Hello, I'm Capt. Price! \n    What can I do for you today, Sergeant?";
+        String greeting = "Hello, I'm Capt. Price! What can I do for you today, Sergeant?";
         String horizontalBar = "-------------------------------------------------";
         String exitGreeting = "Over and out. See you next mission!";
 
