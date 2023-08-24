@@ -1,4 +1,7 @@
+import java.util.Scanner;
+
 public class Jarvis {
+    
     /**
      * ASCII Art Generated from http://patorjk.com/software/taag/
      */
@@ -9,18 +12,11 @@ public class Jarvis {
 "██  ██ ██   ██ ██   ██  ██  ██  ██      ██\n" +
 "█████  ██   ██ ██   ██   ████   ██ ███████ \n";
 
-    public static void main(String[] args) {
-        printIntro();
-        printBye();
-        
-    }
-
-    private static String breakLine() {
+    private void breakLine() {
         System.out.println("____________________________________________________________ \n");
-        return null;
     } 
 
-    private static String printIntro() {
+    public void printIntro() {
         breakLine();
         System.out.println("Hi Master! I'm your personal assistant: JARVIS! \n" +
                             "\n" +
@@ -28,12 +24,10 @@ public class Jarvis {
                             "\n" +
                             "How can I serve you today? \n");
         breakLine();
-        return null;
     }
 
-    private static String printBye() {
+    public void printBye() {
         System.out.println("Bye Master. It has been my honour to serve you!\n");
         breakLine();
-        return null;
     }
 }
