@@ -5,8 +5,9 @@ import java.util.Scanner;
 public class TaskManagement {
     private List<Task> taskList;
     enum Keyword {
+
         LIST("list"), MARK("mark"), UNMARK("unmark"), DELETE("delete"),
-        TODO("todo"), DEADLINE("deadline"), EVENT("event"), BYE("bye");
+        TODO("todo"), DEADLINE("deadline"), EVENT("event"), BYE("bye"), ECHO("echo");
 
         private String keyword;
 
