@@ -18,38 +18,15 @@ public class Duke {
         DukeList list = new DukeList();
         while (true) {
             Scanner scanner = new Scanner(System.in);
-            String output = scanner.nextLine();
-            if (output.equals("bye")) {
+            String input = scanner.nextLine();
+            if (input.equals("bye")) {
                 System.out.println(bye);
                 break;
             }
-            if (output.equals("list")) {
-                list.display();
-            }
-            if (output.startsWith("mark")) {
-                String[] inputs = output.split(" ");
-                int key = Integer.parseInt(inputs[1]);
-                list.markDone(key);
-            }
-            if (output.startsWith("unmark")) {
-                String[] inputs = output.split(" ");
-                int key = Integer.parseInt(inputs[1]);
-                list.unmark(key);
-            }
-            if (output.startsWith("todo")) {
-                String[] inputs = output.split(" ", 2);
-                list.addToDo(inputs[1]);
-            }
-            if (output.startsWith("deadline")) {
-                String[] inputs = output.split(" ", 2);
-                String[] deadLine = inputs[1].split("/by", 2);
-                list.addDeadline(deadLine[0], deadLine[1]);
-            }
-            if (output.startsWith("event")) {
-                String[] inputs = output.split(" ", 2);
-                String[] from = inputs[1].split("/from", 2);
-                String[] to = from[1].split("/to", 2);
-                list.addEvent(from[0], to[0], to[1]);
+            try {
+                list.takeInput(input);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
         }
     }

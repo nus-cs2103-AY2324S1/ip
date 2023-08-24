@@ -89,4 +89,60 @@ public class DukeList {
         task.unmark();
         System.out.println("OK, I've marked this task as not done yet:\n" + "\t" + task.toString());
     }
+    
+    public void takeInput(String input) throws DukeException {
+        if (input.equals("list")) {
+            this.display();
+            return;
+        }
+        if (input.startsWith("mark")) {
+            String[] inputs = input.split(" ");
+            int key = Integer.parseInt(inputs[1]);
+            if (key > dukeList.size() - 1) {
+                throw new DukeException("key exceeds size of list");
+            }
+            this.markDone(key);
+            return;
+        }
+        if (input.startsWith("unmark")) {
+            String[] inputs = input.split(" ");
+            int key = Integer.parseInt(inputs[1]);
+            if (key > dukeList.size() - 1) {
+                throw new DukeException("key exceeds size of list");
+            }
+            this.unmark(key);
+            return;
+        }
+        if (input.startsWith("todo")) {
+            String[] inputs = input.split(" ", 2);
+            try {
+                this.addToDo(inputs[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("todo cant be empty");
+            }
+            return;
+        }
+        if (input.startsWith("deadline")) {
+            String[] inputs = input.split(" ", 2);
+            try {
+                String[] deadLine = inputs[1].split("/by", 2);
+                this.addDeadline(deadLine[0], deadLine[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("deadline invalid format");
+            }
+            return;
+        }
+        if (input.startsWith("event")) {
+            String[] inputs = input.split(" ", 2);
+            try {
+                String[] from = inputs[1].split("/from", 2);
+                String[] to = from[1].split("/to", 2);
+                this.addEvent(from[0], to[0], to[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("event invalid format");
+            }
+            return;
+        }
+        throw new DukeException("Unrecognised input :(");
+    }
 }
