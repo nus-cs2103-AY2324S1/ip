@@ -7,48 +7,47 @@ public class Cracker {
 
     private TodoList list = new TodoList();
     private Reply reply = new Reply();
-
+    enum Type {
+        MARK,
+        TASK
+    };
 
     public void startService(){
         boolean talking = true;
         Scanner sc = new Scanner(System.in);
         reply.echo("What can I do for you?");
-
+        ArrayList<Object> inLine = new ArrayList<>();
         while(talking){
+            Type t = null;
 
             String input = sc.nextLine();
-            ArrayList<Object> inLine = new ArrayList<>();
+
             try {
 
 
                 if (input.startsWith("mark")) {
+                    t = Type.MARK;
                     int index = Integer.parseInt(input.replace("mark", "").trim()) - 1;
                     list.markDone(index);
                     inLine.add(list.getTask(index));
-                    reply.echo("Nice! I've marked this task as done: \n  " + list.getTask(index));
                 } else if (input.startsWith("unmark")) {
+                    t = Type.MARK;
                     int index = Integer.parseInt(input.replace("unmark", "").trim()) - 1;
                     list.markUndone(index);
                     inLine.add(list.getTask(index));
-                    reply.echo("Ok, I've marked this task as not done yet: \n  " + list.getTask(index));
                 } else if (input.startsWith("deadline")) {
+                    t = Type.TASK;
                     list.store(new Deadline(input.replace("deadline", "").trim()));
-                    reply.add("Got it. I've added this task:");
-                    reply.add(list.getTask(list.size() - 1));
-                    reply.add("Now you have " + list.size() + " task(s) in the list.");
-                    reply.echo();
+                    inLine.add(list.getTask(list.size() - 1));
+
                 } else if (input.startsWith("event")) {
+                    t = Type.TASK;
                     list.store(new Event(input.replace("event", "").trim()));
-                    reply.add("Got it. I've added this task:");
-                    reply.add(list.getTask(list.size() - 1));
-                    reply.add("Now you have " + list.size() + " task(s) in the list.");
-                    reply.echo();
+                    inLine.add(list.getTask(list.size() - 1));
                 } else if (input.startsWith("todo")) {
+                    t = Type.TASK;
                     list.store(new Todo(input.replace("todo", "").trim()));
-                    reply.add("Got it. I've added this task:");
-                    reply.add(list.getTask(list.size() - 1));
-                    reply.add("Now you have " + list.size() + " task(s) in the list.");
-                    reply.echo();
+                    inLine.add(list.getTask(list.size() - 1));
                 } else {
 
                     switch (input) {
@@ -69,11 +68,26 @@ public class Cracker {
 
                     }
                 }
+                if(t == Type.MARK){
+                    reply.add("Operation Successful: This is the current state of your task:");
+                    for(int i = 0; i < inLine.size();i++){
+                        reply.add(inLine.get(i).toString());
+                    }
+                    reply.echo();
+                    inLine.removeAll(inLine);
+                } else if(t == Type.TASK){
+                    reply.add("Got it. I've added this task:");
+                    reply.add(inLine.get(0).toString());
+                    reply.add("Now you have " + list.size() + " task(s) in the list.");
+                    reply.echo();
+                    inLine.removeAll(inLine);
+                }
             } catch (EmptyDescriptionException e){
                 reply.echo(e.toString());
             } catch (ArrayIndexOutOfBoundsException e){
                 reply.echo("The index you provided does not exist");
             }
+
 
 
 
