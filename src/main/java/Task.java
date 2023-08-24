@@ -23,6 +23,11 @@ public class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
-    
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() + "] " + this.description;
+    }
+
 
 }

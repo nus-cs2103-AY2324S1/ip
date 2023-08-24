@@ -11,7 +11,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         printHorizontalLine();
         System.out.println("\t " + "Hello! I'm Buddy! \n" +
-               "\t " + "What can I do for you? ");
+                "\t " + "What can I do for you? ");
         printHorizontalLine();
         int count = 0;
         while (count <=100 ) {
@@ -28,8 +28,7 @@ public class Duke {
                 tasks.get(taskIndex - 1).markAsDone();
                 printHorizontalLine();
                 System.out.println("\tGreat! I've marked this task as done:");
-                System.out.println("\t" + taskIndex + ".[" + tasks.get(taskIndex - 1).getStatusIcon() + "] "
-                        + tasks.get(taskIndex - 1).description);
+                System.out.println("\t" + taskIndex + "." + tasks.get(taskIndex-1).toString());
                 printHorizontalLine();
 
             }
@@ -40,8 +39,7 @@ public class Duke {
                 tasks.get(taskIndex - 1).markAsNotDone();
                 printHorizontalLine();
                 System.out.println("\tOk! I've marked this task as not done yet:");
-                System.out.println("\t" + taskIndex + ".[" + tasks.get(taskIndex - 1).getStatusIcon() + "] "
-                        + tasks.get(taskIndex - 1).description);
+                System.out.println("\t" + taskIndex + "." + tasks.get(taskIndex-1).toString());
                 printHorizontalLine();
 
             }
@@ -51,23 +49,53 @@ public class Duke {
                 printHorizontalLine();
                 System.out.println("\tHere are the tasks in your list:");
                 for (int i = 1; i <= count; i++) {
-                    System.out.println("\t" + i + "." + "[" + tasks.get(i - 1).getStatusIcon() + "] "
-                            + tasks.get(i - 1).getDescription());
+                    System.out.println("\t" + i + ". " + tasks.get(i-1).toString());
                 }
                 printHorizontalLine();
             }
 
             // adding task to list
             else {
-                printHorizontalLine();
-                System.out.println("\t" + "added: " + input);
-                tasks.add(new Task(input));
+                if (input.startsWith("todo")) {
+                Task task = new ToDo(input.substring(5));
+                tasks.add(task);
+                System.out.println("\tOk you have added this task:" );
+                System.out.println("\t" + task.toString());
+                System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
                 count++;
-                printHorizontalLine();
+             }
+                else if (input.startsWith("deadline")) {
+                    int index = input.lastIndexOf("/by");
+                    Task task = new Deadline(input.substring(9, index-1), input.substring(index+4));
+                    tasks.add(task);
+                    System.out.println("\tOk you have added this task:" );
+                    System.out.println("\t" + task.toString());
+                    System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
+                    count++;
+                }
+                else if (input.startsWith("event")) {
+                    int indexFrom = input.lastIndexOf("/from");
+                    int indexTo = input.lastIndexOf("/to");
+                    Task task =  new Event(input.substring(6, indexFrom-1),
+                            input.substring(indexFrom+6, indexTo-1), input.substring(indexTo+4));
+                    tasks.add(task);
+                    System.out.println("\tOk I have added this task:" );
+                    System.out.println("\t" + task.toString());
+                    System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
+                    count++;
+                }
+
+                else {
+                    printHorizontalLine();
+                    System.out.println("\t" + "added: " + input);
+                    tasks.add(new Task(input));
+                    count++;
+                    printHorizontalLine();
+                }
             }
         }
 
-        }
+    }
 
     public static void printHorizontalLine() {
         System.out.println("    ________________________________________________");
