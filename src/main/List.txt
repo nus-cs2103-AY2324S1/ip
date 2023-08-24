@@ -1,16 +1,2 @@
-[ ] hello
-[ ] konpeko
-[ ] Read
-[ ] me
-[ ] read
-[ ] Read list
-[ ] List me
-[ ] write hello
-[ ] Write: \\\
-[ ] : Hello
-[ ] Test1
-[ ] Test2
-[ ] Test
-[ ] 
-[ ] 5
-[ ] echo boo
+T | 1 | run
+D | 1 | help | today
