@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     private static void greet() {
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
@@ -8,7 +10,13 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         greet();
+        String userCommand = sc.next();
+        while(!userCommand.equals("bye")){
+            System.out.println(userCommand);
+            userCommand = sc.next();
+        }
         exit();
     }
 }
