@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+    private static ToDoList toDoList = new ToDoList();
     private static void greet() {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
@@ -17,11 +18,18 @@ public class Duke {
                 return false;
             }
 
+            case "list": {
+                System.out.println(toDoList);
+                break;
+            }
+
             default: {
-                System.out.println(input);
-                return true;
+                toDoList.add(new Task(input));
+                System.out.println("Added: " + input);
+                break;
             }
         }
+        return true;
     }
 
 
