@@ -122,7 +122,13 @@ public class Rocket {
         }
     }
 
-    private static Deadline getDeadline(String arguments) throws RocketException {
+    /**
+     * Extracts deadline from input
+     * @param arguments information about task
+     * @return a deadline task
+     * @throws RocketException
+     */
+    private static Deadline getDeadline(String arguments) throws RocketIllegalArgumentException {
         int descriptionIndex = arguments.indexOf(" /by");
         String description = arguments.substring(0, descriptionIndex);
         if (description.isEmpty()) {
@@ -135,7 +141,13 @@ public class Rocket {
         return new Deadline(description, by);
     }
 
-    private static Event getEvent(String arguments) throws RocketException{
+    /**
+     * Extracts event from input
+     * @param arguments information about event
+     * @return an event
+     * @throws RocketIllegalArgumentException
+     */
+    private static Event getEvent(String arguments) throws RocketIllegalArgumentException{
         int descriptionIndex = arguments.indexOf(" /from");
         String description = arguments.substring(0, descriptionIndex);
         if (description.isEmpty()) {

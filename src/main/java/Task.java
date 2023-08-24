@@ -8,13 +8,24 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Gets status Icon
+     * @return
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Marks task as done
+     */
     public void markAsDone() {
         this.isDone = true;
     }
+
+    /**
+     * Marks task as undone
+     */
     public void markAsUndone() {
         this.isDone = false;
     }
