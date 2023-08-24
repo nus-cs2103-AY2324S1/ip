@@ -17,12 +17,7 @@ public class JermBot {
             if (currStr.equals("list")) {
                 for (int i = 0; i < numOfItems; i++) {
                     System.out.print(i + 1);
-                    boolean done = storage[i].done;
-                    if (done) {
-                        System.out.print(". [X] " + storage[i].name + "\n");
-                    } else {
-                        System.out.print(". [ ] " + storage[i].name + "\n");
-                    }
+                    System.out.print(". " + storage[i].toString() + "\n");
                 }
             } else {
                 String[] splitStr = currStr.split(" ");
@@ -30,19 +25,40 @@ public class JermBot {
                     try {
                         int itemNumber = Integer.parseInt(splitStr[1]);
                         if (splitStr[0].equals("mark")) {
+                            storage[itemNumber - 1].markDone();
                             System.out.println("Nice! I've marked this task as done:");
-                            System.out.println("   [X]: " + storage[itemNumber - 1].name);
-                            storage[itemNumber - 1].done = true;
+                            System.out.println("   " + storage[itemNumber - 1].toString());
                         } else {
+                            storage[itemNumber - 1].markUndone();
                             System.out.println("Ok, I've marked this task as not done yet:");
-                            System.out.println("   [ ]: " + storage[itemNumber - 1].name);
-                            storage[itemNumber - 1].done = false;
+                            System.out.println("   " + storage[itemNumber - 1].toString());
                         }
-                    } catch (NumberFormatException e){
+                    } catch (NumberFormatException e) {
                         storage[numOfItems] = new Task(currStr);
                         numOfItems++;
                         System.out.println("added: " + currStr);
                     }
+                } else if (splitStr[0].equals("todo") || splitStr[0].equals("deadline") || splitStr[0].equals("event") ) {
+                    Task addedTask = new Task("");
+                    switch (splitStr[0]) {
+                        case "todo":
+                            String todoName = currStr.split("todo ")[1];
+                            addedTask = new Todo(todoName);
+                            break;
+                        case "deadline":
+                            String splitStr1 = currStr.split("deadline ")[1];
+                            String[] splitStr2 = splitStr1.split(" /by ");
+                            addedTask = new Deadline(splitStr2[0], splitStr2[1]);
+                            break;
+                        case "event":
+                            String splitStr3 = currStr.split("event ")[1];
+                            String[] splitStr4 = splitStr3.split(" /");
+                            addedTask = new Event(splitStr4[0], splitStr4[1].substring(5), splitStr4[2].substring(3));
+                            break;
+                    }
+                    storage[numOfItems] = addedTask;
+                    numOfItems++;
+                    System.out.printf("Got it. I've added this task:\n   %s\nNow you have %d tasks in the list.\n", addedTask, numOfItems);
                 } else {
                     storage[numOfItems] = new Task(currStr);
                     numOfItems++;
