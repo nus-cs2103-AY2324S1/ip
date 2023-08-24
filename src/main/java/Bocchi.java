@@ -38,6 +38,36 @@ public class Bocchi {
     }
 
     /**
+     * Marks the indicated task.
+     * @param taskNumber Task number
+     * @param taskList Current list of tasks
+     * @return Updated task list
+     */
+    private static TaskList markTask(int taskNumber, TaskList taskList) {
+        System.out.println(LINE_BREAK);
+        TaskList newTaskList = taskList.markTask(taskNumber);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(taskList.getTask(taskNumber));
+        System.out.println(LINE_BREAK);
+        return newTaskList;
+    }
+
+    /**
+     * Unmarks the indicated task.
+     * @param taskNumber Task number
+     * @param taskList Current list of tasks
+     * @return Updated task list
+     */
+    private static TaskList unmarkTask(int taskNumber, TaskList taskList) {
+        System.out.println(LINE_BREAK);
+        TaskList newTaskList = taskList.unmarkTask(taskNumber);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(taskList.getTask(taskNumber));
+        System.out.println(LINE_BREAK);
+        return newTaskList;
+    }
+
+    /**
      * Outputs the current list of tasks to be done.
      * @param taskList Current list of tasks
      */
@@ -55,14 +85,26 @@ public class Bocchi {
         Scanner sc = new Scanner(System.in);
         TaskList taskList = new TaskList();
         greet();
-        String activity = sc.nextLine();
-        while (!activity.equals("bye")) {
-            if (activity.equals("list")) {
-                displayTasks(taskList);
-            } else {
-                taskList = addTask(activity, taskList);
+        String message = sc.nextLine();
+        String[] tokens = message.split(" ");
+        String action = tokens[0];
+        while (!action.equals("bye")) {
+            switch (action) {
+                case "list":
+                    displayTasks(taskList);
+                    break;
+                case "mark":
+                    taskList = markTask(Integer.parseInt(tokens[1]), taskList);
+                    break;
+                case "unmark":
+                    taskList = unmarkTask(Integer.parseInt(tokens[1]), taskList);
+                    break;
+                default:
+                    taskList = addTask(message, taskList);
             }
-            activity = sc.nextLine();
+            message = sc.nextLine();
+            tokens = message.split(" ");
+            action = tokens[0];
         }
         sc.close();
         exit();
