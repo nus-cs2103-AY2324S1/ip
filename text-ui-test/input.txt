@@ -16,4 +16,7 @@ todo
 deadline a /by x
 event
 event /to y
+list
+delete 2
+list
 bye
