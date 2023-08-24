@@ -4,3 +4,10 @@ event Event1 /by 123 /to 321
 list
 deadline Deadline1 /by 123
 list
+mark 0
+list
+unmark 0
+list
+delete 0
+list
+blah

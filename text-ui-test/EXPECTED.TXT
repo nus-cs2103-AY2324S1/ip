@@ -23,3 +23,24 @@ Now you have 3 tasks in the list.
 1.[E][ ] Event1 (from: 123 to: 321)
 2.[D][ ] Deadline1 (by: 123)
 -------------------------------
+Nice! I've marked this task as done:
+[T][X] Todo1
+-------------------------------
+0.[T][X] Todo1
+1.[E][ ] Event1 (from: 123 to: 321)
+2.[D][ ] Deadline1 (by: 123)
+-------------------------------
+Nice! I've marked this task as done:
+[T][ ] Todo1
+-------------------------------
+0.[T][ ] Todo1
+1.[E][ ] Event1 (from: 123 to: 321)
+2.[D][ ] Deadline1 (by: 123)
+-------------------------------
+Noted. I've removed this task:
+[T][ ] Todo1
+0.[E][ ] Event1 (from: 123 to: 321)
+1.[D][ ] Deadline1 (by: 123)
+-------------------------------
+Unknown command given :<
+-------------------------------

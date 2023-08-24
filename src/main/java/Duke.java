@@ -15,19 +15,34 @@ public class Duke {
             if (cmd.equals("list")) {
                 listTasks();
                 System.out.println(lineSep);
-            } else if (cmd.contains("mark ")) {  // works for both mark and unmark
+            } else if (cmd.startsWith("delete")) {
+                String[] split = cmd.split(" ");
+                if (split.length > 1) {
+                    try {
+                        Task toRemove = tasks.get(Integer.parseInt(split[1]));
+                        tasks.remove(toRemove);
+                        System.out.println("Noted. I've removed this task:\n" + toRemove);
+                    } catch (NumberFormatException e) {
+                        System.out.println("To delete a task you need to provide a valid integer index!\n" + lineSep);
+                    }
+                } else {
+                    System.out.println("To delete a task you need to provide an index!\n" + lineSep);
+                }
+            } else if (cmd.startsWith("mark ") || cmd.startsWith("unmark ")) {  // works for both mark and unmark
                 String[] split = cmd.split(" ");
                 if (split.length > 1) {
                     markTask(split);
+                } else {
+                    System.out.println("To mark/unmark a task you need to provide an index!\n" + lineSep);
                 }
             } else {
-                System.out.println("Got it. I've added this task:");
                 String[] split = cmd.split(" ");
                 String taskType = split[0];
                 if (taskType.equals("todo")) {
                     if (split.length < 2) {
                         System.out.println("The description of a todo cannot be empty!\n" + lineSep);
                     } else {
+                        System.out.println("Got it. I've added this task:");
                         Todo todo = new Todo(split[1]);
                         tasks.add(todo);
                         System.out.println(todo);
@@ -37,6 +52,7 @@ public class Duke {
                         System.out.println("A deadline must contain a description and end specified with `/by`!\n"
                                 + lineSep);
                     } else {
+                        System.out.println("Got it. I've added this task:");
                         Deadline deadline = new Deadline(split[1], split[3]);
                         tasks.add(deadline);
                         System.out.println(deadline);
@@ -46,6 +62,7 @@ public class Duke {
                         System.out.println("An event must contain a description," +
                                 " start and end specified with `/by` and `/to`!\n" + lineSep);
                     } else {
+                        System.out.println("Got it. I've added this task:");
                         Event event = new Event(split[1], split[3], split[5]);
                         tasks.add(event);
                         System.out.println(event);
