@@ -23,8 +23,7 @@ public class Duke {
 
         Scanner myScanner = new Scanner(System.in);
         ArrayList<Task> myList = new ArrayList<Task>(); // Create an ArrayList object
-
-        while(true){
+        while(myScanner.hasNext()){
             String inValue = myScanner.next();
             Task item;
             char derived_prefix;
@@ -38,6 +37,8 @@ public class Duke {
                 case "list":
                     System.out.println("____________________________________________________________");
                     int i = 1;
+                    System.out.println("Here are the tasks in your list:");
+
                     for (Task t: myList){
                         System.out.println(String.valueOf(i) + "." + t.toString());
                         i++;
@@ -66,7 +67,7 @@ public class Duke {
                     break;
 
                 case "todo":
-                    inValue = myScanner.nextLine();
+                    inValue = myScanner.nextLine().substring(1);
                     ToDo t =  new ToDo(inValue);
                     myList.add(t);
                     System.out.println("____________________________________________________________");
@@ -76,7 +77,7 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     break;
                 case "deadline":
-                    inValue = myScanner.nextLine();
+                    inValue = myScanner.nextLine().substring(1);
                     String[] toBeSplit = inValue.split("/");
                     Deadline d = new Deadline(toBeSplit[0], toBeSplit[1].replace("by ", ""));
                     myList.add(d);
@@ -87,7 +88,7 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     break;
                 case "event":
-                    inValue = myScanner.nextLine();
+                    inValue = myScanner.nextLine().substring(1);
                     String[] to_Split = inValue.split("/");
                     Event e = new Event(to_Split[0], to_Split[1].replace("from ", ""), to_Split[2].replace("to ", ""));
                     myList.add(e);
