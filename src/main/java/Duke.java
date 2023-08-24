@@ -33,6 +33,10 @@ public class Duke {
                 Tasks.handleEvent(input, tasks);
                 continue;
             }
+            if (input.startsWith("delete")) {
+                Tasks.handleDelete(input, tasks);
+                continue;
+            }
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         System.out.println("Bye. Hope to see you again soon!");

@@ -43,7 +43,7 @@ public class Tasks {
         System.out.println("Got it. I've added this task:\n" + event + "\n" +
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
-    
+
     public static void handleMark(String input, List<Task> tasks) {
         String[] parts = input.split(" ");
         if (parts.length == 2) {
@@ -62,6 +62,15 @@ public class Tasks {
                 System.out.println("NumberFormatException");
             }
         }
+    }
+
+    public static void handleDelete(String input, List<Task> tasks) {
+        String[] parts1 = input.split(" ");
+        int index = Integer.parseInt(parts1[1]);
+        String deleted = String.valueOf(tasks.get(index - 1));
+        tasks.remove(index - 1);
+        System.out.println("Noted. I've removed this task:\n" + deleted + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.");
     }
 }
 
