@@ -17,4 +17,11 @@ public class Task {
     public void markAs(boolean isDone) {
         this.isDone = isDone;
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s",
+                this.checkIsDone() ? "X" : " ",
+                this.getName());
+    }
 }
