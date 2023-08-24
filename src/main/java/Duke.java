@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -12,35 +13,56 @@ public class Duke {
 
         System.out.println("Hello from\n" + logo);
 
-        System.out.println(greetFunction("Jack"));
+        greetFunction("Jack");
 
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
+        ArrayList<String> textArray = new ArrayList<>();
+
         while(!input.equals("bye")){
-            System.out.println(repeatFunction(input));
+            if(input.equals("list")){
+                System.out.println(horiLine);
+                for(int i = 0; i < textArray.size(); i++ ){
+                    int index = i + 1;
+                    System.out.println(index +": " + textArray.get(i));
+                }
+                System.out.println(horiLine);
+            }else{
+                textArray.add(input);
+                addSuccess(input);
+            }
+
             input = scanner.nextLine();
         }
-        System.out.println(byeFunction());
+        byeFunction();
         scanner.close();
 
 
 
     }
 
-    public static String greetFunction(String name){
+    public static void greetFunction(String name){
         String greetings = horiLine +"\nHello! I'm " + name + "\n"
                 + "What can I do for you?\n" + horiLine;
-        return greetings;
+        System.out.println(greetings);
     }
-    public static String byeFunction(){
+    public static void byeFunction(){
 
         String byeword = horiLine + "\nBye. Hope to see you again soon\n" + horiLine;
-        return byeword;
+        System.out.println(byeword);
     }
-    public static String repeatFunction(String text){
+    public static void repeatFunction(String text){
         String byeword = horiLine +"\n" + text + "\n" + horiLine;
-        return byeword;
+        System.out.println(byeword);
     }
+    public static void addSuccess(String text){
+
+        String word = horiLine +"\nadded:" + text + "\n" + horiLine;
+
+        System.out.println(word);
+    }
+
+
 
 }
