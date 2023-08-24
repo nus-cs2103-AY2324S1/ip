@@ -11,7 +11,7 @@ public class Duke {
     private static void greet() {
         System.out.println(
                 "Hello. I am Luxion. \n" +
-                "What can I do for you?\n");
+                "What can I do for you?");
 
         Scanner scanObj = new Scanner(System.in);
         String command = scanObj.nextLine();
