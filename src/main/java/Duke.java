@@ -43,9 +43,9 @@ public class Duke {
                     Task curr = new Todo(input.split(" ")[1]);
                     count++;
                     inputs.add(curr);
-                    System.out.println("Got it. I've added this task:\n" +
+                    System.out.println("Got it. I've added this task: \n" +
                             curr + '\n' +
-                            "Now you have " + count + " tasks in the list\n");
+                            "Now you have " + count + " tasks in the list \n");
                 } else if (input.startsWith("event")) {
                     String description = input.split("/")[0].split(" ", 2)[1].stripLeading();
                     String date = input.split("/")[1].substring(5);
@@ -65,7 +65,14 @@ public class Duke {
                     System.out.println("Got it. I've added this task:\n" +
                             curr + '\n' +
                             "Now you have " + count + " tasks in the list\n");
-                } else {
+                } else if (input.startsWith("delete")){
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    inputs.remove(index);
+                    count --;
+
+                    System.out.println("Noted. I've removed this task:\n" +
+                            "Now you have " + count + " tasks in the list.");
+                }else {
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (DukeException e){
