@@ -9,9 +9,10 @@ public class Database {
         this.db.add(task);
         this.total++;
 
-        String resp = "I have added this task for you!\n" +
-                      task +
-                      String.format("\nNow you have %d tasks in your list!", this.total);
+        String resp = "I have added this task for you!\n" + task;
+        resp += this.total > 1
+                ? String.format("\nNow you have %d tasks in your list!", this.total)
+                : String.format("\nNow you have %d task in your list!", this.total);
         UI.printWithFormat(resp);
     }
 

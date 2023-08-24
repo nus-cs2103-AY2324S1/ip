@@ -27,7 +27,7 @@ You have no task right now:) Happy happy!
 > Cheems: 
 I have added this task for you!
 [T][ ] borrow book
-Now you have 1 tasks in your list!
+Now you have 1 task in your list!
 > You: 
 > Cheems: 
 I have added this task for you!
@@ -40,21 +40,6 @@ I have added this task for you!
 Now you have 3 tasks in your list!
 > You: 
 > Cheems: 
-1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-> You: 
-> Cheems: 
-I have added this task for you!
-[T][ ] take pictures
-Now you have 4 tasks in your list!
-> You: 
-> Cheems: 
-I have added this task for you!
-[D][ ] do homework (by: no idea :-p)
-Now you have 5 tasks in your list!
-> You: 
-> Cheems: 
 Good job! I've marked this task as done:
 [T][X] borrow book
 > You: 
@@ -63,30 +48,13 @@ Good job! I've marked this task as done:
 [E][X] project meeting (from: Mon 2pm to: 4pm)
 > You: 
 > Cheems: 
-1.[T][X] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
-4.[T][ ] take pictures
-5.[D][ ] do homework (by: no idea :-p)
-> You: 
-> Cheems: 
-Okie dokie! I've unmarked it for you:
-[D][ ] return book (by: Sunday)
-> You: 
-> Cheems: 
 Okie dokie! I've unmarked it for you:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
-> You: 
-> Cheems: 
-Good job! I've marked this task as done:
-[T][X] take pictures
 > You: 
 > Cheems: 
 1.[T][X] borrow book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-4.[T][X] take pictures
-5.[D][ ] do homework (by: no idea :-p)
 > You: 
 > Cheems: 
 Okay bye:( Let's get the fries next time.

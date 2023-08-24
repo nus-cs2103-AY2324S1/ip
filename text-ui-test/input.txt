@@ -6,14 +6,8 @@ list
 todo borrow book
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
-list
-todo take pictures
-deadline do homework /by no idea :-p
 mark 1
 mark 3
-list
-unmark 2
 unmark 3
-mark 4
 list
 bye
