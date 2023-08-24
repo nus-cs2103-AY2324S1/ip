@@ -7,6 +7,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Used to evaluate String form of a Deadlien
+     * @return String form of a Deadline
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
