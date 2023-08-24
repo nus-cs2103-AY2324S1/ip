@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BenBen {
     //private static String[] arr;
     private static Task[] arr;
+    private static ArrayList<Task> arrlst;
     //private static boolean[] bool;
     private static final String line ="_______________________________________\n";
     private static int counter = 0;
@@ -103,7 +105,8 @@ public class BenBen {
         }
 
         Task t = new Todo(des);
-        arr[counter] = t;
+        //arr[counter] = t;
+        arrlst.add(t);
         counter++;
         System.out.println(line);
         System.out.println("Got it. I've added this task:\n");
@@ -137,7 +140,8 @@ public class BenBen {
         }
 
         Task t = new Deadline(des, ddl);
-        arr[counter] = t;
+        //arr[counter] = t;
+        arrlst.add(t);
         counter++;
         System.out.println(line);
         System.out.println("Got it. I've added this task:\n");
@@ -183,7 +187,8 @@ public class BenBen {
 
 
         Task t = new Event(des, start, end);
-        arr[counter] = t;
+        //arr[counter] = t;
+        arrlst.add(t);
         counter++;
 
 
@@ -196,7 +201,7 @@ public class BenBen {
 
     public static void iterList() {
 
-        if (counter == 0) {
+        if (arrlst.isEmpty()) {
             System.out.println(line);
             System.out.println("Your list is currently empty! Add a new task now!");
             System.out.println(line);
@@ -204,7 +209,7 @@ public class BenBen {
             System.out.println(line);
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < counter; i++) {
-                System.out.println((i + 1) + "." + arr[i].toString());
+                System.out.println((i + 1) + "." + arrlst.get(i).toString());
             }
             System.out.println(line);
         }
@@ -223,10 +228,11 @@ public class BenBen {
 
         try {
             x = Integer.parseInt(strSplit[1]);
-            arr[x - 1].mark();
+            //arr[x - 1].mark();
+            arrlst.get(x - 1).mark();
             System.out.println(line);
             System.out.println("Nice! I've marked this task as done:\n" +
-                    "    " + arr[x - 1].toString());
+                    "    " + arrlst.get(x - 1).toString());
             System.out.println(line);
         } catch(NumberFormatException e) {
             throw new BenBenException("Please use an integer value to indicate your task!");
@@ -249,15 +255,47 @@ public class BenBen {
 
         try {
             x = Integer.parseInt(strSplit[1]);
-            arr[x - 1].unmark();
+            //[x - 1].unmark();
+            arrlst.get(x - 1).unmark();
             System.out.println(line);
             System.out.println("OK, I've marked this task as not done yet:\n" +
-                    "    " + arr[x - 1].toString());
+                    "    " + arrlst.get(x - 1).toString());
             System.out.println(line);
         } catch (NumberFormatException e) {
             throw new BenBenException("Please use an integer value to indicate your task!");
         } catch (NullPointerException e) {
             throw new BenBenException("The task you are trying to unmark does not exist!");
+        }
+    }
+
+    public static void remove(String str) throws BenBenException {
+        String[] strSplit = str.split("\\s+");
+
+        if (strSplit.length < 2) {
+            throw new BenBenException("Please enter a task to remove!");
+        }
+        if (strSplit.length > 2) {
+            throw new BenBenException("Please only enter one task to remove!");
+        }
+        Integer x = null;
+
+        try {
+            x = Integer.parseInt(strSplit[1]);
+            //[x - 1].unmark();
+            Task temp = arrlst.get(x - 1);
+            arrlst.remove(x - 1);
+            counter = counter - 1;
+            System.out.println(line);
+            System.out.println("Noted. I've removed this task:\n");
+            System.out.println(temp.toString());
+            System.out.println("Now you have " + counter + " tasks in the list.");
+            System.out.println(line);
+        } catch (NumberFormatException e) {
+            throw new BenBenException("Please use an integer value to indicate your task!");
+        } catch (NullPointerException e) {
+            throw new BenBenException("The task you are trying to remove does not exist!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new BenBenException("The task you are trying to remove does not exist!");
         }
     }
 
@@ -299,6 +337,11 @@ public class BenBen {
             bool = true;
         }
 
+        if (!bool && next.startsWith("delete")) {
+            remove(next);
+            bool = true;
+        }
+
         if (!bool) {
             throw new BenBenException("BenBen does not understand your instruction:(");
         }
@@ -306,7 +349,8 @@ public class BenBen {
     }
     public static void main(String[] args) throws BenBenException{
             Scanner sc = new Scanner(System.in);
-            arr = new Task[100];
+            //arr = new Task[100];
+            arrlst = new ArrayList<Task>();
             System.out.println(line);
             System.out.println("Hello! I'm BenBen.\n" +
                     "What can I do for you?");
