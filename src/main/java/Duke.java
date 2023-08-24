@@ -39,6 +39,12 @@ public class Duke {
         System.out.println("Now I have " + l.size() + " tasks in the list");
     }
 
+    private void del(Task t) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(t.toString());
+        System.out.println("Now you have " + l.size() +  " tasks in the list");
+    }
+
     private void respond(String s) {
         if (s.equals("list")) {
             System.out.println("Here are the tasks in your list:");
@@ -88,6 +94,12 @@ public class Duke {
             Events e = new Events(temp[0], temp[1].substring(4).trim(), temp[2].substring(2).trim());
             this.l.add(e);
             added(e);
+        } else if (s.startsWith("delete")) {
+            int idx = Integer.parseInt(s.substring(7));
+            Task t = this.l.get(idx-1);
+            this.l.remove(idx-1);
+            del(t);
+
         }
         else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
