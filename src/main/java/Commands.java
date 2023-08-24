@@ -5,5 +5,16 @@ public enum Commands {
     bye,
     list,
     mark,
-    unmark
+    unmark,
+    unknown;
+
+    public static Commands get(String cmd) {
+        Commands c;
+        try {
+            c = Commands.valueOf(cmd);
+        } catch (IllegalArgumentException | NullPointerException e) {
+            c = Commands.unknown;
+        }
+        return c;
+    }
 }

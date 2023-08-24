@@ -1,16 +1,6 @@
 Hello, my name is Nino!
 What can I do for you?
 =====================
-todo borrow book
-list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-list
-mark 1
-list
-unmark 1
-list
-bye
 added: [T][ ] borrow book
 You have 1 tasks.
 =====================

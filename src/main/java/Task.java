@@ -3,7 +3,7 @@ public abstract class Task {
     protected String description;
     protected boolean isDone = false;
 
-    public static Task create(Commands command, String rawLine) {
+    public static Task create(Commands command, String rawLine) throws DukeException {
         switch (command) {
             case todo:
                 return ToDo.create(rawLine);
@@ -12,7 +12,7 @@ public abstract class Task {
             case event:
                 return Event.create(rawLine);
             default:
-                throw new RuntimeException("Command not recognized");
+                throw new RuntimeException("Command not recognized"); //literally should not run
         }
     }
 
