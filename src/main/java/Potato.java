@@ -40,10 +40,14 @@ public class Potato {
                         "-----------------------------------------");
 
             } else if (input.startsWith("delete")) {
-                int index = Integer.parseInt(input.substring(5)) - 1;
-                store.remove(index);
                 size--;
-                System.out.println();
+                int index = Integer.parseInt(input.substring(7)) - 1;
+                System.out.println("-----------------------------------------\n" +
+                        "Noted. I've removed this task:\n" +
+                        store.get(index).toString() + "\n" +
+                        "Now you have " + size + " tasks in the list.\n" +
+                        "-----------------------------------------");
+                store.remove(index);
 
             } else if (input.equals("list")) {
                 int count = 0;
