@@ -22,7 +22,7 @@ public class Commands {
 
                         "____________________________________________________________\n" +
                          "Hello! I'm %s, a task planning bot that will help you record your tasks.\n" +
-                         "If you require help on the commands you can key in, type \"help\" \n" +
+                         "If you require help on the commands you can key in, type \"help\"\n" +
                                  "____________________________________________________________\n"
                          , name);
         System.out.println(greet);
@@ -46,7 +46,7 @@ public class Commands {
     // Level-0, Function to say goodbye
     public static void sayGoodBye() {
         String bye =  (
-                "____________________________________________________________ \n" +
+                "____________________________________________________________\n" +
                 "Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________\n");
         System.out.println(bye);
