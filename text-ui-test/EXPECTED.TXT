@@ -5,22 +5,22 @@ ____________________________________________________________
 
 ____________________________________________________________
 Got it. I've added this task:
-	[T][ ] borrow LOTR book
+	[D][ ] return book (by: Monday 28 Aug @ 5pm)
 Now you have 1 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1.[T][ ] borrow LOTR book
+1.[D][ ] return book (by: Monday 28 Aug @ 5pm)
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-	[D][ ] return book (by: Monday 28 Aug @ 5pm)
+	[T][ ] borrow LOTR book
 Now you have 2 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1.[T][ ] borrow LOTR book
-2.[D][ ] return book (by: Monday 28 Aug @ 5pm)
+1.[D][ ] return book (by: Monday 28 Aug @ 5pm)
+2.[T][ ] borrow LOTR book
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -28,11 +28,22 @@ Got it. I've added this task:
 Now you have 3 tasks in the list
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
-1.[T][ ] borrow LOTR book
-2.[D][ ] return book (by: Monday 28 Aug @ 5pm)
-3.[E][ ] project meeting (from: Wednesday, 23 Aug @ 8pm  to: Thursday, 24 Aug @ 4pm)
+Got it. I've added this task:
+	[D][ ] register book (by: Wednesday 30 Aug @ 5pm)
+Now you have 4 tasks in the list
 ____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[D][ ] return book (by: Monday 28 Aug @ 5pm)
+2.[T][ ] borrow LOTR book
+3.[E][ ] project meeting (from: Wednesday, 23 Aug @ 8pm  to: Thursday, 24 Aug @ 4pm)
+4.[D][ ] register book (by: Wednesday 30 Aug @ 5pm)
+____________________________________________________________
+____________________________________________________________
+-----------------------------------------
+Nice! I've marked this task as done:
+[D][X] return book (by: Monday 28 Aug @ 5pm)
+-----------------------------------------
 ____________________________________________________________
 -----------------------------------------
 Nice! I've marked this task as done:
@@ -41,29 +52,31 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 -----------------------------------------
 Nice! I've marked this task as done:
-[D][X] return book (by: Monday 28 Aug @ 5pm)
+[E][X] project meeting (from: Wednesday, 23 Aug @ 8pm  to: Thursday, 24 Aug @ 4pm)
 -----------------------------------------
 ____________________________________________________________
 Here are the tasks in your list:
-1.[T][X] borrow LOTR book
-2.[D][X] return book (by: Monday 28 Aug @ 5pm)
-3.[E][ ] project meeting (from: Wednesday, 23 Aug @ 8pm  to: Thursday, 24 Aug @ 4pm)
+1.[D][X] return book (by: Monday 28 Aug @ 5pm)
+2.[T][X] borrow LOTR book
+3.[E][X] project meeting (from: Wednesday, 23 Aug @ 8pm  to: Thursday, 24 Aug @ 4pm)
+4.[D][ ] register book (by: Wednesday 30 Aug @ 5pm)
 ____________________________________________________________
-____________________________________________________________
------------------------------------------
-OK, I've marked this task as not done yet:
-[T][ ] borrow LOTR book
------------------------------------------
 ____________________________________________________________
 -----------------------------------------
 OK, I've marked this task as not done yet:
 [D][ ] return book (by: Monday 28 Aug @ 5pm)
 -----------------------------------------
 ____________________________________________________________
+-----------------------------------------
+OK, I've marked this task as not done yet:
+[T][ ] borrow LOTR book
+-----------------------------------------
+____________________________________________________________
 Here are the tasks in your list:
-1.[T][ ] borrow LOTR book
-2.[D][ ] return book (by: Monday 28 Aug @ 5pm)
-3.[E][ ] project meeting (from: Wednesday, 23 Aug @ 8pm  to: Thursday, 24 Aug @ 4pm)
+1.[D][ ] return book (by: Monday 28 Aug @ 5pm)
+2.[T][ ] borrow LOTR book
+3.[E][X] project meeting (from: Wednesday, 23 Aug @ 8pm  to: Thursday, 24 Aug @ 4pm)
+4.[D][ ] register book (by: Wednesday 30 Aug @ 5pm)
 ____________________________________________________________
 ____________________________________________________________
  Bye. Hope to see you again soon!
