@@ -39,6 +39,13 @@ public class Duke {
                 toDoList.get(index));
     }
 
+    private static void delete(int index) {
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(toDoList.get(index).toString());
+        toDoList.remove(index);
+        Duke.length();
+    }
+
     private static boolean parseCommand(String input) {
         String[] sections = input.split(" ", 2);
         String command = sections[0];
@@ -111,6 +118,15 @@ public class Duke {
                 }
                 int index = Integer.parseInt(rest);
                 Duke.unmark(index);
+                break;
+            }
+
+            case "delete": {
+                if (rest.isEmpty()) {
+                    throw new IllegalArgumentException("Index is missing.");
+                }
+                int index = Integer.parseInt(rest);
+                Duke.delete(index);
                 break;
             }
 
