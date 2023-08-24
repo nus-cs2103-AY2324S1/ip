@@ -1,10 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Task[] taskList = new Task[100];
-        int taskCount = 0;
+        ArrayList<Task> taskList = new ArrayList<>();
+
 
         // Greeting message
         System.out.println("Hello! I'm Sivraj");
@@ -22,8 +23,8 @@ public class Duke {
                 } else if (echo.equals("list")) {
                     System.out.println(" ----------------------------------------");
                     System.out.println("    Here are the tasks in your list:");
-                    for (int i = 0; i < taskCount; i++) {
-                        System.out.println("    " + (i + 1) + ". " + taskList[i]);
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.println("     " + (i + 1) + "." + taskList.get(i));
                     }
                     System.out.println(" -----------------------------------------");
                 } else if (echo.startsWith("todo")) {
@@ -31,25 +32,23 @@ public class Duke {
                         throw new DukeException("The description of a todo cannot be empty.");
                     }
                     String description = echo.substring(5).trim();
-                    taskList[taskCount] = new ToDo(description, 'T');
-                    taskCount++;
+                    taskList.add(new ToDo(description, 'T'));
 
                         System.out.println(" -----------------------------------------");
                         System.out.println("     Got it. I've added this task:");
-                        System.out.println("    " + taskList[taskCount - 1]);
-                        System.out.println("     Now you have " + taskCount + " tasks in the list.");
+                        System.out.println("    " + taskList.get(taskList.size() - 1));
+                        System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
                         System.out.println(" -----------------------------------------");
 
                 } else if (echo.startsWith("deadline")) {
                     int byIndex = echo.indexOf("/by");
                     String description = echo.substring(9, byIndex).trim();
                     String by = echo.substring(byIndex + 3).trim();
-                    taskList[taskCount] = new Deadline(description, by, 'D');
-                    taskCount++;
+                    taskList.add(new Deadline(description, by, 'D'));
                     System.out.println(" -----------------------------------------");
                     System.out.println("     Got it. I've added this task:");
-                    System.out.println("       " + taskList[taskCount - 1]);
-                    System.out.println("     Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("       " + taskList.get(taskList.size() - 1));
+                    System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
                     System.out.println(" -----------------------------------------");
                 } else if (echo.startsWith("event")) {
                     int fromIndex = echo.indexOf("/from");
@@ -57,31 +56,42 @@ public class Duke {
                     String description = echo.substring(6, fromIndex).trim();
                     String from = echo.substring(fromIndex + 5, toIndex).trim();
                     String to = echo.substring(toIndex + 3).trim();
-                    taskList[taskCount] = new Event(description, from, to, 'E');
-                    taskCount++;
+                    taskList.add(new Event(description, from, to, 'E'));
                     System.out.println(" -----------------------------------------");
                     System.out.println("     Got it. I've added this task:");
-                    System.out.println("       " + taskList[taskCount - 1]);
-                    System.out.println("     Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("       " + taskList.get(taskList.size() - 1));
+                    System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
                     System.out.println(" -----------------------------------------");
                 } else if (echo.startsWith("mark")) {
                     int taskIndex = Integer.parseInt(echo.substring(5).trim()) - 1;
-                    if (taskIndex >= 0 && taskIndex < taskCount) {
-                        taskList[taskIndex].markAsDone();
+                    if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                        taskList.get(taskIndex).markAsDone();
                         System.out.println(" ------------------------------------------");
                         System.out.println("    Nice! I've marked this task as done:");
-                        System.out.println("       " + taskList[taskIndex]);
+                        System.out.println("       " + taskList.get(taskIndex));
                         System.out.println(" ------------------------------------------");
                     } else {
                         System.out.println("Invalid task index.");
                     }
                 } else if (echo.startsWith("unmark")) {
                     int taskIndex = Integer.parseInt(echo.substring(7).trim()) - 1;
-                    if (taskIndex >= 0 && taskIndex < taskCount) {
-                        taskList[taskIndex].markAsNotDone();
+                    if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                        taskList.get(taskIndex).markAsNotDone();
                         System.out.println(" -------------------------------------------");
                         System.out.println("     OK, I've marked this task as not done yet:");
-                        System.out.println("       " + taskList[taskIndex]);
+                        System.out.println("       " + taskList.get(taskIndex));
+                        System.out.println(" -------------------------------------------");
+                    } else {
+                        System.out.println("Invalid task index.");
+                    }
+                } else if (echo.startsWith("delete")) {
+                    int taskIndex = Integer.parseInt(echo.substring(7).trim()) - 1;
+                    if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                        Task removedTask = taskList.remove(taskIndex);
+                        System.out.println(" -------------------------------------------");
+                        System.out.println("     Noted. I've removed this task:");
+                        System.out.println("       " + removedTask);
+                        System.out.println("     Now you have " + taskList.size() + " tasks in the list.");
                         System.out.println(" -------------------------------------------");
                     } else {
                         System.out.println("Invalid task index.");
