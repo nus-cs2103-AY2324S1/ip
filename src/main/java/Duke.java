@@ -4,6 +4,17 @@ public class Duke {
     private static final String LINE = "_".repeat(60);
     private static ArrayList<Task> tasks;
 
+    enum Instruction {
+        bye,
+        list,
+        mark,
+        unmark,
+        todo,
+        deadline,
+        event,
+        delete
+    }
+
     public static void main(String[] args) {
         tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
@@ -24,7 +35,8 @@ public class Duke {
                 break;
             }
             userInput = scanner.nextLine();  // Read user input
-            String instruction = userInput.split(" ", 2)[0];
+            String userInstruction = userInput.split(" ", 2)[0];
+
             if (userInput.contains(" ")) {
                 task = userInput.split(" ", 2)[1];
             }
@@ -32,27 +44,28 @@ public class Duke {
             System.out.println(LINE);
 
             try {
+                Instruction instruction = Instruction.valueOf(userInstruction);
                 switch (instruction) {
-                    case "bye":
+                    case bye:
                         exit();
                         loop = false;
                         break;
-                    case "list":
+                    case list:
                         displayList();
                         break;
-                    case "mark":
+                    case mark:
                         int markIndex = Integer.parseInt(task);
                         markTaskDone(markIndex, true);
                         break;
-                    case "unmark":
+                    case unmark:
                         int unmarkIndex = Integer.parseInt(task);
                         markTaskDone(unmarkIndex, false);
                         break;
-                    case "todo":
+                    case todo:
                         Todo newTodo = new Todo(task);
                         createNewTask(newTodo);
                         break;
-                    case "deadline":
+                    case deadline:
                         if (task.contains(" /by ")) {
                             deadlineTask = task.split(" /by ")[0];
                             deadline = task.split(" /by ")[1];
@@ -60,7 +73,7 @@ public class Duke {
                         Deadline newDeadline = new Deadline(deadlineTask, deadline);
                         createNewTask(newDeadline);
                         break;
-                    case "event":
+                    case event:
                         if (task.contains(" /from ") && task.contains(" /to ")) {
                             eventTask = task.split(" /from ")[0];
                             from = task.split(" /from ")[1].split(" /to ")[0];
@@ -69,16 +82,16 @@ public class Duke {
                         Event newEvent = new Event(eventTask, from, to);
                         createNewTask(newEvent);
                         break;
-                    case "delete":
+                    case delete:
                         int deleteIndex = Integer.parseInt(task);
                         deleteTask(deleteIndex);
                         break;
-                    default:
-                        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                        System.out.println(LINE);
                 }
             } catch (NumberFormatException exception) {
                 System.out.println("☹ OOPS!!! I'm sorry, but Task ID is invalid!");
+                System.out.println(LINE);
+            } catch (IllegalArgumentException exception) {
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println(LINE);
             } catch (DukeException exception) {
                 System.out.println(exception.getMessage());
