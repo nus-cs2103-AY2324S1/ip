@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import java.lang.Exception;
 public class Duke {
     public static void main(String[] args) {
         String space = "------------------------------------"; // for spacing purposes
@@ -42,53 +42,85 @@ public class Duke {
                 Task task = toDoList[index];
                 System.out.println(space);
                 task.unmarkDone();
-                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("Nice! I've marked this task as done:");
                 System.out.println("  " + task.toString());
                 System.out.println(space);
             } else if (userInput.toLowerCase().startsWith("todo")){
-                String taskName = userInput.split(" ", 2)[1];
-                //add item into list
-                ToDo task = new ToDo(taskName);
-                toDoList[counter] = task;
-                counter++;
-
-                System.out.println(space);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + task.toString());
-                System.out.println("Now you have "+ counter +" tasks in the list.");
-                System.out.println(space);
-
+                try {
+                    String taskName = userInput.split(" ", 2)[1];
+                    //add item into list
+                    ToDo task = new ToDo(taskName);
+                    toDoList[counter] = task;
+                    counter++;
+                    System.out.println(space);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + task.toString());
+                    System.out.println("Now you have " + counter + " tasks in the list.");
+                    System.out.println(space);
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println(space);
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println(space);
+                }
             } else if (userInput.toLowerCase().startsWith("deadline")){
-                String taskName = userInput.split(" /by ", 2)[0].split(" ", 2)[1];
-                String dueDate = userInput.split(" /by ", 2)[1];
-                //add item into list
-                Deadline task = new Deadline(taskName, dueDate);
-                toDoList[counter] = task;
-                counter++;
+                try {
 
-                System.out.println(space);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + task.toString());
-                System.out.println("Now you have "+ counter +" tasks in the list.");
-                System.out.println(space);
+                    String taskName = userInput.split(" /by ", 2)[0].split(" ", 2)[1];
+                    String dueDate = userInput.split(" /by ", 2)[1];
+                    //add item into list
+                    Deadline task = new Deadline(taskName, dueDate);
+                    toDoList[counter] = task;
+                    counter++;
+
+                    System.out.println(space);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + task.toString());
+                    System.out.println("Now you have " + counter + " tasks in the list.");
+                    System.out.println(space);
+                } catch ( ArrayIndexOutOfBoundsException e) {
+                    if (userInput.split(" ").length == 1) {
+                        System.out.println(space);
+                        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty");
+                        System.out.println(space);
+                    } else {
+                        System.out.println(space);
+                        System.out.println("☹ OOPS!!! The description of a deadline does not have \"/by\" specified");
+                        System.out.println(space);
+                    }
+                }
 
             } else if (userInput.toLowerCase().startsWith("event")){
-                String taskName = userInput.split(" /from | /to ", 3)[0].split(" ", 2)[1];
-                String startDate = userInput.split(" /from | /to",3)[1];
-                String dueDate = userInput.split(" /from | /to ", 3)[2];
-                //add item into list
-                Event task = new Event(taskName, startDate, dueDate);
-                toDoList[counter] = task;
-                counter++;
+                try {
 
-                System.out.println(space);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + task.toString());
-                System.out.println("Now you have "+ counter +" tasks in the list.");
-                System.out.println(space);
+                    String taskName = userInput.split(" /from | /to ", 3)[0].split(" ", 2)[1];
+                    String startDate = userInput.split(" /from | /to", 3)[1];
+                    String dueDate = userInput.split(" /from | /to ", 3)[2];
+                    //add item into list
+                    Event task = new Event(taskName, startDate, dueDate);
+                    toDoList[counter] = task;
+                    counter++;
+
+                    System.out.println(space);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + task.toString());
+                    System.out.println("Now you have " + counter + " tasks in the list.");
+                    System.out.println(space);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    if (userInput.split(" ").length == 1) {
+                        System.out.println(space);
+                        System.out.println("☹ OOPS!!! The description of a event cannot be empty");
+                        System.out.println(space);
+                    } else {
+                        System.out.println(space);
+                        System.out.println("☹ OOPS!!! The description of a deadline does not have either \"/from\" or \"/to\" specified");
+                        System.out.println(space);
+                    }
+                }
 
             } else {
-                System.out.println("Invalid Input");
+                System.out.println(space);
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println(space);
             }
             userInput = scanner.nextLine().trim();
         }
