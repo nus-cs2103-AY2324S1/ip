@@ -1,11 +1,16 @@
 todo borrow book
-list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+todo read book
+deadlne return book /by June 6th (note that first word is misspelled)
+deadline return book /by June 6th
+event project meeting /from Aug 6th 2pm /to 4pm
+todo go out and play
 list
 mark 1
 mark 3
+mark 5
 list
 unmark 3
+list
+delete 5
 list
 bye
