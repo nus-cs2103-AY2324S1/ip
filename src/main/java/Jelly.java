@@ -17,25 +17,53 @@ public class Jelly {
             String str = sc.nextLine();
             String[] stringArray = str.split(" ");
             if (stringArray[0].equals("mark")) {
+                if (stringArray.length == 1) {
+                    throw new JellyBlankMessageException("mark");
+                }
                 int num = Integer.parseInt(stringArray[1]);
                 if (num <= 0 || num > 100) {
                     System.out.println("Invalid input");
                 } else if (storage.get(num - 1) != null) {
-                    storage.get(num - 1).markAsDone();
-                    System.out.println("Good job! I've marked this task as done :)");
+                    if (storage.get(num -1).isDone) {
+                        System.out.println("Uh, it appears that you've finished this task o.o");
+                    } else {
+                        storage.get(num - 1).markAsDone();
+                        System.out.println("Good job! I've marked this task as done :)");
+                    }
                 } else {
                     System.out.println("Invalid input");
                 }
             } else if (stringArray[0].equals("unmark")) {
+                if (stringArray.length == 1) {
+                    throw new JellyBlankMessageException("unmark");
+                }
                 int num = Integer.parseInt(stringArray[1]);
                 if (num <= 0 || num > 100) {
                     System.out.println("Invalid input");
                 } else if (storage.get(num - 1) != null) {
-                    storage.get(num - 1).markAsUndone();
-                    System.out.println("Bad job! I've marked this task as not done :(");
+                    if (!storage.get(num - 1).isDone) {
+                        System.out.println("Yo,you can't unmark something you haven't done yet o.o");
+                    } else {
+                        storage.get(num - 1).markAsUndone();
+                        System.out.println("Bad job! I've marked this task as not done :(");
+                    }
                 } else {
                     System.out.println("Invalid input");
                 }
+            } else if (stringArray[0].equals("delete")) {
+                if (stringArray.length == 1) {
+                    throw new JellyBlankMessageException("delete");
+                }
+              int num = Integer.parseInt(stringArray[1]);
+              if (num <= 0 || num > 100 || num > storage.size()) {
+                  System.out.println("Invalid input");
+              } else if (storage.get(num - 1) != null) {
+                  System.out.println("Okay, I've removed this task: \n" + storage.get(num - 1).toString());
+                  storage.remove(num - 1);
+                  index--;
+              } else {
+                  System.out.println("Invalid input");
+              }
             } else if (stringArray[0].equals("todo")) {
                 String toDoString = "";
                 if (stringArray.length == 1) {
@@ -52,7 +80,7 @@ public class Jelly {
                 storage.add(new Todo(toDoString));
                 System.out.println("Ok! I've added this task: \n" + storage.get(index).toString());
                 index++;
-                System.out.println("Now you have " + index + " tasks in the list.");
+                System.out.println("Now you have " + storage.size() + " tasks in the list.");
             } else if (stringArray[0].equals("deadline")) {
 
                 if (stringArray.length == 1) {
@@ -81,7 +109,7 @@ public class Jelly {
                 storage.add(new Deadline(deadlineString, byWhen));
                 System.out.println("Ok! I've added this task: \n" + storage.get(index).toString());
                 index++;
-                System.out.println("Now you have " + index + " tasks in the list.");
+                System.out.println("Now you have " + storage.size() + " tasks in the list.");
             } else if (stringArray[0].equals("event")) {
 
                 if (stringArray.length == 1) {
@@ -116,13 +144,13 @@ public class Jelly {
                 storage.add(new Event(deadlineString, fromWhen, toWhen));
                 System.out.println("Ok! I've added this task: \n" + storage.get(index).toString());
                 index++;
-                System.out.println("Now you have " + index + " tasks in the list.");
+                System.out.println("Now you have " + storage.size() + " tasks in the list.");
             } else if (stringArray[0].equals("bye")) {
                 System.out.println("Bye, have a nice day!");
                 return;
             } else if (stringArray[0].equals("list")) {
                 System.out.println("Here are the tasks you listed:");
-                for (int i = 0; i < index; i++) {
+                for (int i = 0; i < storage.size(); i++) {
                     System.out.println((i + 1) + "." + storage.get(i).toString());
                 }
             } else {
