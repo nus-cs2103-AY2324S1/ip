@@ -4,12 +4,11 @@ import java.util.Scanner;
 
 public class SaveHandler {
     private int i = 0;
-    private Task[] tasks;
-    private File file;
+    private Task[] tasks = new Task[100];
+    private File file = new File("src/main/List.txt");
 
-    public SaveHandler(Task[] tasks, File file) {
-        this.tasks = tasks;
-        this.file = file;
+    public SaveHandler() {
+
     }
 
     public void saveTo() {
