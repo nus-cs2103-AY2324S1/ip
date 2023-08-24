@@ -83,7 +83,13 @@ public class Duke {
 
 
         public String save(String input) {
-            Task task = new Task(input);
+            Task task;
+            try {
+                task = new Task(input);
+            } catch (WrongCommandException | WrongFormatException e) {
+                return e.getMessage();
+            }
+
             tasks[pointer] = task;
             pointer++;
             return "added: " + task;
@@ -125,8 +131,10 @@ public class Duke {
         private String dateStart;
         private String dateEnd;
 
-        public Task(String task) {
+        public Task(String task) throws WrongCommandException, WrongFormatException {
             this.isDone = false;
+            if (getTaskType(task) == null) throw new WrongCommandException("Whopsie daisies! I don't understand that command!");
+            if (getDescription(task) == null) throw new WrongFormatException("Woah! That's not the right format for this command!");
             this.taskType = getTaskType(task);
             this.description = getDescription(task);
         }
@@ -199,6 +207,24 @@ public class Duke {
             return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
                     + (this.taskType == TaskType.DEADLINE ? " (by: " + dateEnd + ")" : "")
                     + (this.taskType == TaskType.EVENT ? " (from: " + dateStart + " to: " + dateEnd + ")" : "");
+        }
+    }
+
+    static class ParserException extends Exception {
+        public ParserException(String message) {
+            super(message);
+        }
+    }
+
+    static class WrongCommandException extends ParserException {
+        public WrongCommandException(String message) {
+            super(message);
+        }
+    }
+
+    static class WrongFormatException extends ParserException {
+        public WrongFormatException(String message) {
+            super(message);
         }
     }
 
