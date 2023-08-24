@@ -12,23 +12,21 @@ How can I help ♥w♥ ?
 ────────────────────────────────────
 
 added new task:
-[T] [ ]  eat dinner
+[T] [ ] eat dinner
 you now have 1 tasks in your list.
 
 ────────────────────────────────────
 ────────────────────────────────────
 
-added Deadline task:
-[D] [ ]  read book  (by Sunday)
-
+added new task:
+[D] [ ] read book  (by Sunday)
 you now have 2 tasks in your list.
 
 ────────────────────────────────────
 ────────────────────────────────────
 
-added Event task:
-[E] [ ]  meeting  (from 2pm to 4pm)
-
+added new task:
+[E] [ ] meeting  (from 2pm  to 4pm)
 you now have 3 tasks in your list.
 
 ────────────────────────────────────
@@ -36,31 +34,31 @@ you now have 3 tasks in your list.
 
 1
 Yay! You have completed this task:
-[T] [X]  eat dinner
+[T] [X] eat dinner
 
 ────────────────────────────────────
 ────────────────────────────────────
 
 2
 Yay! You have completed this task:
-[D] [X]  read book  (by Sunday)
+[D] [X] read book  (by Sunday)
 
 ────────────────────────────────────
 ────────────────────────────────────
 
 Ok... Guess you're not actually done with this:
-[T] [ ]  eat dinner
+[T] [ ] eat dinner
 
 ────────────────────────────────────
 ────────────────────────────────────
 
 Here are the tasks in your list:
 
-1. [T] [ ]  eat dinner
+1. [T] [ ] eat dinner
 
-2. [D] [X]  read book  (by Sunday)
+2. [D] [X] read book  (by Sunday)
 
-3. [E] [ ]  meeting  (from 2pm to 4pm)
+3. [E] [ ] meeting  (from 2pm  to 4pm)
 
 ────────────────────────────────────
 ────────────────────────────────────

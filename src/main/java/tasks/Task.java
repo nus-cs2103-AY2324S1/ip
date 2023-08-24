@@ -1,3 +1,5 @@
+package tasks;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -15,11 +17,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getStatus() {
+        return this.isDone ? "[X] " : "[ ] ";
+    }
+
     public String toString() {
-        if (this.isDone) {
-            return "[X] " + this.description;
-        } else  {
-            return "[ ] " +  this.description;
-        }
+        return this.getStatus() + this.description;
     }
 }
