@@ -1,5 +1,7 @@
+package DukeTasks;
+
 /**
- * Encapsulates the Deadline class. Inherits the Task
+ * Encapsulates the DukeTasks.Deadline class. Inherits the DukeTasks.Task
  * class and adds on additional unique features.
  *
  * @author Tan Kerway
@@ -9,7 +11,7 @@ public class Deadline extends Task {
     private final String by;
 
     /**
-     * Constructor for the Deadline class.
+     * Constructor for the DukeTasks.Deadline class.
      *
      * @author Tan Kerway
      * @param description the description of the task
@@ -21,10 +23,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the String representation of a Deadline class.
+     * Returns the String representation of a DukeTasks.Deadline class.
      *
      * @author Tan Kerway
-     * @return the String representation of a Deadline class
+     * @return the String representation of a DukeTasks.Deadline class
      */
     @Override
     public String toString() {

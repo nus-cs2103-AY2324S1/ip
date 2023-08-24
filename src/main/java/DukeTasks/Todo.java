@@ -1,3 +1,5 @@
+package DukeTasks;
+
 /**
  * Encapsulates a class which represents a task to be done.
  *
@@ -16,7 +18,7 @@ public class Todo extends Task {
 
     /**
      * Returns the string representation of the class.
-     * Adds the "[T]" tag to the default task toString
+     * Adds the "[T]" tag to the default task toString.
      *
      * @author Tan Kerway
      * @return the string representation of the class

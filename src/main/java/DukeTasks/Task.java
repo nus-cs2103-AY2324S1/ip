@@ -1,5 +1,7 @@
+package DukeTasks;
+
 /**
- * Encapsulates a Task class. Contains a description and
+ * Encapsulates a DukeTasks.Task class. Contains a description and
  * a flag indicating whether the task instance is done.
  *
  * @author Tan Kerway
@@ -11,7 +13,7 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Constructor for the Task class.
+     * Constructor for the DukeTasks.Task class.
      *
      * @param description the description of the task to be instantiated
      */

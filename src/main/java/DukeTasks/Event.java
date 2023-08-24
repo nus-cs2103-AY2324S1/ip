@@ -1,5 +1,7 @@
+package DukeTasks;
+
 /**
- * Encapsulates the Event class. Inherits the Task
+ * Encapsulates the DukeTasks.Event class. Inherits the DukeTasks.Task
  * class and adds on additional unique features.
  *
  * @author Tan Kerway
@@ -12,7 +14,7 @@ public class Event extends Task {
 
 
     /**
-     * Constructor for the Event class.
+     * Constructor for the DukeTasks.Event class.
      *
      * @author Tan Kerway
      * @param description the description of the task
@@ -28,10 +30,10 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the String representation of an Event class.
+     * Returns the String representation of an DukeTasks.Event class.
      *
      * @author Tan Kerway
-     * @return the String representation of an Event class
+     * @return the String representation of an DukeTasks.Event class
      */
     @Override
     public String toString() {

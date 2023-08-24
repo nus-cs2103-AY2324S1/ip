@@ -1,20 +1,19 @@
+package DukeExceptions;
+
 /**
- * Encapsulates a DukeInvalidIndexException class. Raised when invalid index is provided.
+ * Encapsulates a DukeExceptions.DukeInvalidIndexException class. Raised when invalid index is provided.
  *
  * @author Tan Kerway
  */
 public class DukeInvalidIndexException extends DukeException {
-    // description
-    private final String details;
 
     /**
-     * Constructor for the DukeInvalidIndexException exception.
+     * Constructor for the DukeExceptions.DukeInvalidIndexException exception.
      *
      * @author Tan Kerway
      */
     public DukeInvalidIndexException() {
-        super();
-        this.details = " Please enter a valid index!";
+        super(" Please enter a valid index!");
     }
 
     /**
@@ -25,6 +24,6 @@ public class DukeInvalidIndexException extends DukeException {
      */
     @Override
     public String toString() {
-        return super.toString() + this.details;
+        return super.toString();
     }
 }
