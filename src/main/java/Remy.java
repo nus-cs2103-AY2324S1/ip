@@ -36,6 +36,7 @@ public class Remy {
                     System.out.println(shortDivider);
                 } else if (taskType.equals("mark")) {
                     // Marks item as done
+                    if (input.length() < 6) throw new ChatbotException("missing info lah.");
                     int index = Integer.parseInt(input.substring(5)) - 1;
                     if (index >= 0 && index < taskList.size()) {
                         taskList.get(index).markAsDone();
@@ -46,6 +47,7 @@ public class Remy {
                     }
                 } else if (taskType.equals("unmark")) {
                     // Marks item as undone
+                    if (input.length() < 8) throw new ChatbotException("missing info lah.");
                     int index = Integer.parseInt(input.substring(7)) - 1;
                     if (index >= 0 && index < taskList.size()) {
                         taskList.get(index).markAsUndone();
@@ -55,23 +57,24 @@ public class Remy {
                         throw new ChatbotException("no such item lah.");
                     }
                 } else if (taskType.equals("delete")) {
-                    // Marks item as undone
+                    if (input.length() < 8) throw new ChatbotException("missing info lah.");
                     int index = Integer.parseInt(input.substring(7)) - 1;
                     if (index >= 0 && index < taskList.size()) {
-                        taskList.get(index).markAsUndone();
-                        String content = "Done. You happy?\n" + taskList.get(index).toString();
+                        String task = taskList.get(index).toString();
+                        taskList.remove(index);
+                        String content = "Done. Can you don't be so troublesome?\n" + task;
                         printSandwichContent(content, "short");
                     } else {
                         throw new ChatbotException("no such item lah.");
                     }
                 } else if (taskType.equals("todo")) {
-                    if (input.length() < 5) throw new ChatbotException("missing info lah.");
+                    if (input.length() < 6) throw new ChatbotException("missing info lah.");
                     String description = input.substring(5);
                     Todo temp = new Todo(description);
                     taskList.add(temp);
                     addTask(temp, taskList.size());
                 } else if (taskType.equals("deadline")) {
-                    if (input.length() < 9) throw new ChatbotException("missing info lah.");
+                    if (input.length() < 10) throw new ChatbotException("missing info lah.");
                     String[] parts = input.substring(9).split(" /by ");
                     if (parts.length == 2) {
                         Deadline temp = new Deadline(parts[0], parts[1]);
