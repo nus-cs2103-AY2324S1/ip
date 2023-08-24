@@ -7,7 +7,7 @@ import Exception.MissingTextException;
 public class Duke {
     // obligatory enums here
     enum Test {
-        HI, YOU, LOOK, AMAZING, JUST
+        HI, YOU, LOOK, AMAZING
     }
     final static ArrayList<Task> tasks = new ArrayList<>();
     final static String horizontalLine = "   ------------------------\n";
