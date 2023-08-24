@@ -36,7 +36,8 @@ public class InputHandler {
                     Message.OnTaskAdd((task)).Print();
                     break;
                 case "list":
-                    Message.ChainList(Message.ConvertTasks(tasks), "\n").Print();
+                    Message.ChainList(Message.ConvertTasks(tasks), "\n").ChainTo(
+                    Message.NumberOfTasks(tasks), "\n").Print();
                     break;
                 case "mark":
                     int taskIndex;
@@ -60,9 +61,28 @@ public class InputHandler {
                         Message.OnInvalidTaskNo(content).Print();
                         break;
                     }
-                    task = tasks.get(taskIndex);
+                    try {
+                        task = tasks.get(taskIndex);
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new DukeException.TaskIndexOutOfRangeException();
+                    }
                     task.SetUncompleted();
                     Message.OnTaskUncomplete(task).Print();
+                    break;
+                case "delete":
+                    try {
+                        taskIndex = Integer.parseInt(content) - 1;
+                    } catch (NumberFormatException e) {
+                        Message.OnInvalidTaskNo(content).Print();
+                        break;
+                    }
+                    try {
+                        task = tasks.get(taskIndex);
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new DukeException.TaskIndexOutOfRangeException();
+                    }
+                    tasks.remove((task));
+                    Message.OnTaskDelete(task).Print();
                     break;
                 default:
                     throw new DukeException.NoCommandFoundException();

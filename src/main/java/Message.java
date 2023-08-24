@@ -55,6 +55,14 @@ public class Message {
         return new Message ( "Sorry, that task index is not in range!");
     }
 
+    public static Message OnTaskDelete(Task task) {
+        return new Message ("I've removed this task: \n" + task.toString());
+    }
+
+    public static Message NumberOfTasks(List<Task> tasks) {
+        return new Message ("There are " + tasks.size() + " tasks in the list.");
+    }
+
     public Message ChainTo(Message message, String splitString) {
         return new Message(this.content + splitString + message.content);
     }
