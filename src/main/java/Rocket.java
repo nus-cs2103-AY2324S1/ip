@@ -11,7 +11,7 @@ public class Rocket {
         Scanner scanner = new Scanner(System.in);
 
         // Create list
-        List<String> commandList = new ArrayList<>();
+        List<Task> taskList = new ArrayList<>();
         System.out.println(LINE + "\n    Hello! I'm Rocket\n" +
                 "    What can I do for you?\n" + LINE);
         command = scanner.nextLine();
@@ -21,14 +21,14 @@ public class Rocket {
                 break;
             } else if (command.equals("list")) {
                 System.out.println(LINE);
-                for (int i = 0; i < commandList.size(); i++) {
-                    System.out.println("    " + (i + 1) + ". " + commandList.get(i));
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println("    " + (i + 1) + ". " + taskList.get(i));
                 }
                 System.out.println(LINE);
                 command = scanner.nextLine();
             } else {
                 System.out.println(LINE + "\n    added: " + command + "\n" + LINE);
-                commandList.add(command);
+                taskList.add(new Task(command));
                 command = scanner.nextLine();
             }
         }
