@@ -90,6 +90,15 @@ public class Duke {
                     tasks.get(taskNumber - 1).unmark();
                     printIndented("OK, I've marked this task as not done yet:");
                     printIndented("  " + tasks.get(taskNumber - 1));
+                } else if (input.startsWith("delete")) {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                    if (taskNumber > tasks.size() || taskNumber <= 0) {
+                        throw new DukeException("☹ OOPS!!! The task number is out of range.");
+                    }
+                    Task removedTask = tasks.remove(taskNumber - 1);
+                    printIndented("Noted. I've removed this task:");
+                    printIndented("  " + removedTask);
+                    printIndented("Now you have " + tasks.size() + " tasks in the list.");
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
