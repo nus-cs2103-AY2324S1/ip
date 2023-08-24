@@ -22,11 +22,10 @@ public class List {
         }
         list.add(task);
         System.out.println(ChatterChicken.LINE
-            + ChatterChicken.INDENT
-            + "Got it. I've added this task:\n"
-            + ChatterChicken.INDENT_BIG + task.getTask() + "\n"
-            + ChatterChicken.INDENT + "Now you have " + list.size() + " tasks in the list."
-            + ChatterChicken.LINE);
+                + ChatterChicken.INDENT + "Got it. I've added this task:\n"
+                + ChatterChicken.INDENT_BIG + task.getTask() + "\n"
+                + ChatterChicken.INDENT + "Now you have " + list.size() + " tasks in the list."
+                + ChatterChicken.LINE);
     }
 
     private ToDo parseToDo (String input) throws CCException {
@@ -70,37 +69,54 @@ public class List {
     }
 
     public void markTask(String input) throws CCException {
-        int index = input.charAt(input.length() - 1) - '0' - 1;
         try {
-            Task task = list.get(index);
-            System.out.println(ChatterChicken.LINE
-                    + ChatterChicken.INDENT
-                    + "Nice! I've marked this task as done:");
+            Task task = list.get(getIndex(input));
             task.markDone();
-            System.out.println(ChatterChicken.LINE);
+            System.out.println(ChatterChicken.LINE
+                    + ChatterChicken.INDENT + "Nice! I've marked this task as done:\n"
+                    + ChatterChicken.INDENT_BIG + task.getTask()
+                    + ChatterChicken.LINE);
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for marking list of length " + list.size());
         }
     }
 
     public void unmarkTask(String input) throws CCException {
-        int index = input.charAt(input.length() - 1) - '0' - 1;
         try {
-            Task task = list.get(index);
-            System.out.println(ChatterChicken.LINE
-                    + ChatterChicken.INDENT
-                    + "OK, I've marked this task as not done yet:");
+            Task task = list.get(getIndex(input));
             task.unmarkDone();
-            System.out.println(ChatterChicken.LINE);
+            System.out.println(ChatterChicken.LINE
+                    + ChatterChicken.INDENT + "OK, I've marked this task as not done yet:\n"
+                    + ChatterChicken.INDENT_BIG + task.getTask()
+                    + ChatterChicken.LINE);
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for list of length " + list.size());
         }
     }
 
+    public void deleteTask(String input) throws CCException {
+        try {
+            int index = getIndex(input);
+            Task task = list.get(index);
+            list.remove(index);
+            System.out.println(ChatterChicken.LINE
+                    + ChatterChicken.INDENT + "Noted. I've removed this task:\n"
+                    + ChatterChicken.INDENT_BIG + task.getTask() + "\n"
+                    + ChatterChicken.INDENT + "Now you have " + list.size() + " tasks in your list."
+                    + ChatterChicken.LINE);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CCException("Invalid input for list of length " + list.size());
+        }
+    }
+
+    private int getIndex(String input) {
+        return input.charAt(input.length() - 1) - '0' - 1;
+    }
+
     public void printList() {
-        System.out.println(ChatterChicken.LINE);
+        System.out.println(ChatterChicken.LINE + ChatterChicken.INDENT + "Here are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
-            System.out.printf("%s %d.%s\n", ChatterChicken.INDENT, i + 1, list.get(i).getTask());
+            System.out.println(ChatterChicken.INDENT_BIG + (i + 1) + "." + list.get(i).getTask());
         }
         System.out.println(ChatterChicken.LINE);
     }
