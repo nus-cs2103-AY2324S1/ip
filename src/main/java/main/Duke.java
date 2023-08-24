@@ -51,6 +51,8 @@ public class Duke {
                 list.addTask(new Deadline(command.substring(9)));
             } else if(command.startsWith("event")){
                 list.addTask(new Event(command.substring(6)));
+            } else if (command.startsWith("delete")) {
+                list.deleteTask(Integer.valueOf(command.substring(7)));
             }
             else {
                 //dukeInstance.echoUserAndAddToList(command);

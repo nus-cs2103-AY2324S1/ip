@@ -49,6 +49,14 @@ public class CustomList extends ArrayList<Task> {
         System.out.println("________________________________");
     }
 
+    public void deleteTask(int index) {
+        System.out.println("Noted. I've removed this task:");
+        Task t = this.remove(index - 1);
+        System.out.println(" " + t);
+        System.out.println("Now you have " + Integer.toString(this.size()) + " " + (this.size() == 1 ? "task" : "tasks") + " in the list.");
+        System.out.println("________________________________");
+    }
+
     public void addTask(Task task) {
         System.out.println("________________________________");
         System.out.println("Got it. I've added this task:");
