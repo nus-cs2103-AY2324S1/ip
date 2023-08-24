@@ -24,76 +24,94 @@ public class Duke {
                 break;
             }
 
-            if (userInput.equalsIgnoreCase("list")) {
-                //display list
-                System.out.println("Here are the tasks in your List:");
-                for (int i = 0; i < toDoList.size(); i++) {
-                    System.out.println(((i + 1) + ". " + toDoList.get(i)));
-                }
-            } else if (userInput.startsWith("mark")) {
-                //mark task done
-                String[] splitInputs = userInput.split(" ");
-                if (splitInputs.length == 2) {
-                    int taskIndex = Integer.parseInt(splitInputs[1]) - 1;
-                    if (taskIndex >= 0 && taskIndex < toDoList.size()) {
-                        toDoList.get(taskIndex).markDone();
-                        System.out.println("Nice! I've marked this task as done:\n" + toDoList.get(taskIndex));
-                    } else {
-                        System.out.println("Invalid task number");
-                    }
-                }
-            } else if (userInput.startsWith("unmark")) {
-                //unmark task
-                String[] splitInputs = userInput.split(" ");
-                if (splitInputs.length == 2) {
-                    int taskIndex = Integer.parseInt(splitInputs[1]) - 1;
-                    if (taskIndex >= 0 && taskIndex < toDoList.size()) {
-                        toDoList.get(taskIndex).markNotDone();
-                        System.out.println("OK, I've marked this task as not done yet:\n" + toDoList.get(taskIndex));
-                    } else {
-                        System.out.println("Invalid task number");
+            try {
+                if (userInput.equalsIgnoreCase("list")) {
+                    //display list
+                    System.out.println("Here are the tasks in your List:");
+                    for (int i = 0; i < toDoList.size(); i++) {
+                        System.out.println(((i + 1) + ". " + toDoList.get(i)));
                     }
 
-                }
-            } else if (userInput.startsWith("todo")){
-                //add new to-do task
-                String description = userInput.substring(5).trim();
-                Task newTask = new Todo(description);
-                toDoList.add(newTask);
-                System.out.println("Got it. I've added this task:\n " + newTask);
-                System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+                } else if (userInput.startsWith("mark")) {
+                    //mark task done
+                    String[] splitInputs = userInput.split(" ");
+                    if (splitInputs.length == 2) {
+                        int taskIndex = Integer.parseInt(splitInputs[1]) - 1;
+                        if (taskIndex >= 0 && taskIndex < toDoList.size()) {
+                            toDoList.get(taskIndex).markDone();
+                            System.out.println("Nice! I've marked this task as done:\n" + toDoList.get(taskIndex));
+                        } else {
+                            System.out.println("Invalid task number");
+                        }
+                    }
 
-            } else if (userInput.startsWith("deadline")) {
-                //add new deadline
-                String[] splitInput = userInput.split("/by");
-                if (splitInput.length == 2) {
-                    String description = splitInput[0].substring(9).trim();
-                    String by = splitInput[1].trim();
-                    Task newTask = new Deadline(description, by);
-                    toDoList.add(newTask);
-                    System.out.println("Got it. I've added this task:\n " + newTask);
-                    System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
-                } else { break;}
+                } else if (userInput.startsWith("unmark")) {
+                    //unmark task
+                    String[] splitInputs = userInput.split(" ");
+                    if (splitInputs.length == 2) {
+                        int taskIndex = Integer.parseInt(splitInputs[1]) - 1;
+                        if (taskIndex >= 0 && taskIndex < toDoList.size()) {
+                            toDoList.get(taskIndex).markNotDone();
+                            System.out.println("OK, I've marked this task as not done yet:\n" + toDoList.get(taskIndex));
+                        } else {
+                            System.out.println("Invalid task number");
+                        }
+                    }
 
-            } else if (userInput.startsWith("event")) {
-                //add new event
-                String[] splitInput = userInput.split("/from");
-                if (splitInput.length == 2) {
-                    String description = splitInput[0];
-                    String[] eventDetails = splitInput[1].split("/to");
-                    if (eventDetails.length == 2 ) {
-                        String from = eventDetails[0].trim();
-                        String to = eventDetails[1].trim();
-                        Task newTask = new Event(description, from, to);
+                } else if (userInput.startsWith("todo")){
+                    //add new to-do task
+                    if (userInput.length() <= 5) {
+                        throw new DukeEception("The description of a todo cannot be empty.");
+                    } else {
+                        String description = userInput.substring(5).trim();
+                        Task newTask = new Todo(description);
                         toDoList.add(newTask);
                         System.out.println("Got it. I've added this task:\n " + newTask);
                         System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
                     }
-                }
 
-            } else {
-                //invalid input
-                System.out.println("invalid command :(");
+                } else if (userInput.startsWith("deadline")) {
+                    //add new deadline
+                    if (userInput.length() <= 9) {
+                        throw new DukeEception("The description of a deadline cannot be empty.");
+                    } else {
+                        String[] splitInput = userInput.split("/by");
+                        if (splitInput.length == 2) {
+                            String description = splitInput[0].substring(9).trim();
+                            String by = splitInput[1].trim();
+                            Task newTask = new Deadline(description, by);
+                            toDoList.add(newTask);
+                            System.out.println("Got it. I've added this task:\n " + newTask);
+                            System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+                        } else { break;}
+                    }
+
+                } else if (userInput.startsWith("event")) {
+                    //add new event
+                    if (userInput.length() <= 6) {
+                        throw new DukeEception("The description of a event cannot be empty.");
+                    } else {
+                        String[] splitInput = userInput.split("/from");
+                        if (splitInput.length == 2) {
+                            String description = splitInput[0];
+                            String[] eventDetails = splitInput[1].split("/to");
+                            if (eventDetails.length == 2 ) {
+                                String from = eventDetails[0].trim();
+                                String to = eventDetails[1].trim();
+                                Task newTask = new Event(description, from, to);
+                                toDoList.add(newTask);
+                                System.out.println("Got it. I've added this task:\n " + newTask);
+                                System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+                            }
+                        }
+                    }
+
+                } else {
+                    //invalid input
+                    throw new DukeEception("I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeEception e) {
+                System.out.println("☹ OOPS!!! " + e.getMessage());
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
