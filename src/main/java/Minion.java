@@ -1,23 +1,39 @@
+import java.io.IOException;
 import java.util.*;
 
 /**
  * Represents the Minion chatbot.
  */
 public class Minion {
-    private static List<Task> tasks = new ArrayList<>();
-
+    private List<Task> tasks;
     private Ui ui;
+    private Storage storage;
+
+    /**
+     * A constructor for the Minion chatbot.
+     * @param filePath The file path of the file storing the task list.
+     */
+    public Minion(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            tasks = storage.load();
+        } catch (IOException e) {
+            ui.showLoadingError();
+            tasks = new ArrayList<>();
+            // create new file in data directory
+        }
+    }
 
     public static void main(String[] args) {
-        new Minion().run(args);
+        new Minion("data/tasks.txt").run(args);
     }
 
     /**
-     * Driver function.
+     * Driver function for main.
      * @param args arguments passed in to stdin.
      */
     private void run(String[] args){
-        ui = new Ui();
         ui.sayHi();
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -42,6 +58,11 @@ public class Minion {
                     "Now you have " + tasks.size() +  " tasks in the list."
             );
         }
+        try {
+            storage.writeToFile(tasks);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         sc.close();
     }
 
@@ -49,19 +70,19 @@ public class Minion {
      * Lists current tasks.
      */
     private void listTasks() {
-        List<String> lst = new ArrayList<>();
-        lst.add("Here are the tasks in your list:");
+        String text = "Here are the tasks in your list:";
         for(int i = 0; i < tasks.size(); i++) {
-            lst.add((i + 1) + "." + tasks.get(i).toString());
+            text += ("\n\t" + (i + 1) + "." + tasks.get(i).toString());
         }
-        ui.print(lst.toArray(String[]::new));
+        ui.print(text);
     }
 
     /**
      * Returns a task from the parsed command, throws an exception if there is no such task or invalid parameters.
      * @param command Command to parse.
      * @return the task parsed from the command if no exception is thrown.
-     * @throws ParserException()
+     * @throws ParserException
+     * @throws IllegalValueException
      */
     private Task parseCommand(String command) throws ParserException, IllegalValueException {
         command = command.trim();
@@ -75,7 +96,15 @@ public class Minion {
             return null;
         }
         if (firstWord.equals("mark")){
-            int taskIdx = Integer.valueOf(arr[1]) - 1;
+            if (arr.length < 2 || arr[1].isEmpty()) {
+                ui.print("mark needs to have an argument. Try again.");
+                return null;
+            }
+            if (!arr[1].trim().matches("[0-9]+")) {
+                ui.print("mark needs to have numbers as its argument. Try again.");
+                return null;
+            }
+            int taskIdx = Integer.valueOf(arr[1].trim()) - 1;
             Task currTask = null;
             try {
                 currTask = getTask(taskIdx);
@@ -89,7 +118,15 @@ public class Minion {
             return null;
         }
         if (firstWord.equals("unmark")){
-            int taskIdx = Integer.valueOf(arr[1]) - 1;
+            if (arr.length < 2 || arr[1].isEmpty()) {
+                ui.print("unmark needs to have an argument. Try again.");
+                return null;
+            }
+            if (!arr[1].trim().matches("[0-9]+")) {
+                ui.print("unmark needs to have numbers as its argument. Try again.");
+                return null;
+            }
+            int taskIdx = Integer.valueOf(arr[1].trim()) -1;
             Task currTask = null;
             try {
                 currTask = getTask(taskIdx);
@@ -103,7 +140,15 @@ public class Minion {
             return null;
         }
         if (firstWord.equals("delete")) {
-            int taskIdx = Integer.valueOf(arr[1]) - 1;
+            if (arr.length < 2 || arr[1].isEmpty()) {
+                ui.print("delete needs to have an argument. Try again.");
+                return null;
+            }
+            if (!arr[1].trim().matches("[0-9]+")) {
+                ui.print("delete needs to have numbers as its argument. Try again.");
+                return null;
+            }
+            int taskIdx = Integer.valueOf(arr[1].trim()) - 1;
             Task currTask = null;
             try {
                 currTask = getTask(taskIdx);
@@ -117,7 +162,7 @@ public class Minion {
             return null;
         }
         if (firstWord.equals("todo")) {
-            if(arr.length < 2 || arr[1].isEmpty()) {
+            if (arr.length < 2 || arr[1].isEmpty()) {
                 throw new ParserException("☹ OOPS!!! The description of a todo cannot be empty.");
             }
             return new ToDo(arr[1]);
@@ -223,8 +268,9 @@ public class Minion {
      * Retrieves a Task object based on the taskIdx.
      * @param taskIdx index of task in the list.
      * @return the Task corresponding to the index.
+     * @throws IllegalValueException
      */
-    private static Task getTask(int taskIdx) throws IllegalValueException {
+    private Task getTask(int taskIdx) throws IllegalValueException {
         if (taskIdx < 0 || taskIdx >= tasks.size()) {
             throw new IllegalValueException("☹ OOPS!!! Please enter a valid task number.");
         }

@@ -31,4 +31,8 @@ public class Ui {
     public void sayBye(){
         this.print("Bye. Hope to see you again soon!");
     }
+
+    public void showLoadingError() {
+        this.print("Cannot load the file!");
+    }
 }
