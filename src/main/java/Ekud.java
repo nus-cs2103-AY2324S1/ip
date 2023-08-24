@@ -1,42 +1,27 @@
-import extensions.EkudIllegalArgException;
 import extensions.EkudException;
 import extensions.EkudInvalidCommandException;
 import extensions.TaskList;
 import java.util.Scanner;
 public class Ekud {
-    // Basic UI text for the chatbot to print to console
-    private static final String horizontalLine = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
-    private static final String intro = "Hello there! I'm Ekud. :)\nWhat can I do for you? :O";
-    private static final String outro = "Goodbye, have a nice day! :p";
+    // Basic UI & messages for the chatbot to print to console
+    private static final String HORIZONTALLINE = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
+    private static final String INTRO = "Hello there! I'm Ekud. :)\nWhat can I do for you? :O";
+    private static final String OUTRO = "Goodbye, have a nice day! :p";
     // TaskList object to store all of user's tasks
-    private static final TaskList taskList = new TaskList();
-
-    /**
-     * Prints an intro message for the user.
-     */
-    public static void intro() {
-        echo(intro);
-    }
-
-    /**
-     * Prints an outro message for the user.
-     */
-    public static void outro() {
-        echo(outro);
-    }
-
+    private static TaskList taskList = new TaskList();
     /**
      * Prints a message formatted in between 2 horizontal lines for the user.
      * @param message
      */
     public static void echo(String message) {
         System.out.println(String.format("%s\n%s\n%s",
-                horizontalLine,
+                HORIZONTALLINE,
                 message,
-                horizontalLine));
+                HORIZONTALLINE));
     }
     /**
-     * Core function for executing user commands.
+     * Core function for instructing the TaskList object to execute commands and handle
+     * invalid inputs.
      * @param command Input command by the user.
      * @param userArgs Args for the command supplied by the user.
      * @throws EkudException Either invalid commands or illegal arguments for the commands.
@@ -47,21 +32,11 @@ public class Ekud {
                 taskList.showTasks();
                 break;
             case "mark":
-                try {
-                    int index = Integer.valueOf(userArgs) - 1;
-                    taskList.markTaskAsDone(index);
-                    break;
-                } catch(NumberFormatException e) {
-                    throw new EkudIllegalArgException("Please input a valid index number :o");
-                }
+                taskList.markTaskAsDone(userArgs);
+                break;
             case "unmark":
-                try {
-                    int index = Integer.valueOf(userArgs) - 1;
-                    taskList.markTaskAsNotDone(index);
-                    break;
-                } catch(NumberFormatException e) {
-                    throw new EkudIllegalArgException("Please input a valid index number :o");
-                }
+                taskList.markTaskAsNotDone(userArgs);
+                break;
             case "todo":
                 taskList.addToDo(userArgs);
                 break;
@@ -72,14 +47,8 @@ public class Ekud {
                 taskList.addEvent(userArgs);
                 break;
             case "delete":
-                try {
-                    int index = Integer.valueOf(userArgs) - 1;
-                    taskList.deleteTask(index);
-                    break;
-                } catch(NumberFormatException e) {
-                    throw new EkudIllegalArgException("Please input a valid index number :o");
-                }
-
+                taskList.deleteTask(userArgs);
+                break;
             default:
                 throw new EkudInvalidCommandException(
                         String.format("Command '%s' not found :(",
@@ -88,7 +57,7 @@ public class Ekud {
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Ekud.intro();
+        Ekud.echo(INTRO);
         // process user input
         String userInput = scanner.nextLine();
         int firstSpace = userInput.indexOf(' ');
@@ -105,7 +74,7 @@ public class Ekud {
             firstSpace = userInput.indexOf(' ');
             command = firstSpace == -1 ? userInput : userInput.substring(0, firstSpace);
         }
-        Ekud.outro();
+        Ekud.echo(OUTRO);
         scanner.close();
     }
 }

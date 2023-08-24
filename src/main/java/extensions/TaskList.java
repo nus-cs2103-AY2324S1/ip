@@ -2,62 +2,74 @@ package extensions;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TaskList object which handles task modifications and invalid user inputs for
+ * modifying tasks.
+ */
 public class TaskList {
-    // Same horizontalLine from Ekud so TaskList can print outputs in a similar UI style
-    private final String horizontalLine = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
+    // Same Horizontal Line as Ekud so TaskList can print outputs in a similar UI style
+    private final String HORIZONTALLINE = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
     // Actual list storing the tasks
-    private final List<Task> tasks;
+    private List<Task> tasks;
     // Constructor for TaskList
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
     /**
-     * Similar to echo() method from Ekud for TaskList to be able to print to console
-     * in a similar UI style.
+     * Allows TaskList to print output in a similar UI style as Ekud with the
+     * same echo() method.
      * @param message Output text in between 2 horizontal lines.
      */
     public void echo(String message) {
         System.out.println(String.format("%s\n%s\n%s",
-                horizontalLine,
+                HORIZONTALLINE,
                 message,
-                horizontalLine));
+                HORIZONTALLINE));
     }
     /**
      * Prints this TaskList to the console.
      */
     public void showTasks() {
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTALLINE);
         System.out.println("Here is your to-do list:");
         int len = tasks.size();
         for (int i = 0; i < len; i++) {
             System.out.println(String.format("%d. %s", i + 1, tasks.get(i).toString()));
         }
-        System.out.println(horizontalLine);
+        System.out.println(HORIZONTALLINE);
     }
     /**
      * Marks a specific task as done.
-     * @param index Index number of task to be marked.
+     * @param userArg Index number of task supplied by user.
+     * @throws EkudIllegalArgException Illegal arg for index number.
      */
-    public void markTaskAsDone(int index) throws EkudIllegalArgException {
+    public void markTaskAsDone(String userArg) throws EkudIllegalArgException {
         try {
+            int index = Integer.valueOf(userArg) - 1;
             Task task = tasks.get(index);
             task.markAsDone();
             String message = "The following task is marked done, sheeesh:\n" + task.toString();
             this.echo(message);
+        } catch(NumberFormatException e) {
+            throw new EkudIllegalArgException("Please input a valid index number :o");
         } catch(IndexOutOfBoundsException e) {
             throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
     }
     /**
      * Marks a specific task as not done.
-     * @param index Index number of task to be marked.
+     * @param userArg Index number of task supplied by user.
+     * @throws EkudIllegalArgException Illegal arg for index number.
      */
-    public void markTaskAsNotDone(int index) throws EkudIllegalArgException {
+    public void markTaskAsNotDone(String userArg) throws EkudIllegalArgException {
         try {
+            int index = Integer.valueOf(userArg) - 1;
             Task task = tasks.get(index);
             task.markAsNotDone();
             String message = "The following task is marked as not done yet:\n" + task.toString();
             this.echo(message);
+        } catch(NumberFormatException e) {
+            throw new EkudIllegalArgException("Please input a valid index number :o");
         } catch(IndexOutOfBoundsException e) {
             throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
@@ -76,7 +88,7 @@ public class TaskList {
     }
     /**
      * Adds a to-do task to this TaskList.
-     * @param description Description of to-do task.
+     * @param description Description of to-do task by user.
      * @throws EkudIllegalArgException Illegal arg for to-do task.
      */
     public void addToDo(String description) throws EkudIllegalArgException {
@@ -87,14 +99,14 @@ public class TaskList {
     }
     /**
      * Adds a deadline task to this TaskList.
-     * @param deadlineInfo Args needed for deadline task.
+     * @param userArgs Args supplied by user for adding deadline task.
      * @throws EkudIllegalArgException Illegal arg(s) for deadline task.
      */
-    public void addDeadline(String deadlineInfo) throws EkudIllegalArgException {
+    public void addDeadline(String userArgs) throws EkudIllegalArgException {
         try {
-            String[] userArgs = deadlineInfo.split(" /by ");
-            String description = userArgs[0];
-            String day = userArgs[1];
+            String[] deadlineArgs = userArgs.split(" /by ");
+            String description = deadlineArgs[0];
+            String day = deadlineArgs[1];
             if (description.isBlank() || day.isBlank()) {
                 throw new EkudIllegalArgException("Description/day shouldn't be empty :(");
             }
@@ -103,18 +115,17 @@ public class TaskList {
             throw new EkudIllegalArgException("Deadline formatted wrongly, " +
                     "ensure 'deadline <description> /by <day>' is followed");
         }
-
     }
     /**
      * Adds an event task to this TaskList.
-     * @param eventInfo Args needed for event task.
+     * @param userArgs Args supplied by user for adding event task.
      * @throws EkudIllegalArgException Illegal arg(s) for event task.
      */
-    public void addEvent(String eventInfo) throws EkudIllegalArgException {
+    public void addEvent(String userArgs) throws EkudIllegalArgException {
         try {
-            String[] userArgs = eventInfo.split(" /from ");
-            String[] timings = userArgs[1].split(" /to ");
-            String description = userArgs[0];
+            String[] eventArgs = userArgs.split(" /from ");
+            String[] timings = eventArgs[1].split(" /to ");
+            String description = eventArgs[0];
             String from = timings[0];
             String to = timings[1];
             if (description.isBlank() || from.isBlank() || to.isBlank()) {
@@ -126,17 +137,25 @@ public class TaskList {
                     "ensure 'event <description> /from <start> /to <end>' is followed");
         }
     }
-    public void deleteTask(int index) throws EkudIllegalArgException {
+    /**
+     * Deletes a task from this TaskList and prints a confirmation message.
+     * @param userArg Index number of task to be deleted as supplied by user.
+     * @throws EkudIllegalArgException Illegal arg for index number.
+     */
+    public void deleteTask(String userArg) throws EkudIllegalArgException {
         if (tasks.isEmpty()) {
             throw new EkudIllegalArgException("You cannot delete from an empty task list :/");
         }
         try {
+            int index = Integer.valueOf(userArg) - 1;
             Task task = tasks.get(index);
             this.tasks.remove(index);
             this.echo(String.format(
                     "Alright, this task has been removed:\n%s\nNow you have %d task(s) in the list.",
                     task.toString(),
                     tasks.size()));
+        } catch(NumberFormatException e) {
+            throw new EkudIllegalArgException("Please input a valid index number :o");
         } catch(IndexOutOfBoundsException e) {
             throw new EkudIllegalArgException("Task index number is out of bounds :/");
         }
