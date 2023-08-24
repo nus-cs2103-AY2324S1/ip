@@ -30,6 +30,7 @@ public class Duke {
         while (!userInput.equals("bye")) {
             System.out.println("──────────────────────────────────── \n");
             if (userInput.equals("list")) {
+
                 System.out.println("Here are the tasks in your list: \n");
 
                 if (tasks.size() == 0) {
@@ -47,26 +48,56 @@ public class Duke {
                 String numStr = userInput.substring(index + 1);
                 int number = Integer.parseInt(numStr);
                 System.out.println(number);
-
                 tasks.get(number - 1).setIsDone();
 
                 System.out.println("Yay! You have completed this task: \n" +
-                                   tasks.get(number - 1));
+                                   tasks.get(number - 1) + "\n");
+
             } else if (userInput.startsWith("unmark")) {
 
                 // retrieve the index input
                 int index = userInput.indexOf(" ");
                 String numStr = userInput.substring(index + 1);
                 int number = Integer.parseInt(numStr);
-
                 tasks.get(number - 1).setIsNotDone();
 
                 System.out.println("Ok... Guess you're not actually done with this: \n" +
-                        tasks.get(number - 1));
+                        tasks.get(number - 1) + "\n");
+
+            } else if (userInput.startsWith("todo")) {
+
+                String description = userInput.substring(userInput.indexOf(" "));
+                ToDo todo = new ToDo(description);
+                tasks.add(todo);
+
+                System.out.println("added new task: \n" + todo);
+                System.out.println("you now have " + tasks.size() + " tasks in your list. " + "\n");
+
+            } else if (userInput.startsWith("deadline")) {
+
+                String[] parts = userInput.split("/");
+                String description = parts[0].substring(userInput.indexOf(" "));
+                String end = parts[1].trim();
+                Deadline deadline = new Deadline(description, end);
+                tasks.add(deadline);
+
+                System.out.println("added Deadline task: \n" + deadline + "\n");
+                System.out.println("you now have " + tasks.size() + " tasks in your list. " + "\n");
+
+            } else if (userInput.startsWith("event")) {
+
+                String[] parts = userInput.split("/");
+                String description = parts[0].substring(userInput.indexOf(" "));
+                String start = parts[1].trim();
+                String end = parts[2].trim();
+                Event event = new Event(description, start, end);
+                tasks.add(event);
+
+                System.out.println("added Event task: \n" + event + "\n");
+                System.out.println("you now have " + tasks.size() + " tasks in your list. " + "\n");
+
             } else {
-                Task task = new Task(userInput);
-                tasks.add(task);
-                System.out.println("added: " + userInput + "\n");
+                System.out.println("invalid input: " + userInput + "\n");
             }
             System.out.println("────────────────────────────────────");
 
