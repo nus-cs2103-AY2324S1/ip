@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Jarvis {
     
     /**
@@ -26,8 +24,15 @@ public class Jarvis {
         breakLine();
     }
 
+    public void echo(String toEcho) {
+        breakLine();
+        System.out.println(toEcho);
+        breakLine();
+    }
+
     public void printBye() {
-        System.out.println("Bye Master. It has been my honour to serve you!\n");
+        breakLine();
+        System.out.println("Bye Master. It has been my honour to serve you!");
         breakLine();
     }
 }
