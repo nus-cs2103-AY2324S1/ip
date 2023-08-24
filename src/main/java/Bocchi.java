@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Bocchi {
     private static final String LINE_BREAK = "___________________________________________________";
+    static final int EXPECTED_TOKENS_IN_EVENT = 3;
 
     /**
      * Outputs greeting message.
@@ -24,13 +25,32 @@ public class Bocchi {
 
     /**
      * Adds the task to the current task list.
-     * @param message Name of task
+     * @param input Remaining input string excluding action
      * @param taskList Current list of tasks
      * @return Updated task list
      */
-    private static TaskList addTask(String message, TaskList taskList) {
+    private static TaskList addTask(String input, String action, TaskList taskList) {
+        Task task;
+        switch (action) {
+            case "deadline":
+                // Further tokenize into action and deadline
+                String[] deadlineTokens = input.split("\\s*/by\\s*");
+                task = new Deadline(deadlineTokens[0], deadlineTokens[1]);
+                break;
+            case "event":
+                // Further tokenize into action, start time and end time
+                // Regex identified by /to OR /from
+                String[] eventTokens = input.split(
+                        "\\s*/to\\s*|\\s*/from\\s*",
+                        EXPECTED_TOKENS_IN_EVENT
+                );
+                task = new Event(eventTokens[0], eventTokens[1], eventTokens[2]);
+                break;
+            // Todo is the default case
+            default:
+                task = new Todo(input);
+        }
         System.out.println(LINE_BREAK);
-        Task task = new Task(message);
         TaskList newTaskList = taskList.add(task);
         System.out.printf("added: %s%n", task);
         System.out.println(LINE_BREAK);
@@ -86,7 +106,8 @@ public class Bocchi {
         TaskList taskList = new TaskList();
         greet();
         String message = sc.nextLine();
-        String[] tokens = message.split(" ");
+        // This splits the input string into two to isolate the first token as an action
+        String[] tokens = message.split(" ", 2);
         String action = tokens[0];
         while (!action.equals("bye")) {
             switch (action) {
@@ -100,10 +121,11 @@ public class Bocchi {
                     taskList = unmarkTask(Integer.parseInt(tokens[1]), taskList);
                     break;
                 default:
-                    taskList = addTask(message, taskList);
+                    // tokens[1] which is the remaining input is parsed based on the action
+                    taskList = addTask(tokens[1], action, taskList);
             }
             message = sc.nextLine();
-            tokens = message.split(" ");
+            tokens = message.split(" ", 2);
             action = tokens[0];
         }
         sc.close();
