@@ -24,7 +24,13 @@ public class Duke {
             } else if (input.equals("bye")) {
                 isRunning = false;
             } else {
-                addToList(input);
+                try {
+                    addToList(input);
+                } catch (DukeException e) {
+                    printWithIndentation(HORIZONTAL_LINE);
+                    printWithIndentation(e.getMessage());
+                    printWithIndentation(HORIZONTAL_LINE);
+                }
             }
         }
 
@@ -59,19 +65,47 @@ public class Duke {
         printWithIndentation(HORIZONTAL_LINE);
     }
 
-    public static void addToList(String input) {
+    public static void addToList(String input) throws DukeException {
         String taskType = input.split(" ", 2)[0];
-        String content = input.split(" ", 2)[1];
+        if (!taskType.equals("deadline") && !taskType.equals("event") && !taskType.equals("todo")) {
+            throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+
+        String content;
+        try {
+            content = input.split(" ", 2)[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("\u2639 OOPS!!! The description of a " + taskType + " cannot be empty.");
+        }
+
         String description = content.split(" /", 3)[0];
 
         Task task;
         if (taskType.equals("deadline")) {
-                String by = content.split(" /", 3)[1].split(" ", 2)[1];
-                task = new Deadline(description, by);
+            String by;
+            try {
+                by = content.split(" /", 3)[1].split(" ", 2)[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("\u2639 OOPS!!! The deadline of a deadline cannot be empty.");
+            }
+
+            task = new Deadline(description, by);
         } else if (taskType.equals("event")) {
-                String from = content.split(" /", 3)[1].split(" ", 2)[1];
-                String to = content.split(" /", 3)[2].split(" ", 2)[1];
-                task = new Event(description, from, to);
+            String from;
+            try {
+                from = content.split(" /", 3)[1].split(" ", 2)[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("\u2639 OOPS!!! The start time of an event cannot be empty.");
+            }
+
+            String to;
+            try {
+                to = content.split(" /", 3)[2].split(" ", 2)[1];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("\u2639 OOPS!!! The end time of an event cannot be empty.");
+            }
+
+            task = new Event(description, from, to);
         } else {
             task = new Todo(description);
         }
