@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class ToDo extends Task {
 	public ToDo(String name, Type type) {
-		super(name, type);
+		super(name, type, "");
 	}
 
 	public static void printTaskAdded(String taskName, ArrayList<Task> list) {
@@ -16,4 +16,5 @@ public class ToDo extends Task {
 		list.add(new ToDo(taskName, Type.TODO));
 		System.out.println("There are now " + list.size() + " tasks in the list");
 	}
+
 }

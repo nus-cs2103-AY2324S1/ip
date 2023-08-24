@@ -32,22 +32,7 @@ public class Echo {
 					} else {
 						for (int i = 1; i < list.size() + 1; i++) {
 							Task current = list.get(i - 1);
-							if (current.getType().equals("TODO")) {
-								ToDo task = (ToDo) current;
-								System.out.println(i + ". [T]"
-								+ "[" + (task.getDone() ? "X" : " ") + "] "
-								+ task.getName());
-							} else if (current.getType().equals("DEADLINE")) {
-								Deadline task = (Deadline) current;
-								System.out.println(i + ". [D]"
-								+ "[" + (task.getDone() ? "X" : " ") + "] "
-								+ task.getName() + " (by: "+ task.getDeadline() + ")");
-							} else if (current.getType().equals("EVENT")){
-								Event task = (Event) current;
-								System.out.println(i + ". [E]"
-								+ "[" + (task.getDone() ? "X" : " ") + "] "
-								+ task.getName() + " (from: "+ task.getStart() + " to: " + task.getEnd() + ")");
-							}
+							System.out.println(i + ". " + current.toString());
 						}
 					}
 				} else if (split[0].toLowerCase().equals("mark"))  {
@@ -60,9 +45,8 @@ public class Echo {
 					int taskNum = Integer.parseInt(input.substring(5));
 					if (taskNum > list.size() || taskNum < 1) {
 						throw new InvalidTaskNumberException("Task number is out of bounds, please try again");
-					} else {
-						list.get(taskNum - 1).markAsDone();
 					}
+					list.get(taskNum - 1).markAsDone();
 				} else if (split[0].toLowerCase().equals("unmark")) {
 					if (split.length == 1) {
 						throw new MissingTaskNumberException("Task number cannot be empty");
@@ -75,6 +59,18 @@ public class Echo {
 						throw new InvalidTaskNumberException("Task number is out of bounds, please try again");
 					}
 					list.get(taskNum - 1).markAsNotDone();
+				} else if (split[0].toLowerCase().equals("delete")) {
+					if (split.length == 1) {
+						throw new MissingTaskNumberException("Task number cannot be empty");
+					}
+					if (list.size() < 1) {
+						throw new EmptyListException("List is currently empty");
+					}
+					int taskNum = Integer.parseInt(input.substring(7));
+					if (taskNum > list.size() || taskNum < 1) {
+						throw new InvalidTaskNumberException("Task number is out of bounds, please try again");
+					}
+					Task.deleteTask(list.get(taskNum - 1), list);
 				} else if (split[0].toLowerCase().equals("todo")) {
 					if (input.trim().length() <= 4) {
 						throw new MissingTaskDescriptionException("Todo task description cannot be empty");

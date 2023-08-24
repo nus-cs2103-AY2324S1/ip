@@ -10,7 +10,7 @@ public class Event extends Task {
 	private String end;
 
 	public Event(String name, String start, String end, Type type) {
-		super(name, type);
+		super(name, type, " (from: "+ start + " to: " + end + ")");
 		this.start = start;
 		this.end = end;
 	}
@@ -29,4 +29,5 @@ public class Event extends Task {
 	public String getEnd() {
 		return this.end;
 	}
+
 }

@@ -9,7 +9,7 @@ public class Deadline extends Task {
 	private String deadline;
 
 	public Deadline(String name, String deadline, Type type) {
-		super(name, type);
+		super(name, type, " (by: "+ deadline + ")");
 		this.deadline = deadline;
 	}
 	
@@ -23,4 +23,5 @@ public class Deadline extends Task {
 	public String getDeadline() {
 		return this.deadline;
 	}
+
 }
