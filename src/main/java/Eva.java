@@ -98,7 +98,7 @@ public class Eva {
                 }
             } else if (input.startsWith("deadline")) {
                 // Tasks that need to be done before a specific date/time e.g., submit report by 11/10/2019 5pm
-                try{
+                try {
                     int byIndex = input.indexOf("/by");
                     if (byIndex == -1) {
                         throw new DukeException("\t ☹ OOPS!!! The deadline description must include a /by date.");
@@ -112,7 +112,7 @@ public class Eva {
                     taskCount++;
                     System.out.println("\t____________________________________________________________");
                     System.out.println("\t Got it. I've added this task: ");
-                    System.out.println("\t\t" + tasks.get(taskCount-1));
+                    System.out.println("\t\t" + tasks.get(taskCount - 1));
                     System.out.println("\t Now you have " + taskCount + " task(s) in the list.");
                     System.out.println("\t____________________________________________________________");
                 } catch (DukeException e) {
@@ -139,7 +139,7 @@ public class Eva {
                     taskCount++;
                     System.out.println("\t____________________________________________________________");
                     System.out.println("\t Got it. I've added this task: ");
-                    System.out.println("\t\t" + tasks.get(taskCount-1));
+                    System.out.println("\t\t" + tasks.get(taskCount - 1));
                     System.out.println("\t Now you have " + taskCount + " task(s) in the list.");
                     System.out.println("\t____________________________________________________________");
                 } catch (DukeException e) {
@@ -194,9 +194,7 @@ public class Eva {
      * Enums to represent the different types of tasks
      */
     public enum TaskType {
-        TODO,
-        DEADLINE,
-        EVENT
+        TODO, DEADLINE, EVENT
     }
 
     /**
@@ -211,7 +209,7 @@ public class Eva {
          * Constructs task with the given description and type
          *
          * @param description the given description of the task
-         * @param type the given type of the task
+         * @param type        the given type of the task
          */
         public Task(String description, TaskType type) {
             this.description = description;
@@ -279,7 +277,7 @@ public class Eva {
          * Constructs deadline with the given description
          *
          * @param description the given description of the deadline
-         * @param by the date by which the deadline is
+         * @param by          the date by which the deadline is
          */
         public Deadline(String description, String by) {
             super(description, TaskType.DEADLINE);
@@ -308,8 +306,8 @@ public class Eva {
          * Constructs deadline with the given description
          *
          * @param description the given description of the deadline
-         * @param from the time at which the event starts
-         * @param to the time at which the event ends
+         * @param from        the time at which the event starts
+         * @param to          the time at which the event ends
          */
         public Event(String description, String from, String to) {
             super(description, TaskType.EVENT);
