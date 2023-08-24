@@ -1,4 +1,5 @@
 public enum Commands {
+    //alr implemented enums.
     deadline,
     todo,
     event,
