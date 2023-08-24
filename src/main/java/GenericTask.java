@@ -1,9 +1,9 @@
 public class GenericTask extends Task{
 
-    public GenericTask(String description, int number) {
-        super(description, number);
+    public GenericTask(String description) {
+        super(description);
     }
-
+    /*
     @Override
     public void displayTask() {
         System.out.println(number + "." + super.getStatusIcon() + description);
@@ -18,5 +18,7 @@ public class GenericTask extends Task{
         } else {
             System.out.println("Now you have " + number + " tasks in the list.");
         }
-    }
+    }*/
+
+
 }

@@ -1,11 +1,10 @@
 public class Task {
     protected String description;
     protected boolean isDone;
-    protected int number;
 
-    public Task(String description, int number) {
+
+    public Task(String description) {
         this.description = description;
-        this.number = number;
         this.isDone = false;
     }
 
@@ -13,7 +12,7 @@ public class Task {
         return (isDone ? "[X]" : "[ ]");
     }
 
-    public void mark() { //remove number and cannot mark done as done.
+    public void mark() {
         if (isDone == false) {
             isDone = true;
             System.out.println("Nice! I've marked this task as done:");
@@ -24,7 +23,7 @@ public class Task {
 
     }
 
-    public void unmark() { //remove number
+    public void unmark() {
         if (isDone == true) {
             isDone = false;
             System.out.println("OK, I've marked this task as not done yet:");
@@ -34,7 +33,10 @@ public class Task {
         }
 
     }
-    public void displayTask() { //for listing out tasks
+    public String displayTask() { //for listing out tasks
+        return "hey"; //what do i do here? maybe an exception? need to check if the try exception
+        // is even corerect
+
     }
 
     public void addedTask() { //display message for added tasks!
