@@ -114,7 +114,7 @@ public class Tasks {
                 break;
             case "event":
                 String[] event = checkEvent(text);
-                task = new Event(event[0], event[1]);
+                task = new Event(event[0], event[1], event[2]);
                 break;
             default:
                 task = new Task(text);
@@ -160,10 +160,14 @@ public class Tasks {
     }
 
     private String[] checkEvent(String text) {
-        String[] event = text.split(" /at ");
-        if (event.length != 2) {
+        String[] first = text.split(" /from ");
+        if (first.length != 2) {
             System.out.println("Invalid");
         }
-        return event;
+        String[] second = first[1].split(" /to ");
+        if (second.length != 2) {
+            System.out.println("Invalid");
+        }
+        return new String[] {first[0], second[0], second[1]};
     }
 }

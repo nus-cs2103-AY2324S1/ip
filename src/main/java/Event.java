@@ -1,14 +1,16 @@
 public class Event extends Task {
     private String type = "E";
-    private String at;
+    private String from;
+    private String to;
 
-    public Event(String description, String at) {
+    public Event(String description, String from, String to) {
         super(description);
-        this.at = at;
+        this.from = from;
+        this.to = to;
     }
 
     @Override
     public String toString() {
-        return "[" + this.type + "]" + super.toString() + " (at: " + at + ")" ;
+        return "[" + this.type + "]" + super.toString() + " (from: " + from + " to: " + to + ")" ;
     }
 }
