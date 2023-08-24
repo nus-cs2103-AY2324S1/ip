@@ -9,12 +9,16 @@ public class Duke {
         noTasks = 0;
         Scanner scanner = new Scanner(System.in);
         String task = "";
+        String userInput = "";
         boolean loop = true;
 
         System.out.println(LINE + "\nHello! I'm Dommi\nWhat can I do for you?\n" + LINE);
 
         while (loop) {
-            String userInput = scanner.nextLine();  // Read user input
+            if (!scanner.hasNextLine()) {
+                break;
+            }
+            userInput = scanner.nextLine();  // Read user input
             String instruction = userInput.split(" ", 2)[0];
             if (userInput.contains(" ")) {
                 task = userInput.split(" ", 2)[1];
