@@ -12,12 +12,12 @@ Now you have 1 tasks!
 ------------------------------
 ------------------------------
 Okay! I have added this task
-[D][ ] pset1 (by: Sunday)
+[D][ ] pset 1 (by: Sunday)
 Now you have 2 tasks!
 ------------------------------
 ------------------------------
 Wow you are done!
-[E][X] lecture
+[E][X] lecture (from: 2pm to: 4pm)
 ------------------------------
 ------------------------------
 Wow you are not done!
