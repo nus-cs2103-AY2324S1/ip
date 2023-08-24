@@ -20,41 +20,64 @@ public class Duke {
 
         while (true) {
             String userInput = scanner.nextLine();
+            System.out.println(lineSpacer);
+
             if (userInput.equals("bye")) {
-                System.out.println(lineSpacer);
                 System.out.println("Goodbye! Have a paw-some day :-)");
-                System.out.println(lineSpacer);
                 break;
+
             } else if (userInput.equals("list")) {
-                System.out.println(lineSpacer);
                 for (int i = 0; i < taskList.size(); i++ ) {
                     System.out.println((i + 1) + ". " + taskList.get(i).toString());
                 }
-                System.out.println(lineSpacer);
+
             } else if (userInput.contains("unmark")) {
-                System.out.println(lineSpacer);
                 String[] unparsedTaskIndex = userInput.split(" ");
                 int taskIndex = Integer.parseInt(unparsedTaskIndex[1]);
                 taskList.get(taskIndex - 1).markAsUndone();
                 System.out.println("That's ruff! I've unmarked this task:  \n" +
                         taskList.get(taskIndex - 1).toString());
-                System.out.println(lineSpacer);
+
             } else if (userInput.contains("mark")) {
-                System.out.println(lineSpacer);
                 String[] unparsedTaskIndex = userInput.split(" ");
                 int taskIndex = Integer.parseInt(unparsedTaskIndex[1]);
                 taskList.get(taskIndex - 1).markAsDone();
                 System.out.println("Furtastic job completing this task: \n" +
                         taskList.get(taskIndex - 1).toString());
-                System.out.println(lineSpacer);
+
+            } else if (userInput.contains("todo")) {
+                String[] splitCommands = userInput.split(" ");
+                Task task = new ToDo(splitCommands[1]);
+                taskList.add(task);
+                System.out.println("Woof luck with your new task: \n" + task.toString());
+                System.out.println("You now have " + taskList.size() + " tasks in the list");
+
+            } else if (userInput.contains("deadline")) {
+                String[] splitCommands = userInput.split(" /by ");
+                String[] taskName = splitCommands[0].split(" ");
+                Task task = new Deadline(taskName[1] ,splitCommands[1]);
+                taskList.add(task);
+                System.out.println("Woof luck with your new task: \n" + task.toString());
+                System.out.println("You now have " + taskList.size() + " tasks in the list");
+
+            } else if (userInput.contains("event")) {
+                String[] splitCommands = userInput.split(" /from ");
+                String[] taskName = splitCommands[0].split(" ");
+                String[] fromTo = splitCommands[1].split(" /to ");
+                Task task = new Event(taskName[1], fromTo[0], fromTo[1]);
+                taskList.add(task);
+                System.out.println("Woof luck with your new task: \n" + task.toString());
+                System.out.println("You now have " + taskList.size() + " tasks in the list");
+
             } else {
-                System.out.println(lineSpacer);
                 Task task = new Task(userInput);
                 taskList.add(task);
                 System.out.println("Woof luck with your new task: " + userInput);
-                System.out.println(lineSpacer);
             }
+            System.out.println(lineSpacer);
         }
+
+        System.out.println(lineSpacer);
 
     }
 }
