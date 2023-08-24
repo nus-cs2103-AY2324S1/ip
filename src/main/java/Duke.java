@@ -83,6 +83,9 @@ public class Duke {
                     if (restOfSentence.isEmpty()) {
                         throw new DukeException("☹ OOPS!!! The description of a task cannot be empty.");
                     }
+                    if (descr.length < 2) {
+                        throw new ArrayIndexOutOfBoundsException();
+                    }
                     //new event
                     if (descr.length > 1) {
                         String st = descr[1];
@@ -95,12 +98,18 @@ public class Duke {
                         System.out.println("Now you have " + count + " tasks in the list.");
                     }
                 } else if (keyword.equals("mark")) {
+                    if (restOfSentence.isEmpty()) {
+                        throw new DukeException("☹ OOPS!!! Which do you want to mark?");
+                    }
                     int taskID = Integer.parseInt(restOfSentence) - 1;
                     Task taskChanged = taskList.get(taskID);
                     taskChanged.markDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(taskChanged);
                 } else if (keyword.equals("unmark")){
+                    if (restOfSentence.isEmpty()) {
+                        throw new DukeException("☹ OOPS!!! Which do you want to unmark?");
+                    }
                     int taskID = Integer.parseInt(restOfSentence) - 1;
                     Task taskChanged = taskList.get(taskID);
                     taskChanged.markUndone();
@@ -111,6 +120,8 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("☹ OOPS!!! We need both the start and end time of an event.");
             }
         }
         scanner.close();

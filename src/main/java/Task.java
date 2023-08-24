@@ -7,7 +7,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    //methods to change task status
+    /* The following are methods to change task status
+     */
     public void markDone() {
         isDone = true;
     }
@@ -15,9 +16,6 @@ public abstract class Task {
         isDone = false;
     }
 
-    public void delete() {
-
-    }
     public String marking() {
         return (isDone ? "X" : " ");
     }

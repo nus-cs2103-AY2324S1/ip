@@ -5,3 +5,24 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+Got it. I've added this task:
+  [T][ ] borrow book
+Now you have 1 tasks in the list.☹ OOPS!!! The description of a task cannot be empty.
+deadline return book /by Sunday
+
+☹ OOPS!!! The description of a task cannot be empty.
+event project meeting /from Mon 2pm /to 4pm
+☹ OOPS!!! We need both the start and end time of an event.
+☹ OOPS!!! The description of a task cannot be empty.
+Nice! I've marked this task as done:
+[D][X] return book (by: Sunday)
+OK, I've marked this task as not done yet:
+[D][ ] return book (by: Sunday)
+☹ OOPS!!! Which do you want to mark?
+☹ OOPS!!! Which do you want to unmark?
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [D][ ] return book by 28(8: )
+4. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Bye. Hope to see you again soon!
