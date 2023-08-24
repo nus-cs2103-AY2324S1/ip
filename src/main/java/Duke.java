@@ -72,7 +72,7 @@ public class Duke {
                 System.out.println("____________________________________________________________");
             }
             else if(str.startsWith("event")){
-                str=str.substring(9);
+                str=str.substring(6);
                 String[] arr=str.split(" /from ");
                 String[] time=arr[1].split(" /to ");
                 list.add(new Event(arr[0],time[0],time[1]));
