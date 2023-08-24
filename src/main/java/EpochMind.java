@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -43,7 +44,7 @@ public class EpochMind {
                     bye();
                     break;
                 case "list":
-                    list();
+                    list(tasks);
                     break;
                 case "mark":
                     mark(commandList);
@@ -62,6 +63,12 @@ public class EpochMind {
                     break;
                 case "delete":
                     delete(commandList);
+                    break;
+                case "overdue":
+                    overdue();
+                    break;
+                case "dueby":
+                    dueBy(commandList);
                     break;
 
                 default:
@@ -86,7 +93,7 @@ public class EpochMind {
     /**
      * List out the task list
      */
-    public static void list() {
+    public static void list(List<Task> tasks) {
         System.out.println("___________________________________________________________________________________________________________\n");
         for (int i = 0; i < tasks.size(); i++) {
             StringBuilder sb = new StringBuilder();
@@ -284,6 +291,44 @@ public class EpochMind {
         } catch (Exception e) {
             System.out.println("The Mind has failed to save the tasks");
         }
+    }
 
+    /**
+     * Displays all tasks that are overdue
+     */
+    public static void overdue() {
+        List<Task> overdue = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.isDeadline()) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.overdue()) {
+                    overdue.add(deadline);
+                }
+            }
+        }
+        list(overdue);
+    }
+
+    public static void dueBy(String[] commandList) {
+        if (commandList.length > 1) {
+            String dateTimeString = commandList[1];
+            LocalDateTime localDateTime= Deadline.convertDate(dateTimeString);
+            if (localDateTime != null) {
+                List<Task> dueBy = new ArrayList<>();
+                for (Task task : tasks) {
+                    if (task.isDeadline()) {
+                        Deadline deadline = (Deadline) task;
+                        if (deadline.dueBy(localDateTime)) {
+                            dueBy.add(deadline);
+                        }
+                    }
+                }
+                list(dueBy);
+            } else {
+                System.out.println("The Mind does not sense a correct DateTime");
+            }
+        } else {
+            System.out.println("The Mind sees no deadline");
+        }
     }
 }

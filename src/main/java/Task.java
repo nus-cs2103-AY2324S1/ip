@@ -26,5 +26,9 @@ public class Task {
         sb.append(description);
         return sb.toString();
     }
+
+    public boolean isDeadline() {
+        return false;
+    }
 }
 
