@@ -8,12 +8,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * This method overrides the toString method from the Object class.
-     * It returns a string representation of this object.
+     * Returns a string representation of Deadline
      *
-     * @return A string representation of this object.
+     * @return A string representation of Deadline
      */
-
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
