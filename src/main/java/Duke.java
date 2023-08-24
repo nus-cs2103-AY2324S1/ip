@@ -16,7 +16,7 @@ class WrongFormatException extends Exception {
 
 class UnknownCommandException extends Exception {
     public UnknownCommandException() {
-        super("☹ OOPS!!! I'm sorry, but I don't know what that means :-P");
+        super("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 }
 
