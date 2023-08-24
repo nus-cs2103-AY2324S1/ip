@@ -35,7 +35,16 @@ public class Duck {
             }
 
             if (input.startsWith("todo")) {
-                String task = input.substring(5);
+                String task;
+                try {
+                    task = input.trim().substring(5);
+                } catch (StringIndexOutOfBoundsException e) {
+                    line();
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    line();
+                    input = in.nextLine();
+                    continue;
+                }
                 line();
                 list.addTodo(task);
                 line();
@@ -44,7 +53,16 @@ public class Duck {
             }
 
             if (input.startsWith("deadline")) {
-                String task = input.substring(9);
+                String task;
+                try {
+                    task = input.trim().substring(9);
+                } catch (StringIndexOutOfBoundsException e) {
+                    line();
+                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    line();
+                    input = in.nextLine();
+                    continue;
+                }
                 line();
                 list.addDeadline(task);
                 line();
@@ -53,7 +71,16 @@ public class Duck {
             }
 
             if (input.startsWith("event")) {
-                String task = input.substring(6);
+                String task;
+                try {
+                    task = input.trim().substring(6);
+                } catch (StringIndexOutOfBoundsException e) {
+                    line();
+                    System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+                    line();
+                    input = in.nextLine();
+                    continue;
+                }
                 line();
                 list.addEvent(task);
                 line();
@@ -61,6 +88,9 @@ public class Duck {
                 continue;
             }
 
+            line();
+            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            line();
             input = in.nextLine();
         }
         Duck.bye();
