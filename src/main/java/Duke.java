@@ -110,6 +110,16 @@ public class Duke {
                     throw new DukeException("Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event");
             }
 
+            // All valid commands except for `list` will result in the task list changing, so we should trigger
+            // a disk write to save the updated task list.
+            if (!command.equals("list")) {
+                try {
+                    FileUtils.saveTasksToFile(tasks);
+                } catch (IOException ioException) {
+                    throw new DukeException("Error while saving task list to file!");
+                }
+            }
+
         } catch (NumberFormatException e) {
             Duke.printFormatted("Please enter a valid task number.");
         } catch (DukeException e) {
