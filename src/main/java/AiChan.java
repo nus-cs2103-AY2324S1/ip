@@ -17,10 +17,10 @@ public class AiChan {
             int size = arrTask.size();
             try{
                 String command = scn.nextLine();
-                if (command.equals("bye")) {
+                if (command.equals(ActionType.BYE.toString())) {
                     System.out.println(line + bye + line);
                     break;
-                } else if (command.equals("list")){
+                } else if (command.equals(ActionType.LIST.toString())){
                     System.out.print(line + "Here are the tasks in your list:\n");
                     int i = 1;
                     for (Task t : arrTask) {
@@ -28,7 +28,7 @@ public class AiChan {
                         i++;
                     }
                     System.out.println(line);
-                } else if (command.startsWith("mark")){
+                } else if (command.startsWith(ActionType.MARK.toString())){
                     if (command.length() < 6) {
                         throw new AiChanException("Please provide a task number.");
                     }
@@ -39,18 +39,18 @@ public class AiChan {
                     t.mark();
                     System.out.println(line + "Nice! I've marked this task as done:\n"
                             + t.toString() + "\n" + line);
-                } else if (command.startsWith("unmark")){
+                } else if (command.startsWith(ActionType.UNMARK.toString())){
                     if (command.length() < 8) {
                         throw new AiChanException("Please provide a task number.");
                     }
-                    // get the number behind "mark "
+                    // get the number behind "unmark "
                     int taskId = Integer.parseInt(command.substring(7));
                     if(taskId < 1 || taskId > size) throw new AiChanException("Please provide a valid task number.");
                     Task t = arrTask.get(taskId - 1);
                     t.unmark();
                     System.out.println(line + "OK, I've marked this task as not done yet:\n"
                             + t.toString() + "\n" + line);
-                } else if (command.startsWith("todo")){
+                } else if (command.startsWith(ActionType.TODO.toString())){
                     if (command.length() < 6) {
                         throw new AiChanException("oops~ The description of a todo cannot be empty.");
                     } else if (command.charAt(4) != ' ') {
@@ -60,7 +60,7 @@ public class AiChan {
                     arrTask.add(t);
                     System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
                             "Now you have %d tasks in the list\n%s", line, t, size + 1, line));
-                } else if (command.startsWith("deadline")){
+                } else if (command.startsWith(ActionType.DEADLINE.toString())){
                     if (command.length() < 10) {
                         throw new AiChanException("oops~ The description of a deadline cannot be empty.");
                     } else if (command.charAt(8) != ' ') {
@@ -75,7 +75,7 @@ public class AiChan {
                     arrTask.add(t);
                     System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
                             "Now you have %d tasks in the list\n%s", line, t, size + 1, line));
-                } else if (command.startsWith("event")){
+                } else if (command.startsWith(ActionType.EVENT.toString())){
                     if (command.length() < 7) {
                         throw new AiChanException("oops~ The description of a event cannot be empty.");
                     } else if (command.charAt(5) != ' ') {
@@ -91,7 +91,7 @@ public class AiChan {
                     arrTask.add(t);
                     System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
                             "Now you have %d tasks in the list\n%s", line, t, size + 1, line));
-                } else if (command.startsWith("delete")){
+                } else if (command.startsWith(ActionType.DELETE.toString())){
                     if (command.length() < 8) {
                         throw new AiChanException("Please provide a task number.");
                     }
