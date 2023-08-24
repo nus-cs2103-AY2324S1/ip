@@ -3,14 +3,137 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
+    /**
+     * Prints out a list of the tasks the user has
+     * @param list The list containing all the tasks that user has input
+     */
+    public static void checkList(ArrayList<Task> list) {
+        if(list.size() == 0) {
+            int starEyesEmoji = 0x1F929;
+            System.out.println("yay you don't have anything to do" + new String(Character.toChars(starEyesEmoji)));
+        } else {
+            System.out.println("sian you still have to complete these:");
+            for (int i = 0; i < list.size(); i++) {
+                Task curr = list.get(i);
+                System.out.println((i + 1) + ". " + curr.toString());
+            }
+        }
+    }
+
+    /**
+     * Marks a task as done
+     * @param list The list containing all the tasks that user has input
+     * @param input The task the user wants to mark as done
+     */
+    public static void markTask(ArrayList<Task> list, String input) {
+        int starEyesEmoji = 0x1F929;
+        System.out.println("good job, you've completed a task! You're so productive!" + new String(Character.toChars(starEyesEmoji)));
+        String parts[] = input.split(" ");
+        int taskNo = Integer.parseInt(parts[1]);
+        Task checkedTask = list.get(taskNo - 1);
+        checkedTask.markAsDone();
+        System.out.println(checkedTask.toString());
+    }
+
+    /**
+     * Unmarks a task
+     * @param list The list containing all the tasks that user has input
+     * @param input The task the user wants to unmark
+     */
+    public static void unMarkTask(ArrayList<Task> list, String input) {
+        String parts[] = input.split(" ");
+        int taskNo = Integer.parseInt(parts[1]);
+        Task checkedTask = list.get(taskNo - 1);
+        checkedTask.markAsUndone();
+        System.out.println("why are you not going to " + checkedTask.description + "? remember to do it later!");
+        System.out.println(checkedTask.toString());
+    }
+
+    /**
+     * Deletes a Task from the list
+     * @param list The list containing all the tasks that user has input
+     * @param input The task the user wants to delete
+     */
+    public static void deleteTask(ArrayList<Task> list, String input) {
+        String parts[] = input.split(" ");
+        int taskNo = Integer.parseInt(parts[1]);
+        Task checkedTask = list.get(taskNo - 1);
+        list.remove(checkedTask);
+        if(checkedTask.getStatusIcon().equals("X")) {
+            System.out.println("good job! you're officially done with this:");
+            System.out.println(checkedTask.toString());
+        } else {
+            System.out.println("not you running away from your responsibilities, i guess you don't have to do this now:");
+            System.out.println(checkedTask.toString());
+        }
+        if(list.size() == 0) {
+            System.out.println("THERES NOTHING LEFT TO DO!!!!");
+        } else {
+            System.out.println("but still sucks to be you, you still have " + list.size() + " tasks");
+        }
+    }
+
+    /**
+     * Adds a ToDo to the list
+      * @param list The list containing all the tasks that user has input
+     * @param input The ToDo the user wants to add
+     */
+    public static void addsToDo(ArrayList<Task> list, String input) {
+        try {
+            ToDo item = Task.createToDo(input);
+            list.add(item);
+            System.out.println("todo added: " + item.toString());
+            System.out.println("You have this many stuff to complete: " + list.size());
+        } catch (NoDescException e) {
+        }
+    }
+
+    /**
+     * Adds a Deadline to the list
+     * @param list The list containing all the tasks that user has input
+     * @param input The Deadline the user wants to add
+     */
+    public static void addDeadline(ArrayList<Task> list, String input) {
+        try {
+            Deadline item = Task.createDeadline(input);
+            list.add(item);
+            System.out.println("deadline added: " + item.toString());
+            System.out.println("You have this many stuff to complete: " + list.size());
+        } catch (NoDescException e) {
+        } catch (DeadlineNoEndException e) {
+        }
+    }
+
+    /**
+     * Adds an Event to the list
+     * @param list The list containing all the tasks that user has input
+     * @param input The Event the user wants to add
+     */
+    public static void addEvent(ArrayList<Task> list, String input) {
+        try {
+            Event item = Task.createEvent(input);
+            list.add(item);
+            System.out.println("event added: " + item.toString());
+            System.out.println("You have this many stuff to complete: " + list.size());
+        } catch (NoDescException e) {
+        }
+    }
+
     public static void main(String[] args) throws IOException, IOException {
-        //Level 0
-        String botName = "PAUUU";
-        String introduction = " HI! I'm " + botName + "\n" + " Please entertain me!";
+
+        String botName = "\n" +
+                "██████╗  █████╗ ██╗   ██╗\n" +
+                "██╔══██╗██╔══██╗██║   ██║\n" +
+                "██████╔╝███████║██║   ██║\n" +
+                "██╔═══╝ ██╔══██║██║   ██║\n" +
+                "██║     ██║  ██║╚██████╔╝\n" +
+                "╚═╝     ╚═╝  ╚═╝ ╚═════╝ \n" +
+                "                         \n";
+
+        String introduction = " HI! I'm " + botName + "\n" + "ENTERTAIN MEEE";
         String exit = "byebye come play with me next time";
         System.out.println(introduction);
 
-        //Level 2
         String input;
         Scanner scan = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
@@ -21,58 +144,19 @@ public class Duke {
                 System.out.println(exit);
                 break;
             } else if (input.equals("list")) {
-                System.out.println("You gotta girlboss through these tasks:");
-                for (int i = 0; i < list.size(); i++) {
-                    Task curr = list.get(i);
-                    System.out.println((i + 1) + ". " + curr.toString());
-                }
+                Duke.checkList(list);
             } else if (input.startsWith("mark")) {
-                System.out.println("Good job, you've completed a task! You're so productive!");
-                String parts[] = input.split(" ");
-                int taskNo = Integer.parseInt(parts[1]);
-                Task checkedTask = list.get(taskNo - 1);
-                checkedTask.markAsDone();
-                System.out.println(checkedTask.toString());
+                Duke.markTask(list, input);
             } else if (input.startsWith("unmark")) {
-                String parts[] = input.split(" ");
-                int taskNo = Integer.parseInt(parts[1]);
-                Task checkedTask = list.get(taskNo - 1);
-                checkedTask.markAsUndone();
-                System.out.println("I see you're not going to " + checkedTask.description + " but remember to do it later!");
-                System.out.println(checkedTask.toString());
-            } else if (input.startsWith("todo")) {
-                try {
-                    ToDo item = Task.createToDo(input);
-                    list.add(item);
-                    System.out.println("todo added: " + item.toString());
-                    System.out.println("You have this many stuff to complete: " + list.size());
-                } catch (NoDescException e) {
-                }
+                Duke.unMarkTask(list, input);
             } else if (input.startsWith("delete")) {
-                String parts[] = input.split(" ");
-                int taskNo = Integer.parseInt(parts[1]);
-                Task checkedTask = list.get(taskNo - 1);
-                list.remove(checkedTask);
-                System.out.println("not you running away from your responsibilities, i guess you don't have to do this now:");
-                System.out.println(checkedTask.toString());
-                System.out.println("sucks to be you, you still have " + list.size() + " tasks");
+                Duke.deleteTask(list, input);
+            } else if (input.startsWith("todo")) {
+                Duke.addsToDo(list, input);
             } else if (input.startsWith("deadline")) {
-                try {
-                    Deadline item = Task.createDeadline(input);
-                    list.add(item);
-                    System.out.println("deadline added: " + item.toString());
-                    System.out.println("You have this many stuff to complete: " + list.size());
-                } catch (NoDescException e) {
-                } catch (DeadlineNoEndException e) {
-                }
+                Duke.addDeadline(list, input);
             } else if (input.startsWith("event")) {
-                try {
-                    Event item = Task.createEvent(input);
-                    list.add(item);
-                    System.out.println("event added: " + item.toString());
-                    System.out.println("You have this many stuff to complete: " + list.size());
-                } catch (NoDescException e) {
-                }
+                Duke.addEvent(list, input);
             }
         }
     }

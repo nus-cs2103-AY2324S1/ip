@@ -1,11 +1,11 @@
  HI! I'm PAUUU
  Please entertain me!
-todo added: [T][ ]  play
+todo added: [T][ ]  fix puzzle
 You have this many stuff to complete: 1
-todo added: [T][ ]  eat
+todo added: [T][ ]  eat lunch
 You have this many stuff to complete: 2
-deadline added: [D][ ] return book (by: Sunday)
+deadline added: [D][ ] watch lecture (by: Sunday)
 You have this many stuff to complete: 3
-event added: [E][ ]  project meeting (from: Monday  to: Friday)
+event added: [E][ ]  bash (from: Friday 6pm  to: 10pm)
 You have this many stuff to complete: 4
 byebye come play with me next time
