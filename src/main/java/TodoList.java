@@ -21,6 +21,7 @@ public class TodoList {
     public void markUndone(int index){
         list.get(index).markUndone();
     }
+    public void deleteTask(int index) {list.remove(index);}
 
     public String getTask(int index){
         return list.get(index).toString();

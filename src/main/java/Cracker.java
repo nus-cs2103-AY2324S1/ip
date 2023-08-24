@@ -9,7 +9,8 @@ public class Cracker {
     private Reply reply = new Reply();
     enum Type {
         MARK,
-        TASK
+        TASK,
+        DELETE
     };
 
     public void startService(){
@@ -48,7 +49,12 @@ public class Cracker {
                     t = Type.TASK;
                     list.store(new Todo(input.replace("todo", "").trim()));
                     inLine.add(list.getTask(list.size() - 1));
-                } else {
+                } else if (input.startsWith("delete")) {
+                    t = Type.DELETE;
+                    int index = Integer.parseInt(input.replace("delete", "").trim()) - 1;
+                    inLine.add(list.getTask(index));
+                    list.deleteTask(index);
+                }else {
 
                     switch (input) {
                         case "bye":
@@ -74,17 +80,24 @@ public class Cracker {
                         reply.add(inLine.get(i).toString());
                     }
                     reply.echo();
-                    inLine.removeAll(inLine);
+
                 } else if(t == Type.TASK){
                     reply.add("Got it. I've added this task:");
                     reply.add(inLine.get(0).toString());
                     reply.add("Now you have " + list.size() + " task(s) in the list.");
                     reply.echo();
-                    inLine.removeAll(inLine);
+
+                } else if(t == Type.DELETE){
+                    reply.add("Got it. I've removed this task:");
+                    reply.add(inLine.get(0).toString());
+                    reply.add("Now you have " + list.size() + " task(s) in the list.");
+                    reply.echo();
+
                 }
+                inLine.removeAll(inLine);
             } catch (EmptyDescriptionException e){
                 reply.echo(e.toString());
-            } catch (ArrayIndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e){
                 reply.echo("The index you provided does not exist");
             } catch (IllegalFormatException e){
                 reply.echo(e.toString());
