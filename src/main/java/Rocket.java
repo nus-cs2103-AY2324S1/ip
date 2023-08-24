@@ -16,6 +16,8 @@ public class Rocket {
                 "    What can I do for you?\n" + LINE);
         command = scanner.nextLine();
         while (true) {
+            // Split string
+            String[] words = command.split(" ");
             if (command.equals("bye")) {
                 System.out.println(LINE + "\n    Bye. Hope to see you again soon!\n" + LINE);
                 break;
@@ -28,14 +30,29 @@ public class Rocket {
                 }
                 System.out.println(LINE);
                 command = scanner.nextLine();
+            } else if (words[0].equals("mark")) {
+                int taskNumber = Integer.parseInt(words[1]) - 1;
+                Task task = taskList.get(taskNumber);
+                task.markAsDone();
+                System.out.println(LINE);
+                System.out.println("    Nice! I've marked this task as done:");
+                System.out.println("      [" + task.getStatusIcon() + "] " + task.getDescription());
+                System.out.println(LINE);
+                command = scanner.nextLine();
+            } else if (words[0].equals("unmark")) {
+                int taskNumber = Integer.parseInt(words[1]) - 1;
+                Task task = taskList.get(taskNumber);
+                task.markAsUndone();
+                System.out.println(LINE);
+                System.out.println("    OK, I've marked this task as not done yet:");
+                System.out.println("      [" + task.getStatusIcon() + "] " + task.getDescription());
+                System.out.println(LINE);
+                command = scanner.nextLine();
             } else {
                 System.out.println(LINE + "\n    added: " + command + "\n" + LINE);
                 taskList.add(new Task(command));
                 command = scanner.nextLine();
             }
         }
-
-
-
     }
 }
