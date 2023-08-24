@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -19,7 +21,11 @@ public class Task {
         isDone = false;
     }
 
+    public String getTaskType() {
+        return "";
+    }
+
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return getTaskType() + "[" + getStatusIcon() + "] " + description;
     }
 }
