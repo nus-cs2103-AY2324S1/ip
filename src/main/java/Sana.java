@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class Sana {
 
     public enum Commands {
         LIST("list"),
@@ -52,65 +52,65 @@ public class Duke {
             case LIST:
                 try {
                     System.out.println(list(tasksList));
-                } catch (DukeException e) {
+                } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case MARK:
                 try {
                     System.out.println(mark(tasksList, userInput));
-                } catch (DukeException e) {
+                } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case UNMARK:
                 try {
                     System.out.println(unmark(tasksList, userInput));
-                } catch (DukeException e) {
+                } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case DELETE:
                 try {
                     System.out.println(delete(tasksList, userInput));
-                } catch (DukeException e) {
+                } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case TODO:
                 try {
                     System.out.println(todo(tasksList, userInput));
-                } catch (DukeException e) {
+                } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case DEADLINE:
                 try {
                     System.out.println(deadline(tasksList, userInput));
-                } catch (DukeException e) {
+                } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case EVENT:
                 try {
                     System.out.println(event(tasksList, userInput));
-                } catch (DukeException e) {
+                } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case UNKNOWN:
                 try {
-                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-                } catch (DukeException e) {
+                    throw new SanaException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
             }
         }
     }
 
-    public static String list(ArrayList<Task> tasksList) throws DukeException {
+    public static String list(ArrayList<Task> tasksList) throws SanaException {
         if (tasksList.isEmpty()) {
-            throw new DukeException("Your list is empty! Add tasks first to display list");
+            throw new SanaException("Your list is empty! Add tasks first to display list");
         }
 
         StringBuilder task = new StringBuilder();
@@ -122,30 +122,30 @@ public class Duke {
                 + divider);
     }
 
-    public static String mark(ArrayList<Task> tasksList, String userInput) throws DukeException {
+    public static String mark(ArrayList<Task> tasksList, String userInput) throws SanaException {
         int taskId = Integer.parseInt(userInput.substring(1));
         if (taskId > tasksList.size() || taskId == 0) {
-            throw new DukeException("No such task!");
+            throw new SanaException("No such task!");
         }
         tasksList.get(taskId - 1).markAsDone();
         return(divider + "Nice! I've marked this task as done:\n"
                 + tasksList.get(taskId - 1).toString() + "\n" + divider);
     }
 
-    public static String unmark(ArrayList<Task> tasksList, String userInput) throws DukeException {
+    public static String unmark(ArrayList<Task> tasksList, String userInput) throws SanaException {
         int taskId = Integer.parseInt(userInput.substring(1));
         if (taskId > tasksList.size() || taskId == 0) {
-            throw new DukeException("No such task!");
+            throw new SanaException("No such task!");
         }
         tasksList.get(taskId - 1).markAsNotDone();
         return(divider + "OK, I've marked this task as not done yet:\n"
                 + tasksList.get(taskId - 1).toString() + "\n" + divider);
     }
 
-    public static String delete(ArrayList<Task> tasksList, String userInput) throws DukeException {
+    public static String delete(ArrayList<Task> tasksList, String userInput) throws SanaException {
         int taskId = Integer.parseInt(userInput.substring(1));
         if (taskId > tasksList.size() || taskId == 0) {
-            throw new DukeException("No such task!");
+            throw new SanaException("No such task!");
         }
         Task deletedTask = tasksList.get(taskId - 1);
         tasksList.remove(taskId - 1);
@@ -154,9 +154,9 @@ public class Duke {
                 + " in the list\n" + divider);
     }
 
-    public static String todo(ArrayList<Task> tasksList, String userInput) throws DukeException {
+    public static String todo(ArrayList<Task> tasksList, String userInput) throws SanaException {
         if (userInput.isEmpty()) {
-            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+            throw new SanaException("OOPS!!! The description of a todo cannot be empty.");
         }
         Task newTodo = new Todo(userInput);
         tasksList.add(newTodo);
@@ -165,15 +165,15 @@ public class Duke {
                 + " in the list\n" + divider);
     }
 
-    public static String deadline(ArrayList<Task> tasksList, String userInput) throws DukeException {
+    public static String deadline(ArrayList<Task> tasksList, String userInput) throws SanaException {
         if (userInput.isEmpty()) {
-            throw new DukeException("OOPS!!! Incomplete task description.\nMake sure you follow the format " +
+            throw new SanaException("OOPS!!! Incomplete task description.\nMake sure you follow the format " +
                     "'deadline [name of task] /by [deadline]'");
         }
 
         int lastDescId = userInput.indexOf('/');
         if (lastDescId == -1 || userInput.length() < lastDescId + 4 || userInput.substring(lastDescId + 4).isBlank()) {
-            throw new DukeException("OOPS!! The deadline cannot be empty.\nMake sure you follow the format " +
+            throw new SanaException("OOPS!! The deadline cannot be empty.\nMake sure you follow the format " +
                     "'deadline [name of task] /by [deadline]'");
         }
         String desc = userInput.substring(0, lastDescId - 1);
@@ -185,9 +185,9 @@ public class Duke {
                 + " in the list\n" + divider);
     }
 
-    public static String event(ArrayList<Task> tasksList, String userInput) throws DukeException {
+    public static String event(ArrayList<Task> tasksList, String userInput) throws SanaException {
         if (userInput.isEmpty()) {
-            throw new DukeException("OOPS!!! Incomplete command. Make sure you follow the format " +
+            throw new SanaException("OOPS!!! Incomplete command. Make sure you follow the format " +
                     "'event [name of task] /from [from] /to [to]'");
         }
 
@@ -199,16 +199,16 @@ public class Duke {
                 + " in the list\n" + divider);
     }
 
-    private static Task getEvent(String userInput, int lastDescId) throws DukeException {
+    private static Task getEvent(String userInput, int lastDescId) throws SanaException {
         if (lastDescId == -1 || userInput.length() < lastDescId + 6 || userInput.substring(lastDescId + 6).isBlank()) {
-            throw new DukeException("OOPS!! The 'from' field cannot be empty.\nMake sure you follow the format " +
+            throw new SanaException("OOPS!! The 'from' field cannot be empty.\nMake sure you follow the format " +
                     "'deadline [name of task] /from [from] /to [to]'");
         }
         String desc = userInput.substring(0, lastDescId - 1);
 
         int lastFromId = userInput.indexOf('/', lastDescId + 1);
         if (lastFromId == -1 || userInput.length() < lastFromId + 4 || userInput.substring(lastFromId + 4).isBlank()) {
-            throw new DukeException("OOPS!! The 'to' field cannot be empty.\nMake sure you follow the format " +
+            throw new SanaException("OOPS!! The 'to' field cannot be empty.\nMake sure you follow the format " +
                     "'deadline [name of task] /from [from] /to [to]'");
         }
         String from = userInput.substring(lastDescId + 6, lastFromId - 1);
