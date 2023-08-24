@@ -1,6 +1,14 @@
+/**
+ * Represents a custom exception for Duke application.
+ * This exception is thrown when Duke-specific conditions are violated.
+ */
 public class DukeException extends Exception {
-        public DukeException(String message) {
-            super(message);
-        }
-
+    /**
+     * Constructs a new DukeException with the specified message.
+     *
+     * @param message The detail message.
+     */
+    public DukeException(String message) {
+        super(message);
+    }
 }

@@ -14,6 +14,14 @@ public class Duke {
         UNKNOWN
     }
     static String horizontal_line = "____________________________________________________________\n";
+
+    /**
+     * The main  method for the Duke application.
+     * It initializes the task list and listens for user commands,
+     * handling them appropriately based on their type.
+     *
+     * @param args Command line arguments.
+     */
     public static void main(String[] args) {
         List<Task> tasks = new ArrayList<>();
         handleStart();
@@ -54,6 +62,13 @@ public class Duke {
             }
         }
     }
+
+    /**
+     * Determines type of command entered by the user.
+     *
+     * @param userCommand The command string entered by the user.
+     * @return The type of command.
+     */
     public static CommandType getCommandType(String userCommand) {
         if ("bye".equals(userCommand)) {
             return CommandType.BYE;
@@ -75,23 +90,47 @@ public class Duke {
             return CommandType.UNKNOWN;
         }
     }
+
+    /**
+     * Generates a message showing number of tasks in the list.
+     *
+     * @param numTasks The number of tasks currently in the list.
+     * @return The formatted message.
+     */
     public static String updateNumMessage(String numTasks) {
         return "Now you have " + numTasks + " task(s) in the list";
     }
+
+    /**
+     * Handles cases when the user provides an unrecognized command.
+     * Outputs an error message to inform the user that the command is unknown.
+     */
     public static void handleUnknown() {
         System.out.println("unknown command");
     }
 
+    /**
+     * Displays the list of tasks to the user.
+     *
+     * @param tasks A list of tasks to be displayed.
+     * Each task is enumerated starting from 1 and printed using its string representation.
+     */
     public static void handleList(List<Task> tasks) {
         System.out.println(horizontal_line);
         System.out.println("here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println((i + 1) + ". " + task.getString());
+            System.out.println((i + 1) + ". " + task.toString());
         }
         System.out.println(horizontal_line);
     }
 
+    /**
+     * Handles the deletion of a task from the list based on the user command.
+     *
+     * @param userCommand The command given by the user to delete a task.
+     * @param tasks A list of tasks from which a task will be deleted.
+     */
     public static void handleDelete(String userCommand, List<Task> tasks) {
         String[] parts = userCommand.split(" ", 2);
         Task removedTask;
@@ -105,13 +144,19 @@ public class Duke {
             }
             removedTask = tasks.remove(num - 1);
             System.out.println("Noted. I've removed this task:");
-            System.out.println(removedTask.getString());
+            System.out.println(removedTask.toString());
             System.out.println(updateNumMessage(String.valueOf(tasks.size())));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * Handles the marking of a task as completed based on the user command.
+     *
+     * @param userCommand The command given by the user to mark a task as completed.
+     * @param tasks A list of tasks from which a specific task will be marked as completed.
+     */
     public static void handleMark(String userCommand, List<Task> tasks) {
         String[] parts = userCommand.split(" ");
         try {
@@ -123,7 +168,7 @@ public class Duke {
                 Task task = tasks.get(num - 1);
                 task.toggleCompleted();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(task.getString());
+                System.out.println(task);
             } else {
                 throw new DukeException("invalid mark command");
             }
@@ -132,6 +177,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Handles the unmarking of a task, reverting its status to not completed based on the user command.
+     *
+     * @param userCommand The command given by the user to unmark a task.
+     * @param tasks A list of tasks from which a specific task will be unmarked.
+     */
     public static void handleUnmark(String userCommand, List<Task> tasks) {
         try {
             String[] parts = userCommand.split(" ");
@@ -143,7 +194,7 @@ public class Duke {
                 Task task = tasks.get(num - 1);
                 task.toggleCompleted();
                 System.out.println("Okay. I see you haven't done this task yet");
-                System.out.println(task.getString());
+                System.out.println(task);
             } else {
                 throw new DukeException("invalid unmark command");
             }
@@ -152,6 +203,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Initialises and displays the welcome message for the Duke application.
+     */
     public static void handleStart() {
         String welcomeMessage = horizontal_line +
                 " Hello! I'm Blob\n" +
@@ -160,6 +214,12 @@ public class Duke {
         System.out.println(welcomeMessage);
     }
 
+    /**
+     * Adds a "todo" task to the task list and provides user feedback.
+     *
+     * @param userCommand The user input command string.
+     * @param tasks The current list of tasks.
+     */
     public static void handleTodo(String userCommand, List<Task> tasks) {
         try {
             String description ="";
@@ -170,15 +230,20 @@ public class Duke {
             Task currTask = new ToDos(description);
             tasks.add(currTask);
             String numTasks = String.valueOf(tasks.size());
-            System.out.println("Got it I have added this task:" + "\n" +  currTask.getString());
+            System.out.println("Got it I have added this task:" + "\n" +  currTask);
             System.out.println(updateNumMessage(numTasks));
             System.out.println(horizontal_line);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
     }
 
+    /**
+     * Adds a "deadline" task to the task list and provides user feedback.
+     *
+     * @param userCommand The user input command string.
+     * @param tasks The current list of tasks.
+     */
     public static void handleDeadline(String userCommand, List<Task> tasks) {
         try {
             String[] parts = userCommand.split(" ", 2);
@@ -196,7 +261,7 @@ public class Duke {
             Task currTask = new Deadlines(description, date);
             tasks.add(currTask);
             String numTasks = String.valueOf(tasks.size());
-            System.out.println("Got it I have added this task:" + "\n" +  currTask.getString());
+            System.out.println("Got it I have added this task:" + "\n" +  currTask);
             System.out.println(updateNumMessage(numTasks));
             System.out.println(horizontal_line);
         } catch (Exception e) {
@@ -204,6 +269,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Adds an "event" task to the task list and provides user feedback.
+     *
+     * @param userCommand The user input command string.
+     * @param tasks The current list of tasks.
+     */
     public static void handleEvent(String userCommand, List<Task> tasks) {
         try {
             String[] parts = userCommand.split(" ", 2);
@@ -224,7 +295,7 @@ public class Duke {
             Task currTask = new Events(description, fromDate, byDate);
             tasks.add(currTask);
             String numTasks = String.valueOf(tasks.size());
-            System.out.println("Got it I have added this task:" + "\n" +  currTask.getString());
+            System.out.println("Got it I have added this task:" + "\n" +  currTask);
             System.out.println(updateNumMessage(numTasks));
             System.out.println(horizontal_line);
         } catch (Exception e) {
@@ -232,6 +303,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Closes the scanner and sends a bye message to the user.
+     *
+     * @param scanner The scanner used for user input.
+     */
     public static void handleBye(Scanner scanner) {
         scanner.close();
         System.out.println(horizontal_line);
