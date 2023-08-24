@@ -13,7 +13,7 @@ public abstract class Task {
 
     /**
      * A constuctor that constructs a Task with a task name
-     * @param taskName The name of the constructed task
+     * @param description The name of the constructed task
      */
     public Task(String description) {
         this.description = description;

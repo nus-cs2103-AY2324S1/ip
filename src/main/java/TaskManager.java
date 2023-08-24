@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +14,44 @@ import java.util.List;
  */
 public class TaskManager {
     private List<Task> tasks;
+    private File jsonFile;
+
+    private static final String DIRECTORY_PATH = "data";
+    private String FILE_NAME = "tasks.json";
+    private String FILE_PATH = DIRECTORY_PATH + "/" + FILE_NAME;
 
     /**
      * A constructor that constructs a Task Manager
      */
     public TaskManager() {
+        getFile();
         this.tasks = new ArrayList<>();
+    }
+
+    private void getFile() {
+        try {
+            String currentWorkingDir = System.getProperty("user.dir");
+
+            // create a file object for the directory
+            File directory = new File(currentWorkingDir, DIRECTORY_PATH);
+
+            // If the directory does not exist, create it
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Create a File object for the file within the directory
+            File file = new File(currentWorkingDir, FILE_PATH);
+
+            // If the file doesn't exist, create a new one
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            
+            this.jsonFile = file;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
