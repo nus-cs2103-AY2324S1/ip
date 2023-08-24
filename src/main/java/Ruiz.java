@@ -4,6 +4,9 @@ import java.util.ArrayList;
 public class Ruiz {
     private ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * This method prints out the list of tasks currently
+     */
     public void getTasks() {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -12,6 +15,11 @@ public class Ruiz {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * This method marks the given task in the input.
+     * @param input The string that consists of the keyWord "mark" and task index being input by the user.
+     * @throws BotException if the input is not a valid one.
+     */
     public void markTask(String input) throws BotException {
         if (input.split(" ").length < 2) {
             throw new BotException("OOPS!!! The index of a task cannot be empty.");
@@ -35,6 +43,11 @@ public class Ruiz {
         }
     }
 
+    /**
+     * This method unmarks the specified task in the string input.
+     * @param input The string that consists of the keyWord "unmark" and task index being input by the user.
+     * @throws BotException if the input is not a valid one.
+     */
     public void unmarkTask(String input) throws BotException {
         if (input.split(" ").length < 2) {
             throw new BotException("OOPS!!! The index of a task cannot be empty.");
@@ -58,6 +71,11 @@ public class Ruiz {
         }
     }
 
+    /**
+     * This method deletes the specified task from its index from the list of tasks.
+     * @param input The string that contains the keyWord "delete" and the index of the task.
+     * @throws BotException if the input of the user is not a valid one.
+     */
     public void deleteTask(String input) throws BotException {
         if (input.split(" ").length < 2) {
             throw new BotException("OOPS!!! The index of a task cannot be empty.");
@@ -79,7 +97,11 @@ public class Ruiz {
         }
     }
 
-
+    /**
+     * This method creates a todo and adds it to the list of tasks.
+     * @param input contains the keyWord "todo" and the description of the todo.
+     * @throws BotException if the input is not in the format of a valid todo.
+     */
     public void addTodo(String input) throws BotException {
         if (input.split(" ", 2).length <= 1) {
             throw new BotException("OOPS!!! The description of a todo cannot be empty.");
@@ -94,6 +116,12 @@ public class Ruiz {
                 "____________________________________________________________");
     }
 
+    /**
+     * This method creates a deadline and adds it to the list of tasks.
+     * @param input contains the keyWord "deadline" and the description of the deadline
+     *              with the time it needs to be completed by.
+     * @throws BotException if the input is not in the valid format of a deadline.
+     */
     public void addDeadline(String input) throws BotException {
         if (input.split("/by", 2).length <= 1) {
             throw new BotException("OOPS!!! The description the deadline is incomplete");
@@ -111,8 +139,14 @@ public class Ruiz {
         );
     }
 
+    /**
+     * This method creates an event and adds it to the list of tasks.
+     * @param input contains the keyWord "event" and the description of the event
+     *              with the time it takes place from and ends by.
+     * @throws BotException if the input is not in the form a valid event.
+     */
     public void addEvent(String input) throws BotException {
-        if (input.split("/from").length <= 2) {
+        if (input.split("/").length <= 2) {
             throw new BotException("OOPS!!! The description the event is incomplete.");
         }
         String content = input.split(" ", 2)[1];
@@ -128,6 +162,9 @@ public class Ruiz {
                 "____________________________________________________________");
     }
 
+    /**
+     * This method prints the greeting message of the bot.
+     */
     public void greet() {
         String greet = "____________________________________________________________\n" +
                 " Hello! I'm Ruiz\n" +
@@ -136,6 +173,9 @@ public class Ruiz {
         System.out.println(greet);
     }
 
+    /**
+     * This method prints the goodbye message of the bot.
+     */
     public void bye() {
         String bye = "____________________________________________________________\n" +
                 "Bye! Comeback soon!\n" +
