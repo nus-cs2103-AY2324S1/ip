@@ -2,26 +2,26 @@
  * Represents a deadline task.
  */
 public class Deadline extends Task {
-    protected String by;
+    protected String datetime;
 
     /**
      * Creates a deadline object. This is the main constructor of the Deadline class.
      * @param description Description of deadline.
      * @param isDone Whether the deadline is done.
-     * @param by Date/time of deadline.
+     * @param datetime Datetime of deadline.
      */
-    public Deadline(String description, boolean isDone, String by) {
+    public Deadline(String description, boolean isDone, String datetime) {
         super(description, isDone);
-        this.by = by;
+        this.datetime = datetime;
     }
 
     /**
      * Creates a deadline object. This calls the main constructor when the default for isDone is false.
      * @param description Description of deadline.
-     * @param by Date/time of deadline.
+     * @param datetime Datetime of deadline.
      */
-    public Deadline(String description, String by) {
-        this(description, false, by);
+    public Deadline(String description, String datetime) {
+        this(description, false, datetime);
     }
 
     /**
@@ -30,7 +30,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.datetime+ ")";
     }
 
     /**
@@ -38,7 +38,7 @@ public class Deadline extends Task {
      * @return string representation of the deadline for storage.
      */
     @Override
-    public String storageTaskRep() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+    public String toStringStorage() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + this.datetime;
     }
 }

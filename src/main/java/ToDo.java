@@ -13,7 +13,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Creates a ToDo obkect. This calls the main constructor when the default for isDone is false.
+     * Creates a ToDo object. This calls the main constructor when the default for isDone is false.
      * @param description Description of ToDo.
      */
     public ToDo(String description) {
@@ -34,7 +34,7 @@ public class ToDo extends Task {
      * @return string representation of ToDo for storage.
      */
     @Override
-    public String storageTaskRep() {
+    public String toStringStorage() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 }

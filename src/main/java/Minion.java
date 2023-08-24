@@ -200,7 +200,13 @@ public class Minion {
                     if (by.isEmpty()) {
                         throw new ParserException("☹ OOPS!!! The date of a deadline cannot be empty.");
                     }
-                    return new Deadline(description, by);
+                    String datetime = "";
+                    try {
+                        datetime = DatetimeParser.parseDatetime(by.split(" "));
+                    } catch (IllegalValueException e) {
+                        throw e;
+                    }
+                    return new Deadline(description, datetime);
             }
         }
         //assumes we only have one '/from' and one '/to'
@@ -258,7 +264,19 @@ public class Minion {
                     if (to.isEmpty()) {
                         throw new ParserException("☹ OOPS!!! The to date of an event cannot be empty.");
                     }
-                    return new Event(description, from, to);
+                    String fromDatetime = "";
+                    String toDatetime = "";
+                    try {
+                        fromDatetime = DatetimeParser.parseDatetime(from.split(" "));
+                    } catch (IllegalValueException e) {
+                        throw e;
+                    }
+                    try {
+                        toDatetime = DatetimeParser.parseDatetime(to.split(" "));
+                    } catch (IllegalValueException e) {
+                        throw e;
+                    }
+                    return new Event(description, fromDatetime, toDatetime);
             }
         }
         throw new ParserException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
