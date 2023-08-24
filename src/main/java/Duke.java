@@ -72,6 +72,14 @@ public class Duke {
                         System.out.println("\t" + tasksList.get(count - 1).toString());
                         System.out.println("Now you have " + count + " tasks in the list");
                         System.out.println("____________________________________________________________");
+                    } else if(input.startsWith("delete")) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("\t" + tasksList.get(Integer.parseInt(input.replace("delete ", "")) - 1));
+                        count--;
+                        System.out.println("Now you have " + count + " tasks in the list.");
+                        System.out.println("____________________________________________________________");
+                        tasksList.remove(Integer.parseInt(input.replace("delete ", "")) - 1);
                     } else {
                         throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
