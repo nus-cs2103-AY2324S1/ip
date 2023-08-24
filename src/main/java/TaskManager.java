@@ -47,8 +47,11 @@ public class TaskManager {
      */
     public String addTask(Task task) {
         this.tasks.add(task);
-        return "added: " + task;
+        return "Got it. I've added this task:\n  "
+                + task.toString() + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.\n";
     }
+
 
     /**
      * Marks the i-th task as either done or not done
@@ -71,5 +74,26 @@ public class TaskManager {
         return done
                 ? "Nice! I've marked this task as done:\n  " + task.toString() + "\n"
                 : "OK, I've marked this task as not done yet:\n  " + task.toString() + "\n";
+    }
+
+    /**
+     * Deletes the i-th task from the list of tasks.
+     *
+     * @param i The index of the task to be deleted(1-indexed)
+     * @return The string description after deleting the task
+     * @throws DukeException DukeException is thrown when the index is out of bound
+     */
+    public String deleteTask(int i) throws DukeException {
+        i--;
+        if (i < 0 || i >= this.tasks.size()) {
+            // invalid index
+            throw new DukeException("Please input a valid index for the task to removed");
+        }
+
+        Task task = this.tasks.remove(i);
+        return "Noted! I've removed this task:\n  "
+                + task.toString() + "\n"
+                + "Now you have " + this.tasks.size() + " tasks in the list.\n";
+
     }
 }

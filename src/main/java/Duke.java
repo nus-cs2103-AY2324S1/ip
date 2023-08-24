@@ -17,6 +17,7 @@ public class Duke {
     private static final String TODO_FLAG = "todo";
     private static final String DEADLINE_FLAG = "deadline";
     private static final String EVENT_FLAG = "event";
+    private static final String DELETE_FLAG = "delete";
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -165,6 +166,28 @@ public class Duke {
                     printOutput(output);
                     continue;
                 }
+
+                if (command.equals(DELETE_FLAG)) {
+                    Scanner tempSc = new Scanner(value);
+                    if (!tempSc.hasNextInt()) {
+                        tempSc.close();
+                        throw new DukeException("Oops!!! Invalid argument of a delete command");
+                    }
+
+                    int index = tempSc.nextInt();
+                    if (tempSc.hasNext()) {
+                        // means invalid formatting for done command
+                        tempSc.close();
+                        throw new DukeException("Oops!!! Invalid argument of a delete command");
+                    }
+
+                    String output = taskManager.deleteTask(index);
+                    printOutput(output);
+                    tempSc.close();
+                    continue;
+
+                }
+
 
                 throw new DukeException("Oops!!! I'm sorry, but I don't know what that means :-(");
 
