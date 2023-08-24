@@ -16,12 +16,20 @@ public class Storage {
     }
 
     public static void mark(int index) {
+        if (index < 1 || index > list.size()) {
+            throw new IndexOutOfBoundsException("Task index is out of the range. " +
+                    "Check number of task using 'list' command.");
+        }
         Task taskToEdit = list.get(index - 1);
         taskToEdit.markAsDone();
         System.out.println("Nice! I've marked this task as done:\n" + taskToEdit);
     }
 
     public static void unMark(int index) {
+        if (index < 1 || index > list.size()) {
+            throw new IndexOutOfBoundsException("Task index is out of the range. " +
+                    "Check number of task using 'list' command.");
+        }
         Task taskToEdit = list.get(index - 1);
         taskToEdit.unMark();
         System.out.println("OK, I've marked this task as not done yet:\n" + taskToEdit);
