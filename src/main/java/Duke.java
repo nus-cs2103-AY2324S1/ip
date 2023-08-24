@@ -167,6 +167,17 @@ public class Duke {
                 break;
 
             case ("delete"):
+                if (cmd.secondWord() != null) {
+                    try {
+                        int n = Integer.parseInt(cmd.secondWord());
+                        taskList.delete(n);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please input only 1 number after unmark");
+                    }
+                } else {
+                    System.out.println("Please input only 1 number after unmark");
+                }
+                break;
 
             default:
                 System.out.println("Unknown command");
@@ -290,6 +301,15 @@ class ListOfTask {
         try {
             listOfTask.get(index - 1).unmark();
             System.out.println(listOfTask.get(index - 1).toString());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please select from index 1 to " + listOfTask.size());
+        }
+    }
+
+    public void delete(int index) {
+        try {
+            Task removed = listOfTask.remove(index - 1);
+            System.out.println(removed + " has been removed");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please select from index 1 to " + listOfTask.size());
         }
