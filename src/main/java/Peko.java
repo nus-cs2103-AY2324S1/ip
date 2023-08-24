@@ -202,6 +202,7 @@ public class Peko {
     }
 
     public static void setMarkArray(String s) {
+        System.out.println(s);
         try {
             int markIndex = Integer.parseInt(s);
             todoList[markIndex-1].setMark();
