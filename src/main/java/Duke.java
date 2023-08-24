@@ -1,10 +1,15 @@
 public class Duke {
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String botName = "Changoose";
+        String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", botName);
+        String endMessage = "Bye! Hope to see you again soon!";
+
+        String divider = String.format("%80s", "").replace(" ", "-");
+
+        System.out.println(divider);
+        System.out.println(startMessage);
+        System.out.println(divider);
+        System.out.println(endMessage);
+        System.out.println(divider);
     }
 }
