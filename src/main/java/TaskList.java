@@ -29,6 +29,9 @@ public class TaskList {
         if (task.isEmpty()) {
             throw new EmptyDescException("Task description cannot be empty after 'deadline'.");
         }
+        if (by.isEmpty()) {
+            throw new EmptyDescException("Deadline not provided, type again in the format /by (deadline)");
+        }
         Deadline dead = new Deadline(task, by);
         int taskId = findTask(task);
         toDos.set(taskId, dead);
@@ -66,7 +69,13 @@ public class TaskList {
         return -1;
     }
 
-    public void addEvent(String task, String from, String to) {
+    public void addEvent(String task, String from, String to) throws EmptyDescException {
+        if (from.isEmpty() && to.isEmpty()) {
+            throw new EmptyDescException("Event time not provided, type again in the format /from (timing) /to (timing)");
+        }
+        if (task.isEmpty()){
+            throw new EmptyDescException("Task description cannot be empty after 'Event'.");
+        }
         Event event = new Event(task, from, to);
         int taskId = findTask(task);
         toDos.set(taskId, event);

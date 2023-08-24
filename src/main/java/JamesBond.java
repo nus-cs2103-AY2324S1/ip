@@ -34,11 +34,15 @@ public class JamesBond {
                         taskList.addToDo(input);
                     } else if (firstWord.equalsIgnoreCase("deadline")) {
                         int byIndex = input.indexOf("/by");
-                        String taskDescription = input.substring(0, byIndex).trim();
-                        System.out.println(taskDescription);
-                        String dueDate = input.substring(byIndex + 4).trim();
-                        System.out.println(dueDate);
-                        taskList.addDead(taskDescription, dueDate);
+                        if (byIndex != -1) {
+                            String taskDescription = input.substring(0, byIndex).trim();
+                            System.out.println(taskDescription);
+                            String dueDate = input.substring(byIndex + 4).trim();
+                            System.out.println(dueDate);
+                            taskList.addDead(taskDescription, dueDate);
+                        } else {
+                            throw new IllegalArgumentException("Deadline not formatted correctly, type again in the format /by (deadline)");
+                        }
                     } else if (firstWord.equalsIgnoreCase("event")) {
                         int fromIndex = input.indexOf("/from");
                         int toIndex = input.indexOf("/to");
@@ -48,6 +52,8 @@ public class JamesBond {
                             String startTime = input.substring(fromIndex + 6, toIndex).trim();
                             String endTime = input.substring(toIndex + 4).trim();
                             taskList.addEvent(taskDescription, startTime, endTime);
+                        } else {
+                            throw new IllegalArgumentException("Event format incorrect, type again in the format /from (timing) /to (timing)");
                         }
                     } else if (firstWord.equalsIgnoreCase("bye")) {
                         System.out.println("Bye. Till the next time.");
