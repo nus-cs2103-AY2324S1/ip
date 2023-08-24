@@ -93,7 +93,7 @@ public class Bert {
      * @throws BertEmptyTaskException This exception is thrown when the task description is empty
      */
     private static void todo(String description) throws BertEmptyTaskException {
-        if (description.length() == 0) {
+        if (description.isBlank()) {
             throw new BertEmptyTaskException();
         }
         ToDo t = new ToDo(description);
@@ -114,7 +114,7 @@ public class Bert {
      * @throws BertEmptyTaskException This exception is thrown when the task description is empty
      */
     private static void deadline(String substring) throws BertEmptyTaskException {
-        if (substring.length() == 0) {
+        if (substring.isBlank()) {
             throw new BertEmptyTaskException();
         }
         String[] inputs = substring.split(" /by ");
@@ -136,7 +136,7 @@ public class Bert {
      * @throws BertEmptyTaskException This exception is thrown when the task description is empty
      */
     private static void event(String substring) throws BertEmptyTaskException {
-        if (substring.length() == 0) {
+        if (substring.isBlank()) {
             throw new BertEmptyTaskException();
         }
         String[] descriptionAndTimes = substring.split(" /from ");
@@ -146,6 +146,22 @@ public class Bert {
         System.out.println(
                 "____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
+                "  " + t + "\n" +
+                "Now you have " + al.size() + " tasks in the list.\n" +
+                "____________________________________________________________\n"
+        );
+    }
+
+    /**
+     * Deletes the task at the specific index of the list.
+     *
+     * @param i The index of a task on the list
+     */
+    private static void delete(int i) {
+        Task t = al.remove(i);
+        System.out.println(
+                "____________________________________________________________\n" +
+                "Noted. I've removed this task:\n" +
                 "  " + t + "\n" +
                 "Now you have " + al.size() + " tasks in the list.\n" +
                 "____________________________________________________________\n"
@@ -172,48 +188,62 @@ public class Bert {
                 // Typing 'list' prints out the list of tasks
                 if (cmd.equals("list")) {
                     Bert.list();
-                    s = sc.nextLine().trim();
                     // Typing 'mark x' marks a task at a specific index on the list
                 } else if (cmd.equals("mark")) {
                     int i = Integer.parseInt(s.substring(indexOfFirstSpace + 1)) - 1;
                     Bert.mark(i);
-                    s = sc.nextLine();
                     // Typing 'unmark x' unmarks a task at a specific index on the list
                 } else if (cmd.equals("unmark")) {
                     int i = Integer.parseInt(s.substring(indexOfFirstSpace + 1)) - 1;
                     Bert.unmark(i);
-                    s = sc.nextLine();
                     // Typing 'todo...' stores a todo task
                 } else if (cmd.equals("todo")) {
-                    String toDoTask = s.substring(indexOfFirstSpace + 1);
-                    Bert.todo(toDoTask);
-                    s = sc.nextLine().trim();
+                    String remainder;
+                    if (indexOfFirstSpace == -1) {
+                        remainder = "";
+                    } else {
+                        remainder = s.substring(indexOfFirstSpace + 1);
+                    }
+                    Bert.todo(remainder);
                     // Typing 'deadline...' stores a deadline task
                 } else if (cmd.equals("deadline")) {
-                    String remainder = s.substring(indexOfFirstSpace + 1);
+                    String remainder;
+                    if (indexOfFirstSpace == -1) {
+                        remainder = "";
+                    } else {
+                        remainder = s.substring(indexOfFirstSpace + 1);
+                    }
                     Bert.deadline(remainder);
-                    s = sc.nextLine().trim();
                     // Typing 'event...' stores an event task
                 } else if (cmd.equals("event")) {
-                    String remainder = s.substring(indexOfFirstSpace + 1);
+                    String remainder;
+                    if (indexOfFirstSpace == -1) {
+                        remainder = "";
+                    } else {
+                        remainder = s.substring(indexOfFirstSpace + 1);
+                    }
                     Bert.event(remainder);
-                    s = sc.nextLine().trim();
-                    // Any other text that the user inputs is read and stored as a task
+                    // Typing delete deletes a task
+                } else if (cmd.equals("delete")) {
+                    int i = Integer.parseInt(s.substring(indexOfFirstSpace + 1)) - 1;
+                    Bert.delete(i);
                 } else {
                     throw new BertInvalidTaskException();
                 }
             } catch (BertEmptyTaskException e) {
                 System.out.println(
-                        "____________________________________________________________" +
-                        "OOPS!!! " + e.getMessage() +
+                        "____________________________________________________________\n" +
+                        "OOPS!!! " + e.getMessage() + "\n" +
                         "____________________________________________________________"
                 );
             } catch (BertInvalidTaskException e) {
                 System.out.println(
-                        "____________________________________________________________" +
-                        "OOPS!!! " + e.getMessage() +
+                        "____________________________________________________________\n" +
+                        "OOPS!!! " + e.getMessage() + "\n" +
                         "____________________________________________________________"
                 );
+            } finally {
+                s = sc.nextLine().trim();
             }
         }
 
