@@ -5,13 +5,14 @@ public class Duke {
     public static Integer count = 0;
     public static void main(String[] args) {
         System.out.println("Hello! I'm ChatBot.\n" +
-         "What can I do for you?\n" );
+                "What can I do for you?\n" );
 
         Scanner scanner = new Scanner(System.in);
         List<Task> inputs = new ArrayList<>();
         String input = scanner.nextLine();
 
-            while (!input.equals("bye")) {
+        while (!input.equals("bye")) {
+            try {
                 if (input.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < inputs.size(); i++) {
@@ -35,43 +36,45 @@ public class Duke {
                     } else {
                         System.out.println("Invalid task index.");
                     }
-                } else if (input.startsWith("todo")){
+                } else if (input.startsWith("todo")) {
+                    if (input.split(" ", 2).length == 1) {
+                        throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+                    }
                     Task curr = new Todo(input.split(" ")[1]);
                     count++;
                     inputs.add(curr);
-                    System.out.println("Got it. I've added this task:\n"  +
+                    System.out.println("Got it. I've added this task:\n" +
                             curr + '\n' +
                             "Now you have " + count + " tasks in the list\n");
-                } else if (input.startsWith("event")){
-                    String description = input.split("/")[0].split(" ", 2) [1].stripLeading();
+                } else if (input.startsWith("event")) {
+                    String description = input.split("/")[0].split(" ", 2)[1].stripLeading();
                     String date = input.split("/")[1].substring(5);
                     String time = input.split("/to")[1];
                     Task curr = new Event(description, date, time);
-                    count ++;
+                    count++;
                     inputs.add(curr);
-                    System.out.println("Got it. I've added this task:\n"  +
+                    System.out.println("Got it. I've added this task:\n" +
                             curr + '\n' +
                             "Now you have " + count + " tasks in the list\n");
-                }
-                else if (input.startsWith("deadline")){
-                    String description = input.split("/by")[0].split(" ", 2) [1].stripLeading();
+                } else if (input.startsWith("deadline")) {
+                    String description = input.split("/by")[0].split(" ", 2)[1].stripLeading();
                     String date = input.split("/by")[1];
                     Task curr = new Deadline(description, date);
-                    count ++;
+                    count++;
                     inputs.add(curr);
-                    System.out.println("Got it. I've added this task:\n"  +
+                    System.out.println("Got it. I've added this task:\n" +
                             curr + '\n' +
                             "Now you have " + count + " tasks in the list\n");
+                } else {
+                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
-                else {
-                    inputs.add(new Task(input));
-                    System.out.println("added: " + input);
-                }
-
-                input = scanner.nextLine();
+            } catch (DukeException e){
+                System.out.println(e.getMessage());
             }
 
-        System.out.println("Bye. Hope to see you again soon!");
+            input = scanner.nextLine();
+        }
 
+        System.out.println("Bye. Hope to see you again soon!");
     }
 }
