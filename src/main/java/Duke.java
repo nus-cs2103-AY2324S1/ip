@@ -30,7 +30,7 @@ public class Duke {
 
     private static void printGreetings() {
         System.out.println(line);
-        System.out.println("    Hello I'm Crow");
+        System.out.println("    Hello I'm lynn the koala <3");
         System.out.println("    What can I do for you?");
         System.out.println(line);
     }
