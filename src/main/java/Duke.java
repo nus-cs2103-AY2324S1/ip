@@ -1,10 +1,21 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * Represents Duke, a Personal Assistant Chatbot that helps a person to keep track of
+ * various things. The name Duke was chosen as a placeholder name, in honor of Duke,
+ * the Java Mascot. The current name of the Chatbot is John
+ */
 public class Duke {
 
-    // substring: begIndex (inclusive) up to the endIndex (exclusive)
+    /**
+     * Our main method for the Chatbot to work.
+     * TODO: can split into different methods to make the code neater
+     *
+     * @param args The command-line arguments.
+     */
     public static void main(String[] args) {
+        // substring: begIndex (inclusive) up to the endIndex (exclusive)
         int itemsAdded = 0;
         ArrayList<Task> taskList = new ArrayList<>();
         System.out.println("Hello friend :> My name is John, nice to meet you! " +
@@ -30,23 +41,27 @@ public class Duke {
                             // adding toString() to use the overridden one in Task, etc.
                         }
                     } else if (command.startsWith("mark ")) { // space behind is needed!, number index = 5
-                        int taskPos = Integer.parseInt(command.substring(5)) - 1; // convert substring to int, -1 for index
+                        int taskPos = Integer.parseInt(command.substring(5)) - 1;
+                        // convert substring to int, -1 for index
 
                         // only numbers >= 0 and < total number are valid
                         if (taskPos >= 0 && taskPos < itemsAdded) {
                             taskList.get(taskPos).markAsDone();
-                            System.out.println("Nice! I've marked this task as done:\n" + "[X] " + taskList.get(taskPos).description);
+                            System.out.println("Nice! I've marked this task as done:\n" + "[X] "
+                                    + taskList.get(taskPos).description);
                         } else {
                             System.out.println("Invalid number.");
                         }
 
                     } else if (command.startsWith("unmark ")) { // number index = 7
-                        int taskPos = Integer.parseInt(command.substring(7)) - 1; // convert substring to int, -1 for index
+                        int taskPos = Integer.parseInt(command.substring(7)) - 1;
+                        // convert substring to int, -1 for index
 
                         // only numbers >= 0 and < total number are valid
                         if (taskPos >= 0 && taskPos < itemsAdded) {
                             taskList.get(taskPos).unmark();
-                            System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] " + taskList.get(taskPos).description);
+                            System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] "
+                                    + taskList.get(taskPos).description);
                         } else {
                             System.out.println("Invalid number.");
                         }
@@ -69,7 +84,8 @@ public class Duke {
                         // indexOf: searches for the substring and returns the index of the first character
                         if (command.indexOf(" /by ") != -1) {
                             String description = command.substring(9, command.indexOf(" /by "));
-                            String by = command.substring(command.indexOf(" /by ") + 5); // from " " to the specified date is 5
+                            String by = command.substring(command.indexOf(" /by ") + 5);
+                            // from " " to the specified date is 5
 
                             if (description.isEmpty()) {
                                 throw new InvalidDescriptionException("deadline");
@@ -116,7 +132,8 @@ public class Duke {
                         }
 
                     } else if (command.startsWith("delete ")) { // number index = 7
-                        int taskPos = Integer.parseInt(command.substring(7)) - 1; // convert substring to int, -1 for index
+                        int taskPos = Integer.parseInt(command.substring(7)) - 1;
+                        // convert substring to int, -1 for index
                         if (taskPos >= 0 && taskPos < itemsAdded) {
                             Task deleted = taskList.remove(taskPos);
 

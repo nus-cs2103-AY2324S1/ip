@@ -54,10 +54,10 @@ Reply John: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 Reply John: ☹ OOPS!!! The description of a deadline cannot be empty.
 Reply John: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 Reply John: ☹ OOPS!!! The description of a event cannot be empty.
-Reply John: ☹ OOPS!!! You forgot to indicate the start and end date/time.
-Reply John: ☹ OOPS!!! You forgot to indicate the start and end date/time.
-Reply John: ☹ OOPS!!! You forgot to indicate the due date.
-Reply John: ☹ OOPS!!! You forgot to indicate the due date.
+Reply John: ☹ OOPS!!! You forgot to indicate the start and/or end date/time.
+Reply John: ☹ OOPS!!! You forgot to indicate the start and/or end date/time.
+Reply John: ☹ OOPS!!! You forgot to indicate the due date/time.
+Reply John: ☹ OOPS!!! You forgot to indicate the due date/time.
 Reply John: Noted. I've removed this task:
   [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
 Now you have 6 tasks in the list.
