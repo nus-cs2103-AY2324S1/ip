@@ -59,6 +59,10 @@ public class Pogo {
         return task;
     }
 
+    private static void printNumberOfTasks() {
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
     private static boolean handleInput(String input) {
         if (input.equals("bye")) {
             System.out.println(QUIT_MESSAGE);
@@ -89,12 +93,18 @@ public class Pogo {
             }
 
             System.out.println(tasks.get(index).getStatusMessage());
-        }
-        else {
+        } else if (input.startsWith("delete")) {
+            int index = Pogo.parseTaskIndex(input);
+            Task task = tasks.remove(index);
+
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(task.getStatusMessage());
+            Pogo.printNumberOfTasks();
+        } else {
             try {
                 Task task = Pogo.addTask(input);
                 System.out.println("added: " + task.getStatusMessage());
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                Pogo.printNumberOfTasks();
             } catch (PogoInvalidTaskException e) {
                 System.out.println("Oops! I don't recognise that task.\n"
                         + "Only the following tasks are supported:\n"
