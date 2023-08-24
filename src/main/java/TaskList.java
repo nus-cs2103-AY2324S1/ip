@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<String> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     private final String LINE_SEPARATOR = "____________________________________________________________";
 
@@ -9,14 +9,36 @@ public class TaskList {
     }
 
     public void addTask(String task) {
-        tasks.add(task);
+        Task newTask = new Task(task);
+        tasks.add(newTask);
         printWithSeparator("added: " + task);
+    }
+
+    public void markTaskAsDone(int index) {
+        if (index < 1 || index > tasks.size()) {
+            printWithSeparator("Please enter a valid number.");
+        } else {
+            Task task = tasks.get(index - 1);
+            task.markAsDone();
+            printWithSeparator("Nice! I've marked this task as done:\n" + "[" + task.getStatusIcon() + "] " + task);
+        }
+    }
+
+    public void unmarkTask(int index) {
+        if (index < 1 || index > tasks.size()) {
+            printWithSeparator("Please enter a valid number.");
+        } else {
+            Task task = tasks.get(index - 1);
+            task.unmark();
+            printWithSeparator("OK, I've marked this task as not done yet:\n" + "[" + task.getStatusIcon() + "] " + task);
+        }
     }
 
     public void list() {
         System.out.println(LINE_SEPARATOR);
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            Task task = tasks.get(i);
+            System.out.println((i + 1) + "." + "[" + task.getStatusIcon() + "] " + task);
         }
         System.out.println(LINE_SEPARATOR);
     }

@@ -16,6 +16,12 @@ public class Duke {
                 break;
             } else if (input.equals("list")) {
                 taskList.list();
+            } else if (input.length() >= 4 && input.substring(0, 4).equals("mark")) {
+                int index = extractNumber(input);
+                taskList.markTaskAsDone(index);
+            } else if (input.length() >= 6 && input.substring(0, 6).equals("unmark")) {
+                int index = extractNumber(input);
+                taskList.unmarkTask(index);
             } else {
                 taskList.addTask(input);
             }
@@ -26,5 +32,15 @@ public class Duke {
         System.out.println(LINE_SEPARATOR);
         System.out.println(message);
         System.out.println(LINE_SEPARATOR);
+    }
+
+    private static int extractNumber(String input) {
+        String[] words = input.split(" ");
+        for (String word : words) {
+            if (word.matches("\\d+")) {
+                return Integer.parseInt(word);
+            }
+        }
+        return -1; // No number found
     }
 }
