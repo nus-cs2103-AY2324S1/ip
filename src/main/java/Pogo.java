@@ -15,7 +15,7 @@ public class Pogo {
         }
     }
 
-    private static Task addTask(String input) {
+    private static Task addTask(String input) throws PogoException {
         Task task;
         if (input.startsWith("todo")) {
             String description = input.substring("todo".length() + 1);
@@ -71,9 +71,17 @@ public class Pogo {
                 System.out.println(tasks.get(index).getStatusMessage());
             }
             else {
-                Task task = Pogo.addTask(input);
-                System.out.println("added: " + task.getStatusMessage());
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                try {
+                    Task task = Pogo.addTask(input);
+                    System.out.println("added: " + task.getStatusMessage());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } catch (PogoInvalidTaskException e) {
+                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                } catch (PogoEmptyTaskException e) {
+                    System.out.println("☹ OOPS!!! The description of a task cannot be empty.\n")
+                } catch (PogoException e) {
+                    System.out.println("☹ OOPS!!! An error has occurred.");
+                }
             }
 
             System.out.println(horizontalLine);
