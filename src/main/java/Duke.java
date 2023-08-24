@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
-    private static ArrayList<Task> lists = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static final String NAME = "Duke";
 
@@ -53,36 +53,55 @@ public class Duke {
 
     public static void printList() {
         printWithIndentation(HORIZONTAL_LINE);
-        for (int i = 0; i < lists.size(); i++) {
-            printWithIndentation((i + 1) + "." + lists.get(i));
+        for (int i = 0; i < tasks.size(); i++) {
+            printWithIndentation((i + 1) + "." + tasks.get(i));
         }
         printWithIndentation(HORIZONTAL_LINE);
     }
 
     public static void addToList(String input) {
+        String taskType = input.split(" ", 2)[0];
+        String content = input.split(" ", 2)[1];
+        String description = content.split(" /", 3)[0];
+
+        Task task;
+        if (taskType.equals("deadline")) {
+                String by = content.split(" /", 3)[1].split(" ", 2)[1];
+                task = new Deadline(description, by);
+        } else if (taskType.equals("event")) {
+                String from = content.split(" /", 3)[1].split(" ", 2)[1];
+                String to = content.split(" /", 3)[2].split(" ", 2)[1];
+                task = new Event(description, from, to);
+        } else {
+            task = new Todo(description);
+        }
+
+        tasks.add(task);
+
         printWithIndentation(HORIZONTAL_LINE);
-        printWithIndentation("added: " + input);
-        lists.add(new Task(input));
+        printWithIndentation("Got it. I've added this task:");
+        printWithIndentation("  " + task);
+        printWithIndentation("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
         printWithIndentation(HORIZONTAL_LINE);
     }
 
     public static void markAsDone(String input) {
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
-        lists.get(index).markAsDone();
+        int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
+        tasks.get(index).markAsDone();
 
         printWithIndentation(HORIZONTAL_LINE);
         printWithIndentation("Nice! I've marked this task as done:");
-        printWithIndentation("  " + lists.get(index));
+        printWithIndentation("  " + tasks.get(index));
         printWithIndentation(HORIZONTAL_LINE);
     }
 
     public static void unmarkAsDone(String input) {
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
-        lists.get(index).unmarkAsDone();
+        int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
+        tasks.get(index).unmarkAsDone();
 
         printWithIndentation(HORIZONTAL_LINE);
         printWithIndentation("OK, I've marked this task as not done yet:");
-        printWithIndentation("  " + lists.get(index));
+        printWithIndentation("  " + tasks.get(index));
         printWithIndentation(HORIZONTAL_LINE);
     }
 
