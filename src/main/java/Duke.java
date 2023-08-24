@@ -124,9 +124,23 @@ public class Duke {
 
                 if (userInput.startsWith("todo")) {
                     // If user wants to create a ToDos task
-                    String description = userInput.substring(5).trim();
-                    newTask = new ToDos(description);
-                    userList.add(newTask);
+                    if (userInput.length() < 5) {
+                        // Incorrect input format for todos
+                        System.out.println(DIVIDER);
+                        System.out.println("        OOPS!! Incorrect input format for todo!!");
+                        System.out.println(DIVIDER);
+                    } else {
+                        String description = userInput.substring(5).trim();
+                        if (description.isBlank()) {
+                            // If there's do description
+                            System.out.println(DIVIDER);
+                            System.out.println("        OOPS!! The description of a todo cannot be empty!!");
+                            System.out.println(DIVIDER);
+                        } else {
+                            newTask = new ToDos(description);
+                            userList.add(newTask);
+                        }
+                    }
 
                 } else if (userInput.startsWith("deadline")) {
                     // If user wants to create a Deadlines task
@@ -136,9 +150,20 @@ public class Duke {
                         // Makes sure deadline format is followed (e.g. there's /by)
                         String description = parts[0].substring(9).trim();
                         String by = parts[1].trim();
-
-                        newTask = new Deadlines(description, by);
-                        userList.add(newTask);
+                        if (description.isBlank() || by.isBlank()) {
+                            // If description or by is empty
+                            System.out.println(DIVIDER);
+                            System.out.println("        OOPS!! The description or by of a deadline or cannot be empty!!");
+                            System.out.println(DIVIDER);
+                        } else {
+                            newTask = new Deadlines(description, by);
+                            userList.add(newTask);
+                        }
+                    } else {
+                        // Incorrect input format for deadline
+                        System.out.println(DIVIDER);
+                        System.out.println("        OOPS!! Incorrect input format for deadline!!");
+                        System.out.println(DIVIDER);
                     }
 
                 } else {
@@ -150,8 +175,21 @@ public class Duke {
                         String description = parts[0].substring(6).trim();
                         String from = parts[1].trim();
                         String to = parts[2].trim();
-                        newTask = new Events(description, from, to);
-                        userList.add(newTask);
+
+                        if (description.isBlank() || from.isBlank() || to.isBlank()) {
+                            // If description, from, or to is empty
+                            System.out.println(DIVIDER);
+                            System.out.println("        OOPS!! The description or from or to of an event or cannot be empty!!");
+                            System.out.println(DIVIDER);
+                        } else {
+                            newTask = new Events(description, from, to);
+                            userList.add(newTask);
+                        }
+                    } else {
+                        // Incorrect input format for events
+                        System.out.println(DIVIDER);
+                        System.out.println("        OOPS!! Incorrect input format for event!!");
+                        System.out.println(DIVIDER);
                     }
                 }
 
@@ -166,11 +204,8 @@ public class Duke {
 
             } else {
                 // Other inputs
-                Task task = new Task(userInput);
-                userList.add(task);
-
                 System.out.println(DIVIDER);
-                System.out.println("        Added: " + userInput);
+                System.out.println("        OOPS!! I'm sorry, but I don't know what that means...");
                 System.out.println(DIVIDER);
             }
         }
