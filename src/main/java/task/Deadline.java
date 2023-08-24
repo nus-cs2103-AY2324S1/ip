@@ -4,7 +4,7 @@ public class Deadline extends Task {
     private String byTime;
     public Deadline(String details, String time) {
         super(details);
-        super.setTaskType("D");
+        super.setTaskType(TaskType.D.toString());
         byTime = time;
     }
 

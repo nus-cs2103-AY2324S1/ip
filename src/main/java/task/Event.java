@@ -4,7 +4,7 @@ public class Event extends Task {
     private String byTime;
     public Event(String details, String time) {
         super(details);
-        super.setTaskType("E");
+        super.setTaskType(TaskType.E.toString());
         byTime = time;
     }
 
