@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
     private static ToDoList toDoList = new ToDoList();
     private static void greet() {
-        System.out.println("Hello! I'm Duke");
+        System.out.println("Hello! I'm Duke!");
         System.out.println("What can I do for you?");
     }
 
@@ -23,6 +23,22 @@ public class Duke {
         Duke.length();
     }
 
+    private static void list() {
+        System.out.println(toDoList);
+    }
+
+    private static void mark(int index) {
+        toDoList.mark(index);
+        System.out.println("Nice! I've marked this task as done: \n" +
+                toDoList.get(index));
+    }
+
+    private static void unmark(int index) {
+        toDoList.unmark(index);
+        System.out.println("OK, I've marked this task as not done yet: \n" +
+                toDoList.get(index));
+    }
+
     private static boolean parseCommand(String input) {
         String[] sections = input.split(" ", 2);
         String command = sections[0];
@@ -34,32 +50,49 @@ public class Duke {
             }
 
             case "list": {
-                System.out.println(toDoList);
+                Duke.list();
                 break;
             }
 
             case "todo": {
+                if (rest.isEmpty()) {
+                    throw new IllegalArgumentException("Description is missing.");
+                }
                 Duke.add(new Todo(rest));
                 break;
             }
 
             case "deadline": {
-                String[] deadlineSections = rest.split(" /by ", 2);
-                String name = deadlineSections[0];
-                String endTime = deadlineSections[1];
-                Duke.add(new Deadline(name, endTime));
+                if (rest.isEmpty()) {
+                    throw new IllegalArgumentException("Description is missing.");
+                }
+                try {
+                    String[] deadlineSections = rest.split(" /by ", 2);
+                    String name = deadlineSections[0];
+                    String endTime = deadlineSections[1];
+                    Duke.add(new Deadline(name, endTime));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new IllegalArgumentException("Invalid format.");
+                }
                 break;
             }
 
             case "event": {
-                String[] eventSections = rest.split(" /from ", 2);
-                String name = eventSections[0];
-                String startAndEnd = eventSections[1];
+                if (rest.isEmpty()) {
+                    throw new IllegalArgumentException("Description is missing.");
+                }
+                try {
+                    String[] eventSections = rest.split(" /from ", 2);
+                    String name = eventSections[0];
+                    String startAndEnd = eventSections[1];
 
-                String[] startAndEndSections = startAndEnd.split(" /to ", 2);
-                String startTime = startAndEndSections[0];
-                String endTime = startAndEndSections[1];
-                Duke.add(new Event(name, startTime, endTime));
+                    String[] startAndEndSections = startAndEnd.split(" /to ", 2);
+                    String startTime = startAndEndSections[0];
+                    String endTime = startAndEndSections[1];
+                    Duke.add(new Event(name, startTime, endTime));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new IllegalArgumentException("Invalid format.");
+                }
                 break;
             }
 
@@ -68,9 +101,7 @@ public class Duke {
                     throw new IllegalArgumentException("Index is missing.");
                 }
                 int index = Integer.parseInt(rest);
-                toDoList.mark(index);
-                System.out.println("Nice! I've marked this task as done: \n" +
-                        toDoList.get(index));
+                Duke.mark(index);
                 break;
             }
 
@@ -79,14 +110,12 @@ public class Duke {
                     throw new IllegalArgumentException("Index is missing.");
                 }
                 int index = Integer.parseInt(rest);
-                toDoList.unmark(index);
-                System.out.println("OK, I've marked this task as not done yet: \n" +
-                        toDoList.get(index));
+                Duke.unmark(index);
                 break;
             }
 
             default: {
-                throw new IllegalArgumentException("Unknown command");
+                throw new IllegalArgumentException("Unknown command.");
             }
         }
         return true;
@@ -100,8 +129,14 @@ public class Duke {
         boolean parse = true;
         while (parse) {
             String input = scanner.nextLine();
-            parse = Duke.parseCommand(input);
+            try {
+                parse = Duke.parseCommand(input);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Argument Error: " + e.getMessage());
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Out of Bounds Error: " + e.getMessage());
+            }
         }
-
+        scanner.close();
     }
 }
