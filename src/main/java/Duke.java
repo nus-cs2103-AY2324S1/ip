@@ -9,10 +9,12 @@ public class Duke {
 
         String greeting =
                 "____________________________________________________________\n" +
-                " Hello! I'm CHAT\n" +
-                "____________________________________________________________\n" +
-                " What can I do for you?\n Bye. Hope to see you again\n" +
+                "Hello! I'm CHAT\n" +
+                "What can I do for you?\n" +
+                "____________________________________________________________\n";
+
+        String exitMessage = "Bye. Hope to see you again\n" +
                "____________________________________________________________\n";
-        System.out.println(greeting);
+        System.out.println(greeting + exitMessage);
     }
 }
