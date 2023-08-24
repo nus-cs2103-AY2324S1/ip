@@ -95,7 +95,7 @@ public class Duke {
                         taskList.get(index).setDone(false);
 
                         System.out.println(HORIZONTAL_LINE);
-                        System.out.println("The following item been unmarked and is now uncompleted.");
+                        System.out.println("The following item has been unmarked and is now uncompleted.");
                         System.out.println(taskList.get(index));
                     }
                     break;
