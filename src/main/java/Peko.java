@@ -39,6 +39,7 @@ public class Peko {
         int responseValue;
         CommandsInternal temp;
         SaveHandler saveHandler = new SaveHandler(todoList, new File("src/main/List.txt"));
+        todoList = saveHandler.loadFrom();
 
         intro();
 
