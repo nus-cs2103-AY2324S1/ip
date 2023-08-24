@@ -1,6 +1,14 @@
 import java.util.Scanner;
 
+
+/**
+ * Monday is a task management ChatBot. Users can add, mark, unmark,
+ * delete, keep track of the tasks they have.
+ */
 public class Monday {
+    /**
+     * An enumeration of available commands.
+     */
     private enum Command {
         BYE,
         LIST,
@@ -12,6 +20,10 @@ public class Monday {
         DELETE
     }
 
+    /**
+     * Starts Monday application.
+     * Initialises necessary components, greets the user, handle user input and handle errors.
+     */
     private static void startMonday() {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
@@ -38,6 +50,14 @@ public class Monday {
         scanner.close();
     }
 
+    /**
+     * Parses the user input and performs the corresponding action.
+     *
+     * @param userInput the user input to be parsed
+     * @return true if the application should continue running, false otherwise
+     * @throws MondayExceptions if there are errors related to Monday application
+     * @throws IllegalArgumentException if user input is in the wrong format
+     */
     private static boolean mondayParser(String userInput) throws MondayExceptions {
         String[] input = userInput.split(" ", 2);
         String command = input[0];
@@ -133,20 +153,33 @@ public class Monday {
         return true;
     }
 
-
+    /**
+     * Prints a greeting message to the console.
+     */
     private static void greet() {
         System.out.println("Hello! I'm " + "Monday");
         System.out.println("What can I do for you?");
     }
 
+    /**
+     * Prints a farewell message to the console.
+     */
     private static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    /**
+     * Prints a separator line to the console.
+     */
     private static void printSeparator() {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Entry point to Monday.
+     *
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         startMonday();
     }
