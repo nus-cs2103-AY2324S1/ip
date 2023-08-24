@@ -32,6 +32,14 @@ public class TaskList {
         return this.list.get(i);
     }
 
+    public void deleteTask(int i) {
+        Task task = this.list.get(i);
+        this.list.remove(i);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + this.list.size() + " task(s) in the list.");
+    }
+
     public void printList() {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(i + 1 + "." + list.get(i));
