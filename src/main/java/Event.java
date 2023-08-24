@@ -3,9 +3,12 @@ public class Event extends Task{
     String start;
     String end;
     public Event(String s) throws InvalidTaskException {
-        super("");
-
-        String[] split = s.split(" /from ");
+        super(s);
+        String[] temp = s.split(" ", 2);
+        if (s.isBlank() || temp.length <= 1) {
+            throw new InvalidTaskException();
+        }
+        String[] split = temp[1].split(" /from ");
         if (split.length == 1) {
             System.out.println("There's no start date peko!");
             return;

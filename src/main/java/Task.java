@@ -5,7 +5,7 @@ public class Task {
         if (s.isBlank()) {
             throw new InvalidTaskException();
         }
-        name = s;
+        this.name = s;
         status = false;
     }
 
@@ -21,7 +21,7 @@ public class Task {
         status = false;
     }
     public void reply(int i) {
-
+        i++;
         System.out.println("Added: \n" + this.toString() + "\nPeko!");
         System.out.println("You have: " + i + " tasks now Peko");
     }

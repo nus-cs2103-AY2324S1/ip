@@ -8,6 +8,7 @@ public class Peko {
     private static int pos = 0;
     private static final String lineBreak = "------------------------------------------"; //42
     private static final String introText = "Konpeko, Konpeko, Konpeko! \n" +
+            "Hololive san kisei no\n" +
             "Usada Pekora-peko! almondo almondo!";
     private static final String exitText = "Otsupeko! Bye bye!";
     private static final String[] commands = new String[]
@@ -46,7 +47,6 @@ public class Peko {
                     readArray();
                     break;
                 case WRITE:
-                    input = input.startsWith(commands[3]) ? leftPad(input.substring(6, input.length())) : input;
                     try {
                         addToArray(input);
                     } catch (InvalidTaskException e) {
@@ -55,15 +55,12 @@ public class Peko {
                     }
                     break;
                 case MARK:
-                    input = leftPad(input.substring(4, input.length()));
                     setMarkArray(input);
                     break;
                 case UNMARK:
-                    input = leftPad(input.substring(6, input.length()));
                     setUnmarkArray(input);
                     break;
                 case TODO:
-                    input = input.startsWith(commands[6]) ? leftPad(input.substring(4, input.length())) : input;
                     try {
                         addToDo(input);
                     } catch (InvalidTaskException e) {
@@ -72,7 +69,6 @@ public class Peko {
                     }
                     break;
                 case DEADLINE:
-                    input = input.startsWith(commands[7]) ? leftPad(input.substring(8, input.length())) : input;
                     try {
                         addDeadline(input);
                     } catch (InvalidTaskException e) {
@@ -81,7 +77,6 @@ public class Peko {
                     }
                     break;
                 case EVENT:
-                    input = input.startsWith(commands[8]) ? leftPad(input.substring(5, input.length())) : input;
                     try {
                         addEvent(input);
                     } catch (InvalidTaskException e) {
