@@ -62,6 +62,17 @@ public class Duke {
         }
     }
 
+    private static void deleteTask(int taskNumber) throws ChatException {
+        try {
+            Task task = taskList.get(taskNumber - 1);
+            taskList.remove(taskNumber - 1);
+            System.out.println("Noted. I've removed this task:\n" + task +
+                    "\nNow you have " + taskList.size() + " tasks in the list.");
+        } catch (IndexOutOfBoundsException e) {
+            throw new ChatException("☹ OOPS!!! Please specify the correct task number.");
+        }
+    }
+
     private static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
@@ -107,7 +118,10 @@ public class Duke {
                             } catch (ArrayIndexOutOfBoundsException e) {
                                 throw new ChatException("☹ OOPS!!! Please specify the duration.");
                             }
-
+                        case "delete":
+                            int taskNumber = Integer.parseInt(words[1]);
+                            deleteTask(taskNumber);
+                            break;
                         default:
                             throw new ChatException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
