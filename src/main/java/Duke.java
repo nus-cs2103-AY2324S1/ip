@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -9,7 +11,7 @@ public class Duke {
 
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String CHATBOT_NAME = "Koko";
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static void printFormatted(String originalMessage) {
         String indentedMessage = Arrays.stream(originalMessage.split("\n"))
@@ -37,6 +39,9 @@ public class Duke {
 
     private static void parseInput(String input) {
         try {
+            if (input.contains("|")) {
+                throw new DukeException("Input cannot contain pipe (|) character!");
+            }
             String[] parts = input.split(" ", 2);
             String command = parts[0];
             String remaining = parts.length > 1 ? parts[1] : "";
@@ -108,6 +113,16 @@ public class Duke {
                     throw new DukeException("Each message should start with one of the following commands: list, mark, unmark, todo, deadline, event");
             }
 
+            // All valid commands except for `list` will result in the task list changing, so we should trigger
+            // a disk write to save the updated task list.
+            if (!command.equals("list")) {
+                try {
+                    FileUtils.saveTasksToFile(tasks);
+                } catch (IOException ioException) {
+                    throw new DukeException("Error while saving task list to file!");
+                }
+            }
+
         } catch (NumberFormatException e) {
             Duke.printFormatted("Please enter a valid task number.");
         } catch (DukeException e) {
@@ -118,6 +133,15 @@ public class Duke {
 
     public static void main(String[] args) {
         Duke.greet();
+        try {
+            tasks = FileUtils.loadTasksFromFile();
+        } catch (FileNotFoundException fileNotFoundException) {
+            Duke.printFormatted("Previous data file not found, starting from fresh task list.");
+            tasks = new ArrayList<>();
+        } catch (DukeException dukeException) {
+            Duke.printFormatted(dukeException.getMessage());
+            tasks = new ArrayList<>();
+        }
 
         Scanner scanner = new Scanner(System.in);
         Stream.generate(scanner::nextLine)

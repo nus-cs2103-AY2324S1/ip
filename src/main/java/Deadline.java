@@ -28,6 +28,22 @@ public class Deadline extends Task {
         return new Deadline(parts[0], parts[1]);
     }
 
+    public static Deadline fromFileFormat(String[] parts) {
+        boolean isDone = "1".equals(parts[1].trim());
+        String name = parts[2].trim();
+        String by = parts[3].trim();
+        Deadline deadline = new Deadline(name, by);
+        if (isDone) {
+            deadline.markAsDone();
+        }
+        return deadline;
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "D|" + (isDone ? "1" : "0") + "|" + this.name + "|" + this.by + "|";
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";

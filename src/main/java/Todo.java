@@ -23,6 +23,21 @@ public class Todo extends Task {
         return new Todo(input);
     }
 
+    public static Todo fromFileFormat(String[] parts) {
+        boolean isDone = "1".equals(parts[1].trim());
+        String name = parts[2].trim();
+        Todo todo = new Todo(name);
+        if (isDone) {
+            todo.markAsDone();
+        }
+        return todo;
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "T|" + (isDone ? "1" : "0") + "|" + this.name + "||";
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

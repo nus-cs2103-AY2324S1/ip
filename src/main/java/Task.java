@@ -12,6 +12,27 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public static Task fromFileFormat(String line) {
+        String[] parts = line.split("\\|", -1); // -1 to keep trailing empty strings
+        if (parts.length < 3) {
+            return null;
+        }
+
+        String taskType = parts[0].trim();
+        switch (taskType) {
+            case "T":
+                return Todo.fromFileFormat(parts);
+            case "D":
+                return Deadline.fromFileFormat(parts);
+            case "E":
+                return Event.fromFileFormat(parts);
+            default:
+                return null;
+        }
+    }
+
+    public abstract String toFileFormat();
+
     /**
      * Marks the task as done by setting its completion status to true.
      */
