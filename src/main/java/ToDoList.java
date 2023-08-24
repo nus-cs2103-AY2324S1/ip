@@ -39,6 +39,10 @@ public class ToDoList {
         list.get(index - 1).markUndone();
     }
 
+    public int size() {
+        return list.size();
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

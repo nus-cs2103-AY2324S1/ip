@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String name;
     private boolean isDone;
 
@@ -25,7 +25,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String status = this.isDone ? "X" : "";
+        String status = this.isDone ? "X" : " ";
         return "[" + status + "] " + this.name;
     }
 }

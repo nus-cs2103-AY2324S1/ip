@@ -11,6 +11,18 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
+    private static void length() {
+        int listSize = toDoList.size();
+        System.out.println("Now you have " + listSize + " tasks in the list.");
+    }
+
+    private static void add(Task task) {
+        toDoList.add(task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.toString());
+        Duke.length();
+    }
+
     private static boolean parseCommand(String input) {
         String[] sections = input.split(" ", 2);
         String command = sections[0];
@@ -26,9 +38,28 @@ public class Duke {
                 break;
             }
 
-            case "add": {
-                toDoList.add(new Task(rest));
-                System.out.println("Added: " + rest);
+            case "todo": {
+                Duke.add(new Todo(rest));
+                break;
+            }
+
+            case "deadline": {
+                String[] deadlineSections = rest.split(" /by ", 2);
+                String name = deadlineSections[0];
+                String endTime = deadlineSections[1];
+                Duke.add(new Deadline(name, endTime));
+                break;
+            }
+
+            case "event": {
+                String[] eventSections = rest.split(" /from ", 2);
+                String name = eventSections[0];
+                String startAndEnd = eventSections[1];
+
+                String[] startAndEndSections = startAndEnd.split(" /to ", 2);
+                String startTime = startAndEndSections[0];
+                String endTime = startAndEndSections[1];
+                Duke.add(new Event(name, startTime, endTime));
                 break;
             }
 
