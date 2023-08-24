@@ -92,6 +92,20 @@ public class Duke {
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                 }
+            } else if (command.startsWith("delete")) {
+                try {
+                    if (separateCommand.length > 2 || Integer.parseInt(separateCommand[1]) > tasks.size()) {
+                        throw new DukeException("☹ OOPS!!! Invalid number");
+                    }
+                    int taskNumber = Integer.parseInt(separateCommand[1]);
+                    if (command.startsWith("delete")) {
+                        System.out.println(" Noted. I've removed this task:");
+                        System.out.println("   " + tasks.get(taskNumber - 1).toString());
+                        tasks.remove(taskNumber - 1);
+                    }
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("☹ OOPS!!! Invalid number");
+                }
             } else {
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
