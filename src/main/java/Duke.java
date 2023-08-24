@@ -26,34 +26,42 @@ public class Duke {
 
     private static void handleMarking(String commandNum, String status) throws DukeException {
 
-        int index = Integer.parseInt(commandNum) - 1;
+        try {
+            int index = Integer.parseInt(commandNum) - 1;
 
-        if (index > store.size() - 1 || index < 0) {
+            if (index > store.size() - 1 || index < 0) {
+                throw new DukeException("Invalid Task Index provided!");
+            }
+            Task selectedTask = store.get(index);
+            if (status.equals("mark")) {
+                selectedTask.markTask();
+                System.out.println(formatOutput("Nice! I've marked the task as done:\n   " +
+                        INDENTATION + selectedTask));
+            } else if (status.equals("unmark")) {
+                selectedTask.unmarkTask();
+                System.out.println(formatOutput("OK, I've marked this task as not done yet:\n   " +
+                        INDENTATION + selectedTask));
+            }
+        } catch (NumberFormatException e) {
             throw new DukeException("Invalid Task Index provided!");
-        }
-        Task selectedTask = store.get(index);
-        if (status.equals("mark")) {
-            selectedTask.markTask();
-            System.out.println(formatOutput("Nice! I've marked the task as done:\n   " +
-                    INDENTATION + selectedTask));
-        } else if (status.equals("unmark")) {
-            selectedTask.unmarkTask();
-            System.out.println(formatOutput("OK, I've marked this task as not done yet:\n   " +
-                    INDENTATION + selectedTask));
         }
     }
 
     private static void handleDelete(String commandNum, String status) throws DukeException {
+        try {
+            int index = Integer.parseInt(commandNum) - 1;
 
-        int index = Integer.parseInt(commandNum) - 1;
-
-        if (index > store.size() - 1 || index < 0) {
+            if (index > store.size() - 1 || index < 0) {
+                throw new DukeException("Invalid Task Index provided!");
+            }
+            Task selectedTask = store.remove(index);
+            System.out.println(formatOutput("Noted. I've removed this task:\n   " +
+                    INDENTATION + selectedTask + "\n " + INDENTATION + "Now you have " +
+                    store.size() + " tasks in the list."));
+        } catch (NumberFormatException e) {
             throw new DukeException("Invalid Task Index provided!");
         }
-        Task selectedTask = store.remove(index);
-        System.out.println(formatOutput("Noted. I've removed this task:\n   " +
-                INDENTATION + selectedTask + "\n " + INDENTATION + "Now you have " +
-                store.size() + " tasks in the list."));
+        
     }
 
     private static void handleToDo(String task) throws DukeException {
