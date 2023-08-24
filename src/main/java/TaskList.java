@@ -8,15 +8,14 @@ public class TaskList {
     public TaskList() {
     }
 
-    public void addTask(String taskTypeAndDetails) {
+    public void addTask(String taskTypeAndDetails) throws DukeException {
         Task newTask;
         String taskType = extractTaskType(taskTypeAndDetails);
         String taskDetails = extractTaskDetails(taskTypeAndDetails);
         String taskName;
 
         if (taskDetails.equals("")) {
-            printWithSeparator("Please enter a valid task.");
-            return;
+            throw new DukeException(messageWithSeparator("☹ OOPS!!! The description of a " + taskType + " cannot be empty."));
         } else if (taskType.equals("todo")) {
             taskName = taskDetails;
             newTask = new ToDoTask(taskDetails);
@@ -73,6 +72,10 @@ public class TaskList {
         System.out.println(LINE_SEPARATOR);
         System.out.println(message);
         System.out.println(LINE_SEPARATOR);
+    }
+
+    private String messageWithSeparator(String message) {
+        return LINE_SEPARATOR+ "\n" + message + "\n" + LINE_SEPARATOR;
     }
 
     private String extractTaskType(String taskTypeAndDetails) {

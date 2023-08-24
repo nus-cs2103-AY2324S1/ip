@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class Duke {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
 
@@ -9,24 +10,28 @@ public class Duke {
         TaskList taskList = new TaskList();
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
-            String input = sc.nextLine();
-            String firstWord = input.split(" ", 2)[0];
+            try {
+                String input = sc.nextLine();
+                String firstWord = input.split(" ", 2)[0];
 
-            if (input.equals("bye")) {
-                printWithSeparator("Bye. Hope to see you again soon!");
-                break;
-            } else if (input.equals("list")) {
-                taskList.list();
-            } else if (input.length() >= 4 && input.substring(0, 4).equals("mark")) {
-                int index = extractNumber(input);
-                taskList.markTaskAsDone(index);
-            } else if (input.length() >= 6 && input.substring(0, 6).equals("unmark")) {
-                int index = extractNumber(input);
-                taskList.unmarkTask(index);
-            } else if (firstWord.equals("todo") || firstWord.equals("deadline") || firstWord.equals("event")) {
-                taskList.addTask(input);
-            } else {
-                printWithSeparator("Please enter a valid command.");
+                if (input.equals("bye")) {
+                    printWithSeparator("Bye. Hope to see you again soon!");
+                    break;
+                } else if (input.equals("list")) {
+                    taskList.list();
+                } else if (input.length() >= 4 && input.substring(0, 4).equals("mark")) {
+                    int index = extractNumber(input);
+                    taskList.markTaskAsDone(index);
+                } else if (input.length() >= 6 && input.substring(0, 6).equals("unmark")) {
+                    int index = extractNumber(input);
+                    taskList.unmarkTask(index);
+                } else if (firstWord.equals("todo") || firstWord.equals("deadline") || firstWord.equals("event")) {
+                    taskList.addTask(input);
+                } else {
+                    throw new DukeException(messageWithSeparator("☹ OOPS!!! I'm sorry, but I don't know what that means :-("));
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -35,6 +40,10 @@ public class Duke {
         System.out.println(LINE_SEPARATOR);
         System.out.println(message);
         System.out.println(LINE_SEPARATOR);
+    }
+
+    private static String messageWithSeparator(String message) {
+        return LINE_SEPARATOR+ "\n" + message + "\n" + LINE_SEPARATOR;
     }
 
     private static int extractNumber(String input) {
