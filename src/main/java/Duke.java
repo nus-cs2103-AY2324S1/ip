@@ -4,11 +4,11 @@ import java.util.Scanner;
 public class Duke {
     private static final String SEPARATION_LINE  = "____________________________________________________________";
     private static final String INDENTATION = "    ";
-    private static final String GREETING_TEXT = "Hello, I'm Tasket\n    What can I do for you?";
+    private static final String GREETING_TEXT = "Hello, I'm Tasket\n" + INDENTATION + "What can I do for you?";
     private static final String GOODBYE_TEXT = "Bye. Hope to see you again soon!";
 
     private static String prompt = "";
-    private static ArrayList<String> list = new ArrayList<>();
+    private static final ArrayList<Task> list = new ArrayList<>();
 
     public static void showSeparationLine() {
         System.out.println(INDENTATION + SEPARATION_LINE);
@@ -25,15 +25,37 @@ public class Duke {
         showSeparationLine();
     }
 
-    public static void showAddedText(String text) {
+    public static void addTask(String text) {
+        list.add(new Task(text));
         System.out.println(INDENTATION + "added: " + text);
         showSeparationLine();
     }
 
     public static void showLists() {
+        System.out.println(INDENTATION + "Here are the tasks in your list:");
         for (int i = 1; i <= list.size(); i++) {
-            System.out.printf("%s%d. %s\n", INDENTATION, i, list.get(i - 1));
+            System.out.printf("%s%d. %s\n", INDENTATION, i, list.get(i - 1).toString());
         }
+        showSeparationLine();
+    }
+
+    public static void markTaskDone(String text) {
+        Task selectedTask = list.get(Integer.parseInt(text) - 1);
+
+        selectedTask.markAsDone();
+
+        System.out.println(INDENTATION + "Nice! I've marked this task as done:\n"
+                + INDENTATION + "  " + selectedTask.toString());
+        showSeparationLine();
+    }
+
+    public static void markTaskUndone(String text) {
+        Task selectedTask = list.get(Integer.parseInt(text) - 1);
+
+        selectedTask.markAsUndone();
+
+        System.out.println(INDENTATION + "Ok. I've marked this task as not done yet:\n"
+                + INDENTATION + "  " + selectedTask.toString());
         showSeparationLine();
     }
 
@@ -42,8 +64,18 @@ public class Duke {
         showSeparationLine();
     }
 
-    public static void parseText(String text) {
-        switch (text) {
+    public static void parseInput(String text) {
+        String[] actions = text.split(" ", 2);
+
+        switch (actions[0]) {
+        case "mark":
+            markTaskDone(actions[1]);
+            break;
+
+        case "unmark":
+            markTaskUndone(actions[1]);
+            break;
+
         case "list":
             showLists();
             break;
@@ -53,8 +85,7 @@ public class Duke {
             break;
 
         default:
-            list.add(text);
-            showAddedText(text);
+            addTask(text);
             break;
         }
     }
@@ -69,7 +100,7 @@ public class Duke {
             prompt = sc.nextLine();
             showSeparationLine();
 
-            parseText(prompt);
+            parseInput(prompt);
         }
 
         sc.close();
