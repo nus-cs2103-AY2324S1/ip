@@ -1,0 +1,19 @@
+list
+todo borrow book from the library
+deadline return book to library /by Sunday 5pm
+deadline submit homework by Sunday 7pm
+event concert /from Sunday 6pm /to Sunday 9pm
+event project meeting /from Monday 10am to Monday 11am
+event /from Monday 10am /to Monday 11am
+list
+mark 1
+mark 2
+mark 3
+unmark 2
+unmark 3
+unmark 1
+todo
+deadline
+event
+list
+bye
