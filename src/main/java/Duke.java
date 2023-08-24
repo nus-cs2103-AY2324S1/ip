@@ -2,12 +2,18 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Duke class represents a simple chatbot application that helps manage tasks.
+ */
 public class Duke {
     private List<Task> tasks = new ArrayList<>();
 
+    /**
+     * Starts the chatbot and interacts with the user to manage tasks.
+     */
     public void startChat() {
         System.out.println("---------------------------------------------\n Hello! I'm zy\n" +
-                            " What can I do for you?\n---------------------------------------------");
+                " What can I do for you?\n---------------------------------------------");
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
 
@@ -23,9 +29,15 @@ public class Duke {
         }
         scanner.close();
         System.out.println("---------------------------------------------\n Bye. Hope to see you again soon!" +
-                            "\n---------------------------------------------");
+                "\n---------------------------------------------");
     }
 
+    /**
+     * Parses and handles the user's command to perform various tasks.
+     *
+     * @param command The user's command to be processed.
+     * @throws DukeException If the command is not recognized or encounters an error.
+     */
     public void readNewTask(String command) throws DukeException {
         String[] separateCommand = command.split(" ");
         if (command.equals("list")) {
@@ -59,6 +71,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Lists all the tasks currently stored in the task list.
+     */
     public void listAllTasks() {
         System.out.println(" Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -66,6 +81,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Adds a new task based on the user's command.
+     *
+     * @param command The user's command to add a new task.
+     * @throws DukeException If there's an error while parsing or adding the task.
+     */
     public void addNewTask(String command) throws DukeException {
         if (command.startsWith("todo")) {
             try {
@@ -106,10 +127,15 @@ public class Duke {
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        System.out.println(" Got it. I've added this task:" + "\n" + "   " + tasks.get(tasks.size() - 1).toString() + "\n"
-                            + " Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(" Got it. I've added this task:" + "\n" + "   " + tasks.get(tasks.size() - 1).toString()
+                            + "\n" + " Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * The main method to start the Duke chatbot.
+     *
+     * @param args Command-line arguments (unused).
+     */
     public static void main(String[] args) {
         Duke bot = new Duke();
         bot.startChat();
