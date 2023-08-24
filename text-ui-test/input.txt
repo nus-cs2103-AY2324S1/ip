@@ -26,4 +26,17 @@ delete 4
 delete 2
 delete 10
 delete not a number
+event do something /from /to
+event do something /from /to 2pm
+event do something /from 2pm /to
+event do some
+deadline do something /by
+deadline /by do something
+todo
+event do something   /from    /to
+deadline do something2 /by
+deadline     /by 4pm
+event       /from 2pm /to 3pm
+event study/from2pm/to3pm
+deadline submit assignment/by 3pm
 bye

@@ -102,31 +102,35 @@ public class Monke {
     }
 
     public static Todo getTodo(String args) throws MonkeException {
-        if (args.isEmpty()) {
+        if (args.isBlank()) {
             throw new MonkeException("OOGA BOOGA!! The description of a todo cannot be empty.");
         }
         return new Todo(args);
     }
 
     public static Deadline getDeadline(String args) throws MonkeException {
-        if (!args.contains(" /by ")) {
+        String[] tmp = args.split(" /by ", 2);
+        if (tmp.length < 2 || tmp[0].isBlank() || tmp[1].isBlank()) {
             throw new MonkeException("You must format your deadline like this:\n" +
                     "\t\tdeadline <task> /by <deadline>");
         }
-        String[] tmp = args.split(" /by ", 2);
         String description = tmp[0];
         String date = tmp[1];
         return new Deadline(description, date);
     }
 
     public static Event getEvent(String args) throws MonkeException {
-        if (!args.contains(" /from ") || !args.contains(" /to ")) {
+        String[] tmp = args.split(" /from ", 2);
+        String description = tmp[0];
+        if (tmp.length < 2 || tmp[0].isBlank() || tmp[1].isBlank()) {
             throw new MonkeException("You must format your event like this:\n" +
                     "\t\tdeadline <task> /from <start time> /to <end time>");
         }
-        String[] tmp = args.split(" /from ", 2);
-        String description = tmp[0];
         String[] tmp2 = tmp[1].split(" /to ", 2);
+        if (tmp2.length < 2 || tmp2[0].isBlank() || tmp2[1].isBlank()) {
+            throw new MonkeException("You must format your event like this:\n" +
+                    "\t\tdeadline <task> /from <start time> /to <end time>");
+        }
         String start = tmp2[0];
         String end = tmp2[1];
         return new Event(description, start, end);
