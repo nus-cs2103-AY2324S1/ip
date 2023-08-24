@@ -2,6 +2,10 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor for Task.
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -11,7 +15,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String addCheckBox() {
+    public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 

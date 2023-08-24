@@ -4,12 +4,21 @@ public class Ally {
     private static final String line = "____________________________________________________________";
     private static final String greeting = "Hello! I'm ALLY\nWhat can I do for you?\n";
     private static final String bye = "Bye. Hope to see you again soon!";
+
+    /**
+     * Function that provides the starting message and greeting.
+     *
+     */
     public static void start() {
         System.out.println(line);
         System.out.println(greeting);
         System.out.println(line);
     }
 
+    /**
+     * Function that provides the bye message when the user
+     * ends the chatbot.
+     */
     public static void bye() {
         System.out.println(line);
         System.out.println(bye);
@@ -61,8 +70,13 @@ public class Ally {
                 if (split.length == 1) {
                     System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
                 } else {
-                    String[] deadline = split[1].split(" /");
-                    ally.addDeadline(deadline[0], deadline[1]);
+                    try {
+                        String[] deadline = split[1].split(" /");
+                        ally.addDeadline(deadline[0], deadline[1]);
+                    } catch (AllyException e) {
+                        System.out.println(e.getMessage() + e.getLocalizedMessage());
+                    }
+
                 }
                 System.out.println(line);
             } else if (split[0].equals("event")) {
@@ -70,8 +84,13 @@ public class Ally {
                 if (split.length == 1) {
                     System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
                 } else {
-                    String[] event = split[1].split(" /");
-                    ally.addEvent(event[0], event[1], event[2]);
+                    try {
+                        String[] event = split[1].split(" /");
+                        ally.addEvent(event[0], event[1], event[2]);
+                    } catch (AllyException e) {
+                        System.out.println(e.getMessage() + e.getLocalizedMessage());
+                    }
+
                 }
                 System.out.println(line);
             }  else if (split[0].equals("delete")) {
@@ -79,8 +98,13 @@ public class Ally {
                 if (split.length == 1) {
                     System.out.println("☹ OOPS!!! The description of a delete cannot be empty.");
                 } else {
-                    int index = Integer.parseInt(split[1]) - 1;
-                    ally.deleteElement(index);
+                    try {
+                        int index = Integer.parseInt(split[1]) - 1;
+                        ally.deleteElement(index);
+                    } catch (AllyException e) {
+                        System.out.println(e.getMessage() + e.getLocalizedMessage());
+                    }
+
                 }
                 System.out.println(line);
             } else {
