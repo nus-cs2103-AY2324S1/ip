@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import Exception.MissingTaskException;
+import Exception.MissingCommandException;
+import Exception.MissingTextException;
 
 public class Duke {
     final static ArrayList<Task> tasks = new ArrayList<>();
@@ -11,8 +14,8 @@ public class Duke {
         while (true) {
             String text = scanner.nextLine();
             System.out.println("\n" + horizontalLine);
-            String[] splitText = text.toLowerCase().split(" ");
-            String command = splitText[0];
+            String[] splitText = text.split(" ");
+            String command = splitText[0].toLowerCase();
 
             switch (command) {
                 case "bye":
@@ -22,7 +25,7 @@ public class Duke {
                     printList();
                     break;
                 case "todo": {
-                    String[] splitText2 = text.toLowerCase().split(" ", 2);
+                    String[] splitText2 = text.split(" ", 2);
                     if (splitText2.length == 2) {
                         tasks.add(new ToDo(splitText2[1]));
                         printTasksLength();
@@ -33,40 +36,55 @@ public class Duke {
                     break;
                 }
                 case "deadline": {
-                    String by = getUsingCommand(splitText, "by");
-                    String task = getTask(splitText);
-                    tasks.add(new Deadline(task, by));
-                    printTasksLength();
+                    String by = null;
+                    try {
+                        by = getUsingCommand(splitText, "by");
+                        String task = getTask(splitText);
+                        tasks.add(new Deadline(task, by));
+                        printTasksLength();
+                    } catch (MissingTaskException e) {
+                        System.err.println("Missing task error");
+                    } catch (MissingTextException e) {
+                        System.err.println("Missing text after command error, check that you have inputted a text after command.");
+                    } catch (MissingCommandException e) {
+                        System.err.println("Missing command error, check that you included the following commands \n"
+                                + "/by [insert deadline]");
+                    }
                     break;
                 }
                 case "event": {
-                    String from = getUsingCommand(splitText, "from");
-                    String to = getUsingCommand(splitText, "to");
-                    String task = getTask(splitText);
-                    tasks.add(new Event(task, from, to));
-                    printTasksLength();
+                    try {
+                        String from = getUsingCommand(splitText, "from");
+                        String to = getUsingCommand(splitText, "to");
+                        String task = getTask(splitText);
+                        tasks.add(new Event(task, from, to));
+                        printTasksLength();
+                    } catch (MissingTaskException e) {
+                        System.err.println("Missing task error, check that you have added a task.");
+                    } catch (MissingTextException e) {
+                        System.err.println("Missing text after command error, check that you have inputted a text after command.");
+                    } catch (MissingCommandException e) {
+                        System.err.println("Missing command error, check that you included the following commands \n"
+                                + "/from [insert from date], /to [insert to date]");
+                    }
                     break;
                 }
                 case "mark":
                 case "unmark": {
                     String[] splitText2 = text.toLowerCase().split(" ", 2);
                     if (splitText2.length == 2) {
-                        try {
-                            int taskNumber = Integer.parseInt(splitText2[1]);
-                            if (taskNumber > 1 && taskNumber <= tasks.size()) {
-                                if (command.equals("mark"))
-                                    tasks.get(taskNumber - 1).mark();
-                                else
-                                    tasks.get(taskNumber - 1).unmark();
-                            } else {
-                                System.out.println("     Enter a number that is within the list: ");
-                                printList();
+                        int taskNumber = getTaskNumber(splitText2[1]);
+                        if (taskNumber != -1) {
+                            if (command.equals("mark")){
+                                tasks.get(taskNumber - 1).mark();
+                                System.out.println("     You've marked task: " + taskNumber);
                             }
-                        } catch (NumberFormatException ne) {
-                            System.out.println("     You need to enter a number");
-                            continue;
+                            else {
+                                tasks.get(taskNumber - 1).unmark();
+                                System.out.println("     You've marked task: " + taskNumber);
+                            }
+                            printList();
                         }
-
                     } else {
                         System.out.println("     You need to type in something u silly dog.");
                     }
@@ -97,12 +115,12 @@ public class Duke {
         }
     }
 
-    private static String getUsingCommand(String[] splitText, String command) {
+    private static String getUsingCommand(String[] splitText, String command) throws MissingCommandException, MissingTextException {
         boolean found = false;
         StringBuilder text = new StringBuilder();
         for (String s : splitText) {
             if (!found) {
-                if (s.equals("/" + command)) {
+                if (s.toLowerCase().equals("/" + command)) {
                     found = true;
                 }
             } else {
@@ -115,13 +133,13 @@ public class Duke {
        if (found && (text.length() > 0)) {
            return text.substring(1);
        } else if (found)
-           return "Add something after the command " + command;
+           throw new MissingTextException();
        else {
-           return "Unable to find Command";
+           throw new MissingCommandException();
        }
     }
 
-    private static String getTask(String[] splitText) {
+    private static String getTask(String[] splitText) throws MissingTaskException {
         String task = "";
         if (splitText.length > 1) {
             for (int i = 1; i < splitText.length; i++) {
@@ -132,11 +150,26 @@ public class Duke {
             }
             return task.substring(1);
         }
-        return "     You need to type in a task :D";
+        throw new MissingTaskException();
     }
 
     private static void printTasksLength() {
         System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    private static int getTaskNumber(String string) {
+        try {
+            int taskNumber = Integer.parseInt(string);
+            if (taskNumber > 0 && taskNumber <= tasks.size()) {
+                return taskNumber;
+            } else {
+                System.out.println("Enter a number that is within the list: ");
+                printList();
+                return -1;
+            }
+        } catch (NumberFormatException ne) {
+            System.out.println("You need to enter a number");
+            return -1;
+        }
+    }
 }
