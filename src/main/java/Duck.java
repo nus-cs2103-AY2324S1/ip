@@ -1,7 +1,16 @@
+import java.util.Scanner;
 public class Duck {
     public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        
         Duck.greet();
+        String input = in.nextLine();
+        while (!input.equals("bye")) {
+            Duck.echo(input);
+            input = in.nextLine();
+        }
         Duck.bye();
+        in.close();
     }
 
     private static void line() {
@@ -21,6 +30,12 @@ public class Duck {
 
         line();
         System.out.println(bye);
+        line();
+    }
+
+    private static void echo(String input) {
+        line();
+        System.out.println(input);
         line();
     }
 
