@@ -25,4 +25,11 @@ public class Task {
     public String printDesc() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+    public void printMessage(int numTask) {
+        System.out.println(Duke.horizontalLine
+                + "     Got it. I've added this task:\n"
+                + "       " + this.printDesc() + "\n"
+                + "     Now you have " + (numTask + 1) + " tasks in the list.\n"
+                + Duke.horizontalLine);
+    }
 }
