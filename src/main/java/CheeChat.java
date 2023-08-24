@@ -72,6 +72,15 @@ public class CheeChat {
                         tasks.add(instance);
                         System.out.println("  " + instance);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    } else if (cmd.startsWith("delete")){
+                        int index = cmd.length() - 1;
+                        char c = cmd.charAt(index);
+                        int number = c - 48 - 1;
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println("  " + tasks.get(number));
+                        tasks.remove(number);
+                        int x = tasks.size();
+                        System.out.println("Now you have " + x + " tasks in the list.");
                     } else {
                         try {
                             throw new CheeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
