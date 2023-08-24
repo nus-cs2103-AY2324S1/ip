@@ -17,6 +17,21 @@ public class Task {
         this.isDone = false;
     }
 
+    public static Task createTaskType(String type, String description) {
+        if (type.equals("deadline")) {
+            String[] splitDesc = description.split(" /by ", 2);
+            return new Deadline(splitDesc[0], splitDesc[1]);
+        } else if (type.equals("todo")) {
+            return new Todo(description);
+        } else if (type.equals("event")) {
+            String[] splitDesc = description.split(" /from ", 2);
+            String[] splitDesc2 = splitDesc[1].split(" /to ", 2);
+            return new Event(splitDesc[0], splitDesc2[0], splitDesc2[1]);
+        } else {
+            return new Task(description);
+        }
+    }
+
     /**
      * return the status icon
      * @return the status icon

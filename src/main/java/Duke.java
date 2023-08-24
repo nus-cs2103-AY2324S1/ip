@@ -36,7 +36,8 @@ public class Duke {
                 System.out.println(exit);
             } else {
                 String response = "";
-                String[] split = s.split(" ");
+                String[] splitMark = s.split(" ");
+                String[] splitTask = s.split(" ", 2);
 
                 if (s.equals("list")) {
                     String items = "";
@@ -53,13 +54,13 @@ public class Duke {
                             "    ____________________________________________________________\n";
 
                 } else {
-                    boolean condition1 = split[0].equals("mark") || split[0].equals("unmark"); //first word is mark or unmark
+                    boolean condition1 = splitMark[0].equals("mark") || splitMark[0].equals("unmark"); //first word is mark or unmark
 
-                    if (split.length == 2 && condition1 ) {
-                        Integer index = Integer.parseInt(split[1]);
+                    if (splitMark.length == 2 && condition1 ) {
+                        Integer index = Integer.parseInt(splitMark[1]);
 
                         if (index > 0 && arrayList[index-1] != null) {
-                            if (split[0].equals("mark")) {
+                            if (splitMark[0].equals("mark")) {
                                 arrayList[index - 1].mark();
 
                                 response = "    ____________________________________________________________\n" +
@@ -67,7 +68,7 @@ public class Duke {
                                         "       " + arrayList[index-1].toString() + "\n" +
                                         "    ____________________________________________________________\n";
                             }
-                            if (split[0].equals("unmark")) {
+                            if (splitMark[0].equals("unmark")) {
                                 arrayList[index - 1].unmark();
 
                                 response = "    ____________________________________________________________\n" +
@@ -77,15 +78,21 @@ public class Duke {
                             }
                         }
                     } else {
-                        for (int i = 0; i < 100; i++) {
-                            if (arrayList[i] == null) {
-                                arrayList[i] = new Task(s);
+                        int i = 0;
+                        for (i = 0; i < 100; i++) {
+                            if (arrayList[i] == null & splitTask.length == 2) {
+                                arrayList[i] = Task.createTaskType(splitTask[0], splitTask[1]);
+                                break;
+                            } else if (arrayList[i] == null & splitTask.length == 1){
+                                arrayList[i] = Task.createTaskType(splitTask[0], splitTask[0]);
                                 break;
                             }
                         }
 
                         response = "    ____________________________________________________________\n" +
-                                "     added: " + s + "\n" +
+                                "     Got it. I've added this task:\n" +
+                                "      " + arrayList[i].toString() + "\n" +
+                                "     Now you have " + (i+1) + " tasks in the list." + "\n" +
                                 "    ____________________________________________________________\n";
                     }
                 }
