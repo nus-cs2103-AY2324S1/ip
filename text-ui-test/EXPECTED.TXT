@@ -32,5 +32,16 @@ Here are the tasks in your list:
 1.[T][ ]play games
 2.[D][X] watch TV  (by: 7pm )
 3.[E][ ] sleep  (from: 1am  to: 7am )
+Noted. I've removed this task:
+[T][ ]play games
+Now you have 2 tasks in the list.
+Here are the tasks in your list:
+1.[D][X] watch TV  (by: 7pm )
+2.[E][ ] sleep  (from: 1am  to: 7am )
+Noted. I've removed this task:
+[E][ ] sleep  (from: 1am  to: 7am )
+Now you have 1 tasks in the list.
+Here are the tasks in your list:
+1.[D][X] watch TV  (by: 7pm )
 Bye. Hope to see you again soon!
 

@@ -1,8 +1,10 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Taskmanager {
     int counter = 0;
-    private Task[] tasks = new Task[100];
+    //private Task[] tasks = new Task[100];
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     public void manageTasks() {
         Scanner sn = new Scanner(System.in);
@@ -12,6 +14,8 @@ public class Taskmanager {
         while (!keyword.equals("bye")) {
             if (keyword.equals("list")) {
                 list();
+            } else if (keyword.equals("delete")) {
+                removeTask(Integer.parseInt(splt[1]));
             } else if (keyword.equals("mark")) {
                 mark(Integer.parseInt(splt[1]));
             } else if (keyword.equals("unmark")) {
@@ -106,13 +110,13 @@ public class Taskmanager {
     }
 
     public void mark(int i) { //need handling
-        tasks[i-1].setDone();
-        System.out.println("Nice! I've marked this task as done:\n  " + tasks[i-1].toString());
+        tasks.get(i-1).setDone();
+        System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(i-1).toString());
     }
 
     public void unmark(int i) { //need handling
-        tasks[i-1].setNotDone();
-        System.out.println("OK, I've marked this task as not done yet:\n  " + tasks[i-1].toString());
+        tasks.get(i-1).setNotDone();
+        System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(i-1).toString());
     }
 
     public void list() {
@@ -121,14 +125,21 @@ public class Taskmanager {
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 1; i <= counter; i++) {
-                System.out.println(i + "." + tasks[i - 1].toString());
+                System.out.println(i + "." + tasks.get(i - 1).toString());
             }
         }
     }
 
     public void addTask(Task t) {
-        tasks[counter] = t;
+        tasks.add(t);
         counter += 1;
         System.out.println("Got it. I've added this task:\n  " + t + "\nNow you have " + counter + " tasks in the list.");
+    }
+
+    public void removeTask(int index) {
+        String temp = tasks.get(index-1).toString();
+        tasks.remove(index-1);
+        counter -= 1;
+        System.out.println("Noted. I've removed this task:\n" + temp + "\nNow you have " + counter + " tasks in the list.");
     }
 }
