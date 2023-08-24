@@ -1,6 +1,7 @@
+import java.util.*;
 public class Duke {
 
-    // An greeting display everytime entering the program
+    // A greeting display everytime entering the program
     private static void OnEnter () {
         System.out.println("____________________________________________");
         System.out.println("Hello! I am YOU");
@@ -8,11 +9,21 @@ public class Duke {
         System.out.println("____________________________________________");
     }
 
-    // AN exit display everytime exits the program
+    // An exit display everytime exits the program
     private static void OnExit() {
         System.out.println("____________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________");
+    }
+
+    // A display everytime receive an input
+    private static boolean displayInfo(String msg) {
+        if (!msg.equals("bye")){
+            System.out.println("____________________________________________");
+            System.out.println(msg);
+            System.out.println("____________________________________________");
+        }
+        return msg.equals("bye");
     }
 
     public static void main(String[] args) {
@@ -22,7 +33,15 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
+
         OnEnter();
+
+        boolean saysBye;
+        do {
+            Scanner sc = new Scanner(System.in);
+            saysBye = displayInfo(sc.nextLine());
+        } while(!saysBye);
+
         OnExit();
     }
 }
