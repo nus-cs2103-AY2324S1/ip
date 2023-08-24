@@ -101,6 +101,8 @@ public class Chatter {
                 tasks.markTaskAsDone(Character.getNumericValue(userInput.charAt(5)));
             } else if (userInput.startsWith("unmark")){
                 tasks.markTaskAsNotDone(Character.getNumericValue(userInput.charAt(7)));
+            } else if (userInput.startsWith("delete")){
+                tasks.delete(Character.getNumericValue(userInput.charAt(7)));
             } else if (userInput.startsWith("todo")){
                 addTodo(userInput);
             } else if (userInput.startsWith("deadline")){
@@ -117,7 +119,6 @@ public class Chatter {
         }
 
         exit();
-
     }
 
     /**

@@ -28,7 +28,7 @@ public class ListOfTasks {
 
         System.out.println("Got it. I have added this task to do:");
         System.out.println("  " + task.toString());
-        System.out.println("You now have " + numOfTasks + " tasks in the list.");
+        System.out.println("You now have " + numOfTasks + " task(s) in the list.");
     }
 
     /**
@@ -42,6 +42,21 @@ public class ListOfTasks {
 
         System.out.println("Good job! I've marked this task as completed:");
         System.out.println("  " + completedTask);
+    }
+
+    /**
+     * Deletes specific Task in list.
+     *
+     * @param taskNumber Number of task in list to be deleted.
+     */
+    public void delete(int taskNumber) {
+        numOfTasks--;
+
+        System.out.println("Noted! I have removed this task:");
+        System.out.println("  " + list.get(taskNumber).toString());
+        System.out.println("You now have " + numOfTasks + " task(s) in the list.");
+
+        list.remove(taskNumber - 1);
     }
 
     /**
