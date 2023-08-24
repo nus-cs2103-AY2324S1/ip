@@ -1,8 +1,9 @@
 import java.util.*;
 public class Duke {
 
-    private static final Task[] tasks = new Task[100];
-    private static int index = 0;
+    //private static final Task[] tasks = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static int count = 0;
     private static boolean terminate = false;
     private static String seperation = "____________________________________________";
 
@@ -23,14 +24,14 @@ public class Duke {
 
     //Reads and store input
     private static void addTasks(Task task) {
-        Duke.tasks[Duke.index] = task;
-        Duke.index++;
+        Duke.tasks.add(task);
+        Duke.count++;
     }
 
     //Prints All Tasks
     private static void listTasks() {
-        for (int i = 0; i < index; i++) {
-            System.out.println((i + 1) + ". " + Duke.tasks[i]);
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + Duke.tasks.get(i));
         }
     }
 
@@ -51,11 +52,21 @@ public class Duke {
             } else {
                 throw new DukeUnknownInstruction();
             }
-            System.out.println("Now you have " + Duke.index + " tasks in the list.");
+            System.out.println("Now you have " + Duke.count + " tasks in the list.");
             System.out.println(seperation);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    private static void deleteTask(int index){
+        Task delete = tasks.remove(index);
+        count --;
+        System.out.println(seperation);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("    " + delete.toString());
+        System.out.println("Now you have " + Duke.count + " tasks in the list.");
+        System.out.println(seperation);
     }
 
     private static void readInputs(String msg) {
@@ -66,14 +77,16 @@ public class Duke {
         } else if (msg.equals("bye")) {
             Duke.terminate = true;
         } else {
-            boolean isMark = msg.matches(".*[0-9]");
+            boolean isMark = msg.matches(".*\\040[0-9]");
             if (isMark) {
                 String[] part = msg.split("\\s+");
                 int ind = Integer.parseInt(part[1]) - 1;
                 if (part[0].equals("mark")) {
-                    tasks[ind].MarkAsDone();
+                    tasks.get(ind).MarkAsDone();
                 } else if (part[0].equals("unmark")) {
-                    tasks[ind].MarkAsUnDone();
+                    tasks.get(ind).MarkAsUnDone();
+                } else if (part[0].equals("delete")) {
+                    deleteTask(ind);
                 }
             } else {
                 displayInfo(msg);
