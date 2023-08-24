@@ -26,4 +26,19 @@ public class TaskManager {
         this.tasks.add(task);
         return "added: " + task;
     }
+
+    public String markTask(int i, boolean done) throws DukeException {
+        i--;
+        if (i < 0 || i >= this.tasks.size()) {
+            // invalid index
+            throw new DukeException("Please input a valid index for the task to marked/unmarked");
+        }
+
+        Task task = this.tasks.get(i);
+        task.markTask(done);
+
+        return done
+                ? "Nice! I've marked this task as done:\n  " + task.toString() + "\n"
+                : "OK, I've marked this task as not done yet:\n  " + task.toString() + "\n";
+    }
 }
