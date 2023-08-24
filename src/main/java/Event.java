@@ -1,8 +1,11 @@
 public class Event extends Task {
     private String from;
     private String to;
-    public Event(String name, String from, String to) {
+    public Event(String name, String from, String to) throws DukeException {
         super(name);
+        if (name.trim().isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The description of a Task cannot be empty.");
+        }
         this.from = from;
         this.to = to;
     }
