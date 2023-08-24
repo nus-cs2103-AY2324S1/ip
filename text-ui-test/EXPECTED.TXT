@@ -12,7 +12,6 @@ What can I do for you?
 	Got it. I've added this task:
 		[T][ ] apply for internships on TalentConnect
 	Now you have 4 tasks in the list.
-	Invalid input as the event end time has not been specified. Please enter /from what time, /to what time the event would last.
 	Got it. I've added this task:
 		[E][ ] CCA Tryouts (from: tomorrow 7.30pm to: tomorrow 9.30pm)
 	Now you have 5 tasks in the list.

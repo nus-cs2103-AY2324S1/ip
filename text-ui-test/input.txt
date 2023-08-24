@@ -2,7 +2,6 @@ todo go to Mount Everest
 deadline 2103T Assignment /by tonight
 deadline 2100 Lab /by next week's lab
 todo apply for internships on TalentConnect
-event CCA Tryouts /from tomorrow
 event CCA Tryouts /from tomorrow 7.30pm /to tomorrow 9.30pm
 list
 mark 2
