@@ -35,6 +35,7 @@ public class Duke {
 
     private void respond(String s) {
         if (s.equals("list")) {
+            System.out.println("Here are the tasks in your list:");
             int count = 1;
             for(Task ss : this.l) {
                 String res = String.format("%d. [%s] %s", count++, ss.getStatusIcon(), ss.toString());
