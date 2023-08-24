@@ -13,8 +13,16 @@ public class Input {
                     Printing.bye();
                     return;
                 } else if (input.equals("list")) {
-                    Printing.list();
+                    if (Storage.getLength() == 0) {
+                        Printing.printNoTasks();
+                    } else {
+                        Printing.list();
+                    }
                 } else if (input.startsWith("mark")) {
+                    // Throw error if there is no index
+                    if (input.length() < 6 || input.split(" ", 2).length < 2) {
+                        throw new MarkException("☹ OOPS!!! You need to include an index to mark task.");
+                    }
                     String strIndex = input.split(" ", 2)[1];
                     // Throw error if index given is not an int
                     if (!Input.isInt(strIndex)) {
@@ -28,6 +36,10 @@ public class Input {
                     Storage.markAsDone(index);
                     Printing.printMarkAsDone(index);
                 } else if (input.startsWith("unmark")) {
+                    // Throw error if there is no index
+                    if (input.length() < 8 || input.split(" ", 2).length < 2) {
+                        throw new MarkException("☹ OOPS!!! You need to include an index to unmark task.");
+                    }
                     String strIndex = input.split(" ", 2)[1];
                     // Throw error if index given is not an int
                     if (!Input.isInt(strIndex)) {
@@ -84,6 +96,23 @@ public class Input {
                     Task newTask = new Event(taskDesc, from, to);
                     Storage.addToStorage(newTask);
                     Printing.printAdded(newTask);
+                } else if (input.startsWith("delete")) {
+                    // Throw error if there is no index
+                    if (input.length() < 8 || input.split(" ", 2).length < 2) {
+                        throw new MarkException("☹ OOPS!!! You need to include an index to delete task.");
+                    }
+                    String strIndex = input.split(" ", 2)[1];
+                    // Throw error if index given is not an int
+                    if (!Input.isInt(strIndex)) {
+                        throw new MarkException("☹ OOPS!!! You need to include an index to delete task.");
+                    }
+                    int index = Integer.parseInt(strIndex) - 1;
+                    // Throw error if there is no task at index
+                    if (index >= Storage.getLength()) {
+                        throw new MarkException("☹ OOPS!!! There is no task at that index.");
+                    }
+                    Task removedTask = Storage.delete(index);
+                    Printing.printDelete(removedTask);
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :(");
                 }
