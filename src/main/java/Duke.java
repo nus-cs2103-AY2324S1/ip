@@ -40,6 +40,17 @@ public class Duke {
                 taskArrayList.get(index - 1).unmark();
 
             }else if(firstInput.equals("todo")) {
+                if(inputArray.length == 1){
+                    System.out.println(horiLine);
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println(horiLine);
+
+                    input = scanner.nextLine();
+                    inputArray= input.split(" ");
+                    firstInput = inputArray[0];
+
+                    continue;
+                }
 
                 String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
                 Task newTask = new ToDo(extractedTask);
@@ -47,12 +58,25 @@ public class Duke {
 
 
             }else if(firstInput.equals("deadline")) {
+
+                if(inputArray.length == 1){
+                    System.out.println(horiLine);
+                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    System.out.println(horiLine);
+
+                    input = scanner.nextLine();
+                    inputArray= input.split(" ");
+                    firstInput = inputArray[0];
+                    continue;
+                }
+
                 String dueDate = "";
-                String extractedTask = "";
+                String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+
                 for(int i = 0; i < inputArray.length; i++){
                     if(inputArray[i].equals("/by")){
                         dueDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
-                        extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i -1));
+                        extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i));
 
                         break;
                     }
@@ -62,16 +86,27 @@ public class Duke {
                 taskArrayList.add(newTask);
 
             }else if(firstInput.equals("event")) {
+                if(inputArray.length == 1){
+                    System.out.println(horiLine);
+                    System.out.println("☹ OOPS!!! The description of a event cannot be empty.");
+                    System.out.println(horiLine);
+                    input = scanner.nextLine();
+                    inputArray= input.split(" ");
+                    firstInput = inputArray[0];
+
+                    continue;
+                }
+
                 Integer startIndex = -1;
                 Integer endIndex = -1;
-                String extractedTask = "";
+                String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
 
                 String endDate ="";
                 String startDate = "";
                 for(int i = 0; i < inputArray.length; i++){
                     if(inputArray[i].equals("/from") && startIndex == -1){
                         startIndex = i;
-                        extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i - 1));
+                        extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i ));
                     }else if(inputArray[i].equals("/to") && startIndex != -1){
                         endDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
                         startDate = String.join(" ", Arrays.copyOfRange(inputArray, startIndex + 1, i));
@@ -83,8 +118,9 @@ public class Duke {
                 taskArrayList.add(newTask);
 
             }else{
-                Task newTask =new Task(input);
-                taskArrayList.add(newTask);
+                System.out.println(horiLine);
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println(horiLine);
             }
 
             input = scanner.nextLine();
