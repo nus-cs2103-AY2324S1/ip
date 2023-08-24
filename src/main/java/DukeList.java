@@ -14,9 +14,9 @@ public class DukeList {
     }
 
     public void addTodo(String input) {
-        Todo todo = new Todo(input);
-        arr.add(todo);
-        showList(todo);
+            Todo todo = new Todo(input);
+            arr.add(todo);
+            showList(todo);
     }
 
     public void addDeadline(String input, String by) {
