@@ -1,7 +1,57 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+________________________________________
+Hello I'm Barkley
+   / \__
+  (    @\___
+  /          O
+ /   (_____/
+/_____/
 
+Howl can I help you?
+________________________________________
+________________________________________
+Woof luck with your new task:
+[T][ ] math
+You now have 1 tasks in the list
+________________________________________
+________________________________________
+Woof luck with your new task:
+[D][ ] chem (by: mon 5pm)
+You now have 2 tasks in the list
+________________________________________
+________________________________________
+Woof luck with your new task:
+[E][ ] phototaking (from: mon 2pm to: mon 3pm)
+You now have 3 tasks in the list
+________________________________________
+________________________________________
+Woof luck with your new task:
+[T][ ] econ
+You now have 4 tasks in the list
+________________________________________
+________________________________________
+Furtastic job completing this task:
+[E][X] phototaking (from: mon 2pm to: mon 3pm)
+________________________________________
+________________________________________
+Furtastic job completing this task:
+[T][X] econ
+________________________________________
+________________________________________
+1. [T][ ] math
+2. [D][ ] chem (by: mon 5pm)
+3. [E][X] phototaking (from: mon 2pm to: mon 3pm)
+4. [T][X] econ
+________________________________________
+________________________________________
+That's ruff! I've unmarked this task:
+[E][ ] phototaking (from: mon 2pm to: mon 3pm)
+________________________________________
+________________________________________
+1. [T][ ] math
+2. [D][ ] chem (by: mon 5pm)
+3. [E][ ] phototaking (from: mon 2pm to: mon 3pm)
+4. [T][X] econ
+________________________________________
+________________________________________
+Goodbye! Have a paw-some day :-)
+________________________________________

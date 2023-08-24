@@ -1,0 +1,10 @@
+todo math
+deadline chem /by mon 5pm
+event phototaking /from mon 2pm /to mon 3pm
+todo econ
+mark 3
+mark 4
+list
+unmark 3
+list
+bye
