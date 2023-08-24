@@ -19,7 +19,7 @@ public class Rocket {
         while (true) {
             // Split string
             int firstWordIndex = input.indexOf(' ');
-            String command = "";
+            String command;
             String arguments = "";
             if (firstWordIndex == -1) {
                 command = input;
@@ -27,52 +27,64 @@ public class Rocket {
                 command = input.substring(0, firstWordIndex);
                 arguments = input.substring(firstWordIndex + 1);
             }
-            if (command.equals("bye")) {
-                System.out.println(LINE + "\n    Bye. Hope to see you again soon!\n" + LINE);
-                break;
-            } else if (command.equals("list")) {
-                System.out.println(LINE);
-                for (int i = 0; i < taskList.size(); i++) {
-                    Task task = taskList.get(i);
-                    System.out.println("    " + (i + 1) + "." + task);
+            switch (command) {
+                case "bye": {
+                    System.out.println(LINE + "\n    Bye. Hope to see you again soon!\n" + LINE);
+                    return;
                 }
-                System.out.println(LINE);
-                input = scanner.nextLine();
-            } else if (command.equals("mark")) {
-                int taskNumber = Integer.parseInt(arguments) - 1;
-                Task task = taskList.get(taskNumber);
-                task.markAsDone();
-                System.out.println(LINE);
-                System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("      " + task);
-                System.out.println(LINE);
-                input = scanner.nextLine();
-            } else if (command.equals("unmark")) {
-                int taskNumber = Integer.parseInt(arguments) - 1;
-                Task task = taskList.get(taskNumber);
-                task.markAsUndone();
-                System.out.println(LINE);
-                System.out.println("    OK, I've marked this task as not done yet:");
-                System.out.println("      " + task);
-                System.out.println(LINE);
-                input = scanner.nextLine();
-            } else if (command.equals("deadline")) {
-                int descriptionIndex = arguments.indexOf(" /by");
-                String description = arguments.substring(0, descriptionIndex);
-                String by = arguments.substring(descriptionIndex + 5);
-                Deadline deadline = new Deadline(description, by);
-                taskList.add(deadline);
-                System.out.println(LINE);
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("      " + deadline);
-                System.out.println("    Now you have " + taskList.size() + "tasks in the list");
-                System.out.println(LINE);
-                input = scanner.nextLine();
-            } else {
-                System.out.println(LINE + "\n    Got it. I've added this task: " +
-                        input + "\n" + LINE);
-                taskList.add(new Task(input));
-                input = scanner.nextLine();
+                case "list": {
+                    System.out.println(LINE);
+                    for (int i = 0; i < taskList.size(); i++) {
+                        Task task = taskList.get(i);
+                        System.out.println("    " + (i + 1) + "." + task);
+                    }
+                    System.out.println(LINE);
+                    input = scanner.nextLine();
+                    break;
+                }
+                case "mark": {
+                    int taskNumber = Integer.parseInt(arguments) - 1;
+                    Task task = taskList.get(taskNumber);
+                    task.markAsDone();
+                    System.out.println(LINE);
+                    System.out.println("    Nice! I've marked this task as done:");
+                    System.out.println("      " + task);
+                    System.out.println(LINE);
+                    input = scanner.nextLine();
+                    break;
+                }
+                case "unmark": {
+                    int taskNumber = Integer.parseInt(arguments) - 1;
+                    Task task = taskList.get(taskNumber);
+                    task.markAsUndone();
+                    System.out.println(LINE);
+                    System.out.println("    OK, I've marked this task as not done yet:");
+                    System.out.println("      " + task);
+                    System.out.println(LINE);
+                    input = scanner.nextLine();
+                    break;
+                }
+                case "deadline": {
+                    int descriptionIndex = arguments.indexOf(" /by");
+                    String description = arguments.substring(0, descriptionIndex);
+                    String by = arguments.substring(descriptionIndex + 5);
+                    Deadline deadline = new Deadline(description, by);
+                    taskList.add(deadline);
+                    System.out.println(LINE);
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + deadline);
+                    System.out.println("    Now you have " + taskList.size() + " tasks in the list");
+                    System.out.println(LINE);
+                    input = scanner.nextLine();
+                    break;
+                }
+                default: {
+                    System.out.println(LINE + "\n    Got it. I've added this task: " +
+                            input + "\n" + LINE);
+                    taskList.add(new Task(input));
+                    input = scanner.nextLine();
+                    break;
+                }
             }
         }
     }
