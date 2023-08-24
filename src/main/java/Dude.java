@@ -18,9 +18,6 @@ public class Dude {
     "Bye. Hope to see you again soon!";
   static String taskListPrefix = "Here's your tasks list:\n";
   static String emptyTaskList = "You currently have no tasks in your list.";
-  static String noTaskNumber = "Please specify a task number.";
-  static String invalidTaskNumber =
-    "I can't find the task numbered \"%s\".\nTry checking if you've typed the correct task number.";
   static String addedTask = "Got it! I've added this task:\n\t%s\nYou now have a total of %d task(s).";
   static String deletedTask = "Got it! I've removed this task:\n\t%s\nYou now have a total of %d task(s).";
   static String noTaskDescription = "Please specify a task description.";
@@ -130,6 +127,7 @@ public class Dude {
    * Parses delete commands.
    *
    * @param input delete command.
+   * @throws DudeException if parsing task from command fails
    */
   public static void parseDelete(String input) throws DudeException {
     int taskToDelete = parseTaskIndexCommand(input);
@@ -138,33 +136,29 @@ public class Dude {
   }
 
   /**
-   * Parses mark/unmark commands.
+   * Parses mark commands.
    *
-   * @param input mark/unmark command.
+   * @param input mark command.
+   * @throws DudeException if parsing task from command fails
    */
-  public static void parseMarkUnmark(String input) {
-    String[] splitInput = input.split(" ", 3);
-    String cmd = splitInput[0];
+  public static void parseMark(String input) throws DudeException {
+    int taskToMark = parseTaskIndexCommand(input);
+    Task task = getTask(taskToMark);
+    task.markAsDone();
+    printMessage(markedAsDonePrefix + task);
+  }
 
-    if (splitInput.length < 2) {
-      // task number not specified
-      printMessage(noTaskNumber);
-    } else {
-      String specifiedTask = splitInput[1];
-      try {
-        int taskNumber = Integer.parseInt(specifiedTask);
-        Task task = getTask(taskNumber);
-        if (cmd.equals("mark")) {
-          task.markAsDone();
-          printMessage(markedAsDonePrefix + task);
-        } else if (cmd.equals("unmark")) {
-          task.markAsNotDone();
-          printMessage(markedAsNotDonePrefix + task);
-        }
-      } catch (NumberFormatException | TaskOutOfBoundsException e) {
-        printMessage(String.format(invalidTaskNumber, specifiedTask));
-      }
-    }
+  /**
+   * Parses unmark commands.
+   *
+   * @param input unmark command.
+   * @throws DudeException if parsing task from command fails
+   */
+  public static void parseUnmark(String input) throws DudeException {
+    int taskToUnmark = parseTaskIndexCommand(input);
+    Task task = getTask(taskToUnmark);
+    task.markAsNotDone();
+    printMessage(markedAsNotDonePrefix + task);
   }
 
   /**
@@ -267,8 +261,12 @@ public class Dude {
         printMessage(getTasksList());
         break;
       case "mark":
+        // mark as done
+        parseMark(input);
+        break;
       case "unmark":
-        parseMarkUnmark(input);
+        // mark as not done
+        parseUnmark(input);
         break;
       case "delete":
       case "remove": // alias because I keep typing remove lol
