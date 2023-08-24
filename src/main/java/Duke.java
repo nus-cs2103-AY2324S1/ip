@@ -26,9 +26,17 @@ public class Duke {
             } else if (input.equals("list")) {
                 String list = "";
                 for (int i = 0; i < count; i++) {
-                    list += "  " + (i + 1) + ". " + items[i].getName() + "\n";
+                    list += "  " + (i + 1) + ". " + items[i] + "\n";
                 }
                 talk(list);
+            } else if (input.startsWith("mark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                items[index].markDone();
+                talk("Nice! I've marked this task as done:\n  " + items[index]);
+            } else if (input.startsWith("unmark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                items[index].markUnDone();
+                talk("OK, I've marked this task as not done yet:\n  " + items[index]);
             } else {
                 items[count] = new Task(input);
                 count++;

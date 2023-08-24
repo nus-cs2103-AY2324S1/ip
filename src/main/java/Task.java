@@ -22,4 +22,15 @@ public class Task {
     public void markUnDone() {
         this.done = false;
     }
+
+    @Override
+    public String toString() {
+        String doneCheckbox = "";
+        if (this.done) {
+            doneCheckbox = "[X]";
+        } else {
+            doneCheckbox = "[ ]";
+        }
+        return doneCheckbox + " " + this.name;
+    }
 }
