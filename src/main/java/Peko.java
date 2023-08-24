@@ -38,22 +38,8 @@ public class Peko {
         boolean loop = true;
         int responseValue;
         CommandsInternal temp;
-        try {
-            System.out.println("Loading peko!");
-            start(todoList);
-        } catch (FileNotFoundException e) {
-            File file = new File("src/main/List.txt");
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            main(null);
-            return;
-        } catch (InvalidTaskException e) {
-            System.out.println(e.errorToString());
+        SaveHandler saveHandler = new SaveHandler(todoList, new File("src/main/List.txt"));
 
-        }
         intro();
 
         while (loop) {
@@ -126,6 +112,7 @@ public class Peko {
                 default:
             }
         }
+        saveHandler.saveTo();
         exit();
     }
 
@@ -295,38 +282,7 @@ public class Peko {
             System.out.println("That's not a number in the list Peko!");
         }
     }
-    public static void storeArray(Task[] tasks) {
-        File file = new File("src/main/List.txt");
-        PrintWriter printWriter;
-        try {
-            printWriter = new PrintWriter("src/main/List.txt");
-            printWriter.write("");
-            printWriter.close();
-        } catch (FileNotFoundException e) {
-            try {
-                file.createNewFile();
-            } catch (IOException ex) {
-                System.out.println("Error, Cannot create file peko. Pain Peko.");
-            }
-        } finally {
-            for (Task t : tasks) {
-                if (t == null) {
-                    break;
-                }
-                String toStore = t.toStore() + "\n";
-                System.out.println(toStore);
-                try {
-                    Writer temp;
-                    temp = new BufferedWriter(new FileWriter("src/main/List.txt", true));
-                    temp.append(toStore);
-                    temp.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
 
-            }
-        }
-    }
 
     public static void setMark(String s) {
         try {
@@ -366,7 +322,6 @@ public class Peko {
         return s;
     }
     private static void exit() {
-        storeArray(todoList);
         System.out.println(exitText);
     }
 
