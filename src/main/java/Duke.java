@@ -13,42 +13,53 @@ public class Duke {
 
         while (true) {
             String userInput = scanner.nextLine();
+            String[] inputParts = userInput.split(" ");
+            String command = inputParts[0];
 
-            if (userInput.equals("bye")) {
+            if (command.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!");
                 break;
-            } else if (userInput.equals("list")) {
+            } else if (command.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
                     System.out.println((i + 1) + ". " + tasks.get(i));
                 }
-            } else if (userInput.startsWith("todo")) {
-                tasks.add(new ToDoTask(userInput.substring(5)));
+            } else if (command.equals("mark") || command.equals("unmark")) {
+                int taskIndex = Integer.parseInt(inputParts[1]) - 1;
+                if (taskIndex < tasks.size()) {
+                    Task task = tasks.get(taskIndex);
+                    if (command.equals("mark")) {
+                        task.markAsDone();
+                        System.out.println("Nice! I've marked this task as done:");
+                    } else {
+                        task.markAsNotDone();
+                        System.out.println("OK, I've marked this task as not done yet:");
+                    }
+                    System.out.println("  " + task);
+                } else {
+                    System.out.println("Invalid task index.");
+                }
+            } else {
+                if (command.equals("todo")) {
+                    tasks.add(new Todo(userInput.substring(5)));
+                } else if (command.equals("deadline")) {
+                    String[] deadlineParts = userInput.split(" /by ");
+                    String description = deadlineParts[0].substring(9);
+                    String by = deadlineParts[1];
+                    tasks.add(new Deadline(description, by));
+                } else if (command.equals("event")) {
+                    String[] eventParts = userInput.split(" /from | /to ");
+                    String description = eventParts[0].substring(6);
+                    String from = eventParts[1];
+                    String to = eventParts[2];
+                    tasks.add(new Event(description, from, to));
+                } else {
+                    System.out.println("Invalid command.");
+                }
+
                 System.out.println("Got it. I've added this task:");
                 System.out.println("  " + tasks.get(tasks.size() - 1));
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            } else if (userInput.startsWith("deadline")) {
-                String[] parts = userInput.split("/by");
-                if (parts.length == 2) {
-                    tasks.add(new DeadlineTask(parts[0].substring(9).trim(), parts[1].trim()));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                } else {
-                    System.out.println("Invalid deadline format.");
-                }
-            } else if (userInput.startsWith("event")) {
-                String[] parts = userInput.split("/from|/to");
-                if (parts.length == 3) {
-                    tasks.add(new EventTask(parts[0].substring(6).trim(), parts[1].trim(), parts[2].trim()));
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                } else {
-                    System.out.println("Invalid event format.");
-                }
-            } else {
-                System.out.println("I'm sorry, I don't understand.");
             }
         }
 
@@ -79,8 +90,8 @@ class Task {
     }
 }
 
-class ToDoTask extends Task {
-    public ToDoTask(String description) {
+class Todo extends Task {
+    public Todo(String description) {
         super(description);
     }
 
@@ -90,10 +101,10 @@ class ToDoTask extends Task {
     }
 }
 
-class DeadlineTask extends Task {
-    protected String by;
+class Deadline extends Task {
+    private String by;
 
-    public DeadlineTask(String description, String by) {
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }
@@ -104,11 +115,11 @@ class DeadlineTask extends Task {
     }
 }
 
-class EventTask extends Task {
-    protected String from;
-    protected String to;
+class Event extends Task {
+    private String from;
+    private String to;
 
-    public EventTask(String description, String from, String to) {
+    public Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
