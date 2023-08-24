@@ -29,3 +29,7 @@ Now you have 2 tasks in the list.
 
 1.[T][ ] read
 2.[D][ ] ip (by: 2359)
+
+OOPS!!! The description of a todo cannot be empty.
+
+OOPS!!! I'm sorry, but I don't know what that means :-(
