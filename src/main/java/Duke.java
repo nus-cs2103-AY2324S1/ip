@@ -64,11 +64,19 @@ public class Duke {
                     String name = message.substring(6, message.indexOf("/from "));
                     String afterFrom = message.substring(message.indexOf("/from ") + 5);
                     String start = afterFrom.substring(0, afterFrom.indexOf("/to "));
-                    String endTime = afterFrom.substring(afterFrom.indexOf("/from ") + 6);
+                    String endTime = afterFrom.substring(afterFrom.indexOf("/to ") + 4);
                     tasks.add(new Event(name, start, endTime));
                     numOfTasks++;
                     System.out.println("    Got it. I've added this task:");
                     System.out.println("    " + tasks.get(numOfTasks - 1));
+                    System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
+                } else if(message.split(" ")[0].equals("delete") && message.split(" ").length == 2 && isInt(message.split(" ")[1]) 
+                        && Integer.parseInt(message.split(" ")[1]) <= numOfTasks && Integer.parseInt(message.split(" ")[1]) > 0) {
+                    Task removed = tasks.get(numOfTasks - 1);
+                    tasks.remove(Integer.parseInt(message.split(" ")[1]));
+                    numOfTasks--;
+                    System.out.println("    Noted. I've removed this task:");
+                    System.out.println("    " + removed);
                     System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
                 } else {
                     throw new InvalidCommandException();

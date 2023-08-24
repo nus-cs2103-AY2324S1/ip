@@ -13,12 +13,14 @@
     Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+    Got it. I've added this task:
+    [E][ ] football match  (from:  Sep 1st 7pm  to: 8pm )
+    Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
     [T][ ] Doing yoga
-    Now you have 3 tasks in the list.
+    Now you have 4 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     Nice! I've marked this task as done:
@@ -32,7 +34,8 @@
     Here are the tasks in your list:
     1. [D][X] Asssignment  (by: August 31st )
     2. [T][X] CS2101 Presentation
-    3. [T][ ] Doing yoga
+    3. [E][ ] football match  (from:  Sep 1st 7pm  to: 8pm )
+    4. [T][ ] Doing yoga
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
@@ -56,13 +59,37 @@
     Here are the tasks in your list:
     1. [D][X] Asssignment  (by: August 31st )
     2. [T][X] CS2101 Presentation
-    3. [T][ ] Doing yoga
+    3. [E][ ] football match  (from:  Sep 1st 7pm  to: 8pm )
+    4. [T][ ] Doing yoga
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+    ____________________________________________________________
+    ____________________________________________________________
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
+    ____________________________________________________________
+    ____________________________________________________________
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
+    ____________________________________________________________
+    ____________________________________________________________
+    Noted. I've removed this task:
+    [T][ ] Doing yoga
+    Now you have 3 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Got it. I've added this task:
+    [E][ ] project meeting  (from:  Mon 2pm  to: 4pm )
+    Now you have 4 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
+    Here are the tasks in your list:
+    1. [D][X] Asssignment  (by: August 31st )
+    2. [E][ ] football match  (from:  Sep 1st 7pm  to: 8pm )
+    3. [T][ ] Doing yoga
+    4. [E][ ] project meeting  (from:  Mon 2pm  to: 4pm )
     ____________________________________________________________
     ____________________________________________________________
     Bye. Hope to see you again soon!

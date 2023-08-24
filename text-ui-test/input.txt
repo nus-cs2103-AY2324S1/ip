@@ -14,4 +14,9 @@ todo
 list
 blah
 event invalid event
+delete test
+delete 99
+delete 1
+event project meeting /from Mon 2pm /to 4pm
+list
 bye

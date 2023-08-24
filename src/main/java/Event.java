@@ -40,7 +40,7 @@ public class Event extends Task {
      */
     public static boolean isEvent(String str) throws InvalidEventException {
         if(str.split(" ")[0].equals("event")) {
-            if(str.indexOf("/from ") == -1 || str.substring(str.indexOf("/from ") + 5).indexOf( "/from ") == -1) {
+            if(str.indexOf("/from ") == -1 || str.substring(str.indexOf("/from ") + 5).indexOf( "/to ") == -1) {
                 throw new InvalidEventException();
             } else {
                 return true;
