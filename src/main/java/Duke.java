@@ -1,11 +1,28 @@
+import java.util.Scanner;
+
 public class Duke {
-    private final static String LINE = "____________________________________________________________";
     public static void main(String[] args) {
-        System.out.println(LINE + "\n" +
-                " Hello! I'm ADJ\n" +
-                " What can I do for you?\n" +
-                LINE + "\n" +
-                " Bye. Hope to see you again soon!\n" +
+        String LINE = "____________________________________________________________";
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("\t" + LINE + "\n" +
+                "\t Hello I'm ADJ \n" +
+                "\t What can I do for you? \n\t" +
                 LINE);
+
+        while (true) {
+            String userInput = sc.nextLine();
+            if (userInput.toLowerCase().equals("bye")) {
+                System.out.println("\t" + LINE + "\n" +
+                        "\t Bye. Hope to see you again soon! \n\t" +
+                        LINE);
+                break;
+            } else {
+                System.out.println("\t" + LINE + "\n\t " +
+                        userInput + "\n\t" +
+                        LINE);
+            }
+        }
+
     }
 }
