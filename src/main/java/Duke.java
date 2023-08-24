@@ -37,12 +37,14 @@ public class Duke {
                             notDone.taskString());
                 } else {
                     if (str.startsWith("todo ")) {
-                        Task task = new ToDo(str);
+                        String string = str.substring(5);
+                        Task task = new ToDo(string);
                         tasks.add(task);
                         int len = tasks.size();
                         String output = "\tGot it. I've added this task:\n\t\t"
                                 + task.taskString();
-                        String listLength = "Now you have " + len + " tasks in the list.";
+                        String listLength = len == 1 ? "Now you have " + len + " task in the list." :
+                                "Now you have " + len + " tasks in the list.";
                         System.out.println(output
                                 + "\n\t" + listLength);
                     }
@@ -50,7 +52,7 @@ public class Duke {
                         String byWhen = "/by ";
                         int index = str.indexOf(byWhen);
                         String deadline = str.substring(index + 4); //remove /by from the substring
-                        String workToDo = str.substring(0, index);
+                        String workToDo = str.substring(9, index);
                         Task task = new Deadline(workToDo, deadline);
                         tasks.add(task);
                         int len = tasks.size();
@@ -67,7 +69,7 @@ public class Duke {
                         int secondIndex;
                         String fromWhen;
                         String toWhen;
-                        String workToDo = str.substring(0, firstIndex);
+                        String workToDo = str.substring(6, firstIndex);
                         String afterFirstIndex = str.substring(firstIndex + 6);
                         if (!afterFirstIndex.contains("/to ")) { //to check the input of /to after /from
                             System.out.println("\tInvalid input as the event end time " +
