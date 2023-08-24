@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Ballsorter {
@@ -5,8 +7,7 @@ public class Ballsorter {
     public static void main(String[] args) {
 
         String line = "____________________________________________________________";
-        Task[] tasks = new Task[100];
-        int numberOfTasks = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println(line);
         System.out.println("Hello! I'm Ballsorter\nWhat can I do for you?");
@@ -26,33 +27,55 @@ public class Ballsorter {
 
                 System.out.println("Here are the tasks in your list:");
 
-                if (numberOfTasks == 0) {
+                if (tasks.size() == 0) {
                     System.out.println("You do not have any tasks yet ☹");
                 }
 
-                for (int i = 0; i < numberOfTasks; i++) {
+                for (int i = 0; i < tasks.size(); i++) {
                     int temp = i + 1;
-                    System.out.println(temp + ". " + tasks[i].toString());
+                    System.out.println(temp + ". " + tasks.get(i).toString());
                 }
                 System.out.println(line);
 
             } else if (input.startsWith("mark")) {
 
-                //error: already marked todos cant be marked again
-
                 int target = Integer.parseInt(input.substring(5)) - 1;
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks[target].markDone());
-                System.out.println(line);
+
+                if (target >= tasks.size()) {
+                    System.out.println("☹ OOPS!!! This task does not exist");
+                    System.out.println(line);
+                } else {
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(tasks.get(target).markDone());
+                    System.out.println(line);
+                }
 
             } else if (input.startsWith("unmark")) {
 
-                //error: already unmarked todos cant be unmarked again
+                int target = Integer.parseInt(input.substring(7)) - 1;
+
+                if (target >= tasks.size()) {
+                    System.out.println("☹ OOPS!!! This task does not exist");
+                    System.out.println(line);
+                } else {
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(tasks.get(target).markNotDone());
+                    System.out.println(line);
+                }
+
+            } else if (input.startsWith("delete")) {
 
                 int target = Integer.parseInt(input.substring(7)) - 1;
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks[target].markNotDone());
-                System.out.println(line);
+                if (target >= tasks.size()) {
+                    System.out.println("☹ OOPS!!! This task does not exist");
+                    System.out.println(line);
+                } else {
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(tasks.get(target).toString());
+                    tasks.remove(target);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println(line);
+                }
 
             } else {
 
@@ -128,12 +151,11 @@ public class Ballsorter {
                 }
 
                 if (curr != null) {
-                    tasks[numberOfTasks] = curr;
-                    numberOfTasks++;
+                    tasks.add(curr);
 
                     System.out.println("Got it. I've added this task:");
                     System.out.println(curr.toString());
-                    System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                 }
             }
