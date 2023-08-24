@@ -1,13 +1,18 @@
 import java.util.Scanner;
+import exceptions.JellyException;
+import exceptions.JellyBlankMessageException;
+import exceptions.JellyUnknownCommandException;
 
 public class Jelly {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JellyException{
         Scanner sc = new Scanner(System.in);
         Task[] storage = new Task[100];
         int index = 0;
         System.out.println("Hello! I'm Jelly");
         System.out.println("What can I do for you?");
+
         while (sc.hasNextLine()) {
+            try {
             String str = sc.nextLine();
             String[] stringArray = str.split(" ");
             if (stringArray[0].equals("mark")) {
@@ -30,9 +35,11 @@ public class Jelly {
                 } else {
                     System.out.println("Invalid input");
                 }
-            }
-            else if (stringArray[0].equals("todo")) {
+            } else if (stringArray[0].equals("todo")) {
                 String toDoString = "";
+                if (stringArray.length == 1) {
+                    throw new JellyBlankMessageException("todo");
+                }
                 for (int i = 1; i < stringArray.length; i++) {
                     if (stringArray[i] != null) {
                         toDoString += stringArray[i] + " ";
@@ -45,12 +52,17 @@ public class Jelly {
                 System.out.println("Ok! I've added this task: \n" + storage[index].toString());
                 index++;
                 System.out.println("Now you have " + index + " tasks in the list.");
-            }
-            else if (stringArray[0].equals("deadline")) {
+            } else if (stringArray[0].equals("deadline")) {
+
+                if (stringArray.length == 1) {
+                    throw new JellyBlankMessageException("deadline");
+                }
+
                 String deadlineString = "";
                 String byWhen = "";
+
                 for (int i = 1; i < stringArray.length; i++) {
-                    if (stringArray[i] != null){
+                    if (stringArray[i] != null) {
                         if (stringArray[i].equals("/by")) {
                             for (int j = i + 1; j < stringArray.length; j++) {
                                 byWhen += stringArray[j] + " ";
@@ -64,17 +76,23 @@ public class Jelly {
                         break;
                     }
                 }
+
                 storage[index] = new Deadline(deadlineString, byWhen);
                 System.out.println("Ok! I've added this task: \n" + storage[index].toString());
                 index++;
                 System.out.println("Now you have " + index + " tasks in the list.");
-            }
-            else if (stringArray[0].equals("event")) {
+            } else if (stringArray[0].equals("event")) {
+
+                if (stringArray.length == 1) {
+                    //System.out.println("Sorry, I cannot add nothing to the list...");
+                    throw new JellyBlankMessageException("event");
+                }
+
                 String deadlineString = "";
                 String fromWhen = "";
                 String toWhen = "";
                 for (int i = 1; i < stringArray.length; i++) {
-                    if (stringArray[i] != null){
+                    if (stringArray[i] != null) {
                         if (stringArray[i].equals("/from")) {
                             for (int j = i + 1; j < stringArray.length; j++) {
                                 if (stringArray[j].equals("/to")) {
@@ -99,8 +117,7 @@ public class Jelly {
                 System.out.println("Ok! I've added this task: \n" + storage[index].toString());
                 index++;
                 System.out.println("Now you have " + index + " tasks in the list.");
-            }
-            else if (stringArray[0].equals("bye")) {
+            } else if (stringArray[0].equals("bye")) {
                 System.out.println("Bye, have a nice day!");
                 return;
             } else if (stringArray[0].equals("list")) {
@@ -109,11 +126,10 @@ public class Jelly {
                     System.out.println((i + 1) + "." + storage[i].toString());
                 }
             } else {
-//                Task t = new Task(str);
-//                storage[index] = t;
-//                index++;
-//                System.out.println("added: " + t);
-                System.out.println("Please put a proper input >:c ");
+                throw new JellyUnknownCommandException();
+            }
+        } catch (JellyException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
