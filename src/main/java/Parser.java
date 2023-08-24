@@ -158,7 +158,11 @@ public class Parser {
         String command = strSegments[0];
 
         if (command.equals("mark")) {
-            if (!isNumeric(strSegments[1])) {
+            try {
+                if (!isNumeric(strSegments[1])) {
+                    throw new DukeException("Invalid input for index");
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Invalid input for index");
             }
             String[] results = new String[2];
@@ -183,11 +187,44 @@ public class Parser {
         String command = strSegments[0];
 
         if (command.equals("unmark")) {
-            if (!isNumeric(strSegments[1])) {
+            try {
+                if (!isNumeric(strSegments[1])) {
+                    throw new DukeException("Invalid input for index");
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("Invalid input for index");
             }
             String[] results = new String[2];
             results[0] = "unmark";
+            results[1] = input.substring(6).trim();
+            return results;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Checks for a valid "unmark" command
+     *
+     * @param input the string input by the user
+     * @return A String array containing the keywords if the command is valid
+     *         and null if the command is not a "unmark".
+     * @throws DukeException if the command is "unmark" but the keywords are not valid
+     */
+    public static String[] deleteCommandChecker(String input) throws DukeException {
+        String[] strSegments = input.trim().split(" ");
+        String command = strSegments[0];
+
+        if (command.equals("delete")) {
+            try {
+                if (!isNumeric(strSegments[1])) {
+                    throw new DukeException("Invalid input for index");
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException("Invalid input for index");
+            }
+            String[] results = new String[2];
+            results[0] = "delete";
             results[1] = input.substring(6).trim();
             return results;
         } else {
@@ -217,6 +254,8 @@ public class Parser {
             return markCommandChecker(input);
         } else if (unmarkCommandChecker(input) != null) {
             return unmarkCommandChecker(input);
+        } else if (deleteCommandChecker(input) != null) {
+            return deleteCommandChecker(input);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

@@ -41,6 +41,8 @@ public class Duke {
                     taskList.markDone((int) Double.parseDouble(strSegments[1]));
                 } else if (command.equals("unmark")) {
                     taskList.markNotDone((int) Double.parseDouble(strSegments[1]));
+                } else if (command.equals("delete")) {
+                    taskList.delete((int) Double.parseDouble(strSegments[1]));
                 }
             } catch (DukeException e) {
                 System.out.println(e);

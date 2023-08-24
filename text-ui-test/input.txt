@@ -16,16 +16,11 @@ mark 1
 list
 unmark 1
 list
+delete
+delete everything
+delete 10
+delete 2
+list
 list list
 idunno
-bye
-
-
-event project meeting /from Mon 2pm /to 4pm
-list
-mark 1
-mark 3
-list
-unmark 3
-list
 bye

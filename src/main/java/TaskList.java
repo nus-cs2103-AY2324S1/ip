@@ -48,7 +48,7 @@ public class TaskList {
      * Marks the task with the specified index as done.
      * Prints a notification indicating that the specified task has been marked done.
      *
-     * @param index
+     * @param index The index of the task to be marked as done
      */
     public void markDone(int index) {
         try {
@@ -65,7 +65,7 @@ public class TaskList {
      * Marks the task with the specified index as not done.
      * Prints a notification indicating that the specified task has been marked not done.
      *
-     * @param index
+     * @param index The index of the task to be marked as not done
      */
     public void markNotDone(int index) {
         try {
@@ -74,6 +74,24 @@ public class TaskList {
             System.out.println("OK, I've marked this task as not done yet:");
             System.out.println(task);
         } catch (IndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! There is no task with this index number.");
+        }
+    }
+    /**
+     * Removes the task with the specified index from the task list.
+     * Prints a notification indicating that the specified task has been marked not done.
+     *
+     * @param number The index of the task to be removed.
+     */
+    public void delete(int number) {
+        try {
+            Task task = this.taskList.get(number - 1);
+            this.taskList.remove(number - 1);
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(task);
+            this.index--;
+            System.out.println("Now you have " + this.index + " tasks in the list.");
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
             System.out.println("☹ OOPS!!! There is no task with this index number.");
         }
     }
