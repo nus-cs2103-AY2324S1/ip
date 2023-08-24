@@ -88,6 +88,14 @@ public class Duck {
                 continue;
             }
 
+            if (input.startsWith("delete")) {
+                int index = Integer.parseInt(input.substring(7));
+                line();
+                list.delete(index - 1);
+                line();
+                input = in.nextLine();
+                continue;
+            }
             line();
             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             line();
@@ -199,7 +207,7 @@ class TaskList {
                 output += "[ ] ";
             }
             output += list[i];
-            String info = infoList[i];
+            String info = infoList[i] == null ? "" : infoList[i];
             System.out.println(output + info);
         }
     }
@@ -216,5 +224,22 @@ class TaskList {
         String prefix = typeList[index] == 0 ? " " : typeList[index] + "";
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("[" + prefix + "][ ] " + list[index]);
+    }
+
+    public void delete(int index) {
+        String prefix = typeList[index] == 0 ? " " : typeList[index] + "";
+
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("[" + prefix + "][ ] " + list[index]);
+
+        for (int i = index; i < currentIndex - 1; i++) {
+            list[i] = list[i + 1];
+            doneList[i] = doneList[i + 1];
+            typeList[i] = typeList[i + 1];
+            infoList[i] = infoList[i + 1];
+        }
+        currentIndex--;
+
+        System.out.println("Now you have " + currentIndex + " tasks in the list.");
     }
 }
