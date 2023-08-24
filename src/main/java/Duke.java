@@ -84,6 +84,7 @@ public class Duke {
     }
 
     private void printlist() {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= this.todolist.size(); ++i) {
             Task t =  this.todolist.get(i - 1);
             System.out.println(i + ". " + t.toString());
