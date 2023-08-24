@@ -1,22 +1,35 @@
-public class Task {
-    private int id;
-    private String description;
-    private boolean completed;
+public abstract class Task {
+    protected String description;
+    protected boolean completed;
 
     public static int numberOfTasks = 0;
     public static int numberOfCompletedTasks = 0;
 
 
-    public Task(int i, String d) {
-        this.id = i;
+    public Task(String d) {
         this.description = d;
         this.completed = false;
         numberOfTasks++;
     }
 
-    public static void addTask(Task task) {
-        System.out.println(TextFormat.botReply("gotchu! noted down... "
-            + task.description));
+    public static Task addTask(String command, String input) {
+        Task newTask;
+        if (command.equals("todo")) {
+            newTask = new ToDo(input);
+        } else if (command.equals("deadline")){
+            String[] parts = input.split("/by", 2);
+            newTask = new Deadline(parts[0], parts[1]);
+        } else {
+            String[] message = input.split("/from", 2);
+            String[] fromto = message[1].split("/to", 2);
+            newTask = new Event(message[0], fromto[0], fromto[1]);
+        }
+        System.out.println(TextFormat.botReply("Gotchu! noted down: \n" +
+                TextFormat.indentLineBy(newTask.toString(), 2) +
+                "Now you have " +
+                numberOfTasks +
+                " tasks in the list!"));
+        return newTask;
     }
 
     public void markDone() {
@@ -47,9 +60,5 @@ public class Task {
 
 
     @Override
-    public String toString() {
-        String marker = "[ ]";
-        if (completed) marker = "[X]";
-        return this.id + "." + marker + " " + this.description + "\n";
-    }
+    public abstract String toString();
 }

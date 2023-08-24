@@ -33,9 +33,24 @@ public class Duke {
                 displayList.append("Here are the things you told me to keep track of:\n");
             }
             for (int i = 0; i < Task.numberOfTasks; i++) {
-                displayList.append(taskList[i].toString());
+                displayList.append(i + 1 + ".").append(taskList[i].toString());
             }
             System.out.println(TextFormat.botReply(displayList.toString()));
+        }
+    }
+
+    private void changeMark(String command, Scanner tokeniser) {
+        int id = Integer.parseInt(tokeniser.next());
+        if (id > Task.numberOfTasks) {
+            System.out.println(TextFormat.botReply("Uh-oh... this task does not exist :("));
+        } else {
+            if (command.equals("mark")) {
+                taskList[id - 1].markDone();
+                if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
+                    this.list();
+                }
+            } else {
+                taskList[id - 1].markNotDone();}
         }
     }
 
@@ -44,7 +59,6 @@ public class Duke {
 
         while (true) {
             String command = "";
-            int id = 0;
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
             Scanner tokeniser = new Scanner(input);
@@ -55,34 +69,13 @@ public class Duke {
             } else if (command.equals("list")) {
                 this.list();
                 continue;
-            } else if (command.equals("mark")) {
+            } else if (command.equals("mark") || command.equals("unmark")) {
                 if (tokeniser.hasNext()) {
-                    id = Integer.parseInt(tokeniser.next());
-                    if (id > Task.numberOfTasks) {
-                        System.out.println(TextFormat.botReply("Uh-oh... this task does not exist :("));
-                        continue;
-                    } else {
-                        taskList[id - 1].markDone();
-                        if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
-                            this.list();
-                        }
-                        continue;
-                    }
-                }
-            } else if (command.equals("unmark")) {
-                if (tokeniser.hasNext()) {
-                    id = Integer.parseInt(tokeniser.next());
-                    if (id > Task.numberOfTasks) {
-                        System.out.println(TextFormat.botReply("Uh-oh... this task does not exist :("));
-                        continue;
-                    } else {
-                        taskList[id - 1].markNotDone();
-                        continue;
-                    }
+                    changeMark(command, tokeniser);
+                    continue;
                 }
             }
-            Task newTask = new Task(Task.numberOfTasks + 1, input);
-            Task.addTask(newTask);
+            Task newTask = Task.addTask(command, tokeniser.nextLine());
             taskList[Task.numberOfTasks - 1] = newTask;
         }
         System.out.println(TextFormat.botReply(exit));
