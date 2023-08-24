@@ -17,7 +17,7 @@ public class Bareum {
         Scanner sc = new Scanner(System.in);
         while (true) {
             System.out.println(line);
-            String input = sc.nextLine();
+            String input = sc.next();
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
@@ -25,9 +25,18 @@ public class Bareum {
                 for (int i = 0; i < taskList.size(); i++) {
                     System.out.println((i + 1) + ". " + taskList.get(i).toString());
                 }
+            } else if (input.equals("mark")) {
+                int index = sc.nextInt() - 1;
+                taskList.markAsDone(index);
+                reply("Well done! I've marked this task as done:\n" + taskList.get(index).toString());
+            } else if (input.equals("unmark")) {
+                int index = sc.nextInt() - 1;
+                taskList.markAsUndone(index);
+                reply("Okay, I've marked this task as not done yet:\n" + taskList.get(index).toString());
             } else {
-                taskList.addTask(input);
-                String added = "I have added " + "'" + input + "'" + "to your list!";
+                String task = input + sc.nextLine();
+                taskList.addTask(task);
+                String added = "I have added " + "'" + task + "'" + " to your list!";
                 reply(added);
             }
         }
