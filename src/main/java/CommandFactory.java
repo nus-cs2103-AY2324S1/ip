@@ -1,6 +1,14 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * CommandFactory class for handling various task-related commands.
+ */
 public class CommandFactory {
+
+    /**
+     * Enum to represent different types of commands.
+     */
     enum Command {
         TODO,
         DEADLINE,
@@ -12,11 +20,15 @@ public class CommandFactory {
         DELETE
     }
 
+    /**
+     * Handles the actions of different commands, like adding tasks, deleting them, or marking them as done.
+     */
     public static void CommandActions() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasklists = new ArrayList<>();
         while (true) {
             String input = scanner.nextLine().trim();
+            System.out.println("____________________________________________________________");
             String[] parts = input.split(" ");
             String[] details = input.split("/");
             Command command = null;
@@ -106,6 +118,8 @@ public class CommandFactory {
             } catch (DukeException e){
                 System.out.println(e);
             }
+            System.out.println("____________________________________________________________");
+
         }
 
         scanner.close();
