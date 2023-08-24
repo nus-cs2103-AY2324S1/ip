@@ -29,10 +29,6 @@ public class Parser {
             "\t" +"| |\\  \\| |___\\ \\_/ /_| |_| |\\  |\n" +
             "\t" +"\\_| \\_/\\____/ \\___/ \\___/\\_| \\_/\n";
 
-    public void echo(String command) {
-        this.wrapInHorizontalLines(command);
-    }
-
     public void hello() {
         String welcomeMessage = "Hello! I'm" + BOT_NAME + "\n\t" + "What can I do for you?";
         this.wrapInHorizontalLines(welcomeMessage);

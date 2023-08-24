@@ -9,12 +9,6 @@ public class TaskList {
         this.taskList = new ArrayList<Task>();
     }
 
-    public String addList(String newList) {
-        Task newTask = new Task(newList);
-        this.taskList.add(newTask);
-        return "added: " + newTask;
-    }
-
     public String addToDo(String name) {
         ToDo newToDo = new ToDo(name);
         this.taskList.add(newToDo);
