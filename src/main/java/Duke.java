@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         String botName = "Changoose";
@@ -9,7 +11,25 @@ public class Duke {
         System.out.println(divider);
         System.out.println(startMessage);
         System.out.println(divider);
+        startParse();
         System.out.println(endMessage);
         System.out.println(divider);
+    }
+
+    private static void startParse() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String commandInput = scanner.nextLine();
+            switch (commandInput) {
+                case "bye":
+                    return;
+                default:
+                    echo(commandInput);
+            }
+
+        }
+    }
+    private static void echo(String input) {
+        System.out.println(input);
     }
 }
