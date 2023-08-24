@@ -7,9 +7,9 @@ public class Task {
         this.isDone = false;
     }
 
-    public static Task taskCon(String userInput) {
+    public static Task taskCon(String userInput) throws InvalidCommandException, InvalidTaskCreationException{
         if (userInput.startsWith("todo")) {
-            return new ToDo(userInput.substring(5));
+            return ToDo.ToDoCon(userInput.substring(5));
         } else if (userInput.startsWith("deadline")) {
 
             String[] splitInput = userInput.split("/by");
@@ -28,7 +28,7 @@ public class Task {
 
             return new Event(taskDescription, eventStartTime, eventEndTime);
         } else {
-            return new Task(userInput);
+            throw new InvalidCommandException("Invalid command to add task!");
         }
     }
 

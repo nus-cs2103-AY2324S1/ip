@@ -37,13 +37,20 @@ public class Duke {
                 try {
 
                     int taskNo = Integer.parseInt(userInput.substring(5));
+                    if (taskNo > list.size() | taskNo < 1) {
+                        throw new InvalidTaskException("Please enter valid Task No. to mark!");
+                    }
                     Task x = list.get(taskNo - 1);
                     x.markAsDone();
                     botOutput = botOutput + x;
 
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                } catch (NumberFormatException e) {
 
                     botOutput = "Invalid Input String!!";
+
+                } catch (InvalidTaskException d) {
+
+                    botOutput = d.getMessage();
 
                 }
 
@@ -53,20 +60,33 @@ public class Duke {
                 try {
 
                     int taskNo = Integer.parseInt(userInput.substring(7));
+                    if (taskNo > list.size() | taskNo < 1) {
+                        throw new InvalidTaskException("Please enter valid Task No. to unmark!");
+                    }
                     Task x = list.get(taskNo - 1);
                     x.markAsUndone();
                     botOutput = botOutput + x;
 
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                } catch (NumberFormatException e) {
 
                     botOutput = "Invalid Input String!!";
 
+                } catch (InvalidTaskException d) {
+                    botOutput = d.getMessage();
                 }
 
             } else {
-                Task t = Task.taskCon(userInput);
-                list.add(t);
-                botOutput = botOutput + "added: " + t + "\n    Now you have " + list.size() + " tasks in the list.";
+
+                try {
+                    Task t = Task.taskCon(userInput);
+                    list.add(t);
+                    botOutput = botOutput + "added: " + t + "\n    Now you have " + list.size() + " tasks in the list.";
+                } catch (InvalidCommandException e) {
+                    botOutput = "OOPS!!! I'm sorry, but I'm afraid I don't comprehend Sergeant!";
+                } catch (InvalidTaskCreationException t) {
+                    botOutput = t.getMessage();
+                }
+
             }
 
             System.out.println(botMessage(botOutput));
