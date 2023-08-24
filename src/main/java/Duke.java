@@ -51,9 +51,9 @@ public class Duke {
                 String name = "";
                 String by = "";
                 String[] descriptionArr = input.split(" ", 2)[1].split("/");
-                for (String str: descriptionArr) {
+                for (String str : descriptionArr) {
                     if (str.startsWith("by")) {
-                        by = str.split(" ", 2)[1];
+                        by = str.split(" ", 2)[1].trim();
                     } else {
                         name = str.trim();
                     }
@@ -61,6 +61,25 @@ public class Duke {
                 items[count] = new Deadline(name, by);
                 talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
                 count++;
+
+            } else if (input.startsWith("event")) {
+                String name = "";
+                String from = "";
+                String to = "";
+                String[] descriptionArr = input.split(" ", 2)[1].split("/");
+                for (String str : descriptionArr) {
+                    if (str.startsWith("from")) {
+                        from = str.split(" ", 2)[1].trim();
+                    } else if (str.startsWith("to")) {
+                        to = str.split(" ", 2)[1].trim();
+                    } else {
+                        name = str.trim();
+                    }
+                }
+                items[count] = new Event(name, from, to);
+                talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
+                count++;
+
             } else {
                 items[count] = new Task(input);
                 count++;
