@@ -3,6 +3,9 @@ public class Deadline extends Task{
      * the type Icon
      */
     private String type = "D";
+    /**
+     * the time the deadline must be finished
+     */
     private String by = "";
 
     /**

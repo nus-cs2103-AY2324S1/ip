@@ -17,6 +17,12 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * factory method to create task based on the type
+     * @param type type of task
+     * @param description raw string of the task
+     * @return new Task object based on the types
+     */
     public static Task createTaskType(String type, String description) {
         if (type.equals("deadline")) {
             String[] splitDesc = description.split(" /by ", 2);

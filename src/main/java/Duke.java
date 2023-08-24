@@ -49,7 +49,7 @@ public class Duke {
                         items += "     " + (i+1) + "." + arrayList[i].toString() + "\n";
                     }
                     response = "    ____________________________________________________________\n" +
-                            "     Here are the tasks in your list: \n" +
+                            "     Here are the tasks in your list:\n" +
                             items +
                             "    ____________________________________________________________\n";
 

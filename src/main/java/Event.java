@@ -3,7 +3,13 @@ public class Event extends Task {
      * the type Icon
      */
     private String type = "E";
+    /**
+     * start of the event
+     */
     private String from = "";
+    /**
+     * end of the event
+     */
     private String to = "";
 
     /**
