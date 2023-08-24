@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-public class toDoList {
+public class ToDoList {
     protected ArrayList<Task> taskList;
 
-    public toDoList() {
+    public ToDoList() {
         taskList = new ArrayList<>();
     }
 
@@ -18,7 +18,8 @@ public class toDoList {
             int order = i + 1;
             result+= order + ". " + taskList.get(i) +"\n";
         }
-        result+="----------END OF YOUR TO-DO LIST----------";
+        result+= "----------END OF YOUR TO-DO LIST----------\n";
+        result+= taskList.size() + " tasks in total";
         return result;
     }
 
