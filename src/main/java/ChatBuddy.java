@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class ChatBuddy {
     // store a list of tasks
     static Task[] list = new Task[100];
@@ -7,18 +8,60 @@ public class ChatBuddy {
     /**
      * Add task to list array.
      *
-     * @param task The task string to add to the list of tasks
+     * @param task The task to add into the list of tasks.
      */
-    private static void addTask(String taskDescription) {
+    private static void addTask(Task task) {
         // add task to list
-        Task task = new Task(taskDescription);
         list[numOfTasks] = task;
         numOfTasks++;
 
         // display message
         printHorizontalLine();
-        System.out.println("    added: " + taskDescription);
+        System.out.println("    Got it. I've added this task:");
+        System.out.println("      " + task.toString());
+        System.out.println(String.format("    Now you have %d tasks in the list.", numOfTasks));
         printHorizontalLine();
+    }
+
+    /**
+     * Add a todo task into the task list.
+     *
+     * @param userInput The input provided by the user that starts with "todo".
+     */
+    private static void addToDo(String userInput) {
+        String taskDescription = userInput.substring(5);
+        ToDo todo = new ToDo(taskDescription);
+        addTask(todo);
+    }
+
+    /**
+     * Add a deadline task into the task list.
+     *
+     * @param userInput The input provided by the user that starts with "deadline".
+     *                  The userInput should include /by.
+     */
+    private static void addDeadline(String userInput) {
+        int byCommandIndex = userInput.indexOf("/by");
+        String taskDescription = userInput.substring(9, byCommandIndex - 1);
+        String by = userInput.substring(byCommandIndex + 4);
+        Deadline deadline = new Deadline(taskDescription, by);
+        addTask(deadline);
+    }
+
+    /**
+     * Add an event task into the task list.
+     *
+     * @param userInput The input provided by the user that starts with "event".
+     *                  The userInput should include /from and /to.
+     */
+    private static void addEvent(String userInput) {
+        int fromIndex = userInput.indexOf("/from");
+        int toIndex = userInput.indexOf("/to");
+        String taskDescription = userInput.substring(6, fromIndex - 1);
+        String from = userInput.substring(fromIndex + 6, toIndex - 1);
+        String to = userInput.substring(toIndex + 4);
+        Event event = new Event(taskDescription, from, to);
+        addTask(event);
     }
 
     /** Displays the list of tasks. */
@@ -31,7 +74,7 @@ public class ChatBuddy {
                 // there are no more tasks
                 break;
             }
-            System.out.println(String.format("    %1s.%2s", i + 1, task.getStatusIconAndDescription()));
+            System.out.println(String.format("    %1s.%2s", i + 1, task.toString()));
         }
         printHorizontalLine();
     }
@@ -65,8 +108,12 @@ public class ChatBuddy {
                 int taskIndex = Integer.parseInt(indexString) - 1;
                 Task task = list[taskIndex];
                 task.markAsNotDone();
-            } else {
-                addTask(userInput);
+            } else if (userInput.startsWith("todo")) {
+                addToDo(userInput);
+            } else if (userInput.startsWith("deadline")) {
+                addDeadline(userInput);
+            } else if (userInput.startsWith("event")) {
+                addEvent(userInput);
             }
             userInput = scanner.nextLine();
         }
