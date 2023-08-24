@@ -5,17 +5,16 @@ import java.util.Scanner;  // Import the Scanner class
 public class Duke {
     public static String indent = "     ";
     public static String horizontalLine = "-".repeat(22);
+    private enum TaskKeyVal {ToDo, Deadline, Event, Delete, mark, unmark, bye, list};       //enum that stores all important constants
     public static void main(String[] args) {
         Map<String, String> hashMap = Map.of(
                 "endMessage", "Bye. Hope to see you again soon!",
                 "endVal", "bye",
-                "listVal", "list",
-                "addTask", "task" );
-        List<String> taskKeyVal = new ArrayList<>(Arrays.asList("ToDo", "Deadline", "Event", "Delete", "mark", "unmark"));
+                "listVal", "list");
 
-        ArrayList<Task> storeTask = new ArrayList(1);
+        ArrayList<Task> storeTask = new ArrayList(1);                           //stores all the tasks. refer to child classes of task
 
-        System.out.println(indent + horizontalLine);
+        System.out.println(indent + horizontalLine);                                        //Helps with readability
         System.out.println(indent + "Hello! I'm Tom!" + "\n" + indent + "What can I do for you?" + "\n");
         System.out.println(indent + horizontalLine);
         Scanner userInputObject = new Scanner(System.in);
@@ -24,11 +23,13 @@ public class Duke {
             String userInput = userInputObject.nextLine();
             String[] userInputList = userInput.split(" ", 2);
             String userTaskChoiceKey = userInputList[0];
+
             try {
-                if (userInput.equals(hashMap.get("endVal"))) {
+                TaskKeyVal taskKeyVal = TaskKeyVal.valueOf(userTaskChoiceKey);              //Stores enum value. might throw exception if invalid input entered.
+                if (taskKeyVal == TaskKeyVal.bye) {
                     System.out.println("\n" + indent + hashMap.get("endMessage"));
                     break;
-                } else if (userInput.equals(hashMap.get("listVal"))) {
+                } else if (taskKeyVal == TaskKeyVal.list) {
                     int count = 0;
                     ListIterator<Task> ls = storeTask.listIterator();
                     System.out.println("\n" + indent + "Entries on memory...");
@@ -36,29 +37,29 @@ public class Duke {
                         count++;
                         System.out.println(indent + count + "." + ls.next().toString());
                     }
-                } else if (userInputList[0].equals("mark") || userInputList[0].equals("unmark")) {
+                } else if (taskKeyVal == TaskKeyVal.mark || taskKeyVal == TaskKeyVal.unmark) {
                     String taskNumber = userInputList[1];
                     Task taskItem = storeTask.get(Integer.parseInt(taskNumber) - 1);
                     System.out.println(indent + taskItem.changeStatus(userInputList[0]));
-                } else if (userInputList.length == 1 && taskKeyVal.contains(userTaskChoiceKey)) {
+                } else if (userInputList.length == 1 && enumCheck(userTaskChoiceKey)) {
                     throw new DukeException(" ☹ OOPS!!! The description of a task cannot be empty.");
-                } else if (userTaskChoiceKey.equals("ToDo")) {
+                } else if (taskKeyVal == TaskKeyVal.ToDo) {
                     storeTask.add(new ToDo(userInputList[1]));
                     System.out.println(indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
                     System.out.println(indent + horizontalLine);
-                } else if (userTaskChoiceKey.equals("Deadline")) {
+                } else if (taskKeyVal == TaskKeyVal.Deadline) {
                     String[] deadlineList = userInputList[1].split("/", 2);
                     storeTask.add(new Deadline(deadlineList[0], deadlineList[1]));
                     System.out.println(indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
                     System.out.println(indent + horizontalLine);
-                } else if (userTaskChoiceKey.equals("Event")) {
+                } else if (taskKeyVal == TaskKeyVal.Event) {
                     String[] eventList = userInputList[1].split("/", 3);
                     storeTask.add(new Event(eventList[0], eventList[1], eventList[2]));
                     System.out.println(indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
                     System.out.println(indent + horizontalLine);
-                } else if (userTaskChoiceKey.equals("Delete")) {
+                } else if (taskKeyVal == TaskKeyVal.Delete) {
                     Integer delUserChoice = Integer.parseInt(userInputList[1]);
-                    if ((delUserChoice - 1) < 0) {
+                    if ((delUserChoice - 1) < 0) {                                          //if number entered smaller than 1, array will go negative index.
                         throw new DukeException("Invalid Task entered. Please try again...");
                     } else if (storeTask.isEmpty()) {
                         throw new DukeException("Task Scheduler is empty... Please try again!");
@@ -68,10 +69,11 @@ public class Duke {
                         System.out.println(indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
                     }
                 }
-                  else {
+                  else {                                                                    //in case wrong inpute like Delete abc entered
                     throw new DukeException("☹ OOPS!!! Sorry, but i do not know what that means :-(");
                 }
             }
+
             catch (NumberFormatException e) {
                 System.out.println(indent + "Invalid character input");
             }
@@ -81,7 +83,20 @@ public class Duke {
             catch (IndexOutOfBoundsException e) {
                 System.out.println(indent + "Invalid entry / Task not in list... Please try again...");
             }
+            catch (IllegalArgumentException e) {
+                System.out.println("☹ OOPS!!! Sorry, but i do not know what that means :-(");
+            }
         }
     }
+
+    public static boolean enumCheck(String input) {
+        for (TaskKeyVal taskKey : TaskKeyVal.values()) {
+            if (taskKey.name().equalsIgnoreCase(input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 
