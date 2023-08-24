@@ -1,3 +1,4 @@
+import javax.management.InstanceNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
@@ -111,7 +112,19 @@ public class Duke {
                     task.addTask(description);
                     count++;
                     System.out.println("Now you have " + String.valueOf(taskArrayList.size()) + " tasks in the list.");
-                } else {
+                } else if (response.startsWith("delete ") && response.length() > 7) {
+                    int id = Integer.valueOf(response.substring(7));
+                    Task task = taskArrayList.get(id - 1);
+                    taskArrayList.remove(id - 1);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(task.toString().substring(2));
+                    System.out.println("Now you have " + String.valueOf(taskArrayList.size()) + " tasks in the list.");
+                    for (int i = id; i < taskArrayList.size() - 1; i++) {
+                        Task temp = taskArrayList.get(i - 1);
+                        temp = new Task(temp.description, i - 2);
+                    }
+                }
+                else {
                     //taskArrayList.add(new Task(response, count));
 
                     CustomException exception = new CustomException();
