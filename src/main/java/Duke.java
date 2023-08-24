@@ -152,10 +152,10 @@ public class Duke {
     String input;
     Scanner sc = new Scanner(System.in);
     while (true) {
-      input = sc.nextLine();
+      input = sc.nextLine().trim();
 
       // Handle empty inputs
-      if (input.trim().equals("")) {
+      if (input.equals("")) {
         printText("Enter a command please!");
         continue;
       }
