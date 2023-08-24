@@ -1,0 +1,50 @@
+   ------------------------
+     GREETINGS HUMAN! I AM QLATZ! □ 
+     I AM NOW A LISTMAKER
+   ------------------------
+
+
+   ------------------------
+
+     I can only understand the following commands: 
+     bye, list, mark, unmark, todo, deadline, event
+
+   ------------------------
+
+
+   ------------------------
+
+     You have no tasks added yet
+
+   ------------------------
+
+
+   ------------------------
+
+     Now you have 1 tasks in the list.
+
+   ------------------------
+
+
+   ------------------------
+
+     Now you have 2 tasks in the list.
+
+   ------------------------
+
+
+   ------------------------
+
+     Now you have 3 tasks in the list.
+
+   ------------------------
+
+
+   ------------------------
+
+     1. [T][ ] borrow book
+     2. [D][ ] return book(by: sunday)
+     3. [E][ ] project meeting(from: mon 2pm to: tues 000pm)
+
+   ------------------------
+
