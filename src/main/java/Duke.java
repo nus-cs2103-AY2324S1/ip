@@ -133,10 +133,13 @@ public class Duke {
 
         public Task(String task) throws WrongCommandException, WrongFormatException {
             this.isDone = false;
-            if (getTaskType(task) == null) throw new WrongCommandException("Whopsie daisies! I don't understand that command!");
-            if (getDescription(task) == null) throw new WrongFormatException("Woah! That's not the right format for this command!");
-            this.taskType = getTaskType(task);
-            this.description = getDescription(task);
+            TaskType tmpTaskType = getTaskType(task);
+            if (tmpTaskType == null) throw new WrongCommandException("Whopsie daisies! I don't understand that command!");
+            this.taskType = tmpTaskType;
+
+            String tmpDescription = getDescription(task);
+            if (tmpDescription == null) throw new WrongFormatException("Whopsie daisies! I don't understand that format!");
+            this.description = tmpDescription;
         }
 
         public void markAsDone() {
