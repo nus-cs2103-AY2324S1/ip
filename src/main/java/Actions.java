@@ -20,25 +20,30 @@ public class Actions {
         } return String.join("\n", formattedTasks);
     }
 
-    public Task getAction(int idx) {
-        return actions.get(idx);
+    public Task getAction(int idx) throws DukeException {
+        if (idx < actions.size() && idx > -1) {
+            return actions.get(idx);
+        } throw new DukeException(" Task number invalid; please re-examine input.");
     }
 
-    public Task mark(int idx) {
-        if (idx < actions.size() && idx > -1) {
-            actions.get(idx).markAsDone();
-            return getAction(idx);
-        } return null;
+    public Task mark(int idx) throws DukeException {
+        Task toMark = getAction(idx);
+        toMark.markAsDone();
+        return toMark;
     }
 
-    public Task unmark(int idx) {
-        if (idx < actions.size() && idx > -1) {
-            actions.get(idx).unMark();
-            return getAction(idx);
-        } return null;
+    public Task unmark(int idx) throws DukeException {
+        Task toUnmark = getAction(idx);
+        toUnmark.markAsDone();
+        return toUnmark;
     }
 
     public int size(){
         return actions.size();
+    }
+
+    public Task delete(int idx) throws DukeException{
+        getAction(idx);
+        return actions.remove(idx);
     }
 }
