@@ -11,4 +11,18 @@ mark 5
 mark 4
 mark 4
 list
+mark 6
+mark -1
+mark abc
+mark
+mark 2 3
+todo
+deadline /by 2
+deadline 1 2
+deadline 1 /by
+event /from 2 /to 3
+event 1 2 /to 3
+event 1 /from /to 3
+event 1 /from 2 3
+event 1 /from 2 /to
 bye

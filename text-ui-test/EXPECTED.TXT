@@ -63,5 +63,61 @@
 	5.[D][X] task 5  (by: 26 Aug)
 	____________________________________________________________
 	____________________________________________________________
+	OOPS, invalid index provided.
+	Please provide an integer from 1 to the number of tasks in your task list.
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, invalid index provided.
+	Please provide an integer from 1 to the number of tasks in your task list.
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, invalid index provided.
+	Please provide an integer from 1 to the number of tasks in your task list.
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, to mark / unmark a task, use mark <index> / unmark <index>
+	The index cannot be empty, and there shouldn't be any more field after the index
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, to mark / unmark a task, use mark <index> / unmark <index>
+	The index cannot be empty, and there shouldn't be any more field after the index
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, to create a todo task, use todo <Description>
+	The description cannot be empty
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, to create a deadline task, use deadline <Description> /by <Deadline>
+	The description, /by handle and deadline cannot be empty
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, to create a deadline task, use deadline <Description> /by <Deadline>
+	The description, /by handle and deadline cannot be empty
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, to create a deadline task, use deadline <Description> /by <Deadline>
+	The description, /by handle and deadline cannot be empty
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, to create an event task, use event <Description> /from <from> /to <to>
+	The description, /from handle, from, /to handle, and to cannot be empty
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, to create an event task, use event <Description> /from <from> /to <to>
+	The description, /from handle, from, /to handle, and to cannot be empty
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, to create an event task, use event <Description> /from <from> /to <to>
+	The description, /from handle, from, /to handle, and to cannot be empty
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, to create an event task, use event <Description> /from <from> /to <to>
+	The description, /from handle, from, /to handle, and to cannot be empty
+	____________________________________________________________
+	____________________________________________________________
+	OOPS, to create an event task, use event <Description> /from <from> /to <to>
+	The description, /from handle, from, /to handle, and to cannot be empty
+	____________________________________________________________
+	____________________________________________________________
 	Bye. Hope to see you again soon!
 	____________________________________________________________
