@@ -1,21 +1,38 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import Task;
 
 public class Glen {
     static final String HORLINE = "_____________________________________________________\n";
-    static ArrayList<String> tasks = new ArrayList<String>();
+    static ArrayList<Task> tasks = new ArrayList<Task>();
     
     public static void main(String[] args) {
         System.out.println(intro());
         Scanner scan = new Scanner(System.in);
         String input = scan.nextLine();
-        while (!input.toLowerCase().equals("bye")) {
-            if (input.toLowerCase().equals("list")) {
+        String low = input.toLowerCase();
+        while (!low.equals("bye")) {
+            if (low.equals("list")) {
                 System.out.println(lst());
             } else {
-                System.out.println(add(input));
+                int index = Math.max(0, low.indexOf(" "));
+                String firstWord = low.substring(0, index);
+                if (firstWord.equals("mark") || firstWord.equals("unmark")) {
+                    int taskIndex = -1;
+                    try {
+                        taskIndex = Integer.valueOf(low.substring(++index)) - 1;
+                    } catch (Exception NumberFormatException) {}
+                    if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                        toggle(firstWord, taskIndex);
+                    } else {
+                        System.out.println(HORLINE + "Please select a valid item to mark/unmark.\n" + HORLINE);
+                    }   
+                } else {
+                    System.out.println(add(input));
+                }
             }
             input = scan.nextLine();
+            low = input.toLowerCase();
         }
         System.out.println(exit());
         scan.close();
@@ -34,14 +51,38 @@ public class Glen {
     }
 
     static String add(String inp) {
-        tasks.add(inp);
+        Task newTask = new Task(inp);
+        tasks.add(newTask);
         return HORLINE + "added: " + inp + "\n" + HORLINE;
     }
 
+    static void toggle(String requestType, int taskIndex) {
+        if (taskIndex > tasks.size()) {
+            System.out.println("Invalid item selected. Please try again.");
+        } else {
+            Task task = tasks.get(taskIndex);
+            if (requestType.equals("mark") && task.getStatusIcon().equals("X")) {
+                System.out.println(HORLINE + "Task is currently marked. Did you mean to unmark the task?\n" + HORLINE);
+            } else if (requestType.equals("unmark") && task.getStatusIcon().equals(" ")) {
+                System.out.println(HORLINE + "Task is currently unmarked. Did you mean to mark the task?\n" + HORLINE);
+            } else {
+                task.toggle();
+                if (task.getStatusIcon().equals("X")) {
+                    System.out.println(HORLINE + "Nice! I've marked this task as done:");
+                    System.out.println("  [X] " + task.getDescription() + "\n" + HORLINE);
+                } else {
+                    System.out.println(HORLINE + "OK, I've marked this task as not done yet:");
+                    System.out.println("  [ ] " + task.getDescription() + "\n" + HORLINE);
+                }
+            }
+        }
+    }
+
     static String lst() {
-        String temp = "";
-        for(int i = 0; i < tasks.size(); i++) {   
-            temp += String.valueOf(i + 1) + ". " + tasks.get(i) + "\n";
+        String temp = "Here are the tasks in your list:\n";
+        for(int i = 0; i < tasks.size(); i++) {
+            Task tempTask = tasks.get(i);
+            temp += String.valueOf(i + 1) + ".[" + tempTask.getStatusIcon() + "] " + tempTask.getDescription() + "\n";
         }  
         return HORLINE + temp + HORLINE;
     }
