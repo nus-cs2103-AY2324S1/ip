@@ -25,59 +25,81 @@ public class Duke {
     }
 
     private static Task addTask(String input) {
-        String[] splittedInput = input.split(" ");
-        if (splittedInput[0].equalsIgnoreCase("todo")) {
-            return new ToDo (input.substring(5));
+        String[] splittedInput = input.split(" ", 2); // Split into two parts: command and argument
+        String command = splittedInput[0].toLowerCase();
+
+        switch (command) {
+            case "todo":
+                return new ToDo(splittedInput[1]);
+            case "deadline":
+                String[] deadlineParts = splitByDelimiter(splittedInput[1], " /by ");
+                return new Deadline(deadlineParts[0], deadlineParts[1]);
+            case "event":
+                String[] eventParts = splitByDelimiter(splittedInput[1], " /from ");
+                String eventName = eventParts[0];
+                String[] eventTimes = splitByDelimiter(eventParts[1], " /to ");
+                return new Event(eventName, eventTimes[0], eventTimes[1]);
+            default:
+                return null;
         }
-        if (splittedInput[0].equalsIgnoreCase("deadline")) {
-            return new Deadline(input.substring(9).split(" /by ")[0], input.substring(9).split(" /by ")[1]);
-        }
-        if (splittedInput[0].equalsIgnoreCase("event")) {
-            return new Event(input.substring(6).split(" /from ")[0], input.substring(6).split(" /from ")[1].split(" /to ")[0], input.substring(6).split(" /from ")[1].split(" /to ")[1]);
-        }
-        return null;
     }
+
+    // A helper method to handle splitting by a specific delimiter
+    private static String[] splitByDelimiter(String input, String delimiter) {
+        return input.split(delimiter, 2); // Split into two parts by the specified delimiter
+    }
+
 
     public static void echo(List<Task> list) {
         Scanner sc = new Scanner(System.in);
+
         while (true) {
-            String input = sc.nextLine();
-            if (input.equalsIgnoreCase("bye")) {
-                break;
-            }
-            if (input.equalsIgnoreCase("list")) {
-                lineSplitter();
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + ". " + list.get(i));
-                }
-                lineSplitter();
-                continue;
-            }
+            String input = sc.nextLine().trim();
+            String[] splittedInput = input.split(" ", 2);
+            String command = splittedInput[0].toLowerCase();
 
-            if (input.split(" ")[0].equalsIgnoreCase("mark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                list.get(index).setDone();
-                lineSplitter();
-                System.out.println("Nice! I've marked this task as done:\n" + "  " + list.get(index) + "\n");
-                lineSplitter();
-                continue;
-            }
+            switch (command) {
+                case "bye":
+                    sc.close();
+                    return;
 
-            if (input.split(" ")[0].equalsIgnoreCase("unmark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                list.get(index).setUndone();
-                lineSplitter();
-                System.out.println("Nice! I've marked this task as undone:\n" + "  " + list.get(index) + "\n");
-                lineSplitter();
-                continue;
+                case "list":
+                    lineSplitter();
+                    for (int i = 0; i < list.size(); i++) {
+                        System.out.println((i + 1) + ". " + list.get(i));
+                    }
+                    lineSplitter();
+                    break;
+
+                case "mark":
+                    int markIndex = Integer.parseInt(splittedInput[1]) - 1;
+                    list.get(markIndex).setDone();
+                    lineSplitter();
+                    System.out.println("I've marked this task as done:\n  " + list.get(markIndex));
+                    lineSplitter();
+                    break;
+
+                case "unmark":
+                    int unmarkIndex = Integer.parseInt(splittedInput[1]) - 1;
+                    list.get(unmarkIndex).setUndone();
+                    lineSplitter();
+                    System.out.println("I've marked this task as undone:\n  " + list.get(unmarkIndex));
+                    lineSplitter();
+                    break;
+
+                default:
+                    Task task = addTask(input);
+                    if (task != null) {
+                        list.add(task);
+                        lineSplitter();
+                        System.out.println("added: " + task + " \n" + list.size() + " tasks in the list");
+                        lineSplitter();
+                    }
+                    break;
             }
-            list.add(addTask(input));
-            lineSplitter();
-            System.out.println("added: " + input + "\n");
-            lineSplitter();
         }
-        sc.close();
     }
+
 
     public static void main(String[] args) {
         List<Task> list = new ArrayList<>();
