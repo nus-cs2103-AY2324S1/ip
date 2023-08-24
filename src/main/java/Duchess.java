@@ -235,6 +235,51 @@ public class Duchess {
     }
 
     /**
+     * Returns true if the command is recognized as an "delete task" command.
+     *
+     *
+     * @param s - the command to check for "delete task" command.
+     * @return    whether the command is an delete task command.
+     */
+    private static boolean isDeleteTaskCommand(String s) {
+        return Duchess.matchesRegex(s, "^delete");
+    }
+
+    /**
+     * Parses a delete task command, returning the index of the task to be deleted.
+     *
+     * @param s - the command to parse for "delete task" command.
+     * @return    an integer describing the index of the task to be deleted.
+     */
+    private static int parseDeleteTaskCommand(String s) throws DuchessException {
+        Matcher m = Duchess.parseRegex(s, "^delete( [0-9]+)?$");
+
+        if (m.group(1) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, I don't know which task to delete... ;-;");
+        }
+
+        return Integer.parseInt(m.group(1).trim());
+    }
+
+    /**
+     * Unmarks a task.
+     *
+     * @param i - the index of the task to be unmarked.
+     */
+    private static void deleteTask(int index) {
+        if (index < 0 || index >= Duchess.storedTasks.size()) {
+            Duchess.duchessPrint("(´；ω；`) Sorry, no such task exists... ;-;");
+            return;
+        }
+
+        Task task = Duchess.storedTasks.remove(index);
+        Duchess.duchessPrint("Deleted successfully!! d(*⌒▽⌒*)b");
+        duchessPrint(String.format("%d: %s", index + 1, task.toString()));
+        Duchess.duchessPrint("");
+        Duchess.duchessPrint(String.format("Now you have %d task(s)!! ヽ(´▽`)/", Duchess.storedTasks.size()));
+    }
+
+    /**
      * Returns true if the command is recognized as a "todo" command.
      *
      * @param s - the command to check for "todo" command.
@@ -387,6 +432,21 @@ public class Duchess {
                     Duchess.duchessPrint(e.getMessage());
                     Duchess.duchessPrint("(／°▽°)／Try something like this!!");
                     Duchess.duchessPrint("unmark [task number]");
+                }
+                continue;
+            }
+
+            // Check if this command is an unmarked task command.
+            if (Duchess.isDeleteTaskCommand(userInput)) {
+                try {
+                    int index = Duchess.parseDeleteTaskCommand(userInput);
+                    index -= 1; // 1-indexing for user-facing side
+                    Duchess.deleteTask(index);
+                }
+                catch (DuchessException e) {
+                    Duchess.duchessPrint(e.getMessage());
+                    Duchess.duchessPrint("(／°▽°)／Try something like this!!");
+                    Duchess.duchessPrint("delete [task number]");
                 }
                 continue;
             }
