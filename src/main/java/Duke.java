@@ -24,8 +24,8 @@ public class Duke {
      */
     private static void greetingMessage() {
         System.out.println("\t" + Duke.LINE + "\n" +
-                "\t Hello I'm ADJ \n" +
-                "\t What can I do for you? \n\t" +
+                "\t Hello I'm ADJ\n" +
+                "\t What can I do for you?\n\t" +
                 Duke.LINE);
     }
 
@@ -50,7 +50,7 @@ public class Duke {
 
         Duke.tasks.add(newTask);
 
-        System.out.println("\t Got it. I've added this task: \n" +
+        System.out.println("\t Got it. I've added this task:\n" +
                 "\t\t" + newTask + "\n" +
                 "\t Now you have " + Duke.tasks.size() + " tasks in your list. Good luck!");
     }
