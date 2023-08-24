@@ -52,7 +52,7 @@ public class Action {
                 String dueDate = taskDetails.substring(indexOfBy + 2).trim();
                 Deadline deadline = new Deadline(taskTitle, dueDate);
                 taskList.addTask(deadline);
-                ui.printResponse("Yes Master! I've added this task: \n" + deadline.toString() + "\n" +
+                ui.printResponse("Yes Master! I've added this task: \n" + "\t" + deadline.toString() + "\n" +
                                 "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
             }
         } else if (taskType.equalsIgnoreCase("event")) {
@@ -67,7 +67,7 @@ public class Action {
 
                 Event event = new Event(taskTitle, startTime, endTime);
                 taskList.addTask(event);
-                ui.printResponse("Yes Master! I've added this task: \n" + event.toString() + "\n" +
+                ui.printResponse("Yes Master! I've added this task: \n" + "\t" + event.toString() + "\n" +
                                 "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
             }
         }  
