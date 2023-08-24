@@ -1,9 +1,11 @@
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Potato {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] store = new Task[100];
+        ArrayList<Task> store = new ArrayList<>();
         int size = 0;
 
         System.out.println("-----------------------------------------\n" +
@@ -22,20 +24,26 @@ public class Potato {
             } else if (input.startsWith("mark")) {
                 // not followed by number
                 int index = Integer.parseInt(input.substring(5)) - 1;
-                store[index].setStatus(true);
+                store.get(index).setStatus(true);
                 System.out.println("-----------------------------------------\n" +
                         "Nice! I've marked this task as done:\n" +
-                        store[index].toString() + "\n" +
+                        store.get(index).toString() + "\n" +
                         "-----------------------------------------");
 
             } else if (input.startsWith("unmark")) {
                 // not followed by number
                 int index = Integer.parseInt(input.substring(7)) - 1;
-                store[index].setStatus(false);
+                store.get(index).setStatus(false);
                 System.out.println("-----------------------------------------\n" +
                         "Ok, I've marked this task as not done yet:\n" +
-                        store[index].toString() + "\n" +
+                        store.get(index).toString() + "\n" +
                         "-----------------------------------------");
+
+            } else if (input.startsWith("delete")) {
+                int index = Integer.parseInt(input.substring(5)) - 1;
+                store.remove(index);
+                size--;
+                System.out.println();
 
             } else if (input.equals("list")) {
                 int count = 0;
@@ -65,16 +73,17 @@ public class Potato {
                         new PotatoException("-----------------------------------------\n" +
                                 "☹ OOPS!!! The description of a todo cannot be empty.\n" +
                                 "-----------------------------------------");
+                        continue;
                     } else {
-                        store[size] = new Todo(input.substring(5));
+                        store.add(new Todo(input.substring(5)));
                     }
 
                 } else if (input.startsWith("deadline")) {
                     // empty deadline
                     // no by
                     int indexBy = input.indexOf("/by");
-                    store[size] = new Deadline(input.substring(9, indexBy),
-                            input.substring(indexBy + 4));
+                    store.add(new Deadline(input.substring(9, indexBy),
+                            input.substring(indexBy + 4)));
 
                 } else if (input.startsWith("event")) {
                     // empty event
@@ -82,15 +91,15 @@ public class Potato {
                     // no to
                     int indexFrom = input.indexOf("/from");
                     int indexTo = input.indexOf("/to");
-                    store[size] = new Event(input.substring(6, indexFrom),
+                    store.add(new Event(input.substring(6, indexFrom),
                             input.substring(indexFrom + 6, indexTo),
-                            input.substring(indexTo + 4));
+                            input.substring(indexTo + 4)));
                 }
 
                 size++;
                 System.out.println("-----------------------------------------\n" +
                         "Got it. I've added this task:\n" +
-                        store[size - 1].toString() + "\n" +
+                        store.get(size - 1).toString() + "\n" +
                         "Now you have " + size + " tasks in the list.\n" +
                         "-----------------------------------------");
             }
