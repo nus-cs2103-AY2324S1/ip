@@ -26,6 +26,9 @@ public class Tasks {
                 case "list":
                     this.listTasks();
                     break;
+                case "delete":
+                    this.handleDelete(restOfText);
+                    break;
                 case "todo":
                 case "deadline":
                 case "event":
@@ -40,6 +43,29 @@ public class Tasks {
         } catch (DukeException e) {
             System.out.println(line);
             System.out.println(e);
+            System.out.println(line);
+        }
+    }
+
+    private void handleDelete(String id) {
+        try {
+            int number = Integer.parseInt(id);
+            Task task = this.getTask(number);
+            if (task != null) {
+                Task t = this.tasks.remove(number - 1);
+                System.out.println(line);
+                System.out.println("    Noted. I've removed this task:");
+                System.out.println("    " + t);
+                System.out.println("    Now you have " + this.tasks.size() + " tasks in the list.");
+                System.out.println(line);
+            } else {
+                System.out.println(line);
+                System.out.println("    Unknown task number! Please try again :-)");
+                System.out.println(line);
+            }
+        } catch (NumberFormatException | StringIndexOutOfBoundsException ex) {
+            System.out.println(line);
+            System.out.println("    Please enter a number for the task! Please try again :-)");
             System.out.println(line);
         }
     }
@@ -129,6 +155,7 @@ public class Tasks {
                 && !action.equals("event")
                 && !action.equals("mark")
                 && !action.equals("unmark")
+                && !action.equals("delete")
                 && !action.equals("list")) {
             throw new InvalidCommandException();
         }

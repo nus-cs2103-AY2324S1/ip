@@ -1,8 +1,17 @@
-todo borrow book
+todo take a run
+deadline report /by 3pm
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-deadline do homework /by no idead :-p
+mark 2
 list
-/bye
+event project meeting /from mon 2pm /to 4pm
+list
+todo bake a cake
+list
+delete 2
+list
+mark 3
+mark 1
+unmark 3
+unmakr
+unmark
 bye
