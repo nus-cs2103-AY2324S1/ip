@@ -110,8 +110,9 @@ public class Duke {
                                 }
                             }
                         } else {
-                            switch (s.split(" ")[0]) {
-                                case "todo": {
+                            TaskType type = TaskType.valueOf(s.split(" ")[0].toUpperCase());
+                            switch (type) {
+                                case TODO: {
                                     if (s.split(" ").length == 1) {
                                         System.out.print("\t");
                                         throw new DukeEmptyException(s.split(" ")[0]);
@@ -125,7 +126,7 @@ public class Duke {
                                     }
                                     break;
                                 }
-                                case "deadline": {
+                                case DEADLINE: {
                                     if (s.split(" ").length == 1) {
                                         System.out.print("\t");
                                         throw new DukeEmptyException(s.split(" ")[0]);
@@ -143,7 +144,7 @@ public class Duke {
                                     }
                                     break;
                                 }
-                                case "event": {
+                                case EVENT: {
                                     if (s.split(" ").length == 1) {
                                         System.out.print("\t");
                                         throw new DukeEmptyException(s.split(" ")[0]);
