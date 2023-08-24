@@ -1,3 +1,5 @@
+import exceptions.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,52 +11,35 @@ public class Tasks {
 
 
     public void handle(String text) {
-        String[] parsedText = checkValid(text);
-        String action = parsedText[0];
-        String restOfText = parsedText[1];
-        switch (action) {
-            case "mark":
-                this.handleMark(restOfText, true);
-                break;
-            case "unmark":
-                this.handleMark(restOfText, false);
-                break;
-            case "list":
-                this.listTasks();
-                break;
-            case "delete":
-                this.handleDelete(restOfText);
-                break;
-            case "todo":
-            case "deadline":
-            case "event":
-                this.addTask(action, restOfText);
-                break;
-            default:
-                System.out.println(line);
-                System.out.println("    Internal error...");
-                System.out.println(line);
-                break;
-        }
-    }
-
-    private void handleDelete(String id) {
         try {
-            int number = Integer.parseInt(id);
-            Task task = this.getTask(number);
-            if (task != null) {
-                Task t = this.tasks.remove(number - 1);
-                System.out.println("    Noted. I've removed this task:");
-                System.out.println(t);
-                System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
-            } else {
-                System.out.println(line);
-                System.out.println("    Unknown task number! Please try again :-)");
-                System.out.println(line);
+            // Check if input text is valid
+            String[] parsedText = checkValid(text);
+            String action = parsedText[0];
+            String restOfText = parsedText[1];
+            switch (action) {
+                case "mark":
+                    this.handleMark(restOfText, true);
+                    break;
+                case "unmark":
+                    this.handleMark(restOfText, false);
+                    break;
+                case "list":
+                    this.listTasks();
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    this.addTask(action, restOfText);
+                    break;
+                default:
+                    System.out.println(line);
+                    System.out.println("    Internal error...");
+                    System.out.println(line);
+                    break;
             }
-        } catch (NumberFormatException | StringIndexOutOfBoundsException ex) {
+        } catch (DukeException e) {
             System.out.println(line);
-            System.out.println("    Please enter a number for the task! Please try again :-)");
+            System.out.println(e);
             System.out.println(line);
         }
     }
@@ -104,21 +89,28 @@ public class Tasks {
     private void addTask(String action, String text) {
         // Check if input text is valid
         Task task;
-        switch (action) {
-            case "todo":
-                task = new Todo(text);
-                break;
-            case "deadline":
-                String[] deadline = checkDeadline(text);
-                task = new Deadline(deadline[0], deadline[1]);
-                break;
-            case "event":
-                String[] event = checkEvent(text);
-                task = new Event(event[0], event[1], event[2]);
-                break;
-            default:
-                task = new Task(text);
-                break;
+        try {
+            switch (action) {
+                case "todo":
+                    task = new Todo(text);
+                    break;
+                case "deadline":
+                    String[] deadline = checkDeadline(text);
+                    task = new Deadline(deadline[0], deadline[1]);
+                    break;
+                case "event":
+                    String[] event = checkEvent(text);
+                    task = new Event(event[0], event[1], event[2]);
+                    break;
+                default:
+                    task = new Task(text);
+                    break;
+            }
+        } catch (DukeException e) {
+            System.out.println(line);
+            System.out.println(e);
+            System.out.println(line);
+            return;
         }
 
         this.tasks.add(task);
@@ -129,7 +121,7 @@ public class Tasks {
         System.out.println(line);
     }
 
-    private String[] checkValid(String text)  {
+    private String[] checkValid(String text) throws DukeException {
         String[] words = text.split(" ");
         String action = words[0];
         if (!action.equals("todo")
@@ -138,35 +130,34 @@ public class Tasks {
                 && !action.equals("mark")
                 && !action.equals("unmark")
                 && !action.equals("list")) {
-            // ignore
+            throw new InvalidCommandException();
         }
         String[] remaining = Arrays.copyOfRange(words, 1, words.length);
         String restOfText = String.join(" ", remaining);
 
         if (!action.equals("list") && restOfText.equals("")) {
-            System.out.println("Invalid");
+            throw new EmptyTaskException(action);
         }
 
         return new String[] {action, restOfText};
     }
 
-    private String[] checkDeadline(String text)  {
+    private String[] checkDeadline(String text) throws InvalidDeadlineException {
         String[] deadline = text.split(" /by ");
         if (deadline.length != 2) {
-            System.out.println("Invalid");
-
+            throw new InvalidDeadlineException();
         }
         return deadline;
     }
 
-    private String[] checkEvent(String text) {
+    private String[] checkEvent(String text) throws InvalidEventException {
         String[] first = text.split(" /from ");
         if (first.length != 2) {
-            System.out.println("Invalid");
+            throw new InvalidEventException();
         }
         String[] second = first[1].split(" /to ");
         if (second.length != 2) {
-            System.out.println("Invalid");
+            throw new InvalidEventException();
         }
         return new String[] {first[0], second[0], second[1]};
     }
