@@ -1,21 +1,14 @@
 public class Task {
-    private String task;
-    private boolean done;
+    protected String task;
+    protected boolean done;
+    private int taskType;
 
-    public Task(String task) {
+    protected Task(String task) {
         this.task = task;
         this.done = false;
     }
 
     public void mark(boolean status) {
         this.done = status;
-    }
-
-    @Override
-    public String toString() {
-        if (this.done) {
-            return "[X] " + this.task;
-        }
-        return "[ ] " + this.task;
     }
 }

@@ -29,4 +29,8 @@ public class TaskList {
         System.out.println("    ____________________________________________________________");
         System.out.println();
     }
+
+    public int size() {
+        return this.taskList.size();
+    }
 }

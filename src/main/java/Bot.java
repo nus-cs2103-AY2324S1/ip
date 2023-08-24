@@ -33,12 +33,31 @@ public class Bot {
         System.out.println();
     }
 
-    public void addTask(String str) {
+    private void notifyTaskAdded(Task task) {
         System.out.println("    ____________________________________________________________");
-        System.out.println("     added: " + str);
+        System.out.println("     Got it. I've added this task:");
+        System.out.println("      " + task);
+        System.out.println("     Now you have " + this.list.size() +  " tasks in the list.");
         System.out.println("    ____________________________________________________________");
         System.out.println();
-        this.list.addTask(new Task(str));
+    }
+
+    public void addTask(String str) {
+        Task task = new Todo(str);
+        this.list.addTask(task);
+        notifyTaskAdded(task);
+    }
+
+    public void addTask(String str, String deadline) {
+        Task task = new Deadline(str, deadline);
+        this.list.addTask(task);
+        notifyTaskAdded(task);
+    }
+
+    public void addTask(String str, String startTime, String endTime) {
+        Task task = new Event(str, startTime, endTime);
+        this.list.addTask(task);
+        notifyTaskAdded(task);
     }
 
     public void showTask() {
