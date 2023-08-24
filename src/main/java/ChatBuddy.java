@@ -9,8 +9,14 @@ public class ChatBuddy {
      * Add task to list array.
      *
      * @param task The task to add into the list of tasks.
+     * @throws ChatBuddyException if task list is full.
      */
-    private static void addTask(Task task) {
+    private static void addTask(Task task) throws ChatBuddyException {
+        // check if task list is filled
+        if (numOfTasks >= list.length) {
+            throw new ChatBuddyException("The task list is full! No more tasks can be added!");
+        }
+
         // add task to list
         list[numOfTasks] = task;
         numOfTasks++;
@@ -27,8 +33,14 @@ public class ChatBuddy {
      * Add a todo task into the task list.
      *
      * @param userInput The input provided by the user that starts with "todo".
+     * @throws ChatBuddyException
      */
-    private static void addToDo(String userInput) {
+    private static void addToDo(String userInput) throws ChatBuddyException {
+        if (userInput.trim().length() <= 4) {
+            // no description given
+            // trim userInput to get rid of potential whitespace at the back of the user input
+            throw new ChatBuddyException("The description of a todo cannot be empty.");
+        }
         String taskDescription = userInput.substring(5);
         ToDo todo = new ToDo(taskDescription);
         addTask(todo);
@@ -39,11 +51,27 @@ public class ChatBuddy {
      *
      * @param userInput The input provided by the user that starts with "deadline".
      *                  The userInput should include /by.
+     * @throws ChatBuddyException
      */
-    private static void addDeadline(String userInput) {
+    private static void addDeadline(String userInput) throws ChatBuddyException {
         int byCommandIndex = userInput.indexOf("/by");
+        if (byCommandIndex == -1) {
+            // check if /by is in the input
+            throw new ChatBuddyException("Deadlines need to include \"/by\" followed by the deadline.");
+        } else if (byCommandIndex - 1 < 9) {
+            // no description given
+            throw new ChatBuddyException("The description of a deadline cannot be empty.");
+        }
+
         String taskDescription = userInput.substring(9, byCommandIndex - 1);
+        if (byCommandIndex + 4 >= userInput.length()) {
+            throw new ChatBuddyException("The deadline cannot be empty.");
+        }
         String by = userInput.substring(byCommandIndex + 4);
+        if (by.trim().equals("")) {
+            throw new ChatBuddyException("The deadline cannot be empty.");
+        }
+
         Deadline deadline = new Deadline(taskDescription, by);
         addTask(deadline);
     }
@@ -53,13 +81,37 @@ public class ChatBuddy {
      *
      * @param userInput The input provided by the user that starts with "event".
      *                  The userInput should include /from and /to.
+     * @throws ChatBuddyException
      */
-    private static void addEvent(String userInput) {
+    private static void addEvent(String userInput) throws ChatBuddyException {
         int fromIndex = userInput.indexOf("/from");
+        if (fromIndex == -1) {
+            // check if /by is in the input
+            throw new ChatBuddyException("Events need to include \"/from\" followed by the start date/time.");
+        } else if (fromIndex - 1 < 6) {
+            // no description given
+            throw new ChatBuddyException("The description of a deadline cannot be empty.");
+        }
+
         int toIndex = userInput.indexOf("/to");
+        if (toIndex == -1) {
+            // check if /by is in the input
+            throw new ChatBuddyException("Events need to include \"/to\" followed by the end date/time.");
+        }
+
         String taskDescription = userInput.substring(6, fromIndex - 1);
         String from = userInput.substring(fromIndex + 6, toIndex - 1);
+        if (from.trim().equals("")) {
+            throw new ChatBuddyException("The start date/time of an event cannot be empty.");
+        }
+
+        if (toIndex + 4 >= userInput.length()) {
+            throw new ChatBuddyException("The end date/time of an event cannot be empty.");
+        }
         String to = userInput.substring(toIndex + 4);
+        if (to.trim().equals("")) {
+            throw new ChatBuddyException("The end date/time of an event cannot be empty.");
+        }
         Event event = new Event(taskDescription, from, to);
         addTask(event);
     }
@@ -96,24 +148,40 @@ public class ChatBuddy {
         String userInput = scanner.nextLine();
 
         while (!userInput.equals("bye")) {
-            if (userInput.equals("list")) {
-                printTaskList();
-            } else if (userInput.matches("mark [1-9][0-9]*")) {
-                String indexString = userInput.substring(5);
-                int taskIndex = Integer.parseInt(indexString) - 1;
-                Task task = list[taskIndex];
-                task.markAsDone();
-            } else if (userInput.matches("unmark [1-9][0-9]*")) {
-                String indexString = userInput.substring(7);
-                int taskIndex = Integer.parseInt(indexString) - 1;
-                Task task = list[taskIndex];
-                task.markAsNotDone();
-            } else if (userInput.startsWith("todo")) {
-                addToDo(userInput);
-            } else if (userInput.startsWith("deadline")) {
-                addDeadline(userInput);
-            } else if (userInput.startsWith("event")) {
-                addEvent(userInput);
+            try {
+                if (userInput.equals("list")) {
+                    printTaskList();
+                } else if (userInput.matches("mark [1-9][0-9]*")) {
+                    String indexString = userInput.substring(5);
+                    int taskIndex = Integer.parseInt(indexString) - 1;
+                    if (taskIndex >= numOfTasks) {
+                        throw new ChatBuddyException("Please input a valid task number. There are only " +
+                                numOfTasks + " tasks in the list.");
+                    }
+                    Task task = list[taskIndex];
+                    task.markAsDone();
+                } else if (userInput.matches("unmark [1-9][0-9]*")) {
+                    String indexString = userInput.substring(7);
+                    int taskIndex = Integer.parseInt(indexString) - 1;
+                    if (taskIndex >= numOfTasks) {
+                        throw new ChatBuddyException("Please input a valid task number. There are only " +
+                                numOfTasks + " in the list.");
+                    }
+                    Task task = list[taskIndex];
+                    task.markAsNotDone();
+                } else if (userInput.startsWith("todo")) {
+                    addToDo(userInput);
+                } else if (userInput.startsWith("deadline")) {
+                    addDeadline(userInput);
+                } else if (userInput.startsWith("event")) {
+                    addEvent(userInput);
+                } else {
+                    throw new ChatBuddyException("I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (ChatBuddyException e) {
+                printHorizontalLine();
+                System.out.println("     " + e.toString());
+                printHorizontalLine();
             }
             userInput = scanner.nextLine();
         }
