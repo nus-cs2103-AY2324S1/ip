@@ -17,7 +17,7 @@ public class Edna {
         while(input.equals("bye") == false) {
             try {
                 switch(input) {
-                    case "List":
+                    case "list":
                         print();
                         System.out.println(partition);
                         break;
@@ -29,6 +29,11 @@ public class Edna {
                     case "unmark":
                         int num1 = sc.nextInt();
                         taskList.get(num1 - 1).unmarkDone();
+                        System.out.println(partition);
+                        break;
+                    case "delete":
+                        int del = sc.nextInt();
+                        delete(del);
                         System.out.println(partition);
                         break;
                     case "todo":
@@ -74,6 +79,12 @@ public class Edna {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    public static void delete(int num) {
+        System.out.println("Noted. I've removed this task:");
+        taskList.get(num-1).getStatus();
+        taskList.remove(num - 1);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+    }
     public static void print() {
         int num = 1;
         for(Task temp: taskList) {
