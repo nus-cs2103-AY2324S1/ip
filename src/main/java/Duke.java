@@ -3,6 +3,10 @@ import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Personal assistant chatbot that can help you manage a to-do list.
+ * @author Wu Jingya
+ */
 public class Duke {
     private static String NAME = "Moira";
     private static String SPACER = "--------------------------------------------------------------------------";
