@@ -24,6 +24,9 @@ public class TaskList {
     public void numOfTask() {
         System.out.println("N... Now you have... " + this.tasks.size() + " tasks in the list. ( ‘-ωก̀ )");
     }
+    public void deleteTask(int taskNum) {
+        this.tasks.remove(taskNum);
+    }
 
     public void printList() {
         for(int i = 0; i < tasks.size(); i++) {
