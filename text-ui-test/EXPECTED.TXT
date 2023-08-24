@@ -1,5 +1,8 @@
+Hello from RatSpeak
+What can I do for you?
 OOPS!!! I'm sorry, but I don't know what that means :-(
 Got it. I've added this task:
-books
+[T][ ] books
 Now you have 1 tasks in the list.
-
+OOPS!!! The description of a deadline cannot be empty.
+Bye. Hope to see you again soon!
