@@ -1,7 +1,7 @@
 /**
  * Illegal value exception.
  */
-public class IllegalValueException extends Exception {
+public class IllegalValueException extends MinionException {
     /**
      * Creates a new illegal value exception.
      * @param s error message.
