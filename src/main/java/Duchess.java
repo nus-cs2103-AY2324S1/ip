@@ -237,7 +237,7 @@ public class Duchess {
             throw new DuchessException("(´；ω；`) Sorry, todo names cannot be empty...");
         }
 
-        return new ToDo(m.group(1));
+        return new ToDo(m.group(1).trim());
     }
 
     /**
@@ -267,7 +267,7 @@ public class Duchess {
             throw new DuchessException("(´；ω；`) Sorry, deadlines must have a deadline...");
         }
 
-        return new Deadline(m.group(1), m.group(3));
+        return new Deadline(m.group(1).trim(), m.group(3).trim());
     }
 
     /**
@@ -286,10 +286,20 @@ public class Duchess {
      * @param s - the command to parse for "event" command.
      * @return    the Event task.
      */
-    private static Event parseEventCommand(String s) {
-        Matcher m = Duchess.parseRegex(s, "^event ([A-Za-z0-9 ]+) /from ([A-Za-z0-9 ]+) /to ([A-Za-z0-9 ]+)$");
+    private static Event parseEventCommand(String s) throws DuchessException {
+        Matcher m = Duchess.parseRegex(s, "^event( [A-Za-z0-9 ]+)?( /from( [A-Za-z0-9 ]+)?)?( /to( [A-Za-z0-9 ]+)?)?$");
 
-        return new Event(m.group(1), m.group(2), m.group(3));
+        if (m.group(1) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, event names cannot be empty...");
+        }
+        if (m.group(2) == null || m.group(3) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, events must have a start time...");
+        }
+        if (m.group(4) == null || m.group(5) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, events must have an end time...");
+        }
+
+        return new Event(m.group(1).trim(), m.group(3).trim(), m.group(5).trim());
     }
 
     /**
@@ -377,8 +387,15 @@ public class Duchess {
 
             // Check if this command is a Event command.
             if (Duchess.isEventCommand(userInput)) {
-                Event event = Duchess.parseEventCommand(userInput);
-                Duchess.addTask(event);
+                try {
+                    Event event = Duchess.parseEventCommand(userInput);
+                    Duchess.addTask(event);
+                }
+                catch(DuchessException e) {
+                    Duchess.duchessPrint(e.getMessage());
+                    Duchess.duchessPrint("(／°▽°)／Try something like this!!");
+                    Duchess.duchessPrint("event [name] /from [time] /to [time]");
+                }
                 continue;
             }
 
