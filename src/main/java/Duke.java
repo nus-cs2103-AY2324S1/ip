@@ -58,6 +58,17 @@ public class Duke {
         lines();
     }
 
+    public void delete(String description) {
+        lines();
+        int index = Integer.parseInt(description) - 1;
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(tasks.get(index));
+        tasks.remove(index);
+        taskCount--;
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
+        lines();
+    }
+
     public void run() {
         String input = sc.nextLine();
 
@@ -75,7 +86,7 @@ public class Duke {
         String[] split = input.split(" ", 2);
         String command = split[0];
         if (split.length == 1 && !command.equals("list")) {
-            if (command.equals("mark") || command.equals("unmark") || command.equals("todo") || command.equals("deadline") || command.equals("event")) {
+            if (command.equals("mark") || command.equals("unmark") || command.equals("delete") || command.equals("todo") || command.equals("deadline") || command.equals("event")) {
                 throw new IncompleteInput("I don't know what you want to do!");
             }
             throw new InvalidInput("I don't know what you want to do!");
@@ -106,6 +117,9 @@ public class Duke {
                 String eventTo = eventSplit[1].split(" /to ")[1];
                 tasks.add(new Events(eventDescription, eventFrom, eventTo));
                 tasks.get(taskCount++).print();
+                break;
+            case "delete":
+                delete(description);
                 break;
             case "mark":
                 mark(description);
