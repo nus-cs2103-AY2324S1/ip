@@ -22,7 +22,8 @@ public class List {
         }
         list.add(task);
         System.out.println(ChatterChicken.LINE
-            + "Got it. I've added this task: \n"
+            + ChatterChicken.INDENT
+            + "Got it. I've added this task:\n"
             + ChatterChicken.INDENT_BIG + task.getTask() + "\n"
             + ChatterChicken.INDENT + "Now you have " + list.size() + " tasks in the list."
             + ChatterChicken.LINE);
@@ -31,7 +32,9 @@ public class List {
     public void markTask(String input) {
         int index = input.charAt(input.length() - 1) - '0' - 1;
         Task task = list.get(index);
-        System.out.println(ChatterChicken.LINE + "Nice! I've marked this task as done:");
+        System.out.println(ChatterChicken.LINE
+            + ChatterChicken.INDENT
+            + "Nice! I've marked this task as done:");
         task.markDone();
         System.out.println(ChatterChicken.LINE);
     }
@@ -39,7 +42,9 @@ public class List {
     public void unmarkTask(String input) {
         int index = input.charAt(input.length() - 1) - '0' - 1;
         Task task = list.get(index);
-        System.out.println(ChatterChicken.LINE + "OK, I've marked this task as not done yet:");
+        System.out.println(ChatterChicken.LINE
+            + ChatterChicken.INDENT
+            + "OK, I've marked this task as not done yet:");
         task.unmarkDone();
         System.out.println(ChatterChicken.LINE);
     }
