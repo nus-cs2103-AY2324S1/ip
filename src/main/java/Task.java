@@ -28,4 +28,8 @@ public class Task {
         String status = this.done? "[X]" : "[ ]";
         return this.taskId + "." + this.toString();
     }
+
+    public int getId() {
+        return this.taskId;
+    }
 }
