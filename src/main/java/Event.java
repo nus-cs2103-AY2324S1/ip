@@ -2,7 +2,7 @@
  * A class which inherits from Task class.
  * Represents a task with deadline and start time.
  */
-public class Event extends Task{
+public class Event extends Task {
 
     /** The starting time of this event. */
     protected String startTime;

@@ -35,7 +35,7 @@ public class Duke {
                 } else {
                     instruction.execute();
                 }
-            } catch (DukeException d){
+            } catch (DukeException d) {
                 System.out.println("\t" + d.getMessage());
             }
             drawLine();
