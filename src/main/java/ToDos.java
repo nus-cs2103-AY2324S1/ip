@@ -15,4 +15,9 @@ public class ToDos extends Task{
     public String toString() {
         return "[" + type + "]" + super.toString();
     }
+
+    public String toStore() {
+        String state = status ? "0" : "1";
+        return "T" + " | " + state + " | " + this.name;
+    }
 }

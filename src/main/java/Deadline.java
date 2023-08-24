@@ -23,4 +23,9 @@ public class Deadline extends Task{
     public String toString() {
         return "[" + type + "]" + super.toString() + " (by: "  + deadline + ")";
     }
+
+    public String toStore() {
+        String state = this.status ? "0" : "1";
+        return "D" + " | " + state + " | " + this.name + " | " + deadline;
+    }
 }

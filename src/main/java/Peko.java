@@ -1,5 +1,6 @@
 import java.io.*;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Peko {
@@ -37,6 +38,9 @@ public class Peko {
         boolean loop = true;
         int responseValue;
         CommandsInternal temp;
+        SaveHandler saveHandler = new SaveHandler(todoList, new File("src/main/List.txt"));
+        todoList = saveHandler.loadFrom();
+
         intro();
 
         while (loop) {
@@ -109,6 +113,7 @@ public class Peko {
                 default:
             }
         }
+        saveHandler.saveTo();
         exit();
     }
 
@@ -154,17 +159,6 @@ public class Peko {
         }
     }
 
-    public static void readList() throws FileNotFoundException {
-        File file = new File("src/main/List.txt");
-        Scanner sc = new Scanner(file);
-        System.out.println("--------------LIST-PEKO------------------");
-        int curr = 1;
-        while (sc.hasNextLine()) {
-            System.out.println(curr + ". " + sc.nextLine());
-            curr++;
-        }
-        System.out.println(lineBreak);
-    }
     public static void readArray() {
         int i = 0;
         System.out.println("--------------LIST-PEKO------------------");
@@ -178,14 +172,6 @@ public class Peko {
         System.out.println(lineBreak);
     }
 
-    public static void addToList(String s) throws IOException {
-        Writer temp;
-        temp = new BufferedWriter(new FileWriter("src/main/List.txt", true));
-        temp.append("[ ] " + s + "\n");
-        temp.close();
-        System.out.println("Added: \"" + s + "\" Peko!");
-        System.out.println(lineBreak);
-    }
     public static void addToArray(String s) throws InvalidTaskException {
         todoList[pos] = new Task(s);
         todoList[pos].reply(pos);
@@ -211,27 +197,6 @@ public class Peko {
         System.out.println(lineBreak);
     }
 
-    public static void setMark(String s) {
-        try {
-            int i = Integer.parseInt(s);
-            File file = new File("src/main/List.txt");
-            Scanner sc = new Scanner(file);
-            for (int j = 1; j < i; j++) {
-                if (sc.hasNextLine()) {
-                    sc.nextLine();
-                } else {
-                    System.out.println("Your list isn't long enough Bakatare");
-                }
-            }
-            System.out.println(sc.nextLine());
-            System.out.println("");
-        } catch (NumberFormatException e) {
-            System.out.println("That's not a number Bakatare!");
-        } catch (FileNotFoundException e) {
-            System.out.println("Missing file peko! Pain Peko!");
-        }
-
-    }
     public static void setMarkArray(String s) {
         try {
             int markIndex = Integer.parseInt(s);
@@ -270,6 +235,7 @@ public class Peko {
             System.out.println("That's not a number in the list Peko!");
         }
     }
+
     public static void degen() throws FileNotFoundException {
         File text = new File("src/main/Copypasta.txt");
         Scanner sc = new Scanner(text);

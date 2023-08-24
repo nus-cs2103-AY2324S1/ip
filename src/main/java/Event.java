@@ -33,4 +33,9 @@ public class Event extends Task{
     public String toString() {
         return "[" + type + "]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
+
+    public String toStore() {
+        String state = this.status ? "0" : "1";
+        return "E" + " | " + state + " | " + this.name + " | " + start + " | " + end;
+    }
 }
