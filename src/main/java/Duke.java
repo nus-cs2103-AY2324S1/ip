@@ -20,6 +20,10 @@ class UnknownCommandException extends Exception {
     }
 }
 
+enum CommandType {
+    LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
+}
+
 class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -50,32 +54,51 @@ class Duke {
     public static void processUserInput(String userInput, List<Task> tasks)
             throws EmptyDescriptionException, UnknownCommandException, WrongFormatException {
         String[] inputParts = userInput.split(" ");
-        String command = inputParts[0];
+        String commandStr = inputParts[0];
+        CommandType commandType = getCommandType(commandStr);
 
-        if (command.equals("list")) {
-            listTasks(tasks);
-        } else if (command.equals("mark") || command.equals("unmark")) {
-            int taskIndex = Integer.parseInt(inputParts[1]) - 1;
-            if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                Task task = tasks.get(taskIndex);
-                if (command.equals("mark")) {
-                    task.markAsDone();
-                    System.out.println("Nice! I've marked this task as done:");
+        switch (commandType) {
+            case LIST:
+                listTasks(tasks);
+                break;
+            case MARK:
+            case UNMARK:
+                int taskIndex = Integer.parseInt(inputParts[1]) - 1;
+                if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                    Task task = tasks.get(taskIndex);
+                    if (commandType == CommandType.MARK) {
+                        task.markAsDone();
+                        System.out.println("Nice! I've marked this task as done:");
+                    } else {
+                        task.markAsNotDone();
+                        System.out.println("OK, I've marked this task as not done yet:");
+                    }
+                    System.out.println("  " + task);
                 } else {
-                    task.markAsNotDone();
-                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("Invalid task index.");
                 }
-                System.out.println("  " + task);
-            } else {
-                System.out.println("Invalid task index.");
-            }
-        } else if (command.equals("delete")) {
-            int index = Integer.parseInt(inputParts[1])-1;
-            Task task = tasks.get(index);
-            tasks.remove(index);
-            System.out.println("Noted. I've removed this task: \n" + task + "\nNow you have " + tasks.size() + " tasks in the list.");
-        } else {
-            handleTaskCreation(userInput, tasks);
+                break;
+            case DELETE:
+                int index = Integer.parseInt(inputParts[1]) - 1;
+                Task task = tasks.get(index);
+                tasks.remove(index);
+                System.out.println("Noted. I've removed this task: \n" + task + "\nNow you have " + tasks.size() + " tasks in the list.");
+                break;
+            case TODO:
+            case DEADLINE:
+            case EVENT:
+                handleTaskCreation(userInput, tasks, commandType);
+                break;
+            default:
+                throw new UnknownCommandException();
+        }
+    }
+
+    public static CommandType getCommandType(String commandStr) {
+        try {
+            return CommandType.valueOf(commandStr.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return CommandType.UNKNOWN;
         }
     }
 
@@ -86,17 +109,17 @@ class Duke {
         }
     }
 
-    public static void handleTaskCreation(String userInput, List<Task> tasks)
+    public static void handleTaskCreation(String userInput, List<Task> tasks, CommandType commandType)
             throws EmptyDescriptionException, UnknownCommandException, WrongFormatException {
         String[] inputParts = userInput.split(" ");
         String command = inputParts[0];
 
-        if (command.equals("todo")) {
+        if (commandType == CommandType.TODO) {
             if (inputParts.length <= 1) {
                 throw new EmptyDescriptionException(command);
             }
             tasks.add(new Todo(userInput.substring(5)));
-        } else if (command.equals("deadline")) {
+        } else if (commandType == CommandType.DEADLINE) {
             if (inputParts.length <= 1){
                 throw new EmptyDescriptionException(command);
             } 
@@ -108,7 +131,7 @@ class Duke {
             } catch (Exception e) {
                 throw new WrongFormatException("☹ OOPS!!! deadlines need to be in this format, deadline return book /by Sunday");
             }
-        } else if (command.equals("event")) {
+        } else if (commandType == CommandType.EVENT) {
             if (inputParts.length <= 1){
                 throw new EmptyDescriptionException(command);
             } 
