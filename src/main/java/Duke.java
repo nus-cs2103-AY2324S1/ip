@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String name = "Mathan";
         System.out.println("____________________________________________________________\n" +
                 " Hello! I'm "+name+"\n" +
@@ -44,16 +44,12 @@ public class Duke {
                 System.out.println("____________________________________________________________");
 
             }
-            else if(str.contains("todo")){
+            else if(str.startsWith("todo ")){
                 str=str.substring(5);
-                list.add(new Todo(str));
-                System.out.println("____________________________________________________________\n" +
-                        "Got it. I've added this task:");
-                System.out.println("\t"+list.get(list.size()-1));
-                System.out.println("____________________________________________________________");
-            }
-            else if(str.startsWith("todo")){
-                str=str.substring(5);
+                if(str.isEmpty())
+                    throw new DukeException("\n____________________________________________________________\n" +
+                            "☹ OOPS!!! The description of a todo cannot be empty.\n" +
+                            "____________________________________________________________");
                 list.add(new Todo(str));
                 System.out.println("____________________________________________________________\n" +
                         "Got it. I've added this task:");
@@ -61,8 +57,12 @@ public class Duke {
                 System.out.println("Now you have "+ list.size()+" tasks in your list");
                 System.out.println("____________________________________________________________");
             }
-            else if(str.startsWith("deadline")){
+            else if(str.startsWith("deadline ")){
                 str=str.substring(9);
+                if(str.isEmpty())
+                    throw new DukeException("\n____________________________________________________________\n" +
+                            "☹ OOPS!!! The description of a todo cannot be empty.\n" +
+                            "____________________________________________________________");
                 String[] arr=str.split(" /by ");
                 list.add(new Deadline(arr[0],arr[1]));
                 System.out.println("____________________________________________________________\n" +
@@ -71,8 +71,12 @@ public class Duke {
                 System.out.println("Now you have "+ list.size()+" tasks in your list");
                 System.out.println("____________________________________________________________");
             }
-            else if(str.startsWith("event")){
+            else if(str.startsWith("event ")){
                 str=str.substring(6);
+                if(str.isEmpty())
+                    throw new DukeException("\n____________________________________________________________\n" +
+                            "☹ OOPS!!! The description of a todo cannot be empty.\n" +
+                            "____________________________________________________________");
                 String[] arr=str.split(" /from ");
                 String[] time=arr[1].split(" /to ");
                 list.add(new Event(arr[0],time[0],time[1]));
@@ -83,10 +87,8 @@ public class Duke {
                 System.out.println("____________________________________________________________");
             }
             else {
-                list.add(new Task(str));
-
-                System.out.println("____________________________________________________________\n" +
-                        str + "\n" +
+                throw new DukeException("\n____________________________________________________________\n" +
+                        "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
                         "____________________________________________________________");
             }
             str = scanner.nextLine();
