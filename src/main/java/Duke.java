@@ -25,6 +25,12 @@ public class Duke {
                         Task tsk = lst.get(Integer.valueOf(words[1]) - 1);
                         tsk.setUncompleted();
                         continue;
+                    } else if (words[0].equalsIgnoreCase("delete")) {
+                        int index = Integer.valueOf(words[1]) - 1;
+                        lst.get(index).removed();
+                        lst.remove(index);
+                        System.out.println("Now you have " + lst.size() + " tasks in the list.");
+                        continue;
                     }
                 }
                 if (input.equalsIgnoreCase("list")) {

@@ -35,10 +35,14 @@ public class Task {
             return Duke.undoneCheckbox;
         }
     }
-
     public String confirmation(int size) {
         String s1 = "Got it. I've added this task:\n";
         String s2 = "Now you have " + size + " tasks in the list.";
         return s1 + this.toString() + "\n" + s2;
+    }
+
+    public void removed() {
+        String s1 = "Noted. I've removed this task:";
+        System.out.println(s1 + "\n" + this.toString());
     }
 }
