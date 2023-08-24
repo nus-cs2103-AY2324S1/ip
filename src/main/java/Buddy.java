@@ -13,7 +13,7 @@ public class Buddy {
         Scanner scanner = new Scanner(System.in);
         String command;
         Task t;
-        List<Task> taskList = new ArrayList();
+        List<Task> taskList = new ArrayList<>();
 
         System.out.println(greeting + inquiry);
 
@@ -25,6 +25,7 @@ public class Buddy {
             }
             if (command.equals("list")) {
                 printList(taskList);
+
             } else if (command.startsWith("mark") || command.startsWith("unmark")) {
                 String[] arrOfCmd = command.split(" ");
                 Integer taskNumber = Integer.valueOf(arrOfCmd[1]) - 1;
@@ -40,6 +41,15 @@ public class Buddy {
                         System.out.println("OK, I've marked this task as not done yet:");
                     }
                     System.out.println(thisTask.toString());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Invalid task number.");
+                }
+
+            } else if (command.startsWith("delete")) {
+                String[] arrOfCmd = command.split(" ");
+                try {
+                    Integer taskNumber = Integer.valueOf(arrOfCmd[1]) - 1;
+                    deleteTask(taskNumber, taskList);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Invalid task number.");
                 }
@@ -120,6 +130,23 @@ public class Buddy {
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.get(i);
                 System.out.println((i + 1) + "." + task.toString());
+            }
+        }
+    }
+
+    private static void deleteTask(int index, List<Task> list) {
+        if (list.size() == 0) {
+            System.out.println("There are no tasks in your list:");
+        } else {
+            List<Task> newList = new ArrayList<>();
+            Task deleted = list.remove(index);
+            newList = list;
+            System.out.println("Noted. I've removed this task:");
+            System.out.println(deleted.toString());
+            if (newList.size() == 1) {
+                System.out.println("Now you have 1 task in the list.");
+            } else {
+                System.out.println("Now you have " + newList.size() + " tasks in the list.");
             }
         }
     }
