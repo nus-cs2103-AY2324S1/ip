@@ -8,14 +8,23 @@ public class List {
         storagePile = new ArrayList<>();
     }
 
-    public void input(String item) {
+    public void input(String item) throws InvalidInput, IncompleteInput  {
         String firstWord = item.split(" ")[0];
-        String task = item.split(" ", 2)[1];
-        if (firstWord.equals("todo")) {
+
+        if (item.split(" ").length == 1) {
+            if (firstWord.equals("todo") || firstWord.equals("deadline") || firstWord.equals("event")) {
+                throw new IncompleteInput("X");
+            } else {
+                throw new InvalidInput("X");
+            }
+        } else if (firstWord.equals("todo")) {
+            String task = item.split(" ", 2)[1];
             storagePile.add(new ToDoTask(task));
         } else if (firstWord.equals("deadline")) {
+            String task = item.split(" ", 2)[1];
             storagePile.add(new DeadlineTask(task));
         } else {
+            String task = item.split(" ", 2)[1];
             storagePile.add(new EventTask(task));
         }
     }
@@ -38,7 +47,9 @@ public class List {
         storagePile.get(x-1).markUndone();
     }
 
-
+    public void deleteIndex(int x) {
+        storagePile.remove(x-1);
+    }
 
     public String showThisTask(int x) {
         return storagePile.get(x-1).toString();
