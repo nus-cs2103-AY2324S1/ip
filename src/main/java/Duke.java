@@ -76,7 +76,24 @@ public class Duke {
                     Task event = new Event(taskName, starting.split(" ", 2)[1], ending.split(" ", 2)[1]);
                     list.add(event);
                     printAddTaskMessage(event);
+                } else if (type.equals("delete")) {
+                    if (descriptionIsEmpty(cmd)) {
+                        throw new InvalidDescriptionException("delete");
+                    }
+
+                    String arr[] = cmd.split(" ", 2);
+                    int taskNumber = Integer.parseInt(arr[1]);
+
+                    if (!isValidTaskNumber(taskNumber)) {
+                        throw new InvalidTaskNumberException(taskNumber);
+                    }
+                    Task task = list.get(taskNumber - 1);
+                    list.remove(task);
+                    printDeleteTaskMessage(task);
                 } else if (type.equals("mark")) {
+                    if (descriptionIsEmpty(cmd)) {
+                        throw new InvalidDescriptionException("mark");
+                    }
                     String arr[] = cmd.split(" ", 2);
                     int taskNumber = Integer.parseInt(arr[1]);
 
@@ -88,6 +105,9 @@ public class Duke {
                     task.markTask();
                     printMarkedTaskMessage(task);
                 } else if (type.equals("unmark")) {
+                    if (descriptionIsEmpty(cmd)) {
+                        throw new InvalidDescriptionException("unmark");
+                    }
                     String arr[] = cmd.split(" ", 2);
                     int taskNumber = Integer.parseInt(arr[1]);
 
@@ -143,6 +163,15 @@ public class Duke {
     public static void printAddTaskMessage(Task task) {
         String message = "____________________________________________________________\n" +
                 " Got it. I've added this task: \n   " +
+                task.getTaskType() + task.getStatusIcon() + " " + task.name + task.getTimeInfo() + "\n" +
+                " Now you have " + list.size() + " tasks in the list.\n" +
+                "____________________________________________________________";
+        System.out.println(message);
+    }
+
+    public static void printDeleteTaskMessage(Task task){
+        String message = "____________________________________________________________\n" +
+                " Noted. I've removed this task: \n   " +
                 task.getTaskType() + task.getStatusIcon() + " " + task.name + task.getTimeInfo() + "\n" +
                 " Now you have " + list.size() + " tasks in the list.\n" +
                 "____________________________________________________________";
