@@ -18,10 +18,18 @@ public class Jo {
         System.out.println("\t" + task.toString());
     }
 
-    public static void addTask(Task task, List<Task> taskList) {
+    public static void addTask(Task task) {
         taskList.add(task);
         System.out.println("> Got it. I've added this task:");
         System.out.println("\t" + task.toString());
+        System.out.println(String.format("> Now you have %d tasks in the list.", taskList.size()));
+    }
+
+    public static void deleteTask(int index) {
+        Task removedTask = taskList.get(index);
+        taskList.remove(index);
+        System.out.println("> Noted. I've removed this task:");
+        System.out.println("\t" + removedTask.toString());
         System.out.println(String.format("> Now you have %d tasks in the list.", taskList.size()));
     }
 
@@ -29,7 +37,7 @@ public class Jo {
         if (input.trim().isEmpty()) {
             throw new JoException("OOPS!!! The command cannot be empty.");
         } else if (input.equals("list")) {
-            System.out.println("Here are the tasks in your list:");
+            System.out.println("> Here are the tasks in your list:");
             for (int i = 0; i < taskList.size(); i++) {
                 Task t = taskList.get(i);
                 System.out.println("\t" + (i+1) + ". " + t.toString());
@@ -60,7 +68,7 @@ public class Jo {
             }
         } else if (input.length() >= 4 && input.substring(0, 4).equals("todo")) {
             String description = input.substring(5, input.length());
-            addTask(new Task(description), taskList);
+            addTask(new Task(description));
         } else if (input.length() >= 8 && input.substring(0, 8).equals("deadline")) {
             if (!input.contains("/by")) {
                 throw new JoException("OOPS!!! Please specify a deadline.");
@@ -68,7 +76,7 @@ public class Jo {
                 String[] description = input.substring(9, input.length()).split("/by", 2);
                 String deadline = description[1].trim();
                 String taskName = description[0].trim();
-                addTask(new Deadline(taskName, deadline), taskList);
+                addTask(new Deadline(taskName, deadline));
             }
         } else if (input.length() >= 5 && input.substring(0, 5).equals("event")) {
             if (!input.contains("/from") || !input.contains("/to")) {
@@ -79,7 +87,14 @@ public class Jo {
                 String start = dates[0].trim();
                 String end = dates[1].trim();
                 String taskName = description[0].trim();
-                addTask(new Event(taskName, start, end), taskList);
+                addTask(new Event(taskName, start, end));
+            }
+        } else if (input.length() >= 6 && input.substring(0, 6).equals("delete")) {
+            int taskIndex = Character.getNumericValue(input.charAt(input.length() - 1)) - 1;
+            if (taskIndex < 0 || taskIndex >= taskList.size()) {
+                throw new JoException("OOPS!!! This task does not exist.");
+            } else {
+                deleteTask(taskIndex);
             }
         } else {
             throw new JoException("OOPS!!! I'm sorry, but I don't know what that means :-(");
