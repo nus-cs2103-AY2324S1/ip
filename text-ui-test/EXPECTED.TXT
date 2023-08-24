@@ -13,14 +13,12 @@
     Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
-    Got it. I've added this task:
-    [E][ ] Evan date  (from:  Sep 1st 7pm  to: 1st 7pm /to 8pm )
-    Now you have 3 tasks in the list.
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this task:
     [T][ ] Doing yoga
-    Now you have 4 tasks in the list.
+    Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     Nice! I've marked this task as done:
@@ -34,31 +32,37 @@
     Here are the tasks in your list:
     1. [D][X] Asssignment  (by: August 31st )
     2. [T][X] CS2101 Presentation
-    3. [E][ ] Evan date  (from:  Sep 1st 7pm  to: 1st 7pm /to 8pm )
-    4. [T][ ] Doing yoga
+    3. [T][ ] Doing yoga
     ____________________________________________________________
     ____________________________________________________________
-    added: mark my words
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
     ____________________________________________________________
     ____________________________________________________________
-    added: mark -9
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
     ____________________________________________________________
     ____________________________________________________________
-    added: unmark 1
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
     ____________________________________________________________
     ____________________________________________________________
-    added: unmark my words
+    ☹ OOPS!!! I'm sorry, but the Deadline input is invalid :-(
+    ____________________________________________________________
+    ____________________________________________________________
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
+    ____________________________________________________________
+    ____________________________________________________________
+    ☹ OOPS!!! I'm sorry, but the input ToDo is invalid :-(
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
     1. [D][X] Asssignment  (by: August 31st )
     2. [T][X] CS2101 Presentation
-    3. [E][ ] Evan date  (from:  Sep 1st 7pm  to: 1st 7pm /to 8pm )
-    4. [T][ ] Doing yoga
-    5. [ ] mark my words
-    6. [ ] mark -9
-    7. [ ] unmark 1
-    8. [ ] unmark my words
+    3. [T][ ] Doing yoga
+    ____________________________________________________________
+    ____________________________________________________________
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-()
+    ____________________________________________________________
+    ____________________________________________________________
+    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
     Bye. Hope to see you again soon!

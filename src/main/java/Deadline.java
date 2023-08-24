@@ -28,4 +28,22 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadline + " )";
     }
+
+    /**
+     * Method to check whether a command is deadline
+     * 
+     * @param str the command
+     * @return whether a command is deadline
+     * @throws InvalidDeadlineException
+     */
+    public static boolean isDeadline(String str) throws InvalidDeadlineException {
+        if(str.split(" ")[0].equals("deadline")) {
+            if(str.indexOf("/by ") == -1) {
+                throw new InvalidDeadlineException();
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
 }

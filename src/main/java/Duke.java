@@ -28,50 +28,58 @@ public class Duke {
         System.out.println(intro);
         String message = scanner.nextLine();
         while(!message.equals("bye")) {
-            System.out.println("    ____________________________________________________________");
-            if(message.equals("list")) {
-                System.out.println("    Here are the tasks in your list:");
-                for(int i = 0; i < numOfTasks; i++) {
-                    System.out.println("    " + (i + 1) + ". " + tasks[i]);
+            try{
+                System.out.println("    ____________________________________________________________");
+                if(message.equals("list")) {
+                    System.out.println("    Here are the tasks in your list:");
+                    for(int i = 0; i < numOfTasks; i++) {
+                        System.out.println("    " + (i + 1) + ". " + tasks[i]);
+                    }
+                } else if(message.split(" ")[0].equals("mark") && message.split(" ").length == 2 && isInt(message.split(" ")[1]) 
+                        && Integer.parseInt(message.split(" ")[1]) <= numOfTasks && Integer.parseInt(message.split(" ")[1]) > 0) {
+                    tasks[Integer.parseInt(message.split(" ")[1]) - 1].mark();
+                    System.out.println("    Nice! I've marked this task as done:");
+                    System.out.println("    " + tasks[Integer.parseInt(message.split(" ")[1]) - 1]);
+                } else if(message.split(" ")[0].equals("unmark") && message.split(" ").length == 2 && isInt(message.split(" ")[1]) 
+                        && Integer.parseInt(message.split(" ")[1]) <= numOfTasks && Integer.parseInt(message.split(" ")[1]) > 0) {
+                    tasks[Integer.parseInt(message.split(" ")[1]) - 1].unmark();
+                    System.out.println("    OK, I've marked this task as not done yet:");
+                    System.out.println("    " + tasks[Integer.parseInt(message.split(" ")[1]) - 1]);
+                } else if(ToDo.isToDo(message)) {
+                    tasks[numOfTasks] = new ToDo(message.substring(5));
+                    numOfTasks++;
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("    " + tasks[numOfTasks - 1]);
+                    System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
+                } else if(Deadline.isDeadline(message)) {
+                    String name = message.substring(9, message.indexOf("/by "));
+                    String deadline = message.substring(message.indexOf("/by ") + 4);
+                    tasks[numOfTasks] = new Deadline(name, deadline);
+                    numOfTasks++;
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("    " + tasks[numOfTasks - 1]);
+                    System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
+                } else if(Event.isEvent(message)) {
+                    String name = message.substring(6, message.indexOf("/from "));
+                    String afterFrom = message.substring(message.indexOf("/from ") + 5);
+                    String start = afterFrom.substring(0, afterFrom.indexOf("/to "));
+                    String endTime = afterFrom.substring(afterFrom.indexOf("/from ") + 6);
+                    tasks[numOfTasks] = new Event(name, start, endTime);
+                    numOfTasks++;
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("    " + tasks[numOfTasks - 1]);
+                    System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
+                } else {
+                    throw new InvalidCommandException();
                 }
-            } else if(message.split(" ")[0].equals("mark") && message.split(" ").length == 2 && isInt(message.split(" ")[1]) 
-                    && Integer.parseInt(message.split(" ")[1]) <= numOfTasks && Integer.parseInt(message.split(" ")[1]) > 0) {
-                tasks[Integer.parseInt(message.split(" ")[1]) - 1].mark();
-                System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("    " + tasks[Integer.parseInt(message.split(" ")[1]) - 1]);
-            } else if(message.split(" ")[0].equals("unmark") && message.split(" ").length == 2 && isInt(message.split(" ")[1]) 
-                    && Integer.parseInt(message.split(" ")[1]) <= numOfTasks && Integer.parseInt(message.split(" ")[1]) > 0) {
-                tasks[Integer.parseInt(message.split(" ")[1]) - 1].unmark();
-                System.out.println("    OK, I've marked this task as not done yet:");
-                System.out.println("    " + tasks[Integer.parseInt(message.split(" ")[1]) - 1]);
-            } else if(message.split(" ")[0].equals("todo")) {
-                tasks[numOfTasks] = new ToDo(message.substring(5));
-                numOfTasks++;
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("    " + tasks[numOfTasks - 1]);
-                System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
-            } else if(message.split(" ")[0].equals("deadline")) {
-                String name = message.substring(9, message.indexOf("/by "));
-                String deadline = message.substring(message.indexOf("/by ") + 4);
-                tasks[numOfTasks] = new Deadline(name, deadline);
-                numOfTasks++;
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("    " + tasks[numOfTasks - 1]);
-                System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
-            } else if(message.split(" ")[0].equals("event")) {
-                String name = message.substring(6, message.indexOf("/from "));
-                String afterFrom = message.substring(message.indexOf("/from ") + 5);
-                String start = afterFrom.substring(0, afterFrom.indexOf("/to "));
-                String endTime = afterFrom.substring(afterFrom.indexOf("/from ") + 6);
-                tasks[numOfTasks] = new Event(name, start, endTime);
-                numOfTasks++;
-                System.out.println("    Got it. I've added this task:");
-                System.out.println("    " + tasks[numOfTasks - 1]);
-                System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
-            } else {
-                tasks[numOfTasks] = new Task(message);
-                numOfTasks++;
-                System.out.println("    added: " + message);
+            } catch(InvalidToDoException e) {
+                System.out.println("    " + e.getMessage());
+            } catch(InvalidEventException e) {
+                System.out.println("    " + e.getMessage());
+            } catch(InvalidDeadlineException e) {
+                System.out.println("    " + e.getMessage());
+            } catch(InvalidCommandException e) {
+                System.out.println("    " + e.getMessage());
             }
             System.out.println("    ____________________________________________________________");
             message = scanner.nextLine();

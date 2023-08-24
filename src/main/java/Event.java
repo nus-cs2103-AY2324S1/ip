@@ -30,4 +30,22 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + " )";
     }
+
+    /**
+     * Method to check whether the command is event
+     * 
+     * @param str the command
+     * @return whether the command is event
+     * @throws InvalidEventException
+     */
+    public static boolean isEvent(String str) throws InvalidEventException {
+        if(str.split(" ")[0].equals("event")) {
+            if(str.indexOf("/from ") == -1 || str.substring(str.indexOf("/from ") + 5).indexOf( "/from ") == -1) {
+                throw new InvalidEventException();
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
 }
