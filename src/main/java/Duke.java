@@ -47,7 +47,7 @@ public class Duke {
         }
     }
 
-    private static void handleDelete(String commandNum, String status) throws DukeException {
+    private static void handleDelete(String commandNum) throws DukeException {
         try {
             int index = Integer.parseInt(commandNum) - 1;
 
@@ -61,7 +61,7 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid Task Index provided!");
         }
-        
+
     }
 
     private static void handleToDo(String task) throws DukeException {
@@ -127,9 +127,36 @@ public class Duke {
         }
     }
 
+    private enum Command {
+        BYE("bye"),
+        LIST("list"),
+        MARK("mark"),
+        UNMARK("unmark"),
+        DELETE("delete"),
+        TODO("todo"),
+        DEADLINE("deadline"),
+        EVENT("event");
+
+        private String value;
+
+        private Command(String value) {
+            this.value = value;
+        }
+
+        public static Command getCommand(String value) {
+            for (Command cmd : Command.values()) {
+                if (cmd.value.equals(value)) {
+                    return cmd;
+                }
+            }
+            return null;
+        }
+    }
+
     private static void handleCommand() {
         Scanner sc = new Scanner(System.in);
-        String command, commandString;
+        String commandString;
+        Command command;
         String[] commandArray;
 
         while (true) {
@@ -141,39 +168,46 @@ public class Duke {
             }
 
             commandArray = commandString.split(" ", 2);
-            command = commandArray[0];
+            command = Command.getCommand(commandArray[0]);
+
+            if (command == null) {
+                System.out.println(formatOutput("I don't understand what you're saying."));
+                continue;
+            }
 
             try {
-                if (command.equals("bye")) {
-                    System.out.println(formatOutput("Bye. Hope to see you again soon!"));
-                    break;
-                } else if (command.equals("list")) {
-                    System.out.println(formatOutput(formatList(store)));
-                    continue;
+                switch (command) {
+                    case BYE:
+                        System.out.println(formatOutput("Bye. Hope to see you again soon!"));
+                        return;
+                    case LIST:
+                        System.out.println(formatOutput(formatList(store)));
+                        break;
+                    case MARK:
+                    case UNMARK:
+                        checkCommandArguments(commandArray);
+                        handleMarking(commandArray[1], command.value);
+                        break;
+                    case DELETE:
+                        checkCommandArguments(commandArray);
+                        handleDelete(commandArray[1]);
+                        break;
+                    case TODO:
+                        checkCommandArguments(commandArray);
+                        handleToDo(commandArray[1]);
+                        break;
+                    case DEADLINE:
+                        checkCommandArguments(commandArray);
+                        handleDeadline(commandArray[1]);
+                        break;
+                    case EVENT:
+                        checkCommandArguments(commandArray);
+                        handleEvent(commandArray[1]);
+                        break;
+                    default:
+                        System.out.println(formatOutput("I don't understand what you're saying."));
+                        break;
                 }
-
-                if (command.equals("mark") || command.equals("unmark")) {
-                    checkCommandArguments(commandArray);
-                    handleMarking(commandArray[1], command);
-                } else if (command.equals("delete")) {
-                    checkCommandArguments(commandArray);
-                    handleDelete(commandArray[1], command);
-                } else if (command.equals("todo")) {
-                    checkCommandArguments(commandArray);
-                    handleToDo(commandArray[1]);
-                } else if (command.equals("deadline")) {
-                    checkCommandArguments(commandArray);
-                    handleDeadline(commandArray[1]);
-                } else if (command.equals("event")) {
-                    checkCommandArguments(commandArray);
-                    handleEvent(commandArray[1]);
-                } else if (command.equals("blah")) {
-                    System.out.println(formatOutput("I don't understand what you're saying."));
-                } else {
-                    store.add(new Task(commandString));
-                    System.out.println(formatOutput("added: " + commandString));
-                }
-
             } catch (DukeException e) {
                 System.out.println(formatOutput(e.getMessage()));
             }
