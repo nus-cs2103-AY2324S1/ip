@@ -37,35 +37,50 @@ public class Duke {
                 continue;
             }
 
-            if (command.equals("mark")) {
-                int taskNumber = Integer.parseInt(words[1]);
-                tasks.get(taskNumber - 1).markDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks.get(taskNumber - 1));
+            try {
+                if (command.equals("mark")) {
+                    int taskNumber = Integer.parseInt(words[1]);
+                    tasks.get(taskNumber - 1).markDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(tasks.get(taskNumber - 1));
+                    printLine();
+                    continue;
+                }
+
+                if (command.equals("unmark")) {
+                    int taskNumber = Integer.parseInt(words[1]);
+                    tasks.get(taskNumber - 1).markUndone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(tasks.get(taskNumber - 1));
+                    printLine();
+                    continue;
+                }
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                System.out.println("The selected task does not exist.");
                 printLine();
                 continue;
             }
-
-            if (command.equals("unmark")) {
-                int taskNumber = Integer.parseInt(words[1]);
-                tasks.get(taskNumber - 1).markUndone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(tasks.get(taskNumber - 1));
-                printLine();
-                continue;
-            }
-
 
             int startIndex;
             String description;
             Task newTask = new Task("");
             switch (command) {
                 case "todo":
-                    startIndex = 5;
-                    description = taskMessage.substring(startIndex);
-                    newTask = new ToDo(description);
-                    tasks.add(newTask);
-                    break;
+                    try {
+                        if (words.length == 1) {
+                            throw (new DukeException("☹ OOPS!!! The description of a todo cannot be empty."));
+                        }
+                        startIndex = 5;
+                        description = taskMessage.substring(startIndex);
+                        newTask = new ToDo(description);
+                        tasks.add(newTask);
+                        break;
+                    } catch (DukeException emptyDescription) {
+                        System.out.println(emptyDescription.getMessage());
+                        printLine();
+                        continue;
+                    }
+
 
                 case "deadline":
                     startIndex = 9;
@@ -90,9 +105,13 @@ public class Duke {
                     break;
 
                 default:
-                    System.out.println("Invalid command");
-                    printLine();
-                    continue;
+                    try {
+                        throw(new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-("));
+                    } catch (DukeException invalidCommand) {
+                        System.out.println(invalidCommand.getMessage());
+                        printLine();
+                        continue;
+                    }
             }
 
             System.out.println("Got it. I've added this task:");
