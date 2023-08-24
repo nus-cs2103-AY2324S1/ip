@@ -77,21 +77,30 @@ public class Bee {
                 }
                 else if (splitInput[0].startsWith("mark")) {
                     try {
-                        int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                        int taskIndex = Integer.parseInt(splitInput[1]);
                         listOfTasks.setTaskDone(taskIndex);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new BeeException("OOPS!! The task number cannot be empty.");
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new BeeException("OOPS!! You must have entered an invalid task number");
+                    } catch (NumberFormatException e) {
+                        throw new BeeException("OOPS!! You must have entered an invalid task number.");
                     }
                 } else if (splitInput[0].startsWith("unmark")) {
                     try {
-                        int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
+                        int taskIndex = Integer.parseInt(splitInput[1]);
                         listOfTasks.setTaskNotDone(taskIndex);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new BeeException("OOPS!! The task number cannot be empty.");
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new BeeException("OOPSS!! You must have entered an invalid task number");
+                    } catch (NumberFormatException e) {
+                        throw new BeeException("OOPSS!! You must have entered an invalid task number.");
+                    }
+                } else if (splitInput[0].startsWith("delete")) {
+                    try {
+                        int taskIndex = Integer.parseInt(splitInput[1]);
+                        listOfTasks.deleteTask(taskIndex);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        throw new BeeException("OOPSS!! Please enter a task number");
+                    } catch (NumberFormatException e) {
+                        throw new BeeException("OOPSS!! You must have entered an invalid task number.");
                     }
                 } else {
                     // Else, echo back the user input and add to list
