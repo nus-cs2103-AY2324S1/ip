@@ -25,12 +25,29 @@ public class Richie {
                 message = input.nextLine();
 
             } else if (stringArray[0].equals("mark")) {
-                int taskIndex = Integer.parseInt(stringArray[1]);
-                Task task = itemArray.get(taskIndex - 1);
-                task.markAsDone();
-                System.out.println("Nice! I've marked this task as done:\n " + task);
-                message = input.nextLine();
+                try {
+                    int taskIndex = Integer.parseInt(stringArray[1]);
+                    Task task = itemArray.get(taskIndex - 1);
+                    task.markAsDone();
+                    System.out.println("Nice! I've marked this task as done:\n " + task);
+                    message = input.nextLine();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Incomplete input, please specify which task to mark");
+                    message = input.nextLine();
+                }
 
+            } else if (stringArray[0].equals("delete")) {
+                try {
+                    int taskIndex = Integer.parseInt(stringArray[1]);
+                    System.out.println(taskIndex);
+                    Task task = itemArray.get(taskIndex - 1);
+                    itemArray.remove(taskIndex - 1);
+                    System.out.println("Noted. I've removed this task:\n" + task + "\nNow you have " + itemArray.size() + " tasks in the list.");
+                    message = input.nextLine();
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Incomplete input, please specify which task to delete");
+                    message = input.nextLine();
+                }
             } else if (stringArray[0].equals("deadline")) {
                 try {
                     String[] stringArray2 = stringArray[1].split(" /by ", 2);
