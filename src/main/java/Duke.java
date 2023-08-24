@@ -73,14 +73,22 @@ public class Duke {
                 System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
                 System.out.println(HORIZONTAL_LINE);
             } else if (input.startsWith("todo")) {
-                ToDo todo = new ToDo(input.substring(5));
-                list.add(todo);
 
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(todo);
-                System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
-                System.out.println(HORIZONTAL_LINE);
+                try {
+                    ToDo todo = new ToDo(input.substring(5));
+                    list.add(todo);
+
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(todo);
+                    System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
+                    System.out.println(HORIZONTAL_LINE);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("Valid Format: todo (description)");
+                    System.out.println(HORIZONTAL_LINE);
+                }
             } else if (input.equals("bye")) {
                 System.out.println(exitMessage);
                 break;
