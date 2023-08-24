@@ -5,7 +5,8 @@ deadline return book /by Sunday
 mark 2
 event project meeting /from Mon 2pm /to 4pm
 list
-mark 3
-unmark 2
+todo
+deadline abc
+event abc /from def
 list
 bye
