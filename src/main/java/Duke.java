@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Duke {
     private static String LINE_SEPARATOR = "    ------------------------------------------------------------";
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static Boolean programRunning = true;
 
     private static <T> void respond(T message) {
         System.out.println(LINE_SEPARATOR);
@@ -41,23 +43,68 @@ public class Duke {
         Duke.respond(output);
     }
 
+    private static void markTaskAsDone(int taskIndex) {
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            Duke.respond("That task does not exist. Please type another command.");
+            return;
+        }
+
+        Task targetTask = tasks.get(taskIndex);
+        targetTask.markAsDone();
+
+        ArrayList<String> messages = new ArrayList<String>();
+        messages.add("Nice! I've marked this task as done:");
+        messages.add(String.format("  %s",targetTask.toString()));
+
+        Duke.respond(messages);
+    }
+
+    private static void markTaskAsUndone(int taskIndex) {
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            Duke.respond("That task does not exist. Please type another command.");
+            return;
+        }
+
+        Task targetTask = tasks.get(taskIndex);
+        targetTask.markAsUndone();
+
+        ArrayList<String> messages = new ArrayList<String>();
+        messages.add("OK, I've marked this task as not done yet:");
+        messages.add(String.format("  %s",targetTask.toString()));
+
+        Duke.respond(messages);
+    }
+
     public static void main(String[] args) {
         Duke.greet();
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Task> tasks = new ArrayList<Task>();
-
-        Boolean programRunning = true;
-
         while (programRunning) {
             String input = scanner.nextLine();
 
-            if (input.equals("bye")) {
+            if (input.trim().equals("")) {
+                continue;
+            }
+
+            String[] splitInput = input.split(" ", 2);
+            String command = splitInput[0];
+            String arguments = splitInput.length > 1 ? splitInput[1] : "";
+
+            switch(command) {
+            case "bye":
                 programRunning = false;
-            } else if (input.equals("list")) {
+                break;
+            case "list":
                 Duke.listTasks(tasks);
-            } else {
+                break;
+            case "mark":
+                Duke.markTaskAsDone(Integer.parseInt(arguments) - 1);
+                break;
+            case "unmark":
+                Duke.markTaskAsUndone(Integer.parseInt(arguments) - 1);
+                break;
+            default:
                 Duke.respond("Added: " + input);
                 tasks.add(new Task(input));
             }
