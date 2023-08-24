@@ -19,4 +19,18 @@ unmark 2
 list
 unmark 4
 list
+todo
+todo
+todo
+blah
+deadline
+event
+deadline fifjsoidjoisd
+event jskdjsaidja
+event reading /from Mon 2pm
+event reading /to 5pm
+event reading /from Mon 2pm /from 5pm
+event reading /to Mon 2pm /to 5pm
+mark 99
+unmark 99
 bye
