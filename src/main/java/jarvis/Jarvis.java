@@ -33,6 +33,9 @@ public class Jarvis {
             } else if (userInputSpilt[0].equalsIgnoreCase("unmark")) {
                 int index = Integer.parseInt(userInputSpilt[1]);
                 action.updateTask(index, false);
+            } else if (userInputSpilt[0].equalsIgnoreCase("delete")) {
+                int index = Integer.parseInt(userInputSpilt[1]);
+                action.deleteTask(index);
             } else if (userInputSpilt[0].equalsIgnoreCase("todo") ||
                         userInputSpilt[0].equalsIgnoreCase("deadline") || 
                         userInputSpilt[0].equalsIgnoreCase("event")) {

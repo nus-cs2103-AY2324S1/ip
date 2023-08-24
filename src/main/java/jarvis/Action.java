@@ -86,4 +86,16 @@ public class Action {
             }
         }  
     }
+
+    public void deleteTask(int index) throws InvalidIndexException {
+        ArrayList<Task> tasks = taskList.getTask();
+        if (index >= 1 && index <= tasks.size()) {
+            Task removedTask = tasks.remove(index - 1);
+            
+            ui.printResponse("Noted Master! I've removed this task:\n" + "\t" + removedTask.toString() + "\n" +
+                                "    Master, you have " + taskList.getTaskCount() + " tasks in the list.");
+        } else {
+            throw new InvalidIndexException(null);
+        }
+    }
 }
