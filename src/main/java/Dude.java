@@ -45,6 +45,20 @@ public class Dude {
   }
 
   /**
+   * Remove task from tasks list.
+   *
+   * @param index 1-based index of task to remove.
+   * @return Removed task.
+   */
+  public static Task removeTask(int index) throws TaskOutOfBoundsException {
+    try {
+      return tasks.remove(index);
+    } catch (IndexOutOfBoundsException e) {
+      throw new TaskOutOfBoundsException();
+    }
+  }
+
+  /**
    * Get number of tasks.
    *
    * @return Number of tasks.
@@ -56,14 +70,15 @@ public class Dude {
   /**
    * Get task from list.
    *
-   * @param task 1-based index of task to get.
+   * @param index 1-based index of task to get.
    * @throws TaskOutOfBoundsException if task number does not exist
    */
-  public static Task getTask(int task) throws TaskOutOfBoundsException {
-    if (task > getNumTasks() || task <= 0) {
+  public static Task getTask(int index) throws TaskOutOfBoundsException {
+    try {
+      return tasks.get(index - 1);
+    } catch (IndexOutOfBoundsException e) {
       throw new TaskOutOfBoundsException();
     }
-    return tasks.get(task - 1);
   }
 
   /**
