@@ -6,8 +6,4 @@ public class ToDo extends Task{
     public String toString() {
         return "[T]" + super.toString();
     }
-
-    public String toStringId() {
-        return super.getId() + "." + this;
-    }
 }

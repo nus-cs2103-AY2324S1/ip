@@ -14,6 +14,7 @@ public class AiChan {
         System.out.println(line + greet + line);
 
         while (true) {
+            int size = arrTask.size();
             try{
                 String command = scn.nextLine();
                 if (command.equals("bye")) {
@@ -21,20 +22,30 @@ public class AiChan {
                     break;
                 } else if (command.equals("list")){
                     System.out.print(line + "Here are the tasks in your list:\n");
+                    int i = 1;
                     for (Task t : arrTask) {
-                        System.out.println(t.toStringId());
+                        System.out.println(i + "." + t.toString());
+                        i++;
                     }
                     System.out.println(line);
                 } else if (command.startsWith("mark")){
+                    if (command.length() < 6) {
+                        throw new AiChanException("Please provide a task number.");
+                    }
                     // get the number behind "mark "
                     int taskId = Integer.parseInt(command.substring(5));
+                    if(taskId < 1 || taskId > size) throw new AiChanException("Please provide a valid task number.");
                     Task t = arrTask.get(taskId - 1);
                     t.mark();
                     System.out.println(line + "Nice! I've marked this task as done:\n"
                             + t.toString() + "\n" + line);
                 } else if (command.startsWith("unmark")){
-                    // get the number behind "unmark "
+                    if (command.length() < 8) {
+                        throw new AiChanException("Please provide a task number.");
+                    }
+                    // get the number behind "mark "
                     int taskId = Integer.parseInt(command.substring(7));
+                    if(taskId < 1 || taskId > size) throw new AiChanException("Please provide a valid task number.");
                     Task t = arrTask.get(taskId - 1);
                     t.unmark();
                     System.out.println(line + "OK, I've marked this task as not done yet:\n"
@@ -48,7 +59,7 @@ public class AiChan {
                     Task t = new ToDo(command.substring(5));
                     arrTask.add(t);
                     System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
-                            "Now you have %d tasks in the list\n%s", line, t, t.getId(), line));
+                            "Now you have %d tasks in the list\n%s", line, t, size + 1, line));
                 } else if (command.startsWith("deadline")){
                     if (command.length() < 10) {
                         throw new AiChanException("oops~ The description of a deadline cannot be empty.");
@@ -63,7 +74,7 @@ public class AiChan {
                     Task t = new Deadline(arr);
                     arrTask.add(t);
                     System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
-                            "Now you have %d tasks in the list\n%s", line, t, t.getId(), line));
+                            "Now you have %d tasks in the list\n%s", line, t, size + 1, line));
                 } else if (command.startsWith("event")){
                     if (command.length() < 7) {
                         throw new AiChanException("oops~ The description of a event cannot be empty.");
@@ -79,7 +90,17 @@ public class AiChan {
                     Task t = new Event(arr);
                     arrTask.add(t);
                     System.out.println(String.format("%sGot it. I've added this task:\n  %s\n" +
-                            "Now you have %d tasks in the list\n%s", line, t, t.getId(), line));
+                            "Now you have %d tasks in the list\n%s", line, t, size + 1, line));
+                } else if (command.startsWith("delete")){
+                    if (command.length() < 8) {
+                        throw new AiChanException("Please provide a task number.");
+                    }
+                    // get the number behind "mark "
+                    int taskId = Integer.parseInt(command.substring(7));
+                    if(taskId < 1 || taskId > size) throw new AiChanException("Please provide a valid task number.");
+                    Task t = arrTask.remove(taskId - 1);
+                    System.out.println(String.format("%sNoted. I've removed this task:\n  %s\n" +
+                            "Now you have %d tasks in the list\n%s", line, t, size - 1, line));
                 } else {
                     throw new AiChanException("oops~ I'm so sorry, but I don't know what that means :'(");
                 }

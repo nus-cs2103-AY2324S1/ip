@@ -9,8 +9,4 @@ public class Deadline extends Task{
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.dueDate);
     }
-
-    public String toStringId() {
-        return String.format("%d.%s", super.getId(), this);
-    }
 }

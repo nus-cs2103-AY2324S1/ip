@@ -1,12 +1,8 @@
 public class Task {
-    private static int totalTasks = 0;
-    private int taskId;
     private String taskName;
     private boolean done;
 
     public Task(String taskName) {
-        totalTasks++;
-        this.taskId = totalTasks;
         this.taskName = taskName;
         this.done = false;
     }
@@ -22,14 +18,5 @@ public class Task {
     public String toString() {
         String status = this.done? "[X]" : "[ ]";
         return status + " " + this.taskName;
-    }
-
-    public String toStringId() {
-        String status = this.done? "[X]" : "[ ]";
-        return this.taskId + "." + this.toString();
-    }
-
-    public int getId() {
-        return this.taskId;
     }
 }
