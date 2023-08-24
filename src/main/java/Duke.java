@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Duke {
-
     private static final String INDENT = "    ";
+    private static final List<String> tasks = new ArrayList<>();
     public static void printGreeting() {
         printHorizontalLine();
         printIndented("Hello! I'm Davidson");
@@ -39,11 +41,18 @@ public class Duke {
             if ("bye".equalsIgnoreCase(input)) {
                 printExit();
                 break;
+            } else if ("list".equalsIgnoreCase(input)) {
+                printHorizontalLine();
+                for (int i = 0; i < tasks.size(); i++) {
+                    printIndented((i + 1) + ". " + tasks.get(i));
+                }
+                printHorizontalLine();
+            } else {
+                tasks.add(input);
+                printHorizontalLine();
+                printIndented("added: " + input);
+                printHorizontalLine();
             }
-
-            printHorizontalLine();
-            printIndented(input);
-            printHorizontalLine();
         }
 
         scanner.close();
