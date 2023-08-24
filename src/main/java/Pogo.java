@@ -17,25 +17,38 @@ public class Pogo {
         }
     }
 
+    private static boolean isEmpty(String input) {
+        return input.trim().length() == 0;
+    }
+
     private static Task addTask(String input) throws PogoException {
         Task task;
         if (input.startsWith("todo")) {
             String description = input.substring("todo".length() + 1);
             task = new ToDo (description);
+            if (isEmpty(description)) {
+                throw new PogoEmptyTaskException();
+            }
         } else if (input.startsWith("deadline")) {
             String[] split = input.substring("deadline".length() + 1).split(" /by ");
             String description = split[0];
+            if (isEmpty(description)) {
+                throw new PogoEmptyTaskException();
+            }
             String by = split[1];
             task = new Deadline(description, by);
         } else if (input.startsWith("event")) {
             String[] split = input.substring("event".length() + 1).split(" /from ");
             String description = split[0];
+            if (isEmpty(description)) {
+                throw new PogoEmptyTaskException();
+            }
             String[] temp = split[1].split(" /to ");
             String from = temp[0];
             String to = temp[1];
             task = new Event(description, from, to);
         } else {
-            task = new Task(input);
+            throw new PogoInvalidTaskException();
         }
         tasks.add(task);
         return task;
@@ -64,11 +77,16 @@ public class Pogo {
                 System.out.println("added: " + task.getStatusMessage());
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } catch (PogoInvalidTaskException e) {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("Oops! I don't recognise that task.\n"
+                        + "Only the following tasks are supported:\n"
+                        + "todo <description>\n"
+                        + "deadline <description> /by <date>\n"
+                        + "event <description> /from <date> /to <date>"
+                );
             } catch (PogoEmptyTaskException e) {
-                System.out.println("☹ OOPS!!! The description of a task cannot be empty.\n");
+                System.out.println("Oops! The description of a task cannot be empty.");
             } catch (PogoException e) {
-                System.out.println("☹ OOPS!!! An error has occurred.");
+                System.out.println("Oops! An unknown error has occurred.");
             }
         }
         return false;
