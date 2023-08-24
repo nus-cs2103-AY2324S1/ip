@@ -23,7 +23,7 @@ public class Fishron {
         storage.add(task);
         System.out.println("____________________________________________________________");
         System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
+        System.out.println("  " + task.toString());
         System.out.println("Now you have " + storage.size() + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
@@ -45,7 +45,7 @@ public class Fishron {
             task.markAsDone();
             System.out.println("____________________________________________________________");
             System.out.println("Nice! I've marked this task as done:");
-            System.out.println("  " + task.getStatusIcon() + " " + task.getDescription());
+            System.out.println("  " + task.toString());
             System.out.println("____________________________________________________________");
         } else {
             System.out.println("Invalid task number.");
@@ -58,7 +58,7 @@ public class Fishron {
             task.markAsUndone();
             System.out.println("____________________________________________________________");
             System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println("  " + task.getStatusIcon() + " " + task.getDescription());
+            System.out.println("  " + task.toString());
             System.out.println("____________________________________________________________");
         } else {
             System.out.println("Invalid task number.");
