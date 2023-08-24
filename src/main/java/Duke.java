@@ -3,6 +3,28 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Duke {
+    private enum command {
+        bye("bye"),
+        list("list"),
+        mark("mark"),
+        unmark("unmark"),
+        deadline("deadline"),
+        event("event"),
+        todo("todo"),
+        delete("delete");
+
+        private final String command;
+
+        command(String command) {
+            this.command = command;
+        }
+
+        @Override
+        public String toString() {
+            return command;
+        }
+    }
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -14,13 +36,13 @@ public class Duke {
         while (true) {
             try {
                 String input = scanner.nextLine();
-                if (input.equals("bye")) {
+                if (input.equals(command.bye.toString())) {
                     String End = "Bye. Hope to see you again soon!";
                     System.out.println(End);
                     break;
                 }
 
-                if (input.equals("list")) {
+                if (input.equals(command.list.toString())) {
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.println(i + 1 + "." + tasks.get(i));
@@ -28,7 +50,7 @@ public class Duke {
                     continue;
                 }
 
-                if (input.contains("unmark")) {
+                if (input.contains(command.unmark.toString())) {
                     int selected = Integer.parseInt(input.substring(7));
                     Task selTask = tasks.get(selected - 1);
                     selTask.taskNotCompleted();
@@ -36,7 +58,7 @@ public class Duke {
                     continue;
                 }
 
-                if (input.contains("mark")) {
+                if (input.contains(command.mark.toString())) {
                     int selected = Integer.parseInt(input.substring(5));
                     Task selTask = tasks.get(selected - 1);
                     selTask.taskCompleted();
@@ -44,8 +66,8 @@ public class Duke {
                     continue;
                 }
 
-                if (input.contains("deadline")) {
-                    if (input.equals("deadline")) {
+                if (input.contains(command.deadline.toString())) {
+                    if (input.equals(command.deadline.toString())) {
                         throw new DukeException("Empty deadline");
                     }
                     if (input.charAt(8) != ' ') {
@@ -64,8 +86,8 @@ public class Duke {
                     continue;
                 }
 
-                if (input.contains("event")) {
-                    if (input.equals("event")) {
+                if (input.contains(command.event.toString())) {
+                    if (input.equals(command.event.toString())) {
                         throw new DukeException("Empty event");
                     }
                     if (input.charAt(5) != ' ') {
@@ -85,8 +107,8 @@ public class Duke {
                     continue;
                 }
 
-                if (input.contains("todo")) {
-                    if (input.equals("todo")) {
+                if (input.contains(command.todo.toString())) {
+                    if (input.equals(command.todo.toString())) {
                         throw new DukeException("Empty todo");
                     }
                     if (input.charAt(4) != ' ') {
@@ -103,7 +125,7 @@ public class Duke {
                     continue;
                 }
 
-                if (input.contains("delete")) {
+                if (input.contains(command.delete.toString())) {
                     int selected = Integer.parseInt(input.substring(input.indexOf("delete") + 7));
                     Task task = tasks.remove(selected - 1);
                     System.out.println("Noted. I've removed this task:\n" + task +
