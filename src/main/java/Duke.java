@@ -30,8 +30,14 @@ public class Duke {
                 break;
             } else if (userInput.equals("list")) {
                 display(list.toString());
+            } else if (userInput.startsWith("mark")) {
+                // get index by splitting user input and get task at that index from list
+                list.getTaskAt(Integer.parseInt(userInput.split(" ")[1]) - 1).mark();
+            } else if (userInput.startsWith("unmark")) {
+                // get index by splitting user input and get task at that index from list
+                list.getTaskAt(Integer.parseInt(userInput.split(" ")[1]) - 1).unmark();
             } else {
-                list.addToList(userInput);
+                list.addToList(new Task(userInput));
                 display("added: " + userInput);
             }
         }

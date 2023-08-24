@@ -1,20 +1,25 @@
 public class List {
-    private String[] list;
+    private Task[] list;
     private int usedCapacity;
 
     public List() {
-        this.list = new String[100];
+        this.list = new Task[100];
         this.usedCapacity = 0;
     }
 
-    public void addToList(String s) {
+    public void addToList(Task s) {
         this.list[this.usedCapacity] = s;
         this.usedCapacity++;
+    }
+
+    public Task getTaskAt(int index) {
+        return this.list[index];
     }
 
     @Override
     public String toString() {
         StringBuffer s = new StringBuffer();
+        s.append("Here are the tasks in your list:\n");
         for (int i = 0; i < this.usedCapacity; i++) {
             s.append((i + 1) + ". " + this.list[i]);
             if (i < this.usedCapacity - 1) {
