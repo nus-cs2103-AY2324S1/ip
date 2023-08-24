@@ -1,10 +1,9 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import exceptions.*;
 
 public class Martin {
-    private static List<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
     public static void main(String[] args) throws InvalidCommandException, EmptyTaskDescriptionException {
         Scanner scanner = new Scanner(System.in);
 
@@ -18,6 +17,8 @@ public class Martin {
                     break;
                 } else if (input.equalsIgnoreCase("list")) {
                     printTasks();
+                } else if (input.startsWith("delete")) {
+                    deleteTask(input);
                 } else if (input.startsWith("mark")) {
                     markTask(input);
                 } else if (input.startsWith("unmark")) {
@@ -49,6 +50,21 @@ public class Martin {
             System.out.println("     " + (i + 1) + ". " + tasks.get(i));
         }
         System.out.println("    ____________________________________________________________");
+    }
+
+    private static void deleteTask(String command) throws InvalidTaskNumberException {
+        try {
+            int taskNo = Integer.parseInt(command.split(" ")[1]);
+            
+            if (taskNo <= 0 || taskNo > tasks.size()) {
+                throw new InvalidTaskNumberException("Invalid task number.");
+            }
+            
+            Task removedTask = tasks.remove(taskNo - 1);
+            printMessage("Noted. I've removed this task:\n       " + removedTask + "\n     Now you have " + tasks.size() + " tasks in the list.");
+        } catch (Exception e) {
+            throw new InvalidTaskNumberException("Invalid task number.");
+        }
     }
 
     private static void markTask(String command) throws InvalidTaskNumberException, TaskAlreadyDoneException {
@@ -100,7 +116,7 @@ public class Martin {
         }
 
         tasks.add(new Todo(description));
-        printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\nNow you have " + tasks.size() + " tasks in the list.");
+        printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\n     Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void addDeadline(String command) throws EmptyTaskDescriptionException {
@@ -110,7 +126,7 @@ public class Martin {
         }
 
         tasks.add(new Deadline(parts[0], parts[1]));
-        printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\nNow you have " + tasks.size() + " tasks in the list.");
+        printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\n     Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void addEvent(String command) throws EmptyTaskDescriptionException {
@@ -121,6 +137,6 @@ public class Martin {
         }
 
         tasks.add(new Event(parts[0], timeParts[0], timeParts[1]));
-        printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\nNow you have " + tasks.size() + " tasks in the list.");
+        printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\n     Now you have " + tasks.size() + " tasks in the list.");
     }
 }
