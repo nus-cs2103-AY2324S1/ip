@@ -1,8 +1,8 @@
 package Tasks;
 
 public class Task {
-    private String taskDesc;
-    private boolean isDone;
+    protected String taskDesc;
+    protected boolean isDone;
 
     public Task (String taskDesc, boolean isDone) {
         this.taskDesc = taskDesc;
@@ -37,5 +37,8 @@ public class Task {
         return "[" + this.getStatus() + "] " + this.getTaskDesc();
     }
 
-
+    public String getData() {
+        String marked = isDone ? "1" : "0";
+        return " | " + marked + " | " + this.taskDesc;
+    }
 }

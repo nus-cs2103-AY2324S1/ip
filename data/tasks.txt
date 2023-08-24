@@ -1,0 +1,2 @@
+D | 0 | book | friday
+T | 1 | read notes

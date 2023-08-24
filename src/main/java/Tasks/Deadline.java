@@ -7,7 +7,7 @@ package Tasks;
  */
 public class Deadline extends Task {
 
-    private final String by;
+    protected final String by;
 
     public Deadline(String description, Boolean isDone, String by) {
         super(description, isDone);
@@ -16,6 +16,12 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + by + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String getData() {
+        String marked = isDone ? "1" : "0";
+        return "D | " + marked + " | " + this.taskDesc + " | " + this.by;
     }
 }
