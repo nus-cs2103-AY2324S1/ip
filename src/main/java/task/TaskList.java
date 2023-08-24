@@ -3,50 +3,52 @@ package task;
 import command.CommandException;
 import main.Main;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.function.BiConsumer;
 
 public class TaskList {
 
-    // I think here along the array, also using a HashMap<String, task.Task> to store the task could be better because it can more easily get a task by name
-    // But since the question requires me to use the array to store tasks, I have to do so
-    private Task[] list;
-    private int count;
+    ArrayList<Task> tasks;
 
     public TaskList(){
-        this.list = new Task[100];
-        this.count = 0;
+        this.tasks = new ArrayList<Task>();
     }
 
     public Task findTaskByName(String name){
-        for(int i = 0; i < this.count; i++){
-            if(this.list[i].getName().equals(name)){
-                return this.list[i];
+        int count = this.tasks.size();
+        for(int i = 0; i < count; i++){
+            Task task = this.tasks.get(i);
+            if(task.getName().equals(name)){
+                return task;
             }
         }
         return null;
     }
 
     public void addTask(Task newTask) throws CommandException {
-        if(this.count >= 100){
-            throw new CommandException("Error: task list is full.");
-        }
         if(this.findTaskByName(newTask.getName()) != null){
             throw new CommandException("Error: A task with name '" + newTask.getName() + "' already exists.");
         }
-        this.list[this.count] = newTask;
-        this.count++;
+        this.tasks.add(newTask);
         Main.getInstance().say("Got it. I've added this task:", true, false);
         Main.getInstance().say("  " + newTask.toString(), false, false);
         Main.getInstance().say("Now you have " + Main.getInstance().getTaskList().getCount() +" tasks in the list.", false, true);
     }
 
+    public Task removeTask(int index){
+        return this.tasks.remove(index);
+    }
+
     public void iterate(BiConsumer<Integer, Task> consumer){
-        for(int i = 0;i < this.count; i++){
-            consumer.accept(i, this.list[i]);
+        int index = 0;
+        for(Task task : this.tasks){
+            consumer.accept(index, task);
+            index++;
         }
     }
 
     public int getCount(){
-        return this.count;
+        return this.tasks.size();
     }
 }

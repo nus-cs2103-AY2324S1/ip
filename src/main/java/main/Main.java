@@ -27,6 +27,7 @@ public class Main {
         this.commands.put("todo", new CommandTodoHandler());
         this.commands.put("deadline", new CommandDeadlineHandler());
         this.commands.put("event", new CommandEventHandler());
+        this.commands.put("delete", new CommandDeleteHandler());
     }
 
     public static void main(String[] args) {
@@ -57,7 +58,7 @@ public class Main {
         String[] splitedCommand = command.split(" ");
         try{
             if(command.equals("blah")){
-                throw new CommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new CommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             if(this.commands.containsKey(splitedCommand[0])){
                 this.commands.get(splitedCommand[0]).execute(command, splitedCommand);
