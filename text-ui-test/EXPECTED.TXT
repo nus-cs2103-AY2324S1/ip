@@ -30,6 +30,9 @@ Now you have 3 items in the list
 3. [E][ ] tutorial 1 (from: 4pm to: 3pm)
 ------------------------------------------
 ------------------------------------------
+Oops this Command: hello is not found
+------------------------------------------
+------------------------------------------
 Okay! This task is not completed
 [T][ ] borrow book
 ------------------------------------------
@@ -44,6 +47,23 @@ Please input a valid task number
 ------------------------------------------
 ------------------------------------------
 /to cannot be empty
+------------------------------------------
+------------------------------------------
+Sure thing! This task has been removed
+[T][ ] borrow book
+Now you have 2 tasks left
+------------------------------------------
+------------------------------------------
+1. [D][ ] tutorial 1 worksheet (by: 3pm)
+2. [E][ ] tutorial 1 (from: 4pm to: 3pm)
+------------------------------------------
+------------------------------------------
+Sure thing! This task has been removed
+[E][ ] tutorial 1 (from: 4pm to: 3pm)
+Now you have 1 tasks left
+------------------------------------------
+------------------------------------------
+Please input a valid task number
 ------------------------------------------
 ------------------------------------------
 Bye. For now

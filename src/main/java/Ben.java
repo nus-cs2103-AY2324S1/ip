@@ -128,18 +128,24 @@ public class Ben {
         System.out.println(HORIZONTAL_LINE + "\n" + message + HORIZONTAL_LINE);
     }
 
-    public void Mark(Task task) {
+    public void mark(Task task) {
         task.Mark();
         System.out.println(HORIZONTAL_LINE + "\n" + "Nice! This task is completed\n" + task + "\n" + HORIZONTAL_LINE);
     }
 
-    public void Unmark(Task task) {
+    public void unmark(Task task) {
         task.Unmark();
         System.out.println(HORIZONTAL_LINE + "\n" + "Okay! This task is not completed\n" + task + "\n" + HORIZONTAL_LINE);
     }
 
-    public boolean isMarkCommand(String message) {
-        Pattern pattern = Pattern.compile("(unmark|mark)\\s*(-?\\d+)");
+    public void delete(Task task) {
+        tasks.remove(task);
+        System.out.println(HORIZONTAL_LINE + "\n" + "Sure thing! This task has been removed\n" + task +
+                "\nNow you have " + tasks.size() + " tasks left\n" + HORIZONTAL_LINE);
+    }
+
+    public boolean isEditList(String message) {
+        Pattern pattern = Pattern.compile("(unmark|mark|delete)\\s*(-?\\d+)");
         Matcher matcher = pattern.matcher(message.toLowerCase());
 
         if (matcher.find()) {
@@ -158,9 +164,11 @@ public class Ben {
 
             // if valid, mark or unmark the task
             if (Objects.equals(command, "mark")) {
-                Mark(tasks.get(num));
+                mark(tasks.get(num));
+            } else if ((Objects.equals(command, "delete"))) {
+                delete(tasks.get(num));
             } else {
-                Unmark(tasks.get(num));
+                unmark(tasks.get(num));
             }
             return true;
         }
@@ -176,7 +184,7 @@ public class Ben {
             } else if (Objects.equals(message.toLowerCase(), "list")) {
                 listToString();
             } else {
-                if (!isMarkCommand(message)) {
+                if (!isEditList(message)) {
                     add(message);
                 }
             }
