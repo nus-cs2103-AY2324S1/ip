@@ -3,11 +3,24 @@ import java.util.Scanner;
  * Class For Duke
  */
 public class Duke {
+    /**
+     * method to check whether a string is an integer
+     * @param str the string we want to check
+     * @return a boolean
+     */
+    private static boolean isInteger (String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
     public static void main(String[] args) {
         /**
          * To store the item
          */
-        String[] storage = new String[100];
+        Task[] storage = new Task[100];
         /**
          * current number of item
          */
@@ -21,7 +34,33 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         while (!(input.equals("bye"))) {
-            if (input.equals("list")) {
+            if (
+                    input.split(" ").length == 2
+                            && input.split(" ")[0].equals("mark")
+                            && isInteger(input.split(" ")[1])
+                            && Integer.parseInt(input.split(" ")[1]) <= curr + 1
+                            && Integer.parseInt(input.split(" ")[1]) >= 1
+            ) {
+                storage[Integer.parseInt(input.split(" ")[1]) - 1].changeMarkStatus(true);
+                System.out.println(
+                        "____________________________________________________________\n" +
+                                "You have marked this task as done \n" +
+                                storage[Integer.parseInt(input.split(" ")[1]) - 1].toString()
+                );
+            } else if (
+                    input.split(" ").length == 2
+                            && input.split(" ")[0].equals("unmark")
+                            && isInteger((input.split(" "))[1])
+                            && Integer.parseInt(input.split(" ")[1]) <= curr + 1
+                            && Integer.parseInt(input.split(" ")[1]) >= 1
+            ) {
+                storage[Integer.parseInt(input.split(" ")[1]) - 1].changeMarkStatus(false);
+                System.out.println(
+                        "____________________________________________________________\n" +
+                                "You have marked this task as not done \n" +
+                                storage[Integer.parseInt(input.split(" ")[1]) - 1].toString()
+                );
+            } else if (input.equals("list")) {
                 System.out.println("____________________________________________________________\n");
                 for (int i = 0; i < curr; i++) {
                     System.out.println(
@@ -35,7 +74,7 @@ public class Duke {
                                 "added: " + input + "\n" +
                                 "____________________________________________________________\n"
                 );
-                storage[curr] = input;
+                storage[curr] = new Task(input);
                 curr++;
             }
             input = scanner.nextLine();
