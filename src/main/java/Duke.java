@@ -24,6 +24,20 @@ public class Duke {
         lineSplitter();
     }
 
+    private static Task addTask(String input) {
+        String[] splittedInput = input.split(" ");
+        if (splittedInput[0].equalsIgnoreCase("todo")) {
+            return new ToDo (input.substring(5));
+        }
+        if (splittedInput[0].equalsIgnoreCase("deadline")) {
+            return new Deadline(input.substring(9).split(" /by ")[0], input.substring(9).split(" /by ")[1]);
+        }
+        if (splittedInput[0].equalsIgnoreCase("event")) {
+            return new Event(input.substring(6).split(" /from ")[0], input.substring(6).split(" /from ")[1].split(" /to ")[0], input.substring(6).split(" /from ")[1].split(" /to ")[1]);
+        }
+        return null;
+    }
+
     public static void echo(List<Task> list) {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -34,7 +48,7 @@ public class Duke {
             if (input.equalsIgnoreCase("list")) {
                 lineSplitter();
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + ". " + list.get(i).getTaskStatus() + " " + list.get(i).getTaskName());
+                    System.out.println((i + 1) + ". " + list.get(i));
                 }
                 lineSplitter();
                 continue;
@@ -44,7 +58,7 @@ public class Duke {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 list.get(index).setDone();
                 lineSplitter();
-                System.out.println("Nice! I've marked this task as done:\n" + "  " + list.get(index).getTaskStatus() + " " + list.get(index).getTaskName() + "\n");
+                System.out.println("Nice! I've marked this task as done:\n" + "  " + list.get(index) + "\n");
                 lineSplitter();
                 continue;
             }
@@ -53,11 +67,11 @@ public class Duke {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 list.get(index).setUndone();
                 lineSplitter();
-                System.out.println("Nice! I've marked this task as undone:\n" + "  " + list.get(index).getTaskStatus() + " " + list.get(index).getTaskName() + "\n");
+                System.out.println("Nice! I've marked this task as undone:\n" + "  " + list.get(index) + "\n");
                 lineSplitter();
                 continue;
             }
-            list.add(new Task(input));
+            list.add(addTask(input));
             lineSplitter();
             System.out.println("added: " + input + "\n");
             lineSplitter();

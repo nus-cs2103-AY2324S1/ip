@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private String taskName;
     private boolean doneOrNot;
 
@@ -21,5 +21,12 @@ public class Task {
 
     public String getTaskName() {
         return this.taskName;
+    }
+    public abstract String getTaskType();
+    public abstract String getTaskTime();
+
+    @Override
+    public String toString() {
+        return this.getTaskType() + this.getTaskStatus() + " " + this.getTaskName() + this.getTaskTime();
     }
 }
