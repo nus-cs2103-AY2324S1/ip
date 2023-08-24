@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.*;
 public class Duke {
+    public static Integer count = 0;
     public static void main(String[] args) {
         System.out.println("Hello! I'm ChatBot.\n" +
          "What can I do for you?\n" );
@@ -34,7 +35,35 @@ public class Duke {
                     } else {
                         System.out.println("Invalid task index.");
                     }
-                } else {
+                } else if (input.startsWith("todo")){
+                    Task curr = new Todo(input.split(" ")[1]);
+                    count++;
+                    inputs.add(curr);
+                    System.out.println("Got it. I've added this task:\n"  +
+                            curr + '\n' +
+                            "Now you have " + count + " tasks in the list\n");
+                } else if (input.startsWith("event")){
+                    String description = input.split("/")[0].split(" ", 2) [1].stripLeading();
+                    String date = input.split("/")[1].substring(5);
+                    String time = input.split("/to")[1];
+                    Task curr = new Event(description, date, time);
+                    count ++;
+                    inputs.add(curr);
+                    System.out.println("Got it. I've added this task:\n"  +
+                            curr + '\n' +
+                            "Now you have " + count + " tasks in the list\n");
+                }
+                else if (input.startsWith("deadline")){
+                    String description = input.split("/by")[0].split(" ", 2) [1].stripLeading();
+                    String date = input.split("/by")[1];
+                    Task curr = new Deadline(description, date);
+                    count ++;
+                    inputs.add(curr);
+                    System.out.println("Got it. I've added this task:\n"  +
+                            curr + '\n' +
+                            "Now you have " + count + " tasks in the list\n");
+                }
+                else {
                     inputs.add(new Task(input));
                     System.out.println("added: " + input);
                 }
