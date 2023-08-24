@@ -18,20 +18,21 @@ public class Duke {
 
         while (true) {
             String userInput = scanner.nextLine().trim();// trim() removes leading and trailing spaces
-            Command command = Command.valueOf(userInput.split(" ", 2)[0].toUpperCase());
-            // Guard bye
-            if (command.equals(Command.BYE)) {
-                goodbye();
-                break;
-            }
-
-            // Guard list
-            if (command.equals(Command.LIST)) {
-                list(taskList);
-                continue;
-            }
 
             try {
+                Command command = Command.valueOf(userInput.split(" ", 2)[0].toUpperCase());
+                // Guard bye
+                if (command.equals(Command.BYE)) {
+                    goodbye();
+                    break;
+                }
+
+                // Guard list
+                if (command.equals(Command.LIST)) {
+                    list(taskList);
+                    continue;
+                }
+
                 if (userInput.split(" ").length < 2) {
                     throw new DukeException("☹ OOPS!!! The description cannot be empty.");
                 }
@@ -60,6 +61,8 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 System.out.println(Duke.lineSeparator + "\n" + e.getMessage() + "\n" + Duke.lineSeparator);
+            } catch (Exception e) {
+                System.out.println(Duke.lineSeparator + "\n" + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + "\n" + Duke.lineSeparator);
             }
         }
         scanner.close();
