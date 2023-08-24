@@ -13,4 +13,6 @@ unmark 5
 mark 
 deadline 
 list
+delete 1
+list
 bye

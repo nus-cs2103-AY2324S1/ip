@@ -76,4 +76,15 @@ $>
 [D]: 3: [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 
 $>  
+[D]: Deleted successfully!! d(*⌒▽⌒*)b
+[D]: 1: [T] [ ] borrow book
+[D]: 
+[D]: Now you have 2 task(s)!! ヽ(´▽`)/
+
+$>  
+[D]: Here are the things you said!! ヽ(^o^)丿
+[D]: 1: [D] [X] return book (by: Sunday)
+[D]: 2: [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+
+$>  
 [D]: Bye bye!! Hope to see you again (＾▽＾)
