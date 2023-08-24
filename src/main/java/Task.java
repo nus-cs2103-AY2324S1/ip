@@ -12,7 +12,7 @@ public class Task {
     }
 
     public String getStatus() {
-        String status = isDone ? " " : "X";
+        String status = isDone ? "X" : " ";
         return "[" + status + "]" + " " + task;
     }
 

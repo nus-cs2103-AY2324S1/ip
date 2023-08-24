@@ -5,7 +5,7 @@ public class Edna {
         Scanner sc = new Scanner(System.in);
         String input;
 
-        String partition = "----------------------------------------";
+        String partition = "--------------------------------------------------";
 
         System.out.println(partition);
         System.out.println("Hello! I'm Edna.");
@@ -26,8 +26,27 @@ public class Edna {
                 int num = sc.nextInt();
                 taskList.get(num - 1).unmarkDone();
                 System.out.println(partition);
+            } else if (input.equals("todo")){
+                ToDo temp = new ToDo(sc.nextLine().substring(1));
+                add(temp);
+                System.out.println(partition);
+            } else if (input.equals("deadline")){
+                String ddl = sc.nextLine();
+                String[] ddlCommand = ddl.split(" /by ");
+                Deadline temp = new Deadline(ddlCommand[0].substring(1), ddlCommand[1]);
+                add(temp);
+                System.out.println(partition);
+            } else if (input.equals("event")){
+                String event = sc.nextLine();
+                String[] eventCommand = new String[3];
+                eventCommand[0] = event.substring(1, event.indexOf(" /"));
+                eventCommand[1] = event.substring(event.indexOf("/from") + 6, event.indexOf(" /to"));
+                eventCommand[2] = event.substring(event.indexOf("/to") + 4);
+                Event temp = new Event(eventCommand[0], eventCommand[1],eventCommand[2] );
+                add(temp);
+                System.out.println(partition);
             } else {
-                add(input);
+                add(new Task(input));
                 System.out.println(partition);
             }
             input = sc.next();
@@ -37,9 +56,11 @@ public class Edna {
         System.out.println(partition);
     }
 
-    public static void add(String input) {
-        taskList.add(new Task(input));
-        System.out.println("added: " + input);
+    public static void add(Task input) {
+        taskList.add(input);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(input.getStatus());
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
     public static void print() {
