@@ -41,8 +41,10 @@ public class Duke {
                             toDoList.get(taskIndex).markDone();
                             System.out.println("Nice! I've marked this task as done:\n" + toDoList.get(taskIndex));
                         } else {
-                            System.out.println("Invalid task number");
+                            throw new DukeEception("invalid task number");
                         }
+                    } else {
+                        throw new DukeEception("task number required");
                     }
 
                 } else if (userInput.startsWith("unmark")) {
@@ -54,8 +56,10 @@ public class Duke {
                             toDoList.get(taskIndex).markNotDone();
                             System.out.println("OK, I've marked this task as not done yet:\n" + toDoList.get(taskIndex));
                         } else {
-                            System.out.println("Invalid task number");
+                            throw new DukeEception("invalid task number");
                         }
+                    } else {
+                        throw new DukeEception("task number required");
                     }
 
                 } else if (userInput.startsWith("todo")){
