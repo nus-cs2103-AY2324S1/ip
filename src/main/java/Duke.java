@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
         String logo =" ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣶⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n"
                     + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⠿⠛⠋⠉⠩⣄⠘⢿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n"
                     + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡏⠑⠒⠀⠀⣀⣀⠀⠀⢹⠈⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ \n"
@@ -55,9 +55,7 @@ public class Duke {
 
         ArrayList<Task> ls = new ArrayList<>();
 
-        while (running == true) {
-            // sc.useDelimiter("\\s*/from\\s*");
-            // sc.useDelimiter("\\s*/to\\s*");
+        while (running) {
             input = sc.next();
 
             if (input.equals("mark")) {
@@ -94,11 +92,14 @@ public class Duke {
 
                 System.out.println(
                         "Got it. Task successfully added: \n"
-                        + t.toString()
-                        + "\nNow you have " + ls.size() + " tasks in the list"
-                        + "\n-----------------------------------------------------------------");
-
+                                + t.toString()
+                                + "\nNow you have " + ls.size() + " tasks in the list"
+                                + "\n-----------------------------------------------------------------");
             } else if (input.equals("deadline")) {
+                if (!sc.hasNext()) {
+                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty."
+                            + "\n-----------------------------------------------------------------");
+                }
                 String des = "";
 
                 while (sc.hasNext()) {
@@ -118,7 +119,6 @@ public class Duke {
                                 + d.toString()
                                 + "\nNow you have " + ls.size() + " tasks in the list"
                                 + "\n-----------------------------------------------------------------");
-
             } else if (input.equals("event")) {
                 String des = "";
                 String start = "";
@@ -151,10 +151,9 @@ public class Duke {
                                 + "\nNow you have " + ls.size() + " tasks in the list"
                                 + "\n-----------------------------------------------------------------");
             } else {
-                // echos the input if no keyphrase is given
-                String des = input + sc.nextLine();
-                System.out.println(des
-                    + "\n-----------------------------------------------------------------");
+                // throws exception and prints error message if no keyphrase is given
+                throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+
             }
         }
         sc.close();
