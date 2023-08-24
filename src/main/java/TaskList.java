@@ -9,11 +9,13 @@ public class TaskList {
 
     public void addTask(Task task) {
         this.tasks[numTasks++] = task;
-        System.out.println("Added: " + task.getDescription() + " ~Bzzz~");
+        System.out.println("Got it. I've added this task: ~Bzzz~");
+        System.out.println("\t" + task.toString());
+        System.out.println("Now you have " + numTasks + " tasks in the list. ~Bzzz~");
     }
 
     public void listAllTasks() {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("Here are the tasks in your list: ~Bzzz~");
         for (int i = 0; i < numTasks; i++) {
             System.out.println((i + 1) + ". " + tasks[i].toString());
         }

@@ -18,16 +18,41 @@ public class Bee {
         boolean isRunning = true;
         while (isRunning) {
             String userInput = scanner.nextLine();
+            String[] splitInput = userInput.split(" ");
             // If user enters "bye", ends the program and says goodbye to the user.
-            if (userInput.equals("bye")) {
+            if (splitInput[0].equals("bye")) {
                 System.out.println("By-ee!. Hope to see you soon! ~Bzzz~");
                 break;
-            } else if (userInput.equals("list")) {
+            } else if (splitInput[0].equals("list")) {
                 listOfTasks.listAllTasks();
-            } else if (userInput.startsWith("mark")) {
+            } else if (splitInput[0].equals("todo")) {
+                // Take the input after "todo "
+                String editedInput = userInput.substring(5);
+                Todo todo = new Todo(editedInput);
+                listOfTasks.addTask(todo);
+            } else if (splitInput[0].equals("deadline")) {
+                // Take the input after "deadline "
+                String editedInput = userInput.substring(9);
+                String[] splitEditedInput = editedInput.split(" /by ");
+                String deadlineDescription = splitEditedInput[0];
+                String deadlineDate = splitEditedInput[1];
+                Deadline deadlineTask = new Deadline(deadlineDescription, deadlineDate);
+                listOfTasks.addTask(deadlineTask);
+            } else if (splitInput[0].equals("event")) {
+                // Take the input after "event "
+                String editedInput = userInput.substring(6);
+                String[] splitEditedInput = editedInput.split(" /from ");
+                String[] splitEditedInput2 = splitEditedInput[1].split(" /to ");
+                String eventDescription = splitEditedInput[0];
+                String eventStartDate = splitEditedInput2[0];
+                String eventEndDate = splitEditedInput2[1];
+                Event event = new Event(eventDescription, eventStartDate, eventEndDate);
+                listOfTasks.addTask(event);
+            }
+            else if (splitInput[0].startsWith("mark")) {
                 int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
                 listOfTasks.setTaskDone(taskIndex);
-            } else if (userInput.startsWith("unmark")) {
+            } else if (splitInput[0].startsWith("unmark")) {
                 int taskIndex = Integer.parseInt(userInput.split(" ")[1]);
                 listOfTasks.setTaskNotDone(taskIndex);
             } else {
