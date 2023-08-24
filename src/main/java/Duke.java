@@ -5,6 +5,18 @@ public class Duke {
     private static String chatbot = "chuababyy chatbot";
     private static String line = "------------------------------------";
 
+    private static final String commands =
+            line + "\n"
+            + "List of commands\n"
+            + "1. todo [description]\n"
+            + "2. deadline [description] /by [deadline]\n"
+            + "3. event [description] /from [start date] /to [end date]\n"
+            + "4. mark [item_number]\n"
+            + "5. unmark [item_number]\n"
+            + "6. list\n"
+            + "7. bye\n"
+            + line ;
+
     public static void main(String[] args) {
         TaskList fullList = new TaskList();
 
@@ -34,24 +46,42 @@ public class Duke {
 
             // List out all items when user says list
             else if (command.equals("list")) {
+                if (userInputParts.length > 1) {
+                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                    continue;
+                }
                 System.out.println("Here are the tasks in your list:");
                 System.out.println(fullList.toString());
             }
 
             // Mark done
             else if (command.equals("mark")) {
-                int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                String[] split_index = userInput.split(" ");
+                if (split_index.length <= 1 || split_index.length > 2) {
+                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                    continue;
+                }
+                int index = Integer.parseInt(split_index[1]) - 1;
                 fullList.markItem(index);
             }
 
             // Mark not done
             else if (command.equals("unmark")) {
-                int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                String[] split_index = userInput.split(" ");
+                if (split_index.length <= 1 || split_index.length > 2) {
+                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                    continue;
+                }
+                int index = Integer.parseInt(split_index[1]) - 1;
                 fullList.unMarkItem(index);
             }
 
             // create new ToDos object
             else if (command.equals("todo")) {
+                if (userInputParts.length <= 1) {
+                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                    continue;
+                }
                 ToDos toDo = new ToDos(userInputParts[1].trim());
                 fullList.addToList(toDo);
             }
@@ -62,8 +92,7 @@ public class Duke {
                 String description = details[0].trim();
 
                 if (details.length <= 1) {
-                    System.out.println("Please input a deadline in the following format: " +
-                            "deadline [description] /by [date]");
+                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
                     continue;
                 }
 
@@ -72,14 +101,16 @@ public class Duke {
                 fullList.addToList(deadline);
             }
 
+            // create new Event object
             else if (command.equals("event")) {
                 String[] details = userInputParts[1].split("/from");
+                if (details.length <=1) {
+                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                    continue;
+                }
                 String[] dateParts = details[1].trim().split("/to");
-
-                if (details.length <= 1 || dateParts.length <=1) {
-                    System.out.println(
-                            "Please input an event with the " +
-                            "following format: event [description] /from [date] /to [date]");
+                if (dateParts.length <=1) {
+                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
                     continue;
                 }
 
@@ -91,10 +122,9 @@ public class Duke {
                 fullList.addToList(event);
             }
 
+            // Invalid commands
             else {
-                System.out.println(line);
-                System.out.println("No command detected");
-                System.out.println(line);
+                System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
             }
 
         }
