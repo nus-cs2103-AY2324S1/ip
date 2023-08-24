@@ -27,12 +27,18 @@ Nice! You have completed the task:
 
 =====================
 Ok! Task marked undone:
-    [T][ ] borrow book
+    [T][X] borrow book
 =====================
-    1. [T][ ] borrow book
-    2. [D][ ] return book (by Sunday)
-    3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+    1. [D][ ] return book (by Sunday)
+    2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 
+=====================
+removed: [D][ ] return book (by Sunday)
+You have 1 tasks.
+=====================
+Err: no details given after command - deadline
+=====================
+Err: Unknown command - test
 =====================
 Goodbye.
 =====================
