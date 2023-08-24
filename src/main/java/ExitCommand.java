@@ -1,5 +1,5 @@
 /**
- * Exit command which terminates the program
+ * Exit command which terminates the program.
  */
 public class ExitCommand implements Command {
     /**

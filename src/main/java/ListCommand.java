@@ -1,5 +1,5 @@
 /**
- * List items from application state
+ * List items from application state.
  */
 public class ListCommand implements Command {
     private final DukeState state;
@@ -15,7 +15,7 @@ public class ListCommand implements Command {
      */
     @Override
     public void run(String input) {
-        this.state.listItems();
+        this.state.listTasks();
     }
 }
 

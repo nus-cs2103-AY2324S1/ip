@@ -1,10 +1,10 @@
 /**
  * The generic command interface with a run method defining the behaviour
- * of the command
+ * of the command.
  */
 public interface Command {
     /**
-     * Executes the command given a user input.
+     * Executes the command given an input.
      *
      * @param input
      */

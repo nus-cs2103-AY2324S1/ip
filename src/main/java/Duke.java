@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * Entry point to run the application
+ * Entry point to run the application.
  */
 public class Duke {
     public static void main(String[] args) {
