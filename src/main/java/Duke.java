@@ -45,17 +45,25 @@ public class Duke {
                 System.out.println(HORIZONTAL_LINE);
             } else if (input.startsWith("deadline")) {
                 int byIndex = input.indexOf("/");
-                String description = input.substring(9, byIndex - 1);
-                String by = input.substring(byIndex + 4);
 
-                Deadline deadline = new Deadline(description, by);
-                list.add(deadline);
+                try {
+                    String description = input.substring(9, byIndex - 1);
+                    String by = input.substring(byIndex + 4);
 
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(deadline);
-                System.out.println("Now you have " + list.size() + " tasks in the list.");
-                System.out.println(HORIZONTAL_LINE);
+                    Deadline deadline = new Deadline(description, by);
+                    list.add(deadline);
+
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(deadline);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    System.out.println(HORIZONTAL_LINE);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("☹ OOPS!!! Missing information for your Deadline task.");
+                    System.out.println("Valid Format: deadline (description) /by (date-time)");
+                    System.out.println(HORIZONTAL_LINE);
+                }
             } else if (input.startsWith("event")) {
                 int fromIndex = input.indexOf("/");
                 int toIndex = input.indexOf("/", fromIndex + 1);
