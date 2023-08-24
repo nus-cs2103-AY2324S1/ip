@@ -11,22 +11,21 @@ public class Duke {
 
     private Task parseTaskInput(String input) throws DukeException {
         String[] words = input.split(" ");
-        String taskType = words[0].toLowerCase();
-
-        String taskDescription = input.substring(taskType.length()).trim();
+        TaskType taskType = TaskType.valueOf(words[0].toUpperCase());
+        String taskDescription = input.replaceFirst(words[0], "").trim();
 
         switch (taskType) {
-            case "add":
+            case ADD:
                 if (taskDescription.isEmpty()) {
                     throw new DukeException("What should I add in? Pleas add in a description :)");
                 }
                 return new Add(taskDescription);
-            case "todo":
+            case TODO:
                 if (taskDescription.isEmpty()) {
                     throw new DukeException("Task Description cannot be EMPTY. Please add in a description :)");
                 }
                 return new ToDo(taskDescription);
-            case "deadline":
+            case DEADLINE:
                 String[] deadlineParts = taskDescription.split("/by", 2);
                 String description = deadlineParts[0].trim();
                 if (description.isEmpty()) {
@@ -36,7 +35,7 @@ public class Duke {
                     throw new DukeException("When is " + deadlineParts[0] + " due? use /by: (date)");
                 }
                 return new DeadLine(deadlineParts[0].trim(), deadlineParts[1].trim());
-            case "event":
+            case EVENT:
                 String[] eventParts = taskDescription.split("/from", 2);
                 String desc = eventParts[0].trim();
                 if (desc.isEmpty() || desc.equals("/from") || desc.equals("/to") ) {
@@ -75,41 +74,68 @@ public class Duke {
             String firstWord = words[0].toLowerCase();
 
             try {
-                if (firstWord.equals("bye")) {
-                    isEcho = false;
-                    System.out.println(" Bye. Hope to see you again soon!");
-                } else if (firstWord.equals("list")) {
-                    System.out.println("Here are the tasks in your list:");
-                    taskList.displayTasks();
-                } else if (firstWord.equals("mark")) {
-                    int taskIndex = Integer.parseInt(words[1]) - 1;
-                    if (taskList.isMarked(taskIndex)) {
-                        throw new DukeException("Task is already marked");
-                    } else {
-                        taskList.doneAndDusted(taskIndex);
-                    }
-                } else if (firstWord.equals("unmark")) {
-                    int taskIndex = Integer.parseInt(words[1]) - 1;
-                    if (taskList.isMarked(taskIndex)) {
-                        taskList.notDoneNotDusted(taskIndex);
-                    } else {
-                        throw new DukeException("Task is already unmarked");
-                    }
-                } else if (firstWord.equals("add") || firstWord.equals("todo") ||
+                TaskType taskType = TaskType.valueOf(firstWord.toUpperCase());
+
+                if (firstWord.equals("add") || firstWord.equals("todo") ||
                         firstWord.equals("deadline") || firstWord.equals("event")) {
                     Task newTasks = parseTaskInput(strInput);
                     if (newTasks != null) {
                         taskList.addTask(newTasks);
                     }
-                } else if (firstWord.equals("delete")) {
-                    if (words.length == 1) {
-                        throw new DukeException("Please provide a task number to delete");
-                    }
-                    int taskIndex = Integer.parseInt(words[1]) - 1;
-                    taskList.deleteTask(taskIndex);
-                } else {
-                    System.out.println(" Echo!! " + strInput);
                 }
+
+                switch (taskType) {
+                    case BYE:
+                        isEcho = false;
+                        System.out.println(" Bye. Hope to see you again soon!");
+                        break;
+
+                    case LIST:
+                        System.out.println("Here are the tasks in your list:");
+                        taskList.displayTasks();
+                        break;
+
+                    case MARK:
+                        int taskIndex = Integer.parseInt(words[1]) - 1;
+                        if (taskList.isMarked(taskIndex)) {
+                            throw new DukeException("Task is already marked");
+                        } else {
+                            taskList.doneAndDusted(taskIndex);
+                        }
+                        break;
+
+                    case UNMARK:
+                        taskIndex = Integer.parseInt(words[1]) - 1;
+                        if (taskList.isMarked(taskIndex)) {
+                            taskList.notDoneNotDusted(taskIndex);
+                        } else {
+                            throw new DukeException("Task is already unmarked");
+                        }
+                        break;
+
+                    case DELETE:
+                        if (words.length == 1) {
+                            throw new DukeException("Please provide a task number to delete");
+                        }
+                        taskIndex = Integer.parseInt(words[1]) - 1;
+                        taskList.deleteTask(taskIndex);
+                        break;
+
+                    case ECHO:
+                        String[] echoWords = strInput.split(" ", 2);
+                        if (echoWords.length < 2) {
+                            throw new DukeException(" Nothing to echo!");
+                        }
+                        String echoedText = echoWords[1].trim();
+                        System.out.println(" Echo!! " + echoedText);
+                        break;
+
+                    case UNKNOWN:
+                        throw new DukeException("Woops, I don't know this command. I only know: add, todo, deadline, event, list, mark, unmark, delete, bye, echo");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Woops, I don't know this command, sorry :(");
+                System.out.println("Pay $100 to unlock more features!");
             } catch (DukeException e) {
                 System.out.println("Error: " + e.getMessage());
             }

@@ -1,4 +1,4 @@
-Choo Choo Train!!!
+echo Choo Choo Train!!!
 add Fish
 todo Gamble until bankrupt
 deadline plan summer break 2.0 /by 2024
@@ -9,4 +9,7 @@ mark 2
 list
 unmark 1
 list
+delete 4
+list
+sup
 bye
