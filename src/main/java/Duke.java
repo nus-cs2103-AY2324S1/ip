@@ -1,8 +1,9 @@
 import java.util.*;
 public class Duke {
 
-    private static final String[] tasks = new String[100];
+    private static final Task[] tasks = new Task[100];
     private static int index = 0;
+    private static boolean terminate = false;
 
     // A greeting display everytime entering the program
     private static void OnEnter () {
@@ -20,31 +21,47 @@ public class Duke {
     }
 
     //Reads and store input
-    private static void AddTasks(String task) {
+    private static void addTasks(Task task) {
         Duke.tasks[Duke.index] = task;
         Duke.index++;
     }
 
     //Prints All Tasks
-    private static void ListTasks() {
+    private static void listTasks() {
         for (int i = 0; i < index; i++) {
             System.out.println((i + 1) + ". " + Duke.tasks[i]);
         }
     }
 
     // A display everytime receive an input
-    private static boolean DisplayInfo(String msg) {
-        if (!msg.equals("bye") && !msg.equals("list")){
+    private static void displayInfo(String msg) {
+        System.out.println("____________________________________________");
+        System.out.println("Added: " + msg);
+        addTasks(new Task(msg));
+        System.out.println("____________________________________________");
+    }
+
+    private static void readInputs(String msg) {
+        if (msg.equals("list")) {
             System.out.println("____________________________________________");
-            System.out.println("added: " + msg);
-            AddTasks(msg);
+            listTasks();
             System.out.println("____________________________________________");
-        } else if (msg.equals("list")) {
-            System.out.println("____________________________________________");
-            ListTasks();
-            System.out.println("____________________________________________");
+        } else if (msg.equals("bye")) {
+            Duke.terminate = true;
+        } else {
+            boolean isMark = msg.matches(".*[0-9]");
+            if (isMark) {
+                String[] part = msg.split("\\s+");
+                int ind = Integer.parseInt(part[1]) - 1;
+                if (part[0].equals("mark")) {
+                    tasks[ind].MarkAsDone();
+                } else if (part[0].equals("unmark")) {
+                    tasks[ind].MarkAsUnDone();
+                }
+            } else {
+                displayInfo(msg);
+            }
         }
-        return msg.equals("bye");
     }
 
     public static void main(String[] args) {
@@ -57,12 +74,11 @@ public class Duke {
 
         OnEnter();
 
-        boolean saysBye;
         do {
             Scanner sc = new Scanner(System.in);
             String line = sc.nextLine();
-            saysBye = DisplayInfo(line);
-        } while(!saysBye);
+            readInputs(line);
+        } while(!Duke.terminate);
 
         OnExit();
     }
