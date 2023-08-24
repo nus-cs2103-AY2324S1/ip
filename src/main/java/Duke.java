@@ -24,30 +24,71 @@ public class Duke {
 
                 //iterate through list to print items
                 for (int i = 0; i < counter; i++) {
-                    toDoList[i].printTask();
+                    int currentNumber = i + 1;
+                    System.out.println(currentNumber + ". " + toDoList[i].toString());
                 }
                 System.out.println(space);
 
-            } else if (userInput.startsWith("mark")) {
+            } else if (userInput.toLowerCase().startsWith("mark")) {
                 int index = Integer.parseInt(userInput.split(" ")[1]) -1;
+                Task task = toDoList[index];
                 System.out.println(space);
-                toDoList[index].markDone();
+                task.markDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println("  " + task.toString());
                 System.out.println(space);
-            } else if (userInput.startsWith("unmark")) {
+            } else if (userInput.toLowerCase().startsWith("unmark")) {
                 int index = Integer.parseInt(userInput.split(" ")[1]) -1;
+                Task task = toDoList[index];
                 System.out.println(space);
-                toDoList[index].unmarkDone();
+                task.unmarkDone();
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println("  " + task.toString());
                 System.out.println(space);
-            } else {
-
+            } else if (userInput.toLowerCase().startsWith("todo")){
+                String taskName = userInput.split(" ", 2)[1];
                 //add item into list
-                toDoList[counter] = new Task(counter + 1, userInput);
+                ToDo task = new ToDo(taskName);
+                toDoList[counter] = task;
                 counter++;
 
                 System.out.println(space);
-                System.out.println(userInput);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task.toString());
+                System.out.println("Now you have "+ counter +" tasks in the list.");
                 System.out.println(space);
 
+            } else if (userInput.toLowerCase().startsWith("deadline")){
+                String taskName = userInput.split(" /by ", 2)[0].split(" ", 2)[1];
+                String dueDate = userInput.split(" /by ", 2)[1];
+                //add item into list
+                Deadline task = new Deadline(taskName, dueDate);
+                toDoList[counter] = task;
+                counter++;
+
+                System.out.println(space);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task.toString());
+                System.out.println("Now you have "+ counter +" tasks in the list.");
+                System.out.println(space);
+
+            } else if (userInput.toLowerCase().startsWith("event")){
+                String taskName = userInput.split(" /from | /to ", 3)[0].split(" ", 2)[1];
+                String startDate = userInput.split(" /from | /to",3)[1];
+                String dueDate = userInput.split(" /from | /to ", 3)[2];
+                //add item into list
+                Event task = new Event(taskName, startDate, dueDate);
+                toDoList[counter] = task;
+                counter++;
+
+                System.out.println(space);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + task.toString());
+                System.out.println("Now you have "+ counter +" tasks in the list.");
+                System.out.println(space);
+
+            } else {
+                System.out.println("Invalid Input");
             }
             userInput = scanner.nextLine().trim();
         }

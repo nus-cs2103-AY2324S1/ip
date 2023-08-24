@@ -1,31 +1,21 @@
-public class Task {
-    int taskNumber;
+public abstract class Task {
     String taskName;
     boolean isDone = false;
 
-    public Task(int taskNumber,String taskName) {
-        this.taskNumber = taskNumber;
+    public Task(String taskName) {
         this.taskName = taskName;
     }
-    public void printTask() {
+    public String toString(){
         if (isDone) {
-            System.out.println(taskNumber + ".[X] " + taskName);
+            return "[X] " + taskName;
         } else {
-            System.out.println(taskNumber + ".[ ] " + taskName);
+            return "[ ] " + taskName;
         }
-    }
+    };
 
     // mark task as done and print out the line
-    public void markDone() {
-        isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  [X] " + taskName);
-    }
+    public abstract void markDone();
 
     // mark task as undone and print out the line
-    public void unmarkDone() {
-        isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  [ ] " + taskName);
-    }
+    public abstract void unmarkDone();
 }
