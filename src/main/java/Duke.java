@@ -14,11 +14,16 @@ public class Duke {
         String message;
         ArrayList<Task> userList = new ArrayList<>();
         Scanner userInput = new Scanner(System.in);
-        message = userInput.nextLine();
-        if (message.equalsIgnoreCase("bye")) {
-            System.out.print(lineBreak + "Hope to see you again soon!" + lineBreak);
-            userInput.close();
-        }
+
+        do {
+
+            message = userInput.nextLine();
+            if (message.equalsIgnoreCase("bye")) break;
+            System.out.print(lineBreak + message + lineBreak);
+        } while (!message.equalsIgnoreCase("bye"));
+
+        System.out.print(lineBreak + "Hope to see you again soon!" + lineBreak);
+        userInput.close();
 
 //        do {
 //                message = userInput.nextLine();
