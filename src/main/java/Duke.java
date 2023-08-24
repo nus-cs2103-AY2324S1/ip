@@ -21,22 +21,38 @@ public class Duke {
                     markTask(split);
                 }
             } else {
-//                System.out.println("Got it. I've added this task:\n" + cmd + "\n" + lineSep);
                 System.out.println("Got it. I've added this task:");
                 String[] split = cmd.split(" ");
                 String taskType = split[0];
                 if (taskType.equals("todo")) {
-                    Todo todo = new Todo(split[1]);
-                    tasks.add(todo);
-                    System.out.println(todo);
+                    if (split.length < 2) {
+                        System.out.println("The description of a todo cannot be empty!\n" + lineSep);
+                    } else {
+                        Todo todo = new Todo(split[1]);
+                        tasks.add(todo);
+                        System.out.println(todo);
+                    }
                 } else if (taskType.equals("deadline")) {
-                    Deadline deadline = new Deadline(split[1], split[3]);
-                    tasks.add(deadline);
-                    System.out.println(deadline);
+                    if (split.length < 3) {
+                        System.out.println("A deadline must contain a description and end specified with `/by`!\n"
+                                + lineSep);
+                    } else {
+                        Deadline deadline = new Deadline(split[1], split[3]);
+                        tasks.add(deadline);
+                        System.out.println(deadline);
+                    }
+                } else if (taskType.equals("event")){
+                    if (split.length < 5) {
+                        System.out.println("An event must contain a description," +
+                                " start and end specified with `/by` and `/to`!\n" + lineSep);
+                    } else {
+                        Event event = new Event(split[1], split[3], split[5]);
+                        tasks.add(event);
+                        System.out.println(event);
+                    }
                 } else {
-                    Event event = new Event(split[1], split[3], split[5]);
-                    tasks.add(event);
-                    System.out.println(event);
+                    // Unknown command
+                    System.out.println("Unknown command given :<");
                 }
                 System.out.println(lineSep);
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
