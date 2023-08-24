@@ -67,7 +67,15 @@ public class Chatbot {
 						throw new DukeException("Invalid delete args");
 					}
 					// check for exceptions as well
+					Task t = l1.get(Integer.parseInt(delete[1]));
+					String remaining = Integer.toString(l1.size() - 1);
 					l1.remove(Integer.parseInt(delete[1]));
+					String echo = String.format("    ____________________________________________________________\n" +
+							"Noted. I've removed this task:\n" +
+							"%s\n" +
+							"Now you have %s tasks in the list.\n" +
+							"____________________________________________________________", t.toString(), remaining);
+					System.out.println(echo);
 				} else if (!Event.equals("list")) {
 					// add to task to list then print list if event is list
 					// String[] slice = Arrays.copyOfRange(items, 1, items.length - 1);
