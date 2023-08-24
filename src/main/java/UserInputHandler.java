@@ -64,9 +64,28 @@ public class UserInputHandler {
     private void readArray() {
         Peko.readArray();
     }
-    private void addToArray() throws InvalidTaskException{
-
-
+    private void addToArray() throws InvalidTaskException {
+        Task t = new Task(input);
+        Peko.addToArray(t);
+    }
+    private void mark(String s) {
+        try {
+            int i = Integer.parseInt(s);
+            Peko.setMarkArray(i);
+        } catch (NumberFormatException e) {
+            System.out.println("That's not a number Bakatare!");
+        }
+        System.out.println(lineBreak);
+    }
+    private void unmark(String s) {
+        try {
+            int i = Integer.parseInt(s);
+            Peko.setUnmarkArray(i);
+        } catch (NumberFormatException e) {
+            System.out.println("That's not a number Bakatare!");
+        }
+        System.out.println(lineBreak);
+    }
     }
     public boolean run() {
         switch (command) {
@@ -85,10 +104,10 @@ public class UserInputHandler {
                 }
                 break;
             case MARK:
-                setMarkArray(input);
+                mark(input);
                 break;
             case UNMARK:
-                setUnmarkArray(input);
+                unmark(input);
                 break;
             case TODO:
                 try {

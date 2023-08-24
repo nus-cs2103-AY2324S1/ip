@@ -175,8 +175,8 @@ public class Peko {
         System.out.println(lineBreak);
     }
 
-    public static void addToArray(String s) throws InvalidTaskException {
-        todoList[pos] = new Task(s);
+    public static void addToArray(Task t) {
+        todoList[pos] = t;
         todoList[pos].reply(pos);
         pos++;
         System.out.println(lineBreak);
@@ -204,29 +204,16 @@ public class Peko {
         saveHandler.saveTo();
     }
 
-    public static void setMarkArray(String s) {
-        System.out.println(s);
-        try {
-            int markIndex = Integer.parseInt(s);
-            todoList[markIndex-1].setMark();
-            System.out.println("Marked as done peko!");
-            System.out.println("    " + todoList[markIndex-1]);
-        } catch (NumberFormatException e) {
-            System.out.println("That's not a number Bakatare!");
-        }
-        System.out.println(lineBreak);
+    public static void setMarkArray(int i) {
+        todoList[i-1].setMark();
+        System.out.println("Marked as done peko!");
+        System.out.println("    " + todoList[i-1]);
         saveHandler.saveTo();
     }
-    public static void setUnmarkArray(String s) {
-        try {
-            int markIndex = Integer.parseInt(s);
-            todoList[markIndex-1].setUnmark();
-            System.out.println("You haven't done this yet peko?!");
-            System.out.println("    " + todoList[markIndex-1]);
-        } catch (NumberFormatException e) {
-            System.out.println("That's not a number Bakatare!");
-        }
-        System.out.println(lineBreak);
+    public static void setUnmarkArray(int i) {
+        todoList[i-1].setUnmark();
+        System.out.println("You haven't done this yet peko?!");
+        System.out.println("    " + todoList[i-1]);
         saveHandler.saveTo();
     }
 
