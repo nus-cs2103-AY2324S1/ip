@@ -27,10 +27,10 @@
 
 
     _____________________________________________________________________________
-
-       1.[ ][T] read book
-       2.[ ][D] return book (by: sunday)
-       3.[ ][E] project meeting (from: monday 2pm to: monday 4pm)
+      Here are the tasks in your list:
+        1.[ ][T] read book
+        2.[ ][D] return book (by: sunday)
+        3.[ ][E] project meeting (from: monday 2pm to: monday 4pm)
 
     _____________________________________________________________________________
 
@@ -38,15 +38,14 @@
     _____________________________________________________________________________
       Nice! I've marked this task as done:
         [X][T] read book
-
     _____________________________________________________________________________
 
 
     _____________________________________________________________________________
-
-       1.[X][T] read book
-       2.[ ][D] return book (by: sunday)
-       3.[ ][E] project meeting (from: monday 2pm to: monday 4pm)
+      Here are the tasks in your list:
+        1.[X][T] read book
+        2.[ ][D] return book (by: sunday)
+        3.[ ][E] project meeting (from: monday 2pm to: monday 4pm)
 
     _____________________________________________________________________________
 
@@ -54,15 +53,29 @@
     _____________________________________________________________________________
       OK, I've marked this task as not done yet:
         [ ][T] read book
+    _____________________________________________________________________________
+
+
+    _____________________________________________________________________________
+      Here are the tasks in your list:
+        1.[ ][T] read book
+        2.[ ][D] return book (by: sunday)
+        3.[ ][E] project meeting (from: monday 2pm to: monday 4pm)
 
     _____________________________________________________________________________
 
 
     _____________________________________________________________________________
+      Noted. I've removed this task:
+        [ ][D] return book (by: sunday)
+      Now you have 2 tasks in your list.
+    _____________________________________________________________________________
 
-       1.[ ][T] read book
-       2.[ ][D] return book (by: sunday)
-       3.[ ][E] project meeting (from: monday 2pm to: monday 4pm)
+
+    _____________________________________________________________________________
+      Here are the tasks in your list:
+        1.[ ][T] read book
+        2.[ ][E] project meeting (from: monday 2pm to: monday 4pm)
 
     _____________________________________________________________________________
 

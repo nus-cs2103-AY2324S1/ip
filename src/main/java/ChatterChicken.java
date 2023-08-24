@@ -9,7 +9,10 @@ public class ChatterChicken {
     private static List list;
 
     private void greet() {
-        System.out.println(LINE + INDENT + "Hello! I'm ChatterChicken!\n" + INDENT + "What can I do for you?" + LINE);
+        System.out.println(LINE
+                + INDENT + "Hello! I'm ChatterChicken!\n"
+                + INDENT + "What can I do for you?"
+                + LINE);
     }
 
     private void exit() {
@@ -33,6 +36,9 @@ public class ChatterChicken {
                 break;
             case "unmark":
                 list.unmarkTask(input);
+                break;
+            case "delete":
+                list.deleteTask(input);
                 break;
             case "todo":
             case "deadline":
