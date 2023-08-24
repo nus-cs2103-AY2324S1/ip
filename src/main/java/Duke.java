@@ -46,15 +46,48 @@ public class Duke {
                         System.out.println("(⇀‸↼‶)⊃━☆ﾟ.*･｡ﾟ Here are your tasks for the day:");
                         System.out.println(result + line);
                     }
+                } else if (command.equals("delete")) {
+                    if (scanner.hasNextInt()) {
+                        int taskID = scanner.nextInt() - 1;
+                        if (taskID > list.size() - 1 || taskID < 0) {
+                            System.out.println("(・´з`・) Uh oh... invalid taskID");
+                        } else {
+                            Task toRemove = list.get(taskID);
+                            list.remove(taskID);
+                            System.out.println("ଘ(੭ˊᵕˋ)੭ Ok! I've removed this task:");
+                            System.out.println(toRemove);
+                            getNumberOfTasks(list);
+                        }
+                    } else if (scanner.hasNextLine()) {
+                        scanner.nextLine();
+                        System.out.println("(・´з`・) Uh oh... please provide a taskID");
+                    }
                 } else if (command.equals("mark")) {
-                    int taskID = scanner.nextInt() - 1; //because input index starts from 1
-                    list.get(taskID).mark();
-                    System.out.println(line);
-
+                    if (scanner.hasNextInt()) {
+                        int taskID = scanner.nextInt() - 1;
+                        if (taskID > list.size() - 1 || taskID < 0) {
+                            System.out.println("(・´з`・) Uh oh... invalid taskID");
+                        } else {
+                            list.get(taskID).mark();
+                            System.out.println(line);
+                        }
+                    } else if (scanner.hasNextLine()) {
+                        scanner.nextLine();
+                        System.out.println("(・´з`・) Uh oh... please provide a taskID");
+                    }
                 } else if (command.equals("unmark")) {
-                    int taskID = scanner.nextInt() - 1;
-                    list.get(taskID).unmark();
-                    System.out.println(line);
+                    if (scanner.hasNextInt()) {
+                        int taskID = scanner.nextInt() - 1;
+                        if (taskID > list.size() - 1 || taskID < 0) {
+                            System.out.println("(・´з`・) Uh oh... invalid taskID");
+                        } else {
+                            list.get(taskID).unmark();
+                            System.out.println(line);
+                        }
+                    } else if (scanner.hasNextLine()) {
+                        scanner.nextLine();
+                        System.out.println("(・´з`・) Uh oh... please provide a taskID");
+                    }
 
                 } else if (command.equals("todo")) {
                     if (scanner.hasNextLine()) {
