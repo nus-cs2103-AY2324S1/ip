@@ -16,12 +16,12 @@ public class Duke {
         duke.start();
 
     }
-    public void line() {
+    private void line() {
         String line = "____________________________________________________________";
         System.out.println(line);
     }
 
-    public void start() {
+    private void start() {
         line();
         System.out.println(" Hello! I'm JARVIS");
         System.out.println("What can I do for you?");
@@ -110,18 +110,23 @@ public class Duke {
         }
     }
 
-    public void list() {
+    private void list() {
         line();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.size(); i++) {
-            int index = i + 1;
-            Task t = taskList.get(i);
-            System.out.println(index + "." + t.toString());
+        if (taskList.size() == 0) {
+            System.out.println("There are no tasks in your list.");
+        }
+        else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < taskList.size(); i++) {
+                int index = i + 1;
+                Task t = taskList.get(i);
+                System.out.println(index + "." + t.toString());
+            }
         }
         line();
     }
 
-    public void exit() {
+    private void exit() {
         System.out.println("Bye. Hope to see you again soon!");
         line();
     }
@@ -187,5 +192,4 @@ public class Duke {
             throw new DukeException("Invalid input. Field Empty.");
         }
     }
-
 }
