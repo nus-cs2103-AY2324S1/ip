@@ -29,7 +29,7 @@ class Deadline extends Task {
     @Override
     public String toString() {
         return String.format(
-                "[E]%s (by: %s)",
+                "[D]%s (by: %s)",
                 super.toString(),
                 this.deadline
         );
