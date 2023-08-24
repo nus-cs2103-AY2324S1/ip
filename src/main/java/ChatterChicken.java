@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class ChatterChicken {
-    public static final String LINE = "\n    _____________________________________________________________________________\n      ";
+    public static final String LINE = "\n    _____________________________________________________________________________\n";
     public static final String INDENT = "      ";
     public static final String INDENT_BIG = "        ";
 
@@ -9,7 +9,7 @@ public class ChatterChicken {
         Scanner sc = new Scanner(System.in);
         List list = new List();
 
-        System.out.println(LINE + "Hello! I'm ChatterChicken!\n" + INDENT + "What can I do for you?" + LINE);
+        System.out.println(LINE + INDENT + "Hello! I'm ChatterChicken!\n" + INDENT + "What can I do for you?" + LINE);
         String input = sc.nextLine();
 
         while(!input.equals("bye")) {
@@ -33,6 +33,6 @@ public class ChatterChicken {
             }
             input = sc.nextLine();
         }
-        System.out.println(LINE + "Bye. Hope to see you again soon!" + LINE);
+        System.out.println(LINE + INDENT + "Bye. Hope to see you again soon!" + LINE);
     }
 }
