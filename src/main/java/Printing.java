@@ -51,4 +51,10 @@ public class Printing {
         System.out.println(String.format("Now you have %d tasks in the list.", Storage.getLength()));
         Printing.printBlock();
     }
+
+    public static void printError(DukeException e) {
+        Printing.printBlock();
+        System.out.println(e.getMessage());
+        Printing.printBlock();
+    }
 }
