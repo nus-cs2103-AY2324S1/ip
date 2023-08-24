@@ -1,24 +1,51 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+class TaskType {
 
-public class Duke {
-
-    enum TaskType {
-        ToDo ("T"),
-        Deadline ("D"),
-        Event ("E");
-        private final String sr;
-        TaskType(String sr){
-            this.sr = sr;
-        }
-
+}
+class Todo extends TaskType {
+    public String toString(){
+        return "T";
     }
 
+}
+class Deadline extends TaskType {
+    public String toString(){
+        return "D";
+    }
+}
+class Event extends TaskType {
+    public String toString(){
+        return "E";
+    }
+}
+
+class Item{
+    private String task;
+    private boolean completed;
+    private TaskType tt;
+    private String dl;
+    public Item(String task, boolean completed, TaskType tt, String dl){
+        this.task = task;
+        this.completed = completed;
+        this.tt = tt;
+        this.dl = dl;
+    }
+    public String toString(){
+        String cBox = "[" + (completed ? "X" : " ") + "] ";
+        String tBox = "[" + tt.toString() + "]";
+        String taco = dl == null ? "" : " (" + dl + ")";
+        return  tBox + cBox + " " + task + taco;
+    }
+    public void setCompleted(boolean x){
+        completed = x;
+    }
+
+}
+public class Duke {
+
     static Scanner sc = new Scanner(System.in);
-    static String[] store = new String[100];
-    static boolean[] completed = new boolean[100];
-    static TaskType[] tt = new TaskType[100];
-    static String[] dl = new String[100];
-    static int counter = 0;
+    static ArrayList<Item> items = new ArrayList<Item>();
 
     public static String getString(String[] a, int x, int y){
         String res = "";
@@ -29,86 +56,107 @@ public class Duke {
         }
         return res;
     }
-    public static String formatItem(int x){
-        String cBox = "[" + (completed[x] ? "X" : " ") + "] ";
-        String tBox = "[" + tt[x].sr + "]";
-        String taco = dl[x] == null ? "" : " (" + dl[x] + ")";
-        return  tBox + cBox + " " + store[x] + taco;
-    }
+
     public static void main(String[] args) {
 
-//        System.out.println("----------------");
+
         System.out.println("Hello I'm Robot!");
         System.out.println("What can I do for you?");
-//        System.out.println("----------------");
+
 
 
         while(true){
             String userInput = sc.nextLine();
             String[] splitStr = userInput.split("\\s+");
-//            System.out.println("----------------");
+
             if(userInput.equals("bye")) break;
 
             if(userInput.equals("list")){
                 System.out.println("Here are the tasks in your list:");
-                for(int i=0;i<counter;i++){
-                     System.out.println(Integer.toString(i+1)  + "." + formatItem(i));
+                for(int i=0;i<items.size();i++){
+                     System.out.println(Integer.toString(i+1)  + "." + items.get(i).toString());
                 }
-            }else if(splitStr.length == 2 && splitStr[0].equals("mark")){
+            }else if(splitStr[0].equals("mark")){
+                if(splitStr.length != 2) throw new RuntimeException("Invalid format detected for 'mark' command. Enter mark [item_no]");
                 int x = Integer.parseInt(splitStr[1])-1;
-                completed[x] = true;
+                if(x < 0 || x+1 > items.size())  throw new RuntimeException("Index is out of list range.");
+                items.get(x).setCompleted(true);
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(formatItem(x));
+                System.out.println(items.get(x).toString());
 
-            }else if(splitStr.length == 2 && splitStr[0].equals("unmark")){
-
+            }else if(splitStr[0].equals("unmark")){
+                if(splitStr.length != 2) throw new RuntimeException("Invalid format detected for 'unmark' command. Enter unmark [item_no]");
                 int x = Integer.parseInt(splitStr[1])-1;
-                completed[x] = false;
+                if(x < 0 || x+1 > items.size())  throw new RuntimeException("Index is out of list range.");
+                items.get(x).setCompleted(false);
                 System.out.println("Ok, I've marked this task as not done yet:");
-                System.out.println(formatItem(x));
+                System.out.println(items.get(x).toString());
 
-            }else if(splitStr[0].equals("todo")){
+            }else if(splitStr[0].equals("remove")){
+                if(splitStr.length != 2) throw new RuntimeException("Invalid format detected for 'remove' command. Enter remove [item_no]");
+                int x = Integer.parseInt(splitStr[1]) - 1;
+                if(x < 0 || x+1 > items.size())  throw new RuntimeException("Index is out of list range.");
+                System.out.println("Ok, the following item was removed:");
+                System.out.println(items.get(x).toString());
+                items.remove(x);
+
+
+            } else if(splitStr[0].equals("todo")){
                 if(splitStr.length == 1){
                     throw new RuntimeException("The description of a todo cannot be empty.");
                 }
-                tt[counter] = TaskType.ToDo;
-                store[counter++] = getString(splitStr, 1, splitStr.length);;
+                items.add(new Item(getString(splitStr, 1, splitStr.length), false, new Todo(), null));
                 System.out.println("Got it, I've added this task:");
-                System.out.println(formatItem(counter-1));
-                System.out.println("Now you have " + counter + " tasks in the list.");
+                System.out.println(items.get(items.size()-1).toString());
+                System.out.println("Now you have " + items.size() + " tasks in the list.");
 
             }else if(splitStr[0].equals("deadline")){
+                boolean x = false;
                 for(int i=1;i<splitStr.length;i++){
                     if(splitStr[i].equals("/by")) {
-                        tt[counter] = TaskType.Deadline;
-                        dl[counter] = getString(splitStr, i, splitStr.length);
-                        store[counter++] = getString(splitStr, 1, i);
+                        TaskType tt = new Deadline();
+                        String dl = getString(splitStr, i, splitStr.length);
+                        String task = getString(splitStr, 1, i);
+                        if(task == "") throw new RuntimeException("Description of task cannot be empty.");
+                        if(dl == "") throw new RuntimeException("Deadline cannot be empty.");
+                        items.add(new Item(task, false, tt, dl));
+                        x = true;
                         break;
                     }
                 }
-                System.out.println(formatItem(counter-1));
-                System.out.println("Now you have " + counter + " tasks in the list.");
+                if(!x){
+                    throw new RuntimeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
+                }
+                System.out.println(items.get(items.size()-1).toString());
+                System.out.println("Now you have " + items.size() + " tasks in the list.");
 
             }else if(splitStr[0].equals("event")){
+                boolean x = false;
                 for(int i=1;i<splitStr.length;i++){
                     if(splitStr[i].equals("/from")) {
-                        tt[counter] = TaskType.Event;
-                        dl[counter] = getString(splitStr, i, splitStr.length);
-                        store[counter++] = getString(splitStr, 1, i);
+                        TaskType tt = new Deadline();
+                        String dl = getString(splitStr, i, splitStr.length);
+                        String task = getString(splitStr, 1, i);
+                        if(task == "") throw new RuntimeException("Description of task cannot be empty.");
+                        if(dl == "") throw new RuntimeException("Event dates cannot be empty.");
+                        items.add(new Item(task, false, tt, dl));
+                        x = true;
                         break;
                     }
                 }
-                System.out.println(formatItem(counter-1));
-                System.out.println("Now you have " + counter + " tasks in the list.");
+                if(!x){
+                    throw new RuntimeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
+                }
+                System.out.println(items.get(items.size()-1).toString());
+                System.out.println("Now you have " + items.size() + " tasks in the list.");
             }else{
                 throw new RuntimeException("Sorry, I don't understand that command");
             }
-//            System.out.println("----------------");
+
 
         }
 
-
         System.out.println("Bye! Hope to see you again soon!");
-//        System.out.println("----------------");
+
     }
 }
