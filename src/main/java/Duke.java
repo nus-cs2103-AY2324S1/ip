@@ -114,6 +114,12 @@ public class Duke {
                             } finally {
                                 break;
                             }
+                        case "delete":
+                            id = Integer.valueOf(inputWords[1]) - 1;
+                            Task removedEvent = tasks.remove(id);
+                            System.out.println("\tNoted. I've removed this task:");
+                            System.out.println("\t\t" + removedEvent.toString());
+                            break;
                         default:
                             System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
