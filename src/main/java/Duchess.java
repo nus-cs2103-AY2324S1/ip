@@ -35,6 +35,7 @@ public class Duchess {
      * Returns true if the command would cause Duchess to exit operations.
      *
      * @param s - the command to check for exit operations
+     * @return    whether the command is an exit command.
      */
     private static boolean isExitCommand(String s) {
         return Duchess.matchesRegex(s, "^bye$", true);
@@ -130,6 +131,7 @@ public class Duchess {
      * Returns true if the command is recognized as a "list text" command.
      *
      * @param s - the command to check for "list text" command.
+     * @return    whether the command is a list tasks command.
      */
     private static boolean isListTasksCommand(String s) {
         return Duchess.matchesRegex(s, "^list$");
@@ -151,7 +153,7 @@ public class Duchess {
      * Returns true if the command is recognized as a "mark task" command.
      *
      * @param s - the command to check for "mark task" command.
-     * @return    whether the command is a "mark task" command.
+     * @return    whether the command is a mark task command.
      */
     private static boolean isMarkTaskCommand(String s) {
         return Duchess.matchesRegex(s, "^mark[ ]*([0-9]+)$");
@@ -183,6 +185,7 @@ public class Duchess {
      * Returns true if the command is recognized as an "unmark task" command.
      *
      * @param s - the command to check for "unmark task" command.
+     * @return    whether the command is an unmark task command.
      */
     private static boolean isUnmarkTaskCommand(String s) {
         return Duchess.matchesRegex(s, "^unmark[ ]*([0-9]+)$");
@@ -209,6 +212,28 @@ public class Duchess {
         Duchess.duchessPrint("Task has been unmarked!! (＾▽＾)");
         Duchess.storedTasks.get(index).changeStatus(TaskStatus.UNMARKED);
         duchessPrint(String.format("%d: %s", index, Duchess.storedTasks.get(index).toString()));
+    }
+
+    /**
+     * Returns true if the command is recognized as an "unmark task" command.
+     *
+     * @param s - the command to check for "unmark task" command.
+     * @return    whether the command is recognized as a ToDo command.
+     */
+    private static boolean isToDoCommand(String s) {
+        return Duchess.matchesRegex(s, "^todo ([A-Za-z ]+)$");
+    }
+
+    /**
+     * Parses a ToDo command, returning the string that should be marked as a ToDo.
+     *
+     * @param s - the command to parse for "unmark task" command.
+     * @return    the String that represents the ToDo task.
+     */
+    private static String parseToDoCommand(String s) {
+        Matcher m = Duchess.parseRegex(s, "^todo ([A-Za-z ]+)$");
+
+        return m.group(1);
     }
 
     public static void main(String[] args) {
