@@ -14,4 +14,9 @@ public class Deadline extends SingleTask {
     public String listString() {
         return ". [D][" + super.getStatusIcon() + "] " + description +"(by: "+ by + ")";
     }
+    @Override
+    public String remove() {
+        return "OK DONE ALR removed your Deadline ah:\n" +
+                "[D][" + super.getStatusIcon() + "] " + description +"(by: "+ by + ")";
+    }
 }

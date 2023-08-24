@@ -16,5 +16,10 @@ public class Event extends SingleTask {
     public String listString() {
         return ". [E][" + super.getStatusIcon() + "] " + description +"(from: "+ this.from + " to: " + this.to + ")";
     }
+    @Override
+    public String remove() {
+        return "OK DONE ALR removed your Event ah:\n" +
+                "[E][" + super.getStatusIcon() + "] " + description +"(from: "+ this.from + " to: " + this.to + ")";
+    }
 }
 

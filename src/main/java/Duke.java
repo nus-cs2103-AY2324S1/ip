@@ -9,6 +9,21 @@ public class Duke {
         ArrayList<SingleTask> taskList = new ArrayList<>();
         while (!s.equals("bye")) {
             try {
+                if (s.matches(".*\\bdelete\\b.*")) {
+                    String[] parts = s.split(" ");
+                    if (parts.length < 2) {
+                        throw new DukeException("Boy ah need to know which one u want delete eh.");
+                    }
+                    int number = Integer.parseInt(parts[1]);
+                    if (number - 1 >=  taskList.size()) {
+                        throw new DukeException("Boy ah cannot delete a task you dont have eh.");
+                    }
+                    SingleTask task = taskList.get(number - 1);
+                    System.out.println(task.remove());
+                    taskList.remove(number - 1);
+                    System.out.println(String.format("Got %d task in list boy", taskList.size()));
+                    s = sc.nextLine();
+                }
                 if (s.equals("list")) {
                     System.out.println("Here are your tasks ah boy:");
                     for (int i = 0; i < taskList.size(); i++) {

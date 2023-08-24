@@ -25,4 +25,8 @@ public class SingleTask {
     public String listString() {
         return "";
     }
+
+    public String remove () {
+        return "";
+    }
 }

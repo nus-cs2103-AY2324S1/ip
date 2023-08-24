@@ -12,4 +12,8 @@ public class ToDo extends SingleTask{
     public String listString() {
         return ". [T]" + "[" +this.getStatusIcon() +"] " + this.description;
     }
+    public String remove() {
+        return "OK DONE ALR removed your todo ah:\n" +
+                "[T]" + "[" +this.getStatusIcon() +"] " + this.description;
+    }
 }
