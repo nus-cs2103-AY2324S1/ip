@@ -5,7 +5,7 @@ import java.util.ArrayList;
  */
 public class DukeList {
     /**The ArrayList used to store all tasks accordingly, up to a total of 100 tasks*/
-    private ArrayList<Task> tasks = new ArrayList<();
+    private ArrayList<Task> tasks = new ArrayList<>();
 
 
     /**
