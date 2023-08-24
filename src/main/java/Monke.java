@@ -2,6 +2,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Monke {
+    private enum Command {
+        LIST,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE
+    }
+
     private static ArrayList<Task> list = new ArrayList<>();
 
     public static void speak(String msg) {
@@ -26,12 +36,18 @@ public class Monke {
     }
 
     public static void execute(String command, String args) throws MonkeException{
-        switch (command) {
-            case "list": {
+        Command cmd;
+        try {
+            cmd = Command.valueOf(command.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new MonkeException("OOGA??!! I'm sorry, but I don't know what that means :-(");
+        }
+        switch (cmd) {
+            case LIST: {
                 Monke.displayList();
                 break;
             }
-            case "mark": {
+            case MARK: {
                 int n = Monke.getListNumber(args);
                 Task task = Monke.list.get(n - 1);
                 task.mark();
@@ -39,7 +55,7 @@ public class Monke {
                 Monke.speak("\t" + task);
                 break;
             }
-            case "unmark": {
+            case UNMARK: {
                 int n = Monke.getListNumber(args);
                 Task task = Monke.list.get(n - 1);
                 task.unmark();
@@ -47,22 +63,22 @@ public class Monke {
                 Monke.speak("\t" + task);
                 break;
             }
-            case "todo": {
+            case TODO: {
                 Todo todo = Monke.getTodo(args);
                 Monke.addToList(todo);
                 break;
             }
-            case "deadline": {
+            case DEADLINE: {
                 Deadline deadline = Monke.getDeadline(args);
                 Monke.addToList(deadline);
                 break;
             }
-            case "event": {
+            case EVENT: {
                 Event event = Monke.getEvent(args);
                 Monke.addToList(event);
                 break;
             }
-            case "delete": {
+            case DELETE: {
                 int n = getListNumber(args);
                 Monke.deleteFromList(n);
                 break;
