@@ -11,23 +11,40 @@ public class Duke {
                 " What can I do for you?\n" +
                 LINE);
 
-        String[] tasks = new String[100];
-        int index = 0;
+        Task[] tasks = new Task[100];
+        int taskCount = 0;
 
-        while (sc.hasNextLine()) {
-            command = sc.nextLine();
-
+        while (true) {
+            command = sc.next();
 
             if (command.equals("bye")) {
                 break;
             } else if (command.equals("list")) {
                 System.out.println(LINE);
-                for (int i = 0; i < index; i++) {
+                System.out.println(" Here are the tasks in your list:");
+                for (int i = 0; i < taskCount; i++) {
                     System.out.println(" " + (i + 1) + ". " + tasks[i]);
                 }
                 System.out.println(LINE);
+            } else if (command.equals("mark")) {
+                int taskIndex = sc.nextInt() - 1;
+                Task t = tasks[taskIndex];
+                t.markAsDone();
+                System.out.println(LINE);
+                System.out.println(" Nice! I've marked this task as Done:");
+                System.out.println("  " + t);
+                System.out.println(LINE);
+            } else if (command.equals("unmark")){
+                int taskIndex = sc.nextInt() - 1;
+                Task t = tasks[taskIndex];
+                t.markAsNotDone();
+                System.out.println(LINE);
+                System.out.println(" Nice! I've marked this task as Not Done:");
+                System.out.println("  " + t);
+                System.out.println(LINE);
             } else {
-                tasks[index++] = command;
+                Task t = new Task(command);
+                tasks[taskCount++] = t;
                 System.out.println(LINE);
                 System.out.println(" Added: " + command);
                 System.out.println(LINE);
@@ -38,8 +55,5 @@ public class Duke {
         System.out.println(LINE +
                 " Bye. Hope to see you again soon!\n" +
                 LINE);
-    }
-    public static void echo(String s) {
-        System.out.println(LINE + " " + s + "\n" + LINE);
     }
 }
