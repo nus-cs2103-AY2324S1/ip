@@ -19,23 +19,101 @@ public class Duke {
                         tasks.get(index - 1).unmarkTask();
                         System.out.println(line +
                                 "OK, I've marked this task as not done yet:\n" +
-                                tasks.get(index - 1).toString());
+                                tasks.get(index - 1).toString() + "\n" + line);
                     } else {
                         int index = Integer.parseInt(prompt.charAt(prompt.length() - 1) + "");
                         tasks.get(index - 1).markTask();
                         System.out.println(line +
                                 "Nice! I've marked this task as done:\n" +
-                                tasks.get(index - 1).toString());
+                                tasks.get(index - 1).toString() + "\n" + line);
                     }
             } else {
-                tasks.add(new Task(prompt));
-                System.out.println(line + "added: " + prompt + "\n" + line);
+                if (prompt.contains("deadline")) {
+                    String deadLine[] = Duke.extractDeadline(Duke.textAfter(prompt));
+                    tasks.add(new Deadline(deadLine[0], deadLine[1]));
+
+                } else if (prompt.contains("event")) {
+                    String eventData[] = Duke.extractEvent(Duke.textAfter(prompt));
+                    tasks.add(new Event(eventData[2], eventData[0],eventData[1]));
+                } else if (prompt.contains("todo")) {
+                    tasks.add(new ToDo(Duke.textAfter(prompt)));
+                }
+                System.out.println(line + "Got it. I've added this task:\n "
+                        + tasks.get(tasks.size() - 1) + "\n" +
+                        "Now you have " + tasks.size() + " tasks in the list\n"
+                        + line);
             }
             prompt = Duke.inputText();
         }
         System.out.println(line +
                 " Bye. Hope to see you again soon!\n" +
                 line);
+    }
+    public static String textAfter(String sent) {
+        String reText = "";
+        boolean flag = false;
+        for (int i = 0; i < sent.length(); i++) {
+            char ch = sent.charAt(i);
+            if (flag) {
+                reText += ch;
+            } else if (ch == ' ') {
+                flag = true;
+            }
+        }
+        return reText;
+    }
+    public static String[] extractDeadline(String text) {
+        String wrd = "";
+        String str = "";
+        int i;
+        for (i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            if (ch == ' ') {
+                if (wrd.equals("/by")) {
+                    break;
+                }
+                str += wrd + " ";
+                wrd = "";
+            } else {
+                wrd += ch;
+            }
+        }
+        String deadArray[] = new String[2];
+        deadArray[0] = str.trim();
+        deadArray[1] = text.substring(i + 1);
+        return deadArray;
+    }
+    public static String[] extractEvent(String text) {
+        String str[] = new String[3];
+        str[0] = "";
+        str[1] = "";
+        str[2] = "";
+        String wrd = "";
+        text = text + " ";
+        boolean fromFlag = false;
+        boolean toFlag = false;
+        for (int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            if (ch == ' ') {
+                if (wrd.equals("/from")) {
+                   fromFlag = true;
+                } else if (wrd.equals("/to")) {
+                    toFlag = true;
+                    fromFlag = false;
+                } else if (fromFlag) {
+                    str[0] += wrd + " ";
+                } else if (toFlag) {
+                    str[1] += wrd + " ";
+                } else {
+                    str[2] += wrd + " ";
+                }
+                wrd = "";
+            } else {
+                wrd += ch;
+            }
+        }
+        str[2] = str[2].trim();
+        return str;
     }
     public static String getTasks(ArrayList<? extends Task> tasks) {
         String listedTasks = "";
