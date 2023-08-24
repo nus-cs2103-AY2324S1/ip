@@ -9,6 +9,7 @@ public class Duke {
         ArrayList<SingleTask> taskList = new ArrayList<>();
         while (!s.equals("bye")) {
             if (s.equals("list")) {
+                System.out.println("Here are your tasks ah boy:");
                 for (int i = 0; i < taskList.size(); i++) {
                     SingleTask task = taskList.get(i);
                     System.out.println((i + 1) + task.listString());
