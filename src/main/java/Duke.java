@@ -27,53 +27,38 @@ public class Duke {
             } else if (input.startsWith("mark")) {
                 try {
                     markTaskAsDone(input, list);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("You have entered an invalid task number.");
-                    System.out.println(HORIZONTAL_LINE);
+                } catch (TaskException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (input.startsWith("unmark")) {
                 try {
                     markTaskAsNotDone(input, list);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("You have entered an invalid task number.");
-                    System.out.println(HORIZONTAL_LINE);
+                } catch (TaskException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (input.startsWith("delete")) {
                 try {
                     deleteTask(input, list);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("You have entered an invalid task number.");
-                    System.out.println(HORIZONTAL_LINE);
+                } catch (TaskException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (input.startsWith("deadline")) {
                 try {
                     addDeadline(input, list);
-                } catch (StringIndexOutOfBoundsException e) {
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("Oops! Invalid input for your Deadline task.");
-                    System.out.println("Valid Format: deadline (description) /by (date-time)");
-                    System.out.println(HORIZONTAL_LINE);
+                } catch (DeadlineException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (input.startsWith("event")) {
                 try {
                     addEvent(input, list);
-                } catch (StringIndexOutOfBoundsException e) {
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("Oops! Invalid input for your Event task.");
-                    System.out.println("Valid Format: event (description) /from (date-time) /to (date-time)");
-                    System.out.println(HORIZONTAL_LINE);
+                } catch (EventException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (input.startsWith("todo")) {
                 try {
                     addToDo(input, list);
-                } catch (StringIndexOutOfBoundsException e) {
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("Oops! The description of a todo cannot be empty.");
-                    System.out.println("Valid Format: todo (description)");
-                    System.out.println(HORIZONTAL_LINE);
+                } catch (ToDoException e) {
+                    System.out.println(e.getMessage());
                 }
             } else if (input.equals("bye")) {
                 System.out.println(exitMessage);
@@ -95,7 +80,13 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void markTaskAsDone(String input, ArrayList<Task> list) {
+    private static void markTaskAsDone(String input, ArrayList<Task> list) throws TaskException {
+        if (input.length() <= 5) {
+            throw new TaskException();
+        } else if ((Integer.valueOf(input.substring(5)) - 1) >= list.size()) {
+            throw new TaskException();
+        }
+
         Task task = list.get(Integer.valueOf(input.substring(5)) - 1);
         task.markAsDone();
 
@@ -105,7 +96,13 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void markTaskAsNotDone(String input, ArrayList<Task> list) {
+    private static void markTaskAsNotDone(String input, ArrayList<Task> list) throws TaskException {
+        if (input.length() <= 7) {
+            throw new TaskException();
+        } else if ((Integer.valueOf(input.substring(7)) - 1) >= list.size()) {
+            throw new TaskException();
+        }
+
         Task task = list.get(Integer.valueOf(input.substring(7)) - 1);
         task.markAsNotDone();
 
@@ -115,7 +112,13 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void deleteTask(String input, ArrayList<Task> list) {
+    private static void deleteTask(String input, ArrayList<Task> list) throws TaskException {
+        if (input.length() <= 7) {
+            throw new TaskException();
+        } else if ((Integer.valueOf(input.substring(7)) - 1) >= list.size()) {
+            throw new TaskException();
+        }
+
         int index = Integer.valueOf(input.substring(7)) - 1;
         Task task = list.get(index);
         list.remove(index);
@@ -127,8 +130,14 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void addDeadline(String input, ArrayList<Task> list) {
+    private static void addDeadline(String input, ArrayList<Task> list) throws DeadlineException {
         int byIndex = input.indexOf("/by");
+
+        if (input.length() <= 9) {
+            throw new DeadlineException();
+        } else if (byIndex == -1) {
+            throw new DeadlineException();
+        }
 
         String description = input.substring(9, byIndex - 1);
         String by = input.substring(byIndex + 4);
@@ -143,9 +152,17 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void addEvent(String input, ArrayList<Task> list) {
+    private static void addEvent(String input, ArrayList<Task> list) throws EventException {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
+
+        if (input.length() <= 6) {
+            throw new EventException();
+        } else if (fromIndex == -1 || toIndex == -1) {
+            throw new EventException();
+        } else if (fromIndex > toIndex) {
+            throw new EventException();
+        }
 
         String description = input.substring(6, fromIndex - 1);
         String from = input.substring(fromIndex + 6, toIndex - 1);
@@ -161,7 +178,11 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    private static void addToDo(String input, ArrayList<Task> list) {
+    private static void addToDo(String input, ArrayList<Task> list) throws ToDoException {
+        if (input.length() <= 5) {
+            throw new ToDoException();
+        }
+
         ToDo todo = new ToDo(input.substring(5));
         list.add(todo);
 
