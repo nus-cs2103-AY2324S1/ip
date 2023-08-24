@@ -5,6 +5,10 @@ import Exception.MissingCommandException;
 import Exception.MissingTextException;
 
 public class Duke {
+    // obligatory enums here
+    enum Test {
+        HI, YOU, LOOK, AMAZING, JUST, KIDDING
+    }
     final static ArrayList<Task> tasks = new ArrayList<>();
     final static String horizontalLine = "   ------------------------\n";
     public static void main(String[] args) {
