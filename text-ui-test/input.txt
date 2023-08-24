@@ -1,0 +1,12 @@
+todo essay
+todo assignment
+deadline assignment 2 /by Monday
+deadline email /by Saturday
+event sports day /from Tues 12pm /to 9pm
+list
+mark 2
+mark 3
+list
+unmark 2
+list
+bye
