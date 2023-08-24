@@ -29,4 +29,9 @@ public class Task {
         String status = ". [" + getStatusIcon() + "] ";
         return String.valueOf(this.id) + status + this.description;
     }
+
+    public void addTask(String taskDescription) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(this.toString().substring(2));
+    }
 }
