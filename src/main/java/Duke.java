@@ -54,7 +54,7 @@ public class Duke {
                 System.out.print(HORIZONTAL_LINE);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(deadline);
-                System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
+                System.out.println("Now you have " + list.size() + " tasks in the list.");
                 System.out.println(HORIZONTAL_LINE);
             } else if (input.startsWith("event")) {
                 int fromIndex = input.indexOf("/");
@@ -71,7 +71,7 @@ public class Duke {
                     System.out.print(HORIZONTAL_LINE);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(event);
-                    System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
                     System.out.println(HORIZONTAL_LINE);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
@@ -87,7 +87,7 @@ public class Duke {
                     System.out.print(HORIZONTAL_LINE);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(todo);
-                    System.out.println("Now you have " + (list.size() + 1) + " tasks in the list.");
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
                     System.out.println(HORIZONTAL_LINE);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
