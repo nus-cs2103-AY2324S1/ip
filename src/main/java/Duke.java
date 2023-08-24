@@ -98,6 +98,7 @@ public class Duke {
         /**
          * Exit message by bot.
          */
+        myObj.close();
         System.out.println(Duke.exitString);
     }
 }
