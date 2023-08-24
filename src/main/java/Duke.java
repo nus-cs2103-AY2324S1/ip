@@ -70,7 +70,7 @@ public class Duke {
                         String workToDo = str.substring(0, firstIndex);
                         String afterFirstIndex = str.substring(firstIndex + 6);
                         if (!afterFirstIndex.contains("/to ")) { //to check the input of /to after /from
-                            System.out.println("Invalid input as the event end time " +
+                            System.out.println("\tInvalid input as the event end time " +
                                     "has not been specified. Please enter /from what time, /to what time " +
                                     "the event would last.");
                         } else {
