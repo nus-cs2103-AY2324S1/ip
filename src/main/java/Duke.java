@@ -136,6 +136,21 @@ public class Duke {
                         }
                     }
                 }
+            } else if(words[0].equals("delete")) {
+                try {
+                    Task t = tasks.get(Integer.parseInt(words[1]) - 1);
+                    tasks.remove(Integer.parseInt(words[1]) - 1);
+                    int length = tasks.size();
+                    System.out.println(HORIZONTAL);
+                    System.out.println("Noted! I've removed this task:");
+                    System.out.println(t);
+                    System.out.println("Now you have " + length + " tasks in the list.");
+                    System.out.println(HORIZONTAL);
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                    System.out.println(HORIZONTAL);
+                    System.out.println("☹ OOPS!!! I'm sorry, please enter a valid index to mark");
+                    System.out.println(HORIZONTAL);
+                }
             } else {
                 throw new InvalidTaskException();
             }
