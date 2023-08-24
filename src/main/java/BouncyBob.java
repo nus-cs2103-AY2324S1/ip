@@ -7,6 +7,38 @@ public class BouncyBob {
     private static final String TOP_BORDER = "================================================";
     private static final String MIDDLE_BORDER = "|                                              |";
     private static final String BOTTOM_BORDER = "================================================";
+    public enum TaskType {
+        TODO, DEADLINE, EVENT, UNKNOWN
+    }
+    public enum Action {
+        MARK, UNMARK, DELETE, UNKNOWN
+    }
+
+    private static TaskType getTaskType(String taskType) {
+        switch (taskType.toLowerCase()) {
+            case "todo":
+                return TaskType.TODO;
+            case "deadline":
+                return TaskType.DEADLINE;
+            case "event":
+                return TaskType.EVENT;
+            default:
+                return TaskType.UNKNOWN;
+        }
+    }
+
+    private static Action getAction(String action) {
+        switch (action.toLowerCase()) {
+            case "mark":
+                return Action.MARK;
+            case "unmark":
+                return Action.UNMARK;
+            case "delete":
+                return Action.DELETE;
+            default:
+                return Action.UNKNOWN;
+        }
+    }
 
     private static void printTaskStatus(Task task) {
         String marking = " ";
@@ -48,18 +80,18 @@ public class BouncyBob {
     }
 
     private static void addTaskAndPrint(String[] parts, ArrayList<Task> database) {
-        String taskType = parts[0];
+        TaskType taskType = getTaskType(parts[0]);
         String taskName = "";
         Task newTask = null;
         switch (taskType) {
-            case "todo":
+            case TODO:
                 taskName = arrayToString(parts, 1);
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("Task name for 'todo' cannot be empty.");
                 }
                 newTask = new ToDos(taskName);
                 break;
-            case "deadline":
+            case DEADLINE:
                 taskName = arrayToString(parts, 1);
                 String datetime = extractDatetime(taskName);
                 if (datetime.trim().isEmpty()) {
@@ -71,7 +103,7 @@ public class BouncyBob {
                 }
                 newTask = new Deadlines(taskName, datetime);
                 break;
-            case "event":
+            case EVENT:
                 taskName = arrayToString(parts, 1);
                 String[] fromTo = extractFromTo(taskName);
                 if (fromTo[0] == null || fromTo[1] == null) {
@@ -83,7 +115,7 @@ public class BouncyBob {
                 }
                 newTask = new Events(taskName, fromTo[0], fromTo[1]);
                 break;
-            default:
+            case UNKNOWN:
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
         }
         database.add(newTask);
@@ -125,21 +157,21 @@ public class BouncyBob {
     }
 
     public static void modifyTask(String[] parts, ArrayList<Task> database) {
-        String action = parts[0];
+        Action action = getAction(parts[0]);
         int index = Integer.parseInt(parts[1]); // Adjust for 0-based index
         System.out.println(TOP_BORDER);
         switch(action) {
-            case "mark":
+            case MARK:
                 System.out.println("You've done it, very bouncy!");
                 database.get(index).setDone();
                 printTaskStatus(database.get(index));
                 break;
-            case "unmark":
+            case UNMARK:
                 System.out.println("Gotta pump for air! It's unmarked!");
                 database.get(index).setUnDone();
                 printTaskStatus(database.get(index));
                 break;
-            case "delete":
+            case DELETE:
                 System.out.println("Task deleted: ");
                 printTaskStatus(database.get(index));
                 database.remove(index);
@@ -179,7 +211,7 @@ public class BouncyBob {
                 break;
             } else if (userInput.equals("list")) {
                 printDatabase(database);  // Adjusted for ArrayList
-            } else if (parts[0].equals("mark") || parts[0].equals("unmark") || parts[0].equals("delete")) {
+            } else if (getAction(parts[0]) != Action.UNKNOWN) {
                 try {
                     modifyTask(parts, database);
                 } catch (IndexOutOfBoundsException e) {
