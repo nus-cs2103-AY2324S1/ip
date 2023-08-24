@@ -4,20 +4,21 @@ public class Duke {
     private static final Task[] tasks = new Task[100];
     private static int index = 0;
     private static boolean terminate = false;
+    private static String seperation = "____________________________________________";
 
     // A greeting display everytime entering the program
     private static void OnEnter () {
-        System.out.println("____________________________________________");
+        System.out.println(seperation);
         System.out.println("Hello! I am YOU");
         System.out.println("What can I do for you?");
-        System.out.println("____________________________________________");
+        System.out.println(seperation);
     }
 
     // An exit display everytime exits the program
     private static void OnExit() {
-        System.out.println("____________________________________________");
+        System.out.println(seperation);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println("____________________________________________");
+        System.out.println(seperation);
     }
 
     //Reads and store input
@@ -35,24 +36,33 @@ public class Duke {
 
     // A display everytime receive an input
     private static void displayInfo(String msg) {
-        System.out.println("____________________________________________");
-        System.out.println("Got it. I've added this task:");
-        if (msg.substring(0, 4).equals("todo")) {
-            addTasks(new ToDo(msg));
-        } else if(msg.substring(0, 8).equals("deadline")) {
-            addTasks(new Deadline(msg));
-        } else {
-            addTasks(new Event(msg));
+        Task task;
+        System.out.println(seperation);
+        try{
+            if (msg.startsWith("todo")) {
+                task = new ToDo(msg);
+                addTasks(task);
+            } else if(msg.startsWith("deadline")) {
+                task = new Deadline(msg);
+                addTasks(task);
+            } else if(msg.startsWith("event")){
+                task = new Event(msg);
+                addTasks(task);
+            } else {
+                throw new DukeUnknownInstruction();
+            }
+            System.out.println("Now you have " + Duke.index + " tasks in the list.");
+            System.out.println(seperation);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
-        System.out.println("Now you have " + Duke.index + " tasks in the list.");
-        System.out.println("____________________________________________");
     }
 
     private static void readInputs(String msg) {
         if (msg.equals("list")) {
-            System.out.println("____________________________________________");
+            System.out.println(seperation);
             listTasks();
-            System.out.println("____________________________________________");
+            System.out.println(seperation);
         } else if (msg.equals("bye")) {
             Duke.terminate = true;
         } else {
