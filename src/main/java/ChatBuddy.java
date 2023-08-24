@@ -1,7 +1,7 @@
 import java.util.Scanner;
 public class ChatBuddy {
     // store a list of tasks
-    static String[] list = new String[100];
+    static Task[] list = new Task[100];
     static int numOfTasks = 0;
 
     /**
@@ -9,26 +9,29 @@ public class ChatBuddy {
      *
      * @param task The task string to add to the list of tasks
      */
-    private static void addTask(String task) {
+    private static void addTask(String taskDescription) {
         // add task to list
+        Task task = new Task(taskDescription);
         list[numOfTasks] = task;
         numOfTasks++;
 
         // display message
         printHorizontalLine();
-        System.out.println("    added: " + task);
+        System.out.println("    added: " + taskDescription);
         printHorizontalLine();
     }
 
     /** Displays the list of tasks. */
     private static void printTaskList() {
         printHorizontalLine();
+        System.out.println("    Here are the tasks in your list:");
         for (int i = 0; i < list.length; i++) {
-            if (list[i] == null) {
+            Task task = list[i];
+            if (task == null) {
                 // there are no more tasks
                 break;
             }
-            System.out.println(String.format("    %1s. %2s", i + 1, list[i]));
+            System.out.println(String.format("    %1s.%2s", i + 1, task.getStatusIconAndDescription()));
         }
         printHorizontalLine();
     }
@@ -52,6 +55,16 @@ public class ChatBuddy {
         while (!userInput.equals("bye")) {
             if (userInput.equals("list")) {
                 printTaskList();
+            } else if (userInput.matches("mark [1-9][0-9]*")) {
+                String indexString = userInput.substring(5);
+                int taskIndex = Integer.parseInt(indexString) - 1;
+                Task task = list[taskIndex];
+                task.markAsDone();
+            } else if (userInput.matches("unmark [1-9][0-9]*")) {
+                String indexString = userInput.substring(7);
+                int taskIndex = Integer.parseInt(indexString) - 1;
+                Task task = list[taskIndex];
+                task.markAsNotDone();
             } else {
                 addTask(userInput);
             }
