@@ -24,37 +24,50 @@ public class Glen {
                 try {
                     end = input.substring(++index);
                 } finally {
-                if (firstWord.equals("mark") || firstWord.equals("unmark")) {
-                    int taskIndex = -1;
-                    try {
-                        taskIndex = Integer.valueOf(end) - 1;
-                    } catch (Exception NumberFormatException) {}
-                    if (taskIndex >= 0 && taskIndex < tasks.size()) {
-                        toggle(firstWord, taskIndex);
-                    } else {
-                        System.out.println(HORLINE + "Please select a valid item to mark/unmark.\n" + HORLINE);
-                    }   
-                } else if (firstWord.equals("deadline")) {
-                    int separatorIndex = end.indexOf("/by");
+                    if (firstWord.equals("mark") || firstWord.equals("unmark")) {
+                        int taskIndex = -1;
+                        try {
+                            taskIndex = Integer.valueOf(end) - 1;
+                        } catch (Exception NumberFormatException) {}
+                        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                            toggle(firstWord, taskIndex);
+                        } else {
+                            System.out.println(HORLINE + "\u2639 OOPS!!! Please select a valid item to mark/unmark.\n" + HORLINE);
+                        }   
+                    } else if (firstWord.equals("deadline")) {
+                        try {
+                            int separatorIndex = end.indexOf("/by");
         
-                    String string1 = end.substring(0, separatorIndex).trim();
-                    String string2 = end.substring(separatorIndex + 3).trim();
+                            String string1 = end.substring(0, separatorIndex).trim();
+                            String string2 = end.substring(separatorIndex + 3).trim();
 
-                    System.out.println(addDeadline(string1, string2));
-                } else if (firstWord.equals("event")) {
-                    int fromIndex = end.indexOf("/from");
-                    int toIndex = end.indexOf("/to");
+                            System.out.println(addDeadline(string1, string2));
+                        } catch (Exception StringIndexOutOfBoundsException) {
+                            System.out.println(HORLINE + "\u2639 OOPS!!! Your request needs to be formatted as:\ndeadline <task name> /by <time>\n" + HORLINE);
+                        }
+                    } else if (firstWord.equals("event")) {
+                        try {
+                            int fromIndex = end.indexOf("/from");
+                            int toIndex = end.indexOf("/to");
             
-                    String string1 = end.substring(0, fromIndex).trim();
-                    String string2 = end.substring(fromIndex + 6, toIndex).trim();
-                    String string3 = end.substring(toIndex + 4).trim();
+                            String string1 = end.substring(0, fromIndex).trim();
+                            String string2 = end.substring(fromIndex + 6, toIndex).trim();
+                            String string3 = end.substring(toIndex + 4).trim();
 
-                    System.out.println(addEvent(string1, string2, string3));
-                } else if (firstWord.equals("todo")) {
-                    System.out.println(addTodo(end));
-                } else {
-                    System.out.println(HORLINE + "Invalid command. Please try again.\n" + HORLINE);
-                }
+                            System.out.println(addEvent(string1, string2, string3));
+                        } catch (Exception StringIndexOutOfBoundsException) {
+                            System.out.println(HORLINE + "\u2639 OOPS!!! Your request needs to be formatted as:\nevent <event name> /from <start time> /to <end time>\n" + HORLINE);
+                        }
+                    } else if (firstWord.equals("todo")) {
+                        String trimmed = end.trim();
+                        if (trimmed.equals("")) {
+                            System.out.println(HORLINE + "\u2639 OOPS!!! The description of a todo cannot be empty.\n" + HORLINE);
+                        } else {
+                            System.out.println(addTodo(trimmed));
+                        }
+                    } else {
+                        System.out.println(HORLINE + "\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(\n" + HORLINE);
+                    }
                 }
             }
             input = scan.nextLine();
@@ -79,19 +92,19 @@ public class Glen {
     static String addDeadline(String inp, String by) {
         Task newTask = new Deadline(inp, by);
         tasks.add(newTask);
-        return HORLINE + "Got it. I've added this task:\n  [D][ ]  " + inp + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
+        return HORLINE + "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
     }
 
     static String addEvent(String inp, String from, String to) {
         Task newTask = new Event(inp, from, to);
         tasks.add(newTask);
-        return HORLINE + "Got it. I've added this task:\n  [E][ ]  " + inp + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
+        return HORLINE + "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
     }
 
     static String addTodo(String inp) {
         Task newTask = new Todo(inp);
         tasks.add(newTask);
-        return HORLINE + "Got it. I've added this task:\n  [T][ ]  " + inp + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
+        return HORLINE + "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
     }
 
     static void toggle(String requestType, int taskIndex) {
