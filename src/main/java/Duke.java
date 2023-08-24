@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -35,7 +36,7 @@ public class Duke {
 
         public String secondWord() {
             try {
-                if (this.initialParse[1] == "") {
+                if (this.initialParse[1].equals("")) {
                     return null;
                 } else {
                     return this.initialParse[1];
@@ -238,57 +239,60 @@ class Task {
 }
 
 class ListOfTask {
-    private static Task[] listOfTask = new Task[100];
+    private static ArrayList<Task> listOfTask = new ArrayList<>();
+    //private static Task[] listOfTask = new Task[100];
     private static int counter = 0;
 
     public void addTask(String task) {
-        listOfTask[counter] = new Task.ToDos(task);
-        System.out.println("added: " + listOfTask[counter]);
-        counter++;
+        Task temp = new Task.ToDos(task);
+        listOfTask.add(temp);
+        //listOfTask[counter] = new Task.ToDos(task);
+        System.out.println("added: " + temp);
     }
 
     public void addTask(String task, String dayDate) {
-        listOfTask[counter] = new Task.Deadlines(task, dayDate);
-        System.out.println("added: " + listOfTask[counter]);
+        Task temp = new Task.ToDos(task);
+        listOfTask.add(temp);
+        //listOfTask[counter] = new Task.Deadlines(task, dayDate);
+        System.out.println("added: " + temp);
         counter++;
     }
 
     public void addTask(String task, String startDayDateTime, String endDayDateTime) {
-        listOfTask[counter] = new Task.Event(task, startDayDateTime, endDayDateTime);
-        System.out.println("added: " + listOfTask[counter]);
+        Task temp = new Task.ToDos(task);
+        listOfTask.add(temp);
+        //listOfTask[counter] = new Task.Event(task, startDayDateTime, endDayDateTime);
+        System.out.println("added: " + temp);
         counter++;
     }
 
     public void listTasks() {
-        for(int i = 0; i < counter; i++) {
-            System.out.println(i+1 + "." + listOfTask[i].toString());
-        }
+        int[] i = new int[1];
+        i[0] = 1;
+        listOfTask.forEach(x-> {
+            System.out.print(i[0] + ".");
+            System.out.println(x);
+            i[0]++;
+            }
+        );
     }
 
     public void mark(int index) {
-        if (counter == 0) {
-            System.out.println("There is nothing in the list");
-            return;
+        try {
+            listOfTask.get(index - 1).mark();
+            System.out.println(listOfTask.get(index - 1).toString());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please select from index 1 to " + listOfTask.size());
         }
-        if (index-1 > counter || index <= 0) {
-            System.out.println("Please select from index 1 to " + counter + 1);
-            return;
-        }
-        listOfTask[index - 1].mark();
-        System.out.println(listOfTask[index - 1].toString());
     }
 
     public void unmark(int index) {
-        if (counter == 0) {
-            System.out.println("There is nothing in the list");
-            return;
+        try {
+            listOfTask.get(index - 1).unmark();
+            System.out.println(listOfTask.get(index - 1).toString());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Please select from index 1 to " + listOfTask.size());
         }
-        if (index-1 > counter || index-1 <= 0) {
-            System.out.println("Please select from index 1 to " + counter + 1);
-            return;
-        }
-        listOfTask[index - 1].unmark();
-        System.out.println(listOfTask[index - 1].toString());
     }
 }
 
