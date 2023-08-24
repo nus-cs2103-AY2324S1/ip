@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 public class Anya {
     final static String LINE = "\n____________________________________________________________\n";
-    static Task[] tasks = new Task[100];
+    static ArrayList<Task> tasks = new ArrayList<>();
     static int taskCount = 0;
     public static void main(String[] args) {
         greet();
@@ -68,7 +69,7 @@ public class Anya {
                         }
                         // Error: Argument provided is already Done (Future implementation)
 
-                        Task t = tasks[taskNumber - 1];
+                        Task t = tasks.get(taskNumber - 1);
                         t.markAsDone();
 
                         System.out.println(LINE);
@@ -100,7 +101,7 @@ public class Anya {
                                     + LINE);
                         }
 
-                        Task t = tasks[taskNumber - 1];
+                        Task t = tasks.get(taskNumber - 1);
                         t.markAsNotDone();
 
                         System.out.println(LINE);
@@ -118,7 +119,8 @@ public class Anya {
                         }
 
                         Task t = new Todo(details);
-                        tasks[taskCount++] = t;
+                        taskCount++;
+                        tasks.add(t);
 
                         System.out.println(LINE);
                         System.out.println("    Waku waku! I've added this task:");
@@ -140,7 +142,8 @@ public class Anya {
                         String taskName = info[0].trim();
                         String deadline = info[1].trim();
                         Task t = new Deadline(taskName, deadline);
-                        tasks[taskCount++] = t;
+                        taskCount++;
+                        tasks.add(t);
 
                         System.out.println(LINE);
                         System.out.println("    Waku waku! I've added this task:");
@@ -169,10 +172,46 @@ public class Anya {
                         String startTime = details.split("/from")[1].trim();
                         String endTime = details.split("/to")[1].trim();
                         Task t = new Event(taskName, startTime, endTime);
-                        tasks[taskCount++] = t;
+                        taskCount++;
+                        tasks.add(t);
 
                         System.out.println(LINE);
                         System.out.println("    Waku waku! I've added this task:");
+                        System.out.println("    " + t);
+                        System.out.println("    Now you have " + taskCount + " tasks in the list!");
+                        System.out.println(LINE);
+                        break;
+                    }
+                    case "delete": {
+                        // Error: No argument or Multiple arguments provided
+                        if (details.isEmpty() || details.split(" ").length != 1) {
+                            throw new InvalidArgumentException(LINE
+                                    + "☹ Waku waku! Please input in the following format:\n"
+                                    + "    delete <taskNumber>"
+                                    + LINE);
+                        }
+                        // Error: Argument provided is not a number
+                        try {
+                            Integer.parseInt(details);
+                        } catch (NumberFormatException e) {
+                            throw new InvalidArgumentException(LINE
+                                    + "☹ Waku waku! Please only input INTEGERs after the word unmark!"
+                                    + LINE);
+                        }
+                        // Error: Argument provided is not within task numbers
+                        int taskNumber = Integer.parseInt(details);
+                        if (taskNumber < 1 || taskNumber > taskCount) {
+                            throw new InvalidArgumentException(LINE
+                                    + "☹ Waku waku! I don't see a task with the number:" + taskNumber
+                                    + LINE);
+                        }
+
+                        Task t = tasks.get(taskNumber - 1);
+                        tasks.remove(t);
+                        taskCount--;
+
+                        System.out.println(LINE);
+                        System.out.println("    Waku waku! I've removed this task as Not Done:");
                         System.out.println("    " + t);
                         System.out.println("    Now you have " + taskCount + " tasks in the list!");
                         System.out.println(LINE);
@@ -197,7 +236,7 @@ public class Anya {
         System.out.println("    Waku waku!\n"
                          + "    Here are the tasks in your list:\n");
         for (int i = 0; i < taskCount; i++) {
-            System.out.println(" " + (i + 1) + ". " + tasks[i]);
+            System.out.println(" " + (i + 1) + ". " + tasks.get(i));
         }
         System.out.println(LINE);
     }
