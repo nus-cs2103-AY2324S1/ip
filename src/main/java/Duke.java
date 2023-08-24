@@ -21,6 +21,8 @@ public class Duke {
                 markAsDone(input);
             } else if (input.startsWith("unmark", 0)) {
                 unmarkAsDone(input);
+            } else if (input.startsWith("delete", 0)) {
+                delete(input);
             } else if (input.equals("bye")) {
                 isRunning = false;
             } else {
@@ -136,6 +138,18 @@ public class Duke {
         printWithIndentation(HORIZONTAL_LINE);
         printWithIndentation("OK, I've marked this task as not done yet:");
         printWithIndentation("  " + tasks.get(index));
+        printWithIndentation(HORIZONTAL_LINE);
+    }
+
+    public static void delete(String input) {
+        int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
+        Task task = tasks.get(index);
+        tasks.remove(index);
+
+        printWithIndentation(HORIZONTAL_LINE);
+        printWithIndentation("Noted. I've removed this task:");
+        printWithIndentation("  " + task);
+        printWithIndentation("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
         printWithIndentation(HORIZONTAL_LINE);
     }
 
