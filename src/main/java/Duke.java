@@ -5,17 +5,17 @@ import java.util.Scanner;
 public class Duke {
     private static String LINE_SEPARATOR = "    ------------------------------------------------------------";
 
-    private static void respond(String message) {
+    private static <T> void respond(T message) {
         System.out.println(LINE_SEPARATOR);
-        System.out.println(String.format("     %s",  message));
+        System.out.println(String.format("     %s",  message.toString()));
         System.out.println(LINE_SEPARATOR);
         System.out.print(">> ");
     }
 
-    private static void respond(List<String> messages) {
+    private static <T> void respond(List<T> messages) {
         System.out.println(LINE_SEPARATOR);
-        for (String message: messages) {
-            System.out.println(String.format("     %s",  message));
+        for (T message: messages) {
+            System.out.println(String.format("     %s",  message.toString()));
         }
         System.out.println(LINE_SEPARATOR);
         System.out.print(">> ");
