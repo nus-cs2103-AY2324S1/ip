@@ -56,7 +56,7 @@ public class Duke {
                     System.out.println(HORIZONTAL_LINE);
                 }
             } else if (input.startsWith("deadline")) {
-                int byIndex = input.indexOf("/");
+                int byIndex = input.indexOf("/by");
 
                 try {
                     String description = input.substring(9, byIndex - 1);
@@ -77,8 +77,8 @@ public class Duke {
                     System.out.println(HORIZONTAL_LINE);
                 }
             } else if (input.startsWith("event")) {
-                int fromIndex = input.indexOf("/");
-                int toIndex = input.indexOf("/", fromIndex + 1);
+                int fromIndex = input.indexOf("/from");
+                int toIndex = input.indexOf("/to");
 
                 try {
                     String description = input.substring(6, fromIndex - 1);
