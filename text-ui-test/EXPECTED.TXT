@@ -5,12 +5,12 @@ New task added: [T] [ ] this
 You have a total of 1 task(s) in your list.
 Your added tasks:
 1. [T] [ ] this
-Invalid task with deadline input!
+Error: Deadline of task with deadline cannot be empty!
 New task with deadline added: [D] [ ] that (by: 2359)
 You have a total of 2 task(s) in your list.
 New task added: [E] [ ] those (from: ??? to: !!!)
 You have a total of 3 task(s) in your list.
-Invalid event input!
+Error: Description of event cannot be empty!
 The task has been marked as done!
 [T] [X] this
 The task has been marked as done!
@@ -21,6 +21,6 @@ Your added tasks:
 1. [T] [ ] this
 2. [D] [X] that (by: 2359)
 3. [E] [ ] those (from: ??? to: !!!)
-Invalid command!
+Error: mark 100 is an invalid command!
 Bye. See you soon! :)
 

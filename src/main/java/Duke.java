@@ -66,53 +66,75 @@ public class Duke {
         }
     }
 
-    public static void handleTaskAdd(String s) {
+    public static void handleTaskAdd(String s) throws Exception {
         if (s.startsWith("todo ")) {
             String todoName = s.substring(5);
 
-            Todo todo = new Todo(todoName);
-            storedTasks.add(todo);
-            System.out.println("New task added: " + todo);
+            if (todoName.length() < 1) {
+                throw new InvalidTaskException("Description", "todo");
+            }
 
-            int len = storedTasks.size();
-            System.out.println("You have a total of " + len + " task(s) in your list.");
+            Todo todo = new Todo(todoName);
+            System.out.println("New task added: " + todo);
+            addTaskSuccess(todo);
         } else if (s.startsWith("deadline ")) {
             int dlIndex = s.indexOf("/by ");
 
-            if (dlIndex != -1 && dlIndex > 9) {
-                String dlName = s.substring(9, dlIndex - 1);
-                String dlTime = s.substring(dlIndex + 4);
-
-                Deadline dl = new Deadline(dlName, dlTime);
-                storedTasks.add(dl);
-                System.out.println("New task with deadline added: " + dl);
-
-                int len = storedTasks.size();
-                System.out.println("You have a total of " + len + " task(s) in your list.");
-            } else {
-                System.out.println("Invalid task with deadline input!");
+            if (dlIndex == -1 ) {
+                throw new InvalidTaskException("Deadline", "task with deadline");
             }
+
+            if (dlIndex <= 9) {
+                throw new InvalidTaskException("Description", "task with deadline");
+            }
+
+            String dlName = s.substring(9, dlIndex - 1);
+            String dlTime = s.substring(dlIndex + 4);
+
+            if (dlTime.length() < 1) {
+                throw new InvalidTaskException("Deadline", "task with deadline");
+            }
+
+            Deadline dl = new Deadline(dlName, dlTime);
+            System.out.println("New task with deadline added: " + dl);
+            addTaskSuccess(dl);
         } else if (s.startsWith("event ")) {
             int fromIndex = s.indexOf("/from ");
             int toIndex = s.indexOf("/to ");
 
-            if (fromIndex != -1 && fromIndex > 6 && toIndex != -1 && toIndex > fromIndex + 6) {
-                String eName = s.substring(6, fromIndex - 1);
-                String eFrom = s.substring(fromIndex + 6, toIndex - 1);
-                String eTo = s.substring(toIndex + 4);
-
-                Event e = new Event(eName, eFrom, eTo);
-                storedTasks.add(e);
-                System.out.println("New task added: " + e);
-
-                int len = storedTasks.size();
-                System.out.println("You have a total of " + len + " task(s) in your list.");
-            } else {
-                System.out.println("Invalid event input!");
+            if (fromIndex == -1 || toIndex == -1 || toIndex <= fromIndex + 6) {
+                throw new InvalidTaskException("Timing", "event");
             }
+
+            if (fromIndex <= 6) {
+                throw new InvalidTaskException("Description", "event");
+            }
+
+            String eName = s.substring(6, fromIndex - 1);
+            String eFrom = s.substring(fromIndex + 6, toIndex - 1);
+            String eTo = s.substring(toIndex + 4);
+
+            if (eTo.length() < 1) {
+                throw new InvalidTaskException("Timing", "event");
+            }
+
+            Event e = new Event(eName, eFrom, eTo);
+            System.out.println("New task added: " + e);
+            addTaskSuccess(e);
+        } else if (s.equals("todo") || s.equals("event")) {
+            throw new InvalidTaskException("Description", s);
+        } else if (s.equals("deadline")) {
+            throw new InvalidTaskException("Description", "task with " + s);
         } else {
-            System.out.println("Invalid command!");
+            throw new InvalidCommandException(s);
         }
+    }
+
+    public static void addTaskSuccess(Task t) {
+        storedTasks.add(t);
+
+        int len = storedTasks.size();
+        System.out.println("You have a total of " + len + " task(s) in your list.");
     }
 
 
@@ -129,7 +151,11 @@ public class Duke {
             handleMarking(str);
 
             if (allowNext && addStr) {
-                handleTaskAdd(str);
+                try {
+                    handleTaskAdd(str);
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
             } else if (!addStr) {
                 addStr = true;
             }
