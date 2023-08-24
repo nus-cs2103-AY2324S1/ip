@@ -73,14 +73,14 @@ public class Duke {
                 Deadlines newdeadlines = new Deadlines(userInput);
                 task.add(newdeadlines);
                 System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " +  name + ": Help you added a new task. \n           " + newdeadlines.toString());
+                System.out.println("   " +  name + ": Help you added a new task.\n           " + newdeadlines.toString());
                 System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count ));
                 System.out.println("   ____________________________________________________________________________________");
             } else if (userInput.startsWith("event")) {
                 Events newevents = new Events(userInput);
                 task.add(newevents);
                 System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " +  name + ": Help you added a new task. \n           " + newevents.toString());
+                System.out.println("   " +  name + ": Help you added a new task.\n           " + newevents.toString());
                 System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count ));
                 System.out.println("   ____________________________________________________________________________________");
             }
