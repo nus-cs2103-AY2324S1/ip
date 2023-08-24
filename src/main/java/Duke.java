@@ -69,6 +69,10 @@ public class Duke {
                         Event newEvent = new Event(eventTask, from, to);
                         createNewTask(newEvent);
                         break;
+                    case "delete":
+                        int deleteIndex = Integer.parseInt(task);
+                        deleteTask(deleteIndex);
+                        break;
                     default:
                         System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                         System.out.println(LINE);
@@ -116,6 +120,17 @@ public class Duke {
             System.out.println("OK, I've marked this task as not done yet:");
         }
         System.out.println(task);
+        System.out.println(LINE);
+    }
+
+    private static void deleteTask(int taskID) throws DukeException {
+        if (taskID <= 0 || taskID > tasks.size()) {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but task not found.");
+        }
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(tasks.get(taskID - 1));
+        tasks.remove(taskID - 1);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(LINE);
     }
 
