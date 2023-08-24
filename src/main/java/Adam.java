@@ -1,15 +1,39 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-public class Adam {
-    ArrayList<Task> array = new ArrayList<>();
-    boolean running = true;
-    Scanner scaner = new Scanner(System.in);
 
-    public void add(String text){
-        array.add(new Task(text));
-        System.out.println("added: " + text);
+/**
+ * This is the main java class that contains instructions to create the chatbot Task manager Adam
+ */
+public class Adam {
+    /**
+     * This array holds all the Task that has been added
+     */
+    protected ArrayList<Task> array = new ArrayList<>();
+    /**
+     * This boolean is used to indicate whether or not the program is still running
+     */
+    protected boolean running = true;
+    /**
+     * This is used to take in user input
+     */
+    protected Scanner scaner = new Scanner(System.in);
+
+    /**
+     * This method is used to delete Items of the class or subclass Task from the Task array
+     * @param num tells the method which item to remove from the array
+     */
+    public void deleteTask(int num) {
+        Task curr = array.get(num-1);
+        array.remove(num-1);
+        System.out.println("I have removed the Task:");
+        System.out.println(curr.toString());
+        System.out.println(String.format("Now you have %d tasks in this list", array.size()));
     }
 
+    /**
+     * this method adds a todo object to the Task array
+     * @param text this is the description of the todo
+     */
     public void addTodo(String text) {
         ToDos curr = new ToDos(text);
         array.add(curr);
@@ -18,6 +42,11 @@ public class Adam {
         System.out.println(String.format("Now you have %d tasks in this list", array.size()));
     }
 
+    /**
+     * This method is used to add a Deadline object to the Task array
+     * @param text this param is used to describe the deadline task
+     * @param by this param gives information on when the task is due
+     */
     public void addDeadline(String text, String by) {
         Deadlines curr = new Deadlines(text, by);
         array.add(curr);
@@ -26,6 +55,12 @@ public class Adam {
         System.out.println(String.format("Now you have %d tasks in this list", array.size()));
     }
 
+    /**
+     * This method adds an Event object to the Task array
+     * @param text This param describes the event task
+     * @param from This param gives information on when the event starts
+     * @param to this param gives information on when the event ends
+     */
     public void addEvent(String text, String from, String to) {
         Events curr = new Events(text, from, to);
         array.add(curr);
@@ -34,162 +69,171 @@ public class Adam {
         System.out.println(String.format("Now you have %d tasks in this list", array.size()));
     }
 
-    public void list(){
+    /**
+     * This method is used to display all the Task available inside the Task array
+     */
+    public void list() {
         System.out.println("Here are the task in your lists:");
         int count = 1;
-        for(Task item: array){
+        for (Task item: array) {
             System.out.println(count + ". " + item.toString());
             count++;
         }
     }
 
-    public void start(){
+    /**
+     * This method is used to throw exceptions caused by incorrect input and also call the add Tasks methods
+     * like addTodo addEvent addDedaline according to their designated inputs
+     * @param tokens This param is an Array of Strings that contains words in each index and are seperated
+     *               based of empty spaces
+     * @param item This param holds the description of the Tasks
+     * @param input This param specifies the specific kinds of Task it wants to add
+     */
+    public void taskCall(String[]tokens, String item, String input) {
+        if (tokens.length == 1) {
+            throw new NoDescriptionException();
+        }
+        switch (input) {
+            case "todo":
+                addTodo(item);
+                break;
+            case "deadline":
+                String[] by = item.split(" /by ");
+                if (by.length != 2) {
+                    throw new DeadlineException();
+                }
+                addDeadline(by[0], by[1]);
+                break;
+            case "event":
+                String[] divide1 = item.split(" /from ");
+                if (divide1.length != 2) {
+                    throw new EventsException();
+                }
+                String text = divide1[0];
+                String[] divide2 = divide1[1].split(" /to ");
+                if (divide2.length != 2) {
+                    throw new EventsException();
+                }
+                String from = divide2[0];
+                String to = divide2[1];
+                addEvent(text, from, to);
+                break;
+            default:
+                System.out.println("Wrong input");
+        }
+    }
+
+    /**
+     * This method is used to throw exceptions when the wrong input is used and call the correct editing method
+     * according to its text param such as mark unmark and delete
+     * @param tokens This param is an Array of Strings that contains words in each index and are seperated
+     *               based of empty spaces
+     * @param text This param specifies the specific kinds of editing methods it wants to use
+     */
+    public void edit(String[] tokens, String text) {
+        if (tokens.length != 2) {
+            throw new NumberException();
+        }
+        if (!tokens[1].matches("[0-9]+")) {
+            throw new NumberException();
+        }
+        int number = Integer.valueOf(tokens[1]);
+        if (number > array.size()) {
+            throw new OutOfBoundsException();
+        }
+        Task curr = array.get(number - 1);
+        switch (text) {
+            case "mark":
+                curr.markAsDone();
+                break;
+            case "unmark":
+                curr.unmarkAsDone();
+                break;
+            case "delete":
+                deleteTask(number);
+                break;
+            default:
+                System.out.println("Wrong input");
+        }
+    }
+
+    /**
+     * This method is used to throw exceptions and call the correct single word methods such as bye and list
+     * according to its input param
+     * @param tokens This param is an Array of Strings that contains words in each index and are seperated
+     *               based of empty spaces
+     * @param input This param specifies wheteher it wants to call the bye or list method
+     */
+    public void single(String[] tokens, String input) {
+        if (tokens.length > 1) {
+            throw new OneWordException();
+        }
+        switch (input) {
+            case "bye":
+                bye();
+                break;
+            case "list":
+                list();
+                break;
+            default:
+                System.out.println("Wrong input");
+        }
+
+    }
+
+    /**
+     * This method receives the user input and checks if they are the same as the predetermined command words
+     * and calls the appropriate method according to what type of command it is. This method also catches all the
+     * exception specific to the Adam chatbot and prints out the approriate responds and instructions. This method also
+     * starts the chabot
+     */
+    public void start() {
         System.out.println("Hello! I am Adam\n" + "What can I do for you?");
             while (running) {
                 String li = scaner.nextLine();
                 String[] tokens = li.split(" ");
-                //check if its divided by a space or not
-                    // check if its marked
-                    switch(tokens[0]) {
+                int length = tokens[0].length();
+                String item = li.substring(length, li.length());
+                try {
+                    switch (tokens[0]) {
                         case "bye":
-                            try {
-                                if(tokens.length>1){
-                                    throw new AdamException();
-                                }
-                                bye();
-                            } catch (AdamException e){
-                                System.out.println("OOPS!!! To End this session please type bye");
-                            }
-                            break;
                         case "list":
-                            try {
-                                if(tokens.length>1){
-                                    throw new AdamException();
-                                }
-                                list();
-                            }catch (AdamException e){
-                                System.out.println("OOPS!!! To see the current list of Tasks type list");
-                            }
+                            single(tokens, tokens[0]);
                             break;
                         case "todo":
-                            try {
-                                if(tokens.length == 1){
-                                    throw new AdamException();
-                                }
-                                int length = tokens[0].length();
-                                String item = li.substring(length+1, li.length());
-                                addTodo(item);
-                            } catch (AdamException e) {
-                                System.out.println("OOPS!!! The description of a todo cannot be empty.");
-                            }
-                            break;
                         case "deadline":
-                            try {
-                                if(tokens.length == 1){
-                                    throw new AdamException();
-                                }
-                                int length1 = tokens[0].length();
-                                String item1 = li.substring(length1 + 1, li.length());
-                                String[] by = item1.split(" /by ");
-                                try {
-                                    if (by.length == 2) {
-                                        addDeadline(by[0], by[1]);
-                                    } else{
-                                        throw new AdamException();
-                                    }
-                                } catch (AdamException e){
-                                    System.out.println("You need to add only one /by in the input before you enter");
-                                }
-                            } catch (AdamException e) {
-                                System.out.println("OOPS!!! The description of deadline cannot be empty");
-                            }
-                            break;
                         case "event":
-                            try {
-                                if(tokens.length == 1){
-                                    throw new AdamException();
-                                }
-                                int length2 = tokens[0].length();
-                                String item2 = li.substring(length2 + 1, li.length());
-                                String[] divide1 = item2.split(" /from ");
-                                if (divide1.length == 2) {
-                                    String text = divide1[0];
-                                    String[] divide2 = divide1[1].split(" /to ");
-                                    if (divide2.length == 2) {
-                                        String from = divide2[0];
-                                        String to = divide2[1];
-                                        addEvent(text, from, to);
-                                    } else{
-                                        try{
-                                            throw new AdamException();
-                                        } catch (AdamException e) {
-                                            System.out.println("There are too many /to");
-                                        }
-                                    }
-                                } else {
-                                    try{
-                                        throw new AdamException();
-                                    } catch (AdamException e){
-                                        System.out.println("There are too many /from");
-                                    }
-                                }
-                            } catch(AdamException e){
-                                System.out.println("OOPS!!! The description of event cannot be empty");
-                            }
+                            taskCall(tokens, item, tokens[0]);
                             break;
                         case "mark":
-                            try {
-                                if (tokens.length == 2) {
-                                    if (tokens[1].matches("[0-9]+")) {
-                                        int number = Integer.valueOf(tokens[1]);
-                                        if (number <= array.size()) {
-                                            Task curr = array.get(number - 1);
-                                            curr.markAsDone();
-                                        } else {
-                                            System.out.println("This task does not exist");
-                                        }
-                                    } else {
-                                        throw new AdamException();
-                                    }
-                                } else {
-                                    throw new AdamException();
-                                }
-                            } catch (AdamException e) {
-                                System.out.println("Mark is only supposed to be accompanied by " +
-                                        "one other multi digit number");
-                            }
-                            break;
-                        case "unmark" :
-                            try {
-                                if (tokens.length == 2) {
-                                    if (tokens[1].matches("[0-9]+")) {
-                                        int number = Integer.valueOf(tokens[1]);
-                                        if (number <= array.size()) {
-                                            Task curr = array.get(number - 1);
-                                            curr.unmarkAsDone();
-                                        } else {
-                                            System.out.println("This task does not exist");
-                                        }
-                                    } else {
-                                        throw new AdamException();
-                                    }
-                                }  else {
-                                    throw new AdamException();
-                                }
-                            } catch (AdamException e) {
-                                System.out.println("Unmark is only supposed to be accompanied by " +
-                                        "one other multi digit number");
-                            }
+                        case "unmark":
+                        case "delete":
+                            edit(tokens, tokens[0]);
                             break;
                         default:
-                            try {
                                 throw new AdamException();
-                            } catch (AdamException e){
-                                System.out.println("OOPS!!! I don't know what this means");
-                            }
                     }
+                } catch (OutOfBoundsException e) {
+                    System.out.println("OOPS!!! The number you put in is more than the current item in your list");
+                } catch (NumberException e) {
+                    System.out.println("OOPS!!! You need to follow this command by a number");
+                } catch (EventsException e) {
+                    System.out.println("OOPS!!! You need to add one /from and one /to command");
+                } catch (DeadlineException e) {
+                    System.out.println("OOPS!!! You need to add one /by command to indicate by when deadline is");
+                } catch (NoDescriptionException e) {
+                    System.out.println("OOPS!!! You need to add a description to these tasks");
+                } catch (OneWordException e) {
+                    System.out.println("OOPS!!! Type in the first word you just entered");
+                } catch (AdamException e) {
+                    System.out.println("OOPS!!! I don't know what this means");
+                }
             }
     }
+
+    /**
+     * This method stops the chatbot and ending the whole program
+     */
     public void bye() {
         running = false;
         System.out.println("Bye. Hope to see you again soon!");

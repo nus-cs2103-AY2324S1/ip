@@ -1,3 +1,6 @@
+/**
+ * This Exception is a subclass of a RunTimeException and is used when an unidentified user input was entered
+ */
 public class AdamException extends RuntimeException{
     public AdamException(){}
     public AdamException(String message){

@@ -1,30 +1,43 @@
 Hello! I am Adam
 What can I do for you?
 Got it i have added this todo to the list:
-[T][ ] test
+[T][ ]  test
 Now you have 1 tasks in this list
 Here are the task in your lists:
-1. [T][ ] test
+1. [T][ ]  test
 You have completed this task
-[T][X] test
+[T][X]  test
 Got it i have added this todo to the list:
-[E][ ] project (from: 1am to: 1pm)
+[E][ ]  project (from: 1am to: 1pm)
 Now you have 2 tasks in this list
 Got it i have added this todo to the list:
-[D][ ] homework (by: 2 pm)
+[D][ ]  homework (by: 2 pm)
 Now you have 3 tasks in this list
 Here are the task in your lists:
-1. [T][X] test
-2. [E][ ] project (from: 1am to: 1pm)
-3. [D][ ] homework (by: 2 pm)
+1. [T][X]  test
+2. [E][ ]  project (from: 1am to: 1pm)
+3. [D][ ]  homework (by: 2 pm)
 You have unmarked this task as undone
-[T][ ] test
+[T][ ]  test
 You have completed this task
-[E][X] project (from: 1am to: 1pm)
+[E][X]  project (from: 1am to: 1pm)
 You have completed this task
-[D][X] homework (by: 2 pm)
+[D][X]  homework (by: 2 pm)
 Here are the task in your lists:
-1. [T][ ] test
-2. [E][X] project (from: 1am to: 1pm)
-3. [D][X] homework (by: 2 pm)
+1. [T][ ]  test
+2. [E][X]  project (from: 1am to: 1pm)
+3. [D][X]  homework (by: 2 pm)
+I have removed the Task:
+[D][X]  homework (by: 2 pm)
+Now you have 2 tasks in this list
+Here are the task in your lists:
+1. [T][ ]  test
+2. [E][X]  project (from: 1am to: 1pm)
+OOPS!!! I don't know what this means
+OOPS!!! Type in the first word you just entered
+OOPS!!! You need to add a description to these tasks
+OOPS!!! You need to add one /by command to indicate by when deadline is
+OOPS!!! You need to add one /from and one /to command
+OOPS!!! You need to follow this command by a number
+OOPS!!! The number you put in is more than the current item in your list
 Bye. Hope to see you again soon!
