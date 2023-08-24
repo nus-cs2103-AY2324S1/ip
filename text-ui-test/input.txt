@@ -1,0 +1,10 @@
+todo buy groceries
+deadline do homework /by Monday
+event birthday party /from Saturday 2pm /to 5pm
+deadline make CCA poster /by Aug 30th
+mark 4
+list
+todo buy hand soap
+unmark 4
+list
+bye
