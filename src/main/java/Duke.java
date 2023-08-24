@@ -34,9 +34,9 @@ public class Duke {
 
                 } else if (userInput.startsWith("mark")) {
                     //mark task done
-                    String[] splitInputs = userInput.split(" ");
-                    if (splitInputs.length == 2) {
-                        int taskIndex = Integer.parseInt(splitInputs[1]) - 1;
+                    String[] splitInput = userInput.split(" ");
+                    if (splitInput.length == 2) {
+                        int taskIndex = Integer.parseInt(splitInput[1]) - 1;
                         if (taskIndex >= 0 && taskIndex < toDoList.size()) {
                             toDoList.get(taskIndex).markDone();
                             System.out.println("Nice! I've marked this task as done:\n" + toDoList.get(taskIndex));
@@ -49,9 +49,9 @@ public class Duke {
 
                 } else if (userInput.startsWith("unmark")) {
                     //unmark task
-                    String[] splitInputs = userInput.split(" ");
-                    if (splitInputs.length == 2) {
-                        int taskIndex = Integer.parseInt(splitInputs[1]) - 1;
+                    String[] splitInput = userInput.split(" ");
+                    if (splitInput.length == 2) {
+                        int taskIndex = Integer.parseInt(splitInput[1]) - 1;
                         if (taskIndex >= 0 && taskIndex < toDoList.size()) {
                             toDoList.get(taskIndex).markNotDone();
                             System.out.println("OK, I've marked this task as not done yet:\n" + toDoList.get(taskIndex));
@@ -99,7 +99,7 @@ public class Duke {
                         if (splitInput.length == 2) {
                             String description = splitInput[0];
                             String[] eventDetails = splitInput[1].split("/to");
-                            if (eventDetails.length == 2 ) {
+                            if (eventDetails.length == 2) {
                                 String from = eventDetails[0].trim();
                                 String to = eventDetails[1].trim();
                                 Task newTask = new Event(description, from, to);
@@ -107,6 +107,21 @@ public class Duke {
                                 System.out.println("Got it. I've added this task:\n " + newTask);
                                 System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
                             }
+                        }
+                    }
+                } else if (userInput.startsWith("delete")) {
+                    //delete task
+                    if (userInput.length() <= 7) {
+                        throw new DukeEception("Please specify what to delete");
+                    } else {
+                        String[] splitInput = userInput.split(" ");
+                        int taskIndex = Integer.parseInt(splitInput[1]) - 1;
+                        if (taskIndex >= 0 && taskIndex < toDoList.size()) {
+                            Task removedTask = toDoList.remove(taskIndex);
+                            System.out.println("Noted. I've removed this task: \n" + removedTask);
+                            System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+                        } else {
+                            throw new DukeEception("invalid task number");
                         }
                     }
 
