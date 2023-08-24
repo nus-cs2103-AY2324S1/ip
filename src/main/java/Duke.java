@@ -6,6 +6,14 @@ public class Duke {
     private static final String name = "Kevin";
     private static final int splitterLength = 50;
 
+    private enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
+
+    private TaskType getTaskType(String input) {
+        return TaskType.valueOf(input.toUpperCase());
+    }
+
     private static void lineSplitter() {
         for (int i = 0; i < Duke.splitterLength; i++) {
             System.out.print("-");
@@ -27,22 +35,24 @@ public class Duke {
     private static Task addTask(String input) throws CommandNotRecognizedException, NoCommandDetailException {
         String[] splittedInput = input.split(" ", 2); // Split into two parts: command and argument
         String command = splittedInput[0].toLowerCase();
+        TaskType taskType = TaskType.valueOf(command.toUpperCase());
 
-        switch (command) {
-            case "todo":
+
+        switch (taskType) {
+            case TODO:
                 try {
                     return new ToDo(splittedInput[1]);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new NoCommandDetailException("OOPS!!! The description of a todo cannot be empty.");
                 }
-            case "deadline":
+            case DEADLINE:
                 try {
                     String[] deadlineParts = splitByDelimiter(splittedInput[1], " /by ");
                     return new Deadline(deadlineParts[0], deadlineParts[1]);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new NoCommandDetailException("OOPS!!! The description of a deadline cannot be empty.");
                 }
-            case "event":
+            case EVENT:
                 try {
                     String[] eventParts = splitByDelimiter(splittedInput[1], " /from ");
                     String eventName = eventParts[0];
