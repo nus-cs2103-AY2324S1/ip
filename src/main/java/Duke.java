@@ -24,7 +24,7 @@ public class Duke {
 
                 System.out.println(space);
 
-                //iterate through list to print items
+                //iterate through ArrayList to print items
                 for (int i = 0; i < toDoList.size(); i++) {
                     int currentNumber = i + 1;
                     System.out.println(currentNumber + ". " + toDoList.get(i).toString());
@@ -73,7 +73,6 @@ public class Duke {
                     Deadline task = new Deadline(taskName, dueDate);
                     toDoList.add(counter, task);
                     counter++;
-
                     System.out.println(space);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + task.toString());
@@ -101,7 +100,6 @@ public class Duke {
                     Event task = new Event(taskName, startDate, dueDate);
                     toDoList.add(counter, task);
                     counter++;
-
                     System.out.println(space);
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + task.toString());
