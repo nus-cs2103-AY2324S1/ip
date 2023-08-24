@@ -2,13 +2,13 @@ import java.util.Scanner;
 
 public class Thorndike {
     Scanner scanner;
-    String[] list;
+    Task[] list;
     int index;
     Boolean running;
 
     public Thorndike() {
         this.scanner = new Scanner(System.in);
-        this.list = new String[100];
+        this.list = new Task[100];
         this.index = 0;
         this.running = true;
     }
@@ -28,21 +28,62 @@ public class Thorndike {
      */
     private void listen() {
         System.out.print(">> ");
-        String command = scanner.nextLine();
+        String input = scanner.nextLine();
+        String command = input.split(" ")[0];
 
-        switch (command) {
-            case "list":
-                for (int i = 1; i < this.index + 1; i++) {
-                    echo(String.format("%d. %s", i, this.list[i - 1]));
+        if (input.equals("list")) {
+            list();
+        } else if (input.equals("bye")) {
+            exit();
+        } else if (isMarkCommand(input)) {
+            int idx = Integer.parseInt(input.split(" ")[1]);
+            if (command.equals("mark")) {
+                echo("Meow! I've marked this task as done:");
+                list[idx - 1].setDone();
+            } else {
+                echo("Meow, I've marked this task as not done yet:");
+                list[idx - 1].setNotDone();
+            }
+            echo(list[idx - 1].toString());
+        } else {
+            this.list[index] = new Task(input);
+            this.index++;
+            echo(String.format("added: %s", input));
+        }
+
+    }
+
+    /**
+     * Determines if the input is a valid mark/unmark command
+     * 
+     * @param input Input.
+     * @return true if valid, false is invalid.
+     * 
+     */
+    private boolean isMarkCommand(String input) {
+        String[] parts = input.split(" ");
+        String command = parts[0];
+        if (command.equals("mark") || command.equals("unmark")) {
+            try {
+                int number = Integer.parseInt(parts[1]);
+                if (parts.length == 2 && number > 0 && number <= index) {
+                    return true;
                 }
-                break;
-            case "bye":
-                exit();
-                break;
-            default:
-                this.list[index] = command;
-                this.index++;
-                echo(String.format("added: %s", command));
+            } catch (NumberFormatException e) {
+
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Lists all items in the list.
+     * 
+     */
+    private void list() {
+        for (int i = 1; i < this.index + 1; i++) {
+            Task task = this.list[i - 1];
+            echo(String.format("%d. %s", i, task.toString()));
         }
     }
 
