@@ -15,6 +15,6 @@ public class Event extends Task{
 
     @Override
     public String getTimeInfo() {
-        return "(from: " + this.start + "to: " + this.end + ")";
+        return "(from: " + this.start + " to: " + this.end + ")";
     }
 }
