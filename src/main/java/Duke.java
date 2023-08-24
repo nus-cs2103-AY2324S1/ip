@@ -33,12 +33,18 @@ public class Duke {
         System.out.println(bye);
     }
 
+    private void added(Task t) {
+        System.out.println("Got it. I've added this task:");
+        System.out.println(t.toString());
+        System.out.println("Now I have " + l.size() + " tasks in the list");
+    }
+
     private void respond(String s) {
         if (s.equals("list")) {
             System.out.println("Here are the tasks in your list:");
             int count = 1;
             for(Task ss : this.l) {
-                String res = String.format("%d. [%s] %s", count++, ss.getStatusIcon(), ss.toString());
+                String res = String.format("%d.%s", count++, ss.toString());
                 System.out.println(res);
             }
         } else if (s.equals("bye")) {
@@ -49,6 +55,23 @@ public class Duke {
         } else if (s.substring(0,6).equals("unmark")) {
             int idx = Integer.parseInt(s.substring(7));
             this.l.get(idx-1).unmark();
+        } else if (s.substring(0,8).equals("deadline")) {
+            String t = s.substring(9);
+            String[] temp = t.split("/by");
+            Deadline d = new Deadline(temp[0], temp[1].trim());
+            this.l.add(d);
+            added(d);
+        } else if (s.substring(0, 4).equals("todo")) {
+            String t = s.substring(5);
+            Todo temp = new Todo(t);
+            this.l.add(temp);
+            added(temp);
+        } else if (s.substring(0,5).equals("event")) {
+            String t = s.substring(6);
+            String[] temp = t.split("/");
+            Events e = new Events(temp[0], temp[1].substring(4).trim(), temp[2].substring(2).trim());
+            this.l.add(e);
+            added(e);
         }
         else {
             this.l.add(new Task(s));
