@@ -237,18 +237,6 @@ public class Duchess {
     }
 
     /**
-     * Adds a new ToDo task with the specified title.
-     *
-     * @param s - the title of the ToDo.
-     */
-    private static void addToDoTask(ToDo todo) {
-        Duchess.storedTasks.add(todo);
-
-        Duchess.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
-        Duchess.duchessPrint(String.format("%d: %s", Duchess.storedTasks.indexOf(todo) + 1, todo.toString()));
-    }
-
-    /**
      * Returns true if the command is recognized as an "deadline" command.
      *
      * @param s - the command to check for "deadline" command.
@@ -268,18 +256,6 @@ public class Duchess {
         Matcher m = Duchess.parseRegex(s, "^deadline ([A-Za-z0-9 ]+) /by ([A-Za-z0-9 ]+)$");
 
         return new Deadline(m.group(1), m.group(2));
-    }
-
-    /**
-     * Adds a new ToDo task with the specified title.
-     *
-     * @param s - the title of the ToDo.
-     */
-    private static void addDeadlineTask(Deadline deadline) {
-        Duchess.storedTasks.add(deadline);
-
-        Duchess.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
-        Duchess.duchessPrint(String.format("%d: %s", Duchess.storedTasks.indexOf(deadline) + 1, deadline.toString()));
     }
 
     /**
@@ -309,11 +285,13 @@ public class Duchess {
      *
      * @param event - the Event object to be added
      */
-    private static void addEventTask(Event event) {
-        Duchess.storedTasks.add(event);
+    private static void addTask(Task task) {
+        Duchess.storedTasks.add(task);
 
         Duchess.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
-        Duchess.duchessPrint(String.format("%d: %s", Duchess.storedTasks.indexOf(event) + 1, event.toString()));
+        Duchess.duchessPrint(String.format("%d: %s", Duchess.storedTasks.indexOf(task) + 1, task.toString()));
+        Duchess.duchessPrint("");
+        Duchess.duchessPrint(String.format("Now you have %d task(s)!! ヽ(´▽`)/", Duchess.storedTasks.size()));
     }
 
 
@@ -325,7 +303,9 @@ public class Duchess {
         String userInput = "";
 
         while (!Duchess.isExitCommand(userInput)) {
+            System.out.println();
             userInput = sc.nextLine();
+            System.out.println();
 
             // Check if this command is an exit.
             if (Duchess.isExitCommand(userInput)) {
@@ -357,21 +337,21 @@ public class Duchess {
             // Check if this command is a ToDo command.
             if (Duchess.isToDoCommand(userInput)) {
                 ToDo todo = Duchess.parseToDoCommand(userInput);
-                Duchess.addToDoTask(todo);
+                Duchess.addTask(todo);
                 continue;
             }
 
             // Check if this command is a Deadline command.
             if (Duchess.isDeadlineCommand(userInput)) {
                 Deadline deadline = Duchess.parseDeadlineCommand(userInput);
-                Duchess.addDeadlineTask(deadline);
+                Duchess.addTask(deadline);
                 continue;
             }
 
             // Check if this command is a Event command.
             if (Duchess.isEventCommand(userInput)) {
                 Event event = Duchess.parseEventCommand(userInput);
-                Duchess.addEventTask(event);
+                Duchess.addTask(event);
                 continue;
             }
         }
