@@ -1,4 +1,7 @@
 package extensions;
+/**
+ * Represents a task with starting and ending dates/times.
+ */
 public class Event extends Task {
     String from;
     String to;

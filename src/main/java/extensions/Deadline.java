@@ -1,4 +1,7 @@
 package extensions;
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
     String day;
     public Deadline(String description, String day) {

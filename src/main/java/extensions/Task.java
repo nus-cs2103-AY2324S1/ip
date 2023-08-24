@@ -1,4 +1,7 @@
 package extensions;
+/**
+ * Represents a task input by the user.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;

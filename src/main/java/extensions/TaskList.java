@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TaskList object which handles task modifications and invalid user inputs for
- * modifying tasks.
+ * TaskList handles task modifications and invalid user inputs for
+ * modifying tasks, and is a key component of the Ekud chatbot.
  */
 public class TaskList {
     // Same Horizontal Line as Ekud so TaskList can print outputs in a similar UI style
