@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 public class Duke {
     private static final String INDENT = "    ";
     private static final List<Task> tasks = new ArrayList<>();;
@@ -16,9 +17,7 @@ public class Duke {
         printHorizontalLine();
     }
     public static void printHorizontalLine() {
-        for (int i = 0; i < 4; i++) {
-            System.out.print(" ");
-        }
+        System.out.print(INDENT);
         for (int i = 0; i < 60; i++) {
             System.out.print("-");
         }
@@ -58,49 +57,52 @@ public class Duke {
             if ("bye".equalsIgnoreCase(input)) {
                 printExit();
                 break;
-            } else if ("list".equalsIgnoreCase(input)) {
-                printList();
-            } else if (input.startsWith("todo ")) {
-                tasks.add(new ToDo(input.substring(5)));
-                printTaskAdded(tasks.get(tasks.size() - 1));
-            } else if (input.startsWith("deadline ")) {
-                String[] parts = input.substring(9).split(" /by ");
-                tasks.add(new Deadline(parts[0], parts[1]));
-                printTaskAdded(tasks.get(tasks.size() - 1));
-            } else if (input.startsWith("event ")) {
-                String[] parts = input.substring(6).split(" /from ");
-                String[] timeParts = parts[1].split(" /to ");
-                tasks.add(new Event(parts[0], timeParts[0], timeParts[1]));
-                printTaskAdded(tasks.get(tasks.size() - 1));
-            } else if (input.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(input.split(" ")[1]);
-                tasks.get(taskNumber - 1).markAsDone();
-                printHorizontalLine();
-                printIndented("Nice! I've marked this task as done:");
-                printIndented("  " + tasks.get(taskNumber - 1));
-                printHorizontalLine();
-            } else if (input.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(input.split(" ")[1]);
-                tasks.get(taskNumber - 1).unmark();
-                printHorizontalLine();
-                printIndented("OK, I've marked this task as not done yet:");
-                printIndented("  " + tasks.get(taskNumber - 1));
-                printHorizontalLine();
-            } else {
-                tasks.add(new Task(input));
-                printTaskAdded(tasks.get(tasks.size() - 1));
             }
+
+            printHorizontalLine();
+            try {
+                if ("list".equalsIgnoreCase(input)) {
+                    printList();
+                } else if (input.startsWith("todo")) {
+                    if (input.trim().equals("todo")) {
+                        throw new DukeException("☹ OOPS!! The description of a todo cannot be empty.");
+                    }
+                    tasks.add(new ToDo(input.substring(5)));
+                    printTaskAdded(tasks.get(tasks.size() - 1));
+                } else if (input.startsWith("deadline")) {
+                    String[] parts = input.substring(9).split(" /by ");
+                    if (parts.length < 2) throw new DukeException("☹ OOPS!!! Deadline format is incorrect.");
+                    tasks.add(new Deadline(parts[0], parts[1]));
+                    printTaskAdded(tasks.get(tasks.size() - 1));
+                } else if (input.startsWith("event")) {
+                    String[] parts = input.substring(6).split(" /from ");
+                    String[] timeParts = parts[1].split(" /to ");
+                    if (parts.length < 2 || timeParts.length < 2) throw new DukeException("Event format is incorrect.");
+                    tasks.add(new Event(parts[0], timeParts[0], timeParts[1]));
+                    printTaskAdded(tasks.get(tasks.size() - 1));
+                } else if (input.startsWith("mark")) {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                    tasks.get(taskNumber - 1).markAsDone();
+                    printIndented("Nice! I've marked this task as done:");
+                    printIndented("  " + tasks.get(taskNumber - 1));
+                } else if (input.startsWith("unmark")) {
+                    int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                    tasks.get(taskNumber - 1).unmark();
+                    printIndented("OK, I've marked this task as not done yet:");
+                    printIndented("  " + tasks.get(taskNumber - 1));
+                } else {
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException e) {
+                printIndented(e.getMessage());
+            }
+            printHorizontalLine();
         }
 
         scanner.close();
     }
+
     public static void main(String[] args) {
-//        String logo = " ____        _        \n"
-//                + "|  _ \\ _   _| | _____ \n"
-//                + "| | | | | | | |/ / _ \\\n"
-//                + "| |_| | |_| |   <  __/\n"
-//                + "|____/ \\__,_|_|\\_\\___|\n";
-//        System.out.println("Hello from\n" + logo);
         echoMessages();
     }
 }
