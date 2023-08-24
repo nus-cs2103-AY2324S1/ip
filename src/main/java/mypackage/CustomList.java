@@ -15,9 +15,29 @@ public class CustomList extends ArrayList<Task> {
         System.out.println("________________________________");
     }
 
-    public void markAsDone(int index) {
+    public void markAsDone(String command) throws DukeException{
+        try {
+            Integer.valueOf(command.substring(5));
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new DukeException("Mark command must be followed by a space and an integer. ERR: STRING INDEX OUT OF BOUNDS.");
+            } catch (NumberFormatException e) {
+                throw new DukeException("Mark command must be followed by a space and an integer. ERR: NOT AN INTEGER.");
+            } 
+            
+            int index = Integer.valueOf(command.substring(5));
+
+            if (index == 0) {
+                throw new DukeException("Mark command must be followed by a space and an integer. ERR: NO INTEGER.");
+            } 
+            
+        
+        try {
+            this.get(index - 1).markAsDone();
+        } catch (IndexOutOfBoundsException e){
+            throw new DukeException("There is no task at that index.");
+        }
+        
         System.out.println("Nice! I've marked this task as done:");
-        this.get(index - 1).markAsDone();
         System.out.println(" " + this.get(index - 1));
         System.out.println("________________________________");
     }
