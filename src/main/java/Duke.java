@@ -39,6 +39,13 @@ public class Duke {
                 System.out.println("_______________ \n\n"
                         + "I'm not juding at all... \n"
                         + lst.showThisTask(index) + " \n" + "_______________\n");
+            } else if (words[0].equals("delete")) {
+                int index = Integer.parseInt(words[1]);
+                String placeholder = lst.showThisTask(index);
+                lst.deleteIndex(index);
+                System.out.println("_______________ \n\n"
+                        + "Not another mistake I hope... \n"
+                        + placeholder + " \n\n" + "_______________");
             } else {
                 boolean exceptionOccured = false;
                 try {
