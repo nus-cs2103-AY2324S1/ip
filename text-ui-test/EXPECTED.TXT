@@ -1,7 +1,48 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm
+__________
+\______   \ ____   ____
+ |    |  _// __ \_/ __ \
+ |    |   \  ___/\  ___/
+ |______  /\___  >\___  >
+        \/     \/     \/
 
+~Bzzzz~ What may I assist you with today? ~Bzzzz~
+
+Got it. I've added this task: ~Bzzz~
+	[T][ ] borrow books
+Now you have 1 tasks in the list. ~Bzzz~
+Got it. I've added this task: ~Bzzz~
+	[D][ ] return books (by: June 6th)
+Now you have 2 tasks in the list. ~Bzzz~
+Got it. I've added this task: ~Bzzz~
+	[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+Now you have 3 tasks in the list. ~Bzzz~
+Got it. I've added this task: ~Bzzz~
+	[T][ ] join sports club
+Now you have 4 tasks in the list. ~Bzzz~
+Got it. I've added this task: ~Bzzz~
+	[T][ ] borrow book
+Now you have 5 tasks in the list. ~Bzzz~
+Here are the tasks in your list: ~Bzzz~
+1. [T][ ] borrow books
+2. [D][ ] return books (by: June 6th)
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4. [T][ ] join sports club
+5. [T][ ] borrow book
+Nice! I've marked task 1 as done: ~Bzzz~
+[T][X] borrow books
+Here are the tasks in your list: ~Bzzz~
+1. [T][X] borrow books
+2. [D][ ] return books (by: June 6th)
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4. [T][ ] join sports club
+5. [T][ ] borrow book
+Nice! I've marked task 4 as done: ~Bzzz~
+[T][X] join sports club
+Here are the tasks in your list: ~Bzzz~
+1. [T][X] borrow books
+2. [D][ ] return books (by: June 6th)
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4. [T][X] join sports club
+5. [T][ ] borrow book
+By-ee!. Hope to see you soon! ~Bzzz~
