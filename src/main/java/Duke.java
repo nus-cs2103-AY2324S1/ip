@@ -38,7 +38,7 @@ public class Duke {
                     System.out.println(HORIZONTAL_LINE);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
-                    System.out.println("☹ OOPS!!! You have entered an invalid task number.");
+                    System.out.println("You have entered an invalid task number.");
                     System.out.println(HORIZONTAL_LINE);
                 }
             } else if (input.startsWith("unmark")) {
@@ -52,7 +52,7 @@ public class Duke {
                     System.out.println(HORIZONTAL_LINE);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
-                    System.out.println("☹ You have entered an invalid task number.");
+                    System.out.println("You have entered an invalid task number.");
                     System.out.println(HORIZONTAL_LINE);
                 }
             } else if (input.startsWith("deadline")) {
@@ -72,7 +72,7 @@ public class Duke {
                     System.out.println(HORIZONTAL_LINE);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
-                    System.out.println("☹ OOPS!!! Missing information for your Deadline task.");
+                    System.out.println("Oops! Missing information for your Deadline task.");
                     System.out.println("Valid Format: deadline (description) /by (date-time)");
                     System.out.println(HORIZONTAL_LINE);
                 }
@@ -95,7 +95,7 @@ public class Duke {
                     System.out.println(HORIZONTAL_LINE);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
-                    System.out.println("☹ OOPS!!! Missing information for your Event task.");
+                    System.out.println("Oops! Missing information for your Event task.");
                     System.out.println("Valid Format: event (description) /from (date-time) /to (date-time)");
                     System.out.println(HORIZONTAL_LINE);
                 }
@@ -111,7 +111,7 @@ public class Duke {
                     System.out.println(HORIZONTAL_LINE);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("Oops! The description of a todo cannot be empty.");
                     System.out.println("Valid Format: todo (description)");
                     System.out.println(HORIZONTAL_LINE);
                 }
@@ -120,7 +120,7 @@ public class Duke {
                 break;
             } else {
                 System.out.print(HORIZONTAL_LINE);
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("Oops! I'm sorry, but I don't know what that means :-(");
                 System.out.println(HORIZONTAL_LINE);
             }
         }
