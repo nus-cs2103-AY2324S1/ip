@@ -23,7 +23,7 @@ public class Duke {
                     isDone[j] = isDone[j+1];
                 }
                 counter = counter - 1;
-                System.out.println( "Noted. I've removed this task:\n " + action2);
+                System.out.println( "Noted. I've removed this task:\n" + action2);
                 System.out.println("Now you have " + counter + " tasks in the list.");
             } else if (input.startsWith("list")) {
                 System.out.println("Here are the tasks in your list:");
@@ -39,7 +39,7 @@ public class Duke {
                     actions[counter] = action;
                     type[counter] = "T";
                     counter++;
-                    System.out.println("Got it. I've added this task:\n  " + helper(action, "T", false));
+                    System.out.println("Got it. I've added this task:\n" + helper(action, "T", false));
                     System.out.println("Now you have " + counter + " tasks in the list.");
                 }
             } else if (input.startsWith("deadline")) {
@@ -49,7 +49,7 @@ public class Duke {
                 type[counter] = "D";
                 isDone[counter] = false;
                 counter++;
-                System.out.println("Got it. I've added this task: \n  " + helper(action, "D", false) + " (by: " + by + ")");
+                System.out.println("Got it. I've added this task: \n" + helper(action, "D", false) + " (by: " + by + ")");
                 System.out.println("Now you have " + counter + " tasks in the list.");
             } else if (input.startsWith("event")) {
                 String action = input.substring(6, input.indexOf("/from")).trim();
@@ -59,7 +59,7 @@ public class Duke {
                 isDone[counter] = false;
                 type[counter] = "E";
                 counter++;
-                System.out.println("Got it. I've added this task:\n  " + helper(action, "E", false) + " (from: " + from + " to: " + to + ")");
+                System.out.println("Got it. I've added this task:\n" + helper(action, "E", false) + " (from: " + from + " to: " + to + ")");
                 System.out.println("Now you have " + counter + " tasks in the list.");
             } else if (input.startsWith("mark")) {
                 int num = Integer.parseInt(input.substring(5).trim());
