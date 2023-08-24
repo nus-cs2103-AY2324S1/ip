@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Penguin is the main logic of Penguin chatbot; its main responsibility is to parse commands and handle errors.
  */
-public class Penguin { 
+public class Penguin {
     private static final String GREETING = "Honk! I'm Penguin! What can I do for you?";
     private static final String GOODBYE = "Honk! Hope to see you again soon!";
     private static final String MARK = "Honk honk! You did task ";
