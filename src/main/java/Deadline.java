@@ -11,4 +11,21 @@ public class Deadline extends Task{
     public String toString() {
         return "[D]" + super.toString() + "(by: " + by + ")";
     }
+
+    public static void addDeadline(String description,Task[] list, int counter) throws DukeException {
+        String[] deadline = description.stripTrailing().split("/by ", 2);
+        if (deadline[0].isEmpty()) {
+            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
+        if (deadline.length == 1) {
+            throw new DukeException("☹ OOPS!!! Please provide a valid deadline");
+        }
+
+        Deadline newTask = new Deadline(deadline[0], deadline[1]);
+        list[counter] = newTask;
+        System.out.println(line);
+        System.out.println("Got it. I've added the Deadline:\n\t" + newTask.toString());
+        System.out.println("Now you have " + (counter + 1) + " tasks in the list.");
+        System.out.println("___________________________________\n");
+    }
 }

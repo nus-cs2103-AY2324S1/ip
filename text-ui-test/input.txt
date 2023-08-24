@@ -5,4 +5,9 @@ mark 1
 unmark 1
 list
 BLAH BLAH BLAH
+event /from Sunday /to Monday
+event NEW EVENT /from /to
+deadline /by Sunday
+deadline NEW DEADLINE /by
+todo
 bye

@@ -2,6 +2,7 @@ public class Task {
 
     protected String description;
     protected boolean isDone;
+    public static String line = "___________________________________\n";
 
     public Task(String description) {
         this.description = description;
