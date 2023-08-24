@@ -6,9 +6,7 @@ public class Corubi {
         // Setting of final parameters
         final String name = "Corubi";
         final String divider = "---------------------------------------------------";
-        ArrayList<Object[]> enteredText = new ArrayList();
-        final String isDone = "[X] ";
-        final String notDone = "[] ";
+        ArrayList<Task> enteredText = new ArrayList();
 
         // Initiate the bot greeting
         Scanner sc = new Scanner(System.in);
@@ -25,13 +23,7 @@ public class Corubi {
             // If input is "list" command, show the list.
             if (input.equals("list") || input.equals("List")) {
                 for (int i = 0; i < enteredText.size(); i++) {
-
-                    // Check if item is done yet
-                    if ((boolean) enteredText.get(i)[1]) {
-                        System.out.printf("%d. %s %s \n", i + 1, isDone, enteredText.get(i)[0]);
-                    } else {
-                        System.out.printf("%d. %s %s \n", i + 1, notDone, enteredText.get(i)[0]);
-                    }
+                    System.out.printf("%d. %s \n", i + 1, enteredText.get(i).toString());
                 }
                 System.out.println(divider);
                 input = sc.nextLine();
@@ -45,8 +37,7 @@ public class Corubi {
                 for (String num : splitInput) {
                     try {
                         int number = Integer.parseInt(num);
-                        enteredText.get(number - 1)[1] = false;
-                        System.out.println("Damn bro...I've unmarked it... : \n" + notDone + enteredText.get(number - 1)[0]);
+                        enteredText.get(number - 1).unmarkDone();
                         System.out.println(divider);
                         input = sc.nextLine();
                         break; // Stop searching after first number is found
@@ -64,8 +55,7 @@ public class Corubi {
                 for (String num : splitInput) {
                     try {
                         int number = Integer.parseInt(num);
-                        enteredText.get(number - 1)[1] = true;
-                        System.out.println("Oki, I've marked this task as done: \n" + isDone + enteredText.get(number - 1)[0]);
+                        enteredText.get(number - 1).markDone();
                         System.out.println(divider);
                         input = sc.nextLine();
                         break; // Stop searching after first number is found
@@ -74,11 +64,28 @@ public class Corubi {
                     }
                 }
             } else {
-
                 // Add the input to the list
-                System.out.println("added: " + input);
+                if (input.contains("todo ")) {
+                    input = input.split("todo ")[1];
+                    Task newTask = new ToDos(input);
+                    enteredText.add(newTask);
+                    System.out.println("Okay! I have added the following task\n" + newTask.toString());
+                } else if (input.contains("deadline ")) {
+                    input = input.split("deadline ")[1];
+                    String[] splitString = input.split("/by");
+                    Task newTask = new Deadlines(splitString[0], splitString[1]);
+                    enteredText.add(newTask);
+                    System.out.println("Okay! I have added the following task\n" + newTask.toString());
+                } else if (input.contains("event ")) {
+                    input = input.split("event ")[1];
+                    String taskName = input.split("/from")[0];
+                    String to = input.split("/to")[1];
+                    String from = input.split("to ")[0].split("/from ")[1];
+                    Task newTask = new Events(taskName, from, to);
+                    enteredText.add(newTask);
+                    System.out.println("Okay! I have added the following task\n" + newTask.toString());
+                }
                 System.out.println(divider);
-                enteredText.add(new Object[]{input, false});
                 input = sc.nextLine();
             }
         }
