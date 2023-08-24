@@ -25,10 +25,42 @@ public class Duke {
         showSeparationLine();
     }
 
-    public static void addTask(String text) {
-        list.add(new Task(text));
-        System.out.println(INDENTATION + "added: " + text);
+    public static void identifyTaskType(String type, String description) {
+        Task task = null;
+        switch (type) {
+        case "todo":
+            task = createToDoTask(description);
+            break;
+
+        case "deadline":
+            task = createDeadlineTask(description);
+            break;
+
+        case "event":
+            task = createEventTask(description);
+            break;
+        }
+
+        list.add(task);
+
+        System.out.println(INDENTATION + "Got it, I've added this task: \n" + INDENTATION + task.toString());
+        System.out.printf(INDENTATION + "Now you have %d tasks in the list\n", list.size());
         showSeparationLine();
+    }
+
+    public static Task createToDoTask(String description) {
+        return new ToDo(description);
+    }
+
+    public static Task createDeadlineTask(String description) {
+        String[] splitStrings = description.split(" /by ", 2);
+        return new Deadline(splitStrings[0], splitStrings[1]);
+    }
+
+    public static Task createEventTask(String description) {
+        String[] splitStrings = description.split(" /from ", 2);
+        String[] eventLength = splitStrings[1].split(" /to ", 2);
+        return new Event(splitStrings[0], eventLength[0], eventLength[1]);
     }
 
     public static void showLists() {
@@ -68,6 +100,12 @@ public class Duke {
         String[] actions = text.split(" ", 2);
 
         switch (actions[0]) {
+        case "todo":
+        case "deadline":
+        case "event":
+            identifyTaskType(actions[0], actions[1]);
+            break;
+
         case "mark":
             markTaskDone(actions[1]);
             break;
@@ -85,7 +123,7 @@ public class Duke {
             break;
 
         default:
-            addTask(text);
+            //addTask(text);
             break;
         }
     }
