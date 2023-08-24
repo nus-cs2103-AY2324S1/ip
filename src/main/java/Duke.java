@@ -20,6 +20,25 @@ public class Duke {
 	}
 
 	/**
+	 * Checks if the argument is numeric or not. Leading and trailing whitespace characters in str are ignored. Empty
+	 * or null str return false.
+	 *
+	 * @param str - the string to be checked
+	 * @return true if the argument is numeric and can be parsed as a number. Returns false otherwise.
+	 */
+	public static boolean isNumeric(String str) {
+		if (str == null) {
+			return false;
+		}
+		try {
+			Double.parseDouble(str);
+			return true;
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
+	}
+
+	/**
 	 * @param taskList
 	 */
 	static void queryBot(TaskList taskList) {
@@ -70,6 +89,68 @@ public class Duke {
 	 * @param query
 	 * @throws DukeException
 	 */
+	static void mark(TaskList taskList, String query) throws DukeException {
+		if (query.split(" ").length == 1) {
+			throw new DukeException("☹ OOPS!!! You are missing a number\n" +
+							"Please enter a valid mark query - mark 1");
+		}
+		if (query.split(" ").length > 2) {
+			throw new DukeException("☹ OOPS!!! You have too many numbers\n" +
+							"Please enter a valid mark query - mark 1");
+		}
+		String[] splitted = query.split(" ", 2);
+		if (!isNumeric(splitted[1])) {
+			throw new DukeException("☹ OOPS!!! You entered a non-numeric item!\n" +
+							"Please enter a valid mark query - mark 1");
+		}
+		int index = Integer.parseInt(splitted[1]) - 1;
+		if (index >= taskList.length() || index < 0) {
+			throw new DukeException("No such task exists! Please enter a valid number within following list!\n" +
+							"Please use the command list to see the list of tasks\n" +
+							"and then mark the following task that you would like");
+		} else {
+			Task currTask = taskList.get(index);
+			currTask.mark();
+			System.out.println(currTask);
+		}
+	}
+
+	/**
+	 * @param taskList
+	 * @param query
+	 * @throws DukeException
+	 */
+	static void unmark(TaskList taskList, String query) throws DukeException {
+		if (query.split(" ").length == 1) {
+			throw new DukeException("☹ OOPS!!! You are missing a number\n" +
+							"Please enter a valid unmark query - unmark 1");
+		}
+		if (query.split(" ").length > 2) {
+			throw new DukeException("☹ OOPS!!! You have too many numbers\n" +
+							"Please enter a valid unmark query - unmark 1");
+		}
+		String[] splitted = query.split(" ", 2);
+		if (!isNumeric(splitted[1])) {
+			throw new DukeException("☹ OOPS!!! You entered a non-numeric item!\n" +
+							"Please enter a valid mark query - mark 1");
+		}
+		int index = Integer.parseInt(splitted[1]) - 1;
+		if (index >= taskList.length()) {
+			throw new DukeException("No such task exists! Please enter a valid number within following list!\n" +
+							"Please use the command list to see the list of tasks\n" +
+							"and then unmark the following task that you would like");
+		} else {
+			Task currTask = taskList.get(index);
+			currTask.unmark();
+			System.out.println(currTask);
+		}
+	}
+
+	/**
+	 * @param taskList
+	 * @param query
+	 * @throws DukeException
+	 */
 	static void todo(TaskList taskList, String query) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n" +
@@ -112,6 +193,7 @@ public class Duke {
 	/**
 	 * @param taskList
 	 * @param query
+	 * @throws DukeException
 	 */
 	static void event(TaskList taskList, String query) throws DukeException {
 		if (query.split(" ").length == 1) {
@@ -151,58 +233,6 @@ public class Duke {
 		}
 		Task newTask = new Event(taskName, from, to);
 		taskList.addToList(newTask);
-	}
-
-	/**
-	 * @param taskList
-	 * @param query
-	 */
-	static void mark(TaskList taskList, String query) throws DukeException {
-		if (query.split(" ").length == 1) {
-			throw new DukeException("☹ OOPS!!! You are missing a number\n" +
-							"Please enter a valid mark query - mark 1");
-		}
-		if (query.split(" ").length > 2) {
-			throw new DukeException("☹ OOPS!!! You have too many numbers\n" +
-							"Please enter a valid mark query - mark 1");
-		}
-		String[] splitted = query.split(" ", 2);
-		int index = Integer.parseInt(splitted[1]) - 1;
-		if (index >= taskList.length() || index < 0) {
-			throw new DukeException("No such task exists! Please enter a valid number within following list!\n" +
-							"Please use the command list to see the list of tasks\n" +
-							"and then mark the following task that you would like");
-		} else {
-			Task currTask = taskList.get(index);
-			currTask.mark();
-			System.out.println(currTask);
-		}
-	}
-
-	/**
-	 * @param taskList
-	 * @param query
-	 */
-	static void unmark(TaskList taskList, String query) throws DukeException {
-		if (query.split(" ").length == 1) {
-			throw new DukeException("☹ OOPS!!! You are missing a number\n" +
-							"Please enter a valid unmark query - unmark 1");
-		}
-		if (query.split(" ").length > 2) {
-			throw new DukeException("☹ OOPS!!! You have too many numbers\n" +
-							"Please enter a valid unmark query - unmark 1");
-		}
-		String[] splitted = query.split(" ", 2);
-		int index = Integer.parseInt(splitted[1]) - 1;
-		if (index >= taskList.length()) {
-			throw new DukeException("No such task exists! Please enter a valid number within following list!\n" +
-							"Please use the command list to see the list of tasks\n" +
-							"and then unmark the following task that you would like");
-		} else {
-			Task currTask = taskList.get(index);
-			currTask.unmark();
-			System.out.println(currTask);
-		}
 	}
 
 	/**
