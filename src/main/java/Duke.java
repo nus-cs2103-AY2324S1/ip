@@ -15,10 +15,30 @@ public class Duke {
 
         while (!str.equals("bye")) {
             String[] input = str.split(" ", 2);
+
+            try {
+                if (str.equals("todo") || str.equals("deadline") || str.equals("event")) {
+                    throw new DukeException("OOPS!!! The description of a " + str + " cannot be empty.");
+                } else if (str.equals("mark") || str.equals("unmark")) {
+                    throw new DukeException("OOPS!!! Please specify which task you want to mark or unmark.");
+                } else if (!str.equals("bye") && !str.equals("list")) {
+                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException e) {
+                System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
+                System.out.println(e.getMessage());
+                System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
+                str = sc.nextLine();
+                continue;
+            }
+
             if (input[0].equals("list")){
                 System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
 
                 System.out .println(" Here are the tasks in your list:");
+                if (i == 0) {
+                    System.out.println("You have 0 tasks to be addressed.");
+                }
                 for (int j = 0; j < i; j++){
                     System.out.println(j+1 +"." + task[j].getStatusIcon());
                 }
