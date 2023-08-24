@@ -47,75 +47,8 @@ public class Peko {
             if (!UIhandler.run()) {
                 break;
             }
-            input = interaction();
-            //responseValue = getResponseValue(input);
-            temp = getResponseValue(input);
-            //System.out.println(responseValue);
-            switch (temp) {
-                case ECHO:
-                    echo(input);
-                    System.out.println(lineBreak);
-                    break;
-                case LIST:
-                    readArray();
-                    break;
-                case WRITE:
-                    try {
-                        addToArray(input);
-                    } catch (InvalidTaskException e) {
-                        System.out.println(e);
-                        System.out.println(lineBreak);
-                    }
-                    break;
-                case MARK:
-                    setMarkArray(input);
-                    break;
-                case UNMARK:
-                    setUnmarkArray(input);
-                    break;
-                case TODO:
-                    try {
-                        addToDo(input);
-                    } catch (InvalidTaskException e) {
-                        System.out.println(e);
-                        System.out.println(lineBreak);
-                    }
-                    break;
-                case DEADLINE:
-                    try {
-                        addDeadline(input);
-                    } catch (InvalidTaskException e) {
-                        System.out.println(e);
-                        System.out.println(lineBreak);
-                    }
-                    break;
-                case EVENT:
-                    try {
-                        addEvent(input);
-                    } catch (InvalidTaskException e) {
-                        System.out.println(e);
-                        System.out.println(lineBreak);
-                    }
-                    break;
-                case DELETE:
-                        setDelete(input);
-                        break;
-                case COPYPASTA:
-                    try  {
-                        degen();
-                    } catch (FileNotFoundException e) {
-                        System.out.println("Hentai!");
-                    } finally {
-                        loop = false;
-                    }
-                    break;
-                case OTSUPEKO:
-                    loop = false;
-                    break;
-
-                default:
-            }
         }
+
         saveHandler.saveTo();
         exit();
     }
@@ -217,20 +150,12 @@ public class Peko {
         saveHandler.saveTo();
     }
 
-    public static void setDelete(String s) {
-        try {
-            s = s.split(" ", 2)[1];
-            int markIndex = Integer.parseInt(s)-1;
-            while (markIndex <= pos) {
-                todoList[markIndex] = todoList[markIndex+1];
-                markIndex++;
-            }
-            pos--;
-        } catch (NumberFormatException e) {
-            System.out.println("That's not a number Bakatare!");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("That's not a number in the list Peko!");
+    public static void setDelete(int i) {
+        while (i <= pos) {
+            todoList[i] = todoList[i+1];
+            i++;
         }
+        pos--;
         saveHandler.saveTo();
     }
 

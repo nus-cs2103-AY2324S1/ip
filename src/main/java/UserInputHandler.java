@@ -69,13 +69,9 @@ public class UserInputHandler {
         Peko.addToArray(t);
         System.out.println(lineBreak);
     }
-    private void mark(String s) {
-        try {
-            int i = Integer.parseInt(s);
-            Peko.setMarkArray(i);
-        } catch (NumberFormatException e) {
-            System.out.println("That's not a number Bakatare!");
-        }
+    private void mark(String s) throws NumberFormatException{
+        int i = Integer.parseInt(s);
+        Peko.setMarkArray(i);
         System.out.println(lineBreak);
     }
     private void unmark(String s) {
@@ -102,6 +98,11 @@ public class UserInputHandler {
         Peko.addToArray(t);
         System.out.println(lineBreak);
     }
+    public void delete(String s) {
+        int i = Integer.parseInt(s);
+        Peko.setDelete(i);
+    }
+
 
     public boolean run() {
         try {
@@ -130,24 +131,29 @@ public class UserInputHandler {
                 case EVENT:
                     Event(input);
                 case DELETE:
-                    setDelete(input);
+                    delete(input);
                     break;
                 case COPYPASTA:
-                    try  {
-                        degen();
+                    try {
+                        Peko.degen();
                     } catch (FileNotFoundException e) {
                         System.out.println("Hentai!");
                     } finally {
                         return false;
                     }
-                    break;
+
                 case OTSUPEKO:
                     return false;
 
-                default:
+
             }
+            return true;
         } catch (InvalidTaskException e) {
             System.out.println(e);
+        } catch (NumberFormatException e) {
+            System.out.println("That's not a number Bakatare!");
+        } finally {
+            return false;
         }
     }
 
