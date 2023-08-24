@@ -15,6 +15,7 @@ public class Duke {
             String text = scanner.nextLine();
             System.out.println("\n" + horizontalLine);
             String[] splitText = text.split(" ");
+            String[] splitText2 = text.split(" ", 2);
             String command = splitText[0].toLowerCase();
 
             switch (command) {
@@ -24,8 +25,19 @@ public class Duke {
                 case "list":
                     printList();
                     break;
+                case "delete":
+                    if (splitText2.length == 2) {
+                        int taskNumber = getTaskNumber(splitText2[1]);
+                        if (taskNumber != -1) {
+                            tasks.remove(taskNumber - 1);
+                            System.out.println("Task deleted");
+                            printList();
+                        }
+                    } else {
+                        System.out.println("     You need to type in something u silly dog.");
+                    }
+                    break;
                 case "todo": {
-                    String[] splitText2 = text.split(" ", 2);
                     if (splitText2.length == 2) {
                         tasks.add(new ToDo(splitText2[1]));
                         printTasksLength();
@@ -70,7 +82,6 @@ public class Duke {
                 }
                 case "mark":
                 case "unmark": {
-                    String[] splitText2 = text.toLowerCase().split(" ", 2);
                     if (splitText2.length == 2) {
                         int taskNumber = getTaskNumber(splitText2[1]);
                         if (taskNumber != -1) {
