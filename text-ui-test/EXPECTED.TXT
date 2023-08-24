@@ -68,4 +68,22 @@ These are all the task(s) in your list:
   2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 -----------------------
 -----------------------
+? OOPS!!! The description of a todo cannot be empty!
+-----------------------
+-----------------------
+Please add a '/from' statement with the start time / date.
+-----------------------
+-----------------------
+Please add a '/to' statement with the end time / date.
+-----------------------
+-----------------------
+Please enter a valid description and start / end time.
+-----------------------
+-----------------------
+Please add a '/by' statement with the deadline.
+-----------------------
+-----------------------
+Please enter a valid description or deadline.
+-----------------------
+-----------------------
 Bye. Hope to see you again soon!

@@ -11,4 +11,10 @@ unmark 1
 list
 delete 1
 list
+todo
+event
+event /from
+event /from /to
+deadline
+deadline /by
 bye
