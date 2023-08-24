@@ -55,6 +55,22 @@ public class Duke {
                     System.out.println("You have entered an invalid task number.");
                     System.out.println(HORIZONTAL_LINE);
                 }
+            } else if (input.startsWith("delete")) {
+                try {
+                    int index = Integer.valueOf(input.substring(7)) - 1;
+                    Task task = list.get(index);
+                    list.remove(index);
+
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(task);
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    System.out.println(HORIZONTAL_LINE);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("You have entered an invalid task number.");
+                    System.out.println(HORIZONTAL_LINE);
+                }
             } else if (input.startsWith("deadline")) {
                 int byIndex = input.indexOf("/by");
 
