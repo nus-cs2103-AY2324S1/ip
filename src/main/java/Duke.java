@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exceptions.InvalidParametersException;
 import exceptions.MissingDescriptionException;
 import exceptions.UnknownCommandException;
 import tasks.Deadline;
@@ -104,9 +105,7 @@ public class Duke {
                         printWithTab("Unknown command!");
                         break;
                 }
-            } catch (UnknownCommandException e) {
-                printWithTab(e.getMessage());
-            } catch (MissingDescriptionException e) {
+            } catch (UnknownCommandException | MissingDescriptionException | InvalidParametersException e) {
                 printWithTab(e.getMessage());
             }
             printWithTab(line);

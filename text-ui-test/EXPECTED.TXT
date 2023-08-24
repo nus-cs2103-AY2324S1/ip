@@ -39,16 +39,14 @@ _______         _
      Invalid index!
      ____________________________________________________________
      ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: mark -1
+     Invalid index!
      ____________________________________________________________
      ____________________________________________________________
      OOPS!!! I'm sorry, but I don't know what that means :-(
 	 You typed: Unmark 1
      ____________________________________________________________
      ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: unmark -1
+     Invalid index!
      ____________________________________________________________
      ____________________________________________________________
      Invalid index!
@@ -153,8 +151,12 @@ _______         _
      OOPS!!! The description of a deadline cannot be empty.
      ____________________________________________________________
      ____________________________________________________________
+     OOPS!!! The /by parameter is invalid!
+	Usage: deadline <description> /by <date>
+     ____________________________________________________________
+     ____________________________________________________________
      Got it. I've added this task:
-          [D][ ]   extra spaces  should   (by:   work)
+          [D][ ] extra spaces  should (by: work)
      Now you have 4 tasks in the list.
      ____________________________________________________________
      ____________________________________________________________
@@ -176,33 +178,33 @@ _______         _
           1. [T][ ] asdf1
           2. [T][ ] asdf Testing Spaces
           3. [D][ ] should (by: work)
-          4. [D][ ]   extra spaces  should   (by:   work)
+          4. [D][ ] extra spaces  should (by: work)
           5. [D][ ] this /from should /to make a (by: deadline)
           6. [D][ ] this /from should (by: not be mixed)
           7. [D][ ] this (by: should /to not be mixed)
      ____________________________________________________________
      ____________________________________________________________
      Nice! I've marked this task as done:
-          [D][X]   extra spaces  should   (by:   work)
+          [D][X] extra spaces  should (by: work)
      ____________________________________________________________
      ____________________________________________________________
           1. [T][ ] asdf1
           2. [T][ ] asdf Testing Spaces
           3. [D][ ] should (by: work)
-          4. [D][X]   extra spaces  should   (by:   work)
+          4. [D][X] extra spaces  should (by: work)
           5. [D][ ] this /from should /to make a (by: deadline)
           6. [D][ ] this /from should (by: not be mixed)
           7. [D][ ] this (by: should /to not be mixed)
      ____________________________________________________________
      ____________________________________________________________
      Ok! I've marked this task as not done yet:
-          [D][ ]   extra spaces  should   (by:   work)
+          [D][ ] extra spaces  should (by: work)
      ____________________________________________________________
      ____________________________________________________________
           1. [T][ ] asdf1
           2. [T][ ] asdf Testing Spaces
           3. [D][ ] should (by: work)
-          4. [D][ ]   extra spaces  should   (by:   work)
+          4. [D][ ] extra spaces  should (by: work)
           5. [D][ ] this /from should /to make a (by: deadline)
           6. [D][ ] this /from should (by: not be mixed)
           7. [D][ ] this (by: should /to not be mixed)
@@ -229,6 +231,14 @@ _______         _
      ____________________________________________________________
      ____________________________________________________________
      OOPS!!! The description of a event cannot be empty.
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! The /from parameter is invalid!
+	Usage: event <description> /from <from_date> /to <to_date>
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! The /to parameter is invalid!
+	Usage: event <description> /from <from_date> /to <to_date>
      ____________________________________________________________
      ____________________________________________________________
      OOPS!!! I'm sorry, but I don't know what that means :-(
@@ -269,7 +279,7 @@ _______         _
           1. [T][ ] asdf1
           2. [T][ ] asdf Testing Spaces
           3. [D][ ] should (by: work)
-          4. [D][ ]   extra spaces  should   (by:   work)
+          4. [D][ ] extra spaces  should (by: work)
           5. [D][ ] this /from should /to make a (by: deadline)
           6. [D][ ] this /from should (by: not be mixed)
           7. [D][ ] this (by: should /to not be mixed)
@@ -285,7 +295,7 @@ _______         _
           1. [T][ ] asdf1
           2. [T][ ] asdf Testing Spaces
           3. [D][ ] should (by: work)
-          4. [D][ ]   extra spaces  should   (by:   work)
+          4. [D][ ] extra spaces  should (by: work)
           5. [D][ ] this /from should /to make a (by: deadline)
           6. [D][ ] this /from should (by: not be mixed)
           7. [D][ ] this (by: should /to not be mixed)
@@ -301,7 +311,7 @@ _______         _
           1. [T][ ] asdf1
           2. [T][ ] asdf Testing Spaces
           3. [D][ ] should (by: work)
-          4. [D][ ]   extra spaces  should   (by:   work)
+          4. [D][ ] extra spaces  should (by: work)
           5. [D][ ] this /from should /to make a (by: deadline)
           6. [D][ ] this /from should (by: not be mixed)
           7. [D][ ] this (by: should /to not be mixed)
@@ -310,8 +320,7 @@ _______         _
           10. [E][ ] this /by (from: should to: not be mixed)
      ____________________________________________________________
      ____________________________________________________________
-     OOPS!!! I'm sorry, but I don't know what that means :-(
-	 You typed: delete -1
+     Invalid index!
      ____________________________________________________________
      ____________________________________________________________
      Noted. I've removed this task:
@@ -326,7 +335,7 @@ _______         _
      ____________________________________________________________
           1. [T][ ] asdf Testing Spaces
           2. [D][ ] should (by: work)
-          3. [D][ ]   extra spaces  should   (by:   work)
+          3. [D][ ] extra spaces  should (by: work)
           4. [D][ ] this /from should (by: not be mixed)
           5. [D][ ] this (by: should /to not be mixed)
           6. [E][ ] this (from: should to: work)

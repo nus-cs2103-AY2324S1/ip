@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import exceptions.InvalidParametersException;
 import exceptions.MissingDescriptionException;
 import exceptions.UnknownCommandException;
 
@@ -15,12 +16,12 @@ public enum Commands {
      * string representation and their regex pattern when input the command.
      */
     LIST("list", "^list$"),
-    MARK("mark", "^(mark) (\\d+)$"),
-    UNMARK("unmark", "^(unmark) (\\d+)$"),
+    MARK("mark", "^(mark) (-?\\d+)$"),
+    UNMARK("unmark", "^(unmark) (-?\\d+)$"),
     TODO("todo", "^(todo)(?: (.*))?$"),
-    DEADLINE("deadline", "^(deadline) (.+?) /by (.+)$"),
-    EVENT("event", "^(event) (.+?) /from (.+?) /to (.+)$"),
-    DELETE("delete", "^(delete) (\\d+)$");
+    DEADLINE("deadline", "^(deadline)(?:( .*?) /by( .*))?$"),
+    EVENT("event", "^(event)(?:( .*?) /from( .*?) /to( .*))?$"),
+    DELETE("delete", "^(delete) (-?\\d+)$");
 
     /**
      * The string representation of the command.
@@ -61,10 +62,10 @@ public enum Commands {
     }
 
     /**
-     * The following methods are used to extract the different parameters for the task commands.
+     * The following methods are used to extract the description for the task commands.
      * 
      * @param input the raw input string
-     * @return the corresponding parameter, or null if the input is invalid
+     * @return the corresponding tasks description, or null if the input is invalid
      * @throws MissingDescriptionException
      */
     public static String extractTaskDescription(String input) throws MissingDescriptionException {
@@ -73,37 +74,56 @@ public enum Commands {
 
         for (Commands taskCommand : taskCommands) {
             Matcher matcher = taskCommand.commandPattern.matcher(input);
-            if (matcher.matches()) {
+            if (matcher.find()) {
                 String match = matcher.group(2);  // Store the description once a match is found
                 if (match == null || match.trim().isEmpty()) {
                     throw new MissingDescriptionException(matcher.group(1));
                 }
-                return match;
+                return match.trim();
             }
         }
         return null;
     }
 
-    public static String extractDeadline(String input) {
+    /**
+     * The following methods are used to extract the different parameters for the task commands.
+     * 
+     * @param input the raw input string
+     * @return the corresponding parameter, or null if the input is invalid
+     * @throws InvalidParametersException
+     */
+    public static String extractDeadline(String input) throws InvalidParametersException {
         Matcher matcher = DEADLINE.commandPattern.matcher(input);
         if (matcher.find()) {
-            return matcher.group(3); 
+            String match = matcher.group(3); 
+            if (match == null || match.trim().isEmpty()) {
+                throw new InvalidParametersException("/by", "deadline <description> /by <date>");
+            }
+            return match.trim();
         }
         return null;
     }
 
-    public static String extractEventFrom(String input) {
+    public static String extractEventFrom(String input) throws InvalidParametersException {
         Matcher matcher = EVENT.commandPattern.matcher(input);
         if (matcher.find()) {
-            return matcher.group(3); 
+            String match = matcher.group(3); 
+            if (match == null || match.trim().isEmpty()) {
+                throw new InvalidParametersException("/from", "event <description> /from <from_date> /to <to_date>");
+            }
+            return match.trim();
         }
         return null;
     }
 
-    public static String extractEventTo(String input) {
+    public static String extractEventTo(String input) throws InvalidParametersException {
         Matcher matcher = EVENT.commandPattern.matcher(input);
         if (matcher.find()) {
-            return matcher.group(4); 
+            String match = matcher.group(4);
+            if (match == null || match.trim().isEmpty()) {
+                throw new InvalidParametersException("/to", "event <description> /from <from_date> /to <to_date>");
+            }
+            return match.trim();
         }
         return null;
     }

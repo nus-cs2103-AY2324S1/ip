@@ -3,7 +3,7 @@ delete 1
 asdf
 Entry 1 should be empty
 Mark 1
-mark fail
+mark fail, there isnt an exception to handle this, it just isnt caught in the regex
 mark1
 mark 0
 mark -1
@@ -36,6 +36,7 @@ deadline this /from should /to fail
 deadline clumping/byshouldfail
 deadline should /by work
 deadline   /by   using spaces for description should fail
+deadline using spaces after by should fail /by 
 deadline   extra spaces  should   /by   work
 deadline this /from should /to make a /by deadline
 deadline this /from should /by not be mixed
@@ -51,6 +52,8 @@ event /at fail
 event fail /at
 event should /at fail
 event   /from   /to using spaces for description should fail
+event using spaces for from should fail /from   /to asdf
+event using /from spaces for to should fail /to   
 event thisClumping /from Should/by Fail
 event thisClumping/fromShould /by Fail
 event thisClumping/fromShould/byFail
