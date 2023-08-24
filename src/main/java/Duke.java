@@ -20,17 +20,25 @@ public class Duke {
                     System.out.println((i + 1) + ". " + tasks.get(i).getDescription());
                 }
             } else if (userInput.startsWith("mark")) {
-                int id = Integer.parseInt(userInput.split(" ")[1]);
-                Task markedTask = tasks.get(id - 1);
-                markedTask.markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(markedTask.getDescription());
+                try {
+                    int id = Integer.parseInt(userInput.split(" ")[1]);
+                    Task markedTask = tasks.get(id - 1);
+                    markedTask.markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(markedTask.getDescription());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("To mark a task you need to include the index");
+                }
             } else if (userInput.startsWith("unmark")) {
-                int id = Integer.parseInt(userInput.split(" ")[1]);
-                Task unmarkedTask = tasks.get(id - 1);
-                unmarkedTask.markAsUnDone();
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(unmarkedTask.getDescription());
+                try {
+                    int id = Integer.parseInt(userInput.split(" ")[1]);
+                    Task unmarkedTask = tasks.get(id - 1);
+                    unmarkedTask.markAsUnDone();
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(unmarkedTask.getDescription());
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("To unmark a task you need to include the index");
+                }
             } else if (userInput.startsWith("unmark")) {
                 int id = Integer.parseInt(userInput.split(" ")[1]);
                 Task unmarkedTask = tasks.get(id - 1);
@@ -38,37 +46,47 @@ public class Duke {
                 System.out.println("OK, I've marked this task as not done yet:");
                 System.out.println(unmarkedTask.getDescription());
             } else if (userInput.startsWith("todo")) {
-                String description = userInput.substring(5);
-                Todo todo = new Todo(description);
-                tasks.add(todo);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(todo.getDescription());
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                try {
+                    String description = userInput.substring(5);
+                    Todo todo = new Todo(description);
+                    tasks.add(todo);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(todo.getDescription());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                }
             } else if (userInput.startsWith("deadline")) {
-                int index = userInput.indexOf("/");
-                String description = userInput.substring(9, index - 1);
-                String date = userInput.substring(index + 3);
-                Deadline deadline = new Deadline(description, date);
-                tasks.add(deadline);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(deadline.getDescription());
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                try {
+                    int index = userInput.indexOf("/");
+                    String description = userInput.substring(9, index - 1);
+                    String date = userInput.substring(index + 3);
+                    Deadline deadline = new Deadline(description, date);
+                    tasks.add(deadline);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(deadline.getDescription());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                }
             } else if (userInput.startsWith("event")) {
-                int indexOfFrom = userInput.indexOf("/");
-                String description = userInput.substring( 6, indexOfFrom - 1);
-                String duration = userInput.substring(indexOfFrom + 4);
-                int indexOfTo = duration.indexOf("/");
-                String from = duration.substring(1, indexOfTo - 1);
-                String to = duration.substring(indexOfTo + 1);
-                Event event = new Event(description, from, to);
-                tasks.add(event);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(event.getDescription());
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                try {
+                    int indexOfFrom = userInput.indexOf("/");
+                    String description = userInput.substring( 6, indexOfFrom - 1);
+                    String duration = userInput.substring(indexOfFrom + 4);
+                    int indexOfTo = duration.indexOf("/");
+                    String from = duration.substring(1, indexOfTo - 1);
+                    String to = duration.substring(indexOfTo + 1);
+                    Event event = new Event(description, from, to);
+                    tasks.add(event);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(event.getDescription());
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+                }
             } else {
-                Task t = new Task(userInput);
-                tasks.add(t);
-                System.out.println("added: " + t.getDescription());
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
         scanner.close();
