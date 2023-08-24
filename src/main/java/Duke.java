@@ -20,6 +20,7 @@ public class Duke {
             switch (command) {
                 case "bye": {
                     outputMessage(" Bye. Hope to see you again soon!\n");
+                    scanner.close();
                     break;
                 }
                 case "list": {
