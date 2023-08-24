@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Duke chatbot named Oscar that can respond to user input.
+ * Chatbot named Oscar that can respond to user input.
  */
-public class Duke {
+public class Oscar {
     static ArrayList<Task> taskList = new ArrayList<>();
 
     enum Commands {
