@@ -22,6 +22,7 @@ public class Dude {
   static String invalidTaskNumber =
     "I can't find the task numbered \"%s\".\nTry checking if you've typed the correct task number.";
   static String addedTask = "Got it! I've added this task:\n\t%s\nYou now have a total of %d task(s).";
+  static String deletedTask = "Got it! I've removed this task:\n\t%s\nYou now have a total of %d task(s).";
   static String noTaskDescription = "Please specify a task description.";
   static String noDeadline = "Please specify a task deadline after the task\ndescription, prefixed by `\\by`.";
 
@@ -52,7 +53,7 @@ public class Dude {
    */
   public static Task removeTask(int index) throws TaskOutOfBoundsException {
     try {
-      return tasks.remove(index);
+      return tasks.remove(index - 1);
     } catch (IndexOutOfBoundsException e) {
       throw new TaskOutOfBoundsException();
     }
@@ -97,6 +98,43 @@ public class Dude {
       tasksList.append(taskStr);
     }
     return tasksList.toString();
+  }
+
+  /**
+   * Parses command with task number with format `{cmd} {index}`, getting corresponding task.
+   *
+   * @param input command.
+   * @return index of task with index specified in commands
+   * @throws InvalidTaskIndexException if index is invalid
+   * @throws TaskIndexMissingException if index is not specified
+   */
+  public static int parseTaskIndexCommand(String input) throws InvalidTaskIndexException, TaskIndexMissingException {
+    String[] splitInput = input.split(" ", 3);
+    if (splitInput.length < 2) {
+      // task number not specified
+      throw new TaskIndexMissingException();
+    } else {
+      String specifiedTask = splitInput[1];
+      try {
+        int index = Integer.parseInt(specifiedTask);
+        getTask(index);
+        return index;
+      } catch (NumberFormatException | TaskOutOfBoundsException e) {
+        // cannot parse number from input
+        throw new InvalidTaskIndexException(specifiedTask);
+      }
+    }
+  }
+
+  /**
+   * Parses delete commands.
+   *
+   * @param input delete command.
+   */
+  public static void parseDelete(String input) throws DudeException {
+    int taskToDelete = parseTaskIndexCommand(input);
+    Task task = removeTask(taskToDelete);
+    printMessage(String.format(deletedTask, task, getNumTasks()));
   }
 
   /**
@@ -231,6 +269,10 @@ public class Dude {
       case "mark":
       case "unmark":
         parseMarkUnmark(input);
+        break;
+      case "delete":
+      case "remove": // alias because I keep typing remove lol
+        parseDelete(input);
         break;
       case "todo":
         // add todo task to list

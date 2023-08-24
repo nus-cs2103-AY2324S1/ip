@@ -18,4 +18,11 @@ mark 81 483
 list
 unmark 2
 list
+todo a
+todo b
+todo c
+list
+remove 2
+delete 2
+list
 bye
