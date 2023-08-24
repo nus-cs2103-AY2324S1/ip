@@ -8,7 +8,7 @@ public class Duke {
         InputHandler inputHandler = new InputHandler();
         Scanner scanner = new Scanner(System.in);
         Message.OnGreeting(name).Print();
-        while( running){
+        while( running ){
             if(scanner.hasNext()) {
                 inputHandler.HandleInput(scanner.nextLine());
             }

@@ -1,3 +1,5 @@
+import Task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,17 @@ public class Message {
 
     public static Message OnTaskAdd(Task task) {
         return new Message("added: " + task.toString());
+    }
+
+    public static Message OnTaskComplete(Task task) {
+        return new Message("Nice! I've marked this task as done:\n" + task.toString());
+    }
+    public static Message OnTaskUncomplete(Task task) {
+        return new Message("OK, I've marked this task as not done yet:\n" + task.toString());
+    }
+
+    public static Message OnInvalidTaskNo(String inputComponent) {
+        return new Message( "Sorry, " + inputComponent + "isn't a number.");
     }
 
     public Message ChainTo(Message message, String splitString) {
