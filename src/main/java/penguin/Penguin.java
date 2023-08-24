@@ -1,6 +1,5 @@
 package penguin;
 
-import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -19,14 +18,14 @@ public class Penguin {
 
     private UI ui;
     private TaskList taskList;
-    private Memory memory;
+    private Storage memory;
     /**
      * Constructor for Penguin chatbot.
      */
     public Penguin() {
         this.ui = new UI();
         this.taskList = new TaskList();
-        this.memory = new Memory("data/memory.txt");
+        this.memory = new Storage("data/memory.txt");
 
     }
 
@@ -89,7 +88,7 @@ public class Penguin {
                 } else {
                     throw new PenguinUnknownCommandException();
                 }
-                memory.save(taskList);  
+                memory.save(taskList);
             } catch (PenguinException e) {
                 ui.out("Fishes!! " + e.getMessage());
             } catch (ArrayIndexOutOfBoundsException e) {

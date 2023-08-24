@@ -7,13 +7,13 @@ import java.io.BufferedWriter;
 import java.util.Scanner;
 
 /**
- * Memory handles save/load functionality of Penguin.
+ * Storage handles save/load functionality of Penguin.
  */
-public class Memory {
+public class Storage {
 
     private String file;
 
-    public Memory(String file) {
+    public Storage(String file) {
         this.file = file;
     }
 
