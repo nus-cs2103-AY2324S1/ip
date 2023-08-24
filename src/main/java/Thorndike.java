@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.Map;
+import exceptions.ThorndikeException;
 
 public class Thorndike {
     Scanner scanner;
@@ -19,46 +21,83 @@ public class Thorndike {
     public void start() {
         greet();
         while (running) {
-            listen();
+            try {
+                listen();
+            } catch (ThorndikeException e) {
+                echo(e.getMessage());
+            }
         }
     }
 
     /**
      * Listens to command given to user.
      */
-    private void listen() {
+    private void listen() throws ThorndikeException {
         System.out.print(">> ");
         String input = scanner.nextLine();
-        String command = input.split(" ")[0];
+        Map<String, String> args = CommandParser.parse(input);
 
-        if (input.equals("list")) {
+        String command = args.get("command");
+        String description = args.get("description");
+
+        if (command.equals("list")) {
             list();
-        } else if (input.equals("bye")) {
+        } else if (command.equals("bye")) {
             exit();
-        } else if (isMarkCommand(input)) {
-            int idx = Integer.parseInt(input.split(" ")[1]);
-            if (command.equals("mark")) {
-                echo("Meow! I've marked this task as done:");
-                list[idx - 1].setDone();
-            } else {
-                echo("Meow, I've marked this task as not done yet:");
-                list[idx - 1].setNotDone();
+        } else if (command.equals("mark")) {
+            int idx = Integer.parseInt(description);
+            if (idx < 1 || idx > index) {
+                throw new ThorndikeException("The index given is invalid");
             }
-            echo(list[idx - 1].toString());
-        } else if (isAddCommand(input)) {
-            if (command.equals("todo")) {
-                addTask(new Todo(input.split(" ")[1]));
-            } else if (command.equals("deadline")) {
-                addTask(new Deadline(input.split(" ")[1], input.split("/by ")[1]));
-            } else if (command.equals("event")) {
-                String time = input.split("/from ")[1];
-                String from = time.split("/to ")[0];
-                String to = time.split("/to ")[1];
-                addTask(new Event(input.split(" ")[1], from, to));
+            markDone(idx);
+        } else if (command.equals("unmark")) {
+            int idx = Integer.parseInt(description);
+            if (idx < 1 || idx > index) {
+                throw new ThorndikeException("The index given is invalid");
             }
+            markNotDone(idx);
+        } else if (command.equals("todo")) {
+            if (description.equals("")) {
+                throw new ThorndikeException("The description of a todo cannot be empty.");
+            }
+            addTask(new Todo(description));
+        } else if (command.equals("deadline")) {
+            if (description.equals("")) {
+                throw new ThorndikeException("The description of a deadline cannot be empty.");
+            }
+            addTask(new Deadline(description, args.get("by")));
+        } else if (command.equals("event")) {
+            if (description.equals("")) {
+                throw new ThorndikeException("The description of an event cannot be empty.");
+            }
+            addTask(new Event(description, args.get("from"), args.get("to")));
         } else {
-            echo("Invalid");
+            throw new ThorndikeException("I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    /**
+     * Marks a task as done.
+     * 
+     * @param idx Index of the task.
+     * 
+     */
+    private void markDone(int idx) {
+        echo("Meow! I've marked this task as done:");
+        list[idx - 1].setDone();
+        echo(list[idx - 1].toString());
+    }
+
+    /**
+     * Marks a task as not done.
+     * 
+     * @param idx Index of the task.
+     * 
+     */
+    private void markNotDone(int idx) {
+        echo("Meow! I've marked this task as not done yet:");
+        list[idx - 1].setNotDone();
+        echo(list[idx - 1].toString());
     }
 
     /**
@@ -73,51 +112,6 @@ public class Thorndike {
         echo("Got it. I've added this task:");
         echo(task.toString());
         echo(String.format("Now you have %d tasks in the list.", index));
-    }
-
-    /**
-     * Determines if the input is a valid mark/unmark command
-     * 
-     * @param input Input.
-     * @return true if valid, false is invalid.
-     * 
-     */
-    private boolean isMarkCommand(String input) {
-        String[] parts = input.split(" ");
-        String command = parts[0];
-        if (command.equals("mark") || command.equals("unmark")) {
-            try {
-                int number = Integer.parseInt(parts[1]);
-                if (parts.length == 2 && number > 0 && number <= index) {
-                    return true;
-                }
-            } catch (NumberFormatException e) {
-
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Determines if the input is a valid mark/unmark command
-     * 
-     * @param input Input.
-     * @return true if valid, false is invalid.
-     * 
-     */
-    private boolean isAddCommand(String input) {
-        String[] parts = input.split(" ");
-        String command = parts[0];
-        if (command.equals("todo")) {
-            return true;
-        }
-        if (command.equals("deadline") && input.split("/by").length == 2) {
-            return true;
-        }
-        if (command.equals("event") && input.split("/from").length == 2 && input.split("/to").length == 2) {
-            return true;
-        }
-        return false;
     }
 
     /**
