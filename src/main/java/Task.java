@@ -1,9 +1,9 @@
-public class Task {
-    private String description;
+public abstract class Task {
+    private String name;
     private boolean isDone;
 
-    public Task(String description) {
-        this.description = description;
+    public Task(String name) {
+        this.name = name;
         this.isDone = false;
     }
 
@@ -19,7 +19,11 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    public String getDescription() {
+        return "[" + this.getStatusIcon() + "] " + this.name;
+    }
+
     public String toString() {
-        return description;
+        return name;
     }
 }

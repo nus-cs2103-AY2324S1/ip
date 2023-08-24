@@ -10,6 +10,7 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
             String input = sc.nextLine();
+            String firstWord = input.split(" ", 2)[0];
 
             if (input.equals("bye")) {
                 printWithSeparator("Bye. Hope to see you again soon!");
@@ -22,8 +23,10 @@ public class Duke {
             } else if (input.length() >= 6 && input.substring(0, 6).equals("unmark")) {
                 int index = extractNumber(input);
                 taskList.unmarkTask(index);
-            } else {
+            } else if (firstWord.equals("todo") || firstWord.equals("deadline") || firstWord.equals("event")) {
                 taskList.addTask(input);
+            } else {
+                printWithSeparator("Please enter a valid command.");
             }
         }
     }
