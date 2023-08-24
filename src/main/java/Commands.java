@@ -19,7 +19,8 @@ public enum Commands {
     UNMARK("unmark", "^(unmark) (\\d+)$"),
     TODO("todo", "^(todo)(?: (.*))?$"),
     DEADLINE("deadline", "^(deadline) (.+?) /by (.+)$"),
-    EVENT("event", "^(event) (.+?) /from (.+?) /to (.+)$");
+    EVENT("event", "^(event) (.+?) /from (.+?) /to (.+)$"),
+    DELETE("delete", "^(delete) (\\d+)$");
 
     /**
      * The string representation of the command.

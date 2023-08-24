@@ -13,6 +13,9 @@ _______         _
 	 You typed: 
      ____________________________________________________________
      ____________________________________________________________
+     Invalid index!
+     ____________________________________________________________
+     ____________________________________________________________
      OOPS!!! I'm sorry, but I don't know what that means :-(
 	 You typed: asdf
      ____________________________________________________________
@@ -305,4 +308,28 @@ _______         _
           8. [E][ ] this (from: should to: work)
           9. [E][ ] this (from: should /by not to: be mixed)
           10. [E][ ] this /by (from: should to: not be mixed)
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: delete -1
+     ____________________________________________________________
+     ____________________________________________________________
+     Noted. I've removed this task:
+          [D][ ] this /from should /to make a (by: deadline)
+     Now you have 9 tasks in the list.
+     ____________________________________________________________
+     ____________________________________________________________
+     Noted. I've removed this task:
+          [T][ ] asdf1
+     Now you have 8 tasks in the list.
+     ____________________________________________________________
+     ____________________________________________________________
+          1. [T][ ] asdf Testing Spaces
+          2. [D][ ] should (by: work)
+          3. [D][ ]   extra spaces  should   (by:   work)
+          4. [D][ ] this /from should (by: not be mixed)
+          5. [D][ ] this (by: should /to not be mixed)
+          6. [E][ ] this (from: should to: work)
+          7. [E][ ] this (from: should /by not to: be mixed)
+          8. [E][ ] this /by (from: should to: not be mixed)
      ____________________________________________________________

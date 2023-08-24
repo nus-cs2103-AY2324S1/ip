@@ -88,9 +88,20 @@ public class Duke {
                         printWithTab(tab + event);
                         printWithTab("Now you have " + taskList.size() + " tasks in the list.");
                         break;
+                    case DELETE:
+                        index = Integer.parseInt(input.split(" ")[1]) - 1;
+                        if (index >= taskList.size() || index < 0) {
+                            printWithTab("Invalid index!");
+                            break;
+                        }
+                        Task task = taskList.get(index);
+                        taskList.remove(index);
+                        printWithTab("Noted. I've removed this task:");
+                        printWithTab(tab + task.toString()); 
+                        printWithTab("Now you have " + taskList.size() + " tasks in the list.");
+                        break;
                     default:
-                        printWithTab("added: " + input);
-                        taskList.add(new Task(input));
+                        printWithTab("Unknown command!");
                         break;
                 }
             } catch (UnknownCommandException e) {
