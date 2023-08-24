@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private Scanner sc = new Scanner(System.in);
-    private String[] tasks = new String[100];
+    private Task[] tasks = new Task[100];
     private int countTasks = 0;
 
     public static void main(String[] args) {
@@ -16,7 +16,7 @@ public class Duke {
     }
 
     public void addTask(String s) {
-        tasks[countTasks] = s;
+        tasks[countTasks] = new Task(s);
         countTasks++;
         printWithLines("added: " + s);
     }
@@ -39,6 +39,16 @@ public class Duke {
                 break;
             } else if (input.equals("list")) {
                 printList();
+            } else if (input.startsWith("mark ")) {
+                int index = Integer.parseInt(input.replace("mark ", ""));
+                tasks[index - 1].markAsDone();
+                printWithLines("Nice! I've marked this task as done:" + "\n"
+                        + tasks[index - 1]);
+            } else if (input.startsWith("unmark ")) {
+                int index = Integer.parseInt(input.replace("unmark ", ""));
+                tasks[index - 1].unmarkAsDone();
+                printWithLines("OK, I've marked this task as not done yet:" + "\n"
+                        + tasks[index - 1]);
             } else {
                 addTask(input);
             }
