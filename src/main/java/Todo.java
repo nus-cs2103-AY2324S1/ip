@@ -17,7 +17,7 @@ public class Todo extends Task {
     public static void handleTodoTask(String userInput) throws EmptyDescriptionException {
         // use \u2639 or U+2639 to insert the sad face icon
 
-        String taskDescription = userInput.trim().replace("todo", "").trim();
+        String taskDescription = userInput.trim().replaceFirst("todo", "").trim();
         if (taskDescription.isEmpty()) {
             throw new EmptyDescriptionException("The description of a todo cannot be empty.");
         } else {

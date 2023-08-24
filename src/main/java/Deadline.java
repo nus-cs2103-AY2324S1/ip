@@ -21,7 +21,7 @@ public class Deadline extends Task {
         String[] details = userInput.split("/by");
         //details[0] contains "deadline" plus task description, need to erase "deadline". details[1] contains String deadline timing
         if (details.length == 2) {
-            String taskDescription = details[0].trim().replace("deadline", "").trim();
+            String taskDescription = details[0].trim().replaceFirst("deadline", "").trim();
             String deadline = details[1].trim();
             Deadline deadlineTask = new Deadline(taskDescription, deadline);
             Duke.taskList.add(deadlineTask); //Deadline <: Task

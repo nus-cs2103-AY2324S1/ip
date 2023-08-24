@@ -24,7 +24,7 @@ public class Event extends Task {
         String[] details = userInput.split("/from | /to");
         //details[0] contains "deadline" plus task description, need to erase "deadline". details[1] contains String deadline timing
         if (details.length == 3) {
-            String taskDescription = details[0].trim().replace("event", "").trim();
+            String taskDescription = details[0].trim().replaceFirst("event", "").trim();
             String startTime = details[1].trim();
             String endTime = details[2].trim();
             Event eventTask = new Event(taskDescription, startTime, endTime);
