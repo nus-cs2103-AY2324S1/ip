@@ -21,8 +21,11 @@ public class ChatBot {
     //Array of Tasks to store in the list.
     private ArrayList<Task> list = new ArrayList<>();
 
+    //String representing a border.
     private static final String BORDER = "____________________________________________________________\n";
 
+    //Enum Command to make code cleaner and allow for the use of 
+    //switch case statements.
     private static enum Command {
         BYE("bye"),
         DISPLAY_LIST("list"),
@@ -88,26 +91,38 @@ public class ChatBot {
     }
 
     /* 
-     * Adds the user input into a list.
+     * Adds the user input into a list, depending on the command.
      * @param String message User input, parsed in readInput.
      * @return void
      */
-    public void addToList(String taskString, Command command) {
+    public void addToList(String taskString, Command command) 
+        throws InvalidDescriptionException {
         switch(command) {
             case ADD_TODO:
+                if (taskString.equals(" ")) {
+                    throw new InvalidDescriptionException("What? Where's your label? Stop this.");
+                }
                 list.add(new ToDo(taskString));
                 break;
 
             case ADD_DEADLINE:
-                String[] deadlineParts = taskString.split("/by");
-                list.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+                try {
+                    String[] deadlineParts = taskString.split("/by");
+                    list.add(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
+                } catch (IndexOutOfBoundsException e) {
+                    throw new InvalidDescriptionException("Are you stupid? Can you follow instructions?");
+                }
                 break;
 
             case ADD_EVENT:
-                String[] eventParts = taskString.split("/from");
-                String eventLabel = eventParts[0];
-                String[] eventParts2 = eventParts[1].split("/to");
-                list.add(new Event(eventLabel.trim(), eventParts2[0].trim(), eventParts2[1].trim()));
+                try {
+                    String[] eventParts = taskString.split("/from");
+                    String eventLabel = eventParts[0];
+                    String[] eventParts2 = eventParts[1].split("/to");
+                    list.add(new Event(eventLabel.trim(), eventParts2[0].trim(), eventParts2[1].trim()));
+                } catch (IndexOutOfBoundsException e) {
+                    throw new InvalidDescriptionException("Are you stupid? Can you follow instructions?");
+                }
                 break;
                 
         }
@@ -169,20 +184,20 @@ public class ChatBot {
         
     }
 
-    /* Reads the input of the user, and executes the commands accordingly.
+    /* 
+     * Reads the input of the user, and executes the commands accordingly.
+     * If a command is unknown, return an error statement.
      * 
      * @param String message User input.
      * @return void
      */
-    public void readInput(String input) {
+    public void readInput(String input) throws 
+        InvalidDescriptionException, InvalidCommandException {
         //Split the input so that we can read integers.
         String[] inputStrings = input.split(" ", 2);
         Command command = Command.parseInput(inputStrings[0]);
         if (command == null) {
-            System.out.println(BORDER);
-            System.out.println("What are you saying?");
-            System.out.println(BORDER);
-            return;
+            throw new InvalidCommandException("What are you saying? Try again.");
         }
 
         switch(command) {
@@ -214,7 +229,7 @@ public class ChatBot {
                 break;
 
             default:
-                System.out.println("What in the world are you saying?");
+                throw new InvalidDescriptionException("Don't be stupid, speak english.");
         }
     }
 

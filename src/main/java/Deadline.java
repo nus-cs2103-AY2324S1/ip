@@ -1,3 +1,10 @@
+/*
+ * Deadline class that inherits from Task.
+ * 
+ * @var deadline Representing deadline.
+ * 
+ * @author Owen Yeo
+ */
 public class Deadline extends Task{
 
     private String deadline;
