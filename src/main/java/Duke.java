@@ -2,7 +2,8 @@ import java.util.Scanner;
 import java.util.ArrayList; // import the ArrayList class
 
 
-public class Duke {
+public class Duke{
+
     public static void main(String[] args) {
 
         String logo =
@@ -67,7 +68,16 @@ public class Duke {
                     break;
 
                 case "todo":
-                    inValue = myScanner.nextLine().substring(1);
+                    inValue = myScanner.nextLine();
+                    if (inValue.length() != 0){
+                        inValue = inValue.substring(1);
+                    } else {
+                        //throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        System.out.println("____________________________________________________________");
+                        System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                        System.out.println("____________________________________________________________");
+                        break;
+                    }
                     ToDo t =  new ToDo(inValue);
                     myList.add(t);
                     System.out.println("____________________________________________________________");
@@ -77,7 +87,16 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     break;
                 case "deadline":
-                    inValue = myScanner.nextLine().substring(1);
+                    inValue = myScanner.nextLine();
+                    if (inValue.length() != 0){
+                        inValue = inValue.substring(1);
+                    } else {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        System.out.println("____________________________________________________________");
+                        break;
+                        //throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                    }
                     String[] toBeSplit = inValue.split("/");
                     Deadline d = new Deadline(toBeSplit[0], toBeSplit[1].replace("by ", ""));
                     myList.add(d);
@@ -88,7 +107,16 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     break;
                 case "event":
-                    inValue = myScanner.nextLine().substring(1);
+                    inValue = myScanner.nextLine();
+                    if (inValue.length() != 0){
+                        inValue = inValue.substring(1);
+                    } else {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+                        System.out.println("____________________________________________________________");
+                        break;
+                        //throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                    }
                     String[] to_Split = inValue.split("/");
                     Event e = new Event(to_Split[0], to_Split[1].replace("from ", ""), to_Split[2].replace("to ", ""));
                     myList.add(e);
@@ -102,7 +130,7 @@ public class Duke {
                 default:
                     inValue += myScanner.nextLine();
                     System.out.println("____________________________________________________________");
-                    System.out.println("added: " + inValue);
+                    System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     System.out.println("____________________________________________________________");
                     myList.add(new Task(inValue));
                     break;
