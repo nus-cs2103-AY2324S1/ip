@@ -84,6 +84,11 @@ public class Duke {
     }
 
     private static void addTodo(String description) {
+        if (description.trim().equals("")) {
+            Duke.respond("Please specify a description.");
+            return;
+        }
+
         Task newTodo = new Todo(description);
         tasks.add(newTodo);
         Duke.respondWithAddedTask(newTodo);
@@ -160,6 +165,7 @@ public class Duke {
 
         while (programRunning) {
             String input = scanner.nextLine();
+            System.out.println();
 
             if (input.trim().equals("")) {
                 continue;
