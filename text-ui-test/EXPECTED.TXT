@@ -7,7 +7,13 @@ What can I do for you?
 
 > OOPS!!! Please type a valid command!
 
-> OOPS!!! The description of a Todo cannot be empty.
+> OOPS!!! Please specify the description for this Todo!
+
+> Got it. I've added this task:
+[T][ ] study
+Now you have 1 tasks in the list.
+
+> OOPS!!! Please specify the description and deadline for this Deadline!
 
 > OOPS!!! Please specify the description and deadline for this Deadline!
 
@@ -17,7 +23,7 @@ What can I do for you?
 
 > Got it. I've added this task:
 [D][ ] read (by: april)
-Now you have 1 tasks in the list.
+Now you have 2 tasks in the list.
 
 > OOPS!!! Please specify the description, start, and end time for this Event!
 
@@ -29,23 +35,33 @@ Now you have 1 tasks in the list.
 
 > Got it. I've added this task:
 [D][ ] shop (from: monday to: tuesday)
-Now you have 2 tasks in the list.
+Now you have 3 tasks in the list.
 
 > Here are the tasks in your list:
 
-1. [D][ ] read (by: april)
-2. [D][ ] shop (from: monday to: tuesday)
+1. [T][ ] study
+2. [D][ ] read (by: april)
+3. [D][ ] shop (from: monday to: tuesday)
 
 > Nice! I've marked this task as done:
-[D][X] shop (from: monday to: tuesday)
+[D][X] read (by: april)
+
+> OOPS!!! Please type a valid command!
 
 > OOPS!!! There is no task 4!
 
 > OOPS!!! There is no task 4!
+
+> OOPS!!! Please type a valid command!
+
+> OOPS!!! There is no task 5!
+
+> Noted. I've removed this task:
+[D][ ] shop (from: monday to: tuesday)
 
 > Here are the tasks in your list:
 
-1. [D][ ] read (by: april)
-2. [D][X] shop (from: monday to: tuesday)
+1. [T][ ] study
+2. [D][X] read (by: april)
 
 > Bye. Hope to see you again soon!

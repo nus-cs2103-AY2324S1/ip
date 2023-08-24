@@ -2,8 +2,10 @@ hi
 add
 add
 add todo
+add todo study
 add deadline
 add deadline read
+add deadline read /by
 add deadline /by april
 add deadline read /by april
 add event
@@ -13,7 +15,11 @@ add event shop /from monday
 add event shop /from monday /to tuesday
 list
 mark 2
+mark
 mark 4
 unmark 4
+unmark
+delete 5
+delete 3
 list
 bye
