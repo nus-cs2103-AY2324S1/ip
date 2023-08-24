@@ -80,6 +80,11 @@ public class Duke {
       return;
     }
 
+    if (toIdx < fromIdx) {
+      printText("/from should come before /to");
+      return;
+    }
+
     String eventName = String.join(" ", parts.subList(1, fromIdx));
     String eventFrom = String.join(" ", parts.subList(fromIdx + 1, toIdx));
     String eventTo = String.join(" ", parts.subList(toIdx + 1, parts.size()));
