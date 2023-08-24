@@ -1,3 +1,5 @@
+package jarvis;
+
 import java.util.ArrayList;
 
 public class Ui {
@@ -49,6 +51,12 @@ public class Ui {
         System.out.println("    Understood Master. I've marked this task as" + 
                                 (task.isCompleted() ? "completed" : "uncompleted") + "\n" +
                                 "\t" + task.toString());
+        breakLine();
+    }
+
+    public void printError(String error) {
+        breakLine();
+        System.out.println(error + "\n");
         breakLine();
     }
 

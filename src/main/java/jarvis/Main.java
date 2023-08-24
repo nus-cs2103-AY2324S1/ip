@@ -1,3 +1,5 @@
+package jarvis;
+
 import java.util.Scanner;
 
 public class Main {
