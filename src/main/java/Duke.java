@@ -1,6 +1,9 @@
 import java.util.*;
 public class Duke {
 
+    private static final String[] tasks = new String[100];
+    private static int index = 0;
+
     // A greeting display everytime entering the program
     private static void OnEnter () {
         System.out.println("____________________________________________");
@@ -16,11 +19,29 @@ public class Duke {
         System.out.println("____________________________________________");
     }
 
+    //Reads and store input
+    private static void AddTasks(String task) {
+        Duke.tasks[Duke.index] = task;
+        Duke.index++;
+    }
+
+    //Prints All Tasks
+    private static void ListTasks() {
+        for (int i = 0; i < index; i++) {
+            System.out.println((i + 1) + ". " + Duke.tasks[i]);
+        }
+    }
+
     // A display everytime receive an input
-    private static boolean displayInfo(String msg) {
-        if (!msg.equals("bye")){
+    private static boolean DisplayInfo(String msg) {
+        if (!msg.equals("bye") && !msg.equals("list")){
             System.out.println("____________________________________________");
-            System.out.println(msg);
+            System.out.println("added: " + msg);
+            AddTasks(msg);
+            System.out.println("____________________________________________");
+        } else if (msg.equals("list")) {
+            System.out.println("____________________________________________");
+            ListTasks();
             System.out.println("____________________________________________");
         }
         return msg.equals("bye");
@@ -39,7 +60,8 @@ public class Duke {
         boolean saysBye;
         do {
             Scanner sc = new Scanner(System.in);
-            saysBye = displayInfo(sc.nextLine());
+            String line = sc.nextLine();
+            saysBye = DisplayInfo(line);
         } while(!saysBye);
 
         OnExit();
