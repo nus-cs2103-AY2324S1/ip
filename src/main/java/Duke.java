@@ -8,28 +8,55 @@ public class Duke {
         tasks = new Task[100];
         noTasks = 0;
         Scanner scanner = new Scanner(System.in);
+        String task = "";
+        boolean loop = true;
 
         System.out.println(LINE + "\nHello! I'm Dommi\nWhat can I do for you?\n" + LINE);
 
-        while (true) {
+        while (loop) {
             String userInput = scanner.nextLine();  // Read user input
+            String instruction = userInput.split(" ", 2)[0];
+            if (userInput.contains(" ")) {
+                task = userInput.split(" ", 2)[1];
+            }
+
             System.out.println(LINE);
 
-            if (userInput.equals("bye")) {
-                exit();
-                break;
-            } else if (userInput.equals("list"))
-                displayList();
-            else if (userInput.startsWith("mark")) {
-                int index = Integer.parseInt(userInput.substring(5));
-                markTaskDone(tasks[index - 1], true);
-            } else if (userInput.startsWith("unmark")) {
-                int index = Integer.parseInt(userInput.substring(7));
-                markTaskDone(tasks[index - 1], false);
-            }
-            else {
-                Task newTask = new Task(userInput);
-                createNewTask(newTask);
+            switch (instruction) {
+                case "bye":
+                    exit();
+                    loop = false;
+                    break;
+                case "list":
+                    displayList();
+                    break;
+                case "mark":
+                    int markIndex = Integer.parseInt(task);
+                    markTaskDone(tasks[markIndex - 1], true);
+                    break;
+                case "unmark":
+                    int unmarkIndex = Integer.parseInt(task);
+                    markTaskDone(tasks[unmarkIndex - 1], false);
+                    break;
+                case "todo":
+                    Todo newTodo = new Todo(task);
+                    createNewTask(newTodo);
+                    break;
+                case "deadline":
+                    String deadlineTask = task.split(" /by ")[0];
+                    String deadline = task.split(" /by ")[1];
+                    Deadline newDeadline = new Deadline(deadlineTask, deadline);
+                    createNewTask(newDeadline);
+                    break;
+                case "event":
+                    String eventTask = task.split(" /from ")[0];
+                    String from = task.split(" /from ")[1].split(" /to ")[0];
+                    String to = task.split(" /from ")[1].split(" /to ")[1];
+                    Event newEvent = new Event(eventTask, from, to);
+                    createNewTask(newEvent);
+                    break;
+                default:
+                    System.out.println("Error! Invalid Input!");
             }
         }
     }
@@ -37,7 +64,9 @@ public class Duke {
     private static void createNewTask(Task task) {
         tasks[noTasks] = task;
         noTasks += 1;
-        System.out.println("added: " + task.getDescription() + "\n" + LINE);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + noTasks + " tasks in the list.");
     }
 
     private static void displayList() {
