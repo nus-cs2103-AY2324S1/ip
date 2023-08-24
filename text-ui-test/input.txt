@@ -19,6 +19,8 @@ unmark 2
 list
 unmark 4
 list
+delete 3
+list
 todo
 todo
 todo
@@ -33,4 +35,5 @@ event reading /from Mon 2pm /from 5pm
 event reading /to Mon 2pm /to 5pm
 mark 99
 unmark 99
+delete 99
 bye

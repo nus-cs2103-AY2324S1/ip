@@ -121,7 +121,25 @@ public class Duke {
                         System.out.println("     ☹ OOPS!!! This task does not exist :O");
                         System.out.println("    ____________________________________________________________\n");
                     }
-                } else {
+                } else if (input.startsWith("delete ") && input.length() > 7 && input.substring(7).matches("\\d+")) {
+                    try {
+                        int number = Integer.parseInt(input.substring(7));
+                        if (number > list.size() || number <= 0) {
+                            throw new InvalidTaskException();
+                        }
+                        Task task = list.remove(number - 1);
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     Noted. I've removed this task:");
+                        System.out.println("       " + task.toString());
+                        System.out.println("     Now you have " + list.size() + " tasks in the list.");
+                        System.out.println("    ____________________________________________________________");
+                    } catch (InvalidTaskException e) {
+                        System.out.println("    ____________________________________________________________");
+                        System.out.println("     ☹ OOPS!!! This task does not exist :O");
+                        System.out.println("    ____________________________________________________________\n");
+                    }
+                }
+                else {
                     throw new InvalidTextException();
                 }
             } catch (InvalidTextException e) {
