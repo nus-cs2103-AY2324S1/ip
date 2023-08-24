@@ -8,6 +8,17 @@ todo borrow book
 list
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
-yayy let's play!
 list
+unmark 9
+unmark 4
+list
+todo
+no work today!
+deadline
+hihihi
+event
+event party
+event party /from 7 /to
+deadline math
+deadline math /by
 bye

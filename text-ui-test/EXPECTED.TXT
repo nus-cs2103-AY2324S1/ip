@@ -30,7 +30,6 @@ Now you have 6 tasks in the list.
 Reply John: Got it. I've added this task:
   [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 7 tasks in the list.
-Reply John: added: yayy let's play!
 Reply John: Here are the tasks in your list:
 1. [T][X] borrow book
 2. [D][ ] return book (by: June 6th)
@@ -39,5 +38,24 @@ Reply John: Here are the tasks in your list:
 5. [T][ ] borrow book
 6. [D][ ] return book (by: Sunday)
 7. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-8. [ ] yayy let's play!
+Reply John: Invalid.
+Reply John: OK, I've marked this task as not done yet:
+[ ] join sports club
+Reply John: Here are the tasks in your list:
+1. [T][X] borrow book
+2. [D][ ] return book (by: June 6th)
+3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4. [T][ ] join sports club
+5. [T][ ] borrow book
+6. [D][ ] return book (by: Sunday)
+7. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Reply John: ☹ OOPS!!! The description of a todo cannot be empty.
+Reply John: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+Reply John: ☹ OOPS!!! The description of a deadline cannot be empty.
+Reply John: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+Reply John: ☹ OOPS!!! The description of a event cannot be empty.
+Reply John: ☹ OOPS!!! You forgot to indicate the start and end date/time.
+Reply John: ☹ OOPS!!! You forgot to indicate the start and end date/time.
+Reply John: ☹ OOPS!!! You forgot to indicate the due date.
+Reply John: ☹ OOPS!!! You forgot to indicate the due date.
 Reply John: Bye for now, hope to see you soon.

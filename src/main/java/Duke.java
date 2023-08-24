@@ -54,7 +54,7 @@ public class Duke {
                         String description = command.substring(5);
 
                         if (description.isEmpty()) {
-                            throw new InvalidDescriptionException();
+                            throw new InvalidDescriptionException("todo");
                         }
 
                         taskList[itemsAdded] = new ToDo(description); // add new command
@@ -66,49 +66,73 @@ public class Duke {
 
                     } else if (command.startsWith("deadline ")) { // description starting index = 9
                         // indexOf: searches for the substring and returns the index of the first character
-                        String description = command.substring(9, command.indexOf(" /by "));
-                        String by = command.substring(command.indexOf(" /by ") + 5); // from " " to the specified date is 5
+                        if (command.indexOf(" /by ") != -1) {
+                            String description = command.substring(9, command.indexOf(" /by "));
+                            String by = command.substring(command.indexOf(" /by ") + 5); // from " " to the specified date is 5
 
-                        if (description.isEmpty()) {
-                            throw new InvalidDescriptionException();
+                            if (description.isEmpty()) {
+                                throw new InvalidDescriptionException("deadline");
+                            }
+
+                            if (by.isEmpty()) {
+                                throw new InvalidDeadlineException();
+                            }
+
+                            taskList[itemsAdded] = new Deadline(description, by); // add new command
+
+                            System.out.println("Got it. I've added this task:\n" + "  " + taskList[itemsAdded]
+                                    + "\nNow you have " + (itemsAdded + 1) + " tasks in the list.");
+
+                            itemsAdded++; // increment number of items
+                        } else {
+                            throw new InvalidDeadlineException();
                         }
-
-                        taskList[itemsAdded] = new Deadline(description, by); // add new command
-
-                        System.out.println("Got it. I've added this task:\n" + "  " + taskList[itemsAdded]
-                                + "\nNow you have " + (itemsAdded + 1) + " tasks in the list.");
-
-                        itemsAdded++; // increment number of items
 
                     } else if (command.startsWith("event ")) { // description starting index = 6
-                        String description = command.substring(6, command.indexOf(" /from "));
-                        // from " " to 'from' date is 7
-                        String from = command.substring(command.indexOf(" /from ") + 7, command.indexOf(" /to "));
-                        // from " " to 'to' date is 5
-                        String to = command.substring(command.indexOf(" /to ") + 5);
+                        if (command.indexOf(" /from ") != -1 && command.indexOf(" /to ") != -1) {
+                            String description = command.substring(6, command.indexOf(" /from "));
+                            // from " " to 'from' date is 7
+                            String from = command.substring(command.indexOf(" /from ") + 7, command.indexOf(" /to "));
+                            // from " " to 'to' date is 5
+                            String to = command.substring(command.indexOf(" /to ") + 5);
 
-                        if (description.isEmpty()) {
-                            throw new InvalidDescriptionException();
+                            if (description.isEmpty()) {
+                                throw new InvalidDescriptionException("event");
+                            }
+
+                            if (from.isEmpty() || to.isEmpty()) {
+                                throw new InvalidEventException();
+                            }
+
+                            taskList[itemsAdded] = new Event(description, from, to); // add new command
+
+                            System.out.println("Got it. I've added this task:\n" + "  " + taskList[itemsAdded]
+                                    + "\nNow you have " + (itemsAdded + 1) + " tasks in the list.");
+
+                            itemsAdded++; // increment number of items
+                        } else {
+                            throw new InvalidEventException();
                         }
 
-                        taskList[itemsAdded] = new Event(description, from, to); // add new command
-
-                        System.out.println("Got it. I've added this task:\n" + "  " + taskList[itemsAdded]
-                                + "\nNow you have " + (itemsAdded + 1) + " tasks in the list.");
-
-                        itemsAdded++; // increment number of items
-
                     } else {
-                        if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
-                            throw new InvalidDescriptionException();
+                        if (command.startsWith("todo")) {
+                            throw new InvalidDescriptionException("todo");
+                        } else if (command.startsWith("deadline")) {
+                            throw new InvalidDescriptionException("deadline");
+                        } else if (command.startsWith("event")) {
+                            throw new InvalidDescriptionException("event");
                         } else {
                             throw new InvalidCommandException();
                         }
                     }
                 } catch (InvalidCommandException e) {
-                    System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    System.out.println(e.getMessage());
                 } catch (InvalidDescriptionException e) {
-                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println(e.getMessage());
+                } catch (InvalidDeadlineException e) {
+                    System.out.println(e.getMessage());
+                } catch (InvalidEventException e) {
+                    System.out.println(e.getMessage());
                 } catch (Exception e) {
                     System.out.println("☹ OOPS!!! There is an error: " + e.getMessage());
                 }
