@@ -28,44 +28,65 @@ public class Qi {
                 continue;
             }
 
-            if (str.startsWith("todo ")) {
-                String task = str.substring(5);
-                qi.addTask(task);
+            if (str.startsWith("todo")) {
+                try {
+                    String task = str.substring(5);
+                    qi.addTask(task);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     ☹ OOPS!!! The description of a todo cannot be empty.");
+                    System.out.println("    ____________________________________________________________");
+                }
                 continue;
             }
 
-            if (str.startsWith("deadline ")) {
+            if (str.startsWith("deadline")) {
                 // find the first slash
                 int idx = 9;
-                while (str.charAt(idx) != '/') {
+                while (idx < str.length() && str.charAt(idx) != '/') {
                     idx++;
                 }
-
-                String task = str.substring(9, idx - 1);
-                String deadline = str.substring(idx + 4);
-
-                qi.addTask(task, deadline);
+                try {
+                    String task = str.substring(9, idx - 1);
+                    String deadline = str.substring(idx + 4);
+                    qi.addTask(task, deadline);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     ☹ OOPS!!! The description of a deadline cannot be empty.");
+                    System.out.println("    ____________________________________________________________");
+                }
                 continue;
             }
 
-            if (str.startsWith("event ")) {
+            if (str.startsWith("event")) {
                 // find the first slash
                 int idx1 = 6;
-                while (str.charAt(idx1) != '/') {
+                while (idx1 < str.length() && str.charAt(idx1) != '/') {
                     idx1++;
                 }
 
                 // find the second slash
                 int idx2 = idx1 + 1;
-                while (str.charAt(idx2) != '/') {
+                while (idx2 < str.length() && str.charAt(idx2) != '/') {
                     idx2++;
                 }
 
-                String task = str.substring(6, idx1 - 1);
-                String startTime = str.substring(idx1 + 6, idx2 - 1);
-                String endTime = str.substring(idx2 + 4);
-                qi.addTask(task, startTime, endTime);
+                try {
+                    String task = str.substring(6, idx1 - 1);
+                    String startTime = str.substring(idx1 + 6, idx2 - 1);
+                    String endTime = str.substring(idx2 + 4);
+                    qi.addTask(task, startTime, endTime);
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("    ____________________________________________________________");
+                    System.out.println("     ☹ OOPS!!! The description of an event cannot be empty.");
+                    System.out.println("    ____________________________________________________________");
+                }
+                continue;
             }
+
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            System.out.println("    ____________________________________________________________");
         }
         qi.goodBye();
     }
