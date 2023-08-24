@@ -2,12 +2,15 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Noac {
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
+
 
         String logo =  " _   _  ___    _    ____\n" +
                 "| \\ | |/ _ \\  / \\  / ___|\n" +
@@ -31,16 +34,46 @@ public class Noac {
             if (userInput.equals("list")) {
                 System.out.println("    ____________________________________________________________");
                 for (int i = 1; i <= list.size(); i++) {
-                    System.out.println("    " + i + ". " + list.get(i-1));
+                    System.out.println("    " + i + "." + list.get(i-1).toString());
                 }
                 System.out.println("    ____________________________________________________________");
-            } else {
+            } else if (userInput.split(" ")[0].equals("mark") || (userInput.split(" ")[0].equals("unmark"))) {
+
+                String[] temp = userInput.split(" ");
+
+                if(!checkValidMarkInput(userInput, list.size())){
+
+
+                } else {
+                    int taskNo = Integer.parseInt(temp[1]);
+
+                    System.out.println("    ____________________________________________________________");
+
+                    if (temp[0].equals("mark")) {
+                        list.get(taskNo - 1).markAsDone();
+
+                        System.out.println("     Nice! I've marked this task as done:");
+
+                    } else {
+                        list.get(taskNo - 1).unmarkAsDone();
+
+                        System.out.println("     OK, I've marked this task as not done yet:");
+
+                    }
+                    System.out.println("       " + list.get(taskNo-1).toString());
+                    System.out.println("    ____________________________________________________________");
+
+
+                }
+
+            }
+            else {
                 System.out.println("    ____________________________________________________________");
                 System.out.println("    added: " + userInput);
                 System.out.println("    ____________________________________________________________");
 
-                String temp = userInput;
-                list.add(temp);
+                list.add(new Task(userInput));
+
             }
 
             userInput = scanner.nextLine();
@@ -53,4 +86,31 @@ public class Noac {
 
         System.out.println(byeMessage);
     }
+
+
+    private static boolean checkValidMarkInput(String input, int listSize) {
+        String[] temp = input.split(" ");
+
+        if(temp.length > 2) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Invalid Input! \n     Please enter in the format mark [TASK_NUMBER] e.g. mark 1");
+            System.out.println("    ____________________________________________________________");
+            return false;
+        } else if (!temp[1].matches("\\d+")) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Invalid Input! \n     Please enter in the format mark [TASK_NUMBER] e.g. mark 1");
+            System.out.println("    ____________________________________________________________");
+            return  false;
+        } else if (Integer.parseInt(temp[1]) > listSize) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("     Invalid Input! \n     Please enter a task in your list!");
+            System.out.println("    ____________________________________________________________");
+            return false;
+        }
+
+        return true;
+    }
 }
+
+
+
