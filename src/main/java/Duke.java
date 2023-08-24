@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -22,23 +24,33 @@ public class Duke {
         lineSplitter();
     }
 
-    public static void echo() {
+    public static void echo(List<String> list) {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
             if (input.equalsIgnoreCase("bye")) {
                 break;
             }
+            if (input.equalsIgnoreCase("list")) {
+                lineSplitter();
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println((i + 1) + ". " + list.get(i));
+                }
+                lineSplitter();
+                continue;
+            }
+            list.add(input);
             lineSplitter();
-            System.out.println(input + "\n");
+            System.out.println("added: " + input + "\n");
             lineSplitter();
         }
         sc.close();
     }
 
     public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
         greet();
-        echo();
+        echo(list);
         bye();
     }
 }
