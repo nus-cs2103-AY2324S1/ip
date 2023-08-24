@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class Remy {
     public static void main(String[] args) {
         String welcomeMessage = "____________________________________________________________\n" +
@@ -7,6 +8,18 @@ public class Remy {
         String exitMessage = " Bye. Hope to see you again soon!\n" +
         "____________________________________________________________\n";
 
-        System.out.println(welcomeMessage + exitMessage);
+        System.out.println(welcomeMessage);
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        while (true) {
+            input = scanner.nextLine();
+            if (input.equals("bye")) {
+                System.out.println(exitMessage);
+                break;
+            }
+            System.out.println(input + "\n" + "--------");
+
+        }
     }
 }
