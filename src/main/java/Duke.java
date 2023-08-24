@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -68,7 +69,7 @@ public class Duke {
         }
 
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println(div + "Hello! I'm CarrotCake\nWhat can I do for you?\n" + div);
 
@@ -79,8 +80,14 @@ public class Duke {
             System.out.println(div);
             if (input.equalsIgnoreCase("list")) {
                 //Print tasks
+                if (count < 1) {
+                    System.out.println("List is empty.");
+                    System.out.println(div);
+                    input = scanner.nextLine();
+                    continue;
+                }
                 for (int i = 0; i < count; i++) {
-                    System.out.print((i+1) + ". " + tasks[i].printTask());
+                    System.out.print((i+1) + ". " + tasks.get(i).printTask());
                 }
                 System.out.println(div);
                 input = scanner.nextLine();
@@ -94,7 +101,7 @@ public class Duke {
                     input = scanner.nextLine();
                     continue;
                 }
-                tasks[taskNumber].mark();
+                tasks.get(taskNumber).mark();
                 input = scanner.nextLine();
                 continue;
             }
@@ -106,7 +113,22 @@ public class Duke {
                     input = scanner.nextLine();
                     continue;
                 }
-                tasks[taskNumber].unmark();
+                tasks.get(taskNumber).unmark();
+                input = scanner.nextLine();
+                continue;
+            }
+            if (input.toLowerCase().startsWith("delete ")) {
+                String[] parts = input.split(" ");
+                int taskNumber = Integer.parseInt(parts[1]) - 1;
+                if (taskNumber > count) {
+                    System.out.println("☹ OOPS!!! Such a task doesn't exist :-(\n" + div);
+                    input = scanner.nextLine();
+                    continue;
+                }
+                count--;
+                System.out.println("Noted. I've removed this task:\n" + tasks.get(taskNumber).printTask() +
+                        "\nNow you have " + count +" tasks in the list.\n" + div);
+                tasks.remove(taskNumber);
                 input = scanner.nextLine();
                 continue;
             }
@@ -115,7 +137,8 @@ public class Duke {
                 input = input.substring(4);
                 System.out.println("Got it. I've  added this task: \n[T] [ ]" + input +
                         "\nNow you have "+ (count+1) + " tasks in the list.\n" +div);
-                tasks[count] = new ToDos(input);
+                tasks.add(new ToDos(input));
+                count++;
             }
             else if (input.toLowerCase().startsWith("deadline ")) {
                 String[] parts = input.split("/");
@@ -123,7 +146,7 @@ public class Duke {
                 input = parts[0].substring(8);
                 System.out.println("Got it. I've  added this task: \n[D] [ ]" + input + "(" + due + ")" +
                         "\nNow you have "+ (count+1) + " tasks in the list.\n" +div);
-                tasks[count] = new Deadline(input, due);
+                tasks.set(count, new Deadline(input, due));
             }
             else if (input.toLowerCase().startsWith("event ")) {
                 String[] parts = input.split("/");
@@ -132,7 +155,7 @@ public class Duke {
                 input = parts[0].substring(5);
                 System.out.println("Got it. I've  added this task: \n[E] [ ]" + input + "(" + start + " " + end + ")" +
                         "\nNow you have "+ (count + 1) + " tasks in the list.\n" +div);
-                tasks[count] = new Events(input, start, end);
+                tasks.set(count, new Events(input, start, end));
             }
             else {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + div);
@@ -141,7 +164,6 @@ public class Duke {
             }
 
             input = scanner.nextLine();
-            count++;
         }
 
         System.out.println(div + "Bye. Hope to see you again soon!\n" + div);
