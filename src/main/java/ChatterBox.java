@@ -2,12 +2,17 @@ import java.util.*;
 
 public class ChatterBox {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DukeException {
 
         ArrayList<Task> taskList = new ArrayList<>();
         linePrinter();
         tabPrinter("Hello! I'm ChatterBox");
         tabPrinter("What can I do for you?");
+        System.out.println("");
+        tabPrinter("Available commands:");
+        tabPrinter("todo <TASK>"); 
+        tabPrinter("deadline <TASK> /by <DATE>");
+        tabPrinter("event <TASK> /from <START> /to <END>");
         linePrinter();
 
         Scanner sc = new Scanner(System.in);
@@ -50,6 +55,13 @@ public class ChatterBox {
             } else {
 
                 if (input.equals("todo")) {
+                    if (fullLine.split(" todo").length < 2) {
+                        linePrinter();
+                        tabPrinter("The description of a todo cannot be empty!");
+                        linePrinter();
+                        throw new DukeException(
+                                "The description of a todo cannot be empty!");
+                    }
                     String taskName = fullLine.split("todo ")[1];
                     ToDo tempToDo = new ToDo(taskName);
                     taskList.add(tempToDo);
@@ -61,6 +73,13 @@ public class ChatterBox {
 
 
                 } else if (input.equals("deadline")) {
+                    if (fullLine.split("/by ").length < 2) {
+                        linePrinter();
+                        tabPrinter("The due date of a deadline cannot be empty!");
+                        linePrinter();
+                        throw new DukeException(
+                                "The due date of a deadline cannot be empty!");
+                    }
                     String longName = fullLine.split("/by ")[0];
                     String date = fullLine.split("/by ")[1];
                     String taskName = longName.split("deadline ")[1];
@@ -75,6 +94,13 @@ public class ChatterBox {
                     linePrinter();
 
                 } else if (input.equals("event")) {
+                    if (fullLine.split("/").length < 3) {
+                        linePrinter();
+                        tabPrinter("An event must have both start and end date");
+                        linePrinter();
+                        throw new DukeException(
+                                "An event must have both start and end date");
+                    }
                     String[] longNameArray = fullLine.split("/");
                     String longName = longNameArray[0];
                     String fromTime = longNameArray[1];
@@ -93,11 +119,13 @@ public class ChatterBox {
                     linePrinter();
 
                 } else {
+                    //linePrinter();
+                    //tabPrinter("added: " + fullLine);
+                    //linePrinter();
+                    //taskList.add(new Task(fullLine));  
                     linePrinter();
-                    tabPrinter("added: " + fullLine);
-                    linePrinter();
-                    taskList.add(new Task(fullLine));  
-
+                    throw new 
+                        DukeException("I'm sorry I don't know what that means.");
                 }
             }
         }
