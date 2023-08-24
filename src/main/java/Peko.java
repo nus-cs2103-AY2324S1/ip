@@ -33,12 +33,12 @@ public class Peko {
 
     private static String currInput;
     private static final Scanner scanner = new Scanner(System.in);
+    private static SaveHandler saveHandler = new SaveHandler(todoList, new File("src/main/List.txt"));
     public static void main(String[] args) throws InvalidTaskException {
         String input;
         boolean loop = true;
         int responseValue;
         CommandsInternal temp;
-        SaveHandler saveHandler = new SaveHandler(todoList, new File("src/main/List.txt"));
         todoList = saveHandler.loadFrom();
 
         intro();
@@ -177,24 +177,28 @@ public class Peko {
         todoList[pos].reply(pos);
         pos++;
         System.out.println(lineBreak);
+        saveHandler.saveTo();
     }
     public static void addToDo(String s) throws InvalidTaskException {
         todoList[pos] = new ToDos(s);
         todoList[pos].reply(pos);
         pos++;
         System.out.println(lineBreak);
+        saveHandler.saveTo();
     }
     public static void addDeadline(String s) throws InvalidTaskException {
         todoList[pos] = new Deadline(s);
         todoList[pos].reply(pos);
         pos++;
         System.out.println(lineBreak);
+        saveHandler.saveTo();
     }
     public static void addEvent(String s) throws InvalidTaskException {
         todoList[pos] = new Event(s);
         todoList[pos].reply(pos);
         pos++;
         System.out.println(lineBreak);
+        saveHandler.saveTo();
     }
 
     public static void setMarkArray(String s) {
@@ -207,6 +211,7 @@ public class Peko {
             System.out.println("That's not a number Bakatare!");
         }
         System.out.println(lineBreak);
+        saveHandler.saveTo();
     }
     public static void setUnmarkArray(String s) {
         try {
@@ -218,6 +223,7 @@ public class Peko {
             System.out.println("That's not a number Bakatare!");
         }
         System.out.println(lineBreak);
+        saveHandler.saveTo();
     }
 
     public static void setDelete(String s) {
@@ -234,6 +240,7 @@ public class Peko {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("That's not a number in the list Peko!");
         }
+        saveHandler.saveTo();
     }
 
     public static void degen() throws FileNotFoundException {
