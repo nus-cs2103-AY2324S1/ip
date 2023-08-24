@@ -33,6 +33,10 @@ public class Duke {
                 task = Task.markUnmarkTask(command);
                 Util.displayMessage("OK, I've marked this task as not done yet: \n" + task);
                 break;
+            case "delete":
+                task = Task.deleteTask(command);
+                Util.displayMessage("Noted. I've removed this task: \n" + task);
+                break;
             case "todo":
                 // Fallthrough
             case "deadline":

@@ -5,7 +5,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Task {
-    private static Pattern markUnmarkCommand = Pattern.compile("^(mark|unmark) (?<taskNumber>\\d*)");
+    private static Pattern markUnmarkCommand = Pattern.compile("^(mark|unmark) (?<taskNumber>\\d*)$");
+    private static Pattern deleteCommand = Pattern.compile("^delete (?<taskNumber>\\d*)$");
     private static ArrayList<Task> allTasks = new ArrayList<>();
     private boolean isDone;
     private String name;
@@ -15,6 +16,27 @@ public class Task {
         this.isDone = false;
 
         allTasks.add(this);
+    }
+
+    public static Task deleteTask(String command) throws LukeException {
+        Matcher matcher = deleteCommand.matcher(command);
+        if (!matcher.find()) {
+            throw new LukeException("Invalid format. Usage: delete {task_number}");
+        }
+
+        String taskNumber = matcher.group("taskNumber");
+        if (taskNumber == null || taskNumber.isBlank()) {
+            throw new LukeException("Task number cannot be empty.");
+        }
+
+        int taskIndex = Integer.parseInt(taskNumber) - 1;
+        if (taskIndex < 0 || taskIndex >= allTasks.size()) {
+            throw new LukeException("Invalid task number: no such task");
+        }
+
+        Task task = allTasks.get(taskIndex);
+        allTasks.remove(taskIndex);
+        return task;
     }
 
     public static Task markUnmarkTask(String command) throws LukeException {
@@ -30,7 +52,7 @@ public class Task {
 
         int taskIndex = Integer.parseInt(taskNumber) - 1;
         if (taskIndex < 0 || taskIndex >= allTasks.size()) {
-            throw new LukeException("Invalid task number - no such task");
+            throw new LukeException("Invalid task number: no such task");
         }
 
         return setTaskIsDone(taskIndex, command.split(" ")[0].equals("mark"));
@@ -73,7 +95,7 @@ public class Task {
         Task task = allTasks.get(taskNumber);
         if (task.isDone == isDone) {
             String status = isDone ? "marked as done" : "marked as unfinished";
-            throw new LukeException("Task: " + task + " is already " + status);
+            throw new LukeException("Task: '" + task + "' is already " + status);
         }
         task.isDone = isDone;
         return task;
