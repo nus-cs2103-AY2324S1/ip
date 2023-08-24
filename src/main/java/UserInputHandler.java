@@ -31,6 +31,10 @@ public class UserInputHandler {
         input = "";
     }
     public CommandsInternal getResponseValue(String s) {
+
+        if (s.toLowerCase().equals("tell me a joke")) {
+            return CommandsInternal.COPYPASTA;
+        }
         int output = 0;
         s = s.toLowerCase();
         for (int i = 0; i < commands.length; i++) {
