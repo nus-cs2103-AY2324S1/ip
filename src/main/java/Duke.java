@@ -7,7 +7,7 @@ public class Duke {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         boolean bye = false;
-        String[] arrayList = new String[100];
+        Task[] arrayList = new Task[100];
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -27,7 +27,7 @@ public class Duke {
                 s = in.nextLine();
             }
 
-            if (s.equals("bye")) {
+            if (s.equals("bye")) { // if inout is bye, terminate code
                 bye = true;
 
                 String exit = "    ____________________________________________________________\n" +
@@ -36,6 +36,7 @@ public class Duke {
                 System.out.println(exit);
             } else {
                 String response = "";
+                String[] split = s.split(" ");
 
                 if (s.equals("list")) {
                     String items = "";
@@ -44,23 +45,49 @@ public class Duke {
                         if (arrayList[i] == null) {
                             break;
                         }
-                        items += "     " + (i+1) + ". " + arrayList[i] + "\n";
+                        items += "     " + (i+1) + "." + arrayList[i].toString() + "\n";
                     }
                     response = "    ____________________________________________________________\n" +
+                            "     Here are the tasks in your list: \n" +
                             items +
                             "    ____________________________________________________________\n";
 
                 } else {
-                    for (int i = 0; i < 100; i++) {
-                        if (arrayList[i] == null) {
-                            arrayList[i] = s;
-                            break;
-                        }
-                    }
+                    boolean condition1 = split[0].equals("mark") || split[0].equals("unmark"); //first word is mark or unmark
 
-                    response = "    ____________________________________________________________\n" +
-                            "     added: " + s + "\n" +
-                            "    ____________________________________________________________\n";
+                    if (split.length == 2 && condition1 ) {
+                        Integer index = Integer.parseInt(split[1]);
+
+                        if (index > 0 && arrayList[index-1] != null) {
+                            if (split[0].equals("mark")) {
+                                arrayList[index - 1].mark();
+
+                                response = "    ____________________________________________________________\n" +
+                                        "     Nice! I've marked this task as done:" + "\n" +
+                                        "       " + arrayList[index-1].toString() + "\n" +
+                                        "    ____________________________________________________________\n";
+                            }
+                            if (split[0].equals("unmark")) {
+                                arrayList[index - 1].unmark();
+
+                                response = "    ____________________________________________________________\n" +
+                                        "     OK, I've marked this task as not done yet:" + "\n" +
+                                        "       " + arrayList[index-1].toString() + "\n" +
+                                        "    ____________________________________________________________\n";
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < 100; i++) {
+                            if (arrayList[i] == null) {
+                                arrayList[i] = new Task(s);
+                                break;
+                            }
+                        }
+
+                        response = "    ____________________________________________________________\n" +
+                                "     added: " + s + "\n" +
+                                "    ____________________________________________________________\n";
+                    }
                 }
 
                 System.out.println(response);
