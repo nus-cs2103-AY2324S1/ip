@@ -29,6 +29,7 @@ public class Duke {
     static class InputHandler {
         private final Scanner scanner = new Scanner(System.in);
         private final Model model;
+        private final Storage storage = new Storage();
 
         private boolean isExit = false;
 
@@ -43,11 +44,43 @@ public class Duke {
                 return;
             }
 
-            model.echo(input);
+            if (input.equals("list")) {
+                System.out.println(storage);
+                return;
+            }
+
+            model.echo(storage.save(input));
         }
 
         public boolean isExit() {
             return isExit;
+        }
+    }
+
+    static class Storage {
+        private String[] storage = new String[100];
+        private int pointer = 0;
+
+
+        public String save(String input) {
+            storage[pointer] = input;
+            pointer++;
+            return "added: " + input;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            int count = 0;
+            for (String s : storage) {
+                if (s == null) {
+                    break;
+                }
+                count++;
+                sb.append(count).append(". ").append(s).append("\n");
+            }
+
+            return sb.toString();
         }
     }
 
