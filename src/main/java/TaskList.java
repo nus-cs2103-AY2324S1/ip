@@ -51,10 +51,14 @@ public class TaskList {
      * @param index
      */
     public void markDone(int index) {
-        Task task = this.taskList.get(index - 1);
-        task.setDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+        try {
+            Task task = this.taskList.get(index - 1);
+            task.setDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(task);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! There is no task with this index number.");
+        }
     }
 
     /**
@@ -64,9 +68,13 @@ public class TaskList {
      * @param index
      */
     public void markNotDone(int index) {
-        Task task = this.taskList.get(index - 1);
-        task.setNotDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task);
+        try {
+            Task task = this.taskList.get(index - 1);
+            task.setNotDone();
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println(task);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("☹ OOPS!!! There is no task with this index number.");
+        }
     }
 }

@@ -1,5 +1,26 @@
+mark 1
+unmark this
+todo
 todo nothing
-deadline return book /by Sunday
+deadline
+deadline nothing
+deadline nothing /to tmr morning
+deadline /by tmr morning
+deadline nothing /by tmr morning
+event
+event nothing
+event nothing /from /to
+event nothing /from tmr morning /to
+event nothing /from tmr morning /to later
+mark 1
+list
+unmark 1
+list
+list list
+idunno
+bye
+
+
 event project meeting /from Mon 2pm /to 4pm
 list
 mark 1

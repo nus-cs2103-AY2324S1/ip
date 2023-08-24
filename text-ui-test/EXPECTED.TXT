@@ -1,31 +1,38 @@
 Hello! I'm Albatross
 What can I do for you?
 Please enter a command
+☹ OOPS!!! There is no task with this index number.
+DukeException: Invalid input for index
+DukeException: ☹ OOPS!!! Incorrect description of a todo.
 Got it. I've added this task:
 [T][ ] nothing
 Now you have 1 tasks in the list.
+DukeException: ☹ OOPS!!! Incorrect description of a deadline.
+DukeException: ☹ OOPS!!! Incorrect description of a deadline.
+DukeException: ☹ OOPS!!! Incorrect description of a deadline.
+DukeException: ☹ OOPS!!! Incorrect description of a deadline.
 Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+[D][ ] nothing (by: tmr morning)
 Now you have 2 tasks in the list.
+DukeException: ☹ OOPS!!! Incorrect description of an event.
+DukeException: ☹ OOPS!!! Incorrect description of an event.
+DukeException: ☹ OOPS!!! Incorrect description of an event.
+DukeException: ☹ OOPS!!! Incorrect description of an event.
 Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[E][ ] nothing  (from: tmr morning to: later)
 Now you have 3 tasks in the list.
-Here are the tasks in your list:
-1. [T][ ] nothing
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Nice! I've marked this task as done:
 [T][X] nothing
-Nice! I've marked this task as done:
-[E][X] project meeting (from: Mon 2pm to: 4pm)
 Here are the tasks in your list:
 1. [T][X] nothing
-2. [D][ ] return book (by: Sunday)
-3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] nothing (by: tmr morning)
+3. [E][ ] nothing  (from: tmr morning to: later)
 OK, I've marked this task as not done yet:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[T][ ] nothing
 Here are the tasks in your list:
-1. [T][X] nothing
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+1. [T][ ] nothing
+2. [D][ ] nothing (by: tmr morning)
+3. [E][ ] nothing  (from: tmr morning to: later)
+DukeException: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+DukeException: ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 Bye! Hope to see you again soon!
