@@ -24,60 +24,78 @@ public class Remy {
         while (true) {
             input = scanner.nextLine();
             String taskType = parseTaskType(input);
-            if (taskType.equals("bye")) {
-                System.out.println(exitMessage);
-                break;
-            } else if (taskType.equals("list")) {
-                System.out.println(shortDivider);
-                for (int i = 0; i < taskList.size(); i++) {
-                    System.out.println(" " + (i + 1) + ". " + taskList.get(i));
-                }
-                System.out.println(shortDivider);
-            } else if (taskType.equals("mark")) {
-                // Marks item as done
-                int index = Integer.parseInt(input.substring(5)) - 1;
-                if (index >= 0 && index < taskList.size()) {
-                    taskList.get(index).markAsDone();
-                    String content = "Done. You happy?\n" + taskList.get(index).toString();
-                    printSandwichContent(content, "short");
-                } else {
-                    printSandwichContent("No such item lah", "short");
-                }
-            } else if (taskType.equals("unmark")) {
-                // Marks item as undone
-                int index = Integer.parseInt(input.substring(5)) - 1;
-                if (index >= 0 && index < taskList.size()) {
-                    taskList.get(index).markAsUndone();
-                    String content = "Done. You happy?\n" + taskList.get(index).toString();
-                    printSandwichContent(content, "short");
-                } else {
-                    printSandwichContent("No such item lah", "short");
-                }
-            } else if (taskType.equals("todo")) {
-                String description = input.substring(5);
-                Todo temp = new Todo(description);
-                taskList.add(temp);
-                addTask(temp, taskList.size());
-            } else if (taskType.equals("deadline")) {
-                String[] parts = input.substring(9).split(" /by ");
-                if (parts.length == 2) {
-                    Deadline temp = new Deadline(parts[0], parts[1]);
+            try {
+                if (taskType.equals("bye")) {
+                    System.out.println(exitMessage);
+                    break;
+                } else if (taskType.equals("list")) {
+                    System.out.println(shortDivider);
+                    for (int i = 0; i < taskList.size(); i++) {
+                        System.out.println(" " + (i + 1) + ". " + taskList.get(i));
+                    }
+                    System.out.println(shortDivider);
+                } else if (taskType.equals("mark")) {
+                    // Marks item as done
+                    int index = Integer.parseInt(input.substring(5)) - 1;
+                    if (index >= 0 && index < taskList.size()) {
+                        taskList.get(index).markAsDone();
+                        String content = "Done. You happy?\n" + taskList.get(index).toString();
+                        printSandwichContent(content, "short");
+                    } else {
+                        throw new ChatbotException("no such item lah.");
+                    }
+                } else if (taskType.equals("unmark")) {
+                    // Marks item as undone
+                    int index = Integer.parseInt(input.substring(7)) - 1;
+                    if (index >= 0 && index < taskList.size()) {
+                        taskList.get(index).markAsUndone();
+                        String content = "Done. You happy?\n" + taskList.get(index).toString();
+                        printSandwichContent(content, "short");
+                    } else {
+                        throw new ChatbotException("no such item lah.");
+                    }
+                } else if (taskType.equals("delete")) {
+                    // Marks item as undone
+                    int index = Integer.parseInt(input.substring(7)) - 1;
+                    if (index >= 0 && index < taskList.size()) {
+                        taskList.get(index).markAsUndone();
+                        String content = "Done. You happy?\n" + taskList.get(index).toString();
+                        printSandwichContent(content, "short");
+                    } else {
+                        throw new ChatbotException("no such item lah.");
+                    }
+                } else if (taskType.equals("todo")) {
+                    if (input.length() < 5) throw new ChatbotException("missing info lah.");
+                    String description = input.substring(5);
+                    Todo temp = new Todo(description);
                     taskList.add(temp);
                     addTask(temp, taskList.size());
+                } else if (taskType.equals("deadline")) {
+                    if (input.length() < 9) throw new ChatbotException("missing info lah.");
+                    String[] parts = input.substring(9).split(" /by ");
+                    if (parts.length == 2) {
+                        Deadline temp = new Deadline(parts[0], parts[1]);
+                        taskList.add(temp);
+                        addTask(temp, taskList.size());
+                    } else {
+                        throw new ChatbotException("wrong format lah.");
+                    }
+                } else if (taskType.equals("event")) {
+                    if (input.length() < 7) throw new ChatbotException("missing info lah.");
+                    String[] parts = input.substring(6).split(" /from | /to ");
+                    if (parts.length == 3) {
+                        Event temp = new Event(parts[0], parts[1], parts[2]);
+                        taskList.add(temp);
+                        addTask(temp, taskList.size());
+                    } else {
+                        // printSandwichContent("Wrong format lah.", "short");
+                        throw new ChatbotException("wrong format lah.");
+                    }
                 } else {
-                    printSandwichContent("Wrong format lah.", "short");
+                    throw new ChatbotException("that's not a command.");
                 }
-            } else if (taskType.equals("event")) {
-                String[] parts = input.substring(6).split(" /from | /to ");
-                if (parts.length == 3) {
-                    Event temp = new Event(parts[0], parts[1], parts[2]);
-                    taskList.add(temp);
-                    addTask(temp, taskList.size());
-                } else {
-                    printSandwichContent("Wrong format lah.", "short");
-                }
-            } else {
-                printSandwichContent("No such command lah.", "short");
+            } catch (ChatbotException e) {
+                printSandwichContent(e.toString(), "long");
             }
         }
     }
@@ -95,6 +113,8 @@ public class Remy {
             return "deadline";
         } else if (input.toLowerCase().startsWith("event")) {
             return "event";
+        } else if (input.toLowerCase().startsWith("delete")) {
+            return "delete";
         } else if (input.toLowerCase().equals("bye")) {
             return "bye";
         } else {
