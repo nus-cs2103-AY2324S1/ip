@@ -12,14 +12,52 @@ class TaskList {
     }
 
     /**
-     * Returns a new TaskList with added task.
+     * Returns a new task list with added task.
      * @param task Task to be added
-     * @return TaskList with added task
+     * @return Task list with added task
      */
     public TaskList add(Task task) {
-        ArrayList<Task> newTasks = this.tasks;
-        newTasks.add(task);
-        return new TaskList(newTasks);
+        ArrayList<Task> updatedTasks = this.tasks;
+        updatedTasks.add(task);
+        return new TaskList(updatedTasks);
+    }
+
+    /**
+     * Returns a task based on the specified task number.
+     * @param taskNumber Task to be added
+     * @return Task of the specified number
+     */
+    public Task getTask(int taskNumber) {
+        return this.tasks.get(taskNumber - 1);
+    }
+
+
+    /**
+     * Returns a new task list with marked task.
+     * @param numberToMark Integer of task to be marked.
+     * @return Task list updated with marked task
+     */
+    public TaskList markTask(int numberToMark) {
+        int index = numberToMark - 1;
+        ArrayList<Task> updatedTasks = this.tasks;
+        Task taskToMark = updatedTasks.get(index);
+        taskToMark = taskToMark.mark();
+        updatedTasks.set(index, taskToMark);
+        return new TaskList(updatedTasks);
+    }
+
+    /**
+     * Returns a new task list with unmarked task.
+     * @param numberToUnmark Integer of task to be unmarked.
+     * @return Task list updated with unmarked task
+     */
+    public TaskList unmarkTask(int numberToUnmark) {
+        int index = numberToUnmark - 1;
+        ArrayList<Task> updatedTasks = this.tasks;
+        Task taskToUnmark = updatedTasks.get(index);
+        taskToUnmark = taskToUnmark.unmark();
+        updatedTasks.set(index, taskToUnmark);
+        return new TaskList(updatedTasks);
     }
 
     /**
