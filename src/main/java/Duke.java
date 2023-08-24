@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Chatbot to assist individuals in keeping track of pending tasks
+ */
 public class Duke {
 
     public enum SpecialTaskKeyword {
@@ -9,6 +12,12 @@ public class Duke {
         DEADLINE,
         EVENT
     }
+
+    /**
+     * Runs the chatbot and allows users to keep track of pending tasks
+     *
+     * @param args user inputs to interact with the chat bot
+     */
     public static void main(String[] args) {
         System.out.println("Hello! I'm HAPPY\nWhat can I do for you?\n");
 
