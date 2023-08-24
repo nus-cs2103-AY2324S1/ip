@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class AiChan {
     public static void main(String[] args) {
         String line = "_______________________________________________________________________\n";
-        String greet = "Hiya! I'm Ai-chan~ ✧◝(⁰▿⁰)◜✧\n" +
+        String greet = "Hiya! I'm Ai-chan~\n" +
                 "Hey there, dear viewer, what's on your mind?\n" +
                 "Is there anything I can do to sprinkle some magic into your day?\n";
         String bye = "Ta-da! It's time to go~ Keep smiling till we reunite!\n";
@@ -19,7 +19,7 @@ public class AiChan {
                 System.out.println(line + bye + line);
                 break;
             } else if (command.equals("list")){
-                System.out.print(line + "Here are the tasks in your list: \n");
+                System.out.print(line + "Here are the tasks in your list:\n");
                 for (Task t : arrTask) {
                     System.out.println(t.toStringId());
                 }
@@ -29,14 +29,14 @@ public class AiChan {
                 int taskId = Integer.parseInt(command.substring(5));
                 Task t = arrTask.get(taskId - 1);
                 t.mark();
-                System.out.println(line + "Nice! I've marked this task as done: \n"
+                System.out.println(line + "Nice! I've marked this task as done:\n"
                         + t.toString() + "\n" + line);
             } else if (command.startsWith("unmark")){
                 // get the number behind "unmark "
                 int taskId = Integer.parseInt(command.substring(7));
                 Task t = arrTask.get(taskId - 1);
                 t.unmark();
-                System.out.println(line + "OK, I've marked this task as not done yet: \n"
+                System.out.println(line + "OK, I've marked this task as not done yet:\n"
                         + t.toString() + "\n" + line);
             } else if (command.startsWith("todo")){
                 Task t = new ToDo(command.substring(5));
