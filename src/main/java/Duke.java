@@ -4,7 +4,7 @@ public class Duke {
     public static void main(String[] args) {
         String space = "------------------------------------"; // for spacing purposes
         String name = "Adam's Bot"; // name of bot
-        String[] toDoList = new String[100]; // list to store the items
+        Task[] toDoList = new Task[100]; // list to store the items
         int counter = 0; // counter to keep track of pointer
 
         System.out.println(space);
@@ -23,16 +23,25 @@ public class Duke {
                 System.out.println(space);
 
                 //iterate through list to print items
-                for (int i = 0; i < counter; i++ ) {
-                    int currentNumber = i + 1;
-                    System.out.println(currentNumber + ". "  + toDoList[i]);
+                for (int i = 0; i < counter; i++) {
+                    toDoList[i].printTask();
                 }
                 System.out.println(space);
 
+            } else if (userInput.startsWith("mark")) {
+                int index = Integer.parseInt(userInput.split(" ")[1]) -1;
+                System.out.println(space);
+                toDoList[index].markDone();
+                System.out.println(space);
+            } else if (userInput.startsWith("unmark")) {
+                int index = Integer.parseInt(userInput.split(" ")[1]) -1;
+                System.out.println(space);
+                toDoList[index].unmarkDone();
+                System.out.println(space);
             } else {
 
                 //add item into list
-                toDoList[counter] = userInput;
+                toDoList[counter] = new Task(counter + 1, userInput);
                 counter++;
 
                 System.out.println(space);
