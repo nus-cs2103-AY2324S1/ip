@@ -24,23 +24,35 @@ public class Duke {
         lineSplitter();
     }
 
-    private static Task addTask(String input) {
+    private static Task addTask(String input) throws CommandNotRecognizedException, NoCommandDetailException {
         String[] splittedInput = input.split(" ", 2); // Split into two parts: command and argument
         String command = splittedInput[0].toLowerCase();
 
         switch (command) {
             case "todo":
-                return new ToDo(splittedInput[1]);
+                try {
+                    return new ToDo(splittedInput[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new NoCommandDetailException("OOPS!!! The description of a todo cannot be empty.");
+                }
             case "deadline":
-                String[] deadlineParts = splitByDelimiter(splittedInput[1], " /by ");
-                return new Deadline(deadlineParts[0], deadlineParts[1]);
+                try {
+                    String[] deadlineParts = splitByDelimiter(splittedInput[1], " /by ");
+                    return new Deadline(deadlineParts[0], deadlineParts[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new NoCommandDetailException("OOPS!!! The description of a deadline cannot be empty.");
+                }
             case "event":
-                String[] eventParts = splitByDelimiter(splittedInput[1], " /from ");
-                String eventName = eventParts[0];
-                String[] eventTimes = splitByDelimiter(eventParts[1], " /to ");
-                return new Event(eventName, eventTimes[0], eventTimes[1]);
+                try {
+                    String[] eventParts = splitByDelimiter(splittedInput[1], " /from ");
+                    String eventName = eventParts[0];
+                    String[] eventTimes = splitByDelimiter(eventParts[1], " /to ");
+                    return new Event(eventName, eventTimes[0], eventTimes[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new NoCommandDetailException("OOPS!!! The description of a event cannot be empty.");
+                }
             default:
-                return null;
+                throw new CommandNotRecognizedException("I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -88,6 +100,7 @@ public class Duke {
                     break;
 
                 default:
+                    try{
                     Task task = addTask(input);
                     if (task != null) {
                         list.add(task);
@@ -95,7 +108,13 @@ public class Duke {
                         System.out.println("added: " + task + " \n" + list.size() + " tasks in the list");
                         lineSplitter();
                     }
-                    break;
+                    break;} catch (CommandNotRecognizedException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    } catch (NoCommandDetailException e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
             }
         }
     }
