@@ -25,7 +25,26 @@ public class Chatbot {
                 continue;
             }
             try {
-                if (userMessage.substring(0, 4).equalsIgnoreCase("mark")) {
+                if (userMessage.substring(0, 6).equalsIgnoreCase("delete")) {
+                    try {
+                        int removeTask = Integer.parseInt(userMessage.substring(7)) - 1;
+                        System.out.println("This task will be removed!");
+                        System.out.print("[" + messageType[removeTask] + "]" + "[");
+                        if (messageDone[removeTask]) System.out.print("[X] ");
+                        else System.out.print("[ ] ");
+                        System.out.println(messageList[removeTask]);
+                        for (int i = removeTask; i < messageCount - 1; i++) {
+                            messageList[i] = messageList[i + 1];
+                            messageDone[i] = messageDone[i + 1];
+                            messageType[i] = messageType[i + 1];
+                        }
+                        messageCount--;
+                        continue;
+                    } catch (Exception e) {
+                        System.out.println("Please use the format \"delete <task number>\"!");
+                        continue;
+                    }
+                } else if (userMessage.substring(0, 4).equalsIgnoreCase("mark")) {
                     try {
                         int doneTask = Integer.parseInt(userMessage.substring(5));
                         System.out.println("Well done! This task has been marked as done.");
@@ -64,6 +83,9 @@ public class Chatbot {
                         System.out.println("Please use the format \"event <task description> /from <time> /to <time>\"!");
                         continue;
                     }
+                } else {
+                    System.out.println("I'm sorry, but I don't know what that means!");
+                    continue;
                 }
             } catch (Exception e) {
                 System.out.println("I'm sorry, but I don't know what that means!");
