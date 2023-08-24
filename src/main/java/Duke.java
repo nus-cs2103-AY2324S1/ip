@@ -21,20 +21,32 @@ public class Duke {
                 + "Now you have " + this.countTasks + " tasks in the list.");
     }
 
-    public void addToDo(String description) {
+    public void addToDo(String input) throws DukeException {
+        if (input.indexOf(" ") == -1) {
+            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+        }
+        String description = input.substring(input.indexOf(" ") + 1);
         tasks[countTasks] = new ToDo(description);
         countTasks++;
         printTask(tasks[countTasks - 1].toString());
     }
 
-    public void addDeadline(String description, String by) {
-        tasks[countTasks] = new Deadline(description, by);
+    public void addDeadline(String input) throws DukeException {
+        if (input.indexOf(" ") == -1) {
+            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+        }
+        String[] split = input.substring(input.indexOf(" ") + 1).split(" /by ");
+        tasks[countTasks] = new Deadline(split[0], split[1]);
         countTasks++;
         printTask(tasks[countTasks - 1].toString());
     }
 
-    public void addEvent(String description, String from, String to) {
-        tasks[countTasks] = new Event(description, from, to);
+    public void addEvent(String input) throws DukeException {
+        if (input.indexOf(" ") == -1) {
+            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+        }
+        String[] split = input.substring(input.indexOf(" ") + 1).split(" /from | /to ");
+        tasks[countTasks] = new Event(split[0], split[1], split[2]);
         countTasks++;
         printTask(tasks[countTasks - 1].toString());
     }
@@ -67,14 +79,26 @@ public class Duke {
                 tasks[index - 1].unmarkAsDone();
                 printWithLines("OK, I've marked this task as not done yet:" + "\n"
                         + tasks[index - 1]);
-            } else if (input.startsWith("todo ")) {
-                addToDo(input.replace("todo ", ""));
-            } else if (input.startsWith("deadline ")) {
-                String[] split = input.replace("deadline ", "").split(" /by ");
-                addDeadline(split[0], split[1]);
-            } else if (input.startsWith("event ")) {
-                String[] split = input.replace("event ", "").split(" /from | /to ");
-                addEvent(split[0], split[1], split[2]);
+            } else if (input.startsWith("todo")) {
+                try {
+                    addToDo(input);
+                } catch (DukeException e) {
+                    printWithLines(e.toString());
+                }
+            } else if (input.startsWith("deadline")) {
+                try {
+                    addDeadline(input);
+                } catch (DukeException e) {
+                    printWithLines(e.toString());
+                }
+            } else if (input.startsWith("event")) {
+                try {
+                    addEvent(input);
+                } catch (DukeException e) {
+                    printWithLines(e.toString());
+                }
+            } else {
+                printWithLines("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
     }
