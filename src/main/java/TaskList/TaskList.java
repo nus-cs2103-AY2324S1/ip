@@ -63,6 +63,14 @@ public class TaskList {
         return "OK, I've marked this task as not done yet: \n\t\t" + this.taskList.get(toDoIndex - 1);
     }
 
+    public String delete(int deleteIndex) {
+        Task deletedTask = this.taskList.get(deleteIndex - 1);
+        this.taskList.remove(deleteIndex - 1);
+        return "Noted. I've removed this task: \n\t\t" +
+                deletedTask +
+                "\n\tNow you have " + this.taskList.size() + " tasks in the list.";
+    }
+
     @Override
     public String toString() {
         System.out.println(this.taskList);

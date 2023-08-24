@@ -101,6 +101,13 @@ public class Parser {
                     String name = splitDeadlineInfo[0];
                     String deadline = splitDeadlineInfo[1].replace("by", "");
                     wrapInHorizontalLines(taskList.addDeadline(name, deadline));
+                } else if (command.equals("delete")) {
+                    String[] splitted = fullCommand.split(" ");
+                    if (splitted.length < 2) {
+                        throw new TaskException("You need to specify which task wants to be deleted!");
+                    }
+                    int deleteIndex = Integer.parseInt(splitted[1]);
+                    wrapInHorizontalLines(taskList.delete(deleteIndex));
                 } else {
                     throw new CommandException(" I'm sorry, but I don't know what that means :-(");
                 }
