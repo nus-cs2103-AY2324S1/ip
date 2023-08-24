@@ -12,8 +12,10 @@ public class Ballsorter {
         System.out.println("Hello! I'm Ballsorter\nWhat can I do for you?");
         System.out.println(line);
 
-        while (true) {
-            Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
+
+        while (sc.hasNextLine()) {
+
             String input = sc.nextLine();
 
             if (input.equals("bye")) {
@@ -45,10 +47,50 @@ public class Ballsorter {
 
             } else {
 
-                tasks[numberOfTasks] = new Task(input);
+                Task curr;
+                StringBuilder description = new StringBuilder();
+                StringBuilder start = new StringBuilder();
+
+                if (input.startsWith("todo")) {
+
+                    curr = new Todo(input.substring(5));
+
+                } else if (input.startsWith("deadline")) {
+
+                    int i = 9;
+                    while (input.charAt(i) != '/') {
+                        description.append(input.charAt(i));
+                        i++;
+                    }
+                    i += 4;
+                    curr = new Deadline(description.toString(), input.substring(i));
+
+                } else if (input.startsWith("event")) {
+
+                    int i = 6;
+                    while (input.charAt(i) != '/') {
+                        description.append(input.charAt(i));
+                        i++;
+                    }
+                    i += 6;
+                    while (input.charAt(i) != '/') {
+                        start.append(input.charAt(i));
+                        i++;
+                    }
+                    i += 4;
+                    curr = new Event(description.toString(), start.toString(), input.substring(i));
+
+                } else {
+                    System.out.println("Command not recognised :(");
+                    curr = null;
+                }
+
+                tasks[numberOfTasks] = curr;
                 numberOfTasks++;
 
-                System.out.println("added: " + input);
+                System.out.println("Got it. I've added this task:");
+                System.out.println(curr.toString());
+                System.out.println("Now you have " + numberOfTasks + " tasks in the list.");
                 System.out.println(line);
 
             }

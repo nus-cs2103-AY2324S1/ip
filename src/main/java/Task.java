@@ -13,12 +13,12 @@ public class Task {
 
     public String markDone() {
         this.isDone = true;
-        return "  [X] " + this.description;
+        return this.toString();
     }
 
     public String markNotDone() {
         this.isDone = false;
-        return "  [ ] " + this.description;
+        return this.toString();
     }
     @Override
     public String toString() {
