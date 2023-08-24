@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] tasklist = new Task[100];
+        ArrayList<Task> tasklist= new ArrayList<Task>();
         AtomicInteger count = new AtomicInteger(0);
         String dottedLine = "____________________________________________________________\n";
 
@@ -20,11 +21,11 @@ public class Duke {
                 exitBot();
                 break;
             } else if (input.equals("list")) {
-                printlist(tasklist, count.get());
+                printlist(tasklist);
 
             } else if (input.startsWith("mark")) {
                 try {
-                    markResponse(input, tasklist, count);
+                    markResponse(input, tasklist);
                 } catch (DukeException e) {
                     System.out.println(dottedLine +
                             e.getMessage() +
@@ -34,7 +35,7 @@ public class Duke {
 
             } else if (input.startsWith("unmark")) {
                 try {
-                    unmarkResponse(input, tasklist, count);
+                    unmarkResponse(input, tasklist);
                 } catch (DukeException e) {
                     System.out.println(dottedLine +
                             e.getMessage() +
@@ -44,7 +45,7 @@ public class Duke {
 
             } else if (input.startsWith("todo")) {
                 try {
-                    addTodo(input, tasklist, count);
+                    addTodo(input, tasklist);
                 } catch (DukeException e) {
                     System.out.println(dottedLine +
                             e.getMessage() +
@@ -54,7 +55,7 @@ public class Duke {
 
             } else if (input.startsWith("deadline")) {
                 try {
-                    addDeadline(input, tasklist, count);
+                    addDeadline(input, tasklist);
                 } catch (DukeException e) {
                     System.out.println(dottedLine +
                             e.getMessage() +
@@ -64,13 +65,21 @@ public class Duke {
 
             } else if (input.startsWith("event")) {
                 try {
-                    addEvent(input, tasklist, count);
+                    addEvent(input, tasklist);
                 } catch (DukeException e) {
                     System.out.println(dottedLine +
                             e.getMessage() +
                             "\n" + dottedLine);
                 }
 
+            } else if (input.startsWith("delete")) {
+                try {
+                    delete(input, tasklist);
+                } catch (DukeException e) {
+                    System.out.println(dottedLine +
+                            e.getMessage() +
+                            "\n" + dottedLine);
+                }
             } else {
                 try {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -89,41 +98,56 @@ public class Duke {
 
 
     }
-    private static void printlist(Task[] arr, int count) {
+    private static void printlist(ArrayList<Task> arr) {
         System.out.println("____________________________________________________________\n" +
                 "Here are the tasks in your list:");
-        for (int i =0; i < count; i++) {
-            System.out.printf("%d. %s%n", i + 1, arr[i].toString());
+        for (Task t : arr) {
+            System.out.printf("%d. %s%n", arr.indexOf(t) + 1, t.toString());
         }
         System.out.println("____________________________________________________________\n");
     }
 
-    private static void markResponse(String input, Task[] tasklist, AtomicInteger count) throws DukeException {
+    private static void markResponse(String input, ArrayList<Task> tasklist) throws DukeException {
         int spaceIndex = input.indexOf(" ");
         int result = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
-        if (result < 0 || (result + 1) > count.get()) {
+        if (result < 0 || (result + 1) > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
-        tasklist[result].mark();
+        tasklist.get(result).mark();
         System.out.println("____________________________________________________________\n" +
                 "Nice! I've marked this task as done:\n" +
-                tasklist[result].toString() +
+                tasklist.get(result).toString() +
                 "\n____________________________________________________________\n");
     }
 
-    private static void unmarkResponse(String input, Task[] tasklist, AtomicInteger count) throws DukeException {
+    private static void unmarkResponse(String input, ArrayList<Task> tasklist) throws DukeException {
         int spaceIndex = input.indexOf(" ");
         int result = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
-        if (result < 0 || (result + 1) > count.get()) {
+        if (result < 0 || (result + 1) > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
-        tasklist[result].unmark();
+        tasklist.get(result).unmark();
         System.out.println("____________________________________________________________\n" +
                 "OK, I've marked this task as not done yet:\n" +
-                tasklist[result].toString() +
+                tasklist.get(result).toString() +
                 "\n____________________________________________________________\n");
     }
-    private static void addTodo(String input, Task[] tasklist, AtomicInteger count) throws DukeException {
+
+    private static void delete(String input, ArrayList<Task> tasklist) throws DukeException {
+        int spaceIndex = input.indexOf(" ");
+        int result = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
+        if (result < 0 || (result + 1) > tasklist.size()) {
+            throw new DukeException("☹ OOPS!!! The task number is invalid.");
+        }
+        String deleted = tasklist.get(result).toString();
+        tasklist.remove(result);
+        System.out.println("____________________________________________________________\n" +
+                "Noted. I've removed this task:\n" +
+                deleted +
+                "\nNow you have " + tasklist.size() + " tasks in the list." +
+                "\n____________________________________________________________\n");
+    }
+    private static void addTodo(String input, ArrayList<Task> tasklist) throws DukeException {
         int spaceIndex = input.indexOf(" ");
 
         if (spaceIndex == -1 || spaceIndex + 1 >= input.length()) {
@@ -132,15 +156,15 @@ public class Duke {
 
         String task = input.substring(spaceIndex + 1);
         Task newTask = new ToDo(task);
-        tasklist[count.getAndIncrement()] = newTask;
+        tasklist.add(newTask);
         System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
                 newTask.toString() +
-                "\nNow you have " + count + " tasks in the list." +
+                "\nNow you have " + tasklist.size() + " tasks in the list." +
                 "\n____________________________________________________________\n");
     }
 
-    private static void addDeadline(String input, Task[] tasklist, AtomicInteger count) throws DukeException{
+    private static void addDeadline(String input, ArrayList<Task> tasklist) throws DukeException{
         int spaceIndex = input.indexOf(" ");
         if (spaceIndex == -1 || spaceIndex + 1 >= input.length()) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
@@ -154,15 +178,15 @@ public class Duke {
         String task = input.substring(spaceIndex + 1, dateIndex);
         String deadline = input.substring(dateIndex + 4);
         Task newTask = new Deadline(task, deadline);
-        tasklist[count.getAndIncrement()] = newTask;
+        tasklist.add(newTask);
         System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
                 newTask.toString() +
-                "\nNow you have " + count + " tasks in the list." +
+                "\nNow you have " + tasklist.size() + " tasks in the list." +
                 "\n____________________________________________________________\n");
     }
 
-    private static void addEvent(String input, Task[] tasklist, AtomicInteger count) throws DukeException{
+    private static void addEvent(String input, ArrayList<Task> tasklist) throws DukeException{
         int spaceIndex = input.indexOf(" ");
         if (spaceIndex == -1 || spaceIndex + 1 >= input.length()) {
             throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
@@ -184,13 +208,15 @@ public class Duke {
         String start = input.substring(startIndex + 6, endIndex);
         String end = input.substring(endIndex + 4);
         Task newTask = new Event(task, start, end);
-        tasklist[count.getAndIncrement()] = newTask;
+        tasklist.add(newTask);
         System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
                 newTask.toString() +
-                "\nNow you have " + count + " tasks in the list." +
+                "\nNow you have " + tasklist.size() + " tasks in the list." +
                 "\n____________________________________________________________\n");
     }
+
+
 
     private static void exitBot() {
         System.out.println("____________________________________________________________\n" +
