@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class DuckBot {
@@ -6,7 +7,7 @@ public class DuckBot {
     private final String name = "Duck";
     private final String exitMessage = "bye";
 
-    protected ArrayList<Task> list = new ArrayList<>();
+    protected List<Task> list = new ArrayList<>();
     private Task task = new Task();
 
     public void welcomeMessage() {
@@ -137,10 +138,10 @@ public class DuckBot {
 
     public void setToDo(String str)
     throws DukeException{
-        String[] todo = str.split(" ");
+        String[] todo = str.split("todo ?+");
         try {
-            if (todo.length == 2) {
-                ToDo toDo = new ToDo(todo[1]);
+            if (todo.length > 0) {
+                ToDo toDo = new ToDo(todo[0]);
                 list.add(toDo);
                 echoAdd(toDo);
             } else {
