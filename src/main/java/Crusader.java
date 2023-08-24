@@ -14,16 +14,34 @@ public class Crusader {
     /**
      * A list of tasks for the chatbot.
      */
-    private static final ArrayList<String> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Describes the list of tasks in the chatbot.
      */
     private static void tasksToString() {
         for (int x = 0; x < tasks.size(); x++) {
-            System.out.printf("%d. %s\n", x + 1, tasks.get(x));
+            System.out.printf("%d. %s\n", x + 1, tasks.get(x).toString());
         }
         addDivider();
+    }
+
+    /**
+     * Marks a task as done.
+     *
+     * @param i index of the task to be marked. 1-indexed.
+     */
+    private static void mark(int i) {
+        tasks.get(i - 1).mark();
+    }
+
+    /**
+     * Unmarks a task.
+     *
+     * @param i index of the task to be unmarked. 1-indexed.
+     */
+    private static void unmark(int i) {
+        tasks.get(i - 1).unmark();
     }
 
     /**
@@ -73,16 +91,27 @@ public class Crusader {
         while (notEnded) {
             String currentPrompt = sc.nextLine();
             addDivider();
-            switch (currentPrompt) {
+            // Match the command based on the first word of the string
+            switch (currentPrompt.contains(" ")
+                    ? currentPrompt.split(" ")[0]
+                    : currentPrompt) {
                 case "bye":
                     notEnded = false;
                     break;
                 case "list":
                     tasksToString();
                     break;
+                case "mark":
+                    int i = Integer.parseInt(currentPrompt.split(" ")[1]);
+                    mark(i);
+                    break;
+                case "unmark":
+                    int j = Integer.parseInt(currentPrompt.split(" ")[1]);
+                    unmark(j);
+                    break;
                 default:
                     say("added: " + currentPrompt);
-                    tasks.add(currentPrompt);
+                    tasks.add(new Task(currentPrompt));
                     break;
             }
         }
