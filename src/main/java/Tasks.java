@@ -25,4 +25,12 @@ public class Tasks {
     public void addTask(Task task) {
         this.tasks.add(task);
     }
+
+    public Task getTask(int id) {
+        if (id > this.tasks.size() || id <= 0) {
+            return null;
+        }
+
+        return this.tasks.get(id - 1);
+    }
 }

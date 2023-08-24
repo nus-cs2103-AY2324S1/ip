@@ -24,6 +24,34 @@ public class Duke {
                 continue;
             }
 
+            if (text.startsWith("mark")) {
+                String[] words = text.split(" ");
+                try {
+                    int number = Integer.parseInt(words[1]);
+                    Task task = tasks.getTask(number);
+                    if (task != null) {
+                        task.mark(true);
+                    }
+                } catch (Exception ex) {
+                    // ignore
+                }
+                continue;
+            }
+
+            if (text.startsWith("unmark")) {
+                String[] words = text.split(" ");
+                try {
+                    int number = Integer.parseInt(words[1]);
+                    Task task = tasks.getTask(number);
+                    if (task != null) {
+                        task.mark(false);
+                    }
+                } catch (Exception ex) {
+                    // ignore
+                }
+                continue;
+            }
+
             System.out.println(line);
             System.out.println("    added: " + text);
             tasks.addTask(new Task(text));
