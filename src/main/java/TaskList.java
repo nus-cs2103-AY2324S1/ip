@@ -5,7 +5,11 @@ public class TaskList {
 
     public void addTask(Task task) {
         listOfTasks.add(task);
+        System.out.println("Got it. I've added this task: ");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + listOfTasks.size() + " tasks in the list.");
     }
+
 
     public void listOutTasks() {
         if (listOfTasks.isEmpty()) {
@@ -35,4 +39,6 @@ public class TaskList {
             System.out.println("This is an invalid task index, please check. ");
         }
     }
+
+
 }

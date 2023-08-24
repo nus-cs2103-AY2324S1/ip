@@ -9,33 +9,49 @@ public class Messages {
     private static TaskList taskList = new TaskList();
 
     public static void startChatting() {
-        String exitCommand = "bye";
-        String listCommand = "list";
-        String markDoneCommand = "mark";
-        String markUndoneCommand = "unmark";
+        String exitC = "bye";
+        String listC = "list";
+        String doneC = "mark";
+        String undoneC = "unmark";
+        String deadlineC = "deadline";
+        String eventC = "event";
+        String todoC = "todo";
 
         Scanner scanner = new Scanner(System.in);
 
         String userCommands;
         do {
             userCommands = scanner.nextLine();
-            if (!userCommands.equalsIgnoreCase(exitCommand)) {
-                if (userCommands.equalsIgnoreCase(listCommand)) {
+            if (!userCommands.equalsIgnoreCase(exitC)) {
+                if (userCommands.equalsIgnoreCase(listC)) {
                     taskList.listOutTasks();
-                } else if (userCommands.startsWith(markDoneCommand)) {
-                    String getIndex = userCommands.substring(markDoneCommand.length() + 1);
+                } else if (userCommands.startsWith(doneC)) {
+                    String getIndex = userCommands.substring(doneC.length() + 1);
                     int taskIndex = Integer.parseInt(getIndex) - 1;
                     taskList.markAsDone(taskIndex);
-                } else if (userCommands.startsWith(markUndoneCommand)) {
-                    String getIndex = userCommands.substring(markUndoneCommand.length() + 1);
+                } else if (userCommands.startsWith(undoneC)) {
+                    String getIndex = userCommands.substring(undoneC.length() + 1);
                     int taskIndex = Integer.parseInt(getIndex) - 1;
                     taskList.markAsUndone(taskIndex);
+                } else if (userCommands.startsWith(deadlineC)) {
+                    String taskDescription = userCommands.substring(deadlineC.length() + 1, userCommands.indexOf("/by") - 1);
+                    String deadlineInfo = userCommands.substring(userCommands.indexOf("/by") + 4);
+                    Deadline task = new Deadline(taskDescription, deadlineInfo);
+                    taskList.addTask(task);
+                } else if (userCommands.startsWith(eventC)) {
+                    String taskDescription = userCommands.substring(eventC.length() + 1, userCommands.indexOf("/from") - 1);
+                    String startDetails = userCommands.substring(userCommands.indexOf("/from") + 6, userCommands.indexOf("/to") - 1);
+                    String endDetails = userCommands.substring(userCommands.indexOf("/to") + 4);
+                    Event task = new Event(taskDescription, startDetails, endDetails);
+                    taskList.addTask(task);
+                } else if (userCommands.startsWith(todoC)) {
+                    ToDo task = new ToDo(userCommands);
+                    taskList.addTask(task);
                 } else {
-                    addToList(userCommands);
                     taskList.addTask(new Task(userCommands));
                 }
             }
-        } while (!userCommands.equalsIgnoreCase(exitCommand));
+        } while (!userCommands.equalsIgnoreCase(exitC));
 
         System.out.println(EXIT);
     }
@@ -55,4 +71,5 @@ public class Messages {
         commandsList.add(command);
         System.out.println("I have added \"" + command + "\" to the list. ");
     }
+
 }
