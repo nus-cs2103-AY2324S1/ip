@@ -355,6 +355,8 @@ public class Duchess {
                 Duchess.addTask(event);
                 continue;
             }
+
+            Duchess.duchessPrint("(´；ω；`) Oopsies... I don't know what that means ;-;");
         }
 
         sc.close();
