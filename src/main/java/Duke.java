@@ -2,7 +2,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    Scanner sc = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
+    private ArrayList<Task> tasks = new ArrayList<>();
+    private int taskCount = 0;
+
     public static void main(String[] args) {
         Duke duke = new Duke();
         duke.intro();
@@ -10,7 +13,7 @@ public class Duke {
         duke.exit();
     }
 
-    public void lines() {
+    private void lines() {
         System.out.println("_".repeat(50));
     }
     public void intro() {
@@ -25,99 +28,93 @@ public class Duke {
         lines();
     }
 
+    public void list() {
+        lines();
+        if (taskCount == 0) {
+            System.out.println("You have no tasks in your list.");
+            lines();
+            return;
+        }
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < taskCount; i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
+        lines();
+    }
+
+    public void mark(String description) {
+        lines();
+        int index = Integer.parseInt(description) - 1;
+        tasks.get(index).mark();
+        System.out.println(tasks.get(index));
+        lines();
+    }
+
+    public void unmark(String description) {
+        lines();
+        int index = Integer.parseInt(description) - 1;
+        tasks.get(index).unmark();
+        System.out.println(tasks.get(index));
+        lines();
+    }
+
     public void run() {
-        ArrayList<Task> tasks = new ArrayList<>();
         String input = sc.nextLine();
 
         while (!input.equals("bye")) {
-            if (input.equals("list")) {
-                lines();
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i));
-                }
-                lines();
-            } else if (input.contains("unmark")) {
-                lines();
-                String[] split = input.split(" ");
-                int index = Integer.parseInt(split[1]) - 1;
-                tasks.get(index).unmark();
-                System.out.println(tasks.get(index));
-                lines();
-            } else if (input.contains("mark")) {
-                lines();
-                String[] split = input.split(" ");
-                int index = Integer.parseInt(split[1]) - 1;
-                tasks.get(index).mark();
-                System.out.println(tasks.get(index));
-                lines();
-            } else if (input.contains("todo")) {
-                lines();
-                String[] split = input.split(" ");
-                String description = "";
-                for (int i = 1; i < split.length; i++) {
-                    description += split[i] + " ";
-                }
-                description = description.trim();
-                tasks.add(new Todo(description));
-                System.out.println(tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                lines();
-            } else if (input.contains("deadline")) {
-                lines();
-                String[] split = input.split(" ");
-                String description = "";
-                String by = "";
-                for (int i = 1; i < split.length; i++) {
-                    if (split[i].equals("/by")) {
-                        for (int j = i + 1; j < split.length; j++) {
-                            by += split[j] + " ";
-                        }
-                        break;
-                    }
-                    description += split[i] + " ";
-                }
-                description = description.trim();
-                by = by.trim();
-                tasks.add(new Deadline(description, by));
-                System.out.println(tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                lines();
-            } else if (input.contains("event")) {
-                lines();
-                String[] split = input.split(" ");
-                String description = "";
-                String from = "";
-                String to = "";
-                for (int i = 1; i < split.length; i++) {
-                    if (split[i].equals("/from")) {
-                        for (int j = i + 1; j < split.length; j++) {
-                            if (split[j].equals("/to")) {
-                                for (int k = j + 1; k < split.length; k++) {
-                                    to += split[k] + " ";
-                                }
-                                break;
-                            }
-                            from += split[j] + " ";
-                        }
-                        break;
-                    }
-                    description += split[i] + " ";
-                }
-                description = description.trim();
-                from = from.trim();
-                to = to.trim();
-                tasks.add(new Events(description, from, to));
-                System.out.println(tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                lines();
-            } else {
-                lines();
-                System.out.println("added: " + input);
-                tasks.add(new Task(input));
-                lines();
+            try {
+                commandGiven(input);
+            } catch (Duke.DukeException e) {
+                System.out.println(e);
             }
             input = sc.nextLine();
+        }
+    }
+
+    public void commandGiven(String input) throws DukeException {
+        String[] split = input.split(" ", 2);
+        String command = split[0];
+        if (split.length == 1 && !command.equals("list")) {
+            if (command.equals("mark") || command.equals("unmark") || command.equals("todo") || command.equals("deadline") || command.equals("event")) {
+                throw new IncompleteInput("I don't know what you want to do!");
+            }
+            throw new InvalidInput("I don't know what you want to do!");
+        }
+
+        if (command.equals("list")) {
+            list();
+            return;
+        }
+        String description = split[1];
+
+        switch (command) {
+            case "todo":
+                tasks.add(new Todo(description));
+                tasks.get(taskCount++).print();
+                break;
+            case "deadline":
+                String[] deadlineSplit = description.split(" /by ");
+                String deadlineDescription = deadlineSplit[0];
+                String deadlineBy = deadlineSplit[1];
+                tasks.add(new Deadline(deadlineDescription, deadlineBy));
+                tasks.get(taskCount++).print();
+                break;
+            case "event":
+                String[] eventSplit = description.split(" /from ");
+                String eventDescription = eventSplit[0];
+                String eventFrom = eventSplit[1].split(" /to ")[0];
+                String eventTo = eventSplit[1].split(" /to ")[1];
+                tasks.add(new Events(eventDescription, eventFrom, eventTo));
+                tasks.get(taskCount++).print();
+                break;
+            case "mark":
+                mark(description);
+                break;
+            case "unmark":
+                unmark(description);
+                break;
+            default:
+                throw new InvalidInput("what's this?");
         }
     }
 
@@ -146,6 +143,12 @@ public class Duke {
 
         public String getDescription() {
             return this.description;
+        }
+
+        public void print() {
+            System.out.println(this);
+            System.out.println("Now you have " + taskCount + " tasks in the list.");
+            lines();
         }
 
         @Override
@@ -198,4 +201,38 @@ public class Duke {
             return "[T]" + super.toString();
         }
     }
+
+    public class DukeException extends Exception {
+        public DukeException(String message) {
+            super(message);
+        }
+
+        @Override
+        public String toString() {
+            return "OOPS!!! " + super.getMessage();
+        }
+    }
+
+    public class InvalidInput extends DukeException {
+        public InvalidInput(String message) {
+            super(message);
+        }
+
+        @Override
+        public String toString() {
+            return "Why like this ah? Don't even know what it means!? " + super.getMessage();
+        }
+    }
+
+    public class IncompleteInput extends DukeException {
+        public IncompleteInput(String message) {
+            super(message);
+        }
+
+        @Override
+        public String toString() {
+            return "Where the rest BOSSMAN!? " + super.getMessage();
+        }
+    }
 }
+
