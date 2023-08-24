@@ -41,4 +41,18 @@ public class Task {
             return "[ ] " + this.name;
         }
     }
+
+    /**
+     * To check whether the input is a task
+     * @param input the task
+     * @return Boolean
+     * @throws TodoEmptyNameException
+     */
+    public static boolean isTask(String input) throws CommanNotFoundException {
+        if(input.split( " ")[0].equals("todo") || input.split( " ")[0].equals("deadline") || input.split( " ")[0].equals("event")) {
+            return true;
+        } else {
+            throw new CommanNotFoundException();
+        }
+    }
 }

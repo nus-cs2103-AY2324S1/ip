@@ -31,4 +31,26 @@ public class Events extends Task{
     public String toString() {
         return "[E]" + super.toString() + "(from: " + start + "to: " + end + ")";
     }
+
+    /**
+     * To check whether the input is a Deadlines
+     * @param input the task
+     * @return Boolean
+     * @throws TodoEmptyNameException
+     */
+    public static boolean isEvent(String input) throws EventEmptyNameException, EventFromNotFoundException, EventToNotFoundException {
+        if(input.split( " ")[0].equals("event")) {
+            if (input.split(" ").length == 1) {
+                throw new EventEmptyNameException();
+            } else if (input.indexOf("/from ") == -1){
+                throw new EventFromNotFoundException();
+            } else if (input.indexOf("/to ") == -1){
+                throw new EventToNotFoundException();
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
 }

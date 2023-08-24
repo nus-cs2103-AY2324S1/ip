@@ -16,4 +16,22 @@ public class ToDos extends Task{
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * To check whether the input is a Todo
+     * @param input the task
+     * @return Boolean
+     * @throws TodoEmptyNameException
+     */
+    public static boolean isTodo(String input) throws TodoEmptyNameException {
+        if(input.split( " ")[0].equals("todo")) {
+            if (input.split(" ").length == 1) {
+                throw new TodoEmptyNameException();
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
 }
