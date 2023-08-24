@@ -2,6 +2,13 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
+    /**
+     * The main method of the Duke application.
+     * Handles user interactions and manages task-related commands.
+     *
+     * @param args Command-line arguments (not used).
+     * @throws DukeException If an error occurs during user input processing.
+     */
     public static void main(String[] args) throws DukeException {
         // Send welcome message
         System.out.println(
@@ -77,6 +84,11 @@ public class Duke {
         scan.close();
     }
 
+    /**
+     * Lists the tasks stored in the task array.
+     *
+     * @param taskArray An array containing the tasks.
+     */
     private static void listTasks(Task[] taskArray) {
         String inputArrayString = "";
         for (int i = 0; i < taskArray.length; i++) {
@@ -96,6 +108,15 @@ public class Duke {
 
     }
 
+    /**
+     * Marks a task as done based on user input.
+     *
+     * @param userInput The user input containing the task index.
+     * @param inputNum  The number of tasks entered.
+     * @param taskArray An array containing the tasks.
+     * @throws EmptyTaskException  If the task index is missing.
+     * @throws OutOfRangeException If the task index is out of range.
+     */
     private static void markTask(String userInput, int inputNum, Task[] taskArray) throws EmptyTaskException, OutOfRangeException {
         if (userInput.equals("mark")) {
             throw new EmptyTaskException("mark");
@@ -114,6 +135,15 @@ public class Duke {
                         "    ____________________________________________________________\n");
     }
 
+    /**
+     * Unmarks a task as done based on user input.
+     *
+     * @param userInput The user input containing the task index.
+     * @param inputNum  The number of tasks entered.
+     * @param taskArray An array containing the tasks.
+     * @throws EmptyTaskException  If the task index is missing.
+     * @throws OutOfRangeException If the task index is out of range.
+     */
     private static void unmarkTask(String userInput, int inputNum, Task[] taskArray) throws EmptyTaskException, OutOfRangeException {
         if (userInput.equals("unmark")) {
             throw new EmptyTaskException("unmark");
@@ -132,6 +162,13 @@ public class Duke {
                         "    ____________________________________________________________\n");
     }
 
+    /**
+     * Creates and adds a new ToDo task.
+     *
+     * @param taskName  The name of the ToDo task.
+     * @param inputNum  The number of tasks entered.
+     * @param taskArray An array containing the tasks.
+     */
     private static void makeToDo(String taskName, int inputNum, Task[] taskArray) {
         taskArray[inputNum] = new ToDo(taskName);
         System.out.println(
@@ -142,6 +179,13 @@ public class Duke {
                         "    ____________________________________________________________\n");
     }
 
+    /**
+     * Extracts and returns parts for creating a Deadline task.
+     *
+     * @param userInput The user input containing task details.
+     * @return An array containing the task name and due date.
+     * @throws EmptyDateException If the due date is missing.
+     */
     private static String[] getDeadlineParts(String userInput) throws EmptyDateException {
         String description = userInput.substring("deadline".length()).trim();
         String[] parts = description.split("/by");
@@ -151,6 +195,14 @@ public class Duke {
         return new String[]{parts[0].trim(), parts[1].trim()};
     }
 
+    /**
+     * Creates and adds a new Deadline task.
+     *
+     * @param taskName  The name of the Deadline task.
+     * @param by        The due date of the Deadline task.
+     * @param inputNum  The number of tasks entered.
+     * @param taskArray An array containing the tasks.
+     */
     private static void makeDeadline(String taskName, String by, int inputNum, Task[] taskArray) {
         taskArray[inputNum] = new Deadline(taskName, by);
         System.out.println(
@@ -161,16 +213,13 @@ public class Duke {
                         "    ____________________________________________________________\n");
     }
 
-    private static void makeEvent(String taskName, String start, String end, int inputNum, Task[] taskArray) {
-        taskArray[inputNum] = new Event(taskName, start, end);
-        System.out.println(
-                "    ____________________________________________________________\n" +
-                        "     Got it. I've added this task:\n" +
-                        "       " + taskArray[inputNum].toString() + "\n" +
-                        "     Now you have " + (inputNum + 1) + " task(s) in the list.\n" +
-                        "    ____________________________________________________________\n");
-    }
-
+    /**
+     * Extracts and returns parts for creating an Event task.
+     *
+     * @param userInput The user input containing task details.
+     * @return An array containing the task name, start date, and end date.
+     * @throws EmptyDateException If the start or end date is missing.
+     */
     private static String[] getEventParts(String userInput) throws EmptyDateException {
         String description = userInput.substring("event".length()).trim();
         String[] partsA = description.split("/from");
@@ -183,4 +232,25 @@ public class Duke {
         String end = partsB[1].trim();
         return new String[]{taskName, start, end};
     }
+
+    /**
+     * Creates and adds a new Event task.
+     *
+     * @param taskName  The name of the Event task.
+     * @param start     The start date of the Event task.
+     * @param end       The end date of the Event task.
+     * @param inputNum  The number of tasks entered.
+     * @param taskArray An array containing the tasks.
+     */
+    private static void makeEvent(String taskName, String start, String end, int inputNum, Task[] taskArray) {
+        taskArray[inputNum] = new Event(taskName, start, end);
+        System.out.println(
+                "    ____________________________________________________________\n" +
+                        "     Got it. I've added this task:\n" +
+                        "       " + taskArray[inputNum].toString() + "\n" +
+                        "     Now you have " + (inputNum + 1) + " task(s) in the list.\n" +
+                        "    ____________________________________________________________\n");
+    }
+
+
 }
