@@ -32,7 +32,7 @@ public class Duke {
             t.markAsDone();
             System.out.println("____________________________________________________________\n"
                     + "Nice! I've marked this task as done:\n"
-                    + t.toString() + "\n"
+                    + t + "\n"
                     + "____________________________________________________________\n"
             );
         } else if (str.startsWith("unmark")) {
@@ -42,7 +42,7 @@ public class Duke {
             t.markAsNotDone();
             System.out.println("____________________________________________________________\n"
                     + "OK, I've marked this task as not done yet:\n"
-                    + t.toString() + "\n"
+                    + t + "\n"
                     + "____________________________________________________________\n"
             );
         } else {
@@ -50,20 +50,44 @@ public class Duke {
         }
     }
     public static void addList(String str){
-        if (!str.equals("list")) {
-            lst[index] = new Task(str);
-            index++;
+        if (str.equals("list")) {
             System.out.println("____________________________________________________________\n"
-                    + "added: " + str + "\n"
-                    + "____________________________________________________________\n"
-            );
-        } else {
-            System.out.println("____________________________________________________________");
+                    + "Here are the tasks in your list:");
             for (int i = 1; i <= index; i++) {
                 Task t = lst[i - 1];
                 System.out.println(i + ". " + t.toString());
             }
             System.out.println("____________________________________________________________");
+        } else {
+            if (str.startsWith("todo")) {
+                String des = str.substring(5);
+                Todo todo = new Todo(des);
+                lst[index] = todo ;
+
+            } else if (str.startsWith("deadline")) {
+                String[] words = str.split("/");
+                String des = words[0].substring(9);
+                String by = words[1].substring(3);
+                Deadline dl = new Deadline(des, by);
+                lst[index] = dl ;
+
+            } else if (str.startsWith("event")) {
+                String[] words = str.split("/");
+                String des = words[0].substring(6);
+                String from = words[1].substring(5);
+                String to = words[2].substring(3);
+                Event event = new Event(des, from, to);
+                lst[index] = event ;
+
+            }
+
+            index++;
+            System.out.println("____________________________________________________________\n"
+                    + "Got it. I've added this task:\n"
+                    + lst[index - 1].toString() + "\n"
+                    + "Now you have " + index + " tasks in the list.\n"
+                    + "____________________________________________________________\n"
+            );
         }
     }
 }
