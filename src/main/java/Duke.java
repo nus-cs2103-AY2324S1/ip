@@ -1,21 +1,31 @@
-import Errors.DukeException;
-import Errors.InvalidTaskException;
-import Errors.InvalidTaskInput;
-
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main (String[] args) throws DukeException, InvalidTaskInput, InvalidTaskException {
+    private Commands taskManager;
+    public Storage dataBase;
+    private String filePath = "./tasklist.txt";
+
+    public Duke() throws IOException {
+        this.dataBase = new Storage(filePath);
+        this.taskManager = new Commands(dataBase.load());
+    }
+
+
+    public static void main (String[] args) throws DukeException, IOException {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        Commands.sayHello();
+        Duke bot = new Duke();
+        bot.taskManager.sayHello();
 
         Scanner sc = new Scanner(System.in);
         String userInput = "";
+
         do {
             try {
                     userInput = sc.nextLine();
@@ -24,7 +34,7 @@ public class Duke {
                         throw new DukeException("OOPS, input field cannot be empty. Try entering a task or a command");
                     }
 
-                    Commands.handleInput(userInput);
+                    bot.taskManager.handleInput(userInput);
                 } catch (DukeException error) {
                     System.out.println("____________________________________________________________\n");
                     System.out.println(error);
@@ -32,7 +42,8 @@ public class Duke {
                 }
             } while (!userInput.toLowerCase().equals("bye"));
 
-            Commands.sayGoodBye();
+            bot.dataBase.save(bot.taskManager.tasks);
+            bot.taskManager.sayGoodBye();
         }
 
 }

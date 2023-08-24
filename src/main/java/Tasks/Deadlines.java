@@ -1,5 +1,7 @@
     package Tasks;
 
+    import java.io.Serializable;
+
     public class Deadlines extends Task {
         // additional deadline given for deadline tasks
         String deadline;

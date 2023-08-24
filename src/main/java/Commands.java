@@ -1,6 +1,3 @@
-import Errors.DukeException;
-import Errors.InvalidTaskException;
-import Errors.InvalidTaskInput;
 import Tasks.Deadlines;
 import Tasks.Events;
 import Tasks.Task;
@@ -9,15 +6,17 @@ import Tasks.ToDos;
 import java.util.ArrayList;
 
 public class Commands {
-    static String name = "Nichbot";
-
-    static int count = 0;
+    String name = "Nichbot";
 
     // task list to store tasks
-    static ArrayList<Task> tasks = new ArrayList<>();
+    ArrayList<Task> tasks;
+
+    public Commands(ArrayList tasks) {
+        this.tasks = tasks;
+    }
 
     // Level-0, Function to say introduce the chatbot
-    public static void sayHello() {
+    public void sayHello() {
         String greet = String.format(
 
                         "____________________________________________________________\n" +
@@ -28,7 +27,7 @@ public class Commands {
         System.out.println(greet);
     }
 
-    public static void commandList() {
+    public void commandList() {
         String commands = (
                 "____________________________________________________________\n" +
                 "I currently can record 3 types of tasks. tasks to do, tasks with deadlines and events \n" +
@@ -44,7 +43,7 @@ public class Commands {
     }
 
     // Level-0, Function to say goodbye
-    public static void sayGoodBye() {
+    public void sayGoodBye() {
         String bye =  (
                 "____________________________________________________________\n" +
                 "Bye. Hope to see you again soon!\n" +
@@ -53,13 +52,13 @@ public class Commands {
     }
 
     //  Level-1, Echo user input
-    public static void echoUserInput(Task task) {
+    public void echoUserInput(Task task) {
         System.out.println(task);
         System.out.println("____________________________________________________________");
     }
 
     //    Level-2, Add, list
-    public static void addList(String input) throws InvalidTaskInput, InvalidTaskException {
+    public void addList(String input) throws DukeException {
         Task newTask = null;
 
         // check if input begins with todo, deadline or event to categorise task type
@@ -72,7 +71,7 @@ public class Commands {
 
                 // check that string is not empty after substring to remove todo;
                 if (taskToDo.isEmpty()) {
-                    throw new InvalidTaskInput();
+                    throw new DukeException("oops. I do not know what task you are referring to.");
                 }
                 newTask = new ToDos(taskToDo);
 
@@ -88,13 +87,13 @@ public class Commands {
                 fixing the deadline
                 */
                 if (parts.length != 2) {
-                    throw new InvalidTaskInput();
+                    throw new DukeException("Invalid input entered. ");
                 }
 
                 String description = parts[0].substring(9);
                 // check that string is not empty after substring to remove todo;
                 if (description.isEmpty()) {
-                    throw new InvalidTaskInput();
+                    throw new DukeException("Invalid input entered.");
                 }
 
                 String deadline = parts[1];
@@ -109,7 +108,7 @@ public class Commands {
                  */
 
                 if (parts.length != 3) {
-                    throw new InvalidTaskInput();
+                    throw new DukeException("Invalid input entered.");
                 }
 
                 String description = parts[0].substring(6);
@@ -118,35 +117,31 @@ public class Commands {
 
                 // Ensure that start, end and description are all filled in
                 if (startTime.isEmpty() || endTime.isEmpty() || description.isEmpty()) {
-                    throw new InvalidTaskInput();
+                    throw new DukeException("Invalid input entered.");
                 }
 
                 newTask = new Events(description, startTime, endTime);
             }
 
-            if (newTask == null) throw new InvalidTaskException();
-            tasks.add(count++, newTask);
+            if (newTask == null) throw new DukeException("Invalid input entered.");
+            tasks.add(newTask);
             System.out.println("____________________________________________________________\n" +
                     "I have added this task to your list\n" +
                     String.format("[%s]", newTask.getTaskType()) + "[ ]" + newTask.getDescription() + "\n" +
-                    String.format("You now have %d tasks in your list.", count));
+                    String.format("You now have %d tasks in your list.", tasks.size()));
             System.out.println("____________________________________________________________\n");
 
-        } catch (InvalidTaskInput inputException) {
+        } catch (DukeException inputException) {
             System.out.println("____________________________________________________________\n");
             System.out.println(inputException);
             System.out.println("____________________________________________________________\n");
 
-        } catch (InvalidTaskException taskException) {
-            System.out.println("____________________________________________________________\n");
-            System.out.println(taskException);
-            System.out.println("____________________________________________________________\n");
         }
     }
 
-    public static void printList() {
+    public void printList() {
         System.out.println("____________________________________________________________\n");
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             // for each task in task[], prints out a simple line describing the task
             Character taskType = tasks.get(i).getTaskType();
             String current = String.format("%d: [%c][%s] %s ", i+1, taskType, tasks.get(i).getStatusIcon(),tasks.get(i));
@@ -163,14 +158,14 @@ public class Commands {
     }
 
     // function to mark task as done or undone
-    public static void markDoneOrUndone(int task, boolean done) {
+    public void markDoneOrUndone(int task, boolean done) {
         if (task < 1 || task > tasks.size()) {
             System.out.print("____________________________________________________________\n");
             System.out.println("Invalid Input written.");
             System.out.print("____________________________________________________________\n");
             return;
         }
-        if (task > count + 1) {
+        if (task > tasks.size() + 1) {
             System.out.print("____________________________________________________________\n");
             System.out.printf("Task %d has not been recorded%n",task);
             System.out.print("____________________________________________________________\n");
@@ -191,17 +186,16 @@ public class Commands {
     }
 
     //level 6. Delete tasks
-    public static void deleteTasks(int taskNumber) throws InvalidTaskInput {
+    public void deleteTasks(int taskNumber) throws DukeException {
         try {
-            if (count <= taskNumber) throw new InvalidTaskInput();
+            if (tasks.size() <= taskNumber) throw new DukeException("oops. You entered an invalid task number.");
             Task removed = tasks.remove(taskNumber - 1);
-            count--;
             System.out.println("____________________________________________________________\n");
             System.out.println("Noted, I have deleted this task:");
             System.out.println(String.format("  [%c][%s] %s ", removed.getTaskType(), removed.getStatusIcon(), removed));
             System.out.println(String.format("You now have %d tasks in your list.", taskNumber));
             System.out.println("____________________________________________________________");
-        } catch (InvalidTaskInput message) {
+        } catch (DukeException message) {
             System.out.println("____________________________________________________________\n");
             System.out.println(message);
             System.out.println("____________________________________________________________\n");
@@ -209,7 +203,7 @@ public class Commands {
     }
 
     // overall input handler which determines which function to run
-    public static void handleInput(String userInput) throws InvalidTaskInput, DukeException, InvalidTaskException {
+    public void handleInput(String userInput) throws DukeException {
             if (userInput.equalsIgnoreCase("bye")) return;
             if (userInput.equalsIgnoreCase("list")) {
                 printList();
