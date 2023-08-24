@@ -16,12 +16,16 @@ public class List {
         return this.list[index];
     }
 
+    public int getNumberOfTasks() {
+        return this.usedCapacity;
+    }
+
     @Override
     public String toString() {
         StringBuffer s = new StringBuffer();
         s.append("Here are the tasks in your list:\n");
         for (int i = 0; i < this.usedCapacity; i++) {
-            s.append((i + 1) + ". " + this.list[i]);
+            s.append((i + 1) + "." + this.list[i]);
             if (i < this.usedCapacity - 1) {
                 s.append("\n");
             }

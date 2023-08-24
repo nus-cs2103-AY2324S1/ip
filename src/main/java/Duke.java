@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
+
     public static void main(String[] args) {
         greet();
         getUserInput();
@@ -32,10 +33,31 @@ public class Duke {
                 // get index by splitting user input and get task at that index from list
                 list.getTaskAt(Integer.parseInt(userInput.split(" ")[1]) - 1).unmark();
             } else {
-                list.addToList(new Task(userInput));
-                display("added: " + userInput);
+                Task add = getTask(userInput);
+                list.addToList(add);
+                display("Got it. I've added this task:\n" + add.toString()
+                        + "\nNow you have " + list.getNumberOfTasks() + " tasks in the list.");
             }
         }
+    }
+
+    @SuppressWarnings("DuplicateExpressions")
+    private static Task getTask(String userInput) {
+        Task add;
+        if (userInput.startsWith("todo")) {
+            add = new Todo(userInput.substring(userInput.indexOf(' ') + 1));
+        } else if (userInput.startsWith("deadline")) {
+            add = new Deadline(userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1)
+                    , userInput.substring(userInput.indexOf("/by") + 4));
+
+        } else if (userInput.startsWith("event")) {
+            add = new Event(userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1)
+                    , userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1)
+                    , userInput.substring(userInput.indexOf("/to") + 4));
+        } else {
+            add = new Task(userInput);
+        }
+        return add;
     }
 
     public static void display(String message) {
