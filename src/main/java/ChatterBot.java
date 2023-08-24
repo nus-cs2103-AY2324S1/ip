@@ -20,7 +20,7 @@ public class ChatterBot {
                 System.out.println("Here are the tasks in your list:");
                 for (Task t : list) {
                     System.out.println((list.indexOf(t) + 1) + ". "
-                            + "[" + t.getStatusIcon() + "] " + t.description);
+                            + t.toString());
                 }
             } else if (userMessage.startsWith("mark") && isInteger(userMessage.substring(5))) {
                 String toMark = userMessage.substring(5);
@@ -31,9 +31,29 @@ public class ChatterBot {
                 list.get(Integer.parseInt(toUnmark) - 1).markAsUndone();
                 System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] " + list.get(Integer.parseInt(toUnmark) - 1).description);
             } else {
-                Task t = new Task(userMessage);
-                list.add(t);
-                System.out.println("added " + userMessage);
+//                Task t = new Task(userMessage);
+//                list.add(t);
+//                System.out.println("added " + userMessage);
+                if (userMessage.startsWith("deadline")) {
+                    int slashDeadline = userMessage.indexOf("/");
+                    String deadlineDescription = userMessage.substring(9, slashDeadline).trim();
+                    String deadlineBy = userMessage.substring(slashDeadline + 3).trim();
+                    Deadline d = new Deadline(deadlineDescription, deadlineBy);
+                    list.add(d);
+                    System.out.println("Got it. I've added this task:\n" + d.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+                } else if (userMessage.startsWith("todo")) {
+                    Todo td = new Todo(userMessage.substring(5));
+                    list.add(td);
+                    System.out.println("Got it. I've added this task:\n" + td.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+                } else if (userMessage.startsWith("event")) {
+                    String[] eventSplit = userMessage.split("/");
+                    String eventDescription = eventSplit[0];
+                    String eventTo = eventSplit[1].substring(5);
+                    String eventFrom = eventSplit[2].substring(3);
+                    Event e = new Event(eventDescription, eventTo, eventFrom);
+                    list.add(e);
+                    System.out.println("Got it. I've added this task:\n" + e.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+                }
             }
         }
     }
