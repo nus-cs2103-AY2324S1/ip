@@ -18,8 +18,13 @@ class Task {
     public void markAsNotDone() {
         this.isDone = false;
     }
+    public String getTask() {
+        return this.description;
+    }
 
     public String taskString() {
-        return this.description;
+        String str = this.isDone ? "[X] " : "[ ] ";
+        String output = str + this.description;
+        return output;
     }
 }

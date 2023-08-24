@@ -22,8 +22,7 @@ public class Duke {
                     done.markAsDone();
                     System.out.println("\t" + "Nice! I've marked this task " +
                             "as done:" + "\n" +
-                            "\t" + "[" + done.getStatusIcon() + "] " +
-                            done.taskString());
+                            "\t" + "\t" + done.taskString());
                 } else if (str.startsWith("unmark ")) {
                     String num = str.substring(7);
                     int number = Integer.valueOf(num);
@@ -34,16 +33,16 @@ public class Duke {
                     Task notDone = tasks.get(index);
                     notDone.markAsNotDone();
                     System.out.println("\t" + "OK, I've marked this task " +
-                            "as not done yet:" + "\n" + "\t" +
-                            "[" + notDone.getStatusIcon() + "] " +
+                            "as not done yet:" + "\n" + "\t" + "\t" +
                             notDone.taskString());
                 } else {
                     Task task = new Task(str);
                     tasks.add(task);
-                    System.out.println("\t" + "added: " + task.taskString());
+                    System.out.println("\t" + "added: " + task.getTask());
                 }
-            } else{
+            } else {
                 listTasks(tasks);
+                System.out.println();
             }
             str = sc.nextLine();
         }
@@ -52,8 +51,10 @@ public class Duke {
 
     public static void listTasks(List<Task> tasks) {
         int i = 1;
+        System.out.print("\tHere are the tasks in your list:");
         for (Task task : tasks) {
-            System.out.println("\t" + i + ". [" + task.getStatusIcon() + "] " + task.taskString());
+            System.out.println();
+            System.out.print("\t" + i + "." + task.taskString());
             i++;
         }
     }
