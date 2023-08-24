@@ -29,7 +29,7 @@ public class Duke {
                 String[] parts = userCommand.split(" ");
                 if (parts.length == 2) {
                     int num = Integer.parseInt(parts[1]);
-                    Task task = tasks[num];
+                    Task task = tasks[num - 1];
                     task.toggleCompleted();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(task.getString());
@@ -38,7 +38,7 @@ public class Duke {
                 String[] parts = userCommand.split(" ");
                 if (parts.length == 2) {
                     int num = Integer.parseInt(parts[1]);
-                    Task task = tasks[num];
+                    Task task = tasks[num - 1];
                     task.toggleCompleted();
                     System.out.println("Okay. I see you haven't done this task yet");
                     System.out.println(task.getString());
