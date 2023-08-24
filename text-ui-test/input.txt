@@ -1,0 +1,14 @@
+hi
+todo task 1
+event task 2 /from 25 Aug /to 27 Aug
+mark 1
+list
+todo task 3
+deadline task 4 /by tmr
+deadline task 5 /by 26 Aug
+unmark 5
+mark 5
+mark 4
+mark 4
+list
+bye

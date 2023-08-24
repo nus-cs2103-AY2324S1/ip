@@ -18,6 +18,7 @@ public class ChatBot {
     }
 
     public static void exit() {
+        System.out.println(line);
         System.out.println("\tBye. Hope to see you again soon!");
         System.out.println(line);
     }
@@ -95,7 +96,7 @@ public class ChatBot {
                 addTask(parseEventTask(command));
             }
             else {
-                output("Sorry, I'm not sure what that means...");
+                output("\tSorry, I'm not sure what that means...");
             }
         }
         nextCommand();
