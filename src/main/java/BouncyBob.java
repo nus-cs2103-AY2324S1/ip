@@ -171,8 +171,14 @@ public class BouncyBob {
                 break;
             } else if (userInput.equals("list")) {
                 printDatabase(database, pointer);
-            } else if (parts[0].equals("mark") || parts[0].equals("unmark")) {
-                modifyTask(parts, database);
+            } else if (parts[0].equals("mark") || parts[0].equals("unmark") || parts[0].equals("delete")) {
+                try {
+                    modifyTask(parts, database);
+                } catch (NullPointerException e) {
+                    System.out.println(TOP_BORDER);
+                    System.out.println("Make sure your index is within length of list!");
+                    System.out.println(BOTTOM_BORDER);
+                }
             } else {
                 try {
                     addTaskAndPrint(parts, database, pointer);
