@@ -13,6 +13,7 @@ public class Messages {
     public static void startChatting() {
         String exitC = "bye";
         String listC = "list";
+        String deleteC = "delete";
         String doneC = "mark";
         String undoneC = "unmark";
         String deadlineC = "deadline";
@@ -28,6 +29,10 @@ public class Messages {
                 try {
                     if (userCommands.equalsIgnoreCase(listC)) {
                         taskList.listOutTasks();
+                    } else if (userCommands.startsWith(deleteC)) {
+                        String getIndex = userCommands.substring("delete".length() + 1);
+                        int taskIndex = Integer.parseInt(getIndex) - 1;
+                        taskList.deleteTask(taskIndex);
                     } else if (userCommands.startsWith(doneC)) {
                         String getIndex = userCommands.substring(doneC.length() + 1);
                         int taskIndex = Integer.parseInt(getIndex) - 1;
