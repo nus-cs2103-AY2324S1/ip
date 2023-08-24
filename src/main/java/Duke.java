@@ -44,6 +44,30 @@ public class Duke {
                 tasks[Integer.parseInt(message.split(" ")[1]) - 1].unmark();
                 System.out.println("    OK, I've marked this task as not done yet:");
                 System.out.println("    " + tasks[Integer.parseInt(message.split(" ")[1]) - 1]);
+            } else if(message.split(" ")[0].equals("todo")) {
+                tasks[numOfTasks] = new ToDo(message.substring(5));
+                numOfTasks++;
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("    " + tasks[numOfTasks - 1]);
+                System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
+            } else if(message.split(" ")[0].equals("deadline")) {
+                String name = message.substring(9, message.indexOf("/by "));
+                String deadline = message.substring(message.indexOf("/by ") + 4);
+                tasks[numOfTasks] = new Deadline(name, deadline);
+                numOfTasks++;
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("    " + tasks[numOfTasks - 1]);
+                System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
+            } else if(message.split(" ")[0].equals("event")) {
+                String name = message.substring(6, message.indexOf("/from "));
+                String afterFrom = message.substring(message.indexOf("/from ") + 5);
+                String start = afterFrom.substring(0, afterFrom.indexOf("/to "));
+                String endTime = afterFrom.substring(afterFrom.indexOf("/from ") + 6);
+                tasks[numOfTasks] = new Event(name, start, endTime);
+                numOfTasks++;
+                System.out.println("    Got it. I've added this task:");
+                System.out.println("    " + tasks[numOfTasks - 1]);
+                System.out.println("    Now you have " + numOfTasks + " tasks in the list.");
             } else {
                 tasks[numOfTasks] = new Task(message);
                 numOfTasks++;
@@ -53,6 +77,7 @@ public class Duke {
             message = scanner.nextLine();
         }
         System.out.println(end);
+        scanner.close();
     }
 
     /**
