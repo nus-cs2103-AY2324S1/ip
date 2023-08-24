@@ -15,14 +15,43 @@ public class DukeList {
     }
 
     /**
-     * Helps to store user inputs into the list variable and show its
-     * contents if the "list" command is inputted.
+     * Helps to store user todo tasks into the list.
      *
      * @param task takes in the task given by the user.
      */
     public void store(String task) {
-        this.tasks[index] = new Task(task);
+        this.tasks[index] = new ToDo(task);
         System.out.println("Added! You want to: " + task + "\n" +
+                "Now you have " + (index + 1) + (index > 0 ? " tasks!" : " task!") + "\n" +
+                "____________________________________________________________");
+        index++;
+    }
+
+    /**
+     * Helps to store user deadline tasks and deadlines into the list.
+     *
+     * @param task takes in the task given by the user.
+     * @param by takes in the deadline of the deadline task.
+     */
+    public void store(String task, String by) {
+        this.tasks[index] = new Deadline(task, by);
+        System.out.println("Added! You want to: " + task + "\n" +
+                "Now you have " + (index + 1) + (index > 0 ? " tasks!" : " task!") + "\n" +
+                "____________________________________________________________");
+        index++;
+    }
+
+    /**
+     * Helps to store user event tasks and start / end dates into the list.
+     *
+     * @param task takes in the task given by the user.
+     * @param start takes in the start of the deadline task.
+     * @param end takes in the end date of the store task.
+     */
+    public void store(String task, String start, String end) {
+        this.tasks[index] = new Event(task, start, end);
+        System.out.println("Added! You want to: " + task + "\n" +
+                "Now you have " + (index + 1) + (index > 0 ? " tasks!" : " task!") + "\n" +
                 "____________________________________________________________");
         index++;
     }

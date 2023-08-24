@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The Duke class helps to manage all messages sent by the user to the chatbot accordingly.
@@ -38,8 +40,8 @@ public class Duke {
 
     /**
      * Helps to manage the user's inputs. "list" shows the current list, "mark / unmark"
-     * helps to mark or unmark the specific task in the list, and any other input is
-     * added as a task to the list.
+     * helps to mark or unmark the specific task in the list, and todo/deadline/event
+     * adds todo/deadline/event tasks respectively.
      *
      * @param tally takes in the input string.
      */
@@ -47,13 +49,32 @@ public class Duke {
         if (tally.equals("list")) {
             list.display();
         } else {
-            String[] set = tally.split(" ");
-            if (set[0].equals("mark")) {
-                list.mark(Integer.parseInt(set[1]));
-            } else if (set[0].equals("unmark")) {
-                list.unmark(Integer.parseInt(set[1]));
+            String comd = tally.split(" ")[0];
+
+            if (comd.equals("todo")) {
+                Pattern todocmd = Pattern.compile("todo (.+)");
+                Matcher m = todocmd.matcher(tally);
+                m.matches();
+                list.store(m.group(1));
+            } else if (comd.equals("deadline")) {
+                Pattern deadlinecmd = Pattern.compile("deadline (.+) /by (.+)");
+                Matcher m = deadlinecmd.matcher(tally);
+                m.matches();
+                m.matches();
+                list.store(m.group(1), m.group(2));
+            } else if (comd.equals("event")) {
+                Pattern eventcmd = Pattern.compile("event (.+) /from (.+) /to (.+)");
+                Matcher m = eventcmd.matcher(tally);
+                m.matches();
+                m.matches();
+                m.matches();
+                list.store(m.group(1), m.group(2), m.group(3));
+            } else if (comd.equals("mark")) {
+                String index = tally.split(" ")[1];
+                list.mark(Integer.parseInt(index));
             } else {
-                list.store(tally);
+                String index = tally.split(" ")[1];
+                list.unmark(Integer.parseInt(index));
             }
         }
     }
