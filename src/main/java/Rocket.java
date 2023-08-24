@@ -126,7 +126,7 @@ public class Rocket {
      * Extracts deadline from input
      * @param arguments information about task
      * @return a deadline task
-     * @throws RocketException
+     * @throws RocketIllegalArgumentException because of illegal argument
      */
     private static Deadline getDeadline(String arguments) throws RocketIllegalArgumentException {
         int descriptionIndex = arguments.indexOf(" /by");
@@ -145,7 +145,7 @@ public class Rocket {
      * Extracts event from input
      * @param arguments information about event
      * @return an event
-     * @throws RocketIllegalArgumentException
+     * @throws RocketIllegalArgumentException because of Illegal Argument
      */
     private static Event getEvent(String arguments) throws RocketIllegalArgumentException{
         int descriptionIndex = arguments.indexOf(" /from");
