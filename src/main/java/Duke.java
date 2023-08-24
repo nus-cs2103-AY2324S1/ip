@@ -1,9 +1,19 @@
+import com.sun.jdi.ArrayReference;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 public class Duke {
     private static String name = "WallE";
     private static List<Task> tasks = new ArrayList<>();
+    private static class DukeException extends RuntimeException {
+        public DukeException() {
+            super();
+        }
+        public DukeException(String message) {
+            super(message);
+        }
+    }
     public static void printDivider(boolean isIndented) {
         if (isIndented)
             System.out.println('\t' + "_________________________________________");
@@ -42,6 +52,10 @@ public class Duke {
                     switch (inputWords[0]) {
                         case "todo":
                             String todoName = extractSecondWordOnwards(input);
+                            if (todoName.length() == 0) {
+                                System.out.println("\t☹ OOPS!!! The description of a todo cannot be empty.");
+                                break;
+                            }
                             Task todo = new ToDo(todoName, false);
                             tasks.add(todo);
                             System.out.println("\tadded: " + input);
@@ -50,6 +64,9 @@ public class Duke {
                         case "deadline":
                             String[] twoParts = input.split ("/by ");
                             String deadlineName = extractSecondWordOnwards(twoParts[0]);
+                            if (deadlineName.length() == 0) {
+                                System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
+                            }
                             String deadlineString = twoParts[1];
                             Task deadline = new Deadline(deadlineName, false, deadlineString);
                             tasks.add(deadline);
@@ -59,25 +76,46 @@ public class Duke {
                         case "event":
                             String[] threeParts = input.split ("/");
                             String eventName = extractSecondWordOnwards(threeParts[0]);
-                            String eventStart = extractSecondWordOnwards(threeParts[1]);
-                            String eventEnd = extractSecondWordOnwards(threeParts[2]);
-                            Task event = new Event(eventName, false, eventStart, eventEnd);
-                            tasks.add(event);
-                            System.out.println("\tadded: " + input);
-                            printTaskAddedMessage(event);
-                            break;
+                            if (eventName.length() == 0) {
+                                System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+                            }
+                            try {
+                                String eventStart = extractSecondWordOnwards(threeParts[1]);
+                                String eventEnd = extractSecondWordOnwards(threeParts[2]);
+                                Task event = new Event(eventName, false, eventStart, eventEnd);
+                                tasks.add(event);
+                                System.out.println("\tadded: " + input);
+                                printTaskAddedMessage(event);
+                                break;
+                            } catch (RuntimeException e) {
+                                throw new DukeException("Index likely out of bounds due to incorrect format of input. Expected usage: event {eventName} /from {eventStart} /to {eventEnd}");
+                            } finally {
+                                break;
+                            }
                         case "mark":
-                            id = Integer.valueOf(inputWords[1]) - 1;
-                            tasks.get(id).markAsDone();
-                            System.out.println("\tNice! I've marked this task as done:");
-                            System.out.println("\t\t" + tasks.get(id).toString());
-                            break;
+                            try {
+                                id = Integer.valueOf(inputWords[1]) - 1;
+                                tasks.get(id).markAsDone();
+                                System.out.println("\tNice! I've marked this task as done:");
+                                System.out.println("\t\t" + tasks.get(id).toString());
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                throw new DukeException("Index out of bounds. Expected: mark {id}");
+                            } finally {
+                                break;
+                            }
                         case "unmark":
-                            id = Integer.valueOf(inputWords[1]) - 1;
-                            tasks.get(id).markAsUndone();
-                            System.out.println("\tOk, I've marked this task as not done yet:");
-                            System.out.println("\t\t" + tasks.get(id).toString());
-                            break;
+                            try {
+                                id = Integer.valueOf(inputWords[1]) - 1;
+                                tasks.get(id).markAsUndone();
+                                System.out.println("\tOk, I've marked this task as not done yet:");
+                                System.out.println("\t\t" + tasks.get(id).toString());
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                throw new DukeException("Index out of bounds. Expected: unmark {id}");
+                            } finally {
+                                break;
+                            }
+                        default:
+                            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
                 } else {
                     for (int i = 0; i < tasks.size(); i++) {
