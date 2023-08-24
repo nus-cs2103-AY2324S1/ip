@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class Bareum {
-    static boolean active;
+    static TaskList taskList = new TaskList();
+
     static void reply(String reply) {
         String botName = "Bareum: ";
         String fullReply = botName + reply;
@@ -8,18 +9,26 @@ public class Bareum {
     }
 
     public static void main(String[] args) {
-        active = true;
-        String introduction = "Hello! I'm Bareum! What can I do for you? ^^\n";
-        String goodbye = "Bye! Hope to see you again soon!\n";
+        String introduction = "Hello! I'm Bareum! What can I do for you? ^^";
+        String goodbye = "Bye! Hope to see you again soon ^^";
+        String line = "________________________";
 
         reply(introduction);
         Scanner sc = new Scanner(System.in);
-        while (active) {
-            String command = sc.next();
-            if (command.equals("bye")) {
-                active = false;
+        while (true) {
+            System.out.println(line);
+            String input = sc.nextLine();
+            if (input.equals("bye")) {
+                break;
+            } else if (input.equals("list")) {
+                reply("Here are your current tasks!");
+                for (int i = 0; i < taskList.size(); i++) {
+                    System.out.println((i + 1) + ". " + taskList.get(i).toString());
+                }
             } else {
-                reply(command);
+                taskList.addTask(input);
+                String added = "I have added " + "'" + input + "'" + "to your list!";
+                reply(added);
             }
         }
 
