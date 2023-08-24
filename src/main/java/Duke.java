@@ -1,9 +1,18 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * The Duke class represents a simple chatbot application that helps manage tasks.
+ */
 public class Duke {
     private List<Task> tasks = new ArrayList<>();
 
+    /**
+     * The main method to start the Duke chatbot.
+     *
+     * @param args Command-line arguments (unused).
+     */
     public static void main(String[] args) {
         Duke wizzer = new Duke();
         String logo = "Wiz";
@@ -29,6 +38,12 @@ public class Duke {
         System.out.println("--------------------------");
 
     }
+    /**
+     * Parses and handles the user's command to perform various tasks.
+     *
+     * @param command The user's command to be processed.
+     * @throws DukeException If the command is not recognised, or error
+     */
     public void executeCommand(String command) throws DukeException{
         String[] separateCommand = command.split(" ");
         System.out.println("--------------------------");
