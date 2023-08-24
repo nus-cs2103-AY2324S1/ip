@@ -35,20 +35,17 @@ public class Peko {
     private static final Scanner scanner = new Scanner(System.in);
     private static SaveHandler saveHandler = new SaveHandler(todoList, new File("src/main/List.txt"));
     public static void main(String[] args) throws InvalidTaskException {
-        String input;
-        boolean loop = true;
-        CommandsInternal temp;
         todoList = saveHandler.loadFrom();
         UserInputHandler UIhandler = new UserInputHandler();
         intro();
-
-        while (loop) {
+        while (true) {
             UIhandler.newInput();
             if (!UIhandler.run()) {
+                System.out.println("break");
                 break;
             }
+            UIhandler = new UserInputHandler();
         }
-
         saveHandler.saveTo();
         exit();
     }
@@ -66,35 +63,6 @@ public class Peko {
         System.out.println(lineBreak);
     }
 
-    public static String interaction() {
-        currInput = scanner.nextLine();
-        System.out.println(lineBreak);
-        return currInput;
-    }
-    public static CommandsInternal getResponseValue(String input) {
-        int output = 3;
-        input = input.toLowerCase();
-        for (int i = 0; i < commands.length; i++) {
-            if (input.startsWith(commands[i])) {
-                output = i;
-                break;
-            }
-        }
-        String temp = commands[output].toUpperCase().trim();
-        System.out.println(temp);
-        return CommandsInternal.valueOf(temp);
-    }
-
-    public static void echo(String s) {
-        s = s.substring(5, s.length());
-        s = leftPad(s);
-        if (s.isBlank()) {
-            System.out.println("You didn't say anything peko?");
-        } else {
-            System.out.println(s);
-        }
-    }
-
     public static void readArray() {
         int i = 0;
         System.out.println("--------------LIST-PEKO------------------");
@@ -110,27 +78,6 @@ public class Peko {
 
     public static void addToArray(Task t) {
         todoList[pos] = t;
-        todoList[pos].reply(pos);
-        pos++;
-        System.out.println(lineBreak);
-        saveHandler.saveTo();
-    }
-    public static void addToDo(String s) throws InvalidTaskException {
-        todoList[pos] = new ToDos(s);
-        todoList[pos].reply(pos);
-        pos++;
-        System.out.println(lineBreak);
-        saveHandler.saveTo();
-    }
-    public static void addDeadline(String s) throws InvalidTaskException {
-        todoList[pos] = new Deadline(s);
-        todoList[pos].reply(pos);
-        pos++;
-        System.out.println(lineBreak);
-        saveHandler.saveTo();
-    }
-    public static void addEvent(String s) throws InvalidTaskException {
-        todoList[pos] = new Event(s);
         todoList[pos].reply(pos);
         pos++;
         System.out.println(lineBreak);

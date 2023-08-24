@@ -3,11 +3,7 @@ public class Deadline extends Task{
     DateTimeHandler dateTimeHandler;
     public Deadline(String s) throws InvalidTaskException {
         super(s);
-        String[] temp = s.split(" ", 2);
-        if (s.isBlank() || temp.length <= 1) {
-            throw new InvalidTaskException();
-        }
-        String[] split = temp[1].split(" /by ");
+        String[] split = s.split(" /by ");
         if (split.length == 1) {
             System.out.println("There's no deadline peko!");
             return;

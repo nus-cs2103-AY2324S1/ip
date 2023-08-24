@@ -40,18 +40,15 @@ public class UserInputHandler {
             }
         }
         String temp = commands[output].toUpperCase().trim();
-        System.out.println(temp);
         return CommandsInternal.valueOf(temp);
     }
-
     public void newInput() {
         Scanner scanner = new Scanner(System.in);
         input = scanner.nextLine();
         command = getResponseValue(input);
-        input = input.split(" ",2)[1];
+        input = input.split(" ",2).length < 2 ? " " : input.split(" ", 2)[1];
         System.out.println(lineBreak);
     }
-
     private void echo() {
         if (input.isBlank()) {
             System.out.println("You didn't say anything peko?");
@@ -84,6 +81,7 @@ public class UserInputHandler {
         System.out.println(lineBreak);
     }
     private void todo(String s) throws InvalidTaskException{
+        System.out.println(s);
         Task t = new ToDos(input);
         Peko.addToArray(t);
         System.out.println(lineBreak);
@@ -106,33 +104,36 @@ public class UserInputHandler {
 
     public boolean run() {
         try {
+
+            System.out.println(command.name());
             switch (command) {
                 case ECHO:
                     echo();
-                    break;
+                    return true;
                 case LIST:
                     readArray();
-                    break;
+                    return true;
                 case WRITE:
                     addToArray();
-                    break;
+                    return true;
                 case MARK:
                     mark(input);
-                    break;
+                    return true;
                 case UNMARK:
                     unmark(input);
-                    break;
+                    return true;
                 case TODO:
                     todo(input);
-                    break;
+                    return true;
                 case DEADLINE:
                     deadline(input);
-                    break;
+                    return true;
                 case EVENT:
                     Event(input);
+                    return true;
                 case DELETE:
                     delete(input);
-                    break;
+                    return true;
                 case COPYPASTA:
                     try {
                         Peko.degen();
@@ -141,19 +142,19 @@ public class UserInputHandler {
                     } finally {
                         return false;
                     }
-
                 case OTSUPEKO:
                     return false;
-
+                default:
+                    return true;
 
             }
-            return true;
         } catch (InvalidTaskException e) {
             System.out.println(e);
+            return true;
         } catch (NumberFormatException e) {
             System.out.println("That's not a number Bakatare!");
-        } finally {
-            return false;
+
+            return true;
         }
     }
 

@@ -4,11 +4,7 @@ public class Event extends Task{
     DateTimeHandler endHandler;
     public Event(String s) throws InvalidTaskException {
         super(s);
-        String[] temp = s.split(" ", 2);
-        if (s.isBlank() || temp.length <= 1) {
-            throw new InvalidTaskException();
-        }
-        String[] split = temp[1].split(" /from ");
+        String[] split = s.split(" /from ");
         if (split.length == 1) {
             System.out.println("There's no start date peko!");
             return;
