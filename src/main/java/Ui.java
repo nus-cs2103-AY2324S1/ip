@@ -37,8 +37,18 @@ public class Ui {
         breakLine();
         System.out.println("    Tasks:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("    " + (i + 1) + ". " + tasks.get(i).getDetails());
+            Task task = tasks.get(i);
+            System.out.println("    " + (i + 1) + ". " +
+                                task.getStatusIcon() + " " + task.getDetails());
         }
+        breakLine();
+    }
+
+    public void printTaskStatus(Task task) {
+        breakLine();
+        System.out.println("    Understood Master. I've marked this task as" + 
+                                (task.isCompleted() ? "completed" : "uncompleted") + "\n" +
+                                "\t" + task.getStatusIcon() + " " + task.getDetails());
         breakLine();
     }
 

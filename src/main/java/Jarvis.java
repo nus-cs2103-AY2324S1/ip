@@ -15,11 +15,19 @@ public class Jarvis {
     }
 
     public void respond(String userInput) {
+        String[] userInputSpilt = userInput.split(" ");
+
         if (userInput.equalsIgnoreCase("bye")) {
             ui.printBye();
             System.exit(0);
         } else if (userInput.equalsIgnoreCase("list")) {
             listTasks();
+        } else if (userInputSpilt[0].equalsIgnoreCase("mark")) {
+            int index = Integer.parseInt(userInputSpilt[1]);
+            updateTask(index, true);
+        } else if (userInputSpilt[0].equalsIgnoreCase("unmark")) {
+            int index = Integer.parseInt(userInputSpilt[1]);
+            updateTask(index, false);
         } else {
             addTask(userInput);
         }
@@ -38,5 +46,22 @@ public class Jarvis {
         Task task = new Task(taskTitle);
         taskList.addTask(task);
         ui.printResponse("added: " + taskTitle);
+    }
+
+    private void updateTask(int index, boolean isCompleted) {
+        ArrayList<Task> tasks = taskList.getTask();
+         if (index >= 1 && index <= tasks.size()) {
+            Task task = tasks.get(index - 1);
+            
+            if (isCompleted) {
+                task.markCompleted();
+            } else {
+                task.unmarkCompleted();
+            }
+            
+            ui.printTaskStatus(task);
+        } else {
+            ui.printResponse("Invalid index.");
+        }
     }
 }
