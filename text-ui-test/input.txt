@@ -5,4 +5,8 @@ list
 mark 1
 list
 unmark 1
+todo
+blah
+delete 2
+list
 bye

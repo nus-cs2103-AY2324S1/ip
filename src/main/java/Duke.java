@@ -1,21 +1,17 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
         String inData = "";
         Scanner scan = new Scanner(System.in);
         System.out.println("Hello! I'm Nicole");
         System.out.println("What can I do for you?");
-        Task[] list = new Task[100];
+        ArrayList<Task> list = new ArrayList<>();
         int count = 0;
 
         while (!inData.equals("bye")) {
             inData = scan.nextLine();
             try {
-
-                if (inData.equals("todo")) {
-                    throw new EmptyDescriptionException();
-                }
-
                 if (inData.equals("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
                     break;
@@ -24,7 +20,7 @@ public class Duke {
                 if (inData.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < count; i++) {
-                        System.out.println((i + 1) + "." + list[i].toString());
+                        System.out.println((i + 1) + "." + list.get(i));
                     }
                     continue;
                 }
@@ -32,9 +28,9 @@ public class Duke {
                 if (inData.startsWith("mark ")) {
                     int num = inData.charAt(5) - '0' - 1;
                     if (num >= 0 && num < count) {
-                        list[num].markAsDone();
+                        list.get(num).markAsDone();
                         System.out.println("Nice! I've marked this task done:");
-                        System.out.println(list[num]);
+                        System.out.println(list.get(num));
                     } else {
                         System.out.println("Invalid");
                     }
@@ -44,9 +40,9 @@ public class Duke {
                 if (inData.startsWith("unmark ")) {
                     int num = inData.charAt(7) - '0' - 1;
                     if (num >= 0 && num < count) {
-                        list[num].markAsUndone();
+                        list.get(num).markAsUndone();
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println(list[num]);
+                        System.out.println(list.get(num));
                     } else {
                         System.out.println("Invalid");
                     }
@@ -55,38 +51,62 @@ public class Duke {
 
                 if (inData.startsWith("todo ")) {
                     String des = inData.substring(5);
-                    list[count] = new Todo(des);
+                    if (des.isBlank()) {
+                        throw new EmptyDescriptionException();
+                    }
+                    list.add(new Todo(des));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(list[count]);
+                    System.out.println(list.get(count));
                     count++;
                     System.out.println("Now you have " + count + " tasks in the list.");
                     continue;
                 }
 
                 if (inData.startsWith("deadline ")) {
+                    if (inData.substring(9).isBlank()) {
+                        throw new EmptyDescriptionException();
+                    }
                     String[] split = inData.substring(9).split(" /by ");
-                    String description = split[0];
+                    String des = split[0];
                     String by = split[1];
-                    list[count] = new Deadline(description, by);
+                    list.add(new Deadline(des, by));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(list[count]);
+                    System.out.println(list.get(count));
                     count++;
                     System.out.println("Now you have " + count + " tasks in the list.");
                     continue;
                 }
 
                 if (inData.startsWith("event ")) {
+                    if (inData.substring(6).isBlank()) {
+                        throw new EmptyDescriptionException();
+                    }
                     String[] split = inData.substring(6).split(" /from ");
-                    String description = split[0];
+                    String des = split[0];
                     String[] fromto = split[1].split(" /to ");
                     String from = fromto[0];
                     String to = fromto[1];
 
-                    list[count] = new Event(description, from, to);
+                    list.add(new Event(des, from, to));
                     System.out.println("Got it. I've added this task:");
-                    System.out.println(list[count]);
+                    System.out.println(list.get(count));
                     count++;
                     System.out.println("Now you have " + count + " tasks in the list.");
+                    continue;
+                }
+
+                if(inData.startsWith("delete ")) {
+                    int num = Integer.parseInt(inData.substring(7)) - 1;
+                    if (num >= 0 && num < list.size()) {
+                        list.remove(num);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(list.get(num));
+                        count--;
+                        System.out.println("Now you have " + count + " tasks in the list");
+
+                    } else {
+                        System.out.println("Invalid.");
+                    }
                     continue;
                 }
                 throw new UnknownCommandException();

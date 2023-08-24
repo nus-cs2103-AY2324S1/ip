@@ -11,8 +11,7 @@ public class Task {
         return (isDone ? "X" : " "); //mark done task with X
     }
 
-    public void markAsDone() {
-        isDone = true;
+    public void markAsDone() { isDone = true;
     }
 
     public void markAsUndone() {
