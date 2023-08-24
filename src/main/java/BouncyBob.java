@@ -69,20 +69,38 @@ public class BouncyBob {
         switch (taskType) {
             case "todo":
                 taskName = arrayToString(parts, 1); // we skip the string in pos -, which is the command
+                if (taskName.trim().isEmpty()) {
+                    throw new IllegalArgumentException("Task name for 'todo' cannot be empty.");
+                }
                 database[pointer] = new ToDos(taskName);
                 break;
             case "deadline":
                 taskName = arrayToString(parts, 1);
-                String datetime = extractDatetime(taskName);
+                String datetime = "";
+                datetime = extractDatetime(taskName);
+                if (datetime.trim().isEmpty()) {
+                    throw new IllegalArgumentException("/by cannot be empty!");
+                }
                 taskName = getTaskDeadline(taskName);
+                if (taskName.trim().isEmpty()) {
+                    throw new IllegalArgumentException("Task name for 'deadline' cannot be empty.");
+                }
                 database[pointer] = new Deadlines(taskName, datetime);
                 break;
             case "event":
                 taskName = arrayToString(parts, 1);
                 String[] fromTo = extractFromTo(taskName);
+                if (fromTo[0] == null || fromTo[1] == null) {
+                    throw new IllegalArgumentException("/from and /to cannot be empty!");
+                }
                 taskName = getTaskEvent(taskName);
+                if (taskName.trim().isEmpty()) {
+                    throw new IllegalArgumentException("Task name for 'event' cannot be empty.");
+                }
                 database[pointer] = new Events(taskName, fromTo[0], fromTo[1]);
                 break;
+            default:
+                throw new IllegalArgumentException("Invalid task type: " + taskType);
         }
         System.out.println(TOP_BORDER);
         System.out.println("Added to database: " + database[pointer].getDescription());
@@ -126,6 +144,12 @@ public class BouncyBob {
         String str = String.format("Currently, you have %s %s, start bouncing!", pointer + 1, s);
         System.out.println(str);
     }
+
+    private static void printIllegalArgumentException(IllegalArgumentException e) {
+        System.out.println(TOP_BORDER);
+        System.out.println("Oops! " + e.getMessage());
+        System.out.println(BOTTOM_BORDER);
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Task[] database = new Task[100];
@@ -150,8 +174,12 @@ public class BouncyBob {
             } else if (parts[0].equals("mark") || parts[0].equals("unmark")) {
                 modifyTask(parts, database);
             } else {
-                addTaskAndPrint(parts, database, pointer);
-                pointer++;
+                try {
+                    addTaskAndPrint(parts, database, pointer);
+                    pointer++;
+                } catch (IllegalArgumentException e) {
+                    printIllegalArgumentException(e);
+                }
             }
         }
     }
