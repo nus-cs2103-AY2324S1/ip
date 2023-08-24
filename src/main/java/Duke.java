@@ -16,10 +16,10 @@ public class Duke {
         while(true) {
             String input = scanner.nextLine();
             String[] splitted = input.split(" ");
-            System.out.println("----------------------------------------------");
+            System.out.println("____________________________________________________________");
             if(input.equalsIgnoreCase("bye")) {
                 System.out.println(bye);
-                System.out.println("----------------------------------------------");
+                System.out.println("____________________________________________________________");
                 break;
 
             } else if(input.equalsIgnoreCase("list")) {
@@ -32,7 +32,7 @@ public class Duke {
                         System.out.println((i + 1) + "." + tasksList[i].toString());
                 }
 
-                System.out.println("----------------------------------------------");
+                System.out.println("____________________________________________________________");
             } else if (input.startsWith("mark")) {
                 tasksList[Integer.parseInt(input.replace("mark ", "")) - 1].markDone();
             } else if (input.startsWith("unmark")) {
@@ -41,12 +41,12 @@ public class Duke {
                 //System.out.println("Got it. I've added this task:");
                 if(input.startsWith("todo")) {
 
-                    tasksList[count] = new Todo(input.replace("todo", ""));
+                    tasksList[count] = new Todo(input.replace("todo ", ""));
 
                     System.out.println("Got it. I've added this task:");
                     System.out.println("\t" + tasksList[count].toString());
                     System.out.println("Now you have " + (count + 1) + " tasks in the list");
-                    System.out.println("----------------------------------------------");
+                    System.out.println("____________________________________________________________");
                 } else if(input.startsWith("event")) {
                     //event project meeting /from Mon 2pm /to 4pm
                     String[] s = input.replace("event ", "").split(" /from | /to");
@@ -54,7 +54,7 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("\t" + tasksList[count].toString());
                     System.out.println("Now you have " + (count + 1) + " tasks in the list");
-                    System.out.println("----------------------------------------------");
+                    System.out.println("____________________________________________________________");
 
                 } else if (input.startsWith("deadline")) {
                     //deadline return book /by Sunday
@@ -63,8 +63,9 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     System.out.println("\t" + tasksList[count].toString());
                     System.out.println("Now you have " + (count + 1) + " tasks in the list");
-                    System.out.println("----------------------------------------------");
+                    System.out.println("____________________________________________________________");
                 }
+
                 count++;
 
             }
