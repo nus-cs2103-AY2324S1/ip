@@ -39,7 +39,9 @@ public class Duke {
                     throw new DukeException("OOPS!!! Index of task to be marked is out of bounds");
                 }
 
-                list.getTaskAt(index - 1).mark();
+                Task toBeMarked = list.getTaskAt(index - 1);
+                toBeMarked.mark();
+                display("Nice! I've marked this task as done:\n" + toBeMarked.toString());
             } else if (userInput.startsWith("unmark")) {
                 // get index by splitting user input and get task at that index from list
                 int index = Integer.parseInt(userInput.split(" ")[1]);
@@ -48,7 +50,20 @@ public class Duke {
                     throw new DukeException("OOPS!!! Index of task to be unmarked is out of bounds");
                 }
 
-                list.getTaskAt(index - 1).unmark();
+                Task toBeUnmarked = list.getTaskAt(index - 1);
+                toBeUnmarked.unmark();
+                display("OK, I've marked this task as not done yet:\n" + toBeUnmarked.toString());
+            } else if (userInput.startsWith("delete")) {
+                int index = Integer.parseInt(userInput.split(" ")[1]);
+
+                if (index < 1 || index > list.getNumberOfTasks()) {
+                    throw new DukeException("OOPS!!! Index of task to be deleted is out of bounds");
+                }
+
+                Task toBeDeleted = list.getTaskAt(index - 1);
+                list.deleteTaskAt(index - 1);
+                display("Noted. I've removed this task:\n" + toBeDeleted.toString()
+                        + "\nNow you have " + list.getNumberOfTasks() + " tasks in the list.");
             } else {
                 Task add = getTask(userInput);
                 try {
