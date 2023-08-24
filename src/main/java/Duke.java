@@ -1,17 +1,16 @@
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
-// Test level-5 commit
 public class Duke {
     public static void main(String[] args) {
         String openingStr =
                 "____________________________________________________________\n" +
-                " Hello! I'm JEOE\n" +
-                " What can I do for you?\n" +
-                " type :\n" +
-                " list => to list out items in storage\n" +
-                " _Anything else_ => store in storage\n" +
-                "____________________________________________________________\n";
+                        " Hello! I'm JEOE\n" +
+                        " What can I do for you?\n" +
+                        " type :\n" +
+                        " list => to list out items in storage\n" +
+                        " _Anything else_ => store in storage\n" +
+                        "____________________________________________________________\n";
         System.out.println(openingStr);
         Scanner scanner = new Scanner(System.in); // makes it such that the scanner takes in inputs from the console
         List<Task> storage = new ArrayList<>();
@@ -81,6 +80,15 @@ public class Duke {
                     reply +=
                             ("OK, I've marked this task as not done yet:\n" +
                                     storage.get(index).toString() + "\n");
+                } else if (command.equals("delete")) {
+                    int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                    // delete from the array
+                    Task t = storage.remove(index);
+                    // add to the reply
+                    reply +=
+                            ("Noted. I've removed this task:\n" +
+                                    t.toString() + "\n" +
+                                    "Now you have " + storage.size() + " tasks in the list.\n");
                 } else {
                     // nothing happens, since we only want the 3 specific types of tasks
                     // throw exception when it doesnt have a command word
