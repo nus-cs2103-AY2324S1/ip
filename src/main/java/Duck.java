@@ -124,13 +124,6 @@ public class Duck {
         System.out.println(bye);
         line();
     }
-
-    private static void echo(String input) {
-        line();
-        System.out.println(input);
-        line();
-    }
-
 }
 
 class TaskList {
