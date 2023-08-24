@@ -91,6 +91,13 @@ public class Duke {
                     lineSplitter();
                     break;
 
+                case "delete":
+                    int deleteIndex = Integer.parseInt(splittedInput[1]) - 1;
+                    Task deletedTask = list.remove(deleteIndex);
+                    lineSplitter();
+                    System.out.println("Deleted this task:\n  " + deletedTask + "\n" + list.size() + " tasks in the list");
+                    lineSplitter();
+                    break;
                 case "unmark":
                     int unmarkIndex = Integer.parseInt(splittedInput[1]) - 1;
                     list.get(unmarkIndex).setUndone();

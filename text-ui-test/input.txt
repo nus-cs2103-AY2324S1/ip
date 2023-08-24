@@ -4,5 +4,6 @@ todo listen to the lecture
 list
 mark 2
 unmark 2
+delete 2
 list
 bye
