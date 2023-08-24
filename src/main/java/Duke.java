@@ -3,11 +3,6 @@ import java.util.Scanner;
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
-    public static final String LOGO = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
     public static final String NAME = "Duke";
 
     public static void main(String[] args) {
@@ -29,7 +24,6 @@ public class Duke {
 
     public static void hello() {
         printWithIndentation(HORIZONTAL_LINE);
-        System.out.println(LOGO);
         printWithIndentation("Hello! I'm " + NAME);
         printWithIndentation("What can I do for you?");
         printWithIndentation(HORIZONTAL_LINE);
