@@ -23,7 +23,7 @@ public class FileUtils {
 
     }
 
-    public static ArrayList<Task> loadTasksFromFile() throws FileNotFoundException {
+    public static ArrayList<Task> loadTasksFromFile() throws FileNotFoundException, DukeException {
         File file = new File(FILE_PATH);
 
         Scanner scanner = new Scanner(file);
@@ -32,9 +32,13 @@ public class FileUtils {
 
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            Task task = Task.fromFileFormat(line);
-            if (task != null) {
-                result.add(task);
+            try {
+                Task task = Task.fromFileFormat(line);
+                if (task != null) {
+                    result.add(task);
+                }
+            } catch (Exception e) {
+                throw new DukeException("Error while parsing data file -- possibly corrupt? File will be overwritten if you proceed.");
             }
         }
         return result;

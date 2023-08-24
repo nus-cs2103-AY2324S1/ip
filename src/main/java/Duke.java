@@ -136,6 +136,10 @@ public class Duke {
         try {
             tasks = FileUtils.loadTasksFromFile();
         } catch (FileNotFoundException fileNotFoundException) {
+            Duke.printFormatted("Previous data file not found, starting from fresh task list.");
+            tasks = new ArrayList<>();
+        } catch (DukeException dukeException) {
+            Duke.printFormatted(dukeException.getMessage());
             tasks = new ArrayList<>();
         }
 
