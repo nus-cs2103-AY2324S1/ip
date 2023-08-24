@@ -2,8 +2,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    private static String HORIZONTAL_LINE = "____________________________________________________________\n";
+
     public static void main(String[] args) {
-        String HORIZONTAL_LINE = "____________________________________________________________\n";
 
         String entryMessage = HORIZONTAL_LINE
                 + "Hello! I'm Chad \n"
@@ -22,20 +23,10 @@ public class Duke {
         while (scanner.hasNextLine()) {
             input = scanner.nextLine();
             if (input.equals("list")) {
-                System.out.print(HORIZONTAL_LINE);
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + "."+ list.get(i).toString());
-                }
-                System.out.println(HORIZONTAL_LINE);
+                printList(list);
             } else if (input.startsWith("mark")) {
                 try {
-                    Task task = list.get(Integer.valueOf(input.substring(5)) - 1);
-                    task.markAsDone();
-
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("Nice! I've marked this task as done:");
-                    System.out.println(task);
-                    System.out.println(HORIZONTAL_LINE);
+                    markTaskAsDone(input, list);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
                     System.out.println("You have entered an invalid task number.");
@@ -43,13 +34,7 @@ public class Duke {
                 }
             } else if (input.startsWith("unmark")) {
                 try {
-                    Task task = list.get(Integer.valueOf(input.substring(7)) - 1);
-                    task.markAsNotDone();
-
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println(task);
-                    System.out.println(HORIZONTAL_LINE);
+                    markTaskAsNotDone(input, list);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
                     System.out.println("You have entered an invalid task number.");
@@ -57,35 +42,15 @@ public class Duke {
                 }
             } else if (input.startsWith("delete")) {
                 try {
-                    int index = Integer.valueOf(input.substring(7)) - 1;
-                    Task task = list.get(index);
-                    list.remove(index);
-
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("Noted. I've removed this task:");
-                    System.out.println(task);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
-                    System.out.println(HORIZONTAL_LINE);
+                    deleteTask(input, list);
                 } catch (IndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
                     System.out.println("You have entered an invalid task number.");
                     System.out.println(HORIZONTAL_LINE);
                 }
             } else if (input.startsWith("deadline")) {
-                int byIndex = input.indexOf("/by");
-
                 try {
-                    String description = input.substring(9, byIndex - 1);
-                    String by = input.substring(byIndex + 4);
-
-                    Deadline deadline = new Deadline(description, by);
-                    list.add(deadline);
-
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(deadline);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
-                    System.out.println(HORIZONTAL_LINE);
+                    addDeadline(input, list);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
                     System.out.println("Oops! Invalid input for your Deadline task.");
@@ -93,22 +58,8 @@ public class Duke {
                     System.out.println(HORIZONTAL_LINE);
                 }
             } else if (input.startsWith("event")) {
-                int fromIndex = input.indexOf("/from");
-                int toIndex = input.indexOf("/to");
-
                 try {
-                    String description = input.substring(6, fromIndex - 1);
-                    String from = input.substring(fromIndex + 6, toIndex - 1);
-                    String to = input.substring(toIndex + 4);
-
-                    Event event = new Event(description, from, to);
-                    list.add(event);
-
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(event);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
-                    System.out.println(HORIZONTAL_LINE);
+                    addEvent(input, list);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
                     System.out.println("Oops! Invalid input for your Event task.");
@@ -117,14 +68,7 @@ public class Duke {
                 }
             } else if (input.startsWith("todo")) {
                 try {
-                    ToDo todo = new ToDo(input.substring(5));
-                    list.add(todo);
-
-                    System.out.print(HORIZONTAL_LINE);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(todo);
-                    System.out.println("Now you have " + list.size() + " tasks in the list.");
-                    System.out.println(HORIZONTAL_LINE);
+                    addToDo(input, list);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
                     System.out.println("Oops! The description of a todo cannot be empty.");
@@ -142,4 +86,90 @@ public class Duke {
         }
         scanner.close();
     }
+
+    private static void printList(ArrayList<Task> list) {
+        System.out.print(HORIZONTAL_LINE);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + "."+ list.get(i).toString());
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void markTaskAsDone(String input, ArrayList<Task> list) {
+        Task task = list.get(Integer.valueOf(input.substring(5)) - 1);
+        task.markAsDone();
+
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void markTaskAsNotDone(String input, ArrayList<Task> list) {
+        Task task = list.get(Integer.valueOf(input.substring(7)) - 1);
+        task.markAsNotDone();
+
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println(task);
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void deleteTask(String input, ArrayList<Task> list) {
+        int index = Integer.valueOf(input.substring(7)) - 1;
+        Task task = list.get(index);
+        list.remove(index);
+
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void addDeadline(String input, ArrayList<Task> list) {
+        int byIndex = input.indexOf("/by");
+
+        String description = input.substring(9, byIndex - 1);
+        String by = input.substring(byIndex + 4);
+
+        Deadline deadline = new Deadline(description, by);
+        list.add(deadline);
+
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(deadline);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void addEvent(String input, ArrayList<Task> list) {
+        int fromIndex = input.indexOf("/from");
+        int toIndex = input.indexOf("/to");
+
+        String description = input.substring(6, fromIndex - 1);
+        String from = input.substring(fromIndex + 6, toIndex - 1);
+        String to = input.substring(toIndex + 4);
+
+        Event event = new Event(description, from, to);
+        list.add(event);
+
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(event);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    private static void addToDo(String input, ArrayList<Task> list) {
+        ToDo todo = new ToDo(input.substring(5));
+        list.add(todo);
+
+        System.out.print(HORIZONTAL_LINE);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(todo);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println(HORIZONTAL_LINE);
+    }
+
 }
