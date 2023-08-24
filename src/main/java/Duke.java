@@ -93,6 +93,23 @@ public class Duke {
                             throw new DukeException("I'm sorry, the task number you have entered a number that exceeds the size of your task list.");
                         }
                     }
+                } else if (userInput.contains("delete")){
+                    // Check if task number is present, otherwise prompt the user to include.
+                    if (userInput.length() == 6){
+                        throw new DukeException("I'm sorry, you seem to have forgotten to enter the task number.");
+                    } else {
+                        try{
+                            int taskNumber3 = Integer.parseInt(userInput.substring(7)) - 1;
+                            Task taskToBeDeleted = taskList.get(taskNumber3);
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println(taskToBeDeleted.toString());
+                            taskList.remove(taskNumber3);
+                            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                        } catch (IndexOutOfBoundsException e){
+                            // Check if task number is within the size of task list.
+                            throw new DukeException("I'm sorry, the task number you have entered a number that exceeds the size of your task list.");
+                        }
+                    }
                 }
                 // Identify type of task and add it to the list
                 else {
