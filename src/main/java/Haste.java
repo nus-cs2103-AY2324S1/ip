@@ -18,33 +18,40 @@ public class Haste {
                 break;
             } else if (cmd.equals("list")) {
                 // print list
-                int counter = 1;
                 for (Task a : taskList) {
-                    System.out.println(a.id + ". " + a.toString());
+                    System.out.println(a.id + ". " + a);
                 }
 
             } else if (cmd.startsWith("mark")) {
                 int id = parseInt(cmd.split(" ")[1]) - 1;
                 Task currTask = taskList.get(id);
                 currTask.markDone();
-                System.out.println("Nice! I've marked this task as done!");
-                System.out.println(currTask.toString());
+                System.out.println("Nice! I've marked this task as done!:");
+                System.out.println(currTask);
 
             } else if (cmd.startsWith("unmark")) {
                 int id = parseInt(cmd.split(" ")[1]) - 1;
                 Task currTask = taskList.get(id);
                 currTask.markUndone();
-                System.out.println("Okay, I've marked this task as not done");
-                System.out.println(currTask.toString());
+                System.out.println("Okay, I've marked this task as not done:");
+                System.out.println(currTask);
 
             } else {
                 // add task to list
-                Task newTask = new Task(cmd);
+                Task newTask = CmdHandler.interpret(cmd);
                 taskList.add(newTask);
-                System.out.println(cmd);
+                System.out.println("Got it! I've added this task:");
+                System.out.println(newTask);
+                System.out.println("Now you have " + Task.numOfTasks + " tasks tin the list");
             }
         }
 
     }
+
+
+
+
+
+
 
 }
