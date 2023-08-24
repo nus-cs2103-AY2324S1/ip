@@ -19,12 +19,14 @@ public class InsertCommand implements Command {
         String taskType = args[0];
         String taskInput = args.length > 1 ? args[1] : "";
         try {
+            // Create a task based on task type
             Task task = Task.createTask(taskType, taskInput);
             this.state.insertTask(task);
             int taskCount = this.state.getTaskCount();
             System.out.printf((DukeConstants.INSERT_MESSAGE) + "%n",
                     task, taskCount, taskCount == 1 ? "task" : "tasks");
         } catch (InsufficientArgumentsException e) {
+            // Input string has insufficient arguments to create task
             System.out.println(e.getMessage());
         }
     }

@@ -12,4 +12,6 @@ event math lecture
 event math lecture /from tomorrow
 deadline math homework /from tomorrow
 generate report
+delete 1
+list
 bye

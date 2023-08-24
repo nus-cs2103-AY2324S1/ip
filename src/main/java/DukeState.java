@@ -7,7 +7,7 @@ public class DukeState {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
-     * Insert an task into the list of items.
+     * Insert a task into the list of items.
      *
      * @param task The item to be added.
      */
@@ -44,4 +44,16 @@ public class DukeState {
     public Task getTask(int index) {
         return this.tasks.get(index);
     }
+
+    /**
+     * Delete task based on index.
+     *
+     * @param index The index of the item to be Delete.
+     */
+    public void deleteTask(int index) {
+        Task task = this.tasks.remove(index);
+        System.out.printf((DukeConstants.DELETE_MESSAGE) + "%n",
+                task, this.tasks.size());
+    }
+
 }

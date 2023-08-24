@@ -13,7 +13,9 @@ public class DukeApp {
         DukeState state = new DukeState();
         this.addCommand("bye", new ExitCommand());
 
+        this.addCommand("delete", new DeleteCommand(state));
         this.addCommand("list", new ListCommand(state));
+
         this.addCommand("mark", new MarkCommand(state));
         this.addCommand("unmark", new UnmarkCommand(state));
 
@@ -36,6 +38,7 @@ public class DukeApp {
      * Executes a command given an input.
      *
      * @param input The input of the user.
+     * @throws UnknownCommandException If no known command can be found from the input.
      */
     public void executeCommand(String input) throws UnknownCommandException {
         System.out.println("\t" + DukeConstants.HORIZONTAL_LINE);

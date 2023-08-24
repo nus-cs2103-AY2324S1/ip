@@ -1,5 +1,5 @@
 /**
- * Constants of the application.
+ * Constants of the application, such as string messages.
  */
 public class DukeConstants {
 
@@ -24,6 +24,12 @@ public class DukeConstants {
     public static final String UNMARKED_MESSAGE = "\t" +
             " OK, I've marked this task as not done yet:\n" +
             "\t   %s\n\t" +
+            HORIZONTAL_LINE;
+
+    public static final String DELETE_MESSAGE = "\t" +
+            " Noted. I've removed this task:\n" +
+            "\t   %s\n\t" +
+            " Now you have %d tasks in the list.\n\t" +
             HORIZONTAL_LINE;
     public static final String EXIT_MESSAGE =
             "\t Bye. Hope to see you again soon!\n\t" + HORIZONTAL_LINE;
