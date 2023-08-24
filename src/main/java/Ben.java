@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -18,10 +19,76 @@ public class Ben {
         System.out.println(HORIZONTAL_LINE + "\nBye. For now\n" + HORIZONTAL_LINE);
     }
 
+    public void addSuccessMessage(Task task) {
+        System.out.println("Got It! This task has been added: \n" + task +
+                "\nNow you have " + tasks.size() + " items in the list");
+    }
+
     public void add(String message) {
-        Task task = new Task(message);
-        tasks.add(task);
-        System.out.println(HORIZONTAL_LINE + "\n" + "added: " + task + "\n" + HORIZONTAL_LINE);
+        String[] words = message.split("\\s+");
+        Task task;
+        if (words[0].equalsIgnoreCase("todo")) {
+            String description = String.join(" ", Arrays.copyOfRange(words, 1, words.length));
+            task = new ToDos(description);
+            tasks.add(task);
+            addSuccessMessage(task);
+            return;
+
+        } else if (words[0].toLowerCase().contains("deadline")) {
+            int positionBy = 0;
+
+            for (int i = 1; i < words.length; i++) {
+                if (words[i].equalsIgnoreCase("/by")) {
+                    positionBy = i;
+                    break;
+                }
+            }
+
+            if (positionBy == 0) {
+                System.out.println(HORIZONTAL_LINE + "\n" + "Did not include /by" + "\n" + HORIZONTAL_LINE);
+                return;
+            }
+
+            String description = String.join(" ", Arrays.copyOfRange(words, 1, positionBy));
+            String by = String.join(" ", Arrays.copyOfRange(words, positionBy + 1, words.length));
+
+            task = new Deadlines(description, by);
+            tasks.add(task);
+
+            addSuccessMessage(task);
+            return;
+
+        } else if (words[0].toLowerCase().contains("event")) {
+            int positionFrom = 0;
+            int positionTo = 0;
+
+            for (int i = 1; i < words.length; i++) {
+                if (words[i].equalsIgnoreCase("/from")) {
+                    positionFrom = i;
+                }
+
+                if (words[i].equalsIgnoreCase("/to")) {
+                    positionTo = i;
+                }
+            }
+
+            if (positionFrom == 0 || positionTo == 0) {
+                System.out.println(HORIZONTAL_LINE + "\n" + "Did not include both /from and /to" + "\n" + HORIZONTAL_LINE);
+                return;
+            }
+
+            String description = String.join(" ", Arrays.copyOfRange(words, 1, positionFrom));
+            String from = String.join(" ", Arrays.copyOfRange(words, positionFrom + 1, positionTo));
+            String to = String.join(" ", Arrays.copyOfRange(words, positionTo + 1, words.length));
+
+            task = new Events(description, from, to);
+            tasks.add(task);
+
+            addSuccessMessage(task);
+            return;
+
+        }
+        System.out.println(HORIZONTAL_LINE + "\n" + "Invalid Command" + "\n" + HORIZONTAL_LINE);
     }
 
     public void deactivate() {
