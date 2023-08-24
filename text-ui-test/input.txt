@@ -11,6 +11,9 @@ list
 list 1
 mark 1
 mark -1
+delete -2
+delete 2
+todo read book
 mark 2
 unmark 1
 list

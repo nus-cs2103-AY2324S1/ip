@@ -66,6 +66,18 @@ public class TaskList {
         System.out.println("\t  " + tasks.get(index - 1));
     }
 
+    /**
+     * Deletes a given Task from the tasklist.
+     *
+     * @param index The location of the task in tasks ArrayList.
+     */
+    public void deleteTask(int index) {
+        System.out.println("\tNoted. I have removed this task from the list:");
+        System.out.println("\t  " + tasks.get(index - 1));
+        tasks.remove(index - 1);
+        System.out.println("\tNow you have " + tasks.size() + " tasks in the list.");
+    }
+
 
     /**
      * Returns the size of the taskList.

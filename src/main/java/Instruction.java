@@ -116,6 +116,42 @@ public abstract class Instruction {
             this.taskList.unmarkTask(this.index);
         }
     }
+    /**
+     * A class to represent the deleting of task action.
+     *
+     */
+    public static class Delete extends Instruction {
+
+        /**
+         * The index of task to delete.
+         */
+        private int index;
+
+        /**
+         * The tasklist to delete from.
+         */
+        private TaskList taskList;
+
+        /**
+         * Initialises the class fields.
+         *
+         * @param index    The index of task.
+         * @param taskList The taskList to delete from.
+         */
+        public Delete(int index, TaskList taskList) {
+            this.index = index;
+            this.taskList = taskList;
+        }
+
+        /**
+         * deletes the task at given index in given taskList.
+         */
+        @Override
+        public void execute() {
+            this.taskList.deleteTask(this.index);
+        }
+    }
+
 
     /**
      * A class which represents the list instruction.

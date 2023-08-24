@@ -60,6 +60,21 @@ public class Parser {
                     throw new DukeException("The index is not a valid index. Try again.");
                 }
             }
+        case "delete":
+            if (formattedUserInput.length == 1 || formattedUserInput[1].isEmpty()) {
+                throw new DukeException("The description of delete cannot be empty. Try again.");
+            } else {
+                try {
+                    Integer index = Integer.parseInt(formattedUserInput[1]);
+                    if (index > taskList.size() || index <= 0) {
+                        throw new DukeException("The index is not a valid index. Try again.");
+                    } else {
+                        return new Instruction.Delete(index, taskList);
+                    }
+                } catch (NumberFormatException n) {
+                    throw new DukeException("The index is not a valid index. Try again.");
+                }
+            }
         case "todo":
             if(formattedUserInput.length == 1 || formattedUserInput[1].isEmpty()){
                 throw new DukeException("The description of a todo cannot be empty. Try again.");
