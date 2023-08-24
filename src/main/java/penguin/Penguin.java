@@ -19,6 +19,7 @@ public class Penguin {
     private UI ui;
     private TaskList taskList;
     private Storage memory;
+    private Parser parser;
     /**
      * Constructor for Penguin chatbot.
      */
@@ -26,7 +27,7 @@ public class Penguin {
         this.ui = new UI();
         this.taskList = new TaskList();
         this.memory = new Storage("data/memory.txt");
-
+        this.parser = new Parser();
     }
 
     /**
@@ -50,44 +51,57 @@ public class Penguin {
         while (running) {
             try {
                 String command = ui.in();
-                if (command.equals("bye")) {
-                    ui.out(GOODBYE);
-                    running = false;
-                } else if (command.equals("list")) {
-                    ui.out(taskList.printList());
-                } else if (command.startsWith("mark")) {
-                    String[] spl = command.split(" ", 2);
-                    int taskNo = Integer.parseInt(spl[1]);
-                    taskList.list.get(taskNo - 1).done = true;
-                    ui.out(MARK + taskList.list.get(taskNo - 1).getDisplay());
-                } else if (command.startsWith("unmark")) {
-                    String[] spl = command.split(" ", 2);
-                    int taskNo = Integer.parseInt(spl[1]);
-                    taskList.list.get(taskNo - 1).done = false;
-                    ui.out(UNMARK + taskList.list.get(taskNo - 1).getDisplay());
-                } else if (command.startsWith("todo")) {
-                    String[] spl = command.split("todo ");
-                    ToDo newToDo = new ToDo(spl[1]);
-                    taskList.addTask(newToDo);
-                    ui.out(TODO + newToDo.getDisplay());
-                } else if (command.startsWith("deadline")) {
-                    String[] spl = command.split("deadline | /by ");
-                    Deadline newDeadline = new Deadline(spl[1], spl[2]);
-                    taskList.addTask(newDeadline);
-                    ui.out(DEADLINE + newDeadline.getDisplay());
-                } else if (command.startsWith("event")) {
-                    String[] spl = command.split("event | /from | /to ");
-                    Event newEvent = new Event(spl[1], spl[2], spl[3]);
-                    taskList.addTask(newEvent);
-                    ui.out(EVENT + newEvent.getDisplay());
-                } else if (command.startsWith("delete")) {
-                    String[] spl = command.split(" ");
-                    int taskNo = Integer.parseInt(spl[1]);
-                    ui.out(DELETE + taskList.list.remove(taskNo - 1).getDisplay());
+                String[] spl = null;
+                int taskNo;
 
-                } else {
-                    throw new PenguinUnknownCommandException();
+                switch (parser.parse(command)) {
+                    case "bye":
+                        ui.out(GOODBYE);
+                        running = false;
+                        break;
+                    case "list":
+                        ui.out(taskList.printList());
+                        break;
+                    case "mark":
+                        spl = command.split(" ", 2);
+                        taskNo = Integer.parseInt(spl[1]);
+                        taskList.list.get(taskNo - 1).done = true;
+                        ui.out(MARK + taskList.list.get(taskNo - 1).getDisplay());
+                        break;
+                    case "unmark":
+                        spl = command.split(" ", 2);
+                        taskNo = Integer.parseInt(spl[1]);
+                        taskList.list.get(taskNo - 1).done = false;
+                        ui.out(UNMARK + taskList.list.get(taskNo - 1).getDisplay());
+                        break;
+                    case "todo":
+                        spl = command.split("todo ");
+                        ToDo newToDo = new ToDo(spl[1]);
+                        taskList.addTask(newToDo);
+                        ui.out(TODO + newToDo.getDisplay());
+                        break;
+                    case "deadline":
+                        spl = command.split("deadline | /by ");
+                        Deadline newDeadline = new Deadline(spl[1], spl[2]);
+                        taskList.addTask(newDeadline);
+                        ui.out(DEADLINE + newDeadline.getDisplay());
+                        break;
+                    case "event":
+                        spl = command.split("event | /from | /to ");
+                        Event newEvent = new Event(spl[1], spl[2], spl[3]);
+                        taskList.addTask(newEvent);
+                        ui.out(EVENT + newEvent.getDisplay());
+                        break;
+                    case "delete":
+                        spl = command.split(" ");
+                        taskNo = Integer.parseInt(spl[1]);
+                        ui.out(DELETE + taskList.list.remove(taskNo - 1).getDisplay());
+                        break;
+                    case "unknown":
+                        throw new PenguinUnknownCommandException();
+
                 }
+
                 memory.save(taskList);
             } catch (PenguinException e) {
                 ui.out("Fishes!! " + e.getMessage());
