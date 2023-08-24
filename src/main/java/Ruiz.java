@@ -88,9 +88,10 @@ public class Ruiz {
         int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
         if (taskIndex >= 0 && this.tasks.size() > taskIndex) {
             Task task = this.tasks.get(taskIndex);
-            System.out.println("Noted. I've removed this task:\n" + task);
+            System.out.println("____________________________________________________________\n" +
+                    "Noted. I've removed this task:\n" + task);
             tasks.remove(taskIndex);
-            System.out.println("\nNow you have " + tasks.size() + " tasks in the list.\n" +
+            System.out.println("Now you have " + tasks.size() + " tasks in the list.\n" +
                     "____________________________________________________________");
         } else {
             throw new BotException("This task does not exist!");

@@ -5,4 +5,5 @@ todo join sports club
 mark 1
 mark 4
 todo borrow book
+delete 1
 bye
