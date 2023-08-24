@@ -23,7 +23,6 @@ public class Duke {
         scanner.close();
         System.out.println("Bye. Hope to see you again soon!");
     }
-
     public void executeCommand(String command) {
         String[] separateCommand = command.split(" ");
         System.out.println("--------------------------");
