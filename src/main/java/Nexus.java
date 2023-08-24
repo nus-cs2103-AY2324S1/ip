@@ -34,7 +34,7 @@ public class Nexus {
                         break;
                     case "mark":
                         if (data.length == 1) {
-                            throw new MissingInputException("Task index must be indicated");
+                            throw new MissingInputException("Task index must be specified");
                         }
                         index = Integer.parseInt(data[1]) - 1;
                         list.get(index).setDone();
@@ -43,7 +43,7 @@ public class Nexus {
                         break;
                     case "unmark":
                         if (data.length == 1) {
-                            throw new MissingInputException("Task index must be indicated");
+                            throw new MissingInputException("Task index must be specified");
                         }
                         index = Integer.parseInt(data[1]) - 1;
                         list.get(index).setUndone();
@@ -92,7 +92,7 @@ public class Nexus {
                         if (data.length == 1) {
                             throw new MissingInputException("Event description cannot be empty");
                         }
-                        index= 1;
+                        index = 1;
                         while(!data[index].equals("/from")) {
                             builder.append(data[index]).append(" ");
                             index++;
@@ -117,10 +117,22 @@ public class Nexus {
                         System.out.println(list.get(list.size() - 1));
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
                         break;
+                    case "delete":
+                        if (data.length == 1) {
+                            throw new MissingInputException("Task index must be specified");
+                        }
+                        index = Integer.parseInt(data[1]) - 1;
+                        Task deleted = list.get(index);
+                        list.remove(index);
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(deleted);
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        break;
                     default:
                         scanner.reset();
                         throw new InvalidInputException("I don't understand. Please check your input again.");
                 }
+                // Reset data structures
                 scanner.reset();
                 builder.setLength(0);
             } catch (InvalidInputException | MissingInputException e) {
