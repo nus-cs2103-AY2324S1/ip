@@ -1,12 +1,11 @@
+import javafx.css.Match;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class Task {
-    private static final Pattern todoPattern = Pattern.compile("^todo (?<taskName>.+)$");
-    private static final Pattern deadlinePattern = Pattern.compile("^deadline (?<taskName>.+) /by (?<finishByTime>.+)$");
-    private static final Pattern eventPattern = Pattern.compile("^event (?<taskName>.+) /from (?<startTime>.+) /to (?<endTime>.+)$");
+    private static Pattern markUnmarkCommand = Pattern.compile("^(mark|unmark) (?<taskNumber>\\d*)");
     private static ArrayList<Task> allTasks = new ArrayList<>();
     private boolean isDone;
     private String name;
@@ -18,40 +17,66 @@ public class Task {
         allTasks.add(this);
     }
 
-    public static ArrayList<Task> getAllTasks() {
-        return allTasks;
+    public static Task markUnmarkTask(String command) throws LukeException {
+        Matcher matcher = markUnmarkCommand.matcher(command);
+        if (!matcher.find()) {
+            throw new LukeException("Invalid format. Usage: mark {task_number}");
+        }
+
+        String taskNumber = matcher.group("taskNumber");
+        if (taskNumber == null || taskNumber.isBlank()) {
+            throw new LukeException("Task number cannot be empty.");
+        }
+
+        int taskIndex = Integer.parseInt(taskNumber) - 1;
+        if (taskIndex < 0 || taskIndex >= allTasks.size()) {
+            throw new LukeException("Invalid task number - no such task");
+        }
+
+        return setTaskIsDone(taskIndex, command.split(" ")[0].equals("mark"));
     }
 
-    public static Task addTask(String input) {
-        Matcher matcher;
-        Task task = null;
-        if ((matcher = todoPattern.matcher(input)).find()) {
-            task = new Todo(matcher);
-        } else if ((matcher = deadlinePattern.matcher(input)).find()) {
-            task = new Deadline(matcher);
-        } else if ((matcher = eventPattern.matcher(input)).find()) {
-            task = new Event(matcher);
+    public static void listTasks(String command) {
+        String list = "";
+        for (int i = 1; i <= allTasks.size(); i++) {
+            list += i + ". " + allTasks.get(i - 1).toString() + "\n";
+        }
+
+        if (list.isBlank()) {
+            Util.displayMessage("Congrats! You have no tasks!");
+            return;
+        }
+
+        Util.displayMessage(list.trim());
+    }
+
+    public static Task addTask(String input) throws LukeException {
+        Task task;
+        switch (input.split(" ")[0]) {
+            case "todo":
+                task = Todo.createTodo(input);
+                break;
+            case "deadline":
+                task = Deadline.createDeadline(input);
+                break;
+            case "event":
+                task = Event.createEvent(input);
+                break;
+            default:
+                throw new LukeException("Error processing command in addTask: '" + input + "'");
         }
 
         return task;
     }
 
-    public static Task setTaskIsDone(int taskNumber, boolean isDone) {
-        if (taskNumber < 1 || taskNumber > allTasks.size()) {
-            return null;
+    public static Task setTaskIsDone(int taskNumber, boolean isDone) throws LukeException {
+        Task task = allTasks.get(taskNumber);
+        if (task.isDone == isDone) {
+            String status = isDone ? "marked as done" : "marked as unfinished";
+            throw new LukeException("Task: " + task + " is already " + status);
         }
-
-        Task task = allTasks.get(taskNumber - 1);
         task.isDone = isDone;
         return task;
-    }
-
-    public void mark() {
-        this.isDone = true;
-    }
-
-    public void unmark() {
-        this.isDone = false;
     }
 
     @Override

@@ -1,6 +1,10 @@
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Event extends Task{
+    private static Pattern createCommand =
+            Pattern.compile("^event ?(?<taskName>.*?)? ?(/from (?<startTime>.*?))? ?(/to (?<endTime>.*))?$");
+
     private String startTime;
     private String endTime;
 
@@ -10,8 +14,26 @@ public class Event extends Task{
         this.endTime = endTime;
     }
 
-    Event(Matcher matcher) {
-        this(matcher.group("taskName"), matcher.group("startTime"), matcher.group("endTime"));
+    public static Event createEvent(String command) throws LukeException{
+        Matcher matcher = createCommand.matcher(command);
+        matcher.find();
+
+        String taskName = matcher.group("taskName");
+        if (taskName == null || taskName.isBlank()) {
+            throw new LukeException("The description of an event cannot be empty.");
+        }
+
+        String startTime = matcher.group("startTime");
+        if (startTime == null || startTime.isBlank()) {
+            throw new LukeException("The start time (/from ...) of an event cannot be empty.");
+        }
+
+        String endTime = matcher.group("endTime");
+        if (endTime == null || endTime.isBlank()) {
+            throw new LukeException("The end time (/end ...) of an event cannot be empty.");
+        }
+
+        return new Event(taskName, startTime, endTime);
     }
 
     @Override
