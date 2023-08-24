@@ -19,8 +19,7 @@ public class Peko {
             }
             UIhandler = new UserInputHandler();
         }
-        saveHandler.saveTo();
-        exit();
+        System.out.println(exitText);
     }
 
     public static void intro() {
@@ -34,8 +33,5 @@ public class Peko {
         System.out.println(lineBreak);
         System.out.println(introText);
         System.out.println(lineBreak);
-    }
-    private static void exit() {
-        System.out.println(exitText);
     }
 }

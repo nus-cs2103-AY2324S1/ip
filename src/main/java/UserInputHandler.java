@@ -29,6 +29,7 @@ public class UserInputHandler {
     CommandsInternal command;
     public UserInputHandler() {
         input = "";
+        new StorageHandler();
     }
     public CommandsInternal getResponseValue(String s) {
 
@@ -104,8 +105,6 @@ public class UserInputHandler {
         int i = Integer.parseInt(s);
         StorageHandler.setDelete(i);
     }
-
-
     public boolean run() {
         try {
 
@@ -146,6 +145,7 @@ public class UserInputHandler {
                         return false;
                     }
                 case OTSUPEKO:
+                    SaveHandler.saveTo();
                     return false;
                 default:
                     return true;

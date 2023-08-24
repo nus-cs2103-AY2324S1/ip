@@ -1,17 +1,16 @@
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class SaveHandler {
-    private int i = 0;
-    private Task[] tasks = new Task[100];
-    private File file = new File("src/main/List.txt");
+    private static int i = 0;
+    private static Task[] tasks = new Task[100];
+    private static File file = new File("src/main/List.txt");
 
     public SaveHandler() {
 
     }
 
-    public void saveTo() {
+    public static void saveTo() {
         PrintWriter printWriter;
         try {
             Scanner sc = new Scanner(file);
@@ -44,7 +43,7 @@ public class SaveHandler {
         }
     }
 
-    public Task[] loadFrom() {
+    public static Task[] loadFrom() {
         try {
             int pos = 0;
             Scanner scanner = new Scanner(file);
@@ -67,7 +66,7 @@ public class SaveHandler {
         return tasks;
     }
 
-    private Task stringToTask(String[] arr) {
+    private static Task stringToTask(String[] arr) {
         Task t;
         try {
             switch (arr[0]) {
@@ -100,7 +99,7 @@ public class SaveHandler {
         return  null;
     }
 
-    public int size() {
+    public static int size() {
         return i;
     }
 
