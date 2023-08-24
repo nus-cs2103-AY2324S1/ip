@@ -14,4 +14,8 @@ public class TaskList {
     public ArrayList<Task> getTask() {
         return taskList;
     }
+
+    public int getTaskCount() {
+        return taskList.size();
+    }
 }

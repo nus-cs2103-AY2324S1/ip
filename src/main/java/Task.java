@@ -7,7 +7,7 @@ public class Task {
         isCompleted = false;
     }
 
-    public String getDetails() {
+    public String getTitle() {
         return title;
     }
 
@@ -19,11 +19,19 @@ public class Task {
         return (isCompleted ? "[X]" : "[ ]");
     }
 
+   public String getCatIcon() {
+        return null;
+   }
+
     public void markCompleted() {
         isCompleted = true;
     }
 
     public void unmarkCompleted() {
         isCompleted = false;
+    }
+
+    public String toString() {
+        return getStatusIcon() + " " + getTitle();
     }
 }

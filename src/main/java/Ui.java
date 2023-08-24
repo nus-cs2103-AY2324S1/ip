@@ -39,7 +39,7 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             System.out.println("    " + (i + 1) + ". " +
-                                task.getStatusIcon() + " " + task.getDetails());
+                                task.toString());
         }
         breakLine();
     }
@@ -48,7 +48,7 @@ public class Ui {
         breakLine();
         System.out.println("    Understood Master. I've marked this task as" + 
                                 (task.isCompleted() ? "completed" : "uncompleted") + "\n" +
-                                "\t" + task.getStatusIcon() + " " + task.getDetails());
+                                "\t" + task.toString());
         breakLine();
     }
 
