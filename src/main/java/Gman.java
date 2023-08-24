@@ -9,6 +9,10 @@ public class Gman {
         userInput = myScanner.nextLine();
 
         int counter = 0;
+        //possible exceptions: nothing is given after keyword,
+        //list when there is nothing
+        //marked unmarked something that is already marked unmarked
+        //
         while (!userInput.equals(exitWord) && counter < 100) {
             if (userInput.equals("list") && counter != 0) {
                 System.out.println("Here are the tasks in your list:");
@@ -25,9 +29,11 @@ public class Gman {
                 taskList[number].mark();
             } else if (userInput.contains("todo")) {
                 //String words[] = userInput.split(" ");
-                taskList[counter] = new Todo(userInput.substring(4), counter + 1);
-                taskList[counter].addedTask();
-                counter++;
+
+                    taskList[counter] = new Todo(userInput.substring(4), counter + 1);
+                    taskList[counter].addedTask();
+                    counter++;
+
             } else if (userInput.contains("deadline")) {
                 String words[] = userInput.substring(8).split("/");
                 taskList[counter] = new Deadline(words[0], counter + 1, words[1].substring(3));
