@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Task {
+public class Task {
     boolean done;
     String name;
 
