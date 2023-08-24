@@ -53,7 +53,7 @@ public class ListOfTasks {
         numOfTasks--;
 
         System.out.println("Noted! I have removed this task:");
-        System.out.println("  " + list.get(taskNumber).toString());
+        System.out.println("  " + list.get(taskNumber - 1).toString());
         System.out.println("You now have " + numOfTasks + " task(s) in the list.");
 
         list.remove(taskNumber - 1);
@@ -76,7 +76,7 @@ public class ListOfTasks {
      * Prints out list of tasks to display to the user.
      */
     public void listTasks() {
-        System.out.println("These are all the tasks in your list:");
+        System.out.println("These are all the task(s) in your list:");
         for (int i = 0; i < numOfTasks; i++) {
             System.out.println("  " + (i + 1) + "." + list.get(i).toString());
         }
