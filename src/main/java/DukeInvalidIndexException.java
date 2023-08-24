@@ -1,5 +1,5 @@
 /**
- * Represents an exception where the input of the mark/unmark command is invalid.
+ * Represents an exception where the index of the task is invalid.
  *
  * @author Andrew Daniel Janong
  */

@@ -49,7 +49,18 @@
 	 4.[T][ ] Read CS2102 notes
 	____________________________________________________________
 	____________________________________________________________
-	 OOPS!!! You currently have 4 task(s). Please enter a valid index.
+	 Noted. I've removed this task:
+		[T][ ] Read 2100 tutorial 1
+	 Now you have 3 tasks in your list. Good luck!
+	____________________________________________________________
+	____________________________________________________________
+	 Here are the tasks in your list:
+	 1.[D][ ] QF1100 quiz (by: August 25th)
+	 2.[E][X] NUSSU CommIT interview (from: August 30th 7pm to: 8pm)
+	 3.[T][ ] Read CS2102 notes
+	____________________________________________________________
+	____________________________________________________________
+	 OOPS!!! You currently have 3 task(s). Please enter a valid index.
 	____________________________________________________________
 	____________________________________________________________
 	 OOPS!!! Sorry, but I don't think "what?" is a valid command.

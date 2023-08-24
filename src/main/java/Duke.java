@@ -56,6 +56,19 @@ public class Duke {
     }
 
     /**
+     * Deletes a task from the list.
+     * @param taskIndex
+     */
+    private static void deleteTask(int taskIndex) {
+        Task removedTask = Duke.tasks.get(taskIndex - 1);
+        tasks.remove(taskIndex - 1);
+
+        System.out.println("\t Noted. I've removed this task:\n" +
+                "\t\t" + removedTask + "\n" +
+                "\t Now you have " + Duke.tasks.size() + " tasks in your list. Good luck!");
+    }
+
+    /**
      * Marks a task as done.
      * @param taskIndex
      */
@@ -100,8 +113,7 @@ public class Duke {
      * Runs the command from the user input.
      * @param inputs
      * @return A boolean to stop the chatbot on "bye" command
-     * @throws DukeEmptyArgumentException
-     * @throws DukeUnknownCommandException
+     * @throws DukeException
      */
     private static boolean runCommand(String[] inputs) throws DukeException {
         String command = inputs[0].toLowerCase();
@@ -117,6 +129,20 @@ public class Duke {
                 throw new DukeEmptyArgumentException(command);
             }
             Duke.addTask(command, inputs[1]);
+        } else if (command.equals("delete")) {
+            if (inputs.length == 1 || inputs[1] == "") {
+                throw new DukeEmptyArgumentException(command);
+            }
+
+            try {
+                if (Integer.parseInt(inputs[1]) <= 0 || Integer.parseInt(inputs[1]) > tasks.size()) {
+                    throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+                }
+            } catch (NumberFormatException e) {
+                throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+            }
+
+            Duke.deleteTask(Integer.parseInt(inputs[1]));
         } else if (command.equals("list")) {
             Duke.listTasks();
         } else if (command.equals("mark")) {

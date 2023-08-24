@@ -7,6 +7,8 @@ mark 3
 list
 unmark 1
 list
+delete 2
+list
 mark 6
 what?
 deadline
