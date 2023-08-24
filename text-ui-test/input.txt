@@ -6,4 +6,7 @@ event tutorial 1 /from 4pm /to 3pm
 list
 unmark 1
 mark 4
+deadline hello /by
+event tutorial 1 /from /to 3pm
+event tutorial 1 /from 4pm /to
 bye
