@@ -22,7 +22,7 @@ What can I do for you?
 	4.[T][ ] apply for internships on TalentConnect
 	5.[E][ ] CCA Tryouts (from: tomorrow 7.30pm to: tomorrow 9.30pm)
 	Nice! I've marked this task as done:
-		[D][X] 2103T Assignment (by: tonight)
+	 [D][X] 2103T Assignment (by: tonight)
 	Got it. I've added this task:
 		[D][ ] CS2105 Assignment 1 (by: week 4)
 	Now you have 6 tasks in the list.
@@ -30,9 +30,9 @@ What can I do for you?
 		[E][ ] presentation rehearsal (from: tonight 10pm to: tonight 11.15pm)
 	Now you have 7 tasks in the list.
 	Nice! I've marked this task as done:
-		[D][X] 2100 Lab (by: next week's lab)
+	 [D][X] 2100 Lab (by: next week's lab)
 	Nice! I've marked this task as done:
-		[E][X] presentation rehearsal (from: tonight 10pm to: tonight 11.15pm)
+	 [E][X] presentation rehearsal (from: tonight 10pm to: tonight 11.15pm)
 	Here are the tasks in your list:
 	1.[T][ ] go to Mount Everest
 	2.[D][X] 2103T Assignment (by: tonight)
@@ -42,7 +42,7 @@ What can I do for you?
 	6.[D][ ] CS2105 Assignment 1 (by: week 4)
 	7.[E][X] presentation rehearsal (from: tonight 10pm to: tonight 11.15pm)
 	OK, I've marked this task as not done yet:
-		[E][ ] presentation rehearsal (from: tonight 10pm to: tonight 11.15pm)
+	 [E][ ] presentation rehearsal (from: tonight 10pm to: tonight 11.15pm)
 	Here are the tasks in your list:
 	1.[T][ ] go to Mount Everest
 	2.[D][X] 2103T Assignment (by: tonight)

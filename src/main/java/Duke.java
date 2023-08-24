@@ -16,32 +16,42 @@ public class Duke {
                         String num = str.substring(5);
                         int number = Integer.valueOf(num);
                         if (number <= 0 || number > tasks.size()) {
-                            System.out.println("Invalid input");
+                            throw new InvalidInputException(str);
                         }
                         int index = number - 1; //index for task list
                         Task done = tasks.get(index);
                         done.markAsDone();
                         System.out.println("\t" + "Nice! I've marked this task " +
                                 "as done:" + "\n" +
-                                "\t" + "\t" + done.taskString());
+                                "\t " + done.taskString());
                     } else if (str.startsWith("unmark ")) {
                         String num = str.substring(7);
                         int number = Integer.valueOf(num);
                         if (number <= 0 || number > tasks.size()) {
-                            System.out.println("Invalid input");
+                            throw new InvalidInputException(str);
                         }
                         int index = number - 1; //index for task list
                         Task notDone = tasks.get(index);
                         notDone.markAsNotDone();
                         System.out.println("\t" + "OK, I've marked this task " +
-                                "as not done yet:" + "\n" + "\t" + "\t" +
+                                "as not done yet:" + "\n" + "\t" + " " +
                                 notDone.taskString());
+                    } else if (str.startsWith("delete ")) {
+                        String num = str.substring(7);
+                        int number = Integer.valueOf(num);
+                        if (number <= 0 || number > tasks.size()) {
+                            throw new InvalidInputException(str);
+                        }
+                        int index = number - 1;
+                        Task toBeDeleted = tasks.remove(index);
+                        System.out.println("\tNoted. I've removed this task:\n\t " + toBeDeleted.taskString()
+                        + "\n\tNow you have " + tasks.size() + " tasks in the list.");
                     } else {
-                        if (str.startsWith("todo ")) {
-                            String validityCheck = str.trim();
+                        if (str.startsWith("todo")) {
+                            String todo = str.substring(4);
                             //remove any leading and trailing whitespace characters and
                             // check whether there is a task after the instruction
-                            if (validityCheck.length() < 5) {
+                            if (todo.trim().isEmpty()) {
                                 //this would mean the instruction is incomplete
                                 throw new ToDoCommandUseException(str);
                             }
@@ -55,7 +65,7 @@ public class Duke {
                                     "Now you have " + len + " tasks in the list.";
                             System.out.println(output
                                     + "\n\t" + listLength);
-                        } else if (str.startsWith("deadline ")) {
+                        } else if (str.startsWith("deadline")) {
                             if (!str.contains("/by ")) {
                                 throw new DeadlineCommandUseException(str); //needs to check for /by
                             } else {
