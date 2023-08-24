@@ -9,23 +9,40 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getStatusIcon() {
+    public String getStatusIcon() { //for tasks
         return (isDone ? "[X]" : "[ ]");
     }
 
-    public void mark() {
-        isDone = true;
-        System.out.println("Nice! I've marked this task as done:");
-        display();
+    public void mark() { //remove number and cannot mark done as done.
+        if (isDone == false) {
+            isDone = true;
+            System.out.println("Nice! I've marked this task as done:");
+            displayTaskMark();
+        } else {
+            System.out.println("Haha nice going... This task is already done, bozo!");
+        }
+
     }
 
-    public void unmark() {
-        isDone = false;
-        System.out.println("OK, I've marked this task as not done yet:");
-        display();
+    public void unmark() { //remove number
+        if (isDone == true) {
+            isDone = false;
+            System.out.println("OK, I've marked this task as not done yet:");
+            displayTaskMark();
+        } else {
+            System.out.println("Hey... this task was never done in the first place!");
+        }
+
     }
-    public void display() {
-        System.out.println(number + "." + getStatusIcon() + " " + description);
+    public void displayTask() { //for listing out tasks
     }
+
+    public void addedTask() { //display message for added tasks!
+    }
+
+    public void displayTaskMark() {
+    }
+
+
 
 }

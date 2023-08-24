@@ -13,7 +13,7 @@ public class Gman {
             if (userInput.equals("list") && counter != 0) {
                 System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < counter; i++) {
-                    (taskList[i]).display();
+                    (taskList[i]).displayTask();
                 }
             } else if (userInput.contains("unmark") && counter != 0) {
                 String words[] = userInput.split(" ");
@@ -23,9 +23,26 @@ public class Gman {
                 String words[] = userInput.split(" ");
                 int number = Integer.valueOf(words[1]) - 1;
                 taskList[number].mark();
-            }else {
-                taskList[counter] = new Task(userInput, counter + 1);
-                System.out.println("    added: " + userInput);
+            } else if (userInput.contains("todo")) {
+                //String words[] = userInput.split(" ");
+                taskList[counter] = new Todo(userInput.substring(4), counter + 1);
+                taskList[counter].addedTask();
+                counter++;
+            } else if (userInput.contains("deadline")) {
+                String words[] = userInput.substring(8).split("/");
+                taskList[counter] = new Deadline(words[0], counter + 1, words[1].substring(3));
+                taskList[counter].addedTask();
+                counter++;
+            } else if (userInput.contains("event")) {
+                String words[] = userInput.substring(5).split("/");
+                taskList[counter] = new Event(words[0], counter + 1,
+                        words[1].substring(5), words[2].substring(3));
+                taskList[counter].addedTask();
+                counter++;
+            }
+            else {
+                taskList[counter] = new GenericTask( " " + userInput, counter + 1);
+                taskList[counter].addedTask();
                 counter++;
             }
             userInput = myScanner.nextLine();
