@@ -1,6 +1,14 @@
 import java.util.Scanner;
 
+/**
+ * Chatbot class
+ */
 public class Duke {
+    /**
+     * The main method
+     * 
+     * @param args the input argument
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Task[] tasks = new Task[100];
@@ -47,6 +55,12 @@ public class Duke {
         System.out.println(end);
     }
 
+    /**
+     * Merthod to check whether a string is integer
+     * 
+     * @param str the string that wanted to be checked
+     * @return whether the string is integer
+     */
     private static boolean isInt(String str) {
         try {
             Integer.parseInt(str);
@@ -57,25 +71,46 @@ public class Duke {
     }
 }
 
+/**
+ * Class for task
+ */
 class Task {
     // Attribute
     private String name;
     private boolean mark = false;
 
     // Constructor
+    
+    /**
+     * The constructor of Task class
+     * 
+     * @param name the name of the task
+     */
     public Task(String name) {
         this.name = name;
     }
 
     // Methods
+
+    /**
+     * Method to mark the task
+     */
     public void mark() {
         this.mark = true;
     }
 
+    /**
+     * Method to unmark the task
+     */
     public void unmark() {
         this.mark = false;
     }
 
+    /**
+     * Method to return the string implementation of Task
+     * 
+     * @return the string implementation of Task
+     */
     @Override
     public String toString() {
         return "[" + (this.mark ? "X" : " ") +"] " + this.name;
