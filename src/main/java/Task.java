@@ -23,8 +23,8 @@ public class Task {
     }
 
     public String getString() {
-        String completed = this.getCompleted() ? "[X]" : "[ ]";
-        String taskType = "[" + this.getType() + "] ";
+        String completed = this.getCompleted() ? "[X] " : "[ ] ";
+        String taskType = "[" + this.getType() + "]";
         return taskType + completed + description;
     }
 }
