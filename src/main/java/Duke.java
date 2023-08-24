@@ -132,6 +132,10 @@ public class Duke {
                     System.out.println(space);
                     System.out.println("☹ OOPS!!! The task number you entered is not in the list.");
                     System.out.println(space);
+                } catch (NumberFormatException e) {
+                    System.out.println(space);
+                    System.out.println("☹ OOPS!!! The task number you entered is invalid. Please enter a number.");
+                    System.out.println(space);
                 }
             } else {
                 System.out.println(space);
