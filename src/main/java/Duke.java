@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
-        String line = "────────────────────────────────────────────────────────────────────";
-        String logo = " ___  _ _                  ___  _          _    ___        _    ___ \n"
-                + "|  _|| | | ___  _ _  _ _  |  _>| |_  ___ _| |_ | . > ___ _| |_ |_  |\n"
-                + "| |  \\   // . \\| | || '_> | <__| . |<_> | | |  | . \\/ . \\ | |    | |\n"
-                + "| |_  |_| \\___/`___||_|   `___/|_|_|<___| |_|  |___/\\___/ |_|   _| |\n"
-                + "|___|                                                          |___|\n";
+        String line = "──────────────────────────────────────────────────────────────────────────";
+        String logo = " _____   __                 _____ _           _   _           _  ___\n"
+                + "|  _\\ \\ / /                /  __ \\ |         | | | |         | ||_  |\n"
+                + "| |  \\ V /___  _   _ _ __  | /  \\/ |__   __ _| |_| |__   ___ | |_ | |\n"
+                + "| |   \\ // _ \\| | | | '__| | |   | '_ \\ / _` | __| '_ \\ / _ \\| __|| |\n"
+                + "| |   | | (_) | |_| | |    | \\__/\\ | | | (_| | |_| |_) | (_) | |_ | |\n"
+                + "| |_  \\_/\\___/ \\__,_|_|     \\____/_| |_|\\__,_|\\__|_.__/ \\___/ \\__|| |\n"
+                + "|___|                                                           |___|\n";
 
         String greet = line
                 + "\n"
@@ -44,7 +46,7 @@ public class Duke {
                         list.add(new Todo(userInput.substring(spaceIndex + 1)));
                         System.out.println(line
                                 + "\n"
-                                + "Got it. I've added this task: \n    "
+                                + "Got it. I've added this task:\n"
                                 + list.get(list.size() - 1)
                                 + "\n"
                                 + "Now you have " + list.size() + " tasks in the list.\n"
@@ -60,7 +62,7 @@ public class Duke {
                         list.add(new Event(eventDesc, from, to));
                         System.out.println(line
                                 + "\n"
-                                + "Got it. I've added this task: \n    "
+                                + "Got it. I've added this task:\n"
                                 + list.get(list.size() - 1)
                                 + "\n"
                                 + "Now you have " + list.size() + " tasks in the list.\n"
@@ -74,7 +76,7 @@ public class Duke {
                         list.add(new Deadline(DeadlineDesc, by));
                         System.out.println(line
                                 + "\n"
-                                + "Got it. I've added this task: \n    "
+                                + "Got it. I've added this task:\n"
                                 + list.get(list.size() - 1)
                                 + "\n"
                                 + "Now you have " + list.size() + " tasks in the list.\n"
@@ -86,7 +88,7 @@ public class Duke {
                         list.get(i - 1).markAsDone();
                         System.out.println(line
                                 + "\n"
-                                + "Nice! I've marked this task as done: \n"
+                                + "Nice! I've marked this task as done:\n"
                                 + list.get(i - 1)
                                 + "\n"
                                 + line
@@ -96,7 +98,7 @@ public class Duke {
                         int j = Integer.parseInt(userInput.split(" ", 2)[1]);
                         list.get(j - 1).markAsNotDone();
                         System.out.println(line + "\n"
-                                + "OK, I've marked this task as not done yet: \n"
+                                + "OK, I've marked this task as not done yet:\n"
                                 + list.get(j - 1)
                                 + "\n"
                                 + line);
