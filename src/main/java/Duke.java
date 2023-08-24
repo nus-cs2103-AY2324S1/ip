@@ -1,19 +1,21 @@
+import java.util.Scanner;
+
 public class Duke {
     final private static String name = "Iris";
-
+    private static boolean running = true;
     public static void main(String[] args) {
-        PrintGreetMessage();
-        PrintExitMessage();
+        InputHandler inputHandler = new InputHandler();
+        Scanner scanner = new Scanner(System.in);
+        Message.GenerateGreeting(name).Print();
+        while( running ){
+            if(scanner.hasNext()) {
+                inputHandler.HandleInput(scanner.nextLine());
+            }
+        }
     }
 
-    private static void PrintGreetMessage()
+    protected static void Exit()
     {
-        System.out.println("Hello, I'm " + name + ".");
-        System.out.println("What can I do for you?");
-    }
-
-    private static void PrintExitMessage()
-    {
-        System.out.println("Bye. Hope to see you again soon!");
+        running = false;
     }
 }
