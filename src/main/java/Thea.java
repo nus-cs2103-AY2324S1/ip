@@ -45,7 +45,7 @@ public class Thea {
         }
     }
     public static void greet() {
-        System.out.println("Hello! I'm Thea •ᴗ•\nHow can I help you?\n");
+        System.out.println("Hello! I'm Thea •ᴗ•\nHow can I help you?");
     }
     public static void exit() {
         System.out.println("I hope I made your day easier with my service. See you again! >ᴗ<");
