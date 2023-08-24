@@ -4,7 +4,7 @@ public class Avalon {
         Task[] tasks = new Task[100];
         int taskCount = 0;
         Scanner scanner = new Scanner(System.in);
-
+        //greet
         System.out.println(
                 "   ____________________________________________________________\n" +
                 "    Hello! I'm Arthur Pendragon.\n" +
@@ -34,8 +34,7 @@ public class Avalon {
                     System.out.println("   ____________________________________________________________\n" +
                                        "   Here are the tasks in your list:");
                     for (int i = 0; i < taskCount; i++) {
-                        System.out.println("    " + (i + 1) + "." +
-                                            tasks[i].getStatusIcon() + tasks[i].description);
+                        System.out.println("    " + (i + 1) + "." + tasks[i]);
                     }
                     System.out.println("   ____________________________________________________________");
                 }
@@ -70,16 +69,39 @@ public class Avalon {
                             "   Invalid task index." +
                             "\n   ____________________________________________________________");
                 }
-            //add task
-            } else {
-                tasks[taskCount] = new Task(userInput);
+            } else if (userInput.toLowerCase().startsWith("todo ")) {
+                String description = userInput.substring(5);
+                tasks[taskCount] = new ToDo(description);
                 taskCount++;
-                System.out.println(
-                        "   ____________________________________________________________\n" +
-                                "    added: " +
-                                userInput +
-                                "\n   ____________________________________________________________\n"
-                );
+                System.out.println("   ____________________________________________________________\n" +
+                        "   Got it. I've added this task:\n  " + "  " + tasks[taskCount - 1]);
+                System.out.println("   Now you have " + taskCount + " tasks in the list.");
+                System.out.println("   ____________________________________________________________");
+            } else if (userInput.toLowerCase().startsWith("deadline ")) {
+                String[] parts = userInput.substring(9).split(" /by ");
+                String description = parts[0];
+                String by = parts[1];
+                tasks[taskCount] = new Deadline(description, by);
+                taskCount++;
+                System.out.println("   ____________________________________________________________\n" +
+                        "   Got it. I've added this task:\n  " + "  " + tasks[taskCount - 1]);
+                System.out.println("   Now you have " + taskCount + " tasks in the list.");
+                System.out.println("   ____________________________________________________________");
+            } else if (userInput.toLowerCase().startsWith("event ")) {
+                String[] parts = userInput.substring(6).split(" /from | /to ");
+                String description = parts[0];
+                String from = parts[1];
+                String to = parts[2];
+                tasks[taskCount] = new Event(description, from, to);
+                taskCount++;
+                System.out.println("   ____________________________________________________________\n" +
+                        "   Got it. I've added this task:\n  " + "  " + tasks[taskCount - 1]);
+                System.out.println("   Now you have " + taskCount + " tasks in the list.");
+                System.out.println("   ____________________________________________________________");
+            } else {
+                System.out.println("   ____________________________________________________________");
+                System.out.println("    Error 404");
+                System.out.println("   ____________________________________________________________");
             }
         }
 
