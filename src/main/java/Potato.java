@@ -42,15 +42,15 @@ public class Potato {
                 }
                 System.out.println("-----------------------------------------\n");
             } else {
-                if (!input.contains("/")) {
-                    store[size] = new Todo(input);
-                } else if (input.contains("/by")) {
+                if (input.startsWith("todo")) {
+                    store[size] = new Todo(input.substring(5));
+                } else if (input.startsWith("deadline")) {
                     int indexBy = input.indexOf("/by");
-                    store[size] = new Deadline(input.substring(0, indexBy), input.substring(indexBy + 4));
-                } else {
+                    store[size] = new Deadline(input.substring(9, indexBy), input.substring(indexBy + 4));
+                } else if (input.startsWith("event")) {
                     int indexFrom = input.indexOf("/from");
                     int indexTo = input.indexOf("/to");
-                    store[size] = new Event(input.substring(0, indexFrom), input.substring(indexFrom + 6, indexTo), input.substring(indexTo + 4));
+                    store[size] = new Event(input.substring(6, indexFrom), input.substring(indexFrom + 6, indexTo), input.substring(indexTo + 4));
                 }
                 size++;
                 System.out.println("-----------------------------------------\n" +
