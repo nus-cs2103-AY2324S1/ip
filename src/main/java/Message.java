@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Message {
@@ -8,13 +9,25 @@ public class Message {
         this.content = content;
     }
 
-    public static Message GenerateGreeting(String name) {
+    public static List<Message> ConvertTasks(List<? extends Task> tasks) {
+        List<Message> messages = new ArrayList<>();
+        for(int i = 0; i < tasks.size(); i++) {
+            messages.add((new Message((i + 1) + ". " + tasks.get(i).toString())));
+        }
+        return messages;
+    }
+
+    public static Message OnGreeting(String name) {
         return new Message("Hello, I'm " + name + ".\n" +
                 "What can I do for you?");
     }
 
-    public static Message GenerateExit(){
+    public static Message OnExit(){
         return new Message("Bye. Hope to see you again soon!");
+    }
+
+    public static Message OnTaskAdd(Task task) {
+        return new Message("added: " + task.toString());
     }
 
     public Message ChainTo(Message message, String splitString) {
@@ -23,10 +36,15 @@ public class Message {
 
     public static Message ChainList(List<? extends Message> messages, String splitString){
         Message chainedMessage = new Message("");
-        for (Message message : messages)
-        {
-            chainedMessage = chainedMessage.ChainTo(message, splitString);
+        if(messages.size() > 0){
+            chainedMessage = messages.get(0);
+            for (int i = 1; i < messages.size(); i++)
+            {
+                Message message = messages.get(i);
+                chainedMessage = chainedMessage.ChainTo(message, splitString);
+            }
         }
+
         return chainedMessage;
     }
 
