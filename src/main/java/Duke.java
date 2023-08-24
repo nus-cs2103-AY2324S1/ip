@@ -1,12 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     private static final String LINE = "_".repeat(60);
-    private static Task[] tasks;
-    private static int noTasks;
+    private static ArrayList<Task> tasks;
 
     public static void main(String[] args) {
-        tasks = new Task[100];
-        noTasks = 0;
+        tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String userInput;
         boolean loop = true;
@@ -43,11 +42,11 @@ public class Duke {
                         break;
                     case "mark":
                         int markIndex = Integer.parseInt(task);
-                        markTaskDone(tasks[markIndex - 1], true);
+                        markTaskDone(markIndex, true);
                         break;
                     case "unmark":
                         int unmarkIndex = Integer.parseInt(task);
-                        markTaskDone(tasks[unmarkIndex - 1], false);
+                        markTaskDone(unmarkIndex, false);
                         break;
                     case "todo":
                         Todo newTodo = new Todo(task);
@@ -85,27 +84,28 @@ public class Duke {
     }
 
     private static void createNewTask(Task task) {
-        tasks[noTasks] = task;
-        noTasks += 1;
+        tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
-        System.out.println("Now you have " + noTasks + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void displayList() {
-        if (noTasks == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("No tasks have been created.");
         } else {
-            for (int i = 0; i < noTasks; i++)
-                System.out.println((i + 1) + "." + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++)
+                System.out.println((i + 1) + "." + tasks.get(i));
         }
         System.out.println(LINE);
     }
 
-    private static void markTaskDone(Task task, boolean done) throws DukeException {
-        if (task == null) {
+    private static void markTaskDone(int taskID, boolean done) throws DukeException {
+        if (taskID <= 0 || taskID > tasks.size()) {
             throw new DukeException("☹ OOPS!!! I'm sorry, but task not found.");
-        } else if (task.isDone == done) {
+        }
+        Task task = tasks.get(taskID - 1);
+        if (task.isDone == done) {
             throw new DukeException("☹ OOPS!!! I'm sorry, but task is already marked / unmarked");
         }
         if (done) {
