@@ -38,7 +38,6 @@ public class Duke {
                 String by = command.substring(command.indexOf("/by") + 4).trim();
                 tasks.add(new Deadline(description, by));
                 System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             } else if (command.startsWith("event")) {
                 String description = command.substring(6, command.indexOf("/from")).trim();
                 String from = command.substring(command.indexOf("/from") + 6, command.indexOf("/to")).trim();
