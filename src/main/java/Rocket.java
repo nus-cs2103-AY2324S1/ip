@@ -78,6 +78,18 @@ public class Rocket {
                     input = scanner.nextLine();
                     break;
                 }
+                case "todo": {
+                    String description = arguments;
+                    Todo todo = new Todo(description);
+                    taskList.add(todo);
+                    System.out.println(LINE);
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + todo);
+                    System.out.println("    Now you have " + taskList.size() + " tasks in the list");
+                    System.out.println(LINE);
+                    input = scanner.nextLine();
+                    break;
+                }
                 default: {
                     System.out.println(LINE + "\n    Got it. I've added this task: " +
                             input + "\n" + LINE);
