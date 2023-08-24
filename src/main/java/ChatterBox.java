@@ -4,6 +4,7 @@ public class ChatterBox {
 
     public static void main(String[] args) {
 
+        ArrayList<String> taskList = new ArrayList<>();
         linePrinter();
         System.out.println("      Hello! I'm ChatterBox");
         System.out.println("      What can I do for you?");
@@ -18,11 +19,19 @@ public class ChatterBox {
                 System.out.println("      Bye. Hope to see you again soon!");
                 linePrinter();
                 break;
+            
+            } else if (input.equals("list")) {
+                linePrinter();
+                for (int i = 0; i < taskList.size(); i++) {
+                    tabPrinter(String.format("%d. %s", i + 1, taskList.get(i)));
+                } 
+                linePrinter();
 
             } else {
                 linePrinter();
-                tabPrinter(input);
+                tabPrinter("added: " + input);
                 linePrinter();
+                taskList.add(input);
 
             }
         }
