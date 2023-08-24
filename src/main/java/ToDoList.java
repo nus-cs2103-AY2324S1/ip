@@ -7,10 +7,12 @@ public class ToDoList {
         this.list = new ArrayList<>();
     }
 
-    public void addTask(String task) {
-        this.list.add(new Task(task));
+    public void addTask(Task task) {
+        this.list.add(task);
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
-        System.out.println("added: " + task);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + this.list.size() + " tasks in the list.");
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
     }
 

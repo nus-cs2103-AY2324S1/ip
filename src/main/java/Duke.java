@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static ToDoList list = new ToDoList();
+    private static final ToDoList list = new ToDoList();
     private static void greet() {
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
         System.out.println("Hello! I'm Bot");
@@ -15,34 +15,48 @@ public class Duke {
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
     }
 
-    private static void echo() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+    public static boolean executeCommand(String input) {
+        String[] parts = input.split(" ", 2);
+        String action = parts[0];
+        String details = parts.length == 1 ? "" : parts[1];
 
-        while (!input.equals("bye")) {
-            System.out.println("–––––––––––––––––––––––––––––––––––––––––");
-            System.out.println(input);
-            System.out.println("–––––––––––––––––––––––––––––––––––––––––");
-            input = scanner.nextLine();
+        switch (action) {
+            case "bye":
+                Duke.exit();
+                return false;
+            case "list":
+                Duke.list.listTasks();
+                break;
+            case "mark":
+                Duke.list.markAsDone(Integer.parseInt(details));
+                break;
+            case "todo":
+                Duke.list.addTask(new ToDo(details));
+                break;
+            case "deadline":
+                String[] subParts = details.split(" /by ", 2);
+                Duke.list.addTask(new Deadline(subParts[0], subParts[1]));
+                break;
+            case "event":
+                String[] taskPart = details.split(" /from ", 2);
+                String[] timePart = taskPart[1].split(" /to ", 2);
+                Duke.list.addTask(new Event(taskPart[0], timePart[0], timePart[1]));
+                break;
+            default:
+                System.out.println("–––––––––––––––––––––––––––––––––––––––––");
+                System.out.println("Unknown command...");
+                System.out.println("–––––––––––––––––––––––––––––––––––––––––");
         }
-        Duke.exit();
+        return true;
     }
     public static void main(String[] args) {
         Duke.greet();
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
-
-        while (!input.equals("bye")) {
-            if (input.equals("list")) {
-                list.listTasks();
-            } else if (input.startsWith("mark")) {
-                list.markAsDone(Character.getNumericValue(input.charAt(5)));
-            } else {
-                list.addTask(input);
+        while (true) {
+            String input = scanner.nextLine();
+            if (!Duke.executeCommand(input)) {
+                break;
             }
-            input = scanner.nextLine();
         }
-
-        Duke.exit();
     }
 }
