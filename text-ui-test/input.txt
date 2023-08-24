@@ -4,7 +4,7 @@ list
 todo
 todo learn how to use the deadline command /by now
 deadline
-deadline discussion post
+deaDline discussion post
 deadline essay /by sunday 2359
 event
 event anyhow

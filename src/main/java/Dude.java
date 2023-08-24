@@ -248,7 +248,7 @@ public class Dude {
   public static boolean parseInput(String input) throws DudeException {
     // extract command (strip leading and trailing whitespace, take first word)
     String[] splitInput = input.split(" ", 2);
-    String cmd = splitInput[0];
+    String cmd = splitInput[0].toLowerCase();
 
     switch (cmd) {
       case "bye":
