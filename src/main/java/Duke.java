@@ -17,6 +17,7 @@ public class Duke {
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm \n" + logo);
         System.out.println("What can I do for you?");
+        System.out.println("____________________________________________________________");
 
         Scanner myScanner = new Scanner(System.in);
         ArrayList<String> myList = new ArrayList<String>(); // Create an ArrayList object
