@@ -10,6 +10,10 @@ public class Duke {
     private int numOfCompletedTasks = 0;
     private int consecInvalidInputCount = 0;
     private final String name;
+    public enum Command {
+        TASK, TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, COMMANDS, BYE
+    }
+
     public Duke() {
         this.name = "Meg";
         this.run();
@@ -80,42 +84,48 @@ public class Duke {
     }
 
     public void readInput(String message) {
-        switch (message) {
-            case "task":
+        try {
+            executeCommand(Command.valueOf(message.toUpperCase()));
+        }
+        catch (IllegalArgumentException e) {
+            System.out.printf("I'm just a robot!%n" +
+                    "I don't understand what %s is!%n", message);
+            this.consecInvalidInputCount++;
+            printHorizontalLine();
+        }
+    }
+
+    public void executeCommand(Command command) {
+        switch (command) {
+            case TASK:
                 this.createTask();
                 break;
-            case "todo":
+            case TODO:
                 this.createToDo();
                 break;
-            case "deadline":
+            case DEADLINE:
                 this.createDeadline();
                 break;
-            case "event":
+            case EVENT:
                 this.createEvent();
                 break;
-            case "list":
+            case LIST:
                 this.list();
                 break;
-            case "mark":
+            case MARK:
                 this.markAsComplete();
                 break;
-            case "unmark":
+            case UNMARK:
                 this.markAsIncomplete();
                 break;
-            case "delete":
+            case DELETE:
                 this.deleteTask();
                 break;
-            case "commands":
+            case COMMANDS:
                 this.printCommands();
                 break;
-            case "bye":
+            case BYE:
                 this.isRunning = false;
-                break;
-            default:
-                System.out.printf("I'm just a robot!%n" +
-                        "I don't understand what %s is!%n", message);
-                this.consecInvalidInputCount++;
-                printHorizontalLine();
                 break;
         }
     }
