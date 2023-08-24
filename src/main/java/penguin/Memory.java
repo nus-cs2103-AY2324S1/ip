@@ -79,7 +79,7 @@ public class Memory {
             Task newTask = new Task("");
             switch (spl[0]) {
                 case "T":
-                    newTask = new ToDo(spl[2]);
+                    newTask = new ToDo(spl[2]); 
                     break;
                 case "D":
                     newTask = new Deadline(spl[2], spl[3]);
