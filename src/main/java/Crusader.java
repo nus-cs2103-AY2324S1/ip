@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Crusader {
     /** Logo generated from https://patorjk.com/software/taag */
     private static final String logo =
@@ -24,25 +26,42 @@ public class Crusader {
     }
 
     /**
+     * Makes the chatbot say something.
+     * Also adds a divider.
+     */
+    private static void say(String line) {
+        System.out.println(line);
+        addDivider();
+
+    }
+
+    /**
      * Greets the user.
      */
     private static void greet() {
-        System.out.println("Hi, I am CRUSADER\nWhat can I do for you?");
-        addDivider();
+        say("Hi, I am CRUSADER\nWhat can I do for you?");
     }
 
     /**
      * Says goodbye to the user.
      */
     private static void farewell() {
-        System.out.println("Bye!\nHave a great day!");
-        addDivider();
+        say("Bye!\nHave a great day!");
     }
 
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         addDivider();
         showLogo();
         greet();
+        while (true) {
+            String currentPrompt = sc.nextLine();
+            addDivider();
+            if (currentPrompt.equals("bye")) {
+                break;
+            }
+            say(currentPrompt);
+        }
         farewell();
     }
 }
