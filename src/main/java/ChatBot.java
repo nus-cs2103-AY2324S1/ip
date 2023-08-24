@@ -33,7 +33,8 @@ public class ChatBot {
         UNMARK("unmark"),
         ADD_TODO("todo"),
         ADD_DEADLINE("deadline"),
-        ADD_EVENT("event");
+        ADD_EVENT("event"),
+        DELETE("delete");
 
         private final String input;
 
@@ -92,6 +93,8 @@ public class ChatBot {
 
     /* 
      * Adds the user input into a list, depending on the command.
+     * If description is wrong, throws an exception.
+     * 
      * @param String message User input, parsed in readInput.
      * @return void
      */
@@ -184,15 +187,35 @@ public class ChatBot {
         
     }
 
+    /*
+     * Deletes the item off the list and prints it out with a message.
+     * 
+     * @return void
+     */
+    public void delete(int listNum) {
+        int index = listNum - 1;
+
+        Task task = list.get(index);
+
+        System.out.println(BORDER);
+        System.out.println("I knew you couldn't finish it. Or maybe you did. I don't care. Deleted:\n");
+        System.out.println(task.toString());
+        System.out.println("Now you have an overwhelming " + (list.size() - 1) + " things to do.\n");
+
+        System.out.println(BORDER);
+
+        list.remove(index);
+    }
+
     /* 
      * Reads the input of the user, and executes the commands accordingly.
-     * If a command is unknown, return an error statement.
+     * If a command is unknown, throws an exception.
      * 
      * @param String message User input.
      * @return void
      */
     public void readInput(String input) throws 
-        InvalidDescriptionException, InvalidCommandException {
+        InvalidDescriptionException, InvalidCommandException, InvalidIndexException {
         //Split the input so that we can read integers.
         String[] inputStrings = input.split(" ", 2);
         Command command = Command.parseInput(inputStrings[0]);
@@ -210,10 +233,18 @@ public class ChatBot {
                 break;
 
             case MARK:
-                mark(Integer.parseInt(inputStrings[1]));
+                try {
+                    mark(Integer.parseInt(inputStrings[1]));
+                } catch (NumberFormatException e) {
+                    throw new InvalidIndexException("Are you stupid? That's not a number.");
+                }
                 break;
             case UNMARK:
-                unmark(Integer.parseInt(inputStrings[1]));
+                try {
+                    unmark(Integer.parseInt(inputStrings[1]));
+                } catch (NumberFormatException e) {
+                    throw new InvalidIndexException("Are you stupid? That's not a number.");
+                }
                 break;
 
             case ADD_TODO:
@@ -228,8 +259,16 @@ public class ChatBot {
                 addToList(inputStrings[1], command);
                 break;
 
+            case DELETE:
+                try {
+                    delete(Integer.parseInt(inputStrings[1]));
+                } catch (NumberFormatException e) {
+                    throw new InvalidIndexException("Are you stupid? That's not a number.");
+                } 
+                break;
+
             default:
-                throw new InvalidDescriptionException("Don't be stupid, speak english.");
+                throw new InvalidCommandException("Don't be stupid, speak english.");
         }
     }
 
