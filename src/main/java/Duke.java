@@ -28,21 +28,33 @@ public class Duke {
                 }
                 System.out.println(HORIZONTAL_LINE);
             } else if (input.startsWith("mark")) {
-                Task task = list.get(Integer.valueOf(input.substring(5)) - 1);
-                task.markAsDone();
+                try {
+                    Task task = list.get(Integer.valueOf(input.substring(5)) - 1);
+                    task.markAsDone();
 
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(task);
-                System.out.println(HORIZONTAL_LINE);
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(task);
+                    System.out.println(HORIZONTAL_LINE);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("☹ OOPS!!! You have entered an invalid task number.");
+                    System.out.println(HORIZONTAL_LINE);
+                }
             } else if (input.startsWith("unmark")) {
-                Task task = list.get(Integer.valueOf(input.substring(7)) - 1);
-                task.markAsNotDone();
+                try {
+                    Task task = list.get(Integer.valueOf(input.substring(7)) - 1);
+                    task.markAsNotDone();
 
-                System.out.print(HORIZONTAL_LINE);
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(task);
-                System.out.println(HORIZONTAL_LINE);
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println(task);
+                    System.out.println(HORIZONTAL_LINE);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.print(HORIZONTAL_LINE);
+                    System.out.println("☹ You have entered an invalid task number.");
+                    System.out.println(HORIZONTAL_LINE);
+                }
             } else if (input.startsWith("deadline")) {
                 int byIndex = input.indexOf("/");
 
