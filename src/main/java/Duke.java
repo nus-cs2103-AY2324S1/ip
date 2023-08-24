@@ -75,6 +75,84 @@ public class Duke {
         Duke.respond(messages);
     }
 
+    private static void respondWithAddedTask(Task newTask) {
+        ArrayList<String> messages = new ArrayList<String>();
+        messages.add("Got it. I've added this task:");
+        messages.add(String.format("  %s", newTask.toString()));
+        messages.add(String.format("Now you have %d tasks in the list.", tasks.size()));
+        Duke.respond(messages);
+    }
+
+    private static void addTodo(String description) {
+        Task newTodo = new Todo(description);
+        tasks.add(newTodo);
+        Duke.respondWithAddedTask(newTodo);
+    }
+
+    private static void addDeadline(String args) {
+        String[] splitArguments = args.split("/");
+
+        String description = splitArguments[0];
+        String dueDateTime = null;
+
+        for (int i = 1; i < splitArguments.length; i++) {
+            if (splitArguments[i].startsWith("by ")) {
+                dueDateTime = splitArguments[i].substring(3).trim();
+            }
+        }
+
+        if (description.equals("")) {
+            Duke.respond("Please specify a description.");
+            return;
+        }
+
+        if (dueDateTime == null || dueDateTime.equals("")) {
+            Duke.respond("Please specify a due date/time.");
+            return;
+        }
+
+        Task newDeadline = new Deadline(description, dueDateTime);
+        tasks.add(newDeadline);
+        Duke.respondWithAddedTask(newDeadline);
+    }
+
+    private static void addEvent(String args) {
+        String[] splitArguments = args.split("/");
+
+        String description = splitArguments[0].trim();
+        String startDatetime = null;
+        String endDatetime = null;
+        
+        for (int i = 1; i < splitArguments.length; i++) {
+            if (splitArguments[i].startsWith("from ")) {
+                startDatetime = splitArguments[i].substring(5).trim();
+            }
+
+            if (splitArguments[i].startsWith("to ")) {
+                endDatetime = splitArguments[i].substring(3).trim();
+            }
+        }
+
+        if (description.equals("")) {
+            Duke.respond("Please specify a description.");
+            return;
+        }
+        
+        if (startDatetime == null || startDatetime.equals("")) {
+            Duke.respond("Please specify a start date/time.");
+            return;
+        }
+
+        if (endDatetime == null|| endDatetime.equals("")) {
+            Duke.respond("Please specify an end date/time.");
+            return;
+        }
+
+        Task newEvent = new Event(description, startDatetime, endDatetime);
+        tasks.add(newEvent);
+        Duke.respondWithAddedTask(newEvent);
+    }
+
     public static void main(String[] args) {
         Duke.greet();
 
@@ -104,9 +182,17 @@ public class Duke {
             case "unmark":
                 Duke.markTaskAsUndone(Integer.parseInt(arguments) - 1);
                 break;
+            case "todo":
+                Duke.addTodo(arguments);
+                break;
+            case "deadline":
+                Duke.addDeadline(arguments);
+                break;
+            case "event":
+                Duke.addEvent(arguments);
+                break;
             default:
-                Duke.respond("Added: " + input);
-                tasks.add(new Task(input));
+                Duke.respond(String.format("Command \"%s\" does not exist. Please type another command.", command));
             }
         }
 
