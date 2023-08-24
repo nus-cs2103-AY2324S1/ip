@@ -17,35 +17,40 @@ public class Pogo {
         }
     }
 
-    private static boolean isEmpty(String input) {
-        return input.trim().length() == 0;
-    }
-
     private static Task addTask(String input) throws PogoException {
         Task task;
         if (input.startsWith("todo")) {
+            int length = "todo".length();
+            if (input.length() == length) {
+                throw new PogoEmptyTaskException();
+            }
+
             String description = input.substring("todo".length() + 1);
+
             task = new ToDo (description);
-            if (isEmpty(description)) {
-                throw new PogoEmptyTaskException();
-            }
         } else if (input.startsWith("deadline")) {
-            String[] split = input.substring("deadline".length() + 1).split(" /by ");
-            String description = split[0];
-            if (isEmpty(description)) {
+            int length = "deadline".length();
+            if (input.length() == length) {
                 throw new PogoEmptyTaskException();
             }
+
+            String[] split = input.substring(length+1).split(" /by ");
+            String description = split[0];
             String by = split[1];
+
             task = new Deadline(description, by);
         } else if (input.startsWith("event")) {
-            String[] split = input.substring("event".length() + 1).split(" /from ");
-            String description = split[0];
-            if (isEmpty(description)) {
+            int length = "event".length();
+            if (input.length() == length) {
                 throw new PogoEmptyTaskException();
             }
+
+            String[] split = input.substring(length+1).split(" /from ");
+            String description = split[0];
             String[] temp = split[1].split(" /to ");
             String from = temp[0];
             String to = temp[1];
+
             task = new Event(description, from, to);
         } else {
             throw new PogoInvalidTaskException();
@@ -62,13 +67,27 @@ public class Pogo {
             Pogo.printTasks();
         } else if (input.startsWith("mark")) {
             int index = Pogo.parseTaskIndex(input);
-            tasks.get(index).markAsDone();
-            System.out.println("Nice! I've marked this task as done:");
+            Task task = tasks.get(index);
+
+            if (task.isDone()) {
+                System.out.println("This task is already done!");
+            } else {
+                tasks.get(index).markAsDone();
+                System.out.println("Nice! I've marked this task as done:");
+            }
+
             System.out.println(tasks.get(index).getStatusMessage());
         } else if (input.startsWith("unmark")) {
             int index = Pogo.parseTaskIndex(input);
-            tasks.get(index).markAsUndone();
-            System.out.println("Ok, I've marked this task as not done yet:");
+            Task task = tasks.get(index);
+
+            if (task.isDone()) {
+                task.markAsUndone();
+                System.out.println("Ok, I've marked this task as not done yet:");
+            } else {
+                System.out.println("This task is already not done!");
+            }
+
             System.out.println(tasks.get(index).getStatusMessage());
         }
         else {
@@ -79,9 +98,9 @@ public class Pogo {
             } catch (PogoInvalidTaskException e) {
                 System.out.println("Oops! I don't recognise that task.\n"
                         + "Only the following tasks are supported:\n"
-                        + "todo <description>\n"
-                        + "deadline <description> /by <date>\n"
-                        + "event <description> /from <date> /to <date>"
+                        + " - todo <description>\n"
+                        + " - deadline <description> /by <date>\n"
+                        + " - event <description> /from <date> /to <date>"
                 );
             } catch (PogoEmptyTaskException e) {
                 System.out.println("Oops! The description of a task cannot be empty.");
