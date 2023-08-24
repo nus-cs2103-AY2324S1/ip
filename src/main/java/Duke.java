@@ -63,7 +63,6 @@ public class Duke {
                     }
                     else if (str.startsWith("event ") && str.contains("/from ")) {
                         String fromMarker = "/from "; //mark the /from index of the string
-                        String toMarker = "/to "; //mark the /to index of the string
                         int firstIndex = str.indexOf(fromMarker);
                         int secondIndex;
                         String fromWhen;
@@ -75,7 +74,7 @@ public class Duke {
                                     "has not been specified. Please enter /from what time, /to what time " +
                                     "the event would last.");
                         } else {
-                            toMarker = "/to ";
+                            String toMarker = "/to "; //mark the /to index of the string
                             secondIndex = afterFirstIndex.indexOf(toMarker); //to make sure we get the /to after the /from
                             fromWhen = afterFirstIndex.substring(0, secondIndex); //get the from timing
                             toWhen = afterFirstIndex.substring(secondIndex + 4);
