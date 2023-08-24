@@ -1,7 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
+
+    private static ArrayList<String> lists = new ArrayList<String>();
 
     public static final String NAME = "Duke";
 
@@ -9,16 +12,23 @@ public class Duke {
         hello();
 
         Scanner sc = new Scanner(System.in);
-        while (true) {
+        Boolean isRunning = true;
+        while (isRunning) {
             String input = sc.nextLine();
-            if (input.equals("bye")) {
-                break;
+            switch (input) {
+                case "list":
+                    printList();
+                    break;
+                case "bye":
+                    isRunning = false;
+                    break;
+                default:
+                    addToList(input);
+                    break;
             }
-            echo(input);
         }
 
         bye();
-
         sc.close();
     }
 
@@ -38,6 +48,21 @@ public class Duke {
     public static void echo(String input) {
         printWithIndentation(HORIZONTAL_LINE);
         printWithIndentation(input);
+        printWithIndentation(HORIZONTAL_LINE);
+    }
+
+    public static void printList() {
+        printWithIndentation(HORIZONTAL_LINE);
+        for (int i = 0; i < lists.size(); i++) {
+            printWithIndentation((i + 1) + ". " + lists.get(i));
+        }
+        printWithIndentation(HORIZONTAL_LINE);
+    }
+
+    public static void addToList(String input) {
+        printWithIndentation(HORIZONTAL_LINE);
+        printWithIndentation("added: " + input);
+        lists.add(input);
         printWithIndentation(HORIZONTAL_LINE);
     }
 
