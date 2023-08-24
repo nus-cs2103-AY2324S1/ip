@@ -1,16 +1,17 @@
 import java.util.Scanner;
 import java.util.Map;
+import java.util.ArrayList;
 import exceptions.ThorndikeException;
 
 public class Thorndike {
     Scanner scanner;
-    Task[] list;
+    ArrayList<Task> list;
     int index;
     Boolean running;
 
     public Thorndike() {
         this.scanner = new Scanner(System.in);
-        this.list = new Task[100];
+        this.list = new ArrayList<>();
         this.index = 0;
         this.running = true;
     }
@@ -45,16 +46,10 @@ public class Thorndike {
         } else if (command.equals("bye")) {
             exit();
         } else if (command.equals("mark")) {
-            int idx = Integer.parseInt(description);
-            if (idx < 1 || idx > index) {
-                throw new ThorndikeException("The index given is invalid");
-            }
+            int idx = getIndex(description);
             markDone(idx);
         } else if (command.equals("unmark")) {
-            int idx = Integer.parseInt(description);
-            if (idx < 1 || idx > index) {
-                throw new ThorndikeException("The index given is invalid");
-            }
+            int idx = getIndex(description);
             markNotDone(idx);
         } else if (command.equals("todo")) {
             if (description.equals("")) {
@@ -71,6 +66,9 @@ public class Thorndike {
                 throw new ThorndikeException("The description of an event cannot be empty.");
             }
             addTask(new Event(description, args.get("from"), args.get("to")));
+        } else if (command.equals("delete")) {
+            int idx = getIndex(description);
+            deleteTask(idx);
         } else {
             throw new ThorndikeException("I'm sorry, but I don't know what that means :-(");
         }
@@ -84,8 +82,8 @@ public class Thorndike {
      */
     private void markDone(int idx) {
         echo("Meow! I've marked this task as done:");
-        list[idx - 1].setDone();
-        echo(list[idx - 1].toString());
+        list.get(idx - 1).setDone();
+        echo(list.get(idx - 1).toString());
     }
 
     /**
@@ -96,8 +94,8 @@ public class Thorndike {
      */
     private void markNotDone(int idx) {
         echo("Meow! I've marked this task as not done yet:");
-        list[idx - 1].setNotDone();
-        echo(list[idx - 1].toString());
+        list.get(idx - 1).setNotDone();
+        echo(list.get(idx - 1).toString());
     }
 
     /**
@@ -107,11 +105,26 @@ public class Thorndike {
      * 
      */
     private void addTask(Task task) {
-        this.list[index] = task;
+        this.list.add(task);
         this.index++;
         echo("Got it. I've added this task:");
         echo(task.toString());
         echo(String.format("Now you have %d tasks in the list.", index));
+    }
+
+    /**
+     * Deletes task in list.
+     * 
+     * @param index Index of task in the list.
+     * 
+     */
+    private void deleteTask(int index) {
+        Task deleted = this.list.get(index - 1);
+        this.list.remove(index - 1);
+        this.index--;
+        echo("Meow. I've removed this task:");
+        echo(deleted.toString());
+        echo(String.format("Now you have %d tasks in the list.", this.index));
     }
 
     /**
@@ -120,7 +133,7 @@ public class Thorndike {
      */
     private void list() {
         for (int i = 1; i < this.index + 1; i++) {
-            Task task = this.list[i - 1];
+            Task task = this.list.get(i - 1);
             echo(String.format("%d. %s", i, task.toString()));
         }
     }
@@ -148,6 +161,24 @@ public class Thorndike {
     private void exit() {
         this.running = false;
         echo("Bye meow! Hope to see you again soon!");
+    }
+
+    /**
+     * Checks if the index has
+     * 
+     * @param idx Index to check.
+     */
+    private int getIndex(String index) throws ThorndikeException {
+        int idx = -1;
+        try {
+            idx = Integer.parseInt(index);
+        } catch (Exception e) {
+            throw new ThorndikeException("The index given is invalid");
+        }
+        if (idx < 1 || idx > this.index) {
+            throw new ThorndikeException("The index given is invalid");
+        }
+        return idx;
     }
 
     public static void main(String[] args) {
