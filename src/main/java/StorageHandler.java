@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class StorageHandler {
     private static Task[] todoList;
+    private static int size;
+    private static SaveHandler saveHandler;
     public StorageHandler() {
-        todoList = new Task[100];
-        todoList = new SaveHandler().loadFrom();
-    }
-    public void load() {
-
+        saveHandler = new SaveHandler();
+        todoList = saveHandler.loadFrom();
+        size = saveHandler.size();
     }
     public static void readArray() {
         int i = 0;
@@ -21,13 +21,11 @@ public class StorageHandler {
         if (i == 0) {
             System.out.println("You are FREE PEKO!!!!!");
         }
-        System.out.println(lineBreak);
     }
     public static void addToArray(Task t) {
-        todoList[pos] = t;
-        todoList[pos].reply(pos);
-        pos++;
-        System.out.println(lineBreak);
+        todoList[size] = t;
+        todoList[size].reply(size);
+        size++;
         saveHandler.saveTo();
     }
     public static void setMarkArray(int i) {
@@ -44,11 +42,11 @@ public class StorageHandler {
     }
     public static void setDelete(int i) {
         i--;
-        while (i <= pos) {
+        while (i <= size) {
             todoList[i] = todoList[i+1];
             i++;
         }
-        pos--;
+        size--;
         saveHandler.saveTo();
     }
     public static void degen() throws FileNotFoundException {
@@ -57,8 +55,6 @@ public class StorageHandler {
         while (sc.hasNextLine()) {
             System.out.println(sc.nextLine());
         }
-        System.out.println(lineBreak);
-
     }
 
 }

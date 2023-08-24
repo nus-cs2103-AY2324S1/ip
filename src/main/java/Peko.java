@@ -10,12 +10,6 @@ public class Peko {
     private static final String exitText = "Otsupeko! Bye bye!";
     private static SaveHandler saveHandler;
     public static void main(String[] args) {
-        StorageHandler storageHandler = new StorageHandler();
-
-
-        Task[] todoList = saveHandler.loadFrom();
-        saveHandler = new SaveHandler();
-        pos = saveHandler.size();
         UserInputHandler UIhandler = new UserInputHandler();
         intro();
         while (true) {

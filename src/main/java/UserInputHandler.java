@@ -63,22 +63,22 @@ public class UserInputHandler {
         System.out.println(lineBreak);
     }
     private void readArray() {
-        Peko.readArray();
+        StorageHandler.readArray();
     }
     private void addToArray() throws InvalidTaskException {
         Task t = new Task(input);
-        Peko.addToArray(t);
+        StorageHandler.addToArray(t);
         System.out.println(lineBreak);
     }
     private void mark(String s) throws NumberFormatException{
         int i = Integer.parseInt(s);
-        Peko.setMarkArray(i);
+        StorageHandler.setMarkArray(i);
         System.out.println(lineBreak);
     }
     private void unmark(String s) {
         try {
             int i = Integer.parseInt(s);
-            Peko.setUnmarkArray(i);
+            StorageHandler.setUnmarkArray(i);
         } catch (NumberFormatException e) {
             System.out.println("That's not a number Bakatare!");
         }
@@ -87,22 +87,22 @@ public class UserInputHandler {
     private void todo(String s) throws InvalidTaskException{
         System.out.println(s);
         Task t = new ToDos(input);
-        Peko.addToArray(t);
+        StorageHandler.addToArray(t);
         System.out.println(lineBreak);
     }
     private void deadline(String s) throws InvalidTaskException {
         Task t = new Deadline(input);
-        Peko.addToArray(t);
+        StorageHandler.addToArray(t);
         System.out.println(lineBreak);
     }
     private void Event(String s) throws InvalidTaskException {
         Task t = new Event(input);
-        Peko.addToArray(t);
+        StorageHandler.addToArray(t);
         System.out.println(lineBreak);
     }
     public void delete(String s) {
         int i = Integer.parseInt(s);
-        Peko.setDelete(i);
+        StorageHandler.setDelete(i);
     }
 
 
@@ -139,7 +139,7 @@ public class UserInputHandler {
                     return true;
                 case COPYPASTA:
                     try {
-                        Peko.degen();
+                        StorageHandler.degen();
                     } catch (FileNotFoundException e) {
                         System.out.println("Hentai!");
                     } finally {
