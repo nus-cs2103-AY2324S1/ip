@@ -75,6 +75,26 @@ public class Duke {
                     botOutput = d.getMessage();
                 }
 
+            } else if (userInput.startsWith("delete ")) {
+                botOutput = botOutput + "Noted. I've removed this task: \n    ";
+
+                try {
+
+                    int taskNo = Integer.parseInt(userInput.substring(7));
+                    if (taskNo > list.size() | taskNo < 1) {
+                        throw new InvalidTaskException("Please enter valid Task No. to delete!");
+                    }
+                    Task x = list.get(taskNo - 1);
+                    list.remove(x);
+                    botOutput = botOutput + x;
+
+                } catch (NumberFormatException e) {
+
+                    botOutput = "Invalid Input String!!";
+
+                } catch (InvalidTaskException d) {
+                    botOutput = d.getMessage();
+                }
             } else {
 
                 try {
