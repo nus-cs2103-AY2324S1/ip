@@ -55,7 +55,7 @@ public class Thea {
         System.out.println("I have added the following task to your list:\n  "
                 + task.toString() + "\nNow you have " + tasks.size()
                 + (tasks.size() == 1 ? " task" : " tasks")
-                + " in the list. You can do this! •̀ ᗜ •́ ");
+                + " in the list. You can do this!");
     }
     public static void printList(ArrayList<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
