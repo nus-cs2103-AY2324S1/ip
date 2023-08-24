@@ -1,5 +1,6 @@
 package tasks;
 
+import exceptions.DukeException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -11,15 +12,21 @@ public class TaskList {
     }
 
     public void inputHandler(String input) {
-
-        if (input.equals("list")) {
-            listTasks();
-        } else if (input.startsWith("mark")) {
-            markTaskDone(input);
-        } else if (input.startsWith("unmark")) {
-            unmarkTaskDone(input);
-        } else {
-            addTask(input);
+        try {
+            if (input.equals("list")) {
+                listTasks();
+            } else if (input.startsWith("mark")) {
+                markTaskDone(input);
+            } else if (input.startsWith("unmark")) {
+                unmarkTaskDone(input);
+            } else if (input.startsWith("delete")) {
+                deleteTask(input);
+            } else {
+                addTask(input);
+            }
+        } catch (DukeException e) {
+            System.out.println(e);
+            System.out.println("Please try again .₊̣̇.ಇ/ᐠˬ ͜   ˬ ᐟ\\∫.₊̣̇.");
         }
 
     }
@@ -36,36 +43,61 @@ public class TaskList {
         }
     }
 
-    public void markTaskDone(String input) {
+    public void markTaskDone(String input) throws DukeException {
 
         // retrieve the index input
         int index = input.indexOf(" ");
         String numStr = input.substring(index + 1);
         int number = Integer.parseInt(numStr);
-        System.out.println(number);
+
+        if (number < 0 || number > taskList.size()) {
+            throw new DukeException("No such task exists (index out of bound error)");
+        }
+
         taskList.get(number - 1).setIsDone();
 
         System.out.println("Yay! You have completed this task:\n" +
                 taskList.get(number - 1) + "\n");
     }
 
-    public void unmarkTaskDone(String input) {
+    public void unmarkTaskDone(String input) throws DukeException {
         // retrieve the index input
         int index = input.indexOf(" ");
         String numStr = input.substring(index + 1);
         int number = Integer.parseInt(numStr);
+
+        if (number < 0 || number > taskList.size()) {
+            throw new DukeException("No such task exists (index out of bound error)");
+        }
+
         taskList.get(number - 1).setIsNotDone();
 
         System.out.println("Ok... Guess you're not actually done with this:\n" +
                 taskList.get(number - 1) + "\n");
     }
 
-    public void addTask(String input) {
+    public void deleteTask(String input) throws DukeException {
+
+        int index = input.indexOf(" ");
+        String numStr = input.substring(index + 1);
+        int number = Integer.parseInt(numStr);
+
+        if (number < 0 || number > taskList.size()) {
+            throw new DukeException("No such task exists (index out of bound error)");
+        }
+
+        Task removedTask = taskList.get(number - 1);
+        taskList.remove(number - 1);
+
+        System.out.println("banished this task to the shadow realm:\n" + removedTask);
+    }
+
+    public void addTask(String input) throws DukeException {
         String[] parts = input.split(" ", 2);
 
         if (parts[0].equals("todo")) {
 
-            Task todo = new ToDo(parts[1]);
+            ToDo todo = new ToDo(parts[1]);
             this.taskList.add(todo);
 
             System.out.println("added new task:\n" + todo);
@@ -74,7 +106,7 @@ public class TaskList {
         } else if (parts[0].equals("deadline")) {
 
             String[] arr = parts[1].split("/");
-            Task deadline = new Deadline(arr[0], arr[1]);
+            Deadline deadline = new Deadline(arr[0], arr[1]);
             this.taskList.add(deadline);
 
             System.out.println("added new task:\n" + deadline);
@@ -83,15 +115,14 @@ public class TaskList {
         } else if (parts[0].equals("event")) {
 
             String[] arr = parts[1].split("/");
-            Task event = new Event(arr[0], arr[1], arr[2]);
+            Event event = new Event(arr[0], arr[1], arr[2]);
             this.taskList.add(event);
 
             System.out.println("added new task:\n" + event);
             System.out.println("you now have " + taskList.size() + " tasks in your list." + "\n");
 
         } else {
-            System.out.println("invalid!");
-            return;
+            throw new DukeException("Not a valid task!");
         }
     }
 }

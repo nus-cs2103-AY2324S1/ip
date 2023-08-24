@@ -18,10 +18,10 @@ public abstract class Task {
     }
 
     public String getStatus() {
-        return this.isDone ? "[X] " : "[ ] ";
+        return this.isDone ? "[X]" : "[ ]";
     }
 
     public String toString() {
-        return this.getStatus() + this.description;
+        return this.getStatus() + " " + this.description;
     }
 }
