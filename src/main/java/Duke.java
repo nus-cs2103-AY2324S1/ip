@@ -28,7 +28,8 @@ public class Duke {
         unmark,
         deadline,
         event,
-        todo
+        todo,
+        delete
     };
 
     public static void main(String[] args) {
@@ -45,9 +46,7 @@ public class Duke {
             }
             System.out.print(horizontal + "\nUser: ");
         }
-
         sc.close();
-
         System.out.print("ChadGPT: Bye. Hope to see you again soon!\n" + horizontal);
     }
 
@@ -79,6 +78,11 @@ public class Duke {
                 System.out.println("ChadGPT: No problem, I'll mark this task as not done yet: ");
                 taskList.get(index).printStatus();
             }
+        } else if (command.equals("delete")) {
+            int index = Integer.parseInt(strArray[1]) - 1;
+            System.out.println("ChadGPT: No problem, I'll remove the task from your task list: ");
+            taskList.remove(index).printStatus();
+            taskCounter--;
         } else {
             Task newTask = createTask(nextLine, strArray);
             System.out.println("ChadGPT: added task '" + newTask.toString() + "'");
@@ -106,7 +110,6 @@ public class Duke {
         throw new IllegalArgumentException("Invalid task type");
    }
 
-   //incomplete
    private static boolean isValidCommand(String nextLine) {
         String[] delimitedBySpace = nextLine.split(" ");
         String[] delimitedBySlash = nextLine.split("/");
@@ -124,6 +127,7 @@ public class Duke {
 
         switch (delimitedBySpace[0].toLowerCase()) {
             case "mark":
+            case "delete":
             case "unmark":
                 try {
                     int location = Integer.parseInt(delimitedBySpace[1]);
