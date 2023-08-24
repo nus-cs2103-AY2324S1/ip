@@ -248,44 +248,48 @@ public class Dude {
   public static boolean parseInput(String input) throws DudeException {
     // extract command (strip leading and trailing whitespace, take first word)
     String[] splitInput = input.split(" ", 2);
-    String cmd = splitInput[0].toLowerCase();
-
-    switch (cmd) {
-      case "bye":
-        // quit
-        // Print shutdown greeting
-        printMessage(goodbye);
-        return false;
-      case "list":
-        // list tasks
-        printMessage(getTasksList());
-        break;
-      case "mark":
-        // mark as done
-        parseMark(input);
-        break;
-      case "unmark":
-        // mark as not done
-        parseUnmark(input);
-        break;
-      case "delete":
-      case "remove": // alias because I keep typing remove lol
-        parseDelete(input);
-        break;
-      case "todo":
-        // add todo task to list
-        parseTodo(input);
-        break;
-      case "deadline":
-        // add deadline task to list
-        parseDeadline(input);
-        break;
-      case "event":
-        // add event task to list
-        parseEvent(input);
-        break;
-      default:
-        throw new InvalidCommandException();
+    String cmdString = splitInput[0].toLowerCase();
+    try {
+      DudeCommand cmd = DudeCommand.valueOf(cmdString);
+      switch (cmd) {
+        case bye:
+          // quit
+          // Print shutdown greeting
+          printMessage(goodbye);
+          return false;
+        case list:
+          // list tasks
+          printMessage(getTasksList());
+          break;
+        case mark:
+          // mark as done
+          parseMark(input);
+          break;
+        case unmark:
+          // mark as not done
+          parseUnmark(input);
+          break;
+        case delete:
+        case remove: // alias because I keep typing remove lol
+          parseDelete(input);
+          break;
+        case todo:
+          // add todo task to list
+          parseTodo(input);
+          break;
+        case deadline:
+          // add deadline task to list
+          parseDeadline(input);
+          break;
+        case event:
+          // add event task to list
+          parseEvent(input);
+          break;
+        default:
+      }
+    } catch (IllegalArgumentException e) {
+      // invalid command entered
+      throw new InvalidCommandException();
     }
     return true;
   }
