@@ -19,8 +19,15 @@ public class Alex {
             if (userInput.equals("bye")) {
                 System.out.println(bye);
                 break;
-            } else {
+            } else if(userInput.equals("list")) {
                 System.out.println("_____________________________________________________________\n"
+                        + UserInputStorage.printAllContent()
+                        + "_____________________________________________________________\n"
+                );
+            } else {
+                UserInputStorage.store(userInput);
+                System.out.println("_____________________________________________________________\n"
+                        + "added: "
                         + userInput
                         + "\n"
                         + "_____________________________________________________________\n"
