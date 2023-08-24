@@ -4,6 +4,7 @@ public class Task {
     protected boolean isDone;
 
     public Task(String description) { // constructor
+        System.out.println("Mama mia ! I've just added this task:");
         this.description = description;
         this.isDone = false;
     }
