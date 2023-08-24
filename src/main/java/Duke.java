@@ -51,6 +51,66 @@ public class Duke {
                 tasks.get(index).mark();
                 System.out.println(tasks.get(index));
                 lines();
+            } else if (input.contains("todo")) {
+                lines();
+                String[] split = input.split(" ");
+                String description = "";
+                for (int i = 1; i < split.length; i++) {
+                    description += split[i] + " ";
+                }
+                description = description.trim();
+                tasks.add(new Todo(description));
+                System.out.println(tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                lines();
+            } else if (input.contains("deadline")) {
+                lines();
+                String[] split = input.split(" ");
+                String description = "";
+                String by = "";
+                for (int i = 1; i < split.length; i++) {
+                    if (split[i].equals("/by")) {
+                        for (int j = i + 1; j < split.length; j++) {
+                            by += split[j] + " ";
+                        }
+                        break;
+                    }
+                    description += split[i] + " ";
+                }
+                description = description.trim();
+                by = by.trim();
+                tasks.add(new Deadline(description, by));
+                System.out.println(tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                lines();
+            } else if (input.contains("event")) {
+                lines();
+                String[] split = input.split(" ");
+                String description = "";
+                String from = "";
+                String to = "";
+                for (int i = 1; i < split.length; i++) {
+                    if (split[i].equals("/from")) {
+                        for (int j = i + 1; j < split.length; j++) {
+                            if (split[j].equals("/to")) {
+                                for (int k = j + 1; k < split.length; k++) {
+                                    to += split[k] + " ";
+                                }
+                                break;
+                            }
+                            from += split[j] + " ";
+                        }
+                        break;
+                    }
+                    description += split[i] + " ";
+                }
+                description = description.trim();
+                from = from.trim();
+                to = to.trim();
+                tasks.add(new Events(description, from, to));
+                System.out.println(tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                lines();
             } else {
                 lines();
                 System.out.println("added: " + input);
@@ -91,6 +151,51 @@ public class Duke {
         @Override
         public String toString() {
             return "[" + this.getStatusIcon() + "] " + this.getDescription();
+        }
+    }
+
+    public class Deadline extends Task {
+        protected String by;
+
+        public Deadline(String description, String by) {
+            super(description);
+            this.by = by;
+            System.out.println("Got it. I've added this task:");
+        }
+
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + " (by: " + this.by + ")";
+        }
+    }
+
+    public class Events extends Task {
+        protected String from;
+        protected String to;
+
+        public Events(String description, String from, String to) {
+            super(description);
+            this.from = from;
+            this.to = to;
+            System.out.println("Got it. I've added this task:");
+        }
+
+        @Override
+        public String toString() {
+            return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        }
+    }
+
+    public class Todo extends Task {
+        public Todo (String description) {
+            super(description);
+            System.out.println("Got it. I've added this task:");
+
+        }
+
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
         }
     }
 }
