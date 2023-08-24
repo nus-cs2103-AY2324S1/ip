@@ -6,4 +6,10 @@ event project meeting /from Mon 2pm /to 4pm
 list
 unmark 1
 list
+todo
+blah
+mark 10
+event doing homework
+deadline doing housework
+event doing homework /from 3pm
 bye

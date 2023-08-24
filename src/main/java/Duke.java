@@ -11,13 +11,41 @@ public class Duke {
         }
         System.out.println("____________________________________________________________");
     }
-    private void addList(String Input, Integer type) {
-        if (type == 0) {
-            list[numofList] = new Todo(Input);
-        } else if (type == 1) {
-            list[numofList] = new Deadline(Input);
-        } else if (type == 2) {
-            list[numofList] = new Event(Input);
+    private void addList(String Input) throws DukeException {
+        int index= Input.indexOf(" ");
+        String taskDescription = Input.substring(index + 1);
+        if (index == -1) {
+            if (taskDescription.equalsIgnoreCase("todo")) {
+                throw new DukeException("The description of a todo cannot be empty.");
+            } else if (taskDescription.equalsIgnoreCase("deadline")) {
+                throw new DukeException("The description of a deadline cannot be empty.");
+            } else if (taskDescription.equalsIgnoreCase("event")) {
+                throw new DukeException("The description of an event cannot be empty.");
+            } else {
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+            }
+        }
+        String type = Input.substring(0, index);
+        if (type.equalsIgnoreCase("todo")) {
+            list[numofList] = new Todo(taskDescription);
+        } else if (type.equalsIgnoreCase("deadline")) {
+            int byIndex = taskDescription.indexOf("/by");
+            if (byIndex == -1) {
+                throw new DukeException("Deadline must contain /by");
+            }
+            list[numofList] = new Deadline(taskDescription);
+        } else if (type.equalsIgnoreCase("event")) {
+            int fromIndex = taskDescription.indexOf("/from");
+            if (fromIndex == -1) {
+                throw new DukeException("Event must contain /from");
+            }
+            int toIndex = taskDescription.substring(fromIndex).indexOf("/to");
+            if (toIndex == -1) {
+                throw new DukeException("Event must contain /to");
+            }
+            list[numofList] = new Event(taskDescription);
+        } else {
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
         numofList++;
         System.out.println("____________________________________________________________");
@@ -30,29 +58,32 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String Input = scanner.nextLine();
         while(!Input.equalsIgnoreCase("bye")) {
-            String[] splittedInput = Input.split(" ");
-            if (Input.equals("list")) {
-                displayList();
-            } else if (splittedInput[0].equalsIgnoreCase("mark") && splittedInput.length == 2 &&
-                        isInteger((splittedInput[1])) && Integer.parseInt(splittedInput[1]) > 0 &&
-                        Integer.parseInt(splittedInput[1]) <= numofList) {
-                list[Integer.parseInt(splittedInput[1]) - 1].mark();
-            } else if (splittedInput[0].equalsIgnoreCase("unmark") && splittedInput.length == 2 &&
-                    isInteger((splittedInput[1])) && Integer.parseInt(splittedInput[1]) > 0 &&
-                    Integer.parseInt(splittedInput[1]) <= numofList) {
-                list[Integer.parseInt(splittedInput[1]) - 1].unmark();
-            } else {
-                int index= Input.indexOf(" ");
-                String taskDescription = Input.substring(index + 1);
-                if (splittedInput[0].equalsIgnoreCase("todo")) {
-                    addList(taskDescription, 0);
-                } else if (splittedInput[0].equalsIgnoreCase("deadline")) {
-                    addList(taskDescription, 1);
-                } else if (splittedInput[0].equalsIgnoreCase("event")) {
-                    addList(taskDescription, 2);
+            try {
+                String[] splittedInput = Input.split(" ");
+                if (Input.equals("list")) {
+                    displayList();
+                } else if (splittedInput[0].equalsIgnoreCase("mark") && splittedInput.length == 2 &&
+                        isInteger((splittedInput[1]))) {
+                    if (Integer.parseInt(splittedInput[1]) <= 0 || Integer.parseInt(splittedInput[1]) > numofList) {
+                        throw new DukeException("Task Not Found :'(");
+                    }
+                    list[Integer.parseInt(splittedInput[1]) - 1].mark();
+                } else if (splittedInput[0].equalsIgnoreCase("unmark") && splittedInput.length == 2 &&
+                        isInteger((splittedInput[1]))) {
+                    if (Integer.parseInt(splittedInput[1]) <= 0 || Integer.parseInt(splittedInput[1]) > numofList) {
+                        throw new DukeException("Task Not Found :'(");
+                    }
+                    list[Integer.parseInt(splittedInput[1]) - 1].unmark();
+                } else {
+                    addList(Input);
                 }
-
             }
+            catch (DukeException e) {
+                System.out.println("____________________________________________________________");
+                System.out.println(" ☹ OOPS!!! " + e.getMessage());
+                System.out.println("____________________________________________________________");
+            }
+
             Input = scanner.nextLine();
         }
     }
