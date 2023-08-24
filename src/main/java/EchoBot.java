@@ -87,7 +87,7 @@ public class EchoBot {
                 + "    | | | | | | | |/ / _ \\\n"
                 + "    | |_| | |_| |   <  __/\n"
                 + "    |____/ \\__,_|_|\\_\\___|\n";
-        String horizontalLine = "   _____________________________________________\n";
+        String horizontalLine = "   ___________________________________________________\n";
 
         //Array to store the tasks
         Task[] tasks = new Task[100];
