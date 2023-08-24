@@ -33,9 +33,7 @@ public class Duke {
                     System.out.println(inValue);
                     System.out.println("____________________________________________________________");
                     break;
-
             }
-
         }
     }
 }
