@@ -93,6 +93,7 @@ public class Duke {
                         String param = inputArray[1];
                         int index = Integer.parseInt(param) - 1;
                         taskList.get(index).setDone(false);
+
                         System.out.println(HORIZONTAL_LINE);
                         System.out.println("The following item been unmarked and is now uncompleted.");
                         System.out.println(taskList.get(index));
@@ -102,6 +103,7 @@ public class Duke {
                 case ("todo"): {
                     ToDo todoTask = new ToDo(params);
                     taskList.add(todoTask);
+
                     System.out.println(HORIZONTAL_LINE);
                     System.out.println("The following ToDo has been added.");
                     System.out.println(todoTask);
@@ -112,8 +114,10 @@ public class Duke {
                 case ("deadline"): {
                     String description = params.split(" /by ")[0];
                     String deadline = params.split(" /by ")[1];
+
                     Deadline deadlineTask = new Deadline(description, deadline);
                     taskList.add(deadlineTask);
+
                     System.out.println(HORIZONTAL_LINE);
                     System.out.println("The following deadline has been added.");
                     System.out.println(deadlineTask);
@@ -126,8 +130,10 @@ public class Duke {
                     String fromAndToTime = params.split(" /from ")[1];
                     String from = fromAndToTime.split(" /to ")[0];
                     String to = fromAndToTime.split(" /to ")[1];
+
                     Event eventTask = new Event(description, from, to);
                     taskList.add(eventTask);
+
                     System.out.println(HORIZONTAL_LINE);
                     System.out.println("The following event has been added.");
                     System.out.println(eventTask);
