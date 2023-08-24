@@ -1,18 +1,8 @@
-import javax.sound.sampled.Line;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
     public static void main(String[] args) {
-        /*
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        */
 
         final String UNKNOWN_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
         final String NAME = "CathyTheChattyCat";
@@ -28,6 +18,7 @@ public class Duke {
                 message = userInput.nextLine();
                 Task task = null;
             try {
+                // Listing things out
                 if (message.equalsIgnoreCase("list")) {
                     System.out.println(lineBreak);
                     System.out.println("Here are the tasks in your list:");
@@ -37,6 +28,7 @@ public class Duke {
                     }
                     System.out.println(lineBreak);
                 }
+                //marking tasks
                 if (message.startsWith("mark")) {
                     int taskIndex = Integer.parseInt(message.substring(5)) - 1;
                     if (taskIndex >= 0 && taskIndex < userList.size()) {
@@ -46,8 +38,9 @@ public class Duke {
                     } else {
                         System.out.println(lineBreak + "Invalid Task Number" + lineBreak);
                     }
-                    userList.remove(task);
+                    //userList.remove(task);
                 }
+                //un marking task
                 if (message.startsWith("unmark")) {
                     int taskIndex = Integer.parseInt(message.substring(7)) - 1;
                     if (taskIndex >= 0 && taskIndex < userList.size()) {
@@ -57,8 +50,23 @@ public class Duke {
                     } else {
                         System.out.println(lineBreak + "Invalid Task Number" + lineBreak);
                     }
-                    userList.remove(task);
+                    //userList.remove(task);
                 }
+                //deleting task
+                if (message.startsWith("delete")) {
+                    int taskIndex = Integer.parseInt(message.substring(7)) - 1;
+                    if (taskIndex >= 0 && taskIndex < userList.size()) {
+                        Task removing = userList.get(taskIndex);
+                        System.out.println(lineBreak + "Noted. I've removed this task:");
+                        System.out.println("  " + removing);
+                        userList.remove(removing);
+                        System.out.println("Now you have " + userList.size() + " tasks in the list" + lineBreak);
+                    } else {
+                        System.out.println(lineBreak + "Invalid Task Number" + lineBreak);
+                    }
+                    continue;
+                }
+                //taking in the different task
                 if (!message.equalsIgnoreCase("bye")) {
                     if (message.equalsIgnoreCase("list")) continue;
                     if (message.startsWith("mark")) continue;
@@ -73,15 +81,16 @@ public class Duke {
                     if (message.startsWith("deadline")) {
                         String info = message.substring(9);
                         String[] split = info.split("/by");
-                        if (split.length != 1) {
+                        if (split.length != 2) {
                             throw new DukeException("☹ OOPS!!! The description of a deadline is invalid.");
                         }
                         task = new Deadline(split[0], split[1]);
                     }
                     if (message.startsWith("event")) {
                         String info = message.substring(6);
-                        String[] split = info.split("/from | /to");
-                        if (split.length != 2) {
+                        String[] split = info.split("/from | /to ");
+                        if (split.length != 3) {
+                            System.out.println("hi");
                             throw new DukeException("☹ OOPS!!! The description of a event is invalid.");
                         }
                         task = new Event(split[0], split[1], split[2]);
@@ -92,6 +101,7 @@ public class Duke {
                         int size = userList.size();
                         System.out.println(task);
                         System.out.println("Now you have " + size + " tasks in the list." + lineBreak);
+                        continue;
                     }
                     throw new DukeException(UNKNOWN_COMMAND);
                 } else {
@@ -100,7 +110,6 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 System.out.println(lineBreak + e.getMessage() + lineBreak);
-                continue;
             } catch (Exception e) {
                 System.out.println(lineBreak + "☹ OOPS!!! The description is invalid :(." + lineBreak);
             }
