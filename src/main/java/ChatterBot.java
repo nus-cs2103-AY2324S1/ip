@@ -32,24 +32,47 @@ public class ChatterBot {
                 System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] " + list.get(Integer.parseInt(toUnmark) - 1).description);
             } else {
                 if (userMessage.startsWith("deadline")) {
-                    int slashDeadline = userMessage.indexOf("/");
-                    String deadlineDescription = userMessage.substring(9, slashDeadline).trim();
-                    String deadlineBy = userMessage.substring(slashDeadline + 3).trim();
-                    Deadline d = new Deadline(deadlineDescription, deadlineBy);
-                    list.add(d);
-                    System.out.println("Got it. I've added this task:\n" + d.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+                    try {
+                        if (userMessage.length() <= 9) {
+                            throw new IllegalArgumentException("No task description");
+                        }
+                        int slashDeadline = userMessage.indexOf("/");
+                        String deadlineDescription = userMessage.substring(9, slashDeadline).trim();
+                        String deadlineBy = userMessage.substring(slashDeadline + 3).trim();
+                        Deadline d = new Deadline(deadlineDescription, deadlineBy);
+                        list.add(d);
+                        System.out.println("Got it. I've added this task:\n" + d.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("OOPS!!! Invalid input!");
+                    }
                 } else if (userMessage.startsWith("todo")) {
-                    Todo td = new Todo(userMessage.substring(5));
-                    list.add(td);
-                    System.out.println("Got it. I've added this task:\n" + td.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+                    try {
+                        if (userMessage.length() <= 5) {
+                            throw new IllegalArgumentException("No task description");
+                        }
+                        Todo td = new Todo(userMessage.substring(5));
+                        list.add(td);
+                        System.out.println("Got it. I've added this task:\n" + td.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+                    } catch (IllegalArgumentException e){
+                        System.out.println("OOPS!!! Invalid input!");
+                    }
                 } else if (userMessage.startsWith("event")) {
-                    String[] eventSplit = userMessage.split("/");
-                    String eventDescription = eventSplit[0].substring(6);
-                    String eventTo = eventSplit[1].substring(5);
-                    String eventFrom = eventSplit[2].substring(3);
-                    Event e = new Event(eventDescription, eventTo, eventFrom);
-                    list.add(e);
-                    System.out.println("Got it. I've added this task:\n" + e.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+                    try {
+                        if (userMessage.length() <= 6) {
+                            throw new IllegalArgumentException("No task description");
+                        }
+                        String[] eventSplit = userMessage.split("/");
+                        String eventDescription = eventSplit[0].substring(6);
+                        String eventTo = eventSplit[1].substring(5);
+                        String eventFrom = eventSplit[2].substring(3);
+                        Event e = new Event(eventDescription, eventTo, eventFrom);
+                        list.add(e);
+                        System.out.println("Got it. I've added this task:\n" + e.toString() + "\nNow you have " + list.size() + " tasks in the list.");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("OOPS!!! Invalid input!");
+                    }
+                } else {
+                    System.out.println("Unknown command: " + userMessage);
                 }
             }
         }
