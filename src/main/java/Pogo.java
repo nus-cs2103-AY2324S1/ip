@@ -6,6 +6,14 @@ public class Pogo {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String QUIT_MESSAGE = "Bye. Hope to see you again soon!";
 
+    private enum Action {
+        BYE, LIST, MARK, UNMARK, DELETE, ADD
+    }
+
+    private enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
+
     private static int parseTaskIndex(String input) {
         return Integer.parseInt(input.split(" ")[1]) - 1;
     }
@@ -18,43 +26,59 @@ public class Pogo {
     }
 
     private static Task addTask(String input) throws PogoException {
-        Task task;
+        TaskType taskType = null;
         if (input.startsWith("todo")) {
-            int length = "todo".length();
-            if (input.length() == length) {
-                throw new PogoEmptyTaskException();
-            }
-
-            String description = input.substring("todo".length() + 1);
-
-            task = new ToDo (description);
+            taskType = TaskType.TODO;
         } else if (input.startsWith("deadline")) {
-            int length = "deadline".length();
-            if (input.length() == length) {
-                throw new PogoEmptyTaskException();
-            }
-
-            String[] split = input.substring(length+1).split(" /by ");
-            String description = split[0];
-            String by = split[1];
-
-            task = new Deadline(description, by);
+            taskType = TaskType.DEADLINE;
         } else if (input.startsWith("event")) {
-            int length = "event".length();
-            if (input.length() == length) {
-                throw new PogoEmptyTaskException();
-            }
-
-            String[] split = input.substring(length+1).split(" /from ");
-            String description = split[0];
-            String[] temp = split[1].split(" /to ");
-            String from = temp[0];
-            String to = temp[1];
-
-            task = new Event(description, from, to);
+            taskType = TaskType.EVENT;
         } else {
             throw new PogoInvalidTaskException();
         }
+
+        Task task = null;
+        int length = 0;
+        String[] split;
+        String description;
+
+        switch (taskType) {
+            case TODO:
+                length = "todo".length();
+                if (input.length() == length) {
+                    throw new PogoEmptyTaskException();
+                }
+                description = input.substring("todo".length() + 1);
+                task = new ToDo(description);
+                break;
+            case DEADLINE:
+                length = "deadline".length();
+                if (input.length() == length) {
+                    throw new PogoEmptyTaskException();
+                }
+
+                split = input.substring(length + 1).split(" /by ");
+                description = split[0];
+                String by = split[1];
+
+                task = new Deadline(description, by);
+                break;
+            case EVENT:
+                length = "event".length();
+                if (input.length() == length) {
+                    throw new PogoEmptyTaskException();
+                }
+
+                split = input.substring(length + 1).split(" /from ");
+                description = split[0];
+                String[] temp = split[1].split(" /to ");
+                String from = temp[0];
+                String to = temp[1];
+
+                task = new Event(description, from, to);
+                break;
+        }
+
         tasks.add(task);
         return task;
     }
@@ -64,59 +88,83 @@ public class Pogo {
     }
 
     private static boolean handleInput(String input) {
+        Action action = null;
         if (input.equals("bye")) {
-            System.out.println(QUIT_MESSAGE);
-            return true;
+            action = Action.BYE;
         } else if (input.equals("list")) {
-            Pogo.printTasks();
+            action = Action.LIST;
         } else if (input.startsWith("mark")) {
-            int index = Pogo.parseTaskIndex(input);
-            Task task = tasks.get(index);
-
-            if (task.isDone()) {
-                System.out.println("This task is already done!");
-            } else {
-                tasks.get(index).markAsDone();
-                System.out.println("Nice! I've marked this task as done:");
-            }
-
-            System.out.println(tasks.get(index).getStatusMessage());
+            action = Action.MARK;
         } else if (input.startsWith("unmark")) {
-            int index = Pogo.parseTaskIndex(input);
-            Task task = tasks.get(index);
-
-            if (task.isDone()) {
-                task.markAsUndone();
-                System.out.println("Ok, I've marked this task as not done yet:");
-            } else {
-                System.out.println("This task is already not done!");
-            }
-
-            System.out.println(tasks.get(index).getStatusMessage());
+            action = Action.UNMARK;
         } else if (input.startsWith("delete")) {
-            int index = Pogo.parseTaskIndex(input);
-            Task task = tasks.remove(index);
-
-            System.out.println("Noted. I've removed this task:");
-            System.out.println(task.getStatusMessage());
-            Pogo.printNumberOfTasks();
+            action = Action.DELETE;
         } else {
-            try {
-                Task task = Pogo.addTask(input);
-                System.out.println("added: " + task.getStatusMessage());
+            action = Action.ADD;
+        }
+
+        int index = 0;
+        Task task = null;
+        switch (action) {
+            case BYE:
+                System.out.println(QUIT_MESSAGE);
+                return true;
+            case LIST:
+                Pogo.printTasks();
+                break;
+            case MARK:
+                index = Pogo.parseTaskIndex(input);
+                task = tasks.get(index);
+
+                if (task.isDone()) {
+                    System.out.println("This task is already done!");
+                } else {
+                    tasks.get(index).markAsDone();
+                    System.out.println("Nice! I've marked this task as done:");
+                }
+
+                System.out.println(tasks.get(index).getStatusMessage());
+                break;
+            case UNMARK:
+                index = Pogo.parseTaskIndex(input);
+                task = tasks.get(index);
+
+                if (task.isDone()) {
+                    task.markAsUndone();
+                    System.out.println("Ok, I've marked this task as not done yet:");
+                } else {
+                    System.out.println("This task is already not done!");
+                }
+
+                System.out.println(tasks.get(index).getStatusMessage());
+                break;
+            case DELETE:
+                index = Pogo.parseTaskIndex(input);
+                task = tasks.remove(index);
+
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(task.getStatusMessage());
                 Pogo.printNumberOfTasks();
-            } catch (PogoInvalidTaskException e) {
-                System.out.println("Oops! I don't recognise that task.\n"
-                        + "Only the following tasks are supported:\n"
-                        + " - todo <description>\n"
-                        + " - deadline <description> /by <date>\n"
-                        + " - event <description> /from <date> /to <date>"
-                );
-            } catch (PogoEmptyTaskException e) {
-                System.out.println("Oops! The description of a task cannot be empty.");
-            } catch (PogoException e) {
-                System.out.println("Oops! An unknown error has occurred.");
-            }
+                break;
+            case ADD:
+                try {
+                    task = Pogo.addTask(input);
+                    System.out.println("added: " + task.getStatusMessage());
+                    Pogo.printNumberOfTasks();
+                } catch (PogoInvalidTaskException e) {
+                    System.out.println("Oops! I don't recognise that task.\n"
+                            + "Only the following tasks are supported:\n"
+                            + " - todo <description>\n"
+                            + " - deadline <description> /by <date>\n"
+                            + " - event <description> /from <date> /to <date>"
+                    );
+                } catch (PogoEmptyTaskException e) {
+                    System.out.println("Oops! The description of a task cannot be empty.");
+                } catch (PogoException e) {
+                    System.out.println("Oops! An unknown error has occurred.");
+
+                }
+                break;
         }
         return false;
     }
