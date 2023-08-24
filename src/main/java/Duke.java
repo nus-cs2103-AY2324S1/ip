@@ -8,8 +8,8 @@ public class Duke {
         AtomicInteger count = new AtomicInteger(0);
 
         System.out.println("____________________________________________________________\n" +
-                " Hello! I'm Charlie\n" +
-                " What can I do for you?\n" +
+                "Hello! I'm Charlie\n" +
+                "What can I do for you?\n" +
                 "____________________________________________________________\n");
 
         while (true) {
@@ -45,9 +45,10 @@ public class Duke {
 
     }
     private static void printlist(Task[] arr, int count) {
-        System.out.println("____________________________________________________________\n");
+        System.out.println("____________________________________________________________\n" +
+                "Here are the tasks in your list:");
         for (int i =0; i < count; i++) {
-            System.out.printf("%d.) %s%n", i + 1, arr[i].toString());
+            System.out.printf("%d. %s%n", i + 1, arr[i].toString());
         }
         System.out.println("____________________________________________________________\n");
     }
@@ -57,7 +58,7 @@ public class Duke {
         int result = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
         tasklist[result].mark();
         System.out.println("____________________________________________________________\n" +
-                "Nice! I've marked this task as done: \n" +
+                "Nice! I've marked this task as done:\n" +
                 tasklist[result].toString() +
                 "\n____________________________________________________________\n");
     }
@@ -67,7 +68,7 @@ public class Duke {
         int result = Integer.parseInt(input.substring(spaceIndex + 1)) - 1;
         tasklist[result].unmark();
         System.out.println("____________________________________________________________\n" +
-                "OK, I've marked this task as not done yet: \n" +
+                "OK, I've marked this task as not done yet:\n" +
                 tasklist[result].toString() +
                 "\n____________________________________________________________\n");
     }
@@ -79,7 +80,7 @@ public class Duke {
         System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
                 newTask.toString() +
-                "\n Now you have " + count + " tasks in the list." +
+                "\nNow you have " + count + " tasks in the list." +
                 "\n____________________________________________________________\n");
     }
 
@@ -93,7 +94,7 @@ public class Duke {
         System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
                 newTask.toString() +
-                "\n Now you have " + count + " tasks in the list." +
+                "\nNow you have " + count + " tasks in the list." +
                 "\n____________________________________________________________\n");
     }
 
@@ -109,13 +110,13 @@ public class Duke {
         System.out.println("____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
                 newTask.toString() +
-                "\n Now you have " + count + " tasks in the list." +
+                "\nNow you have " + count + " tasks in the list." +
                 "\n____________________________________________________________\n");
     }
 
     private static void exitBot() {
         System.out.println("____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
+                "Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________\n");
     }
 }
