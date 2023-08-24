@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    private static String LINE_SEPARATOR = "    ------------------------------------------------------------";
+    private static String LINE_SEPARATOR = "    ----------------------------------------------------------------------";
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static Boolean programRunning = true;
 
@@ -11,7 +11,7 @@ public class Duke {
         System.out.println(LINE_SEPARATOR);
         System.out.println(String.format("     %s",  message.toString()));
         System.out.println(LINE_SEPARATOR);
-        System.out.print(">> ");
+        System.out.print(">>> ");
     }
 
     private static <T> void respond(List<T> messages) {
@@ -20,7 +20,7 @@ public class Duke {
             System.out.println(String.format("     %s",  message.toString()));
         }
         System.out.println(LINE_SEPARATOR);
-        System.out.print(">> ");
+        System.out.print(">>> ");
     }
     
     private static void greet() {
@@ -36,6 +36,7 @@ public class Duke {
 
     private static void listTasks(ArrayList<Task> tasks) {
         ArrayList<String> output = new ArrayList<String>();
+
         for (int i = 0; i < tasks.size(); i++) {
             String taskOutput = String.format("%d. %s", i + 1, tasks.get(i));
             output.add(taskOutput);
