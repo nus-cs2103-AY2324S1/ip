@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 public class Duke {
     private static final String INDENT = "    ";
-    private static final List<String> tasks = new ArrayList<>();
+    private static final List<Task> tasks = new ArrayList<>();;
     public static void printGreeting() {
         printHorizontalLine();
         printIndented("Hello! I'm Davidson");
@@ -43,12 +43,27 @@ public class Duke {
                 break;
             } else if ("list".equalsIgnoreCase(input)) {
                 printHorizontalLine();
+                printIndented("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    printIndented((i + 1) + ". " + tasks.get(i));
+                    printIndented((i + 1) + "." + tasks.get(i));
                 }
                 printHorizontalLine();
+            } else if (input.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                tasks.get(taskNumber - 1).markAsDone();
+                printHorizontalLine();
+                printIndented("Nice! I've marked this task as done:");
+                printIndented("  " + tasks.get(taskNumber - 1));
+                printHorizontalLine();
+            } else if (input.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(input.split(" ")[1]);
+                tasks.get(taskNumber - 1).unmark();
+                printHorizontalLine();
+                printIndented("OK, I've marked this task as not done yet:");
+                printIndented("  " + tasks.get(taskNumber - 1));
+                printHorizontalLine();
             } else {
-                tasks.add(input);
+                tasks.add(new Task(input));
                 printHorizontalLine();
                 printIndented("added: " + input);
                 printHorizontalLine();
