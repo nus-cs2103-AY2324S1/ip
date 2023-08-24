@@ -9,5 +9,10 @@ unmark 2
 list
 mark 5
 list
-asdhjjash
+todo      
+deadline       
+event       
+ajhsf
+mark 8
+unmark 6
 bye

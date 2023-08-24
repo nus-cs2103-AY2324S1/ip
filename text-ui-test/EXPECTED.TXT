@@ -48,18 +48,19 @@
     2.[D][ ]  return book (by: Sunday)
     3.[E][ ]  project meeting (from: Mon 2pm to: 4pm)
    ____________________________________________________________
-   ____________________________________________________________
-   Invalid task index.
-   ____________________________________________________________
+☹ OOPS!!! Invalid task index.
    ____________________________________________________________
    Here are the tasks in your list:
     1.[T][ ]  borrow book
     2.[D][ ]  return book (by: Sunday)
     3.[E][ ]  project meeting (from: Mon 2pm to: 4pm)
    ____________________________________________________________
-   ____________________________________________________________
-    Error 404
-   ____________________________________________________________
+☹ OOPS!!! The description of a todo cannot be empty.
+☹ OOPS!!! Please provide a description and a deadline (use /by).
+☹ OOPS!!! Please provide a description, a starting time, and an ending time (use /from and /to).
+☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+☹ OOPS!!! Invalid task index.
+☹ OOPS!!! Invalid task index.
    ____________________________________________________________
     Farewell. We will meet again!
    ____________________________________________________________
