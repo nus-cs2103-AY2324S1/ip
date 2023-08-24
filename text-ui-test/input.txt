@@ -1,0 +1,10 @@
+todo first
+second
+event third /from 4pm /to 6pm
+list
+mark 2
+list
+deadline fourth /by 7pm
+mark 3
+list
+bye
