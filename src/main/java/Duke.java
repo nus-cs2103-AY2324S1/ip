@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    enum COMMANDS {BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BY, FROM, TO, UNKNOWN}
     private static ListOfTask taskList = new ListOfTask();
     public static void main(String[] args) {
         greet();
@@ -29,9 +30,34 @@ public class Duke {
         public Parse(String command) {
             this.command = command;
         }
-        public String mainCommand() {
+        public COMMANDS mainCommand() {
             this.initialParse = command.split(" ",2);
-            return initialParse[0];
+            switch (initialParse[0]) {
+                case ("bye"):
+                    return COMMANDS.BYE;
+                case ("list"):
+                    return COMMANDS.LIST;
+                case ("todo"):
+                    return COMMANDS.TODO;
+                case ("deadline"):
+                    return COMMANDS.DEADLINE;
+                case ("event"):
+                    return COMMANDS.EVENT;
+                case ("mark"):
+                    return COMMANDS.MARK;
+                case ("unmark"):
+                    return COMMANDS.UNMARK;
+                case ("delete"):
+                    return COMMANDS.DELETE;
+                case ("by"):
+                    return COMMANDS.BY;
+                case ("from"):
+                    return COMMANDS.FROM;
+                case ("to"):
+                    return COMMANDS.TO;
+                default:
+                    return COMMANDS.UNKNOWN;
+            }
         }
 
         public String secondWord() {
@@ -71,20 +97,20 @@ public class Duke {
             }
         }
     }
-
     public static void nextCommand(String command) {
         Parse cmd = new Parse(command);
-        String firstWord = cmd.mainCommand();
+        COMMANDS firstWord = cmd.mainCommand();
+
         switch (firstWord) {
-            case ("bye"):
+            case BYE:
                 exit();
                 return;
 
-            case ("list"):
+            case LIST:
                 taskList.listTasks();
                 break;
 
-            case ("todo"):
+            case TODO:
                 if (cmd.secondWord() != null) {
                     taskList.addTask(cmd.secondWord());
                 } else {
@@ -92,13 +118,13 @@ public class Duke {
                 }
                 break;
 
-            case ("deadline"):
+            case DEADLINE:
                 try {
                     String task = cmd.phaseParse();
                     try {
                         String dayDate = cmd.phaseTwo();
                         Parse parseDayDate = new Parse(dayDate);
-                        if (parseDayDate.mainCommand().equals("by") && parseDayDate.secondWord() != null) {
+                        if (parseDayDate.mainCommand().equals(COMMANDS.BY) && parseDayDate.secondWord() != null) {
                             taskList.addTask(task, parseDayDate.secondWord());
                         } else {
                             System.out.println("The format for the command is: deadline task /by DayOrDate");
@@ -111,17 +137,17 @@ public class Duke {
                 }
                 break;
 
-            case ("event"):
+            case EVENT:
                 try {
                     String task = cmd.phaseParse();
                     try {
                         String startDayDateTime = cmd.phaseTwo();
                         Parse parseStartDayDateTime = new Parse(startDayDateTime);
-                        if (parseStartDayDateTime.mainCommand().equals("from") && parseStartDayDateTime.secondWord() != null) {
+                        if (parseStartDayDateTime.mainCommand().equals(COMMANDS.FROM) && parseStartDayDateTime.secondWord() != null) {
                             try {
                                 String endDayDateTime = cmd.phaseThree();
                                 Parse parseEndDayDateTime = new Parse(endDayDateTime);
-                                if (parseEndDayDateTime.mainCommand().equals("to") && parseEndDayDateTime.secondWord() != null) {
+                                if (parseEndDayDateTime.mainCommand().equals(COMMANDS.TO) && parseEndDayDateTime.secondWord() != null) {
                                     taskList.addTask(task, parseStartDayDateTime.secondWord(), parseEndDayDateTime.secondWord());
                                 } else {
                                     System.out.println("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
@@ -140,7 +166,7 @@ public class Duke {
                 }
                 break;
 
-            case ("mark"):
+            case MARK:
                 if (cmd.secondWord() != null) {
                     try {
                         int n = Integer.parseInt(cmd.secondWord());
@@ -153,7 +179,7 @@ public class Duke {
                 }
                 break;
 
-            case ("unmark"):
+            case UNMARK:
                 if (cmd.secondWord() != null) {
                     try {
                         int n = Integer.parseInt(cmd.secondWord());
@@ -166,7 +192,7 @@ public class Duke {
                 }
                 break;
 
-            case ("delete"):
+            case DELETE:
                 if (cmd.secondWord() != null) {
                     try {
                         int n = Integer.parseInt(cmd.secondWord());
