@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -68,6 +69,12 @@ public class Duke {
                 return;
             }
 
+            if (input.startsWith("delete")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                model.echo(taskStorage.delete(index));
+                return;
+            }
+
             model.echo(taskStorage.save(input));
         }
 
@@ -78,9 +85,7 @@ public class Duke {
 
     static class TaskStorage {
         private final int SIZE = 100;
-        private final Task[] tasks = new Task[SIZE];
-        private int pointer = 0;
-
+        private final ArrayList<Task> tasks = new ArrayList<>(SIZE);
 
         public String save(String input) {
             Task task;
@@ -90,34 +95,41 @@ public class Duke {
                 return e.getMessage();
             }
 
-            tasks[pointer] = task;
-            pointer++;
+            this.tasks.add(task);
+
             return "added: " + task;
         }
 
         public String markAsDone(int index) {
-            tasks[index].markAsDone();
+            this.tasks.get(index).markAsDone();
             return "Nice! I've meowrked this task as done:\n"
-                    + "    " + tasks[index];
+                    + "    " + this.tasks.get(index);
         }
 
         public String unmarkAsDone(int index) {
-            tasks[index].unmarkAsDone();
+            this.tasks.get(index).unmarkAsDone();
             return "Oh meow! I've marked this task as undone :( :\n"
-                    + "    " + tasks[index];
+                    + "    " + this.tasks.get(index);
+        }
+
+        public String delete(int index) {
+            Task task = this.tasks.get(index);
+            this.tasks.remove(index);
+            return "Noted. I've removed this task:\n"
+                    + "    " + task + "\n"
+                    + "    " + "Now you have " + this.tasks.size() + " tasks in the list.";
         }
 
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
-            int count = 0;
+            int num = 0;
 
             for (Task task : tasks) {
-                if (task == null) {
-                    break;
-                }
-                count++;
-                sb.append(count).append(". ").append(task).append("\n");
+                if (task == null) continue;
+                
+                num++;
+                sb.append(num).append(". ").append(task).append("\n");
             }
 
             return sb.toString();

@@ -14,4 +14,9 @@ deadline meow
 event
 event meowies /from 2 Past Meow
 event meowies /from 2 Past Meow /to 2 Past Meow
+list
+delete 1
+delete 2
+todo hello meowies
+list
 bye
