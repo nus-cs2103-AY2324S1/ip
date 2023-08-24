@@ -1,5 +1,6 @@
 import jdk.jfr.Event;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.*;
 public class BouncyBob {
@@ -7,7 +8,7 @@ public class BouncyBob {
     private static final String MIDDLE_BORDER = "|                                              |";
     private static final String BOTTOM_BORDER = "================================================";
 
-    public static void printTaskStatus(Task task) {
+    private static void printTaskStatus(Task task) {
         String marking = " ";
         if (task.isDone()) {
             marking = "X";
@@ -15,7 +16,7 @@ public class BouncyBob {
         System.out.println("[" + task.getSymbol() + "]" + "[" + marking + "]" + " " + task.getDescription());
     }
 
-    public static void printBye() {
+    private static void printBye() {
         System.out.println(TOP_BORDER);
         System.out.println(MIDDLE_BORDER);
         System.out.println("|        BouncyBob: Bye! Bounce back soon!     |");
@@ -23,61 +24,44 @@ public class BouncyBob {
         System.out.println(BOTTOM_BORDER);
     }
 
-    public static void printDatabase(Task[] database, int pointer) {
-        System.out.println(TOP_BORDER);
-        System.out.println("Here are your tasks!");
-        for (int i = 0; i < pointer; i++) {
-            Task curTask = database[i];
-            printTaskStatus(curTask);
-        }
-        System.out.println(BOTTOM_BORDER);
-    }
-
-    public static void modifyTask(String[] parts, Task[] database) {
-        String action = parts[0];
-        int index = Integer.parseInt(parts[1]); // This assumes that second part contains an int
-        Task task = database[index];
-        System.out.println(TOP_BORDER);
-        switch(action) {
-            case "mark":
-                System.out.println("You've done it, very bouncy!");
-                task.setDone();
-                printTaskStatus(task);
-                break;
-            case "unmark":
-                System.out.println("Gotta pump for air! It's unmarked!");
-                task.setUnDone();
-                printTaskStatus(task);
-                break;
-        }
-        System.out.println(BOTTOM_BORDER);
-    }
-
-    public static String getTaskEvent(String input) {
+    private static String getTaskEvent(String input) {
         String task = input.split("/from")[0].trim();
         return task;
     }
 
-    public static String getTaskDeadline(String input) {
+    private static String getTaskDeadline(String input) {
         String task = input.split("/by")[0].trim();
         return task;
     }
 
-    public static void addTaskAndPrint(String[] parts, Task[] database, int pointer) {
+    private static void printDatabase(ArrayList<Task> database) {
+        System.out.println(TOP_BORDER);
+        if (database.isEmpty()) {
+            System.out.println("Balls! You currently do not have any tasks!");
+        } else {
+            System.out.println("Here are your tasks!");
+            for (Task curTask : database) {
+                printTaskStatus(curTask);
+            }
+        }
+        System.out.println(BOTTOM_BORDER);
+    }
+
+    private static void addTaskAndPrint(String[] parts, ArrayList<Task> database) {
         String taskType = parts[0];
         String taskName = "";
+        Task newTask = null;
         switch (taskType) {
             case "todo":
-                taskName = arrayToString(parts, 1); // we skip the string in pos -, which is the command
+                taskName = arrayToString(parts, 1);
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("Task name for 'todo' cannot be empty.");
                 }
-                database[pointer] = new ToDos(taskName);
+                newTask = new ToDos(taskName);
                 break;
             case "deadline":
                 taskName = arrayToString(parts, 1);
-                String datetime = "";
-                datetime = extractDatetime(taskName);
+                String datetime = extractDatetime(taskName);
                 if (datetime.trim().isEmpty()) {
                     throw new IllegalArgumentException("/by cannot be empty!");
                 }
@@ -85,7 +69,7 @@ public class BouncyBob {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("Task name for 'deadline' cannot be empty.");
                 }
-                database[pointer] = new Deadlines(taskName, datetime);
+                newTask = new Deadlines(taskName, datetime);
                 break;
             case "event":
                 taskName = arrayToString(parts, 1);
@@ -97,14 +81,15 @@ public class BouncyBob {
                 if (taskName.trim().isEmpty()) {
                     throw new IllegalArgumentException("Task name for 'event' cannot be empty.");
                 }
-                database[pointer] = new Events(taskName, fromTo[0], fromTo[1]);
+                newTask = new Events(taskName, fromTo[0], fromTo[1]);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid task type: " + taskType);
         }
+        database.add(newTask);
         System.out.println(TOP_BORDER);
-        System.out.println("Added to database: " + database[pointer].getDescription());
-        printTaskCount(pointer);
+        System.out.println("Added to database: " + newTask.getDescription());
+        printTaskCount(database.size() - 1);  // Adjusted to size of ArrayList
         System.out.println(BOTTOM_BORDER);
     }
 
@@ -139,6 +124,30 @@ public class BouncyBob {
         return fromTo;
     }
 
+    public static void modifyTask(String[] parts, ArrayList<Task> database) {
+        String action = parts[0];
+        int index = Integer.parseInt(parts[1]); // Adjust for 0-based index
+        System.out.println(TOP_BORDER);
+        switch(action) {
+            case "mark":
+                System.out.println("You've done it, very bouncy!");
+                database.get(index).setDone();
+                printTaskStatus(database.get(index));
+                break;
+            case "unmark":
+                System.out.println("Gotta pump for air! It's unmarked!");
+                database.get(index).setUnDone();
+                printTaskStatus(database.get(index));
+                break;
+            case "delete":
+                System.out.println("Task deleted: ");
+                printTaskStatus(database.get(index));
+                database.remove(index);
+                break;
+        }
+        System.out.println(BOTTOM_BORDER);
+    }
+
     private static void printTaskCount(int pointer) {
         String s = pointer == 0 ? "task" : "tasks";
         String str = String.format("Currently, you have %s %s, start bouncing!", pointer + 1, s);
@@ -152,8 +161,7 @@ public class BouncyBob {
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] database = new Task[100];
-        int pointer = 0;
+        ArrayList<Task> database = new ArrayList<>();
         System.out.println(TOP_BORDER);
         System.out.println(MIDDLE_BORDER);
         System.out.println("|                   Hey there!                 |");
@@ -170,19 +178,18 @@ public class BouncyBob {
                 printBye();
                 break;
             } else if (userInput.equals("list")) {
-                printDatabase(database, pointer);
+                printDatabase(database);  // Adjusted for ArrayList
             } else if (parts[0].equals("mark") || parts[0].equals("unmark") || parts[0].equals("delete")) {
                 try {
                     modifyTask(parts, database);
-                } catch (NullPointerException e) {
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println(TOP_BORDER);
-                    System.out.println("Make sure your index is within length of list!");
+                    System.out.println("Make sure your index is within the length of the list!");
                     System.out.println(BOTTOM_BORDER);
                 }
             } else {
                 try {
-                    addTaskAndPrint(parts, database, pointer);
-                    pointer++;
+                    addTaskAndPrint(parts, database);
                 } catch (IllegalArgumentException e) {
                     printIllegalArgumentException(e);
                 }
