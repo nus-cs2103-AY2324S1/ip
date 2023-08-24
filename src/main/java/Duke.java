@@ -36,8 +36,15 @@ public class Duke {
     // A display everytime receive an input
     private static void displayInfo(String msg) {
         System.out.println("____________________________________________");
-        System.out.println("Added: " + msg);
-        addTasks(new Task(msg));
+        System.out.println("Got it. I've added this task:");
+        if (msg.substring(0, 4).equals("todo")) {
+            addTasks(new ToDo(msg));
+        } else if(msg.substring(0, 8).equals("deadline")) {
+            addTasks(new Deadline(msg));
+        } else {
+            addTasks(new Event(msg));
+        }
+        System.out.println("Now you have " + Duke.index + " tasks in the list.");
         System.out.println("____________________________________________");
     }
 

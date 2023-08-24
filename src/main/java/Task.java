@@ -1,6 +1,6 @@
 public class Task {
-    private String Description;
-    private boolean isDone;
+    protected String Description;
+    protected boolean isDone;
 
     public Task(String Description) {
         this.Description = Description;
