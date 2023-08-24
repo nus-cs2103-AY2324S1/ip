@@ -3,6 +3,20 @@ import java.nio.file.Files;
 import java.util.Scanner;
 
 public class Peko {
+    enum CommandsInternal {
+        ECHO,
+        OTSUPEKO,
+        LIST,
+        WRITE,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        COPYPASTA
+
+    }
 
     private static Task[] todoList = new Task[100];
     private static int pos = 0;
@@ -12,38 +26,30 @@ public class Peko {
             "Usada Pekora-peko! almondo almondo!";
     private static final String exitText = "Otsupeko! Bye bye!";
     private static final String[] commands = new String[]
-            {"echo:","otsupeko", "list", "write:", "mark", "unmark",
-                    "todo", "deadline", "event","tell me a joke"};
+            {"echo:","otsupeko", "list", "write", "mark", "unmark",
+                    "todo", "deadline", "event", "delete","tell me a joke"};
 
-    private static final int ECHO = 0;
-    private static final int EXIT = 1;
-    private static final int READ = 2;
-    private static final int WRITE = 3;
-    private static final int MARK = 4;
-    private static final int UNMARK = 5;
-    private static final int TODO = 6;
-    private static final int DEADLINE = 7;
-    private static final int EVENT = 8;
 
-    private static final int COPYPASTA = 9;
     private static String currInput;
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) throws InvalidTaskException {
         String input;
         boolean loop = true;
         int responseValue;
+        CommandsInternal temp;
         intro();
 
         while (loop) {
             input = interaction();
-            responseValue = getResponseValue(input);
+            //responseValue = getResponseValue(input);
+            temp = getResponseValue(input);
             //System.out.println(responseValue);
-            switch (responseValue) {
+            switch (temp) {
                 case ECHO:
                     echo(input);
                     System.out.println(lineBreak);
                     break;
-                case READ:
+                case LIST:
                     readArray();
                     break;
                 case WRITE:
@@ -84,6 +90,9 @@ public class Peko {
                         System.out.println(lineBreak);
                     }
                     break;
+                case DELETE:
+                        setDelete(input);
+                        break;
                 case COPYPASTA:
                     try  {
                         degen();
@@ -93,7 +102,7 @@ public class Peko {
                         loop = false;
                     }
                     break;
-                case EXIT:
+                case OTSUPEKO:
                     loop = false;
                     break;
 
@@ -121,7 +130,7 @@ public class Peko {
         System.out.println(lineBreak);
         return currInput;
     }
-    public static int getResponseValue(String input) {
+    public static CommandsInternal getResponseValue(String input) {
         int output = 3;
         input = input.toLowerCase();
         for (int i = 0; i < commands.length; i++) {
@@ -130,8 +139,9 @@ public class Peko {
                 break;
             }
         }
-
-        return output;
+        String temp = commands[output].toUpperCase().trim();
+        System.out.println(temp);
+        return CommandsInternal.valueOf(temp);
     }
 
     public static void echo(String s) {
@@ -243,6 +253,22 @@ public class Peko {
             System.out.println("That's not a number Bakatare!");
         }
         System.out.println(lineBreak);
+    }
+
+    public static void setDelete(String s) {
+        try {
+            s = s.split(" ", 2)[1];
+            int markIndex = Integer.parseInt(s)-1;
+            while (markIndex <= pos) {
+                todoList[markIndex] = todoList[markIndex+1];
+                markIndex++;
+            }
+            pos--;
+        } catch (NumberFormatException e) {
+            System.out.println("That's not a number Bakatare!");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("That's not a number in the list Peko!");
+        }
     }
     public static void degen() throws FileNotFoundException {
         File text = new File("src/main/Copypasta.txt");
