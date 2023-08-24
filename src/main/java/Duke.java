@@ -15,18 +15,13 @@ public class Duke {
     }
 
     public void run() {
-        String intro1 = String.format("I'm %s. You called me?" +
-                "\n", name);
-        String intro2 = "Make it quick, thanks.";
-        System.out.println(intro1);
-        System.out.println(intro2 + "\n");
-        printHorizontalLine();
+        this.printSelfIntroduction();
         Scanner sc = new Scanner(System.in);
         while (this.isRunning) {
             String msg = sc.nextLine();
-            readInput(msg);
+            this.readInput(msg);
         }
-        exit();
+        this.exit();
     }
 
     public void printHorizontalLine() {
@@ -36,25 +31,57 @@ public class Duke {
         System.out.println();
     }
 
-    public void exit() {
-        System.out.println("Don't let me see you again!");
+    public void printCommands() {
+        System.out.printf("\033[3mtask\033[0m - Create a new task%n");
+        System.out.printf("\033[3mtodo\033[0m - Create a new todo%n");
+        System.out.printf("\033[3mdeadline\033[0m - Create a new deadline%n");
+        System.out.printf("\033[3mevent\033[0m - Create a new event%n");
+        System.out.printf("\033[3mlist\033[0m - View your current tasks and completion status%n");
+        System.out.printf("\033[3mmark\033[0m - Mark a task as complete%n");
+        System.out.printf("\033[3munmark\033[0m - Mark a task as incomplete%n");
+        System.out.printf("\033[3mbye\033[0m - Exit the program%n");
         printHorizontalLine();
-        System.exit(0);
+    }
+
+    public void printSelfIntroduction() {
+        System.out.printf("I'm %s. You called me?%n", this.name);
+        System.out.printf("Make it quick, thanks.%n");
+        System.out.println("Anyway, I only support the following commands:" + "\n");
+        printCommands();
+    }
+
+    public void printConfirmation() {
+        System.out.println();
+        System.out.printf("Anything else you want me to do?%n");
+        System.out.printf("Just so you know, you can input \033[3mcommands\033[0m " +
+                "to view the commands again.%n");
+        printHorizontalLine();
+        Scanner sc = new Scanner(System.in);
+        String message = sc.nextLine();
+        if (message.equals("commands")) {
+            this.printCommands();
+        } else {
+            this.readInput(message);
+        }
+    }
+
+    public boolean checkValidTask(String details) {
+        return !details.isEmpty();
+    }
+
+    public boolean checkDuplicates(String details) {
+        for (Task t : tasks) {
+            if (details.equals(t.getDetails())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void readInput(String message) {
         switch (message) {
-            case "bye":
-                this.isRunning = false;
-                break;
-            case "list":
-                this.list();
-                break;
-            case "mark":
-                this.markAsComplete();
-                break;
-            case "unmark":
-                this.markAsIncomplete();
+            case "task":
+                this.createTask();
                 break;
             case "todo":
                 this.createToDo();
@@ -65,12 +92,93 @@ public class Duke {
             case "event":
                 this.createEvent();
                 break;
+            case "list":
+                this.list();
+                break;
+            case "mark":
+                this.markAsComplete();
+                break;
+            case "unmark":
+                this.markAsIncomplete();
+                break;
+            case "bye":
+                this.isRunning = false;
+                break;
             default:
-                tasks.add(new Task(message));
-                numOfTasks++;
-                System.out.printf("Don't expect me to %s for you!%n", message);
+                System.out.printf("I'm just a robot!%n" +
+                        "I don't understand what %s is!%n", message);
                 printHorizontalLine();
                 break;
+        }
+    }
+
+    public String checkUserInput(String taskType, String input) {
+        Scanner sc = new Scanner(System.in);
+        System.out.printf("Input %s %s.%n", taskType, input);
+        String message = sc.nextLine();
+        if (!checkValidTask(message)) {
+            System.out.printf("The %s %s cannot be empty.", taskType, input);
+            printConfirmation();
+            return null;
+        } else if (checkDuplicates(message)) {
+            System.out.printf("Task %s already exists.", message);
+            printConfirmation();
+            return null;
+        }
+        return message;
+    }
+
+    public void createTask() {
+        String details = checkUserInput("task", "details");
+        if (details != null) {
+            tasks.add(new Task(details));
+            numOfTasks++;
+            System.out.printf("Don't expect me to %s for you!%n", details);
+            printConfirmation();
+        }
+    }
+
+    public void createToDo() {
+        String details = checkUserInput("todo", "details");
+        if (details != null) {
+            tasks.add(new ToDo(details));
+            numOfTasks++;
+            System.out.printf("Stop talking to me! Go and %s!%n", details);
+            printConfirmation();
+        }
+    }
+
+    public void createDeadline() {
+        String details = checkUserInput("deadline","details");
+        if (details == null) {
+            return;
+        }
+        String due = checkUserInput("deadline", "due date");
+        if (due != null) {
+            tasks.add(new Deadline(details, due));
+            numOfTasks++;
+            System.out.printf("Just saying, better %s now.%n" +
+                    "Not like it's my problem if you don't.%n", details);
+            printConfirmation();
+        }
+    }
+
+    public void createEvent() {
+        String details = checkUserInput("event", "details");
+        if (details == null) {
+            return;
+        }
+        String start = checkUserInput("event","start time");
+        if (start == null) {
+            return;
+        }
+        String end = checkUserInput("event", "end time");
+        if (end != null) {
+            tasks.add(new Event(details, start, end));
+            numOfTasks++;
+            System.out.printf("Wow, you have a %s at %s?%n" +
+                    "Uhh, n-not like I wanna join you!%n", details, start);
+            printConfirmation();
         }
     }
 
@@ -86,7 +194,7 @@ public class Duke {
         } else {
             System.out.println("Don't expect me to remember them for you!");
         }
-        printHorizontalLine();
+        printConfirmation();
     }
 
     public void markAsComplete() {
@@ -115,7 +223,7 @@ public class Duke {
                 }
                 break;
         }
-        printHorizontalLine();
+        printConfirmation();
     }
 
     public void markAsIncomplete() {
@@ -144,7 +252,7 @@ public class Duke {
                 }
                 break;
         }
-        printHorizontalLine();
+        printConfirmation();
     }
 
     public int launchConfirmationScreen(String message) {
@@ -165,42 +273,10 @@ public class Duke {
         }
     }
 
-    public void createToDo() {
-        Scanner sc = new Scanner(System.in);
-        System.out.printf("Input task details.%n");
-        String message = sc.nextLine();
-        tasks.add(new ToDo(message));
-        numOfTasks++;
-        System.out.printf("Stop talking to me! Go and %s!%n", message);
+    public void exit() {
+        System.out.println("Don't let me see you again!");
         printHorizontalLine();
-    }
-
-    public void createDeadline() {
-        Scanner sc = new Scanner(System.in);
-        System.out.printf("Input task details.%n");
-        String message = sc.nextLine();
-        System.out.printf("Input task deadline.%n");
-        String due = sc.nextLine();
-        tasks.add(new Deadline(message, due));
-        numOfTasks++;
-        System.out.printf("Just saying, better %s now.%n" +
-                "Not like it's my problem if you don't.%n", message);
-        printHorizontalLine();
-    }
-
-    public void createEvent() {
-        Scanner sc = new Scanner(System.in);
-        System.out.printf("Input task details.%n");
-        String message = sc.nextLine();
-        System.out.printf("Input start time.%n");
-        String start = sc.nextLine();
-        System.out.printf("Input end time.%n");
-        String end = sc.nextLine();
-        tasks.add(new Event(message, start, end));
-        numOfTasks++;
-        System.out.printf("Wow, you have a %s at %s?%n" +
-                "Uhh, n-not like I wanna join you!%n", message, start);
-        printHorizontalLine();
+        System.exit(0);
     }
 
     public static void main(String[] args) {

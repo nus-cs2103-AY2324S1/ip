@@ -16,6 +16,10 @@ public class Task {
         this.isCompleted = false;
     }
 
+    protected String getDetails() {
+        return this.details;
+    }
+
     @Override
     public String toString() {
         if (this.isCompleted) {
