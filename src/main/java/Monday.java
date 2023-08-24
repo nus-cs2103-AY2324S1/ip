@@ -51,7 +51,7 @@ public class Monday {
             }
             case "unmark": {
                 if (content == null) {
-                    throw new MondayExceptions("UnMark requires a index to mark the task as completed.");
+                    throw new MondayExceptions("UnMark requires a index to mark the task as uncompleted.");
                 }
 
                 int index = Integer.parseInt(content);
