@@ -4,11 +4,11 @@
 public class SaeException extends Exception {
 
     /**
-     * Constructs a new SaeException with the specified error message.
+     * Returns a formatted error message to indicate that the chatbot is unable to understand the input.
      *
-     * @param errorMessage The error message associated with the exception.
+     * @return A string containing the error message.
      */
-    public SaeException(String errorMessage) {
-        super(errorMessage);
+    public String toString() {
+        return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 }

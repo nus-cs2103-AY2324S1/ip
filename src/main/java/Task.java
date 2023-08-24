@@ -20,7 +20,7 @@ public class Task {
      *
      * @return The status icon of the task.
      */
-    public String getStatusIcon() {
+    public String getStatus() {
         return (isDone ? "X" : " ");
     }
 
@@ -30,7 +30,7 @@ public class Task {
      * @return The description of the task.
      */
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatus() + "] " + this.description;
     }
 
     /**
