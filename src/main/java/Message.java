@@ -43,6 +43,18 @@ public class Message {
         return new Message( "Sorry, " + inputComponent + "isn't a number.");
     }
 
+    public static Message NoCommandFound() {
+        return new Message( "Sorry, I don't know what that means!");
+    }
+
+    public static Message EmptyTaskName() {
+        return new Message ( "Sorry, a task needs a name!");
+    }
+
+    public static Message OnTaskIndexOutOfRange() {
+        return new Message ( "Sorry, that task index is not in range!");
+    }
+
     public Message ChainTo(Message message, String splitString) {
         return new Message(this.content + splitString + message.content);
     }

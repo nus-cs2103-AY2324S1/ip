@@ -11,11 +11,14 @@ public class Task {
     protected String insertColonInTime(String time) {
         return time.replaceFirst(" ", ": ");
     }
-    public Task(String name) {
+    public Task(String name) throws DukeException.EmptyTaskDescException {
+        if(name.isBlank()) {
+            throw new DukeException.EmptyTaskDescException();
+        }
         this.name = name;
     }
 
-    public static Task Of(String task, TaskType taskType) {
+    public static Task Of(String task, TaskType taskType) throws DukeException.EmptyTaskDescException {
         switch (taskType) {
             case TODO:
                 return new Todo(task);
