@@ -1,10 +1,12 @@
 import java.util.Scanner;
 import java.lang.Exception;
+import java.util.ArrayList;
+
 public class Duke {
     public static void main(String[] args) {
         String space = "------------------------------------"; // for spacing purposes
         String name = "Adam's Bot"; // name of bot
-        Task[] toDoList = new Task[100]; // list to store the items
+        ArrayList<Task> toDoList = new ArrayList<Task>(); // ArrayList to store the items
         int counter = 0; // counter to keep track of pointer
 
         System.out.println(space);
@@ -23,15 +25,15 @@ public class Duke {
                 System.out.println(space);
 
                 //iterate through list to print items
-                for (int i = 0; i < counter; i++) {
+                for (int i = 0; i < toDoList.size(); i++) {
                     int currentNumber = i + 1;
-                    System.out.println(currentNumber + ". " + toDoList[i].toString());
+                    System.out.println(currentNumber + ". " + toDoList.get(i).toString());
                 }
                 System.out.println(space);
 
             } else if (userInput.toLowerCase().startsWith("mark")) {
                 int index = Integer.parseInt(userInput.split(" ")[1]) -1;
-                Task task = toDoList[index];
+                Task task = toDoList.get(index);
                 System.out.println(space);
                 task.markDone();
                 System.out.println("Nice! I've marked this task as done:");
@@ -39,7 +41,7 @@ public class Duke {
                 System.out.println(space);
             } else if (userInput.toLowerCase().startsWith("unmark")) {
                 int index = Integer.parseInt(userInput.split(" ")[1]) -1;
-                Task task = toDoList[index];
+                Task task = toDoList.get(index);
                 System.out.println(space);
                 task.unmarkDone();
                 System.out.println("Nice! I've marked this task as done:");
@@ -50,7 +52,7 @@ public class Duke {
                     String taskName = userInput.split(" ", 2)[1];
                     //add item into list
                     ToDo task = new ToDo(taskName);
-                    toDoList[counter] = task;
+                    toDoList.add(counter, task);
                     counter++;
                     System.out.println(space);
                     System.out.println("Got it. I've added this task:");
@@ -69,7 +71,7 @@ public class Duke {
                     String dueDate = userInput.split(" /by ", 2)[1];
                     //add item into list
                     Deadline task = new Deadline(taskName, dueDate);
-                    toDoList[counter] = task;
+                    toDoList.add(counter, task);
                     counter++;
 
                     System.out.println(space);
@@ -97,7 +99,7 @@ public class Duke {
                     String dueDate = userInput.split(" /from | /to ", 3)[2];
                     //add item into list
                     Event task = new Event(taskName, startDate, dueDate);
-                    toDoList[counter] = task;
+                    toDoList.add(counter, task);
                     counter++;
 
                     System.out.println(space);
@@ -117,6 +119,22 @@ public class Duke {
                     }
                 }
 
+            } else if (userInput.toLowerCase().startsWith("delete")) {
+                try {
+                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    Task task = toDoList.get(index);
+                    toDoList.remove(index);
+                    counter--;
+                    System.out.println(space);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + task.toString());
+                    System.out.println("Now you have " + counter + " tasks in the list.");
+                    System.out.println(space);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(space);
+                    System.out.println("☹ OOPS!!! The task number you entered is not in the list.");
+                    System.out.println(space);
+                }
             } else {
                 System.out.println(space);
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
