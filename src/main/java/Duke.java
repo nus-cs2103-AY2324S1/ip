@@ -21,13 +21,17 @@ public class Duke {
                     System.out.println(" " + (i + 1) + "." + helper(actions[i], type[i], isDone[i]));
                 }
             } else if (input.startsWith("todo")) {
-                String action = input.substring(5).trim();
-                isDone[counter] = false;
-                actions[counter] = action;
-                type[counter] = "T";
-                counter++;
-                System.out.println(" Got it. I've added this task:\n   " + helper(action, "T", false));
-                System.out.println(" Now you have " + counter + " tasks in the list.");
+                if (input.length() <= 4) {
+                    System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
+                } else {
+                    String action = input.substring(5).trim();
+                    isDone[counter] = false;
+                    actions[counter] = action;
+                    type[counter] = "T";
+                    counter++;
+                    System.out.println(" Got it. I've added this task:\n   " + helper(action, "T", false));
+                    System.out.println(" Now you have " + counter + " tasks in the list.");
+                }
             } else if (input.startsWith("deadline")) {
                 String action = input.substring(9, input.indexOf("/by")).trim();
                 String by = input.substring(input.indexOf("/by") + 3).trim();
@@ -60,6 +64,9 @@ public class Duke {
                     isDone[num2] = false;
                     System.out.println(" OK, I've marked this task as not done yet:");
                     System.out.println("   " + helper(actions[num2], type[num2], isDone[num2]));
+                } else {
+                      System.out.println("   ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+
                 }
             }
             System.out.println("____________________________________________________________");
