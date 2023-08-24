@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
 
-    private ArrayList<String> l;
+    private ArrayList<Task> l;
 
     private Duke() {
         this.l = new ArrayList<>();
@@ -36,15 +36,22 @@ public class Duke {
     private void respond(String s) {
         if (s.equals("list")) {
             int count = 1;
-            for(String ss : this.l) {
-                String res = String.format("%d. %s", count++, ss);
+            for(Task ss : this.l) {
+                String res = String.format("%d. [%s] %s", count++, ss.getStatusIcon(), ss.toString());
                 System.out.println(res);
             }
         } else if (s.equals("bye")) {
             end();
-        } else {
-            this.l.add(s);
-            String res = String.format("added: %s", s);
+        } else if (s.substring(0,4).equals("mark")) {
+            int idx = Integer.parseInt(s.substring(5));
+            this.l.get(idx-1).mark();
+        } else if (s.substring(0,6).equals("unmark")) {
+            int idx = Integer.parseInt(s.substring(7));
+            this.l.get(idx-1).unmark();
+        }
+        else {
+            this.l.add(new Task(s));
+            String res = String.format("added: %s", s.toString());
             System.out.println(res);
         }
     }
