@@ -2,7 +2,7 @@
  * A class which inherits from Task class.
  * Represents a task with deadline but no start time.
  */
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     /** The due date of this task. */
     protected String endTime;

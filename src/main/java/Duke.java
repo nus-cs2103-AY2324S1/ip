@@ -21,29 +21,27 @@ public class Duke {
      *
      */
     public static void handleUserInput() {
-
         Scanner scanner = new Scanner(System.in);
         TaskList taskList = new TaskList();
         System.out.println();
         String userInput = scanner.nextLine();
-        Instruction instruction = Parser.parse(userInput, taskList);
         drawLine();
 
         while (true) {
-            if (instruction != null) {
+            try {
+                Instruction instruction = Parser.parse(userInput, taskList);
                 if (instruction instanceof Instruction.Exit) {
                     break;
                 } else {
                     instruction.execute();
                 }
-            } else {
-                System.out.println("\tInvalid input. Try again.");
+            } catch (DukeException d){
+                System.out.println("\t" + d.getMessage());
             }
-
             drawLine();
             System.out.println();
             userInput = scanner.nextLine();
-            instruction = Parser.parse(userInput, taskList);
+
             drawLine();
         }
     }

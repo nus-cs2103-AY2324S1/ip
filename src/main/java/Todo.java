@@ -2,7 +2,7 @@
  * A class which inherits from Task class.
  * Represents a task without deadline or start time.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Initialises with the given description.
@@ -20,6 +20,7 @@ public class Todo extends Task{
      */
     @Override
     public String toString() {
+
         return "[T]" + super.toString();
     }
 

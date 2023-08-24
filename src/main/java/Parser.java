@@ -13,88 +13,88 @@ public class Parser {
      * @param taskList The taskList of the bot to perform instructions on.
      * @return Returns an instance of Instruction if parse was successful and null if not.
      */
-    public static Instruction parse(String userInput, TaskList taskList) {
+    public static Instruction parse(String userInput, TaskList taskList) throws DukeException {
         
         String[] formattedUserInput = userInput.split(" ", 2);
 
         switch (formattedUserInput[0]) {
         case "bye":
             if (formattedUserInput.length > 1 && !formattedUserInput[1].isEmpty()) {
-                return null;
+                throw new DukeException("The description of bye must be empty. Try again.");
             } else {
                 return new Instruction.Exit();
             }
         case "list":
             if (formattedUserInput.length > 1 && !formattedUserInput[1].trim().isEmpty()) {
-                return null;
+                throw new DukeException("The description of list must be empty. Try again.");
             } else {
                 return new Instruction.List(taskList);
             }
         case "mark":
-            if (formattedUserInput.length == 1) {
-                return null;
+            if (formattedUserInput.length == 1 || formattedUserInput[1].isEmpty()) {
+                throw new DukeException("The description of mark cannot be empty. Try again.");
             } else {
                 try {
                     Integer index = Integer.parseInt(formattedUserInput[1]);
                     if (index > taskList.size() || index <= 0) {
-                        return null;
+                        throw new DukeException("The index is not a valid index. Try again.");
                     } else {
                         return new Instruction.Mark(index, taskList);
                     }
                 } catch (NumberFormatException n) {
-                    return null;
+                    throw new DukeException("The index is not a valid index. Try again.");
                 }
             }
         case "unmark":
-            if (formattedUserInput.length == 1) {
-                return null;
+            if (formattedUserInput.length == 1 || formattedUserInput[1].isEmpty()) {
+                throw new DukeException("The description of unmark cannot be empty. Try again.");
             } else {
                 try {
                     Integer index = Integer.parseInt(formattedUserInput[1]);
                     if (index > taskList.size() || index <= 0) {
-                        return null;
+                        throw new DukeException("The index is not a valid index. Try again.");
                     } else {
                         return new Instruction.Unmark(index, taskList);
                     }
                 } catch (NumberFormatException n) {
-                    return null;
+                    throw new DukeException("The index is not a valid index. Try again.");
                 }
             }
         case "todo":
-            if(formattedUserInput.length == 1){
-                return null;
+            if(formattedUserInput.length == 1 || formattedUserInput[1].isEmpty()){
+                throw new DukeException("The description of a todo cannot be empty. Try again.");
             } else {
                 return new Instruction.Add(new Todo(formattedUserInput[1]), taskList);
             }
         case "deadline":
-            if (formattedUserInput.length == 1) {
-                return null;
+            if (formattedUserInput.length == 1 || formattedUserInput[1].isEmpty()) {
+                throw new DukeException("The description of a deadline cannot be empty. Try again.");
             } else {
                 String[] temp = formattedUserInput[1].split(" /by ", 2);
-                if (temp.length == 1) {
-                    return null;
+                if (temp.length == 1 || temp[1].isEmpty() || temp[0].isEmpty()) {
+                    throw new DukeException("Insufficient number of arguments for a deadline. Try again.");
                 } else {
                     return new Instruction.Add(new Deadline(temp[0], temp[1]), taskList);
                 }
             }
         case "event":
-            if (formattedUserInput.length ==1) {
-                return null;
+            if (formattedUserInput.length ==1 || formattedUserInput[1].isEmpty()) {
+                throw new DukeException("The description of an event cannot be empty. Try again.");
             } else {
                 String[] temp = formattedUserInput[1].split(" /from ", 2);
-                if (temp.length == 1) {
-                    return null;
+                if (temp.length == 1 || temp[1].isEmpty() || temp[0].isEmpty()) {
+                    throw new DukeException("Insufficient number of arguments for an event. Try again.");
                 } else {
                     String[] dates = temp[1].split(" /to ", 2);
-                    if (dates.length == 1) {
-                        return null;
+                    if (dates.length == 1 || dates[0].isEmpty() || dates[1].isEmpty()) {
+                        throw new DukeException("Insufficient number of arguments for an event. Try again.");
                     } else {
                         return new Instruction.Add(new Event(temp[0], dates[0], dates[1]), taskList);
                     }
                 }
             }
         default:
-            return null;
+            throw new DukeException("Unrecognized instruction. Try again.");
         }
     }
 }
