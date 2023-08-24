@@ -19,48 +19,11 @@ public class Duke {
                 continue;
             }
 
-            if (text.equals("list")) {
-                tasks.listTasks();
-                continue;
-            }
-
-            if (text.startsWith("mark")) {
-                String[] words = text.split(" ");
-                try {
-                    int number = Integer.parseInt(words[1]);
-                    Task task = tasks.getTask(number);
-                    if (task != null) {
-                        task.mark(true);
-                    }
-                } catch (Exception ex) {
-                    // ignore
-                }
-                continue;
-            }
-
-            if (text.startsWith("unmark")) {
-                String[] words = text.split(" ");
-                try {
-                    int number = Integer.parseInt(words[1]);
-                    Task task = tasks.getTask(number);
-                    if (task != null) {
-                        task.mark(false);
-                    }
-                } catch (Exception ex) {
-                    // ignore
-                }
-                continue;
-            }
-
-            System.out.println(line);
-            System.out.println("    added: " + text);
-            tasks.addTask(new Task(text));
-            System.out.println(line);
-
             if (text.equals("bye")) {
                 break;
             }
 
+            tasks.handle(text);
         }
         printExit();
     }
@@ -79,7 +42,7 @@ public class Duke {
 
     private static void printExit() {
         System.out.println(line);
-        System.out.println("    Bye. Hope to see you again soon!");
+        System.out.println("    Bye. Hpoe to see you again soon!");
         System.out.println(line);
     }
 }
