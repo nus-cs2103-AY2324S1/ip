@@ -185,18 +185,42 @@ public class Duke {
 
         private String getDescription(String input) {
             if (this.taskType == TaskType.TODO) {
+                if (input.split(" ", 2).length == 1) {
+                    return null;
+                }
                 return input.split(" ", 2)[1];
             }
 
             if (this.taskType == TaskType.DEADLINE) {
+                if (input.split(" ", 2).length == 1) {
+                    return null;
+                }
+
                 String[] split = input.split(" ", 2)[1].split(" /by ");
+
+                if (split.length == 1) {
+                    return null;
+                }
+
                 this.dateEnd = split[1];
                 return split[0];
             }
 
             if (this.taskType == TaskType.EVENT) {
+                if (input.split(" ", 2).length == 1) {
+                    return null;
+                }
+
                 String[] split = input.split(" ", 2)[1].split(" /from ");
+                if (split.length == 1) {
+                    return null;
+                }
+
                 String[] split2 = split[1].split(" /to ");
+                if (split2.length == 1) {
+                    return null;
+                }
+
                 this.dateStart = split2[0];
                 this.dateEnd = split2[1];
                 return split[0];
