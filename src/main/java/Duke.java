@@ -49,6 +49,13 @@ public class Duke {
                 String[] timePart = taskPart[1].split(" /to ", 2);
                 Duke.list.addTask(new Event(taskPart[0], timePart[0], timePart[1]));
                 break;
+            case "delete":
+                try {
+                    Duke.list.delete(Integer.parseInt(details));
+                } catch (NumberFormatException e) {
+                    throw new DukeException("Please enter a valid number...");
+                }
+                break;
             default:
                 throw new DukeException("I have no idea what that means...");
         }

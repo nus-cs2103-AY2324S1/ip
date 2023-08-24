@@ -33,4 +33,14 @@ public class ToDoList {
         System.out.println(task);
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
     }
+
+    public void delete(int taskNum) {
+        Task task = this.list.get(taskNum - 1);
+        this.list.remove(taskNum - 1);
+        System.out.println("–––––––––––––––––––––––––––––––––––––––––");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(task);
+        System.out.println("Now you have " + this.list.size() + " tasks in the list.");
+        System.out.println("–––––––––––––––––––––––––––––––––––––––––");
+    }
 }
