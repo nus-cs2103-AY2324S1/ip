@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Duke {
 
     public static void talk(String str) {
-        String line = "\u2500".repeat(50);
+        String line = "_".repeat(50);
         System.out.println(line);
         System.out.println(str);
         System.out.println(line);
