@@ -1,5 +1,7 @@
 package com.alpha.tasks;
 
+import com.alpha.enums.TagEnum;
+
 public class Event extends Task {
 
   private final String start;
@@ -8,7 +10,7 @@ public class Event extends Task {
 
   public Event(String name, String start, String end) {
     super(name);
-    this.setTag("[E]");
+    this.setTag(TagEnum.EVENT);
     this.start = start;
     this.end = end;
   }

@@ -1,5 +1,6 @@
 package com.alpha.tasks;
 
+import com.alpha.enums.MarkEnum;
 import com.alpha.exceptions.InvalidTaskException;
 import com.alpha.exceptions.InvalidTaskException.UnknownTaskException;
 import com.alpha.utils.Parser;
@@ -50,7 +51,7 @@ public class TaskList {
       throw new InvalidTaskException("Task does not exist, please enter valid task number");
     }
     Task task = tasks.get(taskNumber - 1);
-    task.setMark("[X]");
+    task.setMark(MarkEnum.DONE);
     System.out.println("Nice! I've marked this task as done:");
     System.out.println(task);
   }
@@ -60,7 +61,7 @@ public class TaskList {
       throw new InvalidTaskException("Task does not exist, please enter valid task number");
     }
     Task task = tasks.get(taskNumber - 1);
-    task.setMark("[ ]");
+    task.setMark(MarkEnum.NOTDONE);
     System.out.println("OK, I've marked this task as not done yet:");
     System.out.println(task);
   }

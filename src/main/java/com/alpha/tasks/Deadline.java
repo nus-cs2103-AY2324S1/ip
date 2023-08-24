@@ -1,12 +1,14 @@
 package com.alpha.tasks;
 
+import com.alpha.enums.TagEnum;
+
 public class Deadline extends Task {
 
   private final String end;
 
   public Deadline(String name, String end) {
     super(name);
-    this.setTag("[D]");
+    this.setTag(TagEnum.DEADLINE);
     this.end = end;
   }
 

@@ -1,29 +1,37 @@
 package com.alpha.tasks;
 
+import com.alpha.enums.MarkEnum;
+import com.alpha.enums.TagEnum;
+import javax.swing.text.html.HTML.Tag;
+
 public class Task {
 
-  private String tag;
+  private TagEnum tag;
 
-  private String mark;
+  private MarkEnum mark;
 
   private final String name;
 
   public Task(String name) {
-    this.tag = "[ ]";
-    this.mark = "[ ]";
+    this.tag = TagEnum.EMPTY;
+    this.mark = MarkEnum.NOTDONE;
     this.name = name;
   }
 
-  public void setTag(String tag) {
+  public void setTag(TagEnum tag) {
     this.tag = tag;
   }
 
-  public void setMark(String mark) {
+  public void setMark(MarkEnum mark) {
     this.mark = mark;
+  }
+
+  public String wrap(String text) {
+    return "[" + text + "]";
   }
 
   @Override
   public String toString() {
-    return this.tag + this.mark + " " + this.name;
+    return wrap(this.tag.getTag()) + wrap(this.mark.getMark()) + " " + this.name;
   }
 }
