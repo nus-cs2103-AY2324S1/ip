@@ -23,6 +23,17 @@ class TaskList {
     }
 
     /**
+     * Returns a new task list after deleting task.
+     * @param task Task to be removed
+     * @return Task list after removing task
+     */
+    public TaskList deleteTask(Task task) {
+        ArrayList<Task> updatedTasks = this.tasks;
+        updatedTasks.remove(task);
+        return new TaskList(updatedTasks);
+    }
+
+    /**
      * Returns a task based on the specified task number.
      * @param taskNumber Task to be added
      * @return Task of the specified number
@@ -30,7 +41,6 @@ class TaskList {
     public Task getTask(int taskNumber) {
         return this.tasks.get(taskNumber - 1);
     }
-
 
     /**
      * Returns a new task list with marked task.

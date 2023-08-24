@@ -63,11 +63,21 @@ public class Bocchi {
                 task = new Todo(input);
         }
         System.out.println(LINE_BREAK);
-        TaskList newTaskList = taskList.add(task);
+        TaskList newTaskList = taskList.addTask(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.printf("Now you have %d tasks in the list.%n", taskList.size());
         System.out.println(LINE_BREAK);
+        return newTaskList;
+    }
+
+    private static TaskList deleteTask(int taskNumber, TaskList taskList) {
+        System.out.println(LINE_BREAK);
+        System.out.println("Noted. I've removed this task:");
+        Task toDelete = taskList.getTask(taskNumber);
+        TaskList newTaskList = taskList.deleteTask(toDelete);
+        System.out.println(toDelete);
+        System.out.printf("Now you have %d tasks in the list.%n", newTaskList.size());
         return newTaskList;
     }
 
@@ -134,6 +144,9 @@ public class Bocchi {
                         break;
                     case "unmark":
                         taskList = unmarkTask(Integer.parseInt(tokens[1]), taskList);
+                        break;
+                    case "delete":
+                        taskList = deleteTask(Integer.parseInt(tokens[1]), taskList);
                         break;
                     case "todo":
                     case "deadline":
