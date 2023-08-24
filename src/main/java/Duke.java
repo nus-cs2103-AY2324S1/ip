@@ -21,6 +21,8 @@ correct status icon, by creating a new task array of tasks instead of a string a
 // Solution below inspired by https://stackoverflow.com/questions/10405789/regex-append-or-replace-only-the-first-letter-of-each-word
 // Solution below inspired by https://www.programiz.com/java-programming/library/string/replacefirst
 // Solution below adapted by ChatGPT, to solve the exception error when invoking last line of the loop. when there is no next line.
+// Solution below inspired by https://stackoverflow.com/questions/32733084/pass-a-simple-enum-into-a-constructor-in-java
+// Solution below inspired from ChatGPT, seeked clarification if the enums have to be passed into the child classes of parent class Task's constructor
 
 public class Duke {
     public static void main(String[] args) throws DukeException.NoSuchItemException, DukeException.ToDoException {
@@ -44,6 +46,12 @@ public class Duke {
                 }
                 if (user_text.equals("blah")) {
                     throw new DukeException.NoSuchItemException();
+                }
+                if (user_text.equals("event")) {
+                    throw new DukeException.EventException();
+                }
+                if (user_text.equals("deadline")) {
+                    throw new DukeException.DeadlineException();
                 }
 
                 if (user_text.equals("bye")) {
@@ -135,7 +143,7 @@ public class Duke {
                         System.out.println(separators);
                     }
                 } else {
-                    tasks.add(new Task(user_text));
+                    tasks.add(new Task(user_text, Task.Type.OTHERS));
                     num_items++;
                     System.out.println(separators + "\n" + "added: " + user_text + "\n" + separators);
                 }
@@ -146,6 +154,14 @@ public class Duke {
             } catch (DukeException.NoSuchItemException e) {
                 System.out.println("____________________________________________________________");
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("____________________________________________________________");
+            } catch (DukeException.EventException e) {
+                System.out.println("____________________________________________________________");
+                System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
+                System.out.println("____________________________________________________________");
+            } catch (DukeException.DeadlineException e) {
+                System.out.println("____________________________________________________________");
+                System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
                 System.out.println("____________________________________________________________");
             }
             user_text = sc.hasNextLine() ? sc.nextLine() : "";

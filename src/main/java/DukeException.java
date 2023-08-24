@@ -15,4 +15,15 @@ public class DukeException extends Exception {
             super("invalid command");
         }
     }
+    public static class EventException extends DukeException{
+        public EventException() {
+            super("event cannot be empty");
+        }
+    }
+
+    public static class DeadlineException extends DukeException{
+        public DeadlineException() {
+            super("deadline cannot be empty");
+        }
+    }
 }
