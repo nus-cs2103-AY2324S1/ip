@@ -236,6 +236,19 @@ public class Duchess {
         return m.group(1);
     }
 
+    /**
+     * Adds a new ToDo task with the specified title.
+     *
+     * @param s - the title of the ToDo.
+     */
+    private static void addToDoTask(String s) {
+        Task todo = new ToDo(s);
+        Duchess.storedTasks.add(todo);
+
+        Duchess.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
+        Duchess.duchessPrint(todo.toString());
+    }
+
     public static void main(String[] args) {
         Duchess.printGreeting();
 
