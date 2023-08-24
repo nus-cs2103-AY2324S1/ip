@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
@@ -5,22 +7,24 @@ public class Duke {
 
     private static void respond(String message) {
         System.out.println(LINE_SEPARATOR);
-        System.out.println("     " + message);
+        System.out.println(String.format("     %s",  message));
         System.out.println(LINE_SEPARATOR);
         System.out.print(">> ");
     }
 
-    private static void respond(String[] messages) {
+    private static void respond(List<String> messages) {
         System.out.println(LINE_SEPARATOR);
-        for (int i = 0; i < messages.length; i++) {
-                System.out.println("     " + messages[i]);
+        for (String message: messages) {
+            System.out.println(String.format("     %s",  message));
         }
         System.out.println(LINE_SEPARATOR);
         System.out.print(">> ");
     }
     
     private static void greet() {
-        String[] messages = new String[] {"Hello! I'm A-CAT (Automated Chatbot Assistant for Tasks)", "What do you want to do today?"};
+        ArrayList<String> messages = new ArrayList<String>();
+        messages.add("Hello! I'm A-CAT (Automated Chatbot Assistant for Tasks)");
+        messages.add("What do you want to do today?");
         Duke.respond(messages);
     }
 
@@ -28,10 +32,11 @@ public class Duke {
         Duke.respond("Bye. Hope to see you again soon!");
     }
 
-    private static void listTasks(String[] tasks, int numberOfTasks) {
-        String[] output = new String[numberOfTasks];
-        for (int i = 0; i < numberOfTasks; i++) {
-            output[i] = (i + 1) + ". " + tasks[i];
+    private static void listTasks(ArrayList<String> tasks) {
+        ArrayList<String> output = new ArrayList<String>(tasks);
+        for (int i = 0; i < tasks.size(); i++) {
+            String taskOutput = String.format("%d. %s", i + 1, tasks.get(i));
+            output.set(i, taskOutput);
         }
         Duke.respond(output);
     }
@@ -41,8 +46,7 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
 
-        String[] tasks = new String[100];
-        int numberOfTasks = 0;
+        ArrayList<String> tasks = new ArrayList<>();
 
         Boolean programRunning = true;
 
@@ -52,10 +56,10 @@ public class Duke {
             if (input.equals("bye")) {
                 programRunning = false;
             } else if (input.equals("list")) {
-                Duke.listTasks(tasks, numberOfTasks);
+                Duke.listTasks(tasks);
             } else {
                 Duke.respond("Added: " + input);
-                tasks[numberOfTasks++] = input;
+                tasks.add(input);
             }
         }
 
