@@ -23,16 +23,6 @@ public class Corubi {
         String[] commandList = {"todo", "deadline", "event", "mark", "unmark", "bye"};
         Collections.addAll(commands, commandList);
 
-        // Check if input command is in the list of accepted commands
-        try {
-            if (!commands.contains(input.split(" ")[0])) {
-                throw new WrongCommandException(input);
-            }
-        } catch (WrongCommandException e) {
-            System.out.println(e.getMessage());
-            input = sc.nextLine();
-        }
-
         // Exit the chatbot if the user says "bye"
         while (!input.equals("bye") && !input.equals("Bye")) {
 
@@ -93,6 +83,33 @@ public class Corubi {
                         // Not a number, continue searching
                     }
                 }
+            } else if (input.contains("delete")) {
+                // The delete command
+
+                String[] splitInput = input.split("delete ");
+
+                for (String num : splitInput) {
+                    try {
+                        int number = Integer.parseInt(num);
+                        Task index;
+
+                        // Handle the exception if number provided is beyond the size of list
+                        try {
+                            index = enteredText.get(number - 1);
+                            enteredText.remove(index);
+                            System.out.printf("I have deleted the following task:\n" +
+                                    "%s\n" +
+                                    "Your list has %d items left\n\n", index.toString(), enteredText.size());
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.println(number + " is too high! List size is only " + enteredText.size());
+                        }
+                            System.out.println(divider);
+                            input = sc.nextLine();
+                            break; // Stop searching after first number is found
+                    } catch (NumberFormatException e) {
+                        // Not a number, continue searching
+                    }
+                }
             } else {
                 // Add the input to the list
                 if (input.contains("todo ")) {
@@ -114,6 +131,15 @@ public class Corubi {
                     Task newTask = new Events(taskName, from, to);
                     enteredText.add(newTask);
                     System.out.println("Okay! I have added the following task\n" + newTask.toString());
+                } else {
+                    // Check if input command is in the list of accepted commands
+                    try {
+                        if (!commands.contains(input.split(" ")[0])) {
+                            throw new WrongCommandException(input);
+                        }
+                    } catch (WrongCommandException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
                 System.out.println(divider);
                 input = sc.nextLine();
