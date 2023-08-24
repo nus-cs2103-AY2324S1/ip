@@ -124,9 +124,9 @@ public class Dot {
                                 int position = Integer.parseInt(substrings[1]);
                                 dotTaskList.deleteTask(position - 1);
                             } else if (substrings.length == 1) {
-                                throw new DotException("No task number stated", TaskError.ERR_USING_MARK);
+                                throw new DotException("No task number stated", TaskError.ERR_DELETING_TASK);
                             } else {
-                                throw new DotException("Too many parameters", TaskError.ERR_USING_MARK);
+                                throw new DotException("Too many parameters", TaskError.ERR_DELETING_TASK);
                             }
                             break;
                         }

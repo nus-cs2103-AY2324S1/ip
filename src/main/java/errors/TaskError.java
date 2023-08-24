@@ -21,7 +21,7 @@ public enum TaskError {
             "/by <deadline_desc>\""),
     ERR_USING_EVENT ("..o.o..beep..Invalid use of event, use: \"event <description>" +
             " /from <start_desc> /to <end_desc>\""),
-    ERR_DELETING_EVENT ("..o.o..beep..Invalid use of delete, use: \"delete <task number>\""),
+    ERR_DELETING_TASK ("..o.o..beep..Invalid use of delete, use: \"delete <task number>\""),
     ERR_READING_COMMAND ("..o.o..beep..Command not found..beep..");
 
 
