@@ -20,9 +20,21 @@ public class Martin {
                 markTask(input);
             } else if (input.startsWith("unmark")) {
                 unmarkTask(input);
+            } else if (input.startsWith("todo")) {
+                String description = input.substring(5);
+                tasks.add(new Todo(description));
+                printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\nNow you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("deadline")) {
+                String[] parts = input.substring(9).split(" /by ");
+                tasks.add(new Deadline(parts[0], parts[1]));
+                printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\nNow you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("event")) {
+                String[] parts = input.substring(6).split(" /from ");
+                String[] timeParts = parts[1].split(" /to ");
+                tasks.add(new Event(parts[0], timeParts[0], timeParts[1]));
+                printMessage("Got it. I've added this task:\n       " + tasks.get(tasks.size() - 1) + "\nNow you have " + tasks.size() + " tasks in the list.");
             } else {
-                tasks.add(new Task(input));
-                printMessage("added: " + input);
+                printMessage("Please enter a valid command.");
             }
         }
     }
