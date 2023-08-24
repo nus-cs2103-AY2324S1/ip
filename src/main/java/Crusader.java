@@ -94,6 +94,9 @@ public class Crusader {
      * @param prompt
      */
     private static void addTodo(String prompt) {
+        if (prompt.length() < 5) {
+            throw new IllegalArgumentException("Hmm, todo should have something inside!");
+        }
         String name = prompt.substring(5);
         Todo t = new Todo(name);
         System.out.println("Adding the task:");
@@ -109,7 +112,25 @@ public class Crusader {
      */
     private static void addEvent(String prompt) {
         int fromPosition = prompt.indexOf("/from");
+        if (fromPosition < 0) {
+            throw new IllegalArgumentException("Hmm, an event must have /from!");
+        }
         int toPosition = prompt.indexOf("/to");
+        if (toPosition < 0) {
+            throw new IllegalArgumentException("Hmm, an event must have /to!");
+        }
+        if (toPosition <= fromPosition ) {
+            throw new IllegalArgumentException("Hmm, /to should be in front of /from!");
+        }
+        if (fromPosition < 7) {
+            throw new IllegalArgumentException("There should be an event name!");
+        }
+        if (fromPosition + 6 > toPosition - 1) {
+            throw new IllegalArgumentException("Please specify a /from parameter!");
+        }
+        if (toPosition + 4 > prompt.trim().length()) {
+            throw new IllegalArgumentException("Please specify a /to parameter!");
+        }
         String name = prompt.substring(6, fromPosition - 1);
         String from = prompt.substring(fromPosition + 6, toPosition - 1);
         String to = prompt.substring(toPosition + 4);
@@ -127,6 +148,12 @@ public class Crusader {
      */
     private static void addDeadline(String prompt) {
         int byPosition = prompt.indexOf("/by");
+        if (byPosition < 0) {
+            throw new IllegalArgumentException("Hmm, a deadline must have /by!");
+        }
+        if (byPosition + 4 > prompt.trim().length()) {
+            throw new IllegalArgumentException("Please specify a /to parameter!");
+        }
         String name = prompt.substring(9, byPosition - 1);
         String by = prompt.substring(byPosition + 4);
         Deadline d = new Deadline(name, by);
@@ -157,25 +184,48 @@ public class Crusader {
                     tasksToString();
                     break;
                 case "mark":
-                    int i = Integer.parseInt(currentPrompt.split(" ")[1]);
-                    mark(i);
+                    try {
+                        int i = Integer.parseInt(currentPrompt.split(" ")[1]);
+                        mark(i);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        say("Hmm, there's supposed to be something in front of \"mark\"!");
+                    } catch (NumberFormatException e) {
+                        say("Hmm, there should be a NUMBER in front of \"mark\"!");
+                    }
                     break;
                 case "unmark":
-                    int j = Integer.parseInt(currentPrompt.split(" ")[1]);
-                    unmark(j);
+                    try {
+                        int j = Integer.parseInt(currentPrompt.split(" ")[1]);
+                        unmark(j);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        say("Hmm, there's supposed to be something in front of \"unmark\"!");
+                    } catch (NumberFormatException e) {
+                        say("Hmm, there should be a NUMBER in front of \"unmark\"!");
+                    }
                     break;
                 case "todo":
-                    addTodo(currentPrompt);
+                    try {
+                        addTodo(currentPrompt);
+                    } catch (IllegalArgumentException e) {
+                        say(e.getMessage());
+                    }
                     break;
                 case "event":
-                    addEvent(currentPrompt);
+                    try {
+                        addEvent(currentPrompt);
+                    } catch (IllegalArgumentException e) {
+                        say(e.getMessage());
+                    }
                     break;
                 case "deadline":
-                    addDeadline(currentPrompt);
+                    try {
+                        addDeadline(currentPrompt);
+                    } catch (IllegalArgumentException e) {
+                        say(e.getMessage());
+                    }
                     break;
                 default:
-                    say("added: " + currentPrompt);
-                    tasks.add(new Task(currentPrompt));
+                    say("Sorry, but I'm not sure what that is...");
                     break;
             }
         }
