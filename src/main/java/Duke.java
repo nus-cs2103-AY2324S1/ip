@@ -4,8 +4,13 @@ public class Duke {
 
     public static void main(String[] args) {
         greet();
-        getUserInput();
-        exit();
+        try {
+            getUserInput();
+        } catch (DukeException e) {
+            System.out.println("\n" + e.getMessage());
+        } finally {
+            exit();
+        }
     }
 
     public static void greet() {
@@ -16,7 +21,7 @@ public class Duke {
         display("Bye. Hope to see you again soon!");
     }
 
-    public static void getUserInput() {
+    public static void getUserInput() throws DukeException{
         Scanner sc = new Scanner(System.in);
         List list = new List();
 
@@ -28,34 +33,66 @@ public class Duke {
                 display(list.toString());
             } else if (userInput.startsWith("mark")) {
                 // get index by splitting user input and get task at that index from list
-                list.getTaskAt(Integer.parseInt(userInput.split(" ")[1]) - 1).mark();
+                int index = Integer.parseInt(userInput.split(" ")[1]);
+
+                if (index < 1 || index > list.getNumberOfTasks()) {
+                    throw new DukeException("OOPS!!! Index of task to be marked is out of bounds");
+                }
+
+                list.getTaskAt(index - 1).mark();
             } else if (userInput.startsWith("unmark")) {
                 // get index by splitting user input and get task at that index from list
-                list.getTaskAt(Integer.parseInt(userInput.split(" ")[1]) - 1).unmark();
+                int index = Integer.parseInt(userInput.split(" ")[1]);
+
+                if (index < 1 || index > list.getNumberOfTasks()) {
+                    throw new DukeException("OOPS!!! Index of task to be unmarked is out of bounds");
+                }
+
+                list.getTaskAt(index - 1).unmark();
             } else {
                 Task add = getTask(userInput);
-                list.addToList(add);
-                display("Got it. I've added this task:\n" + add.toString()
-                        + "\nNow you have " + list.getNumberOfTasks() + " tasks in the list.");
+                try {
+                    list.addToList(add);
+                    display("Got it. I've added this task:\n" + add.toString()
+                            + "\nNow you have " + list.getNumberOfTasks() + " tasks in the list.");
+                } catch (NullPointerException e) {
+                    throw new DukeException("OOPS!!! Could not add task to the list");
+                }
             }
         }
     }
 
     @SuppressWarnings("DuplicateExpressions")
-    private static Task getTask(String userInput) {
+    private static Task getTask(String userInput) throws DukeException {
         Task add;
         if (userInput.startsWith("todo")) {
-            add = new Todo(userInput.substring(userInput.indexOf(' ') + 1));
+            String description = userInput.substring(userInput.indexOf(' ') + 1);
+
+            if (description.isEmpty() || description.equals("todo")) {
+                throw new DukeException("OOPS!!! The description of a todo cannot be empty");
+            }
+
+            add = new Todo(description);
         } else if (userInput.startsWith("deadline")) {
-            add = new Deadline(userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1)
-                    , userInput.substring(userInput.indexOf("/by") + 4));
+            try {
+                String description = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
+                String by = userInput.substring(userInput.indexOf("/by") + 4);
+                add = new Deadline(description, by);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new DukeException("OOPS!!! Missing parameters in deadline");
+            }
 
         } else if (userInput.startsWith("event")) {
-            add = new Event(userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1)
-                    , userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1)
-                    , userInput.substring(userInput.indexOf("/to") + 4));
+            try {
+                String description = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
+                String from = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1);
+                String to = userInput.substring(userInput.indexOf("/to") + 4);
+                add = new Event(description, from, to);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new DukeException("OOPS!!! Missing parameters in event");
+            }
         } else {
-            add = new Task(userInput);
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return add;
     }
