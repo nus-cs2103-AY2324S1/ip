@@ -12,9 +12,7 @@ public abstract class Task {
 
     //region Constructor
 
-    private Task(String desc) {
-        this.description = desc;
-    }
+    private Task() {}
 
     //endregion
 
@@ -42,7 +40,8 @@ public abstract class Task {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description) throws DescriptionIsEmptyError {
+        if (description == null || description.isEmpty()) throw new DescriptionIsEmptyError();
         this.description = description;
     }
 
@@ -60,9 +59,10 @@ public abstract class Task {
     //region Subclasses
 
     public static class Todo extends Task {
-        public Todo(String desc) {
-            super("");
-            super.setDescription(super.parser.load(desc).parse().arg);
+        public Todo(String desc) throws ArgumentIsEmptyError {
+            Parser.CmdArg cmdArg = super.parser.load(desc).parse();
+            if (cmdArg == null) throw new DescriptionIsEmptyError();
+            super.setDescription(cmdArg.arg);
         }
     }
 
@@ -70,16 +70,17 @@ public abstract class Task {
 
         private String dueDate;
 
-        public Deadlines(String desc, String date) {
-            super(desc);
+        public Deadlines(String desc, String date) throws ArgumentIsEmptyError {
+            super.setDescription(desc);
             this.dueDate = date;
+            if (this.dueDate == null || dueDate.isEmpty()) throw new ArgumentIsEmptyError("due date", "by");
         }
 
-        public Deadlines(String args) {
-            super("");
+        public Deadlines(String args) throws ArgumentIsEmptyError {
             Parser parser = super.parser;
             parser.load(args);
             Parser.CmdArg cmdArg = parser.parse();
+            if (cmdArg == null) throw new DescriptionIsEmptyError();
             while (cmdArg != null) {
                 switch(cmdArg.command) {
                     case "":
@@ -91,6 +92,7 @@ public abstract class Task {
                 }
                 cmdArg = parser.parse();
             }
+            if (this.dueDate == null || dueDate.isEmpty()) throw new ArgumentIsEmptyError("due date", "by");
         }
 
         @Override
@@ -104,17 +106,19 @@ public abstract class Task {
         private String eventStart;
         private String eventEnd;
 
-        public Events(String desc, String start, String end) {
-            super(desc);
+        public Events(String desc, String start, String end) throws ArgumentIsEmptyError {
+            super.setDescription(desc);
             this.eventStart = start;
             this.eventEnd = end;
+            if (this.eventStart == null || eventStart.isEmpty()) throw new ArgumentIsEmptyError("start date", "from");
+            if (this.eventEnd == null || eventEnd.isEmpty()) throw new ArgumentIsEmptyError("end date", "to");
         }
 
-        public Events(String args) {
-            super("");
+        public Events(String args) throws ArgumentIsEmptyError {
             Parser parser = super.parser;
             parser.load(args);
             Parser.CmdArg cmdArg = parser.parse();
+            if (cmdArg == null) throw new DescriptionIsEmptyError();
             while (cmdArg != null) {
                 switch(cmdArg.command) {
                     case "":
@@ -129,6 +133,8 @@ public abstract class Task {
                 }
                 cmdArg = parser.parse();
             }
+            if (this.eventStart == null || eventStart.isEmpty()) throw new ArgumentIsEmptyError("start date", "from");
+            if (this.eventEnd == null || eventEnd.isEmpty()) throw new ArgumentIsEmptyError("end date", "to");
         }
 
         @Override
@@ -138,5 +144,22 @@ public abstract class Task {
     }
 
     //endregion
+
+
+    //I am not certain that this is a good design decision, but I will leave it because it is an optional goal,
+    //and because I suppose I should take the opportunity to experiment with things I otherwise wouldn't
+    public static class ArgumentIsEmptyError extends Exception {
+        public final String arg;
+        public final String invocation;
+
+        public ArgumentIsEmptyError(String emptyArgument, String invocation) {
+            this.arg = emptyArgument; this.invocation = invocation;
+        }
+    }
+    public static class DescriptionIsEmptyError extends ArgumentIsEmptyError {
+        public DescriptionIsEmptyError() {
+            super("description", "");
+        }
+    }
 
 }

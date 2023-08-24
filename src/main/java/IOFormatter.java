@@ -23,6 +23,7 @@ public final class IOFormatter {
             "   \\ \\_______\\\\ \\__\\ \\__\\    \\ \\__\\       \\ \\_______\\\\ \\_______\\    \\ \\__\\\n" +
             "    \\|_______| \\|__|\\|__|     \\|__|        \\|_______| \\|_______|     \\|__|\n";
     private static final String PREFIX = "\t> ";
+    private static final String PREFIX_WARN = "\t! ";
 
     //https://copypastatext.com/bongo-cat-ascii/
 
@@ -101,11 +102,20 @@ public final class IOFormatter {
     }
 
     public void send(String s) {
-        out.accept(format(s) + "\n");
+        if (s == null) return;
+        out.accept(format(s, PREFIX) + "\n");
+    }
+
+    public void warn(String s) {
+        out.accept(format(s, PREFIX_WARN) + "\n");
     }
 
     public void send(Object o) {
         send(o.toString());
+    }
+
+    public String task(Task t, int index) {
+        return index + ". " + t;
     }
 
     public void send(TaskList taskList) { //todo empty list
@@ -118,17 +128,22 @@ public final class IOFormatter {
     }
 
     public void unexpected() {
-        send("I can't do that :(");
+        warn("I can't do that :(");
+    }
+
+    public void outOfBounds(int index, int maxIndex) {
+        send("");
     }
 
     //endregion
 
-    //region Output: Internal Helpers
+    //region Internal Helper
 
-    private String format(String s) {
+    private String format(String s, String prefix) {
         if (s == null) return "";
-        return s.replaceAll("(^|\n)", "$1"+PREFIX);
+        return s.replaceAll("(^|\n)", "$1"+prefix);
     }
 
     //endregion
+
 }
