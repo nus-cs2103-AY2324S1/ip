@@ -52,6 +52,19 @@ public class Crusader {
     }
 
     /**
+     * Deletes a task.
+     *
+     * @param i index of the task to be deleted. 1-indexed.
+     */
+    private static void delete(int i) {
+        Task t = tasks.get(i - 1);
+        System.out.println("I have deleted the following task:");
+        System.out.println(t.toString());
+        tasks.remove(t);
+        System.out.printf("Now there are %d tasks in the list.\n", tasks.size());
+    }
+
+    /**
      * Displays the logo for the chatbot.
      */
     private static void showLogo() {
@@ -222,6 +235,16 @@ public class Crusader {
                         addDeadline(currentPrompt);
                     } catch (IllegalArgumentException e) {
                         say(e.getMessage());
+                    }
+                    break;
+                case "delete":
+                    try {
+                        int k = Integer.parseInt(currentPrompt.split(" ")[1]);
+                        delete(k);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        say("Hmm, there's supposed to be something in front of \"delete\"!");
+                    } catch (NumberFormatException e) {
+                        say("Hmm, there should be a NUMBER in front of \"delete\"!");
                     }
                     break;
                 default:
