@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -9,6 +11,7 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
     public void markAsDone() {
         this.isDone = true;
         System.out.println("     Nice! I've marked this task as done:\n"

@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -34,19 +33,31 @@ public class Duke {
         } else {
             addTask(command);
             System.out.println(horizontalLine
-                    + "     added: " + command + "\n"
+                    + "     Got it. I've added this task:\n"
+                    + "       " + taskArray[numTask - 1].printDesc() + "\n"
+                    + "     Now you have " + numTask + " tasks in the list.\n"
                     + horizontalLine);
         }
     }
     public static void addTask(String task) {
         if (Objects.equals(task, "list")) {
-            System.out.println(horizontalLine);
+            System.out.println(horizontalLine + "     Here are the tasks in your list:\n");
             for (int i = 0; i < numTask; i++) {
                 System.out.println("     " + (i + 1) + ". " + taskArray[i].printDesc());
             }
             System.out.println(horizontalLine);
         } else {
-            taskArray[numTask] = new Task(task);
+            String[] taskDetails = task.split(" ", 2);
+            if (Objects.equals(taskDetails[0], "todo")) {
+                taskArray[numTask] = new Todo(taskDetails[1]);
+            } else if (Objects.equals(taskDetails[0], "deadline")) {
+                String[] deadlineDetails = taskDetails[1].split("/by", 2);
+                taskArray[numTask] = new Deadline(deadlineDetails[0], deadlineDetails[1]);
+            } else if (Objects.equals(taskDetails[0], "event")) {
+                String[] eventDetails = taskDetails[1].split("/", 3);
+                taskArray[numTask] = new Event(eventDetails[0], eventDetails[1].substring(5),
+                                               eventDetails[2].substring(3));
+            }
             numTask++;
         }
     }
