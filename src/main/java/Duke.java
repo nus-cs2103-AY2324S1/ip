@@ -7,6 +7,17 @@ import java.util.Scanner;
 public class Duke {
     static ArrayList<Task> taskList = new ArrayList<>();
 
+    enum Commands {
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        DELETE,
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
     /**
      * Display message to greet user.
      */
@@ -223,52 +234,55 @@ public class Duke {
                 String userInput = scanner.nextLine();
                 String[] split = userInput.split(" ", 2);
                 String command = split[0];
-                String details = userInput.length() > command.length() ? split[1] : "";
-                switch (command) {
-                    // Exit programme if user enters "bye" command
-                    case "bye":
-                        bye();
-                        running = false;
-                        break;
+                Commands c;
+                try {
+                    c = Commands.valueOf(split[0].toUpperCase());
+                    String details = userInput.length() > command.length() ? split[1] : "";
+                    switch (c) {
+                        // Exit programme if user enters "bye" command
+                        case BYE:
+                            bye();
+                            running = false;
+                            break;
 
-                    // Display text stored by user in chronological order if
-                    // user enters "list" command
-                    case "list":
-                        list();
-                        break;
+                        // Display text stored by user in chronological order if
+                        // user enters "list" command
+                        case LIST:
+                            list();
+                            break;
 
-                    // Mark task as done if user enters "mark" command
-                    case "mark":
-                        mark(details);
-                        break;
+                        // Mark task as done if user enters "mark" command
+                        case MARK:
+                            mark(details);
+                            break;
 
-                    // Mark task as not done if user enters "unmark" command
-                    case "unmark":
-                        unmark(details);
-                        break;
+                        // Mark task as not done if user enters "unmark" command
+                        case UNMARK:
+                            unmark(details);
+                            break;
 
-                    // Delete a task if user enters "delete" command
-                    case "delete":
-                        delete(details);
-                        break;
+                        // Delete a task if user enters "delete" command
+                        case DELETE:
+                            delete(details);
+                            break;
 
-                    // Create a new todo task if user enters "todo" command
-                    case "todo":
-                        todo(details);
-                        break;
+                        // Create a new todo task if user enters "todo" command
+                        case TODO:
+                            todo(details);
+                            break;
 
-                    // Create a new deadline task if user enters "deadline" command
-                    case "deadline":
-                        deadline(details);
-                        break;
+                        // Create a new deadline task if user enters "deadline" command
+                        case DEADLINE:
+                            deadline(details);
+                            break;
 
-                    // Create a new event task if user enters "event" command
-                    case "event":
-                        event(details);
-                        break;
-
-                    // Default response for unknown commands
-                    default:
+                        // Create a new event task if user enters "event" command
+                        case EVENT:
+                            event(details);
+                            break;
+                    }
+                } catch (IllegalArgumentException e) {
+                        // Default response for unknown commands
                         throw new DukeException("Sorry! Oscar does not recognise this command\n");
                 }
             } catch (DukeException e){
