@@ -50,10 +50,8 @@ public class Noac {
                     case "mark": case "unmark":
                         String[] temp = userInput.split(" ");
 
-                        if(!checkValidMarkInput(userInput, list.size())){
+                        if(checkValidMarkInput(userInput, list.size())){
 
-
-                        } else {
                             int taskNo = Integer.parseInt(temp[1]);
 
                             System.out.println("    ____________________________________________________________");
@@ -213,6 +211,25 @@ public class Noac {
 
                         break;
 
+
+                    case "delete":
+
+                        if(checkValidDeleteInput(userInput, list.size())) {
+
+                            int taskNo = Integer.parseInt(userInputArr[1]);
+
+                            System.out.println("    ____________________________________________________________");
+                            System.out.println("     Noted. I've removed this task:");
+                            System.out.println("       " + list.get(taskNo-1).toString());
+                            list.remove(taskNo-1);
+                            System.out.println("     Now you have " + list.size() + " tasks in the list.");
+                            System.out.println("    ____________________________________________________________");
+
+
+                        }
+                        break;
+
+
                     default:
 
                         throw new NoacException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -243,12 +260,30 @@ public class Noac {
     private static boolean checkValidMarkInput(String input, int listSize) throws NoacException {
         String[] temp = input.split(" ");
 
-        if(temp.length > 2) {
+        if(temp.length > 2 || temp.length <= 1) {
             throw new NoacException("☹ OOPS!!! Please enter in the format mark [TASK_NUMBER] e.g. mark 1");
 
         } else if (!temp[1].matches("\\d+")) {
 
             throw new NoacException("☹ OOPS!!! Please enter in the format mark [TASK_NUMBER] e.g. mark 1");
+        } else if (Integer.parseInt(temp[1]) > listSize) {
+
+            throw new NoacException("☹ OOPS!!! Please enter a task in your list!");
+
+        }
+
+        return true;
+    }
+
+    private static boolean checkValidDeleteInput(String input, int listSize) throws NoacException {
+        String[] temp = input.split(" ");
+
+        if(temp.length > 2 || temp.length <= 1) {
+            throw new NoacException("☹ OOPS!!! Please enter in the format delete [TASK_NUMBER] e.g. delete 1");
+
+        } else if (!temp[1].matches("\\d+")) {
+
+            throw new NoacException("☹ OOPS!!! Please enter in the format delete [TASK_NUMBER] e.g. delete 1");
         } else if (Integer.parseInt(temp[1]) > listSize) {
 
             throw new NoacException("☹ OOPS!!! Please enter a task in your list!");
