@@ -1,6 +1,12 @@
 import java.util.Scanner;
 
 public class Duke {
+    enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
+
     static class Model {
         public Model() {
             // Greeting
@@ -29,7 +35,7 @@ public class Duke {
     static class InputHandler {
         private final Scanner scanner = new Scanner(System.in);
         private final Model model;
-        private final Storage storage = new Storage();
+        private final TaskStorage taskStorage = new TaskStorage();
 
         private boolean isExit = false;
 
@@ -37,7 +43,7 @@ public class Duke {
             this.model = model;
         }
 
-        // TODO: Implement a parser instead of hardcodoing if elses here
+        // TODO: Implement a parser instead of hard coding if-elses here
         public void handleInput() {
             String input = scanner.nextLine();
             if (input.equals("bye")) {
@@ -46,23 +52,23 @@ public class Duke {
             }
 
             if (input.equals("list")) {
-                System.out.println(storage);
+                System.out.println(taskStorage);
                 return;
             }
 
             if (input.startsWith("mark")) {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                model.echo(storage.markAsDone(index));
+                model.echo(taskStorage.markAsDone(index));
                 return;
             }
 
             if (input.startsWith("unmark")) {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                model.echo(storage.unmarkAsDone(index));
+                model.echo(taskStorage.unmarkAsDone(index));
                 return;
             }
 
-            model.echo(storage.save(input));
+            model.echo(taskStorage.save(input));
         }
 
         public boolean isExit() {
@@ -70,10 +76,8 @@ public class Duke {
         }
     }
 
-    static class Storage {
+    static class TaskStorage {
         private final int SIZE = 100;
-        private final String[] storage = new String[SIZE];
-        private final boolean[] isDone = new boolean[SIZE];
         private final Task[] tasks = new Task[SIZE];
         private int pointer = 0;
 
@@ -82,7 +86,7 @@ public class Duke {
             Task task = new Task(input);
             tasks[pointer] = task;
             pointer++;
-            return "added: " + input;
+            return "added: " + task;
         }
 
         public String markAsDone(int index) {
@@ -115,12 +119,16 @@ public class Duke {
     }
 
     static class Task {
-        boolean isDone;
-        String description;
+        private boolean isDone;
+        private final TaskType taskType;
+        private String description;
+        private String dateStart;
+        private String dateEnd;
 
-        public Task(String description) {
-            this.description = description;
+        public Task(String task) {
             this.isDone = false;
+            this.taskType = getTaskType(task);
+            this.description = getDescription(task);
         }
 
         public void markAsDone() {
@@ -131,9 +139,66 @@ public class Duke {
             this.isDone = false;
         }
 
+        private String squareBracketWrapper(String input) {
+            return "[" + input + "]";
+        }
+
+        private String getTaskTypeString() {
+            switch (taskType) {
+                case TODO:
+                    return squareBracketWrapper("T");
+                case DEADLINE:
+                    return squareBracketWrapper("D");
+                case EVENT:
+                    return squareBracketWrapper("E");
+                default:
+                    return "";
+            }
+        }
+
+        private TaskType getTaskType(String input) {
+            if (input.startsWith("todo")) {
+                return TaskType.TODO;
+            }
+
+            if (input.startsWith("deadline")) {
+                return TaskType.DEADLINE;
+            }
+
+            if (input.startsWith("event")) {
+                return TaskType.EVENT;
+            }
+
+            return null;
+        }
+
+        private String getDescription(String input) {
+            if (this.taskType == TaskType.TODO) {
+                return input.split(" ", 2)[1];
+            }
+
+            if (this.taskType == TaskType.DEADLINE) {
+                String[] split = input.split(" ", 2)[1].split(" /by ");
+                this.dateEnd = split[1];
+                return split[0];
+            }
+
+            if (this.taskType == TaskType.EVENT) {
+                String[] split = input.split(" ", 2)[1].split(" /from ");
+                String[] split2 = split[1].split(" /to ");
+                this.dateStart = split2[0];
+                this.dateEnd = split2[1];
+                return split[0];
+            }
+
+            return null;
+        }
+
         @Override
         public String toString() {
-            return "[" + (isDone ? "X" : " ") + "] " + description;
+            return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
+                    + (this.taskType == TaskType.DEADLINE ? " (by: " + dateEnd + ")" : "")
+                    + (this.taskType == TaskType.EVENT ? " (from: " + dateStart + " to: " + dateEnd + ")" : "");
         }
     }
 
