@@ -67,6 +67,17 @@ public class Duke{
                     System.out.println("____________________________________________________________");
                     break;
 
+                case "delete":
+                    int numbero = myScanner.nextInt();
+                    item = myList.get(numbero - 1);
+                    myList.remove(numbero-1);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(item.toString());
+                    System.out.println("Now you have "+ String.valueOf(myList.size()) + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                    break;
+
                 case "todo":
                     inValue = myScanner.nextLine();
                     if (inValue.length() != 0){
