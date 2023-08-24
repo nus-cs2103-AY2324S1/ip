@@ -56,41 +56,48 @@ public class Duke {
 
             // adding task to list
             else {
-                if (input.startsWith("todo")) {
-                Task task = new ToDo(input.substring(5));
-                tasks.add(task);
-                System.out.println("\tOk you have added this task:" );
-                System.out.println("\t" + task.toString());
-                System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
-                count++;
-             }
-                else if (input.startsWith("deadline")) {
-                    int index = input.lastIndexOf("/by");
-                    Task task = new Deadline(input.substring(9, index-1), input.substring(index+4));
-                    tasks.add(task);
-                    System.out.println("\tOk you have added this task:" );
-                    System.out.println("\t" + task.toString());
-                    System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
-                    count++;
+                try {
+                    if (input.startsWith("todo")) {
+                        if (input.length() <= 4) {
+                            throw new DukeException("\t☹ OOPS!!! The description of a todo cannot be empty");
+                        }
+                        Task task = new ToDo(input.substring(5));
+                        tasks.add(task);
+                        System.out.println("\tOk you have added this task:");
+                        System.out.println("\t" + task.toString());
+                        System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
+                        count++;
+                    } else if (input.startsWith("deadline")) {
+                        if (input.length() <= 8) {
+                            throw new DukeException("\t☹ OOPS!!! The description of a deadline cannot be empty");
+                        }
+                        int index = input.lastIndexOf("/by");
+                        Task task = new Deadline(input.substring(9, index - 1), input.substring(index + 4));
+                        tasks.add(task);
+                        System.out.println("\tOk you have added this task:");
+                        System.out.println("\t" + task.toString());
+                        System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
+                        count++;
+                    } else if (input.startsWith("event")) {
+                        if (input.length() <= 5) {
+                            throw new DukeException("\t☹ OOPS!!! The description of an event cannot be empty");
+                        }
+                        int indexFrom = input.lastIndexOf("/from");
+                        int indexTo = input.lastIndexOf("/to");
+                        Task task = new Event(input.substring(6, indexFrom - 1),
+                                input.substring(indexFrom + 6, indexTo - 1), input.substring(indexTo + 4));
+                        tasks.add(task);
+                        System.out.println("\tOk I have added this task:");
+                        System.out.println("\t" + task.toString());
+                        System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
+                        count++;
+                    }
+                    else {
+                        throw new DukeException("\tHey bud! Sorry I don't quite know what you mean :-(");
+                    }
                 }
-                else if (input.startsWith("event")) {
-                    int indexFrom = input.lastIndexOf("/from");
-                    int indexTo = input.lastIndexOf("/to");
-                    Task task =  new Event(input.substring(6, indexFrom-1),
-                            input.substring(indexFrom+6, indexTo-1), input.substring(indexTo+4));
-                    tasks.add(task);
-                    System.out.println("\tOk I have added this task:" );
-                    System.out.println("\t" + task.toString());
-                    System.out.println("\tNow you have " + tasks.size() + " tasks in the list");
-                    count++;
-                }
-
-                else {
-                    printHorizontalLine();
-                    System.out.println("\t" + "added: " + input);
-                    tasks.add(new Task(input));
-                    count++;
-                    printHorizontalLine();
+                catch (DukeException e){
+                    e.printMessage();
                 }
             }
         }
