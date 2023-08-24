@@ -8,6 +8,6 @@ public class Event extends Task {
     }
 
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 }
