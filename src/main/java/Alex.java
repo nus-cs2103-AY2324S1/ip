@@ -16,16 +16,26 @@ public class Alex {
 
         while (true) {
             String userInput = scanner.nextLine();
+            int inputLength = userInput.length();
             if (userInput.equals("bye")) {
                 System.out.println(bye);
                 break;
             } else if(userInput.equals("list")) {
                 System.out.println("_____________________________________________________________\n"
-                        + UserInputStorage.printAllContent()
-                        + "_____________________________________________________________\n"
+                                 + UserInputStorage.printAllContent()
+                                 + "_____________________________________________________________\n"
                 );
+            } else if (inputLength >= 6 && userInput.substring(0, 4).equals("mark")) {
+                int index = Integer.parseInt(userInput.substring(5, 6));
+                Task targetedTask = UserInputStorage.getTaskByIndex(index);
+                targetedTask.mark();
+            } else if (inputLength >= 8 && userInput.substring(0, 6).equals("unmark")) {
+                int index = Integer.parseInt(userInput.substring(7, 8));
+                Task targetedTask = UserInputStorage.getTaskByIndex(index);
+                targetedTask.unmark();
             } else {
-                UserInputStorage.store(userInput);
+                Task newTask = new Task(userInput);
+                UserInputStorage.store(newTask);
                 System.out.println("_____________________________________________________________\n"
                         + "added: "
                         + userInput
