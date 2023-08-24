@@ -11,10 +11,10 @@ public class Task {
         isDone = false;
     }
     public String getStatusIcon() {
-        return (isDone ? "X" : "");
+        return (isDone ? "X" : " ");
     }
     @Override
     public String toString() {
-        return this.description;
+        return "[" + this.getStatusIcon() + "] " +  this.description;
     }
 }

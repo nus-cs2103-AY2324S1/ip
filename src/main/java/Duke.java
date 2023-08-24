@@ -42,6 +42,25 @@ public class Duke {
                 System.out.println(" Marked as not done yet: ");
             }
             System.out.println("   " + tasks.get(taskNumber - 1).toString());
+        } else if (command.startsWith("todo") || command.startsWith("deadline") || command.startsWith("event")) {
+            if (command.startsWith("todo")) {
+                String description = command.substring(5);
+                tasks.add(new ToDo(description));
+            } else if (command.startsWith("deadline")) {
+                String[] parts = command.split("/by");
+                String description = parts[0].substring(9).trim();
+                String byID = parts[1].trim();
+                tasks.add(new Deadline(description, byID));
+            } else if (command.startsWith("event")) {
+                String[] parts = command.split("/from");
+                String description = parts[0].substring(6).trim();
+                String[] timeParts = parts[1].split("/to");
+                String start = timeParts[0].trim();
+                String end = timeParts[1].trim();
+                tasks.add(new Event(description, start, end));
+            }
+            System.out.println(" I've added this task:" + "\n" + "   " + tasks.get(tasks.size() - 1).toString()
+                    + "\n" + " Now you have " + tasks.size() + " tasks in the list.");
         } else {
             Task currTask = new Task(separateCommand[0]);
             tasks.add(currTask);
