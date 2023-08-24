@@ -10,10 +10,8 @@ public class Duke {
                 "endMessage", "Bye. Hope to see you again soon!",
                 "endVal", "bye",
                 "listVal", "list",
-                "markAsDone", "mark",
-                "unmarkAsDone", "unmark",
                 "addTask", "task" );
-        List<String> taskKeyVal = new ArrayList<>(Arrays.asList("ToDo", "Deadline", "Event"));
+        List<String> taskKeyVal = new ArrayList<>(Arrays.asList("ToDo", "Deadline", "Event", "Delete", "mark", "unmark"));
 
         ArrayList<Task> storeTask = new ArrayList(1);
 
@@ -25,6 +23,7 @@ public class Duke {
             System.out.println(indent + "What would you like to do next? : ");
             String userInput = userInputObject.nextLine();
             String[] userInputList = userInput.split(" ", 2);
+            String userTaskChoiceKey = userInputList[0];
             try {
                 if (userInput.equals(hashMap.get("endVal"))) {
                     System.out.println("\n" + indent + hashMap.get("endMessage"));
@@ -37,41 +36,50 @@ public class Duke {
                         count++;
                         System.out.println(indent + count + "." + ls.next().toString());
                     }
-                } else if (userInputList[0].equals(hashMap.get("markAsDone")) || userInputList[0].equals(hashMap.get("unmarkAsDone"))) {
+                } else if (userInputList[0].equals("mark") || userInputList[0].equals("unmark")) {
                     String taskNumber = userInputList[1];
                     Task taskItem = storeTask.get(Integer.parseInt(taskNumber) - 1);
                     System.out.println(indent + taskItem.changeStatus(userInputList[0]));
-                } else if (userInput.equals(hashMap.get("addTask"))) {
-                    System.out.println(indent + "What task would you like to add? : ");
-                    String userTaskChoice = userInputObject.nextLine();
-                    String[] userTaskChoiceList = userTaskChoice.split(" ", 2);
-                    String userTaskChoiceKey = userTaskChoiceList[0];
-                    if (userTaskChoiceList.length == 1 && taskKeyVal.contains(userTaskChoiceKey)) {
-                        throw new DukeException(" ☹ OOPS!!! The description of a task cannot be empty.");
-                    }
-                    else if (userTaskChoiceList[0].equals("ToDo")) {
-                        storeTask.add(new ToDo(userTaskChoiceList[1]));
-                        System.out.println(indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
-                        System.out.println(indent + horizontalLine);
-                    } else if (userTaskChoiceList[0].equals("Deadline")) {
-                        String[] deadlineList = userTaskChoiceList[1].split("/", 2);
-                        storeTask.add(new Deadline(deadlineList[0], deadlineList[1]));
-                        System.out.println(indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
-                        System.out.println(indent + horizontalLine);
-                    } else if (userTaskChoiceList[0].equals("Event")) {
-                        String[] eventList = userTaskChoiceList[1].split("/", 3);
-                        storeTask.add(new Event(eventList[0], eventList[1], eventList[2]));
-                        System.out.println(indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
-                        System.out.println(indent + horizontalLine);
+                } else if (userInputList.length == 1 && taskKeyVal.contains(userTaskChoiceKey)) {
+                    throw new DukeException(" ☹ OOPS!!! The description of a task cannot be empty.");
+                } else if (userTaskChoiceKey.equals("ToDo")) {
+                    storeTask.add(new ToDo(userInputList[1]));
+                    System.out.println(indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
+                    System.out.println(indent + horizontalLine);
+                } else if (userTaskChoiceKey.equals("Deadline")) {
+                    String[] deadlineList = userInputList[1].split("/", 2);
+                    storeTask.add(new Deadline(deadlineList[0], deadlineList[1]));
+                    System.out.println(indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
+                    System.out.println(indent + horizontalLine);
+                } else if (userTaskChoiceKey.equals("Event")) {
+                    String[] eventList = userInputList[1].split("/", 3);
+                    storeTask.add(new Event(eventList[0], eventList[1], eventList[2]));
+                    System.out.println(indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
+                    System.out.println(indent + horizontalLine);
+                } else if (userTaskChoiceKey.equals("Delete")) {
+                    Integer delUserChoice = Integer.parseInt(userInputList[1]);
+                    if ((delUserChoice - 1) < 0) {
+                        throw new DukeException("Invalid Task entered. Please try again...");
+                    } else if (storeTask.isEmpty()) {
+                        throw new DukeException("Task Scheduler is empty... Please try again!");
                     } else {
-                        throw new DukeException("☹ OOPS!!! Sorry, but i do not know what that means :-(");
+                        Task itemRemoved = storeTask.remove(delUserChoice - 1);
+                        System.out.println(indent + "This task was removed..." + "\n" + itemRemoved);
+                        System.out.println(indent + "Now you have " + storeTask.size() + " tasks in your task scheduler...");
                     }
-                } else {
+                }
+                  else {
                     throw new DukeException("☹ OOPS!!! Sorry, but i do not know what that means :-(");
                 }
             }
+            catch (NumberFormatException e) {
+                System.out.println(indent + "Invalid character input");
+            }
             catch (DukeException e) {
-                System.out.println("Error" + e.getMessage());
+                System.out.println(indent + "Error: " + e.getMessage());
+            }
+            catch (IndexOutOfBoundsException e) {
+                System.out.println(indent + "Invalid entry / Task not in list... Please try again...");
             }
         }
     }
