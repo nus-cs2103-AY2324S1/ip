@@ -1,3 +1,5 @@
+package Helpers;
+
 import Exceptions.*;
 import Tasks.Deadline;
 import Tasks.Events;
@@ -5,24 +7,25 @@ import Tasks.Task;
 import Tasks.Todo;
 import java.util.ArrayList;
 
-public class Commands {
+public class Parser {
 
-    private final String cmd;
-    private final ArrayList<Task> taskList;
-    private final String input;
-    final String DIVIDER = "\n____________________________________________________________";
+    protected final String cmd;
+    protected final ArrayList<Task> taskList;
+    protected final String input;
+    protected final String DIVIDER = "\n____________________________________________________________";
 
+    protected Storage storage;
     /**
-     * Constructor for Commands to initalise the relevant parameters
+     * Constructor for Helpers.Commands to initalise the relevant parameters
      *
      * @param cmd      The command entered
      * @param input    The whole user input
-     * @param taskList The list of tasks recorded
      */
-    public Commands(String cmd, String input, ArrayList<Task> taskList) {
-        this.taskList = taskList;
+    public Parser(String cmd, String input, String filepath) {
         this.input = input;
         this.cmd = cmd;
+        this.storage = new Storage(filepath);
+        this.taskList = this.storage.read();
     }
 
     /**
@@ -40,7 +43,7 @@ public class Commands {
             Task task = this.taskList.get(i);
             sb.append(index).append(".").append(task.toString()).append("\n");
         }
-
+        this.storage.write(this.taskList);
         return sb.toString().trim();
     }
 
@@ -58,7 +61,7 @@ public class Commands {
         } else {
             Todo td = new Todo(taskDesc, false);
             this.taskList.add(td);
-
+            this.storage.write(this.taskList);
             return "Got it macho! I've added this task:\n" + td + "\n" +
                     "You now have " + this.taskList.size() + " tasks in the list, macho!";
         }
@@ -72,7 +75,7 @@ public class Commands {
      * @throws InvalidArgumentException if input does not contain the correct /by argument
      */
     public String createDeadline(String input) throws InvalidArgumentException {
-        String[] parts = input.split("/by", 2);
+        String[] parts = input.split(" /by ", 2);
         if (parts.length == 1 || parts[1].isEmpty() || parts[1].isBlank()) {
             throw new InvalidArgumentException(input.substring(9), "/by");
         } else {
@@ -80,7 +83,7 @@ public class Commands {
             String by = parts[1];
             Deadline dl = new Deadline(taskDesc, false, by);
             this.taskList.add(dl);
-
+            this.storage.write(this.taskList);
             return "Got it macho! I've added this task:\n" + dl + "\nYou now have " + this.taskList.size()
                     + " tasks in the list, macho!";
         }
@@ -103,6 +106,7 @@ public class Commands {
             String afterTo = parts[2];
             Events ev = new Events(taskDesc, false, afterFrom, afterTo);
             this.taskList.add(ev);
+            this.storage.write(this.taskList);
             return "Got it macho! I've added this task:\n" + ev + "\nYou now have " + this.taskList.size()
                     + " tasks in the list, macho!";
         }
@@ -124,6 +128,7 @@ public class Commands {
             try {
                 Task task = this.taskList.get(index - 1);
                 task.markedAsUndone();
+                this.storage.write(this.taskList);
                 return "I have marked this task as undone yet, per your request, macho!\n" + task;
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidIndexException(input);
@@ -148,6 +153,7 @@ public class Commands {
             try {
                 Task task = this.taskList.get(index - 1);
                 task.markedAsDone();
+                this.storage.write(this.taskList);
                 return "I have marked this task as done per your request, macho!\n" + task;
             } catch (IndexOutOfBoundsException e) {
                 throw new InvalidIndexException(input);
@@ -171,6 +177,7 @@ public class Commands {
             try {
                 Task task = this.taskList.get(index);
                 this.taskList.remove(index);
+                this.storage.write(this.taskList);
                 return "I have deleted this task as done per your request, macho!\n" + task.toString()
                         + "\nYou now have " + this.taskList.size() + " tasks in the list, macho!";
             } catch (IndexOutOfBoundsException e) {

@@ -6,8 +6,8 @@ package Tasks;
  */
 public class Events extends Task {
 
-    private final String from;
-    private final String to;
+    protected final String from;
+    protected final String to;
 
     public Events(String description, Boolean isDone, String from, String to) {
         super(description, isDone);
@@ -18,5 +18,11 @@ public class Events extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+    }
+
+    @Override
+    public String getData() {
+        String marked = isDone ? "1" : "0";
+        return "E | " + marked + " | " + this.taskDesc + " | " + this.from + " | " + this.to;
     }
 }

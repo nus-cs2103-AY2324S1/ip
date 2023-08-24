@@ -1,4 +1,5 @@
 import Exceptions.InvalidCommandException;
+import Helpers.Parser;
 import Tasks.Task;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,7 +33,6 @@ public class Duke {
                         "    (                ∠_       ヽ､＿,.\n" +
                         "     ＼   (            ヽ ";
 
-        ArrayList<Task> taskList = new ArrayList<>();
         //Create buffered reader for user input
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -46,8 +46,8 @@ public class Duke {
             while (isRunning) {
                 String input = br.readLine();
                 String cmd = input.split(" ")[0].toUpperCase();
-                Commands commands = new Commands(cmd, input, taskList);
-                taskList = commands.execute();
+                Parser commands = new Parser(cmd, input, "tasks.txt");
+                commands.execute();
                 if (cmd.equalsIgnoreCase("bye")) {
                     System.out.println(endLogo);
                     isRunning = false;
