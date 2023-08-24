@@ -62,10 +62,11 @@ public class Duke {
                     botOutput = "Invalid Input String!!";
 
                 }
+
             } else {
-                Task t = new Task(userInput);
+                Task t = Task.taskCon(userInput);
                 list.add(t);
-                botOutput = botOutput + "added: " + userInput;
+                botOutput = botOutput + "added: " + t + "\n    Now you have " + list.size() + " tasks in the list.";
             }
 
             System.out.println(botMessage(botOutput));
