@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 /**
- * CS2103T Individual project
- * AY2023/24 Semester 1
+ * Represents Chatter the chatbot.
  *
  * @author Anthony Tamzil
+ * @version CS2103T Individual Project AY2023/24 Semester 1
  */
 public class Chatter {
     private static ListOfTasks tasks = new ListOfTasks();
@@ -20,8 +20,72 @@ public class Chatter {
     }
 
     /**
-     * Add the user's tasks through a Scanner object, if user says bye,
-     * print exit statement, if user says list, prints list of tasks.
+     * Adds todo task to the list of tasks.
+     *
+     * @param input The user input with the description of the task.
+     */
+    private static void addTodo(String input) {
+        try {
+            if (input.length() < 6) {
+                throw new ChatterException("☹ OOPS!!! The description of a todo cannot be empty!");
+            }
+            tasks.addTask(new ToDo(input.substring(5)));
+        } catch(ChatterException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Adds deadline task to the list of tasks.
+     *
+     * @param input The user input with the description of the task.
+     */
+    private static void addDeadline(String input) {
+        try {
+            int deadlineIndex = input.indexOf("/by");
+            if (deadlineIndex == -1) {
+                throw new ChatterException("Please add a '/by' statement with the deadline.");
+            }
+
+            tasks.addTask(new Deadline(input.substring(9, deadlineIndex - 1),
+                    input.substring(deadlineIndex + 4)));
+        } catch(ChatterException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println("Please enter a valid description or deadline.");
+        }
+    }
+
+    /**
+     * Adds event task to the list of tasks.
+     *
+     * @param input The user input with the description of the task.
+     */
+    private static void addEvent(String input) {
+        try {
+            int startIndex = input.indexOf("/from");
+            if (startIndex == -1) {
+                throw new ChatterException("Please add a '/from' statement with the start time / date.");
+            }
+
+            int endIndex = input.indexOf("/to");
+            if (endIndex == -1) {
+                throw new ChatterException("Please add a '/to' statement with the end time / date.");
+            }
+
+            tasks.addTask(new Event(input.substring(6, startIndex - 1),
+                    input.substring(startIndex + 6, endIndex - 1),
+                    input.substring(endIndex + 4)));
+        } catch(ChatterException e) {
+            System.out.println(e.getMessage());
+        } catch(Exception e) {
+            System.out.println("Please enter a valid description and start / end time.");
+        }
+    }
+
+    /**
+     * Check the user's commands and calls the appropriate methods according
+     * to the commands.
      */
     private static void run() {
         Scanner scanner = new Scanner(System.in);
@@ -38,19 +102,14 @@ public class Chatter {
             } else if (userInput.startsWith("unmark")){
                 tasks.markTaskAsNotDone(Character.getNumericValue(userInput.charAt(7)));
             } else if (userInput.startsWith("todo")){
-                tasks.addTask(new ToDo(userInput.substring(5)));
+                addTodo(userInput);
             } else if (userInput.startsWith("deadline")){
-                int deadlineIndex = userInput.indexOf("/by");
-                tasks.addTask(new Deadline(userInput.substring(9, deadlineIndex - 1),
-                        userInput.substring(deadlineIndex + 4)));
+                addDeadline(userInput);
             } else if (userInput.startsWith("event")){
-                int startIndex = userInput.indexOf("/from");
-                int endIndex = userInput.indexOf("/to");
-                tasks.addTask(new Event(userInput.substring(6, startIndex - 1),
-                        userInput.substring(startIndex + 6, endIndex - 1),
-                        userInput.substring(endIndex + 4)));
+                addEvent(userInput);
             } else {
-                tasks.addTask(new Task(userInput));
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println("Please enter a valid command!");
             }
 
             System.out.println("-----------------------");

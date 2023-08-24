@@ -1,18 +1,20 @@
+import java.util.ArrayList;
+
 /**
- * CS2103T Individual project
- * AY2023/24 Semester 1
+ * Represents a list of tasks.
  *
  * @author Anthony Tamzil
+ * @version CS2103T Individual Project AY2023/24 Semester 1
  */
 public class ListOfTasks {
-    private Task[] list;
+    private ArrayList<Task> list;
     private int numOfTasks = 0;
 
     /**
      * A constructor to initialize the ListOfTasks class.
      */
     public ListOfTasks() {
-        this.list = new Task[100];
+        this.list = new ArrayList<>();
     }
 
     /**
@@ -21,7 +23,7 @@ public class ListOfTasks {
      * @param task The Task object to be added.
      */
     public void addTask(Task task) {
-        list[numOfTasks] = task;
+        list.add(task);
         numOfTasks++;
 
         System.out.println("Got it. I have added this task to do:");
@@ -35,7 +37,7 @@ public class ListOfTasks {
      * @param taskNumber Number of task in list to be mark as completed.
      */
     public void markTaskAsDone(int taskNumber) {
-        Task completedTask = list[taskNumber - 1];
+        Task completedTask = list.get(taskNumber - 1);
         completedTask.markAsDone();
 
         System.out.println("Good job! I've marked this task as completed:");
@@ -48,7 +50,7 @@ public class ListOfTasks {
      * @param taskNumber Number of task in list to be mark as uncompleted.
      */
     public void markTaskAsNotDone(int taskNumber) {
-        Task unmarkedTask = list[taskNumber - 1];
+        Task unmarkedTask = list.get(taskNumber - 1);
         unmarkedTask.markAsNotDone();
 
         System.out.println("OK! I've marked this task as not done yet:");
@@ -61,7 +63,7 @@ public class ListOfTasks {
     public void listTasks() {
         System.out.println("These are all the tasks in your list:");
         for (int i = 0; i < numOfTasks; i++) {
-            System.out.println("  " + (i + 1) + "." + list[i].toString());
+            System.out.println("  " + (i + 1) + "." + list.get(i).toString());
         }
     }
 }

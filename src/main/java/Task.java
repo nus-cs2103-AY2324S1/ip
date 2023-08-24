@@ -1,8 +1,8 @@
 /**
- * CS2103T Individual project
- * AY2023/24 Semester 1
+ * Represents a singular general task.
  *
  * @author Anthony Tamzil
+ * @version CS2103T Individual Project AY2023/24 Semester 1
  */
 public class Task {
     /** A string description of the Task object. */
@@ -12,6 +12,8 @@ public class Task {
 
     /**
      * A constructor to initialize the Task class.
+     *
+     * @param description Description of the task.
      */
     public Task(String description) {
         this.description = description;

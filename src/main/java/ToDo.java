@@ -1,12 +1,14 @@
 /**
- * CS2103T Individual project
- * AY2023/24 Semester 1
+ * Represents a task without any date or time attached to it.
  *
  * @author Anthony Tamzil
+ * @version CS2103T Individual Project AY2023/24 Semester 1
  */
 public class ToDo extends Task {
     /**
      * A constructor to initialize the ToDo class.
+     *
+     * @param description Description of the task.
      */
     public ToDo(String description) {
         super(description);

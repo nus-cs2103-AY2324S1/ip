@@ -1,8 +1,8 @@
 /**
- * CS2103T Individual project
- * AY2023/24 Semester 1
+ * Represents a task that has a deadline.
  *
  * @author Anthony Tamzil
+ * @version CS2103T Individual Project AY2023/24 Semester 1
  */
 public class Deadline extends Task {
     /** A string indicating deadline of task */
@@ -10,6 +10,9 @@ public class Deadline extends Task {
 
     /**
      * A constructor to initialize the Deadline class.
+     *
+     * @param description Description of the task.
+     * @param by Deadline of the task.
      */
     public Deadline(String description, String by) {
         super(description);
