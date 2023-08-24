@@ -82,7 +82,7 @@ public class Duke {
                         break;
                     }
                     case ("mark"): {
-                        int index = -1;
+                        int index;
                         try {
                             index = Integer.parseInt(params.split(" ")[0]) - 1;
                             taskList.get(index).setDone(true);
