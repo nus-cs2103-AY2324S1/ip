@@ -1,0 +1,9 @@
+todo revision
+deadline submit homework /by Monday
+event tutorial /from Wed 12pm /to 2pm
+list
+mark 2
+list
+unmark 2
+list
+bye

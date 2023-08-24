@@ -15,11 +15,11 @@ public class Evo {
     public static void main(String[] args) {
         // Display Evo logo and welcome message
         String logo = " _____\n"
-                + "|  ___| \n"
-                + "| |___ __    __  _____ \n"
-                + "|  ___|\\ \\  / / |     | \n"
-                + "| |___  \\ \\/ /  |     |  \n"
-                + "|_____|  \\__/   |_____|  \n";
+                + "|  ___|\n"
+                + "| |___ __    __  _____\n"
+                + "|  ___|\\ \\  / / |     |\n"
+                + "| |___  \\ \\/ /  |     |\n"
+                + "|_____|  \\__/   |_____|\n";
         System.out.println("Hello from\n" + logo);
 
         // Initialise welcome and goodbye messages
@@ -52,7 +52,7 @@ public class Evo {
              * Then exit the current while loop and move to the next iteration.
              */
             if (Objects.equals(instruction, "list")) {
-                System.out.println("Here are the tasks in your list: ");
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < taskIndex; i++) {
                     if (i == taskIndex - 1) {
                         System.out.println(i + 1 + "." + taskList[i].toString() + "\n");
@@ -93,7 +93,11 @@ public class Evo {
                     // Add ToDo object
                     String taskDescription = "";
                     for (int i = 1; i < actionType.length; i++) {
-                        taskDescription += actionType[i] + " ";
+                        if (i == actionType.length - 1) {
+                            taskDescription += actionType[i];
+                        } else {
+                            taskDescription += actionType[i] + " ";
+                        }
                     }
 
                     ToDo toDo = new ToDo(taskDescription);
