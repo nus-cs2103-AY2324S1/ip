@@ -72,7 +72,7 @@ public class Duke {
                     System.out.println(HORIZONTAL_LINE);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
-                    System.out.println("Oops! Missing information for your Deadline task.");
+                    System.out.println("Oops! Invalid input for your Deadline task.");
                     System.out.println("Valid Format: deadline (description) /by (date-time)");
                     System.out.println(HORIZONTAL_LINE);
                 }
@@ -95,7 +95,7 @@ public class Duke {
                     System.out.println(HORIZONTAL_LINE);
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.print(HORIZONTAL_LINE);
-                    System.out.println("Oops! Missing information for your Event task.");
+                    System.out.println("Oops! Invalid input for your Event task.");
                     System.out.println("Valid Format: event (description) /from (date-time) /to (date-time)");
                     System.out.println(HORIZONTAL_LINE);
                 }
