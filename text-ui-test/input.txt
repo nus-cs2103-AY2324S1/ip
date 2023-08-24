@@ -1,0 +1,9 @@
+todo borrow book
+list
+mark 1
+deadline tutorial 1 worksheet /by 3pm
+event tutorial 1 /from 4pm /to 3pm
+list
+unmark 1
+mark 4
+bye
