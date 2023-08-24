@@ -6,7 +6,7 @@ public class Duke {
                 + " Hello! I'm ChatBot\n"
                 + " What can I do for you?\n"
                 + "____________________________________________________________\n";
-        String[] tasksList = new String[100];
+        Task[] tasksList = new Task[100];
         int count = 0;
 
         System.out.println(message);
@@ -15,6 +15,7 @@ public class Duke {
 
         while(true) {
             String input = scanner.nextLine();
+            String[] splitted = input.split(" ");
             System.out.println("----------------------------------------------");
             if(input.equalsIgnoreCase("bye")) {
                 System.out.println("----------------------------------------------");
@@ -24,21 +25,26 @@ public class Duke {
 
             } else if(input.equalsIgnoreCase("list")) {
                 System.out.println("----------------------------------------------");
-                for(int i = 0; i < count; i++) {
-                    if(count == 0) {
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < count; i++) {
+                    if (count == 0) {
                         System.out.println("You currently have no tasks!");
                     } else {
-                        System.out.println((i + 1) + ". " + tasksList[i]);
+                        System.out.println((i + 1) + "." + tasksList[i].toString());
                     }
                 }
                 System.out.println("----------------------------------------------");
-
+            } else if (splitted[0].equalsIgnoreCase("mark")) {
+                tasksList[Integer.parseInt(splitted[1]) - 1].markDone();
+            } else if (splitted[0].equalsIgnoreCase("unmark")) {
+                tasksList[Integer.parseInt(splitted[1]) - 1].unmarkDone();
             } else {
                 System.out.println("\t added: " + input);
-                tasksList[count] = input;
+                tasksList[count] = new Task(input);
                 count++;
                 System.out.println("----------------------------------------------");
             }
         }
     }
+
 }
