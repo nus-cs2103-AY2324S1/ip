@@ -4,6 +4,7 @@ public class Task {
     private boolean completed;
 
     public static int numberOfTasks = 0;
+    public static int numberOfCompletedTasks = 0;
 
 
     public Task(int i, String d) {
@@ -19,15 +20,29 @@ public class Task {
     }
 
     public void markDone() {
-        this.completed = true;
-        System.out.println(TextFormat.botReply("Yay! One step closer to playing with me!\n"
-            + this.toString()));
+        if (this.completed) {
+            System.out.println(TextFormat.botReply("That was done already...\n" +
+                    "are you sure you wanted to mark that?\n"
+                    + this.toString()));
+        } else {
+            this.completed = true;
+            numberOfCompletedTasks++;
+            System.out.println(TextFormat.botReply("Yay! One step closer to playing with me!\n"
+                    + this.toString()));
+        }
     }
 
     public void markNotDone() {
-        this.completed = false;
-        System.out.println(TextFormat.botReply("Oh no... what happened :(\n"
-                + this.toString()));
+        if (!this.completed) {
+            System.out.println(TextFormat.botReply("Don't worry it's still not done\n" +
+                    "What are you doing? Let's get it done now!\n"
+                    + this.toString()));
+        } else {
+            this.completed = false;
+            numberOfCompletedTasks--;
+            System.out.println(TextFormat.botReply("Oh no... what happened :(\n"
+                    + this.toString()));
+        }
     }
 
 
