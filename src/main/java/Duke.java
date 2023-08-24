@@ -21,72 +21,71 @@ public class Duke {
 
         while (true) {
             String input = sc.nextLine();
-            if (input.equals("bye")) {
+            String keyword = input.split(" ", 2)[0];
+            if (keyword.equals("bye")) {
+                talk(goodbye);
                 break;
-
-            } else if (input.equals("list")) {
+            }
+            if (keyword.equals("list")) {
                 String list = "";
                 for (int i = 0; i < count; i++) {
                     list += "  " + (i + 1) + ". " + items[i] + "\n";
                 }
                 talk(list);
+                continue;
+            }
 
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                items[index].markDone();
-                talk("Nice! I've marked this task as done:\n  " + items[index]);
-
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                items[index].markUnDone();
-                talk("OK, I've marked this task as not done yet:\n  " + items[index]);
-
-            } else if (input.startsWith("todo")) {
-                String name = input.split(" ", 2)[1];
-                items[count] = new ToDo(name);
-                talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
-                count++;
-
-            } else if (input.startsWith("deadline")) {
-                String name = "";
-                String by = "";
-                String[] descriptionArr = input.split(" ", 2)[1].split("/");
-                for (String str : descriptionArr) {
-                    if (str.startsWith("by")) {
-                        by = str.split(" ", 2)[1].trim();
-                    } else {
-                        name = str.trim();
+            String command = input.split(" ", 2)[1];
+            switch (keyword) {
+                case "mark":
+                    int indexMark = Integer.parseInt(command) - 1;
+                    items[indexMark].markDone();
+                    talk("Nice! I've marked this task as done:\n  " + items[indexMark]);
+                    break;
+                case "unmark":
+                    int indexUnmark = Integer.parseInt(command) - 1;
+                    items[indexUnmark].markUnDone();
+                    talk("OK, I've marked this task as not done yet:\n  " + items[indexUnmark]);
+                    break;
+                case "todo":
+                    items[count] = new ToDo(command);
+                    talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
+                    count++;
+                    break;
+                case "deadline":
+                    String deadlineName = "";
+                    String deadlineBy = "";
+                    String[] deadlineDescription = command.split("/");
+                    for (String str : deadlineDescription) {
+                        if (str.startsWith("by")) {
+                            deadlineBy = str.split(" ", 2)[1].trim();
+                        } else {
+                            deadlineName = str.trim();
+                        }
                     }
-                }
-                items[count] = new Deadline(name, by);
-                talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
-                count++;
-
-            } else if (input.startsWith("event")) {
-                String name = "";
-                String from = "";
-                String to = "";
-                String[] descriptionArr = input.split(" ", 2)[1].split("/");
-                for (String str : descriptionArr) {
-                    if (str.startsWith("from")) {
-                        from = str.split(" ", 2)[1].trim();
-                    } else if (str.startsWith("to")) {
-                        to = str.split(" ", 2)[1].trim();
-                    } else {
-                        name = str.trim();
+                    items[count] = new Deadline(deadlineName, deadlineBy);
+                    talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
+                    count++;
+                    break;
+                case "event":
+                    String eventName = "";
+                    String eventFrom = "";
+                    String eventTo = "";
+                    String[] eventDescription = command.split("/");
+                    for (String str : eventDescription) {
+                        if (str.startsWith("from")) {
+                            eventFrom = str.split(" ", 2)[1].trim();
+                        } else if (str.startsWith("to")) {
+                            eventTo = str.split(" ", 2)[1].trim();
+                        } else {
+                            eventName = str.trim();
+                        }
                     }
-                }
-                items[count] = new Event(name, from, to);
-                talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
-                count++;
-
-            } else {
-                items[count] = new Task(input);
-                count++;
-                talk("added: " + input);
-
+                    items[count] = new Event(eventName, eventFrom, eventTo);
+                    talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
+                    count++;
+                    break;
             }
         }
-        talk(goodbye);
     }
 }
