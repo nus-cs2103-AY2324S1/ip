@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     private static final String BYE_FLAG = "bye";
+    private static final String LIST_FLAG = "list";
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -18,6 +19,8 @@ public class Duke {
         printOutput(greetings);
 
         Scanner sc = new Scanner(System.in);
+        TaskManager taskManager = new TaskManager();
+
         while (sc.hasNextLine()) {
             String input = sc.nextLine().trim();
 
@@ -26,7 +29,14 @@ public class Duke {
                 break;
             }
 
-            printOutput(input + "\n");
+            if (input.equals(LIST_FLAG)) {
+                String output = taskManager.listTasks();
+                printOutput(output);
+                continue;
+            }
+
+            String output = taskManager.addTask(new Task(input));
+            printOutput(output);
         }
         sc.close();
     }
