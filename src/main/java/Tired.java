@@ -45,7 +45,7 @@ public class Tired {
                     }
                 } else if (input.startsWith("delete")) {
                     int taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
-                    if (taskIndex > list.size() || taskIndex < 1) {
+                    if (taskIndex > list.size() - 1 || taskIndex < 0) {
                         throw new DukeException("Invalid task number!");
                     }
                     System.out.println("Noted. I've removed this task:");
