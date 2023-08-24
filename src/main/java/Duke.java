@@ -13,8 +13,9 @@ public class Duke {
             + "3. event [description] /from [start date] /to [end date]\n"
             + "4. mark [item_number]\n"
             + "5. unmark [item_number]\n"
-            + "6. list\n"
-            + "7. bye\n"
+            + "6. delete [item_number]\n"
+            + "7. list\n"
+            + "8. bye\n"
             + line ;
 
     public static void main(String[] args) {
@@ -120,6 +121,16 @@ public class Duke {
 
                 Event event = new Event(description, from, to);
                 fullList.addToList(event);
+            }
+
+            else if (command.equals("delete")) {
+                String[] split_index = userInput.split(" ");
+                if (split_index.length <= 1 || split_index.length > 2) {
+                    System.out.println("Invalid structure. Please follow the valid commands below.\n" + commands);
+                    continue;
+                }
+                int index = Integer.parseInt(split_index[1]) - 1;
+                fullList.deleteFromList(index);
             }
 
             // Invalid commands

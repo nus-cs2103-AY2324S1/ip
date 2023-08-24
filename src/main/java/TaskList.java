@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class TaskList {
     ArrayList<Task> fullList;
     private static String line = "------------------------------------";
+    Scanner scanner = new Scanner(System.in);
 
     public TaskList() {
         this.fullList = new ArrayList<>();
@@ -16,6 +18,24 @@ public class TaskList {
         System.out.println("Now you have " + fullList.size() + " tasks in the list.");
         System.out.println(line);
     };
+
+    public void deleteFromList(int i) {
+        if (i >= 0 && i < fullList.size()) {
+            Task item = fullList.get(i);
+            this.fullList.remove(item);
+
+            System.out.println(line + "\n" +
+                    "Noted. I've removed this task:\n" +
+                    item.toString() + "\n" +
+                    "Now you have " + this.fullList.size() + " tasks in the list."
+                    + "\n" + line
+            );
+        } else {
+            System.out.println(line);
+            System.out.println("No such item exists");
+            System.out.println(line);
+        }
+    }
 
     public void markItem(int index) {
         if (index >= 0 && index < fullList.size()) {

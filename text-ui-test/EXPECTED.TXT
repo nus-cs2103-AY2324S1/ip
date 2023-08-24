@@ -30,8 +30,9 @@ List of commands
 3. event [description] /from [start date] /to [end date]
 4. mark [item_number]
 5. unmark [item_number]
-6. list
-7. bye
+6. delete [item_number]
+7. list
+8. bye
 ------------------------------------
 Invalid structure. Please follow the valid commands below.
 ------------------------------------
@@ -41,8 +42,9 @@ List of commands
 3. event [description] /from [start date] /to [end date]
 4. mark [item_number]
 5. unmark [item_number]
-6. list
-7. bye
+6. delete [item_number]
+7. list
+8. bye
 ------------------------------------
 Invalid structure. Please follow the valid commands below.
 ------------------------------------
@@ -52,8 +54,9 @@ List of commands
 3. event [description] /from [start date] /to [end date]
 4. mark [item_number]
 5. unmark [item_number]
-6. list
-7. bye
+6. delete [item_number]
+7. list
+8. bye
 ------------------------------------
 ------------------------------------
 Item to be added cannot be empty
@@ -96,6 +99,21 @@ Here are the tasks in your list:
 3. [E] [ ] item 3 (from: 31 August to: 4 Sept)
 4. [T] [X] item 4
 
+------------------------------------
+------------------------------------
+Noted. I've removed this task:
+[T] [ ] item 1
+Now you have 3 tasks in the list.
+------------------------------------
+Here are the tasks in your list:
+------------------------------------
+1. [D] [ ] item 2 (by: Sunday)
+2. [E] [ ] item 3 (from: 31 August to: 4 Sept)
+3. [T] [X] item 4
+
+------------------------------------
+------------------------------------
+No such item exists
 ------------------------------------
 ------------------------------------
 Bye. Hope to see you again soon!
