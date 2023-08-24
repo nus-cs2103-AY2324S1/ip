@@ -1,11 +1,14 @@
 package rat.inputs;
 
 import java.util.Scanner;
+
 import rat.storage.*;
-import rat.print.RatPrinter;
+
+import static rat.print.RatPrinter.*;
 
 /**
  * This class encapsulates the input handling of Rat.
+ *
  * @author Keagan
  */
 public class RatInput {
@@ -24,7 +27,8 @@ public class RatInput {
 
     /**
      * Constructor for RatInput.
-     * @param sc The Scanner object used to read user input.
+     *
+     * @param sc         The Scanner object used to read user input.
      * @param ratStorage The RatStorage object used to store and process the user's tasks.
      */
     public RatInput(Scanner sc, RatStorage ratStorage) {
@@ -42,35 +46,35 @@ public class RatInput {
             String[] inputArr = input.split(" ");
             String command = inputArr[0];
             switch (command) {
-                case "bye":
-                    RatPrinter.printExit();
-                    System.exit(0);
-                case "list":
-                    this.ratStorage.listItems();
-                    break;
-                case "mark":
-                    this.handleMark(inputArr);
-                    break;
-                case "unmark":
-                    this.handleUnmark(inputArr);
-                    break;
-                case "todo":
-                    this.handleToDo(input);
-                    break;
-                case "deadline":
-                    this.handleDeadline(input);
-                    break;
-                case "event":
-                    this.handleEvent(input);
-                    break;
-                case "delete":
-                    this.handleDelete(input);
-                    break;
-                case "help":
-                    this.showCommands();
-                    break;
-                default:
-                    RatPrinter.printWithLines("Sorry, I don't understand what you mean by " + input);
+            case "bye":
+                printExit();
+                System.exit(0);
+            case "list":
+                this.ratStorage.listItems();
+                break;
+            case "mark":
+                this.handleMark(inputArr);
+                break;
+            case "unmark":
+                this.handleUnmark(inputArr);
+                break;
+            case "todo":
+                this.handleToDo(input);
+                break;
+            case "deadline":
+                this.handleDeadline(input);
+                break;
+            case "event":
+                this.handleEvent(input);
+                break;
+            case "delete":
+                this.handleDelete(input);
+                break;
+            case "help":
+                this.showCommands();
+                break;
+            default:
+                printWithLines("Sorry, I don't understand what you mean by " + input);
             }
         }
     }
@@ -78,6 +82,7 @@ public class RatInput {
     /**
      * Handles the action of marking a task as done.
      * Parses user input after the "mark" command.
+     *
      * @param inputs Array of Strings resulting from splitting the remaining user input by spaces.
      */
     protected void handleMark(String[] inputs) {
@@ -85,15 +90,16 @@ public class RatInput {
             int index = Integer.parseInt(inputs[1]);
             this.ratStorage.markItemDone(index);
         } catch (IndexOutOfBoundsException e) {
-            RatPrinter.printWithLines(e.getMessage());
+            printWithLines(e.getMessage());
         } catch (NumberFormatException e) {
-            RatPrinter.printWithLines(" \"mark\" command must be followed by a number");
+            printWithLines(" \"mark\" command must be followed by a number");
         }
     }
 
     /**
      * Handles the action of marking a task as not done.
      * Parses user input after the "unmark" command.
+     *
      * @param inputs Array of Strings resulting from splitting the remaining user input by spaces.
      */
     protected void handleUnmark(String[] inputs) {
@@ -101,15 +107,16 @@ public class RatInput {
             int index = Integer.parseInt(inputs[1]);
             this.ratStorage.unmarkItemDone(index);
         } catch (IndexOutOfBoundsException e) {
-            RatPrinter.printWithLines(e.getMessage());
+            printWithLines(e.getMessage());
         } catch (NumberFormatException e) {
-            RatPrinter.printWithLines(" \"unmark\" command must be followed by a number");
+            printWithLines(" \"unmark\" command must be followed by a number");
         }
     }
 
     /**
      * Handles the action of creating a new ToDo task.
      * Parses user input after the "todo" command.
+     *
      * @param params The remaining user input after the "todo" command.
      */
     protected void handleToDo(String params) {
@@ -117,13 +124,14 @@ public class RatInput {
             params = params.substring(5);
             this.ratStorage.addToDo(params);
         } catch (StringIndexOutOfBoundsException e) {
-            RatPrinter.printWithLines("To Do name cannot be empty");
+            printWithLines("To Do name cannot be empty");
         }
     }
 
     /**
      * Handles the action of creating a new Deadline task.
      * Parses user input after the "deadline" command.
+     *
      * @param params The remaining user input after the "deadline" command.
      */
     protected void handleDeadline(String params) {
@@ -134,15 +142,16 @@ public class RatInput {
             String deadline = paramsArr[1];
             this.ratStorage.addDeadline(deadline, name);
         } catch (StringIndexOutOfBoundsException e) {
-            RatPrinter.printWithLines("Deadline name cannot be empty");
+            printWithLines("Deadline name cannot be empty");
         } catch (ArrayIndexOutOfBoundsException e) {
-            RatPrinter.printWithLines("Invalid deadline format. Please use \"deadline <name> /by <deadline>\"");
+            printWithLines("Invalid deadline format. Please use \"deadline <name> /by <deadline>\"");
         }
     }
 
     /**
      * Handles the action of creating a new Event task.
      * Parses user input after the "event" command.
+     *
      * @param params The remaining user input after the "event" command.
      */
     protected void handleEvent(String params) {
@@ -150,22 +159,23 @@ public class RatInput {
             params = params.substring(6);
             String eventName = params.split(" /from ")[0];
             if (eventName.isEmpty()) {
-                RatPrinter.printWithLines("Event name cannot be empty");
+                printWithLines("Event name cannot be empty");
             }
             String[] time = params.split(" /from ")[1].split(" /to ");
             String startTime = time[0];
             String endTime = time[1];
             this.ratStorage.addEvent(startTime, endTime, eventName);
         } catch (StringIndexOutOfBoundsException e) {
-            RatPrinter.printWithLines("Event name cannot be empty");
+            printWithLines("Event name cannot be empty");
         } catch (ArrayIndexOutOfBoundsException e) {
-            RatPrinter.printWithLines("Invalid event format. Please use \"event <name> /from <start> /to <end>\"");
+            printWithLines("Invalid event format. Please use \"event <name> /from <start> /to <end>\"");
         }
     }
 
     /**
      * Handles the action of deleting task(s).
      * Parses user input after the "delete" command.
+     *
      * @param params The remaining user input after the "delete" command.
      */
     protected void handleDelete(String params) {
@@ -178,9 +188,9 @@ public class RatInput {
                 this.ratStorage.deleteItem(index);
             }
         } catch (IndexOutOfBoundsException e) {
-            RatPrinter.printWithLines(e.getMessage());
+            printWithLines(e.getMessage());
         } catch (NumberFormatException e) {
-            RatPrinter.printWithLines(" \"delete\" command must be followed by a number");
+            printWithLines(" \"delete\" command must be followed by a number");
         }
     }
 
@@ -201,7 +211,7 @@ public class RatInput {
                 + "delete all: delete all tasks\n"
                 + "bye: exit the program\n"
                 + "\nbuilt by @keaganpzh";
-        RatPrinter.printWithLines(output);
+        printWithLines(output);
     }
 
 }

@@ -1,5 +1,6 @@
 import java.util.Scanner;
-import rat.print.RatPrinter;
+
+import static rat.print.RatPrinter.*;
 import rat.storage.*;
 import rat.inputs.RatInput;
 
@@ -31,7 +32,7 @@ public class Rat {
      * Instantiates a RatStorage object, Scanner object, and a RatInput Object.
      */
     public static void initialise() {
-        RatPrinter.printWelcome();
+        printWelcome();
         ratStorage = new RatStorage();
         sc = new Scanner(System.in);
         ratInput = new RatInput(sc, ratStorage);
