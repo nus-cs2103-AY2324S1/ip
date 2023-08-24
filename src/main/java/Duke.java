@@ -24,7 +24,7 @@ public class Duke {
         lineSplitter();
     }
 
-    public static void echo(List<String> list) {
+    public static void echo(List<Task> list) {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();
@@ -34,12 +34,30 @@ public class Duke {
             if (input.equalsIgnoreCase("list")) {
                 lineSplitter();
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + ". " + list.get(i));
+                    System.out.println((i + 1) + ". " + list.get(i).getTaskStatus() + " " + list.get(i).getTaskName());
                 }
                 lineSplitter();
                 continue;
             }
-            list.add(input);
+
+            if (input.split(" ")[0].equalsIgnoreCase("mark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                list.get(index).setDone();
+                lineSplitter();
+                System.out.println("Nice! I've marked this task as done:\n" + "  " + list.get(index).getTaskStatus() + " " + list.get(index).getTaskName() + "\n");
+                lineSplitter();
+                continue;
+            }
+
+            if (input.split(" ")[0].equalsIgnoreCase("unmark")) {
+                int index = Integer.parseInt(input.split(" ")[1]) - 1;
+                list.get(index).setUndone();
+                lineSplitter();
+                System.out.println("Nice! I've marked this task as undone:\n" + "  " + list.get(index).getTaskStatus() + " " + list.get(index).getTaskName() + "\n");
+                lineSplitter();
+                continue;
+            }
+            list.add(new Task(input));
             lineSplitter();
             System.out.println("added: " + input + "\n");
             lineSplitter();
@@ -48,7 +66,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        List<String> list = new ArrayList<>();
+        List<Task> list = new ArrayList<>();
         greet();
         echo(list);
         bye();
