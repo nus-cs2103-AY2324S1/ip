@@ -4,6 +4,10 @@ import java.util.Scanner;
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
 
+    private static enum COMMAND {
+        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT
+    }
+
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static final String NAME = "Duke";
@@ -14,25 +18,39 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         Boolean isRunning = true;
         while (isRunning) {
-            String input = sc.nextLine();
-            if (input.equals("list")) {
-                printList();
-            } else if (input.startsWith("mark", 0)) {
-                markAsDone(input);
-            } else if (input.startsWith("unmark", 0)) {
-                unmarkAsDone(input);
-            } else if (input.startsWith("delete", 0)) {
-                delete(input);
-            } else if (input.equals("bye")) {
-                isRunning = false;
-            } else {
-                try {
-                    addToList(input);
-                } catch (DukeException e) {
-                    printWithIndentation(HORIZONTAL_LINE);
-                    printWithIndentation(e.getMessage());
-                    printWithIndentation(HORIZONTAL_LINE);
+            String[] inputs = sc.nextLine().split(" ", 2);
+            String command = inputs[0].toUpperCase();
+            String argument = inputs.length == 2 ? inputs[1] : "";
+            try {
+                switch (COMMAND.valueOf(command)) {
+                    case LIST:
+                        printTasks();
+                        break;
+                    case MARK:
+                    case UNMARK:
+                    case DELETE:
+                        try {
+                            int index = Integer.parseInt(argument) - 1;
+                            editTask(command, index);
+                        } catch (NumberFormatException e) {
+                            throw new DukeException("\u2639 OOPS!!! The index of a task must be a number.");
+                        }
+                        break;
+                    case BYE:
+                        isRunning = false;
+                        break;
+                    case TODO:
+                    case DEADLINE:
+                    case EVENT:
+                        addTask(command, argument);
+                        break;
+                    default:
+                        throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
+            } catch (DukeException e) {
+                printFormattedMessage(e.getMessage());
+            } catch (IllegalArgumentException e) {
+                printFormattedMessage("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         }
 
@@ -41,25 +59,16 @@ public class Duke {
     }
 
     public static void hello() {
-        printWithIndentation(HORIZONTAL_LINE);
-        printWithIndentation("Hello! I'm " + NAME);
-        printWithIndentation("What can I do for you?");
-        printWithIndentation(HORIZONTAL_LINE);
+        String message = "Hello! I'm " + NAME + "\nWhat can I do for you?";
+        printFormattedMessage(message);
     }
 
     public static void bye() {
-        printWithIndentation(HORIZONTAL_LINE);
-        printWithIndentation("Bye. Hope to see you again soon!");
-        printWithIndentation(HORIZONTAL_LINE);
+        String message = "Bye. Hope to see you again soon!";
+        printFormattedMessage(message);
     }
 
-    public static void echo(String input) {
-        printWithIndentation(HORIZONTAL_LINE);
-        printWithIndentation(input);
-        printWithIndentation(HORIZONTAL_LINE);
-    }
-
-    public static void printList() {
+    public static void printTasks() {
         printWithIndentation(HORIZONTAL_LINE);
         for (int i = 0; i < tasks.size(); i++) {
             printWithIndentation((i + 1) + "." + tasks.get(i));
@@ -67,93 +76,100 @@ public class Duke {
         printWithIndentation(HORIZONTAL_LINE);
     }
 
-    public static void addToList(String input) throws DukeException {
-        String taskType = input.split(" ", 2)[0];
-        if (!taskType.equals("deadline") && !taskType.equals("event") && !taskType.equals("todo")) {
-            throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+    public static void addTask(String command, String argument) throws DukeException {
+        if (argument.isEmpty()) {
+            throw new DukeException("\u2639 OOPS!!! The description of a task cannot be empty.");
         }
 
-        String content;
-        try {
-            content = input.split(" ", 2)[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("\u2639 OOPS!!! The description of a " + taskType + " cannot be empty.");
-        }
-
-        String description = content.split(" /", 3)[0];
-
+        String[] inputs = argument.split(" /", 3);
+        String description = inputs[0];
         Task task;
-        if (taskType.equals("deadline")) {
-            String by;
-            try {
-                by = content.split(" /", 3)[1].split(" ", 2)[1];
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("\u2639 OOPS!!! The deadline of a deadline cannot be empty.");
-            }
 
-            task = new Deadline(description, by);
-        } else if (taskType.equals("event")) {
-            String from;
-            try {
-                from = content.split(" /", 3)[1].split(" ", 2)[1];
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("\u2639 OOPS!!! The start time of an event cannot be empty.");
-            }
-
-            String to;
-            try {
-                to = content.split(" /", 3)[2].split(" ", 2)[1];
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("\u2639 OOPS!!! The end time of an event cannot be empty.");
-            }
-
-            task = new Event(description, from, to);
-        } else {
-            task = new Todo(description);
+        switch (COMMAND.valueOf(command)) {
+            case TODO:
+                task = new Todo(description);
+                break;
+            case DEADLINE:
+                try {
+                    String by = inputs[1].split(" ", 2)[1];
+                    task = new Deadline(description, by);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("\u2639 OOPS!!! The deadline of a deadline cannot be empty.");
+                }
+                break;
+            case EVENT:
+                try {
+                    String from = inputs[1].split(" ", 2)[1];
+                    String to = inputs[2].split(" ", 2)[1];
+                    task = new Event(description, from, to);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("\u2639 OOPS!!! The start time or end time of an event cannot be empty.");
+                }
+                break;
+            default:
+                throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
         tasks.add(task);
 
-        printWithIndentation(HORIZONTAL_LINE);
-        printWithIndentation("Got it. I've added this task:");
-        printWithIndentation("  " + task);
-        printWithIndentation("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
-        printWithIndentation(HORIZONTAL_LINE);
+        String message = "Got it. I've added this task:\n  " + task + "\nNow you have " + tasks.size()
+                + (tasks.size() == 1 ? " task" : " tasks") + " in the list.";
+        printFormattedMessage(message);
     }
 
-    public static void markAsDone(String input) {
-        int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
+    public static void markTaskAsDone(int index) {
         tasks.get(index).markAsDone();
 
-        printWithIndentation(HORIZONTAL_LINE);
-        printWithIndentation("Nice! I've marked this task as done:");
-        printWithIndentation("  " + tasks.get(index));
-        printWithIndentation(HORIZONTAL_LINE);
+        String message = "Nice! I've marked this task as done:\n  " + tasks.get(index);
+        printFormattedMessage(message);
     }
 
-    public static void unmarkAsDone(String input) {
-        int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
+    public static void unmarkTaskAsDone(int index) {
         tasks.get(index).unmarkAsDone();
 
-        printWithIndentation(HORIZONTAL_LINE);
-        printWithIndentation("OK, I've marked this task as not done yet:");
-        printWithIndentation("  " + tasks.get(index));
-        printWithIndentation(HORIZONTAL_LINE);
+        String message = "OK, I've marked this task as not done yet:\n  " + tasks.get(index);
+        printFormattedMessage(message);
     }
 
-    public static void delete(String input) {
-        int index = Integer.parseInt(input.split(" ", 2)[1]) - 1;
+    public static void deleteTask(int index) {
         Task task = tasks.get(index);
         tasks.remove(index);
 
-        printWithIndentation(HORIZONTAL_LINE);
-        printWithIndentation("Noted. I've removed this task:");
-        printWithIndentation("  " + task);
-        printWithIndentation("Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.");
-        printWithIndentation(HORIZONTAL_LINE);
+        String message = "Noted. I've removed this task:\n  " + task + "\nNow you have " + tasks.size()
+                + (tasks.size() == 1 ? " task" : " tasks") + " in the list.";
+        printFormattedMessage(message);
     }
 
     private static void printWithIndentation(String input) {
         System.out.println("    " + input);
+    }
+
+    private static void printFormattedMessage(String input) {
+        printWithIndentation(HORIZONTAL_LINE);
+        String[] lines = input.split("\n");
+        for (String line : lines) {
+            printWithIndentation(line);
+        }
+        printWithIndentation(HORIZONTAL_LINE);
+    }
+
+    private static void editTask(String command, int index) throws DukeException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new DukeException("\u2639 OOPS!!! The index of a task must be within the range of the list.");
+        }
+
+        switch (COMMAND.valueOf(command)) {
+            case MARK:
+                markTaskAsDone(index);
+                break;
+            case UNMARK:
+                unmarkTaskAsDone(index);
+                break;
+            case DELETE:
+                deleteTask(index);
+                break;
+            default:
+                throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
     }
 }
