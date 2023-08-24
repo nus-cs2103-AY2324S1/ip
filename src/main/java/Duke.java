@@ -1,17 +1,18 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Tasks[] task = new Tasks[100];
-        int count = 0;
+        ArrayList<Tasks> task = new ArrayList<>();
+        String count;
 
         String logo  =   "____    ____  ________   ___    ___   __________    _____\n"
                      + "\\   \\  /   / |  ____  |  |  |   |  |  |  _____  |  / ____|\n"
                      + " \\   \\/   /  | |    | |  |  |   |  |  |  |___|  |  | (___\n"
-                      + "  \\      /   | |    | |  |  |   |  |  |   ______|  \\ ___ \\ \n"
+                      + "  \\      /   | |    | |  |  |   |  |  |   ______|  \\ ___ \\\n"
                        + "   |    |    | |    | |  |  |   |  |  |  \\  \\           | |\n"
                        + "   |    |    | |____| |  |  |   |  |  |  | \\  \\     ____) |\n"
-                       + "   |____|    |________|  \\_________/  |__|   \\__\\  |_____/     \n";
+                       + "   |____|    |________|  \\_________/  |__|   \\__\\  |_____/\n";
 
         String name = "Yours";
 
@@ -25,41 +26,65 @@ public class Duke {
         while (true) {
             String userInput = scanner.nextLine();
 
-            if (userInput.equals("bye")) {
+            //check for singular or plural "task"
+            if (task.size() < 1) {
+                count = "task";
+            } else {
+                count = "tasks";
+            }
+
+            if (userInput.isEmpty()) {
+                System.out.println("Please enter something!!");
+            } else if (userInput.equals("bye")) {
                 System.out.println("   ____________________________________________________________________________________");
                 System.out.println("   " + name + ": Bye. Hope to see you again soon!");
                 System.out.println("   ____________________________________________________________________________________");
                 break;
             } else if (userInput.equals("list")) {
                 System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " + name + ": Here are the tasks in your list :");
-                for (int i = 0 ; i < count; i ++) {
+                System.out.println("   " + name + ": Here are the tasks in your list.");
+                for (int i = 0 ; i < task.size(); i ++) {
                     int j = i + 1;
-                    System.out.println("     " + j + ". " +  task[i].toString());
+                    System.out.println("     " + j + ". " +  task.get(i).toString());
                 }
                 System.out.println("   ____________________________________________________________________________________");
             } else if (userInput.startsWith("mark")) {
                 int index = Integer.parseInt(userInput.substring(5));
-                task[index - 1].markDone();
+                task.get(index - 1).markDone();
                 System.out.println("   ____________________________________________________________________________________");
                 System.out.println("   " + name + ": Well done! I've marked this task as done :");
-                System.out.println("   " + task[index - 1].toString());
+                System.out.println("   " + task.get(index - 1).toString());
                 System.out.println("   ____________________________________________________________________________________");
             } else if (userInput.startsWith("unmark")) {
                 int index = Integer.parseInt(userInput.substring(7));
-                task[index - 1].markNotDone();
+                task.get(index - 1).markNotDone();
                 System.out.println("   ____________________________________________________________________________________");
                 System.out.println("   " + name + ": Alright, I've marked this task as not done yet");
-                System.out.println("   " + task[index - 1].toString());
+                System.out.println("   " + task.get(index - 1).toString());
                 System.out.println("   ____________________________________________________________________________________");
-            } else {
-                Tasks newtask = new Tasks(userInput);
+            } else if (userInput.startsWith("todo")) {
+                ToDos newtodo = new ToDos(userInput);
+                task.add(newtodo);
                 System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " +  name + ": Help you added a new task - " + userInput);
+                System.out.println("   " +  name + ": Help you added a new task.\n            " + newtodo.toString());
+                System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count ));
                 System.out.println("   ____________________________________________________________________________________");
-                task[count] = newtask;
-                count++;
+            } else if (userInput.startsWith("deadline")) {
+                Deadlines newdeadlines = new Deadlines(userInput);
+                task.add(newdeadlines);
+                System.out.println("   ____________________________________________________________________________________");
+                System.out.println("   " +  name + ": Help you added a new task. \n           " + newdeadlines.toString());
+                System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count ));
+                System.out.println("   ____________________________________________________________________________________");
+            } else if (userInput.startsWith("event")) {
+                Events newevents = new Events(userInput);
+                task.add(newevents);
+                System.out.println("   ____________________________________________________________________________________");
+                System.out.println("   " +  name + ": Help you added a new task. \n           " + newevents.toString());
+                System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count ));
+                System.out.println("   ____________________________________________________________________________________");
             }
         }
+
     }
 }

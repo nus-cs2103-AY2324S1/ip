@@ -1,10 +1,8 @@
-public class Tasks {
+public abstract class Tasks {
 
-    String str;
     boolean status;
     static int count = 0;
-    public Tasks(String str) {
-        this.str = str;
+    public Tasks() {
         this.status = false;
     }
     public void markDone() {
@@ -12,18 +10,6 @@ public class Tasks {
     }
     public void markNotDone() {
         this.status = false;
-    }
-
-    @Override
-    public String toString() {
-        String x;
-        if (this.status) {
-            x = "X";
-        } else {
-            x = " ";
-        }
-        String str1 = String.format("", x);
-        return str1 + this.str;
     }
 
 
