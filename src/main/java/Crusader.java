@@ -1,5 +1,5 @@
 public class Crusader {
-    /* Logo generated from https://patorjk.com/software/taag */
+    /** Logo generated from https://patorjk.com/software/taag */
     private static final String logo =
               "   _____                          _\n"
             + "  / ____|                        | |\n"
@@ -12,7 +12,15 @@ public class Crusader {
         System.out.println(logo);
     }
 
+    /**
+     * Generates a horizontal line to divide parts of the conversation.
+     */
+    private static void addDivider() {
+        System.out.println("____________________________________________________________\n");
+    }
     public static void main(String[] args) {
+        addDivider();
         showLogo();
+        addDivider();
     }
 }
