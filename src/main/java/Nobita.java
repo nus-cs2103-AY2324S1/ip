@@ -1,7 +1,8 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Nobita {
-    private static Task[] store = new Task[100];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int size = 0;
 
 
@@ -22,18 +23,20 @@ public class Nobita {
                     case "bye":
                         break;
                     case "list":
-                        for (int i = 0; i < size; ++i) {
-                            System.out.println(i + 1 + ". " + store[i]);
+                        int listNum = 1;
+                        for (Task task: tasks) {
+                            printMessage(listNum + ". " + task);
+                            ++listNum;
                         }
                         break;
                     case "mark": {
                         int target = Integer.parseInt(input[1]) - 1;
-                        store[target].markComplete();
+                        tasks.get(target).markComplete();
                         break;
                     }
                     case "unmark": {
                         int target = Integer.parseInt(input[1]) - 1;
-                        store[target].markIncomplete();
+                        tasks.get(target).markIncomplete();
                         break;
                     }
                     case "todo":
@@ -60,6 +63,10 @@ public class Nobita {
                         Event newEvent = new Event(eventFields[0], fromAndTo[0], fromAndTo[1]);
                         addTask(newEvent);
                         break;
+                    case "delete":
+                        int target = Integer.parseInt(input[1]) - 1;
+                        deleteTask(target);
+                        break;
                     default:
                         throw new NobitaException("I'm sorry, but I don't know what that means :-(");
                 }
@@ -70,8 +77,13 @@ public class Nobita {
     }
 
     private static void addTask(Task task) {
-        store[size++] = task;
-        printMessage("Got it. I've added this task:\n" + task + "\nNow you have " + size +" tasks in the list.");
+        tasks.add(task);
+        printMessage("Got it. I've added this task:\n" + task + "\nNow you have " + tasks.size() +" tasks in the list.");
+    }
+
+    private static void deleteTask(int targetTask) {
+        Task task = tasks.remove(targetTask);
+        printMessage("Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.size() +" tasks in the list.");
     }
 
     private static void throwDescriptionException(String command) throws NobitaException {
