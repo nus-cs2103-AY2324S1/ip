@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -32,11 +33,7 @@ public class Dude {
   /**
    * Tasks stored by user.
    */
-  public static Task[] tasks = new Task[100];
-  /**
-   * Number of tasks
-   */
-  public static int numTasks = 0;
+  public static ArrayList<Task> tasks = new ArrayList<>();
 
   /**
    * Add task to tasks list.
@@ -44,8 +41,16 @@ public class Dude {
    * @param task Task to add.
    */
   public static void addTask(Task task) {
-    tasks[numTasks] = task;
-    numTasks += 1;
+    tasks.add(task);
+  }
+
+  /**
+   * Get number of tasks.
+   *
+   * @return Number of tasks.
+   */
+  public static int getNumTasks() {
+    return tasks.size();
   }
 
   /**
@@ -55,10 +60,10 @@ public class Dude {
    * @throws TaskOutOfBoundsException if task number does not exist
    */
   public static Task getTask(int task) throws TaskOutOfBoundsException {
-    if (task > numTasks || task <= 0) {
+    if (task > getNumTasks() || task <= 0) {
       throw new TaskOutOfBoundsException();
     }
-    return tasks[task - 1];
+    return tasks.get(task - 1);
   }
 
   /**
@@ -67,13 +72,13 @@ public class Dude {
    * @return Tasks list formatted as a string.
    */
   public static String getTasksList() {
-    if (numTasks == 0) {
+    if (tasks.isEmpty()) {
       return emptyTaskList;
     }
     StringBuilder tasksList = new StringBuilder(taskListPrefix);
-    for (int i = 0; i < numTasks; i++) {
+    for (int i = 0; i < getNumTasks(); i++) {
       String taskNumberPrefix = String.format("%3s-", i + 1);
-      String taskStr = taskNumberPrefix + tasks[i].toString() + "\n";
+      String taskStr = taskNumberPrefix + tasks.get(i).toString() + "\n";
       tasksList.append(taskStr);
     }
     return tasksList.toString();
@@ -124,7 +129,7 @@ public class Dude {
       String description = splitInput[1].trim();
       Task task = new ToDoTask(description);
       addTask(task);
-      printMessage(String.format(addedTask, task, numTasks));
+      printMessage(String.format(addedTask, task, getNumTasks()));
     }
   }
 
@@ -149,7 +154,7 @@ public class Dude {
         String deadline = splitDeadline[1].trim();
         Task task = new DeadlineTask(description, deadline);
         addTask(task);
-        printMessage(String.format(addedTask, task, numTasks));
+        printMessage(String.format(addedTask, task, getNumTasks()));
       }
     }
   }
@@ -181,7 +186,7 @@ public class Dude {
           String end = splitEnd[1].trim();
           Task task = new EventTask(description, start, end);
           addTask(task);
-          printMessage(String.format(addedTask, task, numTasks));
+          printMessage(String.format(addedTask, task, getNumTasks()));
         }
       }
     }
