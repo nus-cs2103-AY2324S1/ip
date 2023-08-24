@@ -20,6 +20,7 @@ public class Crusader {
      * Describes the list of tasks in the chatbot.
      */
     private static void tasksToString() {
+        System.out.println("Here are your tasks:");
         for (int x = 0; x < tasks.size(); x++) {
             System.out.printf("%d. %s\n", x + 1, tasks.get(x).toString());
         }
@@ -32,7 +33,10 @@ public class Crusader {
      * @param i index of the task to be marked. 1-indexed.
      */
     private static void mark(int i) {
-        tasks.get(i - 1).mark();
+        Task t = tasks.get(i - 1);
+        System.out.println("I have marked the task as done:");
+        t.mark();
+        System.out.println(t.toString());
     }
 
     /**
@@ -41,7 +45,10 @@ public class Crusader {
      * @param i index of the task to be unmarked. 1-indexed.
      */
     private static void unmark(int i) {
-        tasks.get(i - 1).unmark();
+        Task t = tasks.get(i - 1);
+        System.out.println("I have unmarked the task, it is no longer done:");
+        t.unmark();
+        System.out.println(t.toString());
     }
 
     /**
