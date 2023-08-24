@@ -34,8 +34,8 @@ public class Sidtacphi {
         }
         scan.close();
 
-        System.out.println("____________________________________________________________");
-        System.out.println("\nBye. Hope to see you again soon!");
+        System.out.println("\nSidtacphi: Bye. Hope to see you again soon!");
+        System.out.println("\n____________________________________________________________");
 
     }
 }
