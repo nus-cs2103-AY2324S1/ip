@@ -62,15 +62,17 @@ public class Rocket {
                         System.out.println(LINE);
                         break;
                     }
-                    /*case "delete": {
+                    case "delete": {
                         int taskNumber = Integer.parseInt(arguments) - 1;
+                        Task task = taskList.get(taskNumber);
                         taskList.remove(taskNumber);
                         System.out.println(LINE);
-                        System.out.println("    OK, I've marked this task as not done yet:");
+                        System.out.println("    Noted. I've removed this task:");
                         System.out.println("      " + task);
+                        System.out.println("    Now you have " + taskList.size() + " tasks in the list");
                         System.out.println(LINE);
                         break;
-                    }*/
+                    }
                     case "deadline": {
                         Deadline deadline = getDeadline(arguments);
                         taskList.add(deadline);
@@ -130,8 +132,7 @@ public class Rocket {
         if (by.isEmpty()) {
             throw new RocketIllegalArgumentException("The deadline of a deadline cannot be empty");
         }
-        Deadline deadline = new Deadline(description, by);
-        return deadline;
+        return new Deadline(description, by);
     }
 
     private static Event getEvent(String arguments) throws RocketException{
@@ -147,7 +148,6 @@ public class Rocket {
         int fromIndex = duration.indexOf(" /to");
         String from = duration.substring(0, fromIndex);
         String to = duration.substring(fromIndex + 5);
-        Event event = new Event(description, from, to);
-        return event;
+        return new Event(description, from, to);
     }
 }
