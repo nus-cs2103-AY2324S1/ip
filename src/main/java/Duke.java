@@ -26,21 +26,34 @@ public class Duke {
 
     private boolean respond(String s) {
         StringBuffer str = new StringBuffer(s);
+        String check1 = "";
+        String check2 = "";
+        if (s.length() >= 6) {
+            check1 = str.substring(0, 4).toString();
+        }
+        if (s.length() >= 8) {
+            check2 = str.substring(0, 6).toString();
+        }
         if (s.equals("bye")) {
             exit();
             return false;
         } else if (s.equals("list")) {
             printlist();
             return true;
-        } else if (str.substring(0, 4).toString().equals(mark)) {
+        } else if (check1.equals(mark)) {
             mark(Integer.parseInt(str.substring(5, str.length())));
             return true;
-        } else if (s.substring(0, 6).toString().equals(unmark)) {
+        } else if (check2.equals(unmark)) {
             unmark(Integer.parseInt(str.substring(7, str.length())));
             return true;
         } else {
-            addtolist(s);
-            return true;
+            try {
+                addtolist(s);
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            } finally {
+                return true;
+            }
         }
     }
 
@@ -58,24 +71,50 @@ public class Duke {
 
     private void addtolist(String s) {
         StringBuffer str = new StringBuffer(s);
-        System.out.println("Got it. I've added this task:");
-        if (str.substring(0, 4).toString().equals("todo")) {
-            Todo t = new Todo(str.substring(5, str.length()).toString());
-            todolist.add(t);
-            System.out.println(t.toString());
-        } else if (str.substring(0, 8).toString().equals("deadline")) {
-            String t = str.substring(9, str.length()).toString();
-            String[] arr = t.split("/by ");
-            Deadline d = new Deadline(arr[0], arr[1]);
-            todolist.add(d);
-            System.out.println(d.toString());
-        } else if (str.substring(0, 5).toString().equals("event")) {
-            String t = str.substring(6, str.length()).toString();
-            String[] arr = t.split("/from ");
-            String[] arrr = arr[1].split("/to ");
-            Event e = new Event(arr[0], arrr[0], arrr[1]);
-            todolist.add(e);
-            System.out.println(e.toString());
+        String check1 = "";
+        String check2 = "";
+        String check3 = "";
+        if (s.length() >= 4) {
+            check1 = str.substring(0, 4).toString();
+        }
+        if (s.length() >= 8) {
+            check2 = str.substring(0, 8).toString();
+        }
+        if (s.length() >= 5) {
+            check3 = str.substring(0, 5).toString();
+        }
+        if (check1.toString().equals("todo")) {
+            if (s.length() <= 5) {
+                throw new InputMismatchException("task blank");
+            } else {
+                System.out.println("Got it. I've added this task:");
+                Todo t = new Todo(str.substring(5, str.length()).toString());
+                todolist.add(t);
+                System.out.println(t.toString());
+            }
+        } else if (check2.equals("deadline")) {
+            if (s.length() <= 9) {
+                throw new InputMismatchException("task blank");
+            } else {
+                System.out.println("Got it. I've added this task:");
+                String t = str.substring(9, str.length()).toString();
+                String[] arr = t.split("/by ");
+                Deadline d = new Deadline(arr[0], arr[1]);
+                todolist.add(d);
+                System.out.println(d.toString());
+            }
+        } else if (check3.equals("event")) {
+            if (s.length() <= 6) {
+                throw new InputMismatchException("task blank");
+            } else {
+                System.out.println("Got it. I've added this task:");
+                String t = str.substring(6, str.length()).toString();
+                String[] arr = t.split("/from ");
+                String[] arrr = arr[1].split("/to ");
+                Event e = new Event(arr[0], arrr[0], arrr[1]);
+                todolist.add(e);
+                System.out.println(e.toString());
+            }
         } else {
             throw new InputMismatchException("invalid input");
         }
@@ -97,7 +136,7 @@ public class Duke {
         while (s.hasNextLine()) {
             String t = s.nextLine();
             if (!d.respond(t)) {
-                break;
+                return;
             }
         }
     }
