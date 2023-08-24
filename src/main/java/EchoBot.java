@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class DukeException extends Exception {
@@ -96,9 +97,8 @@ public class EchoBot {
                 + "    |____/ \\__,_|_|\\_\\___|\n";
         String horizontalLine = "   _____________________________________________________________\n";
 
-        //Array to store the tasks
-        Task[] tasks = new Task[100];
-        int numOfTask = 0;
+        //ArrayList to store the tasks
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println(horizontalLine + "    Hello! I'm EchoBot\n" + logo);
         System.out.println("    What can I do for you?\n" + horizontalLine);
@@ -113,8 +113,8 @@ public class EchoBot {
             } else if (userInput.equalsIgnoreCase("list")) {
                 System.out.println(horizontalLine + "    Here are the tasks in your list:");
 
-                for (int i = 0; i < numOfTask; i++) {
-                    Task task = tasks[i];
+                for (int i = 0; i < tasks.size(); i++) {
+                    Task task = tasks.get(i);
                     System.out.println("    " + (i + 1) + "." + task);
                 }
 
@@ -126,11 +126,12 @@ public class EchoBot {
                         throw new DukeException(horizontalLine + "    ☹ OOPS!!! The description of a todo cannot be empty."
                             + "\n"+ horizontalLine);
                     }
-                    tasks[numOfTask] = new Todo(taskDescription);
-                    numOfTask++;
 
-                    System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + tasks[numOfTask - 1].toString());
-                    System.out.println("    Now you have " + numOfTask + " tasks in the list.\n" + horizontalLine);
+                    Task newTodo = new Todo(taskDescription);
+                    tasks.add(newTodo);
+
+                    System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + newTodo);
+                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.\n" + horizontalLine);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -139,11 +140,11 @@ public class EchoBot {
                 int indexOfBy = taskDescription.indexOf("/by");
                 String deadlineDescription = taskDescription.substring(0, indexOfBy).trim();
                 String by = taskDescription.substring(indexOfBy + 3).trim();
-                tasks[numOfTask] = new Deadline(deadlineDescription, by);
-                numOfTask++;
+                Task newDeadline = new Deadline(deadlineDescription, by);
+                tasks.add(newDeadline);
 
-                System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + tasks[numOfTask - 1].toString());
-                System.out.println("    Now you have " + numOfTask + " tasks in the list.\n" + horizontalLine);
+                System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + newDeadline);
+                System.out.println("    Now you have " + tasks.size() + " tasks in the list.\n" + horizontalLine);
             } else if (userInput.startsWith("event")) {
                 String taskDescription = extractTaskDesc(userInput, "event");
                 int indexOfFrom = taskDescription.indexOf("/from");
@@ -151,32 +152,57 @@ public class EchoBot {
                 String eventDescription = taskDescription.substring(0, indexOfFrom).trim();
                 String from = taskDescription.substring(indexOfFrom + 5, indexOfTo).trim();
                 String to = taskDescription.substring(indexOfTo + 3).trim();
-                tasks[numOfTask] = new Event(eventDescription, from, to);
-                numOfTask++;
+                Task newEvent = new Event(eventDescription, from, to);
+                tasks.add(newEvent);
 
-                System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + tasks[numOfTask - 1].toString());
-                System.out.println("    Now you have " + numOfTask + " tasks in the list.\n" + horizontalLine);
+                System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + newEvent);
+                System.out.println("    Now you have " + tasks.size() + " tasks in the list.\n" + horizontalLine);
             } else if (userInput.startsWith("mark")) {
                 int taskNum = extractTaskNum(userInput, "mark");
 
-                if (taskNum >= 1 && taskNum <= numOfTask) {
-                    Task task = tasks[taskNum-1];
+                if (taskNum >= 1 && taskNum <= tasks.size()) {
+                    Task task = tasks.get(taskNum - 1);
                     task.mark();
 
                     System.out.println(horizontalLine + "    Nice! I've marked this task as done:");
-                    System.out.println("      " + "[" + task.getStatusIcon() + "]" + " " + task.getDescription());
-                    System.out.println(horizontalLine);
+                    System.out.print("      [" + task.getStatusIcon() + "] " + task.getDescription());
+
+                    // Additional information
+                    if (task instanceof Event) {
+                        System.out.print(" (from: " + ((Event) task).from + " to: " + ((Event) task).to + ")");
+                    } else if (task instanceof Deadline) {
+                        System.out.print(" (by: " + ((Deadline) task).by + ")");
+                    }
+
+                    System.out.println("\n" + horizontalLine);
                 }
             } else if (userInput.startsWith("unmark")) {
                 int taskNum = extractTaskNum(userInput, "unmark");
 
-                if (taskNum >= 1 && taskNum <= numOfTask) {
-                    Task task = tasks[taskNum-1];
+                if (taskNum >= 1 && taskNum <= tasks.size()) {
+                    Task task = tasks.get(taskNum - 1);
                     task.unmark();
 
                     System.out.println(horizontalLine + "    OK, I've marked this task as not done yet:");
-                    System.out.println("      " + "[" + task.getStatusIcon() + "]" + " " + task.getDescription());
-                    System.out.println(horizontalLine);
+                    System.out.print("      [" + task.getStatusIcon() + "] " + task.getDescription());
+
+                    // Additional information
+                    if (task instanceof Event) {
+                        System.out.print(" (from: " + ((Event) task).from + " to: " + ((Event) task).to + ")");
+                    } else if (task instanceof Deadline) {
+                        System.out.print(" (by: " + ((Deadline) task).by + ")");
+                    }
+
+                    System.out.println("\n" + horizontalLine);
+                }
+            } else if (userInput.startsWith("delete")) {
+                int taskNum = extractTaskNum(userInput, "delete");
+
+                if (taskNum >= 1 && taskNum <= tasks.size()) {
+                    Task deletedTask = tasks.remove(taskNum - 1);
+
+                    System.out.println(horizontalLine + "    Noted. I've removed this task:\n" + "     " + deletedTask.toString());
+                    System.out.println("    Now you have " + tasks.size() + " tasks in the list.\n" + horizontalLine);
                 }
             } else {
                 System.out.println(horizontalLine + "    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
