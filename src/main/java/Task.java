@@ -11,10 +11,6 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public boolean getDone() {
-        return this.isDone;
-    }
-
     public void setDone() {
         this.isDone = true;
     }

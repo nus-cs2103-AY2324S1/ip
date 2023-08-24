@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Nexus {
@@ -10,6 +9,7 @@ public class Nexus {
         Scanner scanner = new Scanner(System.in);
         List<Task> list = new ArrayList<>();
         int index;
+        String desc;
         boolean isBye = false;
 
         while (!isBye) {
@@ -20,6 +20,7 @@ public class Nexus {
                     isBye = true;
                     break;
                 case "list":
+                    System.out.println("Here are the tasks in your list:");
                     for (int i = 0; i < list.size(); i++) {
                         System.out.print(i + 1);
                         System.out.println("." + list.get(i));
@@ -37,10 +38,36 @@ public class Nexus {
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(list.get(index));
                     break;
+                case "todo":
+                    desc = scanner.nextLine();
+                    list.add(new Todo(desc));
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(list.get(list.size() - 1));
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    break;
+                case "deadline":
+                    scanner.useDelimiter("/");
+                    desc = scanner.next();
+                    String by = scanner.nextLine().replace("/by", "").trim();
+                    list.add(new Deadline(desc, by));
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(list.get(list.size() - 1));
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    break;
+                case "event":
+                    scanner.useDelimiter("/");
+                    desc = scanner.next();
+                    String start = scanner.next().replace("from", "").trim();
+                    String end = scanner.nextLine().replace("/to", "").trim();
+                    list.add(new Event(desc, start, end));
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(list.get(list.size() - 1));
+                    System.out.println("Now you have " + list.size() + " tasks in the list.");
+                    break;
                 default:
-                    list.add(new Task(input));
-                    System.out.println("added: " + input);
+                    System.out.println("Invalid input");
             }
+            scanner.reset();
         }
     }
 }
