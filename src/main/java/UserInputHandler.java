@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class UserInputHandler {
@@ -47,11 +48,89 @@ public class UserInputHandler {
         Scanner scanner = new Scanner(System.in);
         input = scanner.nextLine();
         command = getResponseValue(input);
+        input = input.split(" ",2)[1];
         System.out.println(lineBreak);
     }
 
-    public boolean run() {
+    private void echo() {
+        if (input.isBlank()) {
+            System.out.println("You didn't say anything peko?");
+        } else {
+            System.out.println(input);
+        }
 
+        System.out.println(lineBreak);
+    }
+    private void readArray() {
+        Peko.readArray();
+    }
+    private void addToArray() throws InvalidTaskException{
+
+
+    }
+    public boolean run() {
+        switch (command) {
+            case ECHO:
+                echo();
+                break;
+            case LIST:
+                readArray();
+                break;
+            case WRITE:
+                try {
+                    addToArray();
+                } catch (InvalidTaskException e) {
+                    System.out.println(e);
+                    System.out.println(lineBreak);
+                }
+                break;
+            case MARK:
+                setMarkArray(input);
+                break;
+            case UNMARK:
+                setUnmarkArray(input);
+                break;
+            case TODO:
+                try {
+                    addToDo(input);
+                } catch (InvalidTaskException e) {
+                    System.out.println(e);
+                    System.out.println(lineBreak);
+                }
+                break;
+            case DEADLINE:
+                try {
+                    addDeadline(input);
+                } catch (InvalidTaskException e) {
+                    System.out.println(e);
+                    System.out.println(lineBreak);
+                }
+                break;
+            case EVENT:
+                try {
+                    addEvent(input);
+                } catch (InvalidTaskException e) {
+                    System.out.println(e);
+                    System.out.println(lineBreak);
+                }
+                break;
+            case DELETE:
+                setDelete(input);
+                break;
+            case COPYPASTA:
+                try  {
+                    degen();
+                } catch (FileNotFoundException e) {
+                    System.out.println("Hentai!");
+                } finally {
+                    return false;
+                }
+                break;
+            case OTSUPEKO:
+                return false;
+
+            default:
+        }
     }
 
 }
