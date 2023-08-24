@@ -129,10 +129,13 @@ public class Duke {
         System.out.println(dash);
     }
 
-    public static void indexError() {
+    public static void delete(int index) {
 
         System.out.println(dash);
-        System.out.println("\tPlease choose a proper index.");
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t  " + taskList.get(index - 1));
+        taskList.remove(index - 1);
+        System.out.println("\tNow that you have " + taskList.size() + (taskList.size() < 2 ? " task" : " tasks") + " in the list.");
         System.out.println();
         System.out.println(dash);
     }
@@ -163,6 +166,21 @@ public class Duke {
                     } else {
                         throw new InvalidIndexException();
                     }
+                } else if (message.length() >= 6 && message.substring(0, 6).equals("delete")) {
+
+                        if (message.length() > 6 && message.charAt(6) != ' ') {
+                            throw new NoSuchCommandException();
+                        }
+                        String s = " ";
+                        if (message.substring(6, message.length()).equals(s.repeat(message.length() - 6))) {
+                            throw new InvalidIndexException();
+                        }
+                        int index = Integer.parseInt(message.substring(7));
+                        if (index > 0 && index <= taskList.size()) {
+                            delete(index);
+                        } else {
+                            throw new InvalidIndexException();
+                        }
                 } else if (message.length() >= 6 && message.substring(0, 6).equals("unmark")) {
 
                     if (message.length() > 6 && message.charAt(6) != ' ') {
