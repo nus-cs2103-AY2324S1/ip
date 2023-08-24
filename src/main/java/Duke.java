@@ -41,10 +41,10 @@ public class Duke {
                             toDoList.get(taskIndex).markDone();
                             System.out.println("Nice! I've marked this task as done:\n" + toDoList.get(taskIndex));
                         } else {
-                            throw new DukeEception("invalid task number");
+                            throw new DukeException("invalid task number");
                         }
                     } else {
-                        throw new DukeEception("task number required");
+                        throw new DukeException("task number required");
                     }
 
                 } else if (userInput.startsWith("unmark")) {
@@ -56,16 +56,16 @@ public class Duke {
                             toDoList.get(taskIndex).markNotDone();
                             System.out.println("OK, I've marked this task as not done yet:\n" + toDoList.get(taskIndex));
                         } else {
-                            throw new DukeEception("invalid task number");
+                            throw new DukeException("invalid task number");
                         }
                     } else {
-                        throw new DukeEception("task number required");
+                        throw new DukeException("task number required");
                     }
 
                 } else if (userInput.startsWith("todo")){
                     //add new to-do task
                     if (userInput.length() <= 5) {
-                        throw new DukeEception("The description of a todo cannot be empty.");
+                        throw new DukeException("The description of a todo cannot be empty.");
                     } else {
                         String description = userInput.substring(5).trim();
                         Task newTask = new Todo(description);
@@ -77,7 +77,7 @@ public class Duke {
                 } else if (userInput.startsWith("deadline")) {
                     //add new deadline
                     if (userInput.length() <= 9) {
-                        throw new DukeEception("The description of a deadline cannot be empty.");
+                        throw new DukeException("The description of a deadline cannot be empty.");
                     } else {
                         String[] splitInput = userInput.split("/by");
                         if (splitInput.length == 2) {
@@ -93,7 +93,7 @@ public class Duke {
                 } else if (userInput.startsWith("event")) {
                     //add new event
                     if (userInput.length() <= 6) {
-                        throw new DukeEception("The description of a event cannot be empty.");
+                        throw new DukeException("The description of a event cannot be empty.");
                     } else {
                         String[] splitInput = userInput.split("/from");
                         if (splitInput.length == 2) {
@@ -112,7 +112,7 @@ public class Duke {
                 } else if (userInput.startsWith("delete")) {
                     //delete task
                     if (userInput.length() <= 7) {
-                        throw new DukeEception("Please specify what to delete");
+                        throw new DukeException("Please specify what to delete");
                     } else {
                         String[] splitInput = userInput.split(" ");
                         int taskIndex = Integer.parseInt(splitInput[1]) - 1;
@@ -121,77 +121,18 @@ public class Duke {
                             System.out.println("Noted. I've removed this task: \n" + removedTask);
                             System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
                         } else {
-                            throw new DukeEception("invalid task number");
+                            throw new DukeException("invalid task number");
                         }
                     }
 
                 } else {
                     //invalid input
-                    throw new DukeEception("I'm sorry, but I don't know what that means :-(");
+                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
-            } catch (DukeEception e) {
+            } catch (DukeException e) {
                 System.out.println("☹ OOPS!!! " + e.getMessage());
             }
         }
         System.out.println("Bye. Hope to see you again soon!");
-    }
-}
-
-class Task {
-    private String description;
-    private Boolean isDone;
-
-    public Task (String description) {
-        this.description = description;
-        this.isDone = false;
-    }
-
-    public void markDone() {
-        this.isDone = true;
-    }
-    public void markNotDone() {
-        this.isDone = false;
-    }
-    @Override
-    public String toString() {
-        return "[" + (isDone? "X" : " ") + "] " + this.description;
-    }
-}
-
-class Todo extends Task {
-    public Todo(String description) {
-        super(description);
-    }
-    @Override
-    public String toString () {
-        return "[T]" + super.toString();
-    }
-}
-
-class Deadline extends Task {
-    private String by;
-    public Deadline(String description, String by) {
-        super(description);
-        this.by = by;
-    }
-
-    @Override
-    public String toString () {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
-    }
-}
-
-class Event extends Task {
-    private String from;
-    private String to;
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = from;
-        this.to = to;
-    }
-
-    @Override
-    public String toString () {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 }
