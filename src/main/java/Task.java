@@ -2,6 +2,11 @@ public class Task {
     private boolean done;
     private final String name;
 
+    private Task() {
+        this.name = "";
+        done = false;
+    }
+
     public Task(String name) {
         this.name = name;
         done = false;
@@ -9,6 +14,10 @@ public class Task {
 
     public void setdone() {
         done = true;
+    }
+
+    public boolean isdone() {
+        return this.done;
     }
 
     @Override
