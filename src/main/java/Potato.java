@@ -8,6 +8,7 @@ public class Potato {
         ArrayList<Task> store = new ArrayList<>();
         int size = 0;
 
+
         System.out.println("-----------------------------------------\n" +
                 "Hello! I'm Potato\n" + "What can I do for you?\n" +
                 "-----------------------------------------");
