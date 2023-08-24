@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.Map;
 import java.util.ArrayList;
-
 import exceptions.InvalidCommandException;
 import exceptions.InvalidIndexException;
 import exceptions.MissingDescriptionException;
@@ -136,6 +135,7 @@ public class Thorndike {
      * 
      */
     private void list() {
+        echo("Here are the tasks in your list:");
         for (int i = 1; i < this.index + 1; i++) {
             Task task = this.list.get(i - 1);
             echo(String.format("%d. %s", i, task.toString()));
