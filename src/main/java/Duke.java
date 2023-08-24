@@ -22,7 +22,6 @@ public class Duke {
         System.out.println("____________________________________________________________________________________");
         System.out.println("What can I do for you?");
 
-
         while (true) {
             String userInput = scanner.nextLine();
 
@@ -96,6 +95,18 @@ public class Duke {
                     System.out.println("   " + name + ": Help you added a new event.\n           " + newevents.toString());
                     System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count));
                     System.out.println("   ____________________________________________________________________________________");
+                }
+            } else if (userInput.startsWith("delete")) {
+                try {
+                int index = Integer.parseInt(userInput.substring(7));
+                Tasks deleted = task.get(index - 1);
+                task.remove(index - 1);
+                System.out.println("   ____________________________________________________________________________________");
+                System.out.println("   " + name + ": Helped you deleted this task\n           " + deleted.toString());
+                System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count));
+                System.out.println("   ____________________________________________________________________________________");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("   " +  name + ": Please enter the correct task's index number.");
                 }
             } else {
                 System.out.println("   ____________________________________________________________________________________");
