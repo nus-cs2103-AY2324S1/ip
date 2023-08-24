@@ -31,9 +31,6 @@ public class ChatterBot {
                 list.get(Integer.parseInt(toUnmark) - 1).markAsUndone();
                 System.out.println("OK, I've marked this task as not done yet:\n" + "[ ] " + list.get(Integer.parseInt(toUnmark) - 1).description);
             } else {
-//                Task t = new Task(userMessage);
-//                list.add(t);
-//                System.out.println("added " + userMessage);
                 if (userMessage.startsWith("deadline")) {
                     int slashDeadline = userMessage.indexOf("/");
                     String deadlineDescription = userMessage.substring(9, slashDeadline).trim();
