@@ -1,5 +1,3 @@
-import jdk.jfr.Event;
-
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -48,7 +46,19 @@ public class ChatBot {
         output(String.format("\t%s\n\t%s",
                 isDone ? "Nice! I've marked this task as done:"
                        : "OK, I've marked this task as not done yet:",
-                task.toString()));
+                task));
+    }
+
+    public static void deleteTask(int index) throws InvalidTaskIndexException {
+        if (index < 1 || index > taskList.size()) {
+            throw new InvalidTaskIndexException();
+        }
+        Task task = taskList.get(index-1);
+        taskList.remove(task);
+        System.out.println(line);
+        System.out.println(String.format("\tNoted. I've removed this task:\n\t%s", task.toString()));
+        System.out.println(String.format("\tNow you have %d tasks in the list.", taskList.size()));
+        System.out.println(line);
     }
 
     public static void listTasks() {
@@ -73,7 +83,7 @@ public class ChatBot {
 
     private static Task parseDeadlineTask(String command) throws DeadlineMissingFieldException{
         int idOfBy = command.indexOf("/by");
-        if (idOfBy == -1 || idOfBy == 9) {
+        if (idOfBy == -1) {
             throw new DeadlineMissingFieldException();
         }
         try {
@@ -126,7 +136,18 @@ public class ChatBot {
                     } catch (NumberFormatException e) {
                         throw new InvalidTaskIndexException();
                     }
-                } else if (words[0].equals("todo")) {
+                } else if (words[0].equals("delete")) {
+                    if (words.length != 2) {
+                        throw new DeleteMissingFieldException();
+                    }
+                    try {
+                        deleteTask(Integer.parseInt(words[1]));
+                    } catch (NumberFormatException e) {
+                        throw new InvalidTaskIndexException();
+                    }
+                }
+
+                else if (words[0].equals("todo")) {
                     addTask(parseTodoTask(command));
                 } else if (words[0].equals("deadline")) {
                     addTask(parseDeadlineTask(command));
