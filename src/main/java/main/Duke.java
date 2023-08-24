@@ -1,6 +1,10 @@
 package main;
 import java.util.Scanner;
 import mypackage.CustomList;
+import mypackage.Deadline;
+import mypackage.Event;
+import mypackage.Task;
+import mypackage.ToDo;
 
 public class Duke {
     private static final String chatBotName = "CHAD CCP";
@@ -30,6 +34,12 @@ public class Duke {
             } else if (command.startsWith("unmark")) {
                 int index = Integer.valueOf(command.substring(7));
                 list.markAsUndone(index);
+            } else if (command.startsWith("todo")) {
+                list.addTask(new ToDo(command.substring(5)));
+            } else if(command.startsWith("deadline")) {
+                list.addTask(new Deadline(command.substring(9)));
+            } else if(command.startsWith("event")){
+                list.addTask(new Event(command.substring(6)));
             }
             else {
                 dukeInstance.echoUserAndAddToList(command);
@@ -48,17 +58,13 @@ public class Duke {
 
     public void echoUserAndAddToList(String command) {
         System.out.println("________________________________");
-        this.addToList(command);
+        list.add(new Task(command));
         System.out.println("added: " + command);
         System.out.println("________________________________");
     }
 
     public void printList(String command) {
         list.printList();
-    }
-
-    public void addToList(String command) {
-        list.addToList(command);
     }
 
     public void goodBye() {

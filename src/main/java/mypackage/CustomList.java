@@ -15,10 +15,6 @@ public class CustomList extends ArrayList<Task> {
         System.out.println("________________________________");
     }
 
-    public void addToList(String command) {
-        this.add(new Task(command));
-    }  
-
     public void markAsDone(int index) {
         System.out.println("Nice! I've marked this task as done:");
         this.get(index - 1).markAsDone();
@@ -30,6 +26,15 @@ public class CustomList extends ArrayList<Task> {
         System.out.println("OK, I've marked this task as not done yet:");
         this.get(index - 1).markAsUndone();
         System.out.println(" " + this.get(index - 1));
+        System.out.println("________________________________");
+    }
+
+    public void addTask(Task task) {
+        System.out.println("________________________________");
+        System.out.println("Got it. I've added this task:");
+        this.add(task);
+        System.out.println(" " + task);
+        System.out.println("Now you have " + Integer.toString(this.size()) + " " + (this.size() == 1 ? "task" : "tasks") + " in the list.");
         System.out.println("________________________________");
     }
 }
