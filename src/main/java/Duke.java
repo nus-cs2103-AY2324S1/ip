@@ -1,13 +1,31 @@
 import java.util.Scanner;
 public class Duke {
+    private int numofList = 0;
+    private String[] list = new String[100];
+    private void displayList() {
+        System.out.println("____________________________________________________________");
+        for (int i = 0; i < numofList; i++) {
+            System.out.println((i + 1) + ". " + list[i]);
+        }
+        System.out.println("____________________________________________________________");
+    }
+    private void addList(String Input) {
+        list[numofList] = Input;
+        numofList++;
+        System.out.println("____________________________________________________________");
+        System.out.println(" added: " + Input);
+        System.out.println("____________________________________________________________");
+    }
     private void run() {
         Scanner scanner = new Scanner(System.in);
         String Input = scanner.nextLine();
         while(!Input.equals("bye")) {
-            String output = "____________________________________________________________\n" +
-                    " " + Input + "\n" +
-                    "____________________________________________________________\n";
-            System.out.println(output);
+            if (Input.equals("list")) {
+                displayList();
+            } else {
+                addList(Input);
+            }
+
             Input = scanner.nextLine();
         }
     }
@@ -25,8 +43,8 @@ public class Duke {
         String Exit =   "____________________________________________________________\n" +
                         " Bye. Hope to see you again soon!\n" +
                         "____________________________________________________________";
-        System.out.println(Introduction);
+        System.out.printf(Introduction);
         duke.run();
-        System.out.println(Exit);
+        System.out.printf(Exit);
     }
 }
