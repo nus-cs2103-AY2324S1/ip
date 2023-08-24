@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Duke {
 
@@ -12,8 +13,7 @@ public class Duke {
     public static void main(String[] args) {
         String greeting = "Hello! I'm JED, your personal chat-bot!\nWhat can I do for you?";
         String goodbye = "Bye. Hope to see you again soon!";
-        Task[] items = new Task[100];
-        int count = 0;
+        ArrayList<Task> items = new ArrayList<>();
 
         Scanner sc = new Scanner(System.in);
 
@@ -30,8 +30,9 @@ public class Duke {
                 }
                 if (keyword.equals("list")) {
                     String list = "";
+                    int count = items.size();
                     for (int i = 0; i < count; i++) {
-                        list += "  " + (i + 1) + ". " + items[i] + "\n";
+                        list += "  " + (i + 1) + ". " + items.get(i) + "\n";
                     }
                     talk(list);
                     continue;
@@ -45,8 +46,8 @@ public class Duke {
                         }
                         description = input.split(" ", 2)[1];
                         int indexMark = Integer.parseInt(description) - 1;
-                        items[indexMark].markDone();
-                        talk("Nice! I've marked this task as done:\n  " + items[indexMark]);
+                        items.get(indexMark).markDone();
+                        talk("Nice! I've marked this task as done:\n  " + items.get(indexMark));
                         break;
                     case "unmark":
                         if (inputArr.length != 2) {
@@ -54,17 +55,17 @@ public class Duke {
                         }
                         description = input.split(" ", 2)[1];
                         int indexUnmark = Integer.parseInt(description) - 1;
-                        items[indexUnmark].markUnDone();
-                        talk("OK, I've marked this task as not done yet:\n  " + items[indexUnmark]);
+                        items.get(indexUnmark).markUnDone();
+                        talk("OK, I've marked this task as not done yet:\n  " + items.get(indexUnmark));
                         break;
                     case "todo":
                         if (inputArr.length != 2) {
                             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                         }
                         description = input.split(" ", 2)[1];
-                        items[count] = new ToDo(description);
-                        talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
-                        count++;
+                        items.add(new ToDo(description));
+                        talk("Got it. I've added this task:\n  " + items.get(items.size() - 1) + "\n Now you have "
+                                + items.size() + " tasks in your list.");
                         break;
                     case "deadline":
                         if (inputArr.length != 2) {
@@ -87,9 +88,9 @@ public class Duke {
                         if (deadlineBy == "") {
                             throw new DukeException("OOPS!! Please include when the deadline is by.");
                         }
-                        items[count] = new Deadline(deadlineName, deadlineBy);
-                        talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
-                        count++;
+                        items.add(new Deadline(deadlineName, deadlineBy));
+                        talk("Got it. I've added this task:\n  " + items.get(items.size() - 1) + "\n Now you have "
+                                + items.size() + " tasks in your list.");
                         break;
                     case "event":
                         if (inputArr.length != 2) {
@@ -118,9 +119,9 @@ public class Duke {
                         if (eventTo == "") {
                             throw new DukeException("OOPS!! Please include when the event is till.");
                         }
-                        items[count] = new Event(eventName, eventFrom, eventTo);
-                        talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + (count + 1) + " tasks in your list.");
-                        count++;
+                        items.add(new Event(eventName, eventFrom, eventTo));
+                        talk("Got it. I've added this task:\n  " + items.get(items.size() - 1) + "\n Now you have " + items.size()
+                                + " tasks in your list.");
                         break;
                     default:
                         throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
