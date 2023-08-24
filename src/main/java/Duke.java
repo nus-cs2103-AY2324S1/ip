@@ -3,6 +3,7 @@ import java.lang.NumberFormatException;
 public class Duke {
     private int numofList = 0;
     private Task[] list = new Task[100];
+
     private void displayList() {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < numofList; i++) {
@@ -38,7 +39,7 @@ public class Duke {
             Input = scanner.nextLine();
         }
     }
-    public boolean isInteger(String str) {
+    private boolean isInteger(String str) {
         try {
             Integer check = Integer.parseInt(str);
             return true;
