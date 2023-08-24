@@ -85,6 +85,17 @@ public class Duke {
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
                 }
+            } else if (userInput.startsWith("delete")) {
+                try {
+                    int id = Integer.parseInt(userInput.split(" ")[1]);
+                    Task taskToBeRemoved = tasks.get(id - 1);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(taskToBeRemoved.getDescription());
+                    tasks.remove(taskToBeRemoved);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("To delete a task you have to include the index");
+                }
             } else {
                 System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
