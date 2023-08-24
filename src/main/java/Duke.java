@@ -22,14 +22,17 @@ public class Duke {
 
     public static void getUserInput() {
         Scanner sc = new Scanner(System.in);
-        String bye = new String("bye");
+        List list = new List();
 
         while (true) {
-            String userInput = sc.next();
-            if (userInput.equals(bye)) {
+            String userInput = sc.nextLine();
+            if (userInput.equals("bye")) {
                 break;
+            } else if (userInput.equals("list")) {
+                display(list.toString());
             } else {
-                display(userInput);
+                list.addToList(userInput);
+                display("added: " + userInput);
             }
         }
     }
