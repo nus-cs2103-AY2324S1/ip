@@ -43,12 +43,16 @@
        [D][ ] make CCA poster (by: Aug 30th)
     ____________________________________________________________
     ____________________________________________________________
+    Noted. I've removed this task:
+      [E][ ] birthday party (from: Saturday 2pm to: 5pm)
+    Now you have 4 tasks in the list.
+    ____________________________________________________________
+    ____________________________________________________________
     Here are the tasks in your list:
     1.[T][ ] buy groceries
     2.[D][ ] do homework (by: Monday)
-    3.[E][ ] birthday party (from: Saturday 2pm to: 5pm)
-    4.[D][ ] make CCA poster (by: Aug 30th)
-    5.[T][ ] buy hand soap
+    3.[D][ ] make CCA poster (by: Aug 30th)
+    4.[T][ ] buy hand soap
     ____________________________________________________________
     ____________________________________________________________
     Bye. Hope to see you again soon!

@@ -6,5 +6,6 @@ mark 4
 list
 todo buy hand soap
 unmark 4
+delete 3
 list
 bye
