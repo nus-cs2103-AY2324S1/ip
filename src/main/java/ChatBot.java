@@ -1,38 +1,53 @@
+import java.util.Scanner;
+
 public class ChatBot {
-    private String message = "";
     private String name;
+    private static final Scanner sc = new Scanner(System.in);
+    private boolean hasEnded = false;
 
-    private class Message {
-        private String line = "____________________________________________________________\n";
-        private String message = "";
-
-        public Message(String message) {
-            this.message = message;
-        }
-
-        public void send() {
-            System.out.println(message + "\n" + line);
-        }
-    }
 
     public ChatBot(String name) {
         this.name = name;
     }
     public void intro() {
-        Message intro = new Message("____________________________________________________________\n" + 
+        System.out.println("____________________________________________________________\n" + 
         "Hello! I am " + this.name + ".\n" + 
-        "What can I do for you today?");
-        intro.send();
+        "What can I do for you today?\n" +
+        "____________________________________________________________\n");
     }
 
-    public void goodbye() {
-        Message goodbye = new Message("Bye. Hope to see you again!");
-        goodbye.send();
+    public void exitChat() {
+        System.out.println("Bye. Have a bad day you doofus.\n" + 
+        "____________________________________________________________\n");
+        hasEnded = true;
+    }
+
+    public boolean isEnded() {
+        return this.hasEnded;
+    }
+
+    public void echo(String message) {
+        System.out.println(message +"!\n" +
+        "____________________________________________________________\n");
+    }
+
+    public void readInput(String input) {
+        switch(input) {
+            case("bye"):
+                this.exitChat();
+                break;
+            default:
+                this.echo(input);
+        }
     }
 
     public static void main(String[] args) {
         ChatBot chatbot = new ChatBot("Bobby Wasabi");
         chatbot.intro();
-        chatbot.goodbye();
+
+        while(!chatbot.isEnded()) {
+            String input = sc.nextLine();
+            chatbot.readInput(input);
+        }
     }
 }
