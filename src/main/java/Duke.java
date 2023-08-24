@@ -16,29 +16,41 @@ public class Duke {
     private static void greet() {
         System.out.println(greeting);
     }
-    private static void echo(String s) {
-        System.out.println(s);
-    }
 
     private static void exit() {
         System.out.println(end);
     }
 
-    private static boolean respond(String s) {
+    private boolean respond(String s) {
         if (s.equals("bye")) {
             exit();
             return false;
+        } else if (s.equals("list")) {
+            printlist();
+            return true;
         } else {
-            echo(s);
+            addtolist(s);
             return true;
         }
     }
+
+    private void addtolist(String s) {
+        this.todolist.add(s);
+        System.out.println("added: " + s);
+    }
+
+    private void printlist() {
+        for (int i = 1; i <= this.todolist.size(); ++i) {
+            System.out.println(i + ". " + this.todolist.get(i - 1));
+        }
+    }
+
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         Duke d = new Duke();
         while (s.hasNextLine()) {
             String t = s.nextLine();
-            if (!respond(t)) {
+            if (!d.respond(t)) {
                 break;
             }
         }
