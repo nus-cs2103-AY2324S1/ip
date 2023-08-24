@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-
 public class Bocchi {
     private static final String LINE_BREAK = "___________________________________________________";
 
@@ -24,11 +23,27 @@ public class Bocchi {
     }
 
     /**
-     * Echoes input message.
+     * Adds the task to the current task list.
+     * @param message Name of task
+     * @param taskList Current list of tasks
+     * @return Updated task list
      */
-    private static void echo(String message) {
+    private static TaskList addTask(String message, TaskList taskList) {
         System.out.println(LINE_BREAK);
-        System.out.println(message);
+        Task task = new Task(message);
+        TaskList newTaskList = taskList.add(task);
+        System.out.printf("added: %s%n", task);
+        System.out.println(LINE_BREAK);
+        return newTaskList;
+    }
+
+    /**
+     * Outputs the current list of tasks to be done.
+     * @param taskList Current list of tasks
+     */
+    private static void displayTasks(TaskList taskList) {
+        System.out.println(LINE_BREAK);
+        System.out.println(taskList);
         System.out.println(LINE_BREAK);
     }
 
@@ -38,11 +53,16 @@ public class Bocchi {
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        TaskList taskList = new TaskList();
         greet();
-        String command = sc.nextLine();
-        while (!command.equals("bye")) {
-            echo(command);
-            command = sc.nextLine();
+        String activity = sc.nextLine();
+        while (!activity.equals("bye")) {
+            if (activity.equals("list")) {
+                displayTasks(taskList);
+            } else {
+                taskList = addTask(activity, taskList);
+            }
+            activity = sc.nextLine();
         }
         sc.close();
         exit();
