@@ -49,34 +49,48 @@ public class Duke {
             }
         } else if (s.equals("bye")) {
             end();
-        } else if (s.substring(0,4).equals("mark")) {
+        } else if (s.startsWith("mark")) {
             int idx = Integer.parseInt(s.substring(5));
             this.l.get(idx-1).mark();
-        } else if (s.substring(0,6).equals("unmark")) {
+        } else if (s.startsWith("unmark")) {
             int idx = Integer.parseInt(s.substring(7));
             this.l.get(idx-1).unmark();
-        } else if (s.substring(0,8).equals("deadline")) {
+        } else if (s.startsWith("deadline")) {
+            if (s.trim().length() <=8) {
+                throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
+            }
             String t = s.substring(9);
             String[] temp = t.split("/by");
+            if (temp.length < 2) {
+                throw new DukeException("OOPS!!! The description of a deadline must have a deadline.");
+            }
             Deadline d = new Deadline(temp[0], temp[1].trim());
             this.l.add(d);
             added(d);
-        } else if (s.substring(0, 4).equals("todo")) {
+        } else if (s.startsWith("todo")) {
+            if (s.trim().length() <=4) {
+                throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
+            }
             String t = s.substring(5);
+
             Todo temp = new Todo(t);
             this.l.add(temp);
             added(temp);
-        } else if (s.substring(0,5).equals("event")) {
+        } else if (s.startsWith("event")) {
+            if (s.trim().length() <=5) {
+                throw new DukeException("OOPS!!! The description of a event cannot be empty.");
+            }
             String t = s.substring(6);
             String[] temp = t.split("/");
+            if (temp.length < 3) {
+                throw new DukeException("OOPS!!! The description of a event must have from and to.");
+            }
             Events e = new Events(temp[0], temp[1].substring(4).trim(), temp[2].substring(2).trim());
             this.l.add(e);
             added(e);
         }
         else {
-            this.l.add(new Task(s));
-            String res = String.format("added: %s", s.toString());
-            System.out.println(res);
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
