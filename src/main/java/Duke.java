@@ -38,8 +38,9 @@ public class Duke {
             printWithTab(line);
             Commands command = Commands.parseCommand(input);
             if (command == null) {
-                printWithTab("added: " + input);
-                taskList.add(new Task(input));
+                printWithTab("Invalid command!");
+                // printWithTab("added: " + input);
+                // taskList.add(new Task(input));
             } else {
                 switch (command) {
                     case LIST:

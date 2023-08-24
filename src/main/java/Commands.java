@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,18 +26,18 @@ public enum Commands {
     /**
      * The pattern that the command takes.
      */
-    public final Pattern patternString;
+    public final Pattern commandPattern;
 
     /**
      * Constructs a new command with the specified string representation and one
      * parameter.
      *
      * @param commandString the string representation of the command
-     * @param patternString the pattern that the command takes
+     * @param pattern the pattern that the command takes
      */
-    private Commands(String commandString, String patternString) {
+    private Commands(String commandString, String commandPattern) {
         this.commandString = commandString;
-        this.patternString = Pattern.compile(patternString);
+        this.commandPattern = Pattern.compile(commandPattern);
     }
 
     /**
@@ -47,7 +48,7 @@ public enum Commands {
      */
     public static Commands parseCommand(String rawInput) {
         for (Commands c : values()) {
-            Matcher matcher = c.patternString.matcher(rawInput);
+            Matcher matcher = c.commandPattern.matcher(rawInput);
             if (matcher.find()) {
                 return c;
             }
@@ -63,16 +64,19 @@ public enum Commands {
      */
     public static String extractTaskDescription(String input) {
         //create a task pattern for the three tasks
-        Pattern taskPattern = Pattern.compile("^(todo|deadline|event) (.+?)( /by (.+?))?( /from (.+?))?$");
-        Matcher matcher = taskPattern.matcher(input);
-        if (matcher.find()) {
-            return matcher.group(2); 
+        List<Commands> taskCommands = List.of(TODO, DEADLINE, EVENT);
+
+        for (Commands taskCommand : taskCommands) {
+            Matcher matcher = taskCommand.commandPattern.matcher(input);
+            if (matcher.matches()) {
+                return matcher.group(2);  // Return the description once a match is found
+            }
         }
         return null;
     }
 
     public static String extractDeadline(String input) {
-        Matcher matcher = DEADLINE.patternString.matcher(input);
+        Matcher matcher = DEADLINE.commandPattern.matcher(input);
         if (matcher.find()) {
             return matcher.group(3); 
         }
@@ -80,7 +84,7 @@ public enum Commands {
     }
 
     public static String extractEventFrom(String input) {
-        Matcher matcher = EVENT.patternString.matcher(input);
+        Matcher matcher = EVENT.commandPattern.matcher(input);
         if (matcher.find()) {
             return matcher.group(3); 
         }
@@ -88,7 +92,7 @@ public enum Commands {
     }
 
     public static String extractEventTo(String input) {
-        Matcher matcher = EVENT.patternString.matcher(input);
+        Matcher matcher = EVENT.commandPattern.matcher(input);
         if (matcher.find()) {
             return matcher.group(4); 
         }

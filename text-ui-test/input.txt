@@ -1,0 +1,59 @@
+
+asdf
+Entry 1 should be empty
+Mark 1
+mark fail
+mark1
+mark 0
+mark -1
+Unmark 1
+unmark -1
+unmark 0
+unmark 1
+Todo Testing Caps would not make TODO
+todo asdf1
+todo asdf Testing Spaces
+mark 3
+mark 2
+list
+unmark 1
+list
+unmark 2
+list
+unmark 2
+list
+unmark 3
+deadline fail(ByNotMakingRealDeadline)
+Deadline caps should not make a real deadline
+deadline /by fail
+deadline fail /by
+deadline this /from should /to fail
+deadline clumping/byshouldfail
+deadline should /by work
+deadline   extra spaces  should   /by   work
+deadline this /from should /to make a /by deadline
+deadline this /from should /by not be mixed
+deadline this /by should /to not be mixed
+list
+mark 4
+list
+unmark 4
+list
+Event fail(ByNotMakingRealEvent)
+Event caps should not make a real event
+event /at fail
+event fail /at
+event should /at fail
+event thisClumping /from Should/by Fail
+event thisClumping/fromShould /by Fail
+event thisClumping/fromShould/byFail
+event this /from should /by fail
+event this /by should /at fail
+event this /from should /to work
+event this /from should /by not /to be mixed
+event this /by /from should /to not be mixed
+list
+mark 6
+list
+unmark 6
+list
