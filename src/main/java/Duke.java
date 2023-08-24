@@ -46,6 +46,7 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     myList.add(inValue);
                     break;
+                    
             }
         }
     }
