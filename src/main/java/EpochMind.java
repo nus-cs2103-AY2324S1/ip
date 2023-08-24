@@ -91,15 +91,19 @@ public class EpochMind {
             EpochMindException e = new EpochMindException("Thou hast forgotten to specify thine index");
             System.out.println(e);
         } else {
-            int index = parseInt(commandList[1]);
-            if (tasks.size() < index) {
-                EpochMindException e = new EpochMindException("Thou hast specified an index larger than thine list");
-                System.out.println(e);
-            } else {
-                System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is completed \n" +
-                        tasks.get(index - 1) +
-                        "\n___________________________________________________________________________________________________________\n");
-                tasks.get(index - 1).mark();
+            try {
+                int index = parseInt(commandList[1]);
+                if (tasks.size() < index) {
+                    EpochMindException e = new EpochMindException("Thou hast specified an index larger than thy list");
+                    System.out.println(e);
+                } else {
+                    tasks.get(index - 1).mark();
+                    System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is completed \n" +
+                            tasks.get(index - 1) +
+                            "\n___________________________________________________________________________________________________________\n");
+                }
+            } catch (Exception e) {
+                System.out.println("Thou hast given an invalid argument");
             }
         }
     }
@@ -109,15 +113,20 @@ public class EpochMind {
             EpochMindException e = new EpochMindException("Thou hast forgotten to specify thine index");
             System.out.println(e);
         } else {
-            int index = parseInt(commandList[1]);
-            if (tasks.size() < index) {
-                EpochMindException e = new EpochMindException("Thou hast specified an index larger than thine list");
-                System.out.println(e);
-            } else {
-                System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is not yet completed \n" +
-                        tasks.get(index - 1) +
-                        "\n___________________________________________________________________________________________________________\n");
-                tasks.get(index - 1).unmark();
+
+            try {
+                int index = parseInt(commandList[1]);
+                if (tasks.size() < index) {
+                    EpochMindException e = new EpochMindException("Thou hast specified an index larger than thy list");
+                    System.out.println(e);
+                } else {
+                    tasks.get(index - 1).unmark();
+                    System.out.println("___________________________________________________________________________________________________________\n" + "The Mind sees that this task is not yet completed \n" +
+                            tasks.get(index - 1) +
+                            "\n___________________________________________________________________________________________________________\n");
+                }
+            } catch (Exception e) {
+                System.out.println("Thou hast given an invalid argument");
             }
         }
     }
@@ -195,7 +204,7 @@ public class EpochMind {
         } else {
             int index = parseInt(commandList[1]);
             if (tasks.size() < index) {
-                EpochMindException e = new EpochMindException("Thou hast specified an index larger than thine list");
+                EpochMindException e = new EpochMindException("Thou hast specified an index larger than thy list");
                 System.out.println(e);
             } else {
                 Task task = tasks.remove(index - 1);
