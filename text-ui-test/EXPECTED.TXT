@@ -38,7 +38,7 @@ Reply John: Here are the tasks in your list:
 5. [T][ ] borrow book
 6. [D][ ] return book (by: Sunday)
 7. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Reply John: Invalid.
+Reply John: Invalid number.
 Reply John: OK, I've marked this task as not done yet:
 [ ] join sports club
 Reply John: Here are the tasks in your list:
@@ -58,4 +58,26 @@ Reply John: ☹ OOPS!!! You forgot to indicate the start and end date/time.
 Reply John: ☹ OOPS!!! You forgot to indicate the start and end date/time.
 Reply John: ☹ OOPS!!! You forgot to indicate the due date.
 Reply John: ☹ OOPS!!! You forgot to indicate the due date.
+Reply John: Noted. I've removed this task:
+  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+Now you have 6 tasks in the list.
+Reply John: Invalid number.
+Reply John: Here are the tasks in your list:
+1. [T][X] borrow book
+2. [D][ ] return book (by: June 6th)
+3. [T][ ] join sports club
+4. [T][ ] borrow book
+5. [D][ ] return book (by: Sunday)
+6. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Reply John: Noted. I've removed this task:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 5 tasks in the list.
+Reply John: Noted. I've removed this task:
+  [T][ ] borrow book
+Now you have 4 tasks in the list.
+Reply John: Here are the tasks in your list:
+1. [T][X] borrow book
+2. [D][ ] return book (by: June 6th)
+3. [T][ ] join sports club
+4. [D][ ] return book (by: Sunday)
 Reply John: Bye for now, hope to see you soon.
