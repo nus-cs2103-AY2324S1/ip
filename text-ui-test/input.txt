@@ -29,5 +29,7 @@ bye bye
 mark 4
 remove 0
 remove 2
+todo a / b
+deadline sit /by 1pm //sgt
 list
 bye

@@ -6,47 +6,47 @@
     ____________________________________________________________
      Got it. I've added this task:
        [T][ ] read book
-     Now you have 1 task in the list.
+     You have 1 task in the list now.
     ____________________________________________________________
 
     ____________________________________________________________
      Got it. I've added this task:
        [D][ ] return book (by: June 6th)
-     Now you have 2 tasks in the list.
+     You have 2 tasks in the list now.
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! list command should not have a description field.
+     ☹ OOPS!!! list command should not have description field.
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! 3 is out of range. Now you have 2 tasks in the list.
+     ☹ OOPS!!! 3 is out of range. You have 2 tasks in the list now.
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! The description of a todo cannot be empty.
+     ☹ OOPS!!! todo command should not have empty description field.
     ____________________________________________________________
 
     ____________________________________________________________
      Got it. I've added this task:
        [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     Now you have 3 tasks in the list.
+     You have 3 tasks in the list now.
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! The to of a event cannot be empty.
+     ☹ OOPS!!! event command should not have empty to field.
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! The from of a event cannot be empty.
+     ☹ OOPS!!! event command should not have empty from field.
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! deadline command should not have a from field.
+     ☹ OOPS!!! deadline command should not have from field.
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! The description of a remove cannot be empty.
+     ☹ OOPS!!! remove command should not have empty description field.
     ____________________________________________________________
 
     ____________________________________________________________
@@ -67,7 +67,7 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! The by of a deadline cannot be empty.
+     ☹ OOPS!!! deadline command should not have empty by field.
     ____________________________________________________________
 
     ____________________________________________________________
@@ -93,7 +93,7 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! 4 is out of range. Now you have 3 tasks in the list.
+     ☹ OOPS!!! 4 is out of range. You have 3 tasks in the list now.
     ____________________________________________________________
 
     ____________________________________________________________
@@ -102,7 +102,7 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! The description of a deadline cannot be empty.
+     ☹ OOPS!!! deadline command should not have empty description field.
     ____________________________________________________________
 
     ____________________________________________________________
@@ -122,15 +122,15 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! The description of a event cannot be empty.
+     ☹ OOPS!!! event command should not have empty description field.
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! bye command should not have a description field.
+     ☹ OOPS!!! bye command should not have description field.
     ____________________________________________________________
 
     ____________________________________________________________
-     ☹ OOPS!!! 4 is out of range. Now you have 3 tasks in the list.
+     ☹ OOPS!!! 4 is out of range. You have 3 tasks in the list now.
     ____________________________________________________________
 
     ____________________________________________________________
@@ -140,13 +140,27 @@
     ____________________________________________________________
      Noted. I've removed this task:
        [D][ ] return book (by: June 6th)
-     Now you have 2 tasks in the list.
+     You have 2 tasks in the list now.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Got it. I've added this task:
+       [T][ ] a / b
+     You have 3 tasks in the list now.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Got it. I've added this task:
+       [D][ ] sit (by: 1pm /sgt)
+     You have 4 tasks in the list now.
     ____________________________________________________________
 
     ____________________________________________________________
      Here are the tasks in your list:
      1. [T][ ] read book
      2. [E][X] project meeting (from: Mon 2pm to: 4pm)
+     3. [T][ ] a / b
+     4. [D][ ] sit (by: 1pm /sgt)
     ____________________________________________________________
 
     ____________________________________________________________
