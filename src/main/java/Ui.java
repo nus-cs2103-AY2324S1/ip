@@ -38,6 +38,10 @@ public class Ui {
                 + len + " task(s) in your backlog.\n" + line;
     }
 
+    public String errorMsg(String err) {
+        return line + err + "\n" + line;
+    }
+
     public String getList(TaskList list) {
         if (list.getLength() != 0) {
             String res = "Here are your tasks: \n";
