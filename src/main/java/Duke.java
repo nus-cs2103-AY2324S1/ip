@@ -13,11 +13,12 @@ public class Duke {
         //int count = 0;
 
         while (true) {
+
             String command = scanner.nextLine();
 
             if (command.isEmpty()) {
                 try {
-                    throw new DukeException("☹ OOPS!!! The description cannot be empty.");
+                    throw new DukeException("OOPS!!! The description cannot be empty.");
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -32,7 +33,7 @@ public class Duke {
                 System.out.println("Now you have " + list.size() + " tasks in the list.");
 
             } else if (command.equalsIgnoreCase("list")) {
-                System.out.println("Here are the tasks in your list: ");
+                System.out.println("Here are the tasks in your list:");
                 for (int i = 0; i < list.size(); i++) {
                     System.out.println((i + 1) + ". " + list.get(i).toString());
                 }
@@ -53,7 +54,7 @@ public class Duke {
                 String todo = command.substring(4).trim();
                 if (todo.isEmpty()) {
                     try {
-                        throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
                     }
@@ -70,7 +71,7 @@ public class Duke {
 
                 if (deadline.isEmpty()) {
                     try {
-                        throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
                     }
@@ -93,7 +94,7 @@ public class Duke {
 
                 if (event.isEmpty()) {
                     try {
-                        throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                        throw new DukeException("OOPS!!! The description of an event cannot be empty.");
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
                     }
@@ -122,7 +123,7 @@ public class Duke {
 //                System.out.println(task.toString());
 //                System.out.println("Now you have " + count + " tasks in the list.");
                 try {
-                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
