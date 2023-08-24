@@ -12,4 +12,8 @@ public class Event extends Task {
     public String getDisplay() {
         return "[E]" + super.getDisplay() + " from " + this.from + " to " + this.to;
     }
+
+    public String getSaveDisplay() {
+        return "E | " + super.getSaveDisplay() + " | " + this.from + " | " + this.to;
+    }
 }

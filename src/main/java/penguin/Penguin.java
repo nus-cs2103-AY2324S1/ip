@@ -1,5 +1,7 @@
 package penguin;
 
+import java.io.IOException;
+
 /**
  * Penguin is the main logic of Penguin chatbot; its main responsibility is to parse commands and handle errors.
  */
@@ -16,12 +18,15 @@ public class Penguin {
 
     private UI ui;
     private TaskList taskList;
+    private Memory memory;
     /**
      * Constructor for Penguin chatbot.
      */
     public Penguin() {
         this.ui = new UI();
         this.taskList = new TaskList();
+        this.memory = new Memory("data/memory.txt");
+
     }
 
     /**
@@ -30,14 +35,18 @@ public class Penguin {
      * @param args arguments.
      */
     public static void main(String[] args) {
+
         new Penguin().run();
     }
+
     /**
      * The main logic of Penguin chatbot; parses commands and handles errors.
      */
     public void run() {
         ui.out(GREETING);
         boolean running = true;
+        this.taskList = memory.load();
+
         while (running) {
             try {
                 String command = ui.in();
@@ -79,6 +88,7 @@ public class Penguin {
                 } else {
                     throw new PenguinUnknownCommandException();
                 }
+                memory.save(taskList);
             } catch (PenguinException e) {
                 ui.out("Fishes!! " + e.getMessage());
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -87,5 +97,6 @@ public class Penguin {
                 ui.out("Flap flap flap flap!! An unexpected error occurred...");
             }
         }
+
     }
 }

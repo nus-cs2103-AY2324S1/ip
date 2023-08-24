@@ -10,4 +10,8 @@ public class Deadline extends Task {
     public String getDisplay() {
         return "[D]" + super.getDisplay() + " by " + this.by;
     }
+
+    public String getSaveDisplay() {
+        return "D | " + super.getSaveDisplay() + " | " + this.by;
+    }
 }

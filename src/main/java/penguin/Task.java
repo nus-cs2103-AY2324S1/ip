@@ -22,5 +22,14 @@ public class Task {
         return output;
     }
 
-
+    public String getSaveDisplay() {
+        String output = "";
+        if (this.done) {
+            output += "1 | ";
+        } else {
+            output += "0 | ";
+        }
+        output += this.name;
+        return output;
+    }
 }

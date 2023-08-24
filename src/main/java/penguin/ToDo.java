@@ -8,4 +8,8 @@ public class ToDo extends Task {
     public String getDisplay() {
         return "[T]" + super.getDisplay();
     }
+
+    public String getSaveDisplay() {
+        return "T | " + super.getSaveDisplay();
+    }
 }
