@@ -130,6 +130,47 @@ public class Duke {
         }
     }
 
+    private static void deleteTask(String args) throws DukeException{
+        if (tasks.size() == 0) {
+            throw new DukeException("There are no tasks added. Please add a task first.");
+        }
+
+        String taskIndexString = args.split(" ")[0];
+
+        try {
+            int taskIndex = Integer.parseInt(taskIndexString) - 1;
+            if (taskIndex < 0) {
+                throw new DukeException("Task number cannot be negative.\n     "
+                                        + "Please retry with a valid task number.");
+            }
+
+            if (taskIndex >= tasks.size()) {
+                if (tasks.size() == 1) {
+                    throw new DukeException(String.format("Task %d does not exist.\n     "
+                                                          + "Use \"delete 1\" to delete the first task.", taskIndex + 1));
+                }
+
+                throw new DukeException(String.format("Task %d does not exist. Use a number between 1 and %d.",
+                                                      taskIndex + 1,
+                                                      tasks.size()));
+            }
+
+
+            String targetTaskInfo = tasks.get(taskIndex).toString();
+            tasks.remove(taskIndex);
+
+            ArrayList<String> messages = new ArrayList<String>();
+            messages.add("Noted. I've removed this task:");
+            messages.add(String.format("  %s", targetTaskInfo));
+            messages.add(String.format("Now you have %d tasks in the list.", tasks.size()));
+
+            Duke.respond(messages);
+        } catch (NumberFormatException e) {
+            throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
+                                                  + "Please retry with a valid task number.", taskIndexString));
+        }
+    }
+
     private static void respondWithAddedTask(Task newTask) {
         ArrayList<String> messages = new ArrayList<String>();
         messages.add("Got it. I've added this task:");
@@ -246,6 +287,9 @@ public class Duke {
                     break;
                 case "event":
                     Duke.addEvent(arguments);
+                    break;
+                case "delete": 
+                    Duke.deleteTask(arguments);
                     break;
                 default:
                     throw new DukeException(String.format("Command \"%s\" does not exist!"

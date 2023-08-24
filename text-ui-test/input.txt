@@ -19,8 +19,12 @@ unmark 1
 unmark one
 unmark 3
 list
-mark 100
+delete 1
+list
+delete one
+delete 3
+list
+delete -100
 mark -100
-unmark 100
 unmark -100
 bye
