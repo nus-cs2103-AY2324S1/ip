@@ -53,3 +53,10 @@ _________________________________
 2. [D][ ] roll boulder (by: eternity)
 3. [E][ ] roll boulder (from: now to: forever)
 _________________________________
+_________________________________
+The following item has been deleted from the list.
+[D][ ] roll boulder (by: eternity)
+_________________________________
+1. [T][ ] roll boulder
+2. [E][ ] roll boulder (from: now to: forever)
+_________________________________

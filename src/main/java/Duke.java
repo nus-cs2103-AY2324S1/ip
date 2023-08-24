@@ -38,14 +38,15 @@ public class Duke {
 
     /**
      * Main logic flow to take in the following commands
-     * 1. "bye" to exit bot
-     * 2. "list" to list tasks in arrayList
-     * 3. "mark" to mark task in arrayList
-     * 4. "unmark" to unmark task in arrayList
-     * 5. "todo" to create a todo in arrayList
-     * 6. "deadline" to create a deadline in arrayList
-     * 7. "event" to create an event in arrayList
-     * 8. default behaviour is to add task into arrayList
+     * 1. "bye" to exit chat
+     * 2. "list" to list tasks
+     * 3. "mark" to mark task
+     * 4. "unmark" to unmark task
+     * 5. "delete" to delete task
+     * 5. "todo" to create a todo
+     * 6. "deadline" to create a deadline
+     * 7. "event" to create an event
+     * 8. default behaviour is to add task
      */
     public static void handleCommand() throws SisyphusException {
         boolean isChatting = true;
@@ -107,6 +108,23 @@ public class Duke {
                         System.out.println(HORIZONTAL_LINE);
                         System.out.println("The following item has been unmarked and is now uncompleted.");
                         System.out.println(taskList.get(index));
+                        break;
+                    }
+                    case ("delete"): {
+                        int index;
+                        Task deletedTask;
+                        try {
+                            index = Integer.parseInt(params.split(" ")[0]) - 1;
+                            deletedTask = taskList.get(index);
+                            taskList.remove(index);
+                        } catch (Exception e) {
+                            throw new SisyphusException("You must include a valid task number. "
+                                    + "Use list to see what is valid.");
+                        }
+
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println("The following item has been deleted from the list.");
+                        System.out.println(deletedTask);
                         break;
                     }
                     case ("todo"): {
