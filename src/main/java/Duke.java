@@ -14,9 +14,10 @@ public class Duke {
         System.out.println("Hello from\n" + logo);
         */
 
-        String name = "CathyTheChattyCat";
+        final String UNKNOWN_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+        final String NAME = "CathyTheChattyCat";
         String lineBreak = "\n_________________________________________\n";
-        System.out.println(lineBreak + "Hello! I'm " + name);
+        System.out.println(lineBreak + "Hello! I'm " + NAME);
         System.out.printf("What can I do for you?" + lineBreak);
 
         String message;
@@ -65,8 +66,7 @@ public class Duke {
                     if (message.startsWith("todo")) {
                         String info = message.substring(5);
                         if (info.isEmpty()) {
-                            System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-                            continue;
+                            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                         }
                         task = new Todo(info);
                     }
@@ -74,8 +74,7 @@ public class Duke {
                         String info = message.substring(9);
                         String[] split = info.split("/by");
                         if (split.length != 1) {
-                            System.out.println("☹ OOPS!!! The description of a deadline is invalid.");
-                            continue;
+                            throw new DukeException("☹ OOPS!!! The description of a deadline is invalid.");
                         }
                         task = new Deadline(split[0], split[1]);
                     }
@@ -83,8 +82,7 @@ public class Duke {
                         String info = message.substring(6);
                         String[] split = info.split("/from | /to");
                         if (split.length != 2) {
-                            System.out.println("☹ OOPS!!! The description of a event is invalid.");
-                            continue;
+                            throw new DukeException("☹ OOPS!!! The description of a event is invalid.");
                         }
                         task = new Event(split[0], split[1], split[2]);
                     }
@@ -95,11 +93,16 @@ public class Duke {
                         System.out.println(task);
                         System.out.println("Now you have " + size + " tasks in the list." + lineBreak);
                     }
+                    throw new DukeException(UNKNOWN_COMMAND);
                 } else {
-                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    if (message.equalsIgnoreCase("bye")) break;
+                    throw new DukeException(UNKNOWN_COMMAND);
                 }
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                System.out.println(lineBreak + e.getMessage() + lineBreak);
+                continue;
+            } catch (Exception e) {
+                System.out.println(lineBreak + "☹ OOPS!!! The description is invalid :(." + lineBreak);
             }
         } while (!message.equalsIgnoreCase("bye"));
         System.out.print(lineBreak + "Hope to see you again soon!" + lineBreak);
