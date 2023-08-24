@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.NoSuchElementException;
 import java.util.Scanner;  // Import the Scanner class
 
 public class Duke {
@@ -54,9 +55,7 @@ public class Duke {
         }
     }
 
-    public void run() {
-        System.out.println(TextFormat.botReply(greet));  // print greet message
-
+    public void processInput() {
         while (true) {
             String command = "";
             Scanner sc = new Scanner(System.in);
@@ -83,9 +82,18 @@ public class Duke {
                     continue;
                 }
             }
-            Task newTask = Task.addTask(command, tokeniser.nextLine());
-            taskList.add(newTask);
+            try {
+                Task newTask = Task.addTask(command, tokeniser);
+                taskList.add(newTask);
+            } catch (IllegalCommandException e) {
+                System.out.println(e.getMessage());
+            }
         }
+    }
+
+    public void run() throws IllegalCommandException {
+        System.out.println(TextFormat.botReply(greet));  // print greet message
+        this.processInput();
         System.out.println(TextFormat.botReply(exit));
     }
 

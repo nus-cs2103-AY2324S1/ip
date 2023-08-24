@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public abstract class Task implements Comparable<Task> {
     protected int id;
     protected String description;
@@ -16,15 +18,21 @@ public abstract class Task implements Comparable<Task> {
         numberOfTasks++;
     }
 
-    public static Task addTask(String command, String input) {
+    public static Task addTask(String command, Scanner tokeniser) throws IllegalCommandException {
         Task newTask;
+        if (!command.equals("todo") && !command.equals("deadline")
+            && !command.equals("event")) {
+            throw new IllegalCommandException("do that");
+        } else if (!tokeniser.hasNext()) {
+            throw new IllegalCommandException("process an empty task");
+        }
         if (command.equals("todo")) {
-            newTask = new ToDo(input);
+            newTask = new ToDo(tokeniser.nextLine());
         } else if (command.equals("deadline")){
-            String[] parts = input.split("/by", 2);
+            String[] parts = tokeniser.nextLine().split("/by", 2);
             newTask = new Deadline(parts[0], parts[1]);
         } else {
-            String[] message = input.split("/from", 2);
+            String[] message = tokeniser.nextLine().split("/from", 2);
             String[] fromto = message[1].split("/to", 2);
             newTask = new Event(message[0], fromto[0], fromto[1]);
         }
