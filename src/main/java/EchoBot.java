@@ -1,4 +1,11 @@
 import java.util.Scanner;
+
+class DukeException extends Exception {
+    public DukeException(String errorMsg) {
+        super(errorMsg);
+    }
+}
+
 class Task {
     protected String description;
     protected boolean isDone;
@@ -87,7 +94,7 @@ public class EchoBot {
                 + "    | | | | | | | |/ / _ \\\n"
                 + "    | |_| | |_| |   <  __/\n"
                 + "    |____/ \\__,_|_|\\_\\___|\n";
-        String horizontalLine = "   ___________________________________________________\n";
+        String horizontalLine = "   _____________________________________________________________\n";
 
         //Array to store the tasks
         Task[] tasks = new Task[100];
@@ -113,12 +120,20 @@ public class EchoBot {
 
                 System.out.println(horizontalLine);
             } else if (userInput.startsWith("todo")) {
-                String taskDescription = extractTaskDesc(userInput, "todo");
-                tasks[numOfTask] = new Todo(taskDescription);
-                numOfTask++;
+                try {
+                    String taskDescription = extractTaskDesc(userInput, "todo");
+                    if (taskDescription.isEmpty()) {
+                        throw new DukeException(horizontalLine + "    ☹ OOPS!!! The description of a todo cannot be empty."
+                            + "\n"+ horizontalLine);
+                    }
+                    tasks[numOfTask] = new Todo(taskDescription);
+                    numOfTask++;
 
-                System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + tasks[numOfTask - 1].toString());
-                System.out.println("    Now you have " + numOfTask + " tasks in the list.\n" + horizontalLine);
+                    System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + tasks[numOfTask - 1].toString());
+                    System.out.println("    Now you have " + numOfTask + " tasks in the list.\n" + horizontalLine);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (userInput.startsWith("deadline")) {
                 String taskDescription = extractTaskDesc(userInput, "deadline");
                 int indexOfBy = taskDescription.indexOf("/by");
@@ -163,6 +178,9 @@ public class EchoBot {
                     System.out.println("      " + "[" + task.getStatusIcon() + "]" + " " + task.getDescription());
                     System.out.println(horizontalLine);
                 }
+            } else {
+                System.out.println(horizontalLine + "    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println(horizontalLine);
             }
         }
     }
