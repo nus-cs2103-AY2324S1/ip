@@ -16,11 +16,19 @@ public abstract class Task {
 	}
 
 
-	public void mark() {
+	public void mark() throws DukeException {
+		if (this.isDone) {
+			throw new DukeException("☹ OOPS!!! This task is already marked as done!");
+		}
+		System.out.println("Nice! I've marked this task as done:");
 		this.isDone = true;
 	}
 
-	public void unmark() {
+	public void unmark() throws DukeException {
+		if (!this.isDone) {
+			throw new DukeException("☹ OOPS!!! This task is already marked as not done!");
+		}
+		System.out.println("OK, I've marked this task as not done yet:");
 		this.isDone = false;
 	}
 

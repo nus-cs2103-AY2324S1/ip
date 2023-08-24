@@ -27,7 +27,7 @@ public class TaskList {
 			System.out.println((i + 1) + "." + currTask.toString());
 		}
 	}
-
+	
 	public int length() {
 		return this.list.size();
 	}
