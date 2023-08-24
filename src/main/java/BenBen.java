@@ -73,6 +73,16 @@ public class BenBen {
         }
     }
 
+    static class BenBenException extends RuntimeException {
+        BenBenException(String message) {
+            super(message);
+        }
+
+        @Override
+        public String toString() {
+            return "WOOF! " + getMessage();
+        }
+    }
 
     public static void exit() {
         System.out.println(line);
@@ -80,22 +90,18 @@ public class BenBen {
         System.exit(0);
     }
 
-    public static void add(String str) {
-        Task t = new Task(str);
-        arr[counter] = t;
-        counter++;
-        System.out.println(line);
-        System.out.println("added: " + t.description());
-        System.out.println(line);
-    }
-
-    public static void todo(String str) {
+    public static void todo(String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
         String des = "";
         for (int i =  1; i < strSplit.length; i++) {
             des = des + " " + strSplit[i];
         }
         des = des.trim();
+
+        if (des.length() == 0) {
+            throw new BenBenException("Please follow the format: todo todo details");
+        }
+
         Task t = new Todo(des);
         arr[counter] = t;
         counter++;
@@ -106,7 +112,7 @@ public class BenBen {
         System.out.println(line);
     }
 
-    public static void deadline(String str) {
+    public static void deadline(String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
         String des = "";
         String ddl = "";
@@ -126,6 +132,10 @@ public class BenBen {
         des = des.trim();
         ddl = ddl.trim();
 
+        if (des.length() == 0 || ddl.length() == 0 ) {
+            throw new BenBenException("Please follow the format: deadline deadline details /by deadline time");
+        }
+
         Task t = new Deadline(des, ddl);
         arr[counter] = t;
         counter++;
@@ -136,7 +146,7 @@ public class BenBen {
         System.out.println(line);
     }
 
-    public static void event (String str) {
+    public static void event (String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
         String des = "";
         String start = "";
@@ -167,9 +177,16 @@ public class BenBen {
         start = start.trim();
         end = end.trim();
 
+        if (des.length() == 0 || start.length() == 0 || end.length() == 0 ) {
+            throw new BenBenException("Please follow the format: event event details /from start time /to end time");
+        }
+
+
         Task t = new Event(des, start, end);
         arr[counter] = t;
         counter++;
+
+
         System.out.println(line);
         System.out.println("Got it. I've added this task:\n");
         System.out.println(t.toString());
@@ -178,16 +195,30 @@ public class BenBen {
     }
 
     public static void iterList() {
-        System.out.println(line);
-        System.out.println("Here are the tasks in your list:");
-      for(int i = 0; i < counter; i++) {
-              System.out.println((i + 1) + "." + arr[i].toString());
-      }
-        System.out.println(line);
+
+        if (counter == 0) {
+            System.out.println(line);
+            System.out.println("Your list is currently empty! Add a new task now!");
+            System.out.println(line);
+        } else {
+            System.out.println(line);
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 0; i < counter; i++) {
+                System.out.println((i + 1) + "." + arr[i].toString());
+            }
+            System.out.println(line);
+        }
     }
 
-    public static void mark(String str) {
+    public static void mark(String str) throws BenBenException{
         String[] strSplit = str.split("\\s+");
+        if (strSplit.length < 2) {
+            throw new BenBenException("Please enter a task to mark!");
+        }
+
+        if (strSplit.length > 2) {
+            throw new BenBenException("Please only enter one task to mark!");
+        }
         Integer x = null;
 
         try {
@@ -198,79 +229,99 @@ public class BenBen {
                     "    " + arr[x - 1].toString());
             System.out.println(line);
         } catch(NumberFormatException e) {
-            System.out.println("Please indicate the integer index of the task that you want to mark");
+            throw new BenBenException("Please use an integer value to indicate your task!");
         } catch(NullPointerException e) {
-            System.out.println("Please indicate the integer index of the task that you want to mark");
+            throw new BenBenException("The task you are trying to mark does not exist!");
         }
-
-
     }
 
-    public static void unmark(String str) {
+    public static void unmark(String str) throws BenBenException{
 
         String[] strSplit = str.split("\\s+");
+
+        if (strSplit.length < 2) {
+            throw new BenBenException("Please enter a task to unmark!");
+        }
+        if (strSplit.length > 2) {
+            throw new BenBenException("Please only enter one task to unmark!");
+        }
         Integer x = null;
 
         try {
             x = Integer.parseInt(strSplit[1]);
             arr[x - 1].unmark();
-
             System.out.println(line);
             System.out.println("OK, I've marked this task as not done yet:\n" +
                     "    " + arr[x - 1].toString());
             System.out.println(line);
-        } catch(NumberFormatException e) {
-            System.out.println("Please indicate the integer index of the task that you want to unmark");
-        } catch(NullPointerException e) {
-            System.out.println("Please indicate the integer index of the task that you want to unmark");
+        } catch (NumberFormatException e) {
+            throw new BenBenException("Please use an integer value to indicate your task!");
+        } catch (NullPointerException e) {
+            throw new BenBenException("The task you are trying to unmark does not exist!");
         }
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        arr = new Task[100];
-        System.out.println(line);
-        System.out.println("Hello! I'm BenBen.\n" +
-                "What can I do for you?");
-        System.out.println(line);;
+    public static void action(String next) throws BenBenException{
+        boolean bool = false;
 
-        while(sc.hasNext()) {
-            String next = sc.nextLine();
-
-            if (next.equals("bye")) {
-                exit();
-                break;
-            }
-
-            if (next.equals("list")) {
-                iterList();
-                continue;
-            }
-
-            if (next.startsWith("mark")) {
-                mark(next);
-                continue;
-            }
-
-            if (next.startsWith("unmark")) {
-                unmark(next);
-                continue;
-            }
-
-            if (next.startsWith("todo")) {
-                todo(next);
-            }
-
-            if (next.startsWith("deadline")) {
-                deadline(next);
-            }
-
-            if (next.startsWith("event")) {
-                event(next);
-            }
-
-            //add(next);
+        if (!bool && next.equals("bye")) {
+            exit();
+            bool = true;
         }
-        System.exit(0);
+
+        if (!bool && next.equals("list")) {
+            iterList();
+            bool = true;
+        }
+
+        if (!bool && next.startsWith("mark")) {
+            mark(next);
+            bool = true;
+        }
+
+        if (!bool && next.startsWith("unmark")) {
+            unmark(next);
+            bool = true;
+        }
+
+        if (!bool && next.startsWith("todo")) {
+            todo(next);
+            bool = true;
+        }
+
+        if (!bool && next.startsWith("deadline")) {
+            deadline(next);
+            bool = true;
+        }
+
+        if (!bool && next.startsWith("event")) {
+            event(next);
+            bool = true;
+        }
+
+        if (!bool) {
+            throw new BenBenException("BenBen does not understand your instruction:(");
+        }
+
+    }
+    public static void main(String[] args) throws BenBenException{
+            Scanner sc = new Scanner(System.in);
+            arr = new Task[100];
+            System.out.println(line);
+            System.out.println("Hello! I'm BenBen.\n" +
+                    "What can I do for you?");
+            System.out.println(line);
+            ;
+
+            while (sc.hasNext()) {
+                try {
+                    String next = sc.nextLine();
+                    action(next);
+                } catch (BenBenException e) {
+                    System.out.println(line);
+                    System.out.println(e.toString());
+                    System.out.println(line);
+                }
+            }
     }
 }
