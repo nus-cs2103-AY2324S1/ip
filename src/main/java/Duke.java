@@ -66,6 +66,55 @@ public class Duke {
         }
     }
 
+    public static void handleTaskAdd(String s) {
+        if (s.startsWith("todo ")) {
+            String todoName = s.substring(5);
+
+            Todo todo = new Todo(todoName);
+            storedTasks.add(todo);
+            System.out.println("New task added: " + todo);
+
+            int len = storedTasks.size();
+            System.out.println("You have a total of " + len + " task(s) in your list.");
+        } else if (s.startsWith("deadline ")) {
+            int dlIndex = s.indexOf("/by ");
+
+            if (dlIndex != -1 && dlIndex > 9) {
+                String dlName = s.substring(9, dlIndex - 1);
+                String dlTime = s.substring(dlIndex + 4);
+
+                Deadline dl = new Deadline(dlName, dlTime);
+                storedTasks.add(dl);
+                System.out.println("New task with deadline added: " + dl);
+
+                int len = storedTasks.size();
+                System.out.println("You have a total of " + len + " task(s) in your list.");
+            } else {
+                System.out.println("Invalid task with deadline input!");
+            }
+        } else if (s.startsWith("event ")) {
+            int fromIndex = s.indexOf("/from ");
+            int toIndex = s.indexOf("/to ");
+
+            if (fromIndex != -1 && fromIndex > 6 && toIndex != -1 && toIndex > fromIndex + 6) {
+                String eName = s.substring(6, fromIndex - 1);
+                String eFrom = s.substring(fromIndex + 6, toIndex - 1);
+                String eTo = s.substring(toIndex + 4);
+
+                Event e = new Event(eName, eFrom, eTo);
+                storedTasks.add(e);
+                System.out.println("New task added: " + e);
+
+                int len = storedTasks.size();
+                System.out.println("You have a total of " + len + " task(s) in your list.");
+            } else {
+                System.out.println("Invalid event input!");
+            }
+        } else {
+            System.out.println("Invalid command!");
+        }
+    }
+
 
     public static void main(String[] args) {
         String greet = "Hi! I'm Uke\n" + "What can I do for you?\n";
@@ -80,9 +129,7 @@ public class Duke {
             handleMarking(str);
 
             if (allowNext && addStr) {
-                Task t = new Task(str);
-                storedTasks.add(t);
-                System.out.println("Task added: " + str);
+                handleTaskAdd(str);
             } else if (!addStr) {
                 addStr = true;
             }
