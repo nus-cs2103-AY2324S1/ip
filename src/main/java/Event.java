@@ -35,6 +35,23 @@ public class Event extends Task {
         return new Event(splitByFrom[0], splitByFrom[1], splitByTo[1]);
     }
 
+    public static Event fromFileFormat(String[] parts) {
+        boolean isDone = "1".equals(parts[1].trim());
+        String name = parts[2].trim();
+        String startTime = parts[3].trim();
+        String endTime = parts[4].trim();
+        Event event = new Event(name, startTime, endTime);
+        if (isDone) {
+            event.markAsDone();
+        }
+        return event;
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "E|" + (isDone ? "1" : "0") + "|" + this.name + "|" + this.startTime + "|" + this.endTime;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(from: " + this.startTime + "to: " + this.endTime + ")";
