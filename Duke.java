@@ -74,44 +74,51 @@ public class Duke {
     public void setTasks() {
         while (true) {
             String response = scanner.nextLine();
-
-            if (response.equals("bye")) {
-                exit();
-                break;
-            } else if (response.equals("list")) {
-                System.out.println("Here are the tasks in your list:");
-                taskArrayList.forEach(x -> System.out.println(x.toString()));
-            } else if (response.length() > 5 && response.startsWith("mark ")) {
-                int id = Integer.valueOf(response.substring(5));
-                taskArrayList.get(id - 1).markAsDone();
-            } else if (response.length() > 7 && response.startsWith("unmark ")) {
-                int id = Integer.valueOf(response.substring(7));
-                taskArrayList.get(id - 1).markAsUndone();
-            } else {
-
-                if (response.startsWith("todo ")) {
+            try {
+                if (response.equals("bye")) {
+                    exit();
+                    break;
+                } else if (response.equals("list")) {
+                    System.out.println("Here are the tasks in your list:");
+                    taskArrayList.forEach(x -> System.out.println(x.toString()));
+                } else if (response.length() > 5 && response.startsWith("mark ")) {
+                    int id = Integer.valueOf(response.substring(5));
+                    taskArrayList.get(id - 1).markAsDone();
+                } else if (response.length() > 7 && response.startsWith("unmark ")) {
+                    int id = Integer.valueOf(response.substring(7));
+                    taskArrayList.get(id - 1).markAsUndone();
+                } else if (response.startsWith("todo ") && response.length() > 5) {
                     String description = response.substring(5);
                     ToDo task = new ToDo(description, count);
                     taskArrayList.add(task);
                     task.addTask(description);
-                } else if (response.startsWith("event ")) {
+                    count++;
+                    System.out.println("Now you have " + String.valueOf(taskArrayList.size()) + " tasks in the list.");
+                } else if (response.startsWith("event ") && response.length() > 6) {
                     String description = response.substring(6, response.indexOf("/from")).trim();
                     String from = response.substring(response.indexOf("/from") + 6, response.indexOf("/to")).trim();
                     String to = response.substring(response.indexOf("/to") + 4).trim();
                     Event task = new Event(description, count, from, to);
                     taskArrayList.add(task);
                     task.addTask(description);
-                } else if (response.startsWith("deadline ")) {
+                    count++;
+                    System.out.println("Now you have " + String.valueOf(taskArrayList.size()) + " tasks in the list.");
+                } else if (response.startsWith("deadline ") && response.length() > 9) {
                     String description = response.substring(9, response.indexOf("/by")).trim();
                     String by = response.substring(response.indexOf("/by") + 4).trim();
                     Deadline task = new Deadline(description, count, by);
                     taskArrayList.add(task);
                     task.addTask(description);
+                    count++;
+                    System.out.println("Now you have " + String.valueOf(taskArrayList.size()) + " tasks in the list.");
                 } else {
-                    taskArrayList.add(new Task(response, count));
+                    //taskArrayList.add(new Task(response, count));
+
+                    CustomException exception = new CustomException();
+                    throw exception;
                 }
-                count++;
-                System.out.println("Now you have " + String.valueOf(taskArrayList.size()) + " tasks in the list.");
+            } catch (CustomException exception) {
+                System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
             }
         }
         scanner.close();
