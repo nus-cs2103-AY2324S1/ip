@@ -87,6 +87,7 @@ public class BouncyBob {
         }
         System.out.println(TOP_BORDER);
         System.out.println("Added to database: " + database[pointer].getDescription());
+        printTaskCount(pointer);
         System.out.println(BOTTOM_BORDER);
     }
 
@@ -116,6 +117,12 @@ public class BouncyBob {
             fromTo[1] = matcher.group(2).trim();
         }
         return fromTo;
+    }
+
+    private static void printTaskCount(int pointer) {
+        String s = pointer == 0 ? "task" : "tasks";
+        String str = String.format("Currently, you have %s %s, start bouncing!", pointer + 1, s);
+        System.out.println(str);
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
