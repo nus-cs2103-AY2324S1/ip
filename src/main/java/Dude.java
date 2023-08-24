@@ -20,11 +20,6 @@ public class Dude {
   static String emptyTaskList = "You currently have no tasks in your list.";
   static String addedTask = "Got it! I've added this task:\n\t%s\nYou now have a total of %d task(s).";
   static String deletedTask = "Got it! I've removed this task:\n\t%s\nYou now have a total of %d task(s).";
-  static String noTaskDescription = "Please specify a task description.";
-  static String noDeadline = "Please specify a task deadline after the task\ndescription, prefixed by `\\by`.";
-
-  static String noEventStart = "Please specify the event start date after the task\ndescription, prefixed by `\\from`.";
-  static String noEventEnd = "Please specify the event end date after the task\n description and start date, prefixed by `\\to`.";
   static String markedAsDonePrefix = "Nice! I've marked this task as done:\n\t";
   static String markedAsNotDonePrefix = "Got it. I've marked this task as not done:\n\t";
 
@@ -165,78 +160,78 @@ public class Dude {
    * Parses todo task command.
    *
    * @param input command.
+   * @throws TaskDescriptionMissingException if task description is missing
    */
-  public static void parseTodo(String input) {
+  public static void parseTodo(String input) throws TaskDescriptionMissingException {
     String[] splitInput = input.split(" ", 2);
-
     if (splitInput.length < 2) {
       // task description not specified
-      printMessage(noTaskDescription);
-    } else {
-      String description = splitInput[1].trim();
-      Task task = new ToDoTask(description);
-      addTask(task);
-      printMessage(String.format(addedTask, task, getNumTasks()));
+      throw new TaskDescriptionMissingException();
     }
+    String description = splitInput[1].trim();
+    Task task = new ToDoTask(description);
+    addTask(task);
+    printMessage(String.format(addedTask, task, getNumTasks()));
+
   }
 
   /**
    * Parses deadline task command.
    *
    * @param input command.
+   * @throws TaskDescriptionMissingException if task description is missing
+   * @throws TaskDeadlineMissingException    if task deadline is missing
    */
-  public static void parseDeadline(String input) {
+  public static void parseDeadline(String input)
+    throws TaskDescriptionMissingException, TaskDeadlineMissingException {
     String[] splitInput = input.split(" ", 2);
-
     if (splitInput.length < 2) {
       // task description not specified
-      printMessage(noTaskDescription);
-    } else {
-      String[] splitDeadline = splitInput[1].split("/by", 2);
-      if (splitDeadline.length < 2) {
-        // deadline not specified
-        printMessage(noDeadline);
-      } else {
-        String description = splitDeadline[0].trim();
-        String deadline = splitDeadline[1].trim();
-        Task task = new DeadlineTask(description, deadline);
-        addTask(task);
-        printMessage(String.format(addedTask, task, getNumTasks()));
-      }
+      throw new TaskDescriptionMissingException();
     }
+    String[] splitDeadline = splitInput[1].split("/by", 2);
+    if (splitDeadline.length < 2) {
+      // deadline not specified
+      throw new TaskDeadlineMissingException();
+    }
+    String description = splitDeadline[0].trim();
+    String deadline = splitDeadline[1].trim();
+    Task task = new DeadlineTask(description, deadline);
+    addTask(task);
+    printMessage(String.format(addedTask, task, getNumTasks()));
   }
 
   /**
    * Parses event task command.
    *
    * @param input command.
+   * @throws TaskDescriptionMissingException if task description is missing
+   * @throws EventStartMissingException      if event start is missing
+   * @throws EventEndMissingException        if event end is missing
    */
-  public static void parseEvent(String input) {
+  public static void parseEvent(String input)
+    throws TaskDescriptionMissingException, EventStartMissingException, EventEndMissingException {
     String[] splitInput = input.split(" ", 2);
-
     if (splitInput.length < 2) {
       // task description not specified
-      printMessage(noTaskDescription);
-    } else {
-      String[] splitStart = splitInput[1].split("/from", 2);
-      if (splitStart.length < 2) {
-        // start date not specified
-        printMessage(noEventStart);
-      } else {
-        String[] splitEnd = splitStart[1].split("/to", 2);
-        if (splitEnd.length < 2) {
-          // end date not specified
-          printMessage(noEventEnd);
-        } else {
-          String description = splitStart[0].trim();
-          String start = splitEnd[0].trim();
-          String end = splitEnd[1].trim();
-          Task task = new EventTask(description, start, end);
-          addTask(task);
-          printMessage(String.format(addedTask, task, getNumTasks()));
-        }
-      }
+      throw new TaskDescriptionMissingException();
     }
+    String[] splitStart = splitInput[1].split("/from", 2);
+    if (splitStart.length < 2) {
+      // start date not specified
+      throw new EventStartMissingException();
+    }
+    String[] splitEnd = splitStart[1].split("/to", 2);
+    if (splitEnd.length < 2) {
+      // end date not specified
+      throw new EventEndMissingException();
+    }
+    String description = splitStart[0].trim();
+    String start = splitEnd[0].trim();
+    String end = splitEnd[1].trim();
+    Task task = new EventTask(description, start, end);
+    addTask(task);
+    printMessage(String.format(addedTask, task, getNumTasks()));
   }
 
   /**
