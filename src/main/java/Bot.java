@@ -1,11 +1,19 @@
+import exceptions.*;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+/**
+ * Main class for the bot.
+ */
 public class Bot {
+    /** Regex pattern for mark commands. */
     private static final Pattern markPattern = Pattern.compile("mark -?\\d+");
+    /** Regex pattern for unmark commands. */
     private static final Pattern unmarkPattern = Pattern.compile("unmark -?\\d+");
+    /** Regex pattern for delete commands. */
     private static final Pattern deletePattern = Pattern.compile("delete -?\\d+");
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -18,13 +26,13 @@ public class Bot {
                     break;
                 } else if (str.equalsIgnoreCase("list")) {
                     displayList(lst);
-                } else if (str.startsWith("mark")) {
+                } else if (str.startsWith("mark ")) {
                     markTask(str, lst);
-                } else if (str.startsWith("unmark")) {
+                } else if (str.startsWith("unmark ")) {
                     unmarkTask(str, lst);
                 } else if (Task.isTaskCommand(str)) {
                     addTask(str, lst);
-                } else if (str.startsWith("delete")) {
+                } else if (str.startsWith("delete ")) {
                     deleteTask(str, lst);
                 } else {
                     throw new InvalidCommandException();
@@ -35,6 +43,13 @@ public class Bot {
         }
         System.out.println("Bye. I'll be at the nearest trash can!");
     }
+
+    /**
+     * Prints the list to console. Throws an EmptyListException if the list is empty.
+     *
+     * @param lst List to print.
+     * @throws exceptions.EmptyListException If the list is empty.
+     */
     private static void displayList(ArrayList<Task> lst) throws EmptyListException {
         if (lst.size() == 0) {
             throw new EmptyListException();
@@ -49,15 +64,37 @@ public class Bot {
         out.deleteCharAt(out.length() - 1);
         System.out.println(out);
     }
+
+    /**
+     * Prints the length of the list to console.
+     *
+     * @param lst List to print the length of.
+     */
     private static void displayListLength(ArrayList<Task> lst) {
         System.out.println("Now you have " + lst.size() + " task(s) in the list.");
     }
+
+    /**
+     * Adds a task to the list and prints corresponding messages to the console.
+     *
+     * @param str Raw string to convert into a Task object.
+     * @param lst List to add the task to.
+     * @throws exceptions.InvalidTaskException If the task cannot be created from the string.
+     */
     private static void addTask(String str, ArrayList<Task> lst) throws InvalidTaskException {
         Task newTask = Task.makeTask(str);
         System.out.println("Added:\n" + newTask.toString());
         lst.add(newTask);
         displayListLength(lst);
     }
+
+    /**
+     * Marks the task in the list and prints corresponding messages to the console.
+     *
+     * @param str Raw string containing the command to mark the task.
+     * @param lst List the task is in.
+     * @throws exceptions.InvalidIndexException If a task does not exist at that index.
+     */
     private static void markTask(String str, ArrayList<Task> lst) throws InvalidIndexException {
         if (!markPattern.matcher(str).matches()) {
             throw new InvalidIndexException();
@@ -69,6 +106,14 @@ public class Bot {
         lst.get(index).mark();
         System.out.println("I'll mark this as done:\n" + lst.get(index).toString());
     }
+
+    /**
+     * Unmarks a task in a list and prints corresponding messages to the console.
+     *
+     * @param str Raw string containing the command to unmark the task.
+     * @param lst List the task is in.
+     * @throws exceptions.InvalidIndexException If a task does not exist at that index.
+     */
     private static void unmarkTask(String str, ArrayList<Task> lst) throws InvalidIndexException {
         if (!unmarkPattern.matcher(str).matches()) {
             throw new InvalidIndexException();
@@ -80,6 +125,14 @@ public class Bot {
         lst.get(index).unmark();
         System.out.println("I'll mark this as not done:\n" + lst.get(index).toString());
     }
+
+    /**
+     * Deletes a task from the list and prints corresponding messages to the console.
+     *
+     * @param str Raw string containing the command to delete a task.
+     * @param lst List to delete the task from.
+     * @throws exceptions.InvalidIndexException If a task does not exist at that index.
+     */
     private static void deleteTask(String str, ArrayList<Task> lst) throws InvalidIndexException {
         if (!deletePattern.matcher(str).matches()) {
             throw new InvalidIndexException();
