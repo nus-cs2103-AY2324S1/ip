@@ -22,7 +22,9 @@ public class Fishron {
         storage[taskCount] = task;
         taskCount++;
         System.out.println("____________________________________________________________");
-        System.out.println("added: " + task.getDescription());
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.toString());
+        System.out.println("Now you have " + taskCount + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
 
@@ -31,7 +33,8 @@ public class Fishron {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskCount; i++) {
             Task task = storage[i];
-            System.out.println((i + 1) + ". " + task.getStatusIcon() + " " + task.getDescription());
+            int count = i + 1;
+            System.out.println(count + "." + task.toString());
         }
         System.out.println("____________________________________________________________");
     }
@@ -73,7 +76,26 @@ public class Fishron {
         String input;
         do {
             input = scanner.nextLine();
-            if (input.equalsIgnoreCase("list")) {
+            try {
+            if (input.toLowerCase().startsWith("todo")) {
+                String[] description = input.split("todo");
+                if (description.length < 2) {
+                    throw new FishronException("☹ OOPS!!! The description of a todo cannot be empty.");
+                }
+                chatBot.addTask(new ToDo(description[1]));
+            } else if (input.toLowerCase().startsWith("deadline")) {
+                String[] parts = input.split("/by");
+                if (parts.length != 2) {
+                    throw new FishronException("☹ OOPS!!! Please provide a valid deadline format.");
+                }
+                chatBot.addTask(new Deadline(parts[0].split("deadline")[1], parts[1]));
+            } else if (input.toLowerCase().startsWith("event")) {
+                String[] parts = input.split("/from|/to");
+                if (parts.length != 3) {
+                    throw new FishronException("☹ OOPS!!! Please provide a valid event format.");
+                }
+                chatBot.addTask(new Event(parts[0].split("event")[1], parts[1], parts[2]));
+            } else if (input.equalsIgnoreCase("list")) {
                 chatBot.listTasks();
             } else if (input.toLowerCase().startsWith("mark")) {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]);
@@ -82,11 +104,16 @@ public class Fishron {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]);
                 chatBot.unmarkTask(taskIndex);
             } else if (!input.equalsIgnoreCase("bye")) {
-                chatBot.addTask(new Task(input));
+                throw new FishronException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        } while (!input.equalsIgnoreCase("bye"));
+            } catch (FishronException e) {
+                System.out.println("____________________________________________________________");
+                System.out.println(e.getMessage());
+                System.out.println("____________________________________________________________");
+            }
+        } while (!input.equalsIgnoreCase("bye")) ;
 
-        chatBot.farewell();
-        System.out.println("____________________________________________________________");
+            chatBot.farewell();
+            System.out.println("____________________________________________________________");
     }
 }
