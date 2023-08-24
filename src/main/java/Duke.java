@@ -1,9 +1,10 @@
 import java.util.Scanner;
 import java.util.ArrayList; // import the ArrayList class
 
+
 public class Duke {
     public static void main(String[] args) {
-        
+
         String logo =
                 "___________  __________  __________  ||   \n"
                 +"|         | |         | |         |  ||      \n"
