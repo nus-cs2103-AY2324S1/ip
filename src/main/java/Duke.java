@@ -25,7 +25,7 @@ public class Duke {
     }
 
     public static void checkInput(String str) {
-        if (str.startsWith("mark")){
+        if (str.startsWith("mark")) {
             String num = str.substring(5);
             int i = Integer.parseInt(num);
             Task t = lst[i - 1];
@@ -45,12 +45,7 @@ public class Duke {
                     + t + "\n"
                     + "____________________________________________________________\n"
             );
-        } else {
-            addList(str);
-        }
-    }
-    public static void addList(String str){
-        if (str.equals("list")) {
+        } if (str.equals("list")) {
             System.out.println("____________________________________________________________\n"
                     + "Here are the tasks in your list:");
             for (int i = 1; i <= index; i++) {
@@ -59,28 +54,19 @@ public class Duke {
             }
             System.out.println("____________________________________________________________");
         } else {
-            if (str.startsWith("todo")) {
-                String des = str.substring(5);
-                Todo todo = new Todo(des);
-                lst[index] = todo ;
-
-            } else if (str.startsWith("deadline")) {
-                String[] words = str.split("/");
-                String des = words[0].substring(9);
-                String by = words[1].substring(3);
-                Deadline dl = new Deadline(des, by);
-                lst[index] = dl ;
-
-            } else if (str.startsWith("event")) {
-                String[] words = str.split("/");
-                String des = words[0].substring(6);
-                String from = words[1].substring(5);
-                String to = words[2].substring(3);
-                Event event = new Event(des, from, to);
-                lst[index] = event ;
-
+            try {
+                addList(str);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-
+        }
+    }
+    public static void addList(String str) throws InvalidInputException, IncompleteInputException {
+         if (str.startsWith("todo ")) {
+             if (str.length() < 6) throw new IncompleteInputException("todo");
+            String des = str.substring(5);
+            Todo todo = new Todo(des);
+            lst[index] = todo ;
             index++;
             System.out.println("____________________________________________________________\n"
                     + "Got it. I've added this task:\n"
@@ -88,6 +74,43 @@ public class Duke {
                     + "Now you have " + index + " tasks in the list.\n"
                     + "____________________________________________________________\n"
             );
+
+        } else if (str.startsWith("deadline ")) {
+            String[] words = str.split("/");
+            if (words.length != 2 || words[0].length() < 10 || words[1].length() < 4) {
+                throw new IncompleteInputException("deadline");
+            }
+            String des = words[0].substring(9);
+            String by = words[1].substring(3);
+            Deadline dl = new Deadline(des, by);
+            lst[index] = dl ;
+            index++;
+            System.out.println("____________________________________________________________\n"
+                    + "Got it. I've added this task:\n"
+                    + lst[index - 1].toString() + "\n"
+                    + "Now you have " + index + " tasks in the list.\n"
+                    + "____________________________________________________________\n"
+            );
+
+        } else if (str.startsWith("event ")) {
+            String[] words = str.split("/");
+             if (words.length != 3 || words[0].length() < 7 || words[1].length() < 6 || words[2].length() < 4) {
+                 throw new IncompleteInputException("deadline");
+             }
+            String des = words[0].substring(6);
+            String from = words[1].substring(5);
+            String to = words[2].substring(3);
+            Event event = new Event(des, from, to);
+            lst[index] = event ;
+            index++;
+            System.out.println("____________________________________________________________\n"
+                    + "Got it. I've added this task:\n"
+                    + lst[index - 1].toString() + "\n"
+                    + "Now you have " + index + " tasks in the list.\n"
+                    + "____________________________________________________________\n"
+            );
+        } else {
+            throw new InvalidInputException();
         }
     }
 }
