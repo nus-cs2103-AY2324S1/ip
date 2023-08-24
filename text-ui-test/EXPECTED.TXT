@@ -11,22 +11,34 @@ ________________________________________________________________________________
 What can I do for you?
 Please enter something!!
    ____________________________________________________________________________________
-   Yours: Help you added a new task.
+   Yours: I don't really understand what you mean.
+   ____________________________________________________________________________________
+   ____________________________________________________________________________________
+   Yours: I don't really understand what you mean.
+   ____________________________________________________________________________________
+Hey! I think you forget to enter the todo description or leave a space after the command!
+   ____________________________________________________________________________________
+   Yours: Help you added a new to-do.
             [T][ ] borrow book
           Now you have 1 task in the list.
    ____________________________________________________________________________________
+Hey! Please enter the task description or leave a space after the command!
+Hey! Please provide a deadline for your task
    ____________________________________________________________________________________
-   Yours: Help you added a new task.
+   Yours: Help you added a new deadline.
            [D][ ] return book (by: Sunday)
           Now you have 2 tasks in the list.
    ____________________________________________________________________________________
+Hey! Please enter the event description or leave a space after the command!
+Hey! Please provide a time range for your event
+Hey! Please provide an end time for your event
    ____________________________________________________________________________________
-   Yours: Help you added a new task.
+   Yours: Help you added a new event.
            [E][ ] project meeting (from: Mon 2pm to: 4pm)
           Now you have 3 tasks in the list.
    ____________________________________________________________________________________
    ____________________________________________________________________________________
-   Yours: Help you added a new task.
+   Yours: Help you added a new deadline.
            [D][ ] do homework (by: no idea :-p)
           Now you have 4 tasks in the list.
    ____________________________________________________________________________________

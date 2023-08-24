@@ -49,39 +49,57 @@ public class Duke {
                 }
                 System.out.println("   ____________________________________________________________________________________");
             } else if (userInput.startsWith("mark")) {
-                int index = Integer.parseInt(userInput.substring(5));
-                task.get(index - 1).markDone();
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " + name + ": Well done! I've marked this task as done :");
-                System.out.println("   " + task.get(index - 1).toString());
-                System.out.println("   ____________________________________________________________________________________");
+                try {
+                    int index = Integer.parseInt(userInput.substring(5));
+                    task.get(index - 1).markDone();
+                    System.out.println("   ____________________________________________________________________________________");
+                    System.out.println("   " + name + ": Well done! I've marked this task as done :");
+                    System.out.println("   " + task.get(index - 1).toString());
+                    System.out.println("   ____________________________________________________________________________________");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("   " +  name + ": Please enter the correct task's index number.");
+                }
             } else if (userInput.startsWith("unmark")) {
-                int index = Integer.parseInt(userInput.substring(7));
-                task.get(index - 1).markNotDone();
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " + name + ": Alright, I've marked this task as not done yet");
-                System.out.println("   " + task.get(index - 1).toString());
-                System.out.println("   ____________________________________________________________________________________");
+                try {
+                    int index = Integer.parseInt(userInput.substring(7));
+                    task.get(index - 1).markNotDone();
+                    System.out.println("   ____________________________________________________________________________________");
+                    System.out.println("   " + name + ": Alright, I've marked this task as not done yet");
+                    System.out.println("   " + task.get(index - 1).toString());
+                    System.out.println("   ____________________________________________________________________________________");
+                }catch (IndexOutOfBoundsException e) {
+                    System.out.println("   " +  name + ": Please enter the correct task's index number.");
+                }
             } else if (userInput.startsWith("todo")) {
                 ToDos newtodo = new ToDos(userInput);
-                task.add(newtodo);
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " +  name + ": Help you added a new task.\n            " + newtodo.toString());
-                System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count ));
-                System.out.println("   ____________________________________________________________________________________");
+                if (newtodo.isValid()) {
+                    task.add(newtodo);
+                    System.out.println("   ____________________________________________________________________________________");
+                    System.out.println("   " +  name + ": Help you added a new to-do.\n            " + newtodo.toString());
+                    System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count));
+                    System.out.println("   ____________________________________________________________________________________");
+                }
             } else if (userInput.startsWith("deadline")) {
                 Deadlines newdeadlines = new Deadlines(userInput);
-                task.add(newdeadlines);
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " +  name + ": Help you added a new task.\n           " + newdeadlines.toString());
-                System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count ));
-                System.out.println("   ____________________________________________________________________________________");
+                if (newdeadlines.isValid()) {
+                    task.add(newdeadlines);
+                    System.out.println("   ____________________________________________________________________________________");
+                    System.out.println("   " + name + ": Help you added a new deadline.\n           " + newdeadlines.toString());
+                    System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count));
+                    System.out.println("   ____________________________________________________________________________________");
+                }
             } else if (userInput.startsWith("event")) {
                 Events newevents = new Events(userInput);
-                task.add(newevents);
+                if (newevents.isValid()) {
+                    task.add(newevents);
+                    System.out.println("   ____________________________________________________________________________________");
+                    System.out.println("   " + name + ": Help you added a new event.\n           " + newevents.toString());
+                    System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count));
+                    System.out.println("   ____________________________________________________________________________________");
+                }
+            } else {
                 System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " +  name + ": Help you added a new task.\n           " + newevents.toString());
-                System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count ));
+                System.out.println("   " + name + ": I don't really understand what you mean.");
                 System.out.println("   ____________________________________________________________________________________");
             }
         }
