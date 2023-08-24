@@ -1,0 +1,19 @@
+todo sleep
+list
+deadline homework /by tonight
+list
+event class /from 4pm /to 6pm
+list
+mark 1
+list
+mark 2
+list
+mark 3
+list
+unmark 1
+list
+unmark 2
+list
+unmark 3
+list
+bye
