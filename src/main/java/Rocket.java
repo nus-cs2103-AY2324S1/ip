@@ -90,6 +90,23 @@ public class Rocket {
                     input = scanner.nextLine();
                     break;
                 }
+                case "event": {
+                    int descriptionIndex = arguments.indexOf(" /from");
+                    String description = arguments.substring(0, descriptionIndex);
+                    String duration = arguments.substring(descriptionIndex + 7);
+                    int fromIndex = duration.indexOf(" /to");
+                    String from = duration.substring(0, fromIndex);
+                    String to = duration.substring(fromIndex + 5);
+                    Event event = new Event(description, from, to);
+                    taskList.add(event);
+                    System.out.println(LINE);
+                    System.out.println("    Got it. I've added this task:");
+                    System.out.println("      " + event);
+                    System.out.println("    Now you have " + taskList.size() + " tasks in the list");
+                    System.out.println(LINE);
+                    input = scanner.nextLine();
+                    break;
+                }
                 default: {
                     System.out.println(LINE + "\n    Got it. I've added this task: " +
                             input + "\n" + LINE);
