@@ -1,12 +1,16 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Gman {
     public static String userInput;
     public static Task taskList[] = new Task[100];
-    public static void main(String[] args) {
+    //public static ArrayList<Task> taskList = new ArrayList<>();
+    public static void main(String[] args) throws GmanIncorrectKeywordException {
         Scanner myScanner = new Scanner(System.in);
         System.out.println("Hello! I'm Gman! \nWhat can I do for you?");
         String exitWord = "bye";
         userInput = myScanner.nextLine();
+        //String keyword = userInput.split(" ")[0];
 
         int counter = 0;
         //possible exceptions: nothing is given after keyword,
@@ -29,11 +33,16 @@ public class Gman {
                 taskList[number].mark();
             } else if (userInput.contains("todo")) {
                 //String words[] = userInput.split(" ");
-
+                try {
+                    if (userInput.substring(4).isEmpty()) {
+                        throw new GmanEmptyException("OOOOPS! The description of a todo cannot be empty!");
+                    }
                     taskList[counter] = new Todo(userInput.substring(4), counter + 1);
                     taskList[counter].addedTask();
                     counter++;
-
+                } catch (GmanEmptyException e) {
+                    System.out.println(e.getMessage());
+                }
             } else if (userInput.contains("deadline")) {
                 String words[] = userInput.substring(8).split("/");
                 taskList[counter] = new Deadline(words[0], counter + 1, words[1].substring(3));
@@ -47,9 +56,15 @@ public class Gman {
                 counter++;
             }
             else {
-                taskList[counter] = new GenericTask( " " + userInput, counter + 1);
+                /*taskList[counter] = new GenericTask( " " + userInput, counter + 1);
                 taskList[counter].addedTask();
-                counter++;
+                counter++;*/
+                try {
+                    throw new GmanIncorrectKeywordException("OOPS! I'm sorry, I don't know what that means! Please start " +
+                            "with keywords: todo, deadline, or event!");
+                } catch (GmanIncorrectKeywordException e) {
+                    System.out.println(e.getMessage());
+                }
             }
             userInput = myScanner.nextLine();
         }
