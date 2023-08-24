@@ -33,7 +33,7 @@ public class DogeBot {
                         mark(sc.nextInt() - 1);
                     } catch (InputMismatchException e) { // not 'int' datatype
                         sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
-                        System.out.println("Oops ! Integers only please :(");
+                        System.out.println("Oops ! Integers only please :c");
                     } catch (DogeBotException e) { // no tasks added yet
                         System.out.println(e.getMessage());
                     }
@@ -43,7 +43,7 @@ public class DogeBot {
                         unmark(sc.nextInt() - 1);
                     } catch (InputMismatchException e) { // not 'int' datatype
                         sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
-                        System.out.println("Oops ! Integers only please :(");
+                        System.out.println("Oops ! Integers only please :c");
                     } catch (DogeBotException e) { // no tasks added yet
                         System.out.println(e.getMessage());
                     }
@@ -66,6 +66,16 @@ public class DogeBot {
                     try {
                         event(sc.nextLine());
                     } catch (DogeBotException e) { // description blank
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case "delete":
+                    try {
+                        delete(sc.nextInt() - 1);
+                    } catch (InputMismatchException e) {
+                        sc.nextLine(); // absorb remaining words so 'default' block doesn't act up
+                        System.out.println("Oops ! Integers only please :c");
+                    } catch (DogeBotException e) {
                         System.out.println(e.getMessage());
                     }
                     break;
@@ -145,6 +155,15 @@ public class DogeBot {
         tasks.add(new Event(taskDesription, start, end));
         // 'tasks.get(tasks.size() - 1)' gets the recent most added task
         System.out.println("\t" + tasks.get(tasks.size() - 1).toString());
+        updateTasksCounter();
+    }
+
+    public static void delete(int index) throws DogeBotException {
+        if (tasks.size() == 0) throw new DogeBotException("Oops ! There's no tasks in your list to delete :O");
+
+        System.out.println("Got it~ This task has been removed:");
+        System.out.println("\t" + tasks.get(index).toString());
+        tasks.remove(index);
         updateTasksCounter();
     }
 }
