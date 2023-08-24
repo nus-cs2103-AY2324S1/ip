@@ -3,6 +3,9 @@ import java.util.*;
 import dukeExceptions.*;
 import dukeExceptions.IndexOutOfBoundsException;
 
+/*
+ * A class that represents a list that stores tasks inputted by user.
+ */
 public class TaskList {
     protected ArrayList<Task> taskArr;
 
@@ -31,10 +34,24 @@ public class TaskList {
 
     }
 
+    /*
+     * A method that returns the string representation of a Task object
+     * at specified index.
+     * 
+     * @param index task at given index of TaskList object.
+     * 
+     * @return string representation of the Task object.
+     */
     public String taskToString(int index) {
         return this.taskArr.get(index).toString();
     }
 
+    /*
+     * A method that returns a string representation of the number of
+     * tasks in a TaskList.
+     * 
+     * @return string representation of the number of tasks in the TaskList.
+     */
     public String numTasksToString() {
         if (this.length() == 1) {
             return "1 task";
@@ -42,10 +59,20 @@ public class TaskList {
         return this.length() + " tasks";
     }
 
+    /*
+     * A method to to add a task to the TaskList.
+     * 
+     * @param task task object to be added.
+     */
     public void addTask(Task task) {
         this.taskArr.add(task);
     }
 
+    /*
+     * A method to to add a task to the TaskList.
+     * 
+     * @param index index of Task object that user wants to delete.
+     */
     public void delete(int index) {
         this.taskArr.remove(index);
     }
