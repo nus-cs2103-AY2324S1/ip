@@ -7,11 +7,11 @@ public class Cracker {
 
     public void startService(){
         boolean talking = true;
-
+        Scanner sc = new Scanner(System.in);
         reply.echo("What can I do for you?");
 
         while(talking){
-            Scanner sc = new Scanner(System.in);
+
             String input = sc.nextLine();
 
             if(input.startsWith("mark")){
