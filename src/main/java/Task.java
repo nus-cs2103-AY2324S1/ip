@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     private boolean isDone;
     private String description;
 
@@ -10,6 +10,8 @@ public class Task {
     public String getTask(){
      return this.description;
     }
+
+    public abstract String getType();
 
     /**
      * updateCompletionStatus will change the current completion status of the task
@@ -26,5 +28,14 @@ public class Task {
         return isDone
                 ? "X"
                 : " ";
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + getStatusIcon() +"] " + getTask();
     }
 }
