@@ -39,6 +39,9 @@ public class Duke {
 
     private static void parseInput(String input) {
         try {
+            if (input.contains("|")) {
+                throw new DukeException("Input cannot contain pipe (|) character!");
+            }
             String[] parts = input.split(" ", 2);
             String command = parts[0];
             String remaining = parts.length > 1 ? parts[1] : "";
