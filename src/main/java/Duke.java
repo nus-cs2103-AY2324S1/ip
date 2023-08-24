@@ -4,6 +4,8 @@ public class Duke {
     public static void main(String[] args) {
         String space = "------------------------------------"; // for spacing purposes
         String name = "Adam's Bot"; // name of bot
+        String[] toDoList = new String[100]; // list to store the items
+        int counter = 0; // counter to keep track of pointer
 
         System.out.println(space);
         System.out.println("Hello! I'm "+ name);
@@ -16,12 +18,22 @@ public class Duke {
 
         //prompt for user input if input is not "bye"
         while(!userInput.equalsIgnoreCase("bye")) {
-            if (userInput.equals("list")) {
+            if (userInput.equalsIgnoreCase("list")) {
+
                 System.out.println(space);
-                System.out.println("list");
+
+                //iterate through list to print items
+                for (int i = 0; i < counter; i++ ) {
+                    int currentNumber = i + 1;
+                    System.out.println(currentNumber + ". "  + toDoList[i]);
+                }
                 System.out.println(space);
 
             } else {
+
+                //add item into list
+                toDoList[counter] = userInput;
+                counter++;
 
                 System.out.println(space);
                 System.out.println(userInput);
