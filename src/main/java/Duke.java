@@ -24,6 +24,39 @@ public class Duke {
                     System.out.println("    " + (i + 1) + ". " + taskList[i]);
                 }
                 System.out.println(" -----------------------------------------");
+            } else if (echo.startsWith("todo")) {
+                String description = echo.substring(5).trim();
+                taskList[taskCount] = new ToDo(description, 'T');
+                taskCount++;
+                System.out.println(" -----------------------------------------");
+                System.out.println("     Got it. I've added this task:");
+                System.out.println("    " + taskList[taskCount - 1]);
+                System.out.println("     Now you have " + taskCount + " tasks in the list.");
+                System.out.println(" -----------------------------------------");
+            } else if (echo.startsWith("deadline")) {
+                int byIndex = echo.indexOf("/by");
+                String description = echo.substring(9, byIndex).trim();
+                String by = echo.substring(byIndex + 3).trim();
+                taskList[taskCount] = new Deadline(description, by, 'D');
+                taskCount++;
+                System.out.println(" -----------------------------------------");
+                System.out.println("     Got it. I've added this task:");
+                System.out.println("       " + taskList[taskCount - 1]);
+                System.out.println("     Now you have " + taskCount + " tasks in the list.");
+                System.out.println(" -----------------------------------------");
+            } else if (echo.startsWith("event")) {
+                int fromIndex = echo.indexOf("/from");
+                int toIndex = echo.indexOf("/to");
+                String description = echo.substring(6, fromIndex).trim();
+                String from = echo.substring(fromIndex + 5, toIndex).trim();
+                String to = echo.substring(toIndex + 3).trim();
+                taskList[taskCount] = new Event(description, from, to, 'E');
+                taskCount++;
+                System.out.println(" -----------------------------------------");
+                System.out.println("     Got it. I've added this task:");
+                System.out.println("       " + taskList[taskCount - 1]);
+                System.out.println("     Now you have " + taskCount + " tasks in the list.");
+                System.out.println(" -----------------------------------------");
             } else if (echo.startsWith("mark")) {
                 int taskIndex = Integer.parseInt(echo.substring(5).trim()) - 1;
                 if (taskIndex >= 0 && taskIndex < taskCount) {
@@ -47,12 +80,9 @@ public class Duke {
                     System.out.println("Invalid task index.");
                 }
             } else {
-                taskList[taskCount] = new Task(echo);
-                taskCount++;
-
-                System.out.println(" ----------------------------------------");
-                System.out.println("    added: " + echo);
-                System.out.println(" ----------------------------------------");
+                System.out.println(" -------------------------------------------");
+                System.out.println("     I'm sorry, I don't understand that command.");
+                System.out.println(" -------------------------------------------");
             }
         }
 
