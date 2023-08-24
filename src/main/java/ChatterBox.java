@@ -12,7 +12,7 @@ public class ChatterBox {
 
         Scanner sc = new Scanner(System.in);
 
-        while (true) {
+        while (sc.hasNextLine()) {
             String fullLine = sc.nextLine();
             String[] inputLine = fullLine.split(" ");
             String input = inputLine[0];
