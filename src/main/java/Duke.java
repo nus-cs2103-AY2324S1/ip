@@ -26,6 +26,8 @@ public class Duke {
 
         while(true){
             String inValue = myScanner.next();
+            Task item;
+            char derived_prefix;
             switch(inValue) {
                 case "bye":
                     System.out.println("____________________________________________________________");
@@ -37,8 +39,7 @@ public class Duke {
                     System.out.println("____________________________________________________________");
                     int i = 1;
                     for (Task t: myList){
-                        String prefix = t.getStatusIcon();
-                        System.out.println(String.valueOf(i) + "." + "[" + prefix + "]" + " " + t.get());
+                        System.out.println(String.valueOf(i) + "." + t.toString());
                         i++;
                     }
                     System.out.println("____________________________________________________________");
@@ -46,19 +47,54 @@ public class Duke {
 
                 case "mark":
                     int number = myScanner.nextInt();
-                    myList.get(number-1).set();
+                    item = myList.get(number-1);
+                    item.set();
                     System.out.println("____________________________________________________________");
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("[X] " + myList.get(number-1).get());
+                    System.out.println(item.toString());
                     System.out.println("____________________________________________________________");
                     break;
 
                 case "unmark":
                     int numero = myScanner.nextInt();
-                    myList.get(numero-1).unset();
+                    item = myList.get(numero-1);
+                    item.unset();
                     System.out.println("____________________________________________________________");
                     System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("[ ] " + myList.get(numero-1).get());
+                    System.out.println(item.toString());
+                    System.out.println("____________________________________________________________");
+                    break;
+
+                case "todo":
+                    inValue = myScanner.nextLine();
+                    ToDo t =  new ToDo(inValue);
+                    myList.add(t);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(t.toString());
+                    System.out.println("Now you have "+ String.valueOf(myList.size()) + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                    break;
+                case "deadline":
+                    inValue = myScanner.nextLine();
+                    String[] toBeSplit = inValue.split("/");
+                    Deadline d = new Deadline(toBeSplit[0], toBeSplit[1].replace("by ", ""));
+                    myList.add(d);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(d.toString());
+                    System.out.println("Now you have "+ String.valueOf(myList.size()) + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
+                    break;
+                case "event":
+                    inValue = myScanner.nextLine();
+                    String[] to_Split = inValue.split("/");
+                    Event e = new Event(to_Split[0], to_Split[1].replace("from ", ""), to_Split[2].replace("to ", ""));
+                    myList.add(e);
+                    System.out.println("____________________________________________________________");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(e.toString());
+                    System.out.println("Now you have "+ String.valueOf(myList.size()) + " tasks in the list.");
                     System.out.println("____________________________________________________________");
                     break;
 

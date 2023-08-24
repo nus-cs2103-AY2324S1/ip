@@ -23,5 +23,9 @@ public class Task {
         this.isDone = false; // mark done task with X
     }
 
+    public String toString() {
+        return "[" + this.getStatusIcon() + "]" + this.get();
+    }
+
     //...
 }
