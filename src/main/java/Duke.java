@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private Scanner sc = new Scanner(System.in);
-    private Task[] tasks = new Task[100];
+    private ArrayList<Task> tasks = new ArrayList<>();
     private int countTasks = 0;
 
     public static void main(String[] args) {
@@ -21,14 +22,20 @@ public class Duke {
                 + "Now you have " + this.countTasks + " tasks in the list.");
     }
 
+    public void printDeleteTask(String s) {
+        printWithLines("Noted. I've removed this task:" + "\n"
+                + s + "\n"
+                + "Now you have " + this.countTasks + " tasks in the list.");
+    }
+
     public void addToDo(String input) throws DukeException {
         if (input.indexOf(" ") == -1) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         String description = input.substring(input.indexOf(" ") + 1);
-        tasks[countTasks] = new ToDo(description);
+        tasks.add(new ToDo(description));
         countTasks++;
-        printTask(tasks[countTasks - 1].toString());
+        printTask(tasks.get(countTasks - 1).toString());
     }
 
     public void addDeadline(String input) throws DukeException {
@@ -36,9 +43,9 @@ public class Duke {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
         String[] split = input.substring(input.indexOf(" ") + 1).split(" /by ");
-        tasks[countTasks] = new Deadline(split[0], split[1]);
+        tasks.add(new Deadline(split[0], split[1]));
         countTasks++;
-        printTask(tasks[countTasks - 1].toString());
+        printTask(tasks.get(countTasks - 1).toString());
     }
 
     public void addEvent(String input) throws DukeException {
@@ -46,15 +53,15 @@ public class Duke {
             throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
         }
         String[] split = input.substring(input.indexOf(" ") + 1).split(" /from | /to ");
-        tasks[countTasks] = new Event(split[0], split[1], split[2]);
+        tasks.add(new Event(split[0], split[1], split[2]));
         countTasks++;
-        printTask(tasks[countTasks - 1].toString());
+        printTask(tasks.get(countTasks - 1).toString());
     }
 
     public void printList() {
         System.out.println(HORIZONTAL_LINE);
         for (int i = 0; i < countTasks; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
         System.out.println(HORIZONTAL_LINE);
     }
@@ -71,14 +78,14 @@ public class Duke {
                 printList();
             } else if (input.startsWith("mark ")) {
                 int index = Integer.parseInt(input.replace("mark ", ""));
-                tasks[index - 1].markAsDone();
+                tasks.get(index - 1).markAsDone();
                 printWithLines("Nice! I've marked this task as done:" + "\n"
-                        + tasks[index - 1]);
+                        + tasks.get(index - 1));
             } else if (input.startsWith("unmark ")) {
                 int index = Integer.parseInt(input.replace("unmark ", ""));
-                tasks[index - 1].unmarkAsDone();
+                tasks.get(index - 1).unmarkAsDone();
                 printWithLines("OK, I've marked this task as not done yet:" + "\n"
-                        + tasks[index - 1]);
+                        + tasks.get(index - 1));
             } else if (input.startsWith("todo")) {
                 try {
                     addToDo(input);
@@ -97,6 +104,11 @@ public class Duke {
                 } catch (DukeException e) {
                     printWithLines(e.toString());
                 }
+            } else if (input.startsWith("delete ")) {
+                int index = Integer.parseInt(input.replace("delete ", ""));
+                countTasks--;
+                printDeleteTask(tasks.get(index - 1).toString());
+                tasks.remove(index - 1);
             } else {
                 printWithLines("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
