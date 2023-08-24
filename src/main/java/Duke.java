@@ -84,6 +84,10 @@ public class Duke {
             } else if (input.equals("bye")) {
                 System.out.println(exitMessage);
                 break;
+            } else {
+                System.out.print(HORIZONTAL_LINE);
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println(HORIZONTAL_LINE);
             }
         }
         scanner.close();
