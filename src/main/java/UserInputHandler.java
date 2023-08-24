@@ -105,7 +105,6 @@ public class UserInputHandler {
     public boolean run() {
         try {
 
-            System.out.println(command.name());
             switch (command) {
                 case ECHO:
                     echo();

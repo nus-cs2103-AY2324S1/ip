@@ -20,7 +20,7 @@ public class Peko {
     }
 
     private static Task[] todoList = new Task[100];
-    private static int pos = 0;
+    private static int pos;
     private static final String lineBreak = "------------------------------------------"; //42
     private static final String introText = "Konpeko, Konpeko, Konpeko! \n" +
             "Hololive san kisei no\n" +
@@ -36,12 +36,12 @@ public class Peko {
     private static SaveHandler saveHandler = new SaveHandler(todoList, new File("src/main/List.txt"));
     public static void main(String[] args) throws InvalidTaskException {
         todoList = saveHandler.loadFrom();
+        pos = saveHandler.size();
         UserInputHandler UIhandler = new UserInputHandler();
         intro();
         while (true) {
             UIhandler.newInput();
             if (!UIhandler.run()) {
-                System.out.println("break");
                 break;
             }
             UIhandler = new UserInputHandler();
@@ -98,6 +98,7 @@ public class Peko {
     }
 
     public static void setDelete(int i) {
+        i--;
         while (i <= pos) {
             todoList[i] = todoList[i+1];
             i++;

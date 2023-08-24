@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class SaveHandler {
+    private int i = 0;
     private Task[] tasks;
     private File file;
 
@@ -49,6 +50,7 @@ public class SaveHandler {
             int pos = 0;
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
+                i++;
                 String s = scanner.nextLine();
                 String[] arr = s.split(" \\| ");
                 Task t = stringToTask(arr);
@@ -97,6 +99,10 @@ public class SaveHandler {
             System.out.println("Incomplete task an error in the list, Pain peko, I'll delete it");
         }
         return  null;
+    }
+
+    public int size() {
+        return i;
     }
 
 
