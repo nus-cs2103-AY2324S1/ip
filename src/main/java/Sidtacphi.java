@@ -10,6 +10,7 @@ import java.util.Scanner;
  * @author Yu Lexuan
  */
 public class Sidtacphi {
+    
     public static void main(String[] args) {
         String logo = " _______  ___   ______   _______  _______  _______  _______  __   __  ___  \n"
                 + "|       ||   | |      | |       ||   _   ||       ||       ||  | |  ||   | \n"
@@ -23,7 +24,14 @@ public class Sidtacphi {
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
 
+        readInputs();
 
+        System.out.println("\nSidtacphi: Bye. Hope to see you again soon!");
+        System.out.println("\n____________________________________________________________");
+
+    }
+
+    static void readInputs() {
         Scanner scan = new Scanner(System.in);
         System.out.print("\nYou: ");
         String input = "";
@@ -33,9 +41,5 @@ public class Sidtacphi {
             System.out.print("\nYou: ");
         }
         scan.close();
-
-        System.out.println("\nSidtacphi: Bye. Hope to see you again soon!");
-        System.out.println("\n____________________________________________________________");
-
     }
 }
