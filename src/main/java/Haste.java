@@ -19,6 +19,7 @@ public class Haste {
                 online = false;
             } else if (cmd.equals("list")) {
                 // print list
+
                 printLine();
                 for (Task a : taskList) {
                     System.out.println(INDENT + a.id + ". " + a);
@@ -35,8 +36,8 @@ public class Haste {
                 // add task to list
                 Task newTask = CmdHandler.interpret(cmd);
                 add(newTask);
-
             }
+
         }
 
     }
@@ -85,6 +86,7 @@ public class Haste {
     public static void printLine() {
         System.out.println(INDENT + LINE);
     }
+
 
 
 
