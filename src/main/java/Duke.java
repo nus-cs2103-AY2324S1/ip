@@ -1,10 +1,10 @@
 import java.util.Scanner;
-import java.util.LinkedList;
 
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        LinkedList<String> tasks = new LinkedList<>();
+        String tasks[] = new String[100];
+
 
         System.out.println("____________________________________________________________\n" +
                 "Hello! I'm CarrotCake\n" +
@@ -12,26 +12,26 @@ public class Duke {
                 "____________________________________________________________\n");
 
         String input = scanner.nextLine();
+        int count = 0;
 
         while (!input.toLowerCase().equals("bye")) {
             System.out.println("____________________________________________________________\n");
             if (input.toLowerCase().equals("list")) {
                 //Print tasks
-                int i = 1;
-                for (String task : tasks) {
-                    System.out.print(Integer.toString(i) + ". " + task + "\n");
-                    i++;
+                for (int i = 0; i < count; i++) {
+                    System.out.print(Integer.toString(i+1) + ". " + tasks[i] + "\n");
                 }
                 System.out.println("____________________________________________________________\n");
                 input = scanner.nextLine();
                 continue;
             }
 
-            tasks.add(input);
             System.out.println("added: " + input +
                     "\n____________________________________________________________\n");
 
+            tasks[count] = input;
             input = scanner.nextLine();
+            count++;
         }
 
         System.out.println("____________________________________________________________\n" +
