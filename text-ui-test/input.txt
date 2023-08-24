@@ -12,4 +12,8 @@ mark 10
 event doing homework
 deadline doing housework
 event doing homework /from 3pm
+delete 3
+delete 2
+delete 10
+list
 bye

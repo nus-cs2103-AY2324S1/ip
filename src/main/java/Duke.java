@@ -1,14 +1,28 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.NumberFormatException;
 public class Duke {
     private int numofList = 0;
-    private Task[] list = new Task[100];
+    private ArrayList<Task> list = new ArrayList<Task>();
 
     private void displayList() {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < numofList; i++) {
-            System.out.println((i + 1) + "." + list[i]);
+            System.out.println((i + 1) + "." + list.get(i));
         }
+        System.out.println("____________________________________________________________");
+    }
+    private void delete(Integer index) throws DukeException{
+        if (index <= 0 || index > numofList) {
+            throw new TaskNotFoundException("Task Not Found :'(");
+        }
+        Task storeTaskTemp = list.get(index - 1);
+        list.remove(index - 1);
+        numofList--;
+        System.out.println("____________________________________________________________");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("   " + storeTaskTemp);
+        System.out.println("Now you have " + numofList + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
     private void addList(String Input) throws DukeException {
@@ -16,41 +30,41 @@ public class Duke {
         String taskDescription = Input.substring(index + 1);
         if (index == -1) {
             if (taskDescription.equalsIgnoreCase("todo")) {
-                throw new DukeException("The description of a todo cannot be empty.");
+                throw new InvalidInputException("The description of a todo cannot be empty.");
             } else if (taskDescription.equalsIgnoreCase("deadline")) {
-                throw new DukeException("The description of a deadline cannot be empty.");
+                throw new InvalidInputException("The description of a deadline cannot be empty.");
             } else if (taskDescription.equalsIgnoreCase("event")) {
-                throw new DukeException("The description of an event cannot be empty.");
+                throw new InvalidInputException("The description of an event cannot be empty.");
             } else {
-                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+                throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
             }
         }
         String type = Input.substring(0, index);
         if (type.equalsIgnoreCase("todo")) {
-            list[numofList] = new Todo(taskDescription);
+            list.add(new Todo(taskDescription));
         } else if (type.equalsIgnoreCase("deadline")) {
             int byIndex = taskDescription.indexOf("/by");
             if (byIndex == -1) {
-                throw new DukeException("Deadline must contain /by");
+                throw new InvalidInputException("Deadline must contain /by");
             }
-            list[numofList] = new Deadline(taskDescription);
+            list.add(new Deadline(taskDescription));
         } else if (type.equalsIgnoreCase("event")) {
             int fromIndex = taskDescription.indexOf("/from");
             if (fromIndex == -1) {
-                throw new DukeException("Event must contain /from");
+                throw new InvalidInputException("Event must contain /from");
             }
             int toIndex = taskDescription.substring(fromIndex).indexOf("/to");
             if (toIndex == -1) {
-                throw new DukeException("Event must contain /to");
+                throw new InvalidInputException("Event must contain /to");
             }
-            list[numofList] = new Event(taskDescription);
+            list.add(new Event(taskDescription));
         } else {
-            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+            throw new InvalidInputException("I'm sorry, but I don't know what that means :-(");
         }
         numofList++;
         System.out.println("____________________________________________________________");
         System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + list[numofList - 1]);
+        System.out.println("   " + list.get(numofList - 1));
         System.out.println(" Now you have " + numofList + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
@@ -65,15 +79,18 @@ public class Duke {
                 } else if (splittedInput[0].equalsIgnoreCase("mark") && splittedInput.length == 2 &&
                         isInteger((splittedInput[1]))) {
                     if (Integer.parseInt(splittedInput[1]) <= 0 || Integer.parseInt(splittedInput[1]) > numofList) {
-                        throw new DukeException("Task Not Found :'(");
+                        throw new TaskNotFoundException("Task Not Found :'(");
                     }
-                    list[Integer.parseInt(splittedInput[1]) - 1].mark();
+                    list.get(Integer.parseInt(splittedInput[1]) - 1).mark();
                 } else if (splittedInput[0].equalsIgnoreCase("unmark") && splittedInput.length == 2 &&
                         isInteger((splittedInput[1]))) {
                     if (Integer.parseInt(splittedInput[1]) <= 0 || Integer.parseInt(splittedInput[1]) > numofList) {
-                        throw new DukeException("Task Not Found :'(");
+                        throw new TaskNotFoundException("Task Not Found :'(");
                     }
-                    list[Integer.parseInt(splittedInput[1]) - 1].unmark();
+                    list.get(Integer.parseInt(splittedInput[1]) - 1).unmark();
+                } else if (splittedInput[0].equalsIgnoreCase("delete") && splittedInput.length == 2 &&
+                        isInteger((splittedInput[1]))) {
+                    delete(Integer.parseInt(splittedInput[1]));
                 } else {
                     addList(Input);
                 }
