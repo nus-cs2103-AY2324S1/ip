@@ -1,8 +1,10 @@
+import Exceptions.EmptyDescriptionException;
+
 public class Event extends Task{
     private String from;
     private String to;
 
-    Event(String s){
+    Event(String s) throws EmptyDescriptionException {
 
         super(s.split("/from")[0]);
         this.from =  s.split("/from")[1].split("/to")[0].trim();

@@ -4,11 +4,7 @@ public class TodoList {
 
 
 
-    private class Todo extends Task{
-        Todo(String s){
-            super(s);
-        }
-    }
+
     ArrayList<Task> list;
 
     TodoList(){

@@ -1,8 +1,13 @@
+import Exceptions.EmptyDescriptionException;
+
 public class Task{
     private boolean isDone;
     private String description;
 
-    Task(String s){
+    Task(String s) throws EmptyDescriptionException {
+        if(s.isBlank()){
+            throw new EmptyDescriptionException();
+        }
         this.description = s;
         this.isDone = false;
     }

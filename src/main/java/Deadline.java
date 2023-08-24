@@ -1,6 +1,8 @@
+import Exceptions.EmptyDescriptionException;
+
 public class Deadline extends Task{
     private String deadline;
-    Deadline(String s){
+    Deadline(String s) throws EmptyDescriptionException {
         super(s.split("/by",0)[0].trim());
         this.deadline = s.split("/by",0)[1].trim();
     }
