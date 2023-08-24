@@ -39,19 +39,35 @@ $>
 [D]: 3: [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 
 $>  
-[D]: (´；ω；`) Sorry, todo names cannot be empty...
+[D]: (´；ω；`) Sorry, todo names cannot be empty... ;-;
 [D]: (／°▽°)／Try something like this!!
 [D]: todo [name]
 
 $>  
-[D]: (´；ω；`) Sorry, deadlines must have a deadline...
+[D]: (´；ω；`) Sorry, deadlines must have a deadline... ;-;
 [D]: (／°▽°)／Try something like this!!
 [D]: deadline [name] /by [date]
 
 $>  
-[D]: (´；ω；`) Sorry, events must have an end time...
+[D]: (´；ω；`) Sorry, events must have an end time... ;-;
 [D]: (／°▽°)／Try something like this!!
 [D]: event [name] /from [time] /to [time]
+
+$>  
+[D]: (´；ω；`) Sorry, no such task exists... ;-;
+
+$>  
+[D]: (´；ω；`) Sorry, no such task exists... ;-;
+
+$>  
+[D]: (´；ω；`) Sorry, I don't know which task to mark... ;-;
+[D]: (／°▽°)／Try something like this!!
+[D]: mark [task number]
+
+$>  
+[D]: (´；ω；`) Sorry, deadline names cannot be empty... ;-;
+[D]: (／°▽°)／Try something like this!!
+[D]: deadline [name] /by [date]
 
 $>  
 [D]: Here are the things you said!! ヽ(^o^)丿

@@ -8,5 +8,9 @@ list
 todo
 deadline abc
 event abc /from def
+mark 4
+unmark 5
+mark 
+deadline 
 list
 bye
