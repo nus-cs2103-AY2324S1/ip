@@ -17,22 +17,22 @@ public class Task {
         return "[" + getStatusIcon() + "] " + this.taskName;
     }
 
-    public void markAsDone() {
-        this.isDone = true;
+    private void markPrintHelper(String message) {
         String filler = "____________________________________________________________";
         System.out.println(filler);
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("[" + getStatusIcon() + "] " + this.taskName);
+        System.out.println(message);
+        System.out.println(this);
         System.out.println(filler);
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
+        markPrintHelper(" Nice! I've marked this task as done:");
     }
 
     public void unMark() {
         this.isDone = false;
-        String filler = "____________________________________________________________";
-        System.out.println(filler);
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("[" + getStatusIcon() + "] " + this.taskName);
-        System.out.println(filler);
+        markPrintHelper(" OK, I've marked this task as not done yet:");
     }
 
 }
