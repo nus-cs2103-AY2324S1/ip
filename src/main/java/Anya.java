@@ -5,6 +5,9 @@ public class Anya {
     final static String LINE = "\n____________________________________________________________\n";
     static ArrayList<Task> tasks = new ArrayList<>();
     static int taskCount = 0;
+    enum Command {
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN
+    }
     public static void main(String[] args) {
         greet();
         start();
@@ -14,7 +17,8 @@ public class Anya {
     public static void greet() {
         System.out.println(LINE);
         System.out.println("    Hello! I'm Anya Forger\n"
-                         + "    What can I do for you?\n");
+                         + "    What can I do for you?\n"
+                         + "    Enter a command: list/mark/unmark/todo/deadline/event/bye\n");
         System.out.println(LINE);
     }
 
@@ -31,7 +35,7 @@ public class Anya {
         while (true) {
             try {
                 String[] arguments = sc.nextLine().split(" ", 2);
-                String command = arguments[0];
+                Command command = getCommand(arguments[0]);
                 String details;
                 if (arguments.length == 1) {
                     details = "";
@@ -40,12 +44,12 @@ public class Anya {
                 }
 
                 switch (command) {
-                    case "bye":
+                    case BYE:
                         break scan;
-                    case "list":
+                    case LIST:
                         list();
                         break;
-                    case "mark": {
+                    case MARK: {
                         // Error: No argument or Multiple arguments provided
                         if (details.isEmpty() || details.split(" ").length != 1) {
                             throw new InvalidArgumentException(LINE
@@ -78,7 +82,7 @@ public class Anya {
                         System.out.println(LINE);
                         break;
                     }
-                    case "unmark": {
+                    case UNMARK: {
                         // Error: No argument or Multiple arguments provided
                         if (details.isEmpty() || details.split(" ").length != 1) {
                             throw new InvalidArgumentException(LINE
@@ -110,7 +114,7 @@ public class Anya {
                         System.out.println(LINE);
                         break;
                     }
-                    case "todo": {
+                    case TODO: {
                         // Error: No argument provided
                         if (details.isEmpty()) {
                             throw new InvalidArgumentException(LINE
@@ -129,7 +133,7 @@ public class Anya {
                         System.out.println(LINE);
                         break;
                     }
-                    case "deadline": {
+                    case DEADLINE: {
                         // Error: No argument or wrong no of arguments provided
                         String[] info = details.split("/by");
                         if (details.isEmpty() || info.length != 2) {
@@ -152,7 +156,7 @@ public class Anya {
                         System.out.println(LINE);
                         break;
                     }
-                    case "event": {
+                    case EVENT: {
                         // Error: No argument provided
                         if (details.isEmpty()) {
                             throw new InvalidArgumentException(LINE
@@ -182,7 +186,7 @@ public class Anya {
                         System.out.println(LINE);
                         break;
                     }
-                    case "delete": {
+                    case DELETE: {
                         // Error: No argument or Multiple arguments provided
                         if (details.isEmpty() || details.split(" ").length != 1) {
                             throw new InvalidArgumentException(LINE
@@ -239,5 +243,17 @@ public class Anya {
             System.out.println(" " + (i + 1) + ". " + tasks.get(i));
         }
         System.out.println(LINE);
+    }
+
+    private static Command getCommand(String input) {
+        if (input.equals("bye")) return Command.BYE;
+        if (input.equals("list")) return Command.LIST;
+        if (input.equals("mark")) return Command.MARK;
+        if (input.equals("unmark")) return Command.UNMARK;
+        if (input.equals("todo")) return Command.TODO;
+        if (input.equals("deadline")) return Command.DEADLINE;
+        if (input.equals("event")) return Command.EVENT;
+        if (input.equals("delete")) return Command.DELETE;
+        return Command.UNKNOWN;
     }
 }
