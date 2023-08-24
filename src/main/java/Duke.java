@@ -38,7 +38,7 @@ public class Duke {
         Duke d = new Duke();
         while (s.hasNextLine()) {
             String t = s.nextLine();
-            if (respond(t)) {
+            if (!respond(t)) {
                 break;
             }
         }
