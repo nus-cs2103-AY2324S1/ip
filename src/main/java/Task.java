@@ -9,12 +9,10 @@ public class Task {
     public String getStatus() {
         return (isDone ? "X" : " ");
     }
-
-    public String getDescription() {
-        return description;
-    }
-
     public void setStatus(boolean bool) {
         isDone = bool;
+    }
+    public String toString() {
+        return "[" + getStatus() + "] " + description;
     }
 }

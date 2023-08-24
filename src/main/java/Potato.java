@@ -21,16 +21,14 @@ public class Potato {
                 store[index].setStatus(true);
                 System.out.println("-----------------------------------------\n" +
                         "Nice! I've marked this task as done:\n" +
-                        "[" + store[index].getStatus() + "] " +
-                        store[index].getDescription() + "\n" +
+                        store[index].toString() + "\n" +
                         "-----------------------------------------\n");
             } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.substring(7a)) - 1;
+                int index = Integer.parseInt(input.substring(7)) - 1;
                 store[index].setStatus(false);
                 System.out.println("-----------------------------------------\n" +
                         "Ok, I've marked this task as not done yet:\n" +
-                        "[" + store[index].getStatus() + "] " +
-                        store[index].getDescription() + "\n" +
+                        store[index].toString() + "\n" +
                         "-----------------------------------------\n");
             } else if (input.equals("list")) {
                 int count = 0;
@@ -40,15 +38,25 @@ public class Potato {
                     if (t == null) break;
                     count ++;
                     System.out.println(String.valueOf(count) + "." +
-                            "[" + t.getStatus() + "] " +
-                            t.getDescription());
+                            t.toString());
                 }
                 System.out.println("-----------------------------------------\n");
             } else {
-                store[size] = new Task(input);
+                if (!input.contains("/")) {
+                    store[size] = new Todo(input);
+                } else if (input.contains("/by")) {
+                    int indexBy = input.indexOf("/by");
+                    store[size] = new Deadline(input.substring(0, indexBy), input.substring(indexBy + 4));
+                } else {
+                    int indexFrom = input.indexOf("/from");
+                    int indexTo = input.indexOf("/to");
+                    store[size] = new Event(input.substring(0, indexFrom), input.substring(indexFrom + 6, indexTo), input.substring(indexTo + 4));
+                }
                 size++;
                 System.out.println("-----------------------------------------\n" +
-                        "added: " + input + "\n" +
+                        "Got it. I've added this task:\n" +
+                        store[size - 1].toString() + "\n" +
+                        "Now you have " + size + " tasks in the list.\n" +
                         "-----------------------------------------\n");
             }
         }
