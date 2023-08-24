@@ -12,7 +12,7 @@ public class Sana {
         TODO("todo"),
         DEADLINE("deadline"),
         EVENT("event"),
-        UNKNOWN;
+        UNKNOWN("unknown");
 
         private final String command;
 
@@ -20,14 +20,11 @@ public class Sana {
             this.command = command;
         }
 
-        Commands() {
-            this.command = "unknown";
-        }
         public String getCommand() {
             return command;
         }
     }
-    private static ArrayList<Task> tasksList = new ArrayList<>();
+    protected static ArrayList<Task> tasksList = new ArrayList<>();
     protected static String divider = "_______________________________________\n";
     protected static String greeting = "Hello I'm Sana!\nWhat can I do for you today?\n";
     protected static String bye = "Bye. Hope to see you again soon!\n";
@@ -51,49 +48,49 @@ public class Sana {
             switch (command) {
             case LIST:
                 try {
-                    System.out.println(list(tasksList));
+                    list(tasksList);
                 } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case MARK:
                 try {
-                    System.out.println(mark(tasksList, userInput));
+                    mark(tasksList, userInput);
                 } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case UNMARK:
                 try {
-                    System.out.println(unmark(tasksList, userInput));
+                    unmark(tasksList, userInput);
                 } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case DELETE:
                 try {
-                    System.out.println(delete(tasksList, userInput));
+                    delete(tasksList, userInput);
                 } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case TODO:
                 try {
-                    System.out.println(todo(tasksList, userInput));
+                    todo(tasksList, userInput);
                 } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case DEADLINE:
                 try {
-                    System.out.println(deadline(tasksList, userInput));
+                    deadline(tasksList, userInput);
                 } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
                 break;
             case EVENT:
                 try {
-                    System.out.println(event(tasksList, userInput));
+                    event(tasksList, userInput);
                 } catch (SanaException e) {
                     System.out.println(divider + e.getMessage() + "\n" + divider);
                 }
@@ -108,7 +105,7 @@ public class Sana {
         }
     }
 
-    public static String list(ArrayList<Task> tasksList) throws SanaException {
+    private static void list(ArrayList<Task> tasksList) throws SanaException {
         if (tasksList.isEmpty()) {
             throw new SanaException("Your list is empty! Add tasks first to display list");
         }
@@ -118,54 +115,54 @@ public class Sana {
             int id = i + 1;
             task.append(id + "." + tasksList.get(i).toString() + "\n");
         }
-        return(divider + "Here are the tasks in your list:\n" + task
+        System.out.println(divider + "Here are the tasks in your list:\n" + task
                 + divider);
     }
 
-    public static String mark(ArrayList<Task> tasksList, String userInput) throws SanaException {
+    private static void mark(ArrayList<Task> tasksList, String userInput) throws SanaException {
         int taskId = Integer.parseInt(userInput.substring(1));
         if (taskId > tasksList.size() || taskId == 0) {
             throw new SanaException("No such task!");
         }
         tasksList.get(taskId - 1).markAsDone();
-        return(divider + "Nice! I've marked this task as done:\n"
+        System.out.println(divider + "Nice! I've marked this task as done:\n"
                 + tasksList.get(taskId - 1).toString() + "\n" + divider);
     }
 
-    public static String unmark(ArrayList<Task> tasksList, String userInput) throws SanaException {
+    private static void unmark(ArrayList<Task> tasksList, String userInput) throws SanaException {
         int taskId = Integer.parseInt(userInput.substring(1));
         if (taskId > tasksList.size() || taskId == 0) {
             throw new SanaException("No such task!");
         }
         tasksList.get(taskId - 1).markAsNotDone();
-        return(divider + "OK, I've marked this task as not done yet:\n"
+        System.out.println(divider + "OK, I've marked this task as not done yet:\n"
                 + tasksList.get(taskId - 1).toString() + "\n" + divider);
     }
 
-    public static String delete(ArrayList<Task> tasksList, String userInput) throws SanaException {
+    private static void delete(ArrayList<Task> tasksList, String userInput) throws SanaException {
         int taskId = Integer.parseInt(userInput.substring(1));
         if (taskId > tasksList.size() || taskId == 0) {
             throw new SanaException("No such task!");
         }
         Task deletedTask = tasksList.get(taskId - 1);
         tasksList.remove(taskId - 1);
-        return(divider + "Noted. I've removed this task:\n" + deletedTask.toString() + "\n"
+        System.out.println(divider + "Noted. I've removed this task:\n" + deletedTask.toString() + "\n"
                 + "Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
                 + " in the list\n" + divider);
     }
 
-    public static String todo(ArrayList<Task> tasksList, String userInput) throws SanaException {
+    private static void todo(ArrayList<Task> tasksList, String userInput) throws SanaException {
         if (userInput.isEmpty()) {
             throw new SanaException("OOPS!!! The description of a todo cannot be empty.");
         }
         Task newTodo = new Todo(userInput);
         tasksList.add(newTodo);
-        return(divider + "Got it. I've added this task:\n" + newTodo.toString() + "\n"
+        System.out.println(divider + "Got it. I've added this task:\n" + newTodo + "\n"
                 + "Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
                 + " in the list\n" + divider);
     }
 
-    public static String deadline(ArrayList<Task> tasksList, String userInput) throws SanaException {
+    private static void deadline(ArrayList<Task> tasksList, String userInput) throws SanaException {
         if (userInput.isEmpty()) {
             throw new SanaException("OOPS!!! Incomplete task description.\nMake sure you follow the format " +
                     "'deadline [name of task] /by [deadline]'");
@@ -180,12 +177,13 @@ public class Sana {
         String by = userInput.substring(lastDescId + 4);
         Task newDeadline = new Deadline(desc, by);
         tasksList.add(newDeadline);
-        return(divider + "Got it. I've added this task:\n" + newDeadline.toString() + "\n"
+        System.out.println(divider + "Got it. I've added this task:\n" + newDeadline + "\n"
                 + "Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
                 + " in the list\n" + divider);
     }
 
-    public static String event(ArrayList<Task> tasksList, String userInput) throws SanaException {
+
+    private static void event(ArrayList<Task> tasksList, String userInput) throws SanaException {
         if (userInput.isEmpty()) {
             throw new SanaException("OOPS!!! Incomplete command. Make sure you follow the format " +
                     "'event [name of task] /from [from] /to [to]'");
@@ -194,7 +192,7 @@ public class Sana {
         int lastDescId = userInput.indexOf('/');
         Task newEvent = getEvent(userInput, lastDescId);
         tasksList.add(newEvent);
-        return(divider + "Got it. I've added this task:\n" + newEvent.toString() + "\n"
+        System.out.println(divider + "Got it. I've added this task:\n" + newEvent + "\n"
                 + "Now you have " + tasksList.size() + (tasksList.size() <= 1 ? " task" : " tasks")
                 + " in the list\n" + divider);
     }
