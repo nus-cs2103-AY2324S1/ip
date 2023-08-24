@@ -9,7 +9,7 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "[X] " + description
-                       : "[ ] " + description ); // mark done task with X
+                       : "[ ] " + description );
     }
 
     public void markAsDone() {

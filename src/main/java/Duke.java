@@ -6,7 +6,7 @@ public class Duke {
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
         System.out.println("Hello! I am Nila");
         System.out.println("What can I do for you?");
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -\n");
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
 
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
@@ -17,6 +17,7 @@ public class Duke {
             String[] input = str.split(" ", 2);
             if (input[0].equals("list")){
                 System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
+
                 System.out .println(" Here are the tasks in your list:");
                 for (int j = 0; j < i; j++){
                     System.out.println(j+1 +"." + task[j].getStatusIcon());
@@ -69,18 +70,6 @@ public class Duke {
                 System.out.println(" Now you have " + i +" tasks in the list.");
                 System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
                 str = sc.nextLine();
-            } else {
-                if (input[0].equals("")) {
-                    input[0] = sc.nextLine();
-                } else {
-                    task[i] = new Task(input[0]);
-                    i++;
-                    System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
-                    System.out.println(" Added: " + input[0]);
-                    System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - -");
-                    str = sc.nextLine();
-                    input = str.split(" ", 2);
-                }
             }
         }
 
