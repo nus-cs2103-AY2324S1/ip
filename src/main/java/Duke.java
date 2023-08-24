@@ -32,11 +32,11 @@ public class Duke {
         Duke.respond("Bye. Hope to see you again soon!");
     }
 
-    private static void listTasks(ArrayList<String> tasks) {
-        ArrayList<String> output = new ArrayList<String>(tasks);
+    private static void listTasks(ArrayList<Task> tasks) {
+        ArrayList<String> output = new ArrayList<String>();
         for (int i = 0; i < tasks.size(); i++) {
             String taskOutput = String.format("%d. %s", i + 1, tasks.get(i));
-            output.set(i, taskOutput);
+            output.add(taskOutput);
         }
         Duke.respond(output);
     }
@@ -46,7 +46,7 @@ public class Duke {
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<String> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         Boolean programRunning = true;
 
@@ -59,7 +59,7 @@ public class Duke {
                 Duke.listTasks(tasks);
             } else {
                 Duke.respond("Added: " + input);
-                tasks.add(input);
+                tasks.add(new Task(input));
             }
         }
 
