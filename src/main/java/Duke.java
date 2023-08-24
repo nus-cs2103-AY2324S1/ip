@@ -17,36 +17,66 @@ public class Duke {
     public static void converse() {
         final String END_COMMAND = "bye";
         final String LIST_COMMAND = "list";
-        String[] harddisk = new String[100];
+        final String MARK_COMMAND = "mark";
+        final String UNMARK_COMMAND = "unmark";
+
+        Task[] taskList = new Task[100];
         int size = 0;
 
         Scanner scanner = new Scanner(System.in);
-        
+
         String message;
         boolean talk = true;
         while (talk) {
             System.out.print("Message:");
             message = scanner.nextLine();
 
-            switch (message) {
+            String[] args = getArgs(message);
+            switch (args[0]) {
                 case END_COMMAND:
                     talk = false;
                     break;
                 case LIST_COMMAND:
-                    print_data(harddisk, size);
+                    print_all_task(taskList, size);
+                    break;
+                case MARK_COMMAND:
+                    mark_task_done(taskList, args[1]);
+                    break;
+                case UNMARK_COMMAND:
+                    unmark_task_undone(taskList, args[1]);
                     break;
                 default:
-                    harddisk[size++] = message;
-                    System.out.println("Written to hard disk:" + message);
+                    taskList[size++] = new Task(message);
+                    System.out.println("Written to task list:" + message);
             }
 
             print_divider_line();
         }
     }
 
-    public static void print_data(String[] data, int size) {
+    public static String[] getArgs(String text) {
+        return text.split("\\s+");
+    }
+
+    public static void mark_task_done(Task[] taskList, String text) {
+        Task task = taskList[Integer.parseInt(text) - 1];
+        task.markDone();
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("     " + task.getDescriptionWithCheckbox());
+    }
+
+    public static void unmark_task_undone(Task[] taskList, String text) {
+        Task task = taskList[Integer.parseInt(text) - 1];
+        task.markUndone();
+        System.out.println("Ok! I've marked this task as undone:");
+        System.out.println("     " + task.getDescriptionWithCheckbox());
+    }
+
+    public static void print_all_task(Task[] taskList, int size) {
+        System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= size; ++i) {
-            System.out.println(i + ". " + data[i - 1]);
+            String taskNumber = String.format("%3d. ", i);
+            System.out.println(taskNumber + taskList[i - 1].getDescriptionWithCheckbox());
         }
     }
 
