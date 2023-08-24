@@ -1,14 +1,18 @@
 import java.util.Scanner;
 
 public class Cheems {
-    private final UI ui = new UI();
-    private final Database db = new Database();
-    private final Scanner scanner = new Scanner(System.in);
-    private final Parser parser = new Parser(this.db);
+    private final static UI ui = new UI();
+    private final static Scanner scanner = new Scanner(System.in);
+    private final Parser parser;
+    private final Database db;
+    public Cheems() {
+        this.db = new Database();
+        this.parser = new Parser(this.db);
+    }
 
     public void run() {
-        this.ui.showWelcomeMsg();
-        String input = this.ui.getInput(this.scanner);
+        ui.showWelcomeMsg();
+        String input = ui.getInput(scanner);
 
         // business logic
         while (!input.equals("bye")) {
@@ -17,10 +21,10 @@ public class Cheems {
             } catch (RuntimeException e) {
                 System.out.println(e.toString());
             }
-            input = this.ui.getInput(this.scanner);
+            input = ui.getInput(scanner);
         }
 
-        this.ui.showExitMsg();
+        ui.showExitMsg();
     }
 
     public static void main(String[] args) {
