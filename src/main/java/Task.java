@@ -1,5 +1,5 @@
-class Task {
-    private final String name;
+abstract class Task {
+    protected final String name;
     private final boolean marked;
 
     Task(String name, boolean marked) {
@@ -15,17 +15,13 @@ class Task {
      * Mark the task.
      * @return Returns a marked Task
      */
-    public Task mark() {
-        return new Task(this.name, true);
-    }
+    abstract Task mark();
 
     /**
      * Unmark the task.
      * @return Returns an unmarked task
      */
-    public Task unmark() {
-        return new Task(this.name, false);
-    }
+    abstract Task unmark();
 
     /**
      * Returns the name of task to be done.
