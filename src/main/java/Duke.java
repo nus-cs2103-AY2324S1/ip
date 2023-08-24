@@ -34,9 +34,9 @@ public class Duke {
                             Task thisTask = tasks.get(index - 1);
                             tasks.get(index - 1).toggleDone();
                             if (thisTask.getDone()) {
-                                System.out.println("Nice! I've marked this task as done: " + "\n" + thisTask);
+                                System.out.println("Nice! I've marked this task as done:" + "\n" + thisTask);
                             } else {
-                                System.out.println("OK, I've marked this task as not done yet: " + "\n" + thisTask);
+                                System.out.println("OK, I've marked this task as not done yet:" + "\n" + thisTask);
                             }
                         } else {
                             System.out.println("Invalid Index");
