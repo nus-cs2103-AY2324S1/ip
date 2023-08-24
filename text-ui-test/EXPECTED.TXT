@@ -1,3 +1,4 @@
+Hello from
 
          __                                             
         [  |                                            
@@ -10,6 +11,15 @@
 > Cheems: 
 Heyo I'm Cheems! Nice to meet you:)
 Want to get some fries on the pier together?
+> You: 
+> Cheems: 
+Please give me instructions, if not, I'll serve you some fries.
+> You: 
+exceptions.InvalidKeywordException: Sorry I do not understand you, can you provide another keyword or I get you some fries?
+> You: 
+exceptions.EmptyArgumentException: Please specify the correct number of arguments for keyword TODO ~~
+> You: 
+java.lang.NumberFormatException: Sorry you must provide the task number to mark/unmark it!
 > You: 
 > Cheems: 
 You have no task right now:) Happy happy!
