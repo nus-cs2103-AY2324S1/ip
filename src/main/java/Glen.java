@@ -65,6 +65,16 @@ public class Glen {
                         } else {
                             System.out.println(addTodo(trimmed));
                         }
+                    } else if (firstWord.equals("delete")) {
+                        int taskIndex = -1;
+                        try {
+                            taskIndex = Integer.valueOf(end) - 1;
+                        } catch (Exception NumberFormatException) {}
+                        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+                            System.out.println(del(taskIndex));
+                        } else {
+                            System.out.println(HORLINE + "\u2639 OOPS!!! Please select a valid item to delete.\n" + HORLINE);
+                        }   
                     } else {
                         System.out.println(HORLINE + "\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(\n" + HORLINE);
                     }
@@ -87,6 +97,12 @@ public class Glen {
         String introText = "Hello, I'm Glen!\n" + 
                            "What can I do for you?\n";
         return HORLINE + logo + introText + HORLINE;
+    }
+
+    static String del(int taskIndex) {
+        String temp = tasks.get(taskIndex).toString();
+        tasks.remove(taskIndex);
+        return HORLINE + "Noted. I've removed this task:\n  " + temp + "\n" + "Now you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
     }
 
     static String addDeadline(String inp, String by) {
