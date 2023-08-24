@@ -86,6 +86,8 @@ public class Cracker {
                 reply.echo(e.toString());
             } catch (ArrayIndexOutOfBoundsException e){
                 reply.echo("The index you provided does not exist");
+            } catch (IllegalFormatException e){
+                reply.echo(e.toString());
             }
 
 
