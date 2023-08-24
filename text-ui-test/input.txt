@@ -1,0 +1,4 @@
+todo sleep
+deadline wake up /by today
+event cook dinner /from 3pm /to 4pm
+bye
