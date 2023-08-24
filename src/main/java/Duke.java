@@ -138,12 +138,32 @@ public class Duke {
             System.out.println("added:\t" + uiFormatter.displayTask(curentTask));
           } catch (StringIndexOutOfBoundsException ex) {
             System.out.println("The event command cannot be empty!");
-          } catch (ArrayIndexOutOfBoundsException ex){
+          } catch (ArrayIndexOutOfBoundsException ex) {
 
             System.out.println(
                 "Please enter a name, followed by a (/from) command, followed by a date, followed by a (/to) command and a date");
           }
           break;
+        }
+        case "delete": {
+          if (taskList.isEmpty()) {
+            System.out.println("The list is empty!");
+            break;
+          }
+          try {
+            int index = Integer.parseInt(inputTokens[1]);
+            index--;
+            // remove the current task
+            Task selectedTask = taskList.get(index);
+            taskList.remove(index);
+            System.out.println("Deleting selected task!");
+            System.out.println(uiFormatter.displayTask(selectedTask));
+          } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Please enter a valid index!");
+          }
+          break;
+
+
         }
         default:
           System.out.println("Please enter a suitable task!");
