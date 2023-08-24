@@ -29,7 +29,7 @@ public class DukeList {
      *
      * @param input The description of the ToDo task to be added.
      */
-    public void addToDo(String input) {
+    private void addToDo(String input) {
         ToDo todo = new ToDo(input);
         this.add(todo);
     }
@@ -40,7 +40,7 @@ public class DukeList {
      * @param input The description of the Deadline task to be added.
      * @param by The deadline of the task.
      */
-    public void addDeadline(String input, String by) {
+    private void addDeadline(String input, String by) {
         Deadline deadline = new Deadline(input, by);
         this.add(deadline);
     }
@@ -52,7 +52,7 @@ public class DukeList {
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public void addEvent(String input, String from, String to) {
+    private void addEvent(String input, String from, String to) {
         Event event = new Event(input, from, to);
         this.add(event);
     }
@@ -60,7 +60,7 @@ public class DukeList {
     /**
      * Displays the list of tasks along with their corresponding indices.
      */
-    public void display() {
+    private void display() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 1; i <= dukeList.size(); i++) {
             Task task = dukeList.get(i - 1);
@@ -73,7 +73,7 @@ public class DukeList {
      *
      * @param key The index of the task to be marked as done.
      */
-    public void markDone(int key) {
+    private void markDone(int key) {
         Task task = dukeList.get(key - 1);
         task.markDone();
         System.out.println("Nice! I've marked this task as done:\n" + "\t" + task.toString());
@@ -84,12 +84,31 @@ public class DukeList {
      *
      * @param key The index of the task to be marked as not done.
      */
-    public void unmark(int key) {
+    private void unmark(int key) {
         Task task = dukeList.get(key - 1);
         task.unmark();
         System.out.println("OK, I've marked this task as not done yet:\n" + "\t" + task.toString());
     }
-    
+
+    /**
+     * Deletes a task based on its index in the list.
+     *
+     * @param key The index of the task to be deleted.
+     */
+    private void delete(int key) {
+        Task task = dukeList.get(key - 1);
+        dukeList.remove(task);
+        System.out.println("Noted. I've removed this task:\n\t" +
+                task.toString() + "\n Now you have " + dukeList.size() +
+                " tasks in the list.");
+    }
+
+    /**
+     * Parses and processes the user input to perform corresponding actions.
+     *
+     * @param input The user's input command.
+     * @throws DukeException If the input command is not recognized or if there's an issue processing it.
+     */
     public void takeInput(String input) throws DukeException {
         if (input.equals("list")) {
             this.display();
@@ -98,7 +117,7 @@ public class DukeList {
         if (input.startsWith("mark")) {
             String[] inputs = input.split(" ");
             int key = Integer.parseInt(inputs[1]);
-            if (key > dukeList.size() - 1) {
+            if (key > dukeList.size()) {
                 throw new DukeException("key exceeds size of list");
             }
             this.markDone(key);
@@ -107,7 +126,7 @@ public class DukeList {
         if (input.startsWith("unmark")) {
             String[] inputs = input.split(" ");
             int key = Integer.parseInt(inputs[1]);
-            if (key > dukeList.size() - 1) {
+            if (key > dukeList.size()) {
                 throw new DukeException("key exceeds size of list");
             }
             this.unmark(key);
@@ -141,6 +160,15 @@ public class DukeList {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("event invalid format");
             }
+            return;
+        }
+        if (input.startsWith("delete")) {
+            String[] inputs = input.split(" ");
+            int key = Integer.parseInt(inputs[1]);
+            if (key > dukeList.size()) {
+                throw new DukeException("key exceeds size of list");
+            }
+            this.delete(key);
             return;
         }
         throw new DukeException("Unrecognised input :(");
