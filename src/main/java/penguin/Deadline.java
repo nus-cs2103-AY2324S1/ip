@@ -11,7 +11,7 @@ public class Deadline extends Task {
     LocalDate by;
     public Deadline(String name, String by) {
         super(name);
-        this.by = LocalDate.parse(by);
+        this.by = LocalDate.parse(by); 
     }
 
     public String getDisplay() {
