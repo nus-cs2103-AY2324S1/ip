@@ -1,0 +1,13 @@
+deadline Asssignment /by August 31st
+todo CS2101 Presentation
+event Evan date /from Sep 1st 7pm /to 8pm
+todo Doing yoga
+mark 1
+mark 2
+list
+mark my words
+mark -9
+unmark 1
+unmark my words
+list
+bye
