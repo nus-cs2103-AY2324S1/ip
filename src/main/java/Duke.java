@@ -18,7 +18,6 @@ public class Duke {
         System.out.println(LINE_SEPARATOR);
         System.out.print(">> ");
     }
-
     
     private static void greet() {
         String[] messages = new String[] {"Hello! I'm A-CAT (Automated Chatbot Assistant for Tasks)", "What do you want to do today?"};
@@ -29,10 +28,21 @@ public class Duke {
         Duke.respond("Bye. Hope to see you again soon!");
     }
 
+    private static void listTasks(String[] tasks, int numberOfTasks) {
+        String[] output = new String[numberOfTasks];
+        for (int i = 0; i < numberOfTasks; i++) {
+            output[i] = (i + 1) + ". " + tasks[i];
+        }
+        Duke.respond(output);
+    }
+
     public static void main(String[] args) {
         Duke.greet();
 
         Scanner scanner = new Scanner(System.in);
+
+        String[] tasks = new String[100];
+        int numberOfTasks = 0;
 
         Boolean programRunning = true;
 
@@ -41,8 +51,11 @@ public class Duke {
 
             if (input.equals("bye")) {
                 programRunning = false;
+            } else if (input.equals("list")) {
+                Duke.listTasks(tasks, numberOfTasks);
             } else {
-                Duke.respond(input);
+                Duke.respond("Added: " + input);
+                tasks[numberOfTasks++] = input;
             }
         }
 
