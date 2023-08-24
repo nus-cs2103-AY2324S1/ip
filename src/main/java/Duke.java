@@ -47,19 +47,19 @@ public class Duke {
             this.isDone = checked;
         }
 
-        public void descriptionString(String start, String end) {
+        public void descriptionString() {
             String initStatement = "     Got it. I've added this task:";
             System.out.println(initStatement);
-            printMarking(start, end);
+            this.printMarking();
         }
 
-        public void printMarking(String start, String end) {
+        public void printMarking() {
             System.out.printf("       [%s][%s] %s", this.getTypeIcon(), this.getStatusIcon(), this.description);
 
-            if (!Objects.equals(start, "") && !Objects.equals(end, "")) {
-                System.out.printf(" (from: %s to: %s)", start, end);
-            } else if  (!Objects.equals(start, "")) {
-                System.out.printf(" (by: %s)", start);
+            if (!Objects.equals(this.start, "") && !Objects.equals(this.end, "")) {
+                System.out.printf(" (from: %s to: %s)", this.start, this.end);
+            } else if  (!Objects.equals(this.start, "")) {
+                System.out.printf(" (by: %s)", this.start);
             } else {
                 return;
             }
@@ -76,6 +76,15 @@ public class Duke {
 
         public void addList(Task t) {
             this.taskList.add(t);
+        }
+
+        public void delete(int id) {
+            System.out.println("     Noted. I've removed this task:");
+            Task t = this.taskList.get(id);
+            t.printMarking();
+            this.taskList.remove(id);
+            int size = this.taskList.size();
+            System.out.printf("\n     Now you have %d tasks in the list.\n", size);
         }
 
         public void listPrinter() {
@@ -95,11 +104,11 @@ public class Duke {
 
         public void printMarking(int i) {
             Task t = this.taskList.get(i);
-            t.printMarking("", "");
+            t.printMarking();
         }
 
         public void printEntry(Task t) {
-            t.descriptionString(t.start, t.end);
+            t.descriptionString();
             int size = this.taskList.size();
             System.out.printf("\n     Now you have %d tasks in the list.\n", size);
         }
@@ -121,7 +130,8 @@ public class Duke {
         String outro = "    Bye. Hope to see you again soon!";
         String markString = "    Nice! I've marked this task as done:";
         String unmarkString = "     OK, I've marked this task as not done yet:";
-
+        String noDescError = "     ☹ OOPS!!! The description of a todo cannot be empty.";
+        String noCommandError = "     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
         // initialise
         Storage storage = new Storage();
         System.out.println(horizontalLine);
@@ -158,8 +168,20 @@ public class Duke {
                     storage.printMarking(id2);
                     System.out.println(horizontalLine);
                     break;
+                case "delete" :
+                    int id3 = Integer.parseInt(parts[1]) - 1;
+                    System.out.println(horizontalLine);
+                    storage.delete(id3);
+                    System.out.println(horizontalLine);
+                    break;
                 case "todo" :
-                    String taskDesc = input.replace("todo ", "");
+                    String taskDesc = input.replace("todo", "");
+                    if (Objects.equals(taskDesc, "")) {
+                        System.out.println(horizontalLine);
+                        System.out.println(noDescError);
+                        System.out.println(horizontalLine);
+                        break;
+                    }
                     Task task = new Task(taskDesc, TaskType.TODO, "", "");
                     System.out.println(horizontalLine);
                     storage.addList(task);
@@ -195,6 +217,10 @@ public class Duke {
 
                     System.out.println(horizontalLine);
                     break;
+                default:
+                    System.out.println(horizontalLine);
+                    System.out.println(noCommandError);
+                    System.out.println(horizontalLine);
             }
         }
     }
