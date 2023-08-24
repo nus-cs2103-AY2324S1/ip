@@ -1,8 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.ArrayList;
 public class Duke {
+
+    /**
+     * A list to keep tracks of the tasks.
+     */
     private static ArrayList<Task> my_list = new ArrayList<>();
+
     public static void main(String[] args) {
         welcome();
         Scanner sc = new Scanner(System.in);
@@ -60,6 +64,11 @@ public class Duke {
     private static void ending() {
         System.out.println("Bye. Hope to see you again!");
     }
+
+    /**
+     * Add a todo task into the list.
+     * @param x Details of the task.
+     */
     private static void addTodo(String x) {
         if (x == null) {
             throw new LackDescriptionException("todo");
@@ -68,6 +77,11 @@ public class Duke {
         my_list.add(t);
         addedTask(x);
     }
+
+    /**
+     * Add a deadline task into the list.
+     * @param x Details of the task.
+     */
     private static void addDeadline(String x) {
         if (x == null || x.startsWith("/by") || x.startsWith(" /by")) {
             throw new LackDescriptionException("deadline");
@@ -85,6 +99,10 @@ public class Duke {
         addedTask(description);
     }
 
+    /**
+     * Add an event task into the list.
+     * @param x Details of the task.
+     */
     private static void addEvent(String x) {
         if (x == null || x.startsWith("/from") || x.startsWith(" /from")) {
             throw new LackDescriptionException("event");
@@ -118,35 +136,43 @@ public class Duke {
         System.out.println("Now you have " + my_list.size() + (my_list.size() == 1 ? " task " : " tasks ") + "in the list");
     }
 
+    /**
+     * Mark the task as done.
+     * @param x Index of the target task.
+     */
     private static void markDone(String x) {
         if (x == null) {
-            throw new InvalidMarking("Missing index");
+            throw new InvalidMarkingException("Missing index");
         }
         int j;
         try {
             j = Integer.parseInt(x);
         } catch (NumberFormatException e) {
-            throw new InvalidMarking("Please provide a valid index");
+            throw new InvalidMarkingException("Please provide a valid index");
         }
         if (j-1 > my_list.size()-1 || j-1<0) {
-            throw new InvalidMarking("There is no corresponding task in the list");
+            throw new InvalidMarkingException("There is no corresponding task in the list");
         }
         Task t = my_list.get(j-1);
         t.markDone();
     }
 
+    /**
+     * Mark the task as undone.
+     * @param x Index of the target task.
+     */
     private static void markUndone(String x) {
         if (x == null) {
-            throw new InvalidMarking("Missing index");
+            throw new InvalidMarkingException("Missing index");
         }
         int j;
         try {
             j = Integer.parseInt(x);
         } catch (NumberFormatException e) {
-            throw new InvalidMarking("Please provide a valid index");
+            throw new InvalidMarkingException("Please provide a valid index");
         }
         if (j-1 > my_list.size()-1 || j-1<0) {
-            throw new InvalidMarking("There is no corresponding task in the list");
+            throw new InvalidMarkingException("There is no corresponding task in the list");
         }
         Task t = my_list.get(j-1);
         t.markUndone();
@@ -162,18 +188,22 @@ public class Duke {
         }
     }
 
-    public static void delete(String x) {
+    /**
+     * Delete a task from the list.
+     * @param x Index of the target task.
+     */
+    private static void delete(String x) {
         if (x == null) {
-            throw new InvalidMarking("Missing index");
+            throw new InvalidMarkingException("Missing index");
         }
         int j;
         try {
             j = Integer.parseInt(x);
         } catch (NumberFormatException e) {
-            throw new InvalidMarking("Please provide a valid index");
+            throw new InvalidMarkingException("Please provide a valid index");
         }
         if (j-1 > my_list.size()-1) {
-            throw new InvalidMarking("There is no corresponding task in the list");
+            throw new InvalidMarkingException("There is no corresponding task in the list");
         }
         Task t = my_list.get(j-1);
         my_list.remove(j-1);
@@ -181,5 +211,4 @@ public class Duke {
         System.out.println(t);
         System.out.println("Now you have " + my_list.size() + (my_list.size() > 1 ? " tasks" : " task") + " in the list");
     }
-
 }

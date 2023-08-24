@@ -2,6 +2,10 @@ public class Task {
     private boolean isDone;
     private String description;
 
+    /**
+     * Create a task instance.
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.isDone = false;
         this.description = description;
@@ -11,6 +15,9 @@ public class Task {
         return (this.isDone ? "/" : " ");
     }
 
+    /**
+     * Mark a task as done.
+     */
     public void markDone() {
         if (this.isDone) {
             System.out.println("It has already been done");
@@ -20,6 +27,9 @@ public class Task {
         }
     }
 
+    /**
+     * Mark a task as undone.
+     */
     public void markUndone() {
         if (!this.isDone) {
             System.out.println("It was already undone");
@@ -28,6 +38,11 @@ public class Task {
             System.out.println("I've marked this task as undone!\n" + this);
         }
     }
+
+    /**
+     * String representation of the task.
+     * @return Desired representation of the task.
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
