@@ -2,10 +2,6 @@ public class Task {
     protected String taskName;
     protected boolean done;
 
-    public static void printLine() {
-        System.out.println("____________________________________________________________");
-    }
-
     public Task(String taskName) {
         this.taskName = taskName;
         this.done = false;
@@ -18,17 +14,17 @@ public class Task {
     }
 
     public void mark() {
-        printLine();
+        UI.printLine();
         this.done = true;
         System.out.println("SIUUU! I've marked this task as done. We will make Saudi League number 1.\n [X] " + taskName);
-        printLine();
+        UI.printLine();
     }
 
     public void unmark() {
-        printLine();
+        UI.printLine();
         this.done = false;
         System.out.println("OK, I've marked this task as not done.\n [ ] " + taskName);
-        printLine();
+        UI.printLine();
     }
 
     @Override

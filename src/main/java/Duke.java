@@ -1,7 +1,6 @@
-    import exceptions.DukeException;
     import exceptions.InvalidArgumentException;
     import exceptions.UnknownCommandException;
-
+    import exceptions.DukeException;
 
     import java.util.Scanner;
 
@@ -20,17 +19,22 @@
         }
 
         protected static void greetUser() {
-            printLine();
+            UI.printLine();
             System.out.println("Hello! I'm " + chatBotName + "! SUIIII!!!");
             System.out.println("What can I do for you?");
         }
 
         protected static void exit() {
-            printLine();
+            UI.printLine();
             System.out.println("Bye. Hope to see you again soon!");
-            printLine();
+            UI.printLine();
         }
 
+        /**
+         * this is the function that runs while the user is using the application.
+         * It takes in users input, calls getCommand to decide which function it should to call to handle the input.
+         * It also handles exceptions and waits for user to say bye.
+         */
         protected static void run() {
             TaskManager taskManager = new TaskManager();
             Scanner scanner = new Scanner(System.in);
@@ -63,22 +67,31 @@
                             throw new UnknownCommandException("I may be the GOAT but I don't know what that means.");
                     }
                 } catch (DukeException e) {
-                    printLine();
+                    UI.printLine();
                     System.out.println(e.getMessage());
-                    printLine();
+                    UI.printLine();
                 }
             }
             exit();
         }
 
-        protected static void printLine() {
-            System.out.println("____________________________________________________________");
-        }
 
+
+        /**
+         * returns the first word of the input string. Helps to determine which function to call.
+         * @param input
+         * @return command string
+         */
         private static String getCommand(String input) {
             return input.split(" ")[0];
         }
 
+        /**
+         * This function handles the logic for when a user wants to mark a task as done or undone.
+         * @param input
+         * @param taskManager
+         * @throws InvalidArgumentException
+         */
         private static void handleMarking(String input, TaskManager taskManager) throws InvalidArgumentException {
             String[] words = input.split(" ");
             try {
@@ -94,67 +107,78 @@
 
         }
 
+        /**
+         * if the user wants to add a to do-task, this function will handle the logic.
+         * @param input
+         * @param taskManager
+         * @throws InvalidArgumentException
+         */
         private static void handleTodo(String input, TaskManager taskManager) throws InvalidArgumentException {
-            try {
-                int indexOfSpace = input.indexOf(" ");
-                if (indexOfSpace == -1 || indexOfSpace == input.length() - 1) {
-                    throw new InvalidArgumentException("Please enter a task description.");
-                }
-                String taskName = input.substring(input.indexOf(" ") + 1).trim();
-                if(taskName.isEmpty()) {
-                    throw new InvalidArgumentException("Please enter a task description.");
-                }
-                Task task = new ToDo(taskName);
-                taskManager.add(task);
-            } catch (InvalidArgumentException e) {
+
+            int indexOfSpace = input.indexOf(" ");
+            if (indexOfSpace == -1 || indexOfSpace == input.length() - 1) {
                 throw new InvalidArgumentException("Please enter a task description.");
             }
+            String taskName = input.substring(input.indexOf(" ") + 1).trim();
+            if(taskName.isEmpty()) {
+                throw new InvalidArgumentException("Please enter a task description.");
+            }
+            Task task = new ToDo(taskName);
+            taskManager.add(task);
+
         }
 
+        /**
+         * similar to to-do, this function handles logic for handling adding a deadline to the task manager.
+         * @param input
+         * @param taskManager
+         * @throws InvalidArgumentException
+         */
         private static void handleDeadline(String input, TaskManager taskManager) throws InvalidArgumentException {
-            try {
-                String suffix = input.substring(input.indexOf(" ") + 1);
-                String[] parts = suffix.split(" /due ");
-                if (parts.length != 2) {
-                    throw new InvalidArgumentException("Invalid format for deadline. " +
-                            "Please use: deadline task name /due due Date");
-                }
-                String taskName = parts[0].trim();
-                String dueDate = parts[1].trim();
-                Task task = new Deadline(taskName, dueDate);
-                taskManager.add(task);
-            } catch (InvalidArgumentException e) {
+            String suffix = input.substring(input.indexOf(" ") + 1);
+            String[] parts = suffix.split(" /due ");
+            if (parts.length != 2) {
                 throw new InvalidArgumentException("Invalid format for deadline. " +
                         "Please use: deadline task name /due due Date");
             }
-
+            String taskName = parts[0].trim();
+            String dueDate = parts[1].trim();
+            Task task = new Deadline(taskName, dueDate);
+            taskManager.add(task);
         }
 
+        /**
+         * similar to to-do and deadline, this function handles the logic for adding an event to the task manager.
+         * @param input
+         * @param taskManager
+         * @throws InvalidArgumentException
+         */
         private static void handleEvent(String input, TaskManager taskManager) throws InvalidArgumentException {
-            try {
-                String suffix = input.substring(input.indexOf(" ") + 1);
-                String[] parts = suffix.split(" /from ");
-                if (parts.length != 2) {
-                    throw new InvalidArgumentException("Invalid format for event. " +
-                            "Please use: event task_name /from start /to end");
-                }
-                String taskName = parts[0].trim();
-                String[] timeParts = parts[1].split(" /to ");
-                if (timeParts.length != 2) {
-                    throw new InvalidArgumentException("Invalid format for event. " +
-                            "Please use: event task_name /from start /to end");
-                }
-                String from = timeParts[0].trim();
-                String to = timeParts[1].trim();
-                Task task = new Event(taskName, from, to);
-                taskManager.add(task);
-            } catch (InvalidArgumentException e) {
+            String suffix = input.substring(input.indexOf(" ") + 1);
+            String[] parts = suffix.split(" /from ");
+            if (parts.length != 2) {
                 throw new InvalidArgumentException("Invalid format for event. " +
                         "Please use: event task_name /from start /to end");
             }
+            String taskName = parts[0].trim();
+            String[] timeParts = parts[1].split(" /to ");
+            if (timeParts.length != 2) {
+                throw new InvalidArgumentException("Invalid format for event. " +
+                        "Please use: event task_name /from start /to end");
+            }
+            String from = timeParts[0].trim();
+            String to = timeParts[1].trim();
+            Task task = new Event(taskName, from, to);
+            taskManager.add(task);
 
         }
 
+        /**
+         * this function allows the user to delete a task by identifying its index.
+         * @param input
+         * @param taskManager
+         * @throws InvalidArgumentException
+         */
         private static void handleDelete(String input, TaskManager taskManager) throws InvalidArgumentException {
             String[] words = input.split(" ");
             try {

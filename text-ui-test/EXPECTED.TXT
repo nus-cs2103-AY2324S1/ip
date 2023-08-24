@@ -11,11 +11,11 @@ What can I do for you?
 ____________________________________________________________
 Got it. I've added the task:
 [T][ ] send flowers to mom
-Now you have 1 tasks in your list, just like how I have 5 Ballon d'Ors.
+Now you have 1 task in your list, just like how I have 5 Ballon d'Ors.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added the task:
-[D][ ] cs2103t assignment(by: Tuesday)
+[D][ ] cs2103t assignment (by: Tuesday)
 Now you have 2 tasks in your list, just like how I have 5 Ballon d'Ors.
 ____________________________________________________________
 ____________________________________________________________
@@ -26,22 +26,41 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] send flowers to mom
-2. [D][ ] cs2103t assignment(by: Tuesday)
+2. [D][ ] cs2103t assignment (by: Tuesday)
 3. [E][ ] watch oppenheimer (from: 7pm to: 10pm)
 ____________________________________________________________
 ____________________________________________________________
-SIUUU! I've marked this task as done:
+☹ OOPS!!! Please enter a numerical index!
+____________________________________________________________
+____________________________________________________________
+SIUUU! I've marked this task as done. We will make Saudi League number 1.
  [X] send flowers to mom
 ____________________________________________________________
 ____________________________________________________________
-OK, I've marked this task as not done yet:
- [ ] send flowers to mom
+SIUUU! I've marked this task as done. We will make Saudi League number 1.
+ [X] cs2103t assignment
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done.
+ [ ] cs2103t assignment
+____________________________________________________________
+____________________________________________________________
+☹ OOPS!!! I may be the GOAT but I don't know what that means.
+____________________________________________________________
+____________________________________________________________
+Removed task:
+[E][ ] watch oppenheimer (from: 7pm to: 10pm)
+____________________________________________________________
+____________________________________________________________
+☹ OOPS!!! I'm sorry but that task does not exist. There are only 2 tasks.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1. [T][ ] send flowers to mom
-2. [D][ ] cs2103t assignment(by: Tuesday)
-3. [E][ ] watch oppenheimer (from: 7pm to: 10pm)
+1. [T][X] send flowers to mom
+2. [D][ ] cs2103t assignment (by: Tuesday)
+____________________________________________________________
+____________________________________________________________
+☹ OOPS!!! I may be the GOAT but I don't know what that means.
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

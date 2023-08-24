@@ -6,30 +6,27 @@ public class TaskManager {
     private int index = 0;
     private int numOfTasks = 0;
 
-    public static void printLine() {
-        System.out.println("____________________________________________________________");
-    }
 
     public void add (Task task) {
         this.list.add(task);
         this.numOfTasks += 1;
-        printLine();
+        UI.printLine();
         System.out.println("Got it. I've added the task:\n" + task);
         if (numOfTasks != 1) {
             System.out.println("Now you have " + numOfTasks + " tasks in your list, just like how I have 5 Ballon d'Ors.");
         } else {
             System.out.println("Now you have " + numOfTasks + " task in your list, just like how I have 5 Ballon d'Ors.");
         }
-        printLine();
+        UI.printLine();
     }
 
     public void list() {
-        printLine();
+        UI.printLine();
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < numOfTasks; i++) {
             System.out.println((i + 1) + ". " + list.get(i));
         }
-        printLine();
+        UI.printLine();
     }
 
     public void mark(int index) throws InvalidArgumentException {
@@ -57,9 +54,9 @@ public class TaskManager {
         numOfTasks -= 1;
         Task removedTask = list.get(index);
         list.remove(index);
-        printLine();
+        UI.printLine();
         System.out.println("Removed task:\n" + removedTask);
-        printLine();
+        UI.printLine();
     }
 
 
