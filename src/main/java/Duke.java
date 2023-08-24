@@ -14,8 +14,7 @@ public class Duke {
 
         // Introduction Message
         System.out.println(logo);
-        System.out.println("Hello! I'm Chad");
-        System.out.println("What can I do for you?");
+        System.out.println(ErrorMessages.INTRODUCTION.getMessage());
         System.out.println();
 
         // Task List Storage
@@ -30,10 +29,10 @@ public class Duke {
                 if (userInput.contains("bye")){
                     // Check if only "bye" is typed and not "bye bye" (Example)
                     if (userInput.length() == 3){
-                        System.out.println("Bye. Hope to see you again soon!");
+                        System.out.println(ErrorMessages.GOODBYE_MESSAGE.getMessage());
                         break;
                     } else {
-                        throw new DukeException("I'm sorry, I don't understand this command. Did you mean to type 'bye' ?");
+                        throw new DukeException(ErrorMessages.INVALID_INPUT.getMessage() + " 'bye' ?");
                     }
                 }
                 // If user types list, the list is printed. Otherwise, an exception is thrown.
@@ -45,14 +44,14 @@ public class Duke {
                             System.out.println(Integer.toString(i+1) + "." + taskList.get(i).toString());
                         }
                     } else {
-                        throw new DukeException("I'm sorry, I don't understand this command. Did you mean to type 'list' ?");
+                        throw new DukeException(ErrorMessages.INVALID_INPUT.getMessage() + " 'list' ?");
                     }
                 }
                 // If user types mark command, we mark the event
                 else if (userInput.contains("mark") && !userInput.contains("unmark")){
                     if(userInput.length() == 4){
                         // Check if task number is present
-                        throw new DukeException("I'm sorry, you seem to have forgotten to enter the task number.");
+                        throw new DukeException(ErrorMessages.MISSING_TASK_NUMBER.getMessage());
                     } else {
                         try {
                             int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
@@ -68,13 +67,13 @@ public class Duke {
                             }
                         } catch (IndexOutOfBoundsException e){
                             // Check if task number provided is within size of task list.
-                            throw new DukeException("I'm sorry, the task number you have entered a number that exceeds the size of your task list.");
+                            throw new DukeException(ErrorMessages.INVALID_TASK_NUMBER.getMessage());
                         }
                     }
                     // If user types unmark command, we unmark the event
                 } else if (userInput.contains("unmark")) {
                     if (userInput.length() == 6){
-                        throw new DukeException("I'm sorry, you seem to have forgotten to enter the task number.");
+                        throw new DukeException(ErrorMessages.MISSING_TASK_NUMBER.getMessage());
                     } else {
                         try {
                             int taskNumber2 = Integer.parseInt(userInput.substring(7)) - 1;
@@ -90,13 +89,13 @@ public class Duke {
                                 System.out.println(taskToBeUnmarked.toString());
                             }
                         } catch (IndexOutOfBoundsException e){
-                            throw new DukeException("I'm sorry, the task number you have entered a number that exceeds the size of your task list.");
+                            throw new DukeException(ErrorMessages.INVALID_TASK_NUMBER.getMessage());
                         }
                     }
                 } else if (userInput.contains("delete")){
                     // Check if task number is present, otherwise prompt the user to include.
                     if (userInput.length() == 6){
-                        throw new DukeException("I'm sorry, you seem to have forgotten to enter the task number.");
+                        throw new DukeException(ErrorMessages.MISSING_TASK_NUMBER.getMessage());
                     } else {
                         try{
                             int taskNumber3 = Integer.parseInt(userInput.substring(7)) - 1;
@@ -107,7 +106,7 @@ public class Duke {
                             System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                         } catch (IndexOutOfBoundsException e){
                             // Check if task number is within the size of task list.
-                            throw new DukeException("I'm sorry, the task number you have entered a number that exceeds the size of your task list.");
+                            throw new DukeException(ErrorMessages.INVALID_TASK_NUMBER.getMessage());
                         }
                     }
                 }
@@ -116,18 +115,18 @@ public class Duke {
                     if (userInput.contains("todo")){
                         // Check if event description is present.
                         if (userInput.length() == 4){
-                            throw new DukeException("I'm sorry, the description of a todo cannot be empty.");
+                            throw new DukeException(ErrorMessages.EMPTY_DESCRIPTION_HEAD.getMessage() + "todo" + ErrorMessages.EMPTY_DESCRIPTION_TAIL.getMessage());
                         } else{
                             Todo toDoTask = new Todo(userInput.substring(5));
                             taskList.add(toDoTask);
-                            System.out.println("Got it. I've added this task:");
+                            System.out.println(ErrorMessages.TASK_ADDED.getMessage());
                             System.out.println(toDoTask.toString());
                             System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                         }
                     }
                     else if (userInput.contains("deadline")){
                         if (userInput.length() == 8){
-                            throw new DukeException("I'm sorry, the description of a deadline cannot be empty.");
+                            throw new DukeException(ErrorMessages.EMPTY_DESCRIPTION_HEAD.getMessage() + "deadline" + ErrorMessages.EMPTY_DESCRIPTION_TAIL.getMessage());
                         } else {
                             String[] deadlineString = userInput.substring(9).split("/");
                             if (deadlineString.length == 1){
@@ -136,7 +135,7 @@ public class Duke {
                             } else {
                                 Deadline deadlineTask = new Deadline(deadlineString[0].trim(), deadlineString[1].substring(3));
                                 taskList.add(deadlineTask);
-                                System.out.println("Got it, I've added this task:");
+                                System.out.println(ErrorMessages.TASK_ADDED.getMessage());
                                 System.out.println(deadlineTask.toString());
                                 System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                             }
@@ -144,7 +143,7 @@ public class Duke {
                     }
                     else if (userInput.contains("event")){
                         if (userInput.length() == 5){
-                            throw new DukeException("I'm sorry, the description of an event cannot be empty.");
+                            throw new DukeException(ErrorMessages.EMPTY_DESCRIPTION_HEAD.getMessage() + "event" + ErrorMessages.EMPTY_DESCRIPTION_TAIL.getMessage());
                         } else {
                             String[] eventString = userInput.substring(6).split("/");
                             // Check if a start and end time has been provided.
@@ -156,14 +155,14 @@ public class Duke {
                             } else {
                                 Event eventTask = new Event(eventString[0].trim(), eventString[1].substring(5).trim(), eventString[2].substring(3));
                                 taskList.add(eventTask);
-                                System.out.println("Got it, I've added this task:");
+                                System.out.println(ErrorMessages.TASK_ADDED.getMessage());
                                 System.out.println(eventTask.toString());
                                 System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                             }
                         }
                     }
                     else {
-                        throw new DukeException("I'm sorry, I don't understand this task.");
+                        throw new DukeException(ErrorMessages.INCOMPREHENSIBLE_TASK.getMessage());
                     }
                 }
             } catch (DukeException exception) {
