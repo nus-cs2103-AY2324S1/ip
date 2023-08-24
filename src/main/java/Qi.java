@@ -1,39 +1,35 @@
 import java.util.Scanner;
 public class Qi {
     public static void main(String[] args) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Hello! I'm Qi");
-        System.out.println("     What can I do for you?");
-        System.out.println("    ____________________________________________________________");
-        System.out.println();
+        Bot qi = new Bot("Qi");
+        qi.greeting();
+
         Scanner sc = new Scanner(System.in);
-        String[] tasks = new String[100];
-        int numTasks = 0;
         while (true) {
             String str = sc.nextLine();
             if (str.equals("bye")) {
                 break;
             }
 
-            if (!str.equals("list")) {
-                System.out.println("    ____________________________________________________________");
-                System.out.println("     added: " + str);
-                System.out.println("    ____________________________________________________________");
-                System.out.println();
-                tasks[numTasks] = str;
-                numTasks++;
-
-            } else {
-                System.out.println("    ____________________________________________________________");
-                for (int i = 0; i < numTasks; i++) {
-                    System.out.println("     " + i + ". " + tasks[i]);
-                }
-                System.out.println("    ____________________________________________________________");
-                System.out.println();
+            if (str.equals("list")) {
+                qi.showTask();
+                continue;
             }
+
+            if (str.length() >= 6 && str.substring(0, 4).equals("mark")) {
+                int taskIdx = Integer.parseInt(str.substring(5, str.length()));
+                qi.markTask(taskIdx);
+                continue;
+            }
+
+            if (str.length() >= 8 && str.substring(0, 6).equals("unmark")) {
+                int taskIdx = Integer.parseInt(str.substring(7, str.length()));
+                qi.unmarkTask(taskIdx);
+                continue;
+            }
+
+            qi.addTask(str);
         }
-        System.out.println("    ____________________________________________________________");
-        System.out.println("     Bye. Hope to see you again soon!");
-        System.out.println("    ____________________________________________________________");
+        qi.goodBye();
     }
 }
