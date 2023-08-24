@@ -31,7 +31,7 @@ public class Duke {
         } else if (input.startsWith("event ")) {
             processEvent(input.substring(6));
         } else if (input.startsWith("deadline ")) {
-            processDeadline(input.substring(8));
+            processDeadline(input.substring(9));
         } else {
             System.out.println("Error, unknown command!?!");
         }

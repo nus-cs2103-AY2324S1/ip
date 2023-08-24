@@ -1,0 +1,16 @@
+list
+event test1 /from start /to end
+todo test 2
+deadline test 3 /by dead line
+list
+mark 2
+list
+mark 2
+list
+unmark 2
+list
+unmark 2
+list
+unknown command
+bye bye
+bye
