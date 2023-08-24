@@ -13,6 +13,7 @@ public class Task {
         doneness = false;
     }
 
+    @Override
     public String toString() {
         return String.format("[%s] %s", isDone() ? "X" : " ", name);
     }
