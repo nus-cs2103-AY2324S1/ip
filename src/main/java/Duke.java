@@ -32,7 +32,7 @@ public class Duke {
             t.markAsDone();
             System.out.println("____________________________________________________________\n"
                     + "Nice! I've marked this task as done:\n"
-                    + "[" + t.getStatusIcon() + "] " + t.getDescription() + "\n"
+                    + t.toString() + "\n"
                     + "____________________________________________________________\n"
             );
         } else if (str.startsWith("unmark")) {
@@ -42,7 +42,7 @@ public class Duke {
             t.markAsNotDone();
             System.out.println("____________________________________________________________\n"
                     + "OK, I've marked this task as not done yet:\n"
-                    + "[" + t.getStatusIcon() + "] " + t.getDescription() + "\n"
+                    + t.toString() + "\n"
                     + "____________________________________________________________\n"
             );
         } else {
@@ -61,8 +61,7 @@ public class Duke {
             System.out.println("____________________________________________________________");
             for (int i = 1; i <= index; i++) {
                 Task t = lst[i - 1];
-                String s = t.getDescription();
-                System.out.println(i + ". [" + t.getStatusIcon() + "] " + s);
+                System.out.println(i + ". " + t.toString());
             }
             System.out.println("____________________________________________________________");
         }
