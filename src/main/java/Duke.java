@@ -1,53 +1,115 @@
+/**
+ * ip Project Duke Chat bot
+ *
+ * @author Aaron Tay
+ * @since 2023-08-24
+ */
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
 
-    private static void addTask(ArrayList<Task> taskList, String[] cmd) throws DukeException {
+    /**
+     * Creates a Task and adds it to the task list.
+     *
+     * @param taskList The list of task created by user.
+     * @param cmd The input command from user.
+     * @throws InvalidCommandException Handles missing or wrong input commands by user.
+     * @throws InvalidDescriptionException Handle empty task descriptions.
+     */
+    private static void addTask(ArrayList<Task> taskList, String[] cmd) throws InvalidCommandException
+            , InvalidDescriptionException {
+
         if (cmd[0].equals("todo")) {
             if (cmd.length == 1 || cmd[1].equals("")) {
-                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new InvalidDescriptionException("todo");
             }
 
             taskList.add(new ToDo(cmd[1]));
         } else if (cmd[0].equals("deadline")) {
 
-            if (cmd.length == 1 || cmd[1].equals("")) {
-                throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            if (cmd.length == 1 || cmd[1].equals("") || cmd[1].trim().charAt(0) == '/') {
+                throw new InvalidDescriptionException("deadline");
             }
 
             String[] task = cmd[1].split("/by ", 2);
             if (task.length == 1 || task[1].equals("")) {
-                throw new DukeException("☹ OOPS!!! Need to include /by date for deadline.");
+                throw new InvalidCommandException("☹ OOPS!!! Need to include /by date for deadline.");
             }
 
             taskList.add(new Deadline(task[0], task[1]));
         } else if (cmd[0].equals("event")) {
 
-            if (cmd.length == 1 || cmd[1].equals("")) {
-                throw new DukeException("☹ OOPS!!! The description of a event cannot be empty.");
+            if (cmd.length == 1 || cmd[1].equals("") || cmd[1].trim().charAt(0) == '/') {
+                throw new InvalidDescriptionException("description");
             }
 
             String[] event = cmd[1].split("/from ", 2);
 
             if (event.length == 1 || event[1].equals("")) {
-                throw new DukeException("☹ OOPS!!! Need to include /from date for an event.");
+                throw new InvalidCommandException("☹ OOPS!!! Need to include /from date for an event.");
             }
 
             String[] dates = event[1].split("/to ", 2);
 
             if (dates.length == 1 || dates[1].equals("")) {
-                throw new DukeException("☹ OOPS!!! Need to include /to date for an event.");
+                throw new InvalidCommandException("☹ OOPS!!! Need to include /to date for an event.");
             }
 
             taskList.add(new Event(event[0], dates[0], dates[1]));
         } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
 
         System.out.println("Got it. I've added this task:");
         System.out.println(taskList.get(taskList.size() - 1).toString());
         System.out.println("Now you have " + (taskList.size()) + " tasks in the list.");
 
+    }
+
+    /**
+     * Edits the task specified. Can be either marking the task as done, unmarking the task or deleting the task.
+     *
+     * @param cmd The input command from user.
+     * @param taskList The list of task created by user.
+     * @throws InvalidCommandException Handles missing or wrong input commands by user.
+     * @throws InvalidIndexException Handles invalid task index given by user.
+     */
+    public static void editTask (String[] cmd, ArrayList<Task> taskList) throws InvalidCommandException
+            , InvalidIndexException {
+        String regex = "-?\\d+";
+        if (cmd.length == 1) {
+            throw new InvalidCommandException("Need to include index for task marking!");
+        }
+
+        if (cmd[1] == " ") {
+            throw new InvalidCommandException("Please include index for task marking");
+        }
+
+        if (!cmd[1].matches(regex)) {
+            throw new InvalidCommandException("Can only use integers as index for marking!");
+        }
+
+        int pos = Integer.parseInt(cmd[1]);
+
+        if (pos > taskList.size() || pos <= 0) {
+            throw new InvalidIndexException();
+        }
+
+        if (cmd[0].equals("mark")) {
+            taskList.get(pos - 1).markTask();
+            System.out.println("Nice! I've marked this task as done:");
+        } else if (cmd[0].equals("unmark")){
+            taskList.get(pos - 1).unmarkTask();
+            System.out.println("OK, I've marked this task as not done yet:");
+        } else {
+            System.out.println("Noted. I've removed this task:");
+        }
+
+        System.out.println(taskList.get(pos - 1).toString());
+        if (cmd[0].equals("delete")) {
+            taskList.remove(pos - 1);
+            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        }
     }
 
     public static void main(String[] args) {
@@ -71,33 +133,18 @@ public class Duke {
                 for (int i = 0; i < taskList.size(); i++) {
                     System.out.print((i + 1) + "." + taskList.get(i).toString() + "\n");
                 }
-            } else if (command.length == 2 && (command[0].equals("mark") || command[0].equals("unmark"))) {
-                int pos = Integer.parseInt(command[1]);
-
-                if (command[0].equals("mark")) {
-                    taskList.get(pos - 1).markTask();
-                    System.out.println("Nice! I've marked this task as done:");
-                } else {
-                    taskList.get(pos - 1).unmarkTask();
-                    System.out.println("OK, I've marked this task as not done yet:");
+            } else if (command[0].equals("mark") || command[0].equals("unmark") || command[0].equals("delete")) {
+                try {
+                    editTask(command, taskList);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
                 }
-
-                System.out.println(taskList.get(pos - 1).toString());
-            } else if (command[0].equals("delete") && command.length == 2) {
-                int pos = Integer.parseInt(command[1]);
-
-                System.out.println("Noted. I've removed this task:");
-                System.out.println(taskList.get(pos - 1));
-                taskList.remove(pos - 1);
-                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
             } else {
-                // add tasks
                 try {
                     addTask(taskList, command);
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
-
             }
 
             System.out.println(line);
