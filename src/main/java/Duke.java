@@ -118,6 +118,52 @@ public class Duke {
                     System.out.println(DIVIDER);
                 }
 
+            } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
+                // User creates a task
+                Task newTask = null;
+
+                if (userInput.startsWith("todo")) {
+                    // If user wants to create a ToDos task
+                    String description = userInput.substring(5).trim();
+                    newTask = new ToDos(description);
+                    userList.add(newTask);
+
+                } else if (userInput.startsWith("deadline")) {
+                    // If user wants to create a Deadlines task
+                    String[] parts = userInput.split("/by");
+
+                    if (parts.length == 2) {
+                        // Makes sure deadline format is followed (e.g. there's /by)
+                        String description = parts[0].substring(9).trim();
+                        String by = parts[1].trim();
+
+                        newTask = new Deadlines(description, by);
+                        userList.add(newTask);
+                    }
+
+                } else {
+                    // If user wants to create an Events task
+                    String[] parts = userInput.split("/from|/to");
+
+                    if (parts.length == 3) {
+                        // Makes sure deadline format is followed (e.g. there's /from and /to)
+                        String description = parts[0].substring(6).trim();
+                        String from = parts[1].trim();
+                        String to = parts[2].trim();
+                        newTask = new Events(description, from, to);
+                        userList.add(newTask);
+                    }
+                }
+
+                if (newTask != null) {
+                    // If task is initialized
+                    System.out.println(DIVIDER);
+                    System.out.println("        Got it! I've added this task: ");
+                    System.out.println("            " + newTask);
+                    System.out.println("        Now you have " + userList.size() + " tasks in the list.");
+                    System.out.println(DIVIDER);
+                }
+
             } else {
                 // Other inputs
                 Task task = new Task(userInput);

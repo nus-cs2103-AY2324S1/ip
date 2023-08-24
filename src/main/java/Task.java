@@ -2,13 +2,13 @@
  * A class for Tasks.
  */
 public class Task {
-    /** Class field description that describes the task */
+    /** Class field description that describes the task. */
     protected String description;
-    /** Class field isDone that tells whether the task is marked */
+    /** Class field isDone that tells whether the task is marked. */
     protected boolean isDone;
 
     /**
-     * Constructor to initialize the Task class
+     * Constructor to initialize the Task class.
      * @param description Describes the task.
      */
     public Task(String description) {
@@ -18,21 +18,21 @@ public class Task {
 
     /**
      * Method to get the status icon of the task.
-     * @return String "X" if task's isDone is true, " " otherwise
+     * @return String "X" if task's isDone is true, " " otherwise.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
-     * Method that sets the task's isDone to true
+     * Method that sets the task's isDone to true.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Method that sets the task's isDone to false
+     * Method that sets the task's isDone to false.
      */
     public void markAsUndone() {
         this.isDone = false;
