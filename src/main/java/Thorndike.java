@@ -1,6 +1,10 @@
 import java.util.Scanner;
 import java.util.Map;
 import java.util.ArrayList;
+
+import exceptions.InvalidCommandException;
+import exceptions.InvalidIndexException;
+import exceptions.MissingDescriptionException;
 import exceptions.ThorndikeException;
 
 public class Thorndike {
@@ -53,24 +57,24 @@ public class Thorndike {
             markNotDone(idx);
         } else if (command.equals("todo")) {
             if (description.equals("")) {
-                throw new ThorndikeException("The description of a todo cannot be empty.");
+                throw new MissingDescriptionException("todo");
             }
             addTask(new Todo(description));
         } else if (command.equals("deadline")) {
             if (description.equals("")) {
-                throw new ThorndikeException("The description of a deadline cannot be empty.");
+                throw new MissingDescriptionException("deadline");
             }
             addTask(new Deadline(description, args.get("by")));
         } else if (command.equals("event")) {
             if (description.equals("")) {
-                throw new ThorndikeException("The description of an event cannot be empty.");
+                throw new MissingDescriptionException("event");
             }
             addTask(new Event(description, args.get("from"), args.get("to")));
         } else if (command.equals("delete")) {
             int idx = getIndex(description);
             deleteTask(idx);
         } else {
-            throw new ThorndikeException("I'm sorry, but I don't know what that means :-(");
+            throw new InvalidCommandException();
         }
     }
 
@@ -173,10 +177,10 @@ public class Thorndike {
         try {
             idx = Integer.parseInt(index);
         } catch (Exception e) {
-            throw new ThorndikeException("The index given is invalid");
+            throw new InvalidIndexException();
         }
         if (idx < 1 || idx > this.index) {
-            throw new ThorndikeException("The index given is invalid");
+            throw new InvalidIndexException();
         }
         return idx;
     }
