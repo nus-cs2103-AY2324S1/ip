@@ -23,24 +23,33 @@ public class Duke {
             String input = sc.nextLine();
             if (input.equals("bye")) {
                 break;
+
             } else if (input.equals("list")) {
                 String list = "";
                 for (int i = 0; i < count; i++) {
                     list += "  " + (i + 1) + ". " + items[i] + "\n";
                 }
                 talk(list);
+
             } else if (input.startsWith("mark")) {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 items[index].markDone();
                 talk("Nice! I've marked this task as done:\n  " + items[index]);
+
             } else if (input.startsWith("unmark")) {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 items[index].markUnDone();
                 talk("OK, I've marked this task as not done yet:\n  " + items[index]);
+            } else if (input.startsWith("todo")) {
+                String name = input.split(" ", 2)[1];
+                items[count] = new ToDo(name);
+                talk("Got it. I've added this task:\n  " + items[count] + "\n Now you have " + count + " tasks in your list.");
+                count++;
             } else {
                 items[count] = new Task(input);
                 count++;
                 talk("added: " + input);
+
             }
         }
         talk(goodbye);
