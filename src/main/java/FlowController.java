@@ -6,7 +6,7 @@ public abstract class FlowController {
     private FlowController() {}
 
     public enum Commands {
-        NULL(null), LIST("list"), BYE("bye"), MARK("mark"),
+        NULL(null), LIST("list"), BYE("bye"), MARK("mark"), UNMARK("unmark"),
         TODO("todo"), DEADLINE("deadline"), EVENT("event");
         private final String invocation;
 
@@ -59,8 +59,12 @@ public abstract class FlowController {
                     io.send("Added: " + taskList.size() + ". " + task);
                     break;
                 case MARK: //todo acknowledge
-                    taskList.get(Integer.parseInt(io.getArgs())-1).toggleDone(); //todo index out of bounds
+                    taskList.get(Integer.parseInt(io.getArgs())-1).done(); //todo index out of bounds
                     break;
+                case UNMARK:
+                    taskList.get(Integer.parseInt(io.getArgs())-1).undone(); //todo index out of bounds
+                    break;
+
                 case NULL:
                     io.unexpected();
                     break;
