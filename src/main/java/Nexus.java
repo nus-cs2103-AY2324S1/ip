@@ -13,12 +13,14 @@ public class Nexus {
         List<Task> list = new ArrayList<>();
         int index;
         String desc;
+        StringBuilder builder = new StringBuilder();
         boolean exit = false;
 
         while (!exit) {
             try {
-                String input = scanner.next();
-                switch (input) {
+                String input = scanner.nextLine();
+                String[] data = input.split(" ");
+                switch (data[0]) {
                     case "bye":
                         System.out.println("Bye. Hope to see you again soon!");
                         exit = true;
@@ -31,76 +33,98 @@ public class Nexus {
                         }
                         break;
                     case "mark":
-                        if (!scanner.hasNext()) {
-                            throw new MissingInputException("Please indicate which task to mark");
+                        if (data.length == 1) {
+                            throw new MissingInputException("Task index must be indicated");
                         }
-                        index = Integer.parseInt(scanner.next()) - 1;
+                        index = Integer.parseInt(data[1]) - 1;
                         list.get(index).setDone();
                         System.out.println("Nice! I've marked this task as done:");
                         System.out.println(list.get(index));
                         break;
                     case "unmark":
-                        if (!scanner.hasNext()) {
-                            throw new MissingInputException("Please indicate which task to unmark");
+                        if (data.length == 1) {
+                            throw new MissingInputException("Task index must be indicated");
                         }
-                        index = Integer.parseInt(scanner.next()) - 1;
+                        index = Integer.parseInt(data[1]) - 1;
                         list.get(index).setUndone();
                         System.out.println("OK, I've marked this task as not done yet:");
                         System.out.println(list.get(index));
                         break;
                     case "todo":
-                        if (!scanner.hasNext()) {
-                            throw new MissingInputException("The description of a todo cannot be empty");
+                        if (data.length == 1) {
+                            throw new MissingInputException("Todo description cannot be empty");
                         }
-                        desc = scanner.nextLine();
+                        for (int i = 1; i < data.length; i++) {
+                            builder.append(data[i]);
+                            if (i < data.length - 1) {
+                                builder.append(" ");
+                            }
+                        }
+                        desc = builder.toString();
                         list.add(new Todo(desc));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(list.get(list.size() - 1));
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
                         break;
                     case "deadline":
-                        if (!scanner.hasNext()) {
-                            throw new MissingInputException("The description of a deadline cannot be empty");
+                        if (data.length == 1) {
+                            throw new MissingInputException("Deadline description cannot be empty");
                         }
-                        scanner.useDelimiter("/");
-                        desc = scanner.next();
-                        if (!scanner.hasNext()) {
-                            throw new MissingInputException("The time of a deadline cannot be empty");
+                        index = 1;
+                        while(!data[index].equals("/by")) {
+                            builder.append(data[index]).append(" ");
+                            index++;
                         }
-                        String by = scanner.nextLine().replace("/by", "").trim();
+                        desc = builder.toString().trim();
+                        builder.setLength(0);
+                        index++;
+                        while(index < data.length) {
+                            builder.append(data[index]).append(" ");
+                            index++;
+                        }
+                        String by = builder.toString().trim();
                         list.add(new Deadline(desc, by));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(list.get(list.size() - 1));
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
                         break;
                     case "event":
-                        if (!scanner.hasNext()) {
-                            throw new MissingInputException("The description of an event cannot be empty");
+                        if (data.length == 1) {
+                            throw new MissingInputException("Event description cannot be empty");
                         }
-                        scanner.useDelimiter("/");
-                        desc = scanner.next();
-                        if (!scanner.hasNext()) {
-                            throw new MissingInputException("The start time of an event cannot be empty");
+                        index= 1;
+                        while(!data[index].equals("/from")) {
+                            builder.append(data[index]).append(" ");
+                            index++;
                         }
-                        String start = scanner.next().replace("from", "").trim();
-                        if (!scanner.hasNext()) {
-                            throw new MissingInputException("The end time of an event cannot be empty");
+                        desc = builder.toString().trim();
+                        builder.setLength(0);
+                        index++;
+                        while(!data[index].equals("/to")) {
+                            builder.append(data[index]).append(" ");
+                            index++;
                         }
-                        String end = scanner.nextLine().replace("/to", "").trim();
+                        String start = builder.toString().trim();
+                        builder.setLength(0);
+                        index++;
+                        while(index < data.length) {
+                            builder.append(data[index]).append(" ");
+                            index++;
+                        }
+                        String end = builder.toString().trim();
                         list.add(new Event(desc, start, end));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(list.get(list.size() - 1));
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
                         break;
                     default:
-                        scanner.nextLine();
+                        scanner.reset();
                         throw new InvalidInputException("I don't understand. Please check your input again.");
                 }
                 scanner.reset();
-            }
-            catch (InvalidInputException | MissingInputException e) {
+                builder.setLength(0);
+            } catch (InvalidInputException | MissingInputException e) {
                 scanner.reset();
-                scanner.nextLine();
                 System.out.println(e.getMessage());
             } catch (Exception e) {
                 scanner.reset();
