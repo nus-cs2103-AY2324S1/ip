@@ -15,38 +15,49 @@ public class Edna {
         input = sc.next();
 
         while(input.equals("bye") == false) {
-            if (input.equals("list")) {
-                print();
-                System.out.println(partition);
-            } else if (input.equals("mark")) {
-                int num = sc.nextInt();
-                taskList.get(num - 1).markDone();
-                System.out.println(partition);
-            } else if (input.equals("unmark")) {
-                int num = sc.nextInt();
-                taskList.get(num - 1).unmarkDone();
-                System.out.println(partition);
-            } else if (input.equals("todo")){
-                ToDo temp = new ToDo(sc.nextLine().substring(1));
-                add(temp);
-                System.out.println(partition);
-            } else if (input.equals("deadline")){
-                String ddl = sc.nextLine();
-                String[] ddlCommand = ddl.split(" /by ");
-                Deadline temp = new Deadline(ddlCommand[0].substring(1), ddlCommand[1]);
-                add(temp);
-                System.out.println(partition);
-            } else if (input.equals("event")){
-                String event = sc.nextLine();
-                String[] eventCommand = new String[3];
-                eventCommand[0] = event.substring(1, event.indexOf(" /"));
-                eventCommand[1] = event.substring(event.indexOf("/from") + 6, event.indexOf(" /to"));
-                eventCommand[2] = event.substring(event.indexOf("/to") + 4);
-                Event temp = new Event(eventCommand[0], eventCommand[1],eventCommand[2] );
-                add(temp);
-                System.out.println(partition);
-            } else {
-                add(new Task(input));
+            try {
+                switch(input) {
+                    case "List":
+                        print();
+                        System.out.println(partition);
+                        break;
+                    case "mark":
+                        int num = sc.nextInt();
+                        taskList.get(num - 1).markDone();
+                        System.out.println(partition);
+                        break;
+                    case "unmark":
+                        int num1 = sc.nextInt();
+                        taskList.get(num1 - 1).unmarkDone();
+                        System.out.println(partition);
+                        break;
+                    case "todo":
+                        add(new ToDo(sc.nextLine()));
+                        System.out.println(partition);
+                        break;
+                    case "deadline":
+                        String ddl = sc.nextLine();
+                        String[] ddlCommand = ddl.split(" /by ");
+                        Deadline temp1 = new Deadline(ddlCommand[0].substring(1), ddlCommand[1]);
+                        add(temp1);
+                        System.out.println(partition);
+                        break;
+                    case "event":
+                        String event = sc.nextLine();
+                        String[] eventCommand = new String[3];
+                        eventCommand[0] = event.substring(1, event.indexOf(" /"));
+                        eventCommand[1] = event.substring(event.indexOf("/from") + 6, event.indexOf(" /to"));
+                        eventCommand[2] = event.substring(event.indexOf("/to") + 4);
+                        Event temp2 = new Event(eventCommand[0], eventCommand[1],eventCommand[2] );
+                        add(temp2);
+                        System.out.println(partition);
+                        break;
+                    default:
+                        add(new Task(null));
+                        System.out.println(partition);
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
                 System.out.println(partition);
             }
             input = sc.next();

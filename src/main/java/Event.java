@@ -2,7 +2,7 @@ public class Event extends Task {
     private String from;
     private String to;
 
-    public Event(String task, String from, String to) {
+    public Event(String task, String from, String to) throws DukeException {
         super(task);
         this.from = from;
         this.to = to;
