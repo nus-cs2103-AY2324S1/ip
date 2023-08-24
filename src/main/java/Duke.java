@@ -11,6 +11,8 @@ public class Duke {
         System.out.println(DukeConstants.GREETING_MESSAGE);
 
         Scanner scanner = new Scanner(System.in);
+
+        // Read user input until program exits
         while (true) {
             String input = scanner.nextLine();
             app.executeCommand(input);

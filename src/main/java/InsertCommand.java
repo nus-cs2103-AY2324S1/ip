@@ -15,9 +15,14 @@ public class InsertCommand implements Command {
      */
     @Override
     public void run(String input) {
-        Task task = new Task(input);
+        String[] args = input.split(" ", 2);
+        String taskType = args[0];
+        String taskInput = args[1];
+
+        Task task = Task.createTask(taskType, taskInput);
         this.state.insertTask(task);
-        System.out.println(String.format("\t added: %s\n\t", task)
-                + DukeConstants.HORIZONTAL_LINE);
+        int taskCount = this.state.getTaskCount();
+        System.out.printf((DukeConstants.INSERT_MESSAGE) + "%n",
+                task, taskCount, taskCount == 1 ? "task" : "tasks");
     }
 }

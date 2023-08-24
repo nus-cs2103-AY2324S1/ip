@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * The Application object responsible for storing and executing commands.
@@ -17,9 +18,15 @@ public class DukeApp {
     public DukeApp() {
         DukeState state = new DukeState();
         this.addCommand("bye", new ExitCommand());
+
         this.addCommand("list", new ListCommand(state));
         this.addCommand("mark", new MarkCommand(state));
         this.addCommand("unmark", new UnmarkCommand(state));
+
+        this.addCommand("deadline", new InsertCommand(state));
+        this.addCommand("event", new InsertCommand(state));
+        this.addCommand("todo", new InsertCommand(state));
+
         this.defaultCommand = new InsertCommand(state);
     }
 
@@ -42,16 +49,10 @@ public class DukeApp {
         System.out.println("\t" + DukeConstants.HORIZONTAL_LINE);
 
         // Separate the command name and the command input
-        String[] args = input.split(" ", 2);
+        String[] args = input.split(" ");
         String commandName = args[0];
-        String commandInput = args.length > 1 ? args[1] : "";
 
         Command command = commandMap.get(commandName);
-        if (command != null) {
-            command.run(commandInput);
-        } else {
-            // No known command name given, use whole input to create task
-            this.defaultCommand.run(input);
-        }
+        Objects.requireNonNullElse(command, this.defaultCommand).run(input);
     }
 }

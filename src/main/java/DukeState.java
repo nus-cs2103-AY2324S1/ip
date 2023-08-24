@@ -22,9 +22,18 @@ public class DukeState {
         System.out.println(DukeConstants.LIST_MESSAGE);
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.printf("\t %d.[%s] %s\n", i + 1, task.getStatusIcon(), task);
+            System.out.printf("\t %d.%s\n", i + 1, task);
         }
         System.out.println("\t" + DukeConstants.HORIZONTAL_LINE);
+    }
+
+    /**
+     * Get the number of tasks.
+     *
+     * @return The number of tasks.
+     */
+    public int getTaskCount() {
+        return this.tasks.size();
     }
 
     /**

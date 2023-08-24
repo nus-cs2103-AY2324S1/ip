@@ -15,10 +15,11 @@ public class MarkCommand implements Command {
      */
     @Override
     public void run(String input) {
-        int index = Integer.parseInt(input) - 1;
+        String[] args = input.split(" ", 2);
+        String indexString = args[1];
+        int index = Integer.parseInt(indexString) - 1;
         Task task = this.state.getTask(index);
         task.mark();
-        System.out.printf((DukeConstants.MARKED_MESSAGE) + "%n",
-                task.getStatusIcon(), task);
+        System.out.printf((DukeConstants.MARKED_MESSAGE) + "%n", task);
     }
 }

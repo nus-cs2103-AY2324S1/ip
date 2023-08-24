@@ -15,10 +15,11 @@ public class UnmarkCommand implements Command {
      */
     @Override
     public void run(String input) {
-        int index = Integer.parseInt(input) - 1;
+        String[] args = input.split(" ", 2);
+        String indexString = args[1];
+        int index = Integer.parseInt(indexString) - 1;
         Task task = this.state.getTask(index);
         task.unmark();
-        System.out.printf((DukeConstants.UNMARKED_MESSAGE) + "%n",
-                task.getStatusIcon(), task);
+        System.out.printf((DukeConstants.UNMARKED_MESSAGE) + "%n", task);
     }
 }
