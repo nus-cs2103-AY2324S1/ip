@@ -31,7 +31,7 @@ public class Duke {
                 for (int i = 0; i < tasks.size(); i++) {
                     Task currentTask = tasks.get(i);
                     boolean done = currentTask.getDone();
-                    System.out.println((i + 1) + "." + (done ? "[X] " : "[ ] ") + currentTask.getName());
+                    System.out.println((i + 1) + "." + currentTask);
                 }
                 printLine();
                 continue;
@@ -41,7 +41,7 @@ public class Duke {
                 int taskNumber = Integer.parseInt(words[1]);
                 tasks.get(taskNumber - 1).markDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("[X] " + tasks.get(taskNumber - 1).getName());
+                System.out.println(tasks.get(taskNumber - 1));
                 printLine();
                 continue;
             }
@@ -50,13 +50,53 @@ public class Duke {
                 int taskNumber = Integer.parseInt(words[1]);
                 tasks.get(taskNumber - 1).markUndone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("[ ] " + tasks.get(taskNumber - 1).getName());
+                System.out.println(tasks.get(taskNumber - 1));
                 printLine();
                 continue;
             }
 
-            System.out.println("added: " + taskMessage);
-            tasks.add(new Task(taskMessage));
+
+            int startIndex;
+            String description;
+            Task newTask = new Task("");
+            switch (command) {
+                case "todo":
+                    startIndex = 5;
+                    description = taskMessage.substring(startIndex);
+                    newTask = new ToDo(description);
+                    tasks.add(newTask);
+                    break;
+
+                case "deadline":
+                    startIndex = 9;
+                    int slashIndex = taskMessage.indexOf("/by");
+                    description = taskMessage.substring(startIndex, slashIndex-1);
+                    String by = taskMessage.substring(slashIndex + 4);
+                    newTask = new Deadline(description, by);
+                    tasks.add(newTask);
+                    break;
+
+                case "event":
+                    startIndex = 6;
+                    int fromIndex = taskMessage.indexOf("/from");
+                    int toIndex = taskMessage.indexOf("/to");
+
+                    description = taskMessage.substring(startIndex, fromIndex-1);
+                    String start = taskMessage.substring(fromIndex+6, toIndex-1);
+                    String end = taskMessage.substring(toIndex+4);
+
+                    newTask = new Event(description, start, end);
+                    tasks.add(newTask);
+                    break;
+
+                default:
+                    System.out.println("Invalid command");
+                    printLine();
+                    continue;
+            }
+
+            System.out.println("Got it. I've added this task:");
+            System.out.println(newTask);
             printLine();
         }
     }

@@ -1,9 +1,9 @@
 public class Task {
-    private String name;
+    private String description;
     private Boolean done;
 
-    public Task(String name) {
-        this.name = name;
+    public Task(String description) {
+        this.description = description;
         this.done = false;
     }
 
@@ -15,12 +15,17 @@ public class Task {
         this.done = false;
     }
 
-    public String getName() {
-        return this.name;
+    public String getDescription() {
+        return this.description;
     }
 
     public boolean getDone() {
         return this.done;
+    }
+
+    @Override
+    public String toString() {
+        return (done ? "[X] " : "[ ] ") + this.getDescription();
     }
 }
 
