@@ -33,6 +33,15 @@ public abstract class Task {
      */
     public abstract void printStatus();
 
+    /**
+     * Helper function to check if task is complete
+     *
+     * @return - true if task is complete, false otherwise
+     */
+    public boolean isComplete() {
+        return isDone;
+    }
+
     @Override
     public String toString() {
         return this.description;
