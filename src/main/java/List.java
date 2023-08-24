@@ -7,17 +7,17 @@ public class List {
         this.list = new ArrayList<>();
     }
 
-    public void addTask(String type, String input) {
+    public void addTask(String type, String input) throws CCException {
         Task task = null;
         switch (type) {
             case "todo":
-                task = new ToDo(input);
+                task = parseToDo(input);
                 break;
             case "deadline":
-                task = new Deadline(input);
+                task = parseDeadline(input);
                 break;
             case "event":
-                task = new Event(input);
+                task = parseEvent(input);
                 break;
         }
         list.add(task);
@@ -29,24 +29,72 @@ public class List {
             + ChatterChicken.LINE);
     }
 
-    public void markTask(String input) {
-        int index = input.charAt(input.length() - 1) - '0' - 1;
-        Task task = list.get(index);
-        System.out.println(ChatterChicken.LINE
-            + ChatterChicken.INDENT
-            + "Nice! I've marked this task as done:");
-        task.markDone();
-        System.out.println(ChatterChicken.LINE);
+    private ToDo parseToDo (String input) throws CCException {
+        if (input.equals("todo")) {
+            throw new CCException("OOPS!!! The description of a todo cannot be empty.");
+        }
+        return new ToDo(input.substring("todo".length()).trim());
     }
 
-    public void unmarkTask(String input) {
+    private Deadline parseDeadline(String input) throws CCException {
+        String[] fields = input.split("/");
+        if (fields.length != 2) {
+            throw new CCException("OOPS!!! Incorrect format for deadline.");
+        }
+        if (!fields[0].startsWith("deadline ") || !fields[1].startsWith("by ")) {
+            throw new CCException("OOPS!!! Incorrect format for deadline.");
+        }
+        String name = fields[0].substring("deadline".length()).trim();
+        String end = fields[1].substring("by".length()).trim();
+        if (name.isEmpty() || end.isEmpty()) {
+            throw new CCException("OOPS!!! Empty field for deadline detected.");
+        }
+        return new Deadline(name, end);
+    }
+
+    private Event parseEvent(String input) throws CCException{
+        String[] fields = input.split("/");
+        if (fields.length != 3) {
+            throw new CCException("OOPS!!! Incorrect format for event.");
+        }
+        if (!fields[0].startsWith("event ") || !fields[1].startsWith("from ") || !fields[2].startsWith("to ")) {
+            throw new CCException("OOPS!!! Incorrect format for event.");
+        }
+        String name = fields[0].substring("event".length()).trim();
+        String start = fields[1].substring("from".length()).trim();
+        String end = fields[2].substring("to".length()).trim();
+        if (name.isEmpty() || start.isEmpty() || end.isEmpty()) {
+            throw new CCException("OOPS!!! Empty field for event detected.");
+        }
+        return new Event(name, start, end);
+    }
+
+    public void markTask(String input) throws CCException {
         int index = input.charAt(input.length() - 1) - '0' - 1;
-        Task task = list.get(index);
-        System.out.println(ChatterChicken.LINE
-            + ChatterChicken.INDENT
-            + "OK, I've marked this task as not done yet:");
-        task.unmarkDone();
-        System.out.println(ChatterChicken.LINE);
+        try {
+            Task task = list.get(index);
+            System.out.println(ChatterChicken.LINE
+                    + ChatterChicken.INDENT
+                    + "Nice! I've marked this task as done:");
+            task.markDone();
+            System.out.println(ChatterChicken.LINE);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CCException("Invalid input for marking list of length " + list.size());
+        }
+    }
+
+    public void unmarkTask(String input) throws CCException {
+        int index = input.charAt(input.length() - 1) - '0' - 1;
+        try {
+            Task task = list.get(index);
+            System.out.println(ChatterChicken.LINE
+                    + ChatterChicken.INDENT
+                    + "OK, I've marked this task as not done yet:");
+            task.unmarkDone();
+            System.out.println(ChatterChicken.LINE);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CCException("Invalid input for list of length " + list.size());
+        }
     }
 
     public void printList() {
