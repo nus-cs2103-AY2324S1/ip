@@ -22,7 +22,10 @@ public class Task {
         System.out.println(horizontal);
     };
 
-    public void unmark() {
+    public void unmark() throws IllegalChatBotExceptions {
+        if (!this.isDone) {
+            throw new IllegalChatBotExceptions(horizontal + "\nOOPS!!! You did not mark this task.\n" + horizontal);
+        }
         this.isDone = false;
 
         System.out.println(horizontal);

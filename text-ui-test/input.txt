@@ -4,5 +4,14 @@ event project meeting /from Thursday 2pm /to 4pm
 todo sleep
 list
 mark 3
-unmark 3
+mark 1
 list
+unmark 3
+unmark 7
+todo
+deadline
+blah
+delete 3
+delete 6
+list
+bye

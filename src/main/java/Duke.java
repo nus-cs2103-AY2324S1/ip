@@ -26,19 +26,22 @@ public class Duke {
                 } else if (words.length > 1 && firstWord.equalsIgnoreCase("unmark")) {
                     int index = Integer.parseInt(words[1]);
                     bob.unmarkTask(index - 1);
+                } else if (firstWord.equalsIgnoreCase("delete")) {
+                    int index = Integer.parseInt(words[1]);
+                    bob.deleteTask(index - 1);
                 } else if (firstWord.equalsIgnoreCase("todo")) {
                     bob.addTodo(words);
                 } else if (firstWord.equalsIgnoreCase("deadline")) {
                     bob.addDeadline(words);
                 } else if (firstWord.equalsIgnoreCase("event")) {
                     bob.addEvent(words);
-                } else {
+                }  else {
                     System.out.println(horizontal);
                     System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     System.out.println(horizontal);
                 }
             } catch(IllegalChatBotExceptions e) {
-                System.out.println(e);
+                System.out.println(e.getMessage());
             }
         }
 
