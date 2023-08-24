@@ -36,9 +36,8 @@ public class Duke {
                     break;
                 }
                 case "deadline": {
-                    String by = null;
                     try {
-                        by = getUsingCommand(splitText, "by");
+                        String by = getUsingCommand(splitText, "by");
                         String task = getTask(splitText);
                         tasks.add(new Deadline(task, by));
                         printTasksLength();
