@@ -1,7 +1,9 @@
 public class Task {
     private String text;
+    private String type = "";
+    private String dueDate;
     private boolean checked;
-    private static String horiLine = "____________________________________________________________";
+    public final static String horiLine = "____________________________________________________________";
 
 
     public Task(String text){
@@ -26,6 +28,15 @@ public class Task {
         String result = getChecked() + " " + getText();
         return result;
     }
+    public String getType(){
+        String result = "[" + type +"]";
+        return result;
+    }
+
+    public String getTypeCheckedText(){
+        String result = getType() + getChecked() + " " + getText();
+        return result;
+    }
 
     public void mark(){
         checked = true;
@@ -41,6 +52,9 @@ public class Task {
         System.out.println(getStatusText());
         System.out.println(horiLine);
 
+    }
+    public void setType(String text){
+        type = text;
     }
 
 

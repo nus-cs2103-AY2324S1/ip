@@ -13,7 +13,7 @@ public class TaskArray {
         System.out.println(horiLine);
         for(int i = 0; i < taskArrayList.size(); i++ ){
             int index = i + 1;
-            System.out.println(index +": " + taskArrayList.get(i).getStatusText());
+            System.out.println(index +": " + taskArrayList.get(i).getTypeCheckedText());
         }
         System.out.println(horiLine);
 
@@ -23,13 +23,16 @@ public class TaskArray {
         taskArrayList.add(task);
         String word = "added:" + task.getText();
         System.out.println(horiLine);
-        System.out.println(word);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(task.getTypeCheckedText());
+        System.out.println("Now you have "+ getTaskCount()+" tasks in the list.");
         System.out.println(horiLine);
-
-
     }
     public Task get(int index){
         return taskArrayList.get(index);
+    }
+    public int getTaskCount(){
+        return taskArrayList.size();
     }
 
 
