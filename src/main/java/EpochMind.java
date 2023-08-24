@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,6 +26,8 @@ public class EpochMind {
             "                                                                                                    \n";
     public static String[] exitMessage = {"May you seek the truth.", "May the truth prevail.", "May you yet again thirst for wisdom.", "May your quest for wisdom be unwavering.", "May your pursuit of knowledge illuminate your path."};
     public static List<Task> tasks = new ArrayList<>();
+    public static String filePath = new File("").getAbsolutePath() + "/data/EpochMind.txt";
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -65,15 +69,23 @@ public class EpochMind {
                     System.out.println(e);
                     break;
             }
+            save(filePath);
         }
     }
 
+    /**
+     * Exits the program
+     */
     public static void bye() {
         System.out.println("___________________________________________________________________________________________________________\n" +
                 " May you seek the truth\n" +
                 "___________________________________________________________________________________________________________\n");
+        System.exit(0);
     }
 
+    /**
+     * List out the task list
+     */
     public static void list() {
         System.out.println("___________________________________________________________________________________________________________\n");
         for (int i = 0; i < tasks.size(); i++) {
@@ -86,6 +98,10 @@ public class EpochMind {
         System.out.println("___________________________________________________________________________________________________________\n");
     }
 
+    /**
+     * Mark a task as completed
+     * @param commandList An Array of Strings of the command, separated by whitespaces
+     */
     public static void mark(String[] commandList) {
         if (commandList.length == 1) {
             EpochMindException e = new EpochMindException("Thou hast forgotten to specify thine index");
@@ -108,6 +124,10 @@ public class EpochMind {
         }
     }
 
+    /**
+     * Unmark a completed task
+     * @param commandList An Array of Strings of the command, separated by whitespaces
+     */
     public static void unmark(String[] commandList) {
         if (commandList.length == 1) {
             EpochMindException e = new EpochMindException("Thou hast forgotten to specify thine index");
@@ -131,6 +151,10 @@ public class EpochMind {
         }
     }
 
+    /**
+     * Add a todo task
+     * @param command String obtained from scanner
+     */
     public static void todo(String command) {
         String restOfCommand = removeCommandWord(command);
         if (restOfCommand.trim().equals("")) {
@@ -145,6 +169,10 @@ public class EpochMind {
 
     }
 
+    /**
+     * Add a deadline task
+     * @param command String obtained from scanner
+     */
     public static void deadline(String command) {
         String restOfCommand = removeCommandWord(command);
         int endIndex = restOfCommand.indexOf("/by ");
@@ -167,6 +195,10 @@ public class EpochMind {
         }
     }
 
+    /**
+     * Add an event task
+     * @param command String obtained from scanner
+     */
     public static void event(String command) {
         String restOfCommand = removeCommandWord(command);
         int fromIndex = restOfCommand.indexOf("/from");
@@ -197,6 +229,10 @@ public class EpochMind {
         }
     }
 
+    /**
+     * Delete a task from the list
+     * @param commandList An Array of Strings of the command, separated by whitespaces
+     */
     public static void delete(String[] commandList) {
         if (commandList.length == 1) {
             EpochMindException e = new EpochMindException("Thou hast forgotten to specify thine index");
@@ -216,6 +252,11 @@ public class EpochMind {
         }
     }
 
+    /**
+     * Helper function to remove the first command word
+     * @param command String obtained from scanner
+     * @return String without first command word
+     */
     public static String removeCommandWord(String command) {
         int firstSpaceIndex = command.indexOf(' ');
 
@@ -224,5 +265,25 @@ public class EpochMind {
         }
         // Extract the substring starting from the position after the first space
         return command.substring(firstSpaceIndex + 1);
+    }
+
+    /**
+     * Saves the task list to a txt file at the path
+     * @param filePath The path to store the file
+     */
+    public static void save(String filePath) {
+        File file = new File(filePath);
+        File parentDirectory = file.getParentFile();
+        if (!parentDirectory.exists()) {
+            parentDirectory.mkdir();
+        }
+        try (PrintWriter pw = new PrintWriter(file);){
+            for (Task task : tasks) {
+                pw.println(task.toString());
+            }
+        } catch (Exception e) {
+            System.out.println("The Mind has failed to save the tasks");
+        }
+
     }
 }
