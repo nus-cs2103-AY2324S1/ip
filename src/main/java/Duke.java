@@ -23,7 +23,7 @@ public class Duke {
 
     public static void main(String[] args) {
         greet();
-        addAndList();
+        handleCommand();
     }
 
     /**
@@ -37,16 +37,28 @@ public class Duke {
     }
 
     /**
-     * Allows adding of item into an ArrayList and list all items in the ArrayList.
+     * Main logic flow to take in the following commands
+     * 1. "bye" to exit bot
+     * 2. "list" to list tasks in arrayList
+     * 3. "mark" to mark task in arrayList
+     * 4. "unmark" to unmark task in arrayList
+     * 5. default behaviour is to add task into arrayList
      */
-    public static void addAndList() {
+    public static void handleCommand() {
         boolean isChatting = true;
-        Scanner inputs = new Scanner(System.in);
-        String command;
-        ArrayList<String> taskList = new ArrayList<>();
+        Scanner scanner= new Scanner(System.in);
+        String input, command, param = "";
+        String[] inputArray;
+        ArrayList<Task> taskList = new ArrayList<>();
 
         while (isChatting) {
-            command = inputs.nextLine();
+            input = scanner.nextLine();
+            inputArray = input.split(" ");
+            command = inputArray[0];
+            if (inputArray.length > 1){
+                param = inputArray[1];
+            }
+
             switch(command) {
                 case ("bye"): {
                     System.out.println(HORIZONTAL_LINE);
@@ -63,10 +75,30 @@ public class Duke {
                     System.out.println(HORIZONTAL_LINE);
                     break;
                 }
+                case ("mark"): {
+                    if (param != "") {
+                        int index = Integer.parseInt(param) - 1;
+                        taskList.get(index).setDone(true);
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println("The following item has been marked as done.");
+                        System.out.println(taskList.get(index));
+                    }
+                    break;
+                }
+                case ("unmark"): {
+                    if (param != "") {
+                        int index = Integer.parseInt(param) - 1;
+                        taskList.get(index).setDone(false);
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println("The following item been unmarked and is now uncompleted.");
+                        System.out.println(taskList.get(index));
+                    }
+                    break;
+                }
                 default: {
-                    taskList.add(command);
+                    taskList.add(new Task(input));
                     System.out.println(HORIZONTAL_LINE);
-                    System.out.println("I have added \"" + command + "\" to the list.");
+                    System.out.println("I have added \"" + input + "\" to the list.");
                     System.out.println(HORIZONTAL_LINE);
                     break;
                 }
