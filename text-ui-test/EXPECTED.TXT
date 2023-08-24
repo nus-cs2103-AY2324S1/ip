@@ -9,43 +9,53 @@ _______         _
      Hello! I'm Forine
      What can I do for you?
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: 
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: asdf
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: Entry 1 should be empty
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: Mark 1
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: mark fail
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid index!
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid command!
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid command!
-     ____________________________________________________________
-     ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: mark1
      ____________________________________________________________
      ____________________________________________________________
      Invalid index!
      ____________________________________________________________
      ____________________________________________________________
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: mark -1
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: Unmark 1
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: unmark -1
+     ____________________________________________________________
+     ____________________________________________________________
      Invalid index!
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     Invalid index!
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: Todo Testing Caps would not make TODO
      ____________________________________________________________
      ____________________________________________________________
      Got it. I've added this task:
@@ -56,6 +66,18 @@ _______         _
      Got it. I've added this task:
           [T][ ] asdf Testing Spaces
      Now you have 2 tasks in the list.
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! The description of a todo cannot be empty.
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! The description of a todo cannot be empty.
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! The description of a todo cannot be empty.
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! The description of a todo cannot be empty.
      ____________________________________________________________
      ____________________________________________________________
      Invalid index!
@@ -96,27 +118,36 @@ _______         _
      Invalid index!
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: deadline fail(ByNotMakingRealDeadline)
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: Deadline caps should not make a real deadline
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: deadline /by fail
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: deadline fail /by
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: deadline this /from should /to fail
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: deadline clumping/byshouldfail
      ____________________________________________________________
      ____________________________________________________________
      Got it. I've added this task:
           [D][ ] should (by: work)
      Now you have 3 tasks in the list.
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! The description of a deadline cannot be empty.
      ____________________________________________________________
      ____________________________________________________________
      Got it. I've added this task:
@@ -174,34 +205,47 @@ _______         _
           7. [D][ ] this (by: should /to not be mixed)
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: Event fail(ByNotMakingRealEvent)
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: Event caps should not make a real event
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: event /at fail
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: event fail /at
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: event should /at fail
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! The description of a event cannot be empty.
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: event thisClumping /from Should/by Fail
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: event thisClumping/fromShould /by Fail
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: event thisClumping/fromShould/byFail
      ____________________________________________________________
      ____________________________________________________________
-     Invalid command!
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: event this /from should /by fail
+     ____________________________________________________________
+     ____________________________________________________________
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+	 You typed: event this /by should /at fail
      ____________________________________________________________
      ____________________________________________________________
      Got it. I've added this task:
@@ -232,7 +276,7 @@ _______         _
      ____________________________________________________________
      ____________________________________________________________
      Nice! I've marked this task as done:
-          [D][X] this /from should (by: not be mixed)
+          [E][X] this (from: should /by not to: be mixed)
      ____________________________________________________________
      ____________________________________________________________
           1. [T][ ] asdf1
@@ -240,15 +284,15 @@ _______         _
           3. [D][ ] should (by: work)
           4. [D][ ]   extra spaces  should   (by:   work)
           5. [D][ ] this /from should /to make a (by: deadline)
-          6. [D][X] this /from should (by: not be mixed)
+          6. [D][ ] this /from should (by: not be mixed)
           7. [D][ ] this (by: should /to not be mixed)
           8. [E][ ] this (from: should to: work)
-          9. [E][ ] this (from: should /by not to: be mixed)
+          9. [E][X] this (from: should /by not to: be mixed)
           10. [E][ ] this /by (from: should to: not be mixed)
      ____________________________________________________________
      ____________________________________________________________
      Ok! I've marked this task as not done yet:
-          [D][ ] this /from should (by: not be mixed)
+          [E][ ] this (from: should /by not to: be mixed)
      ____________________________________________________________
      ____________________________________________________________
           1. [T][ ] asdf1

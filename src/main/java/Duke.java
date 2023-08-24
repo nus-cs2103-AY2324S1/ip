@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exceptions.MissingDescriptionException;
+import exceptions.UnknownCommandException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -36,12 +38,8 @@ public class Duke {
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             printWithTab(line);
-            Commands command = Commands.parseCommand(input);
-            if (command == null) {
-                printWithTab("Invalid command!");
-                // printWithTab("added: " + input);
-                // taskList.add(new Task(input));
-            } else {
+            try {
+                Commands command = Commands.parseCommand(input);
                 switch (command) {
                     case LIST:
                         for (int i = 0; i < taskList.size(); i++) {
@@ -75,14 +73,16 @@ public class Duke {
                         printWithTab("Now you have " + taskList.size() + " tasks in the list.");
                         break;
                     case DEADLINE:
-                        Deadline deadline = new Deadline(Commands.extractTaskDescription(input), Commands.extractDeadline(input));
+                        Deadline deadline = new Deadline(Commands.extractTaskDescription(input),
+                                Commands.extractDeadline(input));
                         taskList.add(deadline);
                         printWithTab("Got it. I've added this task:");
                         printWithTab(tab + deadline);
                         printWithTab("Now you have " + taskList.size() + " tasks in the list.");
                         break;
                     case EVENT:
-                        Event event = new Event(Commands.extractTaskDescription(input), Commands.extractEventFrom(input), Commands.extractEventTo(input));
+                        Event event = new Event(Commands.extractTaskDescription(input),
+                                Commands.extractEventFrom(input), Commands.extractEventTo(input));
                         taskList.add(event);
                         printWithTab("Got it. I've added this task:");
                         printWithTab(tab + event);
@@ -93,6 +93,10 @@ public class Duke {
                         taskList.add(new Task(input));
                         break;
                 }
+            } catch (UnknownCommandException e) {
+                printWithTab(e.getMessage());
+            } catch (MissingDescriptionException e) {
+                printWithTab(e.getMessage());
             }
             printWithTab(line);
             input = sc.nextLine();

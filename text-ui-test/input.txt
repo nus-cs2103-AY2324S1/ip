@@ -13,6 +13,10 @@ unmark 1
 Todo Testing Caps would not make TODO
 todo asdf1
 todo asdf Testing Spaces
+todo
+todo 
+todo  
+todo   
 mark 3
 mark 2
 list
@@ -30,6 +34,7 @@ deadline fail /by
 deadline this /from should /to fail
 deadline clumping/byshouldfail
 deadline should /by work
+deadline   /by   using spaces for description should fail
 deadline   extra spaces  should   /by   work
 deadline this /from should /to make a /by deadline
 deadline this /from should /by not be mixed
@@ -44,6 +49,7 @@ Event caps should not make a real event
 event /at fail
 event fail /at
 event should /at fail
+event   /from   /to using spaces for description should fail
 event thisClumping /from Should/by Fail
 event thisClumping/fromShould /by Fail
 event thisClumping/fromShould/byFail
@@ -53,7 +59,7 @@ event this /from should /to work
 event this /from should /by not /to be mixed
 event this /by /from should /to not be mixed
 list
-mark 6
+mark 9
 list
-unmark 6
+unmark 9
 list
