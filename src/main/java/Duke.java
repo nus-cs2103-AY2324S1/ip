@@ -15,6 +15,21 @@ public class Duke {
                 "____________________________________________________________\n" +
                         " Bye. Hope to see you again soon!\n" +
                         "____________________________________________________________";
-        System.out.println(closingStr);
+
+        boolean isRunning = true;
+        while (isRunning) {
+            String input = scanner.nextLine();
+            if (input.equals("bye")) {
+                System.out.println(closingStr);
+                isRunning = false;
+            } else {
+                String reply =
+                        "____________________________________________________________\n" +
+                                input + "\n" +
+                                "____________________________________________________________\n";
+                System.out.println(reply);
+            }
+        }
+        scanner.close();
     }
 }
