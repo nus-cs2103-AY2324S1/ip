@@ -15,7 +15,7 @@ public class Duke {
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
     }
 
-    public static boolean executeCommand(String input) {
+    public static boolean executeCommand(String input) throws DukeException {
         String[] parts = input.split(" ", 2);
         String action = parts[0];
         String details = parts.length == 1 ? "" : parts[1];
@@ -50,7 +50,6 @@ public class Duke {
                 Duke.list.addTask(new Event(taskPart[0], timePart[0], timePart[1]));
                 break;
             default:
-                System.out.println("–––––––––––––––––––––––––––––––––––––––––");
                 throw new DukeException("I have no idea what that means...");
         }
         return true;
@@ -59,9 +58,15 @@ public class Duke {
         Duke.greet();
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            String input = scanner.nextLine();
-            if (!Duke.executeCommand(input)) {
-                break;
+            try {
+                String input = scanner.nextLine();
+                if (!Duke.executeCommand(input)) {
+                    break;
+                }
+            } catch (DukeException e) {
+                System.out.println("–––––––––––––––––––––––––––––––––––––––––");
+                System.out.println(e.toString());
+                System.out.println("–––––––––––––––––––––––––––––––––––––––––");
             }
         }
     }
