@@ -39,11 +39,11 @@ public class CheeChat {
                 } else {
                     if (cmd.startsWith("todo")) {
                         try {
-                            if (cmd.substring(5).isEmpty()) {
+                            if (cmd.substring(4).isEmpty()) {
                                 throw new CheeException("OOPS!!! The description of a todo cannot be empty.");
                             }
                             System.out.println("Got it. I've added this task:");
-                            String desc = cmd.substring(5);
+                            String desc = cmd.substring(4);
                             Task instance = new Todo(desc);
                             tasks.add(instance);
                             System.out.println("  " + instance);
@@ -54,7 +54,7 @@ public class CheeChat {
                     } else if (cmd.startsWith("deadline")) {
                         System.out.println("Got it. I've added this task:");
                         int index = cmd.indexOf(47);
-                        String description = cmd.substring(9, index - 1);
+                        String description = cmd.substring(8, index - 1);
                         String time = cmd.substring(index + 4);
                         Task instance = new Deadline(description, time);
                         tasks.add(instance);
