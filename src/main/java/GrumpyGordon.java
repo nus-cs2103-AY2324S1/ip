@@ -1,5 +1,14 @@
 import java.util.*;
+
+/**
+ * GrumpyGordon Chatbot
+ */
 public class GrumpyGordon {
+    /**
+     * Main loop for GrumpyGordon.
+     *
+     * @param args CLI Arguments
+     */
     public static void main(String[] args) {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Oi! I'm Grumpy Gordon.");

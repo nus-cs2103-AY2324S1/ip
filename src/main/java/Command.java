@@ -1,3 +1,6 @@
+/**
+ * Represents an enum of commands.
+ */
 public enum Command {
     BYE,
     LIST,
