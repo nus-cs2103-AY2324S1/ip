@@ -37,13 +37,16 @@ public class Peko {
     public static void main(String[] args) throws InvalidTaskException {
         String input;
         boolean loop = true;
-        int responseValue;
         CommandsInternal temp;
         todoList = saveHandler.loadFrom();
-
+        UserInputHandler UIhandler = new UserInputHandler();
         intro();
 
         while (loop) {
+            UIhandler.newInput();
+            if (!UIhandler.run()) {
+                break;
+            }
             input = interaction();
             //responseValue = getResponseValue(input);
             temp = getResponseValue(input);
