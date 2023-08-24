@@ -2,32 +2,84 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 public class Duke {
+    public enum CommandType {
+        LIST,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE,
+        MARK,
+        UNMARK,
+        BYE,
+        UNKNOWN
+    }
     static String horizontal_line = "____________________________________________________________\n";
     public static void main(String[] args) {
         List<Task> tasks = new ArrayList<>();
         handleStart();
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             String userCommand = scanner.nextLine();
-            if ("bye".equals(userCommand)) {
-                handleBye(scanner);
-                break;
-            } else if ("list".equals(userCommand)) {
-               handleList(tasks);
-            } else if (userCommand.startsWith("delete ")) {
-                handleDelete(userCommand, tasks);
-            } else if (userCommand.startsWith("mark ")) {
-                handleMark(userCommand, tasks);
-            } else if (userCommand.startsWith("unmark ")) {
-               handleUnmark(userCommand, tasks);
-            } else {
-                handleAddTask(userCommand, tasks);
+            CommandType commandType = getCommandType(userCommand);
+            switch(commandType) {
+                case LIST:
+                    handleList(tasks);
+                    break;
+                case BYE:
+                    handleBye(scanner);
+                    isRunning = false;
+                    break;
+                case DELETE:
+                    handleDelete(userCommand,tasks);
+                    break;
+                case MARK:
+                    handleMark(userCommand, tasks);
+                    break;
+                case UNMARK:
+                    handleUnmark(userCommand, tasks);
+                    break;
+                case EVENT:
+                    handleEvent(userCommand, tasks);
+                    break;
+                case DEADLINE:
+                    handleDeadline(userCommand, tasks);
+                    break;
+                case TODO:
+                    handleTodo(userCommand, tasks);
+                    break;
+                case UNKNOWN:
+                    handleUnknown();
+                    break;
             }
         }
     }
-
+    public static CommandType getCommandType(String userCommand) {
+        if ("bye".equals(userCommand)) {
+            return CommandType.BYE;
+        } else if ("list".equals(userCommand)) {
+            return CommandType.LIST;
+        } else if (userCommand.startsWith("delete ")) {
+            return CommandType.DELETE;
+        } else if (userCommand.startsWith("mark ")) {
+           return CommandType.MARK;
+        } else if (userCommand.startsWith("unmark ")) {
+            return CommandType.UNMARK;
+        } else if (userCommand.startsWith("todo ")) {
+            return CommandType.TODO;
+        } else if (userCommand.startsWith("deadline ")) {
+            return CommandType.DEADLINE;
+        } else if (userCommand.startsWith("event ")) {
+            return CommandType.EVENT;
+        } else {
+            return CommandType.UNKNOWN;
+        }
+    }
     public static String updateNumMessage(String numTasks) {
         return "Now you have " + numTasks + " task(s) in the list";
+    }
+    public static void handleUnknown() {
+        System.out.println("unknown command");
     }
 
     public static void handleList(List<Task> tasks) {
@@ -108,54 +160,74 @@ public class Duke {
         System.out.println(welcomeMessage);
     }
 
-    public static void handleAddTask(String userCommand, List<Task> tasks) {
-        Task currTask;
-        String[] parts = userCommand.split(" ", 2);
+    public static void handleTodo(String userCommand, List<Task> tasks) {
         try {
-            if (userCommand.startsWith("todo")) {
-                String description ="";
-                if (parts.length >= 2 && !parts[1].trim().isEmpty()) {
-                    description = parts[1];
-                }
-                currTask = new ToDos(description);
-            } else if (userCommand.startsWith("deadline")) {
-                String description = "";
-                String date = "";
-                String secondPart ="";
-                if (parts.length >= 2 && !parts[1].trim().isEmpty()) {
-                    secondPart = parts[1];
-                }
-                String[] finalParts = secondPart.split(" /by ", 2);
-                if (finalParts.length >= 2) {
-                    description = finalParts[0];
-                    date = finalParts[1];
-                }
-                currTask = new Deadlines(description, date);
-            } else if (userCommand.startsWith("event")) {
-                String description ="";
-                String fromDate = "";
-                String byDate = "";
-                if (parts.length >= 2) {
-                    String[] secondPartSplits = parts[1].split(" /from ", 2);
-                    if (secondPartSplits.length >= 2) {
-                        String[] dates = secondPartSplits[1].split(" /to ", 2);
-                        if (dates.length >= 2) {
-                            fromDate = dates[0].trim();
-                            byDate = dates[1].trim();
-                            description = secondPartSplits[0];
-                        }
+            String description ="";
+            String[] parts = userCommand.split(" ", 2);
+            if (parts.length >= 2 && !parts[1].trim().isEmpty()) {
+                description = parts[1];
+            }
+            Task currTask = new ToDos(description);
+            tasks.add(currTask);
+            String numTasks = String.valueOf(tasks.size());
+            System.out.println("Got it I have added this task:" + "\n" +  currTask.getString());
+            System.out.println(updateNumMessage(numTasks));
+            System.out.println(horizontal_line);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public static void handleDeadline(String userCommand, List<Task> tasks) {
+        try {
+            String[] parts = userCommand.split(" ", 2);
+            String description = "";
+            String date = "";
+            String secondPart = "";
+            if (parts.length >= 2 && !parts[1].trim().isEmpty()) {
+                secondPart = parts[1];
+            }
+            String[] finalParts = secondPart.split(" /by ", 2);
+            if (finalParts.length >= 2) {
+                description = finalParts[0];
+                date = finalParts[1];
+            }
+            Task currTask = new Deadlines(description, date);
+            tasks.add(currTask);
+            String numTasks = String.valueOf(tasks.size());
+            System.out.println("Got it I have added this task:" + "\n" +  currTask.getString());
+            System.out.println(updateNumMessage(numTasks));
+            System.out.println(horizontal_line);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void handleEvent(String userCommand, List<Task> tasks) {
+        try {
+            String[] parts = userCommand.split(" ", 2);
+            String description = "";
+            String fromDate = "";
+            String byDate = "";
+            if (parts.length >= 2) {
+                String[] secondPartSplits = parts[1].split(" /from ", 2);
+                if (secondPartSplits.length >= 2) {
+                    String[] dates = secondPartSplits[1].split(" /to ", 2);
+                    if (dates.length >= 2) {
+                        fromDate = dates[0].trim();
+                        byDate = dates[1].trim();
+                        description = secondPartSplits[0];
                     }
                 }
-                currTask = new Events(description, fromDate, byDate);
-            } else {
-                throw new DukeException("This command does not exist! >:(");
             }
-                tasks.add(currTask);
-                String numTasks = String.valueOf(tasks.size());
-                System.out.println("Got it I have added this task:" + "\n" +  currTask.getString());
-                System.out.println(updateNumMessage(numTasks));
-                System.out.println(horizontal_line);
-        } catch (DukeException e) {
+            Task currTask = new Events(description, fromDate, byDate);
+            tasks.add(currTask);
+            String numTasks = String.valueOf(tasks.size());
+            System.out.println("Got it I have added this task:" + "\n" +  currTask.getString());
+            System.out.println(updateNumMessage(numTasks));
+            System.out.println(horizontal_line);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

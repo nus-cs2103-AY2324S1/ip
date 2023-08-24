@@ -47,8 +47,8 @@ Nice! I've marked this task as done:
 [T][X] eat food
 Okay. I see you haven't done this task yet
 [T][ ] eat food
-OOPS! The description of ToDo cannot be empty!
-This command does not exist! >:(
+unknown command
+unknown command
 ____________________________________________________________
 
 here are the tasks in your list:
