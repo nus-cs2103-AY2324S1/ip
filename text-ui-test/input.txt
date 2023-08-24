@@ -1,0 +1,10 @@
+todo quiz
+todo
+deadline test /by jun 30
+deadline /by
+list
+delete 2
+event hello /from jun 1 /to jun 5
+event /from
+event
+list
