@@ -12,7 +12,7 @@ public class Duke {
     public static void main(String[] args) {
         String greeting = "Hello! I'm JED, your personal chat-bot!\nWhat can I do for you?";
         String goodbye = "Bye. Hope to see you again soon!";
-        String[] items = new String[100];
+        Task[] items = new Task[100];
         int count = 0;
 
         Scanner sc = new Scanner(System.in);
@@ -26,11 +26,11 @@ public class Duke {
             } else if (input.equals("list")) {
                 String list = "";
                 for (int i = 0; i < count; i++) {
-                    list += "  " + (i + 1) + ". " + items[i] + "\n";
+                    list += "  " + (i + 1) + ". " + items[i].getName() + "\n";
                 }
                 talk(list);
             } else {
-                items[count] = input;
+                items[count] = new Task(input);
                 count++;
                 talk("added: " + input);
             }
