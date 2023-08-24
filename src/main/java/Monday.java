@@ -1,6 +1,17 @@
 import java.util.Scanner;
 
 public class Monday {
+    private enum Command {
+        BYE,
+        LIST,
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE
+    }
+
     private static void startMonday() {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
@@ -32,15 +43,17 @@ public class Monday {
         String command = input[0];
         String content = input.length > 1 ? input[1] : null;
 
+        Command commandEnum = Command.valueOf(command.toUpperCase());
 
-        switch (command) {
-            case "bye":
+
+        switch (commandEnum) {
+            case BYE:
                 exit();
                 return false;
-            case "list":
+            case LIST:
                 Storage.displayList();
                 break;
-            case "mark": {
+            case MARK: {
                 if (content == null) {
                     throw new MondayExceptions("Mark requires a index to mark the task as completed.");
                 }
@@ -49,7 +62,7 @@ public class Monday {
                 Storage.mark(index);
                 break;
             }
-            case "unmark": {
+            case UNMARK: {
                 if (content == null) {
                     throw new MondayExceptions("UnMark requires a index to mark the task as uncompleted.");
                 }
@@ -59,7 +72,7 @@ public class Monday {
                 Storage.unMark(index);
                 break;
             }
-            case "todo":
+            case TODO:
                 if (content == null) {
                     throw new MondayExceptions("The description of a todo cannot be empty.\n" +
                             "Usage: todo (task)");
@@ -67,7 +80,7 @@ public class Monday {
 
                 Storage.addToTask(new ToDos(content));
                 break;
-            case "deadline":
+            case DEADLINE:
                 try {
                     if (content == null) {
                         throw new MondayExceptions("The description of a deadline cannot be empty.\n" +
@@ -84,7 +97,7 @@ public class Monday {
                             "Usage: deadline (task) /by (time)");
                 }
                 break;
-            case "event":
+            case EVENT:
                 try {
                     if (content == null) {
                         throw new MondayExceptions("The description of a event cannot be empty.\n" +
@@ -105,7 +118,7 @@ public class Monday {
                             "Usage: event (task) /from (start time) /to (end time)");
                 }
                 break;
-            case "delete":
+            case DELETE:
                 if (content == null) {
                     throw new MondayExceptions("Delete requires a index to delete the task");
                 }
@@ -128,7 +141,6 @@ public class Monday {
 
     private static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
-        printSeparator();
     }
 
     private static void printSeparator() {
@@ -138,5 +150,4 @@ public class Monday {
     public static void main(String[] args) {
         startMonday();
     }
-
 }
