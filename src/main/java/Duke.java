@@ -17,7 +17,7 @@ public class Duke {
 
         System.out.println(botMessage(greeting));
 
-        ArrayList list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
 
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
@@ -27,11 +27,44 @@ public class Duke {
             String botOutput = "";
 
             if (userInput.equalsIgnoreCase("list")) {
+                botOutput = botOutput + "Here are the tasks in your list: \n    ";
                 for (int i = 1; i <= list.size(); i++) {
                     botOutput = botOutput + i + "." + " " + list.get(i-1) + "\n    ";
                 }
+            } else if (userInput.startsWith("mark ")) {
+                botOutput = botOutput + "Nice! I've marked this task as done: \n    ";
+
+                try {
+
+                    int taskNo = Integer.parseInt(userInput.substring(5));
+                    Task x = list.get(taskNo - 1);
+                    x.markAsDone();
+                    botOutput = botOutput + x;
+
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+
+                    botOutput = "Invalid Input String!!";
+
+                }
+
+            } else if (userInput.startsWith("unmark ")) {
+                botOutput = botOutput + "Ok, I've marked this task as not done yet: \n    ";
+
+                try {
+
+                    int taskNo = Integer.parseInt(userInput.substring(7));
+                    Task x = list.get(taskNo - 1);
+                    x.markAsUndone();
+                    botOutput = botOutput + x;
+
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+
+                    botOutput = "Invalid Input String!!";
+
+                }
             } else {
-                list.add(userInput);
+                Task t = new Task(userInput);
+                list.add(t);
                 botOutput = botOutput + "added: " + userInput;
             }
 
