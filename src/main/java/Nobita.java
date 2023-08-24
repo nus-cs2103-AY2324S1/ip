@@ -15,12 +15,14 @@ public class Nobita {
 
     private static void program() {
         Scanner sc = new Scanner(System.in);
-        while (true) {
+        boolean live = true;
+        while (live) {
             String[] input = sc.nextLine().split(" ",2);
 
             try {
                 switch (input[0].toLowerCase()) {
                     case "bye":
+                        live = false;
                         break;
                     case "list":
                         int listNum = 1;
