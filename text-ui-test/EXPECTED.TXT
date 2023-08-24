@@ -23,6 +23,7 @@ Got it. I've added this task:
 Now you have 4 tasks in the list.
 ------------------------------------
 Invalid structure. Please follow the valid commands below.
+------------------------------------
 List of commands
 1. todo [description]
 2. deadline [description] /by [deadline]
@@ -31,19 +32,9 @@ List of commands
 5. unmark [item_number]
 6. list
 7. bye
-
-Invalid structure. Please follow the valid commands below.
-List of commands
-1. todo [description]
-2. deadline [description] /by [deadline]
-3. event [description] /from [start date] /to [end date]
-4. mark [item_number]
-5. unmark [item_number]
-6. list
-7. bye
-
 ------------------------------------
 Invalid structure. Please follow the valid commands below.
+------------------------------------
 List of commands
 1. todo [description]
 2. deadline [description] /by [deadline]
@@ -52,7 +43,17 @@ List of commands
 5. unmark [item_number]
 6. list
 7. bye
-
+------------------------------------
+Invalid structure. Please follow the valid commands below.
+------------------------------------
+List of commands
+1. todo [description]
+2. deadline [description] /by [deadline]
+3. event [description] /from [start date] /to [end date]
+4. mark [item_number]
+5. unmark [item_number]
+6. list
+7. bye
 ------------------------------------
 ------------------------------------
 Item to be added cannot be empty
