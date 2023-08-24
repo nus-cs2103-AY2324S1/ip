@@ -51,11 +51,20 @@ public class ChatterBox {
                 tabPrinter("OK, I've marked this task as not done yet:");
                 tabPrinter(taskList.get(index - 1).toString());
                 linePrinter();
+            
+            } else if (input.equals("delete")) {
+                int index = Integer.parseInt(inputLine[1]);
+                Task tempDelete = taskList.get(index - 1);
+                taskList.remove(index - 1);
+                linePrinter();
+                tabPrinter("Noted. I've removed this task:");
+                tabPrinter(tempDelete.toString());
+                linePrinter();
 
             } else {
 
                 if (input.equals("todo")) {
-                    if (fullLine.split(" todo").length < 2) {
+                    if (fullLine.split(" todo").length < 1) {
                         linePrinter();
                         tabPrinter("The description of a todo cannot be empty!");
                         linePrinter();
@@ -73,7 +82,7 @@ public class ChatterBox {
 
 
                 } else if (input.equals("deadline")) {
-                    if (fullLine.split("/by ").length < 2) {
+                    if (fullLine.split("/by ").length < 1) {
                         linePrinter();
                         tabPrinter("The due date of a deadline cannot be empty!");
                         linePrinter();
