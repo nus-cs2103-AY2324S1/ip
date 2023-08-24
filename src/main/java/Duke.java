@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Duke {
@@ -8,13 +9,10 @@ public class Duke {
     private static final String end = "Bye bye";
     private static final String mark = "mark";
     private static final String unmark = "unmark";
-    private ArrayList<String> todolist;
-
-    private HashMap<String, Boolean> map;
+    private ArrayList<Task> todolist;
 
     private Duke() {
         this.todolist = new ArrayList<>();
-        this.map = new HashMap<>();
         greet();
     }
 
@@ -34,18 +32,11 @@ public class Duke {
         } else if (s.equals("list")) {
             printlist();
             return true;
-        } else if (s.length() < 4) {
-            addtolist(s);
-            return true;
         } else if (str.substring(0, 4).toString().equals(mark)) {
-            System.out.println(str.substring(5, str.length() - 1));
-            mark(todolist.get(Integer.parseInt(str.substring(5, str.length())) - 1));
-            return true;
-        } else if (s.length() < 6) {
-            addtolist(s);
+            mark(Integer.parseInt(str.substring(5, str.length())));
             return true;
         } else if (s.substring(0, 6).toString().equals(unmark)) {
-            unmark(todolist.get(Integer.parseInt(str.substring(7, str.length())) - 1));
+            unmark(Integer.parseInt(str.substring(7, str.length())));
             return true;
         } else {
             addtolist(s);
@@ -53,35 +44,49 @@ public class Duke {
         }
     }
 
-    private void mark(String s) {
-        map.put(s, true);
+    private void mark(int i) {
+        todolist.get(i - 1).mark();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("   [X] " + s);
+        System.out.println(todolist.get(i - 1).toString());
     }
 
-    private void unmark(String s) {
-        map.put(s, false);
+    private void unmark(int i) {
+        todolist.get(i - 1).unmark();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("   [ ] " + s);
+        System.out.println(todolist.get(i - 1).toString());
     }
 
     private void addtolist(String s) {
-        this.todolist.add(s);
-        map.put(s, false);
-        System.out.println("added: " + s);
+        StringBuffer str = new StringBuffer(s);
+        System.out.println("Got it. I've added this task:");
+        if (str.substring(0, 4).toString().equals("todo")) {
+            Todo t = new Todo(str.substring(5, str.length()).toString());
+            todolist.add(t);
+            System.out.println(t.toString());
+        } else if (str.substring(0, 8).toString().equals("deadline")) {
+            String t = str.substring(9, str.length()).toString();
+            String[] arr = t.split("/by ");
+            Deadline d = new Deadline(arr[0], arr[1]);
+            todolist.add(d);
+            System.out.println(d.toString());
+        } else if (str.substring(0, 5).toString().equals("event")) {
+            String t = str.substring(6, str.length()).toString();
+            String[] arr = t.split("/from ");
+            String[] arrr = arr[1].split("/to ");
+            Event e = new Event(arr[0], arrr[0], arrr[1]);
+            todolist.add(e);
+            System.out.println(e.toString());
+        } else {
+            throw new InputMismatchException("invalid input");
+        }
+        System.out.println("Now you have " + todolist.size() + " tasks in the list.");
+
     }
 
     private void printlist() {
         for (int i = 1; i <= this.todolist.size(); ++i) {
-            String s =  this.todolist.get(i - 1);
-            boolean isdone = map.get(s);
-            char c;
-            if (isdone) {
-                c = 'X';
-            } else {
-                c = ' ';
-            }
-            System.out.println(i + ". [" + c + ']' + ' ' + s);
+            Task t =  this.todolist.get(i - 1);
+            System.out.println(i + ". " + t.toString());
         }
     }
 
