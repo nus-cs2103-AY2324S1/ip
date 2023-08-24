@@ -90,18 +90,70 @@ public class Duke {
     }
 
     /**
-     * Echoes back the users' message.
-     * @param userInput
-     */
-    private static void echoMessage(String userInput) {
-        System.out.println("\t " + userInput);
-    }
-
-    /**
      * Sends a goodbye message to the user.
      */
     private static void goodbyeMessage() {
         System.out.println("\t Bye. Hope to see you again soon!");
+    }
+
+    /**
+     * Runs the command from the user input.
+     * @param inputs
+     * @return A boolean to stop the chatbot on "bye" command
+     * @throws DukeEmptyArgumentException
+     * @throws DukeUnknownCommandException
+     */
+    private static boolean runCommand(String[] inputs) throws DukeException {
+        String command = inputs[0].toLowerCase();
+
+        System.out.println("\t" + Duke.LINE);
+
+        if (command.equals("bye")) {
+            Duke.goodbyeMessage();
+            System.out.println("\t" + Duke.LINE);
+            return false;
+        } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
+            if (inputs.length == 1 || inputs[1] == "") {
+                throw new DukeEmptyArgumentException(command);
+            }
+            Duke.addTask(command, inputs[1]);
+        } else if (command.equals("list")) {
+            Duke.listTasks();
+        } else if (command.equals("mark")) {
+            if (inputs.length == 1 || inputs[1] == "") {
+                throw new DukeEmptyArgumentException(command);
+            }
+
+            try {
+                if (Integer.parseInt(inputs[1]) <= 0 || Integer.parseInt(inputs[1]) > tasks.size()) {
+                    throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+                }
+            } catch (NumberFormatException e) {
+                throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+            }
+
+            Duke.markTask(Integer.parseInt(inputs[1]));
+        } else if (command.equals("unmark")) {
+            if (inputs.length == 1 || inputs[1] == "") {
+                throw new DukeEmptyArgumentException(command);
+            }
+
+            try {
+                if (Integer.parseInt(inputs[1]) <= 0 || Integer.parseInt(inputs[1]) > tasks.size()) {
+                    throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+                }
+            } catch (NumberFormatException e) {
+                throw new DukeInvalidIndexException(Integer.toString(tasks.size()));
+            }
+
+            Duke.unmarkTask(Integer.parseInt(inputs[1]));
+        } else {
+            throw new DukeUnknownCommandException(command);
+        }
+
+        System.out.println("\t" + Duke.LINE);
+
+        return true;
     }
     public static void main(String[] args) {
 
@@ -109,34 +161,17 @@ public class Duke {
 
         Duke.greetingMessage();
 
-        try {
-            while (true) {
+        while (true) {
+            try {
                 String userInput = sc.nextLine();
                 String[] inputs = userInput.split(" ", 2);
-                String command = inputs[0].toLowerCase();
 
-                System.out.println("\t" + Duke.LINE);
+                if (!Duke.runCommand(inputs)) break;
 
-                if (command.equals("bye")) {
-                    Duke.goodbyeMessage();
-                    System.out.println("\t" + Duke.LINE);
-                    break;
-                } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
-                    Duke.addTask(command, inputs[1]);
-                } else if (command.equals("list")) {
-                    Duke.listTasks();
-                } else if (command.equals("mark")) {
-                    Duke.markTask(Integer.parseInt(inputs[1]));
-                } else if (command.equals("unmark")) {
-                    Duke.unmarkTask(Integer.parseInt(inputs[1]));
-                } else {
-                    Duke.echoMessage(userInput);
-                }
-
+            } catch (Exception e) {
+                System.out.println("\t " + e.getMessage());
                 System.out.println("\t" + Duke.LINE);
             }
-        } catch (Exception e) {
-            System.out.println("\t [ERROR] Sorry, an error occurred and ADJ has broken down :(");
         }
 
     }

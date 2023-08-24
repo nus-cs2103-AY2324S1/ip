@@ -7,4 +7,7 @@ mark 3
 list
 unmark 1
 list
+mark 6
+what?
+deadline
 bye
