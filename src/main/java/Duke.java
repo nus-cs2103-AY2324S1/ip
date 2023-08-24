@@ -4,10 +4,7 @@ public class Duke {
     private static final String LINE_SEPARATOR = "____________________________________________________________";
 
     public static void main(String[] args) {
-        System.out.println(LINE_SEPARATOR);
-        System.out.println("Hello! I'm David.");
-        System.out.println("What can I do for you?");
-        System.out.println(LINE_SEPARATOR);
+        printWithSeparator("Hello! I'm David.\nWhat can I do for you?");
 
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
