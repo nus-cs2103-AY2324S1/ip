@@ -36,6 +36,17 @@ public class Thea {
                     tasks.get(index).unmarkAsDone();
                     System.out.printf("Okay, I've marked this task as not done yet:\n  %s\n", tasks.get(index));
                 }
+            } else if (command.equals("delete")){
+                int index = Integer.parseInt(commandWords[1]) - 1;
+                if (index > tasks.size() - 1) {
+                    throw new IndexOutOfBoundsException("There is currently no task " + (index + 1));
+                } else {
+                    System.out.println("I have removed the following task to your list:\n  "
+                            + tasks.get(index).toString() + "\nNow you have " + (tasks.size() - 1)
+                            + ((tasks.size() - 1) == 1 ? " task" : " tasks")
+                            + " in the list.");
+                    tasks.remove(index);
+                }
             }
             else {
                 if (command.equals("todo")) {
