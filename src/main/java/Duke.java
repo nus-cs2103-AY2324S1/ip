@@ -35,6 +35,7 @@ public class Duke {
                     int i = 1;
                     for (String s: myList){
                         System.out.println(String.valueOf(i) + ". " + s);
+                        i++;
                     }
                     System.out.println("____________________________________________________________");
                     break;
