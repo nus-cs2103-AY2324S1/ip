@@ -42,23 +42,31 @@ public class Duke {
         }
     }
 
-    private static void markDone(int taskNumber) {
-        Task task = taskList.get(taskNumber - 1);
-        task.setTaskState(true);
-        System.out.println("Nice! I've marked this task as done:\n" + task);
+    private static void markDone(int taskNumber) throws ChatException {
+        try {
+            Task task = taskList.get(taskNumber - 1);
+            task.setTaskState(true);
+            System.out.println("Nice! I've marked this task as done:\n" + task);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ChatException("☹ OOPS!!! Please specify the correct task number.");
+        }
     }
 
-    private static void markUndone(int taskNumber) {
-        Task task = taskList.get(taskNumber - 1);
-        task.setTaskState(false);
-        System.out.println("OK, I've marked this task as not done yet:\n" + task);
+    private static void markUndone(int taskNumber) throws ChatException {
+        try {
+            Task task = taskList.get(taskNumber - 1);
+            task.setTaskState(false);
+            System.out.println("OK, I've marked this task as not done yet:\n" + task);
+        } catch (IndexOutOfBoundsException e) {
+            throw new ChatException("☹ OOPS!!! Please specify the correct task number.");
+        }
     }
 
     private static void exit() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ChatException{
         Scanner sc = new Scanner(System.in);
         greet();
         String userCommand = sc.nextLine();
@@ -66,33 +74,57 @@ public class Duke {
             if(userCommand.equals("list")) {
                 listTask();
             } else {
-                String[] words = userCommand.split(" ", 2);
-                switch (words[0]) {
-                    case "mark": {
-                        int taskNumber = Integer.parseInt(words[1]);
-                        markDone(taskNumber);
-                        break;
+                try {
+                    String[] words = userCommand.split(" ", 2);
+                    switch (words[0]) {
+                        case "mark": {
+                            int taskNumber = Integer.parseInt(words[1]);
+                            markDone(taskNumber);
+                            break;
+                        }
+                        case "unmark": {
+                            int taskNumber = Integer.parseInt(words[1]);
+                            markUndone(taskNumber);
+                            break;
+                        }
+                        case "todo":
+                            addTodo(words[1]);
+                            break;
+                        case "deadline":
+                            try{
+                                String[] deadlineTask = words[1].split(" /by ");
+                                addDeadline(deadlineTask[0], deadlineTask[1]);
+                                break;
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                throw new ChatException("☹ OOPS!!! Please specify the deadline.");
+                            }
+                        case "event":
+                            try {
+                                String[] eventTask = words[1].split(" /from ");
+                                String[] duration = eventTask[1].split(" /to ");
+                                addEvent(eventTask[0], duration[0], duration[1]);
+                                break;
+                            } catch (ArrayIndexOutOfBoundsException e) {
+                                throw new ChatException("☹ OOPS!!! Please specify the duration.");
+                            }
+
+                        default:
+                            throw new ChatException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
-                    case "unmark": {
-                        int taskNumber = Integer.parseInt(words[1]);
-                        markUndone(taskNumber);
-                        break;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    switch (userCommand) {
+                        case "mark":
+                        case "unmark":
+                            throw new ChatException("☹ OOPS!!! Please specify the task number.");
+                        case "todo":
+                            throw new ChatException("☹ OOPS!!! ☹ OOPS!!! The description of a todo cannot be empty.");
+                        case "deadline":
+                            throw new ChatException("☹ OOPS!!! ☹ OOPS!!! The description of a deadline cannot be empty.");
+                        case "event":
+                            throw new ChatException("☹ OOPS!!! ☹ OOPS!!! The description of an event cannot be empty.");
+                        default:
+                            throw new ChatException("☹ OOPS!!! Please be more detailed in your instructions.");
                     }
-                    case "todo":
-                        addTodo(words[1]);
-                        break;
-                    case "deadline":
-                        String[] deadlineTask = words[1].split(" /by ");
-                        addDeadline(deadlineTask[0], deadlineTask[1]);
-                        break;
-                    case "event":
-                        String[] eventTask = words[1].split(" /from ");
-                        String[] duration = eventTask[1].split(" /to ");
-                        addEvent(eventTask[0], duration[0], duration[1]);
-                        break;
-                    default:
-                        System.out.println("Error: no keywords detected");
-                        break;
                 }
             }
             userCommand = sc.nextLine();
