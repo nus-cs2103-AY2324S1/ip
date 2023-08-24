@@ -6,6 +6,7 @@ public class Duke {
     public static void main(String[] args) {
         printWithSeparator("Hello! I'm David.\nWhat can I do for you?");
 
+        TaskList taskList = new TaskList();
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
             String input = sc.nextLine();
@@ -13,8 +14,10 @@ public class Duke {
             if (input.equals("bye")) {
                 printWithSeparator("Bye. Hope to see you again soon!");
                 break;
+            } else if (input.equals("list")) {
+                taskList.list();
             } else {
-                printWithSeparator(input);
+                taskList.addTask(input);
             }
         }
     }
