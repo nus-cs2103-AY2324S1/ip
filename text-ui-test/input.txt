@@ -8,5 +8,6 @@ list
 task
 todo
 delete 3
+delete 1
 list
 bye
