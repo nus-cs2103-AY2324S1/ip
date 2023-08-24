@@ -9,7 +9,7 @@ public class Event extends Task {
         if (!this.getDone()) {
             return  "[E][ ] " + this.getName() + "(from: " + this.arr[0] + "to: " + this.arr[1] + ")";
         } else {
-            return "[E][X] " + this.getName() + "from: " + this.arr[0] + "to: " + this.arr[1] + ")";
+            return "[E][X] " + this.getName() + "(from: " + this.arr[0] + "to: " + this.arr[1] + ")";
         }
     }
 }

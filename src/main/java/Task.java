@@ -1,7 +1,6 @@
 public class Task {
     private String name;
     private Boolean done;
-    private int num;
 
     public Task(String name) {
         this.name = name;
