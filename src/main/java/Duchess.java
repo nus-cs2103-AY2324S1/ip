@@ -19,7 +19,7 @@ public class Duchess {
      * Prints text, but with a consistent formatting in Duchess style.
      */
     private static void duchessPrint(String s) {
-        System.out.println(String.format("$>  %s", s));
+        System.out.println(String.format("[D]: %s", s));
     }
 
     /**
@@ -304,6 +304,7 @@ public class Duchess {
 
         while (!Duchess.isExitCommand(userInput)) {
             System.out.println();
+            System.out.print("$>  ");
             userInput = sc.nextLine();
             System.out.println();
 
