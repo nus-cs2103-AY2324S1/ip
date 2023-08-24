@@ -12,17 +12,28 @@ public class Duke {
 
 
         String message;
-        ArrayList<Task> userList = new ArrayList<>();
+        ArrayList<String> userList = new ArrayList<>();
         Scanner userInput = new Scanner(System.in);
 
         do {
 
             message = userInput.nextLine();
+            if (message.equalsIgnoreCase("list")) {
+                System.out.println(lineBreak);
+                //System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < userList.size(); i++) {
+                    int index = i + 1;
+                    System.out.println(index + ". " + userList.get(i));
+                }
+                System.out.println(lineBreak);
+            }
             if (message.equalsIgnoreCase("bye")) break;
-            System.out.print(lineBreak + message + lineBreak);
+            if (message.equalsIgnoreCase("list")) continue;
+            System.out.print(lineBreak + "added: " + message + lineBreak);
+            userList.add(message);
         } while (!message.equalsIgnoreCase("bye"));
 
-        System.out.print(lineBreak + "Hope to see you again soon!" + lineBreak);
+        System.out.print(lineBreak + "Bye. Hope to see you again soon!" + lineBreak);
         userInput.close();
 
 //        do {
