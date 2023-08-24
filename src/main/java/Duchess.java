@@ -38,7 +38,7 @@ public class Duchess {
      * @return    whether the command is an exit command.
      */
     private static boolean isExitCommand(String s) {
-        return Duchess.matchesRegex(s, "^bye$", true);
+        return Duchess.matchesRegex(s, "^bye$", true) || Duchess.matchesRegex(s, "^exit$", true);
     }
 
     /**
@@ -66,7 +66,7 @@ public class Duchess {
      * @return                  whether the string matches the pattern.
      */
     private static boolean matchesRegex(String s, String patternString, boolean caseInsensitive) {
-        return Duchess.parseRegex(s, patternString, caseInsensitive).matches();
+        return Duchess.parseRegex(s, patternString, caseInsensitive).find(0);
     }
 
     /**
@@ -77,7 +77,7 @@ public class Duchess {
      * @return                  whether the string matches the pattern.
      */
     private static boolean matchesRegex(String s, String patternString) {
-        return Duchess.parseRegex(s, patternString).matches();
+        return Duchess.parseRegex(s, patternString).find(0);
     }
 
     /**
@@ -99,7 +99,7 @@ public class Duchess {
         }
 
         Matcher matcher = pattern.matcher(s);
-        matcher.find();
+        matcher.find(0);
         return matcher;
     }
 
@@ -221,7 +221,7 @@ public class Duchess {
      * @return    whether the command is recognized as a ToDo command.
      */
     private static boolean isToDoCommand(String s) {
-        return Duchess.matchesRegex(s, "^todo ([A-Za-z0-9 ]+)$");
+        return Duchess.matchesRegex(s, "^todo");
     }
 
     /**
@@ -230,8 +230,12 @@ public class Duchess {
      * @param s - the command to parse for "todo" command.
      * @return    the ToDo task.
      */
-    private static ToDo parseToDoCommand(String s) {
-        Matcher m = Duchess.parseRegex(s, "^todo ([A-Za-z0-9 ]+)$");
+    private static ToDo parseToDoCommand(String s) throws DuchessException {
+        Matcher m = Duchess.parseRegex(s, "^todo( [A-Za-z0-9 ]+)?$");
+
+        if (m.group(1) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, todo names cannot be empty...");
+        }
 
         return new ToDo(m.group(1));
     }
@@ -243,7 +247,8 @@ public class Duchess {
      * @return    whether the command is recognized as a Deadline command.
      */
     private static boolean isDeadlineCommand(String s) {
-        return Duchess.matchesRegex(s, "^deadline ([A-Za-z0-9 ]+) /by ([A-Za-z0-9 ]+)$");
+        // This mmatches the start of a string, then the word "deadline", then anything afterwards.
+        return Duchess.parseRegex(s, "^deadline").find(0);
     }
 
     /**
@@ -252,10 +257,17 @@ public class Duchess {
      * @param s - the command to parse for "deadline" command.
      * @return    the Deadline task.
      */
-    private static Deadline parseDeadlineCommand(String s) {
-        Matcher m = Duchess.parseRegex(s, "^deadline ([A-Za-z0-9 ]+) /by ([A-Za-z0-9 ]+)$");
+    private static Deadline parseDeadlineCommand(String s) throws DuchessException {
+        Matcher m = Duchess.parseRegex(s, "^deadline( [A-Za-z0-9 ]+)?( /by ([A-Za-z0-9 ]+)?)?$");
 
-        return new Deadline(m.group(1), m.group(2));
+        if (m.group(1) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, deadline names cannot be empty...");
+        }
+        if (m.group(2) == null || m.group(3) == null) {
+            throw new DuchessException("(´；ω；`) Sorry, deadlines must have a deadline...");
+        }
+
+        return new Deadline(m.group(1), m.group(3));
     }
 
     /**
@@ -265,7 +277,7 @@ public class Duchess {
      * @return    whether the command is recognized as an "event" command.
      */
     private static boolean isEventCommand(String s) {
-        return Duchess.matchesRegex(s, "^event ([A-Za-z0-9 ]+) /from ([A-Za-z0-9 ]+) /to ([A-Za-z0-9 ]+)$");
+        return Duchess.matchesRegex(s, "^event");
     }
 
     /**
@@ -337,15 +349,29 @@ public class Duchess {
 
             // Check if this command is a ToDo command.
             if (Duchess.isToDoCommand(userInput)) {
-                ToDo todo = Duchess.parseToDoCommand(userInput);
-                Duchess.addTask(todo);
+                try {
+                    ToDo todo = Duchess.parseToDoCommand(userInput);
+                    Duchess.addTask(todo);
+                }
+                catch (DuchessException e) {
+                    Duchess.duchessPrint(e.getMessage());
+                    Duchess.duchessPrint("(／°▽°)／Try something like this!!");
+                    Duchess.duchessPrint("todo [name]");
+                }
                 continue;
             }
 
             // Check if this command is a Deadline command.
             if (Duchess.isDeadlineCommand(userInput)) {
-                Deadline deadline = Duchess.parseDeadlineCommand(userInput);
-                Duchess.addTask(deadline);
+                try {
+                    Deadline deadline = Duchess.parseDeadlineCommand(userInput);
+                    Duchess.addTask(deadline);
+                }
+                catch(DuchessException e) {                    
+                    Duchess.duchessPrint(e.getMessage());
+                    Duchess.duchessPrint("(／°▽°)／Try something like this!!");
+                    Duchess.duchessPrint("deadline [name] /by [date]");
+                }
                 continue;
             }
 
