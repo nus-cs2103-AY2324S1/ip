@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Chatbot {
 
@@ -25,21 +26,22 @@ public class Chatbot {
 		while (newScan.hasNextLine()) {
 			String action = newScan.nextLine();
 			String[] words = action.split(" ");
-			if (words.length > 1 && (words[0].equals("unmark") || words[0].equals("mark"))) {
+			String Event = words[0];
+
+			if (words.length > 1 && (Event.equals("unmark") || Event.equals("mark"))) {
 				int idx = Integer.parseInt(words[1]) - 1;
 				Task t = l1.get(idx);
-				if (words[0].equals("mark")) {
+				if (Event.equals("mark")) {
 					t.markAsDone();
 					String echo = String.format("____________________________________________________________\n" +
 							"Nice! I've marked this task as done:\n" +
-							t.getDescription() + "\n" +
+							t.toString() + "\n" +
 							"____________________________________________________________");
 					System.out.println(echo);
 				} else {
 					l1.get(idx).unMark();
 					String echo = String.format("____________________________________________________________\n" +
-							"OK, I've marked this task as not done yet:\n" +
-							t.getDescription() + "\n" +
+							t.toString() + "\n" +
 							"____________________________________________________________");
 					System.out.println(echo);
 				}
@@ -51,17 +53,54 @@ public class Chatbot {
 						"____________________________________________________________";
 				System.out.println(echo);
 				System.exit(0);
-			} else if (!action.equals("list")) {
-				l1.add(new Task(action));
+			} else if (!Event.equals("list")) {
+				// add to task to list then print list if event is list
+				// String[] slice = Arrays.copyOfRange(items, 1, items.length - 1);
+				String[] items = action.split("/");
+				String[] first = items[0].split(" ");
+				String[] describe = Arrays.copyOfRange(first, 1, first.length);
+				String description = "";
+				for (String d: describe) {
+					description = description + d + " ";
+				}
+
+				if (Event.equals("todo")) {
+					l1.add(new ToDos(description));
+				} else if (Event.equals("deadline")) {
+					String[] start = items[1].split(" ");
+					String newStart = "";
+					for (String s : Arrays.copyOfRange(start,1, start.length)) {
+						newStart = newStart + s + " ";
+					}
+					newStart = newStart.trim();
+					l1.add(new Deadlines(description, newStart));
+				} else {
+					String[] start = items[1].split(" ");
+					String newStart = "";
+					for (String s : Arrays.copyOfRange(start,1, start.length)) {
+						newStart = newStart + s + " ";
+					}
+					newStart = newStart.trim();
+					String[] end = items[2].split(" ");
+					String newEnd = "";
+					for (String s : Arrays.copyOfRange(end,1, end.length)) {
+						newEnd = newEnd + s + " ";
+					}
+					newEnd = newEnd.trim();
+					l1.add(new Events(Event, newStart, newEnd));
+				}
+				Task t = l1.get(l1.size() - 1);
 				String echo = String.format("____________________________________________________________\n" +
-						"added: %s\n" +
-						"____________________________________________________________", action);
+						"Got it. I've added this task:\n" +
+						"%s\n" +
+						"Now you have %s tasks in the list\n" +
+						"____________________________________________________________", t.toString(), l1.size());
 				System.out.println(echo);
 			} else {
 				String lst = "";
 				for (int i = 0; i < l1.size(); i++) {
 					int idx = i + 1;
-					lst += idx + ". " + l1.get(i).getDescription() + "\n";
+					lst += idx + ". " + l1.get(i).toString() + "\n";
 				}
 				String echo = String.format("____________________________________________________________\n"
 						+ "Here are the task in your list:\n"
