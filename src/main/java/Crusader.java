@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Crusader {
@@ -9,6 +10,21 @@ public class Crusader {
             + " | |    | '__| | | / __|/ _` |/ _` |/ _ \\ '__|\n"
             + " | |____| |  | |_| \\__ \\ (_| | (_| |  __/ |\n"
             + "  \\_____|_|   \\__,_|___/\\__,_|\\__,_|\\___|_|";
+
+    /**
+     * A list of tasks for the chatbot.
+     */
+    private static final ArrayList<String> tasks = new ArrayList<>();
+
+    /**
+     * Describes the list of tasks in the chatbot.
+     */
+    private static void tasksToString() {
+        for (int x = 0; x < tasks.size(); x++) {
+            System.out.printf("%d. %s\n", x + 1, tasks.get(x));
+        }
+        addDivider();
+    }
 
     /**
      * Displays the logo for the chatbot.
@@ -32,7 +48,6 @@ public class Crusader {
     private static void say(String line) {
         System.out.println(line);
         addDivider();
-
     }
 
     /**
@@ -51,16 +66,25 @@ public class Crusader {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        boolean notEnded = true;
         addDivider();
         showLogo();
         greet();
-        while (true) {
+        while (notEnded) {
             String currentPrompt = sc.nextLine();
             addDivider();
-            if (currentPrompt.equals("bye")) {
-                break;
+            switch (currentPrompt) {
+                case "bye":
+                    notEnded = false;
+                    break;
+                case "list":
+                    tasksToString();
+                    break;
+                default:
+                    say("added: " + currentPrompt);
+                    tasks.add(currentPrompt);
+                    break;
             }
-            say(currentPrompt);
         }
         farewell();
     }
