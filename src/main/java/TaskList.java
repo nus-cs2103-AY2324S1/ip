@@ -23,4 +23,8 @@ public class TaskList {
     public void unmark(int index) {
         taskLists.get(index).markUndone();
     }
+
+    public int getLength() {
+        return taskLists.size();
+    }
 }
