@@ -61,7 +61,20 @@ public class Duke {
                         t.unmarkTask();
                         System.out.println(line);
                         System.out.println("\tOK, I've marked this task as not done yet:");
-                        System.out.println("\t" + "\t" + t.getStatusIcon() + " " + t.getDescription());
+                        System.out.println("\t" + "\t" + t.toString());
+                        System.out.println(line);
+                    }
+                } else if (words[0].equalsIgnoreCase("delete")) {
+                    char lastCharacter = echo.charAt(echo.length() - 1);
+                    if (!Character.isDigit(lastCharacter)) {
+                        throw new NotANumberException();
+                    } else {
+                        int index = Character.getNumericValue(lastCharacter) - 1;
+                        Task t = strList.remove(index);
+                        System.out.println(line);
+                        System.out.println("\tNoted. I've removed this task: ");
+                        System.out.println("\t" + "\t" + t.toString());
+                        System.out.println("\tNow you have " + strList.size() + " tasks in the list.");
                         System.out.println(line);
                     }
                 } else if (words[0].equalsIgnoreCase("todo")) {
