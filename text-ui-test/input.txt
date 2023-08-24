@@ -9,10 +9,12 @@ unmark 2
 list
 mark 5
 list
+delete 2
 todo      
 deadline       
 event       
 ajhsf
 mark 8
 unmark 6
+delete 12
 bye

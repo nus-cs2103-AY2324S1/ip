@@ -48,19 +48,25 @@
     2.[D][ ]  return book (by: Sunday)
     3.[E][ ]  project meeting (from: Mon 2pm to: 4pm)
    ____________________________________________________________
-☹ OOPS!!! Invalid task index.
+☹ OOPS!!! Invalid task number to be marked.
    ____________________________________________________________
    Here are the tasks in your list:
     1.[T][ ]  borrow book
     2.[D][ ]  return book (by: Sunday)
     3.[E][ ]  project meeting (from: Mon 2pm to: 4pm)
    ____________________________________________________________
+   ____________________________________________________________
+   Noted. I've removed this task:
+    [D][ ]  return book (by: Sunday)
+   Now you have 2 tasks in the list.
+   ____________________________________________________________
 ☹ OOPS!!! The description of a todo cannot be empty.
 ☹ OOPS!!! Please provide a description and a deadline (use /by).
 ☹ OOPS!!! Please provide a description, a starting time, and an ending time (use /from and /to).
 ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
-☹ OOPS!!! Invalid task index.
-☹ OOPS!!! Invalid task index.
+☹ OOPS!!! Invalid task number to be marked.
+☹ OOPS!!! Invalid task number to be unmarked.
+☹ OOPS!!! Invalid task number to be deleted.
    ____________________________________________________________
     Farewell. We will meet again!
    ____________________________________________________________

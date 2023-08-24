@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class Avalon {
     public static void main(String[] args) {
@@ -51,7 +53,7 @@ public class Avalon {
                                 tasks[taskIndex].description +
                                 "\n   ____________________________________________________________");
                     } else {
-                        throw new IllegalArgumentException("Invalid task index.");
+                        throw new IllegalArgumentException("Invalid task number to be marked.");
                     }
                 //unmark task
                 } else if (userInput.toLowerCase().startsWith("unmark ")) {
@@ -64,7 +66,7 @@ public class Avalon {
                                 tasks[taskIndex].description +
                                 "\n   ____________________________________________________________");
                     } else {
-                        throw new IllegalArgumentException("Invalid task index.");
+                        throw new IllegalArgumentException("Invalid task number to be unmarked.");
                     }
                 //create activity
                 } else if (userInput.toLowerCase().startsWith("todo ")) {
@@ -105,6 +107,22 @@ public class Avalon {
                             "   Got it. I've added this task:\n  " + "  " + tasks[taskCount - 1]);
                     System.out.println("   Now you have " + taskCount + " tasks in the list.");
                     System.out.println("   ____________________________________________________________");
+                } else if (userInput.toLowerCase().startsWith("delete ")) {
+                    int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
+                    if (taskIndex >= 0 && taskIndex < taskCount) {
+                        Task deletedTask = tasks[taskIndex];
+                        for (int i = taskIndex; i < taskCount - 1; i++) {
+                            tasks[i] = tasks[i + 1];
+                        }
+                        taskCount--;
+                        System.out.println("   ____________________________________________________________");
+                        System.out.println("   Noted. I've removed this task:");
+                        System.out.println("    " + deletedTask);
+                        System.out.println("   Now you have " + taskCount + " tasks in the list.");
+                        System.out.println("   ____________________________________________________________");
+                    } else {
+                        throw new IllegalArgumentException("Invalid task number to be deleted.");
+                    }
                 } else {
                     throw new IllegalArgumentException("I'm sorry, but I don't know what that means :-(");
                 }
