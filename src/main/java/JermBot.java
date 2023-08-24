@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class JermBot {
@@ -5,7 +6,7 @@ public class JermBot {
         System.out.println("Hello! I'm JermBot");
         System.out.println("What can I do for you?");
 
-        Task[] storage = new Task[100];
+        ArrayList<Task> storage = new ArrayList<>();
         int numOfItems = 0;
         Scanner sc = new Scanner(System.in);
         String currStr = sc.nextLine();
@@ -17,7 +18,7 @@ public class JermBot {
             if (currStr.equals("list")) {
                 for (int i = 0; i < numOfItems; i++) {
                     System.out.print(i + 1);
-                    System.out.print(". " + storage[i].toString() + "\n");
+                    System.out.print(". " + storage.get(i).toString() + "\n");
                 }
             } else {
                 try {
@@ -27,14 +28,25 @@ public class JermBot {
                         try {
                             int itemNumber = Integer.parseInt(splitStr[1]);
                             if (splitStr[0].equals("mark")) {
-                                storage[itemNumber - 1].markDone();
+                                storage.get(itemNumber - 1).markDone();
                                 System.out.println("Nice! I've marked this task as done:");
-                                System.out.println("   " + storage[itemNumber - 1].toString());
+                                System.out.println("   " + storage.get(itemNumber - 1).toString());
                             } else {
-                                storage[itemNumber - 1].markUndone();
+                                storage.get(itemNumber - 1).markUndone();
                                 System.out.println("Ok, I've marked this task as not done yet:");
-                                System.out.println("   " + storage[itemNumber - 1].toString());
+                                System.out.println("   " + storage.get(itemNumber - 1).toString());
                             }
+                        } catch (NumberFormatException e) {
+                            throw new WrongInputException();
+                        }
+                    } else if (splitStr.length == 2 && splitStr[0].equals("delete")) {
+                        try {
+                            int itemNumber = Integer.parseInt(splitStr[1]);
+                            System.out.println("Noted. I've removed this task:");
+                            System.out.println("   " + storage.get(itemNumber - 1).toString());
+                            storage.remove(itemNumber - 1);
+                            System.out.println("Now you have " + storage.size() + " tasks in the list.");
+                            numOfItems--;
                         } catch (NumberFormatException e) {
                             throw new WrongInputException();
                         }
@@ -59,7 +71,7 @@ public class JermBot {
                                 addedTask = new Event(splitStr4[0], splitStr4[1].substring(5), splitStr4[2].substring(3));
                                 break;
                         }
-                        storage[numOfItems] = addedTask;
+                        storage.add(addedTask);
                         numOfItems++;
                         System.out.printf("Got it. I've added this task:\n   %s\nNow you have %d tasks in the list.\n", addedTask, numOfItems);
                     } else {
@@ -69,10 +81,6 @@ public class JermBot {
                     System.out.println("Error: " + e);
                 }
             }
-
-
-
-
             currStr = sc.nextLine();
         }
 
