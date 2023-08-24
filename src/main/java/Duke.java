@@ -21,7 +21,7 @@ public class Duke {
             "              `.  |,-||\n" +
             "                `.|| ||\n";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SisyphusException{
         greet();
         handleCommand();
     }
@@ -47,107 +47,132 @@ public class Duke {
      * 7. "event" to create an event in arrayList
      * 8. default behaviour is to add task into arrayList
      */
-    public static void handleCommand() {
+    public static void handleCommand() throws SisyphusException {
         boolean isChatting = true;
         Scanner scanner= new Scanner(System.in);
         String input, command, params = "";
         String[] inputArray;
         ArrayList<Task> taskList = new ArrayList<>();
 
+
         while (isChatting) {
             input = scanner.nextLine();
-            inputArray = input.split(" ", 2);
-            command = inputArray[0];
-            if (inputArray.length > 1) {
-                params = inputArray[1];
-            }
+            try {
+                inputArray = input.split(" ", 2);
+                command = inputArray[0];
+                if (inputArray.length > 1) {
+                    params = inputArray[1];
+                }
 
-            switch(command) {
-                case ("bye"): {
-                    System.out.println(HORIZONTAL_LINE);
-                    System.out.println("Goodbye, it was nice chatting with you.");
-                    System.out.println(HORIZONTAL_LINE);
-                    isChatting = false;
-                    break;
-                }
-                case ("list"): {
-                    System.out.println(HORIZONTAL_LINE);
-                    for (int i = 0; i < taskList.size(); i++) {
-                        System.out.println(i + 1 + ". " + taskList.get(i));
+                switch (command) {
+                    case ("bye"): {
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println("Goodbye, it was nice chatting with you.");
+                        System.out.println(HORIZONTAL_LINE);
+                        isChatting = false;
+                        break;
                     }
-                    System.out.println(HORIZONTAL_LINE);
-                    break;
-                }
-                case ("mark"): {
-                    if (params != "") {
-                        int index = Integer.parseInt(params.split(" ", 2)[0]) - 1;
-                        taskList.get(index).setDone(true);
+                    case ("list"): {
+                        System.out.println(HORIZONTAL_LINE);
+                        for (int i = 0; i < taskList.size(); i++) {
+                            System.out.println(i + 1 + ". " + taskList.get(i));
+                        }
+                        System.out.println(HORIZONTAL_LINE);
+                        break;
+                    }
+                    case ("mark"): {
+                        int index = -1;
+                        try {
+                            index = Integer.parseInt(params.split(" ")[0]) - 1;
+                            taskList.get(index).setDone(true);
+                        } catch (Exception e) {
+                            throw new SisyphusException("You must include a valid task number. "
+                                    + "Use list to see what is valid.");
+                        }
                         System.out.println(HORIZONTAL_LINE);
                         System.out.println("The following item has been marked as done.");
                         System.out.println(taskList.get(index));
+                        break;
                     }
-                    break;
-                }
-                case ("unmark"): {
-                    if (inputArray.length > 1) {
-                        String param = inputArray[1];
-                        int index = Integer.parseInt(param) - 1;
-                        taskList.get(index).setDone(false);
+                    case ("unmark"): {
+                        int index;
+                        try {
+                            index = Integer.parseInt(params.split(" ")[0]) - 1;
+                            taskList.get(index).setDone(false);
+                        } catch (Exception e) {
+                            throw new SisyphusException("You must include a valid task number. "
+                                    + "Use list to see what is valid.");
+                        }
 
                         System.out.println(HORIZONTAL_LINE);
                         System.out.println("The following item has been unmarked and is now uncompleted.");
                         System.out.println(taskList.get(index));
+                        break;
                     }
-                    break;
-                }
-                case ("todo"): {
-                    ToDo todoTask = new ToDo(params);
-                    taskList.add(todoTask);
+                    case ("todo"): {
+                        if (params == "" || params == null) {
+                            throw new SisyphusException("Include a description for the ToDo. \nHere is an example: " +
+                                    "todo Roll Boulder");
+                        }
+                        ToDo todoTask = new ToDo(params);
+                        taskList.add(todoTask);
 
-                    System.out.println(HORIZONTAL_LINE);
-                    System.out.println("The following ToDo has been added.");
-                    System.out.println(todoTask);
-                    System.out.println("You now have " + taskList.size()  + " items in the list.");
-                    System.out.println(HORIZONTAL_LINE);
-                    break;
-                }
-                case ("deadline"): {
-                    String description = params.split(" /by ")[0];
-                    String deadline = params.split(" /by ")[1];
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println("The following ToDo has been added.");
+                        System.out.println(todoTask);
+                        System.out.println("You now have " + taskList.size() + " items in the list.");
+                        System.out.println(HORIZONTAL_LINE);
+                        break;
+                    }
+                    case ("deadline"): {
+                        String description, deadline;
+                        try {
+                            description = params.split(" /by ")[0];
+                            deadline = params.split(" /by ")[1];
+                        } catch (Exception e) {
+                            throw new SisyphusException("Include both description and deadline for a deadline. \nHere " +
+                                    "is an example: deadline roll boulder /by eternity");
+                        }
 
-                    Deadline deadlineTask = new Deadline(description, deadline);
-                    taskList.add(deadlineTask);
+                        Deadline deadlineTask = new Deadline(description, deadline);
+                        taskList.add(deadlineTask);
 
-                    System.out.println(HORIZONTAL_LINE);
-                    System.out.println("The following deadline has been added.");
-                    System.out.println(deadlineTask);
-                    System.out.println("You now have " + taskList.size()  + " items in the list.");
-                    System.out.println(HORIZONTAL_LINE);
-                    break;
-                }
-                case ("event"): {
-                    String description = params.split(" /from ")[0];
-                    String fromAndToTime = params.split(" /from ")[1];
-                    String from = fromAndToTime.split(" /to ")[0];
-                    String to = fromAndToTime.split(" /to ")[1];
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println("The following deadline has been added.");
+                        System.out.println(deadlineTask);
+                        System.out.println("You now have " + taskList.size() + " items in the list.");
+                        System.out.println(HORIZONTAL_LINE);
+                        break;
+                    }
+                    case ("event"): {
+                        String description, fromAndToTime, from, to;
+                        try {
+                            description = params.split(" /from ")[0];
+                            fromAndToTime = params.split(" /from ")[1];
+                            from = fromAndToTime.split(" /to ")[0];
+                            to = fromAndToTime.split(" /to ")[1];
+                        } catch (Exception e) {
+                            throw new SisyphusException("Include the description, from and to time for an event. \nHere is" +
+                                    " an example: event roll boulder /from past /to eternity");
+                        }
 
-                    Event eventTask = new Event(description, from, to);
-                    taskList.add(eventTask);
+                        Event eventTask = new Event(description, from, to);
+                        taskList.add(eventTask);
 
-                    System.out.println(HORIZONTAL_LINE);
-                    System.out.println("The following event has been added.");
-                    System.out.println(eventTask);
-                    System.out.println("You now have " + taskList.size()  + " items in the list.");
-                    System.out.println(HORIZONTAL_LINE);
-                    break;
+                        System.out.println(HORIZONTAL_LINE);
+                        System.out.println("The following event has been added.");
+                        System.out.println(eventTask);
+                        System.out.println("You now have " + taskList.size() + " items in the list.");
+                        System.out.println(HORIZONTAL_LINE);
+                        break;
+                    }
+                    default: {
+                        throw new SisyphusException("Enter a valid command. Available comments are " +
+                                "bye, list, event, deadline, todo, mark, unmark.");
+                    }
                 }
-                default: {
-                    taskList.add(new Task(input));
-                    System.out.println(HORIZONTAL_LINE);
-                    System.out.println("I have added \"" + input + "\" to the list.");
-                    System.out.println(HORIZONTAL_LINE);
-                    break;
-                }
+            } catch (SisyphusException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
