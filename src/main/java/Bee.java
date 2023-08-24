@@ -12,6 +12,8 @@ public class Bee {
         System.out.println("Hello! I'm " + logo + ".\n");
 
         Scanner scanner = new Scanner(System.in);
+        String[] list = new String[100];
+        int listIndex = 0;
         System.out.println("~Bzzzz~ What may I assist you with today? ~Bzzzz~\n");
 
         boolean isRunning = true;
@@ -22,10 +24,22 @@ public class Bee {
             if (userInput.equals("bye")) {
                 System.out.println("By-ee!. ~Bzzzz~");
                 break;
+            } else if (userInput.equals("list")) {
+                for (int i=0; i < list.length; i++) {
+                    if (list[i] != null) {
+                        int order = i + 1;
+                        System.out.println(order + ". " + list[i]);
+                    } else {
+                        break;
+                    }
+                }
+                continue;
             }
 
-            // Else, echo back the user input.
-            System.out.println(userInput + " ~Bzzzz~\n");
+            // Else, echo back the user input and add to list
+            list[listIndex] = userInput;
+            listIndex++;
+            System.out.println("Added: " + userInput + " ~Bzzzz~\n");
         }
     }
 }
