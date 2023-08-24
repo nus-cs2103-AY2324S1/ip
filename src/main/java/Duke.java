@@ -68,19 +68,19 @@ public class Duke {
         }
 
         Scanner scanner = new Scanner(System.in);
-        Task tasks[] = new Task[100];
+        Task[] tasks = new Task[100];
 
         System.out.println(div + "Hello! I'm CarrotCake\nWhat can I do for you?\n" + div);
 
         String input = scanner.nextLine();
         int count = 0;
 
-        while (!input.toLowerCase().equals("bye")) {
+        while (!input.equalsIgnoreCase("bye")) {
             System.out.println(div);
-            if (input.toLowerCase().equals("list")) {
+            if (input.equalsIgnoreCase("list")) {
                 //Print tasks
                 for (int i = 0; i < count; i++) {
-                    System.out.print(Integer.toString(i+1) + ". " + tasks[i].printTask());
+                    System.out.print((i+1) + ". " + tasks[i].printTask());
                 }
                 System.out.println(div);
                 input = scanner.nextLine();
@@ -89,6 +89,11 @@ public class Duke {
             if (input.toLowerCase().startsWith("mark ")) {
                 String[] parts = input.split(" ");
                 int taskNumber = Integer.parseInt(parts[1]) - 1;
+                if (taskNumber > count) {
+                    System.out.println("☹ OOPS!!! Such a task doesn't exist :-(\n" + div);
+                    input = scanner.nextLine();
+                    continue;
+                }
                 tasks[taskNumber].mark();
                 input = scanner.nextLine();
                 continue;
@@ -96,22 +101,27 @@ public class Duke {
             if (input.toLowerCase().startsWith("unmark ")) {
                 String[] parts = input.split(" ");
                 int taskNumber = Integer.parseInt(parts[1]) - 1;
+                if (taskNumber > count) {
+                    System.out.println("☹ OOPS!!! Such a task doesn't exist :-(\n" + div);
+                    input = scanner.nextLine();
+                    continue;
+                }
                 tasks[taskNumber].unmark();
                 input = scanner.nextLine();
                 continue;
             }
 
             if (input.toLowerCase().startsWith("todo ")) {
-                input = input.substring(4, input.length());
-                System.out.println("Got it. I've  added this task: \n[T] []" + input +
-                        "\nNow you have "+ (count+1)+ " tasks in the list.\n" +div);
+                input = input.substring(4);
+                System.out.println("Got it. I've  added this task: \n[T] [ ]" + input +
+                        "\nNow you have "+ (count+1) + " tasks in the list.\n" +div);
                 tasks[count] = new ToDos(input);
             }
             else if (input.toLowerCase().startsWith("deadline ")) {
                 String[] parts = input.split("/");
                 String due = parts[1];
-                input = parts[0].substring(8, parts[0].length());
-                System.out.println("Got it. I've  added this task: \n[D] []" + input + "(" + due + ")" +
+                input = parts[0].substring(8);
+                System.out.println("Got it. I've  added this task: \n[D] [ ]" + input + "(" + due + ")" +
                         "\nNow you have "+ (count+1) + " tasks in the list.\n" +div);
                 tasks[count] = new Deadline(input, due);
             }
@@ -119,10 +129,15 @@ public class Duke {
                 String[] parts = input.split("/");
                 String start = parts[1];
                 String end = parts[2];
-                input = parts[0].substring(5, parts[0].length());
-                System.out.println("Got it. I've  added this task: \n[E] []" + input + "(" + start + " " + end + ")" +
+                input = parts[0].substring(5);
+                System.out.println("Got it. I've  added this task: \n[E] [ ]" + input + "(" + start + " " + end + ")" +
                         "\nNow you have "+ (count + 1) + " tasks in the list.\n" +div);
                 tasks[count] = new Events(input, start, end);
+            }
+            else {
+                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + div);
+                input = scanner.nextLine();
+                continue;
             }
 
             input = scanner.nextLine();
