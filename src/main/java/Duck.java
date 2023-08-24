@@ -34,9 +34,33 @@ public class Duck {
                 continue;
             }
 
-            line();
-            list.add(input);
-            line();
+            if (input.startsWith("todo")) {
+                String task = input.substring(5);
+                line();
+                list.addTodo(task);
+                line();
+                input = in.nextLine();
+                continue;
+            }
+
+            if (input.startsWith("deadline")) {
+                String task = input.substring(9);
+                line();
+                list.addDeadline(task);
+                line();
+                input = in.nextLine();
+                continue;
+            }
+
+            if (input.startsWith("event")) {
+                String task = input.substring(6);
+                line();
+                list.addEvent(task);
+                line();
+                input = in.nextLine();
+                continue;
+            }
+
             input = in.nextLine();
         }
         Duck.bye();
@@ -75,11 +99,15 @@ class TaskList {
     private String[] list;
     private int currentIndex;
     private boolean[] doneList;
+    private char[] typeList;
+    private String[] infoList;
 
     public TaskList() {
         this.list = new String[100];
         currentIndex = 0;
         this.doneList = new boolean[100];
+        this.typeList = new char[100];
+        this.infoList = new String[100];
     }
 
     public void add(String input) {
@@ -88,28 +116,75 @@ class TaskList {
         System.out.println("added: " + input);
     }
 
+    public void addTodo(String input) {
+        list[currentIndex] = input;
+        typeList[currentIndex] = 'T';
+        System.out.println("Got it. I've added this task:");
+        System.out.println("[T][ ] " + input);
+
+        currentIndex++;
+        System.out.println("Now you have " + currentIndex + " tasks in the list.");
+    }
+
+    public void addDeadline(String input) {
+        String name = input.substring(0, input.indexOf("/"));
+        list[currentIndex] = name;
+
+        String datetime = input.substring(input.indexOf("/by") + 4);
+        infoList[currentIndex] = " (by: " + datetime + ")";
+
+        typeList[currentIndex] = 'D';
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println("[D][ ] " + name + infoList[currentIndex]);
+        
+        currentIndex++;
+        System.out.println("Now you have " + currentIndex + " tasks in the list.");
+    }
+
+    public void addEvent(String input) {
+        String name = input.substring(0, input.indexOf("/"));
+        list[currentIndex] = name;
+
+        String start = input.substring(input.indexOf("/from") + 6, input.indexOf("/to") - 1);
+        String end = input.substring(input.indexOf("/to") + 4);
+        infoList[currentIndex] = " (from: " + start + " to: " + end + ")";
+
+        typeList[currentIndex] = 'E';
+
+        System.out.println("Got it. I've added this task:");
+        System.out.println("[E][ ] " + name + infoList[currentIndex]);
+        
+        currentIndex++;
+        System.out.println("Now you have " + currentIndex + " tasks in the list.");
+    }
+
     public void listTasks() {
         for (int i = 0; i < currentIndex; i++) {
-            String output = i + 1 + ".";
+            char type = typeList[i] == 0 ? ' ' : typeList[i];
+            String output = i + 1 + "." + "[" + type + "]";
             if (doneList[i]) {
                 output += "[X] ";
             } else {
                 output += "[ ] ";
             }
             output += list[i];
-            System.out.println(output);
+            String info = infoList[i];
+            System.out.println(output + info);
         }
     }
 
     public void mark(int index) {
         doneList[index] = true;
+        String prefix = typeList[index] == 0 ? " " : typeList[index] + "";
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[X] " + list[index]);
+        System.out.println("[" + prefix + "][X] " + list[index]);
     }
 
     public void unmark(int index) {
         doneList[index] = false;
+        String prefix = typeList[index] == 0 ? " " : typeList[index] + "";
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[ ] " + list[index]);
+        System.out.println("[" + prefix + "][ ] " + list[index]);
     }
 }
