@@ -1,0 +1,23 @@
+todo
+todo Todo
+deadline
+deadline Deadline without due date
+deadline Deadline with random argument specified /random argument
+deadline Deadline with due date /by due date
+event
+event Event without start and end date
+event Event with only start date /from start date
+event Event with only end date /to end date
+event Event with random argument specified /random argument
+list
+mark 1
+mark 3
+list
+unmark 1
+unmark 3
+list
+mark 100
+mark -100
+unmark 100
+unmark -100
+bye
