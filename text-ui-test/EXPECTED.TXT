@@ -3,6 +3,9 @@ Hello! I'm JED, your personal chat-bot!
 What can I do for you?
 __________________________________________________
 __________________________________________________
+OOPS!!! I'm sorry, but I don't know what that means :-(
+__________________________________________________
+__________________________________________________
 Got it. I've added this task:
   [T][ ] borrow book
  Now you have 1 tasks in your list.
