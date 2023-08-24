@@ -1,6 +1,9 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import Task;
+import Deadline;
+import Event;
+import Todo;
 
 public class Glen {
     static final String HORLINE = "_____________________________________________________\n";
@@ -17,18 +20,41 @@ public class Glen {
             } else {
                 int index = Math.max(0, low.indexOf(" "));
                 String firstWord = low.substring(0, index);
+                String end = "";
+                try {
+                    end = input.substring(++index);
+                } finally {
                 if (firstWord.equals("mark") || firstWord.equals("unmark")) {
                     int taskIndex = -1;
                     try {
-                        taskIndex = Integer.valueOf(low.substring(++index)) - 1;
+                        taskIndex = Integer.valueOf(end) - 1;
                     } catch (Exception NumberFormatException) {}
                     if (taskIndex >= 0 && taskIndex < tasks.size()) {
                         toggle(firstWord, taskIndex);
                     } else {
                         System.out.println(HORLINE + "Please select a valid item to mark/unmark.\n" + HORLINE);
                     }   
+                } else if (firstWord.equals("deadline")) {
+                    int separatorIndex = end.indexOf("/by");
+        
+                    String string1 = end.substring(0, separatorIndex).trim();
+                    String string2 = end.substring(separatorIndex + 3).trim();
+
+                    System.out.println(addDeadline(string1, string2));
+                } else if (firstWord.equals("event")) {
+                    int fromIndex = end.indexOf("/from");
+                    int toIndex = end.indexOf("/to");
+            
+                    String string1 = end.substring(0, fromIndex).trim();
+                    String string2 = end.substring(fromIndex + 6, toIndex).trim();
+                    String string3 = end.substring(toIndex + 4).trim();
+
+                    System.out.println(addEvent(string1, string2, string3));
+                } else if (firstWord.equals("todo")) {
+                    System.out.println(addTodo(end));
                 } else {
-                    System.out.println(add(input));
+                    System.out.println(HORLINE + "Invalid command. Please try again.\n" + HORLINE);
+                }
                 }
             }
             input = scan.nextLine();
@@ -50,10 +76,22 @@ public class Glen {
         return HORLINE + logo + introText + HORLINE;
     }
 
-    static String add(String inp) {
-        Task newTask = new Task(inp);
+    static String addDeadline(String inp, String by) {
+        Task newTask = new Deadline(inp, by);
         tasks.add(newTask);
-        return HORLINE + "added: " + inp + "\n" + HORLINE;
+        return HORLINE + "Got it. I've added this task:\n  [D][ ]  " + inp + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
+    }
+
+    static String addEvent(String inp, String from, String to) {
+        Task newTask = new Event(inp, from, to);
+        tasks.add(newTask);
+        return HORLINE + "Got it. I've added this task:\n  [E][ ]  " + inp + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
+    }
+
+    static String addTodo(String inp) {
+        Task newTask = new Todo(inp);
+        tasks.add(newTask);
+        return HORLINE + "Got it. I've added this task:\n  [T][ ]  " + inp + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
     }
 
     static void toggle(String requestType, int taskIndex) {
@@ -61,13 +99,13 @@ public class Glen {
             System.out.println("Invalid item selected. Please try again.");
         } else {
             Task task = tasks.get(taskIndex);
-            if (requestType.equals("mark") && task.getStatusIcon().equals("X")) {
+            if (requestType.equals("mark") && task.getStatusIcon().equals("[X] ")) {
                 System.out.println(HORLINE + "Task is currently marked. Did you mean to unmark the task?\n" + HORLINE);
-            } else if (requestType.equals("unmark") && task.getStatusIcon().equals(" ")) {
+            } else if (requestType.equals("unmark") && task.getStatusIcon().equals("[ ] ")) {
                 System.out.println(HORLINE + "Task is currently unmarked. Did you mean to mark the task?\n" + HORLINE);
             } else {
                 task.toggle();
-                if (task.getStatusIcon().equals("X")) {
+                if (task.getStatusIcon().equals("[X] ")) {
                     System.out.println(HORLINE + "Nice! I've marked this task as done:");
                     System.out.println("  [X] " + task.getDescription() + "\n" + HORLINE);
                 } else {
@@ -82,7 +120,7 @@ public class Glen {
         String temp = "Here are the tasks in your list:\n";
         for(int i = 0; i < tasks.size(); i++) {
             Task tempTask = tasks.get(i);
-            temp += String.valueOf(i + 1) + ".[" + tempTask.getStatusIcon() + "] " + tempTask.getDescription() + "\n";
+            temp += String.valueOf(i + 1) + "." + tempTask.toString() + "\n";
         }  
         return HORLINE + temp + HORLINE;
     }
