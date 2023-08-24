@@ -55,6 +55,16 @@ public class Duke {
                     printLine();
                     continue;
                 }
+
+                if (command.equals("delete")) {
+                    int taskNumber = Integer.parseInt(words[1]);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println(tasks.get(taskNumber - 1));
+                    tasks.remove(taskNumber - 1);
+                    printLine();
+                    continue;
+                }
+
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 System.out.println("The selected task does not exist.");
                 printLine();
