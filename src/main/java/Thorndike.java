@@ -45,12 +45,34 @@ public class Thorndike {
                 list[idx - 1].setNotDone();
             }
             echo(list[idx - 1].toString());
+        } else if (isAddCommand(input)) {
+            if (command.equals("todo")) {
+                addTask(new Todo(input.split(" ")[1]));
+            } else if (command.equals("deadline")) {
+                addTask(new Deadline(input.split(" ")[1], input.split("/by ")[1]));
+            } else if (command.equals("event")) {
+                String time = input.split("/from ")[1];
+                String from = time.split("/to ")[0];
+                String to = time.split("/to ")[1];
+                addTask(new Event(input.split(" ")[1], from, to));
+            }
         } else {
-            this.list[index] = new Task(input);
-            this.index++;
-            echo(String.format("added: %s", input));
+            echo("Invalid");
         }
+    }
 
+    /**
+     * Add task to list.
+     * 
+     * @param task The task.
+     * 
+     */
+    private void addTask(Task task) {
+        this.list[index] = task;
+        this.index++;
+        echo("Got it. I've added this task:");
+        echo(task.toString());
+        echo(String.format("Now you have %d tasks in the list.", index));
     }
 
     /**
@@ -72,6 +94,28 @@ public class Thorndike {
             } catch (NumberFormatException e) {
 
             }
+        }
+        return false;
+    }
+
+    /**
+     * Determines if the input is a valid mark/unmark command
+     * 
+     * @param input Input.
+     * @return true if valid, false is invalid.
+     * 
+     */
+    private boolean isAddCommand(String input) {
+        String[] parts = input.split(" ");
+        String command = parts[0];
+        if (command.equals("todo")) {
+            return true;
+        }
+        if (command.equals("deadline") && input.split("/by").length == 2) {
+            return true;
+        }
+        if (command.equals("event") && input.split("/from").length == 2 && input.split("/to").length == 2) {
+            return true;
         }
         return false;
     }
