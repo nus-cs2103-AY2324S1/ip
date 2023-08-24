@@ -1,0 +1,17 @@
+todo
+todo play games
+deadline
+deadline watch Tv /by
+deadline /by 7pm
+deadline watch TV /by 7pm
+event
+event sleep /from /to 7am
+event sleep /from 1am /to
+event /from 1am /to 7am
+event sleep /from 1am /to 7am
+list
+mark 1
+mark 2
+unmark 1
+list
+bye
