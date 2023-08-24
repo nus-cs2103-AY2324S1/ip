@@ -1,5 +1,39 @@
 import java.util.Scanner;
 public class ChatBuddy {
+    // store a list of tasks
+    static String[] list = new String[100];
+    static int numOfTasks = 0;
+
+    /**
+     * Add task to list array.
+     *
+     * @param task The task string to add to the list of tasks
+     */
+    private static void addTask(String task) {
+        // add task to list
+        list[numOfTasks] = task;
+        numOfTasks++;
+
+        // display message
+        printHorizontalLine();
+        System.out.println("    added: " + task);
+        printHorizontalLine();
+    }
+
+    /** Displays the list of tasks. */
+    private static void printTaskList() {
+        printHorizontalLine();
+        for (int i = 0; i < list.length; i++) {
+            if (list[i] == null) {
+                // there are no more tasks
+                break;
+            }
+            System.out.println(String.format("    %1s. %2s", i + 1, list[i]));
+        }
+        printHorizontalLine();
+    }
+
+    /** Displays a horizontal line. */
     private static void printHorizontalLine() {
         String horizontalLine = "    ____________________________________________________________";
         System.out.println(horizontalLine);
@@ -16,9 +50,11 @@ public class ChatBuddy {
         String userInput = scanner.nextLine();
 
         while (!userInput.equals("bye")) {
-            printHorizontalLine();
-            System.out.println("    " + userInput);
-            printHorizontalLine();
+            if (userInput.equals("list")) {
+                printTaskList();
+            } else {
+                addTask(userInput);
+            }
             userInput = scanner.nextLine();
         }
 
