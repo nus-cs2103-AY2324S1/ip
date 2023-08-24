@@ -8,5 +8,61 @@ Got it. I've added this task:
  Now you have 1 tasks in your list.
 __________________________________________________
 __________________________________________________
+Got it. I've added this task:
+  [T][ ] read book
+ Now you have 2 tasks in your list.
+__________________________________________________
+__________________________________________________
+Got it. I've added this task:
+  [D][ ] complete book review (by: Monday 2359)
+ Now you have 3 tasks in your list.
+__________________________________________________
+__________________________________________________
+Got it. I've added this task:
+  [E][ ] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
+ Now you have 4 tasks in your list.
+__________________________________________________
+__________________________________________________
+  1. [T][ ] borrow book
+  2. [T][ ] read book
+  3. [D][ ] complete book review (by: Monday 2359)
+  4. [E][ ] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
+
+__________________________________________________
+__________________________________________________
+Nice! I've marked this task as done:
+  [T][X] borrow book
+__________________________________________________
+__________________________________________________
+Nice! I've marked this task as done:
+  [T][X] read book
+__________________________________________________
+__________________________________________________
+Nice! I've marked this task as done:
+  [D][X] complete book review (by: Monday 2359)
+__________________________________________________
+__________________________________________________
+Nice! I've marked this task as done:
+  [E][X] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
+__________________________________________________
+__________________________________________________
+  1. [T][X] borrow book
+  2. [T][X] read book
+  3. [D][X] complete book review (by: Monday 2359)
+  4. [E][X] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
+
+__________________________________________________
+__________________________________________________
+OK, I've marked this task as not done yet:
+  [E][ ] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
+__________________________________________________
+__________________________________________________
+  1. [T][X] borrow book
+  2. [T][X] read book
+  3. [D][X] complete book review (by: Monday 2359)
+  4. [E][ ] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
+
+__________________________________________________
+__________________________________________________
 Bye. Hope to see you again soon!
 __________________________________________________
