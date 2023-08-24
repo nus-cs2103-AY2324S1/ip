@@ -17,12 +17,15 @@ public class InsertCommand implements Command {
     public void run(String input) {
         String[] args = input.split(" ", 2);
         String taskType = args[0];
-        String taskInput = args[1];
-
-        Task task = Task.createTask(taskType, taskInput);
-        this.state.insertTask(task);
-        int taskCount = this.state.getTaskCount();
-        System.out.printf((DukeConstants.INSERT_MESSAGE) + "%n",
-                task, taskCount, taskCount == 1 ? "task" : "tasks");
+        String taskInput = args.length > 1 ? args[1] : "";
+        try {
+            Task task = Task.createTask(taskType, taskInput);
+            this.state.insertTask(task);
+            int taskCount = this.state.getTaskCount();
+            System.out.printf((DukeConstants.INSERT_MESSAGE) + "%n",
+                    task, taskCount, taskCount == 1 ? "task" : "tasks");
+        } catch (InsufficientArgumentsException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

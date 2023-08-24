@@ -7,4 +7,9 @@ mark 2
 list
 unmark 2
 list
+todo
+event math lecture
+event math lecture /from tomorrow
+deadline math homework /from tomorrow
+generate report
 bye

@@ -2,6 +2,8 @@
  * Constants of the application.
  */
 public class DukeConstants {
+
+    // REGULAR MESSAGES
     public static final String HORIZONTAL_LINE =
             "____________________________________________________________";
     public static final String GREETING_MESSAGE = "\t" +
@@ -25,4 +27,9 @@ public class DukeConstants {
             HORIZONTAL_LINE;
     public static final String EXIT_MESSAGE =
             "\t Bye. Hope to see you again soon!\n\t" + HORIZONTAL_LINE;
+
+    // ERROR MESSAGES
+    public static final String ERROR_MESSAGE = "\t ☹ OOPS!!! %s\n\t" + HORIZONTAL_LINE;
+    public static final String INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE = "The %s of a %s cannot be empty.";
+    public static final String UNKNOWN_COMMAND_ERROR_MESSAGE = "I'm sorry, but I don't know what that means :-(";
 }

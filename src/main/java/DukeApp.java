@@ -1,15 +1,9 @@
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * The Application object responsible for storing and executing commands.
  */
 public class DukeApp {
-    /**
-     * Default to EchoCommand if input is unknown.
-     */
-    private final Command defaultCommand;
-
     /**
      * All commands stored in a map.
      */
@@ -26,8 +20,6 @@ public class DukeApp {
         this.addCommand("deadline", new InsertCommand(state));
         this.addCommand("event", new InsertCommand(state));
         this.addCommand("todo", new InsertCommand(state));
-
-        this.defaultCommand = new InsertCommand(state);
     }
 
     /**
@@ -45,7 +37,7 @@ public class DukeApp {
      *
      * @param input The input of the user.
      */
-    public void executeCommand(String input) {
+    public void executeCommand(String input) throws UnknownCommandException {
         System.out.println("\t" + DukeConstants.HORIZONTAL_LINE);
 
         // Separate the command name and the command input
@@ -53,6 +45,10 @@ public class DukeApp {
         String commandName = args[0];
 
         Command command = commandMap.get(commandName);
-        Objects.requireNonNullElse(command, this.defaultCommand).run(input);
+        if (command != null) {
+            command.run(input);
+        } else {
+            throw new UnknownCommandException(DukeConstants.UNKNOWN_COMMAND_ERROR_MESSAGE);
+        }
     }
 }
