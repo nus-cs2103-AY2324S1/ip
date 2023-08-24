@@ -12,5 +12,9 @@ public class Task {
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
+
+    public String getDescription() {
+        return this.description;
+    }
     //@@author
 }

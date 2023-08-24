@@ -22,7 +22,9 @@ public class Rocket {
             } else if (command.equals("list")) {
                 System.out.println(LINE);
                 for (int i = 0; i < taskList.size(); i++) {
-                    System.out.println("    " + (i + 1) + ". " + taskList.get(i));
+                    Task task = taskList.get(i);
+                    System.out.println("    " + (i + 1) + ".[" + task.getStatusIcon() + "] "
+                            + task.getDescription());
                 }
                 System.out.println(LINE);
                 command = scanner.nextLine();
