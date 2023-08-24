@@ -20,8 +20,8 @@ public class Ben {
     }
 
     public void addSuccessMessage(Task task) {
-        System.out.println("Got It! This task has been added: \n" + task +
-                "\nNow you have " + tasks.size() + " items in the list");
+        System.out.println(HORIZONTAL_LINE + "\nGot It! This task has been added: \n" + task +
+                "\nNow you have " + tasks.size() + " items in the list\n" + HORIZONTAL_LINE);
     }
 
     public void add(String message) {
