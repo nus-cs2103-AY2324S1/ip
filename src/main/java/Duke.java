@@ -1,6 +1,9 @@
+import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         greet();
+        getUserInput();
         exit();
     }
 
@@ -12,7 +15,28 @@ public class Duke {
     }
 
     public static void exit() {
+        lines();
         System.out.println("Bye. Hope to see you again soon!");
+        lines();
+    }
+
+    public static void getUserInput() {
+        Scanner sc = new Scanner(System.in);
+        String bye = new String("bye");
+
+        while (true) {
+            String userInput = sc.next();
+            if (userInput.equals(bye)) {
+                break;
+            } else {
+                display(userInput);
+            }
+        }
+    }
+
+    public static void display(String message) {
+        lines();
+        System.out.println(message);
         lines();
     }
 
