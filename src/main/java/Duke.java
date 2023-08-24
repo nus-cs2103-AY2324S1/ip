@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -9,7 +11,7 @@ public class Duke {
 
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String CHATBOT_NAME = "Koko";
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     private static void printFormatted(String originalMessage) {
         String indentedMessage = Arrays.stream(originalMessage.split("\n"))
@@ -118,6 +120,11 @@ public class Duke {
 
     public static void main(String[] args) {
         Duke.greet();
+        try {
+            tasks = FileUtils.loadTasksFromFile();
+        } catch (FileNotFoundException fileNotFoundException) {
+            tasks = new ArrayList<>();
+        }
 
         Scanner scanner = new Scanner(System.in);
         Stream.generate(scanner::nextLine)
