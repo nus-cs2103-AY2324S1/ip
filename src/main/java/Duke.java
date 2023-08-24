@@ -12,7 +12,10 @@ public class Duke {
     }
 
     private static boolean parseCommand(String input) {
-        switch (input) {
+        String[] sections = input.split(" ", 2);
+        String command = sections[0];
+        String rest = sections.length > 1 ? sections[1] : "";
+        switch (command) {
             case "bye": {
                 Duke.bye();
                 return false;
@@ -23,10 +26,36 @@ public class Duke {
                 break;
             }
 
-            default: {
-                toDoList.add(new Task(input));
-                System.out.println("Added: " + input);
+            case "add": {
+                toDoList.add(new Task(rest));
+                System.out.println("Added: " + rest);
                 break;
+            }
+
+            case "mark": {
+                if (rest.isEmpty()) {
+                    throw new IllegalArgumentException("Index is missing.");
+                }
+                int index = Integer.parseInt(rest);
+                toDoList.mark(index);
+                System.out.println("Nice! I've marked this task as done: \n" +
+                        toDoList.get(index));
+                break;
+            }
+
+            case "unmark": {
+                if (rest.isEmpty()) {
+                    throw new IllegalArgumentException("Index is missing.");
+                }
+                int index = Integer.parseInt(rest);
+                toDoList.unmark(index);
+                System.out.println("OK, I've marked this task as not done yet: \n" +
+                        toDoList.get(index));
+                break;
+            }
+
+            default: {
+                throw new IllegalArgumentException("Unknown command");
             }
         }
         return true;

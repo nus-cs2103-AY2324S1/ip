@@ -25,6 +25,20 @@ public class ToDoList {
         return list.get(index - 1);
     }
 
+    public void mark(int index) {
+        if (index < 1 || index > list.size()) {
+            throw new IndexOutOfBoundsException("Task index is out of range.");
+        }
+        list.get(index - 1).markDone();
+    }
+
+    public void unmark(int index) {
+        if (index < 1 || index > list.size()) {
+            throw new IndexOutOfBoundsException("Task index is out of range.");
+        }
+        list.get(index - 1).markUndone();
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
