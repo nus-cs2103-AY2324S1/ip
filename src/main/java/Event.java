@@ -9,6 +9,12 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * Returns a string representation of Deadline
+     *
+     * @return A string representation of Deadline
+     */
+
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), from, to);
