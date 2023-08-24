@@ -24,87 +24,117 @@ public class Duke {
         Scanner input = new Scanner(System.in);
 
         ArrayList<Task> list = new ArrayList<>();
-        while (true) {
-            String userInput = input.nextLine();
+        boolean end = false;
+        while (!end) {
+            try {
+                String userInput = input.nextLine();
 
-            int spaceIndex = userInput.indexOf(" ");
-            if (spaceIndex == -1) {
-                if (userInput.equals("list")) {
-                    System.out.println(line);
-                    for (int i = 0; i < list.size(); i++) {
-                        System.out.println(Integer.toString(i + 1)
-                                + ". "
-                                + list.get(i));
+                int spaceIndex = userInput.indexOf(" ");
+                if (spaceIndex == -1) {
+                    switch (userInput) {
+                        case "list":
+                            System.out.println(line);
+                            for (int i = 0; i < list.size(); i++) {
+                                System.out.println(Integer.toString(i + 1)
+                                        + ". "
+                                        + list.get(i));
+                            }
+                            System.out.println(line + "\n");
+                            break;
+                        case "bye":
+                            end = true;
+                            break;
+                        case "todo":
+                            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        case "event":
+                            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                        case "deadline":
+                            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        default:
+                            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
-                    System.out.println(line + "\n");
-                } else if (userInput.equals("bye")) {
-                    break;
+                } else {
+                    switch (userInput.substring(0, spaceIndex)) {
+                        case "todo":
+                            String todoDesc = userInput.substring(spaceIndex + 1);
+                            if (todoDesc.isEmpty()) {
+                                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                            }
+                            list.add(new Todo(todoDesc));
+                            System.out.println(line
+                                    + "\n"
+                                    + "Got it. I've added this task:\n"
+                                    + list.get(list.size() - 1)
+                                    + "\n"
+                                    + "Now you have " + list.size() + " tasks in the list.\n"
+                                    + line
+                                    + "\n");
+                            break;
+                        case "event":
+                            int fromIndex = userInput.indexOf("/from");
+                            int toIndex = userInput.indexOf("/to");
+                            String eventDesc = userInput.substring(spaceIndex + 1, fromIndex - 1);
+                            if (eventDesc.isEmpty()) {
+                                throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                            }
+                            String from = userInput.substring(fromIndex + 6, toIndex - 1);
+                            String to = userInput.substring(toIndex + 4);
+                            list.add(new Event(eventDesc, from, to));
+                            System.out.println(line
+                                    + "\n"
+                                    + "Got it. I've added this task:\n"
+                                    + list.get(list.size() - 1)
+                                    + "\n"
+                                    + "Now you have " + list.size() + " tasks in the list.\n"
+                                    + line
+                                    + "\n");
+                            break;
+                        case "deadline":
+                            int byIndex = userInput.indexOf("/by");
+                            String deadlineDesc = userInput.substring(spaceIndex + 1, byIndex - 1);
+                            if (deadlineDesc.isEmpty()) {
+                                throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                            }
+                            String by = userInput.substring(byIndex + 4);
+                            list.add(new Deadline(deadlineDesc, by));
+                            System.out.println(line
+                                    + "\n"
+                                    + "Got it. I've added this task:\n"
+                                    + list.get(list.size() - 1)
+                                    + "\n"
+                                    + "Now you have " + list.size() + " tasks in the list.\n"
+                                    + line
+                                    + "\n");
+                            break;
+                        case "mark":
+                            int i = Integer.parseInt(userInput.split(" ", 2)[1]);
+                            list.get(i - 1).markAsDone();
+                            System.out.println(line
+                                    + "\n"
+                                    + "Nice! I've marked this task as done:\n"
+                                    + list.get(i - 1)
+                                    + "\n"
+                                    + line
+                                    + "\n");
+                            break;
+                        case "unmark":
+                            int j = Integer.parseInt(userInput.split(" ", 2)[1]);
+                            list.get(j - 1).markAsNotDone();
+                            System.out.println(line + "\n"
+                                    + "OK, I've marked this task as not done yet:\n"
+                                    + list.get(j - 1)
+                                    + "\n"
+                                    + line);
+                            break;
+                        default:
+                            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    }
                 }
-            } else {
-                switch (userInput.substring(0, spaceIndex)) {
-                    case "todo":
-                        list.add(new Todo(userInput.substring(spaceIndex + 1)));
-                        System.out.println(line
-                                + "\n"
-                                + "Got it. I've added this task:\n"
-                                + list.get(list.size() - 1)
-                                + "\n"
-                                + "Now you have " + list.size() + " tasks in the list.\n"
-                                + line
-                                + "\n");
-                        break;
-                    case "event":
-                        int fromIndex = userInput.indexOf("/from");
-                        int toIndex = userInput.indexOf("/to");
-                        String eventDesc = userInput.substring(spaceIndex + 1, fromIndex - 1);
-                        String from = userInput.substring(fromIndex + 6, toIndex - 1);
-                        String to = userInput.substring(toIndex + 4);
-                        list.add(new Event(eventDesc, from, to));
-                        System.out.println(line
-                                + "\n"
-                                + "Got it. I've added this task:\n"
-                                + list.get(list.size() - 1)
-                                + "\n"
-                                + "Now you have " + list.size() + " tasks in the list.\n"
-                                + line
-                                + "\n");
-                        break;
-                    case "deadline":
-                        int byIndex = userInput.indexOf("/by");
-                        String DeadlineDesc = userInput.substring(spaceIndex + 1, byIndex - 1);
-                        String by = userInput.substring(byIndex + 4);
-                        list.add(new Deadline(DeadlineDesc, by));
-                        System.out.println(line
-                                + "\n"
-                                + "Got it. I've added this task:\n"
-                                + list.get(list.size() - 1)
-                                + "\n"
-                                + "Now you have " + list.size() + " tasks in the list.\n"
-                                + line
-                                + "\n");
-                        break;
-                    case "mark":
-                        int i = Integer.parseInt(userInput.split(" ", 2)[1]);
-                        list.get(i - 1).markAsDone();
-                        System.out.println(line
-                                + "\n"
-                                + "Nice! I've marked this task as done:\n"
-                                + list.get(i - 1)
-                                + "\n"
-                                + line
-                                + "\n");
-                        break;
-                    case "unmark":
-                        int j = Integer.parseInt(userInput.split(" ", 2)[1]);
-                        list.get(j - 1).markAsNotDone();
-                        System.out.println(line + "\n"
-                                + "OK, I've marked this task as not done yet:\n"
-                                + list.get(j - 1)
-                                + "\n"
-                                + line);
-                        break;
-                }
+            } catch (DukeException e) {
+                System.out.println(line + "\n" + e.getMessage() + "\n" + line + "\n");
+
             }
+
 
 
         }
