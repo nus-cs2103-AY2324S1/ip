@@ -19,14 +19,17 @@ public class Duke {
                     break;
                 } else if (input.equals("list")) {
                     taskList.list();
-                } else if (input.length() >= 4 && input.substring(0, 4).equals("mark")) {
-                    int index = extractNumber(input);
+                } else if (firstWord.equals("mark")) {
+                    int index = extractNumber(input) - 1;
                     taskList.markTaskAsDone(index);
-                } else if (input.length() >= 6 && input.substring(0, 6).equals("unmark")) {
-                    int index = extractNumber(input);
+                } else if (firstWord.equals("unmark")) {
+                    int index = extractNumber(input) - 1;
                     taskList.unmarkTask(index);
                 } else if (firstWord.equals("todo") || firstWord.equals("deadline") || firstWord.equals("event")) {
                     taskList.addTask(input);
+                } else if (firstWord.equals("delete")) {
+                    int index = extractNumber(input) - 1;
+                    taskList.deleteTask(index);
                 } else {
                     throw new DukeException(messageWithSeparator("☹ OOPS!!! I'm sorry, but I don't know what that means :-("));
                 }

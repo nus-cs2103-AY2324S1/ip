@@ -39,21 +39,32 @@ public class TaskList {
                 + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
-    public void markTaskAsDone(int index) {
-        if (index < 1 || index > tasks.size()) {
+    public void deleteTask(int index) {
+        if (index < 0 || index >= tasks.size()) {
             printWithSeparator("Please enter a valid number.");
         } else {
-            Task task = tasks.get(index - 1);
+            Task task = tasks.get(index);
+            tasks.remove(index);
+            printWithSeparator("Noted. I've removed this task:\n" + task.getDescription()
+                    + "\nNow you have " + tasks.size() + " tasks in the list.");
+        }
+    }
+
+    public void markTaskAsDone(int index) {
+        if (index < 0 || index >= tasks.size()) {
+            printWithSeparator("Please enter a valid number.");
+        } else {
+            Task task = tasks.get(index);
             task.markAsDone();
             printWithSeparator("Nice! I've marked this task as done:\n" + task.getDescription());
         }
     }
 
     public void unmarkTask(int index) {
-        if (index < 1 || index > tasks.size()) {
+        if (index < 0 || index >= tasks.size()) {
             printWithSeparator("Please enter a valid number.");
         } else {
-            Task task = tasks.get(index - 1);
+            Task task = tasks.get(index);
             task.unmark();
             printWithSeparator("OK, I've marked this task as not done yet:\n" + task.getDescription());
         }
