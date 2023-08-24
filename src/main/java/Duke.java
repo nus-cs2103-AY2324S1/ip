@@ -1,3 +1,4 @@
+import java.util.Scanner;
 /**
  * Class For Duke
  */
@@ -7,9 +8,23 @@ public class Duke {
                 "____________________________________________________________\n" +
                 "Hello! I'm Chrainx \n" +
                 "What can I do for you? \n" +
-                "____________________________________________________________" +
-                "Bye. Hope to see you again soon!" +
-                "____________________________________________________________"
+                "____________________________________________________________\n" +
+                "Bye. Hope to see you again soon!\n" +
+                "____________________________________________________________\n"
+        );
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        while (!(input.equals("bye"))) {
+            System.out.println(
+                    "____________________________________________________________\n" +
+                    input + "\n" +
+                    "____________________________________________________________\n"
+            );
+            input = scanner.nextLine();
+        }
+        System.out.println(
+                "Bye. Hope to see you again soon!\n" +
+                "____________________________________________________________\n"
         );
     }
 }
