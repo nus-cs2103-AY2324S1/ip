@@ -16,7 +16,7 @@ public class Monday {
             } catch (MondayExceptions e) {
                 System.out.println(e);
             } catch (NumberFormatException e) {
-                System.out.println("Mark/UnMark index error: " + e.getMessage());
+                System.out.println("Mark/UnMark number error. " + e.getMessage());
             } catch (IllegalArgumentException e) {
                 System.out.println("Argument Error: " + e.getMessage());
             } catch (IndexOutOfBoundsException e) {
@@ -104,6 +104,14 @@ public class Monday {
                     throw new IllegalArgumentException("Invalid Format. " +
                             "Usage: event (task) /from (start time) /to (end time)");
                 }
+                break;
+            case "delete":
+                if (content == null) {
+                    throw new MondayExceptions("Delete requires a index to delete the task");
+                }
+                int index = Integer.parseInt(content);
+
+                Storage.delete(index);
                 break;
             default:
                 throw new MondayExceptions("Sorry, I do not understand what that means.\n" +

@@ -34,4 +34,15 @@ public class Storage {
         taskToEdit.unMark();
         System.out.println("OK, I've marked this task as not done yet:\n" + taskToEdit);
     }
+
+    public static void delete(int index) {
+        if (index < 1 || index > list.size()) {
+            throw new IndexOutOfBoundsException("Task index is out of the range. " +
+                    "Check number of task using 'list' command.");
+        }
+        Task taskToEdit = list.get(index - 1);
+        list.remove(index - 1);
+        System.out.println("Noted. I've removed this task::\n" + taskToEdit);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+    }
 }
