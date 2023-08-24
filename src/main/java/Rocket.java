@@ -79,8 +79,7 @@ public class Rocket {
                     break;
                 }
                 case "todo": {
-                    String description = arguments;
-                    Todo todo = new Todo(description);
+                    Todo todo = new Todo(arguments);
                     taskList.add(todo);
                     System.out.println(LINE);
                     System.out.println("    Got it. I've added this task:");
