@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Duke {
     public static void main(String[] args) {
         String line = "────────────────────────────────────────────────────────────────────\n";
@@ -16,11 +17,27 @@ public class Duke {
         System.out.println(greet);
         Scanner input = new Scanner(System.in);
 
-        String[] list = new String[100];
+        Task[] list = new Task[100];
         int index = 0;
         while (true) {
             String userInput = input.nextLine();
-            if (userInput.equals("bye")) {
+            if (userInput.split(" ", 2)[0].equals("mark")) {
+                int i = Integer.parseInt(userInput.split(" ", 2)[1]);
+                list[i - 1].markAsDone();
+                System.out.println(line
+                        + "Nice! I've marked this task as done: \n"
+                        + list[i - 1]
+                        + "\n"
+                        + line);
+            } else if (userInput.split(" ", 2)[0].equals("unmark")) {
+                int i = Integer.parseInt(userInput.split(" ", 2)[1]);
+                list[i - 1].markAsNotDone();
+                System.out.println(line
+                        + "OK, I've marked this task as not done yet: \n"
+                        + list[i - 1]
+                        + "\n"
+                        + line);
+            } else if (userInput.equals("bye")) {
                 break;
             } else if (userInput.equals("list")) {
                 for (int i = 0; i < index; i++) {
@@ -29,7 +46,7 @@ public class Duke {
                             + list[i]);
                 }
             } else {
-                list[index] = userInput;
+                list[index] = new Task(userInput);
                 index++;
                 System.out.println(line
                         + "added: "
