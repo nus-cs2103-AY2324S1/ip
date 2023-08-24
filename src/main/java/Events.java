@@ -7,17 +7,11 @@ public class Events extends Task {
         this.to = to;
     }
 
-    public String getFrom() {
-        return this.from;
-    }
 
-    public String getTo() {
-        return this.to;
-    }
 
     @Override
     public String getSymbol() {
-        return "T";
+        return "E";
     }
 
     @Override

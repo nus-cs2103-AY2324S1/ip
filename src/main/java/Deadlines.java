@@ -5,9 +5,6 @@ public class Deadlines extends Task {
         this.datetime = datetime;
     }
 
-    public String getDatetime() {
-        return this.datetime;
-    }
     @Override
     public String getSymbol() {
         return "D";
@@ -18,4 +15,5 @@ public class Deadlines extends Task {
         String description = String.format("%s (by: %s)", super.getName(), this.datetime);
         return description;
     }
+
 }
