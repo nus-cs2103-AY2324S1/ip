@@ -19,6 +19,10 @@ public class TaskList {
         return this.taskList.get(idx - 1).toString();
     }
 
+    public Task deleteTask(int taskIdx) {
+        return this.taskList.remove(taskIdx - 1);
+    }
+
     public void showList() {
         System.out.println("    ____________________________________________________________");
         System.out.println("     Here are the tasks in your list:");

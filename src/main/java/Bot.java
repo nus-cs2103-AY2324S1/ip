@@ -60,6 +60,14 @@ public class Bot {
         notifyTaskAdded(task);
     }
 
+    public void deleteTask(int taskIdx) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("     Noted. I've removed this task:");
+        System.out.println("       " + this.list.deleteTask(taskIdx));
+        System.out.println("     Now you have " + this.list.size() + " tasks in the list.");
+        System.out.println("    ____________________________________________________________");
+    }
+
     public void showTask() {
         this.list.showList();
     }

@@ -84,6 +84,12 @@ public class Qi {
                 continue;
             }
 
+            if (str.startsWith("delete")) {
+                int taskIdx = Integer.parseInt(str.substring(7));
+                qi.deleteTask(taskIdx);
+                continue;
+            }
+
             System.out.println("    ____________________________________________________________");
             System.out.println("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             System.out.println("    ____________________________________________________________");
