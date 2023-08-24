@@ -1,7 +1,8 @@
 public class InvalidTaskIndexException extends DudeException {
-  public InvalidTaskIndexException() {
+  public InvalidTaskIndexException(String index) {
     super(
-      "I can't find the task numbered \"%s\".\nTry checking if you've typed the correct task number."
+      String.format("I can't find the task numbered \"%s\".\nTry checking if you've typed the correct task number.",
+        index)
     );
   }
 }
