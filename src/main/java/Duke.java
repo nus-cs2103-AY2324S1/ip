@@ -7,15 +7,23 @@ public class Duke {
     private void displayList() {
         System.out.println("____________________________________________________________");
         for (int i = 0; i < numofList; i++) {
-            System.out.println((i + 1) + ".[" + list[i].getStatusIcon() + "] " + list[i].getDescription());
+            System.out.println((i + 1) + "." + list[i]);
         }
         System.out.println("____________________________________________________________");
     }
-    private void addList(String Input) {
-        list[numofList] = new Task(Input);
+    private void addList(String Input, Integer type) {
+        if (type == 0) {
+            list[numofList] = new Todo(Input);
+        } else if (type == 1) {
+            list[numofList] = new Deadline(Input);
+        } else if (type == 2) {
+            list[numofList] = new Event(Input);
+        }
         numofList++;
         System.out.println("____________________________________________________________");
-        System.out.println(" added: " + Input);
+        System.out.println(" Got it. I've added this task:");
+        System.out.println("   " + list[numofList - 1]);
+        System.out.println(" Now you have " + numofList + " tasks in the list.");
         System.out.println("____________________________________________________________");
     }
     private void run() {
@@ -34,7 +42,16 @@ public class Duke {
                     Integer.parseInt(splittedInput[1]) <= numofList) {
                 list[Integer.parseInt(splittedInput[1]) - 1].unmark();
             } else {
-                addList(Input);
+                int index= Input.indexOf(" ");
+                String taskDescription = Input.substring(index + 1);
+                if (splittedInput[0].equalsIgnoreCase("todo")) {
+                    addList(taskDescription, 0);
+                } else if (splittedInput[0].equalsIgnoreCase("deadline")) {
+                    addList(taskDescription, 1);
+                } else if (splittedInput[0].equalsIgnoreCase("event")) {
+                    addList(taskDescription, 2);
+                }
+
             }
             Input = scanner.nextLine();
         }
