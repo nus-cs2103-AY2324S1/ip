@@ -1,4 +1,8 @@
+import java.util.Scanner;
+
 public class Duke {
+    private static final String BYE_FLAG = "bye";
+
     public static void main(String[] args) {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -13,7 +17,18 @@ public class Duke {
                 + "What can I do for you?\n";
         printOutput(greetings);
 
-        printOutput("Bye. Hope to see you again soon!\n");
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNextLine()) {
+            String input = sc.nextLine().trim();
+
+            if (input.equals(BYE_FLAG)) {
+                printOutput("Bye. Hope to see you again soon!\n");
+                break;
+            }
+
+            printOutput(input + "\n");
+        }
+        sc.close();
     }
 
     private static void drawLine() {
