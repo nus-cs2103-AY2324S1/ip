@@ -1,0 +1,8 @@
+event dating her /from Mon 10pm /to Tue 2am
+deadline finish CS2103 homework /by Mon 11pm
+todo listen to the lecture
+list
+mark 2
+unmark 2
+list
+bye
