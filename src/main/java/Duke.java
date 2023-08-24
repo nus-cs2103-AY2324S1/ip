@@ -23,31 +23,31 @@ public class Duke {
         }
 
         bye();
-        
+
         sc.close();
     }
 
     public static void hello() {
-        printLine();
+        printWithIndentation(HORIZONTAL_LINE);
         System.out.println(LOGO);
-        System.out.println("Hello! I'm " + NAME);
-        System.out.println("What can I do for you?");
-        printLine();
+        printWithIndentation("Hello! I'm " + NAME);
+        printWithIndentation("What can I do for you?");
+        printWithIndentation(HORIZONTAL_LINE);
     }
 
     public static void bye() {
-        printLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
+        printWithIndentation(HORIZONTAL_LINE);
+        printWithIndentation("Bye. Hope to see you again soon!");
+        printWithIndentation(HORIZONTAL_LINE);
     }
 
     public static void echo(String input) {
-        printLine();
-        System.out.println(input);
-        printLine();
+        printWithIndentation(HORIZONTAL_LINE);
+        printWithIndentation(input);
+        printWithIndentation(HORIZONTAL_LINE);
     }
 
-    private static void printLine() {
-        System.out.println(HORIZONTAL_LINE);
+    private static void printWithIndentation(String input) {
+        System.out.println("    " + input);
     }
 }
