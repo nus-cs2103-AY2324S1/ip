@@ -17,14 +17,16 @@ public class Duke {
         }
     }
 
-    public static void addTask(String task) {
+    public static void addTask(String task) throws DukeException {
         if (task.startsWith("todo")) {
+            if (task.length() < 6) throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
             System.out.println("    Got it. I've added this task:");
             arr.add(new Todo(task.substring(5)));
             System.out.println("      " + arr.get(arr.size() - 1).toString());
             System.out.println("    Now you have " + arr.size() + " tasks in the list.");
         }
         else if (task.startsWith("deadline")) {
+            if (task.length() < 10) throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
             System.out.println("    Got it. I've added this task:");
             String description = "";
             String by = "";
@@ -40,6 +42,7 @@ public class Duke {
             System.out.println("    Now you have " + arr.size() + " tasks in the list.");
         }
         else if (task.startsWith("event")) {
+            if (task.length() < 7) throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
             System.out.println("    Got it. I've added this task:");
             int slash1 = -1;
             int slash2 = -1;
@@ -55,6 +58,8 @@ public class Duke {
             arr.add(new Event(description, from, to));
             System.out.println("      " + arr.get(arr.size() - 1).toString());
             System.out.println("    Now you have " + arr.size() + " tasks in the list.");
+        } else {
+            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -70,7 +75,7 @@ public class Duke {
         System.out.println("      " + arr.get(index - 1).toString());
     }
 
-    public static void processCommand(String command) {
+    public static void processCommand(String command) throws DukeException {
         if (command.equals("bye")) {
             bye();
         }
@@ -107,7 +112,11 @@ public class Duke {
         do {
             inputStr = in.nextLine();
             System.out.println(HORIZONTAL_LINE);
-            processCommand(inputStr);
+            try {
+                processCommand(inputStr);
+            } catch (DukeException e) {
+                System.out.println("    " + e.getMessage());
+            }
             System.out.println(HORIZONTAL_LINE);
         } while (!inputStr.equals("bye"));
     }
