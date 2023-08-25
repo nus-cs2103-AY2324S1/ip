@@ -34,6 +34,7 @@ public class Todo extends Task {
         }
         try {
             Matcher matcher = Pattern.compile("todo ").matcher(input);
+            matcher.find();
             String description = input.substring(matcher.end()).trim();
             return new Todo(description);
         } catch (Exception e) {

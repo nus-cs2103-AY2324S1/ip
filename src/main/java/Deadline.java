@@ -31,6 +31,7 @@ public class Deadline extends Task {
      */
     public static Deadline of(String input) throws MissingInformationException {
         Matcher matcher = Pattern.compile("deadline ").matcher(input);
+        matcher.find();
         String info = input.substring(matcher.end()).trim();
         matcher = Pattern.compile(" /by ").matcher(info);
         if (!matcher.find()) {

@@ -35,6 +35,7 @@ public class Event extends Task {
      */
     public static Event of(String input) throws MissingInformationException {
         Matcher matcher = Pattern.compile("event ").matcher(input);
+        matcher.find();
         String info = input.substring(matcher.end()).trim();
         matcher = Pattern.compile(" /from ").matcher(info);
         if (!matcher.find()) {
