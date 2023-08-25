@@ -1,5 +1,5 @@
 public class Deadline extends Task {
-    private String deadline;
+    private final String deadline;
 
     public Deadline(String task, String deadline) {
         super(task);
@@ -8,9 +8,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        if (this.done) {
-            return "[D][X] " + this.task + " (by: " + this.deadline + ")";
-        }
-        return "[D][ ] " + this.task + " (by: " + this.deadline + ")";
+        String checkBox = this.done ? "[D][X] " : "[D][ ] ";
+        String description = String.format("%s (by: %s)", this.task, this.deadline);
+        return checkBox + description;
     }
 }

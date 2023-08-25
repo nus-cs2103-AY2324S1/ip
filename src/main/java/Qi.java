@@ -17,14 +17,14 @@ public class Qi {
             }
 
             if (str.startsWith("mark ")) {
-                int taskIdx = Integer.parseInt(str.substring(5));
-                qi.markTask(taskIdx);
+                int taskId = Integer.parseInt(str.substring(5));
+                qi.markTask(taskId);
                 continue;
             }
 
             if (str.startsWith("unmark ")) {
-                int taskIdx = Integer.parseInt(str.substring(7));
-                qi.unmarkTask(taskIdx);
+                int taskId = Integer.parseInt(str.substring(7));
+                qi.unmarkTask(taskId);
                 continue;
             }
 
@@ -85,8 +85,8 @@ public class Qi {
             }
 
             if (str.startsWith("delete")) {
-                int taskIdx = Integer.parseInt(str.substring(7));
-                qi.deleteTask(taskIdx);
+                int taskId = Integer.parseInt(str.substring(7));
+                qi.deleteTask(taskId);
                 continue;
             }
 

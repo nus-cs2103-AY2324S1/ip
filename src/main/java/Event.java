@@ -1,6 +1,6 @@
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private final String startTime;
+    private final String endTime;
 
     public Event(String task, String startTime, String endTime) {
         super(task);
@@ -10,9 +10,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        if (this.done) {
-            return "[E][X] " + this.task + " (from: " + startTime + " to: " + endTime + ")";
-        }
-        return "[E][ ] " + this.task + " (from: " + startTime + " to: " + endTime + ")";
+        String checkBox = this.done ? "[E][X] " : "[E][ ] ";
+        String description = String.format("%s (from: %s to: %s)", this.task, this.startTime, this.endTime);
+        return checkBox + description;
     }
 }
