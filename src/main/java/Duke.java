@@ -19,7 +19,11 @@ class Event extends TaskType {
         return "E";
     }
 }
-
+class DukeException extends Exception {
+    public DukeException(String a){
+        super(a);
+    }
+}
 class Item{
     private String task;
     private boolean completed;
@@ -42,6 +46,8 @@ class Item{
     }
 
 }
+
+
 public class Duke {
 
     static Scanner sc = new Scanner(System.in);
@@ -68,90 +74,96 @@ public class Duke {
         while(true){
             String userInput = sc.nextLine();
             String[] splitStr = userInput.split("\\s+");
+            try{
+                if(userInput.equals("bye")) break;
 
-            if(userInput.equals("bye")) break;
-
-            if(userInput.equals("list")){
-                System.out.println("Here are the tasks in your list:");
-                for(int i=0;i<items.size();i++){
-                     System.out.println(Integer.toString(i+1)  + "." + items.get(i).toString());
-                }
-            }else if(splitStr[0].equals("mark")){
-                if(splitStr.length != 2) throw new RuntimeException("Invalid format detected for 'mark' command. Enter mark [item_no]");
-                int x = Integer.parseInt(splitStr[1])-1;
-                if(x < 0 || x+1 > items.size())  throw new RuntimeException("Index is out of list range.");
-                items.get(x).setCompleted(true);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(items.get(x).toString());
-
-            }else if(splitStr[0].equals("unmark")){
-                if(splitStr.length != 2) throw new RuntimeException("Invalid format detected for 'unmark' command. Enter unmark [item_no]");
-                int x = Integer.parseInt(splitStr[1])-1;
-                if(x < 0 || x+1 > items.size())  throw new RuntimeException("Index is out of list range.");
-                items.get(x).setCompleted(false);
-                System.out.println("Ok, I've marked this task as not done yet:");
-                System.out.println(items.get(x).toString());
-
-            }else if(splitStr[0].equals("remove")){
-                if(splitStr.length != 2) throw new RuntimeException("Invalid format detected for 'remove' command. Enter remove [item_no]");
-                int x = Integer.parseInt(splitStr[1]) - 1;
-                if(x < 0 || x+1 > items.size())  throw new RuntimeException("Index is out of list range.");
-                System.out.println("Ok, the following item was removed:");
-                System.out.println(items.get(x).toString());
-                items.remove(x);
-
-
-            } else if(splitStr[0].equals("todo")){
-                if(splitStr.length == 1){
-                    throw new RuntimeException("The description of a todo cannot be empty.");
-                }
-                items.add(new Item(getString(splitStr, 1, splitStr.length), false, new Todo(), null));
-                System.out.println("Got it, I've added this task:");
-                System.out.println(items.get(items.size()-1).toString());
-                System.out.println("Now you have " + items.size() + " tasks in the list.");
-
-            }else if(splitStr[0].equals("deadline")){
-                boolean x = false;
-                for(int i=1;i<splitStr.length;i++){
-                    if(splitStr[i].equals("/by")) {
-                        TaskType tt = new Deadline();
-                        String dl = getString(splitStr, i, splitStr.length);
-                        String task = getString(splitStr, 1, i);
-                        if(task == "") throw new RuntimeException("Description of task cannot be empty.");
-                        if(dl == "") throw new RuntimeException("Deadline cannot be empty.");
-                        items.add(new Item(task, false, tt, dl));
-                        x = true;
-                        break;
+                if(userInput.equals("list")){
+                    System.out.println("Here are the tasks in your list:");
+                    for(int i=0;i<items.size();i++){
+                        System.out.println(Integer.toString(i+1)  + "." + items.get(i).toString());
                     }
-                }
-                if(!x){
-                    throw new RuntimeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
-                }
-                System.out.println(items.get(items.size()-1).toString());
-                System.out.println("Now you have " + items.size() + " tasks in the list.");
+                }else if(splitStr[0].equals("mark")){
+                    if(splitStr.length != 2) throw new DukeException("Invalid format detected for 'mark' command. Enter mark [item_no]");
+                    int x = Integer.parseInt(splitStr[1])-1;
+                    if(x < 0 || x+1 > items.size())  throw new DukeException("Index is out of list range.");
+                    items.get(x).setCompleted(true);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println(items.get(x).toString());
 
-            }else if(splitStr[0].equals("event")){
-                boolean x = false;
-                for(int i=1;i<splitStr.length;i++){
-                    if(splitStr[i].equals("/from")) {
-                        TaskType tt = new Deadline();
-                        String dl = getString(splitStr, i, splitStr.length);
-                        String task = getString(splitStr, 1, i);
-                        if(task == "") throw new RuntimeException("Description of task cannot be empty.");
-                        if(dl == "") throw new RuntimeException("Event dates cannot be empty.");
-                        items.add(new Item(task, false, tt, dl));
-                        x = true;
-                        break;
+                }else if(splitStr[0].equals("unmark")){
+                    if(splitStr.length != 2) throw new DukeException("Invalid format detected for 'unmark' command. Enter unmark [item_no]");
+                    int x = Integer.parseInt(splitStr[1])-1;
+                    if(x < 0 || x+1 > items.size())  throw new DukeException("Index is out of list range.");
+                    items.get(x).setCompleted(false);
+                    System.out.println("Ok, I've marked this task as not done yet:");
+                    System.out.println(items.get(x).toString());
+
+                }else if(splitStr[0].equals("remove")){
+                    if(splitStr.length != 2) throw new DukeException("Invalid format detected for 'remove' command. Enter remove [item_no]");
+                    int x = Integer.parseInt(splitStr[1]) - 1;
+                    if(x < 0 || x+1 > items.size())  throw new DukeException("Index is out of list range.");
+                    System.out.println("Ok, the following item was removed:");
+                    System.out.println(items.get(x).toString());
+                    items.remove(x);
+
+
+                } else if(splitStr[0].equals("todo")){
+                    if(splitStr.length == 1){
+                        throw new DukeException("The description of a todo cannot be empty.");
                     }
+                    items.add(new Item(getString(splitStr, 1, splitStr.length), false, new Todo(), null));
+                    System.out.println("Got it, I've added this task:");
+                    System.out.println(items.get(items.size()-1).toString());
+                    System.out.println("Now you have " + items.size() + " tasks in the list.");
+
+                }else if(splitStr[0].equals("deadline")){
+                    boolean x = false;
+                    for(int i=1;i<splitStr.length;i++){
+                        if(splitStr[i].equals("/by")) {
+                            TaskType tt = new Deadline();
+                            String dl = getString(splitStr, i, splitStr.length);
+                            String task = getString(splitStr, 1, i);
+                            if(task.isEmpty()) throw new DukeException("Description of task cannot be empty.");
+                            if(dl.isEmpty()) throw new DukeException("Deadline cannot be empty.");
+                            items.add(new Item(task, false, tt, dl));
+                            x = true;
+                            break;
+                        }
+                    }
+                    if(!x){
+                        throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
+                    }
+                    System.out.println(items.get(items.size()-1).toString());
+                    System.out.println("Now you have " + items.size() + " tasks in the list.");
+
+                }else if(splitStr[0].equals("event")){
+                    boolean x = false;
+                    for(int i=1;i<splitStr.length;i++){
+                        if(splitStr[i].equals("/from")) {
+                            TaskType tt = new Deadline();
+                            String dl = getString(splitStr, i, splitStr.length);
+                            String task = getString(splitStr, 1, i);
+                            if(task.isEmpty()) throw new DukeException("Description of task cannot be empty.");
+                            if(dl.isEmpty()) throw new DukeException("Event dates cannot be empty.");
+                            items.add(new Item(task, false, tt, dl));
+                            x = true;
+                            break;
+                        }
+                    }
+                    if(!x){
+                        throw new DukeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
+                    }
+                    System.out.println(items.get(items.size()-1).toString());
+                    System.out.println("Now you have " + items.size() + " tasks in the list.");
+                }else{
+                    throw new DukeException("Sorry, I don't understand that command");
                 }
-                if(!x){
-                    throw new RuntimeException("/by keyword is necessary and not detected. Use /by to set a deadline.");
-                }
-                System.out.println(items.get(items.size()-1).toString());
-                System.out.println("Now you have " + items.size() + " tasks in the list.");
-            }else{
-                throw new RuntimeException("Sorry, I don't understand that command");
+            }catch(DukeException e){
+                System.out.println(e);
+            }finally{
+
             }
+
 
 
         }
