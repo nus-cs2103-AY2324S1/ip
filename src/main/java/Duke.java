@@ -33,30 +33,30 @@ public class Duke {
         public COMMANDS mainCommand() {
             this.initialParse = command.split(" ",2);
             switch (initialParse[0]) {
-                case ("bye"):
-                    return COMMANDS.BYE;
-                case ("list"):
-                    return COMMANDS.LIST;
-                case ("todo"):
-                    return COMMANDS.TODO;
-                case ("deadline"):
-                    return COMMANDS.DEADLINE;
-                case ("event"):
-                    return COMMANDS.EVENT;
-                case ("mark"):
-                    return COMMANDS.MARK;
-                case ("unmark"):
-                    return COMMANDS.UNMARK;
-                case ("delete"):
-                    return COMMANDS.DELETE;
-                case ("by"):
-                    return COMMANDS.BY;
-                case ("from"):
-                    return COMMANDS.FROM;
-                case ("to"):
-                    return COMMANDS.TO;
-                default:
-                    return COMMANDS.UNKNOWN;
+            case ("bye"):
+                return COMMANDS.BYE;
+            case ("list"):
+                return COMMANDS.LIST;
+            case ("todo"):
+                return COMMANDS.TODO;
+            case ("deadline"):
+                return COMMANDS.DEADLINE;
+            case ("event"):
+                return COMMANDS.EVENT;
+            case ("mark"):
+                return COMMANDS.MARK;
+            case ("unmark"):
+                return COMMANDS.UNMARK;
+            case ("delete"):
+                return COMMANDS.DELETE;
+            case ("by"):
+                return COMMANDS.BY;
+            case ("from"):
+                return COMMANDS.FROM;
+            case ("to"):
+                return COMMANDS.TO;
+            default:
+                return COMMANDS.UNKNOWN;
             }
         }
 
@@ -102,111 +102,111 @@ public class Duke {
         COMMANDS firstWord = cmd.mainCommand();
 
         switch (firstWord) {
-            case BYE:
-                exit();
-                return;
+        case BYE:
+            exit();
+            return;
 
-            case LIST:
-                taskList.listTasks();
-                break;
+        case LIST:
+            taskList.listTasks();
+            break;
 
-            case TODO:
-                if (cmd.secondWord() != null) {
-                    taskList.addTask(cmd.secondWord());
-                } else {
-                    System.out.println("Please add a task for ToDo");
-                }
-                break;
+        case TODO:
+            if (cmd.secondWord() != null) {
+                taskList.addTask(cmd.secondWord());
+            } else {
+                System.out.println("Please add a task for ToDo");
+            }
+            break;
 
-            case DEADLINE:
+        case DEADLINE:
+            try {
+                String task = cmd.phaseParse();
                 try {
-                    String task = cmd.phaseParse();
-                    try {
-                        String dayDate = cmd.phaseTwo();
-                        Parse parseDayDate = new Parse(dayDate);
-                        if (parseDayDate.mainCommand().equals(COMMANDS.BY) && parseDayDate.secondWord() != null) {
-                            taskList.addTask(task, parseDayDate.secondWord());
-                        } else {
-                            System.out.println("The format for the command is: deadline task /by DayOrDate");
-                        }
-                    } catch (NullPointerException e) {
-                        System.out.println("Please add the day/date that the task is due by");
+                    String dayDate = cmd.phaseTwo();
+                    Parse parseDayDate = new Parse(dayDate);
+                    if (parseDayDate.mainCommand().equals(COMMANDS.BY) && parseDayDate.secondWord() != null) {
+                        taskList.addTask(task, parseDayDate.secondWord());
+                    } else {
+                        System.out.println("The format for the command is: deadline task /by DayOrDate");
                     }
                 } catch (NullPointerException e) {
-                    System.out.println("Please add the task that has to been done");
+                    System.out.println("Please add the day/date that the task is due by");
                 }
-                break;
+            } catch (NullPointerException e) {
+                System.out.println("Please add the task that has to been done");
+            }
+            break;
 
-            case EVENT:
+        case EVENT:
+            try {
+                String task = cmd.phaseParse();
                 try {
-                    String task = cmd.phaseParse();
-                    try {
-                        String startDayDateTime = cmd.phaseTwo();
-                        Parse parseStartDayDateTime = new Parse(startDayDateTime);
-                        if (parseStartDayDateTime.mainCommand().equals(COMMANDS.FROM) && parseStartDayDateTime.secondWord() != null) {
-                            try {
-                                String endDayDateTime = cmd.phaseThree();
-                                Parse parseEndDayDateTime = new Parse(endDayDateTime);
-                                if (parseEndDayDateTime.mainCommand().equals(COMMANDS.TO) && parseEndDayDateTime.secondWord() != null) {
-                                    taskList.addTask(task, parseStartDayDateTime.secondWord(), parseEndDayDateTime.secondWord());
-                                } else {
-                                    System.out.println("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
-                                }
-                            } catch (NullPointerException e) {
-                                System.out.println("Please add the day/date/time the event will end");
+                    String startDayDateTime = cmd.phaseTwo();
+                    Parse parseStartDayDateTime = new Parse(startDayDateTime);
+                    if (parseStartDayDateTime.mainCommand().equals(COMMANDS.FROM) && parseStartDayDateTime.secondWord() != null) {
+                        try {
+                            String endDayDateTime = cmd.phaseThree();
+                            Parse parseEndDayDateTime = new Parse(endDayDateTime);
+                            if (parseEndDayDateTime.mainCommand().equals(COMMANDS.TO) && parseEndDayDateTime.secondWord() != null) {
+                                taskList.addTask(task, parseStartDayDateTime.secondWord(), parseEndDayDateTime.secondWord());
+                            } else {
+                                System.out.println("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
                             }
-                        } else {
-                            System.out.println("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
+                        } catch (NullPointerException e) {
+                            System.out.println("Please add the day/date/time the event will end");
                         }
-                    } catch (NullPointerException e) {
-                        System.out.println("Please add the day/date/time the event will start");
+                    } else {
+                        System.out.println("The format for the command is: event task /from startDayDateTime /to endDayDateTime");
                     }
                 } catch (NullPointerException e) {
-                    System.out.println("Please add the event that is happening");
+                    System.out.println("Please add the day/date/time the event will start");
                 }
-                break;
+            } catch (NullPointerException e) {
+                System.out.println("Please add the event that is happening");
+            }
+            break;
 
-            case MARK:
-                if (cmd.secondWord() != null) {
-                    try {
-                        int n = Integer.parseInt(cmd.secondWord());
-                        taskList.mark(n);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Please input only 1 number after mark");
-                    }
-                } else {
+        case MARK:
+            if (cmd.secondWord() != null) {
+                try {
+                    int n = Integer.parseInt(cmd.secondWord());
+                    taskList.mark(n);
+                } catch (NumberFormatException e) {
                     System.out.println("Please input only 1 number after mark");
                 }
-                break;
+            } else {
+                System.out.println("Please input only 1 number after mark");
+            }
+            break;
 
-            case UNMARK:
-                if (cmd.secondWord() != null) {
-                    try {
-                        int n = Integer.parseInt(cmd.secondWord());
-                        taskList.unmark(n);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Please input only 1 number after unmark");
-                    }
-                } else {
+        case UNMARK:
+            if (cmd.secondWord() != null) {
+                try {
+                    int n = Integer.parseInt(cmd.secondWord());
+                    taskList.unmark(n);
+                } catch (NumberFormatException e) {
                     System.out.println("Please input only 1 number after unmark");
                 }
-                break;
+            } else {
+                System.out.println("Please input only 1 number after unmark");
+            }
+            break;
 
-            case DELETE:
-                if (cmd.secondWord() != null) {
-                    try {
-                        int n = Integer.parseInt(cmd.secondWord());
-                        taskList.delete(n);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Please input only 1 number after unmark");
-                    }
-                } else {
+        case DELETE:
+            if (cmd.secondWord() != null) {
+                try {
+                    int n = Integer.parseInt(cmd.secondWord());
+                    taskList.delete(n);
+                } catch (NumberFormatException e) {
                     System.out.println("Please input only 1 number after unmark");
                 }
-                break;
+            } else {
+                System.out.println("Please input only 1 number after unmark");
+            }
+            break;
 
-            default:
-                System.out.println("Unknown command");
+        default:
+            System.out.println("Unknown command");
         }
         Scanner scanObj = new Scanner(System.in);
         String newCommand = scanObj.nextLine();
