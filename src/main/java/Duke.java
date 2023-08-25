@@ -103,6 +103,26 @@ public class Duke {
         return new Event(desSplit[0], eventLength[0], eventLength[1]);
     }
 
+    public static void deleteTask(String prompt) throws DukeException {
+        String[] descriptions = prompt.split(" ", 2);
+        if (descriptions.length != 2 || descriptions[1].replaceAll(" ", "").isEmpty()) {
+            throw new DukeException("The task index cannot be empty");
+        }
+
+        try {
+            Task selectedTask = list.remove(Integer.parseInt(descriptions[1]) - 1);
+
+            System.out.println(INDENTATION + "Noted. I've removed this task:\n"
+                    + INDENTATION + "  " + selectedTask.toString());
+            System.out.printf(INDENTATION + "Now you have %d tasks in the list\n", list.size());
+            showSeparationLine();
+        } catch (NumberFormatException e) {
+            throw new DukeException("The task index must be a number");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The task index exceeds the size of list");
+        }
+    }
+
     public static void markTaskDone(String prompt) throws DukeException {
         String[] descriptions = prompt.split(" ", 2);
         if (descriptions.length != 2 || descriptions[1].replaceAll(" ", "").isEmpty()) {
@@ -145,22 +165,26 @@ public class Duke {
         }
     }
 
-    public static void parseInput(String text) throws DukeException {
-        String[] actions = text.split(" ", 2);
+    public static void parseInput(String prompt) throws DukeException {
+        String action = prompt.split(" ", 2)[0];
 
-        switch (actions[0]) {
+        switch (action) {
         case "todo":
         case "deadline":
         case "event":
-            identifyTaskType(actions[0], text);
+            identifyTaskType(action, prompt);
+            break;
+
+        case "delete":
+            deleteTask(prompt);
             break;
 
         case "mark":
-            markTaskDone(text);
+            markTaskDone(prompt);
             break;
 
         case "unmark":
-            markTaskUndone(text);
+            markTaskUndone(prompt);
             break;
 
         case "list":
