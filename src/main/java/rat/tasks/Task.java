@@ -50,4 +50,9 @@ public abstract class Task {
         return status + " " + this.name;
     }
 
+    public String formatForFile() {
+        String status = isDone ? "1" : "0";
+        return status + ", " + this.name;
+    }
+
 }

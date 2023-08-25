@@ -40,4 +40,10 @@ public class Event extends Task {
         return taskType + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }
 
+    @Override
+    public String formatForFile() {
+        String taskType = "E";
+        return taskType + ", " + super.formatForFile() + ", " + this.startTime + ", " + this.endTime;
+    }
+
 }
