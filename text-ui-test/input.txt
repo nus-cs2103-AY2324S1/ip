@@ -17,3 +17,4 @@ deadline do homework /by no idea :-p
 list
 blah
 delete 4
+bye
