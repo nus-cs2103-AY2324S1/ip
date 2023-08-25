@@ -23,9 +23,21 @@ public abstract class Task {
     }
 
     /**
+     * Alternative constructor. Usually used when reading data from a file.
+     *
+     * @param name Name of the task.
+     * @param isDone Completion status of task.
+     */
+    protected Task(String name, boolean isDone) {
+        this.name = name;
+        this.isDone = isDone;
+    }
+
+    /**
      * Gets completion status of the task.
      * @return True if the task is complete, false otherwise.
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     protected boolean isDone() {
         return this.isDone;
     }
@@ -79,6 +91,23 @@ public abstract class Task {
             newTask = makeEvent(str);
         }
         return newTask;
+    }
+
+    /**
+     * Reads a string of standardised data and constructs a Task object based on the information.
+     *
+     * @param str Data string.
+     * @return Task object.
+     * @throws InvalidTaskException If the task object cannot be created from the string.
+     */
+    public static Task convertFromString(String str) throws InvalidTaskException {
+        if (str.startsWith("t")) {
+            return ToDo.convertFromString(str);
+        }
+        if (str.startsWith("d")) {
+            return Deadline.convertFromString(str);
+        }
+        return Event.convertFromString(str);
     }
 
     /**
@@ -170,6 +199,16 @@ public abstract class Task {
         }
 
         /**
+         * Alternative constructor. Usually used when reading data from a file.
+         *
+         * @param name Name of ToDo.
+         * @param isDone Completion status of Todo.
+         */
+        protected ToDo(String name, boolean isDone) {
+            super(name, isDone);
+        }
+
+        /**
          * String representation of the todo.
          *
          * @return String representation.
@@ -177,6 +216,13 @@ public abstract class Task {
         @Override
         public String toString() {
             return "[T][" + (super.isDone() ? "X" : " ") + "] " + super.getName();
+        }
+        public static ToDo convertFromString(String str) throws InvalidTaskException {
+            if (!str.matches("t/[01]/.+")) {
+                throw new InvalidTaskException("Could not read Todo.");
+            }
+            String[] arr = str.split("/");
+            return new ToDo(arr[2], arr[1].equals("1"));
         }
     }
 
@@ -201,6 +247,18 @@ public abstract class Task {
         }
 
         /**
+         * Alternative constructor. Usually used when reading data from a file.
+         *
+         * @param name Name of deadline
+         * @param isDone Completion status of deadline
+         * @param by The time the deadline is due.
+         */
+        protected Deadline(String name, boolean isDone, String by) {
+            super(name, isDone);
+            this.by = by;
+        }
+
+        /**
          * String representation of the deadline.
          * @return String representation.
          */
@@ -208,6 +266,21 @@ public abstract class Task {
         public String toString() {
             return "[D][" + (super.isDone() ? "X" : " ") + "] " + super.getName()
                     + "(by: " + this.by + ")";
+        }
+
+        /**
+         * Reads a string of standardised data and constructs a Deadline object based on the information.
+         *
+         * @param str Data string.
+         * @return Deadline object.
+         * @throws InvalidTaskException If Deadline object cannot be created.
+         */
+        public static Deadline convertFromString(String str) throws InvalidTaskException {
+            if (!str.matches("d/[01]/.+/.+")) {
+                throw new InvalidTaskException("Could not read Deadline.");
+            }
+            String[] arr = str.split("/");
+            return new Deadline(arr[2], arr[1].equals("1"), arr[3]);
         }
     }
 
@@ -238,6 +311,19 @@ public abstract class Task {
         }
 
         /**
+         * Alternative constructor. Usually used when reading data from a file.
+         *
+         * @param name Name of task.
+         * @param isDone Completion status of task.
+         * @param from Start time of task.
+         * @param to End time of task.
+         */
+        protected Event(String name, boolean isDone, String from, String to) {
+            super(name, isDone);
+            this.from = from;
+            this.to = to;
+        }
+        /**
          * String representation of the event.
          * @return String representation.
          */
@@ -245,6 +331,21 @@ public abstract class Task {
         public String toString() {
             return "[E][" + (super.isDone() ? "X" : " ") + "] " + super.getName()
                     + "(from: " + this.from + " to: " + this.to + ")";
+        }
+
+        /**
+         * Reads a string of standardised data and constructs an Event object based on the information.
+         *
+         * @param str Data string
+         * @return Event object.
+         * @throws InvalidTaskException If an Event object cannot be created.
+         */
+        public static Event convertFromString(String str) throws InvalidTaskException {
+            if (!str.matches("e/[01]/.+/.+/.+")) {
+                throw new InvalidTaskException("Could not read Event.");
+            }
+            String[] arr = str.split("/");
+            return new Event(arr[2], arr[1].equals("1"), arr[3], arr[4]);
         }
     }
 }
