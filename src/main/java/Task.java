@@ -19,22 +19,43 @@ public class Task {
 
     /**
      * factory method to create task based on the type
-     * @param type type of task
-     * @param description raw string of the task
+     * @param splitTask String array containing the type and description
      * @return new Task object based on the types
+     * @throws DukeException throws DukeException
      */
-    public static Task createTaskType(String type, String description) {
-        if (type.equals("deadline")) {
-            String[] splitDesc = description.split(" /by ", 2);
-            return new Deadline(splitDesc[0], splitDesc[1]);
-        } else if (type.equals("todo")) {
-            return new Todo(description);
-        } else if (type.equals("event")) {
-            String[] splitDesc = description.split(" /from ", 2);
-            String[] splitDesc2 = splitDesc[1].split(" /to ", 2);
-            return new Event(splitDesc[0], splitDesc2[0], splitDesc2[1]);
-        } else {
-            return new Task(description);
+    public static Task createTaskType(String[] splitTask) throws DukeException {
+        /**
+         * variable to store the type of task
+         */
+        String type = splitTask[0];
+        /**
+         * variable to store description
+         */
+        String description = "";
+
+        if (!(type.equals("deadline") || type.equals("todo") || type.equals("event"))) {
+            throw new DukeNotTaskException(type);
+        }
+
+        try {
+            description = splitTask[1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeIndexOutOfBoundException(splitTask[0]);
+        }
+
+        try {
+            if (type.equals("deadline")) {
+                String[] splitDesc = description.split(" /by ", 2);
+                return new Deadline(splitDesc[0], splitDesc[1]);
+            } else if (type.equals("todo")) {
+                return new Todo(description);
+            } else {
+                String[] splitDesc = description.split(" /from ", 2);
+                String[] splitDesc2 = splitDesc[1].split(" /to ", 2);
+                return new Event(splitDesc[0], splitDesc2[0], splitDesc2[1]);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeNoTimeException(type);
         }
     }
 
