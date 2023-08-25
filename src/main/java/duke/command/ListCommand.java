@@ -13,15 +13,38 @@ public class ListCommand implements Command {
     private static final String commandString = "list";
     private final String argument;
 
+    /**
+     * Constructor for ListCommand.
+     *
+     * @param argument arguments for ListCommand
+     */
     public ListCommand(String argument) {
         this.argument = argument;
     }
+
+    /**
+     * If program should exit after command execution.
+     *
+     * @return false
+     */
 
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Validate arguments to this command.
+     * They must have one of the following formats,
+     * <ul>
+     *     <li>list</li>
+     *     <li>list now</li>
+     *     <li>list YYYY-MM-DD</li>
+     * </ul>
+     *
+     * @param arguments arguments to validate
+     * @throws DukeException if arguments are invalid
+     */
     private void validate(String arguments) throws DukeException {
         if (arguments != null) {
             // Non null argument, check format
@@ -38,6 +61,19 @@ public class ListCommand implements Command {
         }
     }
 
+    /**
+     * List tasks depending on arguments.
+     * <ul>
+     *     <li>list: list all tasks</li>
+     *     <li>list now: list all tasks ending within 1 week from now</li>
+     *     <li>list YYYY-MM-DD: list all task ending before specified date</li>
+     * </ul>
+     *
+     * @param taskList the current TaskList
+     * @param ui       the UI tied to the program
+     * @param storage  the Storage tied to the program
+     * @throws DukeException if unable to list tasks
+     */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         validate(this.argument);

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class UI {
 
-    private String name;
+    private final String name;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static boolean active = false;
@@ -22,7 +22,7 @@ public class UI {
 
         private final String code;
 
-        private Colors(String c) {
+        Colors(String c) {
             code = c;
         }
 

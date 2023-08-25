@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.DukeException;
 import duke.Storage;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.UI;
@@ -12,20 +11,45 @@ public class TodoCommand extends NonemptyArgumentCommand implements Command {
     private static final String commandString = "todo";
     private final String arguments;
 
+    /**
+     * Constructor for TodoCommand
+     *
+     * @param arguments arguments for TodoCommand
+     */
     public TodoCommand(String arguments) {
         this.arguments = arguments;
     }
 
+    /**
+     * If program should exit after command execution.
+     *
+     * @return false
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Validate arguments to this command.
+     * They must not be empty
+     *
+     * @param arguments arguments to validate
+     * @throws DukeException if arguments are invalid
+     */
     @Override
     protected void validate(String arguments) throws DukeException {
         super.validate(arguments);
     }
 
+    /**
+     * Create a Todo Task
+     *
+     * @param taskList the current TaskList
+     * @param ui       the UI tied to the program
+     * @param storage  the Storage tied to the program
+     * @throws DukeException if unable to create Todo task
+     */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         validate(this.arguments);
