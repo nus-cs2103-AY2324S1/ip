@@ -39,7 +39,13 @@ public class Jeeves {
             // Unless a specific pre-defined command is received, the program will
             // print a default error message.
             if (currentCommand.equals("list")) {
-                System.out.println("This is what I am tracking for you Master");
+                // Displays a different message if no task is being tracked
+                if (Task.getTaskCount() == 0) {
+                    System.out.println("I am not currently tracking anything for you Master");
+                } else {
+                    System.out.println("This is what I am tracking for you Master");
+                }
+
                 // Displays the current list of tasks tracked and their status
                 for (int i = 1; i <= Task.getTaskCount(); i++) {
                     System.out.println(taskList[i].toString());

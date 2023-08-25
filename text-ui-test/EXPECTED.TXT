@@ -1,6 +1,11 @@
 Greetings, Master. Jeeves at your service
 How may I serve you today?
 
+I am not currently tracking anything for you Master
+
+Apologies Master, I am unable to understand that command.
+I will improve myself to better serve you in the future.
+
 Task added:
     1. [T][ ] something
 
