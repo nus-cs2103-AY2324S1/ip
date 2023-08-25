@@ -25,10 +25,7 @@ public class Alex {
                 System.out.println(bye);
                 break;
             } else if(userInput.equals("list")) {
-                System.out.println(horizontalLine
-                                 + UserInputStorage.printAllContent()
-                                 + horizontalLine
-                );
+                UserInputStorage.printAllContent();
             } else if (inputLength >= 6 && userInput.substring(0, 5).equals("mark ")) {
                 int index = Integer.parseInt(userInput.substring(5, 6));
                 Task targetedTask = UserInputStorage.getTaskByIndex(index);
@@ -37,16 +34,12 @@ public class Alex {
                 int index = Integer.parseInt(userInput.substring(7, 8));
                 Task targetedTask = UserInputStorage.getTaskByIndex(index);
                 targetedTask.unmark();
+            } else if (inputLength >= 8 && userInput.substring(0, 7).equals("delete ")) {
+                int toDeleteIndex = Integer.parseInt(userInput.substring(7, 8));
+                UserInputStorage.delete(toDeleteIndex);
             } else if (inputLength >= 4 && userInput.substring(0, 5).equals("todo ")) {
                 Task todo = new ToDos(userInput.substring(5));
                 UserInputStorage.store(todo);
-                System.out.println(horizontalLine
-                                 + "Got it. I've added this task:\n"
-                                 + "  "
-                                 + todo.toString() + "\n"
-                                 + "Now you have " + UserInputStorage.getNumOfElement() + " tasks in the list.\n"
-                                 + horizontalLine
-                );
             } else if (inputLength >= 8 && userInput.substring(0, 9).equals("deadline ")) {
                 String regex = "\\b /by \\b";
                 Pattern pattern = Pattern.compile(regex);
@@ -58,13 +51,6 @@ public class Alex {
                 String by = userInput.substring(endIndex);
                 Task deadline = new Deadline(description, by);
                 UserInputStorage.store(deadline);
-                System.out.println(horizontalLine
-                                + "Got it. I've added this task:\n"
-                                + "  "
-                                + deadline.toString() + "\n"
-                                + "Now you have " + UserInputStorage.getNumOfElement() + " tasks in the list.\n"
-                                + horizontalLine
-                );
             } else if (inputLength >= 5 && userInput.substring(0, 6).equals("event ")) {
                 String regex = "\\b /from \\b";
                 Pattern pattern1 = Pattern.compile(regex);
@@ -86,13 +72,6 @@ public class Alex {
 
                 Task event = new Event(description, fromTime, toTime);
                 UserInputStorage.store(event);
-                System.out.println(horizontalLine
-                                + "Got it. I've added this task:\n"
-                                + "  "
-                                + event.toString() + "\n"
-                                + "Now you have " + UserInputStorage.getNumOfElement() + " tasks in the list.\n"
-                                + horizontalLine
-                );
             }
         }
     }
