@@ -1,8 +1,6 @@
 package jeeves.main;
 
-import jeeves.exception.MissingIdException;
-import jeeves.exception.NotIntegerIdException;
-import jeeves.exception.OutOfBoundIdException;
+import jeeves.exception.*;
 
 import jeeves.task.Task;
 import jeeves.task.Todo;
@@ -120,36 +118,97 @@ public class Jeeves {
                     System.out.println(e);
                 }
             } else if (currentCommand.startsWith("todo ")) {
-                // Adds the 'To do' Task to the task list
-                String currTask = currentCommand.substring(FINDCOMMAND_TODO_OFFSET);
-                Todo newTodo = new Todo(currTask);
-                taskList[Task.getTaskCount()] = newTodo;
-                System.out.println("Task added:\n" +
-                        "    " + newTodo + "\n");
+                // Checks if the user provided a description
+                // If so, adds the 'To do' Task to the task list normally
+                // Else throws the custom MissingDescriptionException error
+                try {
+                    String currTask = currentCommand.substring(FINDCOMMAND_TODO_OFFSET);
+                    if (currTask.isEmpty()) {
+                        throw new MissingDescriptionException("The description of a todo cannot be empty\n");
+                    } 
+                    // Adds the Task normally to the task list if no errors are detected
+                    Todo newTodo = new Todo(currTask);
+                    taskList[Task.getTaskCount()] = newTodo;
+                    System.out.println("Task added:\n" +
+                            "    " + newTodo + "\n");
+                    
+                } catch (MissingDescriptionException e) {
+                    System.out.println(e);
+                }
             } else if (currentCommand.startsWith("deadline ")) {
-                // Extracts the necessary information from the String command
-                int byDateIndex = currentCommand.indexOf("/by ");
-                String currTask = currentCommand.substring(FINDCOMMAND_DEADLINE_OFFSET, byDateIndex - 1);
-                String byDate = currentCommand.substring(byDateIndex + FINDFIELD_BY_OFFSET);
-
-                // Adds the 'Deadline' Task to the task list
-                Deadline newDeadline = new Deadline(currTask, byDate);
-                taskList[Task.getTaskCount()] = newDeadline;
-                System.out.println("Deadline added:\n" +
-                        "    " + newDeadline + "\n");
+                // Checks if the user provided a proper description and "by" date/time.
+                // If so, adds the 'deadline' Task to the task list normally
+                // Else throws the custom MissingDescriptionException error
+                try {
+                    int byDateIndex = currentCommand.indexOf("/by ");
+                    if (byDateIndex == -1 || currentCommand.length() == byDateIndex + FINDFIELD_BY_OFFSET) {
+                        // If the "/by " block is missing, throws the MissingByException
+                        throw new MissingByException("I cannot do that as the deadline has not been provided.\n" 
+                                + "Please add ' /by <Time/Date>' after the task description\n");
+                    } 
+                    if ((byDateIndex - 1) <= FINDCOMMAND_DEADLINE_OFFSET) {
+                        throw new MissingDescriptionException("The description of a deadline cannot be empty\n");
+                    }
+                    String currTask = currentCommand.substring(FINDCOMMAND_DEADLINE_OFFSET, byDateIndex - 1);
+                    String byDate = currentCommand.substring(byDateIndex + FINDFIELD_BY_OFFSET);
+                    // Adds the 'Deadline' Task to the task list
+                    Deadline newDeadline = new Deadline(currTask, byDate);
+                    taskList[Task.getTaskCount()] = newDeadline;
+                    System.out.println("Deadline added:\n" +
+                            "    " + newDeadline + "\n");
+                        
+                } catch (MissingDescriptionException | MissingByException e) {
+                    System.out.println(e);
+                }
             } else if (currentCommand.startsWith("event ")) {
-                // Extracts the necessary information from the String command
-                int fromDateIndex = currentCommand.indexOf("/from ");
-                int toDateIndex = currentCommand.indexOf("/to ");
-                String currTask = currentCommand.substring(FINDCOMMAND_EVENT_OFFSET, fromDateIndex - 1);
-                String fromDate = currentCommand.substring(fromDateIndex + FINDFIELD_FROM_OFFSET, toDateIndex - 1);
-                String toDate = currentCommand.substring(toDateIndex + FINDFIELD_TO_OFFSET);
+                // Checks if the user provided a description
+                // If so, adds the 'dead' Task to the task list normally
+                // Else throws the custom MissingDescriptionException error
+                try {
+                    int fromDateIndex = currentCommand.indexOf("/from ");
+                    if (fromDateIndex == -1) {
+                        // If the "/from " block is missing, throws the MissingFromException
+                        throw new MissingFromException("I cannot do that as the start time has not been provided.\n"
+                                + "Please add ' /from <Time/Date>' after the task description\n");
+                    }
+                    
+                    int toDateIndex = currentCommand.indexOf("/to ");
+                    if (toDateIndex == -1) {
+                        // If the "/to " block is missing, throws the MissingByException
+                        throw new MissingToException("I cannot do that as the end time has not been provided.\n"
+                                + "Please add ' /to <Time/Date>' after the task end date (after /from block)\n");
+                    }
+                    
+                    if ((fromDateIndex - 1) <= FINDCOMMAND_DEADLINE_OFFSET) {
+                        throw new MissingDescriptionException("The description of a event cannot be empty\n");
+                    }
+                    
+                    String currTask = currentCommand.substring(FINDCOMMAND_EVENT_OFFSET, fromDateIndex - 1);
 
-                // Adds the 'Event' Task to the task list
-                Event newEvent = new Event(currTask, fromDate, toDate);
-                taskList[Task.getTaskCount()] = newEvent;
-                System.out.println("Event added:\n" +
-                        "    " + newEvent + "\n");
+                    if ((toDateIndex - 1) <= (fromDateIndex + FINDFIELD_FROM_OFFSET)) {
+                        // If the /from block is present but no data has been given to the field, throw 
+                        // the MissingFromException
+                        throw new MissingFromException("I cannot do that as the start time has not been provided.\n"
+                                + "Please add ' /from <Time/Date>' after the task description\n");
+                    }
+                    String fromDate = currentCommand.substring(fromDateIndex + FINDFIELD_FROM_OFFSET, toDateIndex - 1);
+
+                    if (currentCommand.length() == (toDateIndex + FINDFIELD_TO_OFFSET)) {
+                        // If the /to block is present but no data has been given to the field, throw 
+                        // the MissingToException
+                        throw new MissingToException("I cannot do that as the end time has not been provided.\n"
+                                + "Please add ' /to <Time/Date>' after the task end date (after /from block)\n");
+                    }
+                    String toDate = currentCommand.substring(toDateIndex + FINDFIELD_TO_OFFSET);
+
+                    // Adds the 'Event' Task to the task list
+                    Event newEvent = new Event(currTask, fromDate, toDate);
+                    taskList[Task.getTaskCount()] = newEvent;
+                    System.out.println("Event added:\n" +
+                            "    " + newEvent + "\n");
+                } catch (MissingDescriptionException | MissingFromException | MissingToException e) {
+                    System.out.println(e);
+                }
             } else if (currentCommand.equals("bye")) {
                 // Displays the farewell message and terminates the application
                 System.out.println("I bid you farewell, Master");

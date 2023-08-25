@@ -51,4 +51,28 @@ jeeves.exception.NotIntegerIdException: I cannot do that as that is not a valid 
 
 jeeves.exception.OutOfBoundIdException: I cannot do that as that is not a valid Task ID (ID provided does not exist)
 
+jeeves.exception.MissingDescriptionException: The description of a todo cannot be empty
+
+jeeves.exception.MissingByException: I cannot do that as the deadline has not been provided.
+Please add ' /by <Time/Date>' after the task description
+
+jeeves.exception.MissingDescriptionException: The description of a deadline cannot be empty
+
+jeeves.exception.MissingByException: I cannot do that as the deadline has not been provided.
+Please add ' /by <Time/Date>' after the task description
+
+jeeves.exception.MissingFromException: I cannot do that as the start time has not been provided.
+Please add ' /from <Time/Date>' after the task description
+
+jeeves.exception.MissingToException: I cannot do that as the end time has not been provided.
+Please add ' /to <Time/Date>' after the task end date (after /from block)
+
+jeeves.exception.MissingDescriptionException: The description of a event cannot be empty
+
+jeeves.exception.MissingFromException: I cannot do that as the start time has not been provided.
+Please add ' /from <Time/Date>' after the task description
+
+jeeves.exception.MissingToException: I cannot do that as the end time has not been provided.
+Please add ' /to <Time/Date>' after the task end date (after /from block)
+
 I bid you farewell, Master
