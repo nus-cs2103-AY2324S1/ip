@@ -18,6 +18,8 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Added gitignore
 *.class
+*/data/
+/data
 
 # InteliJ jdk
 /lib

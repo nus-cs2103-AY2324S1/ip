@@ -1,5 +1,11 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 /**
  * @author Donovan Chan Jia Jun
@@ -9,6 +15,9 @@ public class Duke {
      * Temporary data storage to store user text.
      */
     static ArrayList<Task> storage;
+    static final String dir = "/data";
+    public static final String outputPath = System.getProperty("user.dir") + dir + "/ipOutput.txt";
+    static FileWriter writer;
     static String line = "---------------------------------------------------------------------------------------------";
 
     /**
@@ -26,7 +35,12 @@ public class Duke {
                         + "What can I do for you?";
         String exitMessage = "Bye. Hope to see you again soon!";
         System.out.printf("%s\n%s\n%s\n", Duke.line, introMessage, Duke.line);
-        Duke.echo();
+        try {
+            LoadOutputFile(outputPath);
+            Duke.echo();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.toString());
+        }
         System.out.printf("%s\n%s\n", exitMessage, Duke.line);
     }
 
@@ -90,11 +104,21 @@ public class Duke {
 
     /**
      * Encapsulates the Handling and storing of user input.
+     * When arraylist changes, the entire output file is overwriten and all contents is transfered over
      */
     public static void echo() {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         while (!userInput.equals("bye")) {
+            if (!Duke.outputPath.equals("")) {
+                try {
+                    Duke.writer = new FileWriter(outputPath, false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("File path could not be resolved");
+            }
             String command = userInput.split("\\s+")[0];
             int choice;
             switch (command) {
@@ -120,7 +144,6 @@ public class Duke {
                     break;
                 case "delete":
                     choice = Integer.parseInt(userInput.split("\\s+")[1]);
-//                    System.out.println(Duke.storage.size());
                     Task removedTask = Duke.storage.remove(choice - 1);
                     System.out.printf("Noted. I've removed this task:\n" +
                                         "  %s\n" +
@@ -141,8 +164,87 @@ public class Duke {
                                 "Now you have %d tasks in the list.\n", task.toString(), Duke.storage.size());
                     }
             }
+            Duke.updateTasks();
             System.out.println(Duke.line);
             userInput = scanner.nextLine();
+        }
+    }
+
+    /**
+     * Creates the output file if does not exists. Also creates directories that are missing.
+     *
+     * @param outputPath String of the path
+     * @return File filePointer to to output file
+     */
+    public static File createOutputFile(String outputPath) {
+        File filePointer = new File(outputPath);
+        if (!filePointer.exists()) {
+            File directory = new File(System.getProperty("user.dir") + Duke.dir);
+            // create directory if it doesn't exist
+            if (!directory.exists()) {
+                boolean result = directory.mkdirs();
+            }
+            try {
+                // create file in that directory
+                if (!filePointer.createNewFile()) {
+                    throw new FileNotFoundException();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return filePointer;
+    }
+
+    /**
+     * Loads the data stored in the hard disk.
+     *
+     * @param outputPath String of the path
+     * @throws FileNotFoundException
+     */
+    public static void LoadOutputFile(String outputPath) throws FileNotFoundException{
+        File filePointer = Duke.createOutputFile(outputPath);
+        Scanner storageScanner = new Scanner(filePointer);
+        while (storageScanner.hasNext()) {
+            String item = storageScanner.nextLine();
+            if (item != "") {
+                // process the item
+                // T|1|read book
+                String[] itemParts = item.split("\\|");
+                boolean itemComplete = itemParts[1].equals("0");
+                String name = itemParts[2];
+                switch (itemParts[0]) {
+                    case "T":
+                        Duke.storage.add(new Todos(name, itemComplete));
+                        break;
+                    case "D":
+                        String deadline = itemParts[3];
+                        Duke.storage.add(new Deadlines(name, deadline, itemComplete));
+                        break;
+                    case "E":
+                        System.out.println(item);
+                        String from = itemParts[3];
+                        String to = itemParts[4];
+                        Duke.storage.add(new Events(name, from, to, itemComplete));
+                        break;
+                    default:
+                        System.out.println("Error when reading file");
+                }
+            }
+        }
+        storageScanner.close();
+    }
+
+    /**
+     * Overwrites data in the arrayList to the output file in the hard disk.
+     */
+    public static void updateTasks() {
+        Consumer<Task> storeTask = task -> task.writeToFile(Duke.writer);
+        Duke.storage.forEach(storeTask);
+        try {
+            Duke.writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

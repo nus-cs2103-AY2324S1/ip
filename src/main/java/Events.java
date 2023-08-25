@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * Encapsulates the Events Task.
  * @author Donovan Chan Jia Jun
@@ -9,6 +12,23 @@ public class Events extends Task {
         super(name);
         this.to = to;
         this.from = from;
+    }
+
+    public Events(String name, String from, String to, boolean isComplete) {
+        super(name, isComplete);
+        this.to = to;
+        this.from = from;
+    }
+
+    public void writeToFile(FileWriter fileWriter) {
+        String marking = super.isComplete() ? "0" : "1";
+        try {
+            fileWriter.write("E" + "|" + marking + "|" + super.getName() + "|" + this.from + "|" + this.to);
+            fileWriter.write(System.lineSeparator());
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
