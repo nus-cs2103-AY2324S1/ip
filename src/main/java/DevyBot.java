@@ -1,55 +1,167 @@
+import exceptions.*;
+
 import java.util.Scanner;
 import java.util.ArrayList;
+
 public class DevyBot {
+    private static ArrayList<Task> taskList = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>();
 
-        String welcome = "Hello! I'm DevyBot\nWhat can I do for you?\n";
-        String exit = "Bye. Hope to see you again soon!\n";
-        String lineBreak = "____________________________________________________________";
+        String welcomeMessage = "Hello! I'm DevyBot\nWhat can I do for you?";
+        String exitMessage = "Bye. Hope to see you again soon!";
+        printMessage(welcomeMessage);
 
-        System.out.println(welcome);
         while (true) {
             String userInput = scanner.nextLine();
-            String[] wordsArray = userInput.split("\\s+");
-            if (userInput.equals("bye")) {
-                System.out.println(lineBreak);
-                System.out.println(exit);
-                break;
-            } else if (userInput.equals("list")) {
-                System.out.println(lineBreak);
-                for (int i = 0 ; i < taskList.size(); i++) {
-                    System.out.println( (i+1) + ". " + taskList.get(i) );
-                }
-                System.out.println(lineBreak);
-            }else {
-                if (wordsArray[0].equals("mark")){
-                    int index = Integer.parseInt(wordsArray[1]) - 1;
-                    Task currentTask = taskList.get(index);
-                    currentTask.markTask();
-                    System.out.println(lineBreak);
-                    System.out.println("Nice! I've marked this task as done: ");
-                    System.out.println(currentTask.toString());
-                    System.out.println(lineBreak);
 
-                } else if (wordsArray[0].equals("unmark")) {
-                    int index = Integer.parseInt(wordsArray[1]) - 1;
-                    Task currentTask = taskList.get(index);
-                    currentTask.unmarkTask();
-                    System.out.println(lineBreak);
-                    System.out.println("OK, I've marked this task as not done yet: ");
-                    System.out.println(currentTask.toString());
-                    System.out.println(lineBreak);
-                } else {
-                    System.out.println(lineBreak);
-                    Task newTask = new Task(userInput);
-                    taskList.add(newTask);
-                    System.out.println(" added " + userInput);
-                    System.out.println(lineBreak);
-                }
+            if (userInput.trim().equals("bye")) {
+                printMessage(exitMessage);
+                break;
+            } else if (userInput.trim().equals("list")) {
+                listTasks();
+            } else {
+                handleTaskInput(userInput);
             }
         }
         scanner.close();
     }
+
+    public static void listTasks() {
+        if (taskList.size() == 0) {
+            printMessage("Current no tasks available.");
+            return;
+        }
+        String outpString = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            outpString += (i + 1) + ". " + taskList.get(i).toString() + "\n";
+        }
+        printMessage(outpString);
+    }
+
+    public static void handleTaskInput(String userInput) {
+        String[] wordsArray = userInput.split("\\s+");
+        String command = wordsArray[0];
+
+        try {
+            switch (command) {
+                case "todo":
+                    addTodoTask(userInput);
+                    break;
+                case "deadline":
+                    addDeadlineTask(userInput);
+                    break;
+                case "event":
+                    addEventTask(userInput);
+                    break;
+                case "mark":
+                    int markIndex = getIndex(wordsArray);
+                    markTaskAsDone(markIndex);
+                    break;
+                case "unmark":
+                    int unmarkIndex = getIndex(wordsArray);
+                    markTaskAsUndone(unmarkIndex);
+                    break;
+                default:
+                    throw new UnknownCommandException();
+            }
+        } catch (DevyBotException e) {
+            printMessage(e.getMessage());
+        }
+    }
+
+    public static void printMessage(String message) {
+        System.out.println("____________________________________________________________");
+        System.out.println(message);
+        System.out.println("____________________________________________________________");
+    }
+
+    public static void addTodoTask(String userInput) throws EmptyDescriptionException {
+        String description = userInput.substring(5).trim();
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException("todo");
+        }
+
+        Task newTask = new TodoTask(description);
+        taskList.add(newTask);
+
+        String outpString = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.size()
+                + " tasks in the list.";
+        printMessage(outpString);
+    }
+
+    public static void addDeadlineTask(String userInput) throws EmptyDescriptionException {
+        String[] parts = userInput.split(" /by ");
+
+        String description = parts[0].substring(9).trim();
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException("todo");
+        }
+
+        String by = parts[1].trim();
+
+        Task newTask = new DeadlineTask(description, by);
+        taskList.add(newTask);
+
+        String outpString = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.size()
+                + " tasks in the list.";
+        printMessage(outpString);
+    }
+
+    public static void addEventTask(String userInput) throws EmptyDescriptionException {
+        String[] parts = userInput.split(" /from | /to ");
+
+        String description = parts[0].substring(6).trim();
+        if (description.isEmpty()) {
+            throw new EmptyDescriptionException("todo");
+        }
+
+        String from = parts[1].trim();
+        String to = parts[2].trim();
+
+        Task newTask = new EventTask(description, from, to);
+        taskList.add(newTask);
+
+        String outpString = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.size()
+                + " tasks in the list.";
+        printMessage(outpString);
+
+    }
+
+    public static void markTaskAsDone(int index) throws TaskIndexOutOfBoundsException {
+
+        if (index >= taskList.size() || index < 0) {
+            throw new TaskIndexOutOfBoundsException(index);
+        }
+
+        Task currentTask = taskList.get(index);
+        currentTask.markTask();
+
+        String outpString = "Nice! I've marked this task as done:\n  " + currentTask;
+        printMessage(outpString);
+    }
+
+    public static void markTaskAsUndone(int index) throws TaskIndexOutOfBoundsException {
+
+        if (index >= taskList.size() || index < 0) {
+            throw new TaskIndexOutOfBoundsException(index);
+        }
+
+        Task currentTask = taskList.get(index);
+        currentTask.unmarkTask();
+
+        String outpString = "OK, I've marked this task as not done yet:\n  " + currentTask;
+        printMessage(outpString);
+    }
+
+    public static int getIndex(String[] wordsArray) throws NonIntegerInputException{
+        try {
+            int index = Integer.parseInt(wordsArray[1]) - 1;
+            return index;
+        } catch (NumberFormatException e) {
+            throw new NonIntegerInputException();
+        }
+    }
+
 }
