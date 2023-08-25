@@ -1,16 +1,16 @@
 todo
 todo read book
 deadline  /by
-deadline  /by Sunday
+deadline  /by 2023-08-25 12:30
 deadline return book /by
-deadline return book /by Sunday
+deadline return book /by 2023-08-25 12:30
 event  /from  /to
 event project meeting /from  /to
-event project meeting /from  /to 4pm
-event project meeting /from Mon 2pm /to
-event  /from  /to 4pm
-event  /from Mon 2pm /to
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from  /to 2023-08-25 12:30
+event project meeting /from 2023-03-22 10:30 /to 2023-08-25 12:30
+event  /from  /to 2023-08-25 12:30
+event  /from 2023-08-25 12:30 /to
+event project meeting /from 2023-03-22 10:30 /to 2023-08-25 12:30
 mark
 mark 0
 mark 10
