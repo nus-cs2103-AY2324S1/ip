@@ -28,7 +28,7 @@ _________________________________________
 _________________________________________
 _________________________________________
 Got it. I've added this task:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: 25 Aug 2023 12:30)
 Now you have 2 tasks in the list.
 _________________________________________
 _________________________________________
@@ -41,7 +41,9 @@ _________________________________________
 :( OOPS!!! /from and /to cannot be empty.
 _________________________________________
 _________________________________________
-:( OOPS!!! Events must have a /from and /to.
+Got it. I've added this task:
+[E][ ] project meeting (from: 22 Mar 2023 10:30 to: 25 Aug 2023 12:30)
+Now you have 3 tasks in the list.
 _________________________________________
 _________________________________________
 :( OOPS!!! The description of an event cannot be empty.
@@ -51,8 +53,8 @@ _________________________________________
 _________________________________________
 _________________________________________
 Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
+[E][ ] project meeting (from: 22 Mar 2023 10:30 to: 25 Aug 2023 12:30)
+Now you have 4 tasks in the list.
 _________________________________________
 _________________________________________
 :( OOPS!!! Task number to be marked cannot be empty.
@@ -72,13 +74,14 @@ Nice! I've marked this task as done:
 _________________________________________
 _________________________________________
 Nice! I've marked this task as done:
-[E][X] project meeting (from: Mon 2pm to: 4pm)
+[E][X] project meeting (from: 22 Mar 2023 10:30 to: 25 Aug 2023 12:30)
 _________________________________________
 _________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book (by: Sunday)
-3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: 25 Aug 2023 12:30)
+3.[E][X] project meeting (from: 22 Mar 2023 10:30 to: 25 Aug 2023 12:30)
+4.[E][ ] project meeting (from: 22 Mar 2023 10:30 to: 25 Aug 2023 12:30)
 _________________________________________
 _________________________________________
 :( OOPS!!! Task number to be unmarked cannot be empty.
@@ -94,13 +97,14 @@ _________________________________________
 _________________________________________
 _________________________________________
 Ok, I've marked this task as not done yet:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[E][ ] project meeting (from: 22 Mar 2023 10:30 to: 25 Aug 2023 12:30)
 _________________________________________
 _________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: 25 Aug 2023 12:30)
+3.[E][ ] project meeting (from: 22 Mar 2023 10:30 to: 25 Aug 2023 12:30)
+4.[E][ ] project meeting (from: 22 Mar 2023 10:30 to: 25 Aug 2023 12:30)
 _________________________________________
 _________________________________________
 :( OOPS!!! Task number to be deleted cannot be empty.
@@ -116,13 +120,14 @@ _________________________________________
 _________________________________________
 _________________________________________
 Noted. I've removed this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 2 tasks in the list.
+[E][ ] project meeting (from: 22 Mar 2023 10:30 to: 25 Aug 2023 12:30)
+Now you have 3 tasks in the list.
 _________________________________________
 _________________________________________
 Here are the tasks in your list:
 1.[T][X] read book
-2.[D][ ] return book (by: Sunday)
+2.[D][ ] return book (by: 25 Aug 2023 12:30)
+3.[E][ ] project meeting (from: 22 Mar 2023 10:30 to: 25 Aug 2023 12:30)
 _________________________________________
 _________________________________________
 Bye. Hope to see you again soon!
