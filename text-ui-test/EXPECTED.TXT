@@ -14,9 +14,29 @@ Hi!! I am
 What brings you here today?
 ------------------------------------------
 ------------------------------------------
+ ☹ OOPS!!! The description of a todo cannot be empty
+
+	Usage: todo <description>
+------------------------------------------
+------------------------------------------
 Got it. I've added this task:
 	[T][ ] read book
 Now you have 1 tasks in the list.
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! The description of a deadline cannot be empty.
+
+	Usage: deadline <description> /by <due date/time>
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! The description of a deadline cannot be empty.
+
+	Usage: deadline <description> /by <due date/time>
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! The due date of a deadline cannot be empty.
+
+	Usage: deadline <description> /by <due date/time>
 ------------------------------------------
 ------------------------------------------
 Got it. I've added this task:
@@ -24,13 +44,52 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ------------------------------------------
 ------------------------------------------
-Nice! I've marked this task as done:
-	[T][X] read book
+ ☹ OOPS!!! The description of an event cannot be empty.
+
+	Usage: event <description> /from <start date/time> /to <end date/time>
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! The start date/time of an event cannot be empty.
+
+	Usage: event <description> /from <start date/time> /to <end date/time>
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! The start date/time of an event cannot be empty.
+
+	Usage: event <description> /from <start date/time> /to <end date/time>
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! The end date/time of an event cannot be empty.
+
+	Usage: event <description> /from <start date/time> /to <end date/time>
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! The description of an event cannot be empty.
+
+	Usage: event <description> /from <start date/time> /to <end date/time>
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! The description of an event cannot be empty.
+
+	Usage: event <description> /from <start date/time> /to <end date/time>
 ------------------------------------------
 ------------------------------------------
 Got it. I've added this task:
 	[E][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 3 tasks in the list.
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! Please provide a task index that is 1 <= task index <= 100.
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! The given task index is higher than current task list: 3.
+------------------------------------------
+------------------------------------------
+ ☹ OOPS!!! Please provide a valid number format
+------------------------------------------
+------------------------------------------
+Nice! I've marked this task as done:
+	[T][X] read book
 ------------------------------------------
 ------------------------------------------
 Nice! I've marked this task as done:
@@ -42,44 +101,22 @@ Nice! I've marked this task as done:
 3.[E][X] project meeting (from: Mon 2pm to: 4pm)
 ------------------------------------------
 ------------------------------------------
- ☹ OOPS!!! + The description of a todo cannot be empty.
+ ☹ OOPS!!! Please provide a task index that is 1 <= task index <= 100.
 ------------------------------------------
 ------------------------------------------
- ☹ OOPS!!! + The given task index is higher than current task list: 3.
+ ☹ OOPS!!! The given task index is higher than current task list: 3.
 ------------------------------------------
 ------------------------------------------
- ☹ OOPS!!! + Please provide a task index that is 1 <= task index <= 100.
-------------------------------------------
-------------------------------------------
- ☹ OOPS!!! + Please provide a task index that is 1 <= task index <= 100.
-------------------------------------------
-------------------------------------------
- ☹ OOPS!!! + Please provide a valid number format
+ ☹ OOPS!!! Please provide a valid number format
 ------------------------------------------
 ------------------------------------------
 OK, I've marked this task as not done yet:
 	[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ------------------------------------------
 ------------------------------------------
-Got it. I've added this task:
-	[D][ ] do homework (by: no idea :-p)
-Now you have 4 tasks in the list.
-------------------------------------------
-------------------------------------------
 1.[T][X] read book
 2.[D][ ] return book (by: Sunday)
 3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-4.[D][ ] do homework (by: no idea :-p)
-------------------------------------------
-------------------------------------------
-Noted. I've removed this task:
-	[E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
-------------------------------------------
-------------------------------------------
-1.[T][X] read book
-2.[D][ ] return book (by: Sunday)
-3.[D][ ] do homework (by: no idea :-p)
 ------------------------------------------
 ------------------------------------------
 Oh.. bye
