@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
@@ -70,7 +72,8 @@ public class Parser {
                                     if (items[1].length() == 3) {
                                         throw new EmptyDescriptionException("");
                                     } else {
-                                        storage.add(new Deadline(items[0], items[1].substring(3)));
+                                        LocalDate date = LocalDate.parse(items[1].substring(3));
+                                        storage.add(new Deadline(items[0], date));
                                     }
                                 }
                             } else if (command.equals("event")) {
@@ -117,6 +120,10 @@ public class Parser {
             } catch (IndexOutOfBoundsException e) {
                 ui.line();
                 System.out.println("Object does not exist");
+                ui.line();
+            } catch (DateTimeParseException e) {
+                ui.line();
+                System.out.println("Time format not correct");
                 ui.line();
             }
         }
