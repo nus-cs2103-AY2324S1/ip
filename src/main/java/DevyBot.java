@@ -5,22 +5,57 @@ import java.util.ArrayList;
 
 public class DevyBot {
     private static ArrayList<Task> taskList = new ArrayList<>();
+    public enum CommandType {
+        TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE, UNKNOWN
+    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         printMessage("Hello! I'm DevyBot\nWhat can I do for you?");
 
-        while (true) {
-            String userInput = scanner.nextLine();
+        boolean run = true;
 
-            if (userInput.trim().equals("bye")) {
-                printMessage("Bye. Hope to see you again soon!");
-                break;
-            } else if (userInput.trim().equals("list")) {
-                listTasks();
-            } else {
-                handleTaskInput(userInput);
+        while (run) {
+            String userInput = scanner.nextLine();
+            String[] wordsArray = userInput.split("\\s+");
+            CommandType commandType = getCommandType(wordsArray[0]);
+
+            try {
+                switch (commandType) {
+                    case TODO:
+                        addTodoTask(userInput);
+                        break;
+                    case DEADLINE:
+                        addDeadlineTask(userInput);
+                        break;
+                    case EVENT:
+                        addEventTask(userInput);
+                        break;
+                    case MARK:
+                        int markIndex = getIndex(wordsArray);
+                        markTaskAsDone(markIndex);
+                        break;
+                    case UNMARK:
+                        int unmarkIndex = getIndex(wordsArray);
+                        markTaskAsUndone(unmarkIndex);
+                        break;
+                    case DELETE:
+                        int deleteIndex = getIndex(wordsArray);
+                        deleteTask(deleteIndex);
+                        break;
+                    case BYE:
+                        printMessage("Bye. Hope to see you again soon!");
+                        run = false;
+                        break;
+                    case LIST:
+                        listTasks();
+                        break;
+                    default:
+                        throw new UnknownCommandException();
+                }
+            } catch (DevyBotException e) {
+                printMessage(e.getMessage());
             }
         }
         scanner.close();
@@ -28,7 +63,7 @@ public class DevyBot {
 
     public static void listTasks() {
         if (taskList.size() == 0) {
-            printMessage("Current no tasks available.");
+            printMessage("Currently no tasks available.");
             return;
         }
         String outpString = "";
@@ -38,38 +73,11 @@ public class DevyBot {
         printMessage(outpString);
     }
 
-    public static void handleTaskInput(String userInput) {
-        String[] wordsArray = userInput.split("\\s+");
-        String command = wordsArray[0];
-
+    public static CommandType getCommandType(String command) {
         try {
-            switch (command) {
-                case "todo":
-                    addTodoTask(userInput);
-                    break;
-                case "deadline":
-                    addDeadlineTask(userInput);
-                    break;
-                case "event":
-                    addEventTask(userInput);
-                    break;
-                case "mark":
-                    int markIndex = getIndex(wordsArray);
-                    markTaskAsDone(markIndex);
-                    break;
-                case "unmark":
-                    int unmarkIndex = getIndex(wordsArray);
-                    markTaskAsUndone(unmarkIndex);
-                    break;
-                case "delete":
-                    int deleteIndex = getIndex(wordsArray);
-                    deleteTask(deleteIndex);
-                    break;
-                default:
-                    throw new UnknownCommandException();
-            }
-        } catch (DevyBotException e) {
-            printMessage(e.getMessage());
+            return CommandType.valueOf(command.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return CommandType.UNKNOWN;
         }
     }
 
@@ -80,7 +88,7 @@ public class DevyBot {
     }
 
     public static void addTodoTask(String userInput) throws EmptyDescriptionException {
-        String description = userInput.substring(5).trim();
+        String description = userInput.substring(4).trim();
         if (description.isEmpty()) {
             throw new EmptyDescriptionException("todo");
         }
@@ -96,9 +104,9 @@ public class DevyBot {
     public static void addDeadlineTask(String userInput) throws EmptyDescriptionException {
         String[] parts = userInput.split(" /by ");
 
-        String description = parts[0].substring(9).trim();
+        String description = parts[0].substring(8).trim();
         if (description.isEmpty()) {
-            throw new EmptyDescriptionException("todo");
+            throw new EmptyDescriptionException("deadline");
         }
 
         String by = parts[1].trim();
@@ -114,9 +122,9 @@ public class DevyBot {
     public static void addEventTask(String userInput) throws EmptyDescriptionException {
         String[] parts = userInput.split(" /from | /to ");
 
-        String description = parts[0].substring(6).trim();
+        String description = parts[0].substring(5).trim();
         if (description.isEmpty()) {
-            throw new EmptyDescriptionException("todo");
+            throw new EmptyDescriptionException("event");
         }
 
         String from = parts[1].trim();
@@ -169,10 +177,10 @@ public class DevyBot {
         printMessage(outpString);
     }
 
-    public static int getIndex(String[] wordsArray) throws NonIntegerInputException{
+    public static int getIndex(String[] wordsArray) throws EmptyDescriptionException, NonIntegerInputException{
         try {
             if (wordsArray.length <= 1) {
-                throw new NonIntegerInputException();
+                throw new EmptyDescriptionException(wordsArray[0].toString());
             }
             int index = Integer.parseInt(wordsArray[1]) - 1;
             return index;
