@@ -11,7 +11,8 @@ import java.util.Scanner;
  * @author Yu Lexuan
  */
 public class Sidtacphi {
-    private static String[] list = new String[100];
+    private static String[] task_list = new String[100];
+    private static boolean[] completed_task = new boolean[100];
     private static int list_ptr = 0;
     
     /**
@@ -67,30 +68,39 @@ public class Sidtacphi {
                 break;
             } else if (Objects.equals(input, "list")) {
                 System.out.println("Sidtacphi:");
-                for (int i = 0; i < list_ptr; i++) {
-                    System.out.println("" + (i + 1) + ". " + list[i]);
-                }
+                showTaskList();
                 System.out.print("\nYou: ");
                 continue;
             }
 
-            addToList(input);
-            System.out.print("\nSidtacphi: " + input + "\n");
+            addTask(input);
+            System.out.print("\nSidtacphi: Added \"" + input + "\".\n");
             System.out.print("\nYou: ");
         }
         scan.close();
     }
 
     /**
-     * Adds the input to the list kept track of by the bot.
+     * Adds the input to the task_list kept track of by the bot.
      * 
-     * @param input Input to add to the list kept by the bot.
+     * @param input Input to add to the task_list kept by the bot.
      */
-    private static void addToList(String input) {
-        list[list_ptr] = input;
+    private static void addTask(String input) {
+        task_list[list_ptr] = input;
         list_ptr++;
-        if (list_ptr >= list.length) {
-            list_ptr -= list.length;
+
+        // in case of > 100 messages, the first few will be purged
+        if (list_ptr >= task_list.length) {
+            list_ptr -= task_list.length;
+        }
+    }
+
+    /**
+     * Prints the task list.
+     */
+    private static void showTaskList() {
+        for (int i = 0; i < list_ptr; i++) {
+            System.out.println("" + (i + 1) + ". " + task_list[i]);
         }
     }
 }
