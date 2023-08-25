@@ -7,12 +7,28 @@ import minion.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents a deadline command.
+ */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
     private final Deadline deadline;
+
+    /**
+     * Constructs a deadline command object.
+     * @param deadline Deadline of the command.
+     */
     public DeadlineCommand(Deadline deadline) {
         this.deadline = deadline;
     }
+
+    /**
+     * Executes the deadline command.
+     * @param tasks Task list.
+     * @param ui Ui of chatbot.
+     * @param storage Storage of chatbot.
+     * @throws IOException if there is IO error.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.add(deadline);
@@ -23,6 +39,12 @@ public class DeadlineCommand extends Command {
         );
         storage.writeToFile(tasks);
     }
+
+    /**
+     * Checks whether this object equals the other object.
+     * @param o other object.
+     * @return whether this object equals the other object.
+     */
     @Override
     public boolean equals(Object o) {
         if(o == null || !(o instanceof DeadlineCommand)) return false;

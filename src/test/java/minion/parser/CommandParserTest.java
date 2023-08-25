@@ -27,7 +27,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void parse_Deadline_fail() throws MinionException {
+    public void parse_Deadline_exceptionThrown() {
         // invalid date format
         try {
             assertEquals(null, CommandParser.parse("deadline return book /by 3 Dec 2023 1400"));
@@ -61,7 +61,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void parse_emptyCommand_exceptionThrown() throws MinionException {
+    public void parse_emptyCommand_exceptionThrown() {
         // empty string as command
         try {
             assertEquals(null, CommandParser.parse(" "));
@@ -72,7 +72,7 @@ public class CommandParserTest {
     }
 
     @Test
-    public void parse_invalidCommand_exceptionThrown() throws MinionException {
+    public void parse_invalidCommand_exceptionThrown() {
         // invalid command word
         try {
             assertEquals(null, CommandParser.parse("hello"));

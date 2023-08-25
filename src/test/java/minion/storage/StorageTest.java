@@ -20,6 +20,7 @@ public class StorageTest {
     private Storage storage;
     private static final String TEST_DATADIR_VALID = "test/data.txt";
     private static final String TEST_DATADIR_INVALID = "tmp/data.txt";
+
     @BeforeEach
     public void setUp() throws IOException {
         tasks = new TaskList();
@@ -41,7 +42,7 @@ public class StorageTest {
     }
 
     @Test
-    public void load_fileNotFound_fail() throws IOException {
+    public void load_fileNotFound_fail() {
         storage = new Storage(TEST_DATADIR_INVALID);
         try {
             assertEquals(null, storage.load());
@@ -53,12 +54,12 @@ public class StorageTest {
         }
     }
 
-    public static void deleteDirAndFile(String... dirnames) {
-        for (String dirname: dirnames) {
-            File dirFile = new File(dirname);
+    public static void deleteDirAndFile(String... dirs) {
+        for (String dir: dirs) {
+            File dirFile = new File(dir);
             if (!dirFile.exists()) continue;
-            File[] dirs = dirFile.listFiles();
-            for (File file : dirs) {
+            File[] files = dirFile.listFiles();
+            for (File file : files) {
                 file.delete();
             }
             dirFile.delete();

@@ -1,7 +1,6 @@
 package minion.parser;
 
 import minion.commands.*;
-import minion.data.exception.IllegalValueException;
 import minion.data.exception.MinionException;
 import minion.data.exception.ParserException;
 import minion.common.Messages;
@@ -9,14 +8,15 @@ import minion.data.task.Deadline;
 import minion.data.task.Event;
 import minion.data.task.ToDo;
 
+/**
+ * Represents a command parser.
+ */
 public class CommandParser {
     /**
-     * Returns a task from the parsed command, throws an exception if there is no such task or invalid parameters.
-     *
-     * @param command minion.commands.Command to parse.
-     * @return the task parsed from the command if no exception is thrown.
-     * @throws ParserException when unable to parse command.
-     * @throws IllegalValueException when illegal value in command.
+     * Parses a task from the command. Throws an exception if unable to parse or invalid argument(s) provided.
+     * @param command command given.
+     * @return the task parsed.
+     * @throws MinionException if unable to parse or invalid argument(s) provided.
      */
     public static Command parse(String command) throws MinionException {
 
@@ -36,6 +36,9 @@ public class CommandParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case FindCommand.COMMAND_WORD:
+            return prepareFind(arr);
 
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arr);
@@ -60,35 +63,74 @@ public class CommandParser {
         }
     }
 
-    private static int parseTaskIdx(String[] arr) throws MinionException {
-        if (arr.length < 2 || arr[1].isEmpty() || !arr[1].trim().matches("[0-9]+")) {
-            throw new MinionException("mark needs to have an argument. Try again.");
+    /**
+     * Parses task index from an array of strings.
+     * @param arr Array of string parts.
+     * @return task index parsed.
+     * @throws ParserException if unable to parse task index.
+     */
+    private static int parseTaskIdx(String commandWord, String[] arr) throws ParserException {
+        if (arr.length < 2 || arr[1].isEmpty()) {
+            throw new ParserException(commandWord + " needs to have an argument. Try again.");
+        }
+        if (!arr[1].trim().matches("[0-9]+")) {
+            throw new ParserException(commandWord + " only accepts digits as its argument. Try again.");
         }
        return Integer.parseInt(arr[1].trim()) - 1;
     }
 
-    private static Command prepareMark(String[] arr) throws MinionException {
-        int taskIdx = parseTaskIdx(arr);
+    /**
+     * Precursor to returning a mark command.
+     * @param arr Array of string parts.
+     * @return Mark command.
+     * @throws ParserException if unable to parse task index.
+     */
+    private static Command prepareMark(String[] arr) throws ParserException {
+        int taskIdx = parseTaskIdx(MarkCommand.COMMAND_WORD, arr);
         return new MarkCommand(taskIdx);
     }
 
-    private static Command prepareUnmark(String[] arr) throws MinionException {
-        int taskIdx = parseTaskIdx(arr);
+    /**
+     * Precursor to returning an unmark command.
+     * @param arr Array of string parts.
+     * @return Unmark command.
+     * @throws ParserException if unable to parse task index.
+     */
+    private static Command prepareUnmark(String[] arr) throws ParserException {
+        int taskIdx = parseTaskIdx(UnmarkCommand.COMMAND_WORD, arr);
         return new UnmarkCommand(taskIdx);
     }
 
-    private static Command prepareDelete(String[] arr) throws MinionException {
-        int taskIdx = parseTaskIdx(arr);
+    /**
+     * Precursor to returning a delete command.
+     * @param arr Array of string parts.
+     * @return Delete command.
+     * @throws ParserException if unable to parse task index.
+     */
+    private static Command prepareDelete(String[] arr) throws ParserException {
+        int taskIdx = parseTaskIdx(DeleteCommand.COMMAND_WORD, arr);
         return new DeleteCommand(taskIdx);
     }
 
-    private static Command prepareToDo(String[] arr) throws MinionException {
+    /**
+     * Precursor to returning a ToDo command.
+     * @param arr Array of string parts.
+     * @return ToDo command.
+     * @throws ParserException if unable to parse the command.
+     */
+    private static Command prepareToDo(String[] arr) throws ParserException {
         if (arr.length < 2 || arr[1].isEmpty()) {
             throw new ParserException(Messages.MESSAGE_TODO_DESCRIPTION_ERROR);
         }
         return new ToDoCommand(new ToDo(arr[1].trim()));
 }
 
+    /**
+     * Precursor to returning a Deadline command.
+     * @param arr Array of string parts.
+     * @return Deadline command.
+     * @throws ParserException if unable to parse the command.
+     */
     private static Command prepareDeadline(String[] arr) throws MinionException {
         // nothing after deadline
         // or, something after deadline - but it's just empty space(s)
@@ -124,6 +166,12 @@ public class CommandParser {
         return null;
     }
 
+    /**
+     * Precursor to returning an Event command.
+     * @param arr Array of string parts.
+     * @return Event command.
+     * @throws MinionException if unable to parse the command.
+     */
     private static Command prepareEvent(String[] arr) throws MinionException {
         if (arr.length < 2 || arr[1].isEmpty()) {
             throw new ParserException(Messages.MESSAGE_EVENT_DESCRIPTION_ERROR);
@@ -179,5 +227,18 @@ public class CommandParser {
             return new EventCommand(new Event(description, fromDatetime, toDatetime));
         }
         return null;
+    }
+
+    /**
+     * Precursor to returning a find command.
+     * @param arr Array of strings.
+     * @return Find command.
+     * @throws ParserException when unable to parse the command.
+     */
+    private static Command prepareFind(String[] arr) throws ParserException {
+        if (arr.length < 2 || arr[1].isEmpty()) {
+            throw new ParserException("Find needs to have an argument. Try again.");
+        }
+        return new FindCommand(arr[1].trim());
     }
 }

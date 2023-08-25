@@ -1,11 +1,11 @@
 package minion.data.exception;
 
 /**
- * Illegal value exception.
+ * Illegal value exception for invalid arguments.
  */
 public class IllegalValueException extends MinionException {
     /**
-     * Creates a new illegal value exception.
+     * Constructs an IllegalValueException.
      * @param s error message.
      */
     public IllegalValueException(String s) {

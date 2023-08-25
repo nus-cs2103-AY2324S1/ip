@@ -31,6 +31,16 @@ public class Event extends Task {
     }
 
     /**
+     * Returns whether the event contains the query.
+     * @param query the query.
+     * @return whether the event contains the query.
+     */
+    @Override
+    public boolean contains(String query) {
+        return this.description.contains(query) || this.start.contains(query) || this.end.contains(query);
+    }
+
+    /**
      * Returns the string representation of the event.
      * @return string representation of the event.
      */

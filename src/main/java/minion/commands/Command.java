@@ -16,8 +16,8 @@ public abstract class Command {
      * @param tasks Task list.
      * @param ui Ui of chatbot.
      * @param storage Storage of chatbot.
-     * @throws MinionException general exception.
-     * @throws IOException IO exception.
+     * @throws MinionException if task cannot be executed.
+     * @throws IOException if there is IO error.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws MinionException, IOException;
 

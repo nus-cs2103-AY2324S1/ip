@@ -8,11 +8,14 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a datetime parser.
+ */
 public class DatetimeParser {
     /**
      * Formats the given date.
      * @param s Date to be formatted.
-     * @return parsed date in MMM d yyy format
+     * @return parsed date in MMM d yyy format.
      * @throws DateTimeParseException when unable to parse date.
      */
     private static String formatDate(String s) throws DateTimeParseException {
@@ -33,7 +36,7 @@ public class DatetimeParser {
      * Parses the given datetime.
      * @param arr An array of strings of datetime.
      * @return parsed datetime
-     * @throws IllegalValueException when illegal value is given for datetime.
+     * @throws IllegalValueException when illegal value(s) are given for date/time.
      */
     public static String parseDatetime(String[] arr) throws IllegalValueException {
         String datetime;

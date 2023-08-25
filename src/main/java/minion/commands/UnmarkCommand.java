@@ -8,31 +8,28 @@ import minion.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents an unmark command.
+ */
 public class UnmarkCommand extends Command {
-    /**
-     * Command word of unmark.
-     */
     public static final String COMMAND_WORD = "unmark";
-    /**
-     * Index of task to unmark.
-     */
     private final int taskIdx;
 
     /**
-     * Constructs an unmarkCommand object.
-     * @param taskIdx index of task.
+     * Constructs an unmark command object.
+     * @param taskIdx index of task in task list.
      */
     public UnmarkCommand(int taskIdx) {
         this.taskIdx = taskIdx;
     }
 
     /**
-     * Marks the task as undone.
+     * Executes the unmark command.
      * @param tasks Task list.
      * @param ui Ui of chatbot.
      * @param storage Storage of chatbot.
-     * @throws IllegalValueException when taskIdx is invalid.
-     * @throws IOException when failed write to storage.
+     * @throws IllegalValueException if any argument(s) are invalid.
+     * @throws IOException if there is IO error.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws
@@ -44,6 +41,11 @@ public class UnmarkCommand extends Command {
         storage.writeToFile(tasks);
     }
 
+    /**
+     * Checks whether this object equals the other object.
+     * @param o other object.
+     * @return whether this object equals the other object.
+     */
     @Override
     public boolean equals(Object o) {
         if(o == null || !(o instanceof UnmarkCommand)) return false;

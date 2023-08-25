@@ -5,7 +5,7 @@ package minion.data.exception;
  */
 public class ParserException extends MinionException {
     /**
-     * Creates a new parser exception.
+     * Constructs a ParserException.
      * @param s error message.
      */
     public ParserException(String s) {

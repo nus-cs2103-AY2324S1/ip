@@ -23,6 +23,16 @@ public class ToDo extends Task {
     }
 
     /**
+     * Returns whether the ToDo contains the query.
+     * @param query the query.
+     * @return whether the ToDo contains the query.
+     */
+    @Override
+    public boolean contains(String query) {
+        return this.description.contains(query);
+    }
+
+    /**
      * Returns the string representation of the minion.data.task.ToDo task.
      * @return string representation of the minion.data.task.ToDo task.
      */

@@ -7,14 +7,28 @@ import minion.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents an event command.
+ */
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
     private final Event event;
 
+    /**
+     * Constructs an event command object.
+     * @param event Event of the command.
+     */
     public EventCommand(Event event) {
         this.event = event;
     }
 
+    /**
+     * Executes the event command.
+     * @param tasks Task list.
+     * @param ui Ui of chatbot.
+     * @param storage Storage of chatbot.
+     * @throws IOException if there is IO error.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.add(event);
@@ -26,6 +40,11 @@ public class EventCommand extends Command {
         storage.writeToFile(tasks);
     }
 
+    /**
+     * Checks whether this object equals the other object.
+     * @param o other object.
+     * @return whether this object equals the other object.
+     */
     @Override
     public boolean equals(Object o) {
         if(o == null || !(o instanceof EventCommand)) return false;
