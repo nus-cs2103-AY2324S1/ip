@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -34,84 +35,32 @@ public class Cupid {
                         continue;
 
                     case MARK:
-                        if (inputArray.length < 2) {
-                            System.out.println("Invalid mark task provided.");
-                            break;
-                        }
-
-                        try {
-                            int targetTaskIdx = Integer.parseInt(inputArray[1]) -1;
-                            Task task = taskList.get(targetTaskIdx);
-                            task.markAsDone();
-                            System.out.println("Nice! I've marked this task as done:");
-                            System.out.println(task.getTaskAsString());
-                            break;
-                        } catch (NumberFormatException e) {
-                            System.out.println("Invalid number provided.");
-                            break;
-                        } catch (IndexOutOfBoundsException e) {
-                            System.out.println("Invalid task number provided.");
-                            break;
-                        }
+                        markCommandHandler(inputArray, taskList);
+                        continue;
 
                     case UNMARK:
-                        if (inputArray.length < 2) {
-                            System.out.println("Invalid unmark task provided.");
-                            break;
-                        }
-
-                        try {
-                            int targetTaskIdx = Integer.parseInt(inputArray[1]) -1;
-                            Task task = taskList.get(targetTaskIdx);
-                            task.markAsUndone();
-                            System.out.println("Ok! I've marked this task as not done yet:");
-                            System.out.println(task.getTaskAsString());
-                            break;
-                        } catch (NumberFormatException e) {
-                            System.out.println("Invalid number provided.");
-                            break;
-                        } catch (IndexOutOfBoundsException e) {
-                            System.out.println("Invalid task number provided.");
-                            break;
-                        }
+                        unmarkCommandHandler(inputArray, taskList);
+                        continue;
 
                     case TODO:
-                        ToDo newTodo = new ToDo(secondHalfInput);
-                        taskList.add(newTodo);
-                        System.out.println("Added: " + newTodo.getTaskAsString());
-                        break;
+                        toDoCommandHandler(taskList, secondHalfInput);
+                        continue;
 
                     case DEADLINE:
-                        String[] deadlineInputArray = secondHalfInput.split("/");
-                        String deadlineDescription = deadlineInputArray[0].substring(0,deadlineInputArray[0].length()-1);
-                        String deadlineDate = deadlineInputArray[1].substring(3);
-
-                        Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
-                        taskList.add(newDeadline);
-                        System.out.println("Added: " + newDeadline.getTaskAsString());
-                        break;
+                        deadlineCommandHandler(taskList, secondHalfInput);
+                        continue;
 
                     case EVENT:
-                        int firstEventSlashIndex = input.indexOf("/");
-                        String[] inputSplitBySlash = secondHalfInput.split("/");
-                        String eventDescription = inputSplitBySlash[0].substring(0, inputSplitBySlash[0].length()-1);
-                        String eventDatesFull = secondHalfInput.substring(firstEventSlashIndex);
-                        String[] eventDatesArray = eventDatesFull.split("/");
-                        String eventStartDate = eventDatesArray[0].substring(0, eventDatesArray[0].length()-1);
-                        String eventEndDate = eventDatesArray[1].substring(3, eventDatesArray[1].length());
-                        Event newEvent = new Event(eventDescription, eventStartDate, eventEndDate);
-                        taskList.add(newEvent);
-                        System.out.println("Added: " + newEvent.getTaskAsString());
-                        break;
+                        eventCommandHandler(taskList, input, secondHalfInput);
+                        continue;
 
                     default:
                         break;
                 }
             } catch (IllegalArgumentException e) {
                 // If task inserted not an ENUM
-                Task newTask = new Task(input);
-                taskList.add(newTask);
-                System.out.println("Added: " + input);
+                System.out.println("Oops!!! I'm sorry but I don't know what that means :-(");
+                System.out.println("Please use one of the following commands: list, mark, unmark, todo, deadline, event, bye");
             }
 
 
@@ -130,6 +79,67 @@ public class Cupid {
             String message = String.format("%d. %s", i+1, taskList.get(i).getTaskAsString());
             System.out.println(message);
         };
+    }
+
+    public static void markCommandHandler(String[] inputArray, ArrayList<Task> taskList) {
+        try {
+            int targetTaskIdx = Integer.parseInt(inputArray[1]) -1;
+            Task task = taskList.get(targetTaskIdx);
+            task.markAsDone();
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println(task.getTaskAsString());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid task number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.");
+        }
+    }
+
+    public static void unmarkCommandHandler(String[] inputArray, ArrayList<Task> taskList) {
+        try {
+            int targetTaskIdx = Integer.parseInt(inputArray[1]) -1;
+            Task task = taskList.get(targetTaskIdx);
+            task.markAsUndone();
+            System.out.println("Ok! I've marked this task as not done yet:");
+            System.out.println(task.getTaskAsString());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number provided. Please provide in the form of 'unmark {task number}'. Eg: 'unmark 1' to unmark task 1.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid task number provided. Please provide in the form of 'unmark {task number}'. Eg: 'unmark 1' to unmark task 1.");
+        }
+    }
+
+    public static void toDoCommandHandler(ArrayList<Task> taskList, String description) {
+        if (description.strip().isEmpty() || description.matches("todo")) {
+            System.out.println("OOPS! The description of a todo cannot be empty.");
+            return;
+        }
+        ToDo newTodo = new ToDo(description);
+        taskList.add(newTodo);
+        System.out.println("Added: " + newTodo.getTaskAsString());
+    }
+
+    public static void deadlineCommandHandler(ArrayList<Task> taskList, String secondHalfInput) {
+        String[] deadlineInputArray = secondHalfInput.split("/");
+        String deadlineDescription = deadlineInputArray[0].substring(0,deadlineInputArray[0].length()-1);
+        String deadlineDate = deadlineInputArray[1].substring(3);
+
+        Deadline newDeadline = new Deadline(deadlineDescription, deadlineDate);
+        taskList.add(newDeadline);
+        System.out.println("Added: " + newDeadline.getTaskAsString());
+    }
+
+    public static void eventCommandHandler(ArrayList<Task> taskList, String input, String secondHalfInput) {
+        int firstEventSlashIndex = input.indexOf("/");
+        String[] inputSplitBySlash = secondHalfInput.split("/");
+        String eventDescription = inputSplitBySlash[0].substring(0, inputSplitBySlash[0].length()-1);
+        String eventDatesFull = secondHalfInput.substring(firstEventSlashIndex);
+        String[] eventDatesArray = eventDatesFull.split("/");
+        String eventStartDate = eventDatesArray[0].substring(0, eventDatesArray[0].length()-1);
+        String eventEndDate = eventDatesArray[1].substring(3, eventDatesArray[1].length());
+        Event newEvent = new Event(eventDescription, eventStartDate, eventEndDate);
+        taskList.add(newEvent);
+        System.out.println("Added: " + newEvent.getTaskAsString());
     }
 
 }
