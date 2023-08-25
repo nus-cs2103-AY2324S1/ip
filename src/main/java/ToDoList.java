@@ -1,16 +1,43 @@
 import java.util.ArrayList;
+import java.io.IOException;
 
 /**
  * Represents a ToDoList that holds tasks.
  */
 public class ToDoList {
     private ArrayList<Task> list;
+    private TaskDataStorage dataStorage;
 
     /**
      * Constructs an empty ToDoList.
      */
-    public ToDoList() {
+    public ToDoList(String dataFilePath) {
         list = new ArrayList<>();
+        dataStorage = new TaskDataStorage(dataFilePath);
+        load();
+    }
+
+    /**
+     * Save the list of tasks to the data file.
+     */
+    private void save() {
+        try {
+            dataStorage.saveTasks(list);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Load the list of tasks from the data file.
+     */
+    private void load() {
+        try {
+            ArrayList<Task> tasks = dataStorage.loadTasks();
+            list = tasks;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
     }
 
     /**
@@ -20,6 +47,7 @@ public class ToDoList {
      */
     public void add(Task task) {
         list.add(task);
+        save();
     }
 
     /**
@@ -33,6 +61,7 @@ public class ToDoList {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
         list.remove(index - 1);
+        save();
     }
 
     /**
@@ -46,6 +75,7 @@ public class ToDoList {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
         list.get(index - 1).markDone();
+        save();
     }
 
     /**
@@ -59,6 +89,7 @@ public class ToDoList {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
         list.get(index - 1).markUndone();
+        save();
     }
 
     /**
