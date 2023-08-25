@@ -37,18 +37,21 @@ public class Sidtacphi {
         Scanner scan = new Scanner(System.in);
         System.out.print("\nYou: ");
         String input = "";
-        while (!scan.hasNext("bye")) {
-            if (scan.hasNext("list")) {
-                scan.next();
+        while (true) { 
+            if (!scan.hasNextLine()) {
+                continue;
+            }
+            input = scan.nextLine();
+            if (input.equals("bye")) {
+                break;
+            } else if (input.equals("list")) {
                 System.out.println("Sidtacphi:");
                 for (int i = 0; i < list_ptr; i++) {
                     System.out.println("" + (i + 1) + ". " + list[i]);
                 }
                 System.out.print("\nYou: ");
-                input = scan.nextLine();
                 continue;
             }
-            input = scan.nextLine();
             list[list_ptr] = input;
             list_ptr++;
             System.out.print("\nSidtacphi: " + input + "\n");
