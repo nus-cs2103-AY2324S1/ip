@@ -1,0 +1,6 @@
+T|1|borrow book
+T|0|set up project
+T|1|call mother
+D|1|finish project |2011-11-11
+E|0|dinner with family |2012-01-01|2013-01-02
+E|1|lunch with family |1997-11-30|1998-12-31
