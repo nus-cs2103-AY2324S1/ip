@@ -5,16 +5,16 @@ import java.util.ArrayList;
  * This class handles the storage and retrieval of task data using serialization.
  * It provides methods to save and load ArrayList of Task objects to/from a file on the hard disk.
  */
-public class TaskDataStorage {
+public class Storage {
     private String filePath;
 
     /**
-     * Constructs a TaskDataStorage object with the specified file path.
+     * Constructs a Storage object with the specified file path.
      *
      * @param filePath The path to the file where task data will be stored and retrieved.
      *                 If the file path does not exist, the necessary directories will be created.
      */
-    public TaskDataStorage(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
 
         File file = new File(filePath);
