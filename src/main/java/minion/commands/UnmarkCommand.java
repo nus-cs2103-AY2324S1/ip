@@ -43,4 +43,11 @@ public class UnmarkCommand extends Command {
         );
         storage.writeToFile(tasks);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || !(o instanceof UnmarkCommand)) return false;
+        UnmarkCommand c = (UnmarkCommand) o;
+        return this.taskIdx == c.taskIdx;
+    }
 }

@@ -86,8 +86,8 @@ public class CommandParser {
         if (arr.length < 2 || arr[1].isEmpty()) {
             throw new ParserException(Messages.MESSAGE_TODO_DESCRIPTION_ERROR);
         }
-        return new ToDoCommand(new ToDo(arr[1]));
-    }
+        return new ToDoCommand(new ToDo(arr[1].trim()));
+}
 
     private static Command prepareDeadline(String[] arr) throws MinionException {
         // nothing after deadline

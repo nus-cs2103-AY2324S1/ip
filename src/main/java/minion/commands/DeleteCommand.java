@@ -23,4 +23,11 @@ public class DeleteCommand extends Command {
         );
         storage.writeToFile(tasks);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || !(o instanceof DeleteCommand)) return false;
+        DeleteCommand c = (DeleteCommand) o;
+        return this.taskIdx == c.taskIdx;
+    }
 }

@@ -39,4 +39,11 @@ public class ToDo extends Task {
     public String toStringStorage() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || !(o instanceof ToDo)) return false;
+        ToDo t = (ToDo) o;
+        return this.description.equals(t.description) && this.isDone == t.isDone;
+    }
 }

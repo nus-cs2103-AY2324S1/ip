@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class ToDoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
-    private final ToDo toDo;
+    public final ToDo toDo;
 
     public ToDoCommand(ToDo toDo) {
         this.toDo = toDo;
@@ -24,5 +24,12 @@ public class ToDoCommand extends Command {
             "Now you have " + tasks.size() +  " tasks in the list."
         );
         storage.writeToFile(tasks);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || !(o instanceof ToDoCommand)) return false;
+        ToDoCommand c = (ToDoCommand) o;
+        return this.toDo.equals(c.toDo);
     }
 }

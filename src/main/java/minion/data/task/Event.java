@@ -47,4 +47,11 @@ public class Event extends Task {
     public String toStringStorage() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start + " - " + end;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || !(o instanceof Event)) return false;
+        Event t = (Event) o;
+        return this.description.equals(t.description) && this.isDone == t.isDone && this.start.equals(t.start) && this.end.equals(t.end);
+    }
 }
