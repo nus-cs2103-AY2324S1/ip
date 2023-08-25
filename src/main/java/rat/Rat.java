@@ -51,7 +51,6 @@ public class Rat {
 
     /**
      * The main method of Rat.
-     *
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
