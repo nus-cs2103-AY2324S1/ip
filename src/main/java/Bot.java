@@ -1,5 +1,6 @@
 import exceptions.*;
 
+import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,12 +22,13 @@ public class Bot {
     public static void main(String[] args) {
         ArrayList<Task> lst = new ArrayList<>();
         try {
-            File dataDir = new File("../data");
-            File f = new File("../data/bot.txt");
+            File dataDir = new File("./data");
+            File f = new File("./data/bot.txt");
             if (dataDir.isDirectory() && f.isFile()) {
                 Scanner scanner = new Scanner(f);
                 populateList(scanner, lst);
             } else {
+                System.out.println("No data found, creating...");
                 dataDir.mkdir();
                 f.createNewFile();
             }
