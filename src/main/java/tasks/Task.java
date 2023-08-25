@@ -2,7 +2,7 @@ package tasks;
 
 import ui.Ui;
 
-public class Task {
+public abstract class Task {
 
     private String description;
     private boolean completed;
@@ -12,13 +12,14 @@ public class Task {
         this.completed = false;
     }
 
-    public String getDescription() {
-        return this.description;
+    public Task(String description, boolean completed) {
+        this.description = description;
+        this.completed = completed;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public String getFileFormat() {
+        return String.format("%d | %s", this.completed ? 1 : 0, this.description);
+    };
 
     public void toggleStatus(boolean newStatus) {
         if (this.completed == newStatus) {

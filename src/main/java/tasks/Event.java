@@ -10,6 +10,17 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String description, String start, String end, boolean completed) {
+        super(description, completed);
+        this.start = start;
+        this.end = end;
+    }
+
+    @Override
+    public String getFileFormat() {
+        return String.format("E | %s | %s | %s", super.getFileFormat(), this.start, this.end);
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() +
