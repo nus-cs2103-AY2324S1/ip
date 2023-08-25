@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.util.regex.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import dukeExceptions.*;
 
@@ -15,21 +18,66 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException {
+
+        // initialise array to store user input
+        TaskList arr = new TaskList();
+
+        // Check if data file exists, if not create empty one
+        String filePathString = "./data/duke.txt";
+        File f = new File(filePathString);
+        try {
+            f.createNewFile();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        // Update task list based on data file
+        try {
+            Scanner dataSc = new Scanner(f);
+            while (dataSc.hasNextLine()) {
+                String[] task = dataSc.nextLine().trim().split("\\|");
+                task[0] = task[0].trim();
+                int taskType = task[0].equals("T") ? 0 : task[0].equals("D") ? 1 : 2;
+                switch (taskType) {
+                    case 0: {
+                        String dataString = "todo " + task[2].trim();
+                        arr.addTask(Todo.of(dataString));
+                        break;
+                    }
+                    case 1: {
+                        String dataString = "deadline " + task[2].trim() + " /by " + task[3].trim();
+                        arr.addTask(Deadline.of(dataString));
+                        break;
+                    }
+                    case 2: {
+                        String dataString = "event " + task[2].trim() + " /from " + task[3].trim() + " /to "
+                                + task[4].trim();
+                        arr.addTask(Event.of(dataString));
+                        break;
+                    }
+                }
+                // System.out.println(task[1].trim());
+                if (task[1].trim().equals("1")) {
+                    arr.markTaskAsDone(arr.length() - 1);
+                } else {
+                    arr.markTaskAsNotDone(arr.length() - 1);
+                }
+            }
+            dataSc.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
         // Print greeting
         String lnspace = "____________________________________________________________";
         String greeting = lnspace + "\n"
                 + "Hello! I'm Lorem\n"
                 + "What can I do for you?\n"
                 + lnspace + "\n";
-
         System.out.println(greeting);
 
         // initialise scanner to detect user input
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine().trim();
-
-        // initialise array to store user input
-        TaskList arr = new TaskList();
 
         // while loop to continuously take in inputs until user types bye
         while (!userInput.equals("bye")) {
@@ -46,17 +94,11 @@ public class Duke {
                 boolean isDelete = Pattern.compile("^delete").matcher(userInput).find();
                 boolean isValidTask = isTodo || isDeadline || isEvent;
 
-                Commands command = isList
-                        ? Commands.list
-                        : isMark
-                                ? Commands.mark
-                                : isUnmark
-                                        ? Commands.unmark
-                                        : isValidTask
-                                                ? Commands.taskaddition
-                                                : isDelete
-                                                        ? Commands.delete
-                                                        : Commands.unknown;
+                Commands command = isList ? Commands.list
+                        : isMark ? Commands.mark
+                                : isUnmark ? Commands.unmark
+                                        : isValidTask ? Commands.taskaddition
+                                                : isDelete ? Commands.delete : Commands.unknown;
 
                 switch (command) {
                     case list: {
@@ -131,6 +173,17 @@ public class Duke {
                     }
                 }
 
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            // overwrite data file with existing data
+            try {
+                FileOutputStream object = new FileOutputStream("./data/duke.txt", false);
+                for (char c : arr.storage().toCharArray()) {
+                    object.write(c);
+                }
+                object.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

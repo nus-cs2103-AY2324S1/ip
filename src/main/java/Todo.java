@@ -27,7 +27,7 @@ public class Todo extends Task {
      * @throws MissingInformationException due to possibly an empty
      * description of the todo task.
      */
-    public static Task of(String input) throws MissingInformationException {
+    public static Todo of(String input) throws MissingInformationException {
         input = input.trim();
         if (input.length() <= 0) {
             throw new EmptyDescriptionException("todo");
@@ -50,5 +50,11 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public String toBeStored() {
+        String marked = this.isDone() ? "1" : "0";
+        return "T | " + marked + " | " + this.getDescription() + "\n";
     }
 }

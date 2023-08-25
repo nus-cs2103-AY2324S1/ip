@@ -76,4 +76,12 @@ public class TaskList {
     public void delete(int index) {
         this.taskArr.remove(index);
     }
+
+    public String storage() {
+        String out = "";
+        for (Task task : this.taskArr) {
+            out += task.toBeStored();
+        }
+        return out;
+    }
 }

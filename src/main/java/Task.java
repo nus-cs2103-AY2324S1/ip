@@ -31,6 +31,10 @@ public abstract class Task {
         return (isDone ? "X" : " ");
     }
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     /*
      * A method that marks task as done.
      */
@@ -53,4 +57,7 @@ public abstract class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    public abstract String toBeStored();
+
 }
