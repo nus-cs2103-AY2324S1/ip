@@ -34,26 +34,26 @@
     3.[T][X] call mother
     ---------------------------------------------------------------------
     Okay! I've added your task:
-    [D][ ] return book  (by: Friday)
+    [D][ ] return book  (by: Oct 15 2019)
     There are now 4 tasks in your list
     ---------------------------------------------------------------------
     Okay! I've added your task:
-    [D][ ] finish project  (by: Monday)
+    [D][ ] finish project  (by: Nov 11 2011)
     There are now 5 tasks in your list
     ---------------------------------------------------------------------
     Okay! I've marked the following task as done:
-    [D][X] return book  (by: Friday)
+    [D][X] return book  (by: Oct 15 2019)
     ---------------------------------------------------------------------
     Okay! I've added your task:
-    [E][ ] dinner with family  (from: Tuesday 6pm  to: Tuesday 8pm)
+    [E][ ] dinner with family  (from: Jan 1 2012 to: Jan 2 2013)
     There are now 6 tasks in your list
     ---------------------------------------------------------------------
     Okay! I've marked the following task as done:
-    [E][X] dinner with family  (from: Tuesday 6pm  to: Tuesday 8pm)
+    [E][X] dinner with family  (from: Jan 1 2012 to: Jan 2 2013)
     ---------------------------------------------------------------------
-    Okay! I've added your task:
-    [D][ ] submit application  (by: Wednesday)
-    There are now 7 tasks in your list
+    The date must be in the format yyyy-mm-dd. Please try again.
+    ---------------------------------------------------------------------
+    The date must be in the format yyyy-mm-dd. Please try again.
     ---------------------------------------------------------------------
     12 is an invalid task number. Please try again.
     ---------------------------------------------------------------------
@@ -61,48 +61,45 @@
     1.[T][X] borrow book
     2.[T][ ] set up project
     3.[T][X] call mother
-    4.[D][X] return book  (by: Friday)
-    5.[D][ ] finish project  (by: Monday)
-    6.[E][X] dinner with family  (from: Tuesday 6pm  to: Tuesday 8pm)
-    7.[D][ ] submit application  (by: Wednesday)
+    4.[D][X] return book  (by: Oct 15 2019)
+    5.[D][ ] finish project  (by: Nov 11 2011)
+    6.[E][X] dinner with family  (from: Jan 1 2012 to: Jan 2 2013)
     ---------------------------------------------------------------------
     I don't quite understand gibberish. Please try again.
     ---------------------------------------------------------------------
     Okay! I've added your task:
-    [E][ ] lunch with family  (from: Saturday 1pm  to: Saturday 3pm)
-    There are now 8 tasks in your list
+    [E][ ] lunch with family  (from: Nov 30 1997 to: Dec 31 1998)
+    There are now 7 tasks in your list
     ---------------------------------------------------------------------
     Okay! I've marked the following task as done:
-    [D][X] submit application  (by: Wednesday)
+    [E][X] lunch with family  (from: Nov 30 1997 to: Dec 31 1998)
     ---------------------------------------------------------------------
     Okay! I've marked the following task as done:
-    [D][X] finish project  (by: Monday)
+    [D][X] finish project  (by: Nov 11 2011)
     ---------------------------------------------------------------------
     The tasks in your list are as follows:
     1.[T][X] borrow book
     2.[T][ ] set up project
     3.[T][X] call mother
-    4.[D][X] return book  (by: Friday)
-    5.[D][X] finish project  (by: Monday)
-    6.[E][X] dinner with family  (from: Tuesday 6pm  to: Tuesday 8pm)
-    7.[D][X] submit application  (by: Wednesday)
-    8.[E][ ] lunch with family  (from: Saturday 1pm  to: Saturday 3pm)
+    4.[D][X] return book  (by: Oct 15 2019)
+    5.[D][X] finish project  (by: Nov 11 2011)
+    6.[E][X] dinner with family  (from: Jan 1 2012 to: Jan 2 2013)
+    7.[E][X] lunch with family  (from: Nov 30 1997 to: Dec 31 1998)
     ---------------------------------------------------------------------
     Okay! I've marked the following task as undone:
-    [E][ ] dinner with family  (from: Tuesday 6pm  to: Tuesday 8pm)
+    [E][ ] dinner with family  (from: Jan 1 2012 to: Jan 2 2013)
     ---------------------------------------------------------------------
     Okay! I've marked the following task as undone:
-    [E][ ] dinner with family  (from: Tuesday 6pm  to: Tuesday 8pm)
+    [E][ ] dinner with family  (from: Jan 1 2012 to: Jan 2 2013)
     ---------------------------------------------------------------------
     The tasks in your list are as follows:
     1.[T][X] borrow book
     2.[T][ ] set up project
     3.[T][X] call mother
-    4.[D][X] return book  (by: Friday)
-    5.[D][X] finish project  (by: Monday)
-    6.[E][ ] dinner with family  (from: Tuesday 6pm  to: Tuesday 8pm)
-    7.[D][X] submit application  (by: Wednesday)
-    8.[E][ ] lunch with family  (from: Saturday 1pm  to: Saturday 3pm)
+    4.[D][X] return book  (by: Oct 15 2019)
+    5.[D][X] finish project  (by: Nov 11 2011)
+    6.[E][ ] dinner with family  (from: Jan 1 2012 to: Jan 2 2013)
+    7.[E][X] lunch with family  (from: Nov 30 1997 to: Dec 31 1998)
     ---------------------------------------------------------------------
     I don't quite understand fsdkfns. Please try again.
     ---------------------------------------------------------------------
@@ -119,8 +116,8 @@
     The start time of the task is missing. Please try again.
     ---------------------------------------------------------------------
     Okay! I've removed this task:
-    [D][X] return book  (by: Friday)
-    There are now 7 tasks in your list
+    [D][X] return book  (by: Oct 15 2019)
+    There are now 6 tasks in your list
     ---------------------------------------------------------------------
     11 is an invalid task number. Please try again.
     ---------------------------------------------------------------------
@@ -128,10 +125,9 @@
     1.[T][X] borrow book
     2.[T][ ] set up project
     3.[T][X] call mother
-    4.[D][X] finish project  (by: Monday)
-    5.[E][ ] dinner with family  (from: Tuesday 6pm  to: Tuesday 8pm)
-    6.[D][X] submit application  (by: Wednesday)
-    7.[E][ ] lunch with family  (from: Saturday 1pm  to: Saturday 3pm)
+    4.[D][X] finish project  (by: Nov 11 2011)
+    5.[E][ ] dinner with family  (from: Jan 1 2012 to: Jan 2 2013)
+    6.[E][X] lunch with family  (from: Nov 30 1997 to: Dec 31 1998)
     ---------------------------------------------------------------------
     Goodbye! If you need more help in the future don't hesitate to ask me.
     ---------------------------------------------------------------------
