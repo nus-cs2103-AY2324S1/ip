@@ -11,9 +11,8 @@ import java.util.Scanner;
  * @author Yu Lexuan
  */
 public class Sidtacphi {
-    private static String[] task_list = new String[100];
-    private static boolean[] completed_task = new boolean[100];
-    private static int list_ptr = 0;
+    private static Task[] taskList = new Task[100];
+    private static int listPtr = 0;
     
     /**
      * The main method for the Sidtacphi class.
@@ -59,22 +58,32 @@ public class Sidtacphi {
         System.out.print("\nYou: ");
         String input = "";
         while (true) { 
-            if (!scan.hasNextLine()) {
-                continue;
-            }
             input = scan.nextLine();
             if (Objects.equals(input, "bye")) {
                 stopBot();
                 break;
             } else if (Objects.equals(input, "list")) {
-                System.out.println("Sidtacphi:");
                 showTaskList();
-                System.out.print("\nYou: ");
                 continue;
+            } else if (input.length() > 4 && Objects.equals(input.substring(0, 5), "mark ")) {
+                try {
+                    int taskId = Integer.parseInt(input.substring(5));
+                    taskList[taskId - 1].mark();
+                    System.out.println("\nSidtacphi: Marked " + taskId + ".");
+                } catch (Exception e) {
+                    System.out.println("\nSidtacphi: Invalid task ID. ");
+                }
+            } else if (input.length() > 6 && Objects.equals(input.substring(0, 7), "unmark ")) {
+                try {
+                    int taskId = Integer.parseInt(input.substring(7));
+                    taskList[taskId - 1].mark();
+                    System.out.println("\nSidtacphi: Unmarked " + taskId + ".");
+                } catch (Exception e) {
+                    System.out.println("\nSidtacphi: Invalid task ID. ");
+                }
+            } else {
+                addTask(input);
             }
-
-            addTask(input);
-            System.out.print("\nSidtacphi: Added \"" + input + "\".\n");
             System.out.print("\nYou: ");
         }
         scan.close();
@@ -86,21 +95,27 @@ public class Sidtacphi {
      * @param input Input to add to the task_list kept by the bot.
      */
     private static void addTask(String input) {
-        task_list[list_ptr] = input;
-        list_ptr++;
-
-        // in case of > 100 messages, the first few will be purged
-        if (list_ptr >= task_list.length) {
-            list_ptr -= task_list.length;
+        // in case of > 100 messages, we will not add any more messages
+        if (listPtr >= taskList.length - 1) {
+            System.out.print("\nSidtacphi: You have too many tasks.\n");
+            return;
         }
+        taskList[listPtr] = new Task(input, false);
+        listPtr++;
+        System.out.print("\nSidtacphi: I have added \"" + input + "\".\n");
     }
 
     /**
      * Prints the task list.
      */
     private static void showTaskList() {
-        for (int i = 0; i < list_ptr; i++) {
-            System.out.println("" + (i + 1) + ". " + task_list[i]);
+        if (listPtr == 0) {
+            System.out.println("Sidtacphi: You have no tasks in your list.");
+            return;
+        }
+        System.out.println("Sidtacphi: You have a countable number of tasks in your list.");
+        for (int i = 0; i < listPtr; i++) {
+            System.out.println("" + (i + 1) + ". " + taskList[i]);
         }
     }
 }
