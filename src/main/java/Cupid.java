@@ -93,12 +93,12 @@ public class Cupid {
 
                     case EVENT:
                         int firstEventSlashIndex = input.indexOf("/");
-                        String eventDescription = secondHalfInput.substring(0, firstEventSlashIndex-1);
-                        String eventDatesFull = secondHalfInput.substring(firstEventSlashIndex+1);
+                        String[] inputSplitBySlash = secondHalfInput.split("/");
+                        String eventDescription = inputSplitBySlash[0].substring(0, inputSplitBySlash[0].length()-1);
+                        String eventDatesFull = secondHalfInput.substring(firstEventSlashIndex);
                         String[] eventDatesArray = eventDatesFull.split("/");
-                        String eventStartDate = eventDatesArray[0].substring(5, eventDatesArray[0].length());
+                        String eventStartDate = eventDatesArray[0].substring(0, eventDatesArray[0].length()-1);
                         String eventEndDate = eventDatesArray[1].substring(3, eventDatesArray[1].length());
-
                         Event newEvent = new Event(eventDescription, eventStartDate, eventEndDate);
                         taskList.add(newEvent);
                         System.out.println("Added: " + newEvent.getTaskAsString());
@@ -119,7 +119,7 @@ public class Cupid {
                 break;
             }
         }
-        
+
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
@@ -127,7 +127,7 @@ public class Cupid {
 
     public static void listCommandHandler(ArrayList<Task> taskList) {
         for (int i=0; i<taskList.size(); i++) {
-            String message = String.format("%d. [%s] %s", i+1, taskList.get(i).getStatusIcon(), taskList.get(i).getDescription());
+            String message = String.format("%d. %s", i+1, taskList.get(i).getTaskAsString());
             System.out.println(message);
         };
     }
