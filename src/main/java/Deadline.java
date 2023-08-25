@@ -18,7 +18,6 @@ public class Deadline extends Task{
         if (this.deadlineDateTime != null) {
             this.isDateTime = true;
         }
-        System.out.println(deadlineDateTime);
     }
 
     @Override
