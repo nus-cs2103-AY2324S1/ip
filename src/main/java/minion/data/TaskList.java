@@ -66,7 +66,7 @@ public class TaskList {
 
     public String toStringStorage() {
         StringBuilder sb = new StringBuilder();
-        for(Task task: tasks) {
+        for (Task task : tasks) {
             sb.append(task.toStringStorage());
             sb.append("\n");
         }

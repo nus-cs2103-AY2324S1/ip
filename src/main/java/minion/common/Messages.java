@@ -12,4 +12,7 @@ public class Messages {
     public static final String MESSAGE_EVENT_DESCRIPTION_ERROR = "☹ OOPS!!! The description of an event cannot be empty.";
     public static final String MESSAGE_EVENT_FROM_ERROR = "☹ OOPS!!! The from date of an event cannot be empty.";
     public static final String MESSAGE_EVENT_TO_ERROR = "☹ OOPS!!! The to date of an event cannot be empty.";
+    public static final String MESSAGE_FAIL_PARSE_DATE = "Unable to parse date. Ensure it is of the form dd/mm/yyyy!";
+    public static final String MESSAGE_FAIL_PARSE_TIME = "Unable to parse time. Ensure it is form HHmm!";
+    public static final String MESSAGE_IO_EXCEPTION = "IO exception occurred. Please try again.";
 }

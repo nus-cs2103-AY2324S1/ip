@@ -43,4 +43,11 @@ public class Deadline extends Task {
     public String toStringStorage() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + this.datetime;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || !(o instanceof Deadline)) return false;
+        Deadline t = (Deadline) o;
+        return this.description.equals(t.description) && this.isDone == t.isDone && this.datetime.equals(t.datetime);
+    }
 }

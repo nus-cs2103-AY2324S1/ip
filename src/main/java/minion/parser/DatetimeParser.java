@@ -1,5 +1,6 @@
 package minion.parser;
 
+import minion.common.Messages;
 import minion.data.exception.IllegalValueException;
 
 import java.time.LocalDate;
@@ -39,14 +40,14 @@ public class DatetimeParser {
         try {
             datetime = formatDate(arr[0]);
         } catch (DateTimeParseException e) {
-            throw new IllegalValueException("Unable to parse date. Ensure it is of the form dd/mm/yyyy!");
+            throw new IllegalValueException(Messages.MESSAGE_FAIL_PARSE_DATE);
         }
         if (arr.length > 1) {
             datetime += " ";
             try {
                 datetime += formatTime(arr[1]);
             } catch (DateTimeParseException e) {
-                throw new IllegalValueException("Unable to parse time. Ensure it is form HHmm!");
+                throw new IllegalValueException(Messages.MESSAGE_FAIL_PARSE_TIME);
             }
         }
         return datetime;

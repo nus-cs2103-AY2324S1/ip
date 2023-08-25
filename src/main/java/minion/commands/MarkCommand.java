@@ -23,4 +23,11 @@ public class MarkCommand extends Command {
         );
         storage.writeToFile(tasks);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null || !(o instanceof MarkCommand)) return false;
+        MarkCommand c = (MarkCommand) o;
+        return this.taskIdx == c.taskIdx;
+    }
 }

@@ -1,5 +1,6 @@
 package minion.storage;
 
+import minion.common.Messages;
 import minion.data.TaskList;
 import minion.data.task.Deadline;
 import minion.data.task.Event;
@@ -47,7 +48,7 @@ public class Storage {
         file = new File(filePath);
         if (!file.exists()) {
             createFile(file);
-            throw new FileNotFoundException();
+            throw new FileNotFoundException(Messages.MESSAGE_FILE_NOT_FOUND);
         }
         Scanner s = new Scanner(file);
         List<Task> tasks = new ArrayList<>();
