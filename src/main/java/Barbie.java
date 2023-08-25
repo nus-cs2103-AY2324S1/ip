@@ -7,11 +7,11 @@ public class Barbie {
         // CONSTANTS
         String line = "______________________________\n";
         Scanner scanner = new Scanner(System.in);
-        String logo = " ____             _        \n"
-                + "|  _ \\           | | \n"
+        String logo = " ____             _\n"
+                + "|  _ \\           | |\n"
                 + "| |_| |_____,_ ,_| |,___  _  ___\n"
                 + "|  _ /|  _  | ` _|  __\\ \\| |/ _  \\\n"
-                + "| |_| | |_| | |  | |__/ /| |  ___/  \n"
+                + "| |_| | |_| | |  | |__/ /| |  ___/\n"
                 + "|____/ \\__,_|_|  |_|\\__/ |_|\\___/\n";
         Task[] list = new Task[100];
 
@@ -22,7 +22,7 @@ public class Barbie {
                 + logo
                 + "\nWhat can I do for you?\n" +
                 line);
-        System.out.println("[you]: ");
+        System.out.println("[you]:");
 
         // Reading input
         String input = scanner.nextLine();
@@ -34,7 +34,7 @@ public class Barbie {
         loop:
         while (!Objects.equals(input, "bye")) {
             System.out.println("\t" + line
-                    + "\t [barbie]: \n");
+                    + "\t [barbie]:\n");
             switch (command) {
                 case "mark":
                 case "unmark":

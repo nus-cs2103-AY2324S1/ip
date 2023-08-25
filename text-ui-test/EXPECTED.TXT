@@ -1,7 +1,82 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+______________________________
+Hi Barbie! Hi Ken!
+
+I'm
+ ____             _
+|  _ \           | |
+| |_| |_____,_ ,_| |,___  _  ___
+|  _ /|  _  | ` _|  __\ \| |/ _  \
+| |_| | |_| | |  | |__/ /| |  ___/
+|____/ \__,_|_|  |_|\__/ |_|\___/
+
+What can I do for you?
+______________________________
+
+[you]:
+	______________________________
+	 [barbie]:
+
+	 Got you barbie! I've added this task to your Barbie list:
+	 [T][ ] read book
+	______________________________
+
+[you]:
+	______________________________
+	 [barbie]:
+
+	 Got you barbie! I've added this task to your Barbie list:
+	 [D][ ] sign consent form [BY: Tonight]
+	______________________________
+
+[you]:
+	______________________________
+	 [barbie]:
+
+	 Got you barbie! I've added this task to your Barbie list:
+	 {P}[ ] girls' night ~from: Tonight, to: Forever~
+	______________________________
+
+[you]:
+	______________________________
+	 [barbie]:
+
+	 Nice! I've marked this task as done:
+	 [T][X] read book
+	______________________________
+
+	______________________________
+
+[you]:
+	______________________________
+	 [barbie]:
+
+	 Nice! I've marked this task as done:
+	 [D][X] sign consent form [BY: Tonight]
+	______________________________
+
+	______________________________
+
+[you]:
+	______________________________
+	 [barbie]:
+
+	 Alright! I've marked this task as not done yet:
+	 [D][ ] sign consent form [BY: Tonight]
+	______________________________
+
+	______________________________
+
+[you]:
+	______________________________
+	 [barbie]:
+
+	1. [T][X] read book
+	2. [D][ ] sign consent form [BY: Tonight]
+	3. {P}[ ] girls' night ~from: Tonight, to: Forever~
+	______________________________
+
+[you]:
+______________________________
+Bye Barbie! Bye Ken!
+______________________________
 
