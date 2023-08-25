@@ -1,15 +1,15 @@
 package tasks;
 
 public class Deadline extends Task {
-    private String deadline;
+    private Dateable deadline;
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadline = Dateable.of(deadline);
     }
 
     public Deadline(String description, String deadline, boolean completed) {
         super(description, completed);
-        this.deadline = deadline;
+        this.deadline = Dateable.of(deadline);
     }
 
     @Override

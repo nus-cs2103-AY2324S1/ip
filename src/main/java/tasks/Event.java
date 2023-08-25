@@ -1,19 +1,19 @@
 package tasks;
 
 public class Event extends Task {
-    private String start;
-    private String end;
+    private Dateable start;
+    private Dateable end;
 
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = Dateable.of(start);
+        this.end = Dateable.of(end);
     }
 
     public Event(String description, String start, String end, boolean completed) {
         super(description, completed);
-        this.start = start;
-        this.end = end;
+        this.start = Dateable.of(start);
+        this.end = Dateable.of(end);
     }
 
     @Override
