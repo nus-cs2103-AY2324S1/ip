@@ -1,4 +1,6 @@
 import exceptions.*;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -8,7 +10,7 @@ public class Hachi {
         String name = "Hachi";
 
         // Setting task and task length
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int currIndex = 0;
 
         // Printing opening line
@@ -27,7 +29,6 @@ public class Hachi {
             String[] arguments = Arrays.copyOfRange(words, 1, words.length);
 
             line();
-            // handling case for only one word (argument array is empty)
             try {
                 if (command.equals("bye")) {
                     if (arguments.length > 0) {
@@ -39,9 +40,9 @@ public class Hachi {
                     if (arguments.length > 0) {
                         throw new TooManyArgumentsException("list", 0, arguments.length);
                     }
-                    for (int i = 0; i < currIndex; i++) {
+                    for (int i = 0; i < tasks.size(); i++) {
                         int num = i + 1;
-                        System.out.println(num + ". " + tasks[i]);
+                        System.out.println(num + ". " + tasks.get(i));
                     }
                 } else if (command.equals("mark")) {
                     if (arguments.length > 1) {
@@ -53,12 +54,12 @@ public class Hachi {
                     try {
                         int number = Integer.parseInt(arguments[0]);
                         int i = number - 1;
-                        if (tasks[i] == null) {
-                            throw new NumberOutOfBoundsException(currIndex);
+                        if (number > tasks.size()) {
+                            throw new NumberOutOfBoundsException(tasks.size());
                         }
-                        tasks[i].mark();
+                        tasks.get(i).mark();
                         System.out.println("Nice! I've marked this task as done");
-                        System.out.println("   " + tasks[i]);
+                        System.out.println("   " + tasks.get(i));
                     } catch (NumberFormatException e) {
                         throw new InvalidArgumentException("mark");
                     }
@@ -72,14 +73,34 @@ public class Hachi {
                     try {
                         int number = Integer.parseInt(words[1]);
                         int i = number - 1;
-                        if (tasks[i] == null) {
-                            throw new NumberOutOfBoundsException(currIndex);
+                        if (number > tasks.size()) {
+                            throw new NumberOutOfBoundsException(tasks.size());
                         }
-                        tasks[i].unmark();
+                        tasks.get(i).unmark();
                         System.out.println("OK, I've marked this task as not done yet:");
-                        System.out.println("   " + tasks[i]);
+                        System.out.println("   " + tasks.get(i));
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid argument for command \"unmark\"");
+                    }
+                } else if (command.equals("delete")) {
+                    if (arguments.length > 1) {
+                        throw new TooManyArgumentsException("delete", 1, arguments.length);
+                    }
+                    if (arguments.length < 1) {
+                        throw new EmptyNumberException("delete");
+                    }
+                    try {
+                        int number = Integer.parseInt(arguments[0]);
+                        int i = number - 1;
+                        if (number > tasks.size()) {
+                            throw new NumberOutOfBoundsException(tasks.size());
+                        }
+                        Task t = tasks.remove(i);
+                        System.out.println("Noted. I've removed this task: ");
+                        System.out.println("   " + t);
+                        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+                    } catch (NumberFormatException e) {
+                        throw new InvalidArgumentException("delete");
                     }
                 } else if (command.equals("todo")) {
                     if (arguments.length < 1) {
@@ -87,10 +108,10 @@ public class Hachi {
                     }
                     String todoTask = String.join(" ", arguments);
                     System.out.println("Got it. I've added this task:");
-                    tasks[currIndex] = new Todo(todoTask);
-                    System.out.println("   " + tasks[currIndex]);
-                    currIndex++;
-                    System.out.println(String.format("Now you have %d tasks in the list.", currIndex));
+                    Todo td = new Todo(todoTask);
+                    tasks.add(td);
+                    System.out.println("   " + td);
+                    System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
                 } else if (command.equals("deadline")) {
                     if (arguments.length < 1) {
                         throw new EmptyTaskException("deadline");
@@ -113,10 +134,10 @@ public class Hachi {
                             Arrays.copyOfRange(arguments, 0, byIndex));
                     String deadlineDate = String.join(" ",
                             Arrays.copyOfRange(arguments, byIndex + 1, arguments.length));
-                    tasks[currIndex] = new Deadline(deadlineTask, deadlineDate);
-                    System.out.println("   " + tasks[currIndex]);
-                    currIndex++;
-                    System.out.println(String.format("Now you have %d tasks in the list.", currIndex));
+                    Deadline dl = new Deadline(deadlineTask, deadlineDate);
+                    tasks.add(dl);
+                    System.out.println("   " + dl);
+                    System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
                 } else if (command.equals("event")) {
                     if (arguments.length < 1) {
                         throw new EmptyTaskException("event");
@@ -152,11 +173,11 @@ public class Hachi {
                         } else if (eventStartDate.equals("")) {
                             throw new EventDateException("start date");
                         }
-                        tasks[currIndex] = new Event(eventTask, eventStartDate, eventEndDate);
+                        Event ev = new Event(eventTask, eventStartDate, eventEndDate);
+                        tasks.add(ev);
                         System.out.println("Got it. I've added this task:");
-                        System.out.println("   " + tasks[currIndex]);
-                        currIndex++;
-                        System.out.println(String.format("Now you have %d tasks in the list.", currIndex));
+                        System.out.println("   " + ev);
+                        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
                     }
                 } else {
                     throw new InvalidCommandException(command);
