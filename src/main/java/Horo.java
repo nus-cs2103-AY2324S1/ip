@@ -198,6 +198,5 @@ public class Horo {
       System.out.println("An error occurred.");
       e.printStackTrace();
     }
-
   }
 }
