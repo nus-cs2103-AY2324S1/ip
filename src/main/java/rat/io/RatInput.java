@@ -1,13 +1,13 @@
-package rat.inputs;
+package rat.io;
 
 import java.util.Scanner;
 
-import rat.storage.*;
+import rat.tasks.*;
 
-import static rat.print.RatPrinter.*;
+import static rat.io.RatPrinter.*;
 
 /**
- * This class encapsulates the input handling of Rat.
+ * This class encapsulates the input handling of rat.Rat.
  *
  * @author Keagan
  */
@@ -20,20 +20,20 @@ public class RatInput {
     Scanner sc;
 
     /**
-     * The RatStorage object used to store and process the user's tasks.
-     * This RatStorage should be initialised in main.
+     * The RatTaskManager object used to store and process the user's tasks.
+     * This RatTaskManager should be initialised in main.
      */
-    RatStorage ratStorage;
+    RatTaskManager ratTaskManager;
 
     /**
      * Constructor for RatInput.
      *
      * @param sc         The Scanner object used to read user input.
-     * @param ratStorage The RatStorage object used to store and process the user's tasks.
+     * @param ratTaskManager The RatTaskManager object used to store and process the user's tasks.
      */
-    public RatInput(Scanner sc, RatStorage ratStorage) {
+    public RatInput(Scanner sc, RatTaskManager ratTaskManager) {
         this.sc = sc;
-        this.ratStorage = ratStorage;
+        this.ratTaskManager = ratTaskManager;
     }
 
     /**
@@ -50,7 +50,7 @@ public class RatInput {
                 printExit();
                 System.exit(0);
             case "list":
-                this.ratStorage.listItems();
+                this.ratTaskManager.listItems();
                 break;
             case "mark":
                 this.handleMark(inputArr);
@@ -88,7 +88,7 @@ public class RatInput {
     protected void handleMark(String[] inputs) {
         try {
             int index = Integer.parseInt(inputs[1]);
-            this.ratStorage.markItemDone(index);
+            this.ratTaskManager.markItemDone(index);
         } catch (IndexOutOfBoundsException e) {
             printWithLines(e.getMessage());
         } catch (NumberFormatException e) {
@@ -105,7 +105,7 @@ public class RatInput {
     protected void handleUnmark(String[] inputs) {
         try {
             int index = Integer.parseInt(inputs[1]);
-            this.ratStorage.unmarkItemDone(index);
+            this.ratTaskManager.unmarkItemDone(index);
         } catch (IndexOutOfBoundsException e) {
             printWithLines(e.getMessage());
         } catch (NumberFormatException e) {
@@ -122,7 +122,7 @@ public class RatInput {
     protected void handleToDo(String params) {
         try {
             params = params.substring(5);
-            this.ratStorage.addToDo(params);
+            this.ratTaskManager.addToDo(params);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("To Do name cannot be empty");
         }
@@ -140,7 +140,7 @@ public class RatInput {
             String[] paramsArr = params.split(" /by ");
             String name = paramsArr[0];
             String deadline = paramsArr[1];
-            this.ratStorage.addDeadline(deadline, name);
+            this.ratTaskManager.addDeadline(deadline, name);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("Deadline name cannot be empty");
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -164,7 +164,7 @@ public class RatInput {
             String[] time = params.split(" /from ")[1].split(" /to ");
             String startTime = time[0];
             String endTime = time[1];
-            this.ratStorage.addEvent(startTime, endTime, eventName);
+            this.ratTaskManager.addEvent(startTime, endTime, eventName);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("Event name cannot be empty");
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -182,10 +182,10 @@ public class RatInput {
         try {
             params = params.substring(7);
             if (params.equals("all")) {
-                this.ratStorage.deleteAll();
+                this.ratTaskManager.deleteAll();
             } else {
                 int index = Integer.parseInt(params);
-                this.ratStorage.deleteItem(index);
+                this.ratTaskManager.deleteItem(index);
             }
         } catch (IndexOutOfBoundsException e) {
             printWithLines(e.getMessage());
@@ -198,7 +198,7 @@ public class RatInput {
      * Prints the list of commands that the user can use.
      */
     public void showCommands() {
-        String output = "Hello! I'm Rat, your personal task manager.\n"
+        String output = "Hello! I'm rat.Rat, your personal task manager.\n"
                 + "Here are the commands you can use:\n"
                 + "\nhelp: show this list of commands\n"
                 + "list: list all tasks\n"

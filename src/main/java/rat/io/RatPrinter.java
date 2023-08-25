@@ -1,7 +1,7 @@
-package rat.print;
+package rat.io;
 
 /**
- * This class encapsulates the printing of messages by Rat.
+ * This class encapsulates the printing of messages by rat.Rat.
  * @author Keagan
  */
 public class RatPrinter {
@@ -15,7 +15,7 @@ public class RatPrinter {
      * Prints the welcome message to the user.
      */
     public static void printWelcome() {
-        String welcomeMsg = "                  Hello! I'm Rat!\n"
+        String welcomeMsg = "                  Hello! I'm rat.Rat!\n"
                 + "              What can I do for you?\n"
                 + "       type \"help\" to see a list of commands";
         printWithLines(welcomeMsg);

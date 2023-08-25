@@ -1,4 +1,4 @@
-package rat.storage;
+package rat.tasks;
 
 /**
  * This class encapsulates a task.

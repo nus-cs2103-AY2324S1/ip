@@ -1,11 +1,11 @@
 ============================================================
-                  Hello! I'm Rat!
+                  Hello! I'm rat.Rat!
               What can I do for you?
        type "help" to see a list of commands
 ============================================================
 
 ============================================================
-Hello! I'm Rat, your personal task manager.
+Hello! I'm rat.Rat, your personal task manager.
 Here are the commands you can use:
 
 help: show this list of commands

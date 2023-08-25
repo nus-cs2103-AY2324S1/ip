@@ -1,35 +1,35 @@
-package rat.storage;
+package rat.tasks;
 
 import java.util.ArrayList;
 
-import static rat.print.RatPrinter.*;
+import static rat.io.RatPrinter.*;
 
 /**
- * This class encapsulates the storage of Rat, which is a list of tasks.
+ * This class encapsulates the storage of rat.Rat, which is a list of tasks.
  * Includes methods to add, modify, and delete tasks.
  *
  * @author Keagan
  */
-public class RatStorage {
+public class RatTaskManager {
 
     /**
-     * The list of tasks managed by RatStorage, represented by an ArrayList.
+     * The list of tasks managed by RatTaskManager, represented by an ArrayList.
      */
     private final ArrayList<Task> storage;
 
     /**
-     * Constructor for a RatStorage object.
+     * Constructor for a RatTaskManager object.
      * Initialises the storage as an empty ArrayList.
      */
-    public RatStorage() {
+    public RatTaskManager() {
         storage = new ArrayList<>();
     }
 
     /**
-     * Returns the String representation of RatStorage.
+     * Returns the String representation of RatTaskManager.
      * The String representation is a numbered list of tasks.
      *
-     * @return String representation of RatStorage.
+     * @return String representation of RatTaskManager.
      */
     @Override
     public String toString() {
