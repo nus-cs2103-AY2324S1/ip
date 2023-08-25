@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -32,4 +35,8 @@ public abstract class Task {
     }
 
     public abstract String serialize();
+
+    public String formatLocalDate(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
 }
