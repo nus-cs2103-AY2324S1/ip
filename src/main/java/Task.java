@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -22,8 +22,14 @@ public class Task {
         }
     }
 
+    public void setStatusSilent(boolean status) {
+        this.isDone = status;
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), description);
     }
+
+    public abstract String serialize();
 }
