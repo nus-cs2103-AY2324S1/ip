@@ -184,6 +184,13 @@ public class Bot {
         System.out.println("I've removed this task:\n" + lst.remove(index).toString());
         displayListLength(lst);
     }
+
+    /**
+     * Saves the list to the given file. Overwrites content of the file.
+     *
+     * @param lst List to save.
+     * @param f File to save list to.
+     */
     public static void saveToFile(ArrayList<Task> lst, File f) {
         if (lst.size() < 1) {
             return;
