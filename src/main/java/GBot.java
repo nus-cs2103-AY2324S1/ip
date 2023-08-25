@@ -106,6 +106,25 @@ public class GBot {
         System.out.println(LINE);
     }
 
+    private static void deleteTask(String str) throws TaskException {
+        if (str.length() <= 7) {
+            throw new TaskException();
+        }
+
+        int taskNum = Integer.parseInt(str.split(" ")[1]);
+        if (taskNum > list.size()) {
+            throw new TaskException();
+        }
+
+        Task toDelete = list.get(taskNum - 1);
+        list.remove(taskNum - 1);
+        System.out.println(LINE);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(toDelete);
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
+        System.out.println(LINE);
+    }
+
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         System.out.println(LINE);
@@ -141,6 +160,9 @@ public class GBot {
                     break;
                 case "event":
                     addEvent(message.substring(prefix.length() + 1));
+                    break;
+                case "delete":
+                    deleteTask(message);
                     break;
                 default:
                     throw new GBotException();
