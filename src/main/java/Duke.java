@@ -18,23 +18,37 @@ public class Duke {
     }
     public void processInput() throws InvalidCommandException, InvalidVarException {
         String input = reader.nextLine();
+
         if (input.equals("bye")) {
             shutdownDuke();
+        } else if (input.equals("help")) {
+            helpList();
         } else if (input.equals("list")) {
             listTasks();
-        } else if (input.startsWith("mark ")) {
+        } else if (input.startsWith("mark ") || input.equals("mark")) {
             markTask(input);
-        } else if (input.startsWith("unmark ")) {
+        } else if (input.startsWith("unmark ") || input.equals("unmark")) {
             unmarkTask(input);
-        } else if (input.startsWith("todo ")) {
-            processToDo(input.substring(5));
-        } else if (input.startsWith("event ")) {
-            processEvent(input.substring(6));
-        } else if (input.startsWith("deadline ")) {
-            processDeadline(input.substring(9));
+        } else if (input.startsWith("todo ") || input.equals("todo")) {
+            processToDo(input);
+        } else if (input.startsWith("event ") || input.equals("event")) {
+            processEvent(input);
+        } else if (input.startsWith("deadline ") || input.equals("deadline")) {
+            processDeadline(input);
         } else {
-            throw new InvalidCommandException();
+            throw new InvalidCommandException(" Unrecognized command");
         }
+    }
+    public void helpList() {
+        System.out.println("Here's the guidelines for all functions.\n" +
+                "list: lists all tasks\n" +
+                "bye: ends bot\n" +
+                "mark: mark (int x); marks indicated task\n" +
+                "unmark: unmark (int x); unmarks indicated task\n" +
+                "event: event (String name) /from (String start) /to (String end); creates event\n" +
+                "todo: todo (String name); creates todo\n" +
+                "deadline: deadline (String name) /by (String deadline); creates deadline\n" +
+                "");
     }
 
     public void listTasks() {
@@ -48,8 +62,11 @@ public class Duke {
         }
     }
 
-    public void markTask(String input) throws InvalidVarException {
-        int number = -1;
+    public void markTask(String input) throws InvalidVarException, InvalidCommandException {
+        if (input.equals("mark")) {
+            throw new InvalidCommandException("No parameter");
+        }
+        int number;
         try {
             number = Integer.parseInt(input.substring(5));
         } catch (Exception e) {
@@ -62,8 +79,11 @@ public class Duke {
         }
     }
 
-    public void unmarkTask(String input) throws InvalidVarException {
-        int number = -1;
+    public void unmarkTask(String input) throws InvalidVarException,InvalidCommandException {
+        if (input.equals("unmark")) {
+            throw new InvalidCommandException("No parameter");
+        }
+        int number;
         try {
             number = Integer.parseInt(input.substring(7));
         } catch (Exception e) {
@@ -76,25 +96,62 @@ public class Duke {
         }
     }
 
-    public void processToDo(String input) throws InvalidVarException {
-        ToDo task = new ToDo(input);
+    public void processToDo(String input) throws InvalidCommandException, InvalidVarException {
+        if (input.equals("todo")) {
+            throw new InvalidCommandException("No parameter");
+        }
+
+        if (input.length() < 6) {
+            throw new InvalidVarException("No name!");
+        }
+        String name = input.substring(5);
+
+        if (name.isBlank()) {
+            throw new InvalidVarException("Blank name!");
+        }
+        ToDo task = new ToDo(name);
         addTask(task);
     }
 
-    public void processEvent(String input) {
+    public void processEvent(String input) throws InvalidCommandException, InvalidVarException {
+        if (input.equals("event")) {
+            throw new InvalidCommandException("No parameter");
+        }
         int split1 = input.indexOf("/from");
         int split2 = input.indexOf("/to");
-        String name = input.substring(0, split1 - 1);
+        if (split1 == -1 || split2 == -1) {
+            throw new InvalidCommandException("Some parameters missing");
+        }
+        if (split1 < 7 || split2 < split1 + 5 || input.length() < split2 + 4) {
+            throw new InvalidVarException("Blank parameters!");
+        }
+        String name = input.substring(6, split1 - 1);
         String start = input.substring(split1 + 6, split2 - 1);
         String end = input.substring(split2 + 4);
         Event task = new Event(name, start, end);
+        if (name.isBlank() || start.isBlank() || end.isBlank()) {
+            throw new InvalidVarException("Blank parameters!");
+        }
         addTask(task);
     }
 
-    public void processDeadline(String input) {
+    public void processDeadline(String input) throws InvalidVarException, InvalidCommandException {
+        if (input.equals("deadline")) {
+            throw new InvalidCommandException("No parameter");
+        }
         int split = input.indexOf("/by");
-        String name = input.substring(0, split - 1);
+        if (split == -1) {
+            throw new InvalidCommandException("Deadline missing");
+        }
+        if (split < 10 || input.length() < split + 4) {
+            throw new InvalidVarException("Blank parameters!");
+        }
+        String name = input.substring(9, split - 1);
         String deadline = input.substring(split + 4);
+
+        if (name.isBlank() || deadline.isBlank()) {
+            throw new InvalidVarException("Blank parameters!");
+        }
         Deadline task = new Deadline(name, deadline);
         addTask(task);
     }
@@ -114,7 +171,7 @@ public class Duke {
                 luke.processInput();
             }
             catch (InvalidCommandException e) {
-                System.out.println("Unknown command given!!!");
+                System.out.println("Unknown command given; " + e.getMessage());
             }
             catch (InvalidVarException e) {
                 System.out.println("Invalid input; " + e.getMessage());
