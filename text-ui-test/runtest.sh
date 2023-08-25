@@ -27,6 +27,11 @@ java -classpath ../bin Horo < input.txt > ACTUAL.TXT
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
 dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
 
+if [ -e "./data/tasks.txt" ]
+then
+    rm ./data/tasks.txt
+fi
+
 # compare the output to the expected output
 diff ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
