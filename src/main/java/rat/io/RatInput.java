@@ -7,7 +7,7 @@ import rat.tasks.*;
 import static rat.io.RatPrinter.*;
 
 /**
- * This class encapsulates the input handling of rat.Rat.
+ * This class encapsulates the input handling of Rat.
  *
  * @author Keagan
  */
@@ -17,18 +17,18 @@ public class RatInput {
      * The Scanner object used to read user input.
      * This Scanner should be initialised in main.
      */
-    Scanner sc;
+    private Scanner sc;
 
     /**
      * The RatTaskManager object used to store and process the user's tasks.
      * This RatTaskManager should be initialised in main.
      */
-    RatTaskManager ratTaskManager;
+    private RatTaskManager ratTaskManager;
 
     /**
      * Constructor for RatInput.
      *
-     * @param sc         The Scanner object used to read user input.
+     * @param sc             The Scanner object used to read user input.
      * @param ratTaskManager The RatTaskManager object used to store and process the user's tasks.
      */
     public RatInput(Scanner sc, RatTaskManager ratTaskManager) {
@@ -47,6 +47,7 @@ public class RatInput {
             String command = inputArr[0];
             switch (command) {
             case "bye":
+                this.ratTaskManager.save();
                 printExit();
                 System.exit(0);
             case "list":
@@ -198,7 +199,7 @@ public class RatInput {
      * Prints the list of commands that the user can use.
      */
     public void showCommands() {
-        String output = "Hello! I'm rat.Rat, your personal task manager.\n"
+        String output = "Hello! I'm Rat, your personal task manager.\n"
                 + "Here are the commands you can use:\n"
                 + "\nhelp: show this list of commands\n"
                 + "list: list all tasks\n"

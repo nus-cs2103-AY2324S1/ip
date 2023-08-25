@@ -33,4 +33,10 @@ public class Deadline extends Task {
         return taskType + super.toString() + " (by: " + this.deadline + ")";
     }
 
+    @Override
+    public String formatForFile() {
+        String taskType = "D";
+        return taskType + ", " + super.formatForFile() + ", " + this.deadline;
+    }
+
 }

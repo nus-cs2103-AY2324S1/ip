@@ -25,4 +25,10 @@ public class ToDo extends Task {
         return taskType + super.toString();
     }
 
+    @Override
+    public String formatForFile() {
+        String taskType = "T";
+        return taskType + ", " + super.formatForFile();
+    }
+
 }
