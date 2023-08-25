@@ -1,5 +1,5 @@
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
@@ -56,11 +56,13 @@ public class Deadline extends Task {
 
     @Override
     public String toFileFormat() {
-        return "D|" + (isDone ? "1" : "0") + "|" + this.name + "|" + this.by + "|";
+        return "D|" + (this.isDone ? "1" : "0") + "|" + this.name + "|" + this.by + "|";
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedDate = this.by.format(formatter);
+        return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
 }
