@@ -1,5 +1,9 @@
 import exceptions.*;
 
+import javax.sound.midi.SysexMessage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -16,9 +20,28 @@ public class Bot {
     /** Regex pattern for delete commands. */
     private static final Pattern deletePattern = Pattern.compile("delete -?\\d+");
     public static void main(String[] args) {
+        ArrayList<Task> lst = new ArrayList<>();
+        try {
+            File dataDir = new File("./data");
+            File f = new File("./data/bot.txt");
+            if (dataDir.isDirectory() && f.isFile()) {
+                Scanner scanner = new Scanner(f);
+                populateList(scanner, lst);
+            } else {
+                System.out.println("No data found, creating...");
+                dataDir.mkdir();
+                f.createNewFile();
+            }
+        } catch (FileNotFoundException e) {
+            // It shouldn't reach here.
+            System.out.println(e.getMessage());
+            return;
+        } catch (IOException | SecurityException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
         Scanner sc = new Scanner(System.in);
         System.out.println("Hello! I'm the trash gremlin Caelus!\nWhat can I do for you?");
-        ArrayList<Task> lst = new ArrayList<>();
         while (true) {
             try {
                 String str = sc.nextLine();
@@ -42,6 +65,22 @@ public class Bot {
             }
         }
         System.out.println("Bye. I'll be at the nearest trash can!");
+    }
+
+    /**
+     * Using a scanner with a data string on each line, add Tasks to the list provided.
+     *
+     * @param scanner Scanner object.
+     * @param lst List to add tasks to.
+     */
+    private static void populateList(Scanner scanner, ArrayList<Task> lst) {
+        while (scanner.hasNextLine()) {
+            try {
+                lst.add(Task.convertFromString(scanner.nextLine()));
+            } catch (InvalidTaskException e) {
+                System.out.println("Invalid task, skipping...");
+            }
+        }
     }
 
     /**
