@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class Barbie {
                     + "|  _ /|  _  | ` _|  __\\ \\| |/ _  \\\n"
                     + "| |_| | |_| | |  | |__/ /| |  ___/\n"
                     + "|____/ \\__,_|_|  |_|\\__/ |_|\\___/\n";
-            Task[] list = new Task[100];
+            ArrayList<Task> list = new ArrayList<>();
 
             // Intro
             System.out.println(line
@@ -29,7 +30,7 @@ public class Barbie {
             String[] parts = input.split(" ", 2);
             String command = parts[0].toLowerCase();
 
-            int itemNumber = 1; // Starting from 1 reduces the need to subtract and add 1 for usability.
+            int indexNumber = 0; // Starting from 1 reduces the need to subtract and add 1 for usability.
 
             loop:
             while (!Objects.equals(input, "bye")) {
@@ -40,37 +41,48 @@ public class Barbie {
                     switch (command) {
                         case "mark":
                         case "unmark":
+                        case "del":
+
 
                             String desc = parts[1];
                             int taskNumber;
                             try {
-                                taskNumber = Integer.parseInt(desc);
+                                taskNumber = Integer.parseInt(desc) - 1;
                             } catch (NumberFormatException e) {
-                                throw new BarbieFormatException("Task to mark or unmark is not provided as a digit!\n"
+                                throw new BarbieFormatException("Task to mark or unmark or del is not provided as a digit!\n"
                                         + "use the list command to see the digit of your task and make sure to give "
-                                        + "the digit of the task you want to mark/unmark. (e.g. mark 2)");
+                                        + "the digit of the task you want to mark/unmark/del. (e.g. mark 2)");
                             }
 
                             if (Objects.equals(command, "mark")) {
 
                                 // Editing variables
-                                list[taskNumber].mark();
+                                list.get(taskNumber).mark();
 
                                 // Output
                                 System.out.println("\t Nice! I've marked this task as done:\n"
-                                        + "\t " + list[taskNumber] + "\n"
+                                        + "\t " + list.get(taskNumber) + "\n"
                                         + "\t" + line);
 
-                            } else {
+                            } else if (Objects.equals(command, "unmark")){
 
                                 // Editing variables
                                 taskNumber = Integer.parseInt(desc);
-                                list[taskNumber].unmark();
+                                list.get(taskNumber).unmark();
 
                                 // Output
                                 System.out.println("\t Alright! I've marked this task as not done yet:\n"
-                                        + "\t " + list[taskNumber] + "\n"
+                                        + "\t " + list.get(taskNumber) + "\n"
                                         + "\t" + line);
+                            } else {
+
+                                // Editing variables
+                                list.remove(taskNumber);
+                                indexNumber -= 1;
+
+                                // Output
+                                System.out.println("\t Deletion success! I've deleted this task off your list.");
+
                             }
                             break;
 
@@ -86,7 +98,7 @@ public class Barbie {
                             if (Objects.equals(command, "todo")) {
 
                                 desc = parts[1];
-                                list[itemNumber] = new Todo(desc);
+                                list.add(indexNumber, new Todo(desc));
 
                             } else if (Objects.equals(command, "deadline")) {
 
@@ -100,7 +112,7 @@ public class Barbie {
                                 desc = parts2[0];
                                 String by = parts2[1];
 
-                                list[itemNumber] = new Deadlines(desc, by);
+                                list.add(indexNumber, new Deadlines(desc, by));
 
                             } else {
 
@@ -109,27 +121,27 @@ public class Barbie {
                                 if (parts2.length < 3) {
                                     throw new BarbieFormatException("Barbie your party has the incorrect number of timings!\n"
                                             + "Remember to add a 'start' time and an 'end' time"
-                                            + " after the description denoted by a '/' luv");
+                                            + " after the description! denote it by a '/' luv");
                                 }
 
                                 desc = parts2[0];
                                 String from = parts2[1];
                                 String to = parts2[2];
 
-                                list[itemNumber] = new Party(desc, from, to);
+                                list.add(indexNumber, new Party(desc, from, to));
 
                             }
 
                             System.out.println("\t Got you barbie! I've added this task to your Barbie list:\n"
-                                    + "\t " + list[itemNumber]);
-                            itemNumber += 1;
+                                    + "\t " + list.get(indexNumber));
+                            indexNumber += 1;
                             break;
 
 
                         case "list":
 
                             // No variables to edit, only output (refer to listTasks func)
-                            listTasks(list, itemNumber);
+                            listTasks(list, indexNumber);
 
                             break;
 
@@ -141,8 +153,8 @@ public class Barbie {
 
                         default:
                             // Editing variables
-                            list[itemNumber] = new Task(input); // Create a new Task
-                            itemNumber += 1; //Incrementing item counter
+                            list.add(indexNumber, new Task(input)); // Create a new Task
+                            indexNumber += 1; //Incrementing item counter
 
                             // Output
                             System.out.println("\t Okey Dokey! I've added this task into your list:\n"
@@ -154,7 +166,7 @@ public class Barbie {
                 } catch (BarbieFormatException e) {
                     System.out.println("Barbie Error!! " + e.getMessage());
                 } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
+                    System.out.println(ex.toString());
                 }
 
                 System.out.println("\t" + line);
@@ -176,13 +188,14 @@ public class Barbie {
 
     }
 
-    protected static void listTasks (Task[] list,int itemNumber){
-        if (itemNumber == 1) {
+    protected static void listTasks (ArrayList<Task> list,int indexNumber){
+        if (indexNumber == 0) {
             System.out.println("Hmm.. your list looks empty. To add items, use the 'todo', 'deadline' or 'party' commands!");
         }
         // "list" command
-        for (int i = 1; i < itemNumber; i++) {
-            System.out.println("\t" + i + ". " + list[i]);
+        for (int i = 0; i < indexNumber; i++) {
+            int itemNumber = i + 1;
+            System.out.println("\t" + itemNumber + ". " + list.get(i));
         }
     }
 
