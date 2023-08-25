@@ -1,6 +1,12 @@
 package jeeves.main;
 
-import jeeves.exception.*;
+import jeeves.exception.MissingIdException;
+import jeeves.exception.NotIntegerIdException;
+import jeeves.exception.OutOfBoundIdException;
+import jeeves.exception.MissingDescriptionException;
+import jeeves.exception.MissingByException;
+import jeeves.exception.MissingFromException;
+import jeeves.exception.MissingToException;
 
 import jeeves.task.Task;
 import jeeves.task.Todo;
@@ -8,6 +14,7 @@ import jeeves.task.Deadline;
 import jeeves.task.Event;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * Contains the main method and primary logic for Jeeves.
@@ -23,12 +30,12 @@ public class Jeeves {
     private static final int FINDFIELD_FROM_OFFSET = 6;
     private static final int FINDFIELD_BY_OFFSET = 4;
     /**
-     * The array used to track tasks.
+     * The arraylist used to track tasks.
      * Due to how the taskCount variable is used as the id and
      * array access position, index 0 will always be unused.
      * taskList is effectively 1-indexed
      */
-    private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
 
     /**
      * Main process.
@@ -41,6 +48,8 @@ public class Jeeves {
         System.out.println("Greetings, Master. Jeeves at your service");
         System.out.println("How may I serve you today?\n");
         Scanner sc = new Scanner(System.in);
+        // Initialization step for task list, adds an empty object so the arraylist is 1-indexed
+        taskList.add(null);
 
         // Waits for user input and process it accordingly
         while (true) {
@@ -59,7 +68,7 @@ public class Jeeves {
 
                 // Displays the current list of tasks tracked and their status
                 for (int i = 1; i <= Task.getTaskCount(); i++) {
-                    System.out.println(taskList[i].toString());
+                    System.out.println(taskList.get(i).toString());
                 }
                 // Prints an empty line for output clarity
                 System.out.print("\n");
@@ -72,7 +81,7 @@ public class Jeeves {
                     if (idString.isEmpty()) {
                         // id field is empty
                         throw new MissingIdException("I cannot do that as you have not provided me with a Task ID\n");
-                    } else if (!isNumber(idString)) {
+                    } else if (isNotNumber(idString)) {
                         // id field is not an integer
                         throw new NotIntegerIdException("I cannot do that as that is not a valid Task ID "
                                 + "(ID provided is not an integer)\n");
@@ -83,9 +92,9 @@ public class Jeeves {
                     } else {
                         // Updates the task status
                         int id = Integer.parseInt(idString);
-                        taskList[id].setStatus(true);
+                        taskList.get(id).setStatus(true);
                         System.out.println("Understood, I have marked the following task as done:");
-                        System.out.println("    " + taskList[id].toString() + "\n");
+                        System.out.println("    " + taskList.get(id).toString() + "\n");
                     }
                 } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException e) {
                     System.out.println(e);
@@ -99,7 +108,7 @@ public class Jeeves {
                     if (idString.isEmpty()) {
                         // id field is empty
                         throw new MissingIdException("I cannot do that as you have not provided me with a Task ID\n");
-                    } else if (!isNumber(idString)) {
+                    } else if (isNotNumber(idString)) {
                         // id field is not an integer
                         throw new NotIntegerIdException("I cannot do that as that is not a valid Task ID "
                                 + "(ID provided is not an integer)\n");
@@ -110,9 +119,9 @@ public class Jeeves {
                     } else {
                         // Updates the task status
                         int id = Integer.parseInt(idString);
-                        taskList[id].setStatus(false);
+                        taskList.get(id).setStatus(false);
                         System.out.println("Understood, I have marked the following task as not done:");
-                        System.out.println("    " + taskList[id].toString() + "\n");
+                        System.out.println("    " + taskList.get(id).toString() + "\n");
                     }
                 } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException e) {
                     System.out.println(e);
@@ -128,7 +137,7 @@ public class Jeeves {
                     } 
                     // Adds the Task normally to the task list if no errors are detected
                     Todo newTodo = new Todo(currTask);
-                    taskList[Task.getTaskCount()] = newTodo;
+                    taskList.add(Task.getTaskCount(), newTodo);
                     System.out.println("Task added:\n" +
                             "    " + newTodo + "\n");
                     
@@ -153,7 +162,7 @@ public class Jeeves {
                     String byDate = currentCommand.substring(byDateIndex + FINDFIELD_BY_OFFSET);
                     // Adds the 'Deadline' Task to the task list
                     Deadline newDeadline = new Deadline(currTask, byDate);
-                    taskList[Task.getTaskCount()] = newDeadline;
+                    taskList.add(Task.getTaskCount(), newDeadline);
                     System.out.println("Deadline added:\n" +
                             "    " + newDeadline + "\n");
                         
@@ -203,7 +212,7 @@ public class Jeeves {
 
                     // Adds the 'Event' Task to the task list
                     Event newEvent = new Event(currTask, fromDate, toDate);
-                    taskList[Task.getTaskCount()] = newEvent;
+                    taskList.add(Task.getTaskCount(), newEvent);
                     System.out.println("Event added:\n" +
                             "    " + newEvent + "\n");
                 } catch (MissingDescriptionException | MissingFromException | MissingToException e) {
@@ -228,8 +237,8 @@ public class Jeeves {
      * @param input The string to be checked
      * @return Whether the string is fully comprised of integers
      */
-    private static boolean isNumber(String input) {
-        return input.matches("[0-9]+");
+    private static boolean isNotNumber(String input) {
+        return !input.matches("[0-9]+");
     }
 
 }
