@@ -27,6 +27,16 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns whether the deadline contains the query.
+     * @param query the query.
+     * @return whether the deadline contains the query.
+     */
+    @Override
+    public boolean contains(String query) {
+        return this.description.contains(query) || this.datetime.contains(query);
+    }
+
+    /**
      * Returns the string representation of the deadline task.
      * @return string representation of the deadline task.
      */

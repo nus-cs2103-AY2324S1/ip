@@ -39,7 +39,7 @@ public class Minion {
     /**
      * Driver function for main.
      */
-    private void run() {
+    private void run()  {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {

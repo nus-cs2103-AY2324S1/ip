@@ -39,6 +39,13 @@ public abstract class Task {
     }
 
     /**
+     * Returns whether the task contains the query.
+     * @param query the query.
+     * @return whether the task contains the query.
+     */
+    public abstract boolean contains(String query);
+
+    /**
      * Returns the string representation of the task.
      * @return string representation of the task.
      */
