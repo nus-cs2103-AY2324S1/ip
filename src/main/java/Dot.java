@@ -8,8 +8,9 @@ import java.io.File;
 import java.util.Scanner;
 
 public class Dot {
-    private static TaskList dotTaskList = TaskList.taskListFromArrayList(100,
-            Storage.getTasks(new File("src/main/java/data/dot.txt")));
+    private static final String DATA_FILE_PATHNAME = "src/main/java/data/dot.txt";
+    private static final TaskList dotTaskList = TaskList.taskListFromArrayList(100,
+            Storage.getTasks(new File(DATA_FILE_PATHNAME)));
 
     public static void main(String[] args) {
         Ui.welcome();
@@ -41,7 +42,7 @@ public class Dot {
                             if (substrings.length == 2) {
                                 int position = Integer.parseInt(substrings[1]);
                                 dotTaskList.markTask(position - 1, true);
-                                dotTaskList.saveTaskListToStorage(new File("src/main/java/data/dot.txt"));
+                                dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
                             } else if (substrings.length == 1) {
                                 throw new DotException("No task number stated", TaskError.ERR_USING_MARK);
                             } else {
@@ -53,7 +54,7 @@ public class Dot {
                             if (substrings.length == 2) {
                                 int position = Integer.parseInt(substrings[1]);
                                 dotTaskList.markTask(position - 1, false);
-                                dotTaskList.saveTaskListToStorage(new File("src/main/java/data/dot.txt"));
+                                dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
                             } else if (substrings.length == 1) {
                                 throw new DotException("No task number stated", TaskError.ERR_USING_UNMARK);
                             } else {
@@ -67,7 +68,7 @@ public class Dot {
                             String restOfString = input.substring(5);
                             Task newTodoTask = new Todo(restOfString);
                             dotTaskList.addTask(newTodoTask);
-                            dotTaskList.saveTaskListToStorage(new File("src/main/java/data/dot.txt"));
+                            dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
                             break;
                         } else if (input.startsWith("deadline") && (input.length() == 8 || input.charAt(8) == ' ')) {
                             if (input.length() <= 9) {
@@ -107,7 +108,7 @@ public class Dot {
                             }
                             Task newDeadlineTask = new Deadline(description, deadline);
                             dotTaskList.addTask(newDeadlineTask);
-                            dotTaskList.saveTaskListToStorage(new File("src/main/java/data/dot.txt"));
+                            dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
                             break;
                         } else if (input.startsWith("event")) {
                             // .+ enforces at least one character, but disallows empty string
@@ -125,14 +126,14 @@ public class Dot {
                             String end = input.substring(indexOfFSecondSlash + 4);
                             Task newEventTask = new Event(description, start, end);
                             dotTaskList.addTask(newEventTask);
-                            dotTaskList.saveTaskListToStorage(new File("src/main/java/data/dot.txt"));
+                            dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
                             break;
                         } else if (input.startsWith("delete") && (input.length() == 6 || input.charAt(6) == ' ')) {
                             String[] substrings = input.split(" ");
                             if (substrings.length == 2) {
                                 int position = Integer.parseInt(substrings[1]);
                                 dotTaskList.deleteTask(position - 1);
-                                dotTaskList.saveTaskListToStorage(new File("src/main/java/data/dot.txt"));
+                                dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
                             } else if (substrings.length == 1) {
                                 throw new DotException("No task number stated", TaskError.ERR_DELETING_TASK);
                             } else {
