@@ -1,0 +1,109 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Parser {
+
+    public static Command parse(String input) throws DukeException {
+        if (input.equals("bye")) {
+            return new ExitCommand();
+        } else if (input.equals("list")) {
+            return new ListCommand();
+        } else if (input.contains("todo")) {
+            String subInput;
+            try {
+                subInput = input.substring(5);
+                if (subInput.trim().equals("")) {
+                    throw new DukeException("The description of a todo cannot be empty.");
+                }
+            } catch (Exception e) {
+                throw new DukeException("The description of a todo cannot be empty.");
+            }
+            ToDo t = new ToDo(subInput);
+            return new AddCommand(t);
+        } else if (input.contains("deadline")) {
+            String[] split = input.split(" /by ", 2);
+            if (split.length == 1) {
+                throw new DukeException("Deadlines must have a /by.");
+            } else if (split[1].trim().equals("")) {
+                throw new DukeException("/by cannot be empty.");
+            }
+            String description = split[0].substring(9);
+            if (description.trim().equals("")) {
+                throw new DukeException("The description of a deadline cannot be empty.");
+            }
+            String str = split[1];
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+
+            Deadline t = new Deadline(description, dateTime);
+            return new AddCommand(t);
+        } else if (input.contains("event")) {
+            String[] split = input.split(" /from ", 2);
+            if (split.length == 1) {
+                throw new DukeException("Events must have a /from and /to.");
+            }
+            String description;
+            try {
+                description = split[0].substring(6);
+                if (description.trim().equals("")) {
+                    throw new DukeException("The description of an event cannot be empty.");
+                }
+            } catch (Exception e) {
+                throw new DukeException("The description of an event cannot be empty.");
+            }
+
+            String[] duration = split[1].split(" /to ", 2);
+            if (duration.length == 1) {
+                throw new DukeException("Events must have a /from and /to.");
+            } else if (duration[0].trim().equals("") || duration[1].trim().equals("")) {
+                throw new DukeException("/from and /to cannot be empty.");
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime dateTimeStart = LocalDateTime.parse(duration[0], formatter);
+            LocalDateTime dateTimeEnd = LocalDateTime.parse(duration[1], formatter);
+
+            Event t = new Event(description, dateTimeStart, dateTimeEnd);
+            return new AddCommand(t);
+        } else if (input.contains("unmark")) {
+            if (input.length() < 7) {
+                throw new DukeException("Task number to be unmarked cannot be empty.");
+            }
+            String subInput = input.substring(7);
+            int targetIndex;
+            try {
+                targetIndex = Integer.parseInt(subInput);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Task to be unmarked must be a number.");
+            }
+            return new UnmarkCommand(targetIndex);
+
+        } else if (input.contains("mark")) {
+            if (input.length() < 5) {
+                throw new DukeException("Task number to be marked cannot be empty.");
+            }
+            String subInput = input.substring(5);
+            int targetIndex;
+            try {
+                targetIndex = Integer.parseInt(subInput);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Task to be marked must be a number.");
+            }
+            return new MarkCommand(targetIndex);
+        } else if (input.contains("delete")) {
+            if (input.length() < 7) {
+                throw new DukeException("Task number to be deleted cannot be empty.");
+            }
+            String subInput = input.substring(7);
+            int targetIndex;
+            try {
+                targetIndex = Integer.parseInt(subInput);
+            } catch (NumberFormatException e) {
+                throw new DukeException("Task to be deleted must be a number.");
+            }
+            return new DeleteCommand(targetIndex);
+        } else {
+            throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
+    }
+}
