@@ -3,6 +3,7 @@ public class Todo extends Task {
         super(description, false);
     }
 
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
