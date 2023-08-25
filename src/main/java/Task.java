@@ -1,7 +1,11 @@
+import java.io.Serializable;
+
 /**
  * Represents a generic task.
+ * This class implements Serializable to allow tasks to be serialized and deserialized,
+ * enabling them to be stored and retrieved from external sources, such as files.
  */
-public abstract class Task {
+public abstract class Task implements Serializable {
     private String name;
     private boolean isDone;
 

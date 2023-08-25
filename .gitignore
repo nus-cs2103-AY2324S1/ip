@@ -16,6 +16,9 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
+# Data persisted across runs
+/data
+
 # Manually javac-ing files, Neovim
 *.class
 

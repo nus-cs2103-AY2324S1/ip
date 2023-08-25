@@ -4,7 +4,7 @@ import java.util.Scanner;
  * Duke is a simple task management program that allows users to add, delete, mark, and list tasks.
  */
 public class Duke {
-    private static ToDoList toDoList = new ToDoList();
+    private static ToDoList toDoList;
 
     /**
      * Greets the user with a welcome message.
@@ -178,6 +178,10 @@ public class Duke {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
+        final String DATA_DIRECTORY = "../../../data";
+        String projectRoot = System.getProperty("user.dir");
+        String dataFilePath = projectRoot + "/" + DATA_DIRECTORY + "/tasks.ser";
+        toDoList = new ToDoList(dataFilePath);
         Scanner scanner = new Scanner(System.in);
 
         Duke.greet();
