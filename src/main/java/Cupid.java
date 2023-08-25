@@ -100,6 +100,8 @@ public class Cupid {
                         String eventEndDate = eventDatesArray[1].substring(3, eventDatesArray[1].length());
 
                         Event newEvent = new Event(eventDescription, eventStartDate, eventEndDate);
+                        taskList.add(newEvent);
+                        System.out.println("Added: " + newEvent.getTaskAsString());
                         break;
 
                     default:
