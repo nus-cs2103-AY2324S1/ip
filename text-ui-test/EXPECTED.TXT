@@ -1,6 +1,15 @@
 Hello! I'm the trash gremlin Caelus!
 What can I do for you?
 Sorry, I dunno what you're saying. Must be the trash getting to my brain.
+Here are the tasks in your list:
+1. [T][ ] taskone
+2. [D][ ] tasktwo (by: today)
+I've removed this task:
+[T][ ] taskone
+Now you have 1 task(s) in the list.
+I've removed this task:
+[D][ ] tasktwo (by: today)
+Now you have 0 task(s) in the list.
 Added:
 [T][ ] taskone
 Now you have 1 task(s) in the list.
