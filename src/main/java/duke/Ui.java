@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * The Ui class handles user interface interactions and displays messages to the user.
  */

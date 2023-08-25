@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Duke is a simple task management program that allows users to add, delete, mark, and list tasks.
  */
