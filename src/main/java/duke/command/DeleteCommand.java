@@ -33,7 +33,7 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
         super.validate(this.arguments);
         int choice = Integer.parseInt(arguments) - 1;
         if (choice < 0 || choice >= taskList.size()) {
-            throw new DukeException("Argument Provided out of range: " + (choice+1));
+            throw new DukeException("Argument Provided out of range: " + (choice + 1));
         }
     }
 

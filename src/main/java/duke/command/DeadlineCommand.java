@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-public class DeadlineCommand extends NonemptyArgumentCommand implements Command{
+public class DeadlineCommand extends NonemptyArgumentCommand implements Command {
 
     private static final String commandString = "deadline";
     private final String arguments;
@@ -50,7 +50,7 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command{
         LocalDate date = LocalDate.parse(userArgs[1]);
         taskList.add(new Deadline(userArgs[0], date));
         UI.sendMessage("Got it. I've added this task:\n  " +
-                taskList.get(taskList.size()-1) +
+                taskList.get(taskList.size() - 1) +
                 String.format("\nNow you have %d tasks in the list.", taskList.size()));
         storage.updateFile(taskList);
     }

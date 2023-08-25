@@ -15,6 +15,7 @@ public class Storage {
 
     private final String savePath;
     private boolean isUpdatable = true;
+
     public Storage(String savePath) {
         this.savePath = savePath;
     }
@@ -33,7 +34,7 @@ public class Storage {
         }
     }
 
-    public TaskList load() throws DukeException{
+    public TaskList load() throws DukeException {
         try {
             File save = new File(this.savePath);
             Scanner scanner = new Scanner(save);

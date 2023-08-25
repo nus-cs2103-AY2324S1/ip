@@ -11,7 +11,7 @@ public class Duke {
     private UI ui;
     private Storage storage;
 
-    public Duke(String savePath)  {
+    public Duke(String savePath) {
         try {
             this.storage = new Storage(savePath);
             this.taskList = this.storage.load();
@@ -40,8 +40,6 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
-
-
 
 
 }

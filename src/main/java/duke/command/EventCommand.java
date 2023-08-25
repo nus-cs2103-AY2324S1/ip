@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-public class EventCommand extends NonemptyArgumentCommand implements Command{
+public class EventCommand extends NonemptyArgumentCommand implements Command {
 
     private static final String commandString = "event";
     private final String arguments;
@@ -64,7 +64,7 @@ public class EventCommand extends NonemptyArgumentCommand implements Command{
         LocalDate to = LocalDate.parse(userArgs[2].trim());
         taskList.add(new Event(userArgs[0].trim(), from, to));
         UI.sendMessage("Got it. I've added this task:\n  " +
-                taskList.get(taskList.size()-1) +
+                taskList.get(taskList.size() - 1) +
                 String.format("\nNow you have %d tasks in the list.", taskList.size()));
         storage.updateFile(taskList);
     }
