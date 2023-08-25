@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -14,17 +15,17 @@ public class Parser {
     String entered;
     Scanner s;
     UI ui;
-    Storage storage;
+    TaskList storage;
     List<String> commands;
 
     /**
      * Constructor for Parser
      */
-    public Parser() {
+    public Parser(ArrayList arrayList) {
         this.entered = "";
         this.s = new Scanner(System.in);
         this.ui = new UI();
-        this.storage = new Storage();
+        this.storage = new TaskList(arrayList);
         this.commands = Arrays.asList(new String[]{"todo", "deadline", "event", "mark", "unmark", "delete"});
     }
     /**

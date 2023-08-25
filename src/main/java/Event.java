@@ -10,6 +10,12 @@ public class Event extends Task{
     protected String end;
 
     /** Constructor for Event */
+    public Event(String done, String description, String start, String end) {
+        super(description, done);
+        this.start = start;
+        this.end = end;
+    }
+
     public Event(String description, String start, String end) {
         super(description);
         this.start = start;
@@ -19,5 +25,10 @@ public class Event extends Task{
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+    }
+
+    @Override
+    public String fileRepresentation() {
+        return ("E" + " | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + start + " | " + end + "\n");
     }
 }
