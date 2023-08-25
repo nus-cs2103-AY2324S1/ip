@@ -77,12 +77,13 @@ public class Jeeves {
                     } else if (!isNumber(idString)) {
                         // id field is not an integer
                         throw new NotIntegerIdException("I cannot do that as that is not a valid Task ID "
-                                + "(Not an Integer)\n");
+                                + "(ID provided is not an integer)\n");
                     } else if (Integer.parseInt(idString) > Task.getTaskCount()) {
                         // id does not exist
                         throw new OutOfBoundIdException("I cannot do that as that is not a valid Task ID "
-                                + "(Does not exist)\n");
+                                + "(ID provided does not exist)\n");
                     } else {
+                        // Updates the task status
                         int id = Integer.parseInt(idString);
                         taskList[id].setStatus(true);
                         System.out.println("Understood, I have marked the following task as done:");
@@ -93,11 +94,31 @@ public class Jeeves {
                 }
             } else if (currentCommand.startsWith("unmark ")) {
                 // Gets the task ID that the user wish to unmark
-                int id = Integer.parseInt(currentCommand.substring(FINDFIELD_UNMARK_OFFSET));
-                // Update the task's status and notifies the user
-                taskList[id].setStatus(false);
-                System.out.println("Understood, I have marked the following task as not done:");
-                System.out.println("    " + taskList[id].toString() + "\n");
+                String idString = currentCommand.substring(FINDFIELD_UNMARK_OFFSET);
+                // If the task ID is invalid or not found, throw an error
+                // Else, update the task's status and notifies the user
+                try {
+                    if (idString.isEmpty()) {
+                        // id field is empty
+                        throw new MissingIdException("I cannot do that as you have not provided me with a Task ID\n");
+                    } else if (!isNumber(idString)) {
+                        // id field is not an integer
+                        throw new NotIntegerIdException("I cannot do that as that is not a valid Task ID "
+                                + "(ID provided is not an integer)\n");
+                    } else if (Integer.parseInt(idString) > Task.getTaskCount()) {
+                        // id does not exist
+                        throw new OutOfBoundIdException("I cannot do that as that is not a valid Task ID "
+                                + "(ID provided does not exist)\n");
+                    } else {
+                        // Updates the task status
+                        int id = Integer.parseInt(idString);
+                        taskList[id].setStatus(false);
+                        System.out.println("Understood, I have marked the following task as not done:");
+                        System.out.println("    " + taskList[id].toString() + "\n");
+                    }
+                } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException e) {
+                    System.out.println(e);
+                }
             } else if (currentCommand.startsWith("todo ")) {
                 // Adds the 'To do' Task to the task list
                 String currTask = currentCommand.substring(FINDCOMMAND_TODO_OFFSET);

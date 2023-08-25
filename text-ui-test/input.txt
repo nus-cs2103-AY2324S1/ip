@@ -11,5 +11,8 @@ unmark 3
 list
 mark 
 mark xyz
-mark 4
+mark 48
+unmark 
+unmark xyz
+unmark 13
 bye

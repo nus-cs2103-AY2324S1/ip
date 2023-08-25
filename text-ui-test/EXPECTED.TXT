@@ -41,8 +41,14 @@ This is what I am tracking for you Master
 
 jeeves.exception.MissingIdException: I cannot do that as you have not provided me with a Task ID
 
-jeeves.exception.NotIntegerIdException: I cannot do that as that is not a valid Task ID (Not an Integer)
+jeeves.exception.NotIntegerIdException: I cannot do that as that is not a valid Task ID (ID provided is not an integer)
 
-jeeves.exception.OutOfBoundIdException: I cannot do that as that is not a valid Task ID (Does not exist)
+jeeves.exception.OutOfBoundIdException: I cannot do that as that is not a valid Task ID (ID provided does not exist)
+
+jeeves.exception.MissingIdException: I cannot do that as you have not provided me with a Task ID
+
+jeeves.exception.NotIntegerIdException: I cannot do that as that is not a valid Task ID (ID provided is not an integer)
+
+jeeves.exception.OutOfBoundIdException: I cannot do that as that is not a valid Task ID (ID provided does not exist)
 
 I bid you farewell, Master
