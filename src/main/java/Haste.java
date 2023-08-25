@@ -7,7 +7,7 @@ public class Haste {
     public static final String INDENT = "    ";
     public static ArrayList<Task> taskList = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         greet();
         boolean online = true;
         Scanner sc = new Scanner(System.in);
@@ -19,27 +19,25 @@ public class Haste {
                 online = false;
             } else if (cmd.equals("list")) {
                 // print list
-
-                printLine();
-                for (Task a : taskList) {
-                    System.out.println(INDENT + a.id + ". " + a);
-                }
-                printLine();
-
+                printList();
             } else if (cmd.startsWith("mark")) {
                 mark(cmd);
-
             } else if (cmd.startsWith("unmark")) {
                 unmark(cmd);
-
             } else {
                 // add task to list
-                Task newTask = CmdHandler.interpret(cmd);
-                add(newTask);
+                try {
+                    Task newTask = Task.getTask(cmd);
+                    add(newTask);
+                } catch(EmptyTaskException e) {
+                    e.printStackTrace();
+                } catch(InvalidCommand e) {
+                    e.printStackTrace();
+                }
+
             }
 
         }
-
     }
 
     public static void greet() {
@@ -87,6 +85,13 @@ public class Haste {
         System.out.println(INDENT + LINE);
     }
 
+    public static void printList() {
+        printLine();
+        for (Task a : taskList) {
+            System.out.println(INDENT + a.id + ". " + a);
+        }
+        printLine();
+    }
 
 
 
