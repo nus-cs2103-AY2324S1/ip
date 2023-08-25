@@ -11,10 +11,17 @@ public class Ui {
     private static final String DIVIDER = "\t____________________________________________________________\n";
     private final Scanner sc;
 
+    /**
+     * Constructs the Ui.
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * Reads the command from the scanner.
+     * @return the command.
+     */
     public String readCommand() {
         return sc.nextLine();
     }
@@ -33,24 +40,31 @@ public class Ui {
         sb.append(DIVIDER);
         System.out.println(sb);
     }
+
     /**
-     * Function to say hi to the user.
+     * Prints welcome to the user.
      */
     public void showWelcome(){
         this.print(Messages.MESSAGE_WELCOME);
     }
 
     /**
-     * Function to say bye to the user.
+     * Prints goodbye to the user.
      */
     public void showGoodbye(){
         this.print(Messages.MESSAGE_GOODBYE);
     }
 
+    /**
+     * Displays loading error to the user.
+     */
     public void showLoadingError() {
         this.print(Messages.MESSAGE_FILE_NOT_FOUND);
     }
 
+    /**
+     * Cleanup function for the Ui.
+     */
     public void tearDown() {
         this.showGoodbye();
         sc.close();

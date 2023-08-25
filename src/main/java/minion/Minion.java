@@ -10,7 +10,7 @@ import minion.ui.Ui;
 import java.io.IOException;
 
 /**
- * Represents the minion.Minion chatbot.
+ * Represents the Minion chatbot.
  */
 public class Minion {
     private TaskList tasks;
@@ -18,7 +18,7 @@ public class Minion {
     private final Storage storage;
 
     /**
-     * A constructor for the minion.Minion chatbot.
+     * A constructor for the Minion chatbot.
      * @param filePath The file path of the file storing the task list.
      */
     public Minion(String filePath) {
