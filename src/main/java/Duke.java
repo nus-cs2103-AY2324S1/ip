@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,9 +17,14 @@ public class Duke {
         if (type.equals("T")) {
             task = new ToDo(description);
         } else if (type.equals("E")) {
-            task = new Event(description, split[3], split[4]);
+            task = new Event(description,
+                    LocalDateTime.parse(split[3],
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                    LocalDateTime.parse(split[4],
+                            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         } else if (type.equals("D")) {
-            task = new Deadline(description, split[3]);
+            task = new Deadline(description, LocalDateTime.parse(split[3],
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         }
 
         if (isDone) {
@@ -113,7 +120,6 @@ public class Duke {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(t);
                     System.out.println("Now you have " + (data.size()) + " tasks in the list.");
-
                 } else if (input.contains("deadline")) {
                     String[] split = input.split(" /by ", 2);
                     if (split.length == 1) {
@@ -125,7 +131,11 @@ public class Duke {
                     if (description.trim().equals("")) {
                         throw new DukeException("The description of a deadline cannot be empty.");
                     }
-                    Deadline t = new Deadline(description, split[1]);
+                    String str = split[1];
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+
+                    Deadline t = new Deadline(description, dateTime);
                     data.add(t);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(t);
@@ -151,7 +161,12 @@ public class Duke {
                     } else if (duration[0].trim().equals("") || duration[1].trim().equals("")) {
                         throw new DukeException("/from and /to cannot be empty.");
                     }
-                    Event t = new Event(description, duration[0], duration[1]);
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    LocalDateTime dateTimeStart = LocalDateTime.parse(duration[0], formatter);
+                    LocalDateTime dateTimeEnd = LocalDateTime.parse(duration[1], formatter);
+
+                    Event t = new Event(description, dateTimeStart, dateTimeEnd);
                     data.add(t);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(t);
