@@ -2,7 +2,7 @@
  * Duke is a simple task management program that allows users to add, delete, mark, and list tasks.
  */
 public class Duke {
-    private static ToDoList toDoList;
+    private static TaskList taskList;
 
     /**
      * Greets the user with a welcome message.
@@ -19,32 +19,32 @@ public class Duke {
     }
 
     /**
-     * Adds a task to the ToDoList and displays a confirmation message.
+     * Adds a task to the TaskList and displays a confirmation message.
      *
      * @param task The task to be added.
      */
     public static void add(Task task) {
-        toDoList.add(task);
-        Ui.add(task, toDoList.size());
+        taskList.add(task);
+        Ui.add(task, taskList.size());
     }
 
     /**
-     * Deletes a task at the specified index from the ToDoList and displays a confirmation message.
+     * Deletes a task at the specified index from the TaskList and displays a confirmation message.
      *
      * @param index The index of the task to be deleted.
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public static void delete(int index) {
-        final Task task = toDoList.get(index);
-        toDoList.delete(index);
-        Ui.delete(task, toDoList.size());
+        final Task task = taskList.get(index);
+        taskList.delete(index);
+        Ui.delete(task, taskList.size());
     }
 
     /**
-     * Lists all tasks in the ToDoList and displays them.
+     * Lists all tasks in the TaskList and displays them.
      */
     public static void list() {
-        System.out.println(toDoList);
+        System.out.println(taskList);
     }
 
     /**
@@ -54,8 +54,8 @@ public class Duke {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public static void mark(int index) {
-        toDoList.mark(index);
-        Ui.mark(toDoList.get(index));
+        taskList.mark(index);
+        Ui.mark(taskList.get(index));
     }
 
     /**
@@ -65,8 +65,8 @@ public class Duke {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public static void unmark(int index) {
-        toDoList.unmark(index);
-        Ui.unmark(toDoList.get(index));
+        taskList.unmark(index);
+        Ui.unmark(taskList.get(index));
     }
 
     /**
@@ -78,7 +78,7 @@ public class Duke {
         final String DATA_DIRECTORY = "../../../data";
         String projectRoot = System.getProperty("user.dir");
         String dataFilePath = projectRoot + "/" + DATA_DIRECTORY + "/tasks.ser";
-        toDoList = new ToDoList(dataFilePath);
+        taskList = new TaskList(dataFilePath);
 
         Parser.start();
     }

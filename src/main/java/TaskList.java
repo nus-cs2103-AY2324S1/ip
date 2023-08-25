@@ -2,16 +2,16 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 /**
- * Represents a ToDoList that holds tasks.
+ * Represents a TaskList that holds tasks.
  */
-public class ToDoList {
+public class TaskList {
     private ArrayList<Task> list;
     private Storage dataStorage;
 
     /**
-     * Constructs an empty ToDoList.
+     * Constructs an empty TaskList.
      */
-    public ToDoList(String dataFilePath) {
+    public TaskList(String dataFilePath) {
         list = new ArrayList<>();
         dataStorage = new Storage(dataFilePath);
         load();
@@ -41,7 +41,7 @@ public class ToDoList {
     }
 
     /**
-     * Adds a task to the ToDoList.
+     * Adds a task to the TaskList.
      *
      * @param task The task to be added.
      */
@@ -107,7 +107,7 @@ public class ToDoList {
     }
 
     /**
-     * Returns the number of tasks in the ToDoList.
+     * Returns the number of tasks in the TaskList.
      *
      * @return The number of tasks.
      */
@@ -116,9 +116,9 @@ public class ToDoList {
     }
 
     /**
-     * Generates a string representation of the ToDoList.
+     * Generates a string representation of the TaskList.
      *
-     * @return A formatted string of tasks in the ToDoList.
+     * @return A formatted string of tasks in the TaskList.
      */
     @Override
     public String toString() {
