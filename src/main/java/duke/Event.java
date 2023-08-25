@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Represents an event task that occurs within a specified time frame.
  */
