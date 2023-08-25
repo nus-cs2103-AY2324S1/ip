@@ -8,15 +8,14 @@ public class Duke {
      * Greets the user with a welcome message.
      */
     public static void greet() {
-        System.out.println("Hello! I'm Untitled!");
-        System.out.println("What can I do for you?");
+        Ui.greet();
     }
 
     /**
      * Displays a farewell message when exiting the program.
      */
     public static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+        Ui.exit();
     }
 
     /**
@@ -26,9 +25,7 @@ public class Duke {
      */
     public static void add(Task task) {
         toDoList.add(task);
-        System.out.println("Got it! I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+        Ui.add(task, toDoList.size());
     }
 
     /**
@@ -38,11 +35,9 @@ public class Duke {
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
     public static void delete(int index) {
-        final Task deletedTask = toDoList.get(index);
+        final Task task = toDoList.get(index);
         toDoList.delete(index);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(deletedTask.toString());
-        System.out.println("Now you have " + toDoList.size() + " tasks in the list.");
+        Ui.delete(task, toDoList.size());
     }
 
     /**
@@ -60,8 +55,7 @@ public class Duke {
      */
     public static void mark(int index) {
         toDoList.mark(index);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(toDoList.get(index));
+        Ui.mark(toDoList.get(index));
     }
 
     /**
@@ -72,8 +66,7 @@ public class Duke {
      */
     public static void unmark(int index) {
         toDoList.unmark(index);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(toDoList.get(index));
+        Ui.unmark(toDoList.get(index));
     }
 
     /**
