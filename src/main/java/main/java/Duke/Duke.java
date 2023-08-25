@@ -29,10 +29,10 @@ public class Duke {
         private String command;
         private String[] initialParse;
         private String[] phaseParse;
-        public Parse(String command) {
+        protected Parse(String command) {
             this.command = command;
         }
-        public COMMANDS mainCommand() {
+        protected COMMANDS mainCommand() {
             this.initialParse = command.split(" ",2);
             switch (initialParse[0]) {
             case ("bye"):
@@ -62,7 +62,7 @@ public class Duke {
             }
         }
 
-        public String secondWord() {
+        protected String secondWord() {
             try {
                 if (this.initialParse[1].equals("")) {
                     return null;
@@ -74,7 +74,7 @@ public class Duke {
             }
         }
 
-        public String phaseParse() {
+        protected String phaseParse() {
             try {
                 this.phaseParse = this.initialParse[1].split("/");
                 return phaseParse[0];
@@ -83,7 +83,7 @@ public class Duke {
             }
         }
 
-        public String phaseTwo() {
+        protected String phaseTwo() {
             try {
                 return this.phaseParse[1];
             } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
@@ -91,7 +91,7 @@ public class Duke {
             }
         }
 
-        public String phaseThree() {
+        protected String phaseThree() {
             try {
                 return this.phaseParse[2];
             } catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
@@ -99,7 +99,7 @@ public class Duke {
             }
         }
     }
-    public static void nextCommand(String command) {
+    protected static void nextCommand(String command) {
         Parse cmd = new Parse(command);
         COMMANDS firstWord = cmd.mainCommand();
 
@@ -185,7 +185,7 @@ public class Duke {
             if (cmd.secondWord() != null) {
                 try {
                     int n = Integer.parseInt(cmd.secondWord());
-                    taskList.unmark(n);
+                    taskList.unMark(n);
                 } catch (NumberFormatException e) {
                     System.out.println("Please input only 1 number after unmark");
                 }
@@ -216,7 +216,7 @@ public class Duke {
     }
 }
 
-class Task {
+abstract class Task {
 
     private String taskName;
     private Boolean done;
@@ -230,11 +230,11 @@ class Task {
         return ("[" + (this.done ? "X] " : " ] ") + this.taskName);
     }
 
-    public void mark() {
+    protected void mark() {
         this.done = true;
     }
 
-    public void unmark() {
+    protected void unMark() {
         this.done = false;
     }
 
@@ -279,17 +279,16 @@ class Task {
 
 class ListOfTask {
     private static ArrayList<Task> listOfTask = new ArrayList<>();
-    //private static Task[] listOfTask = new Task[100];
     private static int counter = 0;
 
-    public void addTask(String task) {
+    protected void addTask(String task) {
         Task temp = new Task.ToDos(task);
         listOfTask.add(temp);
         //listOfTask[counter] = new Task.ToDos(task);
         System.out.println("added: " + temp);
     }
 
-    public void addTask(String task, String dayDate) {
+    protected void addTask(String task, String dayDate) {
         Task temp = new Task.Deadlines(task, dayDate);
         listOfTask.add(temp);
         //listOfTask[counter] = new Task.Deadlines(task, dayDate);
@@ -297,7 +296,7 @@ class ListOfTask {
         counter++;
     }
 
-    public void addTask(String task, String startDayDateTime, String endDayDateTime) {
+    protected void addTask(String task, String startDayDateTime, String endDayDateTime) {
         Task temp = new Task.Event(task, startDayDateTime, endDayDateTime);
         listOfTask.add(temp);
         //listOfTask[counter] = new Task.Event(task, startDayDateTime, endDayDateTime);
@@ -305,7 +304,7 @@ class ListOfTask {
         counter++;
     }
 
-    public void listTasks() {
+    protected void listTasks() {
         int[] i = new int[1];
         i[0] = 1;
         listOfTask.forEach(x-> {
@@ -316,7 +315,7 @@ class ListOfTask {
         );
     }
 
-    public void mark(int index) {
+    protected void mark(int index) {
         try {
             listOfTask.get(index - 1).mark();
             System.out.println(listOfTask.get(index - 1).toString());
@@ -325,16 +324,16 @@ class ListOfTask {
         }
     }
 
-    public void unmark(int index) {
+    protected void unMark(int index) {
         try {
-            listOfTask.get(index - 1).unmark();
+            listOfTask.get(index - 1).unMark();
             System.out.println(listOfTask.get(index - 1).toString());
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please select from index 1 to " + listOfTask.size());
         }
     }
 
-    public void delete(int index) {
+    protected void delete(int index) {
         try {
             Task removed = listOfTask.remove(index - 1);
             System.out.println(removed + " has been removed");
