@@ -26,7 +26,7 @@ public class Veda {
                 break;
 
             case "deadline":
-                //TODO error handling for no "/by" keyword
+                //TODO add error handling for no "/by" keyword
                 if (description.toLowerCase() == type) {
                     throw new NoDescriptionException("");
                 }
@@ -38,7 +38,7 @@ public class Veda {
                 break;
 
             case "event":
-                //TODO error handling
+                //TODO add more error handling of wrong arguments
                 if (description.toLowerCase() == type) {
                     throw new NoDescriptionException("");
                 }
@@ -60,6 +60,18 @@ public class Veda {
             System.out.println("added in mission:\n" + newTask);
         } else {
             System.out.println("System is unable to accommodate the new mission");
+        }
+    }
+
+    private static void deleteTask(int taskIndex) {
+        try {
+            Task task = tasks.remove(taskIndex);
+
+            System.out.println("Noted. I have removed the following mission:");
+            System.out.println(task);
+
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid index! Please ensure you correctly key in your target index.");
         }
     }
 
@@ -134,6 +146,10 @@ public class Veda {
             } else if (input.toLowerCase().split(" ")[0].equals("unmark")) {
                 //User wishes to mark task as undone
                 markUndone(Integer.parseInt(input.toLowerCase().split(" ")[1]) - 1);
+                continue;
+            } else if (input.toLowerCase().split(" ")[0].equals("delete")) {
+                //User wishes to delete a task
+                deleteTask(Integer.parseInt(input.toLowerCase().split(" ")[1]) - 1);
                 continue;
             }
 
