@@ -19,14 +19,29 @@ public class Homepage {
             } else if (answer.equalsIgnoreCase("list")) {
                 System.out.println(
                         "____________________________________________________________\n"
-                        + list.toString() + "\n"
+                                + list.toString() + "\n"
+                                + "____________________________________________________________\n");
+                answer = sc.nextLine();
+            } else if (answer.length() == 6 && answer.substring(0, 4).equalsIgnoreCase("mark")) {
+                int taskNumber = Integer.parseInt(answer.substring(answer.length() - 1));
+                System.out.println(
+                        "____________________________________________________________\n"
+                                + list.markDone(taskNumber) + "\n"
+                                + "____________________________________________________________\n");
+                answer = sc.nextLine();
+            } else if (answer.length() == 8 && answer.substring(0, 6).equalsIgnoreCase("unmark")) {
+                int taskNumber = Integer.parseInt(answer.substring(answer.length() - 1));
+                System.out.println(
+                        "____________________________________________________________\n"
+                        + list.unMarkDone(taskNumber) + "\n"
                         + "____________________________________________________________\n");
                 answer = sc.nextLine();
             } else {
+                Task newTask = new Task(answer);
                 System.out.println(
                         "____________________________________________________________\n"
-                        + list.addTask(answer) + "\n"
-                        + "____________________________________________________________\n");
+                                + list.addTask(newTask) + "\n"
+                                + "____________________________________________________________\n");
                 answer = sc.nextLine();
             }
         }
