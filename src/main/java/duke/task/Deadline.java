@@ -11,7 +11,7 @@ public class Deadline extends Task {
      * Constructor to Deadline Task.
      *
      * @param description description of task
-     * @param by date task is due
+     * @param by          date task is due
      */
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -47,6 +47,6 @@ public class Deadline extends Task {
     @Override
     public String getSaveString() {
 
-        return String.format("%d deadline %s /by %s",isDone ? 1 : 0, description.trim(), by);
+        return String.format("%d deadline %s /by %s", isDone ? 1 : 0, description.trim(), by);
     }
 }

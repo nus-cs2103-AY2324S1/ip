@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class UI {
 
-    private String name;
+    private final String name;
     private static final Scanner scanner = new Scanner(System.in);
 
     public static boolean active = false;
@@ -22,7 +22,7 @@ public class UI {
 
         private final String code;
 
-        private Colors(String c) {
+        Colors(String c) {
             code = c;
         }
 
@@ -32,7 +32,7 @@ public class UI {
         }
     }
 
-    public UI (String name) {
+    public UI(String name) {
         this.name = name;
         UI.active = true;
         // Send Greeting Message
@@ -46,7 +46,7 @@ public class UI {
     public static void sendMessage(String msgs) {
         if (active) {
             printLine();
-            for (String msg: msgs.split("\n")) {
+            for (String msg : msgs.split("\n")) {
                 System.out.println("\t" + Colors.CYAN + msg + Colors.RESET);
             }
             printLine();
@@ -55,7 +55,7 @@ public class UI {
 
     public static void sendError(String msgs) {
         printLine();
-        for (String msg: msgs.split("\n")) {
+        for (String msg : msgs.split("\n")) {
             System.out.println("\t" + Colors.RED + msg + Colors.RESET);
         }
         printLine();

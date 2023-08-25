@@ -3,7 +3,6 @@ package duke.command;
 import duke.DukeException;
 import duke.Storage;
 import duke.task.Event;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.UI;
 
@@ -11,13 +10,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-public class EventCommand extends NonemptyArgumentCommand implements Command{
+public class EventCommand extends NonemptyArgumentCommand implements Command {
 
     private static final String commandString = "event";
     private final String arguments;
 
     /**
      * Constructor for an EventCommand
+     *
      * @param arguments arguments for EventCommand
      */
     public EventCommand(String arguments) {
@@ -77,8 +77,8 @@ public class EventCommand extends NonemptyArgumentCommand implements Command{
      * Create an Event Task.
      *
      * @param taskList the current TaskList
-     * @param ui the UI tied to the program
-     * @param storage the Storage tied to the program
+     * @param ui       the UI tied to the program
+     * @param storage  the Storage tied to the program
      * @throws DukeException if unable to create event
      */
     @Override
@@ -89,7 +89,7 @@ public class EventCommand extends NonemptyArgumentCommand implements Command{
         LocalDate to = LocalDate.parse(userArgs[2].trim());
         taskList.add(new Event(userArgs[0].trim(), from, to));
         UI.sendMessage("Got it. I've added this task:\n  " +
-                taskList.get(taskList.size()-1) +
+                taskList.get(taskList.size() - 1) +
                 String.format("\nNow you have %d tasks in the list.", taskList.size()));
         storage.updateFile(taskList);
     }

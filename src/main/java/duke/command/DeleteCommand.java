@@ -11,6 +11,7 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
 
     /**
      * Constructor for the DeleteCommand
+     *
      * @param arguments arguments for DeleteCommand
      */
     public DeleteCommand(String arguments) {
@@ -31,8 +32,8 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
      * Deletes a specified task.
      *
      * @param taskList the current TaskList
-     * @param ui the UI tied to the program
-     * @param storage the Storage tied to the program
+     * @param ui       the UI tied to the program
+     * @param storage  the Storage tied to the program
      * @throws DukeException when unable to delete
      */
     @Override
@@ -59,7 +60,7 @@ public class DeleteCommand extends NumberedChoiceCommand implements Command {
         super.validate(this.arguments);
         int choice = Integer.parseInt(arguments) - 1;
         if (choice < 0 || choice >= taskList.size()) {
-            throw new DukeException("Argument Provided out of range: " + (choice+1));
+            throw new DukeException("Argument Provided out of range: " + (choice + 1));
         }
     }
 

@@ -8,7 +8,7 @@ import duke.ui.UI;
 /**
  * Represents an exit command by the user.
  */
-public class ByeCommand implements Command{
+public class ByeCommand implements Command {
 
     private static final String commandString = "bye";
 

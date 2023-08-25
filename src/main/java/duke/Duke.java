@@ -2,8 +2,9 @@ package duke;
 
 import duke.command.Command;
 import duke.command.Parser;
-import duke.task.*;
+import duke.task.TaskList;
 import duke.ui.UI;
+
 
 /**
  * The main duke class.
@@ -19,7 +20,7 @@ public class Duke {
      *
      * @param savePath string of path to the savefile
      */
-    public Duke(String savePath)  {
+    public Duke(String savePath) {
         try {
             this.storage = new Storage(savePath);
             this.taskList = this.storage.load();
@@ -52,8 +53,6 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
-
-
 
 
 }

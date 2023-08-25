@@ -3,7 +3,6 @@ package duke.command;
 import duke.DukeException;
 import duke.Storage;
 import duke.task.Deadline;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.UI;
 
@@ -11,7 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
-public class DeadlineCommand extends NonemptyArgumentCommand implements Command{
+public class DeadlineCommand extends NonemptyArgumentCommand implements Command {
 
     private static final String commandString = "deadline";
     private final String arguments;
@@ -65,9 +64,9 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command{
      * Creates a Deadline task.
      *
      * @param taskList the current TaskList
-     * @param ui the UI tied to the program
-     * @param storage the Storage tied to the program
-     * @throws DukeException
+     * @param ui       the UI tied to the program
+     * @param storage  the Storage tied to the program
+     * @throws DukeException if deadline task cannot be created
      */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
@@ -76,7 +75,7 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command{
         LocalDate date = LocalDate.parse(userArgs[1]);
         taskList.add(new Deadline(userArgs[0], date));
         UI.sendMessage("Got it. I've added this task:\n  " +
-                taskList.get(taskList.size()-1) +
+                taskList.get(taskList.size() - 1) +
                 String.format("\nNow you have %d tasks in the list.", taskList.size()));
         storage.updateFile(taskList);
     }

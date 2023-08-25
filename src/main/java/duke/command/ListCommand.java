@@ -44,7 +44,7 @@ public class ListCommand implements Command {
      * @param arguments arguments to validate
      * @throws DukeException if arguments are invalid
      */
-    private void validate(String arguments) throws DukeException{
+    private void validate(String arguments) throws DukeException {
         if (arguments != null) {
             // Non null argument, check format
             if (arguments.equals("now")) {
@@ -69,8 +69,8 @@ public class ListCommand implements Command {
      * </ul>
      *
      * @param taskList the current TaskList
-     * @param ui the UI tied to the program
-     * @param storage the Storage tied to the program
+     * @param ui       the UI tied to the program
+     * @param storage  the Storage tied to the program
      * @throws DukeException if unable to list tasks
      */
     @Override
