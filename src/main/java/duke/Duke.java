@@ -1,10 +1,5 @@
 package duke;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
-
 import duke.command.Command;
 import duke.command.Parser;
 import duke.task.*;
