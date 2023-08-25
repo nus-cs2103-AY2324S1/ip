@@ -14,10 +14,10 @@ public enum Command {
       "delete <number>"),
   TODO("^todo ([\\w ]+)",
       "todo <description>"),
-  DEADLINE("^deadline ([\\w ]+) \\/by ([\\w ]+)",
-      "deadline <description> /by <time>"),
-  EVENT("^event ([\\w ]+) \\/from ([\\w ]+) \\/to ([\\w ]+)",
-      "event <description> /from <time> /to <time>");
+  DEADLINE("^deadline ([\\w ]+) \\/by (\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2})",
+      "deadline <description> /by yyyy/mm/dd HH:mm"),
+  EVENT("^event ([\\w ]+) \\/from (\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}) \\/to (\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2})",
+      "event <description> /from yyyy/mm/dd HH:mm /to yyyy/mm/dd HH:mm");
 
   private final Pattern pattern;
   private final String format;
