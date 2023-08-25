@@ -1,13 +1,13 @@
-public class Task {
-  private String taskString = "";
+public abstract class Task {
+  private String description = "";
   private boolean isDone = false;
 
-  public Task(String taskString) throws HoroException {
-    if (taskString == null || taskString.isBlank()) {
+  public Task(String description) throws HoroException {
+    if (description == null || description.isBlank()) {
       throw new HoroException("Task description cannot be empty");
     }
 
-    this.taskString = taskString;
+    this.description = description;
   }
 
   public void markDone() {
@@ -18,12 +18,18 @@ public class Task {
     this.isDone = false;
   }
 
-  public String getTaskString() {
-    return this.taskString;
+  public Boolean isDone() {
+    return isDone;
   }
+
+  public String getDescription() {
+    return this.description;
+  }
+
+  public abstract String getDataString();
 
   @Override
   public String toString() {
-    return (isDone ? "[X] " : "[ ] ") + getTaskString();
+    return (isDone ? "[X] " : "[ ] ") + getDescription();
   }
 }

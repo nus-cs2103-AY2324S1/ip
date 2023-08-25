@@ -1,10 +1,12 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class Horo {
+  private final static String dataFilePath = "./data/tasks.txt";
   private static ArrayList<Task> tasks = new ArrayList<Task>();
   private static Scanner scanner = new Scanner(System.in);
 
@@ -58,6 +60,7 @@ public class Horo {
             System.out.println("Task marked as not done");
           }
           System.out.println(selectedTask);
+          updateTaskData();
           break;
         case DELETE:
           if (tasks.isEmpty()) {
@@ -68,6 +71,7 @@ public class Horo {
             Task removedTask = tasks.remove(Integer.parseInt(m.group(1)) - 1);
             System.out.println("Removed task: ");
             System.out.println(removedTask);
+            updateTaskData();
           } catch (Exception e) {
             System.out.println("Please enter a valid number from 1 - " + tasks.size());
             break;
@@ -134,7 +138,7 @@ public class Horo {
 
   private static void loadTasks() {
     try {
-      File taskFile = new File("./data/tasks.txt");
+      File taskFile = new File(dataFilePath);
       if (taskFile.createNewFile()) {
         System.out.println("File created: " + taskFile.getName());
       }
@@ -142,8 +146,7 @@ public class Horo {
       Scanner scanner = new Scanner(taskFile);
       while (scanner.hasNextLine()) {
         String data = scanner.nextLine();
-        parseTaskString(data);
-        // System.out.println(data);
+        parseDataString(data);
       }
       scanner.close();
     } catch (IOException e) {
@@ -154,7 +157,7 @@ public class Horo {
     }
   }
 
-  private static void parseTaskString(String s) throws HoroException {
+  private static void parseDataString(String s) throws HoroException {
     String[] arguments = s.split(",");
     Task t;
     switch (arguments[0]) {
@@ -181,5 +184,20 @@ public class Horo {
     tasks.add(newTask);
     System.out.println("Added: ");
     System.out.println(newTask);
+    updateTaskData();
+  }
+
+  private static void updateTaskData() {
+    try {
+      FileWriter writer = new FileWriter(dataFilePath, false);
+      for (Task t : tasks) {
+        writer.write(t.getDataString() + "\n");
+      }
+      writer.close();
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
+
   }
 }
