@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -16,7 +17,7 @@ public class Duke {
     /**
      * An array to store inputs by the user
      */
-    private static Task[] taskArray = new Task[100];
+    private static ArrayList<Task> taskArray = new ArrayList<>();
     private static int numOfTasks = 0;
 
     /**
@@ -76,7 +77,8 @@ public class Duke {
      * @param task The task inputted by the user
      */
     private static void append(Task task) {
-        taskArray[numOfTasks++] = task;
+        taskArray.add(task);
+        numOfTasks++;
         System.out.print(horizontalLine + "YOU WANT TO " + task + "?\nSURE, WHATEVER.\n" + horizontalLine);
     }
 
@@ -141,7 +143,7 @@ public class Duke {
     private static void mark(String toMark) {
         System.out.print(horizontalLine);
         try {
-            Task task = taskArray[Integer.parseInt(toMark.substring(5)) - 1];
+            Task task = taskArray.get(Integer.parseInt(toMark.substring(5)) - 1);
             if (task == null) throw new NullPointerException();
             if (task.isDone) throw new IllegalArgumentException();
             task.markAsDone();
@@ -166,7 +168,7 @@ public class Duke {
         System.out.print(horizontalLine);
         try {
             int index = Integer.parseInt(toUnmark.substring(7)) - 1;
-            Task task = taskArray[index];
+            Task task = taskArray.get(index);
             if (task == null) throw new NullPointerException();
             if (!task.isDone) throw new IllegalArgumentException();
             task.markAsUndone();
@@ -177,6 +179,27 @@ public class Duke {
             System.out.print("NOTHING THERE IDIOT!!!\n");
         } catch (IllegalArgumentException e) {
             System.out.print("ALREADY UNDONE BRO!\n");
+        } finally {
+            System.out.print(horizontalLine);
+        }
+    }
+
+    /**
+     * Attempts to delete a task from the task array
+     * @param toDelete
+     */
+    private static void delete(String toDelete) {
+        System.out.print(horizontalLine);
+        try {
+            int index = Integer.parseInt(toDelete.substring(7)) - 1;
+            System.out.print("YOU SEE THIS?\n" +
+                    taskArray.get(index) +
+                    "\nNOW YOU DON'T\n");
+            taskArray.remove(index);
+        } catch (NumberFormatException e) {
+            System.out.print("NOT A NUMBER IDIOT!!!\n");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.print("YOU WANT ME TO DELETE THE AIR???\n");
         } finally {
             System.out.print(horizontalLine);
         }
@@ -207,6 +230,10 @@ public class Duke {
             }
             if (nextLine.startsWith("event")) {
                 appendEvent(nextLine);
+                continue;
+            }
+            if (nextLine.startsWith("delete")) {
+                delete(nextLine);
                 continue;
             }
             switch(nextLine) {

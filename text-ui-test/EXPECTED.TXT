@@ -78,6 +78,27 @@ UNMARKED:
 3. [D] [ ] mark (by: friday)
 -------------------------------
 -------------------------------
+YOU SEE THIS?
+[D] [ ] mark (by: friday)
+NOW YOU DON'T
+-------------------------------
+-------------------------------
+YOU WANT ME TO DELETE THE AIR???
+-------------------------------
+-------------------------------
+YOU SEE THIS?
+[T] [ ] mark
+NOW YOU DON'T
+-------------------------------
+-------------------------------
+YOU WANT TO [T] [ ] what why?
+SURE, WHATEVER.
+-------------------------------
+-------------------------------
+1. [E] [X] 123 (from: tuesday to: saturday)
+2. [T] [ ] what why
+-------------------------------
+-------------------------------
 NOW GET OUTTA HERE!
 RESPECTFULLY,
 JOHNATHAN CENATOR
