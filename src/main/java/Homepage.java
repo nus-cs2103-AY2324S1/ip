@@ -9,16 +9,23 @@ public class Homepage {
                 + "____________________________________________________________\n"
         );
 
+        TaskList list = new TaskList();
         Scanner sc = new Scanner(System.in);
         String answer = sc.nextLine();
 
         while (true) {
             if (answer.equalsIgnoreCase("bye")) {
                 break;
+            } else if (answer.equalsIgnoreCase("list")) {
+                System.out.println(
+                        "____________________________________________________________\n"
+                        + list.toString() + "\n"
+                        + "____________________________________________________________\n");
+                answer = sc.nextLine();
             } else {
                 System.out.println(
                         "____________________________________________________________\n"
-                        + answer + "\n"
+                        + list.addTask(answer) + "\n"
                         + "____________________________________________________________\n");
                 answer = sc.nextLine();
             }
