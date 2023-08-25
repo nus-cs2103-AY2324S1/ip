@@ -1,12 +1,14 @@
+package minion.data.task;
+
 /**
- * Represents an Event, a task that start at a specific date/time and ends at a specific date/time.
+ * Represents an minion.data.task.Event, a task that start at a specific date/time and ends at a specific date/time.
  */
 public class Event extends Task {
     protected String start;
     protected String end;
 
     /**
-     * Creates an event object. This is the main constructor of the Event class.
+     * Creates an event object. This is the main constructor of the minion.data.task.Event class.
      * @param description Description of the event.
      * @param isDone Whether the event has been done.
      * @param start Start date/time of event.

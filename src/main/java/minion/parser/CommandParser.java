@@ -1,18 +1,29 @@
-public class Parser {
+package minion.parser;
+
+import minion.commands.*;
+import minion.data.exception.IllegalValueException;
+import minion.data.exception.MinionException;
+import minion.data.exception.ParserException;
+import minion.common.Messages;
+import minion.data.task.Deadline;
+import minion.data.task.Event;
+import minion.data.task.ToDo;
+
+public class CommandParser {
     /**
      * Returns a task from the parsed command, throws an exception if there is no such task or invalid parameters.
      *
-     * @param command Command to parse.
+     * @param command minion.commands.Command to parse.
      * @return the task parsed from the command if no exception is thrown.
-     * @throws ParserException
-     * @throws IllegalValueException
+     * @throws ParserException when unable to parse command.
+     * @throws IllegalValueException when illegal value in command.
      */
-    public static Command parse(String command) throws MinionException  {
+    public static Command parse(String command) throws MinionException {
 
         command = command.trim();
 
         if (command.isEmpty()) {
-            throw new ParserException("☹ OOPS!!! I'm sorry, please input a legit command. :-(");
+            throw new ParserException(Messages.MESSAGE_MISSING_COMMAND);
         }
 
         String[] arr = command.split(" ", 2);
@@ -49,59 +60,44 @@ public class Parser {
         }
     }
 
-    public static int parseTaskIdx(String[] arr) throws MinionException {
+    private static int parseTaskIdx(String[] arr) throws MinionException {
         if (arr.length < 2 || arr[1].isEmpty() || !arr[1].trim().matches("[0-9]+")) {
             throw new MinionException("mark needs to have an argument. Try again.");
         }
-       return Integer.valueOf(arr[1].trim()) - 1;
+       return Integer.parseInt(arr[1].trim()) - 1;
     }
 
-    public static Command prepareMark(String[] arr) throws MinionException {
-        int taskIdx;
-        try {
-            taskIdx = parseTaskIdx(arr);
-        } catch (MinionException e) {
-            throw e;
-        }
+    private static Command prepareMark(String[] arr) throws MinionException {
+        int taskIdx = parseTaskIdx(arr);
         return new MarkCommand(taskIdx);
     }
 
-    public static Command prepareUnmark(String[] arr) throws MinionException {
-        int taskIdx;
-        try {
-            taskIdx = parseTaskIdx(arr);
-        } catch (MinionException e) {
-            throw e;
-        }
+    private static Command prepareUnmark(String[] arr) throws MinionException {
+        int taskIdx = parseTaskIdx(arr);
         return new UnmarkCommand(taskIdx);
     }
 
-    public static Command prepareDelete(String[] arr) throws MinionException {
-        int taskIdx;
-        try {
-            taskIdx = parseTaskIdx(arr);
-        } catch (MinionException e) {
-            throw e;
-        }
+    private static Command prepareDelete(String[] arr) throws MinionException {
+        int taskIdx = parseTaskIdx(arr);
         return new DeleteCommand(taskIdx);
     }
 
-    public static Command prepareToDo(String[] arr) throws MinionException {
+    private static Command prepareToDo(String[] arr) throws MinionException {
         if (arr.length < 2 || arr[1].isEmpty()) {
             throw new ParserException(Messages.MESSAGE_TODO_DESCRIPTION_ERROR);
         }
         return new ToDoCommand(new ToDo(arr[1]));
     }
 
-    public static Command prepareDeadline(String[] arr) throws MinionException {
+    private static Command prepareDeadline(String[] arr) throws MinionException {
         // nothing after deadline
-        // or, something after deadline but it's just empty space(s)
+        // or, something after deadline - but it's just empty space(s)
         // empty -> no description; non-empty -> still need to check if description is missing.
         if (arr.length < 2 || arr[1].isEmpty()) {
             throw new ParserException(Messages.MESSAGE_DEADLINE_DESCRIPTION_ERROR);
         }
         String[] strs = arr[1].split("/by");
-        String description = null;
+        String description;
         switch (strs.length) {
         // nothing to left and right
         case 0:
@@ -122,18 +118,13 @@ public class Parser {
             if (by.isEmpty()) {
                 throw new ParserException(Messages.MESSAGE_DEADLINE_BY_ERROR);
             }
-            String datetime = "";
-            try {
-                datetime = DatetimeParser.parseDatetime(by.split(" "));
-            } catch (IllegalValueException e) {
-                throw e;
-            }
+            String datetime = DatetimeParser.parseDatetime(by.split(" "));
             return new DeadlineCommand(new Deadline(description, datetime));
         }
         return null;
     }
 
-    public static Command prepareEvent(String[] arr) throws MinionException {
+    private static Command prepareEvent(String[] arr) throws MinionException {
         if (arr.length < 2 || arr[1].isEmpty()) {
             throw new ParserException(Messages.MESSAGE_EVENT_DESCRIPTION_ERROR);
         }
@@ -162,9 +153,8 @@ public class Parser {
             }
             strs = strs[1].split("/to");
         }
-
-        String from = null;
-        String to = null;
+        String from;
+        String to;
         switch (strs.length) {
         // nothing to left and right
         case 0:
@@ -184,18 +174,8 @@ public class Parser {
             if (to.isEmpty()) {
                 throw new ParserException(Messages.MESSAGE_EVENT_TO_ERROR);
             }
-            String fromDatetime = "";
-            String toDatetime = "";
-            try {
-                fromDatetime = DatetimeParser.parseDatetime(from.split(" "));
-            } catch (IllegalValueException e) {
-                throw e;
-            }
-            try {
-                toDatetime = DatetimeParser.parseDatetime(to.split(" "));
-            } catch (IllegalValueException e) {
-                throw e;
-            }
+            String fromDatetime = DatetimeParser.parseDatetime(from.split(" "));
+            String toDatetime = DatetimeParser.parseDatetime(to.split(" "));
             return new EventCommand(new Event(description, fromDatetime, toDatetime));
         }
         return null;

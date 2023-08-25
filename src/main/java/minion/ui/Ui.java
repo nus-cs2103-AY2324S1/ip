@@ -1,7 +1,11 @@
+package minion.ui;
+
+import minion.common.Messages;
+
 import java.util.Scanner;
 
 /**
- * Represents the Ui of the chatbot.
+ * Represents the minion.ui.Ui of the chatbot.
  */
 public class Ui {
     private static final String DIVIDER = "\t____________________________________________________________\n";
@@ -20,12 +24,14 @@ public class Ui {
      * @param args string(s) to be printed.
      */
     public void print(String... args){
-        String text = DIVIDER;
-        for(int i = 0; i < args.length; i++) {
-            text += String.format("\t%s\n", args[i]);
+        StringBuilder sb = new StringBuilder(DIVIDER);
+        for(String arg: args) {
+            sb.append("\t");
+            sb.append(arg);
+            sb.append("\n");
         }
-        text += DIVIDER;
-        System.out.println(text);
+        sb.append(DIVIDER);
+        System.out.println(sb);
     }
     /**
      * Function to say hi to the user.

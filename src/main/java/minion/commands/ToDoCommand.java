@@ -1,8 +1,15 @@
+package minion.commands;
+
+import minion.storage.Storage;
+import minion.data.TaskList;
+import minion.data.task.ToDo;
+import minion.ui.Ui;
+
 import java.io.IOException;
 
 public class ToDoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
-    public ToDo toDo;
+    private final ToDo toDo;
 
     public ToDoCommand(ToDo toDo) {
         this.toDo = toDo;
