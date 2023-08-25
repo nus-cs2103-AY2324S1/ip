@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+
 /**
  * Encapsulates the abstract concept of a Task.
  * @author Donovan Chan Jia Jun
@@ -7,6 +9,11 @@ public abstract class Task {
     protected String name;
     public Task(String name) {
         this.isComplete = false;
+        this.name = name;
+    }
+
+    public Task(String name, boolean isComplete) {
+        this.isComplete = isComplete;
         this.name = name;
     }
 
@@ -42,4 +49,9 @@ public abstract class Task {
         }
         return "[ ]";
     }
+
+    public String getName() {
+        return this.name;
+    }
+    abstract public void writeToFile(FileWriter fileWriter);
 }
