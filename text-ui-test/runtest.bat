@@ -8,6 +8,7 @@ if exist ACTUAL.TXT del ACTUAL.TXT
 
 REM compile the code into the bin folder
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\jeeves\task\*.java
+javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\jeeves\exception\*.java
 javac  -cp ..\src\main\java -Xlint:none -d ..\bin ..\src\main\java\jeeves\main\*.java
 IF ERRORLEVEL 1 (
     echo ********** BUILD FAILURE **********

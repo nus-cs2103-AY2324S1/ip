@@ -9,4 +9,7 @@ mark 3
 list
 unmark 3
 list
+mark 
+mark xyz
+mark 4
 bye

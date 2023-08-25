@@ -1,11 +1,13 @@
 package jeeves.main;
 
+import jeeves.exception.MissingIdException;
+import jeeves.exception.NotIntegerIdException;
+import jeeves.exception.OutOfBoundIdException;
+
 import jeeves.task.Task;
 import jeeves.task.Todo;
 import jeeves.task.Deadline;
 import jeeves.task.Event;
-
-import jeeves.exception.EmptyDescriptionException;
 
 import java.util.Scanner;
 
@@ -65,11 +67,30 @@ public class Jeeves {
                 System.out.print("\n");
             }  else if (currentCommand.startsWith("mark ")) {
                 // Gets the task ID that the user wish to mark
-                int id = Integer.parseInt(currentCommand.substring(FINDFIELD_MARK_OFFSET));
-                // Update the task's status and notifies the user
-                taskList[id].setStatus(true);
-                System.out.println("Understood, I have marked the following task as done:");
-                System.out.println("    " + taskList[id].toString() + "\n");
+                String idString = currentCommand.substring(FINDFIELD_MARK_OFFSET);
+                // If the task ID is invalid or not found, throw an error
+                // Else, update the task's status and notifies the user
+                try {
+                    if (idString.isEmpty()) {
+                        // id field is empty
+                        throw new MissingIdException("I cannot do that as you have not provided me with a Task ID\n");
+                    } else if (!isNumber(idString)) {
+                        // id field is not an integer
+                        throw new NotIntegerIdException("I cannot do that as that is not a valid Task ID "
+                                + "(Not an Integer)\n");
+                    } else if (Integer.parseInt(idString) > Task.getTaskCount()) {
+                        // id does not exist
+                        throw new OutOfBoundIdException("I cannot do that as that is not a valid Task ID "
+                                + "(Does not exist)\n");
+                    } else {
+                        int id = Integer.parseInt(idString);
+                        taskList[id].setStatus(true);
+                        System.out.println("Understood, I have marked the following task as done:");
+                        System.out.println("    " + taskList[id].toString() + "\n");
+                    }
+                } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException e) {
+                    System.out.println(e);
+                }
             } else if (currentCommand.startsWith("unmark ")) {
                 // Gets the task ID that the user wish to unmark
                 int id = Integer.parseInt(currentCommand.substring(FINDFIELD_UNMARK_OFFSET));
@@ -118,6 +139,17 @@ public class Jeeves {
                         + "I will improve myself to better serve you in the future.\n");
             }
         }
+    }
+
+    /**
+     * Checks if a string is only made up of integer numbers.
+     * Uses regex to determine if a string contains only integers
+     *
+     * @param input The string to be checked
+     * @return Whether the string is fully comprised of integers
+     */
+    private static boolean isNumber(String input) {
+        return input.matches("[0-9]+");
     }
 
 }
