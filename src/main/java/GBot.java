@@ -6,6 +6,15 @@ import java.util.Scanner;
 public class GBot {
     private static ArrayList<Task> list = new ArrayList<>();
     private static final String LINE = "____________________________________________________________";
+    enum Keyword {
+        MARK,
+        UNMARK,
+        TODO,
+        DEADLINE,
+        EVENT,
+        DELETE
+
+    }
     private static void print(String message) {
         System.out.println(LINE);
         System.out.println(message);
@@ -144,24 +153,25 @@ public class GBot {
                 continue;
             }
 
-            String prefix = message.split(" ")[0];
+            Keyword prefix = Keyword.valueOf(message.split(" ")[0].toUpperCase());
+            String str = message.substring(prefix.toString().length() + 1);
             switch (prefix) {
-                case "mark":
+                case MARK:
                     markTask(message);
                     break;
-                case "unmark":
+                case UNMARK:
                     unmarkTask(message);
                     break;
-                case "todo":
-                    addTodo(message.substring(prefix.length() + 1));
+                case TODO:
+                    addTodo(str);
                     break;
-                case "deadline":
-                    addDeadline(message.substring(prefix.length() + 1));
+                case DEADLINE:
+                    addDeadline(str);
                     break;
-                case "event":
-                    addEvent(message.substring(prefix.length() + 1));
+                case EVENT:
+                    addEvent(str);
                     break;
-                case "delete":
+                case DELETE:
                     deleteTask(message);
                     break;
                 default:
