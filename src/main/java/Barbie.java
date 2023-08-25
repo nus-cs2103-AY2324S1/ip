@@ -2,7 +2,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 
-public class Duke {
+public class Barbie {
     public static void main(String[] args) {
         // CONSTANTS
         String line = "______________________________\n";
@@ -49,7 +49,7 @@ public class Duke {
 
                         // Output
                         System.out.println("\t Nice! I've marked this task as done:\n"
-                                + "\t [X]" + list[taskNumber] + "\n"
+                                + "\t " + list[taskNumber] + "\n"
                                 + "\t" + line);
 
                     } else {
@@ -60,10 +60,55 @@ public class Duke {
 
                         // Output
                         System.out.println("\t Alright! I've marked this task as not done yet:\n"
-                                + "\t [ ]" + list[taskNumber] + "\n"
+                                + "\t " + list[taskNumber] + "\n"
                                 + "\t" + line);
                     }
                     break;
+
+                case "todo":
+                case "deadline":
+                case "party":
+                    try {
+
+                        if (Objects.equals(command, "todo")) {
+
+                            desc = parts[1];
+
+                            list[itemNumber] = new Todo(desc);
+
+                        } else if (Objects.equals(command, "deadline")) {
+
+                            String[] parts2 = parts[1].split("/");
+                            desc = parts2[0];
+                            String by = parts2[1];
+
+                            list[itemNumber] = new Deadlines(desc, by);
+
+                        } else {
+
+                            String[] parts2 = parts[1].split("/");
+                            desc = parts2[0];
+                            String from = parts2[1];
+                            String to = parts2[2];
+
+                            list[itemNumber] = new Party(desc, from, to);
+
+                        }
+
+                        System.out.println("\t Got you barbie! I've added this task to your Barbie list:\n"
+                                + "\t " + list[itemNumber]);
+                        itemNumber += 1;
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("\tOops.. there was an error in the formatting! \n"
+                                + "\tRemember:\n"
+                                + "\tdeadlines have a deadline denoted by '/',\n"
+                                + "\tand parties have a start and an end both also denoted by '/'!");
+                    }
+
+
+
+
 
 
                 case "list":
@@ -113,7 +158,7 @@ public class Duke {
     protected static void listTasks(Task[] list, int itemNumber) {
             // "list" command
             for (int i = 1; i < itemNumber; i++) {
-                System.out.println("\t" + list[i].getStatus() + " " + list[i]);
+                System.out.println("\t" + i + ". " + list[i]);
             }
     }
 
