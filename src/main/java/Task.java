@@ -12,7 +12,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public static Task fromFileFormat(String line) {
+    public static Task fromFileFormat(String line) throws DukeException {
         String[] parts = line.split("\\|", -1); // -1 to keep trailing empty strings
         if (parts.length < 3) {
             return null;

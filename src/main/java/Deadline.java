@@ -1,6 +1,10 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
 
-    private final String by;
+    private final LocalDate by;
 
     /**
      * Constructs a Deadline with the specified name and due date.
@@ -8,7 +12,7 @@ public class Deadline extends Task {
      * @param name The name of the deadline.
      * @param by   The due date of the deadline.
      */
-    private Deadline(String name, String by) {
+    private Deadline(String name, LocalDate by) {
         super(name);
         this.by = by;
     }
@@ -25,14 +29,25 @@ public class Deadline extends Task {
         if (parts.length < 2) {
             throw new DukeException("Missing '/by' or date for deadline.");
         }
-        return new Deadline(parts[0], parts[1]);
+        LocalDate byDate;
+        try {
+            byDate = LocalDate.parse(parts[1].trim());
+        } catch (DateTimeParseException dateTimeParseException) {
+            throw new DukeException("Deadline /by date should be in yyyy-mm-dd format (e.g. 2023-08-25)");
+        }
+        return new Deadline(parts[0].trim(), byDate);
     }
 
-    public static Deadline fromFileFormat(String[] parts) {
+    public static Deadline fromFileFormat(String[] parts) throws DukeException {
         boolean isDone = "1".equals(parts[1].trim());
         String name = parts[2].trim();
-        String by = parts[3].trim();
-        Deadline deadline = new Deadline(name, by);
+        LocalDate byDate;
+        try {
+            byDate = LocalDate.parse(parts[3].trim());
+        } catch (DateTimeParseException dateTimeParseException) {
+            throw new DukeException("Deadline /by date should be in yyyy-mm-dd format (e.g. 2023-08-25)");
+        }
+        Deadline deadline = new Deadline(name, byDate);
         if (isDone) {
             deadline.markAsDone();
         }
