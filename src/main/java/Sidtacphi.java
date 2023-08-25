@@ -64,20 +64,29 @@ public class Sidtacphi {
                 break;
             } else if (Objects.equals(input, "list")) {
                 showTaskList();
-                continue;
             } else if (input.length() > 4 && Objects.equals(input.substring(0, 5), "mark ")) {
                 try {
                     int taskId = Integer.parseInt(input.substring(5));
-                    taskList[taskId - 1].mark();
-                    System.out.println("\nSidtacphi: Marked " + taskId + ".");
+                    Task task = taskList[taskId - 1];
+                    if (task.isCompleted()) {
+                        System.out.println("\nSidtacphi: \"" + task.getName() + "\" is already marked!");
+                    } else {
+                        task.mark();
+                        System.out.println("\nSidtacphi: Marked \"" + task.getName() + "\".");
+                    }
                 } catch (Exception e) {
                     System.out.println("\nSidtacphi: Invalid task ID. ");
                 }
             } else if (input.length() > 6 && Objects.equals(input.substring(0, 7), "unmark ")) {
                 try {
                     int taskId = Integer.parseInt(input.substring(7));
-                    taskList[taskId - 1].mark();
-                    System.out.println("\nSidtacphi: Unmarked " + taskId + ".");
+                    Task task = taskList[taskId - 1];
+                    if (!task.isCompleted()) {
+                        System.out.println("\nSidtacphi: \"" + task.getName() + "\" is already unmarked!");
+                    } else {
+                        task.unmark();
+                        System.out.println("\nSidtacphi: Unmarked \"" + task.getName() + "\".");
+                    }
                 } catch (Exception e) {
                     System.out.println("\nSidtacphi: Invalid task ID. ");
                 }
@@ -110,10 +119,10 @@ public class Sidtacphi {
      */
     private static void showTaskList() {
         if (listPtr == 0) {
-            System.out.println("Sidtacphi: You have no tasks in your list.");
+            System.out.println("\nSidtacphi: You have no tasks in your list.");
             return;
         }
-        System.out.println("Sidtacphi: You have a countable number of tasks in your list.");
+        System.out.println("\nSidtacphi: You have a countable number of tasks in your list.");
         for (int i = 0; i < listPtr; i++) {
             System.out.println("" + (i + 1) + ". " + taskList[i]);
         }
