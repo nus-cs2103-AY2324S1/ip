@@ -16,15 +16,33 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command{
     private static final String commandString = "deadline";
     private final String arguments;
 
+    /**
+     * Constructor for a DeadlineCommand
+     *
+     * @param arguments arguments for the DeadlineCommand
+     */
     public DeadlineCommand(String arguments) {
         this.arguments = arguments;
     }
 
+    /**
+     * If program should exit after command execution.
+     *
+     * @return false
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Validate arguments to this command.
+     * They must,
+     * 1. Be in the format [description] /by YYYY-MM-DD
+     *
+     * @param arguments argument to validate
+     * @throws DukeException is argument is not valid
+     */
     @Override
     protected void validate(String arguments) throws DukeException {
         super.validate(arguments);
@@ -43,6 +61,14 @@ public class DeadlineCommand extends NonemptyArgumentCommand implements Command{
 
     }
 
+    /**
+     * Creates a Deadline task.
+     *
+     * @param taskList the current TaskList
+     * @param ui the UI tied to the program
+     * @param storage the Storage tied to the program
+     * @throws DukeException
+     */
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         validate(this.arguments);

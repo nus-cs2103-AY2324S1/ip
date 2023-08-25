@@ -19,6 +19,11 @@ public class Storage {
         this.savePath = savePath;
     }
 
+    /**
+     * Updates the savefile to the most current tasks.
+     *
+     * @param taskList the current list of tasks
+     */
     public void updateFile(TaskList taskList) {
         if (isUpdatable) {
             try {
@@ -33,6 +38,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads a TaskList from the given savefile.
+     *
+     * @return a TaskList constructed from the savefile
+     * @throws DukeException when file is corrupted
+     */
     public TaskList load() throws DukeException{
         try {
             File save = new File(this.savePath);

@@ -4,6 +4,13 @@ import duke.DukeException;
 
 public class Parser {
 
+    /**
+     * Parse the raw input from user
+     *
+     * @param rawCommand the raw input given by the user
+     * @return the command if it exists
+     * @throws DukeException if no matching command is found
+     */
     public static Command parseCommand(String rawCommand) throws DukeException {
         // Clean Raw Input
         rawCommand = rawCommand.trim().replaceAll(" +",  " ");

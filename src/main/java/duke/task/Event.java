@@ -8,17 +8,35 @@ public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
+    /**
+     * Constructor to Event Task.
+     *
+     * @param description description of task
+     * @param from task start date
+     * @param to task end date
+     */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Returns if task is before given date.
+     *
+     * @param date given date to check against
+     * @return true if task is before given date, false otherwise
+     */
     @Override
     public boolean isBefore(LocalDate date) {
         return this.to.isBefore(date);
     }
 
+    /**
+     * Get string representation of task.
+     *
+     * @return string representation of task
+     */
     @Override
     public String toString() {
 
@@ -31,6 +49,11 @@ public class Event extends Task {
                 ")";
     }
 
+    /**
+     * Get a string representing this event to save to file.
+     *
+     * @return string representing this event to save to file
+     */
     @Override
     public String getSaveString() {
 

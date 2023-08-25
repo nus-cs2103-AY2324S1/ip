@@ -5,12 +5,20 @@ import duke.command.Parser;
 import duke.task.*;
 import duke.ui.UI;
 
+/**
+ * The main duke class.
+ */
 public class Duke {
 
     private TaskList taskList;
     private UI ui;
     private Storage storage;
 
+    /**
+     * Constructor for Duke class.
+     *
+     * @param savePath string of path to the savefile
+     */
     public Duke(String savePath)  {
         try {
             this.storage = new Storage(savePath);
@@ -22,6 +30,10 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the duke program.
+     * Spins up the program until exit command is given by the user
+     */
     public void run() {
         boolean isExit = false;
         while (!isExit) {
