@@ -5,19 +5,30 @@ import jeeves.task.Todo;
 import jeeves.task.Deadline;
 import jeeves.task.Event;
 
+import jeeves.exception.EmptyDescriptionException;
+
 import java.util.Scanner;
 
 /**
  * Contains the main method and primary logic for Jeeves.
  */
 public class Jeeves {
+
+    private static final int FINDCOMMAND_TODO_OFFSET = 5;
+    private static final int FINDCOMMAND_DEADLINE_OFFSET = 9;
+    private static final int FINDCOMMAND_EVENT_OFFSET = 6;
+    private static final int FINDFIELD_MARK_OFFSET = 5;
+    private static final int FINDFIELD_UNMARK_OFFSET = 7;
+    private static final int FINDFIELD_TO_OFFSET = 4;
+    private static final int FINDFIELD_FROM_OFFSET = 6;
+    private static final int FINDFIELD_BY_OFFSET = 4;
     /**
      * The array used to track tasks.
      * Due to how the taskCount variable is used as the id and
      * array access position, index 0 will always be unused.
      * taskList is effectively 1-indexed
      */
-    private static final Task[] taskList = new Task[100];
+    private static Task[] taskList = new Task[100];
 
     /**
      * Main process.
@@ -54,21 +65,21 @@ public class Jeeves {
                 System.out.print("\n");
             }  else if (currentCommand.startsWith("mark ")) {
                 // Gets the task ID that the user wish to mark
-                int id = Integer.parseInt(currentCommand.substring(5));
+                int id = Integer.parseInt(currentCommand.substring(FINDFIELD_MARK_OFFSET));
                 // Update the task's status and notifies the user
                 taskList[id].setStatus(true);
                 System.out.println("Understood, I have marked the following task as done:");
                 System.out.println("    " + taskList[id].toString() + "\n");
             } else if (currentCommand.startsWith("unmark ")) {
                 // Gets the task ID that the user wish to unmark
-                int id = Integer.parseInt(currentCommand.substring(7));
+                int id = Integer.parseInt(currentCommand.substring(FINDFIELD_UNMARK_OFFSET));
                 // Update the task's status and notifies the user
                 taskList[id].setStatus(false);
                 System.out.println("Understood, I have marked the following task as not done:");
                 System.out.println("    " + taskList[id].toString() + "\n");
             } else if (currentCommand.startsWith("todo ")) {
                 // Adds the 'To do' Task to the task list
-                String currTask = currentCommand.substring(5);
+                String currTask = currentCommand.substring(FINDCOMMAND_TODO_OFFSET);
                 Todo newTodo = new Todo(currTask);
                 taskList[Task.getTaskCount()] = newTodo;
                 System.out.println("Task added:\n" +
@@ -76,8 +87,8 @@ public class Jeeves {
             } else if (currentCommand.startsWith("deadline ")) {
                 // Extracts the necessary information from the String command
                 int byDateIndex = currentCommand.indexOf("/by ");
-                String currTask = currentCommand.substring(9, byDateIndex - 1);
-                String byDate = currentCommand.substring(byDateIndex + 4);
+                String currTask = currentCommand.substring(FINDCOMMAND_DEADLINE_OFFSET, byDateIndex - 1);
+                String byDate = currentCommand.substring(byDateIndex + FINDFIELD_BY_OFFSET);
 
                 // Adds the 'Deadline' Task to the task list
                 Deadline newDeadline = new Deadline(currTask, byDate);
@@ -88,9 +99,9 @@ public class Jeeves {
                 // Extracts the necessary information from the String command
                 int fromDateIndex = currentCommand.indexOf("/from ");
                 int toDateIndex = currentCommand.indexOf("/to ");
-                String currTask = currentCommand.substring(6, fromDateIndex - 1);
-                String fromDate = currentCommand.substring(fromDateIndex + 6, toDateIndex - 1);
-                String toDate = currentCommand.substring(toDateIndex + 4);
+                String currTask = currentCommand.substring(FINDCOMMAND_EVENT_OFFSET, fromDateIndex - 1);
+                String fromDate = currentCommand.substring(fromDateIndex + FINDFIELD_FROM_OFFSET, toDateIndex - 1);
+                String toDate = currentCommand.substring(toDateIndex + FINDFIELD_TO_OFFSET);
 
                 // Adds the 'Event' Task to the task list
                 Event newEvent = new Event(currTask, fromDate, toDate);
