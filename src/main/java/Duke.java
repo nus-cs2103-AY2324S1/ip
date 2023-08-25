@@ -1,11 +1,78 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> data = new ArrayList<>();
+    static Scanner scanner = new Scanner(System.in);
+    static ArrayList<Task> data = new ArrayList<>();
 
+    private static void readLine(String line) {
+        String[] split = line.split(" \\| ");
+        String type = split[0];
+        boolean isDone = split[1].equals("1");
+        String description = split[2];
+        Task task = null;
+        if (type.equals("T")) {
+            task = new ToDo(description);
+        } else if (type.equals("E")) {
+            task = new Event(description, split[3], split[4]);
+        } else if (type.equals("D")) {
+            task = new Deadline(description, split[3]);
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        } else {
+            task.markAsUndone();
+        }
+        data.add(task);
+    }
+
+    private static void loadFile() {
+        try {
+            File directory = new File("./data");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            File file = new File(directory, "duke.txt");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            Scanner fileScanner = new Scanner(file);
+
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                readLine(line);
+            }
+            fileScanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+        } catch (Exception e) {
+            System.out.println("An error occurred.");
+        }
+    }
+
+    private static void saveFile() {
+        File directory = new File("./data");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        File file = new File(directory, "duke.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (Task task : data) {
+                writer.write(task.toSaveLine());
+                writer.newLine();
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred with saving.");
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        loadFile();
         String logo =
                 ".______     ______   .___________.\n" +
                         "|   _  \\   /  __  \\  |           |\n" +
@@ -150,6 +217,7 @@ public class Duke {
                 System.out.println(exception.getMessage());
             }
             System.out.println("_________________________________________");
+            saveFile();
         }
     }
 }
