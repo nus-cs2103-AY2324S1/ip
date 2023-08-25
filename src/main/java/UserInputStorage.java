@@ -18,4 +18,8 @@ public class UserInputStorage {
         }
         return tobePrinted;
     }
+
+    public static int getNumOfElement() {
+        return storagePointer;
+    }
 }
