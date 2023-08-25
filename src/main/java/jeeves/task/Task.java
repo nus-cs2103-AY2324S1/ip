@@ -7,10 +7,10 @@ public class Task {
     /** Tracks the number of task objects to guarantee the assigned ID will be unique */
     private static int taskCount = 0;
     /** Unique identification number for the task */
-    private final int id;
+    protected final int id;
     /** The description of the task */
-    private final String desc;
-    private boolean isDone;
+    protected final String desc;
+    protected boolean isDone;
 
     /**
      * Default constructor for the Task object.
@@ -64,13 +64,9 @@ public class Task {
         // Checks if a task has its status marked as complete
         // and displays the appropriate visual
         if (isDone) {
-            return String.format(id + "."
-                    + "[X] "
-                    + this.getDesc());
+            return String.format("[X] " + this.getDesc());
         } else {
-            return String.format(id + "."
-                    + "[ ] "
-                    + this.getDesc());
+            return String.format("[ ] " + this.getDesc());
         }
     }
 
