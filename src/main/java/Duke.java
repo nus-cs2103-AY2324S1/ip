@@ -1,5 +1,6 @@
 import java.sql.Array;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ public class Duke {
      * @return boolean to check bye or not
      * @throws DukeException throws DukeException
      */
-    public static boolean runProgram(Task[] arrayList) throws DukeException {
+    public static boolean runProgram(ArrayList<Task> arrayList) throws DukeException {
         Scanner in = new Scanner(System.in);
         String s = in.nextLine();
 
@@ -34,60 +35,73 @@ public class Duke {
             if (s.equals("list")) {
                 String items = "";
 
-                for (int i = 0; i < 100; i++) {
-                    if (arrayList[i] == null) {
+                for (int i = 0; i < arrayList.size(); i++) {
+                    if (arrayList.get(i) == null) {
                         break;
                     }
-                    items += "     " + (i + 1) + "." + arrayList[i].toString() + "\n";
+                    items += "     " + (i + 1) + "." + arrayList.get(i).toString() + "\n";
                 }
                 response = "    ____________________________________________________________\n" +
                         "     Here are the tasks in your list:\n" +
                         items +
                         "    ____________________________________________________________\n";
 
+            } else if (splitMark[0].equals("delete") && splitMark.length == 2 ) {
+                int index;
+
+                try {
+                    index = Integer.parseInt(splitMark[1]);
+                } catch (NumberFormatException e) {
+                    throw new DukeInvalidDeleteException(splitMark[0]);
+                }
+
+                if (index > 0 && arrayList.get(index - 1) != null) {
+                    response = "    ____________________________________________________________\n" +
+                            "     Noted. I've removed this task:" + "\n" +
+                            "       " + arrayList.get(index-1).toString() + "\n" +
+                            "     Now you have " + (arrayList.size() - 1) + " tasks in the list." + "\n" +
+                            "    ____________________________________________________________\n";
+                    arrayList.remove(index - 1);
+
+                }
+
             } else {
                 boolean condition1 = splitMark[0].equals("mark") || splitMark[0].equals("unmark"); //first word is mark or unmark
 
                 if (splitMark.length == 2 && condition1) {
-                    Integer index = 0;
+                    int index = 0;
                     try {
                         index = Integer.parseInt(splitMark[1]);
                     } catch (NumberFormatException e) {
                         throw new DukeInvalidMarkException(splitMark[0]);
                     }
-                    System.out.println("index: " + index);
 
-                    if (index > 0 && arrayList[index - 1] != null) {
+                    if (index > 0 && arrayList.get(index - 1) != null) {
                         if (splitMark[0].equals("mark")) {
-                            arrayList[index - 1].mark();
+                            arrayList.get(index - 1).mark();
 
                             response = "    ____________________________________________________________\n" +
                                     "     Nice! I've marked this task as done:" + "\n" +
-                                    "       " + arrayList[index - 1].toString() + "\n" +
+                                    "       " + arrayList.get(index - 1).toString() + "\n" +
                                     "    ____________________________________________________________\n";
                         }
                         if (splitMark[0].equals("unmark")) {
-                            arrayList[index - 1].unmark();
+                            arrayList.get(index - 1).unmark();
 
                             response = "    ____________________________________________________________\n" +
                                     "     OK, I've marked this task as not done yet:" + "\n" +
-                                    "       " + arrayList[index - 1].toString() + "\n" +
+                                    "       " + arrayList.get(index - 1).toString() + "\n" +
                                     "    ____________________________________________________________\n";
                         }
                     }
                 } else {
-                    int i = 0;
-
-                    for (i = 0; i < 100; i++) {
-                        if (arrayList[i] == null) {
-                            arrayList[i] = Task.createTaskType(splitTask);
-                            break;
-                        }
-                    }
+                    Task newTask = Task.createTaskType(splitTask);
+                    arrayList.add(newTask);
+                    int i = arrayList.indexOf(newTask);
 
                     response = "    ____________________________________________________________\n" +
                             "     Got it. I've added this task:\n" +
-                            "      " + arrayList[i].toString() + "\n" +
+                            "      " + newTask + "\n" +
                             "     Now you have " + (i + 1) + " tasks in the list." + "\n" +
                             "    ____________________________________________________________\n";
                 }
@@ -103,7 +117,8 @@ public class Duke {
         /**
          * array of task
          */
-        Task[] arrayList = new Task[100];
+        //Task[] arrayList = new Task[100];
+        ArrayList<Task> arrayList = new ArrayList<>();
 
         String greet = "   ____________________________________________________________\n" +
                 "    Hello! I'm Siri\n" +
