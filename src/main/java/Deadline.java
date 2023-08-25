@@ -3,16 +3,19 @@ import java.util.regex.*;
 import dukeExceptions.MissingDeadlineException;
 import dukeExceptions.MissingInformationException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 /*
  * A class that is represents the Deadline class. It is 
  * a subtype of the abstract Task class.
  */
 
 public class Deadline extends Task {
-    protected boolean isDone;
-    protected String deadline;
+    protected LocalDate deadline;
 
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDate deadline) {
         super(description);
         this.deadline = deadline;
     }
@@ -39,7 +42,8 @@ public class Deadline extends Task {
         }
         String description = info.substring(0, matcher.start()).trim();
         String deadline = info.substring(matcher.end()).trim();
-        return new Deadline(description, deadline);
+        LocalDate deadlineDate = LocalDate.parse(deadline);
+        return new Deadline(description, deadlineDate);
     }
 
     /*
@@ -49,7 +53,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + ")";
     }
 
     @Override

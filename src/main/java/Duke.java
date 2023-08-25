@@ -142,7 +142,7 @@ public class Duke {
                             System.out.println("Got it. I've added this task:");
                             System.out.println(arr.taskToString(arr.length() - 1));
                             System.out.println("Now you have " + arr.numTasksToString() + " in the list.");
-                        } catch (MissingInformationException e) {
+                        } catch (DukeException e) {
                             System.out.println(e.getMessage());
                         }
                         break;

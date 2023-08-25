@@ -4,6 +4,12 @@ import java.util.regex.Pattern;
 import dukeExceptions.MissingEndTimeException;
 import dukeExceptions.MissingInformationException;
 import dukeExceptions.MissingStartTimeException;
+import dukeExceptions.InvalidDateException;
+import dukeExceptions.DukeException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /*
  * A class that is represents the Event class. It is 
@@ -11,11 +17,10 @@ import dukeExceptions.MissingStartTimeException;
  */
 
 public class Event extends Task {
-    protected boolean isDone;
-    protected String start;
-    protected String end;
+    protected LocalDate start;
+    protected LocalDate end;
 
-    public Event(String description, String start, String end) {
+    public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -33,7 +38,7 @@ public class Event extends Task {
      * description of the Event task or a missing /from start time or a
      * missing /to end time for the task.
      */
-    public static Event of(String input) throws MissingInformationException {
+    public static Event of(String input) throws DukeException {
         Matcher matcher = Pattern.compile("event ").matcher(input);
         matcher.find();
         String info = input.substring(matcher.end()).trim();
@@ -49,7 +54,11 @@ public class Event extends Task {
         }
         String start = tmp.substring(0, matcher.start()).trim();
         String end = tmp.substring(matcher.end()).trim();
-        return new Event(description, start, end);
+
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+        return new Event(description, startDate, endDate);
+
     }
 
     /*
@@ -59,7 +68,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E]" + super.toString() + " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override

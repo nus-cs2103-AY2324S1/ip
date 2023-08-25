@@ -1,4 +1,6 @@
 T | 1 | read book
-D | 0 | return book | June 6th
-E | 0 | project meeting | Aug 6th 2pm | Aug 6th 4pm
+D | 0 | return book | 2019-12-01
+E | 0 | project meeting | 2019-12-02 | 2019-12-03
 T | 0 | join sports club
+D | 0 | return book2 | 2019-11-01
+E | 0 | project meeting 2 | 2001-01-12 | 2010-10-12
