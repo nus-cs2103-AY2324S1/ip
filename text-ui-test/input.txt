@@ -1,4 +1,7 @@
 hello
+list
+delete 1
+delete 1
 todo taskone
 list
 mark 1

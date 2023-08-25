@@ -57,7 +57,9 @@ public abstract class Task {
      * @return String representation of task.
      */
     @Override
-    public abstract String toString();
+    public String toString() {
+        return "[" + (this.isDone() ? "X" : " ") + "] " + this.getName();
+    }
 
     /**
      * Changes the task's completion status to complete.
@@ -109,6 +111,13 @@ public abstract class Task {
         }
         return Event.convertFromString(str);
     }
+
+    /**
+     * Creates data string of task.
+     *
+     * @return Data string.
+     */
+    public abstract String convertToDataString();
 
     /**
      * Checks if the raw string contains a task command.
@@ -215,14 +224,31 @@ public abstract class Task {
          */
         @Override
         public String toString() {
-            return "[T][" + (super.isDone() ? "X" : " ") + "] " + super.getName();
+            return "[T]" + super.toString();
         }
+
+        /**
+         * Reads a string of standardised data and creates a ToDo object.
+         *
+         * @param str Data string to read.
+         * @return ToDo object.
+         * @throws InvalidTaskException If an object cannot be created.
+         */
         public static ToDo convertFromString(String str) throws InvalidTaskException {
             if (!str.matches("t/[01]/.+")) {
                 throw new InvalidTaskException("Could not read Todo.");
             }
             String[] arr = str.split("/");
             return new ToDo(arr[2], arr[1].equals("1"));
+        }
+
+        /**
+         * Get data string representation.
+         *
+         * @return Data string.
+         */
+        public String convertToDataString() {
+            return "t/" + (super.isDone() ? "1" : "0") + "/"  + super.getName();
         }
     }
 
@@ -264,8 +290,16 @@ public abstract class Task {
          */
         @Override
         public String toString() {
-            return "[D][" + (super.isDone() ? "X" : " ") + "] " + super.getName()
-                    + "(by: " + this.by + ")";
+            return "[D]" + super.toString() + "(by: " + this.by + ")";
+        }
+
+        /**
+         * Get the deadline time.
+         *
+         * @return Deadline time string.
+         */
+        protected String getBy() {
+            return this.by;
         }
 
         /**
@@ -281,6 +315,16 @@ public abstract class Task {
             }
             String[] arr = str.split("/");
             return new Deadline(arr[2], arr[1].equals("1"), arr[3]);
+        }
+
+        /**
+         * Returns data string representation.
+         *
+         * @return Data string.
+         */
+        public String convertToDataString() {
+            return "d/" + (super.isDone() ? "1" : "0") + "/"  + super.getName()
+                    + "/" + this.getBy();
         }
     }
 
@@ -323,14 +367,32 @@ public abstract class Task {
             this.from = from;
             this.to = to;
         }
+
+        /**
+         * Get event start time.
+         *
+         * @return Event start time string.
+         */
+        protected String getFrom() {
+            return this.from;
+        }
+
+        /**
+         * Get event end time.
+         *
+         * @return Event end time string.
+         */
+        protected String getTo() {
+            return this.to;
+        }
         /**
          * String representation of the event.
          * @return String representation.
          */
         @Override
         public String toString() {
-            return "[E][" + (super.isDone() ? "X" : " ") + "] " + super.getName()
-                    + "(from: " + this.from + " to: " + this.to + ")";
+            return "[E]" + super.toString()
+                    + "(from: " + this.getFrom() + " to: " + this.getTo() + ")";
         }
 
         /**
@@ -346,6 +408,16 @@ public abstract class Task {
             }
             String[] arr = str.split("/");
             return new Event(arr[2], arr[1].equals("1"), arr[3], arr[4]);
+        }
+
+        /**
+         * Returns data string representation.
+         *
+         * @return Data string.
+         */
+        public String convertToDataString() {
+            return "e/" + (super.isDone() ? "1" : "0") + "/"  + super.getName()
+                    + "/" + this.getFrom() + "/" + this.getTo();
         }
     }
 }

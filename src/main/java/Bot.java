@@ -1,8 +1,8 @@
 import exceptions.*;
 
-import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -21,9 +21,9 @@ public class Bot {
     private static final Pattern deletePattern = Pattern.compile("delete -?\\d+");
     public static void main(String[] args) {
         ArrayList<Task> lst = new ArrayList<>();
+        File dataDir = new File("./data");
+        File f = new File("./data/bot.txt");
         try {
-            File dataDir = new File("./data");
-            File f = new File("./data/bot.txt");
             if (dataDir.isDirectory() && f.isFile()) {
                 Scanner scanner = new Scanner(f);
                 populateList(scanner, lst);
@@ -60,6 +60,7 @@ public class Bot {
                 } else {
                     throw new InvalidCommandException();
                 }
+                saveToFile(lst, f);
             } catch (BotException e) {
                 System.out.println(e.getMessage());
             }
@@ -182,5 +183,21 @@ public class Bot {
         }
         System.out.println("I've removed this task:\n" + lst.remove(index).toString());
         displayListLength(lst);
+    }
+    public static void saveToFile(ArrayList<Task> lst, File f) {
+        if (lst.size() < 1) {
+            return;
+        }
+        try {
+            FileWriter fw = new FileWriter(f);
+            for (int i = 0; i < lst.size() - 1; i++) {
+                fw.write(lst.get(i).convertToDataString());
+                fw.write(System.lineSeparator());
+            }
+            fw.write(lst.get(lst.size() - 1).convertToDataString());
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Can't write to file.");
+        }
     }
 }
