@@ -1,8 +1,8 @@
 import java.util.*;
 public class Duke {
     Scanner reader = new Scanner(System.in);
-    Task[] list = new Task[100];
-    int counter = 0;
+    ArrayList<Task> list = new ArrayList<>();
+    int counter = -1;
     boolean shutdownCommand = false;
     String logo = " _           _        \n"
             + "| |    _   _| | _____ \n"
@@ -25,6 +25,8 @@ public class Duke {
             helpList();
         } else if (input.equals("list")) {
             listTasks();
+        } else if (input.startsWith("delete ") || input.equals("delete")) {
+            //delete(input);
         } else if (input.startsWith("mark ") || input.equals("mark")) {
             markTask(input);
         } else if (input.startsWith("unmark ") || input.equals("unmark")) {
@@ -36,7 +38,7 @@ public class Duke {
         } else if (input.startsWith("deadline ") || input.equals("deadline")) {
             processDeadline(input);
         } else {
-            throw new InvalidCommandException(" Unrecognized command");
+            throw new InvalidCommandException("Unrecognized command");
         }
     }
     public void helpList() {
@@ -52,12 +54,12 @@ public class Duke {
     }
 
     public void listTasks() {
-        if (counter == 0) {
+        if (counter == -1) {
             System.out.println("No list, silly!");
         } else {
             System.out.println("Here's the list so far.");
-            for (int i = 0; i < counter; i++) {
-                System.out.println((i + 1) + ". " + list[i]);
+            for (int i = 0; i < counter + 1; i++) {
+                System.out.println((i + 1) + ". " + list.get(i));
             }
         }
     }
@@ -73,10 +75,11 @@ public class Duke {
             throw new InvalidVarException("Task number could not be read");
         }
         try {
-            list[number - 1].markDone();
+            list.get(number - 1).markDone();
         } catch (Exception e) {
             throw new InvalidVarException("Task not found");
         }
+        System.out.println("task " + number + ": " + list.get(number - 1) + " marked as done.");
     }
 
     public void unmarkTask(String input) throws InvalidVarException,InvalidCommandException {
@@ -90,10 +93,11 @@ public class Duke {
             throw new InvalidVarException("Task number could not be read");
         }
         try {
-            list[number - 1].markUndone();
+            list.get(number - 1).markUndone();
         } catch (Exception e) {
             throw new InvalidVarException("Task not found");
         }
+        System.out.println("task " + number + ": " + list.get(number - 1) + " marked as not done.");
     }
 
     public void processToDo(String input) throws InvalidCommandException, InvalidVarException {
@@ -157,10 +161,10 @@ public class Duke {
     }
 
     public void addTask(Task task) {
-        list[counter] = task;
+        list.add(task);
         counter += 1;
         System.out.println("added: " + task.toString());
-        System.out.println("current task count: " + counter);
+        System.out.println("current task count: " + (counter + 1));
     }
 
     public static void main(String[] args) {
