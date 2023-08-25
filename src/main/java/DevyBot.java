@@ -9,15 +9,13 @@ public class DevyBot {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        String welcomeMessage = "Hello! I'm DevyBot\nWhat can I do for you?";
-        String exitMessage = "Bye. Hope to see you again soon!";
-        printMessage(welcomeMessage);
+        printMessage("Hello! I'm DevyBot\nWhat can I do for you?");
 
         while (true) {
             String userInput = scanner.nextLine();
 
             if (userInput.trim().equals("bye")) {
-                printMessage(exitMessage);
+                printMessage("Bye. Hope to see you again soon!");
                 break;
             } else if (userInput.trim().equals("list")) {
                 listTasks();
@@ -62,6 +60,10 @@ public class DevyBot {
                 case "unmark":
                     int unmarkIndex = getIndex(wordsArray);
                     markTaskAsUndone(unmarkIndex);
+                    break;
+                case "delete":
+                    int deleteIndex = getIndex(wordsArray);
+                    deleteTask(deleteIndex);
                     break;
                 default:
                     throw new UnknownCommandException();
@@ -126,7 +128,6 @@ public class DevyBot {
         String outpString = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.size()
                 + " tasks in the list.";
         printMessage(outpString);
-
     }
 
     public static void markTaskAsDone(int index) throws TaskIndexOutOfBoundsException {
@@ -155,13 +156,28 @@ public class DevyBot {
         printMessage(outpString);
     }
 
+    public static void deleteTask(int index) throws TaskIndexOutOfBoundsException {
+
+        if (index >= taskList.size() || index < 0) {
+            throw new TaskIndexOutOfBoundsException(index);
+        }
+
+        Task currentTask = taskList.get(index);
+        taskList.remove(index);
+
+        String outpString = "Noted. I've removed this task:\n  " + currentTask;
+        printMessage(outpString);
+    }
+
     public static int getIndex(String[] wordsArray) throws NonIntegerInputException{
         try {
+            if (wordsArray.length <= 1) {
+                throw new NonIntegerInputException();
+            }
             int index = Integer.parseInt(wordsArray[1]) - 1;
             return index;
         } catch (NumberFormatException e) {
             throw new NonIntegerInputException();
         }
     }
-
 }
