@@ -1,4 +1,5 @@
 1 todo b
 0 todo a
-1 deadline a  /by 2023-08-26
-0 deadline c  /by 2023-09-03
+1 deadline a /by 2023-08-26
+0 deadline c /by 2023-09-03
+0 event task /from 2023-08-26 /to 2023-08-27
