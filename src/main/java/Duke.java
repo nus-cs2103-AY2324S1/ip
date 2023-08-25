@@ -33,7 +33,7 @@ public class Duke {
                 String description = userInput.substring(5);
                 Task task = new ToDo(description);
                 tasks.add(task);
-                System.out.println("I've added this task:\n  " + task.toString() + "\n" + horizontalLine);
+                System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
             } else if (userInput.startsWith("deadline ")) {
                 String fullStr = userInput.substring(9);
                 String[] parts = fullStr.split(" /by ");
@@ -41,7 +41,7 @@ public class Duke {
                 String by = parts[1];
                 Task task = new Deadline(description, by);
                 tasks.add(task);
-                System.out.println("I've added this task:\n  " + task.toString() + "\n" + horizontalLine);
+                System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
             } else if (userInput.startsWith("event ")) {
                 String fullStr = userInput.substring(6);
                 String[] partialStr = fullStr.split(" /from ");
@@ -51,7 +51,7 @@ public class Duke {
                 String to = toFrom[1];
                 Task task = new Event(description, from, to);
                 tasks.add(task);
-                System.out.println("I've added this task:\n  " + task.toString() + "\n" + horizontalLine);
+                System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
             } else {
                 System.out.println("Invalid task.\n" + horizontalLine);
             }
