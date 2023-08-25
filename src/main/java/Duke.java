@@ -54,7 +54,7 @@ public class Duke {
      * @param input the user's text input
      */
     private static void echo(String input) {
-        System.out.println(horizontalLine + input + "\n" + horizontalLine);
+        System.out.print(horizontalLine + input + "\n" + horizontalLine);
     }
 
     /**
@@ -65,7 +65,7 @@ public class Duke {
         System.out.print(horizontalLine);
         for (Task task : taskArray) {
             if (task == null) break;
-            System.out.println(count++ + ". " + "[" + task.getStatusIcon() + "] " + task.toString());
+            System.out.println(count++ + ". " + task.toString());
         }
         System.out.print(horizontalLine);
     }
@@ -75,11 +75,64 @@ public class Duke {
      *
      * @param task The task inputted by the user
      */
-    private static void append(String task) {
-        taskArray[numOfTasks++] = new Task(task);
+    private static void append(Task task) {
+        taskArray[numOfTasks++] = task;
         System.out.print(horizontalLine + "YOU WANT TO " + task + "?\nSURE, WHATEVER.\n" + horizontalLine);
     }
 
+    /**
+     * Converts the string into a ToDo object
+     * then appends it to the task array
+     *
+     * @param task description of task
+     */
+    private static void appendToDo(String task) {
+        try {
+            String todo = task.substring(5);
+            append(new ToDo(todo));
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.print(horizontalLine +
+                    "WRONG FORMAT FOOL!!! IT'S:\n" +
+                    "todo {task}\n" +
+                    horizontalLine);
+        }
+    }
+
+    /**
+     * Converts the string into a Deadline object
+     * then appends it to the task array
+     *
+     * @param task description of task with 'by' time
+     */
+    private static void appendDeadline(String task) {
+        try {
+            String deadline = task.substring(9);
+            int splitPoint = deadline.indexOf(" /by ");
+            append(new Deadline(deadline.substring(0, splitPoint),
+                    deadline.substring(splitPoint + 5)));
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.print(horizontalLine +
+                    "WRONG FORMAT FOOL!!! IT'S:\n" +
+                    "deadline {task} /by {time}\n" +
+                    horizontalLine);
+        }
+    }
+
+    private static void appendEvent(String task) {
+        try {
+            String event = task.substring(6);
+            int startPoint = event.indexOf(" /from ");
+            int endPoint = event.indexOf(" /to ");
+            append(new Event(event.substring(0, startPoint),
+                    event.substring(startPoint + 7, endPoint),
+                    event.substring(endPoint + 5)));
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.print(horizontalLine +
+                    "WRONG FORMAT FOOL!!! IT'S:\n" +
+                    "event {task} /from {time} /to {time}\n" +
+                    horizontalLine);
+        }
+    }
     /**
      * Attempts to mark a task in the task array
      *
@@ -91,8 +144,8 @@ public class Duke {
             Task task = taskArray[Integer.parseInt(toMark.substring(5)) - 1];
             if (task == null) throw new NullPointerException();
             if (task.isDone) throw new IllegalArgumentException();
-            System.out.println("MARKED:\n" + task);
             task.markAsDone();
+            System.out.println("MARKED:\n" + task);
         } catch (NumberFormatException e) {
             System.out.print("NOT A NUMBER IDIOT!!!\n");
         } catch (NullPointerException e) {
@@ -116,8 +169,8 @@ public class Duke {
             Task task = taskArray[index];
             if (task == null) throw new NullPointerException();
             if (!task.isDone) throw new IllegalArgumentException();
-            System.out.println("UNMARKED:\n" + task);
             task.markAsUndone();
+            System.out.println("UNMARKED:\n" + task);
         } catch (NumberFormatException e) {
             System.out.print("NOT A NUMBER IDIOT!!!\n");
         } catch (NullPointerException e) {
@@ -144,6 +197,18 @@ public class Duke {
                 unmark(nextLine);
                 continue;
             }
+            if (nextLine.startsWith("todo")) {
+                appendToDo(nextLine);
+                continue;
+            }
+            if (nextLine.startsWith("deadline")) {
+                appendDeadline(nextLine);
+                continue;
+            }
+            if (nextLine.startsWith("event")) {
+                appendEvent(nextLine);
+                continue;
+            }
             switch(nextLine) {
                 case "bye":
                     botStatus = Status.STOPPING;
@@ -152,7 +217,7 @@ public class Duke {
                     list();
                     break;
                 default:
-                    append(nextLine);
+                    append(new Task(nextLine));
             }
         }
 
