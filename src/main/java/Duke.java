@@ -1,5 +1,8 @@
+import java.io.File;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class Duke {
     enum TaskType {
@@ -86,6 +89,20 @@ public class Duke {
     static class TaskStorage {
         private final int SIZE = 100;
         private final ArrayList<Task> tasks = new ArrayList<>(SIZE);
+        private final String FILE_PATH = "data/meowies.txt";
+        private final File file;
+
+        public TaskStorage() {
+            this.file = new File(FILE_PATH);
+            if (!file.exists()) {
+                try {
+                    file.getParentFile().mkdirs();
+                    file.createNewFile();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
 
         public String save(String input) {
             Task task;
@@ -96,18 +113,21 @@ public class Duke {
             }
 
             this.tasks.add(task);
+            this.saveToFile();
 
             return "added: " + task;
         }
 
         public String markAsDone(int index) {
             this.tasks.get(index).markAsDone();
+            this.saveToFile();
             return "Nice! I've meowrked this task as done:\n"
                     + "    " + this.tasks.get(index);
         }
 
         public String unmarkAsDone(int index) {
             this.tasks.get(index).unmarkAsDone();
+            this.saveToFile();
             return "Oh meow! I've marked this task as undone :( :\n"
                     + "    " + this.tasks.get(index);
         }
@@ -115,9 +135,22 @@ public class Duke {
         public String delete(int index) {
             Task task = this.tasks.get(index);
             this.tasks.remove(index);
+            this.saveToFile();
             return "Noted. I've removed this task:\n"
                     + "    " + task + "\n"
                     + "    " + "Now you have " + this.tasks.size() + " tasks in the list.";
+        }
+
+        private void saveToFile() {
+            try {
+                java.io.FileWriter fw = new java.io.FileWriter(FILE_PATH);
+                for (Task task : tasks) {
+                    fw.write(task.toString() + "\n");
+                }
+                fw.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
 
         @Override
@@ -246,6 +279,24 @@ public class Duke {
             return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
                     + (this.taskType == TaskType.DEADLINE ? " (by: " + dateEnd + ")" : "")
                     + (this.taskType == TaskType.EVENT ? " (from: " + dateStart + " to: " + dateEnd + ")" : "");
+        }
+
+        private static class TodoTask extends Task {
+            public TodoTask(String task) throws WrongCommandException, WrongFormatException {
+                super(task);
+            }
+        }
+
+        private static class DeadlineTask extends Task {
+            public DeadlineTask(String task) throws WrongCommandException, WrongFormatException {
+                super(task);
+            }
+        }
+
+        private static class EventTask extends Task {
+            public EventTask(String task) throws WrongCommandException, WrongFormatException {
+                super(task);
+            }
         }
     }
 
