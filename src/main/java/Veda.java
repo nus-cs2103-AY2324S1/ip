@@ -6,21 +6,31 @@ public class Veda {
     private final static String NAME = "Veda";
     private static ArrayList<Task> tasks = new ArrayList<Task>(100);
 
-    private static void addTask(String taskArgs) {
+    private static void addTask(String taskArgs) throws NoDescriptionException {
         String type = taskArgs.split(" ")[0].toLowerCase();
         Task newTask = null;
         String description = "";
         String[] descriptions = null; //For multiple arguments
 
+
+
         switch(type) {
             case "todo":
                 description = taskArgs.replaceFirst("todo ", "");
+
+                if (description.toLowerCase() == type) {
+                    throw new NoDescriptionException("");
+                }
 
                 newTask = new ToDo(description);
                 break;
 
             case "deadline":
                 //TODO error handling for no "/by" keyword
+                if (description.toLowerCase() == type) {
+                    throw new NoDescriptionException("");
+                }
+
                 description = taskArgs.replaceFirst("deadline ", "");
                 descriptions = description.split("/by");
 
@@ -29,6 +39,10 @@ public class Veda {
 
             case "event":
                 //TODO error handling
+                if (description.toLowerCase() == type) {
+                    throw new NoDescriptionException("");
+                }
+
                 description = taskArgs.replaceFirst("event ", "");
                 descriptions = description.split("/from ");
                 String from = descriptions[1].split(" /to ")[0];
@@ -50,33 +64,43 @@ public class Veda {
     }
 
     private static void markAsDone(int taskIndex) {
-        Task task = tasks.get(taskIndex);
+        try {
+            Task task = tasks.get(taskIndex);
 
-        if (task.isDone()) {
-            //Task already marked as done
-            System.out.println("Mission has been completed previously.");
-            return;
+            if (task.isDone()) {
+                //Task already marked as done
+                System.out.println("Mission has been completed previously.");
+                return;
+            }
+
+            task.updateCompletionStatus();
+
+            System.out.println("Mission status updated! Mission completed successfully.");
+            System.out.println(task);
+
+        } catch(IndexOutOfBoundsException e) {
+            System.out.println("Invalid index! Please ensure you correctly key in your target index.");
         }
-
-        task.updateCompletionStatus();
-
-        System.out.println("Mission status updated! Mission completed successfully.");
-        System.out.println(task);
     }
 
     private static void markUndone(int taskIndex) {
-        Task task = tasks.get(taskIndex);
+        try {
+            Task task = tasks.get(taskIndex);
 
-        if (!(task.isDone())) {
-            //task already marked as undone
-            System.out.println("Mission is already marked as undone!");
-            return;
+            if (!(task.isDone())) {
+                //task already marked as undone
+                System.out.println("Mission is already marked as undone!");
+                return;
+            }
+
+            task.updateCompletionStatus();
+
+            System.out.println("Mission status updated! Mission completion status reverted.");
+            System.out.println(task);
+
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid index! Please ensure you correctly key in your target index.");
         }
-
-        task.updateCompletionStatus();
-
-        System.out.println("Mission status updated! Mission completion status reverted.");
-        System.out.println("[" + task.getStatusIcon() + "] " + task.getTask());
     }
 
 
@@ -105,18 +129,20 @@ public class Veda {
                 continue;
             } else if (input.toLowerCase().split(" ")[0].equals("mark")) {
                 //User wishes to mark task as done
-                //TODO Add an exception here in the case that user errorneously type an index that is out of bounds
                 markAsDone(Integer.parseInt(input.toLowerCase().split(" ")[1]) - 1);
                 continue;
             } else if (input.toLowerCase().split(" ")[0].equals("unmark")) {
                 //User wishes to mark task as undone
-                //TODO Add an exception here in the case that user errorneously type an index that is out of bounds
                 markUndone(Integer.parseInt(input.toLowerCase().split(" ")[1]) - 1);
                 continue;
             }
 
             //Add tasks
-            addTask(input);
+            try {
+                addTask(input);
+            } catch (NoDescriptionException e) {
+                System.out.println(e);
+            }
         }
 
 
