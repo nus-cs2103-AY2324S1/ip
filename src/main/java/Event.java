@@ -14,8 +14,8 @@ public class Event extends Task {
      */
     public Event(String name, String startTime, String endTime) {
         super(name);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = DateFormatter.format(startTime, "MMM d yyyy");
+        this.endTime = DateFormatter.format(endTime, "MMM d yyyy");
     }
 
     /**

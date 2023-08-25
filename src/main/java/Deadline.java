@@ -12,7 +12,7 @@ public class Deadline extends Task {
      */
     public Deadline(String name, String endTime) {
         super(name);
-        this.endTime = endTime;
+        this.endTime = DateFormatter.format(endTime, "MMM d yyyy");
     }
 
     /**
