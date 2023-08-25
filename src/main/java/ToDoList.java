@@ -6,14 +6,14 @@ import java.io.IOException;
  */
 public class ToDoList {
     private ArrayList<Task> list;
-    private TaskDataStorage dataStorage;
+    private Storage dataStorage;
 
     /**
      * Constructs an empty ToDoList.
      */
     public ToDoList(String dataFilePath) {
         list = new ArrayList<>();
-        dataStorage = new TaskDataStorage(dataFilePath);
+        dataStorage = new Storage(dataFilePath);
         load();
     }
 
