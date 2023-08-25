@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -10,7 +9,8 @@ public class Cupid {
         UNMARK,
         TODO,
         DEADLINE,
-        EVENT
+        EVENT,
+        DELETE
     }
 
     public static void main(String[] args) {
@@ -23,6 +23,11 @@ public class Cupid {
 
         while (true) {
             String input = scanner.nextLine();
+
+            if (input.toLowerCase().equals("bye")) {
+                break;
+            }
+
             String[] inputArray = input.split(" ");
 
             try {
@@ -40,6 +45,10 @@ public class Cupid {
 
                     case UNMARK:
                         unmarkCommandHandler(inputArray, taskList);
+                        continue;
+
+                    case DELETE:
+                        deleteCommandHandler(inputArray, taskList);
                         continue;
 
                     case TODO:
@@ -61,11 +70,6 @@ public class Cupid {
                 // If task inserted not an ENUM
                 System.out.println("Oops!!! I'm sorry but I don't know what that means :-(");
                 System.out.println("Please use one of the following commands: list, mark, unmark, todo, deadline, event, bye");
-            }
-
-
-            if (input.toLowerCase().equals("bye")) {
-                break;
             }
         }
 
@@ -109,6 +113,19 @@ public class Cupid {
         }
     }
 
+    public static void deleteCommandHandler(String[] inputArray, ArrayList<Task> taskList) {
+        try {
+            int targetTaskIdx = Integer.parseInt(inputArray[1]) -1;
+            Task task = taskList.get(targetTaskIdx);
+            taskList.remove(targetTaskIdx);
+            System.out.println("Noted: I've removed this task:");
+            System.out.println(task.getTaskAsString());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid task number provided. Please provide in the form of 'mark {task number}'. Eg: 'mark 1' to mark task 1.");
+        }
+    }
     public static void toDoCommandHandler(ArrayList<Task> taskList, String description) {
         if (description.strip().isEmpty() || description.matches("todo")) {
             System.out.println("OOPS! The description of a todo cannot be empty.");
