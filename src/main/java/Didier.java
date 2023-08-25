@@ -1,8 +1,14 @@
-import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Didier {
+
+    private static String tasksFileName = "didier.txt";
+    private static String tasksDirectoryPath = "data/";
     enum Command {
         LIST,
         MARK,
@@ -32,7 +38,7 @@ public class Didier {
         Scanner scanner = new Scanner(System.in); // create a Scanner object for user input
         String[] userInput = scanner.nextLine().split(" ", 2);
         Command command = Command.textToCommand(userInput[0]);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = getTasks();
         while (!command.equals(Command.BYE)) {
             // Carry out the action determined by the command
             try {
@@ -105,6 +111,7 @@ public class Didier {
                 case UNKOWN:
                     throw new InvalidCommandException(userInput[0]);
                 }
+                saveTasks(tasks);
             } catch (DidierException e) {
                 Didier.botPrintMessage(e.getMessage() + "Please try again.");
             }
@@ -133,6 +140,44 @@ public class Didier {
     private static void botPrintBr() {
         String lineBreak = "---------------------------------------------------------------------";
         Didier.botPrintMessage(lineBreak);
+    }
+
+    private static ArrayList<Task> getTasks() {
+        File directory = new File(Didier.tasksDirectoryPath);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        File file = new File(Didier.tasksDirectoryPath + Didier.tasksFileName);
+        try {
+            ArrayList<Task> tasks = new ArrayList<>();
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                Task task = Task.parseFileString(scanner.nextLine());
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+            scanner.close();
+            return tasks;
+        } catch (FileNotFoundException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private static void saveTasks(ArrayList<Task> tasks) {
+        File directory = new File(Didier.tasksDirectoryPath);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        try {
+            FileWriter fileWriter = new FileWriter(Didier.tasksDirectoryPath + Didier.tasksFileName);
+            for (Task task: tasks) {
+                fileWriter.write(task.composeToFileString() + System.lineSeparator());
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
     }
 
 }

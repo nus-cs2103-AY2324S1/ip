@@ -15,4 +15,9 @@ public class ToDo extends Task {
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
+
+    @Override
+    public String composeToFileString() {
+        return String.format("T|%s", super.composeToFileString());
+    }
 }
