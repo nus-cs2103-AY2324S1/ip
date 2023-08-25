@@ -1,3 +1,7 @@
+package horo.data;
+
+import horo.HoroException;
+
 public class Todo extends Task {
 
   public Todo(String description) throws HoroException {

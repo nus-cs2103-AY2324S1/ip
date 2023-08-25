@@ -1,3 +1,5 @@
+package horo;
+
 public class Ui {
   public Ui() {
 

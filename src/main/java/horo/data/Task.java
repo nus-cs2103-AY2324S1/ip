@@ -1,3 +1,7 @@
+package horo.data;
+
+import horo.HoroException;
+
 public abstract class Task {
   private String description = "";
   private boolean isDone = false;

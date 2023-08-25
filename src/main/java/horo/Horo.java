@@ -1,5 +1,11 @@
+package horo;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
+
+import horo.data.Deadline;
+import horo.data.Event;
+import horo.data.Todo;
 
 public class Horo {
   private Storage storage;

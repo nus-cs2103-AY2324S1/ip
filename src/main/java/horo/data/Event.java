@@ -1,8 +1,12 @@
+package horo.data;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
+
+import horo.HoroException;
 
 public class Event extends Task {
   private LocalDateTime start;
