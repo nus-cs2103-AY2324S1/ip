@@ -109,7 +109,7 @@ public class Sidtacphi {
             System.out.print("\nSidtacphi: You have too many tasks.\n");
             return;
         }
-        taskList[listPtr] = new Task(input, false);
+        taskList[listPtr] = new Task(input);
         listPtr++;
         System.out.print("\nSidtacphi: I have added \"" + input + "\".\n");
     }
