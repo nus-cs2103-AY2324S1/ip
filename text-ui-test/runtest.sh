@@ -19,6 +19,11 @@ then
     exit 1
 fi
 
+# test should be run without pre-saved data
+mkdir ./backup-data
+mv ./data/*.txt ./backup-data
+
+
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin Duke < input.txt > ACTUAL.TXT
 
@@ -36,3 +41,7 @@ else
     echo "Test result: FAILED"
     exit 1
 fi
+
+# restore original data files
+rm ./data/*.txt
+mv ./backup-data/*.txt ./data
