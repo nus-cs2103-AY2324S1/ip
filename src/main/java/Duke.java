@@ -25,42 +25,9 @@ public class Duke {
         showSeparationLine();
     }
 
-    public static void identifyTaskType(String type, String description) {
-        Task task = null;
-        switch (type) {
-        case "todo":
-            task = createToDoTask(description);
-            break;
-
-        case "deadline":
-            task = createDeadlineTask(description);
-            break;
-
-        case "event":
-            task = createEventTask(description);
-            break;
-        }
-
-        list.add(task);
-
-        System.out.println(INDENTATION + "Got it, I've added this task:\n" + INDENTATION + task.toString());
-        System.out.printf(INDENTATION + "Now you have %d tasks in the list\n", list.size());
+    public static void showErrorText(String msg) {
+        System.out.println(INDENTATION + "OOPS!!! " + msg);
         showSeparationLine();
-    }
-
-    public static Task createToDoTask(String description) {
-        return new ToDo(description);
-    }
-
-    public static Task createDeadlineTask(String description) {
-        String[] splitStrings = description.split(" /by ", 2);
-        return new Deadline(splitStrings[0], splitStrings[1]);
-    }
-
-    public static Task createEventTask(String description) {
-        String[] splitStrings = description.split(" /from ", 2);
-        String[] eventLength = splitStrings[1].split(" /to ", 2);
-        return new Event(splitStrings[0], eventLength[0], eventLength[1]);
     }
 
     public static void showLists() {
@@ -71,47 +38,129 @@ public class Duke {
         showSeparationLine();
     }
 
-    public static void markTaskDone(String text) {
-        Task selectedTask = list.get(Integer.parseInt(text) - 1);
+    public static void identifyTaskType(String type, String prompt) throws DukeException {
+        Task task = null;
+        switch (type) {
+        case "todo":
+            task = createToDoTask(prompt);
+            break;
 
-        selectedTask.markAsDone();
+        case "deadline":
+            task = createDeadlineTask(prompt);
+            break;
 
-        System.out.println(INDENTATION + "Nice! I've marked this task as done:\n"
-                + INDENTATION + "  " + selectedTask.toString());
+        case "event":
+            task = createEventTask(prompt);
+            break;
+        }
+
+        list.add(task);
+
+        System.out.println(INDENTATION + "Got it, I've added this task:\n" + INDENTATION + task.toString());
+        System.out.printf(INDENTATION + "Now you have %d tasks in the list\n", list.size());
         showSeparationLine();
     }
 
-    public static void markTaskUndone(String text) {
-        Task selectedTask = list.get(Integer.parseInt(text) - 1);
+    public static Task createToDoTask(String prompt) throws DukeException {
+        String[] descriptions = prompt.split(" ", 2);
+        if (descriptions.length != 2 || descriptions[1].replaceAll(" ", "").isEmpty()) {
+            throw new DukeException("The description of todo cannot be empty");
+        }
 
-        selectedTask.markAsUndone();
-
-        System.out.println(INDENTATION + "Ok. I've marked this task as not done yet:\n"
-                + INDENTATION + "  " + selectedTask.toString());
-        showSeparationLine();
+        return new ToDo(descriptions[1]);
     }
 
-    public static void echoInputText(String text) {
-        System.out.println(text);
-        showSeparationLine();
+    public static Task createDeadlineTask(String prompt) throws DukeException {
+        String[] descriptions = prompt.split(" ", 2);
+        if (descriptions.length != 2 || descriptions[1].replaceAll(" ", "").isEmpty()) {
+            throw new DukeException("The description of deadline cannot be empty");
+        }
+
+        String[] desSplit = descriptions[1].split(" /by ", 2);
+        if (desSplit.length != 2 || desSplit[1].replaceAll(" ", "").isEmpty()) {
+            throw new DukeException("The deadline cannot be empty");
+        }
+
+        return new Deadline(desSplit[0], desSplit[1]);
     }
 
-    public static void parseInput(String text) {
+    public static Task createEventTask(String prompt) throws DukeException {
+        String[] descriptions = prompt.split(" ", 2);
+        if (descriptions.length != 2 || descriptions[1].replaceAll(" ", "").isEmpty()) {
+            throw new DukeException("The description of event cannot be empty");
+        }
+
+        String[] desSplit = descriptions[1].split(" /from ", 2);
+        if (desSplit.length != 2 || desSplit[1].replaceAll(" ", "").isEmpty()) {
+            throw new DukeException("The start time cannot be empty");
+        }
+
+        String[] eventLength = desSplit[1].split(" /to ", 2);
+        if (eventLength.length != 2 || eventLength[1].replaceAll(" ", "").isEmpty()) {
+            throw new DukeException("The end time cannot be empty");
+        }
+
+        return new Event(desSplit[0], eventLength[0], eventLength[1]);
+    }
+
+    public static void markTaskDone(String prompt) throws DukeException {
+        String[] descriptions = prompt.split(" ", 2);
+        if (descriptions.length != 2 || descriptions[1].replaceAll(" ", "").isEmpty()) {
+            throw new DukeException("The task index cannot be empty");
+        }
+
+        try {
+            Task selectedTask = list.get(Integer.parseInt(descriptions[1]) - 1);
+
+            selectedTask.markAsDone();
+
+            System.out.println(INDENTATION + "Nice! I've marked this task as done:\n"
+                    + INDENTATION + "  " + selectedTask.toString());
+            showSeparationLine();
+        } catch (NumberFormatException e) {
+            throw new DukeException("The task index must be a number");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The task index exceeds the size of list");
+        }
+    }
+
+    public static void markTaskUndone(String text) throws DukeException {
+        String[] descriptions = prompt.split(" ", 2);
+        if (descriptions.length != 2 || descriptions[1].replaceAll(" ", "").isEmpty()) {
+            throw new DukeException("The task index cannot be empty");
+        }
+
+        try {
+            Task selectedTask = list.get(Integer.parseInt(descriptions[1]) - 1);
+
+            selectedTask.markAsUndone();
+
+            System.out.println(INDENTATION + "Ok. I've marked this task as not done yet:\n"
+                    + INDENTATION + "  " + selectedTask.toString());
+            showSeparationLine();
+        } catch (NumberFormatException e) {
+            throw new DukeException("The task index must be a number");
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("The task index exceeds the size of list");
+        }
+    }
+
+    public static void parseInput(String text) throws DukeException {
         String[] actions = text.split(" ", 2);
 
         switch (actions[0]) {
         case "todo":
         case "deadline":
         case "event":
-            identifyTaskType(actions[0], actions[1]);
+            identifyTaskType(actions[0], text);
             break;
 
         case "mark":
-            markTaskDone(actions[1]);
+            markTaskDone(text);
             break;
 
         case "unmark":
-            markTaskUndone(actions[1]);
+            markTaskUndone(text);
             break;
 
         case "list":
@@ -123,8 +172,7 @@ public class Duke {
             break;
 
         default:
-            //addTask(text);
-            break;
+            throw new DukeException("I'm sorry, but I don't know what it means :(");
         }
     }
 
@@ -134,11 +182,15 @@ public class Duke {
         showGreetingText();
 
         while (!prompt.equals("bye")) {
-            System.out.println();
-            prompt = sc.nextLine();
-            showSeparationLine();
+            try {
+                System.out.println();
+                prompt = sc.nextLine();
+                showSeparationLine();
 
-            parseInput(prompt);
+                parseInput(prompt);
+            } catch (DukeException exception) {
+                showErrorText(exception.getMessage());
+            }
         }
 
         sc.close();
