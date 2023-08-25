@@ -1,18 +1,20 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class Horo {
-  private final static String dataFilePath = "./data/tasks.txt";
-  private static ArrayList<Task> tasks = new ArrayList<Task>();
+  private Storage storage;
+  private TaskList taskList;
+  private Ui ui;
   private static Scanner scanner = new Scanner(System.in);
 
-  public static void main(String[] args) {
-    loadTasks();
-    welcomeMessage();
+  public Horo(String filePath) {
+    ui = new Ui();
+    storage = new Storage(filePath);
+    taskList = storage.load();
+  }
+
+  public void run() {
+    ui.showWelcome();
 
     while (true) {
       System.out.print(">");
@@ -32,54 +34,23 @@ public class Horo {
           exit();
           break;
         case LIST:
-          System.out.println("-----Tasks-----");
-          for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
-          }
+          taskList.showTasks();
           break;
         case MARK:
+          taskList.markTaskDone(Integer.parseInt(m.group(1)) - 1);
+          storage.updateTaskData(taskList);
+          break;
         case UNMARK:
-          if (tasks.isEmpty()) {
-            System.out.println("No tasks available");
-            break;
-          }
-
-          Task selectedTask = null;
-          try {
-            selectedTask = tasks.get(Integer.parseInt(m.group(1)) - 1);
-          } catch (Exception e) {
-            System.out.println("Please enter a valid number from 1 - " + tasks.size());
-            break;
-          }
-
-          if (command.equals(Command.MARK)) {
-            selectedTask.markDone();
-            System.out.println("Task marked as done");
-          } else {
-            selectedTask.markNotDone();
-            System.out.println("Task marked as not done");
-          }
-          System.out.println(selectedTask);
-          updateTaskData();
+          taskList.markTaskDone(Integer.parseInt(m.group(1)) - 1);
+          storage.updateTaskData(taskList);
           break;
         case DELETE:
-          if (tasks.isEmpty()) {
-            System.out.println("No tasks available");
-            break;
-          }
-          try {
-            Task removedTask = tasks.remove(Integer.parseInt(m.group(1)) - 1);
-            System.out.println("Removed task: ");
-            System.out.println(removedTask);
-            updateTaskData();
-          } catch (Exception e) {
-            System.out.println("Please enter a valid number from 1 - " + tasks.size());
-            break;
-          }
+          taskList.removeTask(Integer.parseInt(m.group(1)) - 1);
+          storage.updateTaskData(taskList);
           break;
         case TODO:
           try {
-            addTask(new Todo(m.group(1)));
+            taskList.addTask(new Todo(m.group(1)));
           } catch (HoroException e) {
             System.out.println(e.getMessage());
             break;
@@ -87,7 +58,7 @@ public class Horo {
           break;
         case DEADLINE:
           try {
-            addTask(new Deadline(m.group(1), m.group(2)));
+            taskList.addTask(new Deadline(m.group(1), m.group(2)));
           } catch (HoroException e) {
             System.out.println(e.getMessage());
             break;
@@ -95,7 +66,7 @@ public class Horo {
           break;
         case EVENT:
           try {
-            addTask(new Event(m.group(1), m.group(2), m.group(3)));
+            taskList.addTask(new Event(m.group(1), m.group(2), m.group(3)));
           } catch (HoroException e) {
             System.out.println(e.getMessage());
             break;
@@ -107,27 +78,8 @@ public class Horo {
     }
   }
 
-  private static void welcomeMessage() {
-    String logo = " _    _ \n"
-        + "| |  | |\n"
-        + "| |__| | ___  _ __ ___\n"
-        + "|  __  |/ _ \\| '__/ _ \\\n"
-        + "| |  | | (_) | | | (_) |\n"
-        + "|_|  |_|\\___/|_|  \\___/\n";
-    System.out.println(logo);
-
-    String introduction = "Hello! I'm Horo\n"
-        + "What can I do for you?\n"
-        + "Usage: \n"
-        + " todo <description>\n"
-        + " deadline <description> /by <time>\n"
-        + " event <description> /from <time> /to <time>\n"
-        + " list\n"
-        + " mark <number>\n"
-        + " unmark <number>\n"
-        + " delete <number>\n"
-        + " bye\n";
-    System.out.println(introduction);
+  public static void main(String[] args) {
+    new Horo("./data/tasks.txt").run();
   }
 
   private static void exit() {
@@ -136,67 +88,4 @@ public class Horo {
     System.exit(0);
   }
 
-  private static void loadTasks() {
-    try {
-      File taskFile = new File(dataFilePath);
-      if (taskFile.createNewFile()) {
-        System.out.println("File created: " + taskFile.getName());
-      }
-
-      Scanner scanner = new Scanner(taskFile);
-      while (scanner.hasNextLine()) {
-        String data = scanner.nextLine();
-        parseDataString(data);
-      }
-      scanner.close();
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    } catch (HoroException e) {
-      System.out.println(e.getMessage());
-    }
-  }
-
-  private static void parseDataString(String s) throws HoroException {
-    String[] arguments = s.split(",");
-    Task t;
-    switch (arguments[0]) {
-      case "T":
-        t = new Todo(arguments[2]);
-        break;
-      case "D":
-        t = new Deadline(arguments[2], arguments[3]);
-        break;
-      case "E":
-        t = new Event(arguments[2], arguments[3], arguments[4]);
-        break;
-      default:
-        System.out.println("Bad Command");
-        return;
-    }
-    if (arguments[1].equals("1")) {
-      t.markDone();
-    }
-    tasks.add(t);
-  }
-
-  private static void addTask(Task newTask) {
-    tasks.add(newTask);
-    System.out.println("Added: ");
-    System.out.println(newTask);
-    updateTaskData();
-  }
-
-  private static void updateTaskData() {
-    try {
-      FileWriter writer = new FileWriter(dataFilePath, false);
-      for (Task t : tasks) {
-        writer.write(t.getDataString() + "\n");
-      }
-      writer.close();
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
-  }
 }
