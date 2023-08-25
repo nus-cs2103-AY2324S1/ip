@@ -96,7 +96,7 @@ public class Veda {
                 break;
             } else if (input.toLowerCase().equals("list")) {
                 //User wishes to see his listed missions
-                System.out.println("Missions: ");
+                System.out.println("Missions:");
 
                 tasks.forEach( task -> System.out.println(
                         (tasks.indexOf(task) + 1) + "." + task
