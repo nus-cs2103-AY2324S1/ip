@@ -28,20 +28,27 @@ public class EventCommand extends NonemptyArgumentCommand implements Command{
     @Override
     protected void validate(String arguments) throws DukeException {
         super.validate(arguments);
-        String[] userArgs = arguments.split("/from |/to ");
-        if (userArgs.length != 3) {
+        String[] userArgs = arguments.split("/from ");
+        if (userArgs.length != 2) {
             throw new DukeException("Missing Argument for command: " +
                     commandString +
                     ", should include /from [date] /to [date]");
         }
-        if (Objects.equals(userArgs[1], "") || Objects.equals(userArgs[2], "")) {
+        String desc = userArgs[0];
+        String[] subcommandArgs = userArgs[1].split("/to ");
+        if (subcommandArgs.length != 2) {
+            throw new DukeException("Missing Argument for command: " +
+                    commandString +
+                    ", should include /from [date] /to [date]");
+        }
+        if (Objects.equals(subcommandArgs[0], "") || Objects.equals(subcommandArgs[1], "")) {
             throw new DukeException("Missing Argument for command: " +
                     commandString +
                     ", should include /from [date] /to [date]");
         }
         try {
-            LocalDate date = LocalDate.parse(userArgs[1]);
-            date = LocalDate.parse(userArgs[2]);
+            LocalDate date = LocalDate.parse(subcommandArgs[0].trim());
+            date = LocalDate.parse(subcommandArgs[1].trim());
         } catch (DateTimeParseException e) {
             throw new DukeException("Invalid Date Format for command: " +
                     commandString +
@@ -53,9 +60,9 @@ public class EventCommand extends NonemptyArgumentCommand implements Command{
     public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         validate(this.arguments);
         String[] userArgs = arguments.split("/from |/to ");
-        LocalDate from = LocalDate.parse(userArgs[1]);
-        LocalDate to = LocalDate.parse(userArgs[2]);
-        taskList.add(new Event(userArgs[0], from, to));
+        LocalDate from = LocalDate.parse(userArgs[1].trim());
+        LocalDate to = LocalDate.parse(userArgs[2].trim());
+        taskList.add(new Event(userArgs[0].trim(), from, to));
         UI.sendMessage("Got it. I've added this task:\n  " +
                 taskList.get(taskList.size()-1) +
                 String.format("\nNow you have %d tasks in the list.", taskList.size()));
