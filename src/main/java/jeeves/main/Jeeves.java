@@ -29,10 +29,10 @@ public class Jeeves {
     public static void main(String[] args) {
         System.out.println("Greetings, Master. Jeeves at your service");
         System.out.println("How may I serve you today?\n");
+        Scanner sc = new Scanner(System.in);
 
         // Waits for user input and process it accordingly
         while (true) {
-            Scanner sc = new Scanner(System.in);
             // Reads the user input
             String currentCommand = sc.nextLine();
             // Performs a different action depending on the input received
