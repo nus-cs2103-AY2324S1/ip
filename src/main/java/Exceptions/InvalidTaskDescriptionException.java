@@ -5,6 +5,6 @@ package Exceptions;
 public class InvalidTaskDescriptionException extends Exception{
 
     public InvalidTaskDescriptionException(String message) {
-        super(String.format("Macho! The description of a " + message + " cannot be empty, macho!"));
+        super("Macho! The description of a " + message + " cannot be empty, macho!");
     }
 }

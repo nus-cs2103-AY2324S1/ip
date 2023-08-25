@@ -6,11 +6,14 @@ import Tasks.Task;
 import Tasks.Todo;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Storage {
     private final String path;
+    private final static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Storage(String path) {
         this.path = path;
@@ -40,10 +43,13 @@ public class Storage {
                             taskList.add(new Todo(lines[2], !lines[1].equals("0")));
                             break;
                         case "D":
-                            taskList.add(new Deadline(lines[2], !lines[1].equals("0"), lines[3]));
+                            taskList.add(new Deadline(lines[2], !lines[1].equals("0"),
+                                    LocalDateTime.parse(lines[3], dateTimeFormat)));
                             break;
                         case "E":
-                            taskList.add(new Events(lines[2], !lines[1].equals("0"), lines[3], lines[4]));
+                            taskList.add(new Events(lines[2], !lines[1].equals("0"),
+                                    LocalDateTime.parse(lines[3], dateTimeFormat),
+                                    LocalDateTime.parse(lines[4], dateTimeFormat)));
                             break;
                         default:
                             break;
