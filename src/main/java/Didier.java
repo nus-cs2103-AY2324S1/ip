@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -89,7 +91,11 @@ public class Didier {
                         if (deadlineCommand.length == 1 || deadlineCommand[1].isBlank()) {
                             throw new ElementMissingException("deadline");
                         } else {
-                            task = new Deadline(deadlineCommand[0], deadlineCommand[1]);
+                            try {
+                                task = new Deadline(deadlineCommand[0], LocalDate.parse(deadlineCommand[1].trim()));
+                            } catch (DateTimeParseException e) {
+                                throw new DateFormatException();
+                            }
                         }
                     } else {
                         String[] fromCommand = userInput[1].split("\\\\from ", 2);
@@ -100,7 +106,12 @@ public class Didier {
                         if (toCommand.length == 1 || toCommand[1].isBlank()) {
                             throw new ElementMissingException("end time");
                         } else {
-                            task = new Event(fromCommand[0], toCommand[0], toCommand[1]);
+                            try {
+                                task = new Event(fromCommand[0], LocalDate.parse(toCommand[0].trim()),
+                                        LocalDate.parse(toCommand[1].trim()));
+                            } catch (DateTimeParseException e) {
+                                throw new DateFormatException();
+                            }
                         }
                     }
                     tasks.add(task);

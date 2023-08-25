@@ -7,16 +7,17 @@ mark 1
 mark 3
 unmark 2
 list
-deadline return book \by Friday
-deadline finish project \by Monday
+deadline return book \by 2019-10-15
+deadline finish project \by 2011-11-11
 mark 4
-event dinner with family \from Tuesday 6pm \to Tuesday 8pm
+event dinner with family \from 2012-01-01 \to 2013-01-02
 mark 6
-deadline submit application \by Wednesday
+deadline submit application \by gibberish
+deadline submit application \by 2012-13-30
 mark 12
 list
 gibberish
-event lunch with family \from Saturday 1pm \to Saturday 3pm
+event lunch with family \from 1997-11-30 \to 1998-12-31
 mark 7
 mark 5
 list
@@ -28,7 +29,7 @@ todo
 deadline
 event
 deadline read book \by
-event basketball game \from Monday 6pm \to
+event basketball game \from 2012-09-09 \to
 event football game
 delete 4
 delete 11

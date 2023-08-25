@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * The Task class encapsulates a real-life task. A basic task has a description and keeps track of
  * whether it is completed or not. It is declared abstract as as task must take one of three forms:
@@ -51,9 +53,10 @@ public abstract class Task {
         if (task[0].equals("T")) {
             return new ToDo(task[2], Integer.parseInt(task[1]) != 0);
         } else if (task[0].equals("D")) {
-            return new Deadline(task[2], task[3], Integer.parseInt(task[1]) != 0);
+            return new Deadline(task[2], LocalDate.parse(task[3]), Integer.parseInt(task[1]) != 0);
         } else if (task[0].equals("E")){
-            return new Event(task[2], task[3], task[4], Integer.parseInt(task[1]) != 0);
+            return new Event(task[2], LocalDate.parse(task[3]),
+                    LocalDate.parse(task[4]), Integer.parseInt(task[1]) != 0);
         }
         return null;
     }
