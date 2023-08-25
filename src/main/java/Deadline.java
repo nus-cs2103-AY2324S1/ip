@@ -10,6 +10,11 @@ public class Deadline extends Task {
     protected String by;
 
     /** Constructor for Deadline */
+    public Deadline(String done, String description, String by) {
+        super(description, done);
+        this.by = by;
+    }
+
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
@@ -18,6 +23,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String fileRepresentation() {
+        return ("D" + " | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + by + "\n");
     }
 }
 

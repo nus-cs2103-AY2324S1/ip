@@ -13,6 +13,11 @@ public class Task {
      * Constructor for Task
      * @param description the task description
      */
+    public Task(String description, String done) {
+        this.description = description;
+        this.isDone = done == "1" ? true : false;
+    }
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -47,5 +52,10 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    public String fileRepresentation() {
+        // To override
+        return "";
     }
 }
