@@ -16,12 +16,13 @@ public class ListCommand implements Command {
     public ListCommand(String argument) {
         this.argument = argument;
     }
+
     @Override
     public boolean isExit() {
         return false;
     }
 
-    private void validate(String arguments) throws DukeException{
+    private void validate(String arguments) throws DukeException {
         if (arguments != null) {
             // Non null argument, check format
             if (arguments.equals("now")) {

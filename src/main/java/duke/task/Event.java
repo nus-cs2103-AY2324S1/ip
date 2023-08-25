@@ -34,6 +34,6 @@ public class Event extends Task {
     @Override
     public String getSaveString() {
 
-        return String.format("%d event %s /from %s /to %s",isDone ? 1 : 0, description.trim(), from , to);
+        return String.format("%d event %s /from %s /to %s", isDone ? 1 : 0, description.trim(), from, to);
     }
 }

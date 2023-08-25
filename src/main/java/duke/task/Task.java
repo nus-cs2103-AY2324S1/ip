@@ -27,6 +27,10 @@ public class Task {
         return "";
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public boolean isBefore(LocalDate date) {
         return true;
     }

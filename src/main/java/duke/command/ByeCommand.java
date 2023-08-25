@@ -5,7 +5,7 @@ import duke.Storage;
 import duke.task.TaskList;
 import duke.ui.UI;
 
-public class ByeCommand implements Command{
+public class ByeCommand implements Command {
 
     private static final String commandString = "bye";
 

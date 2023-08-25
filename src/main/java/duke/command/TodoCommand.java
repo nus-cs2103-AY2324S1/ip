@@ -7,7 +7,7 @@ import duke.task.TaskList;
 import duke.task.Todo;
 import duke.ui.UI;
 
-public class TodoCommand extends NonemptyArgumentCommand implements Command{
+public class TodoCommand extends NonemptyArgumentCommand implements Command {
 
     private static final String commandString = "todo";
     private final String arguments;
@@ -31,7 +31,7 @@ public class TodoCommand extends NonemptyArgumentCommand implements Command{
         validate(this.arguments);
         taskList.add(new Todo(this.arguments));
         UI.sendMessage("Got it. I've added this task:\n  " +
-                taskList.get(taskList.size()-1) +
+                taskList.get(taskList.size() - 1) +
                 String.format("\nNow you have %d tasks in the list.", taskList.size()));
         storage.updateFile(taskList);
     }

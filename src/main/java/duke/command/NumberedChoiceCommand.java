@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.DukeException;
 
-public abstract class NumberedChoiceCommand extends NonemptyArgumentCommand{
+public abstract class NumberedChoiceCommand extends NonemptyArgumentCommand {
     protected void validate(String arguments) throws DukeException {
         super.validate(arguments);
         try {
