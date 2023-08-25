@@ -1,5 +1,7 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -23,6 +25,10 @@ public class Task {
 
     public String getSaveString() {
         return "";
+    }
+
+    public boolean isBefore(LocalDate date) {
+        return true;
     }
 
     @Override
