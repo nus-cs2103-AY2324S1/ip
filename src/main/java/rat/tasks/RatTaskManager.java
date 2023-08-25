@@ -24,15 +24,41 @@ public class RatTaskManager {
 
     /**
      * Constructor for a RatTaskManager object.
-     * Initialises the storage as an empty ArrayList.
+     * Checks if stored file is empty and reads data from file if it is not.
+     * Updates taskList with data from file.
      */
-    public RatTaskManager() {
-        taskList = new ArrayList<>();
-    }
-
     public RatTaskManager(RatStorage storage) {
         taskList = new ArrayList<>();
         this.storage = storage;
+        if (!storage.isFileEmpty()) {
+            getDataFromFile();
+        }
+    }
+
+    /**
+     * Reads the data from the local storage file and adds it to the taskList.
+     */
+    protected void getDataFromFile() {
+        String[] data = storage.readFile().split("\n");
+        for (String s : data) {
+            String[] taskData = s.split(", ");
+            switch (taskData[0]) {
+            case "T":
+                this.taskList.add(new ToDo(taskData[2]));
+                break;
+            case "D":
+                this.taskList.add(new Deadline(taskData[3], taskData[2]));
+                break;
+            case "E":
+                this.taskList.add(new Event(taskData[3], taskData[4], taskData[2]));
+                break;
+            default:
+                break;
+            }
+            if (taskData[1].equals("1")) {
+                this.markItemDone(this.taskList.size());
+            }
+        }
     }
 
     /**
@@ -170,6 +196,10 @@ public class RatTaskManager {
         }
     }
 
+    /**
+     * Method that updates local storage after each run of Rat.
+     * Writes the most updated taskList to the local storage file.
+     */
     public void save() {
         StringBuilder data = new StringBuilder();
         for (Task task : this.taskList) {

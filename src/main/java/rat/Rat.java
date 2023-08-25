@@ -17,6 +17,9 @@ import rat.storage.RatStorage;
  */
 public class Rat {
 
+    /**
+     * The RatStorage object used to store the user's tasks in local storage.
+     */
     private static RatStorage ratStorage;
 
     /**
@@ -53,6 +56,7 @@ public class Rat {
      */
     public static void main(String[] args) {
         Rat.initialise();
+        //System.out.println(ratStorage.readFile());
         ratInput.handleInput();
         sc.close();
     }

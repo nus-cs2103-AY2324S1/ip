@@ -1,5 +1,5 @@
 name: Text UI Test
-run-name: Text UI Test is running on rat.Rat
+run-name: Text UI Test is running on Rat
 on:
   push:
     branches:

@@ -3,6 +3,7 @@ package rat.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 import static rat.io.RatPrinter.*;
 
@@ -38,6 +39,10 @@ public class RatStorage {
         return ratData;
     }
 
+    public boolean isFileEmpty() {
+        return ratData.length() == 0;
+    }
+
     public void overwriteFile(String input) {
         try {
             FileWriter fw = new FileWriter(ratData);
@@ -55,6 +60,25 @@ public class RatStorage {
             fw.close();
         } catch (IOException e) {
             printWithLines("Error writing to file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Reads the file and returns its contents as a String.
+     * @return The contents of the file as a String.
+     */
+    public String readFile() {
+        try {
+            Scanner sc = new Scanner(ratData);
+            StringBuilder str = new StringBuilder();
+            while (sc.hasNext()) {
+                str.append(sc.nextLine()).append("\n");
+            }
+            sc.close();
+            return str.toString();
+        } catch (IOException e) {
+            printWithLines("Error reading file: " + e.getMessage());
+            return "";
         }
     }
 

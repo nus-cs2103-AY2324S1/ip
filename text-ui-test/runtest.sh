@@ -19,6 +19,12 @@ then
     exit 1
 fi
 
+# delete data file from previous run
+if [ -e "./data" ]
+then
+    rm -rf ./data
+fi
+
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -classpath ../bin rat.Rat < input.txt > ACTUAL.TXT
 

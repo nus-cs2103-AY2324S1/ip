@@ -1,3 +1,0 @@
-T, 0, meeting
-D, 0, meeting, 5pm
-E, 0, meeting, 2pm, 4pm
