@@ -48,7 +48,7 @@ public class Duke {
                         System.out.println("Nice! I've marked this task as done:\n\t" +
                                 taskList.get(taskIndex).toString());
                     } else {
-                        System.out.println("Invalid task index.");
+                        System.out.println("\"☹ OOPS!!! Please provide a valid task index to mark.\"");
                     }
                 } else if (userInput.startsWith("unmark")) {
                     int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
@@ -57,7 +57,7 @@ public class Duke {
                         System.out.println("OK, I've marked this task as not done yet:\n\t" +
                                 taskList.get(taskIndex).toString());
                     } else {
-                        System.out.println("Invalid task index.");
+                        System.out.println("☹ OOPS!!! Please provide a valid task index to unmark.");
                     }
                 } else if (userInput.startsWith("todo ")) {
                     String todoDescription = userInput.replace("todo ", "");
@@ -78,6 +78,15 @@ public class Duke {
                     taskList.add(event);
                     displayCompletionMessage(event);
 
+                } else if (userInput.startsWith("delete ")) {
+                    int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
+                    if (taskIndex >= 0 && taskIndex < taskList.size()) {
+                        Task removedTask = taskList.remove(taskIndex);
+                        System.out.println("Noted. I've removed this task:\n\t" + removedTask);
+                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                    } else {
+                        System.out.println("☹ OOPS!!! Please provide a valid task index to delete.");
+                    }
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
