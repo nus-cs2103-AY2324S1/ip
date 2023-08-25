@@ -119,8 +119,8 @@ public class Dot {
                             if (!input.matches(eventRegex)) {
                                 throw new DotException("Wrong format for event.", TaskError.ERR_USING_EVENT);
                             }
-                            int indexOfFirstSlash = input.indexOf("/");
-                            int indexOfFSecondSlash = input.indexOf("/", indexOfFirstSlash + 1);
+                            int indexOfFirstSlash = input.indexOf("/from");
+                            int indexOfFSecondSlash = input.indexOf("/to", indexOfFirstSlash + 1);
                             String description = input.substring(6, indexOfFirstSlash - 1);
                             String start = input.substring(indexOfFirstSlash + 5, indexOfFSecondSlash).strip();
                             String end = input.substring(indexOfFSecondSlash + 4);
