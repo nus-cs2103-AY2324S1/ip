@@ -41,6 +41,9 @@ public class Duke {
                     break;
 
                 } else if (rootCmd.equals("delete")) {
+                    if (tokens.length == 1) {
+                        throwException("The task index of a task cannot be empty", "delete <task index>");
+                    }
                     int index = validateTaskIndex(tokens[1]);
                     Task task = tasks.get(index);
                     tasks.remove(index);
@@ -48,68 +51,87 @@ public class Duke {
                     System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
                 } else if (rootCmd.equals("mark")) {
                     if (tokens.length == 1) {
-                        throw new DukeException("The task index of a task cannot be empty.");
+                        throwException("The task index of a task cannot be empty", "mark <task index>");
                     }
                     int index = validateTaskIndex(tokens[1]);
                     Task task = tasks.get(index);
                     task.setStatus(true);
                 } else if (rootCmd.equals("unmark")) {
                     if (tokens.length == 1) {
-                        throw new DukeException("The task index of a task cannot be empty.");
+                        throwException("The task index of a task cannot be empty", "unmark <task index>");
                     }
                     int index = validateTaskIndex(tokens[1]);
                     Task task = tasks.get(index);
                     task.setStatus(false);
 
                 } else if (rootCmd.equals("todo")) {
-                    if (tokens.length == 1) {
-                        throw new DukeException("The description of a todo cannot be empty.");
+                    if (input.length() < 5) {
+                        throwException("The description of a todo cannot be empty", "todo <description>");
                     }
                     String todoText = input.substring(5);
+                    if (todoText.trim().equals("")) {
+                        throwException("The description of a todo cannot be empty", "todo <description>");
+                    }
                     addTask(new Todo(todoText));
                 } else if (rootCmd.equals("deadline")) {
+                    String usageText = "deadline <description> /by <due date/time>";
                     if (tokens.length == 1) {
-                        throw new DukeException("The description and due date of a deadline cannot be empty.");
+                        throwException("The description and due date of a deadline cannot be empty.", usageText);
                     }
 
                     String deadlineText = tokens[1];
                     String[] parts = deadlineText.split("/by", 2);
 
                     if (parts.length == 0) {
-                        throw new DukeException("The description and due date of a deadline cannot be empty.");
+                        throwException("The description and due date of a deadline cannot be empty.", usageText);
                     } else if (parts.length == 1) {
-                        throw new DukeException("The due date of a deadline cannot be empty.");
+                        throwException("The due date of a deadline cannot be empty.", usageText);
                     }
 
                     String description = parts[0].trim();
                     String date = parts[1].trim();
+                    if (description.trim().equals("")) {
+                        throwException("The description of a deadline cannot be empty.", usageText);
+                    }
+                    if (date.trim().equals("")) {
+                        throwException("The due date of a deadline cannot be empty.", usageText);
+                    }
                     addTask(new Deadline(description, date));
                 } else if (rootCmd.equals("event")) {
-
+                    String usageText = "event <description> /from <start date/time> /to <end date/time>";
                     if (tokens.length == 1) {
-                        throw new DukeException("The description, start date/time and end date/time of an event cannot be empty.");
+                        throwException("The description, start date/time and end date/time of an event cannot be empty.", usageText);
                     }
 
                     String eventText = tokens[1];
                     String[] eventParts = eventText.split("/from", 2);
 
                     if (eventParts.length == 0) {
-                        throw new DukeException("The description, start date/time and end date/time of an event cannot be empty.");
+                        throwException("The description, start date/time and end date/time of an event cannot be empty.", usageText);
                     } else if (eventParts.length == 1) {
-                        throw new DukeException("The start date/time and end date/time of a deadline cannot be empty.");
+                        throwException("The start date/time and end date/time of an event cannot be empty.", usageText);
                     }
 
                     String description = eventParts[0].trim();
                     String[] fromToParts = eventParts[1].split("/to", 2);
 
                     if (fromToParts.length == 0) {
-                        throw new DukeException("The start date/time and end date/time of a deadline cannot be empty.");
+                        throwException("The start date/time and end date/time of an event cannot be empty.", usageText);
                     } else if (fromToParts.length == 1) {
-                        throw new DukeException("The end date/time of a deadline cannot be empty.");
+                        throwException("The end date/time of an event cannot be empty.", usageText);
                     }
 
                     String fromDate = fromToParts[0].trim();
                     String toTime = fromToParts[1].trim();
+                    if (description.trim().equals("")) {
+                        throwException("The description of an event cannot be empty.", usageText);
+                    }
+                    if (fromDate.trim().equals("")) {
+                        throwException("The start date/time of an event cannot be empty.", usageText);
+                    }
+                    if (toTime.trim().equals("")) {
+                        throwException("The end date/time of an event cannot be empty.", usageText);
+                    }
                     addTask(new Event(description, fromDate, toTime));
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
@@ -146,4 +168,9 @@ public class Duke {
         System.out.printf("Got it. I've added this task:\n\t%s\n", task);
         System.out.printf("Now you have %d tasks in the list.\n", tasks.size());
     }
+
+    private static void throwException(String message, String usageText) throws DukeException {
+        throw new DukeException(String.format("%s\n\n\tUsage: %s", message, usageText));
+    }
+
 }
