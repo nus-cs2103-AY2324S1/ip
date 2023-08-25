@@ -1,30 +1,35 @@
 public class Task {
     private String description;
-    private boolean done;
+    private boolean isDone;
 
     public Task() {
 
     }
 
-    public Task(String description){
+    public Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
+    }
+
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
         System.out.println("Wow! Spot has marked this task as done!");
         System.out.println("  " + this.toString());
     }
 
     public void markAsNotDone() {
-        this.done = false;
+        this.isDone = false;
         System.out.println("Spot will mark this task as not done yet then!");
         System.out.println("  " + this.toString());
     }
 
     public String getStatusIcon() {
-        if (this.done) {
+        if (this.isDone) {
             return "X";
         } else {
             return " ";
@@ -34,5 +39,9 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    public String toLine() {
+        return this.getStatusIcon() + " | " + this.description;
     }
 }
