@@ -15,7 +15,7 @@ public class Duke {
                 String data = saveFileReader.nextLine();
                 String[] tokens = data.split(" \\| ");
                 String taskType = tokens[0];
-                boolean status = tokens[1].equals("0");
+                boolean status = tokens[1].equals("1");
                 switch (taskType) {
                     case "T": {
                         addTaskSilent(new Todo(tokens[2]), status);
@@ -34,11 +34,14 @@ public class Duke {
             saveFileReader.close();
         } catch (FileNotFoundException e1) {
             try {
+                File dataFolder = new File("./data/");
+                if (!dataFolder.exists()) {
+                    dataFolder.mkdir();
+                }
                 saveFile.createNewFile();
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
-            e1.printStackTrace();
         } catch (Exception e) {
             System.out.println("Save file corrupted. Wiping it!");
             tasks.clear();
