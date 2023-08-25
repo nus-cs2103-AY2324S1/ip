@@ -26,7 +26,7 @@ public class Duke {
         } else if (input.equals("list")) {
             listTasks();
         } else if (input.startsWith("delete ") || input.equals("delete")) {
-            //delete(input);
+            deleteTask(input);
         } else if (input.startsWith("mark ") || input.equals("mark")) {
             markTask(input);
         } else if (input.startsWith("unmark ") || input.equals("unmark")) {
@@ -50,7 +50,7 @@ public class Duke {
                 "event: event (String name) /from (String start) /to (String end); creates event\n" +
                 "todo: todo (String name); creates todo\n" +
                 "deadline: deadline (String name) /by (String deadline); creates deadline\n" +
-                "");
+                "delete: delete (int x); deletes indicated task\n");
     }
 
     public void listTasks() {
@@ -62,6 +62,27 @@ public class Duke {
                 System.out.println((i + 1) + ". " + list.get(i));
             }
         }
+    }
+
+    public void deleteTask(String input) throws InvalidVarException, InvalidCommandException {
+        if (input.equals("delete")) {
+            throw new InvalidCommandException("No parameter");
+        }
+        int number;
+        try {
+            number = Integer.parseInt(input.substring(7));
+        } catch (Exception e) {
+            throw new InvalidVarException("Task number could not be read");
+        }
+        try {
+            Task deletedTask = list.get(number - 1);
+            list.remove(number - 1);
+            counter -= 1;
+            System.out.println("task " + number + ": " + deletedTask + " deleted.");
+        } catch (Exception e) {
+            throw new InvalidVarException("Task not found");
+        }
+
     }
 
     public void markTask(String input) throws InvalidVarException, InvalidCommandException {
