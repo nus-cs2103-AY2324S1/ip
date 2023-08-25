@@ -1,4 +1,6 @@
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,11 +24,11 @@ public class Duke {
                         break;
                     }
                     case "D": {
-                        addTaskSilent(new Deadline(tokens[2], tokens[3]), status);
+                        addTaskSilent(new Deadline((tokens[2]), validateLocalDate(tokens[3])), status);
                         break;
                     }
                     case "E": {
-                        addTaskSilent(new Event(tokens[2], tokens[3], tokens[4]), status);
+                        addTaskSilent(new Event(tokens[2], validateLocalDate(tokens[3]), validateLocalDate(tokens[4])), status);
                         break;
                     }
                 }
@@ -163,7 +165,7 @@ public class Duke {
                         if (date.trim().equals("")) {
                             throwException("The due date of a deadline cannot be empty.", usageText);
                         }
-                        addTask(new Deadline(description, date));
+                        addTask(new Deadline(description, validateLocalDate(date)));
                         break;
                     }
                     case "event": {
@@ -201,7 +203,7 @@ public class Duke {
                         if (toTime.trim().equals("")) {
                             throwException("The end date/time of an event cannot be empty.", usageText);
                         }
-                        addTask(new Event(description, fromDate, toTime));
+                        addTask(new Event(description, validateLocalDate(fromDate), validateLocalDate(toTime)));
                         break;
                     }
                     default:
@@ -213,6 +215,14 @@ public class Duke {
             System.out.println("------------------------------------------");
 
             saveToFile();
+        }
+    }
+
+    private static LocalDate validateLocalDate(String input) throws DukeException {
+        try {
+            return LocalDate.parse(input);
+        } catch (DateTimeParseException error) {
+            throw new DukeException("Invalid date format. <yyyy-mm-dd> expected");
         }
     }
 
