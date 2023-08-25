@@ -1,3 +1,6 @@
+package task;
+
+import exception.EpochMindException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +39,7 @@ public class TaskList {
 
     /**
      * List out the task list when given an ArrayList of tasks
-     * @param tasks ArrayList of Task
+     * @param tasks ArrayList of task.Task
      */
     public void list(List<Task> tasks) {
         if (tasks.size() == 0) {

@@ -1,4 +1,8 @@
-public class Event extends Task{
+package task;
+
+import task.Task;
+
+public class Event extends Task {
     protected String from;
     protected String to;
     public Event(String description, String from, String to) {

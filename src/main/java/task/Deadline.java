@@ -1,11 +1,12 @@
-import java.time.LocalDate;
+package task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
 
     protected String deadlineString;
     protected LocalDateTime deadlineDateTime;
@@ -70,7 +71,7 @@ public class Deadline extends Task{
             try {
                 LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineString, formatter);
                 return deadlineDateTime;
-            } catch (DateTimeParseException e) { // Deadline is not a DateTime
+            } catch (DateTimeParseException e) { // task.Deadline is not a DateTime
                 // do nothing
             }
         }
