@@ -24,4 +24,12 @@ event something /from x
 event /from something /to something
 event something /from /to 
 event something /from x /to 
+delete 
+delete xyz
+delete 50
+delete 1
+delete 1
+mark 1
+unmark 1
+list
 bye

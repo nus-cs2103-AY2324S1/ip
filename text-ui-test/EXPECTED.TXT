@@ -75,4 +75,23 @@ Please add ' /from <Time/Date>' after the task description
 jeeves.exception.MissingToException: I cannot do that as the end time has not been provided.
 Please add ' /to <Time/Date>' after the task end date (after /from block)
 
+jeeves.exception.MissingIdException: I cannot do that as you have not provided me with a Task ID
+
+jeeves.exception.NotIntegerIdException: I cannot do that as that is not a valid Task ID (ID provided is not an integer)
+
+jeeves.exception.OutOfBoundIdException: I cannot do that as that is not a valid Task ID (ID provided does not exist)
+
+Understood, I have deleted the following task:
+    1. [T][X] something
+
+jeeves.exception.DeletedIdException: I cannot do that as that is not a valid Task ID (ID provided belongs to a deleted task)
+
+jeeves.exception.DeletedIdException: I cannot do that as that is not a valid Task ID (ID provided belongs to a deleted task)
+
+jeeves.exception.DeletedIdException: I cannot do that as that is not a valid Task ID (ID provided belongs to a deleted task)
+
+This is what I am tracking for you Master
+2. [D][ ] return stuff (by: Monday)
+3. [E][ ] project meeting (from: Tue 2pm to: 4pm)
+
 I bid you farewell, Master

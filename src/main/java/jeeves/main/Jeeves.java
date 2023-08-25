@@ -7,6 +7,7 @@ import jeeves.exception.MissingDescriptionException;
 import jeeves.exception.MissingByException;
 import jeeves.exception.MissingFromException;
 import jeeves.exception.MissingToException;
+import jeeves.exception.DeletedIdException;
 
 import jeeves.task.Task;
 import jeeves.task.Todo;
@@ -24,8 +25,9 @@ public class Jeeves {
     private static final int FINDCOMMAND_TODO_OFFSET = 5;
     private static final int FINDCOMMAND_DEADLINE_OFFSET = 9;
     private static final int FINDCOMMAND_EVENT_OFFSET = 6;
-    private static final int FINDFIELD_MARK_OFFSET = 5;
-    private static final int FINDFIELD_UNMARK_OFFSET = 7;
+    private static final int FINDCOMMAND_MARK_OFFSET = 5;
+    private static final int FINDCOMMAND_UNMARK_OFFSET = 7;
+    private static final int FINDCOMMAND_DELETE_OFFSET = 7;
     private static final int FINDFIELD_TO_OFFSET = 4;
     private static final int FINDFIELD_FROM_OFFSET = 6;
     private static final int FINDFIELD_BY_OFFSET = 4;
@@ -68,13 +70,15 @@ public class Jeeves {
 
                 // Displays the current list of tasks tracked and their status
                 for (int i = 1; i <= Task.getTaskCount(); i++) {
-                    System.out.println(taskList.get(i).toString());
+                    if (taskList.get(i) != null) {
+                        System.out.println(taskList.get(i).toString());
+                    }
                 }
                 // Prints an empty line for output clarity
                 System.out.print("\n");
             }  else if (currentCommand.startsWith("mark ")) {
                 // Gets the task ID that the user wish to mark
-                String idString = currentCommand.substring(FINDFIELD_MARK_OFFSET);
+                String idString = currentCommand.substring(FINDCOMMAND_MARK_OFFSET);
                 // If the task ID is invalid or not found, throw an error
                 // Else, update the task's status and notifies the user
                 try {
@@ -92,16 +96,21 @@ public class Jeeves {
                     } else {
                         // Updates the task status
                         int id = Integer.parseInt(idString);
+                        if (taskList.get(id) == null) {
+                            // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
+                            throw new DeletedIdException("I cannot do that as that is not a valid Task ID "
+                                    + "(ID provided belongs to a deleted task)\n");
+                        }
                         taskList.get(id).setStatus(true);
                         System.out.println("Understood, I have marked the following task as done:");
                         System.out.println("    " + taskList.get(id).toString() + "\n");
                     }
-                } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException e) {
+                } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException | DeletedIdException e) {
                     System.out.println(e);
                 }
             } else if (currentCommand.startsWith("unmark ")) {
                 // Gets the task ID that the user wish to unmark
-                String idString = currentCommand.substring(FINDFIELD_UNMARK_OFFSET);
+                String idString = currentCommand.substring(FINDCOMMAND_UNMARK_OFFSET);
                 // If the task ID is invalid or not found, throw an error
                 // Else, update the task's status and notifies the user
                 try {
@@ -119,11 +128,16 @@ public class Jeeves {
                     } else {
                         // Updates the task status
                         int id = Integer.parseInt(idString);
+                        if (taskList.get(id) == null) {
+                            // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
+                            throw new DeletedIdException("I cannot do that as that is not a valid Task ID "
+                                    + "(ID provided belongs to a deleted task)\n");
+                        }
                         taskList.get(id).setStatus(false);
                         System.out.println("Understood, I have marked the following task as not done:");
                         System.out.println("    " + taskList.get(id).toString() + "\n");
                     }
-                } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException e) {
+                } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException | DeletedIdException e) {
                     System.out.println(e);
                 }
             } else if (currentCommand.startsWith("todo ")) {
@@ -216,6 +230,38 @@ public class Jeeves {
                     System.out.println("Event added:\n" +
                             "    " + newEvent + "\n");
                 } catch (MissingDescriptionException | MissingFromException | MissingToException e) {
+                    System.out.println(e);
+                }
+            } else if (currentCommand.startsWith("delete ")) {
+                // Gets the task ID that the user wish to delete
+                String idString = currentCommand.substring(FINDCOMMAND_DELETE_OFFSET);
+                // If the task ID is invalid or not found, throw an error
+                // Else, update the task's status and notifies the user
+                try {
+                    if (idString.isEmpty()) {
+                        // id field is empty
+                        throw new MissingIdException("I cannot do that as you have not provided me with a Task ID\n");
+                    } else if (isNotNumber(idString)) {
+                        // id field is not an integer
+                        throw new NotIntegerIdException("I cannot do that as that is not a valid Task ID "
+                                + "(ID provided is not an integer)\n");
+                    } else if (Integer.parseInt(idString) > Task.getTaskCount()) {
+                        // id does not exist
+                        throw new OutOfBoundIdException("I cannot do that as that is not a valid Task ID "
+                                + "(ID provided does not exist)\n");
+                    } else {
+                        // Updates the task status
+                        int id = Integer.parseInt(idString);
+                        if (taskList.get(id) == null) {
+                            // If the id to be marked belongs to a deleted task (null), throws the DeletedIdException
+                            throw new DeletedIdException("I cannot do that as that is not a valid Task ID "
+                                    + "(ID provided belongs to a deleted task)\n");
+                        }
+                        System.out.println("Understood, I have deleted the following task:");
+                        System.out.println("    " + taskList.get(id).toString() + "\n");
+                        taskList.set(id, null);
+                    }
+                } catch (MissingIdException | NotIntegerIdException | OutOfBoundIdException | DeletedIdException e) {
                     System.out.println(e);
                 }
             } else if (currentCommand.equals("bye")) {
