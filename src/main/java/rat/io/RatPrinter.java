@@ -1,5 +1,8 @@
 package rat.io;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * This class encapsulates the printing of messages by Rat.
  * @author Keagan
@@ -10,7 +13,9 @@ public class RatPrinter {
      * Prints the welcome message to the user.
      */
     public static void printWelcome() {
-        String welcomeMsg = "                  Hello! I'm Rat!\n"
+        String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm"));
+        String welcomeMsg =
+                currentTime + "\n\n                  Hello! I'm Rat!\n"
                 + "              What can I do for you?\n"
                 + "       type \"help\" to see a list of commands";
         printWithLines(welcomeMsg);

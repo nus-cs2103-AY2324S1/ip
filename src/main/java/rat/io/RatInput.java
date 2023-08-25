@@ -1,6 +1,8 @@
 package rat.io;
 
 import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import rat.tasks.*;
 
@@ -80,6 +82,11 @@ public class RatInput {
         }
     }
 
+    protected void validateTime(String time) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        dateFormat.parse(time.trim());
+    }
+
     /**
      * Handles the action of marking a task as done.
      * Parses user input after the "mark" command.
@@ -141,11 +148,14 @@ public class RatInput {
             String[] paramsArr = params.split(" /by ");
             String name = paramsArr[0];
             String deadline = paramsArr[1];
+            this.validateTime(deadline);
             this.ratTaskManager.addDeadline(deadline, name);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("Deadline name cannot be empty");
         } catch (ArrayIndexOutOfBoundsException e) {
             printWithLines("Invalid deadline format. Please use \"deadline <name> /by <deadline>\"");
+        } catch (ParseException e) {
+            printWithLines("Invalid date format. Please use \"dd/MM/yyyy HH:mm\"");
         }
     }
 
@@ -165,11 +175,15 @@ public class RatInput {
             String[] time = params.split(" /from ")[1].split(" /to ");
             String startTime = time[0];
             String endTime = time[1];
+            this.validateTime(startTime);
+            this.validateTime(endTime);
             this.ratTaskManager.addEvent(startTime, endTime, eventName);
         } catch (StringIndexOutOfBoundsException e) {
             printWithLines("Event name cannot be empty");
         } catch (ArrayIndexOutOfBoundsException e) {
             printWithLines("Invalid event format. Please use \"event <name> /from <start> /to <end>\"");
+        } catch (ParseException e) {
+            printWithLines("Invalid date format. Please use \"dd/MM/yyyy HH:mm\"");
         }
     }
 

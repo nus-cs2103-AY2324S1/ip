@@ -1,6 +1,7 @@
 package rat.tasks;
 
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 import static rat.io.RatPrinter.*;
 
@@ -47,10 +48,10 @@ public class RatTaskManager {
                 this.taskList.add(new ToDo(taskData[2]));
                 break;
             case "D":
-                this.taskList.add(new Deadline(taskData[3], taskData[2]));
+                this.taskList.add(new Deadline(LocalDateTime.parse(taskData[3]), taskData[2]));
                 break;
             case "E":
-                this.taskList.add(new Event(taskData[3], taskData[4], taskData[2]));
+                this.taskList.add(new Event(LocalDateTime.parse(taskData[3]), LocalDateTime.parse(taskData[4]), taskData[2]));
                 break;
             default:
                 break;
