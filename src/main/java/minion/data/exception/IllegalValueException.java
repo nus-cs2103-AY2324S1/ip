@@ -1,3 +1,5 @@
+package minion.data.exception;
+
 /**
  * Illegal value exception.
  */

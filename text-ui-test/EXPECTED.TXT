@@ -1,5 +1,9 @@
 	____________________________________________________________
-	Hello! I'm Minion!
+	Cannot load the file!
+	____________________________________________________________
+
+	____________________________________________________________
+	Hello! I'm minion.Minion!
 	What can I do for you?
 	____________________________________________________________
 
@@ -15,28 +19,21 @@
 	____________________________________________________________
 
 	____________________________________________________________
-	Got it. I've added this task:
-		[D][] return book (by: Sunday)
-	Now you have 2 tasks in the list.
+	Unable to parse date. Ensure it is of the form dd/mm/yyyy!
 	____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
 	1.[T][] borrow book
-	2.[D][] return book (by: Sunday)
 	____________________________________________________________
 
 	____________________________________________________________
-	Got it. I've added this task:
-		[E][] project meeting (from: Mon 2pm to: 4pm)
-	Now you have 3 tasks in the list.
+	Unable to parse date. Ensure it is of the form dd/mm/yyyy!
 	____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
 	1.[T][] borrow book
-	2.[D][] return book (by: Sunday)
-	3.[E][] project meeting (from: Mon 2pm to: 4pm)
 	____________________________________________________________
 
 	____________________________________________________________
@@ -45,39 +42,30 @@
 	____________________________________________________________
 
 	____________________________________________________________
-	Nice! I've marked this task as done:
-		[D][X] return book (by: Sunday)
+	??? OOPS!!! Please enter a valid task number.
 	____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
 	1.[T][X] borrow book
-	2.[D][X] return book (by: Sunday)
-	3.[E][] project meeting (from: Mon 2pm to: 4pm)
 	____________________________________________________________
 
 	____________________________________________________________
-	Nice! I've marked this task as done:
-		[E][X] project meeting (from: Mon 2pm to: 4pm)
+	??? OOPS!!! Please enter a valid task number.
 	____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
 	1.[T][X] borrow book
-	2.[D][X] return book (by: Sunday)
-	3.[E][X] project meeting (from: Mon 2pm to: 4pm)
 	____________________________________________________________
 
 	____________________________________________________________
-	OK, I've marked this task as not done yet:
-		[D][] return book (by: Sunday)
+	??? OOPS!!! Please enter a valid task number.
 	____________________________________________________________
 
 	____________________________________________________________
 	Here are the tasks in your list:
 	1.[T][X] borrow book
-	2.[D][] return book (by: Sunday)
-	3.[E][X] project meeting (from: Mon 2pm to: 4pm)
 	____________________________________________________________
 
 	____________________________________________________________

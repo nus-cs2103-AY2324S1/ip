@@ -1,8 +1,16 @@
+package minion.commands;
+
+import minion.data.exception.IllegalValueException;
+import minion.data.TaskList;
+import minion.data.task.Task;
+import minion.storage.Storage;
+import minion.ui.Ui;
+
 import java.io.IOException;
 
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
-    private int taskIdx;
+    private final int taskIdx;
     public DeleteCommand(int taskIdx) {
         this.taskIdx = taskIdx;
     }

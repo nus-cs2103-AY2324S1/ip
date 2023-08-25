@@ -1,3 +1,5 @@
+package minion.data.task;
+
 /**
  * Represents a deadline task.
  */
@@ -5,7 +7,7 @@ public class Deadline extends Task {
     protected String datetime;
 
     /**
-     * Creates a deadline object. This is the main constructor of the Deadline class.
+     * Creates a deadline object. This is the main constructor of the minion.data.task.Deadline class.
      * @param description Description of deadline.
      * @param isDone Whether the deadline is done.
      * @param datetime Datetime of deadline.

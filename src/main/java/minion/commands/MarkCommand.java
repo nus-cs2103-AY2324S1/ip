@@ -1,8 +1,16 @@
+package minion.commands;
+
+import minion.data.exception.IllegalValueException;
+import minion.data.TaskList;
+import minion.data.task.Task;
+import minion.storage.Storage;
+import minion.ui.Ui;
+
 import java.io.IOException;
 
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
-    private int taskIdx;
+    private final int taskIdx;
     public MarkCommand(int taskIdx) {
         this.taskIdx = taskIdx;
     }

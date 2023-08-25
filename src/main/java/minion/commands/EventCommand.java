@@ -1,8 +1,15 @@
+package minion.commands;
+
+import minion.data.task.Event;
+import minion.storage.Storage;
+import minion.data.TaskList;
+import minion.ui.Ui;
+
 import java.io.IOException;
 
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
-    public Event event;
+    private final Event event;
 
     public EventCommand(Event event) {
         this.event = event;

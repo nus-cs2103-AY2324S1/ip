@@ -1,15 +1,24 @@
+package minion;
+
+import minion.commands.Command;
+import minion.data.TaskList;
+import minion.data.exception.MinionException;
+import minion.parser.CommandParser;
+import minion.storage.Storage;
+import minion.ui.Ui;
+
 import java.io.IOException;
 
 /**
- * Represents the Minion chatbot.
+ * Represents the minion.Minion chatbot.
  */
 public class Minion {
     private TaskList tasks;
-    private Ui ui;
-    private Storage storage;
+    private final Ui ui;
+    private final Storage storage;
 
     /**
-     * A constructor for the Minion chatbot.
+     * A constructor for the minion.Minion chatbot.
      * @param filePath The file path of the file storing the task list.
      */
     public Minion(String filePath) {
@@ -24,20 +33,19 @@ public class Minion {
     }
 
     public static void main(String[] args) {
-        new Minion("data/tasks.txt").run(args);
+        new Minion("data/tasks.txt").run();
     }
 
     /**
      * Driver function for main.
-     * @param args arguments passed in to stdin.
      */
-    private void run(String[] args) {
+    private void run() {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
                 String command = ui.readCommand();
-                Command c = Parser.parse(command);
+                Command c = CommandParser.parse(command);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (MinionException | IOException e) {

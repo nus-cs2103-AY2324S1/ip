@@ -1,3 +1,5 @@
+package minion.data.task;
+
 /**
  * Represents a task created by the user.
  */
@@ -25,14 +27,14 @@ public abstract class Task {
     /**
      * Marks the task as done.
      */
-    protected void markDone() {
+    public void markDone() {
         this.isDone = true;
     }
 
     /**
      * Marks the task as undone.
      */
-    protected void markUndone() {
+    public void markUndone() {
         this.isDone = false;
     }
 
