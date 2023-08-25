@@ -7,7 +7,7 @@ public class Haste {
     public static final String INDENT = "    ";
     public static ArrayList<Task> taskList = new ArrayList<>();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         greet();
         boolean online = true;
         Scanner sc = new Scanner(System.in);
@@ -19,16 +19,18 @@ public class Haste {
                 online = false;
             } else if (cmd.equals("list")) {
                 // print list
-                printList();
+                Task.printList();
             } else if (cmd.startsWith("mark")) {
                 mark(cmd);
             } else if (cmd.startsWith("unmark")) {
                 unmark(cmd);
+            } else if (cmd.startsWith("delete")) {
+                delete(cmd);
             } else {
                 // add task to list
                 try {
-                    Task newTask = Task.getTask(cmd);
-                    add(newTask);
+                    Task.addTask(cmd);
+
                 } catch(EmptyTaskException e) {
                     e.printStackTrace();
                 } catch(InvalidCommand e) {
@@ -54,7 +56,7 @@ public class Haste {
 
     public static void mark(String cmd) {
         int id = parseInt(cmd.split(" ")[1]) - 1;
-        Task currTask = taskList.get(id);
+        Task currTask = Task.taskList.get(id);
         currTask.markDone();
         printLine();
         System.out.println(INDENT + "Nice! I've marked this task as done!:");
@@ -64,7 +66,7 @@ public class Haste {
 
     public static void unmark(String cmd) {
         int id = parseInt(cmd.split(" ")[1]) - 1;
-        Task currTask = taskList.get(id);
+        Task currTask = Task.taskList.get(id);
         currTask.markUndone();
         printLine();
         System.out.println(INDENT + "Okay, I've marked this task as not done:");
@@ -72,31 +74,21 @@ public class Haste {
         printLine();
     }
 
-    public static void add(Task newTask) {
-        taskList.add(newTask);
+    public static void delete(String cmd) {
+        int id = parseInt(cmd.split(" ")[1]) - 1;
+
         printLine();
-        System.out.println(INDENT + "Got it. I've added this task:");
-        System.out.println(INDENT + newTask);
-        System.out.println(INDENT + "Now you have " + Task.numOfTasks + " tasks in the list.");
+        System.out.println(INDENT + "Noted. I've removed this task");
+        System.out.println(INDENT + Task.taskList.get(id));
+        Task.deleteTask(id);
+        System.out.println(INDENT + "Now you have " + Task.numOfTasks + " tasks in the list");
         printLine();
     }
+
 
     public static void printLine() {
         System.out.println(INDENT + LINE);
     }
-
-    public static void printList() {
-        printLine();
-        for (Task a : taskList) {
-            System.out.println(INDENT + a.id + ". " + a);
-        }
-        printLine();
-    }
-
-
-
-
-
 
 
 }

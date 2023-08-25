@@ -6,7 +6,7 @@ public class Task {
     protected boolean isComplete;
     protected String description;
     protected static int numOfTasks = 0;
-    protected int id;
+
 
     public static ArrayList<Task> taskList = new ArrayList<>();
 
@@ -14,7 +14,6 @@ public class Task {
         this.description = description;
         this.isComplete = false;
         Task.numOfTasks++;
-        this.id = numOfTasks;
 
     }
 
@@ -34,7 +33,7 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
-    public static Task getTask(String cmd) throws Exception {
+    public static void addTask(String cmd) throws InvalidCommand, EmptyTaskException {
         String type = cmd.split("\\s+")[0]; // grab the first word
         Task newTask;
         switch(type) {
@@ -49,13 +48,31 @@ public class Task {
                 break;
             default:
                 throw new InvalidCommand(cmd);
-
         }
-        return newTask;
+        taskList.add(newTask);
+        // print statement
+        Haste.printLine();
+        System.out.println(Haste.INDENT + "Got it. I've added this task:");
+        System.out.println(Haste.INDENT + newTask);
+        System.out.println(Haste.INDENT + "Now you have " + Task.numOfTasks + " tasks in the list.");
+        Haste.printLine();
     }
 
     public static boolean checkEmpty(String s) {
         return s == null || s.isBlank();
+    }
+
+    public static void printList() {
+        Haste.printLine();
+        for (Task a : taskList) {
+            System.out.println(Haste.INDENT + (taskList.indexOf(a) + 1) + ". " + a);
+        }
+        Haste.printLine();
+    }
+
+    public static void deleteTask(int id) {
+        taskList.remove(id);
+        numOfTasks--;
     }
 
 
