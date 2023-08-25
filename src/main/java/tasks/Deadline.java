@@ -7,6 +7,16 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    public Deadline(String description, String deadline, boolean completed) {
+        super(description, completed);
+        this.deadline = deadline;
+    }
+
+    @Override
+    public String getFileFormat() {
+        return String.format("D | %s | %s", super.getFileFormat(), this.deadline);
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() +

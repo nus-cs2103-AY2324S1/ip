@@ -1,7 +1,9 @@
 package tasks;
 
+import storage.Storage;
 import ui.Ui;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -10,6 +12,11 @@ public class TaskList {
     private final int maxSize;
     protected TaskList(int maxSize) {
         this.tasks = new ArrayList<>();
+        this.maxSize = maxSize;
+    }
+
+    protected TaskList(int maxSize, ArrayList<Task> tasks) {
+        this.tasks = tasks;
         this.maxSize = maxSize;
     }
 
@@ -45,6 +52,10 @@ public class TaskList {
         return new TaskList(maxSize);
     }
 
+    public static TaskList taskListFromArrayList(int maxSize, ArrayList<Task> taskList) {
+        return new TaskList(maxSize, taskList);
+    }
+
     // TODO: Add IndexOutOfBoundsException handling
     // TODO: Add type mismatch exception handling
     public void markTask(int position, boolean isCompleted) {
@@ -62,5 +73,9 @@ public class TaskList {
         } else {
             Ui.wrapPrintWithHorizontalRules("Invalid position.");
         }
+    }
+
+    public void saveTaskListToStorage(File file) {
+        Storage.saveTasks(file, this.tasks);
     }
 }
