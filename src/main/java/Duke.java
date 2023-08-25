@@ -73,6 +73,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Loads the file from the data folder if it exists, else it creates a new file for users to 
+     * store their tasks.
+     * 
+     * @throws IOException if there is an error creating the file  
+     */
     public static void loadFile() {
         try {
             File directory = new File("../../../data");
@@ -100,6 +106,7 @@ public class Duke {
                     String status = parts[1].trim();
                     String task = parts[2];
                     Task newTask = new ToDo("todo " + task);
+
                     updateTaskStatusFromFile(newTask, status);
                     taskList.add(newTask);
                 } else if (taskType.equals("D")) {
@@ -107,6 +114,7 @@ public class Duke {
                     String task = parts[2].trim();
                     String deadline = parts[3].trim();
                     Task newTask = new Deadline(task, deadline);
+
                     updateTaskStatusFromFile(newTask, status);
                     taskList.add(newTask);                    
                 } else if (taskType.equals("E")) {
@@ -115,6 +123,7 @@ public class Duke {
                     String from = parts[3].trim();
                     String to = parts[4].trim();
                     Task newTask = new Event(task, from, to);
+
                     updateTaskStatusFromFile(newTask, status);
                     taskList.add(newTask);
                 }

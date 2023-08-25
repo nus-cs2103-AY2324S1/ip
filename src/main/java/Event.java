@@ -4,12 +4,14 @@ public class Event extends Task {
     private static String noDescErrorMsg = "\u2639 OOPS!!! The description of a event cannot be empty.";
 
     public Event(String task) {
+        // this is for creating a task with the "event" command
         super(getTask(task));
         this.startTime = getStartTime(task);
         this.endTime = getEndTime(task);
     }
 
     public Event(String task, String startTime, String endTime) {
+        // this is for loading the file
         super(task);
         this.startTime = startTime;
         this.endTime = endTime;
