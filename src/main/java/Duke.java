@@ -1,5 +1,10 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+import java.io.FileWriter;
 class TaskType {
 
 }
@@ -41,6 +46,9 @@ class Item{
         String taco = dl == null ? "" : " (" + dl + ")";
         return  tBox + cBox + " " + task + taco;
     }
+    public String saveStringRep(){
+        return this.task + " " + String.valueOf(completed) + " " + tt.toString() + " " + (dl == null ? "" : dl);
+    }
     public void setCompleted(boolean x){
         completed = x;
     }
@@ -52,6 +60,7 @@ public class Duke {
 
     static Scanner sc = new Scanner(System.in);
     static ArrayList<Item> items = new ArrayList<Item>();
+    static String data_file = "./src/main/data/data.txt";
 
     public static String getString(String[] a, int x, int y){
         String res = "";
@@ -63,11 +72,38 @@ public class Duke {
         return res;
     }
 
+    public static TaskType parseTaskType(String x){
+        return x.equals("T") ? new Todo() : x.equals("D") ? new Deadline() : new Event();
+    }
+
     public static void main(String[] args) {
+
+        File f = new File(data_file);
+        try{
+            Scanner reader = new Scanner(f);
+            while(reader.hasNextLine()){
+                String[] d = reader.nextLine().split("\\s+");
+                items.add(new Item(d[0], Boolean.parseBoolean(d[1]), parseTaskType(d[2]), d.length > 3 ? d[3] : null));
+
+            }
+            reader.close();
+        }catch(FileNotFoundException fe){
+            System.out.println("Data file not found, attempting to create one...");
+            try{
+                f.createNewFile();
+                System.out.println("Data file successfully created.");
+            }catch(IOException e){
+                System.out.println("Data storage could be created, any items added to the app will be deleted after program exit.");
+                e.printStackTrace();
+            }
+        }
+
 
 
         System.out.println("Hello I'm Robot!");
         System.out.println("What can I do for you?");
+
+
 
 
 
@@ -167,6 +203,18 @@ public class Duke {
 
 
         }
+        try{
+            FileWriter fileWriter = new FileWriter(data_file);
+            for(int i=0;i<items.size();i++){
+                fileWriter.write(items.get(i).saveStringRep() + "\n");
+            }
+            fileWriter.close();
+        }catch(IOException e){
+            System.out.println("Something went wrong while saving your list items.");
+        }
+
+
+
 
         System.out.println("Bye! Hope to see you again soon!");
 
