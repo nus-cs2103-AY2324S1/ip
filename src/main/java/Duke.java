@@ -107,7 +107,7 @@ public class Duke {
         public String save(String input) {
             Task task;
             try {
-                task = new Task(input);
+                task = Task.createTask(input);
             } catch (WrongCommandException | WrongFormatException e) {
                 return e.getMessage();
             }
@@ -169,50 +169,27 @@ public class Duke {
         }
     }
 
-    static class Task {
-        private boolean isDone;
-        private final TaskType taskType;
-        private String description;
-        private String dateStart;
-        private String dateEnd;
+    static abstract class Task {
+        protected boolean isDone = false;
+        protected String description;
 
-        public Task(String task) throws WrongCommandException, WrongFormatException {
-            this.isDone = false;
-            TaskType tmpTaskType = getTaskType(task);
-            if (tmpTaskType == null) throw new WrongCommandException("Whopsie daisies! I don't understand that command!");
-            this.taskType = tmpTaskType;
+        public static Task createTask(String task) throws WrongCommandException, WrongFormatException {
+            TaskType taskType = getTaskType(task);
+            if (taskType == null) throw new WrongCommandException("Whopsie daisies! I don't understand that command!");
 
-            String tmpDescription = getDescription(task);
-            if (tmpDescription == null) throw new WrongFormatException("Whopsie daisies! I don't understand that format!");
-            this.description = tmpDescription;
-        }
-
-        public void markAsDone() {
-            this.isDone = true;
-        }
-
-        public void unmarkAsDone() {
-            this.isDone = false;
-        }
-
-        private String squareBracketWrapper(String input) {
-            return "[" + input + "]";
-        }
-
-        private String getTaskTypeString() {
             switch (taskType) {
                 case TODO:
-                    return squareBracketWrapper("T");
+                    return new TodoTask(task);
                 case DEADLINE:
-                    return squareBracketWrapper("D");
+                    return new DeadlineTask(task);
                 case EVENT:
-                    return squareBracketWrapper("E");
+                    return new EventTask(task);
                 default:
-                    return "";
+                    return null;
             }
         }
 
-        private TaskType getTaskType(String input) {
+        private static TaskType getTaskType(String input) {
             if (input.startsWith("todo")) {
                 return TaskType.TODO;
             }
@@ -228,15 +205,64 @@ public class Duke {
             return null;
         }
 
-        private String getDescription(String input) {
-            if (this.taskType == TaskType.TODO) {
+        private static String squareBracketWrapper(String input) {
+            return "[" + input + "]";
+        }
+
+        public void markAsDone() {
+            this.isDone = true;
+        }
+
+        public void unmarkAsDone() {
+            this.isDone = false;
+        }
+
+        protected abstract String getTaskTypeString();
+
+        protected abstract String getDescription(String input);
+
+        private static final class TodoTask extends Task {
+            public TodoTask(String task) throws WrongFormatException {
+                String description = getDescription(task);
+                if (description == null) throw new WrongFormatException("Whopsie daisies! I don't understand that format!");
+                this.description = description;
+            }
+
+            @Override
+            protected String getTaskTypeString() {
+                return squareBracketWrapper("T");
+            }
+
+            @Override
+            protected String getDescription(String input) {
                 if (input.split(" ", 2).length == 1) {
                     return null;
                 }
                 return input.split(" ", 2)[1];
             }
 
-            if (this.taskType == TaskType.DEADLINE) {
+            @Override
+            public String toString() {
+                return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description;
+            }
+        }
+
+        private static final class DeadlineTask extends Task {
+            private String dateEnd;
+
+            public DeadlineTask(String task) throws WrongFormatException {
+                String description = getDescription(task);
+                if (description == null) throw new WrongFormatException("Whopsie daisies! I don't understand that format!");
+                this.description = description;
+            }
+
+            @Override
+            protected String getTaskTypeString() {
+                return squareBracketWrapper("D");
+            }
+
+            @Override
+            protected String getDescription(String input) {
                 if (input.split(" ", 2).length == 1) {
                     return null;
                 }
@@ -251,7 +277,30 @@ public class Duke {
                 return split[0];
             }
 
-            if (this.taskType == TaskType.EVENT) {
+            @Override
+            public String toString() {
+                return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
+                        + " (by: " + dateEnd + ")";
+            }
+        }
+
+        private static final class EventTask extends Task {
+            private String dateStart;
+            private String dateEnd;
+
+            public EventTask(String task) throws WrongFormatException {
+                String description = getDescription(task);
+                if (description == null) throw new WrongFormatException("Whopsie daisies! I don't understand that format!");
+                this.description = description;
+            }
+
+            @Override
+            protected String getTaskTypeString() {
+                return squareBracketWrapper("E");
+            }
+
+            @Override
+            protected String getDescription(String input) {
                 if (input.split(" ", 2).length == 1) {
                     return null;
                 }
@@ -271,31 +320,10 @@ public class Duke {
                 return split[0];
             }
 
-            return null;
-        }
-
-        @Override
-        public String toString() {
-            return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
-                    + (this.taskType == TaskType.DEADLINE ? " (by: " + dateEnd + ")" : "")
-                    + (this.taskType == TaskType.EVENT ? " (from: " + dateStart + " to: " + dateEnd + ")" : "");
-        }
-
-        private static class TodoTask extends Task {
-            public TodoTask(String task) throws WrongCommandException, WrongFormatException {
-                super(task);
-            }
-        }
-
-        private static class DeadlineTask extends Task {
-            public DeadlineTask(String task) throws WrongCommandException, WrongFormatException {
-                super(task);
-            }
-        }
-
-        private static class EventTask extends Task {
-            public EventTask(String task) throws WrongCommandException, WrongFormatException {
-                super(task);
+            @Override
+            public String toString() {
+                return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
+                        + " (from: " + dateStart + " to: " + dateEnd + ")";
             }
         }
     }
