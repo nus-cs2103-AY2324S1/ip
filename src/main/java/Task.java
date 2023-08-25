@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
@@ -36,7 +36,11 @@ public abstract class Task {
 
     public abstract String serialize();
 
-    public String formatLocalDate(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    public String serializeLocalDateTime(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+
+    public String formatLocalDateTime(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 }
