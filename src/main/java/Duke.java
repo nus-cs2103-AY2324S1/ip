@@ -43,7 +43,7 @@ public class Duke {
 
         list.add(task);
 
-        System.out.println(INDENTATION + "Got it, I've added this task: \n" + INDENTATION + task.toString());
+        System.out.println(INDENTATION + "Got it, I've added this task:\n" + INDENTATION + task.toString());
         System.out.printf(INDENTATION + "Now you have %d tasks in the list\n", list.size());
         showSeparationLine();
     }
