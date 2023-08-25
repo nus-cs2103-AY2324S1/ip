@@ -1,10 +1,15 @@
 public class Deadline extends Task {
     private String deadline;
-    private static String noDescErrorMsg = "\u2639 OOPS!!! The description of a deadline cannot be empty.";
+    private static String noDescErrorMsg = "OOPS!!! The description of a deadline cannot be empty.";
 
     public Deadline(String task) {
         super(getTask(task));
         this.deadline = this.getDeadline(task);
+    }
+
+    public Deadline(String task, String deadline) {
+        super(task);
+        this.deadline = deadline;
     }
 
     /*
@@ -62,10 +67,15 @@ public class Deadline extends Task {
         String deadline = arr[1];
 
         if (checkAllWhiteSpace(deadline)) {
-            throw new IllegalArgumentException("\u2639 OOPS!!! The deadline of a deadline cannot be empty.");
+            throw new IllegalArgumentException("OOPS!!! The deadline of a deadline cannot be empty.");
         }
         // remove the whitespace in front 
         return deadline.trim();
+    }
+
+    @Override
+    public String stringToSave() {
+        return "D" + super.stringToSave() + " | " + this.deadline; 
     }
 
     @Override

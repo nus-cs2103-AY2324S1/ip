@@ -31,6 +31,11 @@ abstract class Task {
         return true;
     }
 
+    public String stringToSave() {
+        String status = isDone ? "[X]" : "[ ]";
+        return " | " + status + " | " + task;
+    }
+
     @Override
     public String toString() {
         String status = isDone ? "[X]" : "[ ]";

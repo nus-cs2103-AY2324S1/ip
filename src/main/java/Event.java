@@ -9,6 +9,12 @@ public class Event extends Task {
         this.endTime = getEndTime(task);
     }
 
+    public Event(String task, String startTime, String endTime) {
+        super(task);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     /*
      * Returns an array of 3 elements, the first element is the task, the second is the start time,
      * the third is the end time. Worth noting that the task, start time and end time strings here 
@@ -71,7 +77,7 @@ public class Event extends Task {
         String startTime = arr[1];
 
         if (checkAllWhiteSpace(startTime)) {
-            throw new IllegalArgumentException("\u2639 OOPS!!! The start time of a event cannot be empty.");
+            throw new IllegalArgumentException("OOPS!!! The start time of a event cannot be empty.");
         }
 
         return startTime.trim();
@@ -88,10 +94,15 @@ public class Event extends Task {
         String endTime = arr[2];
 
         if (checkAllWhiteSpace(endTime)) {
-            throw new IllegalArgumentException("\u2639 OOPS!!! The end time of a event cannot be empty.");
+            throw new IllegalArgumentException("OOPS!!! The end time of a event cannot be empty.");
         }
 
         return endTime.trim();
+    }
+
+    @Override
+    public String stringToSave() {
+        return "E" + super.stringToSave() + " | " + this.startTime + " | " + this.endTime; 
     }
 
     @Override

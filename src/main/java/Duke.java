@@ -1,13 +1,18 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedWriter;
 
 public class Duke {
     private static String divider = "____________________________________________________________";
     private static String indent = "     ";
     private static ArrayList<Task> taskList = new ArrayList<>();
+    private static String filePath = "../../../data/duke.txt";
 
     /*
-     * Method that adds indentation to the string given and prints it out.
+     * Adds indentation to the string given and prints it out.
      */
     public static void formatString(String s) {
         System.out.println(indent + s);
@@ -33,7 +38,7 @@ public class Duke {
     }
 
     public static void markTaskAsDone(int taskNum) {
-        if (taskNum < 0 || taskNum > taskList.size()) {
+        if (taskNum <= 0 || taskNum > taskList.size()) {
             DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
             return;
         }
@@ -47,7 +52,7 @@ public class Duke {
     }
 
     public static void markTaskAsUndone(int taskNum) {
-        if (taskNum < 0 || taskNum > taskList.size()) {
+        if (taskNum <= 0 || taskNum > taskList.size()) {
             DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
             return;
         }
@@ -58,6 +63,86 @@ public class Duke {
         formatString(" OK, I've marked this task as not done yet:");
         formatString("  " + task.toString());
         printDivider();
+    }
+
+    public static void updateTaskStatusFromFile(Task task, String status) {
+        if (status.equals("[X]")) {
+            task.markAsDone();
+        } else {
+            task.markAsUndone();
+        }
+    }
+
+    public static void loadFile() {
+        try {
+            File directory = new File("../../../data");
+            File newFile = new File(filePath);
+
+            // check if directory exists
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // check if file exists
+            if (!newFile.exists()) {
+                newFile.createNewFile();
+                return ; 
+            }
+
+            Scanner scanner = new Scanner(newFile);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split("\\|");
+                String taskType = parts[0].trim();
+
+                if (taskType.equals("T")) {
+                    String status = parts[1].trim();
+                    String task = parts[2];
+                    Task newTask = new ToDo("todo " + task);
+                    updateTaskStatusFromFile(newTask, status);
+                    taskList.add(newTask);
+                } else if (taskType.equals("D")) {
+                    String status = parts[1].trim();
+                    String task = parts[2].trim();
+                    String deadline = parts[3].trim();
+                    Task newTask = new Deadline(task, deadline);
+                    updateTaskStatusFromFile(newTask, status);
+                    taskList.add(newTask);                    
+                } else if (taskType.equals("E")) {
+                    String status = parts[1].trim();
+                    String task = parts[2].trim();
+                    String from = parts[3].trim();
+                    String to = parts[4].trim();
+                    Task newTask = new Event(task, from, to);
+                    updateTaskStatusFromFile(newTask, status);
+                    taskList.add(newTask);
+                }
+            }
+
+            scanner.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveFile() {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (int i = 0; i < taskList.size(); i += 1) {
+                Task currentTask = taskList.get(i);
+                String s = currentTask.stringToSave();
+                bufferedWriter.write(s);
+                bufferedWriter.newLine();
+            }
+
+            bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -122,13 +207,16 @@ public class Duke {
                 // mark is in the word unmark so this case has to go first
                 int taskNum = getTaskNumber("unmark", input);
                 markTaskAsUndone(taskNum);
+                saveFile();
             } else if (input.contains("mark")) {
                 int taskNum = getTaskNumber("mark", input);
                 markTaskAsDone(taskNum);
+                saveFile();
             } else if (input.contains("todo")) {
                 try {
                     ToDo newToDo = new ToDo(input);
                     taskList.add(newToDo);
+                    saveFile();
                     printAddedTask(newToDo, taskList.size());
                 } catch (IllegalArgumentException e) {
                     DukeExceptionHandler.printErrorMsg(e.getMessage());
@@ -137,6 +225,7 @@ public class Duke {
                 try {
                     Deadline newDeadline = new Deadline(input);
                     taskList.add(newDeadline);
+                    saveFile();
                     printAddedTask(newDeadline, taskList.size());
                 } catch (IllegalArgumentException e) {
                     DukeExceptionHandler.printErrorMsg(e.getMessage());
@@ -145,6 +234,7 @@ public class Duke {
                 try {
                     Event newEvent = new Event(input);
                     taskList.add(newEvent);
+                    saveFile();
                     printAddedTask(newEvent, taskList.size());
                 } catch (IllegalArgumentException e) {
                     DukeExceptionHandler.printErrorMsg(e.getMessage());
@@ -153,6 +243,7 @@ public class Duke {
                 try {
                     int taskNum = getTaskNumber("delete", input);
                     Task task = taskList.remove(taskNum - 1);
+                    saveFile();
                     printDeletedTask(task, taskList.size());
                 } catch (IndexOutOfBoundsException e) {
                     int taskNum = getTaskNumber("delete", input);
@@ -163,10 +254,13 @@ public class Duke {
                 DukeExceptionHandler.handleUnseenInput();
             }
         }
+
+        scanner.close();
     }
 
     public static void main(String[] args) {
         Duke.greet();
+        Duke.loadFile();
         Duke.handleCommands();
         Duke.exit();
     }
