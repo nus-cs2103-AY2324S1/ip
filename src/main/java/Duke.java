@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
@@ -139,9 +142,50 @@ public class Duke {
 
         return output.toString();
     }
+
+    /**
+     * Read task from duke.txt file and copy to ArrayList list.
+     */
+    private void readFile() {
+        try {
+            File f = new File("data/duke.txt");
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String[] task = s.nextLine().split("\\|");
+                stringToList(task);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    /**
+     * Copy every line of task from file to ArrayList list.
+     * @param task String array that store task in file.
+     */
+    private void stringToList(String[] task) {
+
+        switch (task[0]) {
+        case "T":
+            this.lists.add(new ToDo(task[1]));
+            break;
+        case "D":
+            this.lists.add(new Deadline(task[1], task[2]));
+            break;
+        case "E":
+            this.lists.add(new Event(task[1], task[2], task[3]));
+            break;
+        }
+
+        if (task[task.length - 1].equals("1")) {
+            this.lists.get(this.lists.size() - 1).markAsDone();
+        }
+    }
     public static void main(String[] args) {
 
         Duke chatBot = new Duke();
+        chatBot.readFile();
+
         String horLine = "____________________________________________________________";
         String userInput = "";
         Scanner input = new Scanner(System.in);
