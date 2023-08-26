@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * CS2103T IP
  * AY 23/24 Semester 1
@@ -15,8 +18,18 @@ public class Deadline extends Task {
      * @param taskName The task name of the constructed Deadline Task
      * @param deadline The deadline of the constructed Deadline Task
      */
-    public Deadline(String taskName, String deadline) {
+    @JsonCreator
+    public Deadline(@JsonProperty("taskName") String taskName, @JsonProperty("deadline") String deadline) {
         super(taskName);
+        this.deadline = deadline;
+    }
+
+
+    public String getDeadline() {
+        return this.deadline;
+    }
+
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 

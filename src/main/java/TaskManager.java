@@ -1,5 +1,13 @@
 import java.io.File;
 import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.NamedType;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,44 +22,19 @@ import java.util.List;
  */
 public class TaskManager {
     private List<Task> tasks;
-    private File jsonFile;
 
-    private static final String DIRECTORY_PATH = "data";
-    private String FILE_NAME = "tasks.json";
-    private String FILE_PATH = DIRECTORY_PATH + "/" + FILE_NAME;
-
-    /**
-     * A constructor that constructs a Task Manager
-     */
+    /** A constructor that creates a TaskManager. */
+    @JsonCreator
     public TaskManager() {
-        getFile();
         this.tasks = new ArrayList<>();
     }
 
-    private void getFile() {
-        try {
-            String currentWorkingDir = System.getProperty("user.dir");
+    public List<Task> getTasks() {
+        return this.tasks;
+    }
 
-            // create a file object for the directory
-            File directory = new File(currentWorkingDir, DIRECTORY_PATH);
-
-            // If the directory does not exist, create it
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-
-            // Create a File object for the file within the directory
-            File file = new File(currentWorkingDir, FILE_PATH);
-
-            // If the file doesn't exist, create a new one
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            
-            this.jsonFile = file;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     /**
@@ -81,6 +64,7 @@ public class TaskManager {
      */
     public String addTask(Task task) {
         this.tasks.add(task);
+        notifyTasksChange();
         return "Got it. I've added this task:\n  "
                 + task.toString() + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.\n";
@@ -104,7 +88,7 @@ public class TaskManager {
 
         Task task = this.tasks.get(i);
         task.markTask(done);
-
+        notifyTasksChange();
         return done
                 ? "Nice! I've marked this task as done:\n  " + task.toString() + "\n"
                 : "OK, I've marked this task as not done yet:\n  " + task.toString() + "\n";
@@ -125,9 +109,14 @@ public class TaskManager {
         }
 
         Task task = this.tasks.remove(i);
+        notifyTasksChange();
         return "Noted! I've removed this task:\n  "
                 + task.toString() + "\n"
                 + "Now you have " + this.tasks.size() + " tasks in the list.\n";
 
+    }
+
+    private void notifyTasksChange() {
+        DiskManager.saveToDisk(this);
     }
 }
