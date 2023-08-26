@@ -1,87 +1,46 @@
 list
-
 todo watch lecture
-
 todo eat lunch
-
 list
-
 deadline project report /by tmr 2359
-
 list
-
 event bizcotheque /from fri 6:30 /to 11:30
-
 event cca camp /from 4/12 8:00m /to 6/12 10:00pm
-
 list
-
 mark 1
-
 mark 3
-
 mark 5
-
 list
-
 unmark 1
-
 list
-
 unmark 1
-
 mark 5
-
 mark 4
-
 list
-
 todo
-
 todo
-
 deadline
-
 deadline bake cookies
-
 deadline bake cookies 6pm
-
 deadline bake cookies /by
-
 deadline bake cookies /by
-
 deadline bake cookies /by 6pm
-
 event
-
 event
-
 event food fest
-
 event food fest /from
-
 event food fest /from 6pm
-
 event food fest /from 6pm /to
-
 event food fest /from 6pm /to 11pm
-
 byebye
-
 byeeeee
-
 todooo
-
 dateline bake cookies /by 12pm
-
 list
-
 mark 0
-
 mark 9
-
 delete 2
-
 delete 0
-
+deadline /by
+deadline /by bndehbwhe
 bye
