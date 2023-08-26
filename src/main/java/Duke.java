@@ -3,8 +3,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        String[] tasks = new String[100];
-        Boolean[] doneness = new Boolean[100];
+        Task[] tasks = new Task[100];
         int taskCount = 0;
 
         String introduction = "____________________________________________________________\n" +
@@ -47,9 +46,9 @@ public class Duke {
                 System.out.println(output);
 
                 for (int i = 0; i < taskCount; i++) {
-                    String entryOutput = (i + 1) + ". [ ] " + tasks[i];
-                    if (doneness[i]) {
-                        entryOutput = (i + 1) + ". [X] " + tasks[i];
+                    String entryOutput = (i + 1) + ". " + tasks[i];
+                    if (tasks[i].isDone()) {
+                        entryOutput = (i + 1) + ". " + tasks[i];
                     }
                     System.out.println(entryOutput);
                 }
@@ -66,17 +65,18 @@ public class Duke {
                 }
                 int index = Integer.parseInt(input.substring(input.length() - 1)) - 1;
 
-                if (index >= taskCount) {
+                if (index >= taskCount || index < 1) {
                     System.out.println("____________________________________________________________\n");
                     System.out.println("Task " + (index + 1) + " not found!");
                     System.out.println("____________________________________________________________\n");
 
                     continue;
                 }
-                doneness[index] = true;
+
+                tasks[index].markAsDone();
 
                 String output = "Nice! I've marked this task as done: \n" +
-                        "[X] " + tasks[index];
+                        tasks[index];
 
                 System.out.println("____________________________________________________________\n");
                 System.out.println(output);
@@ -100,17 +100,17 @@ public class Duke {
 
                     continue;
                 }
-                doneness[index] = false;
+
+                tasks[index].markAsUndone();
 
                 String output = "OK, I've marked this task as not done yet: \n" +
-                        "[ ] " + tasks[index];
+                        tasks[index];
 
                 System.out.println("____________________________________________________________\n");
                 System.out.println(output);
                 System.out.println("____________________________________________________________\n");
             } else {
-                tasks[taskCount] = input;
-                doneness[taskCount] = false;
+                tasks[taskCount] = new Task(input);
                 taskCount += 1;
 
                 String output = "____________________________________________________________\n" +
