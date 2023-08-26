@@ -1,5 +1,7 @@
 package task;
 
+import duke.Parser;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -14,6 +16,15 @@ public class Todos extends Task{
 
     public Todos(String name, boolean isComplete) {
         super(name, isComplete);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        Todos task = (Todos) o;
+        return super.getName().equals(task.getName());
     }
 
     public void writeToFile(FileWriter fileWriter) {
