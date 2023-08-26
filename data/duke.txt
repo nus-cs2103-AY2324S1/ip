@@ -1,4 +1,3 @@
-T # 1 # borrow book
+T # 0 # borrow book
+T # 1 # sdfsgf
 D # 0 # return book # 2019-09-09
-T # 0 # borrow another book
-E # 0 # haha # 2020-09-21 - 2089-07-21

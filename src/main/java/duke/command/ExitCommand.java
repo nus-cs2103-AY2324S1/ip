@@ -1,3 +1,7 @@
+package duke.command;
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.TaskList;
 /**
  * Represents a command to exit the application.
  */

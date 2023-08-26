@@ -1,3 +1,5 @@
+package duke;
+import duke.task.Task;
 import java.util.ArrayList;
 /**
  * Represents a list of tasks in Duke. Provides methods to manipulate and access the tasks.

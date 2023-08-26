@@ -1,3 +1,4 @@
+package duke.task;
 /**
  * Represents a "to-do" type of task.
  */

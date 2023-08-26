@@ -1,17 +1,14 @@
-/**
- * Enumerates the different types of tasks.
- */
-enum TaskType {
-    TODO, DEADLINE, EVENT
-}
+package duke.task;
+
+
 
 /**
  * Represents a general task. It can be extended by other specific task types.
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
-    protected TaskType type;
+    public String description;
+    public boolean isDone;
+    public TaskType type;
 
     /**
      * Initializes a task with the specified description and type.
@@ -25,6 +22,9 @@ public class Task {
         this.type = type;
     }
 
+    public TaskType getType() {
+        return this.type;
+    }
     /**
      * Initializes a task with the specified description, type, and completion status.
      *

@@ -1,3 +1,10 @@
+package duke.storage;
+import duke.task.Event;
+import duke.task.Deadline;
+import duke.task.Task;
+import duke.task.Todo;
+import duke.DukeException;
+import duke.TaskList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
@@ -92,7 +99,7 @@ public class Storage {
         StringBuilder result = new StringBuilder();
 
         for (Task task : tasks) {
-            switch (task.type) {
+            switch (task.getType()) {
                 case TODO:
                     result.append("T # ")
                             .append(task.isDone ? "1" : "0")

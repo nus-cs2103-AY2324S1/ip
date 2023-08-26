@@ -1,3 +1,5 @@
+package duke.task;
+import duke.DukeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,7 +11,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
 
     /** Due date/time for the deadline. */
-    protected LocalDate d_time;
+    public LocalDate d_time;
 
     /** Formatter to display the due time in the desired format. */
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");

@@ -1,3 +1,6 @@
+package duke.task;
+import duke.DukeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -6,8 +9,8 @@ import java.time.format.DateTimeParseException;
  * Represents an event task with a start and end date.
  */
 public class Event extends Task {
-    protected LocalDate e_start;
-    protected LocalDate e_end;
+    public LocalDate e_start;
+    public LocalDate e_end;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");

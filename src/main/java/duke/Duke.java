@@ -1,3 +1,7 @@
+package duke;
+import duke.command.Command;
+import duke.storage.Storage;
+import duke.ui.Ui;
 import java.io.IOException;
 
 /**
