@@ -1,5 +1,33 @@
+[RESTORE] Please wait, restoring task list from save file...
+Got it. I've added this task:
+[T][ ] restore data
+Now you have 1 task in the list.
+Got it. I've added this task:
+[D][ ] restore deadline (by: first run)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+[E][ ] restore data (from: start to: end)
+Now you have 3 tasks in the list.
+[RESTORE] Restored 3 tasks successfully!
 Hello! I'm Max!
 What can I do for you?
+Here are the tasks in your list:
+1.[T][ ] restore data
+2.[D][ ] restore deadline (by: first run)
+3.[E][ ] restore data (from: start to: end)
+Nice! I've marked this task as done:
+[T][X] restore data
+OK, I've marked this task as not done yet:
+[T][ ] restore data
+Noted. I've removed this task:
+[T][ ] restore data
+Now you have 2 tasks in the list.
+Noted. I've removed this task:
+[D][ ] restore deadline (by: first run)
+Now you have 1 task in the list.
+Noted. I've removed this task:
+[E][ ] restore data (from: start to: end)
+Now you have 0 tasks in the list.
 Here are the tasks in your list:
 You have no tasks in your list.
 Got it. I've added this task:

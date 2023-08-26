@@ -2,7 +2,9 @@ package extensions.tasks;
 
 import java.util.ArrayList;
 
+import extensions.exceptions.DukeException;
 import extensions.exceptions.DukeIllegalArgumentException;
+import extensions.storage.Storage;
 
 /**
  * A list of tasks.
@@ -26,10 +28,17 @@ public class TaskList {
     }
 
     /**
+     * Storage to save and load tasks.
+     */
+    private final Storage taskStorage;
+
+    /**
      * Constructor for a TaskList.
      */
     public TaskList() {
+        this.taskStorage = new Storage("tasks.txt");
         this.list = new ArrayList<>();
+        this.importData();
     }
 
     /**
@@ -82,6 +91,7 @@ public class TaskList {
         default:
             break;
         }
+        this.exportData();
     }
 
     /**
@@ -161,6 +171,7 @@ public class TaskList {
         this.list.get(index).markAsDone();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(this.list.get(index));
+        this.exportData();
     }
 
     /**
@@ -177,6 +188,7 @@ public class TaskList {
         this.list.get(index).unmarkAsDone();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(this.list.get(index));
+        this.exportData();
     }
 
     /**
@@ -193,6 +205,7 @@ public class TaskList {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
         printNumberOfTasks();
+        this.exportData();
     }
 
     /**
@@ -214,4 +227,57 @@ public class TaskList {
         return sb.toString();
     }
 
+    /**
+     * Exports the TaskList's contents to the save file.
+     * Each task should have the format:
+     * TASK_TYPE || IS_DONE || DESCRIPTION || BY_DATE_TIME || START_DATE_TIME || END_DATE_TIME
+     */
+    private void exportData() {
+        StringBuilder sb = new StringBuilder();
+        for (Task task : list) {
+            sb.append(task.export()).append("\n");
+        }
+        try {
+            taskStorage.save(sb.toString());
+        } catch (DukeException e) {
+            System.out.println("Failed to save tasks. " + e.getMessage());
+        }
+    }
+
+    /**
+     * Reads the exported data from the save file and restores the state of the Task List.
+     */
+    private void importData() {
+        try {
+            String exportedData = taskStorage.load();
+            if (exportedData.isBlank()) {
+                return;
+            }
+            System.out.println("[RESTORE] Please wait, restoring task list from save file...");
+            String[] tasks = exportedData.split("\n");
+            for (String t : tasks) {
+                String[] args = t.split(" \\|\\| ");
+                TaskType taskType = TaskType.valueOf(args[0]);
+                switch (taskType) {
+                case TODO:
+                    this.add(taskType, args[2]);
+                    break;
+                case DEADLINE:
+                    this.add(taskType, args[2], args[3]);
+                    break;
+                case EVENT:
+                    this.add(taskType, args[2], args[4], args[5]);
+                    break;
+                default:
+                    break;
+                }
+                if (args[1].equals("X")) {
+                    this.mark(this.list.size());
+                }
+            }
+            System.out.printf("[RESTORE] Restored %d tasks successfully!%n", this.list.size());
+        } catch (DukeException e) {
+            System.out.println("Failed to load tasks. " + e.getMessage());
+        }
+    }
 }
