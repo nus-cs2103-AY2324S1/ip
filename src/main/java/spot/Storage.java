@@ -1,3 +1,5 @@
+package spot;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -7,6 +9,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import spot.exception.SpotException;
+import spot.task.Deadline;
+import spot.task.Event;
+import spot.task.Task;
+import spot.task.ToDo;
 
 public class Storage {
 
@@ -73,7 +81,7 @@ public class Storage {
         }
     }
 
-    public void saveTasks(TaskList tasks) {
+    public void saveTasks(TaskList tasks) throws SpotException {
         try {
             FileWriter fileWriter = new FileWriter(Storage.FULL_PATH);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -85,7 +93,7 @@ public class Storage {
             bufferedWriter.close();
             fileWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new SpotException(e.getMessage());
         }
     }
 }

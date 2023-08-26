@@ -1,5 +1,13 @@
+package spot;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import spot.exception.SpotException;
+import spot.task.Deadline;
+import spot.task.Event;
+import spot.task.Task;
+import spot.task.ToDo;
 
 public class TaskList {
     private ArrayList<Task> tasks;

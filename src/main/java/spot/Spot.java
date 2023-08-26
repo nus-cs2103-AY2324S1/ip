@@ -1,3 +1,8 @@
+package spot;
+
+import spot.command.Command;
+import spot.exception.SpotException;
+
 public class Spot {
 
     private Ui ui;

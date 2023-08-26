@@ -1,5 +1,19 @@
+package spot;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import spot.command.AddDeadlineCommand;
+import spot.command.AddEventCommand;
+import spot.command.AddToDoCommand;
+import spot.command.Command;
+import spot.command.DeleteCommand;
+import spot.command.ExitCommand;
+import spot.command.ListCommand;
+import spot.command.ListTasksOnCommand;
+import spot.command.MarkCommand;
+import spot.command.UnmarkCommand;
+import spot.exception.SpotException;
 
 public class Parser {
 

@@ -1,4 +1,12 @@
+package spot.command;
+
 import java.time.LocalDate;
+
+import spot.exception.SpotException;
+import spot.Storage;
+import spot.TaskList;
+import spot.Ui;
+import spot.task.Event;
 
 public class AddEventCommand extends Command {
     private String description;
