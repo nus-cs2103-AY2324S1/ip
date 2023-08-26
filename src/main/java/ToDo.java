@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class ToDo extends Task {
 
     public ToDo(String description) throws SpotException {
@@ -16,5 +18,10 @@ public class ToDo extends Task {
     @Override
     public String toLine() {
         return " T | " + super.toLine();
+    }
+
+    @Override
+    public boolean fallsOn(LocalDate date) {
+        return false;
     }
 }

@@ -1,4 +1,6 @@
-public class Task {
+import java.time.LocalDate;
+
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -19,13 +21,13 @@ public class Task {
     public void markAsDone() {
         this.isDone = true;
         System.out.println("Wow! Spot has marked this task as done!");
-        System.out.println("  " + this.toString());
+        System.out.println("  " + this);
     }
 
     public void markAsNotDone() {
         this.isDone = false;
         System.out.println("Spot will mark this task as not done yet then!");
-        System.out.println("  " + this.toString());
+        System.out.println("  " + this);
     }
 
     public String getStatusIcon() {
@@ -44,4 +46,6 @@ public class Task {
     public String toLine() {
         return this.getStatusIcon() + " | " + this.description;
     }
+
+    public abstract boolean fallsOn(LocalDate date);
 }
