@@ -41,6 +41,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Rewrites the file in hard drive
+     * @param tasks
+     * @throws IOException
+     */
     public void rewrite(TaskList tasks) throws IOException{
         ArrayList<Task> arrayTasks = tasks.getTasks();
         FileWriter file = new FileWriter("storage.txt");
