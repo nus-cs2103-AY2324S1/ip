@@ -50,6 +50,14 @@ public abstract class Task {
     }
 
     /**
+     * Used for easier readability during
+     * storing into the file.
+     *
+     * @return the raw version of the task for storing.
+     */
+    public abstract String getRaw();
+
+    /**
      * Marks the task as done.
      */
     public void mark() {

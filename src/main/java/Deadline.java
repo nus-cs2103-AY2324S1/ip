@@ -32,4 +32,15 @@ public class Deadline extends Task {
         return isDone ? "[D][X] "+this.description + " (by: "+this.date+")"
                 : "[D][ ] "+this.description + " (by: "+this.date+")";
     }
+
+    /**
+     * Used for easier readability during
+     * storing into the file.
+     *
+     * @return the raw version of the task for storing.
+     */
+    @Override
+    public String getRaw() {
+        return "D" + "|" + isDone + "|" + this.description + "|" + date;
+    }
 }

@@ -57,6 +57,7 @@ public class Ui {
 
     public void showError(String error) {
         System.out.println("OOPS! "+ error);
+        history.add(error); // Update History
     }
 
     /**

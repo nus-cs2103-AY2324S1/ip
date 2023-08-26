@@ -1,7 +1,7 @@
 /**
  * A simple task only holding the description.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Constructs a Todo task
@@ -20,6 +20,17 @@ public class Todo extends Task{
      */
     @Override
     public String toString() {
-        return this.isDone ? "[T][X] "+this.description : "[T][ ] "+this.description ;
+        return this.isDone ? "[T][X] " + this.description : "[T][ ] " + this.description;
+    }
+
+    /**
+     * Used for easier readability during
+     * storing into the file.
+     *
+     * @return the raw version of the task for storing.
+     */
+    @Override
+    public String getRaw() {
+        return "T" + "|" + isDone + "|" + this.description;
     }
 }
