@@ -1,50 +1,62 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String DEFAULT_FILEPATH = "./data/duke.txt";
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>();
-
-        helloGreeting();
-        while (true) {
-            String command = sc.nextLine();
-            try {
-                if (command.equals("bye")) {
-                    byeGreeting();
-                    break;
-                } else if (command.equals("list")) {
-                    printList(taskList);
-                } else if (command.startsWith("mark")) {
-                    int index = Integer.parseInt(command.split(" ")[1]);
-                    mark(taskList, index);
-                } else if (command.startsWith("unmark")) {
-                    int index = Integer.parseInt(command.split(" ")[1]);
-                    unmark(taskList, index);
-                } else if (command.startsWith("delete")) {
-                    int index = Integer.parseInt(command.split(" ")[1]);
-                    delete(taskList, index);
-                } else if (command.startsWith("deadline")) {
-                    String[] temp = command.replace("deadline ", "").split("/by");
-                    Deadline deadline = new Deadline(temp[0].strip(), temp[1].strip());
-                    addTask(deadline, taskList);
-                } else if (command.startsWith("event")) {
-                    String[] tempDesc = command.replace("event ", "").split("/from");
-                    String[] tempFromTo = tempDesc[1].strip().split("/to");
-                    Event event = new Event(tempDesc[0].strip(), tempFromTo[0].strip(), tempFromTo[1].strip());
-                    addTask(event, taskList);
-                } else if (command.startsWith("todo")) {
-                    if (command.trim().equals("todo")) {
-                        throw new DukeException(" ☹ OOPS!!! The description of a todo cannot be empty.");
+        Storage storage = new Storage(DEFAULT_FILEPATH);
+        try {
+            ArrayList<Task> taskList = storage.createList();
+            helloGreeting();
+            while (true) {
+                String command = sc.nextLine();
+                try {
+                    if (command.equals("bye")) {
+                        byeGreeting();
+                        break;
+                    } else if (command.equals("list")) {
+                        printList(taskList);
+                    } else if (command.startsWith("mark")) {
+                        int index = Integer.parseInt(command.split(" ")[1]);
+                        mark(taskList, index);
+                        storage.writeFile(taskList);
+                    } else if (command.startsWith("unmark")) {
+                        int index = Integer.parseInt(command.split(" ")[1]);
+                        unmark(taskList, index);
+                        storage.writeFile(taskList);
+                    } else if (command.startsWith("delete")) {
+                        int index = Integer.parseInt(command.split(" ")[1]);
+                        delete(taskList, index);
+                        storage.writeFile(taskList);
+                    } else if (command.startsWith("deadline")) {
+                        String[] temp = command.replace("deadline ", "").split("/by");
+                        Deadline deadline = new Deadline(temp[0].strip(), temp[1].strip());
+                        addTask(deadline, taskList);
+                        storage.appendFile(deadline);
+                    } else if (command.startsWith("event")) {
+                        String[] tempDesc = command.replace("event ", "").split("/from");
+                        String[] tempFromTo = tempDesc[1].strip().split("/to");
+                        Event event = new Event(tempDesc[0].strip(), tempFromTo[0].strip(), tempFromTo[1].strip());
+                        addTask(event, taskList);
+                        storage.appendFile(event);
+                    } else if (command.startsWith("todo")) {
+                        if (command.trim().equals("todo")) {
+                            throw new DukeException(" ☹ OOPS!!! The description of a todo cannot be empty.");
+                        }
+                        ToDo toDo = new ToDo(command.replace("todo ", ""));
+                        addTask(toDo, taskList);
+                        storage.appendFile(toDo);
+                    } else {
+                        throw new DukeException(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
-                    ToDo toDo = new ToDo(command.replace("todo ", ""));
-                    addTask(toDo, taskList);
-                } else {
-                    throw new DukeException(" ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                } catch (DukeException e) {
+                    System.out.print(output(e.toString()));
                 }
-            } catch (DukeException e) {
-                System.out.print(output(e.toString()));
             }
+        } catch (IOException e) {
+            System.out.print(output(e + "\n"));
         }
     }
 
