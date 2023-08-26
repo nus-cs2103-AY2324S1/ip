@@ -4,6 +4,7 @@ import storage.Storage;
 import ui.Ui;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -73,6 +74,30 @@ public class TaskList {
         } else {
             Ui.wrapPrintWithHorizontalRules("Invalid position.");
         }
+    }
+
+    public void listAllTasksFallingOnDate(LocalDateTime dateTime) {
+        // Deadline must be within the day
+        // Event can either start or end on the date itself, or both
+
+        // Note that dateTime is at the start of day due to parsing standardisation
+        // Create a copy of dateTime to represent the endOfDay
+        LocalDateTime endOfDay = LocalDateTime.from(dateTime).withHour(23).withMinute(59).withSecond(59);
+
+        StringBuilder sb = new StringBuilder("Finding the dots... to illuminate a constellation of " +
+                "tasks happening today!");
+        boolean hasTaskToday = false;
+        for (int i = 0; i < this.tasks.size(); i++) {
+            Task currTask = this.tasks.get(i);
+            if (currTask.isOnDate(dateTime, endOfDay)) {
+                sb.append("\n").append(currTask);
+                hasTaskToday = true;
+            }
+        }
+        if (!hasTaskToday) {
+            sb.append("\n").append("Like a tiny dot in the sky, you're schedule is empty! ^o^");
+        }
+        Ui.wrapPrintWithHorizontalRules(sb.toString());
     }
 
     public void saveTaskListToStorage(File file) {

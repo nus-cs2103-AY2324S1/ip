@@ -2,6 +2,8 @@ package tasks;
 
 import ui.Ui;
 
+import java.time.LocalDateTime;
+
 public abstract class Task {
 
     private String description;
@@ -16,6 +18,9 @@ public abstract class Task {
         this.description = description;
         this.completed = completed;
     }
+
+    // Abstract methods
+    public abstract boolean isOnDate(LocalDateTime startOfDay, LocalDateTime endOfDay);
 
     public String getFileFormat() {
         return String.format("%d | %s", this.completed ? 1 : 0, this.description);

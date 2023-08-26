@@ -1,24 +1,37 @@
 package tasks;
 
+import parser.Parser;
+
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    private String start;
-    private String end;
+    private Dateable start;
+    private Dateable end;
 
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.start = Dateable.of(start);
+        this.end = Dateable.of(end);
     }
 
     public Event(String description, String start, String end, boolean completed) {
         super(description, completed);
-        this.start = start;
-        this.end = end;
+        this.start = Dateable.of(start);
+        this.end = Dateable.of(end);
     }
 
     @Override
     public String getFileFormat() {
-        return String.format("E | %s | %s | %s", super.getFileFormat(), this.start, this.end);
+        return String.format("E | %s | %s | %s", super.getFileFormat(),
+                Parser.parseDisplayDatetimeToStorageDatetime(this.start.toString()),
+                Parser.parseDisplayDatetimeToStorageDatetime(this.end.toString()));
+    }
+
+    @Override
+    public boolean isOnDate(LocalDateTime startOfDay, LocalDateTime endOfDay) {
+        // Event can either start or end on the date itself, or both
+        return (this.start.isAfterOrOn(startOfDay) && this.start.isBeforeOrOn(endOfDay))
+                || (this.end.isAfterOrOn(startOfDay) && this.end.isBeforeOrOn(endOfDay));
     }
 
     @Override

@@ -1,10 +1,13 @@
 import errors.DotException;
 import errors.TaskError;
+import parser.Parser;
 import storage.*;
 import tasks.*;
 import ui.Ui;
+import validation.Validation;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Dot {
@@ -119,8 +122,8 @@ public class Dot {
                             if (!input.matches(eventRegex)) {
                                 throw new DotException("Wrong format for event.", TaskError.ERR_USING_EVENT);
                             }
-                            int indexOfFirstSlash = input.indexOf("/");
-                            int indexOfFSecondSlash = input.indexOf("/", indexOfFirstSlash + 1);
+                            int indexOfFirstSlash = input.indexOf("/from");
+                            int indexOfFSecondSlash = input.indexOf("/to", indexOfFirstSlash + 1);
                             String description = input.substring(6, indexOfFirstSlash - 1);
                             String start = input.substring(indexOfFirstSlash + 5, indexOfFSecondSlash).strip();
                             String end = input.substring(indexOfFSecondSlash + 4);
@@ -139,6 +142,20 @@ public class Dot {
                             } else {
                                 throw new DotException("Too many parameters", TaskError.ERR_DELETING_TASK);
                             }
+                            break;
+                        } else if (input.startsWith("whatsgoingon")
+                                && (input.length() == 12 || input.charAt(12) == ' ')) {
+                            input = input.strip();
+                            if (input.length() <= 12) {
+                                throw new DotException("No date given", TaskError.ERR_USING_WHATSGOINGON);
+                            }
+                            String restOfString = input.substring(13);
+                            if (!(Validation.isValidDate(restOfString))) {
+                                throw new DotException("Incorrect format for data, use dd/MM/yyyy",
+                                        TaskError.ERR_USING_WHATSGOINGON);
+                            }
+                            LocalDateTime parsedLocalDateTime = Parser.parseDateInputIntoDateTime(restOfString);
+                            dotTaskList.listAllTasksFallingOnDate(parsedLocalDateTime);
                             break;
                         }
                         throw new DotException("Unknown command.", TaskError.ERR_READING_COMMAND);
