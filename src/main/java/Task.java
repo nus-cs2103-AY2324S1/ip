@@ -1,5 +1,5 @@
 /**
- * Task is the main class for classes used by the Sidtacphi bot.
+ * Task is the main class for tasks used by the Sidtacphi bot.
  *
  * @author Yu Lexuan
  */
@@ -11,7 +11,6 @@ public class Task {
      * Constructor for the Task class.
      * 
      * @param name Name of the class
-     * @param completed If task is completed
      */
     public Task(String name) {
         this.name = name;
@@ -22,6 +21,7 @@ public class Task {
      * 
      * @return Completion state of task and the name of task.
      */
+    @Override
     public String toString() {
         if (completed) {
             return "[X] " + name;
