@@ -2,10 +2,10 @@ package extensions.tasks;
 
 import java.util.ArrayList;
 
-import extensions.exceptions.DukeException;
 import extensions.exceptions.DukeIOException;
 import extensions.exceptions.DukeIllegalArgumentException;
 import extensions.storage.Storage;
+import extensions.ui.Ui;
 
 /**
  * A list of tasks.
@@ -46,7 +46,7 @@ public class TaskList {
      * Prints an OK message when a task is added.
      */
     private void printAddTaskMessage() {
-        System.out.println("Got it. I've added this task:");
+        Ui.printMessage("Got it. I've added this task:");
     }
 
     /**
@@ -54,7 +54,7 @@ public class TaskList {
      */
     private void printNumberOfTasks() {
         String taskOrTasks = this.list.size() == 1 ? "task" : "tasks";
-        System.out.printf("Now you have %d %s in the list.%n", this.list.size(), taskOrTasks);
+        Ui.printMessage(String.format("Now you have %d %s in the list.", this.list.size(), taskOrTasks));
     }
 
     /**
@@ -73,21 +73,21 @@ public class TaskList {
             Task toDoTask = new ToDo(description);
             this.list.add(toDoTask);
             printAddTaskMessage();
-            System.out.println(toDoTask);
+            Ui.printMessage(toDoTask.toString());
             printNumberOfTasks();
             break;
         case DEADLINE:
             Task deadlineTask = new Deadline(description, by);
             this.list.add(deadlineTask);
             printAddTaskMessage();
-            System.out.println(deadlineTask);
+            Ui.printMessage(deadlineTask.toString());
             printNumberOfTasks();
             break;
         case EVENT:
             Task eventTask = new Event(description, start, end);
             this.list.add(eventTask);
             printAddTaskMessage();
-            System.out.println(eventTask);
+            Ui.printMessage(eventTask.toString());
             printNumberOfTasks();
             break;
         default:
@@ -171,8 +171,8 @@ public class TaskList {
             throw new DukeIllegalArgumentException(ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS);
         }
         this.list.get(index).markAsDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(this.list.get(index));
+        Ui.printMessage("Nice! I've marked this task as done:");
+        Ui.printMessage(this.list.get(index).toString());
         this.exportData();
     }
 
@@ -188,8 +188,8 @@ public class TaskList {
             throw new DukeIllegalArgumentException(ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS);
         }
         this.list.get(index).unmarkAsDone();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(this.list.get(index));
+        Ui.printMessage("OK, I've marked this task as not done yet:");
+        Ui.printMessage(this.list.get(index).toString());
         this.exportData();
     }
 
@@ -204,8 +204,8 @@ public class TaskList {
             throw new DukeIllegalArgumentException(ERROR_MESSAGE_INDEX_OUT_OF_BOUNDS);
         }
         Task task = list.remove(index);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
+        Ui.printMessage("Noted. I've removed this task:");
+        Ui.printMessage(task.toString());
         printNumberOfTasks();
         this.exportData();
     }
@@ -233,6 +233,7 @@ public class TaskList {
      * Exports the TaskList's contents to the save file.
      * Each task should have the format:
      * TASK_TYPE || IS_DONE || DESCRIPTION || BY_DATE_TIME || START_DATE_TIME || END_DATE_TIME
+     *
      * @throws DukeIOException If there is an error saving the tasks to the file.
      */
     private void exportData() throws DukeIOException {
@@ -245,6 +246,7 @@ public class TaskList {
 
     /**
      * Reads the exported data from the save file and restores the state of the Task List.
+     *
      * @throws DukeIOException If there is an error reading from the file.
      */
     private void importData() throws DukeIOException {
@@ -252,7 +254,7 @@ public class TaskList {
         if (exportedData.isBlank()) {
             return;
         }
-        System.out.println("[RESTORE] Please wait, restoring task list from save file...");
+        Ui.printMessage("[RESTORE] Please wait, restoring task list from save file...");
         String[] tasks = exportedData.split("\n");
         for (String t : tasks) {
             String[] args = t.split(" \\|\\| ");
@@ -274,6 +276,6 @@ public class TaskList {
                 this.mark(this.list.size());
             }
         }
-        System.out.printf("[RESTORE] Restored %d tasks successfully!%n", this.list.size());
+        Ui.printMessage(String.format("[RESTORE] Restored %d tasks successfully!%n", this.list.size()));
     }
 }
