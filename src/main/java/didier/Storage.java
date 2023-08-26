@@ -3,7 +3,6 @@ package didier;
 import didier.exception.FileCorruptedException;
 import didier.exception.TaskNumberException;
 import didier.task.Task;
-import didier.task.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;

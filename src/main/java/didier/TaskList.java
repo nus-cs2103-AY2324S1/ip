@@ -1,6 +1,7 @@
-package didier.task;
+package didier;
 
 import didier.exception.TaskNumberException;
+import didier.task.Task;
 
 import java.util.ArrayList;
 

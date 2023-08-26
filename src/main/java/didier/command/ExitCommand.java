@@ -2,7 +2,7 @@ package didier.command;
 
 import didier.Storage;
 import didier.UI;
-import didier.task.TaskList;
+import didier.TaskList;
 
 public class ExitCommand extends Command {
     @Override

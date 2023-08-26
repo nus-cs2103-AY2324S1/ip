@@ -4,7 +4,7 @@ import didier.Storage;
 import didier.UI;
 import didier.exception.DidierException;
 import didier.task.Task;
-import didier.task.TaskList;
+import didier.TaskList;
 
 public class DeleteCommand extends Command {
 

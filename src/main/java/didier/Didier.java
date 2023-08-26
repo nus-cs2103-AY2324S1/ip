@@ -2,7 +2,6 @@ package didier;
 
 import didier.command.Command;
 import didier.exception.DidierException;
-import didier.task.TaskList;
 
 public class Didier {
 
