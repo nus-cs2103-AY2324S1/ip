@@ -21,7 +21,7 @@ public class Duke {
                     break;
                 } else if (command.equalsIgnoreCase("list")) {
                     System.out.println(" Here are the tasks in your list:");
-                    System.out.println(tasks);
+                    System.out.print(tasks);
                 } else if (command.startsWith("mark")) {
                     tasks.markAsDone(command);
                 } else if (command.startsWith("unmark")) {
