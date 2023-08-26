@@ -10,12 +10,6 @@ public class Task {
         this.task = task;
         this.done = false;
         addTask(task);
-//        if (!task.equals("")){
-//            arr.add(this);
-//            this.doneSymbol = "[ ]";
-//            counter = counter + 1;
-//            System.out.println(Duke.horizontalLine + "added: " + task + "\n" + Duke.horizontalLine);
-//        }
     }
 
     public String toString() {

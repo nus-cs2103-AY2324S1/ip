@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    public static String horizontalLine = "_".repeat(35) + "\n";
+    public static String horizontalLine = "_".repeat(60) + "\n";
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String task = "";
@@ -20,11 +20,12 @@ public class Duke {
             }
             String[] elements = task.split((" "));
             if (elements.length >= 2) {
-                if (elements[0].equals("mark") || elements[0].equals("unmark")) {
+                String instruction = elements[0];
+                if (instruction.equals("mark") || instruction.equals("unmark")) {
                     try {
                         int no = Integer.parseInt(elements[1]);
                         Task taskInstance = new Task("");
-                        if (elements[0].equals("mark")) {
+                        if (instruction.equals("mark")) {
                             taskInstance.mark(no);
                         }
                         else {
@@ -32,27 +33,23 @@ public class Duke {
                         }
                         continue;
                     } catch (NumberFormatException e) {
-                        System.err.println("You did not enter a valid integer :(");
+                        System.err.println(Duke.horizontalLine + "You did not enter a valid integer :(\n" + Duke.horizontalLine);
                     }
                 }
-                if (elements[0].equals("todo")) {
-                    int firstSpaceIndex = task.indexOf(' ');
-                    String actualTask = task.substring(firstSpaceIndex + 1);
+                int firstSpaceIndex = task.indexOf(' ');
+                String actualTask = task.substring(firstSpaceIndex + 1);
+                if (instruction.equals("todo")) {
                     Todo todo = new Todo(actualTask);
                     todo.print();
                 }
-                if (elements[0].equals("deadline")) {
-                    int firstSpaceIndex = task.indexOf(' ');
-                    String actualTask = task.substring(firstSpaceIndex + 1);
+                if (instruction.equals("deadline")) {
                     String[] taskAndDeadline = actualTask.split(("/by"));
                     String onlyTask = taskAndDeadline[0];
                     String by = taskAndDeadline[1];
                     Deadline deadline = new Deadline(onlyTask, by);
                     deadline.print();
                 }
-                if (elements[0].equals("event")) {
-                    int firstSpaceIndex = task.indexOf(' ');
-                    String actualTask = task.substring(firstSpaceIndex + 1);
+                if (instruction.equals("event")) {
                     String[] taskAndToFrom = actualTask.split(("/from"));
                     String onlyTask = taskAndToFrom[0];
                     String[] ToFrom = taskAndToFrom[1].split("/to");
@@ -62,7 +59,7 @@ public class Duke {
                     event.print();
                 }
             } else {
-                System.out.println("Invalid Instructions :(\n" + Duke.horizontalLine);
+                System.out.println(Duke.horizontalLine+ "Invalid Instructions :(\n" + Duke.horizontalLine);
                 continue;
             }
         }
