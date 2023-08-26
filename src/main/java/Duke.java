@@ -1,5 +1,6 @@
 import duke.ChatManager;
 import duke.exception.DukeException;
+import duke.exception.InvalidInputException;
 import duke.message.ErrorMessage;
 import duke.Storage;
 import duke.task.TaskList;
@@ -30,7 +31,7 @@ public class Duke {
             String userInput = sc.nextLine();
             try {
                 this.chatManager.handleInput(userInput);
-            } catch (DukeException e) {
+            } catch (DukeException | InvalidInputException e) {
                 new ErrorMessage(e.getMessage()).send();
             }
         }

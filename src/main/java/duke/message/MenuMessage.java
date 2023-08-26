@@ -14,6 +14,7 @@ public class MenuMessage extends Message {
                         "todo {task name}: create a task",
                         "deadline {task name} /by {deadline}: create task with deadline",
                         "event {event name} /from {start date} /to {end date}: create event",
+                        "delete {task number}: delete a task",
                         "bye: close application",
                         horizontalLine
                 )

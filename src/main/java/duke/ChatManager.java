@@ -1,13 +1,17 @@
 package duke;
 
 import duke.exception.DukeException;
+import duke.exception.InvalidInputException;
 import duke.message.ByeMessage;
 import duke.message.MenuMessage;
 import duke.message.WelcomeMessage;
+import duke.parser.DateTimeParser;
 import duke.task.DeadlinesTask;
 import duke.task.EventsTask;
 import duke.task.TaskList;
 import duke.task.TodoTask;
+import duke.templates.MessageTemplates;
+
 import java.util.regex.Pattern;
 
 public class ChatManager {
@@ -48,7 +52,7 @@ public class ChatManager {
         }
         return Action.UNDEFINED;
     }
-    public void handleInput(String userInput) throws DukeException {
+    public void handleInput(String userInput) throws DukeException, InvalidInputException {
         Action action = getAction(userInput);
         int num;
         String name, deadline, from, to;
@@ -77,7 +81,7 @@ public class ChatManager {
                 // assumes " /by " is not contained in deadline name
                 a1 = userInput.split(" /by ", 2);
                 name = a1[0].split(" ", 2)[1];
-                deadline = a1[1];
+                deadline = DateTimeParser.parseDateTime(a1[1]);
                 taskList.add(new DeadlinesTask(name, false, deadline));
                 break;
             case EVENT:
@@ -86,8 +90,11 @@ public class ChatManager {
                 // assumes " /from " is not in event name
                 a2 = a1[0].split(" /from ", 2);
                 name = a2[0].split(" ", 2)[1];
-                from = a2[1];
-                to = a1[1];
+                from = DateTimeParser.parseDateTime(a2[1]);
+                to = DateTimeParser.parseDateTime(a1[1]);
+                if (!DateTimeParser.isValidPeriod(from, to)) {
+                    throw new InvalidInputException(MessageTemplates.MESSAGE_INVALID_EVENT_PERIOD);
+                }
                 taskList.add(new EventsTask(name, false, from, to));
                 break;
             case DELETE:
