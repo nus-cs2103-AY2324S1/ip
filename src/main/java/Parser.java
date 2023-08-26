@@ -12,22 +12,22 @@ public class Parser {
     public static Command parse(String userInput) throws DukeException {
         String[] words = userInput.toLowerCase().split("\\s+");
         switch (words[0]) {
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "mark":
-                return new MarkCommand();
-            case "unmark":
-                return new UnmarkCommand();
-            case "todo":
-            case "event":
-            case "deadline":
-                return new AddCommand();
-            case "delete":
-                return new DeleteCommand();
-            default:
-                throw new DukeException("Unknown Command!");
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "mark":
+            return new MarkCommand();
+        case "unmark":
+            return new UnmarkCommand();
+        case "todo":
+        case "event":
+        case "deadline":
+            return new AddCommand();
+        case "delete":
+            return new DeleteCommand();
+        default:
+            throw new DukeException("Unknown Command!");
         }
     }
 }
