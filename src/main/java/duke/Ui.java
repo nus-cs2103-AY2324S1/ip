@@ -8,14 +8,14 @@ public class Ui {
     private final String INTRO = "Hello! I'm " + this.CHATBOTNAME + "\n"
             + "What can I do for you?";
     private final String EXITMESSAGE = "Bye. Hope to see you again soon!";
-    public static String line = "-------------------------------------------------------------------------------------";
 
     /**
      * UI constructor.
      * Prints the introduction message as well
      */
+    public static final String LINE = "-------------------------------------------------------------------------------";
     public Ui() {
-        System.out.printf("%s\n%s\n%s\n", Ui.line, INTRO, Ui.line);
+        System.out.printf("%s\n%s\n%s\n", Ui.LINE, INTRO, Ui.LINE);
     }
 
     /**
@@ -37,14 +37,14 @@ public class Ui {
      * Prints out a horizontal line, typically for separating messages.
      */
     public void createLine() {
-        System.out.println(Ui.line);
+        System.out.println(Ui.LINE);
     }
 
     /**
      * Prints out the exit message when user exits the program.
      */
     public void exit() {
-        System.out.printf("%s\n%s\n", EXITMESSAGE, Ui.line);
+        System.out.printf("%s\n%s\n", EXITMESSAGE, Ui.LINE);
     }
 
     /**

@@ -55,7 +55,8 @@ public class Deadline extends Task {
             return true;
         }
         Deadline deadlineTask = (Deadline) task;
-        return this.deadline.equals(deadlineTask.getDeadline()) && this.getName().equals(deadlineTask.getName());
+        return this.deadline.equals(deadlineTask.getDeadline())
+                && this.getName().equals(deadlineTask.getName());
     }
 
     /**

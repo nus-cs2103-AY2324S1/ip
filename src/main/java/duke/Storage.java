@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.function.Consumer;
+import java.util.Scanner;
 
 import task.Task;
 import task.Todo;
@@ -65,21 +65,21 @@ public class Storage {
                 boolean itemComplete = itemParts[1].equals("0");
                 String name = itemParts[2];
                 switch (itemParts[0]) {
-                    case "T":
-                        arrList.add(new Todo(name, itemComplete));
-                        break;
-                    case "D":
-                        String deadline = itemParts[3];
-                        arrList.add(new Deadline(name, deadline, itemComplete));
-                        break;
-                    case "E":
-                        System.out.println(item);
-                        String from = itemParts[3];
-                        String to = itemParts[4];
-                        arrList.add(new Event(name, from, to, itemComplete));
-                        break;
-                    default:
-                        System.out.println("Error when reading file");
+                case "T":
+                    arrList.add(new Todo(name, itemComplete));
+                    break;
+                case "D":
+                    String deadline = itemParts[3];
+                    arrList.add(new Deadline(name, deadline, itemComplete));
+                    break;
+                case "E":
+                    System.out.println(item);
+                    String from = itemParts[3];
+                    String to = itemParts[4];
+                    arrList.add(new Event(name, from, to, itemComplete));
+                    break;
+                default:
+                    System.out.println("Error when reading file");
                 }
             }
         }

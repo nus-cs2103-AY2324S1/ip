@@ -73,7 +73,8 @@ public class Parser {
                     name += arrStrings[i] + " ";
                 }
             }
-            return new Event(name.substring(0, name.length() - 1), from.substring(0, from.length() - 1), to.substring(0, to.length() - 1));
+            return new Event(name.substring(0, name.length() - 1), from.substring(0, from.length() - 1)
+                    , to.substring(0, to.length() - 1));
         } else {
             throw new Exception("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -93,35 +94,35 @@ public class Parser {
         String command = input.split("\\s+")[0];
         int choice = -1;
         switch (command) {
-            case "list":
-                ui.listTask(taskList);
-                break;
-            case "mark":
-                choice = Integer.parseInt(input.split("\\s+")[1]);
-                taskList.mark(choice);
-                ui.displayMarkTask(taskList, choice);
-                break;
-            case "unmark":
-                choice = Integer.parseInt(input.split("\\s+")[1]);
-                taskList.unmark(choice);
-                ui.displayUnmarkTask(taskList, choice);
-                break;
-            case "delete":
-                choice = Integer.parseInt(input.split("\\s+")[1]);
-                Task removedTask = taskList.delete(choice);
-                ui.displayDeleteTask(removedTask, taskList);
-                break;
-            default:
-                Task task = null;
-                try {
-                    task = createTask(input);
-                } catch (Exception e) {
-                    ui.showExceptionError(e);
-                }
-                if (task != null) {
-                    taskList.add(task);
-                    ui.displayAddTask(task, taskList);
-                }
+        case "list":
+            ui.listTask(taskList);
+            break;
+        case "mark":
+            choice = Integer.parseInt(input.split("\\s+")[1]);
+            taskList.mark(choice);
+            ui.displayMarkTask(taskList, choice);
+            break;
+        case "unmark":
+            choice = Integer.parseInt(input.split("\\s+")[1]);
+            taskList.unmark(choice);
+            ui.displayUnmarkTask(taskList, choice);
+            break;
+        case "delete":
+            choice = Integer.parseInt(input.split("\\s+")[1]);
+            Task removedTask = taskList.delete(choice);
+            ui.displayDeleteTask(removedTask, taskList);
+            break;
+        default:
+            Task task = null;
+            try {
+                task = createTask(input);
+            } catch (Exception e) {
+                ui.showExceptionError(e);
+            }
+            if (task != null) {
+                taskList.add(task);
+                ui.displayAddTask(task, taskList);
+            }
         }
         storage.updateTasks(taskList);
     }
