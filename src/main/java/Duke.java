@@ -13,6 +13,10 @@ public class Duke {
     public static String userInput;
 
     public static void main(String[] args) {
+        if (!Task.databaseExist()) {
+            Task.createDatabase();
+        }
+        Task.readFromDatabase();
         printIntro();
         promptInput();
     }
@@ -49,56 +53,55 @@ public class Duke {
                 }
 
                 switch (userCommand) {
-                    case "bye":
-                        break;
-                    case "list":
-                        Task.listTasks();
-                        break;
-                    case "mark":
-                        Task.markTask(Integer.parseInt(inputInfo));
-                        break;
-                    case "unmark":
-                        Task.unmarkTask(Integer.parseInt(inputInfo));
-                        break;
-                    case "delete":
-                        Task.deleteTask(Integer.parseInt(inputInfo));
-                        break;
-                    case "todo": {
-                        String taskName = inputInfo;
-                        Task newTask = new Todo(taskName);
-                        Task.addTask(newTask);
-                        break;
-                    }
-                    case "deadline": {
-                        String[] taskInfo = inputInfo.split(" /by ");
+                case "bye":
+                    break;
+                case "list":
+                    Task.listTasks();
+                    break;
+                case "mark":
+                    Task.markTask(Integer.parseInt(inputInfo));
+                    break;
+                case "unmark":
+                    Task.unmarkTask(Integer.parseInt(inputInfo));
+                    break;
+                case "delete":
+                    Task.deleteTask(Integer.parseInt(inputInfo));
+                    break;
+                case "todo": {
+                    String taskName = inputInfo;
+                    Task newTask = new Todo(taskName);
+                    Task.addTask(newTask);
+                    break;
+                }
+                case "deadline": {
+                    String[] taskInfo = inputInfo.split(" /by ");
 
-                        if (taskInfo.length != 2) {
-                            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                        }
-
-                        String taskName = taskInfo[0];
-                        String deadline = taskInfo[1];
-                        Task newTask = new Deadline(taskName, deadline);
-                        Task.addTask(newTask);
-                        break;
-                    }
-                    case "event": {
-                        String[] taskInfo = inputInfo.split(" /from ");
-
-                        if (taskInfo.length != 2 || taskInfo[1].split("/to").length != 2) {
-                            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-                        }
-
-                        String taskName = taskInfo[0];
-                        String startTime = taskInfo[1].split(" /to ")[0];
-                        String endTime = taskInfo[1].split(" /to ")[1];
-                        Task newTask = new Event(taskName, startTime, endTime);
-                        Task.addTask(newTask);
-                        break;
-                    }
-                    default: {
+                    if (taskInfo.length != 2) {
                         throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
+
+                    String taskName = taskInfo[0];
+                    String deadline = taskInfo[1];
+                    Task newTask = new Deadline(taskName, deadline);
+                    Task.addTask(newTask);
+                    break;
+                }
+                case "event": {
+                    String[] taskInfo = inputInfo.split(" /from ");
+
+                    if (taskInfo.length != 2 || taskInfo[1].split("/to").length != 2) {
+                        throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    }
+
+                    String taskName = taskInfo[0];
+                    String startTime = taskInfo[1].split(" /to ")[0];
+                    String endTime = taskInfo[1].split(" /to ")[1];
+                    Task newTask = new Event(taskName, startTime, endTime);
+                    Task.addTask(newTask);
+                    break;
+                }
+                default:
+                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } while (!userInput.equals("bye"));
             printEnd();
@@ -116,8 +119,8 @@ public class Duke {
      * Prints a horizontal line. To be used by different classes.
      */
     public static void printLine() {
-        int charCount = 50;
-        for (int i = 0; i < charCount; i++) {
+        int LINE_LENGTH = 50;
+        for (int i = 0; i < LINE_LENGTH; i++) {
             System.out.print("─");
         }
         System.out.print("\n");

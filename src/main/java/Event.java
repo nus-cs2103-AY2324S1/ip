@@ -12,6 +12,11 @@ public class Event extends Task {
   }
 
   @Override
+  protected String toDatabaseRepresentation() {
+    return String.format("E | %s | %s | %s | %s", isDone() ? 1 : 0, getTaskName(), startTime, endTime);
+  }
+
+  @Override
   public String toString() {
     return String.format("[E]%s (from: %s to: %s)", super.toString(), startTime, endTime);
   }
