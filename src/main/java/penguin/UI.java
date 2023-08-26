@@ -9,7 +9,7 @@ public class UI {
 
     private static final String GREETING = "Honk! I'm Penguin! What can I do for you?";
 
-    private Scanner input;
+    private Scanner input; 
 
     public UI() {
         this.input = new Scanner(System.in);
