@@ -8,14 +8,12 @@ public class Duke {
     private static int number = 0;
     private static boolean activated = true;
     private static final String line = "____________________________________________________________";
-    private enum TaskType {
-        TODO, EVENT, DEADLINE
-    }
-
     private enum MarkStatus {
         MARK, UNMARK
     }
-
+    private enum TaskType {
+        TODO, EVENT, DEADLINE
+    }
 
     public static void printHello() {
         System.out.println(line);
