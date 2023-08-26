@@ -7,12 +7,28 @@ public abstract class Task {
     this.taskName = taskName;
   }
 
+  public Task(String taskName, boolean isCompleted) {
+    this.taskName = taskName;
+    this.isCompleted = isCompleted;
+  }
+
+
+  public abstract String saveData();
+
   public void markCompleted() {
     this.isCompleted = true;
   }
 
   public void markNotCompleted() {
     this.isCompleted = false;
+  }
+
+  protected boolean isCompleted() {
+    return this.isCompleted;
+  }
+
+  protected String taskName() {
+    return this.taskName;
   }
 
 

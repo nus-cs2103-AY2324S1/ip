@@ -1,9 +1,16 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Duke {
 
     private LinkedList<Task> tasks = new LinkedList<>();
+
+    private final String SAVE_DATA_PATH = "./data/Duke.txt";
 
     private void printLine() {
         System.out.println("    ____________________________________________________________");
@@ -69,7 +76,7 @@ public class Duke {
         return new DeadlineTask(taskName.toString(), endDate.toString());
     }
 
-    private Task createTask(String[] words) throws DukeException {
+    private Task createTask(String[] words) throws EmptyBodyException {
         if (words.length == 1) {
             throw new EmptyBodyException();
         }
@@ -85,12 +92,13 @@ public class Duke {
 
     private void addTask(Task task) {
         tasks.add(task);
+        saveFile();
         System.out.println("     " + "Got it. I've added this task:");
         System.out.println("       " + task.toString());
         System.out.println("     " + "Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private void deleteTask(String index) throws DukeException {
+    private void deleteTask(String index) throws WrongIndexException {
         try {
             String regex = "\\d+";
             if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
@@ -99,6 +107,7 @@ public class Duke {
             }
             int i = Integer.parseInt(index, 10) - 1;
             Task task = tasks.remove(i);
+            saveFile();
             System.out.println("     Noted. I've removed this task:");
             System.out.println("       " + task.toString());
             System.out.println("     " + "Now you have " + tasks.size() + " tasks in the list.");
@@ -116,7 +125,7 @@ public class Duke {
         }
     }
 
-    private void markTask(String index) throws DukeException {
+    private void markTask(String index) throws WrongIndexException {
         try {
             String regex = "\\d+";
             if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
@@ -126,6 +135,7 @@ public class Duke {
             int i = Integer.parseInt(index, 10) - 1;
             Task task = tasks.get(i);
             task.markCompleted();
+            saveFile();
             System.out.println("     Nice! I've marked this task as done:");
             System.out.println("       " + task.toString());
 
@@ -134,7 +144,7 @@ public class Duke {
         }
     }
 
-    private void unmarkedTask(String index) throws DukeException {
+    private void unmarkedTask(String index) throws WrongIndexException {
         try {
             String regex = "\\d+";
             if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
@@ -145,6 +155,7 @@ public class Duke {
             int i = Integer.parseInt(index, 10) - 1;
             Task task = tasks.get(i);
             task.markNotCompleted();
+            saveFile();
             System.out.println("     OK, I've marked this task as not done yet:");
             System.out.println("       " + task.toString());
         } catch (NumberFormatException e) {
@@ -190,10 +201,50 @@ public class Duke {
             printLine();
         }
         bye();
+        scanner.close();
+    }
+
+    private void saveFile() {
+        try {
+            FileWriter fw = new FileWriter(SAVE_DATA_PATH);
+            for (Task task : tasks) {
+                fw.write(task.saveData() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("     File not found, unable to save");
+        }
+    }
+
+    private void loadFile() {
+        try {
+            File f = new File(SAVE_DATA_PATH);
+            f.createNewFile();
+            Scanner scanner = new Scanner(f);
+            while (scanner.hasNext()) {
+                String s = scanner.nextLine();
+                char delimiter = 31;
+                String[] taskData = s.split(String.valueOf(delimiter), -1);
+                boolean isComplete = taskData[1].equals("1");
+                switch (taskData[0]) {
+                    case "event":
+                        tasks.add((new EventTask(taskData[2], taskData[3], taskData[4], isComplete)));
+                        break;
+                    case "todo":
+                        tasks.add(new ToDoTask(taskData[2], isComplete));
+                        break;
+                    default:
+                        tasks.add(new DeadlineTask(taskData[2], taskData[3], isComplete));
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("     Unable to load/find file");
+        }
     }
 
     public static void main(String[] args) {
         Duke duke = new Duke();
+        duke.loadFile();
         duke.greet();
         duke.handleUI();
     }
