@@ -34,9 +34,9 @@ public abstract class Task {
 
   public String toString() {
     if (isCompleted) {
-      return "[X]" + taskName;
+      return "[X] " + taskName;
     } else {
-      return "[ ]" + taskName;
+      return "[ ] " + taskName;
     }
   }
 }
