@@ -6,6 +6,9 @@ import didier.exception.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Deals with making sense of all user input to the bot.
+ */
 public class Parser {
 
     enum CommandType{
@@ -27,6 +30,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a Command object which encapsulates the command String that is entered by the user.
+     * Converts the user input to this Command object.
+     *
+     * @param commandString The command provided by the user.
+     * @return The corresponding Command object.
+     * @throws DidierException If the user command is invalid in any way.
+     */
     public static Command parse(String commandString) throws DidierException {
         String[] options = commandString.split(" ", 2);
         CommandType commandType = CommandType.textToCommand(options[0]);

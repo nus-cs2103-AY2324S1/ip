@@ -8,11 +8,23 @@ import didier.task.*;
 
 import java.time.LocalDate;
 
+/**
+ * The AddCommand encapsulates the logic of what occurs when the user tries to add any type of task
+ * to their task list.
+ */
 public class AddCommand extends Command {
 
     private String description;
     private LocalDate by, from, to;
 
+    /**
+     * Constructor for the AddCommand object.
+     *
+     * @param description The description of the task.
+     * @param by When the task should be completed by if it is a deadline else null.
+     * @param from When the task begins if it is an event else null.
+     * @param to When the task ends if it is an event else null.
+     */
     public AddCommand(String description, LocalDate by, LocalDate from, LocalDate to) {
         this.description = description;
         this.by = by;

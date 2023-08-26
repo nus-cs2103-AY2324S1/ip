@@ -6,9 +6,19 @@ import didier.exception.DidierException;
 import didier.task.Task;
 import didier.TaskList;
 
+/**
+ * The DeleteCommand encapsulates the logic of what happens when the user tries to delete a task from
+ * the task list.
+ */
 public class DeleteCommand extends Command {
 
     private int taskNumber;
+
+    /**
+     * Constructor for the DeleteCommand object.
+     *
+     * @param taskNumber The index number of the task to be deleted (1-indexed).
+     */
     public DeleteCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }

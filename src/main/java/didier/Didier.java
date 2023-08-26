@@ -30,7 +30,7 @@ public class Didier {
             }
             finally {
                 if (!isExit) {
-                    this.ui.botEndCommand(taskList.getSize());
+                    this.ui.botEndCommand();
                 }
             }
         }
