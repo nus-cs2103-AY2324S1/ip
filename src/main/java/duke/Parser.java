@@ -116,6 +116,11 @@ public class Parser {
             break;
         }
 
+        case "find": {
+            Duke.listFiltered(rest);
+            break;
+        }
+
         default: {
             throw new IllegalArgumentException("Unknown command.");
         }

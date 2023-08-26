@@ -2,6 +2,8 @@ package duke;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents a TaskList that holds tasks.
@@ -117,6 +119,24 @@ public class TaskList {
         return tasks.size();
     }
 
+    public String filteredToString(String regex) {
+        StringBuilder result = new StringBuilder();
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE); // Compiles the regex pattern
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            Matcher matcher = pattern.matcher(task.toString()); // Match the task's string representation with the regex
+
+            if (matcher.find()) { // Check if the regex matches the task's string representation
+                result.append((i + 1) + ". " + task);
+                if (i + 1 < tasks.size()) {
+                    result.append("\n");
+                }
+            }
+        }
+        return result.toString();
+    }
+
     /**
      * Generates a string representation of the TaskList.
      *
@@ -124,13 +144,6 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            result.append((i + 1) + ". " + tasks.get(i));
-            if (i + 1 < tasks.size()) {
-                result.append("\n");
-            }
-        }
-        return result.toString();
+        return filteredToString(".*");
     }
 }
