@@ -2,7 +2,7 @@ class IncompleteDescriptionException extends Exception {
     @Override
     public String toString() {
         return Constants.divider + "\n"
-                + "☹ OOPS!!! The description of the task is incomplete."
+                + "☹ OOPS!!! The description of the task is incomplete or incorrect."
                 + "\n" + Constants.divider + "\n";
     }
 }

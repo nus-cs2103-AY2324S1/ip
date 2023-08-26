@@ -14,6 +14,12 @@ public class Event extends Task {
     }
 
     @Override
+    public String compressData() {
+        char isDoneChar = this.isDone ? '1' : '0';
+        return "E" + " | " + isDoneChar + " | " + this.taskName + " | " + this.from + " | " + this.to;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
