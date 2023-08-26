@@ -1,4 +1,4 @@
-package main.java.juke.tasks;
+package juke.tasks;
 
 /**
  * Represents a Todo task.

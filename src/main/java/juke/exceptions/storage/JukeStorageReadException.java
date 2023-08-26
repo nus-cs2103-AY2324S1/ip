@@ -1,4 +1,4 @@
-package main.java.juke.exceptions.storage;
+package juke.exceptions.storage;
 
 /**
  * Represents an error with the reading data from the datafile.

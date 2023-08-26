@@ -1,7 +1,7 @@
-package main.java.juke.commands;
+package juke.commands;
 
-import main.java.juke.exceptions.storage.JukeStorageException;
-import main.java.juke.tasks.TaskList;
+import juke.exceptions.storage.JukeStorageException;
+import juke.tasks.TaskList;
 
 /**
  * Action that marks a JukeTask as done.
@@ -25,8 +25,7 @@ public class JukeMarkTaskDoneCommand extends JukeCommand {
 
     /**
      * Necessary method that is invoked when the action is carried out.
-     * @throws {@code JukeStorageException} if there are any errors encountered
-     * when reading the data
+     * @throws JukeStorageException if there are any errors encountered when reading the data
      */
     @Override
     public void complete() throws JukeStorageException {

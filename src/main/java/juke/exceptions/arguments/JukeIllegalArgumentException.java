@@ -1,6 +1,6 @@
-package main.java.juke.exceptions.arguments;
+package juke.exceptions.arguments;
 
-import main.java.juke.exceptions.JukeException;
+import juke.exceptions.JukeException;
 
 /**
  * Exception that is thrown when an illegal argument(s) are used.

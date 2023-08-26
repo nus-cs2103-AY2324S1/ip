@@ -1,12 +1,4 @@
-package main.java.juke.storage;
-
-import main.java.juke.exceptions.JukeInitialisationException;
-import main.java.juke.exceptions.storage.JukeStorageException;
-import main.java.juke.exceptions.storage.JukeStorageReadException;
-import main.java.juke.exceptions.storage.JukeStorageWriteException;
-import main.java.juke.parsers.FileParser;
-import main.java.juke.core.JukeObject;
-import main.java.juke.tasks.JukeTask;
+package juke.storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,6 +8,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
+
+import juke.core.JukeObject;
+import juke.exceptions.JukeInitialisationException;
+import juke.exceptions.storage.JukeStorageException;
+import juke.exceptions.storage.JukeStorageReadException;
+import juke.exceptions.storage.JukeStorageWriteException;
+import juke.parsers.FileParser;
+import juke.tasks.JukeTask;
 
 /**
  * Manages the storage and retrieval of data from the data file.
@@ -32,7 +32,7 @@ public class Storage extends JukeObject {
      * and directories required if necessary.
      * @return {@code JukeStorageManager} instance
      * @throws JukeInitialisationException if the directories or files cannot be
-     * created or initialised
+     *     created or initialised
      */
     public static Storage of() throws JukeInitialisationException {
         // if the directory does not exist, the file also cannot exist
@@ -41,16 +41,16 @@ public class Storage extends JukeObject {
                 Files.createDirectory(DIR_PATH);
                 Files.createFile(FILE_PATH);
             } catch (IOException ex) {
-                throw new JukeInitialisationException("Oh no! I am unable to create a directory to store your " +
-                                                              "tasks! Please try again later!");
+                throw new JukeInitialisationException("Oh no! I am unable to create a directory to store your "
+                                                              + "tasks! Please try again later!");
             }
-        } else if (!Files.exists(FILE_PATH)){
+        } else if (!Files.exists(FILE_PATH)) {
             // if the dir exist but file doesn't, then just create the file
             try {
                 Files.createFile(FILE_PATH);
             } catch (IOException ex) {
-                throw new JukeInitialisationException("Oh no! I am unable to create a datafile to store your " +
-                                                              "tasks! Please try again later!");
+                throw new JukeInitialisationException("Oh no! I am unable to create a datafile to store your "
+                                                              + "tasks! Please try again later!");
             }
         }
 
@@ -73,8 +73,8 @@ public class Storage extends JukeObject {
 
             return tasks;
         } catch (IOException ex) {
-            throw new JukeStorageReadException("Oh no! I am unable to understand the data stored " +
-                                                          "in the datafile!");
+            throw new JukeStorageReadException("Oh no! I am unable to understand the data stored "
+                                                       + "in the datafile!");
         }
     }
 

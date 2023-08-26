@@ -1,7 +1,7 @@
-package main.java.juke.commands;
+package juke.commands;
 
-import main.java.juke.exceptions.storage.JukeStorageException;
-import main.java.juke.tasks.TaskList;
+import juke.exceptions.storage.JukeStorageException;
+import juke.tasks.TaskList;
 
 /**
  * Action that marks a JukeTask as undone.
@@ -25,7 +25,7 @@ public class JukeMarkTaskUndoneCommand extends JukeCommand {
 
     /**
      * Necessary method that is invoked when the action is carried out.
-     * @throws {@code JukeStorageException} If there is an issue with storing changes
+     * @throws JukeStorageException If there is an issue with storing changes
      */
     @Override
     public void complete() throws JukeStorageException {

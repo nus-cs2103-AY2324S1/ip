@@ -1,4 +1,4 @@
-package main.java.juke.commands;
+package juke.commands;
 
 /**
  * Action that invokes a print action on the command line.

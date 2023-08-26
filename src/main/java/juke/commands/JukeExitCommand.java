@@ -1,6 +1,6 @@
-package main.java.juke.commands;
+package juke.commands;
 
-import main.java.juke.exceptions.JukeException;
+import juke.exceptions.JukeException;
 
 /**
  * Action that is invoked when the user wishes to quit the assistant.

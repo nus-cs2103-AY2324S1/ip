@@ -1,7 +1,9 @@
-package main.java.juke.tasks;
+package juke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import juke.exceptions.JukeStateException;
 
 /**
  * Represents a Deadline task.
@@ -29,7 +31,7 @@ public class JukeDeadline extends JukeTask {
      * @param deadline Deadline for task
      * @param completion Status of completion of the task
      */
-    public JukeDeadline(String task, LocalDateTime deadline, boolean completion) {
+    public JukeDeadline(String task, LocalDateTime deadline, boolean completion) throws JukeStateException {
         this(task, deadline);
 
         if (completion) {
@@ -52,7 +54,8 @@ public class JukeDeadline extends JukeTask {
      */
     @Override
     public String toString() {
-        return JukeDeadline.TASK_DESCRIPTOR + super.toString() + " (by: " +
-                this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm")) + " hrs)";
+        return JukeDeadline.TASK_DESCRIPTOR + super.toString() + " (by: "
+                + this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm"))
+                + " hrs)";
     }
 }

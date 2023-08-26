@@ -1,14 +1,14 @@
-package main.java.juke;
-
-import main.java.juke.commands.JukeExceptionCommand;
-import main.java.juke.exceptions.JukeInitialisationException;
-import main.java.juke.exceptions.JukeParseException;
-import main.java.juke.exceptions.storage.JukeStorageException;
-import main.java.juke.storage.Storage;
-import main.java.juke.tasks.TaskList;
-import main.java.juke.ui.Ui;
+package juke;
 
 import java.util.Scanner;
+
+import juke.commands.JukeExceptionCommand;
+import juke.exceptions.JukeInitialisationException;
+import juke.exceptions.JukeParseException;
+import juke.exceptions.storage.JukeStorageException;
+import juke.storage.Storage;
+import juke.tasks.TaskList;
+import juke.ui.Ui;
 
 /**
  * Juke Virtual Assistant
@@ -41,7 +41,8 @@ public class Juke {
         try {
             Juke jukeAssistant = new Juke();
             jukeAssistant.start();
-        } catch (JukeInitialisationException | JukeStorageException | JukeParseException ex) {
+        } catch (JukeInitialisationException | JukeStorageException
+                 | JukeParseException ex) {
             // program should not continue if it cannot initialise properly
             // or if there are issues with retrieving data from the datafile
             new JukeExceptionCommand(ex).complete();

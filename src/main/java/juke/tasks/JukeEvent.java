@@ -1,4 +1,4 @@
-package main.java.juke.tasks;
+package juke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -59,8 +59,8 @@ public class JukeEvent extends JukeTask {
      */
     @Override
     public String toString() {
-        return JukeEvent.TASK_DESCRIPTOR + super.toString() +
-                " (from " + start.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm")) +
-                " hrs to " + end.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm")) + " hrs)";
+        return JukeEvent.TASK_DESCRIPTOR + super.toString()
+                + " (from " + start.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm"))
+                + " hrs to " + end.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm")) + " hrs)";
     }
 }

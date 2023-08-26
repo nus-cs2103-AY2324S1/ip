@@ -1,8 +1,8 @@
-package main.java.juke.parsers;
-
-import main.java.juke.core.JukeObject;
+package juke.parsers;
 
 import java.util.regex.Pattern;
+
+import juke.core.JukeObject;
 
 /**
  * Class that helps to parse the commands given by the user.

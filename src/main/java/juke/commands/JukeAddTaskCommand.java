@@ -1,8 +1,8 @@
-package main.java.juke.commands;
+package juke.commands;
 
-import main.java.juke.exceptions.storage.JukeStorageException;
-import main.java.juke.tasks.JukeTask;
-import main.java.juke.tasks.TaskList;
+import juke.exceptions.storage.JukeStorageException;
+import juke.tasks.JukeTask;
+import juke.tasks.TaskList;
 
 /**
  * Action that adds a Task to the Task Manager.
@@ -26,7 +26,7 @@ public class JukeAddTaskCommand extends JukeCommand {
 
     /**
      * Necessary method that is invoked when the action is carried out.
-     * @throws {@code JukeStorageException} If there is an issue with storing changes
+     * @throws JukeStorageException If there is an issue with storing changes
      */
     @Override
     public void complete() throws JukeStorageException {
