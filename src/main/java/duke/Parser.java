@@ -21,7 +21,8 @@ public class Parser {
         DELETE("delete"),
         TODO("todo"),
         DEADLINE("deadline"),
-        EVENT("event");
+        EVENT("event"),
+        FIND("find");
 
         private final String text;
 
@@ -99,6 +100,9 @@ public class Parser {
                 dukeBot.tasks.addTask(newTask);
                 break;
             }
+            case FIND:
+                dukeBot.tasks.findTasks(inputInfo);
+                break;
             default:
                 throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
