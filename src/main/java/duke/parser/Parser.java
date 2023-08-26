@@ -38,6 +38,12 @@ public class Parser {
                 return new UnmarkCommand(index);
 
             }
+            case "find": {
+                if (tokens.length == 1) {
+                    throwException("The search keyword cannot be empty", "find <search keyword>");
+                }
+                return new FindCommand(tokens[1]);
+            }
             case "todo":
                 if (fullCommand.length() < 5) {
                     throwException("The description of a todo cannot be empty", "todo <description>");
@@ -75,14 +81,16 @@ public class Parser {
             case "event": {
                 String usageText = "event <description> /from <start date/time> /to <end date/time>";
                 if (tokens.length == 1) {
-                    throwException("The description, start date/time and end date/time of an event cannot be empty.", usageText);
+                    throwException("The description, start date/time and end date/time of an event cannot be empty.",
+                            usageText);
                 }
 
                 String eventText = tokens[1];
                 String[] eventParts = eventText.split("/from", 2);
 
                 if (eventParts.length == 0) {
-                    throwException("The description, start date/time and end date/time of an event cannot be empty.", usageText);
+                    throwException("The description, start date/time and end date/time of an event cannot be empty.",
+                            usageText);
                 } else if (eventParts.length == 1) {
                     throwException("The start date/time and end date/time of an event cannot be empty.", usageText);
                 }
