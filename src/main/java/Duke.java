@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,7 +10,7 @@ import java.util.Scanner;
  * Duke is a simple task management chatbot that allows users to manager their tasks.
  */
 public class Duke {
-    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private enum Command {
         BYE, LIST, UNMARK, MARK, TODO, DEADLINE, EVENT, DELETE, INVALID
     }
@@ -176,10 +179,23 @@ public class Duke {
      */
     public static void simulate() {
         Scanner sc = new Scanner(System.in);
+        Storage storage = new Storage();
+        try {
+            tasks = storage.loadTasks();
+        } catch (FileNotFoundException e) {
+            printBotMessage("Unable to load tasks: " + e.getMessage());
+        }
+
         while (true) {
             String input = sc.nextLine();
             List<String> inputList = Arrays.asList(input.split(" "));
-            Command keyword = Command.valueOf(inputList.get(0).toUpperCase());
+            Command keyword = Command.INVALID;
+            try {
+                keyword = Command.valueOf(inputList.get(0).toUpperCase());
+            } catch (IllegalArgumentException e) {
+                printBotMessage("I'm sorry, but I don't know what that means :-(");
+                continue;
+            }
 
             try {
                 switch (keyword) {
@@ -210,8 +226,11 @@ public class Duke {
                     default:
                         throw new DukeInvalidCommandException();
                 }
+                storage.saveTasks(tasks);
             } catch (DukeException e) {
                 printBotMessage(e.toString());
+            } catch (IOException e) {
+                printBotMessage("Unable to save tasks: " + e.getMessage());
             }
         }
     }
