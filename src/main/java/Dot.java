@@ -1,10 +1,13 @@
 import errors.DotException;
 import errors.TaskError;
+import parser.Parser;
 import storage.*;
 import tasks.*;
 import ui.Ui;
+import validation.Validation;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Dot {
@@ -139,6 +142,20 @@ public class Dot {
                             } else {
                                 throw new DotException("Too many parameters", TaskError.ERR_DELETING_TASK);
                             }
+                            break;
+                        } else if (input.startsWith("whatsgoingon")
+                                && (input.length() == 12 || input.charAt(12) == ' ')) {
+                            input = input.strip();
+                            if (input.length() <= 12) {
+                                throw new DotException("No date given", TaskError.ERR_USING_WHATSGOINGON);
+                            }
+                            String restOfString = input.substring(13);
+                            if (!(Validation.isValidDate(restOfString))) {
+                                throw new DotException("Incorrect format for data, use dd/MM/yyyy",
+                                        TaskError.ERR_USING_WHATSGOINGON);
+                            }
+                            LocalDateTime parsedLocalDateTime = Parser.parseDateInputIntoDateTime(restOfString);
+                            dotTaskList.listAllTasksFallingOnDate(parsedLocalDateTime);
                             break;
                         }
                         throw new DotException("Unknown command.", TaskError.ERR_READING_COMMAND);
