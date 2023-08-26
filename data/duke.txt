@@ -1,3 +1,6 @@
 T # 0 # borrow book
-D # 0 # return book # Sunday
-E # 1 # project meeting # Mon 2pm - 4pm
+T # 0 # asdsaffafa
+T # 1 # aeefawfaf
+T # 0 # aweaefgaga
+D # 0 # return book # 2019-02-08
+E # 0 # project meeting # 2023-09-09 - 2021-03-04
