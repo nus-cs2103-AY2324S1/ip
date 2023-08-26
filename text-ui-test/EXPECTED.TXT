@@ -1,6 +1,6 @@
 Hello! I'm the trash gremlin Caelus!
 What can I do for you?
-Sorry, I dunno what you're saying. Must be the trash getting to my brain.
+ERROR: Sorry, I dunno what you're saying. Must be the trash getting to my brain.
 Here are the tasks in your list:
 1. [T][ ] taskone
 2. [D][ ] tasktwo (by: Nov 11 2023)
@@ -32,8 +32,8 @@ Here are the tasks in your list:
 Added:
 [E][ ] taskthree (from: Aug 25 2023 to: Aug 26 2023)
 Now you have 3 task(s) in the list.
-Event end time can't be before event start time!
-One or more dates are invalid.
+ERROR: Event end time can't be before event start time!
+ERROR: One or more dates are invalid.
 Here are the tasks in your list:
 1. [T][ ] taskone
 2. [D][ ] tasktwo (by: Nov 11 2023)
