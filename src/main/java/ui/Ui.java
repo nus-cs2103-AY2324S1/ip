@@ -1,7 +1,7 @@
 package ui;
 
 public class Ui {
-    public static final String HORIZONTAL_RULE = "_".repeat(60) + "\n";
+    public static final String HORIZONTAL_RULE = "_".repeat(80) + "\n";
 
     private static final String LOGO = " ____          _\n"
             + "|  _ \\ _____ _| |___\n"
