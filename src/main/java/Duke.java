@@ -20,7 +20,7 @@ public class Duke {
 
     private void list() {
         if (Task.numberOfTasks == 0) {
-            System.out.println(TextFormat.botReply("looks empty to me!"));
+            System.out.println(TextFormat.botReply("list looks empty to me!"));
         } else {
             StringBuilder displayList = new StringBuilder();
             if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
