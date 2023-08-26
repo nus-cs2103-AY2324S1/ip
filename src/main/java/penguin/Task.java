@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Task {
     protected boolean done;
-    private String name;
+    protected String name;
 
     public Task(String name) {
         this.done = false;

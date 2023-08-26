@@ -33,5 +33,20 @@ public class TaskList {
         return output;
     }
 
-
+    /**
+     * Returns information about all tasks in the list whose name contains the given string.
+     *
+     * @param match String to search for in the list of tasks.
+     * @return Information about all matching tasks in the list in user-output format.
+     */
+    public String findInList(String match) {
+        String output = "Honk, I found the following matching tasks...\n";
+        for (int i=1; i<=this.list.size(); i++) {
+            if (this.list.get(i-1).name.contains(match)) {
+                output += i + ".";
+                output += this.list.get(i-1).getDisplay() + "\n";
+            }
+        }
+        return output;
+    }
 }

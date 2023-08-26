@@ -97,6 +97,11 @@ public class Penguin {
                         taskNo = Integer.parseInt(spl[1]);
                         ui.out(DELETE + taskList.list.remove(taskNo - 1).getDisplay());
                         break;
+                    case "find":
+                        spl = command.split(" ");
+                        String match = spl[1];
+                        ui.out(taskList.findInList(match));
+                        break;
                     case "unknown":
                         throw new PenguinUnknownCommandException();
 
