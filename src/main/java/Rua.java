@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+
 
 
 public class Rua {
@@ -43,7 +45,7 @@ public class Rua {
                     if (info.length == 1) {
                         throw new EmptyDescriptionException("deadline");
                     }
-                    Deadline newDeadline = new Deadline(info[0], info[1]);
+                    Deadline newDeadline = new Deadline(info[0], LocalDate.parse(info[1]));
                     taskList = taskList.add(newDeadline);
                 } else if (command.startsWith("event")) {
                     String[] arr = command.split(" ", 2);
@@ -58,7 +60,7 @@ public class Rua {
                     if (time.length == 1) {
                         throw new EmptyDescriptionException("deadline");
                     }
-                    Event newEvent = new Event(info[0], time[0], time[1]);
+                    Event newEvent = new Event(info[0], LocalDate.parse(time[0]), LocalDate.parse(time[1]));
                     taskList = taskList.add(newEvent);
                 } else if (command.startsWith("mark")) {
                     String indexStr = command.replaceAll("[^0-9]", "");
@@ -89,12 +91,15 @@ public class Rua {
                     try {
                         taskList.save();
                     }
-                    catch (IOException ioexp) {
+                    catch (IOException ioExp) {
                         System.out.println("Some error occurs and progress is not saved.\n");
                     }
                 } else {
                     break;
                 }
+            }
+            catch (java.time.format.DateTimeParseException dateFormatExp) {
+                System.out.println("Date format incorrect. Please type the date in the format yyyy-mm-dd and try again\n");
             }
             catch (Exception exp) {
                 System.out.println(exp);
