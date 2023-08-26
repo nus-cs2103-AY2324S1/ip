@@ -10,7 +10,7 @@ public class Storage {
     File file;
 
     public Storage() {
-        this.path = "./data/duke.txt";
+        this.path = "./duke.txt";
         this.file = new File(this.path);
     }
 
