@@ -29,6 +29,10 @@ public class Storage {
     public Storage(String filePath) {
         this.DATABASE_PATH = java.nio.file.Paths.get(
                 System.getProperty("user.dir"), filePath);
+
+        if (!databaseExist()) {
+            createDatabase();
+        }
     }
 
     /**
