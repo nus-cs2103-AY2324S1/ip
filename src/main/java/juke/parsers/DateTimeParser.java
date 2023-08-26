@@ -43,6 +43,9 @@ public class DateTimeParser extends JukeObject {
      * @return
      */
     public static LocalDateTime parse(String datetime) {
+        // strip the datetime first to avoid any errors
+        datetime = datetime.strip();
+
         if (isValidDateTime(datetime)) {
             String[] dateTimeSplit = datetime.split(" ");
             String[] date = dateTimeSplit[0].split("\\/|-");
@@ -56,7 +59,7 @@ public class DateTimeParser extends JukeObject {
         }
 
         throw new JukeParseException("Oh no! I cannot understand the date format you have given me!\nEnsure that "
-                                             + "datetimes are given as such: DD(/|-)MM(/|-)YYYY[ HH(:-)MM],\nwhere "
+                                             + "datetimes are given as such: DD(/-)MM(/-)YYYY[ HH(:-)MM],\nwhere "
                                              + "(...) represents the set of acceptable symbols and [...] represents\n"
                                              + "optional arguments.");
     }
@@ -72,7 +75,7 @@ public class DateTimeParser extends JukeObject {
             return LocalDateTime.parse(parsedDateTimeString);
         } catch (DateTimeParseException ex) {
             throw new JukeParseException("Oh no! I cannot understand the date format you have given me!\nEnsure that "
-                                                 + "datetimes are given as such: DD-MM-YYYYTHH:MM");
+                                                 + "datetimes are given as such: YYYY-MM-DDTHH:MM");
         }
     }
 }
