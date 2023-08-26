@@ -52,6 +52,11 @@ public abstract class Task {
         return "[ ]";
     }
 
+    /**
+     * Returns the name of the Task Object.
+     *
+     * @return String representation of its name
+     */
     public String getName() {
         return this.name;
     }

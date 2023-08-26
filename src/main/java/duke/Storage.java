@@ -9,9 +9,9 @@ import java.util.Scanner;
 import java.util.function.Consumer;
 
 import task.Task;
-import task.Todos;
-import task.Events;
-import task.Deadlines;
+import task.Todo;
+import task.Event;
+import task.Deadline;
 
 public class Storage {
 
@@ -21,7 +21,7 @@ public class Storage {
     }
 
     /**
-     * Creates the output file if does not exists. Also creates directories that are missing.
+     * Creates the output file if does not exist. Also creates directories that are missing.
      *
      * @return File filePointer to output file
      */
@@ -46,6 +46,12 @@ public class Storage {
         return filePointer;
     }
 
+    /**
+     * Loads the data from the Storage memory to the temporary Tasklist.
+     *
+     * @return ArrayList Contains the list of Task objects loaded from memory
+     * @throws FileNotFoundException If no file is found at the filepath specified
+     */
     public ArrayList<Task> LoadOutputFile() throws FileNotFoundException{
         File filePointer = this.createOutputFile();
         Scanner storageScanner = new Scanner(filePointer);
@@ -60,17 +66,17 @@ public class Storage {
                 String name = itemParts[2];
                 switch (itemParts[0]) {
                     case "T":
-                        arrList.add(new Todos(name, itemComplete));
+                        arrList.add(new Todo(name, itemComplete));
                         break;
                     case "D":
                         String deadline = itemParts[3];
-                        arrList.add(new Deadlines(name, deadline, itemComplete));
+                        arrList.add(new Deadline(name, deadline, itemComplete));
                         break;
                     case "E":
                         System.out.println(item);
                         String from = itemParts[3];
                         String to = itemParts[4];
-                        arrList.add(new Events(name, from, to, itemComplete));
+                        arrList.add(new Event(name, from, to, itemComplete));
                         break;
                     default:
                         System.out.println("Error when reading file");
@@ -81,6 +87,11 @@ public class Storage {
         return arrList;
     }
 
+    /**
+     * Writes the data from TaskList to permanent storage at the file output location.
+     *
+     * @param taskList TaskList object that encapsulates the arraylist data structure, contains the updated tasks
+     */
     public void updateTasks(TaskList taskList) {
         try {
             FileWriter writer = new FileWriter(outputPath, false);
