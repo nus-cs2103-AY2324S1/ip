@@ -1,3 +1,4 @@
+package duke;
 public class Ui {
     public void showWelcomeMessage() {
         System.out.println("Hello! I'm Muddy\n" + "What can I do for you?");
