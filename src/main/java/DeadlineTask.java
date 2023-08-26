@@ -1,5 +1,5 @@
 class DeadlineTask extends Task {
-    public DeadlineTask(String description) {
+    public DeadlineTask(String description) throws DukeException {
         super(description);
     }
 

@@ -1,5 +1,5 @@
 class EventTask extends Task {
-    public EventTask(String description) {
+    public EventTask(String description) throws DukeException {
         super(description);
     }
 
