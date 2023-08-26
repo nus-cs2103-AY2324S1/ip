@@ -1,6 +1,6 @@
 todo Buy groceries
-event Meeting /from Mon 2pm /to 4pm
-deadline Submit report /by Friday 5pm
+event Meeting /from 2023-01-01 /to 2023-01-01
+deadline Submit report /by 2023-01-01 2000
 list
 mark 1
 list

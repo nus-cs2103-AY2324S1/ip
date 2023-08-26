@@ -1,3 +1,3 @@
 T|0|Buy groceries
-E|0|Meeting|Mon 2pm|4pm
-D|0|Submit report|Friday 5pm
+E|0|Meeting|2023-01-01|2023-01-01
+D|0|Submit report|2023-01-01 0800
