@@ -12,7 +12,7 @@ public class Task {
     }
 
     public boolean isCompleted() {
-        return isCompleted();
+        return completed;
     }
 
     public void setCompleted() {

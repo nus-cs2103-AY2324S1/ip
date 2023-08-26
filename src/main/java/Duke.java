@@ -21,10 +21,11 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         while (true) {
             String currInput = sc.nextLine();
-            if (currInput.equals("bye")) {
+
+            if (currInput.equals("bye")) { // exits
                 System.out.println(">  ok thanks bye");
                 break;
-            } else if (currInput.equals("list")) {
+            } else if (currInput.equals("list")) { // list out tasks
                 if (counter == 0) {
                     System.out.println(">  You have no tasks :)");
                 } else {
@@ -34,8 +35,27 @@ public class Duke {
                         System.out.println((i + 1) + ") " + currList[i]);
                     }
                 }
-
-            } else if (currInput.startsWith("mark")) {
+            } else if (currInput.startsWith("todo")) { // add a ToDo task
+                String description = currInput.substring(5);
+                currList[counter] = new Todo(description);
+                System.out.println(">  Added To Do Task: " + currList[counter]);
+                counter++;
+            } else if (currInput.startsWith("deadline")) { // add a Deadline Task
+                String[] sections = currInput.split("/by");
+                String description = sections[0].substring(9).trim();
+                String by = sections[1].trim();
+                currList[counter] = new Deadline(description, by);
+                System.out.println(">  Added Deadline Task: " + currList[counter]);
+                counter++;
+            } else if (currInput.startsWith("event")) { // add an Event Task
+                String[] sections = currInput.split("/from|/to");
+                String description = sections[0].substring(6).trim();
+                String from = sections[1].trim();
+                String to = sections[2].trim();
+                currList[counter] = new Event(description, from, to);
+                System.out.println(">  Added Event Task: " + currList[counter]);
+                counter++;
+            } else if (currInput.startsWith("mark")) { // mark a task as completed
                 int index = Integer.parseInt(currInput.split(" ")[1]) - 1;
                 if (index >= 0 && index < counter) {
                     currList[index].setCompleted();
@@ -44,7 +64,7 @@ public class Duke {
                 } else {
                     System.out.println(">  Task " + (index + 1) + " was not found :(");
                 }
-            } else if (currInput.startsWith("unmark")) {
+            } else if (currInput.startsWith("unmark")) { // unmark a task
                 int index = Integer.parseInt(currInput.split(" ")[1])-1;
                 if (index >= 0 && index < counter) {
                 currList[index].setNotCompleted();
@@ -53,10 +73,10 @@ public class Duke {
                 } else {
                     System.out.println(">  Task " + (index + 1) + " was not found :(");
                 }
-            } else {
+            } else { // if input is empty
                 if (currInput.isEmpty()) {
                     System.out.println(">  empty tasks are not allowed :/");
-                } else {
+                } else { // add a new task
                     currList[counter] = new Task(currInput);
                     counter++;
                     System.out.println(">  added: " + currInput);
