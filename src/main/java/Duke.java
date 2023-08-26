@@ -1,6 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+
+    public static int CHAT_WIDTH = 80;
+
     public static void main(String[] args) {
         hello_world();
         converse();
@@ -19,66 +23,72 @@ public class Duke {
         final String LIST_COMMAND = "list";
         final String MARK_COMMAND = "mark";
         final String UNMARK_COMMAND = "unmark";
+        final String TODO_NEW_TASK_COMMAND = "todo";
+        final String DEADLINE_NEW_TASK_COMMAND = "deadline";
+        final String EVENT_NEW_TASK_COMMAND = "event";
 
-        Task[] taskList = new Task[100];
-        int size = 0;
+        TaskList taskList = new TaskList(100);
 
         Scanner scanner = new Scanner(System.in);
 
         String message;
         boolean talk = true;
         while (talk) {
-            System.out.print("Message:");
+            System.out.print("You:");
             message = scanner.nextLine();
-
-            String[] args = getArgs(message);
-            switch (args[0]) {
+            ArrayList<String> args = getArgs(message);
+            print_divider_line();
+            System.out.println("Bot:");
+            switch (args.get(0)) {
                 case END_COMMAND:
                     talk = false;
                     break;
                 case LIST_COMMAND:
-                    print_all_task(taskList, size);
+                    taskList.listAllTasks();
                     break;
                 case MARK_COMMAND:
-                    mark_task_done(taskList, args[1]);
+                    taskList.markTaskDone(args.get(1));
                     break;
                 case UNMARK_COMMAND:
-                    unmark_task_undone(taskList, args[1]);
+                    taskList.markTaskUndone(args.get(1));
+                    break;
+                case TODO_NEW_TASK_COMMAND:
+                    taskList.addTask(new TodoTask(args.get(1)));
+                    break;
+                case DEADLINE_NEW_TASK_COMMAND:
+                    taskList.addTask(new DeadlineTask(args.get(1), args.get(2)));
+                    break;
+                case EVENT_NEW_TASK_COMMAND:
+                    taskList.addTask(new EventTask(args.get(1), args.get(2), args.get(3)));
                     break;
                 default:
-                    taskList[size++] = new Task(message);
-                    System.out.println("Written to task list:" + message);
+                    System.out.println(message);
             }
-
             print_divider_line();
         }
     }
 
-    public static String[] getArgs(String text) {
-        return text.split("\\s+");
-    }
+    public static ArrayList<String> getArgs(String text) {
+        ArrayList<String> result = new ArrayList<>();
+        String[] words = text.split("\\s+");
+        String mainCommand = words[0];
+        StringBuilder subCommand = new StringBuilder();
 
-    public static void mark_task_done(Task[] taskList, String text) {
-        Task task = taskList[Integer.parseInt(text) - 1];
-        task.markDone();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("     " + task.getDescriptionWithCheckbox());
-    }
-
-    public static void unmark_task_undone(Task[] taskList, String text) {
-        Task task = taskList[Integer.parseInt(text) - 1];
-        task.markUndone();
-        System.out.println("Ok! I've marked this task as undone:");
-        System.out.println("     " + task.getDescriptionWithCheckbox());
-    }
-
-    public static void print_all_task(Task[] taskList, int size) {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 1; i <= size; ++i) {
-            String taskNumber = String.format("%3d. ", i);
-            System.out.println(taskNumber + taskList[i - 1].getDescriptionWithCheckbox());
+        result.add(mainCommand);
+        for (int i = 1; i < words.length; i++) {
+            String currentWord = words[i];
+            if (currentWord.startsWith("/")) {
+                result.add(subCommand.toString().trim());
+                subCommand = new StringBuilder();
+            } else {
+                subCommand.append(" ").append(currentWord);
+            }
         }
+
+        result.add(subCommand.toString().trim());
+        return result;
     }
+
 
     public static void goodbye_world() {
         System.out.println("Bye. Hope to see you again soon!");
@@ -87,7 +97,7 @@ public class Duke {
     }
 
     public static void print_divider_line() {
-        System.out.println("═".repeat(80));
+        System.out.println("═".repeat(CHAT_WIDTH));
     }
 
     public static void printName() {

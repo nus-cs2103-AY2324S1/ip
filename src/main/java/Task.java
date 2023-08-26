@@ -1,9 +1,9 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
     public Task(String description) {
-        this.description = description;
+        this.description = description.trim();
         this.isDone = false;
     }
 
@@ -11,7 +11,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getDescriptionWithCheckbox() {
+    public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
