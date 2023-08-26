@@ -50,34 +50,6 @@ public class Parser {
             return false;
         }
 
-        case "list": {
-            Duke.list();
-            break;
-        }
-
-        case "mark": {
-            if (rest.isEmpty()) {
-                throw new IllegalArgumentException("Task index is missing.");
-            }
-            int index = Integer.parseInt(rest);
-            Duke.mark(index);
-            break;
-        }
-
-        case "unmark": {
-            if (rest.isEmpty()) {
-                throw new IllegalArgumentException("Task index is missing.");
-            }
-            int index = Integer.parseInt(rest);
-            Duke.unmark(index);
-            break;
-        }
-
-        case "todo": {
-            Duke.add(new ToDo(rest));
-            break;
-        }
-
         case "deadline": {
             try {
                 final String[] deadlineParts = rest.split(" /by ", 2);
@@ -87,6 +59,15 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new IllegalArgumentException("Invalid format. Usage: deadline <name> /by <time>");
             }
+            break;
+        }
+
+        case "delete": {
+            if (rest.isEmpty()) {
+                throw new IllegalArgumentException("Task index is missing.");
+            }
+            int index = Integer.parseInt(rest);
+            Duke.delete(index);
             break;
         }
 
@@ -107,17 +88,36 @@ public class Parser {
             break;
         }
 
-        case "delete": {
+        case "find": {
+            Duke.listFiltered(rest);
+            break;
+        }
+
+        case "list": {
+            Duke.list();
+            break;
+        }
+
+        case "mark": {
             if (rest.isEmpty()) {
                 throw new IllegalArgumentException("Task index is missing.");
             }
             int index = Integer.parseInt(rest);
-            Duke.delete(index);
+            Duke.mark(index);
             break;
         }
 
-        case "find": {
-            Duke.listFiltered(rest);
+        case "todo": {
+            Duke.add(new ToDo(rest));
+            break;
+        }
+
+        case "unmark": {
+            if (rest.isEmpty()) {
+                throw new IllegalArgumentException("Task index is missing.");
+            }
+            int index = Integer.parseInt(rest);
+            Duke.unmark(index);
             break;
         }
 
