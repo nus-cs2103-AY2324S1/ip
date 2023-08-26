@@ -2,15 +2,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
+
     private LocalDate start;
     private LocalDate end;
-    public Event(String description, LocalDate start, LocalDate end) throws SpotException {
+
+    public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;
     }
 
-    public Event(String description, boolean isDone, LocalDate start, LocalDate end) throws SpotException {
+    public Event(String description, boolean isDone, LocalDate start, LocalDate end) {
         super(description, isDone);
         this.start = start;
         this.end = end;
