@@ -1,3 +1,5 @@
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
 	protected String by;
 
@@ -9,6 +11,14 @@ public class Deadline extends Task {
 	public Deadline(String description, String by) {
 		super(description);
 		this.by = by;
+	}
+
+	@Override
+	public String serialize() {
+		return String.format("D | %d | %s | %s",
+				super.isDone ? 1 : 0,
+				super.description,
+				this.by);
 	}
 
 	@Override

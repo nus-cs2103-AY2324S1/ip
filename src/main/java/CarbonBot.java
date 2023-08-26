@@ -1,12 +1,25 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class CarbonBot {
-
+    private static final String saveFilePath = "./data/tasks.txt";
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        List<Task> taskList = new ArrayList<>();
+        List<Task> taskList;
+
+        try {
+            taskList = deserializeTasks();
+        } catch (DukeException ex) {
+            System.out.println("Something is wrong with your save file :/");
+            return;
+        }
 
         // Greeting Message
         printDivider();
@@ -134,6 +147,8 @@ public class CarbonBot {
         System.out.println(DIVIDER);
     }
 
+
+
     private static void deleteTask(List<Task> tasks, String input) throws DukeException {
         // Validates if the user has specified the index to be updated
         if (input.split(" ").length < 2) {
@@ -155,6 +170,7 @@ public class CarbonBot {
         } catch (NumberFormatException nfe) {
             throw new DukeException("Please provide a valid integer for the index.");
         }
+        saveTasks(tasks);
     }
 
     // Adds a todo task to the list
@@ -163,6 +179,77 @@ public class CarbonBot {
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println(getListSize(tasks));
+        saveTasks(tasks);
+    }
+
+
+    private static void saveTasks(List<Task> tasks) {
+        try {
+            File file = new File(saveFilePath);
+            if (!file.exists()) {
+                try {
+                    file.getParentFile().mkdirs();
+                    file.createNewFile();
+                } catch (IOException e) {
+                    System.out.println("OH NO..., " + e.getMessage());
+                }
+            }
+
+            FileWriter fw = new FileWriter(saveFilePath);
+            fw.write(serializeTasks(tasks));
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("OH NO..., " + e.getMessage());
+        }
+    }
+
+    private static String serializeTasks(List<Task> tasks) {
+        String s = "";      //TODO: Replace with StringBuilder
+        for (Task task : tasks) {
+            s += task.serialize() + "\n";
+        }
+        return s;
+    }
+
+    private static List<Task> deserializeTasks() throws DukeException {
+        List<Task> taskList = new ArrayList<Task>();
+        File f = new File(saveFilePath); // create a File for the given file path
+        Scanner s = null; // create a Scanner using the File as the source
+        try {
+            s = new Scanner(f);
+        } catch (FileNotFoundException e) {
+            // No existing save-file
+            return taskList;
+        }
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] cols = line.split(" \\| ");
+            try {
+                Task task;
+                switch (cols[0]) {
+                    case "T":
+                        task = new Todo(cols[2]);
+                        break;
+                    case "D":
+                        task = new Deadline(cols[2], cols[3]);
+                        break;
+                    case "E":
+                        task = new Event(cols[2], cols[3], cols[4]);
+                        break;
+                    default:
+                        throw new DukeException("Invalid File Format");
+                }
+
+                if (cols[1].equals("1")) {
+                    task.markAsDone();
+                }
+                taskList.add(task);
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                throw new DukeException("Invalid File Format");
+            }
+        }
+
+        return taskList;
     }
 
     // Get number of tasks in the list
@@ -211,7 +298,7 @@ public class CarbonBot {
             // Ensure the index is integer
             throw new DukeException("Please provide a valid integer for the index.");
         }
-
+        saveTasks(tasks);
     }
 
 }

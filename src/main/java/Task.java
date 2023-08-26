@@ -30,6 +30,13 @@ public abstract class Task {
 		this.isDone = false;
 	}
 
+	/**
+	 * Serializes the task in a file friendly format
+	 * @return String representation of the task
+	 */
+	public abstract String serialize();
+
+
 	@Override
 	public String toString() {
 		return getStatusIcon() + " " + this.description;

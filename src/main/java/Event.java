@@ -15,6 +15,11 @@ public class Event extends Task {
 	}
 
 	@Override
+	public String serialize() {
+		return String.format("E | %d | %s | %s | %s", super.isDone ? 1 : 0, super.description, this.from, this.to);
+	}
+
+	@Override
 	public String toString() {
 		return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
 	}
