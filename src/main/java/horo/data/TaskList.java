@@ -1,8 +1,6 @@
-package horo;
+package horo.data;
 
 import java.util.ArrayList;
-
-import horo.data.Task;
 
 public class TaskList {
 
