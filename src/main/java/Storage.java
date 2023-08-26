@@ -2,12 +2,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
 
 public class Storage {
 
@@ -52,14 +55,15 @@ public class Storage {
                             taskList.add(newTask);
                             break;
                         case "D":
-                            newTask = new Deadline(entryList[2], entryList[3]);
+                            newTask = new Deadline(entryList[2], formatDate(entryList[3]));
                             if (entryList[1].equals("X")) {
                                 newTask.markAsDone();
                             }
                             taskList.add(newTask);
                             break;
                         case "E":
-                            newTask = new Event(entryList[2], entryList[3], entryList[4]);
+                            newTask = new Event(entryList[2], formatDate(entryList[3]),
+                                    formatDate(entryList[4]));
                             if (entryList[1].equals("X")) {
                                 newTask.markAsDone();
                             }
@@ -67,6 +71,8 @@ public class Storage {
                             break;
                     }
                 } catch (DukeDatabaseException e) {
+                    System.out.println(e);
+                } catch (DukeEndDateBeforeStartDateException e) {
                     System.out.println(e);
                 }
             }
@@ -98,5 +104,12 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e );
         }
+    }
+
+    // reading from duke.txt returns date as MMM dd yyyy (e.g Oct 15 2019) instead of
+    // yyyy-mm-dd format (e.g 2019-10-15), hence this function converts
+    // Oct 15 2019 to 2019-10-15
+    public LocalDate formatDate(String inputDate) {
+        return LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH));
     }
 }

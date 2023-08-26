@@ -1,5 +1,7 @@
-import java.lang.reflect.Array;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.time.LocalDate;
+
 public class TaskList {
     private ArrayList<Task> taskList;
 
@@ -22,11 +24,11 @@ public class TaskList {
         }
     }
 
-    public void newDeadline(String input) throws DukeMissingArgumentException {
+    public void newDeadline(String input) throws DukeMissingArgumentException, DukeInvalidDateFormatException {
         try {
             String[] msgArr = input.split("deadline ");
             msgArr = msgArr[1].split(" /by ");
-            Task newTask = new Deadline(msgArr[0], msgArr[1]);
+            Task newTask = new Deadline(msgArr[0], LocalDate.parse(msgArr[1]));
             this.taskList.add(newTask);
             String msg = "Got it. I've added this task:\n"
                     + "\t" + newTask + "\n"
@@ -35,16 +37,18 @@ public class TaskList {
             System.out.println(msg);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
+        } catch (DateTimeParseException e) {
+            throw new DukeInvalidDateFormatException();
         }
     }
 
-    public void newEvent(String input) throws DukeMissingArgumentException {
+    public void newEvent(String input) throws DukeMissingArgumentException, DukeInvalidDateFormatException {
         try {
             String[] msgArr = input.split("event ");
             msgArr = msgArr[1].split(" /from ");
             String description = msgArr[0];
             msgArr = msgArr[1].split(" /to ");
-            Task newTask = new Event(description, msgArr[0], msgArr[1]);
+            Task newTask = new Event(description, LocalDate.parse(msgArr[0]), LocalDate.parse(msgArr[1]));
             taskList.add(newTask);
             String msg = "Got it. I've added this task:\n"
                     + "\t" + newTask + "\n"
@@ -53,6 +57,10 @@ public class TaskList {
             System.out.println(msg);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
+        } catch (DateTimeParseException e) {
+            throw new DukeInvalidDateFormatException();
+        } catch (DukeEndDateBeforeStartDateException e) {
+            System.out.println(e);
         }
     }
     public void list() {
