@@ -1,4 +1,4 @@
-package dukeExceptions;
+package duke.exception;
 
 public class InvalidDateException extends DukeException {
     public InvalidDateException() {

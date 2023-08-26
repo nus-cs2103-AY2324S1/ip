@@ -1,8 +1,10 @@
+package duke.task;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dukeExceptions.EmptyDescriptionException;
-import dukeExceptions.MissingInformationException;
+import duke.exception.EmptyDescriptionException;
+import duke.exception.MissingInformationException;
 
 /*
  * A class that is represents the Event class. It is 

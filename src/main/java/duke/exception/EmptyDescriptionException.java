@@ -1,4 +1,4 @@
-package dukeExceptions;
+package duke.exception;
 
 public class EmptyDescriptionException extends MissingInformationException {
     public EmptyDescriptionException(String taskType) {

@@ -1,3 +1,4 @@
+package duke.task;
 /*
  * An abstract class that is the supertype of all 
  * tasks that program accepts (Todo, Deadline, Event).

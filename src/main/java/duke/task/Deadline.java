@@ -1,11 +1,12 @@
+package duke.task;
+
 import java.util.regex.*;
 
-import dukeExceptions.MissingDeadlineException;
-import dukeExceptions.MissingInformationException;
+import duke.exception.MissingDeadlineException;
+import duke.exception.MissingInformationException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /*
  * A class that is represents the Deadline class. It is 

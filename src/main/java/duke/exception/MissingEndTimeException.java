@@ -1,4 +1,4 @@
-package dukeExceptions;
+package duke.exception;
 
 public class MissingEndTimeException extends MissingInformationException {
     public MissingEndTimeException() {

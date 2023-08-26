@@ -1,7 +1,10 @@
+package duke;
+
 import java.util.*;
 
-import dukeExceptions.*;
-import dukeExceptions.IndexOutOfBoundsException;
+import duke.exception.DukeException;
+import duke.exception.IndexOutOfBoundsException;
+import duke.task.Task;
 
 /*
  * A class that represents a list that stores tasks inputted by user.
@@ -11,6 +14,10 @@ public class TaskList {
 
     public TaskList() {
         this.taskArr = new ArrayList<Task>();
+    }
+
+    public TaskList(ArrayList<Task> arr) {
+        this.taskArr = arr;
     }
 
     public Task getTask(int index) throws DukeException {
@@ -54,9 +61,9 @@ public class TaskList {
      */
     public String numTasksToString() {
         if (this.length() == 1) {
-            return "1 task";
+            return " task";
         }
-        return this.length() + " tasks";
+        return " tasks";
     }
 
     /*

@@ -1,4 +1,4 @@
-package dukeExceptions;
+package duke.exception;
 
 public class MissingStartTimeException extends MissingInformationException {
     public MissingStartTimeException() {

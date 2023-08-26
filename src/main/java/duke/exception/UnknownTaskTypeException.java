@@ -1,4 +1,4 @@
-package dukeExceptions;
+package duke.exception;
 
 public class UnknownTaskTypeException extends DukeException {
     public UnknownTaskTypeException() {

@@ -1,0 +1,7 @@
+T | 1 | read book
+D | 0 | book | 2019-10-10
+E | 1 | bookk | 2019-10-10 | 2019-10-10
+T | 0 | read book1
+D | 0 | read another book | 2020-10-10
+T | 0 | abc
+T | 1 | read abcd

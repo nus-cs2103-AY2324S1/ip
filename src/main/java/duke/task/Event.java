@@ -1,15 +1,14 @@
+package duke.task;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import dukeExceptions.MissingEndTimeException;
-import dukeExceptions.MissingInformationException;
-import dukeExceptions.MissingStartTimeException;
-import dukeExceptions.InvalidDateException;
-import dukeExceptions.DukeException;
+import duke.exception.DukeException;
+import duke.exception.MissingEndTimeException;
+import duke.exception.MissingStartTimeException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /*
  * A class that is represents the Event class. It is 
