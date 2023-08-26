@@ -1,4 +1,5 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Duke {
     public static final int DEADLINEOFFSET = 9;
@@ -8,11 +9,9 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> taskList = new ArrayList<>();
         int totalItemNumber = 0;
-
         String chatBotName = "Benedict Cucumber Badge";
         System.out.println("Hello! I'm " + chatBotName);
         System.out.println("What can I do for you?");
-
 
         boolean dontTerminate = true;
         while (dontTerminate) {
