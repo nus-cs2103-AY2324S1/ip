@@ -1,5 +1,7 @@
 package didier.task;
 
+import didier.exception.FileCorruptedException;
+
 import java.time.LocalDate;
 
 /**
@@ -50,7 +52,7 @@ public abstract class Task {
      * @param fileString The String to be parsed.
      * @return The corresponding didier.task.
      */
-    public static Task parseFileString(String fileString) {
+    public static Task parseFileString(String fileString) throws FileCorruptedException {
         String[] task = fileString.split("\\|");
         if (task[0].equals("T")) {
             return new ToDo(task[2], Integer.parseInt(task[1]) != 0);
@@ -60,6 +62,6 @@ public abstract class Task {
             return new Event(task[2], LocalDate.parse(task[3]),
                     LocalDate.parse(task[4]), Integer.parseInt(task[1]) != 0);
         }
-        return null;
+        throw new FileCorruptedException();
     }
 }

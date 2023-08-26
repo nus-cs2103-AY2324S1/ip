@@ -1,5 +1,6 @@
 package didier;
 
+import didier.exception.FileCorruptedException;
 import didier.exception.TaskNumberException;
 import didier.task.Task;
 import didier.task.TaskList;
@@ -36,7 +37,7 @@ public class Storage {
             }
             scanner.close();
             return taskList;
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | FileCorruptedException e) {
             return new TaskList();
         }
     }
