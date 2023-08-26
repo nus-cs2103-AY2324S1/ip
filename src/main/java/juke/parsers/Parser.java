@@ -12,19 +12,19 @@ import juke.core.JukeObject;
  */
 public abstract class Parser extends JukeObject {
     /** String regex for splitting a command by spaces. */
-    private static final String SPACE_REGEX = " ";
+    private static final String SPACE_REGEX = "\\s+";
 
     /** String regex for checking a command by "/by". */
-    private static final String CHECKING_BY_REGEX = ".* /by .*";
+    private static final String CHECKING_BY_REGEX = ".*\\s+/by\\s+.*";
 
     /** String regex for splitting a command by "/by". */
-    private static final String SPLITTING_BY_REGEX = " /by ";
+    private static final String SPLITTING_BY_REGEX = "\\s+/by\\s+";
 
     /** String regex for checking a command for "/from" and "/to". */
-    private static final String CHECKING_FROM_TO_REGEX = ".* /from .*|.* /to .*";
+    private static final String CHECKING_FROM_TO_REGEX = ".*\\s+/from\\s+.*|.*\\s+/to\\s+.*";
 
     /** String regex for splitting a command by "/from" and "/to". */
-    private static final String SPLITTING_FROM_TO_REGEX = " /from | /to ";
+    private static final String SPLITTING_FROM_TO_REGEX = "\\s+/from\\s+|\\s+/to\\s+";
 
     /**
      * Parse a command by a space. This method is used to obtain the first command in the command chain.
@@ -55,10 +55,20 @@ public abstract class Parser extends JukeObject {
         return command.strip().split(Parser.SPLITTING_FROM_TO_REGEX);
     }
 
+    /**
+     * Checks if the input string matches the "/by" sequence.
+     * @param command String to check
+     * @return true if the input string matches, else false
+     */
     public static boolean isMatchByString(String command) {
         return Pattern.matches(Parser.CHECKING_BY_REGEX, command);
     }
 
+    /**
+     * Checks if the input string matches the "/from ... /to" sequence.
+     * @param command String to check
+     * @return true if the input string matches, else false
+     */
     public static boolean isMatchFromToString(String command) {
         return Pattern.matches(Parser.CHECKING_FROM_TO_REGEX, command);
     }

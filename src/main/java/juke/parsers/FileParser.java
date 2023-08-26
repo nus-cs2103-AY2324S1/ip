@@ -32,10 +32,21 @@ public abstract class FileParser extends JukeObject {
 
         switch (data[0]) {
         case "T":
+            if (data.length != 3) {
+                throw new JukeParseException("Oh no! Todo \"" + task + "\" cannot be parsed!");
+            }
+
             return new JukeTodo(data[2], data[1].equals("T"));
         case "D":
+            if (data.length != 4) {
+                throw new JukeParseException("Oh no! Deadline \"" + task + "\" cannot be parsed!");
+            }
+
             return new JukeDeadline(data[2], DateTimeParser.fromParsedString(data[3]), data[1].equals("T"));
         case "E":
+            if (data.length != 5) {
+                throw new JukeParseException("Oh no! Event \"" + task + "\" cannot be parsed!");
+            }
             return new JukeEvent(data[2], DateTimeParser.fromParsedString(data[3]),
                                  DateTimeParser.fromParsedString(data[4]), data[1].equals("T"));
         default:
