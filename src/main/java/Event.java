@@ -1,3 +1,6 @@
+import java.time.DateTimeException;
+import java.time.LocalDate;
+
 /**
  * A task which holds the date from and to.
  */
@@ -6,12 +9,12 @@ public class Event extends Task {
     /**
      * The start time of the event task.
      */
-    private String from;
+    private LocalDate from;
 
     /**
      * The end time of the event task.
      */
-    private String to;
+    private LocalDate to;
 
     /**
      * Constructs an Event task
@@ -23,8 +26,12 @@ public class Event extends Task {
     public Event(String description, String from, String to) throws DukeException {
         super(description);
         this.TaskType = TaskType.EVENT;
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+        } catch (DateTimeException e) {
+            throw new DukeException("Wrong date format. Please Use format YYYY-MM-DD");
+        }
     }
 
     /**
