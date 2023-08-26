@@ -9,6 +9,13 @@ public class Parser {
   public Parser() {
   }
 
+  /**
+   * Returns a task by parsing string from data file
+   * 
+   * @param s Input string from data file
+   * @return Task
+   * @throws HoroException
+   */
   public static Task parseDataString(String s) throws HoroException {
     String[] arguments = s.split(",");
     Task t;

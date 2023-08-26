@@ -32,6 +32,13 @@ public enum Command {
     this.format = format;
   }
 
+  /**
+   * Returns the Command the input string matches
+   * 
+   * @param input Input string
+   * @return Command
+   * @throws HoroException If input does not match any commands
+   */
   public static Command commandParser(String input) throws HoroException {
     Matcher m = commandPattern.matcher(input);
 
@@ -46,6 +53,13 @@ public enum Command {
     return c;
   }
 
+  /**
+   * Returns regex groups of the input as a matcher
+   * 
+   * @param input Input string
+   * @return Matcher
+   * @throws HoroException If input does not match the regex pattern
+   */
   public Matcher getMatcher(String input) throws HoroException {
     Matcher m = pattern.matcher(input);
     if (!m.find()) {

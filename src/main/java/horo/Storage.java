@@ -23,6 +23,11 @@ public class Storage {
     this.filePath = filePath;
   }
 
+  /**
+   * Load data file
+   * 
+   * @return TaskList populated from data file
+   */
   public TaskList load() {
     ArrayList<Task> tList = new ArrayList<>();
     try {
@@ -51,6 +56,11 @@ public class Storage {
     return new TaskList(tList);
   }
 
+  /**
+   * Update data file with given taskList
+   * 
+   * @param taskList TaskList to be stored in data file
+   */
   public void updateTaskData(TaskList taskList) {
     try {
       FileWriter writer = new FileWriter(filePath, false);
