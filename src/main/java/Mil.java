@@ -1,9 +1,12 @@
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Mil {
     private static final String INDENTATION = "     ";
@@ -44,22 +47,31 @@ public class Mil {
         }
 
     }
+    private static void addNewTask(Task task) {
+        taskList.add(task);
+        System.out.println(INDENTATION + HORIZONTAL_LINE);
+        System.out.println(INDENTATION + "Got it. I've added this task:");
+        System.out.println(INDENTATION + "  " + task);
+        System.out.println(INDENTATION + "Now you have " + taskList.size() + " tasks in the list.");
+        System.out.println(INDENTATION + HORIZONTAL_LINE);
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         taskList = new ArrayList<>();
         String input;
         printWelcomeMessage();
         try {
-            tasksOutput = new FileWriter("src\\main\\data\\mil.txt");
+            tasksOutput = new FileWriter("..\\src\\main\\data\\mil.txt");
         } catch (IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
 
-
         while(scanner.hasNext()) {
             input = scanner.nextLine();
             if(input.equals("bye")) {
+                saveTasksToFile();
                 printGoodbyeMessage();
+
                 break;
             } else if(input.equals("list")) {
                 System.out.println(INDENTATION + HORIZONTAL_LINE);
@@ -114,6 +126,7 @@ public class Mil {
                 }
                 if(input.startsWith("todo")) {
                     task = new Todo(input.substring(5));
+                    addNewTask(task);
                 } else if(input.startsWith("deadline")) {
                     try {
                         if(!input.contains("/by") || input.trim().split("/by").length == 1) {
@@ -123,8 +136,16 @@ public class Mil {
                         printErrorMessage(e.getMessage());
                         continue;
                     }
-                    task = new Deadline(input.split("/")[0].substring(9),
-                            input.split("/")[1].substring(3));
+                    try {
+                        LocalDate deadlineDate = LocalDate.parse(input.split("/")[1].substring(3).trim());
+                        task = new Deadline(input.split("/")[0].substring(9),
+                                deadlineDate);
+                        addNewTask(task);
+                    } catch (DateTimeParseException e) {
+                        printErrorMessage(e.getMessage());
+                    }
+
+
                 } else {
                     try {
                         if(!input.contains("/from") || !input.contains("/to")) {
@@ -136,16 +157,14 @@ public class Mil {
                         System.out.println(INDENTATION + HORIZONTAL_LINE);
                         continue;
                     }
+                    LocalDate fromDate = LocalDate.parse(input.split("/")[1].substring(5).trim());
+                    LocalDate toDate = LocalDate.parse(input.split("/")[2].substring(3).trim());
                     task = new Event(input.split("/")[0].substring(6),
-                            input.split("/")[1].substring(5),
-                            input.split("/")[2].substring(3));
+                            fromDate, toDate);
+                    addNewTask(task);
                 }
-                taskList.add(task);
-                System.out.println(INDENTATION + HORIZONTAL_LINE);
-                System.out.println(INDENTATION + "Got it. I've added this task:");
-                System.out.println(INDENTATION + "  " + task);
-                System.out.println(INDENTATION + "Now you have " + taskList.size() + " tasks in the list.");
-                System.out.println(INDENTATION + HORIZONTAL_LINE);
+
+
             }  else if(input.startsWith("delete")) {
                 try {
                     if(input.split(" ").length < 2) {
@@ -177,6 +196,6 @@ public class Mil {
                 System.out.println("☹ Oopsie! I'm sorry, but I don't know what that means.");
             }
         }
-        saveTasksToFile();
+
     }
 }
