@@ -1,6 +1,7 @@
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 public class Duke {
     public static class DukeException extends Exception {
@@ -8,11 +9,102 @@ public class Duke {
             super(errorMessage);
         }
     }
+
+    public static void writeToDisk(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter("./data/duke.txt");
+        for (Task task : tasks) {
+            fw.write(task.toString() + "\n");
+        }
+        fw.close();
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello I'm iP");
         ArrayList<Task> tasks = new ArrayList<>(100);
         Scanner input = new Scanner(System.in);
         String response = "";
+        try {
+            File folder = new File("data");
+            if (!folder.exists()) {
+                if (!folder.mkdir()) {
+                    throw new IOException();
+                }
+            }
+            File diskValues = new File("data/duke.txt");
+            if (!diskValues.exists()) {
+                if (!diskValues.createNewFile()) {
+                    throw new IOException();
+                }
+            } else {
+                Scanner s = new Scanner(diskValues);
+                while (s.hasNext()) {
+                    String oneTask = s.nextLine();
+                    char TaskType = oneTask.charAt(1);
+                    String[] splitTask = oneTask.split(" ");
+                    String taskName = splitTask[2];
+                    if (TaskType == 'T') {
+                        tasks.add(new Todo(taskName));
+                    } else if (TaskType == 'D') {
+                        StringBuilder deadline = new StringBuilder();
+                        String mode = "none";
+                        for (String command : splitTask) {
+                            if (Objects.equals(command, "(by:")) {
+                                mode = "by";
+                                continue;
+                            }
+                            if (Objects.equals(mode, "by")) {
+                                if (deadline.length() != 0) {
+                                    deadline.append(" ");
+                                }
+                                deadline.append(command);
+                            }
+                        }
+                        if (deadline.length() != 0) {
+                            deadline.deleteCharAt(deadline.length() - 1); // Remove last ).
+                        }
+                        tasks.add(new Deadline(taskName, deadline.toString()));
+                    } else if (TaskType == 'E') {
+                        StringBuilder from = new StringBuilder();
+                        StringBuilder to = new StringBuilder();
+                        String mode = "none";
+                        for (String command : splitTask) {
+                            if (Objects.equals(command, "(from:")) {
+                                mode = "from";
+                                continue;
+                            }
+                            if (Objects.equals(command, "to:")) {
+                                mode = "to";
+                                continue;
+                            }
+                            if (Objects.equals(mode, "from")) {
+                                if (from.length() != 0) {
+                                    from.append(" ");
+                                }
+                                from.append(command);
+                            } else if (Objects.equals(mode, "to")) {
+                                if (to.length() != 0) {
+                                    to.append(" ");
+                                }
+                                to.append(command);
+                            }
+                        }
+                        if (to.length() != 0) {
+                            to.deleteCharAt(to.length() - 1); // Remove last ).
+                        }
+                        tasks.add(new Event(taskName, from.toString(), to.toString()));
+                    } else {
+                        throw new DukeException("Input file corrupted.");
+                    }
+                    if (oneTask.charAt(4) == 'X') {
+                        tasks.get(tasks.size() - 1).completeTask();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("IOException in reading files: " + e.getMessage());
+        } catch (DukeException e) {
+            System.out.println("DukeException in reading files: " + e.getMessage());
+        }
         while (!Objects.equals(response, "bye")) {
             response = input.nextLine();
             try {
@@ -32,6 +124,7 @@ public class Duke {
                         System.out.println(tasks.get(taskToMark - 1).toString());
                         tasks.remove(taskToMark - 1);
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        writeToDisk(tasks);
                     } else {
                         throw new DukeException("☹ OOPS!!! The delete command needs to be followed by an existing task number.");
                     }
@@ -44,7 +137,7 @@ public class Duke {
                     if (taskToMark <= tasks.size()) {
                         tasks.get(taskToMark - 1).completeTask();
                         System.out.println("Nice! I've marked this task as done:");
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        writeToDisk(tasks);
                     } else {
                         throw new DukeException("☹ OOPS!!! The mark command needs to be followed by an existing task number.");
                     }
@@ -65,6 +158,7 @@ public class Duke {
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        writeToDisk(tasks);
                     } else {
                         throw new DukeException("☹ OOPS!!! The title of a todo cannot be empty.");
                     }
@@ -98,6 +192,7 @@ public class Duke {
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        writeToDisk(tasks);
                     } else {
                         throw new DukeException("☹ OOPS!!! The title and given deadline cannot be empty.");
                     }
@@ -141,6 +236,7 @@ public class Duke {
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.get(tasks.size() - 1));
                         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        writeToDisk(tasks);
                     } else {
                         throw new DukeException("☹ OOPS!!! The title, from and to sections cannot be empty.");
                     }
@@ -148,7 +244,9 @@ public class Duke {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                System.out.println("DukeException: " + e.getMessage());
+            } catch (IOException e) {
+                System.out.println("IOException in Main: " + e.getMessage());
             }
         }
     }
