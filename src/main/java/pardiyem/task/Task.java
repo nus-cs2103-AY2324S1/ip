@@ -4,17 +4,21 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description) throws IllegalArgumentException {
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("Whoops, a task needs to have a non-empty description!");
+        }
         this.description = description;
         this.isDone = false;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
-    public String getDescription() {
-        return this.description; // mark done task with X
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", this.getStatusIcon(), this.description);
     }
 
     public String markAsDone() {
