@@ -27,8 +27,7 @@ public class Didier {
                 isExit = command.isExit();
             } catch (DidierException exception) {
                 this.ui.botPrintError(exception);
-            }
-            finally {
+            } finally {
                 if (!isExit) {
                     this.ui.botEndCommand(taskList.getSize());
                 }

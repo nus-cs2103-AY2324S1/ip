@@ -4,14 +4,19 @@ import didier.Storage;
 import didier.TaskList;
 import didier.UI;
 import didier.exception.DidierException;
-import didier.task.*;
+import didier.task.Deadline;
+import didier.task.Event;
+import didier.task.Task;
+import didier.task.ToDo;
 
 import java.time.LocalDate;
 
 public class AddCommand extends Command {
 
     private String description;
-    private LocalDate by, from, to;
+    private LocalDate by;
+    private LocalDate from;
+    private LocalDate to;
 
     public AddCommand(String description, LocalDate by, LocalDate from, LocalDate to) {
         this.description = description;

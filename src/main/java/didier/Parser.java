@@ -1,31 +1,22 @@
 package didier;
 
-import didier.command.*;
-import didier.exception.*;
+
+import didier.command.AddCommand;
+import didier.command.Command;
+import didier.command.DeleteCommand;
+import didier.command.ExitCommand;
+import didier.command.ListCommand;
+import didier.command.MarkCommand;
+import didier.exception.DateFormatException;
+import didier.exception.DidierException;
+import didier.exception.ElementMissingException;
+import didier.exception.InvalidCommandException;
+import didier.exception.TaskNumberException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Parser {
-
-    enum CommandType{
-        LIST,
-        MARK,
-        UNMARK,
-        DELETE,
-        TODO,
-        DEADLINE,
-        EVENT,
-        BYE,
-        UNKNOWN;
-        public static CommandType textToCommand(String string) {
-            try {
-                return CommandType.valueOf(string.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                return CommandType.UNKNOWN;
-            }
-        }
-    }
 
     public static Command parse(String commandString) throws DidierException {
         String[] options = commandString.split(" ", 2);
@@ -85,7 +76,28 @@ public class Parser {
             }
         case BYE:
             return new ExitCommand();
+        default:
+            throw new InvalidCommandException(options[0]);
         }
-        throw new InvalidCommandException(options[0]);
+    }
+
+    enum CommandType {
+        LIST,
+        MARK,
+        UNMARK,
+        DELETE,
+        TODO,
+        DEADLINE,
+        EVENT,
+        BYE,
+        UNKNOWN;
+
+        public static CommandType textToCommand(String string) {
+            try {
+                return CommandType.valueOf(string.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                return CommandType.UNKNOWN;
+            }
+        }
     }
 }

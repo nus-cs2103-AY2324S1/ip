@@ -24,29 +24,6 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    public void markAsNotDone() {
-        this.isDone = false;
-    }
-
-    @Override
-    public String toString() {
-       return String.format("[%s] %s", this.isDone ? "X" : " ", this.description);
-    }
-
-    /**
-     * Composes the didier.task and returns it in a String format suitable to be written into a file.
-     * This is used to save the didier.task to a file.
-     *
-     * @return The composed didier.task as a String.
-     */
-    public String composeToFileString() {
-        return String.format("%s|%s", this.isDone ? "1" : "0", this.description);
-    }
-
     /**
      * Parses the given string obtained from a file into a didier.task.Task.
      *
@@ -68,5 +45,28 @@ public abstract class Task {
             throw new FileCorruptedException();
         }
         throw new FileCorruptedException();
+    }
+
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public void markAsNotDone() {
+        this.isDone = false;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", this.isDone ? "X" : " ", this.description);
+    }
+
+    /**
+     * Composes the didier.task and returns it in a String format suitable to be written into a file.
+     * This is used to save the didier.task to a file.
+     *
+     * @return The composed didier.task as a String.
+     */
+    public String composeToFileString() {
+        return String.format("%s|%s", this.isDone ? "1" : "0", this.description);
     }
 }
