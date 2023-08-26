@@ -6,7 +6,7 @@ package extensions.tasks;
 public class Task {
 
     // The description of the task.
-    protected String description;
+    protected final String description;
 
     // The status of the task. True if done, false if not done.
     protected boolean isDone = false;
@@ -51,5 +51,16 @@ public class Task {
     @Override
     public String toString() {
         return getStatusCheckbox() + " " + description;
+    }
+
+    /**
+     * Exports the task to a String to be saved.
+     *
+     * @return String representation of the task to be saved.
+     */
+    public String export() {
+        return String.format("%s || %s",
+                isDone ? "X" : " ",
+                description);
     }
 }

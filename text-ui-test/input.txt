@@ -1,4 +1,10 @@
 list
+mark 1
+unmark 1
+delete 1
+delete 1
+delete 1
+list
 todo borrow book
 list
 deadline return book /by Sunday 1234567 :/

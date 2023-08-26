@@ -22,4 +22,14 @@ public class ToDo extends Task {
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
+
+    /**
+     * Exports the ToDo task to a String to be saved.
+     *
+     * @return String representation of the ToDo task to be saved.
+     */
+    @Override
+    public String export() {
+        return String.format("TODO || %s || %s || %s || %s", super.export(), "", "", "");
+    }
 }

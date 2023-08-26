@@ -6,7 +6,7 @@ package extensions.tasks;
 public class Deadline extends Task {
 
     // The deadline of the Deadline task.
-    protected String by;
+    protected final String by;
 
     /**
      * Constructor for a Deadline task.
@@ -27,5 +27,15 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.by);
+    }
+
+    /**
+     * Exports the Deadline task to a String to be saved.
+     *
+     * @return String representation of the Deadline task to be saved.
+     */
+    @Override
+    public String export() {
+        return String.format("DEADLINE || %s || %s || %s || %s", super.export(), this.by, "", "");
     }
 }

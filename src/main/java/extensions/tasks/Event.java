@@ -6,8 +6,8 @@ package extensions.tasks;
 public class Event extends Task {
 
     // The start and end date/time of the Event task.
-    protected String start;
-    protected String end;
+    protected final String start;
+    protected final String end;
 
     /**
      * Constructor for a Deadline task.
@@ -30,5 +30,15 @@ public class Event extends Task {
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
+    }
+
+    /**
+     * Exports the Event task to a String to be saved.
+     *
+     * @return String representation of the Event task to be saved.
+     */
+    @Override
+    public String export() {
+        return String.format("EVENT || %s || %s || %s || %s", super.export(), "", this.start, this.end);
     }
 }
