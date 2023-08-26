@@ -43,6 +43,9 @@ public class Duke {
                     }
                     if (instruction.equals("deadline")) {
                         String[] taskAndDeadline = actualTask.split(("/by"));
+                        if (taskAndDeadline.length == 1 || taskAndDeadline.length == 0) {
+                            throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! Invalid format for deadline :-(\n" + Duke.horizontalLine);
+                        }
                         String onlyTask = taskAndDeadline[0];
                         String by = taskAndDeadline[1];
                         Deadline deadline = new Deadline(onlyTask, by);
@@ -50,8 +53,17 @@ public class Duke {
                     }
                     if (instruction.equals("event")) {
                         String[] taskAndToFrom = actualTask.split(("/from"));
+                        if (taskAndToFrom.length == 1 || taskAndToFrom.length == 0) {
+                            throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! Invalid format for event :-(\n" + Duke.horizontalLine);
+                        }
                         String onlyTask = taskAndToFrom[0];
+                        if (onlyTask.trim().isEmpty()) {
+                            throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! Invalid format for event :-(\n" + Duke.horizontalLine);
+                        }
                         String[] ToFrom = taskAndToFrom[1].split("/to");
+                        if (ToFrom.length == 1 || ToFrom.length == 0) {
+                            throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! Invalid format for event :-(\n" + Duke.horizontalLine);
+                        }
                         String from = ToFrom[0];
                         String to = ToFrom[1];
                         Event event = new Event(onlyTask, from, to);
