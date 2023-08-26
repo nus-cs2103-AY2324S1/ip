@@ -1,20 +1,22 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private static String noDescErrorMsg = "\u2639 OOPS!!! The description of a event cannot be empty.";
 
     public Event(String task) {
         // this is for creating a task with the "event" command
         super(getTask(task));
-        this.startTime = getStartTime(task);
-        this.endTime = getEndTime(task);
+        this.startTime = this.convertToDateTime(this.getStartTime(task));
+        this.endTime = this.convertToDateTime(getEndTime(task));
     }
 
     public Event(String task, String startTime, String endTime) {
         // this is for loading the file
         super(task);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = this.convertToDateTime(startTime);
+        this.endTime = this.convertToDateTime(endTime);
     }
 
     /*
@@ -102,13 +104,31 @@ public class Event extends Task {
         return endTime.trim();
     }
 
+    public String displayStartTime() {
+        return this.displayTime(this.startTime);
+    }
+
+    public String saveStartTime() {
+        return this.saveTime(this.startTime);
+    }
+
+    public String displayEndTime() {
+        return this.displayTime(this.endTime);
+    }
+
+    public String saveEndTime() {
+        return this.saveTime(this.endTime);
+    }
+
     @Override
     public String stringToSave() {
-        return "E" + super.stringToSave() + " | " + this.startTime + " | " + this.endTime; 
+        return "E" + super.stringToSave() + " | " + this.saveStartTime() + " | " + 
+            this.saveEndTime(); 
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+        return "[E]" + super.toString() + " (from: " + this.displayStartTime() + " to: " + 
+            this.displayEndTime() + ")";
     }
 }
