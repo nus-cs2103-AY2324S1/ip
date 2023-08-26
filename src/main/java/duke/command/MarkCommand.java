@@ -1,3 +1,9 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.UI;
+
 import java.io.IOException;
 
 public class MarkCommand extends Command {

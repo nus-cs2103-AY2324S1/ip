@@ -1,5 +1,7 @@
+package duke.task;
+
 /**
- * The Task class is to encapsulate the task into a single object
+ * The duke.task.Task class is to encapsulate the task into a single object
  * It will contain the description and whether it has been completed
  *
  * @author Zi Xiang
@@ -10,7 +12,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor for Task
+     * Constructor for duke.task.Task
      * @param description the task description
      */
     public Task(String description, String done) {

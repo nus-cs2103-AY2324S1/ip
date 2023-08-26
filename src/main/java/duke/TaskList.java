@@ -1,7 +1,11 @@
+package duke;
+
+import duke.task.Task;
+
 import java.util.ArrayList;
 
 /**
- * The Storage class contains a fixed sized array that
+ * The duke.Storage class contains a fixed sized array that
  * stores the input from the parser class and can also
  * display the stored values to the user
  *
@@ -31,7 +35,7 @@ public class TaskList {
         this.storage.add(t);
     }
 
-    /** Display Items in TaskList */
+    /** Display Items in duke.TaskList */
     public void display() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < this.storage.size(); i++) {

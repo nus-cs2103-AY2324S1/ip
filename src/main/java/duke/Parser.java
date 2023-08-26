@@ -1,9 +1,20 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.DukeException;
+import duke.exception.EmptyDescriptionException;
+import duke.exception.MissingIndexException;
+import duke.exception.UnknownCommandException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Arrays;
 
 /**
- * The Parser class is used to run the infinite loop and
+ * The duke.Parser class is used to run the infinite loop and
  * take in inputs by the user
  *
  * @author Zi Xiang
@@ -13,7 +24,7 @@ public class Parser {
     // Initialisation of objects and variables
     static List<String> commands = Arrays.asList(new String[]{"todo", "deadline", "event", "mark", "unmark", "delete"});;
 
-    public static Command parse(String fullCommand) throws DukeException{
+    public static Command parse(String fullCommand) throws DukeException {
         if (fullCommand.equals("bye")) {
             return new ExitCommand();
         } else if (fullCommand.equals("list")) {
@@ -55,7 +66,7 @@ public class Parser {
                     } else if (command.equals("event")) {
                         String[] items = temp[1].split(" /");
                         if (items.length == 3){
-                            // Todo: More Error Catching to be done here
+                            // duke.task.Todo: More Error Catching to be done here
                             if (items[1].startsWith("from ") && items[2].startsWith("to ")) {
                                 return new AddCommand(new Event(items[0], items[1].substring(5), items[2].substring(3)));
                             } else {

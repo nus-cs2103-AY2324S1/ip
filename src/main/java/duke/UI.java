@@ -1,7 +1,11 @@
+package duke;
+
+import duke.task.Task;
+
 import java.util.Scanner;
 
 /**
- * The UI class contains methods that generate UI elements
+ * The duke.UI class contains methods that generate duke.UI elements
  * such as line spaces
  *
  * @author Zi Xiang
