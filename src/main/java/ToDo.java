@@ -9,4 +9,8 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 
+    public String save() {
+        return "T|" + super.status();
+    }
+
 }
