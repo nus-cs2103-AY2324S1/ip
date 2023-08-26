@@ -1,19 +1,22 @@
 package bot.utils;
 
+import java.util.Iterator;
+import java.util.regex.Pattern;
+
 import bot.enums.DoneStatus;
 import bot.exceptions.EmptyListException;
 import bot.exceptions.InvalidArgumentException;
 import bot.exceptions.InvalidIndexException;
 import bot.exceptions.InvalidTaskException;
 
-import java.util.Iterator;
-import java.util.regex.Pattern;
-
 /**
- * Bot.Command abstraction for executing commands.
+ * Command abstraction for executing commands.
  */
 public abstract class Command {
-
+    /**
+     * Regex pattern for delete commands.
+     */
+    private static final Pattern PATTERN_DELETE = Pattern.compile("delete -?\\d+");
     /**
      * Regex pattern for mark commands.
      */
@@ -22,10 +25,11 @@ public abstract class Command {
      * Regex pattern for unmark commands.
      */
     private static final Pattern PATTERN_UNMARK = Pattern.compile("unmark -?\\d+");
+
     /**
-     * Regex pattern for delete commands.
+     * Default constructor. Does nothing.
      */
-    private static final Pattern PATTERN_DELETE = Pattern.compile("delete -?\\d+");
+    public Command() {}
 
     /**
      * Creates an ExitCommand to indicate the end of the program.

@@ -1,10 +1,11 @@
 package bot.utils;
 
-import bot.exceptions.InvalidTaskException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import bot.exceptions.InvalidTaskException;
+
 
 /**
  * Abstract task class for tasks that can be created for the task list in the chatbot.
@@ -398,7 +399,8 @@ public abstract class Task {
                 throw new InvalidTaskException("Please make sure the event is written in the correct format:\n"
                         + "event ... /from ... /to ...");
             }
-            LocalDate from, to;
+            LocalDate from;
+            LocalDate to;
             try {
                 from = LocalDate.parse(comps[1].substring(5).trim());
                 to = LocalDate.parse(comps[2].substring(3).trim());

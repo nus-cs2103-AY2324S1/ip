@@ -41,6 +41,11 @@ public class Bot {
         }
     }
 
+    /**
+     * Main function of program.
+     *
+     * @param args Optional arguments. It currently does nothing.
+     */
     public static void main(String[] args) {
         new Bot("./data/tasks.txt").run();
     }

@@ -1,11 +1,11 @@
 package bot.utils;
 
-import bot.exceptions.InvalidIndexException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
+import bot.exceptions.InvalidIndexException;
 
 /**
  * Bot.Task list abstraction. Functions like an arraylist but may not contain one.

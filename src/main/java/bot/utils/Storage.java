@@ -1,13 +1,13 @@
 package bot.utils;
 
-import bot.exceptions.InvalidTaskException;
-import bot.exceptions.LoadingException;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import bot.exceptions.InvalidTaskException;
+import bot.exceptions.LoadingException;
 
 /**
  * Abstraction for storing and loading data from a local file.
@@ -16,7 +16,7 @@ public class Storage {
     /**
      * File path for loading and saving data.
      */
-    String filePath;
+    private final String filePath;
 
     /**
      * Creates a Storage object that stores and loads data at that file path.

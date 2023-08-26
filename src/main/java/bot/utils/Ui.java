@@ -12,6 +12,11 @@ public class Ui {
     private final Scanner sc = new Scanner(System.in);
 
     /**
+     * Default constructor. Creates a Ui object.
+     */
+    public Ui() {}
+
+    /**
      * Prints the error to the screen.
      *
      * @param str Error message.
@@ -29,14 +34,25 @@ public class Ui {
         System.out.println(str);
     }
 
+    /**
+     * Returns user input from System.in.
+     *
+     * @return Full command string.
+     */
     public String readCommand() {
         return this.sc.nextLine();
     }
 
+    /**
+     * Returns the welcome message.
+     */
     public void showWelcome() {
         println("Hello! I'm the trash gremlin Caelus!\nWhat can I do for you?");
     }
 
+    /**
+     * Returns the goodbye message.
+     */
     public void showGoodbye() {
         println("Bye. I'll be at the nearest trash can!");
     }

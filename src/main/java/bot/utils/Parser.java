@@ -7,6 +7,21 @@ import bot.exceptions.InvalidCommandException;
  * Abstraction for making sense of user commands.
  */
 public class Parser {
+    /**
+     * Default constructor. It does nothing as the parser is not meant to
+     * be instantiated.
+     */
+    public Parser() {}
+
+    /**
+     * Parses the command string into a command to be executed.
+     * Does not guarantee the command is syntactically correct.
+     *
+     * @param str Full command string.
+     * @return Command object.
+     * @throws InvalidCommandException If the command is invalid.
+     * @throws InvalidArgumentException If the arguments are clearly invalid.
+     */
     public static Command parse(String str) throws InvalidCommandException, InvalidArgumentException {
         if (str.equalsIgnoreCase("bye")) {
             return Command.exit();
