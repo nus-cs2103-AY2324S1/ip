@@ -1,6 +1,9 @@
 /*
  * Abstract class that represents a general task.
  */
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 abstract class Task {
     private boolean isDone;
     private String task;
@@ -34,6 +37,27 @@ abstract class Task {
     public String stringToSave() {
         String status = isDone ? "[X]" : "[ ]";
         return " | " + status + " | " + task;
+    }
+
+    /**
+     * Converts a string to a LocalDateTime object. This is for the deadline and event classes.
+     * 
+     * @param s the string inputted by the user in the format "2019-10-15 1800"
+     * @return LocalDateTime object
+     */
+    public LocalDateTime convertToDateTime(String s) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return LocalDateTime.parse(s, formatter);
+    }
+
+    public String saveTime(LocalDateTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return time.format(formatter);
+    }
+
+    public String displayTime(LocalDateTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        return time.format(formatter);
     }
 
     @Override

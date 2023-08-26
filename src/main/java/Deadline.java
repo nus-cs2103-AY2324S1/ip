@@ -1,15 +1,18 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
-    private String deadline;
+    // private String deadline;
+    private LocalDateTime deadline;
     private static String noDescErrorMsg = "OOPS!!! The description of a deadline cannot be empty.";
 
     public Deadline(String task) {
         super(getTask(task));
-        this.deadline = this.getDeadline(task);
+        this.deadline = this.convertToDateTime(this.getDeadline(task));
     }
 
     public Deadline(String task, String deadline) {
         super(task);
-        this.deadline = deadline;
+        this.deadline = this.convertToDateTime(deadline);
     }
 
     /*
@@ -73,13 +76,21 @@ public class Deadline extends Task {
         return deadline.trim();
     }
 
+    public String displayDeadline() {
+        return this.displayTime(this.deadline);
+    }
+
+    public String saveDeadline() {
+        return this.saveTime(this.deadline);
+    }
+
     @Override
     public String stringToSave() {
-        return "D" + super.stringToSave() + " | " + this.deadline; 
+        return "D" + super.stringToSave() + " | " + this.saveDeadline(); 
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
+        return "[D]" + super.toString() + " (by: " + this.displayDeadline() + ")";
     }
 }
