@@ -17,38 +17,44 @@
      1.[T][ ] Do tutorials
     ____________________________________________________________
     ____________________________________________________________
+     Woof! Invalid date format! Date must be in the format YYYY-MM-DD or YYYY-MM-DD HH:mm.
+    ____________________________________________________________
+    ____________________________________________________________
      Woof! I've added this task:
-       [D][ ] Prepare for CA1 (by: 14 Sept)
+       [D][ ] Prepare for CA1 (by: 14 Sep 2023)
      You now have 2 tasks in the list. Now gimme some treats.
     ____________________________________________________________
     ____________________________________________________________
      1.[T][ ] Do tutorials
-     2.[D][ ] Prepare for CA1 (by: 14 Sept)
+     2.[D][ ] Prepare for CA1 (by: 14 Sep 2023)
     ____________________________________________________________
     ____________________________________________________________
      Woof! I've marked this task as done:
        [T][X] Do tutorials
     ____________________________________________________________
     ____________________________________________________________
+     Woof! Invalid date format! Date must be in the format YYYY-MM-DD or YYYY-MM-DD HH:mm.
+    ____________________________________________________________
+    ____________________________________________________________
      Woof! I've added this task:
-       [E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sept 8pm to: 12am)
+       [E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sep 2023 08:00PM to: 24 Sep 2023 12:00AM)
      You now have 3 tasks in the list. Now gimme some treats.
     ____________________________________________________________
     ____________________________________________________________
      Woof! I've marked this task as done:
-       [D][X] Prepare for CA1 (by: 14 Sept)
+       [D][X] Prepare for CA1 (by: 14 Sep 2023)
     ____________________________________________________________
     ____________________________________________________________
      Woof! This task is already done!
-       [D][X] Prepare for CA1 (by: 14 Sept)
+       [D][X] Prepare for CA1 (by: 14 Sep 2023)
     ____________________________________________________________
     ____________________________________________________________
      Woof! I've marked this task as not done yet:
-       [D][ ] Prepare for CA1 (by: 14 Sept)
+       [D][ ] Prepare for CA1 (by: 14 Sep 2023)
     ____________________________________________________________
     ____________________________________________________________
      Woof! You have not done this task yet!
-       [E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sept 8pm to: 12am)
+       [E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sep 2023 08:00PM to: 24 Sep 2023 12:00AM)
     ____________________________________________________________
     ____________________________________________________________
      Woof! Invalid task number! Please enter a positive integer.
@@ -61,8 +67,8 @@
     ____________________________________________________________
     ____________________________________________________________
      1.[T][X] Do tutorials
-     2.[D][ ] Prepare for CA1 (by: 14 Sept)
-     3.[E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sept 8pm to: 12am)
+     2.[D][ ] Prepare for CA1 (by: 14 Sep 2023)
+     3.[E][ ] VATSIM Ho Chih Minh - Singapore SeaLink (from: 23 Sep 2023 08:00PM to: 24 Sep 2023 12:00AM)
     ____________________________________________________________
     ____________________________________________________________
      Woof! I don't know what that command is!
@@ -81,7 +87,7 @@
     ____________________________________________________________
     ____________________________________________________________
      Woof! I've deleted this task:
-       [D][ ] Prepare for CA1 (by: 14 Sept)
+       [D][ ] Prepare for CA1 (by: 14 Sep 2023)
      You now have 2 tasks in the list. Some headpats please?
     ____________________________________________________________
     ____________________________________________________________

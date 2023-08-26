@@ -3,9 +3,11 @@ delete 1
 todo Do tutorials
 list
 deadline Prepare for CA1 /by 14 Sept
+deadline Prepare for CA1 /by 2023-09-14
 list
 mark 1
 event VATSIM Ho Chih Minh - Singapore SeaLink /from 23 Sept 8pm /to 12am
+event VATSIM Ho Chih Minh - Singapore SeaLink /from 2023-09-23 20:00 /to 2023-09-24 00:00
 mark 2
 mark 2
 unmark 2
@@ -17,7 +19,7 @@ list
 some weird command
 todo
 deadline /by 14 Sept
-event Random event /from 17 Sept 8pm
+event Random event /from 2023-09-17 20:00
 delete -1
 delete 2
 bye

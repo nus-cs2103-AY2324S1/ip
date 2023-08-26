@@ -1,5 +1,6 @@
 package tasks;
 
+import datetimeformats.DateOptionalTime;
 import exceptions.InvalidCommandException;
 import parsers.SpaceSeparatedValuesParser;
 
@@ -35,22 +36,24 @@ public class EventTask extends ShibaTask {
         throw new InvalidCommandException("Invalid event format! Event name, /from and /to parameters must be present and not empty.");
     }
 
-    private final String startTime;
-    private final String endTime;
+    private final DateOptionalTime startTime;
+    private final DateOptionalTime endTime;
 
-    public EventTask(String name, String from, String to) {
+    public EventTask(String name, String from, String to) throws InvalidCommandException {
         super(name, TaskType.EVENT);
-        startTime = from;
-        endTime = to;
+        startTime = new DateOptionalTime(from);
+        endTime = new DateOptionalTime(to);
     }
 
     @Override
     public String toSaveString() {
-        return SpaceSeparatedValuesParser.convert("E", isDone ? "1" : "0", name, startTime, endTime);
+        return SpaceSeparatedValuesParser.convert("E", isDone ? "1" : "0", name,
+                startTime.toString(), endTime.toString());
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return super.toString() + " (from: " + startTime.getDisplayRepr() + " to: "
+                + endTime.getDisplayRepr() + ")";
     }
 }
