@@ -1,5 +1,7 @@
-import java.util.Arrays;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -49,16 +51,37 @@ public abstract class Task {
                 }
                 return task;
             case "D":
-                String by = parts[3]; // Extract deadline
-                Task deadline = new Deadline(description, by);
-                if (isDone) {
-                    deadline.markAsDone();
+                String byString = parts[3].trim(); // Extract deadline
+                if (byString.contains(" ")) {
+                    String[] part = byString.split(" ");
+                    String dateString = part[0];
+                    String timeString = part[1];
+                    LocalDate d1;
+                    LocalTime t1;
+
+                    d1 = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    t1 = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
+                    Task deadline = new Deadline(description, d1, t1);
+                    if (isDone) {
+                        deadline.markAsDone();
+                    }
+                    return deadline;
+
+                } else {
+                    LocalDate byDate = LocalDate.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    Task deadline = new Deadline(description, byDate, null);
+                    if (isDone) {
+                        deadline.markAsDone();
+                    }
+                    return deadline;
                 }
-                return deadline;
+
             case "E":
-                String from = parts[3]; // Extract start date
-                String to = parts[4]; // Extract end date
-                Task event = new Events(description, from, to);
+                String fromString = parts[3]; // Extract start date
+                LocalDate fromDate = LocalDate.parse(fromString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                String toString = parts[4]; // Extract end date
+                LocalDate toDate = LocalDate.parse(toString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                Task event = new Events(description, fromDate, toDate);
                 if (isDone) {
                     event.markAsDone();
                 }

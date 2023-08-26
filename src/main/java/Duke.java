@@ -1,12 +1,17 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 public class Duke {
 
     public static void main(String[] args) {
+
         ArrayList<Task> list = new ArrayList<>();
         int number = 0;
         String filePath = "./duke.txt";
@@ -97,10 +102,23 @@ public class Duke {
                 } else if (input.startsWith("deadline")) {
                     int byIndex = input.indexOf("/by");
                     if (byIndex != -1) {
+                        LocalDate d1;
+                        LocalTime t1 = null;
+                        Deadline deadline;
                         String task = input.substring(9, byIndex).trim(); // Task description
                         String date = input.substring(byIndex + 3).trim(); // Deadline day
+                        if (date.contains(" ")) {
+                            String[] parts = date.split(" ");
+                            String dateString = parts[0];
+                            String timeString = parts[1];
+                            d1 = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            t1 = LocalTime.parse(timeString, DateTimeFormatter.ofPattern("HHmm"));
+                            deadline = new Deadline(task, d1, t1);
+                        } else {
+                            d1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                            deadline  = new Deadline(task, d1, t1);
+                        }
 
-                        Deadline deadline = new Deadline(task, date);
                         list.add(deadline);
                         number++;
                         System.out.println("Got it. I've added this task:\n" + deadline.toString());
@@ -116,8 +134,10 @@ public class Duke {
                         String task = input.substring(6, fromIndex).trim(); // Task description
                         String startDate = input.substring(fromIndex + 6, toIndex).trim(); // Start date
                         String endDate = input.substring(toIndex + 4).trim(); // End date
+                        LocalDate d1 = LocalDate.parse(startDate);
+                        LocalDate d2 = LocalDate.parse(endDate);
 
-                        Events event = new Events(task, startDate, endDate);
+                        Events event = new Events(task, d1, d2);
                         list.add(event);
                         number++;
                         System.out.println("Got it. I've added this task:\n" + event.toString());
