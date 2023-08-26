@@ -1,8 +1,10 @@
+package duke;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 //this class represents an event
-public class Event extends Task{
+public class Event extends Task {
     LocalDate start;
     LocalDate end;
     //default constructor to store start and end

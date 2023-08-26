@@ -1,4 +1,9 @@
-import java.util.Scanner;
+package duke;
+
+import duke.Parser;
+import duke.Storage;
+import duke.TaskList;
+import duke.UI;
 
 //The main class to run
 public class Duke {

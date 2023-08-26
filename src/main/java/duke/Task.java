@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.Serializable;
 
 //this class represents a task which is a parent class

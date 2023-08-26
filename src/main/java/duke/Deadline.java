@@ -1,8 +1,10 @@
+package duke;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-//Deadline class
-public class Deadline extends Task{
+//duke.Deadline class
+public class Deadline extends Task {
     LocalDate by;
     //Stores the due date as by
     public Deadline(String name, String by) {

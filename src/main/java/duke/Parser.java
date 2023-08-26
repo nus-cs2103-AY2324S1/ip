@@ -1,3 +1,9 @@
+package duke;
+
+import duke.Deadline;
+import duke.Event;
+import duke.MarkPattern;
+
 public class Parser {
 
     public Parser() {
