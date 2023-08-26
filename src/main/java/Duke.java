@@ -17,43 +17,76 @@ public class Duke {
         do {
             userInput = scanner.nextLine();
 
-            if (userInput.equalsIgnoreCase("list")) {
-                for (int i = 0; i < tasks.size(); i++) {
-                    Task task = tasks.get(i);
-                    System.out.println((i + 1) + "." + task.toString());
+            try {
+                if (userInput.equalsIgnoreCase("list")) {
+                    for (int i = 0; i < tasks.size(); i++) {
+                        Task task = tasks.get(i);
+                        System.out.println((i + 1) + "." + task.toString());
+                    }
+                    System.out.println(horizontalLine);
+
+                } else if (userInput.startsWith("mark")) {
+                    if (userInput.length() <= 5) {
+                        throw new DukeException("Task to mark cannot be empty!");
+                    }
+                    try {
+                        int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
+                        updateTaskStatus(tasks, taskNumber, true, "Task " + (taskNumber + 1) + " is already done!", "Great job! Task " + (taskNumber + 1) + " is done!");
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("Invalid task number.");
+                    }
+
+                } else if (userInput.startsWith("unmark")) {
+                    if (userInput.length() <= 7) {
+                        throw new DukeException("Task to unmark cannot be empty!");
+                    }
+                    try {
+                        int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+                        updateTaskStatus(tasks, taskNumber, false, "Task " + (taskNumber + 1) + " is still incomplete.", "No worries, Task " + (taskNumber + 1) + " is incomplete.");
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("Invalid task number.");
+                    }
+
+                } else if (userInput.startsWith("todo")) {
+                    if (userInput.length() <= 5) {
+                        throw new DukeException("The description of a todo cannot be empty!");
+                    }
+                    String description = userInput.substring(5);
+                    Task task = new ToDo(description);
+                    tasks.add(task);
+                    System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
+
+                } else if (userInput.startsWith("deadline")) {
+                    if (userInput.length() <= 9) {
+                        throw new DukeException("The description/ deadline of a deadline cannot be empty!");
+                    }
+                    String fullStr = userInput.substring(9);
+                    String[] parts = fullStr.split(" /by ");
+                    String description = parts[0];
+                    String by = parts[1];
+                    Task task = new Deadline(description, by);
+                    tasks.add(task);
+                    System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
+
+                } else if (userInput.startsWith("event")) {
+                    if (userInput.length() <= 6) {
+                        throw new DukeException("The description/ time of an event cannot be empty!");
+                    }
+                    String fullStr = userInput.substring(6);
+                    String[] partialStr = fullStr.split(" /from ");
+                    String description = partialStr[0];
+                    String[] toFrom = partialStr[1].split(" /to ");
+                    String from = toFrom[0];
+                    String to = toFrom[1];
+                    Task task = new Event(description, from, to);
+                    tasks.add(task);
+                    System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
+
+                } else {
+                    throw new DukeException("Invalid command.");
                 }
-                System.out.println(horizontalLine);
-            } else if (userInput.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(userInput.substring(5)) - 1;
-                updateTaskStatus(tasks, taskNumber, true, "Task " + (taskNumber + 1) + " is already done!", "Great job! Task " + (taskNumber + 1) + " is done!");
-            } else if (userInput.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
-                updateTaskStatus(tasks, taskNumber, false, "Task " + (taskNumber + 1) + " is still incomplete.", "No worries, Task " + (taskNumber + 1) + " is incomplete.");
-            } else if (userInput.startsWith("todo ")) {
-                String description = userInput.substring(5);
-                Task task = new ToDo(description);
-                tasks.add(task);
-                System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
-            } else if (userInput.startsWith("deadline ")) {
-                String fullStr = userInput.substring(9);
-                String[] parts = fullStr.split(" /by ");
-                String description = parts[0];
-                String by = parts[1];
-                Task task = new Deadline(description, by);
-                tasks.add(task);
-                System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
-            } else if (userInput.startsWith("event ")) {
-                String fullStr = userInput.substring(6);
-                String[] partialStr = fullStr.split(" /from ");
-                String description = partialStr[0];
-                String[] toFrom = partialStr[1].split(" /to ");
-                String from = toFrom[0];
-                String to = toFrom[1];
-                Task task = new Event(description, from, to);
-                tasks.add(task);
-                System.out.println("I've added this task:\n  " + task + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
-            } else {
-                System.out.println("Invalid task.\n" + horizontalLine);
+            } catch (DukeException e) {
+                System.out.println(e.getMessage() + "\n" + horizontalLine);
             }
 
         } while (!userInput.equalsIgnoreCase("bye"));
@@ -73,7 +106,7 @@ public class Duke {
                 System.out.println(undoneMessage + "\n" + horizontalLine);
             }
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid task number. Please try again. ");
+            System.out.println("Invalid task number.");
         }
     }
 }
