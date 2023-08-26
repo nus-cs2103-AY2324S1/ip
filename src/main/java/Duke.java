@@ -42,12 +42,28 @@ public class Duke {
                     todo.print();
                 }
                 if (elements[0].equals("deadline")) {
-                    String[] taskAndDeadline = task.split(("/by"));
+                    int firstSpaceIndex = task.indexOf(' ');
+                    String actualTask = task.substring(firstSpaceIndex + 1);
+                    String[] taskAndDeadline = actualTask.split(("/by"));
                     String onlyTask = taskAndDeadline[0];
                     String by = taskAndDeadline[1];
                     Deadline deadline = new Deadline(onlyTask, by);
                     deadline.print();
                 }
+                if (elements[0].equals("event")) {
+                    int firstSpaceIndex = task.indexOf(' ');
+                    String actualTask = task.substring(firstSpaceIndex + 1);
+                    String[] taskAndToFrom = actualTask.split(("/from"));
+                    String onlyTask = taskAndToFrom[0];
+                    String[] ToFrom = taskAndToFrom[1].split("/to");
+                    String from = ToFrom[0];
+                    String to = ToFrom[1];
+                    Event event = new Event(onlyTask, from, to);
+                    event.print();
+                }
+            } else {
+                System.out.println("Invalid Instructions :(\n" + Duke.horizontalLine);
+                continue;
             }
         }
         System.out.println(horizontalLine+ "Bye. Hope to see you again soon!\n" + horizontalLine);

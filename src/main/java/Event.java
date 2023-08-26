@@ -1,13 +1,15 @@
-public class Deadline extends Task {
-    private String by;
+public class Event extends Task{
+    String from;
+    String to;
 
-    public Deadline(String task, String by) {
+    public Event(String task, String from, String to) {
         super(task);
-        this.by = by;
+        this.from = from;
+        this.to = to;
     }
 
     public String toString() {
-        return "[D]" + super.toString() + "(by:" + by + ")";
+        return "[E]" + super.toString() + "(from:" + from + "to:" + to + ")";
     }
 
     public void print() {

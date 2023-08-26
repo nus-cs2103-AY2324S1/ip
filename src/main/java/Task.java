@@ -55,7 +55,7 @@ public class Task {
     public void mark(int i) {
         Task markTask = arr.get(i - 1);
         markTask.setDone();
-        System.out.println(Duke.horizontalLine + "Nice! I've Marked this task as done:\n"
+        System.out.println(Duke.horizontalLine + "Nice! I've marked this task as done:\n"
         + markTask.toString() + "\n" + Duke.horizontalLine);
     }
 
