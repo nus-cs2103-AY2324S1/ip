@@ -145,35 +145,35 @@ public class Duke {
 
                 //A-Enum: Use switch-case instead of if-else for neater code
                 switch (command) {
-                    case BYE:
-                        farewell();
-                        repeatFlag = false;
-                        break;
-                    case LIST:
-                        listAllTasks();
-                        break;
-                    case MARK:
-                        int taskIndex = Integer.parseInt(words[1]) - 1;
-                        markTask(taskIndex);
-                        break;
-                    case UNMARK:
-                        taskIndex = Integer.parseInt(words[1]) - 1; //Same variable name taskIndex as above
-                        unmarkTask(taskIndex);
-                        break;
-                    case DELETE:
-                        deleteTask(userInput);
-                        break;
-                    case DEADLINE:
-                        Deadline.handleDeadlineTask(userInput);
-                        break;
-                    case TODO:
-                        Todo.handleTodoTask(userInput);
-                        break;
-                    case EVENT:
-                        Event.handleEventTask(userInput);
-                        break;
-                    case UNKNOWN:
-                        throw new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
+                case BYE:
+                    farewell();
+                    repeatFlag = false;
+                    break;
+                case LIST:
+                    listAllTasks();
+                    break;
+                case MARK:
+                    int taskIndex = Integer.parseInt(words[1]) - 1;
+                    markTask(taskIndex);
+                    break;
+                case UNMARK:
+                    taskIndex = Integer.parseInt(words[1]) - 1; //Same variable name taskIndex as above
+                    unmarkTask(taskIndex);
+                    break;
+                case DELETE:
+                    deleteTask(userInput);
+                    break;
+                case DEADLINE:
+                    Deadline.handleDeadlineTask(userInput);
+                    break;
+                case TODO:
+                    Todo.handleTodoTask(userInput);
+                    break;
+                case EVENT:
+                    Event.handleEventTask(userInput);
+                    break;
+                case UNKNOWN:
+                    throw new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
                 }
             } catch (EmptyDescriptionException e) {
                 e.printExceptionMessage();
