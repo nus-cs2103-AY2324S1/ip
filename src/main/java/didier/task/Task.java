@@ -1,9 +1,11 @@
+package didier.task;
+
 import java.time.LocalDate;
 
 /**
- * The Task class encapsulates a real-life task. A basic task has a description and keeps track of
- * whether it is completed or not. It is declared abstract as as task must take one of three forms:
- * ToDo, Deadline or Event.
+ * The didier.task.Task class encapsulates a real-life didier.task. A basic didier.task has a description and keeps track of
+ * whether it is completed or not. It is declared abstract as as didier.task must take one of three forms:
+ * didier.task.ToDo, didier.task.Deadline or didier.task.Event.
  */
 public abstract class Task {
     private String description;
@@ -33,20 +35,20 @@ public abstract class Task {
     }
 
     /**
-     * Composes the task and returns it in a String format suitable to be written into a file.
-     * This is used to save the task to a file.
+     * Composes the didier.task and returns it in a String format suitable to be written into a file.
+     * This is used to save the didier.task to a file.
      *
-     * @return The composed task as a String.
+     * @return The composed didier.task as a String.
      */
     public String composeToFileString() {
         return String.format("%s|%s", this.isDone ? "1" : "0", this.description);
     }
 
     /**
-     * Parses the given string obtained from a file into a Task.
+     * Parses the given string obtained from a file into a didier.task.Task.
      *
      * @param fileString The String to be parsed.
-     * @return The corresponding task.
+     * @return The corresponding didier.task.
      */
     public static Task parseFileString(String fileString) {
         String[] task = fileString.split("\\|");

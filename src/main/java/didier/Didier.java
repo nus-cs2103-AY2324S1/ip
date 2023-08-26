@@ -1,3 +1,9 @@
+package didier;
+
+import didier.command.Command;
+import didier.exception.DidierException;
+import didier.task.TaskList;
+
 public class Didier {
 
     private Storage storage;
@@ -14,7 +20,7 @@ public class Didier {
         this.ui.botGreet();
         boolean isExit = false;
         while (!isExit) {
-            // Carry out the action determined by the command
+            // Carry out the action determined by the didier.command
             try {
                 String commandString = this.ui.readCommand();
                 Command command = Parser.parse(commandString);

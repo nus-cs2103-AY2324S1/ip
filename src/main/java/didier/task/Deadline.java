@@ -1,8 +1,10 @@
+package didier.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * A Deadline is a task which needs to be completed by a certain date. As a result, it keeps track
+ * A didier.task.Deadline is a didier.task which needs to be completed by a certain date. As a result, it keeps track
  * of when it must be completed by.
  */
 public class Deadline extends Task {

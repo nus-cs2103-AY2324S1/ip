@@ -1,3 +1,10 @@
+package didier.command;
+
+import didier.Storage;
+import didier.UI;
+import didier.exception.DidierException;
+import didier.task.*;
+
 import java.time.LocalDate;
 
 public class AddCommand extends Command {

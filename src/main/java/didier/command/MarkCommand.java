@@ -1,4 +1,12 @@
-public class MarkCommand extends Command{
+package didier.command;
+
+import didier.Storage;
+import didier.UI;
+import didier.exception.TaskNumberException;
+import didier.task.Task;
+import didier.task.TaskList;
+
+public class MarkCommand extends Command {
 
     private boolean isMark;
     private int taskNumber;

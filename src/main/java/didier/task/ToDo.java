@@ -1,5 +1,7 @@
+package didier.task;
+
 /**
- * A ToDo is the most basic type of Task. It only needs to be supplied with its description.
+ * A didier.task.ToDo is the most basic type of didier.task.Task. It only needs to be supplied with its description.
  */
 public class ToDo extends Task {
 

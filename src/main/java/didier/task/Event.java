@@ -1,8 +1,10 @@
+package didier.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * An Event is a task that will take place at a specific date and time. Therefore, it must keep track
+ * An didier.task.Event is a didier.task that will take place at a specific date and time. Therefore, it must keep track
  * of when the event is and from when to when the event will occur.
  */
 public class Event extends Task {

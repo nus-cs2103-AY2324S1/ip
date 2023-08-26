@@ -1,3 +1,10 @@
+package didier;
+
+import didier.exception.DidierException;
+import didier.exception.TaskNumberException;
+import didier.task.Task;
+import didier.task.TaskList;
+
 import java.util.Scanner;
 
 public class UI {
@@ -26,9 +33,9 @@ public class UI {
 
     public void botPrintTaskMarkedDone(Task task, boolean isDone) {
         if (isDone) {
-            botPrintMessage("Okay! I've marked the following task as done:");
+            botPrintMessage("Okay! I've marked the following didier.task as done:");
         } else {
-            botPrintMessage("Okay! I've marked the following task as undone:");
+            botPrintMessage("Okay! I've marked the following didier.task as undone:");
         }
         botPrintMessage(task.toString());
     }
@@ -41,19 +48,19 @@ public class UI {
     }
 
     public void botPrintTaskRemoved(Task task, int size) {
-        botPrintMessage("Okay! I've removed this task:");
+        botPrintMessage("Okay! I've removed this didier.task:");
         botPrintMessage(task.toString());
         botPrintMessage(String.format("There are now %d tasks in your list", size));
     }
 
     public void botGreet() {
         botPrintBr();
-        botPrintMessage("Greetings user, I'm Didier. How can I help you?");
+        botPrintMessage("Greetings user, I'm didier.Didier. How can I help you?");
         botPrintBr();
     }
 
     public void botPrintTaskAdded(Task task, int size) {
-        botPrintMessage("Okay! I've added your task:");
+        botPrintMessage("Okay! I've added your didier.task:");
         botPrintMessage(task.toString());
         botPrintMessage(String.format("There are now %d tasks in your list", size));
     }
