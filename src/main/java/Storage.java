@@ -66,17 +66,16 @@ public class Storage {
      * @throws LoadingException If the list cannot be saved fully.
      */
     public void save(TaskList lst) throws LoadingException {
-        if (lst.size() < 1) {
-            return;
-        }
         try {
             File f = new File(this.filePath);
             FileWriter fw = new FileWriter(f);
-            for (int i = 0; i < lst.size() - 1; i++) {
+            for (int i = 1; i < lst.size(); i++) {
                 fw.write(lst.get(i).convertToDataString());
                 fw.write(System.lineSeparator());
             }
-            fw.write(lst.get(lst.size() - 1).convertToDataString());
+            if (lst.size() > 0) {
+                fw.write(lst.get(lst.size()).convertToDataString());
+            }
             fw.close();
         } catch (IOException e) {
             throw new LoadingException(e.getMessage());

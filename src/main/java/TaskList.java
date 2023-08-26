@@ -1,3 +1,5 @@
+import exceptions.InvalidIndexException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -51,8 +53,12 @@ public class TaskList {
      *
      * @param index Index of task.
      * @return Task object.
+     * @throws InvalidIndexException If index is out of range.
      */
-    public Task remove(int index) {
+    public Task remove(int index) throws InvalidIndexException {
+        if (index < 1 || index > list.size()) {
+            throw new InvalidIndexException();
+        }
         return this.list.remove(index - 1);
     }
 
@@ -72,5 +78,31 @@ public class TaskList {
      */
     public Iterator<Task> iterator() {
         return this.list.iterator();
+    }
+
+    /**
+     * Marks the task at the specified index
+     *
+     * @param index Index of task.
+     * @throws InvalidIndexException If index is out of range.
+     */
+    public void mark(int index) throws InvalidIndexException {
+        if (index < 1 || index > list.size()) {
+            throw new InvalidIndexException();
+        }
+        this.list.get(index - 1).mark();
+    }
+
+    /**
+     * Unmarks the task at the specified index.
+     *
+     * @param index Index of task.
+     * @throws InvalidIndexException If index is out of range.
+     */
+    public void unmark(int index) throws InvalidIndexException {
+        if (index < 1 || index > list.size()) {
+            throw new InvalidIndexException();
+        }
+        this.list.get(index - 1).unmark();
     }
 }

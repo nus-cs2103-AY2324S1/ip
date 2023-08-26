@@ -1,2 +1,4 @@
-package PACKAGE_NAME;public class DoneStatus {
+public enum DoneStatus {
+    DONE,
+    NOT_DONE
 }

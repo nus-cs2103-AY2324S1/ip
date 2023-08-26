@@ -3,7 +3,7 @@ package exceptions;
 /**
  * Exception for when an index is given that is out of range for the requested operation.
  */
-public class InvalidIndexException extends BotException {
+public class InvalidIndexException extends InvalidArgumentException {
     /**
      * Default constructor.
      */
