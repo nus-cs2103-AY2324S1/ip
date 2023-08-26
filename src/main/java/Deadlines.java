@@ -1,6 +1,10 @@
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Encapsulates the Deadline Task.
  * @author Donovan Chan Jia Jun
@@ -9,11 +13,27 @@ public class Deadlines extends Task{
     private String deadline;
     public Deadlines(String name, String deadline) {
         super(name);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(deadline, formatter);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
+            deadline = dateTime.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+
+        }
         this.deadline = deadline;
     }
 
     public Deadlines(String name, String deadline, boolean isComplete) {
         super(name, isComplete);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(deadline, formatter);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d MMM yyyy");
+            deadline = dateTime.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+
+        }
         this.deadline = deadline;
     }
 
