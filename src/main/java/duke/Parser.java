@@ -1,3 +1,10 @@
+package duke;
+
+import duke.command.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -33,7 +40,12 @@ public class Parser {
             }
             String str = split[1];
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+            LocalDateTime dateTime;
+            try {
+                dateTime = LocalDateTime.parse(str, formatter);
+            } catch (Exception e) {
+                throw new DukeException("DateTime should be in yyyy-MM-dd HH:mm.");
+            }
 
             Deadline t = new Deadline(description, dateTime);
             return new AddCommand(t);
@@ -60,46 +72,53 @@ public class Parser {
             }
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime dateTimeStart = LocalDateTime.parse(duration[0], formatter);
-            LocalDateTime dateTimeEnd = LocalDateTime.parse(duration[1], formatter);
+
+            LocalDateTime dateTimeStart;
+            LocalDateTime dateTimeEnd;
+            try {
+                dateTimeStart = LocalDateTime.parse(duration[0], formatter);
+                dateTimeEnd = LocalDateTime.parse(duration[1], formatter);
+            } catch (Exception e) {
+                throw new DukeException("DateTime should be in yyyy-MM-dd HH:mm.");
+            }
 
             Event t = new Event(description, dateTimeStart, dateTimeEnd);
             return new AddCommand(t);
         } else if (input.contains("unmark")) {
             if (input.length() < 7) {
-                throw new DukeException("Task number to be unmarked cannot be empty.");
+                throw new DukeException("duke.task.Task number to be unmarked cannot be empty.");
             }
             String subInput = input.substring(7);
             int targetIndex;
             try {
                 targetIndex = Integer.parseInt(subInput);
             } catch (NumberFormatException e) {
-                throw new DukeException("Task to be unmarked must be a number.");
+                throw new DukeException("duke.task.Task to be unmarked must be a number.");
             }
             return new UnmarkCommand(targetIndex);
 
         } else if (input.contains("mark")) {
             if (input.length() < 5) {
-                throw new DukeException("Task number to be marked cannot be empty.");
+                throw new DukeException("duke.task.Task number to be marked cannot be empty.");
             }
             String subInput = input.substring(5);
             int targetIndex;
             try {
                 targetIndex = Integer.parseInt(subInput);
             } catch (NumberFormatException e) {
-                throw new DukeException("Task to be marked must be a number.");
+                throw new DukeException("duke.task.Task to be marked must be a number.");
             }
             return new MarkCommand(targetIndex);
         } else if (input.contains("delete")) {
             if (input.length() < 7) {
-                throw new DukeException("Task number to be deleted cannot be empty.");
+                throw new DukeException("duke.task.Task number to be deleted cannot be empty.");
             }
             String subInput = input.substring(7);
             int targetIndex;
             try {
                 targetIndex = Integer.parseInt(subInput);
             } catch (NumberFormatException e) {
-                throw new DukeException("Task to be deleted must be a number.");
+                throw new DukeException("duke.task.Task to be deleted must be a number.");
             }
             return new DeleteCommand(targetIndex);
         } else {
