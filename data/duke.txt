@@ -1,6 +1,4 @@
-T # 0 # borrow book
-T # 0 # asdsaffafa
-T # 1 # aeefawfaf
-T # 0 # aweaefgaga
-D # 0 # return book # 2019-02-08
-E # 0 # project meeting # 2023-09-09 - 2021-03-04
+T # 1 # borrow book
+D # 0 # return book # 2019-09-09
+T # 0 # borrow another book
+E # 0 # haha # 2020-09-21 - 2089-07-21
