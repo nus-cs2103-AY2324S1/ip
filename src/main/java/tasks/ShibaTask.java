@@ -1,5 +1,9 @@
 package tasks;
 
+import exceptions.InvalidCommandException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public abstract class ShibaTask {
@@ -84,23 +88,27 @@ public abstract class ShibaTask {
         ShibaTask parsedTask;
         boolean isDone = params.get(1).equals("1");
         String name = params.get(2);
-        switch (params.get(0)) {
-        case "T":
-            parsedTask = new TodoTask(name);
-            break;
-        case "D":
-            if (params.size() < 4) {
+        try {
+            switch (params.get(0)) {
+            case "T":
+                parsedTask = new TodoTask(name);
+                break;
+            case "D":
+                if (params.size() < 4) {
+                    return null;
+                }
+                parsedTask = new DeadlineTask(name, params.get(3));
+                break;
+            case "E":
+                if (params.size() < 5) {
+                    return null;
+                }
+                parsedTask = new EventTask(name, params.get(3), params.get(4));
+                break;
+            default:
                 return null;
             }
-            parsedTask =  new DeadlineTask(name, params.get(3));
-            break;
-        case "E":
-            if (params.size() < 5) {
-                return null;
-            }
-            parsedTask =  new EventTask(name, params.get(3), params.get(4));
-            break;
-        default:
+        } catch (InvalidCommandException e) {
             return null;
         }
 
