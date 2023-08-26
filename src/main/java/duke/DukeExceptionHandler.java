@@ -1,15 +1,16 @@
+package duke;
 public class DukeExceptionHandler {
     public static void handleEmptyInput() {
         Ui ui = new Ui();
         ui.showLine();
-        ui.formatString(" OOPS!!! Please input a task.");
+        ui.formatString(" Input a task my brother.");
         ui.showLine();
     }
 
     public static void handleUnseenInput() {
         Ui ui = new Ui();
         ui.showLine();
-        ui.formatString(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+        ui.formatString(" I'm sorry brother, I do not have a Scooby :-(");
         ui.showLine();
     }
 
@@ -23,7 +24,7 @@ public class DukeExceptionHandler {
     public static void handleTaskNumOutOfBounds(int taskNum) {
         Ui ui = new Ui();
         ui.showLine();
-        ui.formatString(" OOPS!!! There is no task " + taskNum + ".");
+        ui.formatString(" There is no task " + taskNum + ", friend.");
         ui.showLine();
     }
 }
