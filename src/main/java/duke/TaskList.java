@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -42,7 +49,7 @@ public class TaskList {
 
     private void checkIndex(int index) throws DukeException {
         if (index < 1 || index - 1 >= tasks.size()) {
-            throw new DukeException("Task number is out of range.");
+            throw new DukeException("duke.task.Task number is out of range.");
         }
     }
 
