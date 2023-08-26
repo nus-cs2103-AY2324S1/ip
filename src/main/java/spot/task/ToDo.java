@@ -1,12 +1,14 @@
+package spot.task;
+
 import java.time.LocalDate;
 
 public class ToDo extends Task {
 
-    public ToDo(String description) throws SpotException {
+    public ToDo(String description) {
         super(description);
     }
 
-    public ToDo(String description, boolean isDone) throws SpotException {
+    public ToDo(String description, boolean isDone) {
         super(description, isDone);
     }
 

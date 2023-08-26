@@ -1,14 +1,21 @@
-public class UnmarkCommand extends Command {
+package spot.command;
+
+import spot.exception.SpotException;
+import spot.Storage;
+import spot.TaskList;
+import spot.Ui;
+
+public class DeleteCommand extends Command {
 
     private int position;
 
-    public UnmarkCommand(int position) {
+    public DeleteCommand(int position) {
         this.position = position;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SpotException {
-        tasks.unmarkTask(position);
+        tasks.deleteTask(position);
     }
 
     @Override
