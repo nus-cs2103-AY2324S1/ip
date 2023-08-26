@@ -17,12 +17,14 @@ public class TaskList {
     }
 
     // Adds an item to the list while notifying the user
-    public void add(Task task) {
+    public void add(Task task, boolean fromFile) {
         taskList.add(task);
-        System.out.println("____________________________________________________________\n" +
-                "Alright! I've added this task:\n " + " " + task
-                        + "\nNow you have " + taskList.size() + " tasks in the list.\n" +
-                "____________________________________________________________");
+        if (!fromFile) {
+            System.out.println("____________________________________________________________\n" +
+                    "Alright! I've added this task:\n " + " " + task
+                    + "\nNow you have " + taskList.size() + " tasks in the list.\n" +
+                    "____________________________________________________________");
+        }
     }
 
     // Displays all items to the user

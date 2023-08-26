@@ -1,8 +1,13 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 // The Chatbot Aplha!
 public class Alpha {
-    public static void main(String[] args) throws AlphaException {
+    public static void main(String[] args) throws IOException {
+
+
+        FileHandler fh = new FileHandler();
+        fh.checkAndCreate();
 
         Scanner sc = new Scanner(System.in);
 
@@ -34,8 +39,9 @@ public class Alpha {
                 " Bye. Hope to see you again soon!\n" +
                 "____________________________________________________________";
 
+
         // Create a List class that performs all list operations
-        TaskList taskList = new TaskList();
+        TaskList taskList = fh.readFromFile();
         System.out.println(intro);
         String input = sc.nextLine();
         while (!input.equals(END)) {
@@ -50,6 +56,7 @@ public class Alpha {
                         throw new InvalidIndexException("Invalid Index!");
                     } else {
                         taskList.mark(Integer.parseInt(splitInput[1]));
+                        fh.checkOrUncheck(Integer.parseInt(splitInput[1]), true);
                     }
 
             } else if (splitInput[0].equals(UNCHECK)) {
@@ -59,6 +66,7 @@ public class Alpha {
                         throw new InvalidIndexException("Invalid Index!");
                     } else {
                         taskList.unmark(Integer.parseInt(splitInput[1]));
+                        fh.checkOrUncheck(Integer.parseInt(splitInput[1]), false);
                     }
 
                 } else if (splitInput[0].equals(DEADLINE)) {
@@ -69,7 +77,8 @@ public class Alpha {
                 } else {
                     String[] splitDeadline = input.split("/by");
                     Deadline deadline = new Deadline(splitDeadline[0].substring(9), splitDeadline[1]);
-                    taskList.add(deadline);
+                    taskList.add(deadline, false);
+                    fh.saveToFile(deadline);
                 }
             } else if (splitInput[0].equals(EVENT)) {
                     if (splitInput.length < 3) {
@@ -80,7 +89,8 @@ public class Alpha {
                              Event event = new Event(splitEvent[0].substring(6),
                                      splitEvent[1].substring(5),
                                      splitEvent[2].substring(3));
-                             taskList.add(event);
+                             taskList.add(event, false);
+                             fh.saveToFile(event);
                          } else {
                              throw new InvalidFormatException("Invalid Format!", TaskException.TaskType.EVENT);
                          }
@@ -92,7 +102,8 @@ public class Alpha {
                         throw new MissingInfoException("Missing Information!", TaskException.TaskType.TODO);
                     } else {
                         ToDo todo = new ToDo(input.substring(5));
-                        taskList.add(todo);
+                        taskList.add(todo, false);
+                        fh.saveToFile(todo);
                     }
                 } else if (splitInput[0].equals(DELETE)) {
                     if (splitInput.length == 1) {
@@ -101,6 +112,7 @@ public class Alpha {
                         throw new InvalidIndexException("Invalid Index!");
                     } else {
                         taskList.delete(Integer.parseInt(splitInput[1]));
+                        fh.delete(Integer.parseInt(splitInput[1]));
                     }
                 }
                 else {
