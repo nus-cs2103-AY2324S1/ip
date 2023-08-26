@@ -1,4 +1,4 @@
-package extensions.exceptions;
+package duke.exceptions;
 
 /**
  * A RuntimeException that is thrown by Duke.

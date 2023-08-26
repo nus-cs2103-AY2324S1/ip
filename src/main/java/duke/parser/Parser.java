@@ -1,4 +1,4 @@
-package extensions.parser;
+package duke.parser;
 
 /**
  * A parser to parse the user input and commands.
