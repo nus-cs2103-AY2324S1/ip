@@ -12,4 +12,8 @@ public class Events extends Task {
     public String toString() {
         return "[E]" + super.toString() + "(from: " + start + " to: " + end + ")";
     }
+
+    public String save() {
+        return "E|" + super.status() + "|" + start + "|" + end;
+    }
 }

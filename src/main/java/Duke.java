@@ -1,10 +1,17 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 public class Duke {
 
     public static void main(String[] args) {
         ArrayList<Task> list = new ArrayList<>();
         int number = 0;
+        String filePath = "./duke.txt";
+        loadTaskFromFile(list, number, filePath);
+        number = list.size();
 
         Scanner in = new Scanner(System.in);
         System.out.println("Hello! I'm Muddy\n" + "What can I do for you?");
@@ -126,6 +133,37 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
         }
+        saveTasksToFile(list, filePath);
         in.close();
+    }
+
+    public static void saveTasksToFile(ArrayList<Task> list, String filePath) {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            for (Task task : list) {
+                fw.write(task.save());
+                fw.write(System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    public static void loadTaskFromFile(ArrayList<Task> list, int number, String filePath) {
+        try {
+            File f = new File(filePath);
+            Scanner scanner = new Scanner(f);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (!line.trim().isEmpty()) {  // Check if the line is not empty or contains only whitespace
+                    Task task = Task.fromString(line);
+                    list.add(task);
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        }
     }
 }
