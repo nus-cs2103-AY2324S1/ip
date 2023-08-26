@@ -21,6 +21,15 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns a boolean indicating whether the task has keyword in its description.
+     *
+     * @param keyword The keyword that is being searched in description.
+     */
+    public boolean hasKeyword(String keyword) {
+        return description.contains(keyword);
+    }
+
     public String toString() {
         return (this.getStatusIcon() + " " + this.description);
     }

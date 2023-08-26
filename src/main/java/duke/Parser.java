@@ -15,6 +15,17 @@ public class Parser {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand();
+        } else if (input.contains("find")) {
+            String subInput;
+            try {
+                subInput = input.substring(5);
+                if (subInput.trim().equals("")) {
+                    throw new DukeException("The keyword to find cannot be empty.");
+                }
+            } catch (Exception e) {
+                throw new DukeException("The keyword to find cannot be empty.");
+            }
+            return new FindCommand(subInput);
         } else if (input.contains("todo")) {
             String subInput;
             try {

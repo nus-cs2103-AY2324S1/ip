@@ -68,6 +68,22 @@ public class Ui {
         System.out.println("Now you have " + total + " tasks in the list.");
     }
 
+    /**
+     * Displays a message indicating that a keyword is being searched.
+     */
+    public void findMessage() {
+        System.out.println("Here are the matching tasks in your list:");
+
+    }
+
+    /**
+     * Displays a message indicating that there is no results found.
+     */
+    public void findNoMessage() {
+        System.out.println("There are no results matching your keyword.");
+
+    }
+
     public String readCommand() {
         return scanner.nextLine();
     }
