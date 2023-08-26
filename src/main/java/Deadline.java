@@ -1,9 +1,17 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
 
     private String deadline;
+    private LocalDate ld;
 
     private Deadline(String taskName, String deadline) throws IncompleteDescriptionException {
         super(taskName);
+        try {
+            this.ld = LocalDate.parse(deadline);
+        } catch (DateTimeParseException ignored) {}
         this.deadline = deadline;
     }
 
@@ -20,6 +28,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        if (this.ld != null) {
+            return "[D]" + super.toString() + " (by: " + ld.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        }
+        return "[D]" + super.toString() + " (by: " + this.deadline + ")";
     }
 }
