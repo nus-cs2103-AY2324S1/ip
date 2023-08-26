@@ -77,6 +77,6 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         String formattedStart = this.startDate.format(formatter);
         String formattedEnd = this.endDate.format(formatter);
-        return "[E]" + super.toString() + " (from: " + formattedStart + "to: " + formattedEnd + ")";
+        return "[E]" + super.toString() + " (from: " + formattedStart + " to: " + formattedEnd + ")";
     }
 }
