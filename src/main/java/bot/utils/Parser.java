@@ -1,5 +1,7 @@
-import exceptions.InvalidArgumentException;
-import exceptions.InvalidCommandException;
+package bot.utils;
+
+import bot.exceptions.InvalidArgumentException;
+import bot.exceptions.InvalidCommandException;
 
 /**
  * Abstraction for making sense of user commands.

@@ -1,4 +1,4 @@
-package exceptions;
+package bot.exceptions;
 
 /**
  * Supertype of all exceptions that occur specific to the bot.

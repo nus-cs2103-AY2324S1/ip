@@ -1,9 +1,9 @@
-package exceptions;
+package bot.exceptions;
 
 /**
  * Exception for when an invalid command is sent to the bot.
  */
-public class InvalidCommandException extends BotException{
+public class InvalidCommandException extends BotException {
     /**
      * Default constructor. Currently set to Trash Gremlin Caelus personality.
      */

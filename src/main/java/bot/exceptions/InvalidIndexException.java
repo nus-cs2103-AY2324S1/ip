@@ -1,4 +1,4 @@
-package exceptions;
+package bot.exceptions;
 
 /**
  * Exception for when an index is given that is out of range for the requested operation.
@@ -10,6 +10,7 @@ public class InvalidIndexException extends InvalidArgumentException {
     public InvalidIndexException() {
         super("Sorry, that index doesn't exist. Please key in a valid index.");
     }
+
     /**
      * Constructor with variable message.
      *

@@ -1,21 +1,29 @@
-import exceptions.*;
+package bot;
+
+import bot.exceptions.BotException;
+import bot.exceptions.LoadingException;
+import bot.utils.Command;
+import bot.utils.Parser;
+import bot.utils.Storage;
+import bot.utils.TaskList;
+import bot.utils.Ui;
 
 /**
  * Main class for the bot.
  */
 public class Bot {
     /**
-     * Storage object for storing data.
+     * Bot.Storage object for storing data.
      */
     private final Storage storage;
-    /**
-     * Task list for storing tasks.
-     */
-    private TaskList tasks;
     /**
      * User interface for interacting with the user.
      */
     private final Ui ui;
+    /**
+     * Bot.Task list for storing tasks.
+     */
+    private TaskList tasks;
 
     /**
      * Creates the bot with the given file path as data storage point.
@@ -31,6 +39,10 @@ public class Bot {
             ui.showError(e.getMessage());
             tasks = new TaskList();
         }
+    }
+
+    public static void main(String[] args) {
+        new Bot("./data/tasks.txt").run();
     }
 
     /**
@@ -50,8 +62,5 @@ public class Bot {
                 ui.showError(e.getMessage());
             }
         }
-    }
-    public static void main(String[] args) {
-        new Bot("./data/tasks.txt").run();
     }
 }

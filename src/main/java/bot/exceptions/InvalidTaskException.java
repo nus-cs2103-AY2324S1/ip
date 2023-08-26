@@ -1,9 +1,9 @@
-package exceptions;
+package bot.exceptions;
 
 /**
  * Exception for incorrect inputs when creating a Task object.
  */
-public class InvalidTaskException extends BotException {
+public class InvalidTaskException extends InvalidArgumentException {
     /**
      * Constructor with variable message.
      *

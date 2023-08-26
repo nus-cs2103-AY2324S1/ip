@@ -1,4 +1,6 @@
-import exceptions.InvalidTaskException;
+package bot.utils;
+
+import bot.exceptions.InvalidTaskException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,13 +11,13 @@ import java.time.format.DateTimeParseException;
  */
 public abstract class Task {
     /**
-     * Indicates if the task is completed.
-     */
-    private boolean isDone = false;
-    /**
      * Name of the task
      */
     private final String name;
+    /**
+     * Indicates if the task is completed.
+     */
+    private boolean isDone = false;
 
     /**
      * Default constructor.
@@ -29,7 +31,7 @@ public abstract class Task {
     /**
      * Alternative constructor. Usually used when reading data from a file.
      *
-     * @param name Name of the task.
+     * @param name   Name of the task.
      * @param isDone Completion status of task.
      */
     protected Task(String name, boolean isDone) {
@@ -38,7 +40,55 @@ public abstract class Task {
     }
 
     /**
+     * Creates a task based on the string input. Throws an InvalidTaskException
+     * if no task can be created from the string.
+     *
+     * @param str Raw string to create task from.
+     * @return Bot.Task object containing information from the string.
+     * @throws InvalidTaskException If no task can be created.
+     */
+    public static Task makeTask(String str) throws InvalidTaskException {
+        Task newTask;
+        if (str.startsWith("todo ")) {
+            newTask = ToDo.makeToDo(str);
+        } else if (str.startsWith("deadline ")) {
+            newTask = Deadline.makeDeadline(str);
+        } else {
+            newTask = Event.makeEvent(str);
+        }
+        return newTask;
+    }
+
+    /**
+     * Reads a string of standardised data and constructs a Task object based on the information.
+     *
+     * @param str Data string.
+     * @return Bot.Task object.
+     * @throws InvalidTaskException If the task object cannot be created from the string.
+     */
+    public static Task convertFromString(String str) throws InvalidTaskException {
+        if (str.startsWith("t")) {
+            return ToDo.convertFromString(str);
+        }
+        if (str.startsWith("d")) {
+            return Deadline.convertFromString(str);
+        }
+        return Event.convertFromString(str);
+    }
+
+    /**
+     * Checks if the raw string contains a task command.
+     *
+     * @param str Raw string to check.
+     * @return True if a task command is found, false otherwise.
+     */
+    public static boolean isTaskCommand(String str) {
+        return str.startsWith("todo ") || str.startsWith("event ") || str.startsWith("deadline ");
+    }
+
+    /**
      * Gets completion status of the task.
+     *
      * @return True if the task is complete, false otherwise.
      */
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -80,43 +130,6 @@ public abstract class Task {
     }
 
     /**
-     * Creates a task based on the string input. Throws an InvalidTaskException
-     * if no task can be created from the string.
-     *
-     * @param str Raw string to create task from.
-     * @return Task object containing information from the string.
-     * @throws InvalidTaskException If no task can be created.
-     */
-    public static Task makeTask(String str) throws InvalidTaskException {
-        Task newTask;
-        if (str.startsWith("todo ")) {
-            newTask = ToDo.makeToDo(str);
-        } else if (str.startsWith("deadline ")) {
-            newTask = Deadline.makeDeadline(str);
-        } else {
-            newTask = Event.makeEvent(str);
-        }
-        return newTask;
-    }
-
-    /**
-     * Reads a string of standardised data and constructs a Task object based on the information.
-     *
-     * @param str Data string.
-     * @return Task object.
-     * @throws InvalidTaskException If the task object cannot be created from the string.
-     */
-    public static Task convertFromString(String str) throws InvalidTaskException {
-        if (str.startsWith("t")) {
-            return ToDo.convertFromString(str);
-        }
-        if (str.startsWith("d")) {
-            return Deadline.convertFromString(str);
-        }
-        return Event.convertFromString(str);
-    }
-
-    /**
      * Creates data string of task.
      *
      * @return Data string.
@@ -124,21 +137,12 @@ public abstract class Task {
     public abstract String convertToDataString();
 
     /**
-     * Checks if the raw string contains a task command.
-     *
-     * @param str Raw string to check.
-     * @return True if a task command is found, false otherwise.
-     */
-    public static boolean isTaskCommand(String str) {
-        return str.startsWith("todo ") || str.startsWith("event ") ||str.startsWith("deadline ");
-    }
-
-    /**
      * ToDo subclass. Contains a name.
      */
     public static class ToDo extends Task {
         /**
          * Default constructor.
+         *
          * @param name Name of task.
          */
         public ToDo(String name) {
@@ -148,21 +152,11 @@ public abstract class Task {
         /**
          * Alternative constructor. Usually used when reading data from a file.
          *
-         * @param name Name of ToDo.
+         * @param name   Name of ToDo.
          * @param isDone Completion status of Todo.
          */
         protected ToDo(String name, boolean isDone) {
             super(name, isDone);
-        }
-
-        /**
-         * String representation of the todo.
-         *
-         * @return String representation.
-         */
-        @Override
-        public String toString() {
-            return "[T]" + super.toString();
         }
 
         /**
@@ -181,15 +175,6 @@ public abstract class Task {
         }
 
         /**
-         * Get data string representation.
-         *
-         * @return Data string.
-         */
-        public String convertToDataString() {
-            return "t/" + (super.isDone() ? "1" : "0") + "/"  + super.getName();
-        }
-
-        /**
          * Creates a ToDo object.
          *
          * @param str Raw string to create the ToDo object from.
@@ -203,6 +188,25 @@ public abstract class Task {
             }
             return new ToDo(name);
         }
+
+        /**
+         * String representation of the todo.
+         *
+         * @return String representation.
+         */
+        @Override
+        public String toString() {
+            return "[T]" + super.toString();
+        }
+
+        /**
+         * Get data string representation.
+         *
+         * @return Data string.
+         */
+        public String convertToDataString() {
+            return "t/" + (super.isDone() ? "1" : "0") + "/" + super.getName();
+        }
     }
 
     /**
@@ -210,7 +214,7 @@ public abstract class Task {
      */
     public static class Deadline extends Task {
         /**
-         *  The time the deadline is due.
+         * The time the deadline is due.
          */
         private final LocalDate by;
 
@@ -218,7 +222,7 @@ public abstract class Task {
          * Default constructor.
          *
          * @param name Name of the deadline.
-         * @param by The time the deadline is due.
+         * @param by   The time the deadline is due.
          */
         public Deadline(String name, LocalDate by) {
             super(name);
@@ -228,33 +232,13 @@ public abstract class Task {
         /**
          * Alternative constructor. Usually used when reading data from a file.
          *
-         * @param name Name of deadline
+         * @param name   Name of deadline
          * @param isDone Completion status of deadline
-         * @param by The time the deadline is due.
+         * @param by     The time the deadline is due.
          */
         protected Deadline(String name, boolean isDone, LocalDate by) {
             super(name, isDone);
             this.by = by;
-        }
-
-        /**
-         * String representation of the deadline.
-         * @return String representation.
-         */
-        @Override
-        public String toString() {
-            return "[D]" + super.toString() + "(by: "
-                    + this.getBy().format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                    + ")";
-        }
-
-        /**
-         * Get the deadline time.
-         *
-         * @return Deadline time.
-         */
-        protected LocalDate getBy() {
-            return this.by;
         }
 
         /**
@@ -306,12 +290,33 @@ public abstract class Task {
         }
 
         /**
+         * String representation of the deadline.
+         *
+         * @return String representation.
+         */
+        @Override
+        public String toString() {
+            return "[D]" + super.toString() + "(by: "
+                    + this.getBy().format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + ")";
+        }
+
+        /**
+         * Get the deadline time.
+         *
+         * @return Deadline time.
+         */
+        protected LocalDate getBy() {
+            return this.by;
+        }
+
+        /**
          * Returns data string representation.
          *
          * @return Data string.
          */
         public String convertToDataString() {
-            return "d/" + (super.isDone() ? "1" : "0") + "/"  + super.getName()
+            return "d/" + (super.isDone() ? "1" : "0") + "/" + super.getName()
                     + "/" + this.getBy();
         }
     }
@@ -334,7 +339,7 @@ public abstract class Task {
          *
          * @param name Event name.
          * @param from Event start time.
-         * @param to Event end time.
+         * @param to   Event end time.
          */
         public Event(String name, LocalDate from, LocalDate to) {
             super(name);
@@ -345,45 +350,15 @@ public abstract class Task {
         /**
          * Alternative constructor. Usually used when reading data from a file.
          *
-         * @param name Name of task.
+         * @param name   Name of task.
          * @param isDone Completion status of task.
-         * @param from Start time of task.
-         * @param to End time of task.
+         * @param from   Start time of task.
+         * @param to     End time of task.
          */
         protected Event(String name, boolean isDone, LocalDate from, LocalDate to) {
             super(name, isDone);
             this.from = from;
             this.to = to;
-        }
-
-        /**
-         * Get event start time.
-         *
-         * @return Event start time.
-         */
-        protected LocalDate getFrom() {
-            return this.from;
-        }
-
-        /**
-         * Get event end time.
-         *
-         * @return Event end time.
-         */
-        protected LocalDate getTo() {
-            return this.to;
-        }
-        /**
-         * String representation of the event.
-         * @return String representation.
-         */
-        @Override
-        public String toString() {
-            return "[E]" + super.toString()
-                    + "(from: "
-                    + this.getFrom().format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                    + " to: " + this.getTo().format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                    + ")";
         }
 
         /**
@@ -401,15 +376,6 @@ public abstract class Task {
             return new Event(arr[2], arr[1].equals("1"), LocalDate.parse(arr[3]), LocalDate.parse(arr[4]));
         }
 
-        /**
-         * Returns data string representation.
-         *
-         * @return Data string.
-         */
-        public String convertToDataString() {
-            return "e/" + (super.isDone() ? "1" : "0") + "/"  + super.getName()
-                    + "/" + this.getFrom() + "/" + this.getTo();
-        }
         /**
          * Creates an Event object.
          *
@@ -443,6 +409,48 @@ public abstract class Task {
                 throw new InvalidTaskException("Event end time can't be before event start time!");
             }
             return new Event(comps[0].substring(6), from, to);
+        }
+
+        /**
+         * Get event start time.
+         *
+         * @return Event start time.
+         */
+        protected LocalDate getFrom() {
+            return this.from;
+        }
+
+        /**
+         * Get event end time.
+         *
+         * @return Event end time.
+         */
+        protected LocalDate getTo() {
+            return this.to;
+        }
+
+        /**
+         * String representation of the event.
+         *
+         * @return String representation.
+         */
+        @Override
+        public String toString() {
+            return "[E]" + super.toString()
+                    + "(from: "
+                    + this.getFrom().format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + " to: " + this.getTo().format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                    + ")";
+        }
+
+        /**
+         * Returns data string representation.
+         *
+         * @return Data string.
+         */
+        public String convertToDataString() {
+            return "e/" + (super.isDone() ? "1" : "0") + "/" + super.getName()
+                    + "/" + this.getFrom() + "/" + this.getTo();
         }
     }
 }
