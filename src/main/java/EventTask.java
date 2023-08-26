@@ -1,15 +1,25 @@
-public class EventTask extends Task {
-  protected String from;
-  protected String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-  public EventTask(String description, String from, String to) {
+public class EventTask extends Task {
+  private LocalDateTime from;
+  private LocalDateTime to;
+
+  public EventTask(String description, String from, String to) throws DukeException {
     super(description);
-    this.from = from;
-    this.to = to;
+    try {
+      this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+      this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+    } catch (DateTimeParseException e) {
+      throw new DukeException("Failed to parse datetime.");
+    }
   }
 
   @Override
   public String toString() {
-    return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
+    String fromString = this.from.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
+    String toString = this.to.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
+    return String.format("[E]%s (from: %s to: %s)", super.toString(), fromString, toString);
   }
 }

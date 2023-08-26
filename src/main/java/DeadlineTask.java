@@ -1,13 +1,22 @@
-public class DeadlineTask extends Task {
-  protected String deadline;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-  public DeadlineTask(String description, String deadline) {
+public class DeadlineTask extends Task {
+  private LocalDateTime deadline;
+
+  public DeadlineTask(String description, String deadline) throws DukeException {
     super(description);
-    this.deadline = deadline;
+    try {
+      this.deadline = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+    } catch (DateTimeParseException e) {
+      throw new DukeException("Failed to parse datetime.");
+    }
   }
 
   @Override
   public String toString() {
-    return String.format("[D]%s (by: %s)", super.toString(), this.deadline);
+    String deadlineString = this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"));
+    return String.format("[D]%s (by: %s)", super.toString(), deadlineString);
   }
 }

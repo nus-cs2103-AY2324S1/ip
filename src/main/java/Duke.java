@@ -26,64 +26,42 @@ public class Duke {
 
     init();
     while (true) {
-
       String input = scanner.nextLine();
-
       Command cmd = parseCommand(input);
-
-      switch (cmd) {
-        case BYE:
-          scanner.close();
-          exit();
-          return;
-        case LIST:
-          System.out.println(listString());
-          break;
-        case MARK:
-          try {
+      try {
+        switch (cmd) {
+          case BYE:
+            scanner.close();
+            exit();
+            return;
+          case LIST:
+            System.out.println(listString());
+            break;
+          case MARK:
             handleMark(input);
-          } catch (IllegalArgumentException | DukeIOBException e) {
-            System.out.println(e.getMessage());
-          }
-          break;
-        case UNMARK:
-          try {
+            break;
+          case UNMARK:
             handleUnmark(input);
-          } catch (IllegalArgumentException | DukeIOBException e) {
-            System.out.println(e.getMessage());
-          }
-          break;
-        case TODO:
-          try {
+            break;
+          case TODO:
             handleTodo(input);
-          } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-          }
-          break;
-        case DEADLINE:
-          try {
+            break;
+          case DEADLINE:
             handleDeadline(input);
-          } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-          }
-          break;
-        case EVENT:
-          try {
+            break;
+          case EVENT:
             handleEvent(input);
-          } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-          }
-          break;
-        case DELETE:
-          try {
+            break;
+          case DELETE:
             handleDelete(input);
-          } catch (IllegalArgumentException | DukeIOBException e) {
-            System.out.println(e.getMessage());
-          }
-          break;
-        default:
-          handleInvalidCommands();
+            break;
+          default:
+            handleInvalidCommands();
+        }
+      } catch (IllegalArgumentException | DukeException e) {
+        System.out.println(e.getMessage());
       }
+
       System.out.println();
     }
   }
@@ -164,29 +142,32 @@ public class Duke {
     storage.saveToFile(tasks);
   }
 
-  private static void handleDeadline(String input) {
-    Pattern p = Pattern.compile("^deadline\\s+(\\S.+)\\s+/by\\s+(\\S.+)");
+  private static void handleDeadline(String input) throws DukeException {
+    Pattern p = Pattern.compile("^deadline\\s+(\\S.+)\\s+/by\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})");
     Matcher m = p.matcher(input);
-    if (m.find()) {
-      DeadlineTask newTask = new DeadlineTask(m.group(1), m.group(2));
-      addTask(newTask);
-    } else {
+    if (!m.find()) {
       throw new IllegalArgumentException(
-          "Invalid arguments for deadline\nPlease follow: deadline <task> /by <deadline_date>");
+          "Invalid arguments for deadline\nPlease follow: deadline <task> /by <d/M/yyyy HHmm>");
     }
+    DeadlineTask newTask = new DeadlineTask(m.group(1), m.group(2));
+    addTask(newTask);
     storage.saveToFile(tasks);
   }
 
-  private static void handleEvent(String input) {
-    Pattern p = Pattern.compile("^event\\s+(\\S.+)\\s+/from\\s+(\\S.+)\\s+/to\\s+(\\S.+)");
+  private static void handleEvent(String input) throws DukeException {
+    Pattern p =
+        Pattern.compile(
+            "^event\\s+(\\S.+)\\s+/from\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})\\s+/to\\s+(\\d{1,2}/\\d{1,2}/\\d{4} \\d{4})");
     Matcher m = p.matcher(input);
-    if (m.find()) {
-      EventTask newTask = new EventTask(m.group(1), m.group(2), m.group(3));
-      addTask(newTask);
-    } else {
+
+    if (!m.find()) {
       throw new IllegalArgumentException(
-          "Invalid arguments for event\nPlease follow: event <task> /from <from_date> /to <to_date>");
+          "Invalid arguments for event\nPlease follow: event <task> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>");
     }
+
+    EventTask newTask = new EventTask(m.group(1), m.group(2), m.group(3));
+    addTask(newTask);
+
     storage.saveToFile(tasks);
   }
 
