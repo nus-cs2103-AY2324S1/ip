@@ -77,7 +77,7 @@ public class Duke {
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        final String DATA_DIRECTORY = "../../../data";
+        final String DATA_DIRECTORY = "data";
         String projectRoot = System.getProperty("user.dir");
         String dataFilePath = projectRoot + "/" + DATA_DIRECTORY + "/tasks.ser";
         taskList = new TaskList(dataFilePath);
