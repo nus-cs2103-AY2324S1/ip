@@ -41,6 +41,13 @@ public class Duke {
                     Todo todo = new Todo(actualTask);
                     todo.print();
                 }
+                if (elements[0].equals("deadline")) {
+                    String[] taskAndDeadline = task.split(("/by"));
+                    String onlyTask = taskAndDeadline[0];
+                    String by = taskAndDeadline[1];
+                    Deadline deadline = new Deadline(onlyTask, by);
+                    deadline.print();
+                }
             }
         }
         System.out.println(horizontalLine+ "Bye. Hope to see you again soon!\n" + horizontalLine);

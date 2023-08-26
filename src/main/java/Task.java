@@ -39,7 +39,7 @@ public class Task {
         System.out.println(Duke.horizontalLine + "Here are the tasks in your list:");
         for (Task task : arr) {
             count++;
-            System.out.println( count+". " + task.doneSymbol + " " + task.task);
+            System.out.println( count+". " + task.toString());
         }
         System.out.println(Duke.horizontalLine);
     }
@@ -56,14 +56,14 @@ public class Task {
         Task markTask = arr.get(i - 1);
         markTask.setDone();
         System.out.println(Duke.horizontalLine + "Nice! I've Marked this task as done:\n"
-        + markTask.doneSymbol + " " + markTask.task + "\n" + Duke.horizontalLine);
+        + markTask.toString() + "\n" + Duke.horizontalLine);
     }
 
     public void unmark(int i) {
         Task unmarkTask = arr.get(i - 1);
         unmarkTask.setNotDone();
         System.out.println(Duke.horizontalLine + "Ok, I've marked this task as not done yet:\n"
-                + unmarkTask.doneSymbol + " " + unmarkTask.task+ "\n" + Duke.horizontalLine);
+                + unmarkTask.toString() + "\n" + Duke.horizontalLine);
     }
 
 }
