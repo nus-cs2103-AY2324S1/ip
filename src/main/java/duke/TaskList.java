@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 import task.Task;
 public class TaskList {
     private ArrayList<Task> arrList;
@@ -34,6 +35,24 @@ public class TaskList {
     public Task delete(int choice) {
         return this.arrList.remove(choice - 1);
     }
+
+    /**
+     * Returns a list of tasks that contain the word as the name.
+     *
+     * @param word String input by user representing the task name to correspond to
+     * @return ArrayList of tasks that corresponds to the word input
+     */
+    public ArrayList<Task> find(String word) {
+        Predicate<Task> findName = task -> task.containName(word);
+        ArrayList<Task> tempList = new ArrayList<>();
+        for (Task task : this.arrList) {
+            if (findName.test(task)) {
+                tempList.add(task);
+            }
+        }
+        return tempList;
+    }
+
     public String taskToString(int choice) {
         return this.arrList.get(choice - 1).toString();
     }
