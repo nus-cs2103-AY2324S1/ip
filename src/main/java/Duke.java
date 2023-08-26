@@ -56,6 +56,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Read the task from the file.
+     */
     public void readTask() {
         try {
             File directory = new File("./data");
@@ -115,6 +118,9 @@ public class Duke {
     }
 
 
+    /**
+     * Write the task to the file.
+     */
     public void writeTask() {
         try {
             FileWriter fw = new FileWriter(filePath);
