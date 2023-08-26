@@ -1,5 +1,7 @@
+import java.io.Serializable;
+
 //this class represents a task which is a parent class
-public class Task {
+public class Task implements Serializable {
     protected String name;
     public Boolean done;
 

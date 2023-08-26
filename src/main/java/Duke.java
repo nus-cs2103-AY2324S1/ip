@@ -9,7 +9,8 @@ public class Duke {
         System.out.println("Hello, I am your chatbot!\nMy name is " + name + "\nHow may I help?");
         Scanner scanner = new Scanner(System.in);
         String stuff;
-        ArrayList<Task> items = new ArrayList<>();
+        HardDrive load = new HardDrive("tasks.ser");
+        ArrayList<Task> items = load.loadDataFromFile();
         stuff = scanner.nextLine();
         MarkPattern check = new MarkPattern();
 
@@ -69,6 +70,7 @@ public class Duke {
                     System.out.println("I don't understand...");
                 }
             }
+            load.saveDataToFile(items);
             stuff = scanner.nextLine();
         }
 
