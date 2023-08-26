@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +89,12 @@ public class CarbonBot {
                             throw new DukeException("☹ OOPS!!! The 'by' of a deadline cannot be empty.");
                         }
 
-                        addTask(taskList, new Deadline(desc, by));
+                        try {
+                            LocalDateTime byDt = parseDateTimeString(by);
+                            addTask(taskList, new Deadline(desc, byDt));
+                        } catch (DateTimeParseException ex) {
+                            throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format.");
+                        }
                         break;
                     case "event":
                         // event: Adds a event Task to the list
@@ -117,7 +123,13 @@ public class CarbonBot {
                             throw new DukeException("☹ OOPS!!! The 'to' of an event cannot be empty.");
                         }
 
-                        addTask(taskList, new Event(desc, from, to));
+                        try {
+                            LocalDateTime fromDt = parseDateTimeString(from);
+                            LocalDateTime toDt = parseDateTimeString(to);
+                            addTask(taskList, new Event(desc, fromDt, toDt));
+                        } catch (DateTimeParseException ex) {
+                            throw new DukeException("☹ OOPS!!! The given datetime was not in a valid format.");
+                        }
                         break;
                     case "delete":
                         deleteTask(taskList, input);
@@ -147,7 +159,10 @@ public class CarbonBot {
         System.out.println(DIVIDER);
     }
 
-
+    private static LocalDateTime parseDateTimeString(String dateTime) throws DateTimeParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        return LocalDateTime.parse(dateTime, formatter);
+    }
 
     private static void deleteTask(List<Task> tasks, String input) throws DukeException {
         // Validates if the user has specified the index to be updated
@@ -231,10 +246,21 @@ public class CarbonBot {
                         task = new Todo(cols[2]);
                         break;
                     case "D":
-                        task = new Deadline(cols[2], cols[3]);
+                        try {
+                            LocalDateTime byDt = parseDateTimeString(cols[3]);
+                            task = new Deadline(cols[2], byDt);
+                        } catch (DateTimeParseException ex) {
+                            throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format.");
+                        }
                         break;
                     case "E":
-                        task = new Event(cols[2], cols[3], cols[4]);
+                        try {
+                            LocalDateTime fromDt = parseDateTimeString(cols[3]);
+                            LocalDateTime toDt = parseDateTimeString(cols[4]);
+                            task = new Event(cols[2], fromDt, toDt);
+                        } catch (DateTimeParseException ex) {
+                            throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format.");
+                        }
                         break;
                     default:
                         throw new DukeException("Invalid File Format");
