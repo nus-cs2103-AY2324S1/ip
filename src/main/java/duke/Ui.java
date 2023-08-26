@@ -1,3 +1,6 @@
+package duke;
+
+import task.Task;
 import java.util.ArrayList;
 
 public class Ui {
@@ -19,7 +22,7 @@ public class Ui {
     }
 
     public void createLine() {
-        System.out.println(Duke.line);
+        System.out.println(Ui.line);
     }
 
     public void exit() {

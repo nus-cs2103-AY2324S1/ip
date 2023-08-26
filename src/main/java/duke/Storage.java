@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -5,6 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Consumer;
+
+import task.Task;
+import task.Todos;
+import task.Events;
+import task.Deadlines;
 
 public class Storage {
 
@@ -21,7 +28,7 @@ public class Storage {
     public File createOutputFile() {
         File filePointer = new File(this.outputPath);
         if (!filePointer.exists()) {
-//            File directory = new File(System.getProperty("user.dir") + Duke.dir);
+//            File directory = new File(System.getProperty("user.dir") + duke.Duke.dir);
             File directory = new File(new File(this.outputPath).getParent());
             // create directory if it doesn't exist
             if (!directory.exists()) {

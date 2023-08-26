@@ -1,6 +1,13 @@
+package duke;
+
+import task.Deadlines;
+import task.Events;
+import task.Task;
+import task.Todos;
+
 public class Parser {
 
-    static boolean parsable(String input) {
+    public static boolean parsable(String input) {
         return !input.equals("bye");
     }
 
@@ -8,7 +15,7 @@ public class Parser {
      * Creates the tasks based on String input.
      *
      * @param input String input by user
-     * @return Task Can be Events, Deadlines, Todos
+     * @return Task Can be task.Events, task.Deadlines, Todos
      * @throws Exception
      */
     public static Task createTask(String input) throws Exception {
@@ -62,7 +69,7 @@ public class Parser {
             throw new Exception("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
-    static void parse(String input, Ui ui, TaskList taskList, Storage storage) {
+    public static void parse(String input, Ui ui, TaskList taskList, Storage storage) {
         // Splits the input based on whitespaces.
         String command = input.split("\\s+")[0];
         int choice = -1;

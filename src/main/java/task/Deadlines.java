@@ -1,3 +1,5 @@
+package task;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -9,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * Encapsulates the Deadline Task.
  * @author Donovan Chan Jia Jun
  */
-public class Deadlines extends Task{
+public class Deadlines extends Task {
     private String deadline;
     public Deadlines(String name, String deadline) {
         super(name);
