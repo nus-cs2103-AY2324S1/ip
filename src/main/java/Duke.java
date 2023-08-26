@@ -34,7 +34,7 @@ public class Duke {
         printOutput(greetings);
 
         Scanner sc = new Scanner(System.in);
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskManager = DiskManager.loadFromDisk();
 
         while (sc.hasNextLine()) {
             String input = sc.nextLine().trim();
