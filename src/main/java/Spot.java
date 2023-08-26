@@ -1,8 +1,13 @@
-import java.io.*;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.nio.file.Paths;
-import java.nio.file.Path;
 
 public class Spot {
     private final static String DIRECTORY_NAME = "./data";
@@ -35,7 +40,8 @@ public class Spot {
             }
         } else if (keywords[0].equals("D")) {
             if (keywords[1].equals("X")) {
-                Spot.addDeadline(keywords[2], true, keywords[3]);
+                Spot.addDeadline(keywords[2], true,
+                        keywords[3]);
             } else {
                 Spot.addDeadline(keywords[2], false, keywords[3]);
             }
@@ -103,7 +109,7 @@ public class Spot {
                 if (input.length() <= 5) {
                     throw new SpotException("Spot needs more details than that!");
                 }
-                int position = Integer.valueOf(input.substring(5));
+                int position = Integer.parseInt(input.substring(5));
                 Spot.markTask(position);
             } catch (SpotException e) {
                 System.out.println(e.getMessage());
@@ -113,7 +119,7 @@ public class Spot {
                 if (input.length() <= 7) {
                     throw new SpotException("Spot needs more details than that!");
                 }
-                int position = Integer.valueOf(input.substring(7));
+                int position = Integer.parseInt(input.substring(7));
                 Spot.unmarkTask(position);
             } catch (SpotException e) {
                 System.out.println(e.getMessage());
@@ -123,64 +129,84 @@ public class Spot {
                 if (input.length() <= 7) {
                     throw new SpotException("Spot needs more details than that!");
                 }
-                int position = Integer.valueOf(input.substring(7));
+                int position = Integer.parseInt(input.substring(7));
                 Spot.deleteTask(position);
             } catch (SpotException e) {
                 System.out.println(e.getMessage());
             }
+        } else if (input.startsWith("tasks on")) {
+            try {
+                if (input.length() <= 9) {
+                    throw new SpotException("Spot thinks you might've " +
+                            "forgotten to add a date!");
+                }
+                String d = input.substring(9);
+                LocalDate date = LocalDate.parse(d,
+                        DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                Spot.printTasks(date);
+            } catch (SpotException | DateTimeParseException e) {
+                System.out.println(e.getMessage());
+            }
+        } else if (input.startsWith("todo")) {
+            try {
+                if (input.length() <= 5) {
+                    throw new SpotException("Spot wonders if you've " +
+                            "forgotten the description?");
+                }
+                Spot.addTodo(input.substring(5).trim());
+            } catch (SpotException e) {
+                System.out.println(e.getMessage());
+            }
+        } else if (input.startsWith("deadline")) {
+            try {
+                if (input.length() <= 9) {
+                    throw new SpotException("Spot needs more details than that!");
+                }
+                String[] keywords = input.substring(9).trim().split("/by");
+                if (keywords.length == 0 || keywords[0].trim().isEmpty()) {
+                    throw new SpotException("Spot wonders if you've " +
+                            "forgotten the description?");
+                }
+                if (keywords.length < 2) {
+                    throw new SpotException("Spot thinks you're missing a deadline!");
+                }
+                Spot.addDeadline(keywords[0].trim(), keywords[1].trim());
+            } catch (SpotException e) {
+                System.out.println(e.getMessage());
+            }
+        } else if (input.startsWith("event")) {
+            try {
+                if (input.length() <= 6) {
+                    throw new SpotException("Spot needs more details than that!");
+                }
+                String[] keywords = input.substring(6).trim().split("/from|/to");
+                if (keywords.length == 0 || keywords[0].trim().isEmpty()) {
+                    throw new SpotException("Spot wonders if you've " +
+                            "forgotten the description?");
+                }
+                if (keywords.length < 3 || keywords[1].trim().isEmpty()
+                        || keywords[2].trim().isEmpty()) {
+                    throw new SpotException("Spot can't find a start time" +
+                            " and/or an end time!");
+                }
+                Spot.addEvent(keywords[0].trim(), keywords[1].trim(), keywords[2].trim());
+            } catch (SpotException e) {
+                System.out.println(e.getMessage());
+            }
         } else {
-            if (input.startsWith("todo")) {
-                try {
-                    if (input.length() <= 5) {
-                        throw new SpotException("Spot wonders if you've " +
-                                "forgotten the description?");
-                    }
-                    Spot.addTodo(input.substring(5).trim());
-                } catch (SpotException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (input.startsWith("deadline")) {
-                try {
-                    if (input.length() <= 9) {
-                        throw new SpotException("Spot needs more details than that!");
-                    }
-                    String[] keywords = input.substring(9).trim().split("/by");
-                    if (keywords.length == 0 || keywords[0].trim().isEmpty()) {
-                        throw new SpotException("Spot wonders if you've " +
-                                "forgotten the description?");
-                    }
-                    if (keywords.length < 2) {
-                        throw new SpotException("Spot thinks you're missing a deadline!");
-                    }
-                    Spot.addDeadline(keywords[0].trim(), keywords[1].trim());
-                } catch (SpotException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else if (input.startsWith("event")) {
-                try {
-                    if (input.length() <= 6) {
-                        throw new SpotException("Spot needs more details than that!");
-                    }
-                    String[] keywords = input.substring(6).trim().split("/from|/to");
-                    if (keywords.length == 0 || keywords[0].trim().isEmpty()) {
-                        throw new SpotException("Spot wonders if you've " +
-                                "forgotten the description?");
-                    }
-                    if (keywords.length < 3 || keywords[1].trim().isEmpty()
-                            || keywords[2].trim().isEmpty()) {
-                        throw new SpotException("Spot can't find a start time" +
-                                " and/or an end time!");
-                    }
-                    Spot.addEvent(keywords[0].trim(), keywords[1].trim(), keywords[2].trim());
-                } catch (SpotException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else {
-                try {
-                    throw new SpotException("Spot doesn't know what that is!");
-                } catch (SpotException e) {
-                    System.out.println(e.getMessage());
-                }
+            try {
+                throw new SpotException("Spot doesn't know what that is!");
+            } catch (SpotException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void printTasks(LocalDate deadline) {
+        for (int i = 0; i < taskList.size(); i++) {
+            Task task = taskList.get(i);
+            if (task.fallsOn(deadline)) {
+                System.out.println(task);
             }
         }
     }
@@ -190,7 +216,7 @@ public class Spot {
             ToDo newTask = new ToDo(description);
             taskList.add(newTask);
             System.out.println("Spot will add this new task to your list: "
-                    + "\n" + "  " + newTask.toString());
+                    + "\n" + "  " + newTask);
             System.out.println("Tasks in list: " + taskList.size());
         } catch (SpotException e) {
             System.out.println(e.getMessage());
@@ -208,42 +234,54 @@ public class Spot {
 
     public static void addDeadline(String description, String deadline) {
         try {
-            Deadline newTask = new Deadline(description, deadline);
+            LocalDate dateDeadline = LocalDate.parse(deadline,
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            Deadline newTask = new Deadline(description, dateDeadline);
             taskList.add(newTask);
             System.out.println("Spot will add this new task to your list: "
-                    + "\n" + "  " + newTask.toString());
+                    + "\n" + "  " + newTask);
             System.out.println("Tasks in list: " + taskList.size());
-        } catch (SpotException e) {
+        } catch (SpotException | DateTimeParseException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public static void addDeadline(String description, boolean isDone, String deadline) {
         try {
-            Deadline newTask = new Deadline(description, isDone, deadline);
+            LocalDate dateDeadline = LocalDate.parse(deadline,
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            Deadline newTask = new Deadline(description, isDone, dateDeadline);
             taskList.add(newTask);
-        } catch (SpotException e) {
+        } catch (SpotException | DateTimeParseException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public static void addEvent(String description, String start, String end) {
         try {
-            Event newTask = new Event(description, start, end);
+            LocalDate dateStart = LocalDate.parse(start,
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate dateEnd = LocalDate.parse(end,
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            Event newTask = new Event(description, dateStart, dateEnd);
             taskList.add(newTask);
             System.out.println("Spot will add this new task to your list: "
-                    + "\n" + "  " + newTask.toString());
+                    + "\n" + "  " + newTask);
             System.out.println("Tasks in list: " + taskList.size());
-        } catch (SpotException e) {
+        } catch (SpotException | DateTimeParseException e) {
             System.out.println(e.getMessage());
         }
     }
 
     public static void addEvent(String description, boolean isDone, String start, String end) {
         try {
-            Event newTask = new Event(description, isDone, start, end);
+            LocalDate dateStart = LocalDate.parse(start,
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate dateEnd = LocalDate.parse(end,
+                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            Event newTask = new Event(description, isDone, dateStart, dateEnd);
             taskList.add(newTask);
-        } catch (SpotException e) {
+        } catch (SpotException | DateTimeParseException e) {
             System.out.println(e.getMessage());
         }
     }
