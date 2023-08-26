@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -94,12 +95,14 @@ public class Duke {
 
         public TaskStorage() {
             this.file = new File(FILE_PATH);
-            if (!file.exists()) {
+            try {
+                this.loadFromFile();
+            } catch (FileNotFoundException | WrongFormatException | InvalidFileException e) {
                 try {
-                    file.getParentFile().mkdirs();
-                    file.createNewFile();
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    this.file.getParentFile().mkdirs();
+                    this.file.createNewFile();
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
                 }
             }
         }
@@ -145,11 +148,20 @@ public class Duke {
             try {
                 java.io.FileWriter fw = new java.io.FileWriter(FILE_PATH);
                 for (Task task : tasks) {
-                    fw.write(task.toString() + "\n");
+                    fw.write(task.saveToFileString() + "\n");
                 }
                 fw.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+            }
+        }
+
+        private void loadFromFile() throws FileNotFoundException, WrongFormatException, InvalidFileException {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String fileTask = sc.nextLine();
+                Task task = Task.loadTask(fileTask);
+                this.tasks.add(task);
             }
         }
 
@@ -189,6 +201,28 @@ public class Duke {
             }
         }
 
+        public static Task loadTask(String fileTask) throws WrongFormatException, InvalidFileException {
+            String[] taskDetails = fileTask.split(" \\| ");
+            try {
+                TaskType taskType = TaskType.valueOf(taskDetails[0]);
+                boolean isDone = taskDetails[1].equals("1");
+                String description = taskDetails[2];
+
+                switch (taskType) {
+                    case TODO:
+                        return new TodoTask(isDone, description);
+                    case DEADLINE:
+                        return new DeadlineTask(isDone, description, taskDetails[3]);
+                    case EVENT:
+                        return new EventTask(isDone, description, taskDetails[3], taskDetails[4]);
+                    default:
+                        return null;
+                }
+            } catch (NullPointerException | IllegalArgumentException e) {
+                throw new InvalidFileException("File is corrupted!");
+            }
+        }
+
         private static TaskType getTaskType(String input) {
             if (input.startsWith("todo")) {
                 return TaskType.TODO;
@@ -221,6 +255,8 @@ public class Duke {
 
         protected abstract String getDescription(String input);
 
+        protected abstract String saveToFileString();
+
         private static final class TodoTask extends Task {
             public TodoTask(String task) throws WrongFormatException {
                 String description = getDescription(task);
@@ -228,9 +264,19 @@ public class Duke {
                 this.description = description;
             }
 
+            public TodoTask(boolean isDone, String description) {
+                this.isDone = isDone;
+                this.description = description;
+            }
+
             @Override
             protected String getTaskTypeString() {
                 return squareBracketWrapper("T");
+            }
+
+            @Override
+            protected String saveToFileString() {
+                return "TODO | " + (isDone ? "1" : "0") + " | " + description;
             }
 
             @Override
@@ -256,9 +302,20 @@ public class Duke {
                 this.description = description;
             }
 
+            public DeadlineTask(boolean isDone, String description, String taskDetail) {
+                this.isDone = isDone;
+                this.description = description;
+                this.dateEnd = taskDetail;
+            }
+
             @Override
             protected String getTaskTypeString() {
                 return squareBracketWrapper("D");
+            }
+
+            @Override
+            protected String saveToFileString() {
+                return "DEADLINE | " + (isDone ? "1" : "0") + " | " + description + " | " + dateEnd;
             }
 
             @Override
@@ -294,9 +351,21 @@ public class Duke {
                 this.description = description;
             }
 
+            public EventTask(boolean isDone, String description, String dateStart, String dateEnd) {
+                this.isDone = isDone;
+                this.description = description;
+                this.dateStart = dateStart;
+                this.dateEnd = dateEnd;
+            }
+
             @Override
             protected String getTaskTypeString() {
                 return squareBracketWrapper("E");
+            }
+
+            @Override
+            protected String saveToFileString() {
+                return "EVENT | " + (isDone ? "1" : "0") + " | " + description + " | " + dateStart + " | " + dateEnd;
             }
 
             @Override
@@ -328,7 +397,10 @@ public class Duke {
         }
     }
 
-    static class ParserException extends Exception {
+    /**
+     * All exceptions that arise when parsing user input.
+     */
+    static class ParserException extends RuntimeException {
         public ParserException(String message) {
             super(message);
         }
@@ -342,6 +414,12 @@ public class Duke {
 
     static class WrongFormatException extends ParserException {
         public WrongFormatException(String message) {
+            super(message);
+        }
+    }
+
+    static class InvalidFileException extends RuntimeException {
+        public InvalidFileException(String message) {
             super(message);
         }
     }
