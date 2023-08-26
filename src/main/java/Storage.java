@@ -1,10 +1,10 @@
 import java.io.*;
 import java.util.ArrayList;
 
-public class HardDrive {
+public class Storage {
     private String filepath;
 
-    public HardDrive(String filepath) {
+    public Storage(String filepath) {
         this.filepath = filepath;
     }
 
