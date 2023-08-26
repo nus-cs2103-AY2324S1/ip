@@ -2,6 +2,7 @@ import extensions.EkudException;
 import extensions.EkudInvalidCommandException;
 import extensions.TaskList;
 import java.util.Scanner;
+
 public class Ekud {
     // Basic UI & messages for the chatbot to print to console
     private static final String HORIZONTALLINE = "-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-";
@@ -21,7 +22,6 @@ public class Ekud {
                 message,
                 HORIZONTALLINE));
     }
-
     /**
      * Represents a fixed set of input command strings which can be assigned to the
      * Command variable.
