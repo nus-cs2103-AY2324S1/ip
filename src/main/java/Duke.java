@@ -1,5 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class Duke {
     enum TaskType {
@@ -86,28 +90,47 @@ public class Duke {
     static class TaskStorage {
         private final int SIZE = 100;
         private final ArrayList<Task> tasks = new ArrayList<>(SIZE);
+        private final String FILE_PATH = "data/meowies.txt";
+        private final File file;
+
+        public TaskStorage() {
+            this.file = new File(FILE_PATH);
+            try {
+                this.loadFromFile();
+            } catch (FileNotFoundException | WrongFormatException | InvalidFileException e) {
+                try {
+                    this.file.getParentFile().mkdirs();
+                    this.file.createNewFile();
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
 
         public String save(String input) {
             Task task;
             try {
-                task = new Task(input);
+                task = Task.createTask(input);
             } catch (WrongCommandException | WrongFormatException e) {
                 return e.getMessage();
             }
 
             this.tasks.add(task);
+            this.saveToFile();
 
             return "added: " + task;
         }
 
         public String markAsDone(int index) {
             this.tasks.get(index).markAsDone();
+            this.saveToFile();
             return "Nice! I've meowrked this task as done:\n"
                     + "    " + this.tasks.get(index);
         }
 
         public String unmarkAsDone(int index) {
             this.tasks.get(index).unmarkAsDone();
+            this.saveToFile();
             return "Oh meow! I've marked this task as undone :( :\n"
                     + "    " + this.tasks.get(index);
         }
@@ -115,9 +138,31 @@ public class Duke {
         public String delete(int index) {
             Task task = this.tasks.get(index);
             this.tasks.remove(index);
+            this.saveToFile();
             return "Noted. I've removed this task:\n"
                     + "    " + task + "\n"
                     + "    " + "Now you have " + this.tasks.size() + " tasks in the list.";
+        }
+
+        private void saveToFile() {
+            try {
+                java.io.FileWriter fw = new java.io.FileWriter(FILE_PATH);
+                for (Task task : tasks) {
+                    fw.write(task.saveToFileString() + "\n");
+                }
+                fw.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        private void loadFromFile() throws FileNotFoundException, WrongFormatException, InvalidFileException {
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                String fileTask = sc.nextLine();
+                Task task = Task.loadTask(fileTask);
+                this.tasks.add(task);
+            }
         }
 
         @Override
@@ -136,50 +181,49 @@ public class Duke {
         }
     }
 
-    static class Task {
-        private boolean isDone;
-        private final TaskType taskType;
-        private String description;
-        private String dateStart;
-        private String dateEnd;
+    static abstract class Task {
+        protected boolean isDone = false;
+        protected String description;
 
-        public Task(String task) throws WrongCommandException, WrongFormatException {
-            this.isDone = false;
-            TaskType tmpTaskType = getTaskType(task);
-            if (tmpTaskType == null) throw new WrongCommandException("Whopsie daisies! I don't understand that command!");
-            this.taskType = tmpTaskType;
+        public static Task createTask(String task) throws WrongCommandException, WrongFormatException {
+            TaskType taskType = getTaskType(task);
+            if (taskType == null) throw new WrongCommandException("Whopsie daisies! I don't understand that command!");
 
-            String tmpDescription = getDescription(task);
-            if (tmpDescription == null) throw new WrongFormatException("Whopsie daisies! I don't understand that format!");
-            this.description = tmpDescription;
-        }
-
-        public void markAsDone() {
-            this.isDone = true;
-        }
-
-        public void unmarkAsDone() {
-            this.isDone = false;
-        }
-
-        private String squareBracketWrapper(String input) {
-            return "[" + input + "]";
-        }
-
-        private String getTaskTypeString() {
             switch (taskType) {
                 case TODO:
-                    return squareBracketWrapper("T");
+                    return new TodoTask(task);
                 case DEADLINE:
-                    return squareBracketWrapper("D");
+                    return new DeadlineTask(task);
                 case EVENT:
-                    return squareBracketWrapper("E");
+                    return new EventTask(task);
                 default:
-                    return "";
+                    return null;
             }
         }
 
-        private TaskType getTaskType(String input) {
+        public static Task loadTask(String fileTask) throws WrongFormatException, InvalidFileException {
+            String[] taskDetails = fileTask.split(" \\| ");
+            try {
+                TaskType taskType = TaskType.valueOf(taskDetails[0]);
+                boolean isDone = taskDetails[1].equals("1");
+                String description = taskDetails[2];
+
+                switch (taskType) {
+                    case TODO:
+                        return new TodoTask(isDone, description);
+                    case DEADLINE:
+                        return new DeadlineTask(isDone, description, taskDetails[3]);
+                    case EVENT:
+                        return new EventTask(isDone, description, taskDetails[3], taskDetails[4]);
+                    default:
+                        return null;
+                }
+            } catch (NullPointerException | IllegalArgumentException e) {
+                throw new InvalidFileException("File is corrupted!");
+            }
+        }
+
+        private static TaskType getTaskType(String input) {
             if (input.startsWith("todo")) {
                 return TaskType.TODO;
             }
@@ -195,15 +239,87 @@ public class Duke {
             return null;
         }
 
-        private String getDescription(String input) {
-            if (this.taskType == TaskType.TODO) {
+        private static String squareBracketWrapper(String input) {
+            return "[" + input + "]";
+        }
+
+        public void markAsDone() {
+            this.isDone = true;
+        }
+
+        public void unmarkAsDone() {
+            this.isDone = false;
+        }
+
+        protected abstract String getTaskTypeString();
+
+        protected abstract String getDescription(String input);
+
+        protected abstract String saveToFileString();
+
+        private static final class TodoTask extends Task {
+            public TodoTask(String task) throws WrongFormatException {
+                String description = getDescription(task);
+                if (description == null) throw new WrongFormatException("Whopsie daisies! I don't understand that format!");
+                this.description = description;
+            }
+
+            public TodoTask(boolean isDone, String description) {
+                this.isDone = isDone;
+                this.description = description;
+            }
+
+            @Override
+            protected String getTaskTypeString() {
+                return squareBracketWrapper("T");
+            }
+
+            @Override
+            protected String saveToFileString() {
+                return "TODO | " + (isDone ? "1" : "0") + " | " + description;
+            }
+
+            @Override
+            protected String getDescription(String input) {
                 if (input.split(" ", 2).length == 1) {
                     return null;
                 }
                 return input.split(" ", 2)[1];
             }
 
-            if (this.taskType == TaskType.DEADLINE) {
+            @Override
+            public String toString() {
+                return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description;
+            }
+        }
+
+        private static final class DeadlineTask extends Task {
+            private String dateEnd;
+
+            public DeadlineTask(String task) throws WrongFormatException {
+                String description = getDescription(task);
+                if (description == null) throw new WrongFormatException("Whopsie daisies! I don't understand that format!");
+                this.description = description;
+            }
+
+            public DeadlineTask(boolean isDone, String description, String taskDetail) {
+                this.isDone = isDone;
+                this.description = description;
+                this.dateEnd = taskDetail;
+            }
+
+            @Override
+            protected String getTaskTypeString() {
+                return squareBracketWrapper("D");
+            }
+
+            @Override
+            protected String saveToFileString() {
+                return "DEADLINE | " + (isDone ? "1" : "0") + " | " + description + " | " + dateEnd;
+            }
+
+            @Override
+            protected String getDescription(String input) {
                 if (input.split(" ", 2).length == 1) {
                     return null;
                 }
@@ -218,7 +334,42 @@ public class Duke {
                 return split[0];
             }
 
-            if (this.taskType == TaskType.EVENT) {
+            @Override
+            public String toString() {
+                return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
+                        + " (by: " + dateEnd + ")";
+            }
+        }
+
+        private static final class EventTask extends Task {
+            private String dateStart;
+            private String dateEnd;
+
+            public EventTask(String task) throws WrongFormatException {
+                String description = getDescription(task);
+                if (description == null) throw new WrongFormatException("Whopsie daisies! I don't understand that format!");
+                this.description = description;
+            }
+
+            public EventTask(boolean isDone, String description, String dateStart, String dateEnd) {
+                this.isDone = isDone;
+                this.description = description;
+                this.dateStart = dateStart;
+                this.dateEnd = dateEnd;
+            }
+
+            @Override
+            protected String getTaskTypeString() {
+                return squareBracketWrapper("E");
+            }
+
+            @Override
+            protected String saveToFileString() {
+                return "EVENT | " + (isDone ? "1" : "0") + " | " + description + " | " + dateStart + " | " + dateEnd;
+            }
+
+            @Override
+            protected String getDescription(String input) {
                 if (input.split(" ", 2).length == 1) {
                     return null;
                 }
@@ -238,18 +389,18 @@ public class Duke {
                 return split[0];
             }
 
-            return null;
-        }
-
-        @Override
-        public String toString() {
-            return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
-                    + (this.taskType == TaskType.DEADLINE ? " (by: " + dateEnd + ")" : "")
-                    + (this.taskType == TaskType.EVENT ? " (from: " + dateStart + " to: " + dateEnd + ")" : "");
+            @Override
+            public String toString() {
+                return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
+                        + " (from: " + dateStart + " to: " + dateEnd + ")";
+            }
         }
     }
 
-    static class ParserException extends Exception {
+    /**
+     * All exceptions that arise when parsing user input.
+     */
+    static class ParserException extends RuntimeException {
         public ParserException(String message) {
             super(message);
         }
@@ -263,6 +414,12 @@ public class Duke {
 
     static class WrongFormatException extends ParserException {
         public WrongFormatException(String message) {
+            super(message);
+        }
+    }
+
+    static class InvalidFileException extends RuntimeException {
+        public InvalidFileException(String message) {
             super(message);
         }
     }
