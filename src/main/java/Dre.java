@@ -118,6 +118,23 @@ public class Dre {
         }
     }
 
+    public void delete(String next) {
+        int start = next.lastIndexOf(' ');
+        try {
+            int taskIndex = Integer.parseInt(next.substring(start + 1));
+
+            if (taskIndex <= 0 || taskIndex > list.size()) {
+                System.out.println("Invalid task index.");
+            } else {
+                Task deletedTask = list.remove(taskIndex - 1);
+                System.out.println("Task deleted:");
+                System.out.println(deletedTask.toString());
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Task index must be an integer.");
+        }
+    }
+
     public static void main(String[] args) {
         Dre dre = new Dre();
         dre.greet();
@@ -130,6 +147,8 @@ public class Dre {
                 dre.mark(next);
             } else if (next.startsWith("unmark")) {
                 dre.unmark(next);
+            } else if (next.startsWith("delete")) {
+                dre.delete(next);
             } else if (!next.trim().isEmpty()) {
                 dre.add(next);
             } else {
