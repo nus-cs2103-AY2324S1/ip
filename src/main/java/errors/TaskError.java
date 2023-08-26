@@ -24,7 +24,9 @@ public enum TaskError {
     ERR_DELETING_TASK ("..o.o..beep..Invalid use of delete, use: \"delete <task number>\""),
     ERR_READING_COMMAND ("..o.o..beep..Command not found..beep.."),
     ERR_READING_FILE ("..o.o..beep..Error reading file"),
-    ERR_WRITING_FILE ("..o.o..beep..Error writing to file");
+    ERR_WRITING_FILE ("..o.o..beep..Error writing to file"),
+    ERR_USING_WHATSGOINGON ("..o.o..beep..Error using command 'whatsgoingon', " +
+            "use: \"whatsgoingon <dd/MM/yyyy>\"");
 
 
     private final String errorMessage;
