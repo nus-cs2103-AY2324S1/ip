@@ -1,6 +1,7 @@
 package duke.message;
 
 import duke.task.Task;
+import duke.templates.MessageTemplates;
 
 public class RemoveTaskMessage extends Message {
     private final Task task;
@@ -13,10 +14,9 @@ public class RemoveTaskMessage extends Message {
     public void send() {
         System.out.println(
                 createMessage(
-                        "Noted. I've removed this task:",
+                        MessageTemplates.MESSAGE_REMOVED_TASK,
                         this.task.toString(),
-                        String.format("Now you have %d tasks in the list.", this.totalTasks),
-                        horizontalLine
+                        String.format(MessageTemplates.MESSAGE_NUMBER_OF_TASKS, this.totalTasks)
                 )
         );
     }

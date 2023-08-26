@@ -1,6 +1,7 @@
 package duke.message;
 
 import duke.task.Task;
+import duke.templates.MessageTemplates;
 
 public class MarkTaskMessage extends Message {
     private final Task task;
@@ -9,8 +10,7 @@ public class MarkTaskMessage extends Message {
     }
     @Override
     public void send() {
-        String message = "Nice! I've marked this task as done:";
         task.markTask();
-        System.out.println(createMessage(message, this.task.toString(), horizontalLine));
+        System.out.println(createMessage(MessageTemplates.MESSAGE_MARK_DONE, this.task.toString()));
     }
 }

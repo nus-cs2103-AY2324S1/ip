@@ -1,9 +1,16 @@
 package duke.message;
 
+import duke.templates.MessageTemplates;
+
 public class WelcomeMessage extends Message {
     @Override
     public void send() {
-        String hiMessage = "Hello! I'm ChatGPA 5.0\nWhat can I do for you?";
-        System.out.println(createMessage(horizontalLine, hiMessage, horizontalLine));
+        System.out.println(
+                createMessage(
+                        MessageTemplates.MESSAGE_LINE,
+                        MessageTemplates.MESSAGE_HI,
+                        MessageTemplates.MESSAGE_LINE
+                )
+        );
     }
 }

@@ -7,6 +7,6 @@ public class ErrorMessage extends Message {
     }
     @Override
     public void send() {
-        System.out.println(createMessage(message, horizontalLine));
+        System.out.println(createMessage(message));
     }
 }

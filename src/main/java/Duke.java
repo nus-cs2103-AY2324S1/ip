@@ -1,9 +1,10 @@
-import duke.ChatManager;
-import duke.exception.DukeException;
+import duke.exception.InvalidCommandException;
+import duke.exception.InvalidIndexException;
 import duke.exception.InvalidInputException;
-import duke.message.ErrorMessage;
 import duke.Storage;
+import duke.parser.UserInputParser;
 import duke.task.TaskList;
+import duke.Ui;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -11,34 +12,40 @@ import java.util.Scanner;
 public class Duke {
     private TaskList tasks;
     private final Storage storage;
-    private final ChatManager chatManager;
+    private final Ui ui;
     public Duke(String filePath) {
+        this.ui = new Ui();
         this.storage = new Storage(filePath);
+        // load data file
         try {
             this.tasks = new TaskList(storage.loadFile());
         } catch (IOException e) {
-            System.out.println("new file created");
+            this.ui.showError(e.getMessage());
+            this.ui.showLine();
             this.tasks = new TaskList();
         }
-        this.chatManager = new ChatManager(this.tasks);
     }
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
     private void run() {
         Scanner sc = new Scanner(System.in);
-        while (this.chatManager.getIsActive()) {
+        while (UserInputParser.isActive) {
             String userInput = sc.nextLine();
             try {
-                this.chatManager.handleInput(userInput);
-            } catch (DukeException | InvalidInputException e) {
-                new ErrorMessage(e.getMessage()).send();
+                UserInputParser.parse(userInput, this.tasks);
+                this.storage.writeToFile(this.tasks);
+            } catch (InvalidInputException e) {
+                this.ui.showError(e.getMessage());
+            } catch (InvalidCommandException e) {
+                this.ui.showMenu();
+            } catch (InvalidIndexException e) {
+                this.ui.showInvalidIndexError();
+            } catch (IOException e) {
+                this.ui.showSaveDataError();
+            } finally {
+                this.ui.showLine();
             }
-        }
-        try {
-            this.storage.writeToFile(this.tasks);
-        } catch (IOException e) {
-            System.out.println("Unable to save data");
         }
     }
 }

@@ -10,13 +10,12 @@ public class TaskListMessage extends Message {
         this.list = formatList(list);
     }
     private String[] formatList(ArrayList<Task> list) {
-        String[] ls = new String[list.size() + 1];
+        String[] ls = new String[list.size()];
         int index = 1;
         for (Task item: list) {
             ls[index - 1] = String.format("%d. %s", index, item.toString());
             index++;
         }
-        ls[index - 1] = horizontalLine;
         return ls;
     }
     @Override

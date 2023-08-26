@@ -9,14 +9,14 @@ import java.time.format.DateTimeParseException;
 
 public class DateTimeParser {
     private static final String inputFormat = "yyyy-MM-dd HHmm";
-    private static final String outputFormat = "MMM dd yyyy ha";
+    private static final String outputFormat = "MMM dd yyyy h:mma";
     public static String parseDateTime(String s) throws InvalidInputException {
         DateTimeFormatter in = DateTimeFormatter.ofPattern(inputFormat);
         DateTimeFormatter out = DateTimeFormatter.ofPattern(outputFormat);
         try {
             return LocalDateTime.parse(s, in).format(out);
         } catch (DateTimeParseException e) {
-            throw new InvalidInputException(MessageTemplates.MESSAGE_PARSE_FAIL);
+            throw new InvalidInputException(MessageTemplates.MESSAGE_INVALID_DATETIME);
         }
     }
     public static boolean isValidPeriod(String from, String to) {
