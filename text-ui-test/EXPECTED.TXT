@@ -13,14 +13,42 @@ Got it. I've added this task:
 	[E][ ] project meeting (from: Mon 2pm to: 4pm)
 Now you have 3 tasks in the list.
 
-Nice! I've marked this task as done:
-	[T][X] borrow book
-
-1: [T][X] borrow book
+1: [T][ ] borrow book
 2: [D][ ] return book (by: Sunday)
 3: [E][ ] project meeting (from: Mon 2pm to: 4pm)
 
-OK, I've marked this task as not done yet:
-	[T][ ] borrow book
+Nice! I've marked this task as done:
+	[T][X] borrow book
+
+	? OOPS!!! You have missing arguments :-(
+
+	? OOPS!!! No such task found :-(
+
+	? OOPS!!! You provided invalid arguments :-(
+
+	? OOPS!!! You have missing arguments :-(
+
+	? OOPS!!! No such task found :-(
+
+	? OOPS!!! You provided invalid arguments :-(
+
+	? OOPS!!! You have missing arguments :-(
+
+	? OOPS!!! No such task found :-(
+
+	? OOPS!!! You provided invalid arguments :-(
+
+Noted. I've removed this task:
+	[T][X] borrow book
+Now you have 2 tasks in the list.
+
+1: [D][ ] return book (by: Sunday)
+2: [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+	? OOPS!!! You have missing arguments :-(
+
+	? OOPS!!! You have missing arguments :-(
+
+	? OOPS!!! You have missing arguments :-(
 
 Bye. Hope to see you again soon!
