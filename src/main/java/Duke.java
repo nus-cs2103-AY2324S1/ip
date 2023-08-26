@@ -50,8 +50,13 @@ public class Duke {
                     }
                     else {
                         String[] parts = stuff.trim().substring(8).split("/by");
-                        items.add(new Deadline(parts[0].trim(),parts[1].trim()));
-                        System.out.println("added: " + parts[0].trim() + " (Due by: " + parts[1].trim() + ")");
+                        if (parts[1].trim().matches("\\d{4}-\\d{2}-\\d{2}")) {
+                            items.add(new Deadline(parts[0].trim(),parts[1].trim()));
+                            System.out.println("added: " + parts[0].trim() + " (Due by: " + parts[1].trim() + ")");
+                        }
+                        else {
+                            System.out.println("wrong date...");
+                        }
                     }
                 }
                 else if(stuff.trim().toLowerCase().startsWith("event")) {
@@ -62,8 +67,12 @@ public class Duke {
                         String[] parts = stuff.trim().substring(5).split("/from");
                         String part1 = parts[0].trim();
                         String[] part23 = parts[1].trim().split("/to");
-                        items.add(new Event(part1,part23[0].trim(), part23[1].trim()));
-                        System.out.println("added: " + part1 + " (From: " + part23[0].trim() + " To: " + part23[1].trim() + ")");
+                        if (part23[0].trim().matches("\\d{4}-\\d{2}-\\d{2}") && part23[1].trim().matches("\\d{4}-\\d{2}-\\d{2}")) {
+                            items.add(new Event(part1,part23[0].trim(), part23[1].trim()));
+                            System.out.println("added: " + part1 + " (From: " + part23[0].trim() + " To: " + part23[1].trim() + ")");
+                        } else {
+                            System.out.println("wrong date format,,,");
+                        }
                     }
                 }
                 else {
