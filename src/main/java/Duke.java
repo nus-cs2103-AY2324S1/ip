@@ -22,7 +22,7 @@ public class Duke {
         try {
             readFile();
         } catch (IOException e) {
-            System.out.println("No File :(");
+            System.out.println("No File :( ");
         }
         welcome();
         Scanner sc = new Scanner(System.in);
@@ -305,7 +305,7 @@ public class Duke {
         Scanner sc = new Scanner(f);
         while (sc.hasNextLine()) {
             String s = sc.nextLine();
-            String[] chars = s.split(" ");
+            String[] chars = s.split(" / ");
             String type = chars[0];
             boolean isDone = chars[1].equals("1");
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");

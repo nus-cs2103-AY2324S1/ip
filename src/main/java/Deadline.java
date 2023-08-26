@@ -47,7 +47,7 @@ public class Deadline extends Task{
 
     private String timeString() {
         return (this.time != null)
-                ? " " + this.time.format(DateTimeFormatter.ofPattern("h:mm a"))
+                ? " " + this.time.format(DateTimeFormatter.ofPattern("h:mma"))
                 : "";
     }
 
@@ -58,13 +58,13 @@ public class Deadline extends Task{
      */
     @Override
     public String toStringInFile() {
-        return "[D]" + super.toStringInFile() + " " + this.date
+        return "[D] /" + super.toStringInFile() + " / " + this.date
                 + this.timeStringInFile();
     }
 
     private String timeStringInFile() {
         return this.time != null
-                ? " " + this.time.format(DateTimeFormatter.ofPattern("HH:mm"))
+                ? " / " + this.time.format(DateTimeFormatter.ofPattern("HH:mm"))
                 : "";
     }
 }

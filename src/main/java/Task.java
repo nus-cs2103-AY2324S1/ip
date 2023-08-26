@@ -72,9 +72,9 @@ public class Task {
      */
     public String toStringInFile() {
         if (isDone) {
-            return " 1 " + this.description;
+            return " 1 / " + this.description;
         } else {
-            return " 0 " + this.description;
+            return " 0 / " + this.description;
         }
     }
 }

@@ -19,7 +19,7 @@ public class Todo extends Task{
      */
     @Override
     public String toString() {
-        return "[T] " + super.toString();
+        return "[T]" + super.toString();
     }
 
     /**
@@ -29,6 +29,6 @@ public class Todo extends Task{
      */
     @Override
     public String toStringInFile() {
-        return "[T]" + super.toStringInFile();
+        return "[T] /" + super.toStringInFile();
     }
 }
