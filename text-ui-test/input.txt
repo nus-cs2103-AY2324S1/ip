@@ -1,4 +1,5 @@
 hi
+clear
 todo
 todo borrow book
 deadline
@@ -6,6 +7,7 @@ deadline return book
 deadline /by Sunday
 deadline return book /by
 deadline return book /by Sunday
+deadline return book /by 2023-08-27
 event
 event party
 event /from 2pm
@@ -14,6 +16,8 @@ event /from 2pm /to 4pm
 event party /from 2pm
 event party /to 4pm
 event party /from 2pm /to 4pm
+event party /from 2023-08-27 /to 28 Aug 2023
+event party /from 2023-08-27 /to 2023-08-28
 list
 mark -1
 mark 100
@@ -26,5 +30,7 @@ list
 delete -1
 delete 100
 delete 2
+list
+clear
 list
 bye

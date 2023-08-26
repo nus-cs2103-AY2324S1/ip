@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -53,6 +55,8 @@ public class Duke {
             isRunning = false;
         } else if (isCommand(input, "list")) {
             performListCommand();
+        } else if (isCommand(input, "clear")) {
+            performClearCommand();
         } else if (isCommand(input, "todo")) {
             performTodoCommand(args);
         } else if (isCommand(input, "deadline")) {
@@ -154,12 +158,15 @@ public class Duke {
                     break;
                 case "D":
                     String by = saveStringArgs[3];
-                    task = new Deadline(description, by);
+                    LocalDate localBy = LocalDate.parse(by);
+                    task = new Deadline(description, localBy);
                     break;
                 case "E":
                     String from = saveStringArgs[3];
                     String to = saveStringArgs[4];
-                    task = new Event(description, from, to);
+                    LocalDate localFrom = LocalDate.parse(from);
+                    LocalDate localTo = LocalDate.parse(to);
+                    task = new Event(description, localFrom, localTo);
                     break;
                 default:
                     throw new DukeException("Invalid save data.");
@@ -183,6 +190,12 @@ public class Duke {
         }
 
         System.out.println("\n" + line + "\n");
+    }
+
+    private void performClearCommand() throws DukeException {
+        tasks = new ArrayList<>();
+        saveTasks();
+        printMessage("Got it. I've cleared all tasks.");
     }
 
     private void performMarkCommand(String args) throws DukeException {
@@ -283,7 +296,15 @@ public class Duke {
 
         String description = args.replaceFirst(" /by " + by, "");
 
-        Deadline deadline = new Deadline(description, by);
+        LocalDate localBy;
+
+        try {
+            localBy = LocalDate.parse(by);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("The dates must be filled in \"yyyy-mm-dd\" format.");
+        }
+
+        Deadline deadline = new Deadline(description, localBy);
         addToTasks(deadline);
         saveTasks();
         printTaskAdded(deadline);
@@ -314,7 +335,16 @@ public class Duke {
             throw new DukeException("The description of an event cannot be empty.");
         }
 
-        Event event = new Event(description, from, to);
+        LocalDate localFrom, localTo;
+
+        try {
+            localFrom = LocalDate.parse(from);
+            localTo = LocalDate.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("The dates must be filled in \"yyyy-mm-dd\" format.");
+        }
+
+        Event event = new Event(description, localFrom, localTo);
         addToTasks(event);
         saveTasks();
         printTaskAdded(event);
