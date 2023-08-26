@@ -14,11 +14,11 @@ import java.util.regex.Pattern;
  */
 public class Bot {
     /** Regex pattern for mark commands. */
-    private static final Pattern markPattern = Pattern.compile("mark -?\\d+");
+    private static final Pattern PATTERN_MARK = Pattern.compile("mark -?\\d+");
     /** Regex pattern for unmark commands. */
-    private static final Pattern unmarkPattern = Pattern.compile("unmark -?\\d+");
+    private static final Pattern PATTERN_UNMARK = Pattern.compile("unmark -?\\d+");
     /** Regex pattern for delete commands. */
-    private static final Pattern deletePattern = Pattern.compile("delete -?\\d+");
+    private static final Pattern PATTERN_DELETE = Pattern.compile("delete -?\\d+");
     public static void main(String[] args) {
         ArrayList<Task> lst = new ArrayList<>();
         File dataDir = new File("./data");
@@ -136,7 +136,7 @@ public class Bot {
      * @throws exceptions.InvalidIndexException If a task does not exist at that index.
      */
     private static void markTask(String str, ArrayList<Task> lst) throws InvalidIndexException {
-        if (!markPattern.matcher(str).matches()) {
+        if (!PATTERN_MARK.matcher(str).matches()) {
             throw new InvalidIndexException();
         }
         int index = Integer.parseInt(str.substring(5)) - 1;
@@ -155,7 +155,7 @@ public class Bot {
      * @throws exceptions.InvalidIndexException If a task does not exist at that index.
      */
     private static void unmarkTask(String str, ArrayList<Task> lst) throws InvalidIndexException {
-        if (!unmarkPattern.matcher(str).matches()) {
+        if (!PATTERN_UNMARK.matcher(str).matches()) {
             throw new InvalidIndexException();
         }
         int index = Integer.parseInt(str.substring(7)) - 1;
@@ -174,7 +174,7 @@ public class Bot {
      * @throws exceptions.InvalidIndexException If a task does not exist at that index.
      */
     private static void deleteTask(String str, ArrayList<Task> lst) throws InvalidIndexException {
-        if (!deletePattern.matcher(str).matches()) {
+        if (!PATTERN_DELETE.matcher(str).matches()) {
             throw new InvalidIndexException();
         }
         int index = Integer.parseInt(str.substring(7)) - 1;
