@@ -8,6 +8,8 @@ mark 3
 list
 unmark 1
 list
+delete 2
+list
 todo
 deadline
 event

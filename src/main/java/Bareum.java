@@ -69,6 +69,13 @@ public class Bareum {
                     reply("Oops! The description of an event cannot be empty.\n" +
                             "Correct format: event <description> /from <start time> /to <end time>");
                 }
+            } else if (input.equals("delete")) {
+                int index = sc.nextInt() - 1;
+                String deletedTask = taskList.get(index).toString();
+                taskList.delete(index);
+                // exception for if index doesn't exist
+                reply("Okay, I've deleted this task from the list:\n" + deletedTask
+                        + "\nYou now have " + taskList.size() + " tasks in your list.");
             } else {
                 reply("Oops! I'm sorry but I don't know what that means :(");
             }

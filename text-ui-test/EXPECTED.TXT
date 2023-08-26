@@ -41,6 +41,14 @@ Bareum: Here are your current tasks!
 2. [D][ ] return book (by: Sunday)
 3. [E][X] project meeting (from: Mon 2pm to: 4pm)
 ________________________
+Bareum: Okay, I've deleted this task from the list:
+[D][ ] return book (by: Sunday)
+You now have 2 tasks in your list.
+________________________
+Bareum: Here are your current tasks!
+1. [T][ ] borrow book
+2. [E][X] project meeting (from: Mon 2pm to: 4pm)
+________________________
 Bareum: Oops! The description of a todo cannot be empty.
 Correct format: todo <description>
 ________________________
