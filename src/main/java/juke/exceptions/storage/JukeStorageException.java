@@ -1,6 +1,6 @@
 package main.java.juke.exceptions.storage;
 
-import main.java.juke.primitivies.JukeException;
+import main.java.juke.exceptions.JukeException;
 
 /**
  * Represents an error with the storing, retrieving or modifying of data

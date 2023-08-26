@@ -24,7 +24,6 @@ fi
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp \
 ../src/main/java/juke:\
-../src/main/java/juke/primitives:\
 ../src/main/java/juke/actions:\
 ../src/main/java/juke/exceptions:\
 ../src/main/java/juke/exceptions/arguments:\
@@ -35,7 +34,6 @@ if ! javac -cp \
 ../src/main/java/juke/core \
 -Xlint:none -d ../bin \
 ../src/main/java/juke/*.java \
-../src/main/java/juke/primitivies/*.java \
 ../src/main/java/juke/actions/*.java \
 ../src/main/java/juke/exceptions/*.java \
 ../src/main/java/juke/exceptions/arguments/*.java \

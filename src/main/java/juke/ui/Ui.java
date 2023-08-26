@@ -1,14 +1,12 @@
-package main.java.juke.core;
+package main.java.juke.ui;
 
-import main.java.juke.actions.JukeExceptionAction;
-import main.java.juke.actions.JukeExitAction;
-import main.java.juke.exceptions.storage.JukeStorageException;
-import main.java.juke.primitivies.JukeException;
-import main.java.juke.exceptions.JukeInitialisationException;
-import main.java.juke.primitivies.JukeObject;
-import main.java.juke.primitivies.JukeAction;
-import main.java.juke.storage.JukeStorageManager;
-import main.java.juke.tasks.JukeTaskManager;
+import main.java.juke.commands.JukeExceptionCommand;
+import main.java.juke.commands.JukeExitCommand;
+import main.java.juke.core.JukeObject;
+import main.java.juke.exceptions.JukeException;
+import main.java.juke.commands.JukeCommand;
+import main.java.juke.storage.Storage;
+import main.java.juke.tasks.TaskList;
 
 import java.util.Scanner;
 
@@ -16,7 +14,7 @@ import java.util.Scanner;
  * Orchestrates the operation of Juke by accepting commands and dispatching
  * them to the correct target methods.
  */
-public class JukeOrchestrator extends JukeObject {
+public class Ui extends JukeObject {
     /** Separator used by the virtual assistant to demarcate the start or end of a conversation */
     private static final String SEPARATOR = "\n-----------------------------------------------------------" +
             "-------------------------------\n";
@@ -45,30 +43,21 @@ public class JukeOrchestrator extends JukeObject {
     /** Scanner instance used to capture user input. */
     private final Scanner jukeScanner;
 
-    /** Instance of JukeTaskManager that handles all JukeTasks. */
-    private final JukeTaskManager jukeTaskManager;
+    /** Instance of TaskList that handles all JukeTasks. */
+    private final TaskList taskList;
 
-    /** Instance of JukeStorageManager that handles all saved tasks. */
-    private final JukeStorageManager jukeStorageManager;
+    /** Instance of Storage that handles all saved tasks. */
+    private final Storage storage;
 
     /**
      * Constructor for JukeOrchestrator.
      * @param jukeScanner Scanner object to read in user input
      */
-    private JukeOrchestrator(Scanner jukeScanner) throws JukeInitialisationException, JukeStorageException {
+    public Ui(Scanner jukeScanner, Storage storage, TaskList taskList) {
         this.jukeScanner = jukeScanner;
-        this.jukeStorageManager = JukeStorageManager.of();
-        this.jukeTaskManager = JukeTaskManager.of(this.jukeStorageManager);
+        this.storage = storage;
+        this.taskList = taskList;
     }
-
-    /**
-     * Factory method that creates a JukeOrchestrator with the necessary Scanner object.
-     * @param scanner Scanner object to read in user input
-     */
-    public static JukeOrchestrator of(Scanner scanner) throws JukeInitialisationException, JukeStorageException {
-        return new JukeOrchestrator(scanner);
-    }
-
 
     /**
      * Method that begins the operation of the Assistant.
@@ -82,40 +71,42 @@ public class JukeOrchestrator extends JukeObject {
      * Dispatches the command and acts on it.
      */
     private void dispatch() {
-        JukeAction action = null;
+        JukeCommand action = null;
 
         do {
             try {
                 // obtain user input
-                System.out.print(JukeOrchestrator.JUKEINPUT);
+                System.out.print(Ui.JUKEINPUT);
                 String inputCommand = this.jukeScanner.nextLine();
 
                 // parse the action into a JukeAction object
-                action = JukeAction.of(inputCommand, this.jukeTaskManager);
-                System.out.print(JukeOrchestrator.JUKEOUTPUT);
+                // storage object is not passed into actions as storage is under the control of
+                // tasklist; external access to storage is not authorised
+                action = JukeCommand.of(inputCommand, this.taskList);
+                System.out.print(Ui.JUKEOUTPUT);
 
                 // act on it, or any other future generated actions
                 action.complete();
 
-                System.out.print(JukeOrchestrator.SEPARATOR);
+                System.out.print(Ui.SEPARATOR);
             } catch (JukeException ex) {
                 // a bit of Pokémon exception handling over here, but it is necessary
                 // to ensure that the UI obtains all possible exceptions to be thrown by the
                 // program over the course of its runtime
-                new JukeExceptionAction(ex).complete();
-                System.out.print(JukeOrchestrator.SEPARATOR);
+                new JukeExceptionCommand(ex).complete();
+                System.out.print(Ui.SEPARATOR);
             }
-        } while (!(action instanceof JukeExitAction));
+        } while (!(action instanceof JukeExitCommand));
     }
 
     /**
      * Prints out the Introduction statements.
      */
     private void printIntroduction() {
-        String builder = JukeOrchestrator.LOGO +
-                JukeOrchestrator.SEPARATOR +
-                JukeOrchestrator.INTRO +
-                JukeOrchestrator.SEPARATOR;
+        String builder = Ui.LOGO +
+                Ui.SEPARATOR +
+                Ui.INTRO +
+                Ui.SEPARATOR;
 
         System.out.print(builder);
     }

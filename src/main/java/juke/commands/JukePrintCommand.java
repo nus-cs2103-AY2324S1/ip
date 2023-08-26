@@ -1,11 +1,9 @@
-package main.java.juke.actions;
-
-import main.java.juke.primitivies.JukeAction;
+package main.java.juke.commands;
 
 /**
  * Action that invokes a print action on the command line.
  */
-public class JukePrintAction extends JukeAction {
+public class JukePrintCommand extends JukeCommand {
     /** Object to print. */
     private final Object printTarget;
 
@@ -13,15 +11,12 @@ public class JukePrintAction extends JukeAction {
      * Constructor for JukePrintAction.
      * @param printTarget Object to print
      */
-    public JukePrintAction(Object printTarget) {
+    public JukePrintCommand(Object printTarget) {
         this.printTarget = printTarget;
     }
 
     /**
      * Necessary method that is invoked when the action is carried out.
-     * @return Optional<? extends JukeAction> object, which contains further action objects,
-     * made this way to ensure that actions can call other actions and thus lead to chains
-     * of actions for added complexity
      */
     @Override
     public void complete() {

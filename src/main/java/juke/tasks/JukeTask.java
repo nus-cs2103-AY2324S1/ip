@@ -1,7 +1,7 @@
 package main.java.juke.tasks;
 
 import main.java.juke.exceptions.JukeStateException;
-import main.java.juke.primitivies.JukeObject;
+import main.java.juke.core.JukeObject;
 
 /**
  * Abstract Class that represents a task that the user adds to Juke.

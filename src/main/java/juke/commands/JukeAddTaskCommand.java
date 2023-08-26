@@ -1,27 +1,26 @@
-package main.java.juke.actions;
+package main.java.juke.commands;
 
 import main.java.juke.exceptions.storage.JukeStorageException;
-import main.java.juke.primitivies.JukeAction;
 import main.java.juke.tasks.JukeTask;
-import main.java.juke.tasks.JukeTaskManager;
+import main.java.juke.tasks.TaskList;
 
 /**
  * Action that adds a Task to the Task Manager.
  */
-public class JukeAddTaskAction extends JukeAction {
-    /** JukeTaskManager to manage all tasks. */
-    private final JukeTaskManager taskManager;
+public class JukeAddTaskCommand extends JukeCommand {
+    /** TaskList to manage all tasks. */
+    private final TaskList taskList;
 
     /** JukeTask to add. */
     private final JukeTask task;
 
     /**
      * Constructor for JukeAddTaskAction
-     * @param taskManager JukeTaskManager
+     * @param taskList TaskList
      * @param task JukeTask to add
      */
-    public JukeAddTaskAction(JukeTaskManager taskManager, JukeTask task) {
-        this.taskManager = taskManager;
+    public JukeAddTaskCommand(TaskList taskList, JukeTask task) {
+        this.taskList = taskList;
         this.task = task;
     }
 
@@ -31,7 +30,7 @@ public class JukeAddTaskAction extends JukeAction {
      */
     @Override
     public void complete() throws JukeStorageException {
-        this.taskManager.addTask(this.task);
+        this.taskList.addTask(this.task);
         System.out.print("Task added: " + this.task);
     }
 }

@@ -1,7 +1,5 @@
 package main.java.juke.exceptions;
 
-import main.java.juke.primitivies.JukeException;
-
 /**
  * Exception that encapsulates the situation whereby Juke cannot
  * properly instantiate.

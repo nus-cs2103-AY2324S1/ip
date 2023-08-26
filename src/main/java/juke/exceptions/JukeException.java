@@ -1,4 +1,4 @@
-package main.java.juke.primitivies;
+package main.java.juke.exceptions;
 
 /**
  * Base Exception class for which all other Juke Exceptions are based on.
