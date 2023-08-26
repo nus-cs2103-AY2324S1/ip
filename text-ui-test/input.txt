@@ -39,4 +39,13 @@ delete 4
 list
 deletee 1
 delete 1 1
+todo
+deadline
+event
+mark
+unmark
+delete
+deadline test no deadline /by
+event test no from /from     /to   tomorrow
+event test no to /from today /to
 bye

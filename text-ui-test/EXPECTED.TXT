@@ -158,4 +158,31 @@ Commands: list, todo, deadline, event, mark, unmark, delete, bye
 Invalid arguments for delete
 Please follow: delete <task_num>
 
+Invalid arguments for todo
+Please follow: todo <task>
+
+Invalid arguments for deadline
+Please follow: deadline <task> /by <deadline_date>
+
+Invalid arguments for event
+Please follow: event <task> /from <from_date> /to <to_date>
+
+Invalid arguments for mark
+Please follow: mark <task_num>
+
+Invalid arguments for unmark
+Please follow: unmark <task_num>
+
+Invalid arguments for delete
+Please follow: delete <task_num>
+
+Invalid arguments for deadline
+Please follow: deadline <task> /by <deadline_date>
+
+Invalid arguments for event
+Please follow: event <task> /from <from_date> /to <to_date>
+
+Invalid arguments for event
+Please follow: event <task> /from <from_date> /to <to_date>
+
 Bye. Hope to see you again soon!
