@@ -8,6 +8,11 @@ public class Todo extends Task{
     }
 
     @Override
+    String getType() {
+        return "T";
+    }
+
+    @Override
     Todo mark() {
         return new Todo(this.description, true);
     }

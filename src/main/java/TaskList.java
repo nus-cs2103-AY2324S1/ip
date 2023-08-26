@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class TaskList {
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
     private final String saveAddress;
     //static private FileWriter fw;
 
@@ -18,21 +18,17 @@ public class TaskList {
         this.saveAddress = saveAddress;
     }
 
+    ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
+
     private TaskList update(ArrayList<Task> tasks) {
         return new TaskList(tasks, this.saveAddress);
     }
-    TaskList add(Task task) throws IOException {
-        System.out.println(" Got it. I've added this task:\n");
+
+    void add(Task task) {
         ArrayList<Task> currentTasks = this.tasks;
         currentTasks.add(task);
-        System.out.println("    " + task + "\n");
-        System.out.println(("Now you have " + Integer.toString(currentTasks.size()) +
-                " tasks in the list.\n"));
-        TaskList newTasks = update(currentTasks);
-        FileWriter fw = new FileWriter(saveAddress);
-        fw.write(newTasks.toString());
-        fw.close();
-        return newTasks;
     }
 
     TaskList delete(int index) throws IOException {
