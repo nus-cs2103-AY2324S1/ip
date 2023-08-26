@@ -1,6 +1,5 @@
 package bot.utils;
 
-import java.util.Iterator;
 import java.util.regex.Pattern;
 
 import bot.enums.DoneStatus;
@@ -53,7 +52,7 @@ public abstract class Command {
      * Creates a MarkCommand to instruct the bot to mark the task at the given index
      * in the list.
      *
-     * @param str Full command string
+     * @param str Full command string.
      * @return MarkCommand object.
      * @throws InvalidArgumentException If the string doesn't contain an int.
      */
@@ -69,7 +68,7 @@ public abstract class Command {
      * Creates a MarkCommand to instruct the bot to unmark the task at the given index
      * in the list.
      *
-     * @param str Full command string
+     * @param str Full command string.
      * @return MarkCommand object.
      * @throws InvalidArgumentException If the string doesn't contain an int.
      */
@@ -95,7 +94,7 @@ public abstract class Command {
      * Creates a MarkCommand to instruct the bot to delete the task at the given index
      * in the list.
      *
-     * @param str Full command string
+     * @param str Full command string.
      * @return DeleteCommand object.
      * @throws InvalidArgumentException If the string doesn't contain an int.
      */
@@ -105,6 +104,16 @@ public abstract class Command {
         }
         int index = Integer.parseInt(str.substring(7));
         return new DeleteCommand(index);
+    }
+
+    /**
+     * Creates a FindCommand to instruct the bot to look for tasks that meet specific criteria.
+     *
+     * @param str Full command string.
+     * @return FindCommand object.
+     */
+    public static Command find(String str) {
+        return new FindCommand(str);
     }
 
     /**
@@ -178,13 +187,8 @@ public abstract class Command {
             if (tasks.size() == 0) {
                 throw new EmptyListException();
             }
-            StringBuilder out = new StringBuilder().append("Here are the tasks in your list:\n");
-            Iterator<Task> iter = tasks.iterator();
-            for (int ctr = 1; iter.hasNext(); ctr++) {
-                out.append(ctr).append(". ").append(iter.next().toString()).append("\n");
-            }
-            out.deleteCharAt(out.length() - 1);
-            ui.println(out.toString());
+            ui.println("Here are the tasks in your list:");
+            ui.displayTaskList(tasks);
         }
     }
 
@@ -285,7 +289,7 @@ public abstract class Command {
     }
 
     /**
-     * Bot.Command to delete tasks.
+     * Command to delete tasks.
      */
     private static class DeleteCommand extends Command {
         /**
@@ -323,6 +327,51 @@ public abstract class Command {
             Task task = tasks.remove(index);
             System.out.println("I've removed this task:\n" + task.toString());
             System.out.println("Now you have " + tasks.size() + " task(s) in the list.");
+        }
+    }
+
+    /**
+     * Command for finding specific tasks in the task list.
+     */
+    private static class FindCommand extends Command {
+        /**
+         * Full command string.
+         */
+        private final String input;
+
+        /**
+         * Creates an FindCommand with the full command string.
+         *
+         * @param input Full command string.
+         */
+        protected FindCommand(String input) {
+            this.input = input;
+        }
+
+        /**
+         * Checks if the bot should exit after the execution of the command.
+         *
+         * @return True if the bot should exit, false otherwise.
+         */
+        public boolean isExit() {
+            return false;
+        }
+
+        /**
+         * Executes the command.
+         *
+         * @param tasks   Task list containing tasks.
+         * @param ui      User interface for interacting with users.
+         * @param storage Storage for storing data.
+         */
+        public void execute(TaskList tasks, Ui ui, Storage storage) {
+            TaskList queries = tasks.findAll(input.substring(5).trim());
+            if (queries.size() > 0) {
+                ui.println("Here are the matching tasks in your list:");
+                ui.displayTaskList(queries);
+            } else {
+                ui.println("Sorry, no matching tasks found.");
+            }
         }
     }
 }

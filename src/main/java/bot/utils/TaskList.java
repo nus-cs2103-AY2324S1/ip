@@ -108,4 +108,22 @@ public class TaskList {
         }
         this.list.get(index - 1).unmark();
     }
+
+    /**
+     * Gets all tasks that contain the given string in their names.
+     *
+     * @param str Query string.
+     * @return TaskList of tasks.
+     */
+    public TaskList findAll(String str) {
+        Iterator<Task> iter = list.iterator();
+        TaskList out = new TaskList();
+        while (iter.hasNext()) {
+            Task task = iter.next();
+            if (task.getName().contains(str)) {
+                out.add(task);
+            }
+        }
+        return out;
+    }
 }

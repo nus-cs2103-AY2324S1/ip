@@ -1,5 +1,6 @@
 package bot.utils;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -55,5 +56,20 @@ public class Ui {
      */
     public void showGoodbye() {
         println("Bye. I'll be at the nearest trash can!");
+    }
+
+    /**
+     * Prints the tasks with their index to the screen.
+     *
+     * @param tasks Tasks to print.
+     */
+    public void displayTaskList(TaskList tasks) {
+        StringBuilder out = new StringBuilder();
+        Iterator<Task> iter = tasks.iterator();
+        for (int ctr = 1; iter.hasNext(); ctr++) {
+            out.append(ctr).append(". ").append(iter.next().toString()).append("\n");
+        }
+        out.deleteCharAt(out.length() - 1);
+        println(out.toString());
     }
 }
