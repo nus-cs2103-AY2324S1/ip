@@ -117,9 +117,9 @@ public abstract class Command {
     /**
      * Executes the command.
      *
-     * @param tasks   Bot.Task list containing tasks.
+     * @param tasks   Task list containing tasks.
      * @param ui      User interface for interacting with users.
-     * @param storage Bot.Storage for storing data.
+     * @param storage Storage for storing data.
      * @throws EmptyListException    If an illegal operation is performed on an empty list.
      * @throws InvalidIndexException If the command tries to access an invalid index.
      * @throws InvalidTaskException  If the command creates a task and fails to do so.

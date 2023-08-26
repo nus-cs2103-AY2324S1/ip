@@ -45,14 +45,14 @@ public abstract class Task {
      * if no task can be created from the string.
      *
      * @param str Raw string to create task from.
-     * @return Bot.Task object containing information from the string.
+     * @return Task object containing information from the string.
      * @throws InvalidTaskException If no task can be created.
      */
     public static Task makeTask(String str) throws InvalidTaskException {
         Task newTask;
-        if (str.startsWith("todo ")) {
+        if (str.startsWith("todo")) {
             newTask = ToDo.makeToDo(str);
-        } else if (str.startsWith("deadline ")) {
+        } else if (str.startsWith("deadline")) {
             newTask = Deadline.makeDeadline(str);
         } else {
             newTask = Event.makeEvent(str);
@@ -176,6 +176,22 @@ public abstract class Task {
         }
 
         /**
+         * Checks for sameness of ToDo. ToDos are the same if they have the same name.
+         *
+         * @param o Object to compare to.
+         * @return True if objects are the same, else false.
+         */
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            } else if (o instanceof ToDo) {
+                return this.getName().equals(((ToDo) o).getName());
+            }
+            return false;
+        }
+
+        /**
          * Creates a ToDo object.
          *
          * @param str Raw string to create the ToDo object from.
@@ -287,7 +303,7 @@ public abstract class Task {
             if (by.isBefore(LocalDate.now())) {
                 throw new InvalidTaskException("Deadline can't be before now!");
             }
-            return new Deadline(comps[0].substring(9), by);
+            return new Deadline(comps[0].substring(9).trim(), by);
         }
 
         /**
@@ -297,7 +313,7 @@ public abstract class Task {
          */
         @Override
         public String toString() {
-            return "[D]" + super.toString() + "(by: "
+            return "[D]" + super.toString() + " (by: "
                     + this.getBy().format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                     + ")";
         }
@@ -319,6 +335,23 @@ public abstract class Task {
         public String convertToDataString() {
             return "d/" + (super.isDone() ? "1" : "0") + "/" + super.getName()
                     + "/" + this.getBy();
+        }
+
+        /**
+         * Checks for sameness. Deadlines are the same if they have the same name and deadline.
+         *
+         * @param o Object to compare to.
+         * @return True if objects are the same, else false.
+         */
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            } else if (o instanceof Deadline) {
+                return this.getName().equals(((Deadline) o).getName())
+                        && this.getBy().equals(((Deadline) o).getBy());
+            }
+            return false;
         }
     }
 
@@ -410,7 +443,7 @@ public abstract class Task {
             if (from.isAfter(to)) {
                 throw new InvalidTaskException("Event end time can't be before event start time!");
             }
-            return new Event(comps[0].substring(6), from, to);
+            return new Event(comps[0].substring(6).trim(), from, to);
         }
 
         /**
@@ -439,7 +472,7 @@ public abstract class Task {
         @Override
         public String toString() {
             return "[E]" + super.toString()
-                    + "(from: "
+                    + " (from: "
                     + this.getFrom().format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                     + " to: " + this.getTo().format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                     + ")";
@@ -453,6 +486,25 @@ public abstract class Task {
         public String convertToDataString() {
             return "e/" + (super.isDone() ? "1" : "0") + "/" + super.getName()
                     + "/" + this.getFrom() + "/" + this.getTo();
+        }
+
+        /**
+         * Checks for sameness. Events are the same if they have the same name, start time
+         * and end time.
+         *
+         * @param o Object to compare to.
+         * @return True if objects are the same, else false.
+         */
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            } else if (o instanceof Event) {
+                return this.getName().equals(((Event) o).getName())
+                        && this.getFrom().equals(((Event) o).getFrom())
+                        && this.getTo().equals(((Event) o).getTo());
+            }
+            return false;
         }
     }
 }

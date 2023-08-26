@@ -55,7 +55,7 @@ public class TaskList {
      * Removes the task at that index from the list.
      *
      * @param index Index of task.
-     * @return Bot.Task object.
+     * @return Task object.
      * @throws InvalidIndexException If index is out of range.
      */
     public Task remove(int index) throws InvalidIndexException {
