@@ -4,13 +4,22 @@ import duke.error.DukeException;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of the Duke application.
+ */
 public class UI {
     private Scanner scanner;
 
+    /**
+     * Constructs a UI object and initializes the scanner for user input.
+     */
     public UI() {
         this.scanner = new Scanner(System.in);
     }
 
+    /**
+     * Displays a welcome message to the user.
+     */
     public void showWelcome() {
         String logo =
                 "    ,o888888o.    8 8888        8          .8.    8888888 8888888888 8888888 8888888888 `8.`8888.      ,8'\n" +
@@ -31,26 +40,50 @@ public class UI {
         System.out.println("------------------------------------------");
     }
 
+    /**
+     * Displays a goodbye message to the user.
+     */
     public void showGoodbye() {
         System.out.println("Oh.. bye");
     }
 
+    /**
+     * Displays an error message for loading data from the save file.
+     */
     public void showLoadingError() {
         System.out.println("Error reading from save file.");
     }
 
+    /**
+     * Reads and returns a user command input.
+     *
+     * @return The user's input command.
+     */
     public String readCommand() {
         return this.scanner.nextLine();
     }
 
+    /**
+     * Displays a separator line.
+     */
     public void showLine() {
         System.out.println("------------------------------------------");
     }
 
+    /**
+     * Displays an error message.
+     *
+     * @param error The DukeException containing the error message.
+     */
     public void showError(DukeException error) {
         System.out.println(error.getMessage());
     }
 
+    /**
+     * Displays a message to the user.
+     *
+     * @param message The message to be displayed.
+     */
     public void showMessage(String message) {
         System.out.println(message);
     }
