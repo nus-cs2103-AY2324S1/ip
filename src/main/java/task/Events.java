@@ -1,8 +1,10 @@
+package task;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Encapsulates the Events Task.
+ * Encapsulates the task.Events Task.
  * @author Donovan Chan Jia Jun
  */
 public class Events extends Task {
@@ -32,7 +34,7 @@ public class Events extends Task {
     }
 
     /**
-     * Retrieves the String representation of the Events object.
+     * Retrieves the String representation of the task.Events object.
      * @return String
      */
     @Override
