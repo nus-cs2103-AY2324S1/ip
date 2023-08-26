@@ -33,6 +33,18 @@ public class Duke {
                             continue;
                         } catch (NumberFormatException e) {
                             System.err.println(Duke.horizontalLine + "You did not enter a valid integer :(\n" + Duke.horizontalLine);
+                            continue;
+                        }
+                    }
+                    if (instruction.equals("delete")) {
+                        try {
+                            int no = Integer.parseInt(elements[1]);
+                            Task taskInstance = new Task("");
+                            taskInstance.delete(no);
+                            continue;
+                        } catch (NumberFormatException e) {
+                            System.err.println(Duke.horizontalLine + "You did not enter a valid integer :(\n" + Duke.horizontalLine);
+                            continue;
                         }
                     }
                     int firstSpaceIndex = task.indexOf(' ');
@@ -41,7 +53,7 @@ public class Duke {
                         Todo todo = new Todo(actualTask);
                         todo.print();
                     }
-                    if (instruction.equals("deadline")) {
+                    else if (instruction.equals("deadline")) {
                         String[] taskAndDeadline = actualTask.split(("/by"));
                         if (taskAndDeadline.length == 1 || taskAndDeadline.length == 0) {
                             throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! Invalid format for deadline :-(\n" + Duke.horizontalLine);
@@ -51,7 +63,7 @@ public class Duke {
                         Deadline deadline = new Deadline(onlyTask, by);
                         deadline.print();
                     }
-                    if (instruction.equals("event")) {
+                    else if (instruction.equals("event")) {
                         String[] taskAndToFrom = actualTask.split(("/from"));
                         if (taskAndToFrom.length == 1 || taskAndToFrom.length == 0) {
                             throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! Invalid format for event :-(\n" + Duke.horizontalLine);
@@ -69,14 +81,17 @@ public class Duke {
                         Event event = new Event(onlyTask, from, to);
                         event.print();
                     }
+                    else {
+                        throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + Duke.horizontalLine);
+                    }
                 } else if (elements[0].equals("todo") || elements[0].equals("deadline") || elements[0].equals("event")) {
-                    throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! The description of a " + elements[0] + "cannot be empty.\n" + Duke.horizontalLine);
+                    throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! The description of a " + elements[0] + " cannot be empty.\n" + Duke.horizontalLine);
                 }
                 else {
                     throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + Duke.horizontalLine);
                 }
             } catch (Exception e) {
-                System.err.print(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
         System.out.println(horizontalLine+ "Bye. Hope to see you again soon!\n" + horizontalLine);
