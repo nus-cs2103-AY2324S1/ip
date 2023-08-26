@@ -4,12 +4,12 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private LocalDate deadline;
 
-    public Deadline(String description, LocalDate deadline) throws SpotException {
+    public Deadline(String description, LocalDate deadline) {
         super(description);
         this.deadline = deadline;
     }
 
-    public Deadline(String description, boolean isDone, LocalDate deadline) throws SpotException {
+    public Deadline(String description, boolean isDone, LocalDate deadline) {
         super(description, isDone);
         this.deadline = deadline;
     }
