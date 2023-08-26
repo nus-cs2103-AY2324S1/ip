@@ -1,7 +1,11 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 public class TaskList {
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private ArrayList<Task> taskList;
+
+    public TaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+    }
 
     public void newTodo(String input) throws DukeMissingArgumentException {
         try {
@@ -117,5 +121,13 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
         }
+    }
+
+    public ArrayList<String> stringify() {
+        ArrayList<String> stringList = new ArrayList<>();
+        for (Task task : this.taskList) {
+            stringList.add(task.toString());
+        }
+        return stringList;
     }
 }
