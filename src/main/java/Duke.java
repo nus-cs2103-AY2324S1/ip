@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -26,55 +29,65 @@ public class Duke {
         printLine();
     }
 
+    private LocalDate parseTime(String s) throws InvalidDateException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[dd/MM/yyyy]");
+            return LocalDate.parse(s, formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
+    }
+
     private Task createTodoTask(String[] words) {
         StringBuilder taskName = new StringBuilder();
         for (int i = 1; i < words.length; i += 1) {
-            taskName.append(" ").append(words[i]);
+            taskName.append(words[i]).append(" ");
         }
-        return new ToDoTask(taskName.toString());
+        return new ToDoTask(taskName.toString().stripTrailing());
     }
 
-    private Task createEventTask(String[] words) {
+    private Task createEventTask(String[] words) throws InvalidDateException {
         StringBuilder taskName = new StringBuilder();
         StringBuilder startDate = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
 
         int i = 1;
         while (i < words.length && !words[i].equals("/from")) {
-            taskName.append(" ").append(words[i]);
+            taskName.append(words[i]).append(" ");
             i += 1;
         }
         i += 1;
         while (i < words.length && !words[i].equals("/to")) {
-            startDate.append(" ").append(words[i]);
+            startDate.append(words[i]).append(" ");
             i += 1;
         }
         i += 1;
         while (i < words.length) {
-            endDate.append(" ").append(words[i]);
+            endDate.append(words[i]).append(" ");
             i += 1;
         }
-        return new EventTask(taskName.toString(), startDate.toString(), endDate.toString());
+
+        return new EventTask(taskName.toString().stripTrailing(), parseTime(startDate.toString().trim()), parseTime(endDate.toString().trim()));
     }
 
-    private Task createDeadlineTask(String[] words) {
+    private Task createDeadlineTask(String[] words) throws InvalidDateException {
         StringBuilder taskName = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
 
         int i = 1;
         while (i < words.length && !words[i].equals("/by")) {
-            taskName.append(" ").append(words[i]);
+            taskName.append(words[i]).append(" ");
             i += 1;
         }
         i += 1;
         while (i < words.length) {
-            endDate.append(" ").append(words[i]);
+            endDate.append(words[i]).append(" ");
             i += 1;
         }
-        return new DeadlineTask(taskName.toString(), endDate.toString());
+        return new DeadlineTask(taskName.toString().stripTrailing(), parseTime(endDate.toString().trim()));
     }
 
-    private Task createTask(String[] words) throws EmptyBodyException {
+    private Task createTask(String[] words) throws EmptyBodyException, InvalidDateException {
         if (words.length == 1) {
             throw new EmptyBodyException();
         }
@@ -194,7 +207,7 @@ public class Duke {
                     break;
                 }
             } catch (DukeException e) {
-                System.out.println(e.toString());
+                System.out.println(e);
             }
             printLine();
         }
@@ -226,17 +239,19 @@ public class Duke {
                 boolean isComplete = taskData[1].equals("1");
                 switch (taskData[0]) {
                     case "event":
-                        tasks.add((new EventTask(taskData[2], taskData[3], taskData[4], isComplete)));
+                        tasks.add((new EventTask(taskData[2], parseTime(taskData[3]), parseTime(taskData[4]), isComplete)));
                         break;
                     case "todo":
                         tasks.add(new ToDoTask(taskData[2], isComplete));
                         break;
                     default:
-                        tasks.add(new DeadlineTask(taskData[2], taskData[3], isComplete));
+                        tasks.add(new DeadlineTask(taskData[2], parseTime(taskData[3]), isComplete));
                 }
             }
         } catch (IOException e) {
             System.out.println("     Unable to load/find file");
+        } catch (InvalidDateException e) {
+            System.out.println("     Error parsing date when loading file");
         }
     }
 
