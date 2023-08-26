@@ -1,10 +1,10 @@
-import java.util.Scanner;
-
 import extensions.exceptions.DukeException;
 import extensions.exceptions.DukeIllegalArgumentException;
 import extensions.exceptions.DukeUnknownCommandException;
+import extensions.parser.Parser;
 import extensions.tasks.TaskList;
 import extensions.tasks.TaskList.TaskType;
+import extensions.ui.Ui;
 
 /**
  * Duke, the chatbot.
@@ -17,8 +17,6 @@ public class Duke {
     private static final String ERROR_MESSAGE_TEMPLATE_UNKNOWN_COMMAND =
             "I'm sorry, but I don't know what \"%s\" means.";
 
-    // Read user input
-    private static final Scanner sc = new Scanner(System.in);
     // Store list of tasks
     private static final TaskList list = new TaskList();
     // Check if chat has ended
@@ -29,14 +27,14 @@ public class Duke {
      */
     private static void endChat() {
         hasEndedChat = true;
-        System.out.println("Bye. Hope to see you again soon!");
+        Ui.printGoodbyeMessage();
     }
 
     /**
      * Prints the current list of tasks.
      */
     private static void listTasks() {
-        System.out.println(list);
+        Ui.printMessage(list.toString());
     }
 
     /**
@@ -100,97 +98,79 @@ public class Duke {
         list.delete(num);
     }
 
-    /**
-     * Parses the input.
-     *
-     * @param input The input from the user.
-     * @return A String array where the 1st element is the command and the 2nd element is the argument.
-     */
-    private static String[] parseCommand(String input) {
-        // check if input is a command with arguments (e.g. mark 2)
-        String[] splitInputs = input.split("\\s+");
-
-        if (splitInputs.length > 1) {
-            // the user has input a command with arguments
-            String command = splitInputs[0];
-            String argument = input.substring(command.length() + 1);
-            return new String[]{command, argument};
-        } else {
-            // the user has input a command without arguments
-            return new String[]{input, ""};
-        }
-    }
-
-    private static void executeCommand(String[] command) throws DukeException {
-        switch (command[0]) {
-        case "bye":
+    private static void executeCommand(Parser parsedCommand) throws DukeException {
+        Parser.Command command = parsedCommand.getCommand();
+        String argument = parsedCommand.getArgument();
+        switch (command) {
+        case BYE:
             endChat();
             break;
-        case "list":
+        case LIST:
             listTasks();
             break;
-        case "mark":
+        case MARK:
             try {
-                markTaskAsDone(Integer.parseInt(command[1]));
+                markTaskAsDone(Integer.parseInt(argument));
             } catch (NumberFormatException e) {
                 throw new DukeIllegalArgumentException(
-                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, command[1]));
+                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
             }
             break;
-        case "unmark":
+        case UNMARK:
             try {
-                unmarkTaskAsDone(Integer.parseInt(command[1]));
+                unmarkTaskAsDone(Integer.parseInt(argument));
             } catch (NumberFormatException e) {
                 throw new DukeIllegalArgumentException(
-                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, command[1]));
+                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
             }
             break;
-        case "todo":
-            addToDoTask(command[1]);
+        case TODO:
+            addToDoTask(argument);
             break;
-        case "deadline":
-            if (!command[1].contains(" /by ")) {
+        case DEADLINE:
+            if (!argument.contains(" /by ")) {
                 throw new DukeIllegalArgumentException("Deadline Task is missing a \"/by\" field.");
             }
-            String[] deadlineArgs = command[1].split(" /by ");
+            String[] deadlineArgs = argument.split(" /by ");
             if (deadlineArgs.length != 2) {
                 throw new DukeIllegalArgumentException("Deadline Task is missing a description and/or date/time.");
             }
             addDeadlineTask(deadlineArgs[0], deadlineArgs[1]);
             break;
-        case "event":
-            if (!command[1].contains(" /from ") || !command[1].contains(" /to ")) {
+        case EVENT:
+            if (!argument.contains(" /from ") || !argument.contains(" /to ")) {
                 throw new DukeIllegalArgumentException("Event Task is missing \"/from\" and/or \"/to\" fields.");
             }
-            String[] eventArgs = command[1].split(" /from ");
+            String[] eventArgs = argument.split(" /from ");
             String[] eventTimes = eventArgs[1].split(" /to ");
             addEventTask(eventArgs[0], eventTimes[0], eventTimes[1]);
             break;
-        case "delete":
+        case DELETE:
             try {
-                deleteTask(Integer.parseInt(command[1]));
+                deleteTask(Integer.parseInt(argument));
             } catch (NumberFormatException e) {
                 throw new DukeIllegalArgumentException(
-                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, command[1]));
+                        String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
             }
             break;
+        case INVALID:
+            throw new DukeUnknownCommandException(String.format(
+                    ERROR_MESSAGE_TEMPLATE_UNKNOWN_COMMAND, parsedCommand.getInvalidCommand()));
         default:
-            throw new DukeUnknownCommandException(
-                    String.format(ERROR_MESSAGE_TEMPLATE_UNKNOWN_COMMAND, command[0]));
+            break;
         }
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello! I'm Max!");
-        System.out.println("What can I do for you?");
+        Ui.printWelcomeMessage();
 
         while (!hasEndedChat) {
-            String input = sc.nextLine();
-            String[] command = parseCommand(input);
+            String input = Ui.getInput();
+            Parser parsedCommand = new Parser(input);
             try {
-                executeCommand(command);
+                executeCommand(parsedCommand);
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
+                Ui.printErrorMessage(e);
             }
         }
     }

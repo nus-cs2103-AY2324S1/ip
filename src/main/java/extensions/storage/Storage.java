@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import extensions.exceptions.DukeIOException;
+import extensions.ui.Ui;
 
 /**
  * Stores data into specified files. Data is stored at ./data/ directory.
@@ -26,7 +27,7 @@ public class Storage {
         saveFilePath = Path.of(System.getProperty("user.dir"), "data", saveFileName);
         try {
             if (!Files.exists(saveFilePath)) {
-                System.out.println("Creating save file...");
+                Ui.printMessage("Creating save file...");
                 Files.createDirectories(saveFilePath.getParent());
                 Files.createFile(saveFilePath);
             }

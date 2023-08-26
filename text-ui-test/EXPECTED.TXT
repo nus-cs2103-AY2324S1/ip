@@ -9,6 +9,7 @@ Got it. I've added this task:
 [E][ ] restore event (from: Sun 01 Jan 2023 12:34 to: Sun 31 Dec 2023 23:45)
 Now you have 3 tasks in the list.
 [RESTORE] Restored 3 tasks successfully!
+
 Hello! I'm Max!
 What can I do for you?
 Here are the tasks in your list:
@@ -48,8 +49,8 @@ Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Mon 02 Jan 2023 11:11)
 3.[E][ ] project meeting (from: Sat 01 Apr 2023 20:00 to: Sun 02 Apr 2023 23:00)
-Please enter a valid task number. You entered: ""
-Please enter a valid task number. You entered: ""
+[ERROR] Please enter a valid task number. You entered: ""
+[ERROR] Please enter a valid task number. You entered: ""
 Nice! I've marked this task as done:
 [T][X] borrow book
 Here are the tasks in your list:
@@ -86,41 +87,41 @@ Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Mon 02 Jan 2023 11:11)
 3.[E][ ] project meeting (from: Sat 01 Apr 2023 20:00 to: Sun 02 Apr 2023 23:00)
-The description of a ToDo task cannot be blank.
-I'm sorry, but I don't know what "todo     " means.
-Deadline Task is missing a "/by" field.
-I'm sorry, but I don't know what "deadline      " means.
-Deadline Task is missing a "/by" field.
-The date/time of a Deadline task cannot be blank.
-The description of a Deadline task cannot be blank.
-The deadline of a Deadline task must follow the format yyyy-MM-dd HH:mm.
-Event Task is missing "/from" and/or "/to" fields.
-I'm sorry, but I don't know what "event     " means.
-Event Task is missing "/from" and/or "/to" fields.
-The description of an Event task cannot be blank.
-The start date/time of an Event task cannot be blank.
-The end date/time of an Event task cannot be blank.
-The description of an Event task cannot be blank.
-The start and end date/time of an Event task must follow the format yyyy-MM-dd HH:mm.
-The start and end date/time of an Event task must follow the format yyyy-MM-dd HH:mm.
-The start and end date/time of an Event task must follow the format yyyy-MM-dd HH:mm.
-The task number is out of range. Use "list" to see your tasks.
-The task number is out of range. Use "list" to see your tasks.
-The task number is out of range. Use "list" to see your tasks.
-The task number is out of range. Use "list" to see your tasks.
-Please enter a valid task number. You entered: "2147483650"
-Please enter a valid task number. You entered: "2147483650"
-Please enter a valid task number. You entered: "a"
-Please enter a valid task number. You entered: "b"
+[ERROR] The description of a ToDo task cannot be blank.
+[ERROR] I'm sorry, but I don't know what "todo     " means.
+[ERROR] Deadline Task is missing a "/by" field.
+[ERROR] I'm sorry, but I don't know what "deadline      " means.
+[ERROR] Deadline Task is missing a "/by" field.
+[ERROR] The date/time of a Deadline task cannot be blank.
+[ERROR] The description of a Deadline task cannot be blank.
+[ERROR] The deadline of a Deadline task must follow the format yyyy-MM-dd HH:mm.
+[ERROR] Event Task is missing "/from" and/or "/to" fields.
+[ERROR] I'm sorry, but I don't know what "event     " means.
+[ERROR] Event Task is missing "/from" and/or "/to" fields.
+[ERROR] The description of an Event task cannot be blank.
+[ERROR] The start date/time of an Event task cannot be blank.
+[ERROR] The end date/time of an Event task cannot be blank.
+[ERROR] The description of an Event task cannot be blank.
+[ERROR] The start and end date/time of an Event task must follow the format yyyy-MM-dd HH:mm.
+[ERROR] The start and end date/time of an Event task must follow the format yyyy-MM-dd HH:mm.
+[ERROR] The start and end date/time of an Event task must follow the format yyyy-MM-dd HH:mm.
+[ERROR] The task number is out of range. Use "list" to see your tasks.
+[ERROR] The task number is out of range. Use "list" to see your tasks.
+[ERROR] The task number is out of range. Use "list" to see your tasks.
+[ERROR] The task number is out of range. Use "list" to see your tasks.
+[ERROR] Please enter a valid task number. You entered: "2147483650"
+[ERROR] Please enter a valid task number. You entered: "2147483650"
+[ERROR] Please enter a valid task number. You entered: "a"
+[ERROR] Please enter a valid task number. You entered: "b"
 Here are the tasks in your list:
 1.[T][ ] borrow book
 2.[D][ ] return book (by: Mon 02 Jan 2023 11:11)
 3.[E][ ] project meeting (from: Sat 01 Apr 2023 20:00 to: Sun 02 Apr 2023 23:00)
-I'm sorry, but I don't know what "asdfghjkl" means.
-Please enter a valid task number. You entered: ""
-The task number is out of range. Use "list" to see your tasks.
-Please enter a valid task number. You entered: "2147483650"
-Please enter a valid task number. You entered: "c"
+[ERROR] I'm sorry, but I don't know what "asdfghjkl" means.
+[ERROR] Please enter a valid task number. You entered: ""
+[ERROR] The task number is out of range. Use "list" to see your tasks.
+[ERROR] Please enter a valid task number. You entered: "2147483650"
+[ERROR] Please enter a valid task number. You entered: "c"
 Noted. I've removed this task:
 [T][ ] borrow book
 Now you have 2 tasks in the list.
@@ -137,7 +138,7 @@ Noted. I've removed this task:
 Now you have 0 tasks in the list.
 Here are the tasks in your list:
 You have no tasks in your list.
-The task number is out of range. Use "list" to see your tasks.
+[ERROR] The task number is out of range. Use "list" to see your tasks.
 Here are the tasks in your list:
 You have no tasks in your list.
 Bye. Hope to see you again soon!
