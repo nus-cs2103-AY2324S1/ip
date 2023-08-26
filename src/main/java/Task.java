@@ -1,25 +1,18 @@
+import java.time.LocalDate;
+
 /**
- *  Represents a generic task within the chat bot application.
+ * Represents a generic task within the chat bot application.
  */
 public abstract class Task {
-
-    /**
-     * Three different task types
-     */
-    protected enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
 
     /**
      * The Task Type of the Task.
      */
     protected Task.TaskType TaskType;
-
     /**
      * The description of the task.
      */
     protected String description;
-
     /**
      * The completion status of the task.
      */
@@ -30,7 +23,7 @@ public abstract class Task {
      *
      * @param description The description of the task.
      */
-    public Task(String description) throws DukeException{
+    public Task(String description) throws DukeException {
         if (description.trim().length() == 0) {
             throw new DukeException("The description cannot be empty.");
         }
@@ -46,7 +39,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return isDone ? "[X] " + this.description : "[ ] " + this.description ;
+        return isDone ? "[X] " + this.description : "[ ] " + this.description;
     }
 
     /**
@@ -69,5 +62,21 @@ public abstract class Task {
      */
     public void unmark() {
         this.isDone = false;
+    }
+
+    /**
+     * Three different task types
+     */
+    protected enum TaskType {
+        TODO, DEADLINE, EVENT
+    }
+
+    /**
+     * Determine if the task is on a specific date.
+     * @param date to compare.
+     * @return true if the task is at a date.
+     */
+    public boolean onDate(LocalDate date) {
+        return false;
     }
 }

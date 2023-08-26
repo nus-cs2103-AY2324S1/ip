@@ -1,3 +1,7 @@
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * A task which holds the date from and to.
  */
@@ -6,12 +10,12 @@ public class Event extends Task {
     /**
      * The start time of the event task.
      */
-    private String from;
+    private LocalDate from;
 
     /**
      * The end time of the event task.
      */
-    private String to;
+    private LocalDate to;
 
     /**
      * Constructs an Event task
@@ -23,8 +27,12 @@ public class Event extends Task {
     public Event(String description, String from, String to) throws DukeException {
         super(description);
         this.TaskType = TaskType.EVENT;
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDate.parse(from);
+            this.to = LocalDate.parse(to);
+        } catch (DateTimeException e) {
+            throw new DukeException("Wrong date format. Please Use format YYYY-MM-DD");
+        }
     }
 
     /**
@@ -34,8 +42,16 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return this.isDone ? "[E][X] " + this.description + " (from: " + from + " to: " + to + ")"
-                : "[E][ ] " + this.description + " (from: " + from + " to: " + to + ")";
+        return this.isDone ? "[E][X] " + this.description + " (from: " + formatDate(from) + " to: " + formatDate(to) + ")"
+                : "[E][ ] " + this.description + " (from: " + formatDate(from) + " to: " + formatDate(to) + ")";
+    }
+
+    /**
+     * Change the Dates to a different format.
+     */
+    private String formatDate(LocalDate date) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy");
+        return date.format(format);
     }
 
     /**
@@ -47,5 +63,15 @@ public class Event extends Task {
     @Override
     public String getRaw() {
         return "E" + "|" + isDone + "|" + this.description + "|" + from + "|" + to;
+    }
+
+    /**
+     * Determine if the date is between the event date.
+     * @param date to compare.
+     * @return true if the date is between the event date.
+     */
+    @Override
+    public boolean onDate(LocalDate date) {
+        return date.isAfter(this.from) && date.isBefore(this.to);
     }
 }
