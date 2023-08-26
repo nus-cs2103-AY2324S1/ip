@@ -1,14 +1,51 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
 
 public class Duke {
+
+    private static void saveTasks(ArrayList<Task> list) {
+        try {
+            FileWriter fileWriter = new FileWriter("data/duke.txt");
+            for (Task task : list) {
+                fileWriter.write(task.saveTask() + System.lineSeparator());
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static ArrayList<Task> loadTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
+        try {
+            File file = new File("data/duke.txt");
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            } else {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String saveFormat = scanner.nextLine();
+                    tasks.add(Task.loadData(saveFormat));
+                }
+                scanner.close();
+            }
+        } catch (IOException e) {
+            // Handle the exception, e.g., print an error message
+        }
+        return tasks;
+    }
     public static void main(String[] args) {
 
         System.out.println("Hello! I'm May");
         System.out.println("What can I do for you?");
 
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
+        //ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> list = loadTasks();
 
         while (true) {
 
@@ -143,6 +180,8 @@ public class Duke {
                     System.out.println(e.getMessage());
                 }
             }
+
+             saveTasks(list);
         }
     }
 }
