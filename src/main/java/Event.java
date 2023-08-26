@@ -1,23 +1,27 @@
+import java.time.LocalDateTime;
+
 /**
  * Event represents a task with a start and end date.
  */
 public class Event extends Task {
-  private String startTime;
-  private String endTime;
+  private LocalDateTime startTime;
+  private LocalDateTime endTime;
 
   public Event(String taskName, String startTime, String endTime) {
     super(taskName);
-    this.startTime = startTime;
-    this.endTime = endTime;
+    this.startTime = stringToDate(startTime);
+    this.endTime =  stringToDate(endTime);
   }
 
   @Override
   protected String toDatabaseRepresentation() {
-    return String.format("E | %s | %s | %s | %s", isDone() ? 1 : 0, getTaskName(), startTime, endTime);
+    return String.format("E | %s | %s | %s | %s",
+        isDone() ? 1 : 0, getTaskName(), dateToDatabaseRepresentation(startTime), dateToDatabaseRepresentation(endTime));
   }
 
   @Override
   public String toString() {
-    return String.format("[E]%s (from: %s to: %s)", super.toString(), startTime, endTime);
+    return String.format("[E]%s (from: %s to: %s)",
+        super.toString(), dateToString(startTime), dateToString(endTime));
   }
 }

@@ -1,5 +1,7 @@
 import java.io.*;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -196,5 +198,20 @@ public abstract class Task {
     } catch (DukeException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  protected LocalDateTime stringToDate(String input) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    return LocalDateTime.parse(input, formatter);
+  }
+
+  protected String dateToDatabaseRepresentation(LocalDateTime date) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    return date.format(formatter);
+  }
+
+  protected String dateToString(LocalDateTime date) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mma");
+    return date.format(formatter);
   }
 }
