@@ -9,33 +9,33 @@ Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[D][ ] return book (by: Sunday 3pm)
+[D][ ] return book (by: Dec 02 2019, 18:00)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: Thurs 8pm)
+[E][ ] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 2020, 23:50)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday 3pm)
-3.[E][ ] project meeting (from: Mon 2pm to: Thurs 8pm)
+2.[D][ ] return book (by: Dec 02 2019, 18:00)
+3.[E][ ] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 2020, 23:50)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-[D][X] return book (by: Sunday 3pm)
+[D][X] return book (by: Dec 02 2019, 18:00)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][ ] borrow book
-2.[D][X] return book (by: Sunday 3pm)
-3.[E][ ] project meeting (from: Mon 2pm to: Thurs 8pm)
+2.[D][X] return book (by: Dec 02 2019, 18:00)
+3.[E][ ] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 2020, 23:50)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-[E][X] project meeting (from: Mon 2pm to: Thurs 8pm)
+[E][X] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 2020, 23:50)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -43,13 +43,13 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-[D][ ] return book (by: Sunday 3pm)
+[D][ ] return book (by: Dec 02 2019, 18:00)
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] borrow book
-2.[D][ ] return book (by: Sunday 3pm)
-3.[E][X] project meeting (from: Mon 2pm to: Thurs 8pm)
+2.[D][ ] return book (by: Dec 02 2019, 18:00)
+3.[E][X] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 2020, 23:50)
 ____________________________________________________________
 ____________________________________________________________
 ☹ OOPS!!! The description of a todo cannot be empty.
@@ -87,18 +87,18 @@ ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] borrow book
-2.[D][ ] return book (by: Sunday 3pm)
-3.[E][X] project meeting (from: Mon 2pm to: Thurs 8pm)
+2.[D][ ] return book (by: Dec 02 2019, 18:00)
+3.[E][X] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 2020, 23:50)
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
-[D][ ] return book (by: Sunday 3pm)
+[D][ ] return book (by: Dec 02 2019, 18:00)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1.[T][X] borrow book
-2.[E][X] project meeting (from: Mon 2pm to: Thurs 8pm)
+2.[E][X] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 2020, 23:50)
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
@@ -110,7 +110,7 @@ Index provided was out-of-bounds. Use the index number labelled for the task in 
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
-[E][X] project meeting (from: Mon 2pm to: Thurs 8pm)
+[E][X] project meeting (from: Dec 02 2020, 18:00 to: Dec 02 2020, 23:50)
 Now you have 0 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
