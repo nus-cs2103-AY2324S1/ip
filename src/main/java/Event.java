@@ -8,6 +8,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public Event(String details, boolean isCompleted, String start, String end) {
+        super(details, isCompleted);
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + String.format(

@@ -2,7 +2,6 @@
 
 echo "The output will be redirected to stdoutput.txt"
 
-
 REM create bin directory if it doesn't exist
 if not exist ..\bin mkdir ..\bin
 

@@ -8,6 +8,11 @@ public class Task {
         this.isCompleted = false;
     }
 
+    public Task(String details, boolean isCompleted) {
+        this.details = details;
+        this.isCompleted = isCompleted;
+    }
+
     public void setCompleted() {
         this.isCompleted = true;
     }
