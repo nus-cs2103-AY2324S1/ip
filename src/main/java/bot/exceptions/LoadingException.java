@@ -1,4 +1,4 @@
-package exceptions;
+package bot.exceptions;
 
 /**
  * Exception for when the storage class fails to load or save data for any reason.

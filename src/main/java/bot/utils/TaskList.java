@@ -1,4 +1,6 @@
-import exceptions.InvalidIndexException;
+package bot.utils;
+
+import bot.exceptions.InvalidIndexException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Task list abstraction. Functions like an arraylist but may not contain one.
+ * Bot.Task list abstraction. Functions like an arraylist but may not contain one.
  * Index starts at 1.
  */
 public class TaskList {
@@ -18,7 +20,8 @@ public class TaskList {
     /**
      * Default constructor. To be used when an empty list is needed.
      */
-    public TaskList() {}
+    public TaskList() {
+    }
 
     /**
      * Constructor with a list of Task objects.
@@ -32,7 +35,7 @@ public class TaskList {
     /**
      * Adds a task to the end of the list.
      *
-     * @param task Task to add.
+     * @param task Bot.Task to add.
      */
     public void add(Task task) {
         this.list.add(task);
@@ -42,7 +45,7 @@ public class TaskList {
      * Gets the task at that index of the list.
      *
      * @param index Index of task.
-     * @return Task object.
+     * @return Bot.Task object.
      */
     public Task get(int index) {
         return this.list.get(index - 1);
@@ -52,7 +55,7 @@ public class TaskList {
      * Removes the task at that index from the list.
      *
      * @param index Index of task.
-     * @return Task object.
+     * @return Bot.Task object.
      * @throws InvalidIndexException If index is out of range.
      */
     public Task remove(int index) throws InvalidIndexException {

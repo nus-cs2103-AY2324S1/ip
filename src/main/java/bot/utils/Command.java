@@ -1,13 +1,16 @@
-import exceptions.EmptyListException;
-import exceptions.InvalidArgumentException;
-import exceptions.InvalidIndexException;
-import exceptions.InvalidTaskException;
+package bot.utils;
+
+import bot.enums.DoneStatus;
+import bot.exceptions.EmptyListException;
+import bot.exceptions.InvalidArgumentException;
+import bot.exceptions.InvalidIndexException;
+import bot.exceptions.InvalidTaskException;
 
 import java.util.Iterator;
 import java.util.regex.Pattern;
 
 /**
- * Command abstraction for executing commands.
+ * Bot.Command abstraction for executing commands.
  */
 public abstract class Command {
 
@@ -23,26 +26,6 @@ public abstract class Command {
      * Regex pattern for delete commands.
      */
     private static final Pattern PATTERN_DELETE = Pattern.compile("delete -?\\d+");
-
-    /**
-     * Checks if the bot should exit after the execution of the command.
-     *
-     * @return True if the bot should exit, false otherwise.
-     */
-    public abstract boolean isExit();
-
-    /**
-     * Executes the command.
-     *
-     * @param tasks Task list containing tasks.
-     * @param ui User interface for interacting with users.
-     * @param storage Storage for storing data.
-     * @throws EmptyListException If an illegal operation is performed on an empty list.
-     * @throws InvalidIndexException If the command tries to access an invalid index.
-     * @throws InvalidTaskException If the command creates a task and fails to do so.
-     */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyListException,
-            InvalidIndexException, InvalidTaskException;
 
     /**
      * Creates an ExitCommand to indicate the end of the program.
@@ -121,7 +104,27 @@ public abstract class Command {
     }
 
     /**
-     * Command to indicate the end of the program.
+     * Checks if the bot should exit after the execution of the command.
+     *
+     * @return True if the bot should exit, false otherwise.
+     */
+    public abstract boolean isExit();
+
+    /**
+     * Executes the command.
+     *
+     * @param tasks   Bot.Task list containing tasks.
+     * @param ui      User interface for interacting with users.
+     * @param storage Bot.Storage for storing data.
+     * @throws EmptyListException    If an illegal operation is performed on an empty list.
+     * @throws InvalidIndexException If the command tries to access an invalid index.
+     * @throws InvalidTaskException  If the command creates a task and fails to do so.
+     */
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyListException,
+            InvalidIndexException, InvalidTaskException;
+
+    /**
+     * Bot.Command to indicate the end of the program.
      */
     private static class ExitCommand extends Command {
 
@@ -137,9 +140,9 @@ public abstract class Command {
         /**
          * Executes the command.
          *
-         * @param tasks Task list containing tasks.
-         * @param ui User interface for interacting with users.
-         * @param storage Storage for storing data.
+         * @param tasks   Bot.Task list containing tasks.
+         * @param ui      User interface for interacting with users.
+         * @param storage Bot.Storage for storing data.
          */
         public void execute(TaskList tasks, Ui ui, Storage storage) {
             ui.showGoodbye();
@@ -147,7 +150,7 @@ public abstract class Command {
     }
 
     /**
-     * Command to list all tasks in the task list.
+     * Bot.Command to list all tasks in the task list.
      */
     private static class ListCommand extends Command {
         /**
@@ -162,9 +165,9 @@ public abstract class Command {
         /**
          * Executes the command.
          *
-         * @param tasks Task list containing tasks.
-         * @param ui User interface for interacting with users.
-         * @param storage Storage for storing data.
+         * @param tasks   Bot.Task list containing tasks.
+         * @param ui      User interface for interacting with users.
+         * @param storage Bot.Storage for storing data.
          * @throws EmptyListException If an illegal operation is performed on an empty list.
          */
         public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyListException {
@@ -182,7 +185,7 @@ public abstract class Command {
     }
 
     /**
-     * Command to mark the task as done or not done.
+     * Bot.Command to mark the task as done or not done.
      */
     private static class MarkCommand extends Command {
         /**
@@ -199,7 +202,7 @@ public abstract class Command {
          * at the given index.
          *
          * @param index Index to mark the task at.
-         * @param done Mark the task as done or not done.
+         * @param done  Mark the task as done or not done.
          */
         protected MarkCommand(int index, DoneStatus done) {
             this.index = index;
@@ -218,9 +221,9 @@ public abstract class Command {
         /**
          * Executes the command.
          *
-         * @param tasks Task list containing tasks.
-         * @param ui User interface for interacting with users.
-         * @param storage Storage for storing data.
+         * @param tasks   Bot.Task list containing tasks.
+         * @param ui      User interface for interacting with users.
+         * @param storage Bot.Storage for storing data.
          * @throws InvalidIndexException If the command tries to access an invalid index.
          */
         public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {
@@ -235,7 +238,7 @@ public abstract class Command {
     }
 
     /**
-     * Command to add tasks to the task list.
+     * Bot.Command to add tasks to the task list.
      */
     private static class AddCommand extends Command {
         /**
@@ -251,6 +254,7 @@ public abstract class Command {
         protected AddCommand(String input) {
             this.input = input;
         }
+
         /**
          * Checks if the bot should exit after the execution of the command.
          *
@@ -263,9 +267,9 @@ public abstract class Command {
         /**
          * Executes the command.
          *
-         * @param tasks Task list containing tasks.
-         * @param ui User interface for interacting with users.
-         * @param storage Storage for storing data.
+         * @param tasks   Bot.Task list containing tasks.
+         * @param ui      User interface for interacting with users.
+         * @param storage Bot.Storage for storing data.
          * @throws InvalidTaskException If the command creates a task and fails to do so.
          */
         public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidTaskException {
@@ -277,7 +281,7 @@ public abstract class Command {
     }
 
     /**
-     * Command to delete tasks.
+     * Bot.Command to delete tasks.
      */
     private static class DeleteCommand extends Command {
         /**
@@ -287,11 +291,13 @@ public abstract class Command {
 
         /**
          * Creates a DeleteCommand with the given index.
+         *
          * @param index Index to delete task at.
          */
         protected DeleteCommand(int index) {
             this.index = index;
         }
+
         /**
          * Checks if the bot should exit after the execution of the command.
          *
@@ -304,9 +310,9 @@ public abstract class Command {
         /**
          * Executes the command.
          *
-         * @param tasks Task list containing tasks.
-         * @param ui User interface for interacting with users.
-         * @param storage Storage for storing data.
+         * @param tasks   Bot.Task list containing tasks.
+         * @param ui      User interface for interacting with users.
+         * @param storage Bot.Storage for storing data.
          * @throws InvalidIndexException If the command tries to access an invalid index.
          */
         public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidIndexException {

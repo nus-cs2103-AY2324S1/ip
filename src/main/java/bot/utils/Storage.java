@@ -1,5 +1,7 @@
-import exceptions.InvalidTaskException;
-import exceptions.LoadingException;
+package bot.utils;
+
+import bot.exceptions.InvalidTaskException;
+import bot.exceptions.LoadingException;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -62,7 +64,7 @@ public class Storage {
     /**
      * Saves task list to file named at filePath. Assumes the file has been created.
      *
-     * @param lst Task list to save to file.
+     * @param lst Bot.Task list to save to file.
      * @throws LoadingException If the list cannot be saved fully.
      */
     public void save(TaskList lst) throws LoadingException {
