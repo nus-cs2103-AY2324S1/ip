@@ -1,6 +1,7 @@
 abstract class Task {
   private String description;
   private boolean isDone;
+  protected String symbol;
 
   public Task(String description) {
     this.description = description;
@@ -18,6 +19,11 @@ abstract class Task {
   private String getStatusIcon() {
     return (isDone ? "X" : " ");
   }
+
+  protected String save() {
+    return String.format("%d|%s", Boolean.valueOf(this.isDone),
+        this.description);
+  };
 
   @Override
   public String toString() {
