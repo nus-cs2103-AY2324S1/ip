@@ -1,10 +1,32 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 public class Mimi {
     public static void main(String[] args) {
 
-        Storage PreviousCommands = new Storage();
+        Storage previousCommands = new Storage();
+        String DIRECTORY = "./data/";
+        String DATA_PATH = "./data/Mimi.txt";
 
         String LINE = "_________________________________________________\n";
+
+        File directory = new File(DIRECTORY);
+        File dataFile = new File(DATA_PATH);
+
+
+        //if folder exists, do nothing. if it doesn't, create it.
+        if (directory.mkdir()) {}
+
+        //if file exists, do nothing. if it doesn't, create it.
+        try {
+            if (dataFile.createNewFile()) {}
+        } catch (IOException e) {
+            System.out.println("unable to create new file: " + e.getMessage());
+        }
+        ReadWriteData readWriteData = new ReadWriteData(dataFile, previousCommands);
+
+        readWriteData.onInitialise();
 
         System.out.println(
                 LINE
@@ -13,10 +35,10 @@ public class Mimi {
                 + LINE
         );
 
-        Scanner sc = new Scanner(System.in);
+        Scanner inputReader = new Scanner(System.in);
 
         while (true) {
-            String command = sc.nextLine();
+            String command = inputReader.nextLine();
             System.out.println(LINE);
             Task task = new Task(command);
 
@@ -26,7 +48,7 @@ public class Mimi {
             }
 
             if (task.isList()) {
-                PreviousCommands.listItems();
+                previousCommands.listItems();
                 System.out.println(LINE);
                 continue;
             }
@@ -34,7 +56,8 @@ public class Mimi {
             if (task.isUnmark()) {
                 int task_Number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
 
-                PreviousCommands.unmark(task_Number);
+                previousCommands.unmark(task_Number);
+                readWriteData.updateFile();
                 System.out.println(LINE);
                 continue;
             }
@@ -42,7 +65,8 @@ public class Mimi {
             if (task.isMark()) {
                 int task_Number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
 
-                PreviousCommands.mark(task_Number);
+                previousCommands.mark(task_Number);
+                readWriteData.updateFile();
                 System.out.println(LINE);
                 continue;
             }
@@ -50,7 +74,8 @@ public class Mimi {
             if (task.isDelete()) {
                 int task_Number = Integer.parseInt(command.replaceAll("[^0-9]", ""));
 
-                PreviousCommands.delete(task_Number);
+                previousCommands.delete(task_Number);
+                readWriteData.updateFile();
                 System.out.println(LINE);
                 continue;
             }
@@ -63,17 +88,20 @@ public class Mimi {
                     switch (actual_task) {
                         case "todo":
                             Todo todo = new Todo(command);
-                            PreviousCommands.add(todo);
+                            previousCommands.add(todo);
+                            readWriteData.write(todo);
                             System.out.println(LINE);
                             break;
                         case "deadline":
                             Deadline deadline = new Deadline(command);
-                            PreviousCommands.add(deadline);
+                            previousCommands.add(deadline);
+                            readWriteData.write(deadline);
                             System.out.println(LINE);
                             break;
                         case "event":
                             Event event = new Event(command);
-                            PreviousCommands.add(event);
+                            previousCommands.add(event);
+                            readWriteData.write(event);
                             System.out.println(LINE);
                             break;
                     }

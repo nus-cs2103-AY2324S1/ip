@@ -15,7 +15,7 @@ public class Event extends Task{
         int j = taskWithoutDates.indexOf("/to");
 
 
-        return String.format("%s (From: %s to: %s)",
+        return String.format("%s (from: %s to: %s)",
                 taskWithoutDates.substring(0, i-1),
                 taskWithoutDates.substring(i+6, j -1),
                 taskWithoutDates.substring(j+4)

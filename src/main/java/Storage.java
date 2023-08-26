@@ -11,6 +11,10 @@ public class Storage {
         );
     }
 
+    public void addWithoutPrinting(Task task) {
+        this.previous_Commands.add(task);
+    }
+
     public void listItems() {
         System.out.println("Here are the tasks in your list:\n");
         for (int i = 0; i < this.previous_Commands.size(); ++i) {
@@ -76,6 +80,12 @@ public class Storage {
         previous_Commands.remove(taskNumber -1);
 
         System.out.println(String.format("Noted. I've removed this task: %s", task));
+    }
+
+    public void updateALl(ReadWriteData writer) {
+        for (Task task: this.previous_Commands) {
+            writer.write(task);
+        }
     }
 
 
