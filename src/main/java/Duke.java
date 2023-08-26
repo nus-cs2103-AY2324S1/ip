@@ -73,8 +73,8 @@ public class Duke {
                 } else {
                     System.out.println(">  Task " + (index + 1) + " was not found :(");
                 }
-            } else { // if input is empty
-                if (currInput.isEmpty()) {
+            } else {
+                if (currInput.isEmpty()) { // if input is empty
                     System.out.println(">  empty tasks are not allowed :/");
                 } else { // add a new task
                     currList[counter] = new Task(currInput);
