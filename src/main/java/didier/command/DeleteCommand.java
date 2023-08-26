@@ -1,10 +1,10 @@
 package didier.command;
 
 import didier.Storage;
+import didier.TaskList;
 import didier.UI;
 import didier.exception.DidierException;
 import didier.task.Task;
-import didier.TaskList;
 
 /**
  * The DeleteCommand encapsulates the logic of what happens when the user tries to delete a task from
@@ -12,7 +12,7 @@ import didier.TaskList;
  */
 public class DeleteCommand extends Command {
 
-    private int taskNumber;
+    private final int taskNumber;
 
     /**
      * Constructor for the DeleteCommand object.
@@ -22,6 +22,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int taskNumber) {
         this.taskNumber = taskNumber;
     }
+
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws DidierException {
         Task task = taskList.removeTask(taskNumber);

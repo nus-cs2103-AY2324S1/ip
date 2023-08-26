@@ -1,11 +1,11 @@
 package didier.command;
 
 import didier.Storage;
+import didier.TaskList;
 import didier.UI;
 import didier.exception.FileCorruptedException;
 import didier.exception.TaskNumberException;
 import didier.task.Task;
-import didier.TaskList;
 
 /**
  * The MarkCommand encapsulates the logic of what occurs when the user tries to mark
@@ -13,8 +13,8 @@ import didier.TaskList;
  */
 public class MarkCommand extends Command {
 
-    private boolean isMark;
-    private int taskNumber;
+    private final boolean isMark;
+    private final int taskNumber;
 
     /**
      * The constructor for the MarkCommand object.
@@ -26,10 +26,11 @@ public class MarkCommand extends Command {
         this.isMark = isMark;
         this.taskNumber = taskNumber;
     }
+
     @Override
     public void execute(TaskList taskList, UI ui, Storage storage) throws TaskNumberException, FileCorruptedException {
         Task task = taskList.getTask(taskNumber);
-        if (isMark){
+        if (isMark) {
             task.markAsDone();
             ui.botPrintTaskMarkedDone(task, true);
         } else {

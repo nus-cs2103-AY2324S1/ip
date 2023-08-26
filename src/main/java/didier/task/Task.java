@@ -51,7 +51,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-       return String.format("[%s] %s", this.isDone ? "X" : " ", this.description);
+        return String.format("[%s] %s", this.isDone ? "X" : " ", this.description);
     }
 
     /**

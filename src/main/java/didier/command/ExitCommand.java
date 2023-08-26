@@ -1,8 +1,8 @@
 package didier.command;
 
 import didier.Storage;
-import didier.UI;
 import didier.TaskList;
+import didier.UI;
 
 /**
  * The ExitCommand encapsulates the logic of what occurs when the user tries to exit the interaction
