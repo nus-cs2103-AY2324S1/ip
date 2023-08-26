@@ -14,6 +14,15 @@ public class Task {
         this.completed = false;
     }
 
+    /**
+     * Converts Task object to its string representation when stored in the hard drive.
+     *
+     * @return String representation when stored in text file on user's hard drive
+     */
+    public String toData() {
+        return (completed ? "1" : "0") + " | " + taskName;
+    }
+
     @Override
     public String toString() {
         String checkbox = "[" + (completed ? "X" : " ") + "]";
