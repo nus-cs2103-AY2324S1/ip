@@ -1,10 +1,11 @@
+package duke.task;
 /*
  * Abstract class that represents a general task.
  */
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-abstract class Task {
+public abstract class Task {
     private boolean isDone;
     private String task;
 

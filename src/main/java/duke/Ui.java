@@ -1,3 +1,6 @@
+package duke;
+import duke.task.Task;
+
 public class Ui {
     private String divider = "____________________________________________________________";
     private String indent = "     ";
@@ -19,8 +22,8 @@ public class Ui {
         String chatbotName = "Miles";
 
         showLine();
-        formatString("Hey! I'm " + chatbotName + "!");
-        formatString("What can I do for you, my friend?");
+        formatString(" Hey! I'm " + chatbotName + "!");
+        formatString(" What can I do for you, my friend?");
         showLine();
     }
 
@@ -42,7 +45,7 @@ public class Ui {
 
     public void exit() {
         showLine();
-        formatString("Stay safe my friend. See you again soon man.");
+        formatString(" Stay safe my friend. See you again soon man.");
         showLine();
     }
 }

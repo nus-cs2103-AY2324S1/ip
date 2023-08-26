@@ -1,3 +1,4 @@
+package duke.task;
 public class ToDo extends Task {
     private static String noDescErrorMsg = "\u2639 OOPS!!! The description of a todo cannot be empty.";
 
