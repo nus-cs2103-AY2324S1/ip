@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 
-public class DookList {
-    private static ArrayList<Task> taskList = new ArrayList<>();
+public class TaskList {
+    private ArrayList<Task> taskList = new ArrayList<>();
+
+    public TaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+    }
     public String addTask(Task t) {
         taskList.add(t);
         return (String.format("added: %s.\nNow you have %d %s in the list.",

@@ -1,7 +1,15 @@
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.jar.Attributes;
 
 public class Dook {
-    public static String name = "Dook";
+    public static final String name = "Dook";
+    public static final String FILEPATH = "../../../data/dook.txt";
+    private Storage storage;
+    private Parser parser;
+    private UiDisplay uiDisplay = new UiDisplay();
+    private boolean isActive;
     private enum Command{
         bye("Exits the program."), list("Displays the current tasks"),
         mark("Marks selected task as done."), unmark("Marks selected task as undone."),
@@ -28,8 +36,15 @@ public class Dook {
          }
     }
 
-    public static void main(String[] args) {
-        greetUser();
+    public Dook(String filePath) {
+        this.storage = new Storage(filePath);
+        this.parser = new Parser();
+        this.uiDisplay = new UiDisplay();
+    }
+
+    private void run() {
+        uiDisplay.greetUser();
+        readSavedList();
         Scanner sc = new Scanner(System.in);
         String input;
         while (true) {
@@ -42,7 +57,7 @@ public class Dook {
             try {
                 switch (command) {
                     case bye:
-                        bidFarewell();
+                        uiDisplay.bidFarewell();
                         return;
                     case list:
                         displayList();
@@ -70,28 +85,40 @@ public class Dook {
                         break;
                 }
             } catch (DookException e) {
-                printMessage(e.getMessage());
+                uiDisplay.printMessage(e.getMessage());
             }
 
         }
     }
-    private static void displayHelp() {
+    private void readSavedList() {
+        try {
+            taskList = new TaskList(storage.load());
+        } catch (FileNotFoundException e) {
+            uiDisplay.printMessage("Failed to load file from text.");
+            taskList = new TaskList(new ArrayList<>());
+        }
+    }
+    public static void main(String[] args) {
+        Dook dook = new Dook(FILEPATH);
+        dook.run();
+    }
+    private void displayHelp() {
         StringBuilder result = new StringBuilder();
         result.append("Available commands:\n");
         for (Command c : Command.values()) {
             result.append(c.toString() + "\n");
         }
-        printMessage(result.toString());
+        uiDisplay.printMessage(result.toString());
     }
-    public static DookList dookList = new DookList();
-    private static void handleToDo(String body) throws DookException {
+    public TaskList taskList = new TaskList(null);
+    private void handleToDo(String body) throws DookException {
         if (body.isBlank()) {
             throw new DookException(String.format("Usage: todo [name]"));
         }
         Task task = new Todo(body.trim());
         addToTaskList(task);
     }
-    private static void handleDeadline(String body) throws DookException {
+    private void handleDeadline(String body) throws DookException {
         if (body.isBlank()) {
             throw new DookException(String.format("Usage: deadline [name] /by [time]."));
         }
@@ -110,7 +137,7 @@ public class Dook {
         Task task = new Deadline(desc, by);
         addToTaskList(task);
     }
-    private static void handleEvent(String body) throws DookException{
+    private void handleEvent(String body) throws DookException{
         if (body.isBlank()) {
             throw new DookException(String.format("Usage: event [name] /from [start] /to [end]."));
         }
@@ -135,42 +162,29 @@ public class Dook {
         Task task = new Event(desc, from, to);
         addToTaskList(task);
     }
-    private static void addToTaskList(Task task) {
-        printMessage(dookList.addTask(task));
+    private void addToTaskList(Task task) {
+        uiDisplay.printMessage(taskList.addTask(task));
     }
-    private static void displayList() {
-        printMessage(dookList.toString());
+    private void displayList() {
+        uiDisplay.printMessage(taskList.toString());
     }
-    private static void handleMark(String body, boolean value) throws DookException{
+    private void handleMark(String body, boolean value) throws DookException{
         int index;
         try {
             index = Integer.parseInt(body.split(" ", 2)[0]);
         } catch (NumberFormatException e) {
             throw new DookException(String.format("Usage: %s [task number]", value ? "mark" : "unmark"));
         }
-        printMessage(dookList.markTask(index, value));
+        uiDisplay.printMessage(taskList.markTask(index, value));
     }
-    private static void handleDelete(String body) throws DookException{
+    private void handleDelete(String body) throws DookException{
         int index;
         try {
             index = Integer.parseInt(body.split(" ", 2)[0]);
         } catch (NumberFormatException e) {
             throw new DookException(String.format("Usage: delete [task number]"));
         }
-        printMessage(dookList.deleteTask(index));
+        uiDisplay.printMessage(taskList.deleteTask(index));
     }
-    private static void greetUser() {
-        printMessage(String.format("%s here.\nWhat can I do for you?", name));
-    }
-    public static void printMessage(String msg) {
-        printDivider();
-        System.out.println(msg);
-        printDivider();
-    }
-    public static void printDivider() {
-        System.out.println("_______________________________________");
-    }
-    private static void bidFarewell() {
-        printMessage("Goodbye.");
-    }
+
 }
