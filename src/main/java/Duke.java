@@ -1,3 +1,8 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,20 +15,31 @@ public class Duke {
     private int numOfCompletedTasks = 0;
     private int consecInvalidInputCount = 0;
     private final String name;
+    public enum TaskType {
+        TASK, TODO, DEADLINE, EVENT
+    }
     public enum Command {
         TASK, TODO, DEADLINE, EVENT, LIST, MARK, UNMARK, DELETE, COMMANDS, BYE
     }
 
-    public Duke() {
+    public Duke() throws IOException {
         this.name = "Meg";
         this.run();
     }
 
-    public void run() {
+    public void run() throws IOException {
+        this.launchOnStart();
+        try {
+            this.readTasksFromDisk("./data/tasks.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found. Please check your directory and try again.");
+            this.exit(2);
+        }
         this.printSelfIntroduction();
         Scanner sc = new Scanner(System.in);
         while (this.isRunning) {
             if (this.consecInvalidInputCount >= 10) {
+                this.exit(1);
                 break;
             } else if (this.consecInvalidInputCount == 8) {
                 System.out.println("If you keep giving me nonsense, I'm leaving!");
@@ -31,7 +47,35 @@ public class Duke {
             String msg = sc.nextLine();
             this.readInput(msg);
         }
-        this.exit();
+        this.exit(0);
+    }
+
+    /**
+     * Greets the user and creates the requisite folder and text file, if required.
+     */
+    public void launchOnStart() {
+        File f = new File("./data");
+        if (f.mkdirs()) {
+            System.out.printf("Welcome, new user! I'm %s!%n" +
+                    "Hope you have a great time!%n", this.name);
+        } else {
+            System.out.println("Welcome back!");
+        }
+        try {
+            File file = new File("./data/tasks.txt");
+            if (file.createNewFile()) {
+                System.out.printf("Your tasks will be automatically saved.%n" + "\n" +
+                        "Feeling overwhelmed in school and having trouble remembering commitments?%n" +
+                        "I'm here to help!%n");
+            } else {
+                System.out.println("Tasks from previous session loaded successfully!");
+            }
+        } catch (IOException e) {
+            System.out.println("Due to technical issues, I'm only available in guest mode.%n" +
+                    "I sincerely apologise to the inconvenience caused.");
+        } finally {
+            printHorizontalLine();
+        }
     }
 
     public void printHorizontalLine() {
@@ -56,8 +100,7 @@ public class Duke {
     }
 
     public void printSelfIntroduction() {
-        System.out.printf("I'm %s. Make it quick, thanks.%n", this.name);
-        System.out.println("Anyway, I only support the following commands:" + "\n");
+        System.out.println("I support the following commands:" + "\n");
         printCommands();
     }
 
@@ -68,6 +111,70 @@ public class Duke {
                 "to view the commands again.%n");
         this.consecInvalidInputCount = 0;
         printHorizontalLine();
+    }
+
+    public void readTasksFromDisk(String filePath) throws FileNotFoundException,
+            IllegalArgumentException {
+        File f = new File(filePath);
+        Scanner sc = new Scanner(f);
+        while (sc.hasNext()) {
+            String[] args = sc.nextLine().split("-", -1);
+            TaskType type;
+            String due = "";
+            String start = "";
+            String end = "";
+            try {
+                type = TaskType.valueOf(args[0].toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Task not found");
+                return;
+            }
+            String details = args[1];
+            boolean isCompleted = args[2].equals("Y");
+            if (type == TaskType.DEADLINE) {
+                due = args[3];
+            } else if (type == TaskType.EVENT) {
+                start = args[3];
+                end = args[4];
+            }
+            switch (type) {
+                case TASK:
+                    Task t = new Task(details, isCompleted);
+                    tasks.add(t);
+                    this.numOfTasks++;
+                    if (t.isCompleted) {
+                        this.numOfCompletedTasks++;
+                    }
+                    break;
+                case TODO:
+                    ToDo todo = new ToDo(details, isCompleted);
+                    tasks.add(todo);
+                    this.numOfTasks++;
+                    if (todo.isCompleted) {
+                        this.numOfCompletedTasks++;
+                    }
+                    break;
+                case DEADLINE:
+                    Deadline d = new Deadline(details, isCompleted, due);
+                    tasks.add(d);
+                    this.numOfTasks++;
+                    if (d.isCompleted) {
+                        this.numOfCompletedTasks++;
+                    }
+                    break;
+                case EVENT:
+                    Event e = new Event(details, isCompleted, start, end);
+                    tasks.add(e);
+                    this.numOfTasks++;
+                    if (e.isCompleted) {
+                        this.numOfCompletedTasks++;
+                    }
+                    break;
+                default:
+                    // Shouldn't reach here
+                    break;
+            }
+        }
     }
 
     public boolean checkValidTask(String details) {
@@ -126,6 +233,10 @@ public class Duke {
                 break;
             case BYE:
                 this.isRunning = false;
+                break;
+            default:
+                // Shouldn't reach here
+                // Input errors should already be caught in the readInput() method.
                 break;
         }
     }
@@ -311,18 +422,53 @@ public class Duke {
         }
     }
 
-    public void exit() {
-        if (this.consecInvalidInputCount >= 10) {
+    public void saveTasksToDisk(String filePath) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
+        BufferedWriter bw = new BufferedWriter(fw);
+        try {
+            for (Task t : tasks) {
+                if (t instanceof ToDo) {
+                    bw.write(String.format("ToDo-%s-%c",
+                            t.getDetails(),
+                            t.isCompleted ? 'Y' : 'N'));
+                } else if (t instanceof Deadline) {
+                    bw.write(String.format("Deadline-%s-%c-%s",
+                            t.getDetails(),
+                            t.isCompleted ? 'Y' : 'N',
+                            ((Deadline) t).due));
+                } else if (t instanceof Event) {
+                    bw.write(String.format("Event-%s-%c-%s-%s",
+                            t.getDetails(),
+                            t.isCompleted ? 'Y' : 'N',
+                            ((Event) t).start,
+                            ((Event) t).end));
+                } else {
+                    bw.write(String.format("Task-%s-%c",
+                            t.getDetails(),
+                            t.isCompleted ? 'Y' : 'N'));
+                }
+                bw.newLine();
+            }
+            bw.flush();
+            bw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    public void exit(int status) throws IOException {
+        this.saveTasksToDisk("./data/tasks.txt");
+        if (status == 1) {
             System.out.printf("I've had enough of your nonsense!%n" +
                     "Don't let me see you again!%n");
-        } else {
+        } else if (status == 0) {
             System.out.println("Finally I can rest. Bye!");
         }
         printHorizontalLine();
         System.exit(0);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Duke();
     }
 }
