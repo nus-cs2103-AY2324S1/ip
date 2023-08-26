@@ -1,15 +1,16 @@
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 public class Mil {
-    private static List<Task> taskList;
     private static final String INDENTATION = "     ";
     private static final String HORIZONTAL_LINE = "__________________________________________________________________________";
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        taskList = new ArrayList<>();
-        String input;
+    private static List<Task> taskList;
+    private static FileWriter tasksOutput;
+    private static void printWelcomeMessage() {
         String logo = " ____     ____    _    _\n"
                 + "|     \\__/    |  | |  | |\n"
                 + "|  | \\ _ / |  |  | |  | |\n"
@@ -19,13 +20,46 @@ public class Mil {
         System.out.println(INDENTATION + HORIZONTAL_LINE);
         System.out.println(INDENTATION + "Hi there, I'm Mil - your personal chatbot.\n     How can I help you today?");
         System.out.println(INDENTATION + HORIZONTAL_LINE);
+    }
+    private static void printGoodbyeMessage() {
+        System.out.println(INDENTATION + HORIZONTAL_LINE);
+        System.out.println(INDENTATION + "Have a nice day and see you again soon!");
+        System.out.println(INDENTATION + HORIZONTAL_LINE);
+    }
+    private static void printErrorMessage(String message) {
+        System.out.println(INDENTATION + HORIZONTAL_LINE);
+        System.out.println(INDENTATION + message);
+        System.out.println(INDENTATION + HORIZONTAL_LINE);
+    }
+    private static void saveTasksToFile() {
+        try {
+            BufferedWriter outputFile = new BufferedWriter(tasksOutput);
+            for (Task task : taskList) {
+                outputFile.write(task.formatToFile());
+                outputFile.newLine();
+            }
+            outputFile.close();
+        } catch (IOException e) {
+            System.err.println("Error saving tasks: " + e.getMessage());
+        }
+
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        taskList = new ArrayList<>();
+        String input;
+        printWelcomeMessage();
+        try {
+            tasksOutput = new FileWriter("src\\main\\data\\mil.txt");
+        } catch (IOException e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+
 
         while(scanner.hasNext()) {
             input = scanner.nextLine();
             if(input.equals("bye")) {
-                System.out.println(INDENTATION + HORIZONTAL_LINE);
-                System.out.println(INDENTATION + "Have a nice day and see you again soon!");
-                System.out.println(INDENTATION + HORIZONTAL_LINE);
+                printGoodbyeMessage();
                 break;
             } else if(input.equals("list")) {
                 System.out.println(INDENTATION + HORIZONTAL_LINE);
@@ -38,69 +72,55 @@ public class Mil {
                 }
                 System.out.println(INDENTATION + HORIZONTAL_LINE);
             } else if(input.startsWith("mark") || input.startsWith("unmark")) {
-
+                int index;
                 try {
                     if(input.split(" ").length < 2) {
-                        throw new MilException("Empty task index");
+                        throw new NoTaskIndexException();
                     }
-                } catch (MilException e) {
-                    System.out.println(INDENTATION + HORIZONTAL_LINE);
-                    System.out.println(INDENTATION + "☹ Oopsie! You did not input the task index");
-                    System.out.println(INDENTATION + HORIZONTAL_LINE);
-                    continue;
-                }
-                int index = Integer.parseInt(input.split(" ")[1]) - 1;
-                try {
+                    index = Integer.parseInt(input.split(" ")[1]) - 1;
                     if (index < 0 || index >= taskList.size()) {
-                        throw new MilException("Invalid task index");
+                        throw new InvalidTaskIndexException();
                     }
-                } catch (MilException e) {
-                    System.out.println(INDENTATION + HORIZONTAL_LINE);
-                    System.out.println(INDENTATION + "☹ Oopsie! The input you entered has: " + e.getMessage());
-                    System.out.println(INDENTATION + HORIZONTAL_LINE);
+                } catch (NoTaskIndexException e) {
+                    printErrorMessage(e.getMessage());
+                    continue;
+                } catch (InvalidTaskIndexException e) {
+                    printErrorMessage(e.getMessage());
                     continue;
                 }
-
                 Task task = taskList.get(index);
                 if(input.startsWith("mark")) {
                     task.markAsDone();
                     System.out.println(INDENTATION + HORIZONTAL_LINE);
                     System.out.println(INDENTATION + "Nice! I've marked this task as done:");
-                    System.out.println(INDENTATION + task.toString());
+                    System.out.println(INDENTATION + task);
                     System.out.println(INDENTATION + HORIZONTAL_LINE);
                 } else {
                     task.markAsUndone();
                     System.out.println(INDENTATION + HORIZONTAL_LINE);
                     System.out.println(INDENTATION + "OK, I've marked this task as not done yet:");
-                    System.out.println(INDENTATION  + task.toString());
+                    System.out.println(INDENTATION  + task);
                     System.out.println(INDENTATION + HORIZONTAL_LINE);
                 }
             } else if(input.startsWith("todo") || input.startsWith("deadline") || input.startsWith("event")) {
                 Task task;
                 try {
                     if(input.equals("todo") || input.equals("deadline") || input.equals("event")) {
-                        throw new MilException("Empty task");
+                        throw new EmptyTaskException();
                     }
-                } catch (MilException e) {
-                    System.out.println(INDENTATION + HORIZONTAL_LINE);
-                    System.out.println(INDENTATION + "☹ Oopsie! The task description cannot be empty.");
-                    System.out.println(INDENTATION + HORIZONTAL_LINE);
+                } catch (EmptyTaskException e) {
+                    printErrorMessage(e.getMessage());
                     continue;
                 }
                 if(input.startsWith("todo")) {
                     task = new Todo(input.substring(5));
                 } else if(input.startsWith("deadline")) {
                     try {
-                        if(!input.contains("/by")) {
-                            throw new MilException("No deadline, please add /by and your deadline");
+                        if(!input.contains("/by") || input.trim().split("/by").length == 1) {
+                            throw new InvalidDeadlineException();
                         }
-                        if(input.trim().split("/by").length == 1) {
-                            throw new MilException("Empty deadline");
-                        }
-                    } catch (MilException e) {
-                        System.out.println(INDENTATION + HORIZONTAL_LINE);
-                        System.out.println(INDENTATION + "☹ Oopsie! " + e.getMessage());
-                        System.out.println(INDENTATION + HORIZONTAL_LINE);
+                    } catch (InvalidDeadlineException e) {
+                        printErrorMessage(e.getMessage());
                         continue;
                     }
                     task = new Deadline(input.split("/")[0].substring(9),
@@ -123,7 +143,7 @@ public class Mil {
                 taskList.add(task);
                 System.out.println(INDENTATION + HORIZONTAL_LINE);
                 System.out.println(INDENTATION + "Got it. I've added this task:");
-                System.out.println(INDENTATION + "  " + task.toString());
+                System.out.println(INDENTATION + "  " + task);
                 System.out.println(INDENTATION + "Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println(INDENTATION + HORIZONTAL_LINE);
             }  else if(input.startsWith("delete")) {
@@ -140,15 +160,12 @@ public class Mil {
                 int index = Integer.parseInt(input.split(" ")[1]) - 1;
                 try {
                     if (index < 0 || index >= taskList.size()) {
-                        throw new MilException("Invalid task index");
+                        throw new InvalidTaskIndexException();
                     }
-                } catch (MilException e) {
-                    System.out.println(INDENTATION + HORIZONTAL_LINE);
-                    System.out.println(INDENTATION + "☹ Oopsie! The input you entered has: " + e.getMessage());
-                    System.out.println(INDENTATION + HORIZONTAL_LINE);
+                } catch (InvalidTaskIndexException e) {
+                    printErrorMessage(e.getMessage());
                     continue;
                 }
-
                 Task task = taskList.get(index);
                 taskList.remove(index);
                 System.out.println(INDENTATION + HORIZONTAL_LINE);
@@ -159,9 +176,7 @@ public class Mil {
             }  else {
                 System.out.println("☹ Oopsie! I'm sorry, but I don't know what that means.");
             }
-
         }
-
-
+        saveTasksToFile();
     }
 }

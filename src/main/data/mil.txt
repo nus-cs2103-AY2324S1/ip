@@ -1,0 +1,3 @@
+T | incompleted | augf
+D | completed | su | ow
+E | incompleted | ksh | from: sugu to: su
