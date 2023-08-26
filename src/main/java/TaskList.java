@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -71,6 +72,17 @@ public class TaskList {
         fw.write(newTasks.toString());
         fw.close();
         return newTasks;
+    }
+
+    String dateSearch(LocalDate date) {
+        String res= "";
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).happenOnThatDate(date)) {
+                res = res + Integer.toString(i + 1) +
+                        ": " + tasks.get(i).toString() + "\n";
+            }
+        }
+        return res;
     }
 
     void save() throws IOException{

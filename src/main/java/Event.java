@@ -28,6 +28,12 @@ public class Event extends Task{
     }
 
     @Override
+    Boolean happenOnThatDate(LocalDate date) {
+        return (date.isEqual(from) || date.isAfter(from)) &&
+                (date.isEqual(to) || date.isBefore(to));
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " +
                 this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +

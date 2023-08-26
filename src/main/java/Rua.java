@@ -74,7 +74,14 @@ public class Rua {
                     String indexStr = command.replaceAll("[^0-9]", "");
                     int index = Integer.parseInt(indexStr);
                     taskList = taskList.delete(index);
-                } else {
+                } else if (command.startsWith("date")) {
+                    String[] arr = command.split(" ", 2);
+                    if (arr.length == 1) {
+                        throw new EmptyDescriptionException("date search");
+                    }
+                    System.out.println(taskList.dateSearch(LocalDate.parse(arr[1])));
+                }
+                else {
                     throw new InvalidCommandException();
                 }
             }

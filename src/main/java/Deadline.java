@@ -25,6 +25,11 @@ public class Deadline extends Task{
     }
 
     @Override
+    Boolean happenOnThatDate(LocalDate date) {
+        return date.isEqual(due);
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " +
                 due.format(DateTimeFormatter.ofPattern("MMM d yyyy"))  + ")";
