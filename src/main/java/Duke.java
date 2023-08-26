@@ -1,6 +1,7 @@
 import exceptions.EmptyTasksException;
 import exceptions.InvalidCommandException;
 import exceptions.ShibaException;
+import filehandler.DataSaverLoader;
 import tasks.DeadlineTask;
 import tasks.EventTask;
 import tasks.ShibaTask;
@@ -16,6 +17,11 @@ public class Duke {
     private static final ArrayList<ShibaTask> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
+        try {
+            tasks.addAll(DataSaverLoader.readSavedTasks());
+        } catch (ShibaException e) {
+            printException(e);
+        }
         printGreeting();
         processUserInputs();
         printBye();
@@ -51,6 +57,7 @@ public class Duke {
 
     /**
      * Prints the invalid command message.
+     *
      * @param e The ShibaException whose message is to be printed.
      */
     private static void printException(ShibaException e) {
@@ -68,6 +75,7 @@ public class Duke {
 
     /**
      * Prints the given message with a single tab indent (4 spaces).
+     *
      * @param message The message to be printed.
      */
     private static void printWithLevel1Indent(String message) {
@@ -76,6 +84,7 @@ public class Duke {
 
     /**
      * Prints the given message with a single tab indent and 1 space.
+     *
      * @param message The message to be printed.
      */
     private static void printWithLevel2Indent(String message) {
@@ -84,6 +93,7 @@ public class Duke {
 
     /**
      * Prints the given message with a single tab indent and 2 spaces.
+     *
      * @param message The message to be printed.
      */
     private static void printWithLevel3Indent(String message) {
@@ -92,6 +102,7 @@ public class Duke {
 
     /**
      * Prints the given message with the given number of indents (spaces).
+     *
      * @param message The message to be printed.
      * @param tabs The number of tab indents (4 spaces each).
      * @param spaces The number of spaces indents (in addition to tabs).
@@ -113,29 +124,29 @@ public class Duke {
             try {
                 Command command = Command.valueOf(cmd[0].toUpperCase());
                 switch (command) {
-                    case LIST:
-                        listTasks();
-                        break;
-                    case MARK:
-                        markTask(cmd);
-                        break;
-                    case UNMARK:
-                        unmarkTask(cmd);
-                        break;
-                    case TODO:
-                        addTodo(input);
-                        break;
-                    case DEADLINE:
-                        addDeadline(input);
-                        break;
-                    case EVENT:
-                        addEvent(input);
-                        break;
-                    case DELETE:
-                        deleteTask(cmd);
-                        break;
-                    case BYE:
-                        return;
+                case LIST:
+                    listTasks();
+                    break;
+                case MARK:
+                    markTask(cmd);
+                    break;
+                case UNMARK:
+                    unmarkTask(cmd);
+                    break;
+                case TODO:
+                    addTodo(input);
+                    break;
+                case DEADLINE:
+                    addDeadline(input);
+                    break;
+                case EVENT:
+                    addEvent(input);
+                    break;
+                case DELETE:
+                    deleteTask(cmd);
+                    break;
+                case BYE:
+                    return;
                 }
             } catch (ShibaException e) {
                 printException(e);
@@ -147,6 +158,7 @@ public class Duke {
 
     /**
      * Adds a new task to the list.
+     *
      * @param cmd The full command to be parsed into a task.
      * @throws ShibaException If the command has missing parameters.
      */
@@ -157,6 +169,7 @@ public class Duke {
 
     /**
      * Adds a new deadline task to the list.
+     *
      * @param cmd The full command to be parsed into a task.
      * @throws ShibaException If the command has missing parameters.
      */
@@ -167,6 +180,7 @@ public class Duke {
 
     /**
      * Adds a new event to the list.
+     *
      * @param cmd The full command to be parsed into a task.
      * @throws ShibaException If the command has missing parameters.
      */
@@ -177,6 +191,7 @@ public class Duke {
 
     /**
      * Adds a task to the list.
+     *
      * @param task The task to be added.
      */
     private static void addTask(ShibaTask task) {
@@ -188,10 +203,12 @@ public class Duke {
         String taskWord = tasks.size() == 1 ? " task" : " tasks";
         printWithLevel2Indent("You now have " + tasks.size() + taskWord + " in the list. Now gimme some treats.");
         printHorizontalLine();
+        saveAllTasks();
     }
 
     /**
      * Checks if the task number is valid.
+     *
      * @param cmd The command parameters, split by spaces.
      * @throws ShibaException If the task number is missing, invalid, or there are no tasks in the list.
      * @return The task number if valid.
@@ -217,6 +234,7 @@ public class Duke {
 
     /**
      * Deletes a task from the list.
+     *
      * @param cmd The command parameters, split by spaces.
      * @throws ShibaException If the task number is missing or invalid.
      */
@@ -230,6 +248,7 @@ public class Duke {
         String taskWord = tasks.size() == 1 ? " task" : " tasks";
         printWithLevel2Indent("You now have " + tasks.size() + taskWord + " in the list. Some headpats please?");
         printHorizontalLine();
+        saveAllTasks();
     }
 
     /**
@@ -248,6 +267,7 @@ public class Duke {
 
     /**
      * Performs actions to mark a task based on the input command parameters
+     *
      * @param cmd Input command parameters, split by spaces.
      * @throws ShibaException If the task number is missing or invalid.
      */
@@ -264,10 +284,12 @@ public class Duke {
         }
         printWithLevel3Indent(task.toString());
         printHorizontalLine();
+        saveAllTasks();
     }
 
     /**
      * Performs actions to unmark a task based on the input command parameters
+     *
      * @param cmd Input command parameters, split by spaces.
      * @throws ShibaException If the task number is missing or invalid.
      */
@@ -284,5 +306,17 @@ public class Duke {
         }
         printWithLevel3Indent(task.toString());
         printHorizontalLine();
+        saveAllTasks();
+    }
+
+    /**
+     * Saves all tasks to disk.
+     */
+    private static void saveAllTasks() {
+        try {
+            DataSaverLoader.saveTasks(tasks);
+        } catch (ShibaException e) {
+            printException(e);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package tasks;
 
 import exceptions.InvalidCommandException;
+import parsers.SpaceSeparatedValuesParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,6 +12,7 @@ public class EventTask extends ShibaTask {
 
     /**
      * Parses a EventTask from a command.
+     *
      * @param cmd The command to be parsed.
      * @return The EventTask parsed from the command, or null if the command is invalid.
      */
@@ -37,13 +39,18 @@ public class EventTask extends ShibaTask {
     private final String endTime;
 
     public EventTask(String name, String from, String to) {
-        super(name);
+        super(name, TaskType.EVENT);
         startTime = from;
         endTime = to;
     }
 
     @Override
+    public String toSaveString() {
+        return SpaceSeparatedValuesParser.convert("E", isDone ? "1" : "0", name, startTime, endTime);
+    }
+
+    @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return super.toString() + " (from: " + startTime + " to: " + endTime + ")";
     }
 }
