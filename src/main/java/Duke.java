@@ -17,7 +17,7 @@ public class Duke {
             String[] splited = input.split(" ", 2);
 
             try {
-                if (splited[0].equals("bye") && splited.length != 1) {
+                if (splited[0].equals("bye") && splited.length == 1) {
                     notBye = false;
                     System.out.println("Bye. Hope to see you again soon!");
                 } else if (splited[0].equals("list")) {
