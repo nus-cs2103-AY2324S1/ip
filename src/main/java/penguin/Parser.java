@@ -1,7 +1,15 @@
 package penguin;
 
+/**
+ * Parser is responsible for parsing input commands from the user.
+ */
 public class Parser {
-
+    /**
+     * Parses the input command.
+     *
+     * @param command input command.
+     * @return Parsed type of command.
+     */
     public String parse(String command) {
         if (command.equals("bye")) {
             return "bye";

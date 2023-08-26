@@ -41,7 +41,7 @@ public class Penguin {
     }
 
     /**
-     * The main logic of Penguin chatbot; parses commands and handles errors.
+     * Starts the main logic of Penguin chatbot; parses commands and handles errors.
      */
     public void run() {
         ui.out(GREETING);

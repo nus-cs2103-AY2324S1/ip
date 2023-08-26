@@ -7,7 +7,7 @@ import java.io.BufferedWriter;
 import java.util.Scanner;
 
 /**
- * Storage handles save/load functionality of Penguin.
+ * Storage handles the save and load functionality of Penguin.
  */
 public class Storage {
 
@@ -20,6 +20,7 @@ public class Storage {
     /**
      * Saves tasks into storage.
      *
+     * @param taskList the list of Tasks to be saved.
      */
     public void save(TaskList taskList) {
         try {
@@ -48,6 +49,7 @@ public class Storage {
     /**
      * Loads tasks from storage.
      *
+     * @return the list of Tasks that was saved.
      */
     public TaskList load() {
         TaskList taskList = new TaskList();
