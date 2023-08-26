@@ -21,7 +21,7 @@ public class Duke {
                 } else if (command.startsWith("unmark")) {
                     int index = Integer.parseInt(command.split(" ")[1]);
                     unmark(taskList, index);
-                } else if (command.startsWith("delete")){
+                } else if (command.startsWith("delete")) {
                     int index = Integer.parseInt(command.split(" ")[1]);
                     delete(taskList, index);
                 } else if (command.startsWith("deadline")) {
@@ -57,6 +57,7 @@ public class Duke {
     public static void helloGreeting() {
         System.out.print(output("Hello! I'm ForsakenX\nWhat can I do for you?\n"));
     }
+
     public static void byeGreeting() {
         System.out.print(output("Bye. Hope to see you again soon!\n"));
     }
