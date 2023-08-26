@@ -1,14 +1,14 @@
-package main.java.juke.ui;
-
-import main.java.juke.commands.JukeExceptionCommand;
-import main.java.juke.commands.JukeExitCommand;
-import main.java.juke.core.JukeObject;
-import main.java.juke.exceptions.JukeException;
-import main.java.juke.commands.JukeCommand;
-import main.java.juke.storage.Storage;
-import main.java.juke.tasks.TaskList;
+package juke.ui;
 
 import java.util.Scanner;
+
+import juke.commands.JukeCommand;
+import juke.commands.JukeExceptionCommand;
+import juke.commands.JukeExitCommand;
+import juke.core.JukeObject;
+import juke.exceptions.JukeException;
+import juke.storage.Storage;
+import juke.tasks.TaskList;
 
 /**
  * Orchestrates the operation of Juke by accepting commands and dispatching
@@ -16,23 +16,23 @@ import java.util.Scanner;
  */
 public class Ui extends JukeObject {
     /** Separator used by the virtual assistant to demarcate the start or end of a conversation */
-    private static final String SEPARATOR = "\n-----------------------------------------------------------" +
-            "-------------------------------\n";
+    private static final String SEPARATOR = "\n-----------------------------------------------------------"
+            + "-------------------------------\n";
 
     /**
      * Juke Logo made from ASCII Art. Credits go to:
      * <a href="https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20">...</a>
      */
     private static final String LOGO =
-            "       __      __\n" +
-                    "      / /_  __/ /_____\n" +
-                    " __  / / / / / //_/ _ \\\n" +
-                    "/ /_/ / /_/ / ,< /  __/\n" +
-                    "\\____/\\__,_/_/|_|\\___/";
+            "       __      __\n"
+                    + "      / /_  __/ /_____\n"
+                    + " __  / / / / / //_/ _ \\\n"
+                    + "/ /_/ / /_/ / ,< /  __/\n"
+                    + "\\____/\\__,_/_/|_|\\___/";
 
     /** Introductory statement used by the assistant when first booting up. */
-    private static final String INTRO = "What's up! My name is Juke (J|ava D|uke) and I will be your personal " +
-            "assistant for today!\nHow may I assist you?";
+    private static final String INTRO = "What's up! My name is Juke (J|ava D|uke) and I will be your personal "
+            + "assistant for today!\nHow may I assist you?";
 
     /** The Virtual Assistant's output CLI prompt. */
     private static final String JUKEOUTPUT = ">>> ";
@@ -103,10 +103,10 @@ public class Ui extends JukeObject {
      * Prints out the Introduction statements.
      */
     private void printIntroduction() {
-        String builder = Ui.LOGO +
-                Ui.SEPARATOR +
-                Ui.INTRO +
-                Ui.SEPARATOR;
+        String builder = Ui.LOGO
+                + Ui.SEPARATOR
+                + Ui.INTRO
+                + Ui.SEPARATOR;
 
         System.out.print(builder);
     }

@@ -1,4 +1,4 @@
-package main.java.juke.core;
+package juke.core;
 
 /**
  * Abstract Class that represents objects that Juke can handle.

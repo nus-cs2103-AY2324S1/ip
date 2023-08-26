@@ -1,4 +1,4 @@
-package main.java.juke.exceptions.arguments;
+package juke.exceptions.arguments;
 
 /**
  * Exception that is thrown when an illegal command argument is entered into

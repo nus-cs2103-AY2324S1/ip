@@ -1,4 +1,4 @@
-package main.java.juke.exceptions;
+package juke.exceptions;
 
 /**
  * Exception that encapsulates the situation whereby Juke cannot

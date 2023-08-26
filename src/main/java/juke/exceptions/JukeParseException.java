@@ -1,4 +1,4 @@
-package main.java.juke.exceptions;
+package juke.exceptions;
 
 /**
  * Represents an error thrown when the parser for the data files cannot

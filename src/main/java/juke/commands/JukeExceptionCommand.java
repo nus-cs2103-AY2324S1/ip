@@ -1,4 +1,4 @@
-package main.java.juke.commands;
+package juke.commands;
 
 /**
  * Action class that corresponds to an error action.

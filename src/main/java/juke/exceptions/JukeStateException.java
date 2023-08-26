@@ -1,4 +1,4 @@
-package main.java.juke.exceptions;
+package juke.exceptions;
 
 /**
  * Represents the error when the user tries to modify the state of
