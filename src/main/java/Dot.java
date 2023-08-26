@@ -157,6 +157,9 @@ public class Dot {
                             LocalDateTime parsedLocalDateTime = Parser.parseDateInputIntoDateTime(restOfString);
                             dotTaskList.listAllTasksFallingOnDate(parsedLocalDateTime);
                             break;
+                        } else if (input.equals("help")) {
+                            Ui.displayHelpMessage();
+                            break;
                         }
                         throw new DotException("Unknown command.", TaskError.ERR_READING_COMMAND);
                 }

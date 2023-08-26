@@ -15,8 +15,31 @@ public class Ui {
     public static void welcome() {
         System.out.printf("%s%sHello! I'm Dot, " +
                         "let me help you finish your tasks on the dot!\n" +
+                        "Datetime format for deadline/events: dd/MM/yyyy hhmm (e.g. 13/01/2020 1800)\n" +
+                        "Type 'help' to access the help menu!\n" +
                         "What can I do(t) for you?\n%s\n",
                 HORIZONTAL_RULE, LOGO, HORIZONTAL_RULE);
+    }
+
+    /**
+     * Displays help message with descriptions of all commands
+     */
+    public static void displayHelpMessage() {
+        String helpMessage = "Welcome to the help menu, DonT worry ^o^!\n" +
+                "<datetime> format for deadline/events: dd/MM/yyyy hhmm (e.g. 13/01/2020 1800)\n" +
+                "<date> format for whatsgoingon: dd/MM/yyyy (e.g. 13/01/2020)\n\n" +
+                "Commands:\n" +
+                "todo <description> – Add a todo task\n" +
+                "deadline <description> /by <deadline_description/datetime>\n" +
+                "event <description> /from <start_description/datetime> /to <start_description/datetime>\n" +
+                "list – List out all your tasks\n" +
+                "unmark <taskNo> – unmark task based on no. on the list\n" +
+                "mark <taskNo> – check off task based on no. on the list\n" +
+                "delete <taskNo> – delete task based on no. on the list\n" +
+                "whatsgoingon <date> – see what deadlines/events are ongoing for given date\n" +
+                "help – access this help menu\n" +
+                "bye – close Dot";
+        Ui.wrapPrintWithHorizontalRules(helpMessage);
     }
 
     /**
