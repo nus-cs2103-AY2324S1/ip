@@ -23,25 +23,27 @@ fi
 
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp \
-../src/main/java:\
-../src/main/java/primitives:\
-../src/main/java/actions:\
-../src/main/java/exceptions:\
-../src/main/java/exceptions/arguments:\
-../src/main/java/exceptions/storage:\
-../src/main/java/parsers:\
-../src/main/java/storage:\
-../src/main/java/tasks \
+../src/main/java/juke:\
+../src/main/java/juke/primitives:\
+../src/main/java/juke/actions:\
+../src/main/java/juke/exceptions:\
+../src/main/java/juke/exceptions/arguments:\
+../src/main/java/juke/exceptions/storage:\
+../src/main/java/juke/parsers:\
+../src/main/java/juke/storage:\
+../src/main/java/juke/tasks:\
+../src/main/java/juke/core \
 -Xlint:none -d ../bin \
-../src/main/java/*.java \
-../src/main/java/primitivies/*.java \
-../src/main/java/actions/*.java \
-../src/main/java/exceptions/*.java \
-../src/main/java/exceptions/arguments/*.java \
-../src/main/java/exceptions/storage/*.java \
-../src/main/java/parsers/*.java \
-../src/main/java/storage/*.java \
-../src/main/java/tasks/*.java
+../src/main/java/juke/*.java \
+../src/main/java/juke/primitivies/*.java \
+../src/main/java/juke/actions/*.java \
+../src/main/java/juke/exceptions/*.java \
+../src/main/java/juke/exceptions/arguments/*.java \
+../src/main/java/juke/exceptions/storage/*.java \
+../src/main/java/juke/parsers/*.java \
+../src/main/java/juke/storage/*.java \
+../src/main/java/juke/tasks/*.java \
+../src/main/java/juke/core/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
