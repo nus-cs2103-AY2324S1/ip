@@ -1,25 +1,29 @@
 public class DukeExceptionHandler {
     public static void handleEmptyInput() {
-        Duke.printDivider();
-        Duke.formatString(" OOPS!!! Please input a task.");
-        Duke.printDivider();
+        Ui ui = new Ui();
+        ui.showLine();
+        ui.formatString(" OOPS!!! Please input a task.");
+        ui.showLine();
     }
 
     public static void handleUnseenInput() {
-        Duke.printDivider();
-        Duke.formatString(" OOPS!!! I'm sorry, but I don't know what that means :-(");
-        Duke.printDivider();
+        Ui ui = new Ui();
+        ui.showLine();
+        ui.formatString(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+        ui.showLine();
     }
 
     public static void printErrorMsg(String s) {
-        Duke.printDivider();
-        Duke.formatString(" " + s);
-        Duke.printDivider();
+        Ui ui = new Ui();
+        ui.showLine();
+        ui.formatString(" " + s);
+        ui.showLine();
     }
 
     public static void handleTaskNumOutOfBounds(int taskNum) {
-        Duke.printDivider();
-        Duke.formatString(" OOPS!!! There is no task " + taskNum + ".");
-        Duke.printDivider();
+        Ui ui = new Ui();
+        ui.showLine();
+        ui.formatString(" OOPS!!! There is no task " + taskNum + ".");
+        ui.showLine();
     }
 }
