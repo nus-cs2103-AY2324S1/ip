@@ -28,7 +28,9 @@ public class Event extends Task {
      */
     public Event(String taskName, boolean isDone, String startTime, String endTime) {
         super(taskName);
-        super.completeTask();
+        if (isDone) {
+            super.quietlyCompleteTask();
+        }
         this.taskName = taskName;
         this.startTime = startTime;
         this.endTime = endTime;

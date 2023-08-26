@@ -33,9 +33,9 @@ public class TaskList {
      * @return a Task object of the right task type
      */
     public static Task parseTask(String storedTextLine) {
-        String[] splitString = storedTextLine.split(" | ");
+        String[] splitString = storedTextLine.split(" \\| ");
         String taskType = splitString[0];
-        Boolean taskStatus = Boolean.parseBoolean(splitString[1]);
+        boolean taskStatus = Boolean.parseBoolean(splitString[1]);
         String taskName = splitString[2];
         switch (taskType) {
             case "T":
@@ -51,6 +51,10 @@ public class TaskList {
                 return null;
         }
     }
+
+    private void addTaskInterally(Task task) {
+        this.taskList.add(task);
+    };
 
     /**
      * Adds a task to the taskList
@@ -103,11 +107,23 @@ public class TaskList {
         this.generateNewTaskList(storage);
     }
 
+    /**
+     * Generates a new task list after a task has been added or deleted
+     * @param storage   the storage object that is used to write to the file
+     */
     private void generateNewTaskList(Storage storage) {
         storage.clearFile();
         for (Task task : this.taskList) {
             storage.writeToFile(task.convertToSaveFormat());
         }
+    }
+
+    /**
+     *  Returns the length of the taskList
+     *  @return the length of the taskList
+     */
+    public int length() {
+        return this.taskList.size();
     }
 
 

@@ -23,7 +23,9 @@ public class ToDos extends Task {
      */
     public ToDos(String taskName, boolean isDone) {
         super(taskName);
-        super.completeTask();
+        if (isDone) {
+            super.quietlyCompleteTask();
+        }
     }
 
     /**

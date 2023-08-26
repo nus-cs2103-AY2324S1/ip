@@ -11,7 +11,8 @@ public enum Command {
 
     public static final String[] validCommands =
             {"list", "bye", "todo <task_name>", "deadline <task_name> /by <deadline>",
-                    "event <task_name> /from <start-time> /to <end-time>", "mark", "unmark", "delete <number>"};
+                    "event <task_name> /from <start-time> /to <end-time>", "mark <number>",
+                    "unmark <number>", "delete <number>"};
 
 
 

@@ -14,7 +14,7 @@ public class Duke {
 
     public void run() {
         Scanner scanner = new Scanner(System.in);
-        int totalItemNumber = 0;
+        int totalItemNumber = this.taskList.length();
         String chatBotName = "Benedict Cucumber Badge";
         System.out.println("Hello! I'm " + chatBotName);
         System.out.println("What can I do for you?");
@@ -35,7 +35,7 @@ public class Duke {
                             break;
                         case LIST:
                             System.out.println("Here are the tasks in your list:");
-                            for (int i = 0; i < totalItemNumber; i++) {
+                            for (int i = 0; i < this.taskList.length(); i++) {
                                 System.out.println(i + 1 + ". " + this.taskList.getTask(i));
                             }
                             break;
@@ -120,6 +120,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        new Duke("./data/duke.txt").run();
     }
 }

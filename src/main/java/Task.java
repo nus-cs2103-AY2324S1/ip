@@ -28,6 +28,12 @@ public class Task {
     }
 
     /**
+     * Completes a task without printing anything
+     */
+    public void quietlyCompleteTask() {
+        this.isDone = true;
+    }
+    /**
      * Mark a task as undone by setting done as false
      */
     public void undoTask() {

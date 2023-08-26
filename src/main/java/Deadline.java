@@ -24,7 +24,9 @@ public class Deadline extends Task {
      */
     public Deadline(String taskName, boolean isDone, String deadline) {
         super(taskName);
-        super.completeTask();
+        if (isDone) {
+            super.quietlyCompleteTask();
+        }
         this.taskName = taskName;
         this.deadline = deadline;
     }
