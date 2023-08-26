@@ -32,7 +32,7 @@ public class CommandFactory {
       }
     }
 
-    CommandBuilder cb = new CommandBuilder(name, arguments, out, taskList);
+    CommandBuilder cb = new CommandBuilder(command, name, arguments, out, taskList);
 
     switch (command) {
       case Command.LIST:
@@ -42,11 +42,9 @@ public class CommandFactory {
       case Command.UNMARK:
         return cb.unmark();
       case Command.TODO:
-        return cb.todo();
       case Command.DEADLINE:
-        return cb.deadline();
       case Command.EVENT:
-        return cb.event();
+        return cb.task();
       case Command.DELETE:
         return cb.delete();
       default:
@@ -56,12 +54,14 @@ public class CommandFactory {
 }
 
 class CommandBuilder {
+	private String command;
   private String name;
   private Map<String, String> arguments;
   private Printer out;
   private TaskList taskList;
 
-  CommandBuilder(String name, Map<String, String> arguments, Printer out, TaskList taskList) {
+  CommandBuilder(String command, String name, Map<String, String> arguments, Printer out, TaskList taskList) {
+		this.command = command;
     this.name = name;
     this.arguments = arguments;
     this.out = out;
@@ -80,18 +80,9 @@ class CommandBuilder {
     return new UnmarkCommand(out, taskList, name);
   }
 
-  AddTaskCommand todo() {
-    return AddTaskCommand.AddTodoCommand(out, taskList, name);
-  }
-
-  AddTaskCommand deadline() {
-    return AddTaskCommand.AddDeadlineCommand(out, taskList, name, arguments.getOrDefault("by", ""));
-  }
-
-  AddTaskCommand event() {
-    return AddTaskCommand.AddEventCommand(
-        out, taskList, name, arguments.getOrDefault("from", ""), arguments.getOrDefault("to", ""));
-  }
+	AddTaskCommand task() {
+		return new AddTaskCommand(out, taskList, Task.createTask(command, name, arguments));
+	}
 
   DeleteCommand delete() {
     return new DeleteCommand(out, taskList, name);
