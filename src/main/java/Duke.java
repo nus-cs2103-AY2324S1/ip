@@ -1,6 +1,9 @@
 import java.util.Scanner;
+
 public class Duke {
-    private TaskList taskList = new TaskList();
+    private Storage storage = new Storage();
+    private TaskList taskList;
+
     private enum Command {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
     }
@@ -12,6 +15,7 @@ public class Duke {
 
     private void exit() {
         String exitMsg = "Bye. Hope to see you again soon!";
+        this.storage.saveData(this.taskList);
         System.out.println(exitMsg);
     }
 
@@ -66,9 +70,13 @@ public class Duke {
         }
     }
 
+    private void start() {
+        this.greet();
+        this.taskList = new TaskList(this.storage.loadData());
+        this.listen();
+    }
+
     public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.greet();
-        duke.listen();
+        new Duke().start();
     }
 }
