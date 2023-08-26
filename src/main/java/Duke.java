@@ -18,7 +18,7 @@ public class Duke {
             "I'm sorry, but I don't know what \"%s\" means.";
 
     // Store list of tasks
-    private static final TaskList list = new TaskList();
+    private static final TaskList list = new TaskList("tasks.txt");
     // Check if chat has ended
     private static boolean hasEndedChat = false;
 

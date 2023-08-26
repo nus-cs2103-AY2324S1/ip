@@ -35,9 +35,10 @@ public class TaskList {
 
     /**
      * Constructor for a TaskList.
+     * @param saveFileName The name of the file to save the data to. Eg: tasks.txt
      */
-    public TaskList() {
-        this.taskStorage = new Storage("tasks.txt");
+    public TaskList(String saveFileName) {
+        this.taskStorage = new Storage(saveFileName);
         this.list = new ArrayList<>();
         this.importData();
     }
