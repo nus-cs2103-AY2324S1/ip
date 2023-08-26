@@ -3,6 +3,7 @@ package didier.task;
 import didier.exception.FileCorruptedException;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * The didier.task.Task class encapsulates a real-life didier.task. A basic didier.task has a description and keeps track of
@@ -53,14 +54,18 @@ public abstract class Task {
      * @return The corresponding didier.task.
      */
     public static Task parseFileString(String fileString) throws FileCorruptedException {
-        String[] task = fileString.split("\\|");
-        if (task[0].equals("T")) {
-            return new ToDo(task[2], Integer.parseInt(task[1]) != 0);
-        } else if (task[0].equals("D")) {
-            return new Deadline(task[2], LocalDate.parse(task[3]), Integer.parseInt(task[1]) != 0);
-        } else if (task[0].equals("E")){
-            return new Event(task[2], LocalDate.parse(task[3]),
-                    LocalDate.parse(task[4]), Integer.parseInt(task[1]) != 0);
+        try {
+            String[] task = fileString.split("\\|");
+            if (task[0].equals("T")) {
+                return new ToDo(task[2], Integer.parseInt(task[1]) != 0);
+            } else if (task[0].equals("D")) {
+                return new Deadline(task[2], LocalDate.parse(task[3]), Integer.parseInt(task[1]) != 0);
+            } else if (task[0].equals("E")) {
+                return new Event(task[2], LocalDate.parse(task[3]),
+                        LocalDate.parse(task[4]), Integer.parseInt(task[1]) != 0);
+            }
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
+            throw new FileCorruptedException();
         }
         throw new FileCorruptedException();
     }
