@@ -39,7 +39,7 @@ public abstract class Task implements Comparable<Task> {
         } else if (command.equals("deadline")){
             String contents = tokeniser.nextLine();
             if (!contents.contains("/by")) {
-                throw new IllegalCommandException("set a deadline wihtout a \"\\by\"");
+                throw new IllegalCommandException("set a deadline wihtout a \"/by\"");
             } else if (contents.contains("/from") || contents.contains("/to")) {
                 throw new IllegalCommandException("do that for a deadline," +
                         "are you thinking of an event?");
@@ -48,8 +48,8 @@ public abstract class Task implements Comparable<Task> {
             newTask = new Deadline(parts[0], parts[1]);
         } else {
             String contents = tokeniser.nextLine();
-            if (contents.contains("/from") && contents.contains("/to")) {
-                throw new IllegalCommandException("set an event wihtout a \"\\from\" and \"\\to\"");
+            if (!contents.contains("/from") || !contents.contains("/to")) {
+                throw new IllegalCommandException("set an event wihtout a \"/from\" and/or \"/to\"");
             } else if (contents.contains("/by")) {
                 throw new IllegalCommandException("do that for an event," +
                         "are you thinking of a deadline?");

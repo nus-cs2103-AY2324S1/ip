@@ -40,6 +40,9 @@ public class Duke {
     }
 
     private void changeMark(String command, Scanner tokeniser) throws IllegalCommandException {
+        if (!tokeniser.hasNext()) {
+            throw new IllegalCommandException("do that without specifying a task number");
+        }
         String content = tokeniser.next();
         if (isInteger(content)) {
             int id = Integer.parseInt(content);
@@ -60,6 +63,9 @@ public class Duke {
     }
 
     private void deleteTask(Scanner tokeniser) throws IllegalCommandException {
+        if (!tokeniser.hasNext()) {
+            throw new IllegalCommandException("do that without specifying a task number");
+        }
         String content = tokeniser.next();
         if (isInteger(content)) {
             int id = Integer.parseInt(content);
@@ -96,23 +102,19 @@ public class Duke {
                 this.list();
                 continue;
             } else if (command.equals("mark") || command.equals("unmark")) {
-                if (tokeniser.hasNext()) {
-                    try {
-                        changeMark(command, tokeniser);
-                    } catch (IllegalCommandException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    continue;
+                try {
+                    changeMark(command, tokeniser);
+                } catch (IllegalCommandException e) {
+                    System.out.println(e.getMessage());
                 }
+                continue;
             } else if (command.equals("delete")) {
-                if (tokeniser.hasNext()) {
-                    try {
-                        deleteTask(tokeniser);
-                    } catch (IllegalCommandException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    continue;
+                try {
+                    deleteTask(tokeniser);
+                } catch (IllegalCommandException e) {
+                    System.out.println(e.getMessage());
                 }
+                continue;
             }
             try {
                 Task newTask = Task.addTask(command, tokeniser);
