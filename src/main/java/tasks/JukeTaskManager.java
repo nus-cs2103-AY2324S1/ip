@@ -13,6 +13,13 @@ import java.util.LinkedList;
  * other child JukeTasks subsumed under its control.
  */
 public class JukeTaskManager extends JukeObject {
+    /** Header for Task Manager String representation. */
+    private static final String HEADER = "\n\t>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TASK LIST <<<<<<<<<<<<<<" +
+            "<<<<<<<<<<<<<<<<<<<<<\n";
+
+    /** String representation of the Task Manager when it is empty. */
+    private static final String EMPTY = "\t\t\t\t\t\t\t\t\t!No Tasks Present!";
+
     /** List of JukeTasks under this Task Manager's control. */
     private final LinkedList<JukeTask> tasks;
 
@@ -122,17 +129,17 @@ public class JukeTaskManager extends JukeObject {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("\n\t>>>>>>>>>>>>>>>>>>>> TASK LIST <<<<<<<<<<<<<<<<<<<<\n");
+        builder.append(JukeTaskManager.HEADER);
 
         if (this.tasks.isEmpty()) {
-            builder.append("\t\t\t\t\t!No Tasks Present!");
-        }
-
-        for (int i = 0; i < this.tasks.size(); i++) {
-            builder.append("\t")
-                   .append((i + 1) + ". ")
-                   .append(this.tasks.get(i))
-                   .append("\n");
+            builder.append(JukeTaskManager.EMPTY);
+        } else {
+            for (int i = 0; i < this.tasks.size(); i++) {
+                builder.append("\t")
+                       .append((i + 1) + ". ")
+                       .append(this.tasks.get(i))
+                       .append("\n");
+            }
         }
 
         return builder.toString();

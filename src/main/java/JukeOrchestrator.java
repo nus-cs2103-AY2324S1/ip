@@ -18,7 +18,8 @@ import java.util.Scanner;
  */
 public class JukeOrchestrator extends JukeObject {
     /** Separator used by the virtual assistant to demarcate the start or end of a conversation */
-    private static final String SEPARATOR = "\n-----------------------------------------------------------------------\n";
+    private static final String SEPARATOR = "\n-----------------------------------------------------------" +
+            "-------------------------------\n";
 
     /**
      * Juke Logo made from ASCII Art. Credits go to:
@@ -32,8 +33,8 @@ public class JukeOrchestrator extends JukeObject {
                     "\\____/\\__,_/_/|_|\\___/";
 
     /** Introductory statement used by the assistant when first booting up. */
-    private static final String INTRO = "What's up! My name is Juke (J|ava D|uke) and I will be your personal\n" +
-            "assistant for today! How may I assist you?";
+    private static final String INTRO = "What's up! My name is Juke (J|ava D|uke) and I will be your personal " +
+            "assistant for today!\nHow may I assist you?";
 
     /** The Virtual Assistant's output CLI prompt. */
     private static final String JUKEOUTPUT = ">>> ";

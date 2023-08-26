@@ -1,5 +1,8 @@
 package main.java.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a Deadline task.
  */
@@ -8,14 +11,14 @@ public class JukeDeadline extends JukeTask {
     private static final String TASK_DESCRIPTOR = "[D] ";
 
     /** Deadline for Task. */
-    private String deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Constructor for JukeDeadline.
      * @param task Task description
      * @param deadline Deadline for task
      */
-    public JukeDeadline(String task, String deadline) {
+    public JukeDeadline(String task, LocalDateTime deadline) {
         super(task);
         this.deadline = deadline;
     }
@@ -26,7 +29,7 @@ public class JukeDeadline extends JukeTask {
      * @param deadline Deadline for task
      * @param completion Status of completion of the task
      */
-    public JukeDeadline(String task, String deadline, boolean completion) {
+    public JukeDeadline(String task, LocalDateTime deadline, boolean completion) {
         this(task, deadline);
 
         if (completion) {
@@ -49,6 +52,7 @@ public class JukeDeadline extends JukeTask {
      */
     @Override
     public String toString() {
-        return JukeDeadline.TASK_DESCRIPTOR + super.toString() + " (by: " + this.deadline + ")";
+        return JukeDeadline.TASK_DESCRIPTOR + super.toString() + " (by: " +
+                this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm")) + " hrs)";
     }
 }

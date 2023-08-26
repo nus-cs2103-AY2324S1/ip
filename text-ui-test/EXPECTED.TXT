@@ -3,61 +3,68 @@
  __  / / / / / //_/ _ \
 / /_/ / /_/ / ,< /  __/
 \____/\__,_/_/|_|\___/
------------------------------------------------------------------------
-What's up! My name is Juke (J|ava D|uke) and I will be your personal
-assistant for today! How may I assist you?
------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+What's up! My name is Juke (J|ava D|uke) and I will be your personal assistant for today!
+How may I assist you?
+------------------------------------------------------------------------------------------
 juke> >>>
-	>>>>>>>>>>>>>>>>>>>> TASK LIST <<<<<<<<<<<<<<<<<<<<
-	1. [E] [ ] i love cs (from now to forever)
-	2. [T] [✓] complete ip week3
-	3. [D] [✓] complete cs2100 labs (by: monday)
+	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TASK LIST <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	1. [E] [✓] splashdown (from 24 Apr 2022, 0000 hrs to 25 Apr 2022, 0000 hrs)
+	2. [D] [ ] finish cs career (by: 31 Dec 9999, 0000 hrs)
+	3. [T] [ ] finish cs2100 lecture
+	4. [E] [ ] very big event oh no (from 25 Dec 2023, 0000 hrs to 26 Dec 2023, 0000 hrs)
 
------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 juke> >>> Task added: [T] [ ] complete tp
------------------------------------------------------------------------
-juke> >>> Task added: [D] [ ] go to bed (by: now)
------------------------------------------------------------------------
-juke> >>> Task added: [E] [ ] go to prom (from tonight to tomorrow)
------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+juke> >>> Task added: [D] [ ] go to bed (by: 31 Dec 9999, 2359 hrs)
+------------------------------------------------------------------------------------------
+juke> >>> Task added: [E] [ ] go to prom (from 09 Aug 2023, 0000 hrs to 10 Aug 2023, 0000 hrs)
+------------------------------------------------------------------------------------------
 juke> >>>
-	>>>>>>>>>>>>>>>>>>>> TASK LIST <<<<<<<<<<<<<<<<<<<<
-	1. [E] [ ] i love cs (from now to forever)
-	2. [T] [✓] complete ip week3
-	3. [D] [✓] complete cs2100 labs (by: monday)
-	4. [T] [ ] complete tp
-	5. [D] [ ] go to bed (by: now)
-	6. [E] [ ] go to prom (from tonight to tomorrow)
+	>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TASK LIST <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	1. [E] [✓] splashdown (from 24 Apr 2022, 0000 hrs to 25 Apr 2022, 0000 hrs)
+	2. [D] [ ] finish cs career (by: 31 Dec 9999, 0000 hrs)
+	3. [T] [ ] finish cs2100 lecture
+	4. [E] [ ] very big event oh no (from 25 Dec 2023, 0000 hrs to 26 Dec 2023, 0000 hrs)
+	5. [T] [ ] complete tp
+	6. [D] [ ] go to bed (by: 31 Dec 9999, 2359 hrs)
+	7. [E] [ ] go to prom (from 09 Aug 2023, 0000 hrs to 10 Aug 2023, 0000 hrs)
 
------------------------------------------------------------------------
-juke> >>> Task Marked as Done!
-[E] [✓] i love cs (from now to forever)
------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 juke> >>> Error: Oh no! The task selected is already completed!
------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+juke> >>> Error: Oh no! The task selected is already completed!
+------------------------------------------------------------------------------------------
 juke> >>> Task Marked as Undone!
-[E] [ ] i love cs (from now to forever)
------------------------------------------------------------------------
+[E] [ ] splashdown (from 24 Apr 2022, 0000 hrs to 25 Apr 2022, 0000 hrs)
+------------------------------------------------------------------------------------------
 juke> >>> Error: The task selected is already not completed!
------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 juke> >>> Error: Oh no! I do not have such task recorded!
------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 juke> >>> Error: Oh no! I do not have such task recorded!
------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 juke> Error: Oh no! I cannot understand your todo command!
 Usage: todo [description]
------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
 juke> Error: Oh no! I cannot understand your deadline command!
-Usage: deadline [description] /by [deadline]
------------------------------------------------------------------------
+Usage: deadline [description] /by [DD(-/|)MM(-/|)YYYY HH(-:)MM or DD(-/|)MM(-/|)YYYY]
+(..) -> any of
+------------------------------------------------------------------------------------------
 juke> Error: Oh no! I cannot understand your event command!
-Usage: event [description] /from [from time] /to [to time]
------------------------------------------------------------------------
+Usage: event [description] /from [DD(-/|)MM(-/|)YYYY HH(-:)MM or DD(-/|)MM(-/|)YYYY]
+/to [DD(-/|)MM(-/|)YYYY HH(-:)MM or DD(-/|)MM(-/|)YYYY]
+(..) -> any of
+------------------------------------------------------------------------------------------
 juke> Error: Oh no! I cannot understand your deadline command!
-Usage: deadline [description] /by [deadline]
------------------------------------------------------------------------
+Usage: deadline [description] /by [DD(-/|)MM(-/|)YYYY HH(-:)MM or DD(-/|)MM(-/|)YYYY]
+(..) -> any of
+------------------------------------------------------------------------------------------
 juke> Error: Oh no! I cannot understand your event command!
-Usage: event [description] /from [from time] /to [to time]
------------------------------------------------------------------------
+Usage: event [description] /from [DD(-/|)MM(-/|)YYYY HH(-:)MM or DD(-/|)MM(-/|)YYYY]
+/to [DD(-/|)MM(-/|)YYYY HH(-:)MM or DD(-/|)MM(-/|)YYYY]
+(..) -> any of
+------------------------------------------------------------------------------------------
 juke> >>> Goodbye!
------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
