@@ -121,6 +121,17 @@ public class ParserTest {
     }
 
     @Test
+    public void parse_find_exceptionThrown() {
+        try {
+            Command command = Parser.parse("find    ");
+            assertEquals(command instanceof FindCommand, false);
+            fail();
+        } catch (DidierException e) {
+            assertEquals("The keyword of the task is missing. ", e.getMessage());
+        }
+    }
+
+    @Test
     public void parse_invalidCommand_exceptionThrown() {
         try {
             Command command = Parser.parse("g");

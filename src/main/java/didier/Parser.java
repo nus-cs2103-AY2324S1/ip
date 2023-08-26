@@ -5,6 +5,7 @@ import didier.command.AddCommand;
 import didier.command.Command;
 import didier.command.DeleteCommand;
 import didier.command.ExitCommand;
+import didier.command.FindCommand;
 import didier.command.ListCommand;
 import didier.command.MarkCommand;
 import didier.exception.DateFormatException;
@@ -85,6 +86,11 @@ public class Parser {
                     }
                 }
             }
+        case FIND:
+            if (options.length == 1 || options[1].isBlank()) {
+                throw new ElementMissingException("keyword");
+            }
+            return new FindCommand(options[1]);
         case BYE:
             return new ExitCommand();
         default:
@@ -100,6 +106,7 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
+        FIND,
         BYE,
         UNKNOWN;
 

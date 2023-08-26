@@ -87,4 +87,14 @@ public abstract class Task {
         }
         throw new FileCorruptedException();
     }
+
+    /**
+     * Returns whether the description of this task contains the keyword or not.
+     *
+     * @param keyword The keyword to search for in the task description.
+     * @return Whether the task description contains the keyword or not.
+     */
+    public boolean descriptionHasKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
 }

@@ -69,6 +69,20 @@ public class UI {
     }
 
     /**
+     * Prints a message to the user informing them of the tasks in their list that match
+     * a particular keyword.
+     *
+     * @param taskList The list of tasks in their list that match the keyword.
+     * @throws TaskNumberException If the task list is accessed at an invalid task index.
+     */
+    public void botPrintTaskKeywordList(TaskList taskList) throws TaskNumberException {
+        botPrintMessage("The tasks that match the keyword in your lists are as follows:");
+        for (int i = 1; i <= taskList.getSize(); i++) {
+            botPrintMessage(String.format("%d.%s", i, taskList.getTask(i)));
+        }
+    }
+
+    /**
      * Prints a message to the user informing them that a task has been removed.
      *
      * @param task The task that has been removed.
