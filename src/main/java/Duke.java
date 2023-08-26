@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,47 +16,47 @@ public class Duke {
         this.arr = new ArrayList<>();
     }
 
-    public void printExitMessage() {
+    private void printExitMessage() {
         String exitMsg = "Bye. Hope to see you again soon!";
         System.out.println(partition + "\n   " + exitMsg + "\n" + partition);
     }
 
-    public void addToList(String text) {
+    private void addToList(String text) {
         ToDo newTask = new ToDo(text);
         this.arr.add(newTask);
         System.out.println(partition + "\nadded:\n" + newTask + "\n" +
         "You have " + this.arr.size() + " tasks in the list.\n" + partition);
     }
 
-    public void addToList(String text, String dueDate) {
+    private void addToList(String text, String dueDate) {
         Deadline newTask = new Deadline(text, dueDate);
         this.arr.add(newTask);
         System.out.println(partition + "\nadded:\n" + newTask + "\nYou have "
         + this.arr.size() + " tasks in the list.\n" + partition);
     }
 
-    public void addToList(String text, String startDate, String endDate) {
+    private void addToList(String text, String startDate, String endDate) {
         Event newTask = new Event(text, startDate, endDate);
         this.arr.add(newTask);
         System.out.println(partition + "\nadded:\n" + newTask + "\nYou have "
         + this.arr.size() + " tasks in the list.\n" + partition);
     }
 
-    public void markTask(int index) {
+    private void markTask(int index) {
         Task curr = arr.get(index - 1);
         curr.changeStatus();
         System.out.println(partition + "\nNice! I've marked this task as done:\n" 
         + curr + "\n" + partition);
     }
 
-    public void unmarkTask(int index) {
+    private void unmarkTask(int index) {
         Task curr = arr.get(index - 1);
         curr.changeStatus();
         System.out.println(partition + "\nOK, I've marked this task as not done yet:\n"
         + curr + "\n" + partition);
     }
 
-    public void printList() {
+    private void printList() {
         System.out.println(partition);
         for (int i = 0; i < arr.size(); i++) {
             int index = i + 1;
@@ -59,19 +65,85 @@ public class Duke {
         System.out.println(partition);
     }
 
-    public void initialise() {
+    private void initialise() {
         System.out.println(partition + "\n" + "Hello! I'm Rion");
         System.out.println("What can I do for you?\n" + partition);
     }
 
-    public void deleteTask(int index) {
+    private void deleteTask(int index) {
         Task curr = arr.get(index - 1);
         arr.remove(index - 1);
         System.out.println(partition + "\nOK, I've deleted the task:\n" 
         + curr + "\nNow you have " + arr.size() + " tasks in the list.");
     }
 
-    public void runRion() {
+    private void getList() throws DukeException {
+        try {
+            File listFile = new File("./data/duke.txt");
+            BufferedReader br = new BufferedReader(new FileReader(listFile));
+
+            String input;
+            while ((input = br.readLine()) != null) {
+                String[] splitInput = input.split(" \\| ");
+                switch (splitInput[0]) {
+                case "T":
+                    ToDo newToDo = new ToDo(splitInput[2]);
+                    if (Integer.parseInt(splitInput[1]) == 1) {
+                        newToDo.changeStatus();
+                    }
+                    this.arr.add(newToDo);
+                    break;
+                case "D":
+                    Deadline newDeadline = new Deadline(splitInput[2], splitInput[3]);
+                    if (Integer.parseInt(splitInput[1]) == 1) {
+                        newDeadline.changeStatus();
+                    }
+                    this.arr.add(newDeadline);
+                    break;
+                
+                case "E":
+                    String[] timeInput = splitInput[3].split("-");
+                    Event newEvent = new Event(splitInput[2], timeInput[0], timeInput[1]);
+                    if (Integer.parseInt(splitInput[1]) == 1) {
+                        newEvent.changeStatus();
+                    }
+                    this.arr.add(newEvent);
+                    break;
+                default:
+                    throw new DukeException("OOPS! Unexpected type of task found!");
+                }
+            }
+        } catch (IOException e) {
+            throw new DukeException("An IOException has occurred!");
+        } catch (NumberFormatException e) {
+            throw new DukeException("OOPS! Unexpected done value occurred!");
+        }
+    }
+
+    private void saveList() throws DukeException {
+        try {
+            File file = new File("./data/duke.txt");
+            file.getParentFile().mkdirs();
+
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            for (Task t : arr) {
+                bw.append(t.getOutputString());
+                bw.append("\n");
+            }
+            bw.close();
+        } catch (IOException e) {
+            throw new DukeException(partition + "\nAn IOException has occurred!\n"
+            + partition);
+        }
+    }
+
+    private void runRion() {
+        try {
+            this.getList();
+        } catch (DukeException e) {
+            System.out.println(partition + "\n" + e.getMessage() + "\n"
+            + partition);
+        }
         this.initialise();
 
         boolean endBot = false;
@@ -140,6 +212,7 @@ public class Duke {
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
+                this.saveList();
             } catch (DukeException e) {
                 System.out.println((e.getMessage()));
             }

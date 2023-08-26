@@ -9,6 +9,12 @@ public class Event extends Task {
     }
 
     @Override
+    public String getOutputString() {
+        return String.format("E | %d | %s | %s", isDone ? 1 : 0, description, 
+        startTime.concat("-" + endTime));
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.startTime + " to: " 
         + this.endTime + ")";
