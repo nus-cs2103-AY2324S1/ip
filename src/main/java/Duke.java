@@ -1,9 +1,7 @@
 import java.util.Scanner;
-
+import java.util.ArrayList;
 public class Duke {
-
-    private static Task[] currList = new Task[100];
-    private static int counter = 0;
+    private static ArrayList<Task> currList = new ArrayList<>();
 
     public static void main(String[] args) {
         greetUser();
@@ -48,6 +46,8 @@ public class Duke {
             markTask(currInput);
         } else if (currInput.startsWith("unmark")) {
             unmarkTask(currInput);
+        } else if (currInput.startsWith("delete")) {
+            deleteTask(currInput);
         } else {
             if (currInput.isEmpty()) {
                 throw new DukeException("The description of a task cannot be empty.");
@@ -58,12 +58,12 @@ public class Duke {
     }
 
     private static void listTasks() {
-        if (counter == 0) {
+        if (currList.isEmpty()) {
             System.out.println(">  You have no tasks :)");
         } else {
             System.out.println(">  Your tasks: ");
-            for (int i = 0; i < counter; i++) {
-                System.out.println((i + 1) + ") " + currList[i]);
+            for (int i = 0; i < currList.size(); i++) {
+                System.out.println((i + 1) + ") " + currList.get(i));
             }
         }
     }
@@ -73,8 +73,8 @@ public class Duke {
             throw new DukeException("The description of a To Do task cannot be empty.");
         }
         String description = currInput.substring(5).trim();
-        currList[counter++] = new Todo(description);
-        System.out.println(">  Added To Do Task: " + currList[counter - 1]);
+        currList.add(new Todo(description));
+        System.out.println(">  Added To Do Task: " + currList.get(currList.size() - 1));
     }
 
     private static void addDeadline(String currInput) throws DukeException {
@@ -87,8 +87,8 @@ public class Duke {
         }
         String description = sections[0].substring(9).trim();
         String by = sections[1].trim();
-        currList[counter++] = new Deadline(description, by);
-        System.out.println(">  Added Deadline Task: " + currList[counter - 1]);
+        currList.add(new Deadline(description, by));
+        System.out.println(">  Added Deadline Task: " + currList.get(currList.size() - 1));
     }
 
     private static void addEvent(String currInput) throws DukeException {
@@ -102,27 +102,37 @@ public class Duke {
         String description = sections[0].substring(6).trim();
         String from = sections[1].trim();
         String to = sections[2].trim();
-        currList[counter++] = new Event(description, from, to);
-        System.out.println(">  Added Event Task: " + currList[counter - 1]);
+        currList.add(new Event(description, from, to));
+        System.out.println(">  Added Event Task: " + currList.get(currList.size() - 1));
     }
 
     private static void markTask(String currInput) throws DukeException {
         int index = Integer.parseInt(currInput.split(" ")[1]) - 1;
-        if (index < 0 || index >= counter) {
+        if (index < 0 || index >= currList.size()) {
             throw new DukeException("Task " + (index + 1) + " was not found.");
         }
-        currList[index].setCompleted();
+        currList.get(index).setCompleted();
         System.out.println(">  ok, you have completed Task " + (index + 1));
-        System.out.println(currList[index]);
+        System.out.println(currList.get(index));
     }
 
     private static void unmarkTask(String currInput) throws DukeException {
         int index = Integer.parseInt(currInput.split(" ")[1]) - 1;
-        if (index < 0 || index >= counter) {
+        if (index < 0 || index >= currList.size()) {
             throw new DukeException("Task " + (index + 1) + " was not found.");
         }
-        currList[index].setNotCompleted();
+        currList.get(index).setNotCompleted();
         System.out.println(">  ok, you haven't completed Task " + (index + 1));
-        System.out.println(currList[index]);
+        System.out.println(currList.get(index));
+    }
+
+    private static void deleteTask(String currInput) throws DukeException {
+        int index = Integer.parseInt(currInput.split(" ")[1]) -1;
+        if (index < 0 || index >= currList.size()) {
+            throw new DukeException("Task " + (index + 1) + " was not found.");
+        }
+        Task deleted = currList.remove(index);
+        System.out.println(">  Task " + (index + 1) + " has been removed");
+        System.out.println(">  " + deleted + " has been deleted.");
     }
 }
