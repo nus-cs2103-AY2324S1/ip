@@ -1,6 +1,11 @@
 package horo.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TaskList {
 
@@ -60,6 +65,26 @@ public class TaskList {
       System.out.println(t);
     } catch (IndexOutOfBoundsException e) {
       System.out.println("Please enter a valid number from 1 - " + taskList.size());
+    }
+  }
+
+  public void findTask(Collection<String> keywords) {
+    ArrayList<Task> matchedTasks = new ArrayList<>();
+    for (Task task : taskList) {
+      final Set<String> wordsInDescription = new HashSet<>(Arrays.asList(task.getDescription().split(" ")));
+      if (!Collections.disjoint(wordsInDescription, keywords)) {
+        matchedTasks.add(task);
+      }
+    }
+
+    if (matchedTasks.isEmpty()) {
+      System.out.println("No tasks found");
+      return;
+    }
+
+    System.out.println("Here are the matching tasks in your list:");
+    for (int i = 0; i < matchedTasks.size(); i++) {
+      System.out.println((i + 1) + ". " + matchedTasks.get(i));
     }
   }
 

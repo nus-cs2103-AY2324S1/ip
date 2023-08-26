@@ -1,5 +1,6 @@
 package horo;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 
@@ -81,6 +82,9 @@ public class Horo {
             break;
           }
           storage.updateTaskData(taskList);
+          break;
+        case FIND:
+          taskList.findTask(Arrays.asList(m.group(1).split(" ")));
           break;
         default:
           break;

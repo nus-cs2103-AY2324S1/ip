@@ -19,13 +19,15 @@ public enum Command {
   DEADLINE("^deadline ([\\w ]+) \\/by (\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2})",
       "deadline <description> /by yyyy/mm/dd HH:mm"),
   EVENT("^event ([\\w ]+) \\/from (\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}) \\/to (\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2})",
-      "event <description> /from yyyy/mm/dd HH:mm /to yyyy/mm/dd HH:mm");
+      "event <description> /from yyyy/mm/dd HH:mm /to yyyy/mm/dd HH:mm"),
+  FIND("^find ([\\w ]+)",
+      "find <query>");
 
   private final Pattern pattern;
   private final String format;
 
   private static final Pattern commandPattern = Pattern
-      .compile("^(deadline|todo|event|bye|mark|unmark|list|delete)");
+      .compile("^(deadline|todo|event|bye|mark|unmark|list|delete|find)");
 
   Command(String regex, String format) {
     this.pattern = Pattern.compile(regex);
