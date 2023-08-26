@@ -16,25 +16,11 @@ public class CommandFactory {
   // command, arguement name cannot have spaces
   // name and arugment can have spaces
   public Command parse(String line) {
-    String[] input = line.split(" ", 2);
-    String command = input[0];
-    String name = "";
-    Map<String, String> arguments = new HashMap<>();
+		CommandStructure cs = CommandStructure.parse(line);
 
-    if (input.length == 2) {
-      String[] arr = input[1].split("/");
-      name = arr[0].trim();
-      for (int i = 1; i < arr.length; ++i) {
-        String[] argument = arr[i].split(" ", 2);
-        String value = "";
-        if (argument.length == 2) value = argument[1].trim();
-        arguments.put(argument[0].trim(), value);
-      }
-    }
+    CommandBuilder cb = new CommandBuilder(cs.command, cs.name, cs.arguments, out, taskList);
 
-    CommandBuilder cb = new CommandBuilder(command, name, arguments, out, taskList);
-
-    switch (command) {
+    switch (cs.command) {
       case Command.LIST:
         return cb.list();
       case Command.MARK:
