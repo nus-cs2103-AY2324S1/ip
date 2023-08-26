@@ -1,8 +1,8 @@
 list
 todo borrow book
 list
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 26/8/2023 1200
+event project meeting /from 22/8/2023 2359 /to 31/12/2100 0000
 mark 2
 list
 mark 4
@@ -29,8 +29,8 @@ markk
 unmarkk
 mark   1
 unmark        1
-deadline      space    test     /by      Sunday
-event      many      spaces      /from     Mon 2pm /to      4pm
+deadline      space    test     /by      22/8/2100 1111
+event      many      spaces      /from     22/8/2500 1111 /to   22/8/2800 2222
 todo             spaces
 list
 delete 1
@@ -48,4 +48,6 @@ delete
 deadline test no deadline /by
 event test no from /from     /to   tomorrow
 event test no to /from today /to
+deadline test bad date /by 33/12/1000 2000
+deadline test bad time /by 31/12/1000 2401
 bye

@@ -11,50 +11,50 @@ Here are your tasks:
 1.[T][ ] borrow book
 
 Got it, I've added this task:
- [D][ ] return book (by: Sunday)
+ [D][ ] return book (by: 26 Aug 2023 12:00)
 Now you have 2 tasks in the list.
 
 Got it, I've added this task:
- [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ [E][ ] project meeting (from: 22 Aug 2023 23:59 to: 31 Dec 2100 00:00)
 Now you have 3 tasks in the list.
 
 Nice! I've marked this task as done:
- [D][X] return book (by: Sunday)
+ [D][X] return book (by: 26 Aug 2023 12:00)
 
 Here are your tasks:
 1.[T][ ] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][X] return book (by: 26 Aug 2023 12:00)
+3.[E][ ] project meeting (from: 22 Aug 2023 23:59 to: 31 Dec 2100 00:00)
 
 Task 4 does not exist
 
 Here are your tasks:
 1.[T][ ] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][X] return book (by: 26 Aug 2023 12:00)
+3.[E][ ] project meeting (from: 22 Aug 2023 23:59 to: 31 Dec 2100 00:00)
 
 OK! I've marked this task as not done:
- [D][ ] return book (by: Sunday)
+ [D][ ] return book (by: 26 Aug 2023 12:00)
 
 Here are your tasks:
 1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: 26 Aug 2023 12:00)
+3.[E][ ] project meeting (from: 22 Aug 2023 23:59 to: 31 Dec 2100 00:00)
 
 Task 4 does not exist
 
 Here are your tasks:
 1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: 26 Aug 2023 12:00)
+3.[E][ ] project meeting (from: 22 Aug 2023 23:59 to: 31 Dec 2100 00:00)
 
 OK! I've marked this task as not done:
  [T][ ] borrow book
 
 Here are your tasks:
 1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: 26 Aug 2023 12:00)
+3.[E][ ] project meeting (from: 22 Aug 2023 23:59 to: 31 Dec 2100 00:00)
 
 Got it, I've added this task:
  [T][ ] todo
@@ -62,8 +62,8 @@ Now you have 4 tasks in the list.
 
 Here are your tasks:
 1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: 26 Aug 2023 12:00)
+3.[E][ ] project meeting (from: 22 Aug 2023 23:59 to: 31 Dec 2100 00:00)
 4.[T][ ] todo
 
 Nice! I've marked this task as done:
@@ -109,11 +109,11 @@ OK! I've marked this task as not done:
  [T][ ] borrow book
 
 Got it, I've added this task:
- [D][ ] space    test     (by: Sunday)
+ [D][ ] space    test     (by: 22 Aug 2100 11:11)
 Now you have 5 tasks in the list.
 
 Got it, I've added this task:
- [E][ ] many      spaces      (from: Mon 2pm to: 4pm)
+ [E][ ] many      spaces      (from: 22 Aug 2500 11:11 to: 22 Aug 2800 22:22)
 Now you have 6 tasks in the list.
 
 Got it, I've added this task:
@@ -122,11 +122,11 @@ Now you have 7 tasks in the list.
 
 Here are your tasks:
 1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+2.[D][ ] return book (by: 26 Aug 2023 12:00)
+3.[E][ ] project meeting (from: 22 Aug 2023 23:59 to: 31 Dec 2100 00:00)
 4.[T][ ] todo
-5.[D][ ] space    test     (by: Sunday)
-6.[E][ ] many      spaces      (from: Mon 2pm to: 4pm)
+5.[D][ ] space    test     (by: 22 Aug 2100 11:11)
+6.[E][ ] many      spaces      (from: 22 Aug 2500 11:11 to: 22 Aug 2800 22:22)
 7.[T][ ] spaces
 
 Noted. I've removed this task:
@@ -134,22 +134,22 @@ Noted. I've removed this task:
 Now you have 6 tasks in the list.
 
 Here are your tasks:
-1.[D][ ] return book (by: Sunday)
-2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+1.[D][ ] return book (by: 26 Aug 2023 12:00)
+2.[E][ ] project meeting (from: 22 Aug 2023 23:59 to: 31 Dec 2100 00:00)
 3.[T][ ] todo
-4.[D][ ] space    test     (by: Sunday)
-5.[E][ ] many      spaces      (from: Mon 2pm to: 4pm)
+4.[D][ ] space    test     (by: 22 Aug 2100 11:11)
+5.[E][ ] many      spaces      (from: 22 Aug 2500 11:11 to: 22 Aug 2800 22:22)
 6.[T][ ] spaces
 
 Noted. I've removed this task:
- [D][ ] space    test     (by: Sunday)
+ [D][ ] space    test     (by: 22 Aug 2100 11:11)
 Now you have 5 tasks in the list.
 
 Here are your tasks:
-1.[D][ ] return book (by: Sunday)
-2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+1.[D][ ] return book (by: 26 Aug 2023 12:00)
+2.[E][ ] project meeting (from: 22 Aug 2023 23:59 to: 31 Dec 2100 00:00)
 3.[T][ ] todo
-4.[E][ ] many      spaces      (from: Mon 2pm to: 4pm)
+4.[E][ ] many      spaces      (from: 22 Aug 2500 11:11 to: 22 Aug 2800 22:22)
 5.[T][ ] spaces
 
 Invalid Input
@@ -162,10 +162,10 @@ Invalid arguments for todo
 Please follow: todo <task>
 
 Invalid arguments for deadline
-Please follow: deadline <task> /by <deadline_date>
+Please follow: deadline <task> /by <d/M/yyyy HHmm>
 
 Invalid arguments for event
-Please follow: event <task> /from <from_date> /to <to_date>
+Please follow: event <task> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>
 
 Invalid arguments for mark
 Please follow: mark <task_num>
@@ -177,12 +177,16 @@ Invalid arguments for delete
 Please follow: delete <task_num>
 
 Invalid arguments for deadline
-Please follow: deadline <task> /by <deadline_date>
+Please follow: deadline <task> /by <d/M/yyyy HHmm>
 
 Invalid arguments for event
-Please follow: event <task> /from <from_date> /to <to_date>
+Please follow: event <task> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>
 
 Invalid arguments for event
-Please follow: event <task> /from <from_date> /to <to_date>
+Please follow: event <task> /from <d/M/yyyy HHmm> /to <d/M/yyyy HHmm>
+
+Failed to parse datetime.
+
+Failed to parse datetime.
 
 Bye. Hope to see you again soon!
