@@ -26,20 +26,22 @@ public class Duke {
                         Task taskInstance = new Task("");
                         if (elements[0].equals("mark")) {
                             taskInstance.mark(no);
-                            continue;
                         }
                         else {
                             taskInstance.unmark(no);
-                            continue;
                         }
+                        continue;
                     } catch (NumberFormatException e) {
                         System.err.println("You did not enter a valid integer :(");
                     }
                 }
+                if (elements[0].equals("todo")) {
+                    int firstSpaceIndex = task.indexOf(' ');
+                    String actualTask = task.substring(firstSpaceIndex + 1);
+                    Todo todo = new Todo(actualTask);
+                    todo.print();
+                }
             }
-
-
-            new Task(task);
         }
         System.out.println(horizontalLine+ "Bye. Hope to see you again soon!\n" + horizontalLine);
     }

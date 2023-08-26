@@ -9,12 +9,29 @@ public class Task {
     public Task(String task) {
         this.task = task;
         this.done = false;
+        addTask(task);
+//        if (!task.equals("")){
+//            arr.add(this);
+//            this.doneSymbol = "[ ]";
+//            counter = counter + 1;
+//            System.out.println(Duke.horizontalLine + "added: " + task + "\n" + Duke.horizontalLine);
+//        }
+    }
+
+    public String toString() {
+        return this.doneSymbol + " " + this.task;
+    }
+
+    public void addTask(String task) {
         if (!task.equals("")){
             arr.add(this);
             this.doneSymbol = "[ ]";
             counter = counter + 1;
-            System.out.println(Duke.horizontalLine + "added: " + task + "\n" + Duke.horizontalLine);
         }
+    }
+
+    public static int getCounter() {
+        return counter;
     }
 
     public void printList() {
@@ -31,7 +48,7 @@ public class Task {
         this.doneSymbol = "[X]";
     }
 
-    private void setnotDone() {
+    private void setNotDone() {
         this.doneSymbol = "[ ]";
     }
 
@@ -44,7 +61,7 @@ public class Task {
 
     public void unmark(int i) {
         Task unmarkTask = arr.get(i - 1);
-        unmarkTask.setnotDone();
+        unmarkTask.setNotDone();
         System.out.println(Duke.horizontalLine + "Ok, I've marked this task as not done yet:\n"
                 + unmarkTask.doneSymbol + " " + unmarkTask.task+ "\n" + Duke.horizontalLine);
     }
