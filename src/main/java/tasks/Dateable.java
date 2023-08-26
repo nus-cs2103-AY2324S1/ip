@@ -4,15 +4,44 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public abstract class Dateable {
+
+    /**
+     * Check if stored date is before or on given date
+     * TimeDescription must return false for this method.
+     *
+     * @param date from user input
+     * @return true if before or on, else false
+     */
+    public abstract boolean isBeforeOrOn(LocalDateTime date);
+
+    /**
+     * Check if stored date is after or on given date
+     * TimeDescription must return false for this method.
+     *
+     * @param date from user input
+     * @return true if after or on, else false
+     */
+    public abstract boolean isAfterOrOn(LocalDateTime date);
+
     public static class DotDateTime extends Dateable {
         private LocalDateTime dotDateTime;
         DotDateTime(String input) {
             this.dotDateTime = LocalDateTime.parse(input);
         }
+        @Override
+        public boolean isBeforeOrOn(LocalDateTime date) {
+            return this.dotDateTime.isBefore(date);
+        }
+
+        @Override
+        public boolean isAfterOrOn(LocalDateTime date) {
+            return this.dotDateTime.isAfter(date);
+        }
+
 
         @Override
         public String toString() {
-            return this.dotDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            return this.dotDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy ha"));
         }
     }
 
@@ -21,6 +50,16 @@ public abstract class Dateable {
 
         TimeDescription(String input) {
             this.timeDescription = input;
+        }
+
+        @Override
+        public boolean isBeforeOrOn(LocalDateTime date) {
+            return false;
+        }
+
+        @Override
+        public boolean isAfterOrOn(LocalDateTime date) {
+            return false;
         }
 
         @Override
