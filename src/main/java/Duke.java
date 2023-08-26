@@ -26,6 +26,8 @@ public class Duke {
                     tasks.markAsDone(command);
                 } else if (command.startsWith("unmark")) {
                     tasks.markAsNotDone(command);
+                } else if (command.startsWith("delete")) {
+                    tasks.deleteTask(command);
                 } else {
                     tasks.processCommand(command);
                 }
