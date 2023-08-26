@@ -1,3 +1,7 @@
+package duke.message;
+
+import duke.task.Task;
+
 public class UnmarkTaskMessage extends Message {
     private final Task task;
     public UnmarkTaskMessage(Task task) {

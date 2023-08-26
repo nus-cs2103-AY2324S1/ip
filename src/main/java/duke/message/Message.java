@@ -1,3 +1,5 @@
+package duke.message;
+
 public abstract class Message {
     protected final String horizontalLine = "__________________________________________________________________";
     protected String createMessage(String... messages) {

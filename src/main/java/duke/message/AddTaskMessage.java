@@ -1,3 +1,7 @@
+package duke.message;
+
+import duke.task.Task;
+
 public class AddTaskMessage extends Message {
     private final Task task;
     private final int totalTasks;
