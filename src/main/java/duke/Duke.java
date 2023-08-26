@@ -50,6 +50,15 @@ public class Duke {
     }
 
     /**
+     * Lists tasks in the TaskList that match a given regex pattern and displays them.
+     *
+     * @param regex The regular expression pattern to match tasks against.
+     */
+    public static void listFiltered(String regex) {
+        System.out.println(taskList.filteredToString(regex));
+    }
+
+    /**
      * Marks a task at the specified index as done and displays a confirmation message.
      *
      * @param index The index of the task to be marked as done.
