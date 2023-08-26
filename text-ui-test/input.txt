@@ -1,0 +1,31 @@
+todo brush teeth
+todo eat breakfast
+list
+deadline leave house /by 8am
+event school /from 10am /to 2pm
+list
+mark 1
+mark 1
+mark 2
+list
+unmark 2
+unmark 2
+list
+delete 1
+mark 2
+delete 2
+list
+mark 1
+mark 2
+unmark 2
+delete 2
+
+mark
+unmark
+todo
+deadline
+event
+deadline finish code /from 7
+event finish coding time /by 3pm
+event start coding /from 5pm
+bye
