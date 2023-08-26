@@ -108,4 +108,14 @@ public class Ui {
                 "  %s\n" +
                 "Now you have %d tasks in the list.\n", addedTask.toString(), tasks.size());
     }
+
+    public void displayMatchingTask(ArrayList<Task> arrList) {
+        int size = arrList.size();
+        if (size > 0) {
+            System.out.println("Here are the matchign tasks in your list:");
+            for (int i = 1; i <= size; i++) {
+                System.out.printf("%d.%s\n", i, arrList.get(i - 1).toString());
+            }
+        }
+    }
 }

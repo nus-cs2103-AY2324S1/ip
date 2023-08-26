@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 import task.Task;
 public class TaskList {
@@ -71,11 +72,28 @@ public class TaskList {
     }
 
     /**
-     * Returns the String representation of the selected Task choice that is shown when listed.
+     * Returns a list of tasks that contain the word as the name.
      *
-     * @param choice int representing the choice of task to represent from tasklist (Note that choice starts from 1)
-     * @return String representation of the Task in the tasklist
+     * @param word String input by user representing the task name to correspond to
+     * @return ArrayList of tasks that corresponds to the word input
      */
+    public ArrayList<Task> find(String word) {
+        Predicate<Task> findName = task -> task.containName(word);
+        ArrayList<Task> tempList = new ArrayList<>();
+        for (Task task : this.arrList) {
+            if (findName.test(task)) {
+                tempList.add(task);
+            }
+        }
+        return tempList;
+    }
+
+    /**
+    * Returns the String representation of the selected Task choice that is shown when listed.
+    *
+    * @param choice int representing the choice of task to represent from tasklist (Note that choice starts from 1)
+    * @return String representation of the Task in the tasklist
+    */
     public String taskToString(int choice) {
         return this.arrList.get(choice - 1).toString();
     }

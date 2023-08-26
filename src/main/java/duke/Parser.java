@@ -5,6 +5,8 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+import java.util.ArrayList;
+
 public class Parser {
 
     /**
@@ -111,6 +113,11 @@ public class Parser {
             choice = Integer.parseInt(input.split("\\s+")[1]);
             Task removedTask = taskList.delete(choice);
             ui.displayDeleteTask(removedTask, taskList);
+            break;
+        case "find":
+            String word = input.split("\\s+")[1];
+            ArrayList<Task> matchingList = taskList.find(word);
+            ui.displayMatchingTask(matchingList);
             break;
         default:
             Task task = null;

@@ -61,5 +61,15 @@ public abstract class Task {
         return this.name;
     }
 
+    /**
+     * Checks if given word String is a substring of its name.
+     *
+     * @param word String repreentingt the name substring they are looking for
+     * @return {@code true} if word is a substring of the name
+     */
+    public Boolean containName(String word) {
+        return this.name.contains(word);
+    }
+
     abstract public void writeToFile(FileWriter fileWriter);
 }
