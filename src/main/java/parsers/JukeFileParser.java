@@ -31,9 +31,10 @@ public abstract class JukeFileParser extends JukeObject {
             case "T":
                 return new JukeTodo(data[2], data[1].equals("T"));
             case "D":
-                return new JukeDeadline(data[2], data[3], data[1].equals("T"));
+                return new JukeDeadline(data[2], JukeDateTimeParser.fromParsedString(data[3]), data[1].equals("T"));
             case "E":
-                return new JukeEvent(data[2], data[3], data[4], data[1].equals("T"));
+                return new JukeEvent(data[2], JukeDateTimeParser.fromParsedString(data[3]),
+                                     JukeDateTimeParser.fromParsedString(data[4]), data[1].equals("T"));
             default:
                 throw new JukeParseException("Oh no! Data \"" + task + "\" cannot be parsed!");
         }

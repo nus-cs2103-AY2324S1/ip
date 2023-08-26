@@ -15,9 +15,10 @@ fi
 # set up the tasks.txt file
 if [ -e "./data/tasks.txt" ]
 then
-  echo "E|F|i love cs|now|forever
-T|T|complete ip week3
-D|T|complete cs2100 labs|monday" > ./data/tasks.txt
+  echo "E|T|splashdown|2022-04-24T00:00|2022-04-25T00:00
+D|F|finish cs career|9999-12-31T00:00
+T|F|finish cs2100 lecture
+E|F|very big event oh no|2023-12-25T00:00|2023-12-26T00:00" > ./data/tasks.txt
 fi
 
 # compile the code into the bin folder, terminates if error occurred

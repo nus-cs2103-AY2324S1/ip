@@ -1,5 +1,8 @@
 package main.java.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an Event task.
  */
@@ -8,10 +11,10 @@ public class JukeEvent extends JukeTask {
     private static final String TASK_DESCRIPTOR = "[E] ";
 
     /** Start Time. */
-    private String start;
+    private final LocalDateTime start;
 
     /** End Time. */
-    private String end;
+    private final LocalDateTime end;
 
     /**
      * Constructor used to create an event.
@@ -20,7 +23,7 @@ public class JukeEvent extends JukeTask {
      * @param start Start date/time
      * @param end End date/time
      */
-    public JukeEvent(String taskName, String start, String end) {
+    public JukeEvent(String taskName, LocalDateTime start, LocalDateTime end) {
         super(taskName);
         this.start = start;
         this.end = end;
@@ -33,7 +36,7 @@ public class JukeEvent extends JukeTask {
      * @param end End date/time
      * @param completion Status of completion of the task
      */
-    public JukeEvent(String taskName, String start, String end, boolean completion) {
+    public JukeEvent(String taskName, LocalDateTime start, LocalDateTime end, boolean completion) {
         this(taskName, start, end);
 
         if (completion) {
@@ -56,6 +59,8 @@ public class JukeEvent extends JukeTask {
      */
     @Override
     public String toString() {
-        return JukeEvent.TASK_DESCRIPTOR + super.toString() + " (from " + start + " to " + end + ")";
+        return JukeEvent.TASK_DESCRIPTOR + super.toString() +
+                " (from " + start.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm")) +
+                " hrs to " + end.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm")) + " hrs)";
     }
 }

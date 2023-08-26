@@ -3,6 +3,7 @@ package main.java.actions;
 import main.java.exceptions.JukeException;
 import main.java.exceptions.arguments.JukeIllegalCommandArgumentException;
 import main.java.parsers.JukeCommandParser;
+import main.java.parsers.JukeDateTimeParser;
 import main.java.tasks.JukeTaskManager;
 import main.java.exceptions.arguments.JukeIllegalArgumentException;
 import main.java.primitivies.JukeObject;
@@ -11,6 +12,7 @@ import main.java.tasks.JukeEvent;
 import main.java.tasks.JukeTask;
 import main.java.tasks.JukeTodo;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 /**
@@ -107,10 +109,11 @@ public abstract class JukeAction extends JukeObject {
                 // check if fulfills regex
                 if (!JukeCommandParser.isMatchByString(newDeadlineArgs)) {
                     throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your deadline command!",
-                                                           "deadline [description] /by [deadline]");
+                                                           "deadline [description] /by [DD(-/|)MM(-/|)YYYY HH(-:)MM " +
+                                                                   "or DD(-/|)MM(-/|)YYYY]\n(..) -> any of");
                 } else {
                     String[] parsedArguments = JukeCommandParser.parseByByString(newDeadlineArgs);
-                    JukeTask jt = new JukeDeadline(parsedArguments[0], parsedArguments[1]);
+                    JukeTask jt = new JukeDeadline(parsedArguments[0], JukeDateTimeParser.parse(parsedArguments[1]));
                     return new JukeAddTaskAction(taskManager, jt);
                 }
             case "event":
@@ -120,10 +123,21 @@ public abstract class JukeAction extends JukeObject {
                 // check if fulfills regex
                 if (!JukeCommandParser.isMatchFromToString(newEventArgs)) {
                     throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your event command!",
-                                                           "event [description] /from [from time] /to [to time]");
+                                                           "event [description] /from [DD(-/|)MM(-/|)YYYY HH(-:)MM " +
+                                                                   "or DD(-/|)MM(-/|)YYYY]\n" +
+                                                                   "/to [DD(-/|)MM(-/|)YYYY HH(-:)MM or DD(-/|)" +
+                                                                   "MM(-/|)YYYY]\n(..) -> any of");
                 } else {
                     String[] parsedArguments = JukeCommandParser.parseByFromToString(newEventArgs);
-                    JukeTask jt = new JukeEvent(parsedArguments[0], parsedArguments[1], parsedArguments[2]);
+                    LocalDateTime localTimeOne = JukeDateTimeParser.parse(parsedArguments[1]);
+                    LocalDateTime localTimeTwo = JukeDateTimeParser.parse(parsedArguments[2]);
+
+                    if (localTimeTwo.isBefore(localTimeOne)) {
+                        throw new JukeIllegalArgumentException("Oh no! The \"to\" date cannot be before the " +
+                                                                       "\"from\" date!");
+                    }
+
+                    JukeTask jt = new JukeEvent(parsedArguments[0], localTimeOne, localTimeTwo);
                     return new JukeAddTaskAction(taskManager, jt);
                 }
         }
@@ -132,10 +146,10 @@ public abstract class JukeAction extends JukeObject {
         // note that this behaves similar to exceptions, in that older exceptions are overwritten by
         // newer ones
         if (!jukeOpError.isEmpty()) {
-            throw new JukeException(jukeOpError);
+            throw new JukeIllegalArgumentException(jukeOpError);
         }
 
-        throw new JukeException("Oh no! I do not understand that command!");
+        throw new JukeIllegalArgumentException("Oh no! I do not understand that command!");
     }
 
     /**

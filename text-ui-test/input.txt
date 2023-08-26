@@ -1,7 +1,7 @@
 list
 todo complete tp
-deadline go to bed /by now
-event go to prom /from tonight /to tomorrow
+deadline go to bed /by 31-12-9999 23:59
+event go to prom /from 09-08-2023 /to 10-08-2023
 list
 mark 1
 mark 1
