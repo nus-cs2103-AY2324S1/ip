@@ -26,6 +26,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Driver function to start the bot.
+     */
     public void run() {
         ui.printIntro();
         ui.promptInput();
