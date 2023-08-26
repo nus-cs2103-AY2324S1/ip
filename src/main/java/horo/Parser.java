@@ -6,6 +6,7 @@ import horo.data.Task;
 import horo.data.Todo;
 
 public class Parser {
+
   public Parser() {
   }
 

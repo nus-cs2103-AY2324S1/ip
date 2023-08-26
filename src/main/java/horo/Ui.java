@@ -1,8 +1,8 @@
 package horo;
 
 public class Ui {
-  public Ui() {
 
+  public Ui() {
   }
 
   public void showWelcome() {

@@ -9,6 +9,7 @@ import horo.data.TaskList;
 import horo.data.Todo;
 
 public class Horo {
+
   private Storage storage;
   private TaskList taskList;
   private Ui ui;

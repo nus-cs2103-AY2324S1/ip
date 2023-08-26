@@ -11,7 +11,7 @@ import horo.data.TaskList;
 
 public class Storage {
 
-  public static final String DEFAULT_STORAGE_FILEPATH = "./data/tasks.txt";
+  private static final String DEFAULT_STORAGE_FILEPATH = "./data/tasks.txt";
 
   public final String filePath;
 

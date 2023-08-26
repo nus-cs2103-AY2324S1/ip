@@ -1,8 +1,19 @@
 package horo.data;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+
 import horo.HoroException;
 
 public abstract class Task {
+
+  protected static final DateTimeFormatter DATE_TIME_FORMAT = new DateTimeFormatterBuilder()
+      .appendPattern("yyyy/MM/dd[ [HH][:mm]]")
+      .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+      .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+      .toFormatter();
+
   private String description = "";
   private boolean isDone = false;
 
