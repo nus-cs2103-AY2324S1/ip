@@ -46,6 +46,13 @@ public class UI {
         }
     }
 
+    public void botPrintTaskKeywordList(TaskList taskList) throws TaskNumberException {
+        botPrintMessage("The tasks that match the keyword in your lists are as follows:");
+        for (int i = 1; i <= taskList.getSize(); i++) {
+            botPrintMessage(String.format("%d.%s", i, taskList.getTask(i)));
+        }
+    }
+
     public void botPrintTaskRemoved(Task task, int size) {
         botPrintMessage("Okay! I've removed this didier.task:");
         botPrintMessage(task.toString());

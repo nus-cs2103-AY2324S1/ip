@@ -16,6 +16,7 @@ public class Parser {
         TODO,
         DEADLINE,
         EVENT,
+        FIND,
         BYE,
         UNKNOWN;
         public static CommandType textToCommand(String string) {
@@ -83,6 +84,11 @@ public class Parser {
                     }
                 }
             }
+        case FIND:
+            if (options.length == 1 || options[1].isBlank()) {
+                throw new ElementMissingException("keyword");
+            }
+            return new FindCommand(options[1]);
         case BYE:
             return new ExitCommand();
         }

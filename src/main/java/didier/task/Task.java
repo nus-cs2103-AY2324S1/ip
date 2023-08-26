@@ -69,4 +69,8 @@ public abstract class Task {
         }
         throw new FileCorruptedException();
     }
+
+    public boolean descriptionHasKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
