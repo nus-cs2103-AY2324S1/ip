@@ -1,22 +1,20 @@
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class Duke {
     static List<Task> taskList = new ArrayList<>();
+    static boolean listening = true;
     static void greet() {
         String greeting = "_________________________________________________\n"
-                + " Hello! I'm Glub!\n"
-                + " What can I do for you?\n"
+                + "Hello! I'm Glub!\n"
+                + "What can I do for you?\n"
                 + "_________________________________________________\n";
         System.out.println(greeting);
     }
 
     static void addTask(String task, String type) throws GlubException {
         if (task.equals("")) {
-            throw new GlubException(String.format(" OOPS!! The description of a %s cannot be empty.\n", type));
+            throw new GlubException(String.format("OOPS!! The description of a %s cannot be empty.\n", type));
         }
         if (type.equals("todo")) {
             taskList.add(new ToDo(task));
@@ -27,7 +25,7 @@ public class Duke {
                 String deadline = taskPortions[1].split(" ", 2)[1];
                 taskList.add(new Deadline(desc, deadline));
             } catch (ArrayIndexOutOfBoundsException ex) {
-                throw new GlubException(" OOPS!! Please provide a deadline for your deadline task.\n");
+                throw new GlubException("OOPS!! Please provide a deadline for your deadline task.\n");
             }
         } else {
             String[] taskPortions = task.split("/");
@@ -37,11 +35,11 @@ public class Duke {
                 String end = taskPortions[2].split(" ", 2)[1];
                 taskList.add(new Event(desc, start, end));
             } catch (ArrayIndexOutOfBoundsException ex) {
-                throw new GlubException(" OOPS!! Ensure that your event has a start and end!\n");
+                throw new GlubException("OOPS!! Ensure that your event has a start and end!\n");
             }
         }
         String addMsg = "_________________________________________________\n"
-                + " Got it. I've added this task:\n"
+                + "Got it. I've added this task:\n"
                 + String.format(" \t%s\n", taskList.get(taskList.size()-1))
                 + String.format("Now you have %d tasks in the list\n", taskList.size())
                 + "_________________________________________________\n";
@@ -52,18 +50,18 @@ public class Duke {
         try {
             Task deleted = taskList.remove(taskNum - 1);
             String msg = "_________________________________________________\n"
-                    + " Noted. I've removed this task:\n"
+                    + "Noted. I've removed this task:\n"
                     + String.format("\t%s\n", deleted)
                     + String.format("Now you have %d tasks in the list.\n", taskList.size())
                     + "_________________________________________________\n";
             System.out.println(msg);
         } catch (IndexOutOfBoundsException ex) {
-            throw new GlubException(String.format(" OOPS!! Task %d does not exist!\n", taskNum));
+            throw new GlubException(String.format("OOPS!! Task %d does not exist!\n", taskNum));
         }
     }
 
     static void list() {
-        System.out.println(" Here are the tasks in your list:\n");
+        System.out.println("Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
             System.out.printf(" %d. %s\n", i + 1, taskList.get(i));
         }
@@ -73,7 +71,7 @@ public class Duke {
         Task task = taskList.get(taskNum - 1);
         task.setDone();
         String markMsg = "_________________________________________________\n"
-                + " Nice! I've marked this task as done:\n"
+                + "Nice! I've marked this task as done:\n"
                 + String.format("\t %s\n", task)
                 + "_________________________________________________\n";
         System.out.println(markMsg);
@@ -83,22 +81,22 @@ public class Duke {
         Task task = taskList.get(taskNum - 1);
         task.setUndone();
         String markMsg = "_________________________________________________\n"
-                + " Ok, I've marked this task as not done yet:\n"
+                + "Ok, I've marked this task as not done yet:\n"
                 + String.format("\t %s\n", task)
                 + "_________________________________________________\n";
         System.out.println(markMsg);
     }
     static void exit() {
         String exitMsg = "_________________________________________________\n"
-                + " Bye. Hope to see you again soon!\n"
+                + "Bye. Hope to see you again soon!\n"
                 + "_________________________________________________\n";
         System.out.println(exitMsg);
-        System.exit(0);
+        listening = false;
     }
     public static void main(String[] args) {
+        Scanner inputScanner = new Scanner(System.in);
         greet();
-        while (true) {
-            Scanner inputScanner = new Scanner(System.in);
+        while (listening) {
             try {
                 String command = inputScanner.next();
                 switch (command) {
@@ -124,10 +122,10 @@ public class Duke {
                         addTask(task, command);
                         break;
                     default:
-                        throw new GlubException(" OOPS!! I'm sorry, but I don't know what that means :-(\n");
+                        throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
                 }
             } catch (GlubException ex) {
-                System.err.print(ex.getMessage());
+                System.out.println(ex.getMessage());
             }
         }
     }
