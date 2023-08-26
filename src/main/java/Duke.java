@@ -29,9 +29,13 @@ public class Duke {
         printLine();
     }
 
-    private LocalDate parseTime(String s) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[dd/MM/yyyy]");
-        return LocalDate.parse(s, formatter);
+    private LocalDate parseTime(String s) throws InvalidDateException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[dd/MM/yyyy]");
+            return LocalDate.parse(s, formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException();
+        }
     }
 
     private Task createTodoTask(String[] words) {
@@ -42,7 +46,7 @@ public class Duke {
         return new ToDoTask(taskName.toString().stripTrailing());
     }
 
-    private Task createEventTask(String[] words) {
+    private Task createEventTask(String[] words) throws InvalidDateException {
         StringBuilder taskName = new StringBuilder();
         StringBuilder startDate = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
@@ -66,7 +70,7 @@ public class Duke {
         return new EventTask(taskName.toString().stripTrailing(), parseTime(startDate.toString().trim()), parseTime(endDate.toString().trim()));
     }
 
-    private Task createDeadlineTask(String[] words) {
+    private Task createDeadlineTask(String[] words) throws InvalidDateException {
         StringBuilder taskName = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
 
@@ -83,7 +87,7 @@ public class Duke {
         return new DeadlineTask(taskName.toString().stripTrailing(), parseTime(endDate.toString().trim()));
     }
 
-    private Task createTask(String[] words) throws EmptyBodyException {
+    private Task createTask(String[] words) throws EmptyBodyException, InvalidDateException {
         if (words.length == 1) {
             throw new EmptyBodyException();
         }
@@ -246,6 +250,8 @@ public class Duke {
             }
         } catch (IOException e) {
             System.out.println("     Unable to load/find file");
+        } catch (InvalidDateException e) {
+            System.out.println("     Error parsing date when loading file");
         }
     }
 
