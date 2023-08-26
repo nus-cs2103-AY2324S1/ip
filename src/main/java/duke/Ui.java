@@ -8,9 +8,9 @@ public class Ui {
     private final String INTRO = "Hello! I'm " + this.CHATBOTNAME + "\n"
             + "What can I do for you?";
     private final String EXITMESSAGE = "Bye. Hope to see you again soon!";
-    public static String line = "--------------------------------------------------------------------------------------------";
+    public static final String LINE = "-------------------------------------------------------------------------------";
     public Ui() {
-        System.out.printf("%s\n%s\n%s\n", Ui.line, INTRO, Ui.line);
+        System.out.printf("%s\n%s\n%s\n", Ui.LINE, INTRO, Ui.LINE);
     }
 
     public void showExceptionError(Exception e) {
@@ -22,11 +22,11 @@ public class Ui {
     }
 
     public void createLine() {
-        System.out.println(Ui.line);
+        System.out.println(Ui.LINE);
     }
 
     public void exit() {
-        System.out.printf("%s\n%s\n", EXITMESSAGE, Ui.line);
+        System.out.printf("%s\n%s\n", EXITMESSAGE, Ui.LINE);
     }
 
     public void listTask(TaskList taskList) {

@@ -18,7 +18,7 @@ public class Duke {
     private Storage data;
     private TaskList tasks;
     private Ui ui;
-    static String line = "---------------------------------------------------------------------------------------------";
+    static String LINE = "--------------------------------------------------------------------------------------------";
 
     public Duke(String filePath) {
         this.ui = new Ui();

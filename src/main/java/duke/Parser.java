@@ -67,7 +67,8 @@ public class Parser {
                     name += arrStrings[i] + " ";
                 }
             }
-            return new Events(name.substring(0, name.length() - 1), from.substring(0, from.length() - 1), to.substring(0, to.length() - 1));
+            return new Events(name.substring(0, name.length() - 1), from.substring(0, from.length() - 1)
+                    , to.substring(0, to.length() - 1));
         } else {
             throw new Exception("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
