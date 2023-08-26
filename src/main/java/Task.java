@@ -46,18 +46,34 @@ public class Task {
         this.doneSymbol = "[ ]";
     }
 
-    public void mark(int i) {
+    public void mark(int i) throws DukeException {
+        if (i > arr.size() || i <= 0) {
+            throw new DukeException(Duke.horizontalLine+ "☹ OOPS!!! Invalid number :(\n" + Duke.horizontalLine);
+        }
         Task markTask = arr.get(i - 1);
         markTask.setDone();
         System.out.println(Duke.horizontalLine + "Nice! I've marked this task as done:\n"
         + markTask.toString() + "\n" + Duke.horizontalLine);
     }
 
-    public void unmark(int i) {
+    public void unmark(int i) throws DukeException {
+        if (i > arr.size() || i <= 0) {
+            throw new DukeException(Duke.horizontalLine+ "☹ OOPS!!! Invalid number :(\n" + Duke.horizontalLine);
+        }
         Task unmarkTask = arr.get(i - 1);
         unmarkTask.setNotDone();
         System.out.println(Duke.horizontalLine + "Ok, I've marked this task as not done yet:\n"
                 + unmarkTask.toString() + "\n" + Duke.horizontalLine);
     }
 
+    public void delete(int i) throws DukeException {
+        if (i > arr.size() || i <= 0) {
+            throw new DukeException(Duke.horizontalLine+ "☹ OOPS!!! Invalid number :(\n" + Duke.horizontalLine);
+        }
+        Task deleteTask = arr.get(i - 1);
+        counter = counter - 1;
+        arr.remove(i - 1);
+        System.out.println(Duke.horizontalLine + "Noted. I've removed this task:\n" + deleteTask.toString()
+        + "\n" + String.format("Now you have %d tasks in the list\n", counter) + Duke.horizontalLine );
+    }
 }
