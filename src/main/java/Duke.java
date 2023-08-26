@@ -47,6 +47,18 @@ public class Duke {
                         throw new DukeException("Invalid task number.");
                     }
 
+                } else if (userInput.startsWith("delete")) {
+                    if (userInput.length() <= 7) {
+                        throw new DukeException("Task to be deleted cannot be empty!");
+                    }
+                    try {
+                        int taskNumber = Integer.parseInt(userInput.substring(7)) - 1;
+                        Task deletedTask = tasks.remove(taskNumber);
+                        System.out.println("This task has been removed\n  " + deletedTask + "\nYou have a total of " + tasks.size() + (tasks.size() == 1 ? " task.\n" : " tasks.\n") + horizontalLine);
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("Invalid task number.");
+                    }
+
                 } else if (userInput.startsWith("todo")) {
                     if (userInput.length() <= 5) {
                         throw new DukeException("The description of a todo cannot be empty!");
