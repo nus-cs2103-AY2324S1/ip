@@ -1,6 +1,13 @@
 package duke;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
@@ -8,8 +15,20 @@ import duke.task.ToDo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Handles the parsing of user input commands and creates corresponding Command objects.
+ * This class is responsible for interpreting user input and generating appropriate
+ * Command objects based on the input.
+ */
 public class Parser {
 
+    /**
+     * Parses the given input and returns the corresponding Command object.
+     *
+     * @param input The user input to be parsed.
+     * @return A Command object representing the parsed user input.
+     * @throws DukeException If the input cannot be parsed or contains errors.
+     */
     public static Command parse(String input) throws DukeException {
         if (input.equals("bye")) {
             return new ExitCommand();

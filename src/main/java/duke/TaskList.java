@@ -11,9 +11,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks in the Duke application.
+ * This class manages the collection of tasks, as well as their addition, deletion,
+ * marking as done/undone, and reading/saving from/to data sources.
+ */
 public class TaskList {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
+    /**
+     * Constructs a TaskList object and initializes it with data from the given list of strings.
+     *
+     * @param data A list of strings containing task data to be loaded into the task list.
+     */
     public TaskList(ArrayList<String> data) {
         this.tasks = new ArrayList<>();
         for (String line : data) {
@@ -21,6 +31,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Constructs an empty TaskList object.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -53,17 +66,37 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a task to the task list and displays a corresponding message using the provided UI.
+     *
+     * @param task The task to be added.
+     * @param ui The user interface to interact with the user or display messages.
+     */
     public void addTask(Task task, Ui ui) {
         this.tasks.add(task);
         ui.addMessage(task, tasks.size());
     }
 
+    /**
+     * Deletes a task from the task list by index and displays a corresponding message using the provided UI.
+     *
+     * @param index The index of the task to be deleted.
+     * @param ui The user interface to interact with the user or display messages.
+     * @throws DukeException If the provided index is out of range.
+     */
     public void deleteTask(int index, Ui ui) throws DukeException {
         checkIndex(index);
         Task task = this.tasks.remove(index - 1);
         ui.deleteMessage(task, tasks.size());
     }
 
+    /**
+     * Marks a task from the task list by index and displays a corresponding message using the provided UI.
+     *
+     * @param index The index of the task to be deleted.
+     * @param ui The user interface to interact with the user or display messages.
+     * @throws DukeException If the provided index is out of range.
+     */
     public void markTask(int index, Ui ui) throws DukeException {
         checkIndex(index);
         Task task = this.tasks.get(index - 1);
@@ -71,6 +104,13 @@ public class TaskList {
         ui.markMessage(task);
     }
 
+    /**
+     * Unmarks a task from the task list by index and displays a corresponding message using the provided UI.
+     *
+     * @param index The index of the task to be deleted.
+     * @param ui The user interface to interact with the user or display messages.
+     * @throws DukeException If the provided index is out of range.
+     */
     public void unmarkTask(int index, Ui ui) throws DukeException {
         checkIndex(index);
         Task task = this.tasks.get(index - 1);
@@ -78,12 +118,28 @@ public class TaskList {
         ui.unmarkMessage(task);
     }
 
+    /**
+     * Creates a new ToDo task with the given description, adds it to the task list,
+     * and returns the created task.
+     *
+     * @param description The description of the ToDo task.
+     * @return The created ToDo task.
+     */
     public ToDo addToDo(String description) {
         ToDo toDo = new ToDo(description);
         this.tasks.add(toDo);
         return toDo;
     }
 
+    /**
+     * Creates a new Event task with the given description, start date/time, end date/time,
+     * adds it to the task list, and returns the created task.
+     *
+     * @param description The description of the Event task.
+     * @param from The start date and time of the event (in "yyyy-MM-dd HH:mm" format).
+     * @param to The end date and time of the event (in "yyyy-MM-dd HH:mm" format).
+     * @return The created Event task.
+     */
     public Event addEvent(String description, String from, String to) {
         Event event = new Event(description,
                 LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
@@ -92,6 +148,14 @@ public class TaskList {
         return event;
     }
 
+    /**
+     * Creates a new Deadline task with the given description and deadline date/time,
+     * adds it to the task list, and returns the created task.
+     *
+     * @param description The description of the Deadline task.
+     * @param by The deadline date and time (in "yyyy-MM-dd HH:mm" format).
+     * @return The created Deadline task.
+     */
     public Deadline addDeadline(String description, String by) {
         Deadline deadline = new Deadline(description, LocalDateTime.parse(by,
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
@@ -99,6 +163,12 @@ public class TaskList {
         return deadline;
     }
 
+    /**
+     * Saves the task list data to a specified writer.
+     *
+     * @param writer The writer to use for saving the data.
+     * @throws IOException If an error occurs during the writing process.
+     */
     public void save(BufferedWriter writer) throws IOException {
         for (Task task : tasks) {
             writer.write(task.toSaveLine());
@@ -106,6 +176,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Generates a string representation of the task list.
+     *
+     * @return A formatted string containing the tasks in the list.
+     */
     public String toString() {
         String str = "";
         for (int i = 0; i < tasks.size(); i++) {
