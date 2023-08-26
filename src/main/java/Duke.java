@@ -1,17 +1,24 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     public static final int DEADLINEOFFSET = 9;
     public static final int EVENTOFFSET = 6;
 
-    public static void main(String[] args) {
+    private Storage storage;
+    private TaskList taskList;
+    public Duke(String filePath) {
+        this.storage = Storage.createStorage(filePath);
+        this.taskList = new TaskList(filePath);
+    }
+
+
+    public void run() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>();
         int totalItemNumber = 0;
         String chatBotName = "Benedict Cucumber Badge";
         System.out.println("Hello! I'm " + chatBotName);
         System.out.println("What can I do for you?");
+
 
         boolean dontTerminate = true;
         while (dontTerminate) {
@@ -29,7 +36,7 @@ public class Duke {
                         case LIST:
                             System.out.println("Here are the tasks in your list:");
                             for (int i = 0; i < totalItemNumber; i++) {
-                                System.out.println(i + 1 + ". " + taskList.get(i).toString());
+                                System.out.println(i + 1 + ". " + this.taskList.getTask(i));
                             }
                             break;
                         case UNMARK:
@@ -38,24 +45,21 @@ public class Duke {
                             // The input after the mark word should be task no (which should be index 1)
                             int taskNumberUnmark = Integer.parseInt(splitString[1]);
                             // The above should throw a NumberFormatException
-                            Task selectedTaskUnmark = taskList.get(taskNumberUnmark - 1);
-                            selectedTaskUnmark.undoTask();
+                            this.taskList.unmarkTask(taskNumberUnmark - 1, storage);
                             break;
                         case MARK:
                             // The input after the mark word should be task no (which should be index 1)
                             int taskNumberMark = Integer.parseInt(splitString[1]);
-                            // The above should throw a NumberFormatException
-                            Task selectedTaskMark = taskList.get(taskNumberMark - 1);
-                            selectedTaskMark.completeTask();
+                            // The above should throw a NumberFormatException if not the right number
+                            this.taskList.markTask(taskNumberMark - 1, storage);
                             break;
                         case TODO:
                             // Test whether a ToDos input is valid
                             ToDos.taskValidator(input);
                             // for To-Dos anything after the command is task name
                             Task toDo = new ToDos(input.substring(5));
-                            taskList.add(toDo);
                             totalItemNumber++;
-                            toDo.taskAdded(totalItemNumber);
+                            this.taskList.addTask(toDo, totalItemNumber, storage);
                             break;
                         case DEADLINE:
                             // Test whether a deadline's input is valid
@@ -67,9 +71,8 @@ public class Duke {
                             // Hardcoded because we know how words are positioned
                             String taskNameDeadline = segementedString[0].substring(DEADLINEOFFSET);
                             Task deadlineTask = new Deadline(taskNameDeadline, deadline);
-                            taskList.add(deadlineTask);
                             totalItemNumber++;
-                            deadlineTask.taskAdded(totalItemNumber);
+                            this.taskList.addTask(deadlineTask, totalItemNumber, storage);
                             break;
                         case EVENT:
                             // Test whether a event's input is valid
@@ -81,16 +84,13 @@ public class Duke {
                             String start = segmentedViaTo[0];
                             String end = segmentedViaTo[1];
                             Task event = new Event(taskNameEvent, start, end);
-                            taskList.add(event);
                             totalItemNumber++;
-                            event.taskAdded(totalItemNumber);
+                            this.taskList.addTask(event, totalItemNumber, storage);
                             break;
                         case DELETE:
                             int taskNumberDelete = Integer.parseInt(splitString[1]);
-                            Task toDeleteTask = taskList.get(taskNumberDelete - 1);
-                            taskList.remove(taskNumberDelete - 1);
                             totalItemNumber--;
-                            toDeleteTask.taskDeleted(totalItemNumber);
+                            this.taskList.deleteTask(taskNumberDelete - 1, totalItemNumber, storage);
                             break;
 
                     }
@@ -103,7 +103,7 @@ public class Duke {
                 } catch (WrongInputTask e) {
                     System.out.println(e.toString());
                 } catch (IndexOutOfBoundsException e) {
-                    // To catch invalid number inputs for delete 
+                    // To catch invalid number inputs for delete
                     System.out.println("Please enter a valid task number from the range in  list");
                 }
             } catch (InvalidInputException e) {
@@ -117,10 +117,9 @@ public class Duke {
                 System.out.println(message);
             }
         }
+    }
 
-
-
-
-
+    public static void main(String[] args) {
+        new Duke("data/duke.txt").run();
     }
 }

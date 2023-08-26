@@ -43,7 +43,16 @@ public class Task {
      */
     // Note that this is credited from the website partial solution
     public String getStatusIcon() {
+
         return (isDone ? "X" : " "); // mark done task with X
+    }
+
+    /**
+     * Checks whether a task is done through a string
+     * @return  a string containing whether the task is done
+     */
+    public String isDone() {
+        return String.valueOf(this.isDone);
     }
 
     /**
@@ -61,6 +70,14 @@ public class Task {
         System.out.println("Noted. I've removed this task: ");
         System.out.println("  " + this.toString());
         System.out.println("Now you have " + noOfTask + " tasks in the list.");
+    }
+
+    /**
+     * Converts the task to a format that can be saved
+     * @return  a string that can be saved in the storage in a particular format
+     */
+    public String convertToSaveFormat() {
+        return "";
     }
 
 
