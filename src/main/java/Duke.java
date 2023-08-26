@@ -1,9 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
-import java.util.function.Function;
 
 public class Duke {
     enum TaskType {
