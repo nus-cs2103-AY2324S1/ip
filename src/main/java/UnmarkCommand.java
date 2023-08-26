@@ -1,18 +1,21 @@
 public class UnmarkCommand extends Command {
-	private Task task;
+  String s;
 
-	public UnmarkCommand(String name) {
-		try {
-			task = Task.getTask(Integer.parseInt(name));
-		} catch (NumberFormatException e) {
-			throw new DukeException(String.format(DukeException.ARGUMENT_MUST_BE_NUM, UNMARK_COMMAND));
-		}
-	}
+  public UnmarkCommand(Printer out, TaskList taskList, String s) {
+    super(out, taskList);
+    this.s = s;
+  }
 
-	@Override
-	public void execute(Printer out) {
-		task.unmark();
+  @Override
+  public void execute() {
+		Task task;
+    try {
+      task = taskList.getTask(Integer.parseInt(s));
+    } catch (NumberFormatException e) {
+      throw new DukeException(String.format(DukeException.ARGUMENT_MUST_BE_NUM, UNMARK));
+    }
+    task.unmark();
 
-		out.print("Ok, I've marked this task as not done yet", task);
-	}
+    out.print("Ok, I've marked this task as not done yet", task);
+  }
 }

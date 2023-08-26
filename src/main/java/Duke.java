@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 public class Duke {
 
-	static final String botName = "GOAT";
-	static final Scanner in = new Scanner(System.in);
-	static final List<Task> tasks = new ArrayList<>();
-	static final Printer out = new Printer();
+	private static final String BOT_NAME = "GOAT";
+	private static final Scanner in = new Scanner(System.in);
+	private static final TaskList taskList = new TaskList();
+	private static final Printer out = new Printer();
+	private static final CommandFactory commandFactory = new CommandFactory(out, taskList);
 
 	public static void main(String[] args) {
 		greet();
@@ -16,8 +17,8 @@ public class Duke {
 			if (input.equals("bye"))
 				break;
 			try {
-				Command c = Command.parse(input);
-				c.execute(out);
+				Command c = commandFactory.parse(input);
+				c.execute();
 			} catch (DukeException e) {
 				handleDukeException(e);
 			}
@@ -37,7 +38,7 @@ public class Duke {
 				+ "     \\ `.___]  \\  `-'  /_/ /   \\ \\_ _| |_   \n"
 				+ "      `._____.' `.___.'|____| |____|_____|  \n";
 
-		out.print(String.format("Hello from\n%s", logo), String.format("Hello! I'm %s", botName));
+		out.print(String.format("Hello from\n%s", logo), String.format("Hello! I'm %s", BOT_NAME));
 	}
 
 	static void sayBye() {

@@ -1,10 +1,14 @@
 public class ListCommand extends Command {
+	public ListCommand(Printer out, TaskList taskList) {
+		super(out, taskList);
+	}
+
 	@Override
-	public void execute(Printer out) {
-		Object toPrint[] = new Object[Task.tasks.size() + 1];
+	public void execute() {
+		Object toPrint[] = new Object[taskList.size() + 1];
 		toPrint[0] = "Here are the tasks in your list:";
-		for (int i = 0; i < Task.tasks.size(); ++i)
-			toPrint[i + 1] = String.format("%d.%s", i + 1, Task.tasks.get(i));
+		for (int i = 1; i <= taskList.size(); ++i)
+			toPrint[i] = String.format("%d.%s", i, taskList.getTask(i));
 		out.print(toPrint);
 	}
 }

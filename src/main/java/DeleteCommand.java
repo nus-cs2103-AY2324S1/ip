@@ -1,20 +1,22 @@
 public class DeleteCommand extends Command {
-	private Task task;
-	public int i;
+	private String s;
 
-	public DeleteCommand(String name) {
-		try {
-			i = Integer.parseInt(name);
-			task = Task.getTask(i);
-		} catch (NumberFormatException e) {
-			throw new DukeException(String.format(DukeException.ARGUMENT_MUST_BE_NUM, DELETE_COMMAND));
-		}
+	public DeleteCommand(Printer out, TaskList taskList, String name) {
+		super(out, taskList);
+		s = name;
 	}
 
 	@Override
-	public void execute(Printer out) {
-		Task.deleteTask(i);
+  public void execute() {
+		Task task;
+    try {
+      int i = Integer.parseInt(s); // 1-indexed
+      task = taskList.getTask(i);
+			taskList.deleteTask(i);
+    } catch (NumberFormatException e) {
+      throw new DukeException(String.format(DukeException.ARGUMENT_MUST_BE_NUM, DELETE));
+    }
 
-		out.print("Noted. I've removed this task:", task, Task.getNumberOfTasks());
-	}
+    out.print("Noted. I've removed this task:", task, taskList.getNumberOfTasks());
+  }
 }
