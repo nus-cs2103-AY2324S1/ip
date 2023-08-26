@@ -1,6 +1,12 @@
 package duke;
 
-import java.io.*;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -36,7 +42,7 @@ public class Storage {
     }
 
     /**
-     * Save the list of tasks to a file on the hard disk using serialization.
+     * Saves the list of tasks to a file on the hard disk using serialization.
      *
      * @param tasks The list of tasks to be saved.
      * @throws IOException If there's an error while writing to the file.
@@ -54,7 +60,7 @@ public class Storage {
     }
 
     /**
-     * Load the list of tasks from a file on the hard disk using deserialization.
+     * Loads the list of tasks from a file on the hard disk using deserialization.
      *
      * @return The loaded list of tasks.
      * @throws IOException            If there's an error while reading from the file.

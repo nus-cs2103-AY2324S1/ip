@@ -1,8 +1,9 @@
 package duke;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DeadlineTest {
     @Test
@@ -15,7 +16,7 @@ public class DeadlineTest {
     public void testMarkDone() {
         Deadline deadline = new Deadline("Submit report", "2023-08-15");
         deadline.markDone();
-        assertEquals(true, deadline.isDone());
+        assertTrue(deadline.isDone());
     }
 
     @Test
@@ -23,7 +24,7 @@ public class DeadlineTest {
         Deadline deadline = new Deadline("Submit report", "2023-08-15");
         deadline.markDone();
         deadline.markUndone();
-        assertEquals(false, deadline.isDone());
+        assertFalse(deadline.isDone());
     }
 
     @Test
