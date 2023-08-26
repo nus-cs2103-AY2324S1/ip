@@ -59,4 +59,15 @@ public class Deadline extends Task {
     public String getRaw() {
         return "D" + "|" + isDone + "|" + this.description + "|" + date;
     }
+
+
+    /**
+     * Determine if the task is on a specific date.
+     * @param date to compare.
+     * @return true if the task is at a date.
+     */
+    @Override
+    public boolean onDate(LocalDate date) {
+        return this.date.equals(date);
+    }
 }

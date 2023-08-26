@@ -64,4 +64,14 @@ public class Event extends Task {
     public String getRaw() {
         return "E" + "|" + isDone + "|" + this.description + "|" + from + "|" + to;
     }
+
+    /**
+     * Determine if the date is between the event date.
+     * @param date to compare.
+     * @return true if the date is between the event date.
+     */
+    @Override
+    public boolean onDate(LocalDate date) {
+        return date.isAfter(this.from) && date.isBefore(this.to);
+    }
 }

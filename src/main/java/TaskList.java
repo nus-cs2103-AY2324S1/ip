@@ -1,3 +1,6 @@
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -75,15 +78,44 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        if (tasks.size() == 0 ){
+        if (tasks.size() == 0) {
             return "No tasks right now..\nHave a nice rest!";
         }
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString());
-            if (i != tasks.size()-1) {
+            if (i != tasks.size() - 1) {
                 stringBuilder.append("\n");
             }
+        }
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Returns the task on a specific date.
+     *
+     * @param date of the task to find.
+     * @return all task on the date.
+     * @throws DukeException
+     */
+    public String getbyDate(String date) throws DukeException {
+        LocalDate targetDate;
+        try {
+            targetDate = LocalDate.parse(date);
+        } catch (DateTimeException e) {
+            throw new DukeException("Wrong date format. Please Use format YYYY-MM-DD for searching by date");
+        }
+
+        if (tasks.size() == 0) {
+            return "There are no tasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).onDate(targetDate)) {
+                stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString());
+            }
+            stringBuilder.append("\n");
         }
         return stringBuilder.toString();
     }
