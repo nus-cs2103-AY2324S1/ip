@@ -2,6 +2,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,7 +14,6 @@ import java.util.Scanner;
  * A class that creates a chatbot.
  */
 public class Duke {
-
     /** A list to keep track of the tasks. */
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static File f;
@@ -71,6 +75,8 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
+            } catch (DateTimeParseException d) {
+                System.out.println("Please follow this format: YYYY-MM-DD or YYYY-MM-DD HH:mm");
             }
         }
         sc.close();
@@ -121,7 +127,17 @@ public class Duke {
         } catch (IndexOutOfBoundsException e) {
             throw new LackInformationException("\"/by\"");
         }
-        Deadline d = new Deadline(description, deadline);
+        String[] dateTime = deadline.split(" ");
+        LocalDate date = LocalDate.parse(dateTime[0]);
+        LocalTime time;
+        Deadline d;
+        if (dateTime.length > 1) {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
+            time = LocalTime.parse(dateTime[1], format);
+            d = new Deadline(description, date, time);
+        } else {
+            d = new Deadline(description, date);
+        }
         tasks.add(d);
         addedTask(description);
     }
@@ -148,13 +164,42 @@ public class Duke {
         }
         String[] ft = fromto.split(" /to ");
         String from = ft[0];
+
+        LocalDate startDate;
+        LocalTime startTime = null;
+        String[] starts = from.split(" ");
+        startDate = LocalDate.parse(starts[0]);
+        if (starts.length > 1) {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
+            startTime = LocalTime.parse(starts[1], format);
+        }
+
         String to;
         try {
             to = ft[1];
         } catch (IndexOutOfBoundsException e) {
             throw new LackInformationException("\"/to\"");
         }
-        Event e = new Event(description, from, to);
+        LocalDate endDate;
+        LocalTime endTime = null;
+        String[] ends = to.split(" ");
+        endDate = LocalDate.parse(ends[0]);
+        if (ends.length > 1) {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
+            endTime = LocalTime.parse(ends[1], format);
+        }
+
+        Event e;
+
+        if (startTime == null && endTime == null) {
+            e = new Event(description, startDate, endDate);
+        } else if (startTime == null) {
+            e = new Event(description, startDate, endDate, endTime);
+        } else if (endTime == null) {
+            e = new Event(description, startDate, startTime, endDate);
+        } else {
+            e = new Event(description, startDate, startTime, endDate, endTime);
+        }
         tasks.add(e);
         addedTask(description);
     }
@@ -263,6 +308,7 @@ public class Duke {
             String[] chars = s.split(" ");
             String type = chars[0];
             boolean isDone = chars[1].equals("1");
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
             Task t;
             switch (type) {
             case "[T]":
@@ -273,14 +319,32 @@ public class Duke {
                 tasks.add(t);
                 break;
             case "[D]":
-                t = new Deadline(chars[2], chars[3]);
+                if (chars.length == 4) {
+                    t = new Deadline(chars[2], LocalDate.parse(chars[3]));
+                } else {
+                    t = new Deadline(chars[2], LocalDate.parse(chars[3]),
+                            LocalTime.parse(chars[4], dateFormat));
+                }
                 if (isDone) {
                     t.markDoneFromFile();
                 }
                 tasks.add(t);
                 break;
             case "[E]":
-                t = new Event(chars[2], chars[3], chars[4]);
+                if (chars.length == 7) {
+                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat),
+                            LocalDate.parse(chars[5]), LocalTime.parse(chars[6]));
+                } else if (chars.length == 5) {
+                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]));
+                } else {
+                    if (chars[5].length() > 5) {
+                        t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat), //chars[5] is a date, last one is date
+                                LocalDate.parse(chars[5]));
+                    } else {
+                        t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]),
+                                LocalTime.parse(chars[5], dateFormat));
+                    }
+                }
                 if (isDone) {
                     t.markDoneFromFile();
                 }
