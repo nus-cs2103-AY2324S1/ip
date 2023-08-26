@@ -3,6 +3,7 @@ package extensions.tasks;
 import java.util.ArrayList;
 
 import extensions.exceptions.DukeException;
+import extensions.exceptions.DukeIOException;
 import extensions.exceptions.DukeIllegalArgumentException;
 import extensions.storage.Storage;
 
@@ -65,7 +66,8 @@ public class TaskList {
      * @param start The start date/time of the task to add.
      * @param end The end date/time of the task to add.
      */
-    private void add(TaskType taskType, String description, String by, String start, String end) {
+    private void add(TaskType taskType, String description, String by, String start, String end)
+            throws DukeIllegalArgumentException {
         switch (taskType) {
         case TODO:
             Task toDoTask = new ToDo(description);
@@ -231,53 +233,47 @@ public class TaskList {
      * Exports the TaskList's contents to the save file.
      * Each task should have the format:
      * TASK_TYPE || IS_DONE || DESCRIPTION || BY_DATE_TIME || START_DATE_TIME || END_DATE_TIME
+     * @throws DukeIOException If there is an error saving the tasks to the file.
      */
-    private void exportData() {
+    private void exportData() throws DukeIOException {
         StringBuilder sb = new StringBuilder();
         for (Task task : list) {
             sb.append(task.export()).append("\n");
         }
-        try {
-            taskStorage.save(sb.toString());
-        } catch (DukeException e) {
-            System.out.println("Failed to save tasks. " + e.getMessage());
-        }
+        taskStorage.save(sb.toString());
     }
 
     /**
      * Reads the exported data from the save file and restores the state of the Task List.
+     * @throws DukeIOException If there is an error reading from the file.
      */
-    private void importData() {
-        try {
-            String exportedData = taskStorage.load();
-            if (exportedData.isBlank()) {
-                return;
-            }
-            System.out.println("[RESTORE] Please wait, restoring task list from save file...");
-            String[] tasks = exportedData.split("\n");
-            for (String t : tasks) {
-                String[] args = t.split(" \\|\\| ");
-                TaskType taskType = TaskType.valueOf(args[0]);
-                switch (taskType) {
-                case TODO:
-                    this.add(taskType, args[2]);
-                    break;
-                case DEADLINE:
-                    this.add(taskType, args[2], args[3]);
-                    break;
-                case EVENT:
-                    this.add(taskType, args[2], args[4], args[5]);
-                    break;
-                default:
-                    break;
-                }
-                if (args[1].equals("X")) {
-                    this.mark(this.list.size());
-                }
-            }
-            System.out.printf("[RESTORE] Restored %d tasks successfully!%n", this.list.size());
-        } catch (DukeException e) {
-            System.out.println("Failed to load tasks. " + e.getMessage());
+    private void importData() throws DukeIOException {
+        String exportedData = taskStorage.load();
+        if (exportedData.isBlank()) {
+            return;
         }
+        System.out.println("[RESTORE] Please wait, restoring task list from save file...");
+        String[] tasks = exportedData.split("\n");
+        for (String t : tasks) {
+            String[] args = t.split(" \\|\\| ");
+            TaskType taskType = TaskType.valueOf(args[0]);
+            switch (taskType) {
+            case TODO:
+                this.add(taskType, args[2]);
+                break;
+            case DEADLINE:
+                this.add(taskType, args[2], args[3]);
+                break;
+            case EVENT:
+                this.add(taskType, args[2], args[4], args[5]);
+                break;
+            default:
+                break;
+            }
+            if (args[1].equals("X")) {
+                this.mark(this.list.size());
+            }
+        }
+        System.out.printf("[RESTORE] Restored %d tasks successfully!%n", this.list.size());
     }
 }

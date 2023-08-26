@@ -1,5 +1,7 @@
 package extensions.tasks;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * A task.
  */
@@ -10,6 +12,12 @@ public class Task {
 
     // The status of the task. True if done, false if not done.
     protected boolean isDone = false;
+
+    // The LocalDateTime formatter to parse the date/time of the task.
+    protected final DateTimeFormatter parseFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    // The LocalDateTime formatter to print the date/time of the task.
+    protected final DateTimeFormatter printFormatter = DateTimeFormatter.ofPattern("EEE dd MMM yyyy HH:mm");
 
     /**
      * Constructor for a Task.

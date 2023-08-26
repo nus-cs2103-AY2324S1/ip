@@ -1,22 +1,33 @@
 package extensions.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+import extensions.exceptions.DukeIllegalArgumentException;
+
 /**
  * A Task that needs to be done before a specific date/time.
  */
 public class Deadline extends Task {
 
-    // The deadline of the Deadline task.
-    protected final String by;
+    // The deadline of the Deadline task, stored as a LocalDateTime Object.
+    protected final LocalDateTime by;
 
     /**
      * Constructor for a Deadline task.
      *
      * @param description The description of the Deadline task.
-     * @param by The deadline of the Deadline task.
+     * @param by The deadline of the Deadline task. Must follow the format yyyy-MM-dd HH:mm.
+     * @throws DukeIllegalArgumentException If the deadline does not follow the format yyyy-MM-dd HH:mm.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeIllegalArgumentException {
         super(description);
-        this.by = by;
+        try {
+            this.by = LocalDateTime.parse(by, parseFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeIllegalArgumentException(
+                    "The deadline of a Deadline task must follow the format yyyy-MM-dd HH:mm.");
+        }
     }
 
     /**
@@ -26,7 +37,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), this.by);
+        return String.format("[D]%s (by: %s)", super.toString(), this.by.format(printFormatter));
     }
 
     /**
@@ -36,6 +47,7 @@ public class Deadline extends Task {
      */
     @Override
     public String export() {
-        return String.format("DEADLINE || %s || %s || %s || %s", super.export(), this.by, "", "");
+        return String.format("DEADLINE || %s || %s || %s || %s", super.export(),
+                this.by.format(parseFormatter), "", "");
     }
 }
