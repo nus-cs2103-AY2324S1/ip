@@ -4,8 +4,8 @@ import main.java.juke.exceptions.JukeInitialisationException;
 import main.java.juke.exceptions.storage.JukeStorageException;
 import main.java.juke.exceptions.storage.JukeStorageReadException;
 import main.java.juke.exceptions.storage.JukeStorageWriteException;
-import main.java.juke.parsers.JukeFileParser;
-import main.java.juke.primitivies.JukeObject;
+import main.java.juke.parsers.FileParser;
+import main.java.juke.core.JukeObject;
 import main.java.juke.tasks.JukeTask;
 
 import java.io.BufferedReader;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Manages the storage and retrieval of data from the data file.
  */
-public class JukeStorageManager extends JukeObject {
+public class Storage extends JukeObject {
     /** Path to the data directory. */
     public static final Path DIR_PATH = Paths.get("./data");
 
@@ -34,7 +34,7 @@ public class JukeStorageManager extends JukeObject {
      * @throws JukeInitialisationException if the directories or files cannot be
      * created or initialised
      */
-    public static JukeStorageManager of() throws JukeInitialisationException {
+    public static Storage of() throws JukeInitialisationException {
         // if the directory does not exist, the file also cannot exist
         if (!Files.exists(DIR_PATH)) {
             try {
@@ -54,7 +54,7 @@ public class JukeStorageManager extends JukeObject {
             }
         }
 
-        return new JukeStorageManager();
+        return new Storage();
     }
 
     /**
@@ -68,7 +68,7 @@ public class JukeStorageManager extends JukeObject {
             List<JukeTask> tasks = new LinkedList<>();
 
             while ((curr = br.readLine()) != null) {
-                tasks.add(JukeFileParser.parseTask(curr));
+                tasks.add(FileParser.parseTask(curr));
             }
 
             return tasks;

@@ -1,7 +1,7 @@
 package main.java.juke.parsers;
 
 import main.java.juke.exceptions.JukeParseException;
-import main.java.juke.primitivies.JukeObject;
+import main.java.juke.core.JukeObject;
 import main.java.juke.tasks.*;
 
 /**
@@ -10,7 +10,7 @@ import main.java.juke.tasks.*;
  * This parser may not be instantiated. All methods are exposed via
  * static methods.
  */
-public abstract class JukeFileParser extends JukeObject {
+public abstract class FileParser extends JukeObject {
     /** Regex String used to parse the datafile lines. */
     private static final String REGEX = "\\|";
 
@@ -31,10 +31,10 @@ public abstract class JukeFileParser extends JukeObject {
             case "T":
                 return new JukeTodo(data[2], data[1].equals("T"));
             case "D":
-                return new JukeDeadline(data[2], JukeDateTimeParser.fromParsedString(data[3]), data[1].equals("T"));
+                return new JukeDeadline(data[2], DateTimeParser.fromParsedString(data[3]), data[1].equals("T"));
             case "E":
-                return new JukeEvent(data[2], JukeDateTimeParser.fromParsedString(data[3]),
-                                     JukeDateTimeParser.fromParsedString(data[4]), data[1].equals("T"));
+                return new JukeEvent(data[2], DateTimeParser.fromParsedString(data[3]),
+                                     DateTimeParser.fromParsedString(data[4]), data[1].equals("T"));
             default:
                 throw new JukeParseException("Oh no! Data \"" + task + "\" cannot be parsed!");
         }

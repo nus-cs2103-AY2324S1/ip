@@ -1,25 +1,21 @@
-package main.java.juke.actions;
+package main.java.juke.commands;
 
-import main.java.juke.primitivies.JukeAction;
-import main.java.juke.primitivies.JukeException;
+import main.java.juke.exceptions.JukeException;
 
 /**
  * Action that is invoked when the user wishes to quit the assistant.
  */
-public class JukeExitAction extends JukeAction {
+public class JukeExitCommand extends JukeCommand {
     /** The farewell statement used by the assistant when the user decides to quit the assistant. */
     private static final String EXIT = "Goodbye!";
 
     /**
      * JukeExitAction Constructor.
      */
-    public JukeExitAction() {}
+    public JukeExitCommand() {}
 
     /**
      * Necessary method that is invoked when the action is carried out.
-     * @return Optional<? extends JukeAction> object, which contains further action objects,
-     * made this way to ensure that actions can call other actions and thus lead to chains
-     * of actions for added complexity
      */
     @Override
     public void complete() throws JukeException {

@@ -1,7 +1,7 @@
 package main.java.juke.parsers;
 
 import main.java.juke.exceptions.JukeParseException;
-import main.java.juke.primitivies.JukeObject;
+import main.java.juke.core.JukeObject;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * Parses Datetime Strings into the relevant DateTime objects.
  */
-public class JukeDateTimeParser extends JukeObject {
+public class DateTimeParser extends JukeObject {
     /** Regex for recognising DateTime inputs. */
     private static final String DATETIME_REGEX = "^(0?[1-9]|[12][0-9]|3[01])(\\/|-)(0?[1-9]|1[0-2])(\\/|-)\\d{4} " +
             "([01]?[0-9]|2[0-3])?(-|:)?[0-5][0-9]$";

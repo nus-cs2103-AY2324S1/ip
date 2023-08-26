@@ -1,6 +1,6 @@
 package main.java.juke.parsers;
 
-import main.java.juke.primitivies.JukeObject;
+import main.java.juke.core.JukeObject;
 
 import java.util.regex.Pattern;
 
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * This parser may not be instantiated. All methods are exposed via
  * static methods.
  */
-public abstract class JukeCommandParser extends JukeObject {
+public abstract class Parser extends JukeObject {
     /** String regex for splitting a command by spaces. */
     private static final String SPACE_REGEX = " ";
 
@@ -32,7 +32,7 @@ public abstract class JukeCommandParser extends JukeObject {
      * @return Parsed array of Strings which represents the tokens in the command.
      */
     public static String[] parseBySpace(String command) {
-        return command.strip().split(JukeCommandParser.SPACE_REGEX);
+        return command.strip().split(Parser.SPACE_REGEX);
     }
 
     /**
@@ -42,7 +42,7 @@ public abstract class JukeCommandParser extends JukeObject {
      * @return Parsed array of String which represents the parsed tokens in the command
      */
     public static String[] parseByByString(String command) {
-        return command.strip().split(JukeCommandParser.SPLITTING_BY_REGEX);
+        return command.strip().split(Parser.SPLITTING_BY_REGEX);
     }
 
     /**
@@ -52,14 +52,14 @@ public abstract class JukeCommandParser extends JukeObject {
      * @return Parsed array of String which represents the parsed tokens in the command
      */
     public static String[] parseByFromToString(String command) {
-        return command.strip().split(JukeCommandParser.SPLITTING_FROM_TO_REGEX);
+        return command.strip().split(Parser.SPLITTING_FROM_TO_REGEX);
     }
 
     public static boolean isMatchByString(String command) {
-        return Pattern.matches(JukeCommandParser.CHECKING_BY_REGEX, command);
+        return Pattern.matches(Parser.CHECKING_BY_REGEX, command);
     }
 
     public static boolean isMatchFromToString(String command) {
-        return Pattern.matches(JukeCommandParser.CHECKING_FROM_TO_REGEX, command);
+        return Pattern.matches(Parser.CHECKING_FROM_TO_REGEX, command);
     }
 }

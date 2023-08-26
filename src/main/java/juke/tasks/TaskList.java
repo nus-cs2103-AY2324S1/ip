@@ -2,9 +2,9 @@ package main.java.juke.tasks;
 
 import main.java.juke.exceptions.arguments.JukeIllegalArgumentException;
 import main.java.juke.exceptions.storage.JukeStorageException;
-import main.java.juke.primitivies.JukeException;
-import main.java.juke.primitivies.JukeObject;
-import main.java.juke.storage.JukeStorageManager;
+import main.java.juke.exceptions.JukeException;
+import main.java.juke.core.JukeObject;
+import main.java.juke.storage.Storage;
 
 import java.util.LinkedList;
 
@@ -12,7 +12,7 @@ import java.util.LinkedList;
  * A manager of JukeTasks. This class handles the addition/deletion/manipulation of
  * other child JukeTasks subsumed under its control.
  */
-public class JukeTaskManager extends JukeObject {
+public class TaskList extends JukeObject {
     /** Header for Task Manager String representation. */
     private static final String HEADER = "\n\t>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TASK LIST <<<<<<<<<<<<<<" +
             "<<<<<<<<<<<<<<<<<<<<<\n";
@@ -27,23 +27,23 @@ public class JukeTaskManager extends JukeObject {
      * {@code JukeStorageManager} instance in charge of storing, retrieving and
      * modifying data.
      */
-    private final JukeStorageManager storageManager;
+    private final Storage storageManager;
 
     /**
-     * Private constructor for JukeTaskManager that initialises the
+     * Private constructor for TaskList that initialises the
      * tasks within this Manager.
      */
-    private JukeTaskManager(JukeStorageManager storageManager) throws JukeStorageException {
+    private TaskList(Storage storageManager) throws JukeStorageException {
         this.storageManager = storageManager;
         this.tasks = new LinkedList<>(storageManager.get());
     }
 
     /**
-     * Factory method to create a JukeTaskManager, from existing saved tasks.
-     * @return JukeTaskManager object
+     * Factory method to create a TaskList, from existing saved tasks.
+     * @return TaskList object
      */
-    public static JukeTaskManager of(JukeStorageManager storageManager) throws JukeStorageException {
-        return new JukeTaskManager(storageManager);
+    public static TaskList of(Storage storageManager) throws JukeStorageException {
+        return new TaskList(storageManager);
     }
 
     /**
@@ -129,10 +129,10 @@ public class JukeTaskManager extends JukeObject {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(JukeTaskManager.HEADER);
+        builder.append(TaskList.HEADER);
 
         if (this.tasks.isEmpty()) {
-            builder.append(JukeTaskManager.EMPTY);
+            builder.append(TaskList.EMPTY);
         } else {
             for (int i = 0; i < this.tasks.size(); i++) {
                 builder.append("\t")

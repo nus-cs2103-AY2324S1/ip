@@ -1,7 +1,5 @@
 package main.java.juke.exceptions;
 
-import main.java.juke.primitivies.JukeException;
-
 /**
  * Represents an error thrown when the parser for the data files cannot
  * parse the data.

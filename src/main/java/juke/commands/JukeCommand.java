@@ -1,10 +1,11 @@
-package main.java.juke.primitivies;
+package main.java.juke.commands;
 
-import main.java.juke.actions.*;
 import main.java.juke.exceptions.arguments.JukeIllegalCommandArgumentException;
-import main.java.juke.parsers.JukeCommandParser;
-import main.java.juke.parsers.JukeDateTimeParser;
-import main.java.juke.tasks.JukeTaskManager;
+import main.java.juke.parsers.Parser;
+import main.java.juke.parsers.DateTimeParser;
+import main.java.juke.exceptions.JukeException;
+import main.java.juke.core.JukeObject;
+import main.java.juke.tasks.TaskList;
 import main.java.juke.exceptions.arguments.JukeIllegalArgumentException;
 import main.java.juke.tasks.JukeDeadline;
 import main.java.juke.tasks.JukeEvent;
@@ -15,27 +16,27 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 
 /**
- * Abstract class used to dispatch commands to the respective actions.
+ * Abstract class used to dispatch commands to the respective commands.
  */
-public abstract class JukeAction extends JukeObject {
+public abstract class JukeCommand extends JukeObject {
     /**
-     * Creates the specified JukeAction of interest.
+     * Creates the specified JukeCommand of interest.
      * @param command Raw command from the user input
-     * @param taskManager JukeTaskManager object which manages all tasks.
-     * @return Corresponding JukeAction object
+     * @param taskList TaskList object which manages all tasks.
+     * @return Corresponding JukeCommand object
      */
-    public static final JukeAction of(String command, JukeTaskManager taskManager) throws JukeException {
-        String[] parsedArgs = JukeCommandParser.parseBySpace(command);
-        return JukeAction.dispatch(parsedArgs, taskManager);
+    public static final JukeCommand of(String command, TaskList taskList) throws JukeException {
+        String[] parsedArgs = Parser.parseBySpace(command);
+        return JukeCommand.dispatch(parsedArgs, taskList);
     }
 
     /**
-     * Dispatches the commands to the necessary subclasses of JukeAction.
+     * Dispatches the commands to the necessary subclasses of JukeCommand.
      * @param args Parsed arguments
-     * @param taskManager JukeTaskManager object which manages all tasks.
-     * @return
+     * @param taskList TaskList object which manages all tasks.
+     * @return Corresponding JukeCommand object
      */
-    private static JukeAction dispatch(String[] args, JukeTaskManager taskManager) throws JukeException {
+    private static JukeCommand dispatch(String[] args, TaskList taskList) throws JukeException {
         if (args.length == 0) {
             throw new JukeException("Oh no! No commands are present!");
         }
@@ -45,9 +46,9 @@ public abstract class JukeAction extends JukeObject {
 
         switch (mainCommand) {
             case "list":
-                return new JukePrintAction(taskManager);
+                return new JukePrintCommand(taskList);
             case "bye":
-                return new JukeExitAction();
+                return new JukeExitCommand();
             case "mark":
                 if (args.length == 1) {
                     throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your mark command!",
@@ -55,7 +56,7 @@ public abstract class JukeAction extends JukeObject {
                 } else {
                     try {
                         int i = Integer.parseInt(args[1]);
-                        return new JukeMarkTaskDoneAction(taskManager, i - 1);
+                        return new JukeMarkTaskDoneCommand(taskList, i - 1);
                     } catch (NumberFormatException ex) {
                         jukeOpError = "Oh no! You must input a valid task number " +
                                 "for the command \"mark\"!";
@@ -69,7 +70,7 @@ public abstract class JukeAction extends JukeObject {
                 } else {
                     try {
                         int i = Integer.parseInt(args[1]);
-                        return new JukeMarkTaskUndoneAction(taskManager, i - 1);
+                        return new JukeMarkTaskUndoneCommand(taskList, i - 1);
                     } catch (NumberFormatException ex) {
                         jukeOpError = "Oh no! You must input a valid task number " +
                                 "for the command \"unmark\"!";
@@ -83,7 +84,7 @@ public abstract class JukeAction extends JukeObject {
                 } else {
                     try {
                         int i = Integer.parseInt(args[1]);
-                        return new JukeDeleteTaskAction(taskManager, i - 1);
+                        return new JukeDeleteTaskCommand(taskList, i - 1);
                     } catch (NumberFormatException ex) {
                         jukeOpError = "Oh no! You must input a valid task number " +
                                 "for the command \"unmark\"!";
@@ -99,37 +100,37 @@ public abstract class JukeAction extends JukeObject {
                     // concatenate back the string
                     String newArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
                     JukeTask jt = new JukeTodo(newArgs);
-                    return new JukeAddTaskAction(taskManager, jt);
+                    return new JukeAddTaskCommand(taskList, jt);
                 }
             case "deadline":
                 // concatenate back the string
                 String newDeadlineArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 
                 // check if fulfills regex
-                if (!JukeCommandParser.isMatchByString(newDeadlineArgs)) {
+                if (!Parser.isMatchByString(newDeadlineArgs)) {
                     throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your deadline command!",
                                                            "deadline [description] /by [DD(-/|)MM(-/|)YYYY HH(-:)MM " +
                                                                    "or DD(-/|)MM(-/|)YYYY]\n(..) -> any of");
                 } else {
-                    String[] parsedArguments = JukeCommandParser.parseByByString(newDeadlineArgs);
-                    JukeTask jt = new JukeDeadline(parsedArguments[0], JukeDateTimeParser.parse(parsedArguments[1]));
-                    return new JukeAddTaskAction(taskManager, jt);
+                    String[] parsedArguments = Parser.parseByByString(newDeadlineArgs);
+                    JukeTask jt = new JukeDeadline(parsedArguments[0], DateTimeParser.parse(parsedArguments[1]));
+                    return new JukeAddTaskCommand(taskList, jt);
                 }
             case "event":
                 // concatenate back the string
                 String newEventArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 
                 // check if fulfills regex
-                if (!JukeCommandParser.isMatchFromToString(newEventArgs)) {
+                if (!Parser.isMatchFromToString(newEventArgs)) {
                     throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your event command!",
                                                            "event [description] /from [DD(-/|)MM(-/|)YYYY HH(-:)MM " +
                                                                    "or DD(-/|)MM(-/|)YYYY]\n" +
                                                                    "/to [DD(-/|)MM(-/|)YYYY HH(-:)MM or DD(-/|)" +
                                                                    "MM(-/|)YYYY]\n(..) -> any of");
                 } else {
-                    String[] parsedArguments = JukeCommandParser.parseByFromToString(newEventArgs);
-                    LocalDateTime localTimeOne = JukeDateTimeParser.parse(parsedArguments[1]);
-                    LocalDateTime localTimeTwo = JukeDateTimeParser.parse(parsedArguments[2]);
+                    String[] parsedArguments = Parser.parseByFromToString(newEventArgs);
+                    LocalDateTime localTimeOne = DateTimeParser.parse(parsedArguments[1]);
+                    LocalDateTime localTimeTwo = DateTimeParser.parse(parsedArguments[2]);
 
                     if (localTimeTwo.isBefore(localTimeOne)) {
                         throw new JukeIllegalArgumentException("Oh no! The \"to\" date cannot be before the " +
@@ -137,7 +138,7 @@ public abstract class JukeAction extends JukeObject {
                     }
 
                     JukeTask jt = new JukeEvent(parsedArguments[0], localTimeOne, localTimeTwo);
-                    return new JukeAddTaskAction(taskManager, jt);
+                    return new JukeAddTaskCommand(taskList, jt);
                 }
         }
 
@@ -152,7 +153,7 @@ public abstract class JukeAction extends JukeObject {
     }
 
     /**
-     * Necessary method that is invoked when the action is carried out.
+     * Necessary method that is invoked when the command is carried out.
      */
     abstract public void complete() throws JukeException;
 }

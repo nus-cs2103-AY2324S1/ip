@@ -1,0 +1,35 @@
+package main.java.juke.commands;
+
+import main.java.juke.exceptions.storage.JukeStorageException;
+import main.java.juke.tasks.TaskList;
+
+/**
+ * Action that marks a JukeTask as undone.
+ */
+public class JukeMarkTaskUndoneCommand extends JukeCommand {
+    /** TaskList that manages the tasks. */
+    private final TaskList taskList;
+
+    /** The index of the task of interest. */
+    private final int index;
+
+    /**
+     * Constructor for JukeMarkTaskUndoneAction.
+     * @param taskList TaskList that manages the tasks
+     * @param index Index of the Task to act on
+     */
+    public JukeMarkTaskUndoneCommand(TaskList taskList, int index) {
+        this.taskList = taskList;
+        this.index = index;
+    }
+
+    /**
+     * Necessary method that is invoked when the action is carried out.
+     * @throws {@code JukeStorageException} If there is an issue with storing changes
+     */
+    @Override
+    public void complete() throws JukeStorageException {
+        this.taskList.markAsUndone(this.index);
+        System.out.print("Task Marked as Undone!\n" + this.taskList.taskInformation(this.index));
+    }
+}

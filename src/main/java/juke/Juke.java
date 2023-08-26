@@ -1,9 +1,12 @@
-package main.java.juke.core;
+package main.java.juke;
 
-import main.java.juke.actions.JukeExceptionAction;
+import main.java.juke.commands.JukeExceptionCommand;
 import main.java.juke.exceptions.JukeInitialisationException;
 import main.java.juke.exceptions.JukeParseException;
 import main.java.juke.exceptions.storage.JukeStorageException;
+import main.java.juke.storage.Storage;
+import main.java.juke.tasks.TaskList;
+import main.java.juke.ui.Ui;
 
 import java.util.Scanner;
 
@@ -11,14 +14,22 @@ import java.util.Scanner;
  * Juke Virtual Assistant
  */
 public class Juke {
-    /** Orchestrator for Juke. */
-    private final JukeOrchestrator jukeOrchestrator;
+    /** UI for Juke. */
+    private final Ui ui;
+
+    /** Storage for Juke. */
+    private final Storage storage;
+
+    /** Task List for Juke. */
+    private final TaskList taskList;
 
     /**
      * Constructor for Juke.
      */
     public Juke() throws JukeInitialisationException, JukeStorageException {
-        this.jukeOrchestrator = JukeOrchestrator.of(new Scanner(System.in));
+        this.storage = Storage.of();
+        this.taskList = TaskList.of(this.storage);
+        this.ui = new Ui(new Scanner(System.in), this.storage, this.taskList);
     }
 
     /**
@@ -33,7 +44,7 @@ public class Juke {
         } catch (JukeInitialisationException | JukeStorageException | JukeParseException ex) {
             // program should not continue if it cannot initialise properly
             // or if there are issues with retrieving data from the datafile
-            new JukeExceptionAction(ex).complete();
+            new JukeExceptionCommand(ex).complete();
         }
     }
 
@@ -41,6 +52,6 @@ public class Juke {
      * Starts the orchestrator for Juke.
      */
     public void start() {
-        this.jukeOrchestrator.start();
+        this.ui.start();
     }
 }
