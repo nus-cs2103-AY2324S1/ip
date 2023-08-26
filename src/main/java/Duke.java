@@ -69,12 +69,10 @@ public class Duke {
                         Event event = new Event(onlyTask, from, to);
                         event.print();
                     }
-                    else {
-                        throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + Duke.horizontalLine);
-                    }
                 } else if (elements[0].equals("todo") || elements[0].equals("deadline") || elements[0].equals("event")) {
                     throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! The description of a " + elements[0] + "cannot be empty.\n" + Duke.horizontalLine);
-                } else {
+                }
+                else {
                     throw new DukeException(Duke.horizontalLine + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" + Duke.horizontalLine);
                 }
             } catch (Exception e) {
