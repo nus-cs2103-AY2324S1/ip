@@ -1,12 +1,13 @@
 package bot.utils;
 
-import java.time.LocalDate;
-
-import bot.exceptions.InvalidTaskException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
+import bot.exceptions.InvalidTaskException;
 
 public class TaskTest {
     @Test
