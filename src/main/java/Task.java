@@ -7,12 +7,9 @@ public class Task {
         this.name = name;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public boolean getDone() {
-        return this.done;
+    public Task(String name, boolean isDone) {
+        this.name = name;
+        this.done = isDone;
     }
 
     public void markDone() {
@@ -32,5 +29,13 @@ public class Task {
             doneCheckbox = "[ ]";
         }
         return doneCheckbox + " " + this.name;
+    }
+
+    public String toDataString() {
+        String isDone = "0";
+        if (this.done) {
+            isDone = "1";
+        }
+        return isDone + "|" + this.name;
     }
 }
