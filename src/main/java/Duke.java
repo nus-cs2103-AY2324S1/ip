@@ -5,11 +5,12 @@ public class Duke {
     private TaskList taskList;
 
     private enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT
+        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, HELP
     }
     private void greet() {
         String greetMsg = "Hello! I'm Atlas\n"
-                + "What can I do for you?\n";
+                + "What can I do for you?\n"
+                + "Type 'help' to view available commands\n";
         System.out.println(greetMsg);
     }
 
@@ -55,6 +56,9 @@ public class Duke {
                     case EVENT:
                         this.taskList.newEvent(msg);
                         break;
+                    case HELP:
+                        this.help();
+                        break;
                 }
             } catch (DukeException e) {
                 System.out.println(e);
@@ -74,6 +78,20 @@ public class Duke {
         this.greet();
         this.taskList = new TaskList(this.storage.loadData());
         this.listen();
+    }
+
+    private void help() {
+        String helpMsg = "Here are the available commands:\n"
+                + "1. bye - Exit the program\n"
+                + "2. list - List all tasks\n"
+                + "3. mark <taskNumber> - Mark a task as done\n"
+                + "4. unmark <taskNumber> - Mark a task as undone\n"
+                + "5. delete <taskNumber> - Delete a task\n"
+                + "6. todo <description> - Add a new todo task\n"
+                + "7. deadline <description> /by <dueDate> - Add a new deadline task\n"
+                + "8. event <description> /from <startDate> /to <endDate> - Add a new event task\n"
+                + "9. help - Displays the available commands\n";
+        System.out.println(helpMsg);
     }
 
     public static void main(String[] args) {
