@@ -72,7 +72,7 @@ public class Duke {
     }
 
     /**
-     * Main method to run the Duke program.
+     * Runs the Duke program.
      *
      * @param args Command line arguments (not used).
      */
