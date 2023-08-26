@@ -12,7 +12,7 @@ import bot.exceptions.InvalidTaskException;
  */
 public abstract class Task {
     /**
-     * Name of the task
+     * Name of the task.
      */
     private final String name;
     /**
@@ -249,8 +249,8 @@ public abstract class Task {
         /**
          * Alternative constructor. Usually used when reading data from a file.
          *
-         * @param name   Name of deadline
-         * @param isDone Completion status of deadline
+         * @param name   Name of deadline.
+         * @param isDone Completion status of deadline.
          * @param by     The time the deadline is due.
          */
         protected Deadline(String name, boolean isDone, LocalDate by) {
@@ -398,7 +398,7 @@ public abstract class Task {
         /**
          * Reads a string of standardised data and constructs an Event object based on the information.
          *
-         * @param str Data string
+         * @param str Data string.
          * @return Event object.
          * @throws InvalidTaskException If an Event object cannot be created.
          */

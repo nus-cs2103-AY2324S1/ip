@@ -35,6 +35,8 @@ public class Parser {
             return Command.add(str);
         } else if (str.startsWith("delete ")) {
             return Command.delete(str);
+        } else if (str.startsWith("find ")) {
+            return Command.find(str);
         } else {
             throw new InvalidCommandException();
         }
