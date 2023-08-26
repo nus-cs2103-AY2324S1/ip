@@ -1,9 +1,13 @@
+/**
+ * A task.
+ */
 public class Task {
     private boolean isDone;
     private String description;
 
     /**
-     * Create a task instance.
+     * Creates a task instance.
+     *
      * @param description Description of the task.
      */
     public Task(String description) {
@@ -11,12 +15,17 @@ public class Task {
         this.description = description;
     }
 
+    /**
+     * Returns the current status of the task.
+     *
+     * @return A boolean value to indicate if the task is done.
+     */
     public String getStatusIcon() {
         return (this.isDone ? "/" : " ");
     }
 
     /**
-     * Mark a task as done.
+     * Marks a task as done.
      */
     public void markDone() {
         if (this.isDone) {
@@ -28,7 +37,14 @@ public class Task {
     }
 
     /**
-     * Mark a task as undone.
+     * Marks a task as done after reading from a file.
+     */
+    public void markDoneFromFile() {
+        this.isDone = true;
+    }
+
+    /**
+     * Marks a task as undone.
      */
     public void markUndone() {
         if (!this.isDone) {
@@ -40,11 +56,25 @@ public class Task {
     }
 
     /**
-     * String representation of the task.
-     * @return Desired representation of the task.
+     * Returns a string representation of the task.
+     *
+     * @return Desired string representation of the task.
      */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
+    }
+
+    /**
+     * Returns a string representation of the task to be inserted into a file.
+     *
+     * @return Desired string representation of the task.
+     */
+    public String toStringInFile() {
+        if (isDone) {
+            return " 1 " + this.description;
+        } else {
+            return " 0 " + this.description;
+        }
     }
 }
