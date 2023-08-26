@@ -41,7 +41,7 @@ public class Ui {
      * @return Full command string.
      */
     public String readCommand() {
-        return this.sc.nextLine();
+        return sc.nextLine();
     }
 
     /**
@@ -56,6 +56,7 @@ public class Ui {
      */
     public void showGoodbye() {
         println("Bye. I'll be at the nearest trash can!");
+        sc.close();
     }
 
     /**
