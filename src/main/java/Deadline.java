@@ -13,6 +13,12 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String compressData() {
+        char isDoneChar = this.isDone ? '1' : '0';
+        return "D" + " | " + isDoneChar + " | " + this.taskName + " | " + this.deadline;
+    }
+
+    @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadline + ")";
     }

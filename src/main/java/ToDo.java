@@ -9,6 +9,12 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String compressData() {
+        char isDoneChar = this.isDone ? '1' : '0';
+        return "T" + " | " + isDoneChar + " | " + this.taskName;
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
