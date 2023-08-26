@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -33,25 +36,30 @@ public class Task {
         String type = split[0];
         boolean isDone = split[1].equals("1");
         String description = split[2];
+        Task task = null;
 
         switch (type) {
-            case "T":
-                Todo todo = new Todo(description);
-                if (isDone) todo.markAsDone();
-                return todo;
-            case "D":
-                String by = split[3];
-                Deadline deadline = new Deadline(description, by);
-                if (isDone) deadline.markAsDone();
-                return deadline;
-            case "E":
-                String start = split[3];
-                String end = split[4];
-                Event event = new Event(description, start, end);
-                if (isDone) event.markAsDone();
-                return event;
-            default:
-                return null;
+            case "T": {
+                task = new Todo(description);
+                if (isDone) task.markAsDone();
+                break;
+            }
+            case "D": {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime by = LocalDateTime.parse(split[3], formatter);
+                task = new Deadline(description, by);
+                if (isDone) task.markAsDone();
+                break;
+            }
+            case "E": {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime start = LocalDateTime.parse(split[3], formatter);
+                LocalDateTime end = LocalDateTime.parse(split[4], formatter);
+                task = new Event(description, start, end);
+                if (isDone) task.markAsDone();
+                break;
+            }
         }
+        return task;
     }
 }

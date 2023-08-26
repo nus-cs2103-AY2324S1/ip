@@ -1,6 +1,7 @@
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -128,7 +129,10 @@ public class Duke {
         if (split.length <= 1) {
             throw new DukeMissingArgumentException("The deadline cannot be empty.");
         }
-        Deadline deadline = new Deadline(split[0], split[1]);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        LocalDateTime dateTime = LocalDateTime.parse(split[1], formatter);
+        Deadline deadline = new Deadline(split[0], dateTime);
         tasks.add(deadline);
         printBotMessage("Got it. I've added this task:\n\t" + deadline +
                 "\nNow you have " + tasks.size() + " tasks in the list.");
@@ -153,8 +157,11 @@ public class Duke {
         if (split2.length != 2) {
             throw new DukeMissingArgumentException("The start and end time of an event cannot be empty.");
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        LocalDateTime start = LocalDateTime.parse(split2[0], formatter);
+        LocalDateTime end = LocalDateTime.parse(split2[1], formatter);
 
-        Event event = new Event(split[0], split2[0], split2[1]);
+        Event event = new Event(split[0], start, end);
         tasks.add(event);
         printBotMessage("Got it. I've added this task:\n\t" + event +
                 "\nNow you have " + tasks.size() + " tasks in the list.");
@@ -183,7 +190,6 @@ public class Duke {
         try {
             tasks = storage.loadTasks();
         } catch (FileNotFoundException e) {
-            printBotMessage("Unable to load tasks: " + e.getMessage());
         }
 
         while (true) {
