@@ -91,6 +91,29 @@ public class TaskList {
     }
 
     /**
+     * Finds the corresponding tasks with descriptions matching the keyword.
+     *
+     * @param keyword The keyword that is being searched in description.
+     * @param ui      The user interface to interact with the user or display messages.
+     */
+    public void findTask(String keyword, Ui ui) {
+        ArrayList<String> str = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.hasKeyword(keyword)) {
+                str.add(task.toString());
+            }
+        }
+        if (str.size() > 0) {
+            ui.findMessage();
+            for (String task : str) {
+                ui.showMessage(task);
+            }
+        } else {
+            ui.findNoMessage();
+        }
+    }
+
+    /**
      * Marks a task from the task list by index and displays a corresponding message using the provided UI.
      *
      * @param index The index of the task to be deleted.
@@ -142,8 +165,8 @@ public class TaskList {
      */
     public Event addEvent(String description, String from, String to) {
         Event event = new Event(description,
-                LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+                                LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                                LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         this.tasks.add(event);
         return event;
     }
@@ -158,7 +181,8 @@ public class TaskList {
      */
     public Deadline addDeadline(String description, String by) {
         Deadline deadline = new Deadline(description, LocalDateTime.parse(by,
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+                                                                          DateTimeFormatter.ofPattern(
+                                                                                  "yyyy-MM-dd HH:mm")));
         this.tasks.add(deadline);
         return deadline;
     }
