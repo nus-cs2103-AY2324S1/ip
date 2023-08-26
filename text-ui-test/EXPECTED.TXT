@@ -46,6 +46,12 @@ OK, I have marked this as undone:
   [D][ ] return book (by: Sunday)
 ____________________________________________________________
 ____________________________________________________________
+Here are the tasks in your list:
+Task 1: [T][X] borrow book
+Task 2: [D][ ] return book (by: Sunday)
+Task 3: [E][ ] project meeting (from: Mon 2pm to 4pm)
+____________________________________________________________
+____________________________________________________________
 OK, I have marked this as undone:
   [T][ ] borrow book
 ____________________________________________________________
