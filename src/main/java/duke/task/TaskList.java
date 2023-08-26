@@ -191,6 +191,23 @@ public class TaskList {
     }
 
     /**
+     * Retrieves a list of tasks containing a given keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return An ArrayList of tasks that match the keyword.
+     */
+    public String searchMatchingTasks(String keyword) {
+        int count = 0;
+        StringBuilder str = new StringBuilder("Here are the matching tasks in your list:");
+        for (Task task : this.tasks) {
+            if (task.containKeyword(keyword)) {
+                str.append(count > 0 ? "\n" : "").append(count++).append(".").append(task);
+            }
+        }
+        return count > 0 ? str.toString() : "No matching results for search: " + keyword;
+    }
+
+    /**
      * Returns a string representation of the task list.
      *
      * @return String representation of the task list.
@@ -200,7 +217,7 @@ public class TaskList {
         StringBuilder str = new StringBuilder(this.status());
         for (int i = 0; i < this.tasks.size(); i++) {
             str.append(i + 1).append(".").append(this.tasks.get(i)).append(
-                    i < this.tasks.size() ? "\n" : "");
+                    i < this.tasks.size() - 1 ? "\n" : "");
         }
         return str.toString();
     }

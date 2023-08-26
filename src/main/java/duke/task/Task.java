@@ -88,4 +88,14 @@ public abstract class Task {
     public String formatLocalDateTime(LocalDateTime date) {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
+
+    /**
+     * Checks whether the task's description contains the given keyword.
+     *
+     * @param keyword The keyword to search for in the task's description.
+     * @return True if the description contains the keyword, false otherwise.
+     */
+    public boolean containKeyword(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
