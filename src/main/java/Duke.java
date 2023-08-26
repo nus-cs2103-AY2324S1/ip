@@ -6,7 +6,6 @@ public class Duke {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String task = "";
-
         System.out.println("Hello! I'm Bot\n" + "What can I do for you?\n" + horizontalLine);
         while (true) {
             task = sc.nextLine();
