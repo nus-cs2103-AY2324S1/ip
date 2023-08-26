@@ -15,7 +15,7 @@ public class Duke {
     }
 
     public Duke() {
-        this.name = "Meg";
+        this.name = "Leon";
         this.run();
     }
 
