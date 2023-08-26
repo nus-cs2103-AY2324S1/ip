@@ -10,13 +10,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CarbonBot {
-    private static final String saveFilePath = "./data/tasks.txt";
-    public static void main(String[] args) {
+    private final String saveFilePath;
+
+    public CarbonBot(String filePath) {
+        this.saveFilePath = filePath;
+    }
+
+    public void run() {
         Scanner sc = new Scanner(System.in);
         List<Task> taskList;
 
         try {
-            taskList = deserializeTasks();
+            taskList = deserializeTasks(saveFilePath);
         } catch (DukeException ex) {
             System.out.println("Something is wrong with your save file :/");
             return;
@@ -68,7 +73,7 @@ public class CarbonBot {
                         if (desc.isBlank()) {
                             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
                         } else {
-                            addTask(taskList, new Todo(desc));
+                            addTask(taskList, new Todo(desc), saveFilePath);
                         }
                         break;
                     case "deadline":
@@ -91,7 +96,7 @@ public class CarbonBot {
 
                         try {
                             LocalDateTime byDt = parseDateTimeString(by);
-                            addTask(taskList, new Deadline(desc, byDt));
+                            addTask(taskList, new Deadline(desc, byDt), saveFilePath);
                         } catch (DateTimeParseException ex) {
                             throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format.");
                         }
@@ -126,19 +131,19 @@ public class CarbonBot {
                         try {
                             LocalDateTime fromDt = parseDateTimeString(from);
                             LocalDateTime toDt = parseDateTimeString(to);
-                            addTask(taskList, new Event(desc, fromDt, toDt));
+                            addTask(taskList, new Event(desc, fromDt, toDt), saveFilePath);
                         } catch (DateTimeParseException ex) {
                             throw new DukeException("☹ OOPS!!! The given datetime was not in a valid format.");
                         }
                         break;
                     case "delete":
-                        deleteTask(taskList, input);
+                        deleteTask(taskList, input, saveFilePath);
                         break;
                     case "mark":
-                        updateTaskStatus(taskList, input, true);
+                        updateTaskStatus(taskList, input, true, saveFilePath);
                         break;
                     case "unmark":
-                        updateTaskStatus(taskList, input, false);
+                        updateTaskStatus(taskList, input, false, saveFilePath);
                         break;
                     default:
                         // Unrecognised Command
@@ -152,19 +157,24 @@ public class CarbonBot {
             printDivider();
         }
     }
+    
+    public static void main(String[] args) {
+        String saveFilePath = "./data/tasks.txt";
+        new CarbonBot(saveFilePath).run();
+    }
 
 
-    private static void printDivider() {
+    private void printDivider() {
         String DIVIDER = "____________________________________________________________";
         System.out.println(DIVIDER);
     }
 
-    private static LocalDateTime parseDateTimeString(String dateTime) throws DateTimeParseException {
+    private LocalDateTime parseDateTimeString(String dateTime) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         return LocalDateTime.parse(dateTime, formatter);
     }
 
-    private static void deleteTask(List<Task> tasks, String input) throws DukeException {
+    private void deleteTask(List<Task> tasks, String input, String saveFilePath) throws DukeException {
         // Validates if the user has specified the index to be updated
         if (input.split(" ").length < 2) {
             throw new DukeException("No index was provided. Please enter the task index to be updated.");
@@ -185,20 +195,20 @@ public class CarbonBot {
         } catch (NumberFormatException nfe) {
             throw new DukeException("Please provide a valid integer for the index.");
         }
-        saveTasks(tasks);
+        saveTasks(tasks, saveFilePath);
     }
 
     // Adds a todo task to the list
-    private static void addTask(List<Task> tasks, Task task) {
+    private void addTask(List<Task> tasks, Task task, String saveFilePath) {
         tasks.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task);
         System.out.println(getListSize(tasks));
-        saveTasks(tasks);
+        saveTasks(tasks, saveFilePath);
     }
 
 
-    private static void saveTasks(List<Task> tasks) {
+    private void saveTasks(List<Task> tasks, String saveFilePath) {
         try {
             File file = new File(saveFilePath);
             if (!file.exists()) {
@@ -218,7 +228,7 @@ public class CarbonBot {
         }
     }
 
-    private static String serializeTasks(List<Task> tasks) {
+    private String serializeTasks(List<Task> tasks) {
         String s = "";      //TODO: Replace with StringBuilder
         for (Task task : tasks) {
             s += task.serialize() + "\n";
@@ -226,7 +236,7 @@ public class CarbonBot {
         return s;
     }
 
-    private static List<Task> deserializeTasks() throws DukeException {
+    private List<Task> deserializeTasks(String saveFilePath) throws DukeException {
         List<Task> taskList = new ArrayList<Task>();
         File f = new File(saveFilePath); // create a File for the given file path
         Scanner s = null; // create a Scanner using the File as the source
@@ -279,12 +289,12 @@ public class CarbonBot {
     }
 
     // Get number of tasks in the list
-    private static String getListSize(List<Task> tasks) {
+    private String getListSize(List<Task> tasks) {
         return "Now you have " + tasks.size() + " tasks in the list.";
     }
 
     // Lists all the commands saved in the arraylist
-    private static void printList(List<Task> tasks) {
+    private void printList(List<Task> tasks) {
         int idx = 1;
         for(Task t : tasks) {
             System.out.println(String.format("%d.%s", idx, t));
@@ -293,7 +303,7 @@ public class CarbonBot {
     }
 
     // Marks the Task as Done or Not Done
-    private static void updateTaskStatus(List<Task> tasks, String input, boolean isDone) throws DukeException {
+    private void updateTaskStatus(List<Task> tasks, String input, boolean isDone, String saveFilePath) throws DukeException {
         // Validates if the user has specified the index to be updated
         if (input.split(" ").length < 2) {
             throw new DukeException("No index was provided. Please enter the task index to be updated.");
@@ -324,7 +334,7 @@ public class CarbonBot {
             // Ensure the index is integer
             throw new DukeException("Please provide a valid integer for the index.");
         }
-        saveTasks(tasks);
+        saveTasks(tasks, saveFilePath);
     }
 
 }
