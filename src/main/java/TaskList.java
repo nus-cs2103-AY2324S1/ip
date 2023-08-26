@@ -7,37 +7,34 @@ public class TaskList {
         this.nextIndex = 0;
     }
 
-    public String addTask(Task newTask) {
+    public void addTask(Task newTask) {
         // add new task into our array
         array[this.nextIndex] = newTask;
         this.nextIndex += 1;
-        return "added: " + newTask.getName();
     }
 
-    public String markDone(int taskNumber) {
-        Task currentTask = this.array[taskNumber - 1];
-        currentTask.changeStatus();
-        return "Well done! Your task has now been updated to: \n"
-                + currentTask.getStatus() + " " + currentTask.getName();
+    public Task getTask(int taskNumber) {
+        return this.array[taskNumber-1];
     }
 
-    public String unMarkDone(int taskNumber) {
-        Task currentTask = this.array[taskNumber - 1];
-        currentTask.changeStatus();
-        return "OK! Your task has now been updated to: \n"
-                + currentTask.getStatus() + " " + currentTask.getName();
+    public int getLength() {
+        int count = 0;
+        while (this.array[count] != null) {
+            count += 1;
+        }
+        return count;
     }
 
     @Override
     public String toString() {
         // display in numerical pointers
-        String list = "Things you need to do: \n";
+        String list = "";
         for (int i = 0; i < this.nextIndex; i++) {
             Task task = this.array[i];
             if (task == null) {
                 break;
             } else {
-                list += (i + 1) + "." + task.getStatus() + " " + task.getName() + "\n";
+                list += (i + 1) + "." + task.toString() + "\n";
             }
         }
         return list;

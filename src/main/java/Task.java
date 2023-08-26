@@ -1,22 +1,42 @@
 public class Task {
-    private String taskName;
-    private boolean status;
+    String taskName;
+    boolean status;
 
-    public Task(String taskName) {
+    public Task(Boolean status, String taskName) {
         this.taskName = taskName;
-        this.status = false;
+        this.status = status;
     }
 
     public String getName() {
         return this.taskName;
     }
 
-    public String getStatus() {
-        return this.status ? "[X]" : "[ ]";
+    public void mark() {
+        this.status = true;
     }
 
-    public void changeStatus() {
-        this.status = !this.status;
+    public void unMark() {
+        this.status = false;
     }
 
+    @Override
+    public String toString() {
+        if (this.status) {
+            return "[X] " + this.taskName;
+        } else {
+            return "[ ] " + this.taskName;
+        }
+    }
+
+    public String toStoreString() {
+        if (this.status) {
+            return "1/@/" + this.taskName;
+        } else {
+            return  "0/@/" + this.taskName;
+        }
+    }
+
+    public String toUpdateString(int i) {
+        return i + "/@/" + this.taskName;
+    }
 }

@@ -1,20 +1,51 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("What's your name?");
+    public static void main(String[] args) throws IOException {
+        System.out.println(SystemText.greeting());
 
-        // Take in inputs from keyboard and show them on screen
-        Scanner sc = new Scanner(System.in);
-        String answer = sc.nextLine();
+        // Load list of tasks stored in text file "task.txt" into the local TaskList
+        TaskList list = new TaskList();
+        Backend storage = new Backend();
+        storage.handleLoad(list);
 
-        // Bot reply
-        System.out.println("Hi" + answer);
+        // Start Scanner to read user inputs
+        SystemText ui = new SystemText(list);
+        String answer = ui.getInput();
+
+        // Initialize relevant classes
+        Command command = new Command(storage, ui, list);
+
+        // Listens to user commands and perform the relevant functions
+        while (true) {
+            if (answer.equalsIgnoreCase("bye")) {
+                break;
+            } else if (answer.equalsIgnoreCase("list")) {
+                System.out.println(ui.listTasks());
+                answer = ui.getInput();
+            } else if (answer.startsWith("mark")) {
+                System.out.println(command.handleMark(answer));
+                answer = ui.getInput();
+            } else if (answer.startsWith("unmark")) {
+                System.out.println(command.handleUnMark(answer));
+                answer = ui.getInput();
+            } else if (answer.startsWith("todo")) {
+                System.out.println(command.handleToDo(answer));
+                answer = ui.getInput();
+            } else if (answer.startsWith("deadline")) {
+                System.out.println(command.handleDeadline(answer));
+                answer = ui.getInput();
+            } else if (answer.startsWith("event")) {
+                System.out.println(command.handleEvent(answer));
+                answer = ui.getInput();
+            } else {
+                break;
+            }
+        }
+
+        System.out.println(SystemText.exit());
+        ui.stopScanner();
+        return;
     }
 }
