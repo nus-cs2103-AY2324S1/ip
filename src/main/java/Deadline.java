@@ -17,6 +17,19 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructor for creating a task based on whether its done or not
+     * @param taskName  name of task.
+     * @param isDone    whether the task is done or not
+     * @param deadline  the deadline of the task
+     */
+    public Deadline(String taskName, boolean isDone, String deadline) {
+        super(taskName);
+        super.completeTask();
+        this.taskName = taskName;
+        this.deadline = deadline;
+    }
+
+    /**
      * taskValidator does nothing if there are no wrong inputs but throws a WrongInputException
      * if inputs are invalid
      * @param input the user's string input
@@ -45,6 +58,16 @@ public class Deadline extends Task {
                         "Please input valid text that are not space");
             }
         }
+    }
+
+    /**
+     * Converts a Deadline task into a string that can be saved
+     * @return  a string that can be saved
+     */
+    @Override
+    public String convertToSaveFormat() {
+        return "D" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName
+                + Storage.FILESEPERATORCHARACTER + this.deadline;
     }
 
     @Override

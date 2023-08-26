@@ -8,12 +8,27 @@ public class Event extends Task {
     private String endTime;
 
     /**
-     * Constructor for creating a task
+     * Constructor for creating a Event
      *
      * @param taskName name of task.
      */
     public Event(String taskName, String startTime, String endTime) {
         super(taskName);
+        this.taskName = taskName;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    /**
+     * Constructor for creating an Event based on whether its done or not
+     * @param taskName  name of task.
+     * @param isDone    whether the task is done or not
+     * @param startTime the start time of the event
+     * @param endTime   the end time of the event
+     */
+    public Event(String taskName, boolean isDone, String startTime, String endTime) {
+        super(taskName);
+        super.completeTask();
         this.taskName = taskName;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -54,6 +69,17 @@ public class Event extends Task {
                 throw new WrongInputTask("/to <content>, content cannot be blank", "Enter text after /to ");
             }
         }
+    }
+
+
+    /**
+     * Converts an Event task into a string that can be saved
+     * @return  a string that can be saved
+     */
+    @Override
+    public String convertToSaveFormat() {
+        return "E" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName
+                + Storage.FILESEPERATORCHARACTER + this.endTime + Storage.FILESEPERATORCHARACTER + this.startTime;
     }
 
     @Override

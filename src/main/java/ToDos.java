@@ -8,8 +8,22 @@ public class ToDos extends Task {
      * @param taskName name of task.
      *
      */
+
+    private String taskName;
+
     public ToDos(String taskName) {
         super(taskName);
+        this.taskName = taskName;
+    }
+
+    /**
+     * Constructor for creating a To-Do Task
+     * @param taskName name of task.
+     * @param isDone  whether the task is done or not
+     */
+    public ToDos(String taskName, boolean isDone) {
+        super(taskName);
+        super.completeTask();
     }
 
     /**
@@ -23,6 +37,15 @@ public class ToDos extends Task {
         if (splitString.length < 2) {
             throw new WrongInputTask("Cannot be blank", "Enter a non-blank To-Do task");
         }
+    }
+
+    /**
+     * Converts a To-Do task into a string that can be saved
+     * @return  a string that can be saved
+     */
+    @Override
+    public String convertToSaveFormat() {
+        return "T" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName;
     }
 
     @Override
