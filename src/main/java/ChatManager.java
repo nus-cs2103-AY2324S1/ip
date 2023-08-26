@@ -8,85 +8,60 @@ public class ChatManager {
         this.taskList = new TaskList();
         new WelcomeMessage().send();
     }
-    private Action getAction(String userInput) throws DukeException {
+    public void handleInput(String userInput) throws DukeException {
         if (userInput.equals("bye")) {
-            return Action.BYE;
+            this.isActive = false;
+            new ByeMessage().send();
+            return;
         }
         if (userInput.equals("list")) {
-            return Action.LIST;
+            taskList.printList();
+            return;
         }
         if (Pattern.matches("mark \\d+", userInput)) {
-            return Action.MARK;
+            int num = Integer.parseInt(userInput.split(" ", 2)[1]);
+            taskList.markTask(num);
+            return;
         }
         if (Pattern.matches("unmark \\d+", userInput)) {
-            return Action.UNMARK;
+            int num = Integer.parseInt(userInput.split(" ", 2)[1]);
+            taskList.unmarkTask(num);
+            return;
         }
         if (Pattern.matches("^todo\\s*$", userInput)) {
+            // raise exception
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
         if (Pattern.matches("todo .+", userInput)) {
-            return Action.TODO;
+            String name = userInput.split(" ", 2)[1];
+            taskList.add(new TodoTask(name));
+            return;
         }
         if (Pattern.matches("deadline .+ /by .+", userInput)) {
-            return Action.DEADLINE;
+            // assumes " /by " is not contained in deadline name
+            String[] arr = userInput.split(" /by ", 2);
+            String name = arr[0].split(" ", 2)[1];
+            String deadline = arr[1];
+            taskList.add(new DeadlinesTask(name, deadline));
+            return;
         }
         if (Pattern.matches("event .+ /from .+ /to .+", userInput)) {
-            return Action.EVENT;
+            // assumes " /to " is not in event name and from date
+            String[] a1 = userInput.split(" /to ", 2);
+            // assumes " /from " is not in event name
+            String[] a2 = a1[0].split(" /from ", 2);
+            String name = a2[0].split(" ", 2)[1];
+            String from = a2[1];
+            String to = a1[1];
+            taskList.add(new EventsTask(name, from, to));
+            return;
         }
         if (Pattern.matches("delete \\d+", userInput)) {
-            return Action.DELETE;
+            int num = Integer.parseInt(userInput.split(" ", 2)[1]);
+            taskList.delete(num);
+            return;
         }
-        return Action.UNDEFINED;
-    }
-    public void handleInput(String userInput) throws DukeException {
-        Action action = getAction(userInput);
-        int num;
-        String name, deadline, from, to;
-        String[] a1, a2;
-        switch (action) {
-            case BYE:
-                this.isActive = false;
-                new ByeMessage().send();
-                break;
-            case LIST:
-                taskList.printList();
-                break;
-            case MARK:
-                num = Integer.parseInt(userInput.split(" ", 2)[1]);
-                taskList.markTask(num);
-                break;
-            case UNMARK:
-                num = Integer.parseInt(userInput.split(" ", 2)[1]);
-                taskList.unmarkTask(num);
-                break;
-            case TODO:
-                name = userInput.split(" ", 2)[1];
-                taskList.add(new TodoTask(name));
-                break;
-            case DEADLINE:
-                // assumes " /by " is not contained in deadline name
-                a1 = userInput.split(" /by ", 2);
-                name = a1[0].split(" ", 2)[1];
-                deadline = a1[1];
-                taskList.add(new DeadlinesTask(name, deadline));
-                break;
-            case EVENT:
-                // assumes " /to " is not in event name and from date
-                a1 = userInput.split(" /to ", 2);
-                // assumes " /from " is not in event name
-                a2 = a1[0].split(" /from ", 2);
-                name = a2[0].split(" ", 2)[1];
-                from = a2[1];
-                to = a1[1];
-                taskList.add(new EventsTask(name, from, to));
-                break;
-            case DELETE:
-                num = Integer.parseInt(userInput.split(" ", 2)[1]);
-                taskList.delete(num);
-                break;
-            default:
-                new MenuMessage().send();
-        }
+        new MenuMessage().send();
     }
     public boolean getIsActive() {
         return this.isActive;
