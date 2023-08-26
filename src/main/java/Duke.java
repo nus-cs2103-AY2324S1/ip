@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Duke {
     private static final String LOGO = ",------.,--.              ,--.  \n"
-                                    + "|  .---\'|  |,-.,--.,--. ,-|  |  \n"
-                                    + "|  `--, |     /|  ||  |' .-. |   \n"
-                                    + "|  `---.|  \\\\  \\\\  ''  '\\\\ `-\'   \n"
-                                    + "`------'`--'`--'`----'  `---' \n";
+            + "|  .---\'|  |,-.,--.,--. ,-|  |  \n"
+            + "|  `--, |     /|  ||  |' .-. |   \n"
+            + "|  `---.|  \\\\  \\\\  ''  '\\\\ `-\'   \n"
+            + "`------'`--'`--'`----'  `---' \n";
     private static final String LINE = "-".repeat(60);
     private static List<Task> tasks = new ArrayList<>();
 
@@ -40,23 +40,23 @@ public class Duke {
         CommandType commandType = parseCommandType(command);
 
         switch (commandType) {
-            case LIST:
-                printList();
-                break;
-            case MARK:
-                markTask(command);
-                break;
-            case DELETE:
-                deleteTask(command);
-                break;
-            case TODO:
-            case DEADLINE:
-            case EVENT:
-                addTask(command);
-                break;
-            case UNKNOWN:
-                printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
-                break;
+        case LIST:
+            printList();
+            break;
+        case MARK:
+            markTask(command);
+            break;
+        case DELETE:
+            deleteTask(command);
+            break;
+        case TODO:
+        case DEADLINE:
+        case EVENT:
+            addTask(command);
+            break;
+        case UNKNOWN:
+            printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
+            break;
         }
     }
 
