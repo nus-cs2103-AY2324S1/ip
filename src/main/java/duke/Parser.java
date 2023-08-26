@@ -78,35 +78,35 @@ public class Parser {
         String command = input.split("\\s+")[0];
         int choice = -1;
         switch (command) {
-            case "list":
-                ui.listTask(taskList);
-                break;
-            case "mark":
-                choice = Integer.parseInt(input.split("\\s+")[1]);
-                taskList.mark(choice);
-                ui.displayMarkTask(taskList, choice);
-                break;
-            case "unmark":
-                choice = Integer.parseInt(input.split("\\s+")[1]);
-                taskList.unmark(choice);
-                ui.displayUnmarkTask(taskList, choice);
-                break;
-            case "delete":
-                choice = Integer.parseInt(input.split("\\s+")[1]);
-                Task removedTask = taskList.delete(choice);
-                ui.displayDeleteTask(removedTask, taskList);
-                break;
-            default:
-                Task task = null;
-                try {
-                    task = createTask(input);
-                } catch (Exception e) {
-                    ui.showExceptionError(e);
-                }
-                if (task != null) {
-                    taskList.add(task);
-                    ui.displayAddTask(task, taskList);
-                }
+        case "list":
+            ui.listTask(taskList);
+            break;
+        case "mark":
+            choice = Integer.parseInt(input.split("\\s+")[1]);
+            taskList.mark(choice);
+            ui.displayMarkTask(taskList, choice);
+            break;
+        case "unmark":
+            choice = Integer.parseInt(input.split("\\s+")[1]);
+            taskList.unmark(choice);
+            ui.displayUnmarkTask(taskList, choice);
+            break;
+        case "delete":
+            choice = Integer.parseInt(input.split("\\s+")[1]);
+            Task removedTask = taskList.delete(choice);
+            ui.displayDeleteTask(removedTask, taskList);
+            break;
+        default:
+            Task task = null;
+            try {
+                task = createTask(input);
+            } catch (Exception e) {
+                ui.showExceptionError(e);
+            }
+            if (task != null) {
+                taskList.add(task);
+                ui.displayAddTask(task, taskList);
+            }
         }
         storage.updateTasks(taskList);
     }
