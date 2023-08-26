@@ -1,6 +1,7 @@
 package tasks;
 
 import exceptions.InvalidCommandException;
+import parsers.SpaceSeparatedValuesParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,6 +11,7 @@ public class DeadlineTask extends ShibaTask {
 
     /**
      * Parses a DeadlineTask from a command.
+     *
      * @param cmd The command to be parsed.
      * @return The DeadlineTask parsed from the command, or null if the command is invalid.
      */
@@ -30,12 +32,17 @@ public class DeadlineTask extends ShibaTask {
     private final String deadline;
 
     public DeadlineTask(String name, String deadline) {
-        super(name);
+        super(name, TaskType.DEADLINE);
         this.deadline = deadline;
     }
 
     @Override
+    public String toSaveString() {
+        return SpaceSeparatedValuesParser.convert("D", isDone ? "1" : "0", name, deadline);
+    }
+
+    @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + deadline + ")";
+        return super.toString() + " (by: " + deadline + ")";
     }
 }

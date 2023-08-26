@@ -1,10 +1,12 @@
 package tasks;
 
 import exceptions.InvalidCommandException;
+import parsers.SpaceSeparatedValuesParser;
 
 public class TodoTask extends ShibaTask {
     /**
      * Parses a TodoTask from a command.
+     *
      * @param cmd The command to be parsed.
      * @return The TodoTask parsed from the command, or null if the command is invalid.
      */
@@ -18,11 +20,16 @@ public class TodoTask extends ShibaTask {
     }
 
     public TodoTask(String name) {
-        super(name);
+        super(name, TaskType.TODO);
+    }
+
+    @Override
+    public String toSaveString() {
+        return SpaceSeparatedValuesParser.convert("T", isDone ? "1" : "0", name);
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return super.toString();
     }
 }
