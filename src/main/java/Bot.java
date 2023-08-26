@@ -10,9 +10,14 @@ public class Bot {
         String str = sc.nextLine();
         Storage<String> storage = new Storage<String>();
         while (!str.equals("bye")) {
-            System.out.println("____________________________________________________________\n" +
-                    str + "\n" +
-                    "____________________________________________________________");
+            if (!str.equals("list")) {
+                System.out.println("____________________________________________________________\n" +
+                        "added: " + str + "\n" +
+                        "____________________________________________________________");
+                storage = storage.save(str);
+            } else {
+                System.out.println(storage.list());
+            }
             str = sc.nextLine();
         }
         System.out.println("____________________________________________________________\n" +
