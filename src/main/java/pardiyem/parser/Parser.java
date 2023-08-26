@@ -42,6 +42,10 @@ public class Parser {
                 out.set(0, "7");
                 out.set(1, in.substring(5).trim());
                 break;
+            case "delete":
+                out.set(0, "8");
+                out.set(1, in.substring(6).trim());
+                break;
             default:
                 out.set(0, "-1");
         }

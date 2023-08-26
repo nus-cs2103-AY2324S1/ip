@@ -67,6 +67,9 @@ public class Pardi {
                 this.tasklist.add(curr);
                 System.out.printf("\nGot it. I've added this task:\n%s\nNow you have %d task(s) in the list\n\n", curr.toString(), this.tasklist.size());
                 return true;
+            }
+            case "8": {
+                System.out.print(this.tasklist.delete(id.get(1)));
             } default:
                 return true;
         }
