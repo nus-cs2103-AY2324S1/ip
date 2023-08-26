@@ -1,5 +1,6 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * A task which holds the date from and to.
@@ -41,8 +42,16 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return this.isDone ? "[E][X] " + this.description + " (from: " + from + " to: " + to + ")"
-                : "[E][ ] " + this.description + " (from: " + from + " to: " + to + ")";
+        return this.isDone ? "[E][X] " + this.description + " (from: " + formatDate(from) + " to: " + formatDate(to) + ")"
+                : "[E][ ] " + this.description + " (from: " + formatDate(from) + " to: " + formatDate(to) + ")";
+    }
+
+    /**
+     * Change the Dates to a different format.
+     */
+    private String formatDate(LocalDate date) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy");
+        return date.format(format);
     }
 
     /**

@@ -1,5 +1,6 @@
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * A task which holds the date which should be completed by.
@@ -36,8 +37,16 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return isDone ? "[D][X] " + this.description + " (by: " + this.date + ")"
-                : "[D][ ] " + this.description + " (by: " + this.date + ")";
+        return isDone ? "[D][X] " + this.description + " (by: " + formatDate(this.date) + ")"
+                : "[D][ ] " + this.description + " (by: " + formatDate(this.date) + ")";
+    }
+
+    /**
+     * Change the Dates to a different format.
+     */
+    private String formatDate(LocalDate date) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy");
+        return date.format(format);
     }
 
     /**
