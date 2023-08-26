@@ -28,7 +28,7 @@ public class Storage {
 
     public Storage(String filePath) {
         this.DATABASE_PATH = java.nio.file.Paths.get(
-                System.getProperty("user.dir"), filePath);
+            System.getProperty("user.dir"), filePath);
 
         if (!databaseExist()) {
             createDatabase();
@@ -51,6 +51,7 @@ public class Storage {
 
     /**
      * Checks if the database exists.
+     *
      * @return True if the text file exists.
      */
     public boolean databaseExist() {
@@ -61,7 +62,9 @@ public class Storage {
 
     /**
      * Parses the string of tasks from the database into Task objects.
+     *
      * @return The list of tasks stored in the database.
+     * @throws DukeException If corrupted database.
      */
     protected ArrayList<Task> readFromDatabase() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<>();
@@ -83,6 +86,7 @@ public class Storage {
 
     /**
      * Updates the database.
+     *
      * @param taskList The list containing the tasks to be saved.
      */
     public void writeToDatabase(ArrayList<Task> taskList) {
@@ -107,17 +111,17 @@ public class Storage {
             String[] taskInfo = line.split(" \\| ");
 
             switch (taskInfo[0]) {
-            case "T":
-                newTask = new Todo(taskInfo[2]);
-                break;
-            case "D":
-                newTask = new Deadline(taskInfo[2], taskInfo[3]);
-                break;
-            case "E":
-                newTask = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
-                break;
-            default:
-                throw new DukeException("Database is corrupted.");
+                case "T":
+                    newTask = new Todo(taskInfo[2]);
+                    break;
+                case "D":
+                    newTask = new Deadline(taskInfo[2], taskInfo[3]);
+                    break;
+                case "E":
+                    newTask = new Event(taskInfo[2], taskInfo[3], taskInfo[4]);
+                    break;
+                default:
+                    throw new DukeException("Database is corrupted.");
             }
 
             if (taskInfo[1].equals("1")) {
@@ -132,6 +136,7 @@ public class Storage {
 
     /**
      * Converts a predefined format of string to LocalDateTime.
+     *
      * @param input The user input.
      * @return The LocalDateTime containing the date written in the input.
      */
@@ -142,6 +147,7 @@ public class Storage {
 
     /**
      * Converts LocalDateTime to a format that is more tilable in the database.
+     *
      * @param date The date to be converted.
      * @return The database representation of the date inputted.
      */
@@ -152,6 +158,7 @@ public class Storage {
 
     /**
      * Converts LocalDateTime to a format that is more readable.
+     *
      * @param date The date to be converted.
      * @return Date in a more readable format.
      */

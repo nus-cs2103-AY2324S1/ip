@@ -5,10 +5,11 @@ package duke.exception;
  * The error message contains the string to be printed for the user to view.
  */
 public class DukeException extends Exception {
-  public DukeException(String errorMessage) {
-    super(errorMessage);
-  }
-  public DukeException(String errorMessage, Throwable err) {
-    super(errorMessage, err);
-  }
+    public DukeException(String errorMessage) {
+        super(errorMessage);
+    }
+
+    public DukeException(String errorMessage, Throwable err) {
+        super(errorMessage, err);
+    }
 }
