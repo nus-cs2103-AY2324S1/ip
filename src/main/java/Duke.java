@@ -1,15 +1,31 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    private static final String LINE = "\t____________________________________________________________";
+    private static String DATAPATH = "./data/duke.txt";
+
     Scanner scanner = new Scanner(System.in);
     private ArrayList<Task> list = new ArrayList<>();
-    private static final String LINE = "\t____________________________________________________________";
 
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, DELETE,
         TODO, DEADLINE, EVENT,
 
+    }
+
+    private void loadData() {
+        try {
+            Storage storage = new Storage(DATAPATH);
+            list = storage.loadTasks();
+        } catch (FileNotFoundException e) {
+            System.out.println("No data file found.");
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from the data file.");
+        }
     }
 
     private void greet() {
@@ -33,32 +49,32 @@ public class Duke {
                 CommandType command = this.getCommand(parts[0]);
 
                 switch (command) {
-                    case BYE:
-                        this.exit();
-                        return;
-                    case LIST:
-                        this.showList();
-                        break;
-                    case MARK:
-                        this.markTaskAsDone(parts);
-                        break;
-                    case UNMARK:
-                        this.markTaskAsNotDone(parts);
-                        break;
-                    case TODO:
-                        this.addTodo(parts);
-                        break;
-                    case DEADLINE:
-                        this.addDeadline(parts);
-                        break;
-                    case EVENT:
-                        this.addEvent(parts);
-                        break;
-                    case DELETE:
-                        this.deleteTask(parts);
-                        break;
-                    default:
-                        throw new UnknownCommandException();
+                case BYE:
+                    this.exit();
+                    return;
+                case LIST:
+                    this.showList();
+                    break;
+                case MARK:
+                    this.markTaskAsDone(parts);
+                    break;
+                case UNMARK:
+                    this.markTaskAsNotDone(parts);
+                    break;
+                case TODO:
+                    this.addTodo(parts);
+                    break;
+                case DEADLINE:
+                    this.addDeadline(parts);
+                    break;
+                case EVENT:
+                    this.addEvent(parts);
+                    break;
+                case DELETE:
+                    this.deleteTask(parts);
+                    break;
+                default:
+                    throw new UnknownCommandException();
                 }
             } catch (DukeException e) {
                 System.out.println(LINE);
@@ -122,6 +138,7 @@ public class Duke {
                         "\t\t" + this.list.get(taskIndex));
                 System.out.println(LINE);
                 System.out.println();
+                saveTask();
             }
         } catch (InvalidTaskIndexException e) {
             System.out.println(LINE);
@@ -157,6 +174,7 @@ public class Duke {
                         "\t\t" + this.list.get(taskIndex));
                 System.out.println(LINE);
                 System.out.println();
+                saveTask();
             }
         } catch (InvalidTaskIndexException e) {
             System.out.println(LINE);
@@ -188,6 +206,7 @@ public class Duke {
                     "\t\t" + newTask + "\n\t Now you have " + list.size() + " tasks in the list.");
             System.out.println(LINE);
             System.out.println();
+            saveTask();
         } catch (EmptyDescriptionException e) {
             System.out.println(LINE);
             System.out.println("\t" + e.getMessage());
@@ -217,6 +236,7 @@ public class Duke {
                     "\t\t" + newDeadline + "\n\t Now you have " + list.size() + " tasks in the list.");
             System.out.println(LINE);
             System.out.println();
+            saveTask();
 
         } catch (EmptyDescriptionException | InvalidFormatException e) {
             System.out.println(LINE);
@@ -253,6 +273,8 @@ public class Duke {
                     "\t\t" + newEvent + "\n\t Now you have " + list.size() + " tasks in the list.");
             System.out.println(LINE);
             System.out.println();
+            saveTask();
+
         } catch (EmptyDescriptionException | InvalidFormatException e) {
             System.out.println(LINE);
             System.out.println("\t" + e.getMessage());
@@ -277,6 +299,7 @@ public class Duke {
                     "\n\t Now you have " + list.size() + " tasks in the list.");
             System.out.println(LINE);
             System.out.println();
+            saveTask();
         } catch (InvalidTaskIndexException e) {
             System.out.println(LINE);
             System.out.println("\t" + e.getMessage());
@@ -290,8 +313,18 @@ public class Duke {
         }
     }
 
+    private void saveTask() {
+        try {
+            Storage storage = new Storage(DATAPATH);
+            storage.saveTasks(list);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to the data file:" + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         Duke duke = new Duke();
+        duke.loadData();
         duke.greet();
         duke.getUserInput();
     }
