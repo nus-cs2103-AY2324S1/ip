@@ -12,6 +12,12 @@ public class Task {
         this.type = type;
     }
 
+    public Task(String description, TaskType type, Boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+        this.type = type;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
