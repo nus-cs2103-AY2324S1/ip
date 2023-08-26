@@ -18,7 +18,14 @@ public class UserInputStorage {
         );
     }
 
-    public static Task getTaskByIndex(int index) {
+    public static Task getTaskByIndex(int index) throws AlexException {
+        if (index > numberOfElements) {
+            String message = "OOPS!!! There is/are only " + numberOfElements + " task(s) stored";
+            throw new AlexException(message);
+        } else if (index < 0) {
+            String message = "OOPS!!! Task number cannot be negative, task number starts from 0";
+            throw new AlexException(message);
+        }
         return userinputs.get(index - 1);
     }
 
@@ -37,7 +44,14 @@ public class UserInputStorage {
         return numberOfElements;
     }
 
-    public static void delete(int index) {
+    public static void delete(int index) throws AlexException{
+        if (index > numberOfElements) {
+            String message = "OOPS!!! There is/are only " + numberOfElements + " task(s) stored";
+            throw new AlexException(message);
+        } else if (index < 0) {
+            String message = "OOPS!!! Task number cannot be negative, task number starts from 0";
+            throw new AlexException(message);
+        }
         Task tobeRemoved = userinputs.remove(index - 1);
         numberOfElements--;
         System.out.println(horizontalLine

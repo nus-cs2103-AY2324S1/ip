@@ -2,7 +2,12 @@ public class Task {
     protected String description;
     protected boolean isDone = false;
 
-    public Task(String description) {
+    public Task(String description) throws AlexException {
+        description = description.stripTrailing();
+        if (description.equals("")) {
+            String message = "OOPS!!! The description of a task cannot be empty";
+            throw new AlexException(message);
+        }
         this.description = description;
     }
 
