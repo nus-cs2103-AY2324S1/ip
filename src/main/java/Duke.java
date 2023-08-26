@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,6 +39,37 @@ class Task {
     public String toString() {
         return this.getStatusIcon() + " " + this.getDescription();
     }
+
+    public String toFormattedString() {
+        return "";
+    }
+
+    public static Task createTaskFromFormattedString(String formattedString) {
+        String[] parts = formattedString.split(" \\| ");
+        String taskType = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        if (taskType.equals("T")) {
+            Task todo =  new ToDo(description);
+            todo.isDone = isDone;
+            return todo;
+        } else if (taskType.equals("D")) {
+            String by = parts[3];
+            Task deadline =  new Deadline(description, by);
+            deadline.isDone = isDone;
+            return deadline;
+        } else if (taskType.equals("E")) {
+            String from = parts[3];
+            String to = parts[4];
+            Task event = new Event(description, from, to);
+            event.isDone = isDone;
+            return event;
+        } else {
+            // Handle unrecognized task type
+            return null;
+        }
+    }
 }
 
 class ToDo extends Task {
@@ -46,6 +80,11 @@ class ToDo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    @Override
+    public String toFormattedString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 }
 
@@ -59,6 +98,11 @@ class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String toFormattedString() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
     }
 }
 
@@ -76,9 +120,15 @@ class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
+
+    @Override
+    public String toFormattedString() {
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+    }
 }
 
 public class Duke {
+    private static final String FILE_PATH = "./src/main/java/duke.txt";
     public static void main(String[] args) {
         String horizontalLine = "________________________________________________________________";
         ArrayList<Task> tasks = new ArrayList<>();
@@ -87,6 +137,8 @@ public class Duke {
         System.out.println("Hello! I'm Bob");
         System.out.println("What can I do for you?");
         System.out.println(horizontalLine);
+
+        loadTasksFromFile(tasks);
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -97,6 +149,7 @@ public class Duke {
                 if (userInput.equalsIgnoreCase("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println(horizontalLine);
+                    saveTasksToFile(tasks);
                     break;
                 } else if (userInput.equalsIgnoreCase("list")) {
                     System.out.println("Here are the tasks in your list:");
@@ -192,5 +245,39 @@ public class Duke {
             System.out.println(horizontalLine);
         }
         scanner.close();
+    }
+
+    public static void loadTasksFromFile(ArrayList<Task> tasks) {
+        try {
+            File file = new File(FILE_PATH);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (!line.isEmpty()) { // Skip empty lines
+                    Task task = Task.createTaskFromFormattedString(line);
+                    if (task != null) {
+                        tasks.add(task);
+                    }
+                } else {
+                    break; // Stop reading after reaching the last line
+                }
+            }
+            scanner.close();
+        } catch (IOException e) {
+            System.out.println("Please create the data file in the file path");
+        }
+    }
+
+    public static void saveTasksToFile(ArrayList<Task> tasks) {
+        try {
+            File file = new File(FILE_PATH);
+            FileWriter writer = new FileWriter(file);
+            for (Task task : tasks) {
+                writer.write(task.toFormattedString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks to file.");
+        }
     }
 }
