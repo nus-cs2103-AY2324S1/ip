@@ -64,13 +64,13 @@ public class Event extends Task{
 
     private String startTimeString() {
         return (this.startTime != null)
-                ? " " + this.startTime.format(DateTimeFormatter.ofPattern("h:mm a"))
+                ? " " + this.startTime.format(DateTimeFormatter.ofPattern("h:mma"))
                 : "";
     }
 
     private String endTimeString() {
         return (this.endTime != null)
-                ? " " + this.endTime.format(DateTimeFormatter.ofPattern("h:mm a"))
+                ? " " + this.endTime.format(DateTimeFormatter.ofPattern("h:mma"))
                 : "";
     }
 
@@ -81,20 +81,20 @@ public class Event extends Task{
      */
     @Override
     public String toStringInFile() {
-        return "[E]" + super.toStringInFile() + " " + this.start
-                + this.startTimeStringInFile() + " " + this.end
+        return "[E] /" + super.toStringInFile() + " / " + this.start
+                + this.startTimeStringInFile() + " / " + this.end
                 + this.endTimeStringInFile();
     }
 
     private String startTimeStringInFile() {
         return this.startTime != null
-                ? " " + this.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+                ? " / " + this.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))
                 : "";
     }
 
     private String endTimeStringInFile() {
         return this.endTime != null
-                ? " " + this.endTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+                ? " / " + this.endTime.format(DateTimeFormatter.ofPattern("HH:mm"))
                 : "";
     }
 }
