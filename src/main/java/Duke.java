@@ -1,13 +1,25 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * A class that creates a chatbot.
+ */
 public class Duke {
 
-    /**
-     * A list to keep tracks of the tasks.
-     */
-    private static ArrayList<Task> my_list = new ArrayList<>();
+    /** A list to keep track of the tasks. */
+    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static File f;
 
     public static void main(String[] args) {
+        try {
+            readFile();
+        } catch (IOException e) {
+            System.out.println("No File :(");
+        }
         welcome();
         Scanner sc = new Scanner(System.in);
         while (sc.hasNextLine()) {
@@ -22,35 +34,40 @@ public class Duke {
                     // do nothing
                 }
                 switch (first) {
-                    case "bye":
-                        break;
-                    case "list":
-                        printList();
-                        break;
-                    case "mark":
-                        markDone(second);
-                        break;
-                    case "unmark":
-                        markUndone(second);
-                        break;
-                    case "todo":
-                        addTodo(second);
-                        break;
-                    case "deadline":
-                        addDeadline(second);
-                        break;
-                    case "event":
-                        addEvent(second);
-                        break;
-                    case "delete":
-                        delete(second);
-                        break;
-                    default:
-                        throw new InvalidInputException("OOPS! I do not know what " + first + " means. Please try again :)");
+                case "bye":
+                    break;
+                case "list":
+                    printList();
+                    break;
+                case "mark":
+                    markDone(second);
+                    break;
+                case "unmark":
+                    markUndone(second);
+                    break;
+                case "todo":
+                    addTodo(second);
+                    break;
+                case "deadline":
+                    addDeadline(second);
+                    break;
+                case "event":
+                    addEvent(second);
+                    break;
+                case "delete":
+                    delete(second);
+                    break;
+                default:
+                    throw new InvalidInputException("OOPS! I do not know what " + first + " means. Please try again :)");
                 }
                 if (x.equals("bye")) {
                     ending();
                     break;
+                }
+                try {
+                    updateFile();
+                } catch (IOException e) {
+                    System.out.println("Couldn't write to file");
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
@@ -58,15 +75,24 @@ public class Duke {
         }
         sc.close();
     }
+
+    /**
+     * Prints out a welcome message.
+     */
     private static void welcome() {
         System.out.println("Hello! I'm BoxBox\nWhat can I do for you?");
     }
+
+    /**
+     * Prints out a farewell message.
+     */
     private static void ending() {
         System.out.println("Bye. Hope to see you again!");
     }
 
     /**
-     * Add a todo task into the list.
+     * Adds a todo task into the list.
+     *
      * @param x Details of the task.
      */
     private static void addTodo(String x) {
@@ -74,12 +100,13 @@ public class Duke {
             throw new LackDescriptionException("todo");
         }
         Todo t = new Todo(x);
-        my_list.add(t);
+        tasks.add(t);
         addedTask(x);
     }
 
     /**
-     * Add a deadline task into the list.
+     * Adds a deadline task into the list.
+     *
      * @param x Details of the task.
      */
     private static void addDeadline(String x) {
@@ -95,12 +122,13 @@ public class Duke {
             throw new LackInformationException("\"/by\"");
         }
         Deadline d = new Deadline(description, deadline);
-        my_list.add(d);
+        tasks.add(d);
         addedTask(description);
     }
 
     /**
-     * Add an event task into the list.
+     * Adds an event task into the list.
+     *
      * @param x Details of the task.
      */
     private static void addEvent(String x) {
@@ -127,17 +155,18 @@ public class Duke {
             throw new LackInformationException("\"/to\"");
         }
         Event e = new Event(description, from, to);
-        my_list.add(e);
+        tasks.add(e);
         addedTask(description);
     }
 
     private static void addedTask(String x) {
         System.out.println("Added to list: " + x);
-        System.out.println("Now you have " + my_list.size() + (my_list.size() == 1 ? " task " : " tasks ") + "in the list");
+        System.out.println("Now you have " + tasks.size() + (tasks.size() == 1 ? " task " : " tasks ") + "in the list");
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
+     *
      * @param x Index of the target task.
      */
     private static void markDone(String x) {
@@ -150,15 +179,16 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new InvalidMarkingException("Please provide a valid index");
         }
-        if (j-1 > my_list.size()-1 || j-1<0) {
+        if (j-1 > tasks.size()-1 || j-1<0) {
             throw new InvalidMarkingException("There is no corresponding task in the list");
         }
-        Task t = my_list.get(j-1);
+        Task t = tasks.get(j-1);
         t.markDone();
     }
 
     /**
-     * Mark the task as undone.
+     * Marks the task as undone.
+     *
      * @param x Index of the target task.
      */
     private static void markUndone(String x) {
@@ -171,25 +201,29 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new InvalidMarkingException("Please provide a valid index");
         }
-        if (j-1 > my_list.size()-1 || j-1<0) {
+        if (j-1 > tasks.size()-1 || j-1<0) {
             throw new InvalidMarkingException("There is no corresponding task in the list");
         }
-        Task t = my_list.get(j-1);
+        Task t = tasks.get(j-1);
         t.markUndone();
     }
 
+    /**
+     * Prints out the tasks in the list.
+     */
     private static void printList() {
-        if (my_list.isEmpty()) {
+        if (tasks.isEmpty()) {
             System.out.println("list is empty :(");
         } else {
-            for (int i = 0; i < my_list.size(); i++) {
-                System.out.println(i + 1 + " " + my_list.get(i).toString());
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(i + 1 + " " + tasks.get(i).toString());
             }
         }
     }
 
     /**
-     * Delete a task from the list.
+     * Deletes a task from the list.
+     *
      * @param x Index of the target task.
      */
     private static void delete(String x) {
@@ -202,13 +236,68 @@ public class Duke {
         } catch (NumberFormatException e) {
             throw new InvalidMarkingException("Please provide a valid index");
         }
-        if (j-1 > my_list.size()-1) {
+        if (j-1 > tasks.size()-1) {
             throw new InvalidMarkingException("There is no corresponding task in the list");
         }
-        Task t = my_list.get(j-1);
-        my_list.remove(j-1);
+        Task t = tasks.get(j-1);
+        tasks.remove(j-1);
         System.out.println("I've removed this task:");
         System.out.println(t);
-        System.out.println("Now you have " + my_list.size() + (my_list.size() > 1 ? " tasks" : " task") + " in the list");
+        System.out.println("Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list");
+    }
+
+    /**
+     * Reads in a file.
+     */
+    private static void readFile() throws IOException {
+        String path = "src/main/java/";
+        String fileName = "duke.txt";
+
+        f = new File(path, fileName);
+        if (f.createNewFile()) {
+            return ;
+        }
+        Scanner sc = new Scanner(f);
+        while (sc.hasNextLine()) {
+            String s = sc.nextLine();
+            String[] chars = s.split(" ");
+            String type = chars[0];
+            boolean isDone = chars[1].equals("1");
+            Task t;
+            switch (type) {
+            case "[T]":
+                t = new Todo(chars[2]);
+                if (isDone) {
+                    t.markDoneFromFile();
+                }
+                tasks.add(t);
+                break;
+            case "[D]":
+                t = new Deadline(chars[2], chars[3]);
+                if (isDone) {
+                    t.markDoneFromFile();
+                }
+                tasks.add(t);
+                break;
+            case "[E]":
+                t = new Event(chars[2], chars[3], chars[4]);
+                if (isDone) {
+                    t.markDoneFromFile();
+                }
+                tasks.add(t);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Updates the file with the current list.
+     */
+    private static void updateFile() throws IOException {
+        FileWriter fw = new FileWriter(f);
+        for (Task t : tasks) {
+            fw.write(t.toStringInFile() + "\n");
+        }
+        fw.close();
     }
 }
