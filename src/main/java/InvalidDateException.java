@@ -1,5 +1,5 @@
 public class InvalidDateException extends DukeException {
   public InvalidDateException() {
-    super("    Enter the dates in a dd/MM/yyyy format");
+    super("    Invalid date format, enter the dates in a dd/MM/yyyy format");
   }
 }
