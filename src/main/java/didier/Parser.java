@@ -69,11 +69,11 @@ public class Parser {
             } else {
                 String[] fromCommand = options[1].split("\\\\from ", 2);
                 if (fromCommand.length == 1 || fromCommand[1].isBlank()) {
-                    throw new ElementMissingException("start time");
+                    throw new ElementMissingException("start date");
                 }
                 String[] toCommand = fromCommand[1].split("\\\\to ", 2);
                 if (toCommand.length == 1 || toCommand[1].isBlank()) {
-                    throw new ElementMissingException("end time");
+                    throw new ElementMissingException("end date");
                 } else {
                     try {
                         return new AddCommand(fromCommand[0], null, LocalDate.parse(toCommand[0].trim()),
