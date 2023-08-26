@@ -1,3 +1,11 @@
+package duke.parser;
+
+import duke.command.*;
+import duke.error.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Todo;
+
 public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
         String[] tokens = fullCommand.split(" ", 2);

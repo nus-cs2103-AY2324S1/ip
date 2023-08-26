@@ -1,3 +1,8 @@
+package duke.lib;
+
+import duke.error.DukeException;
+import duke.task.TaskList;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;

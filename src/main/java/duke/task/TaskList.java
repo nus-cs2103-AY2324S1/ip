@@ -1,3 +1,8 @@
+package duke.task;
+
+import duke.error.DukeException;
+import duke.parser.Validate;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
