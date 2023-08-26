@@ -1,3 +1,7 @@
+package duke.message;
+
+import duke.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskListMessage extends Message {

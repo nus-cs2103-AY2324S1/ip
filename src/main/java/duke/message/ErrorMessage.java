@@ -1,3 +1,5 @@
+package duke.message;
+
 public class ErrorMessage extends Message {
     private final String message;
     public ErrorMessage(String message) {

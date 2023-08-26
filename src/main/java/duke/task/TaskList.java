@@ -1,9 +1,16 @@
+package duke.task;
+
+import duke.message.*;
+
 import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> list;
     public TaskList() {
         this.list = new ArrayList<>();
+    }
+    public TaskList(ArrayList<Task> list) {
+        this.list = list;
     }
     public void add(Task item) {
         this.list.add(item);
@@ -23,5 +30,13 @@ public class TaskList {
     public void unmarkTask(int num) {
         Task task = this.list.get(num - 1);
         new UnmarkTaskMessage(task).send();
+    }
+    public String toStringStore() {
+        StringBuilder sb = new StringBuilder();
+        for (Task t: this.list) {
+            sb.append(t.toStringStore());
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }

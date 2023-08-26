@@ -1,11 +1,21 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.message.ByeMessage;
+import duke.message.MenuMessage;
+import duke.message.WelcomeMessage;
+import duke.task.DeadlinesTask;
+import duke.task.EventsTask;
+import duke.task.TaskList;
+import duke.task.TodoTask;
 import java.util.regex.Pattern;
 
 public class ChatManager {
     private boolean isActive;
     private final TaskList taskList;
-    public ChatManager() {
+    public ChatManager(TaskList taskList) {
         this.isActive = true;
-        this.taskList = new TaskList();
+        this.taskList = taskList;
         new WelcomeMessage().send();
     }
     private Action getAction(String userInput) throws DukeException {
@@ -61,14 +71,14 @@ public class ChatManager {
                 break;
             case TODO:
                 name = userInput.split(" ", 2)[1];
-                taskList.add(new TodoTask(name));
+                taskList.add(new TodoTask(name, false));
                 break;
             case DEADLINE:
                 // assumes " /by " is not contained in deadline name
                 a1 = userInput.split(" /by ", 2);
                 name = a1[0].split(" ", 2)[1];
                 deadline = a1[1];
-                taskList.add(new DeadlinesTask(name, deadline));
+                taskList.add(new DeadlinesTask(name, false, deadline));
                 break;
             case EVENT:
                 // assumes " /to " is not in event name and from date
@@ -78,7 +88,7 @@ public class ChatManager {
                 name = a2[0].split(" ", 2)[1];
                 from = a2[1];
                 to = a1[1];
-                taskList.add(new EventsTask(name, from, to));
+                taskList.add(new EventsTask(name, false, from, to));
                 break;
             case DELETE:
                 num = Integer.parseInt(userInput.split(" ", 2)[1]);

@@ -1,8 +1,10 @@
+package duke.task;
+
 abstract public class Task {
-    private boolean isDone;
-    private final String name;
-    public Task(String name) {
-        this.isDone = false;
+    protected boolean isDone;
+    protected final String name;
+    public Task(String name, boolean isDone) {
+        this.isDone = isDone;
         this.name = name;
     }
     public void markTask() {
@@ -18,4 +20,5 @@ abstract public class Task {
     public String toString() {
         return String.format("%s %s", this.getCheckBox(), this.name);
     }
+    public abstract String toStringStore();
 }

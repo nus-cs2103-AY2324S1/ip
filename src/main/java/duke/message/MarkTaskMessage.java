@@ -1,3 +1,7 @@
+package duke.message;
+
+import duke.task.Task;
+
 public class MarkTaskMessage extends Message {
     private final Task task;
     public MarkTaskMessage(Task task) {

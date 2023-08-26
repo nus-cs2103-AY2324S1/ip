@@ -1,3 +1,5 @@
+package duke.message;
+
 public class ByeMessage extends Message {
     @Override
     public void send() {
