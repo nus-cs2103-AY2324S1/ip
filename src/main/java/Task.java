@@ -2,20 +2,37 @@
 
 public class Task {
     String content;
+    boolean marked;
 
     Task(String content) {
         this.content = content;
+        this.marked = false;
     }
 
-    MarkedTask mark() {
-        return new MarkedTask(content);
+    Task(String content, boolean status) {
+        this.content = content;
+        this.marked = status;
+    }
+
+    Task mark() {
+        return new Task(content, true);
     }
 
     Task unmark() {
-        throw new IllegalArgumentException("attemp to unmark unmarked task");
+        return new Task(content);
+    }
+
+    String addTask(int listSize) {
+        return "____________________________________________________________\n" +
+                "added: " + this.content + "\n" +
+                "____________________________________________________________";
     }
 
     public String toString() {
-        return String.format("[ ] %s", content);
+        if (!this.marked) {
+            return String.format("[ ] %s", content);
+        } else {
+            return String.format("[X] %s", content);
+        }
     }
 }
