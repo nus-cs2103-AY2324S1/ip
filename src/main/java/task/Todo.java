@@ -1,7 +1,5 @@
 package task;
 
-import duke.Parser;
-
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -9,24 +7,35 @@ import java.io.IOException;
  * Emcapsulates a Todo task
  * @author Donovan Chan Jia Jun
  */
-public class Todos extends Task{
-    public Todos(String name) {
+public class Todo extends Task{
+    public Todo(String name) {
         super(name);
     }
 
-    public Todos(String name, boolean isComplete) {
+    public Todo(String name, boolean isComplete) {
         super(name, isComplete);
     }
 
+    /**
+     * Checks if both objects are equal.
+     *
+     * @param o Object to be compared against
+     * @return {@code true} if both objects are equal
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        Todos task = (Todos) o;
+        Todo task = (Todo) o;
         return super.getName().equals(task.getName());
     }
 
+    /**
+     * Write the Todo object to the storage file in its format.
+     *
+     * @param fileWriter Filewriter that writes to a specific output file
+     */
     public void writeToFile(FileWriter fileWriter) {
         String marking = super.isComplete() ? "0" : "1";
         try {

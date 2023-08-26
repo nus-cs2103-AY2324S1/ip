@@ -1,8 +1,6 @@
 package duke;
 
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -12,13 +10,11 @@ public class Duke {
     /**
      * Temporary data storage to store user text.
      */
-    static final String dir = "/data";
+    static final String DIR = "/data";
     private String outputPath;
-    static FileWriter writer;
     private Storage data;
     private TaskList tasks;
     private Ui ui;
-    static String line = "---------------------------------------------------------------------------------------------";
 
     public Duke(String filePath) {
         this.ui = new Ui();
@@ -38,25 +34,20 @@ public class Duke {
      * @return void
      */
     public static void main(String[] args) {
-        Duke bot = new Duke(System.getProperty("user.dir") + dir + "/ipOutput.txt");
-        bot.echo();
+        Duke bot = new Duke(System.getProperty("user.dir") + DIR + "/ipOutput.txt");
+        bot.run();
+        bot.ui.exit();
     }
 
     /**
-     * Handles and stores user inputs.
+     * Starts the chatbot sequence.
      * When arraylist changes, the entire output file is overwritten and all contents is transferred over
      */
-    public void echo() {
+    public void run() {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
         while (Parser.parsable(userInput)) {
-            if (!this.outputPath.equals("")) {
-                try {
-                    Duke.writer = new FileWriter(outputPath, false);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
+            if (this.outputPath.equals("")) {
                 this.ui.emptyFilePath();
             }
             Parser.parse(userInput, ui, this.tasks, this.data);

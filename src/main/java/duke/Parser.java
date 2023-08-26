@@ -1,12 +1,18 @@
 package duke;
 
-import task.Deadlines;
-import task.Events;
+import task.Deadline;
+import task.Event;
 import task.Task;
-import task.Todos;
+import task.Todo;
 
 public class Parser {
 
+    /**
+     * Checks if input string is parsable or not.
+     *
+     * @param input The input string to check
+     * @return {@code true} if the input string is not equal to "bye"
+     */
     public static boolean parsable(String input) {
         return !input.equals("bye");
     }
@@ -15,8 +21,8 @@ public class Parser {
      * Creates the tasks based on String input.
      *
      * @param input String input by user
-     * @return Task Can be task.Events, task.Deadlines, Todos
-     * @throws Exception
+     * @return A task object of the appropriate subclass (Deadlines, Events, Todos)
+     * @throws Exception If the input string is not valid
      */
     public static Task createTask(String input) throws Exception {
         // Splits based on white spaces, identifies based on the relevant /...
@@ -40,7 +46,7 @@ public class Parser {
             if (!completedName) {
                 throw new Exception("Invalid deadline task!");
             }
-            return new Deadlines(name.substring(0, name.length() - 1), deadline.substring(0, deadline.length() - 1));
+            return new Deadline(name.substring(0, name.length() - 1), deadline.substring(0, deadline.length() - 1));
         } else if (command.equals("todo")) {
             if (arrStrings.length == 1) {
                 throw new Exception("OOPS!!! The description of a todo cannot be empty.");
@@ -48,7 +54,7 @@ public class Parser {
             for (int i = 1; i < arrStrings.length; i ++) {
                 name += arrStrings[i] + " ";
             }
-            return new Todos(name.substring(0, name.length() - 1));
+            return new Todo(name.substring(0, name.length() - 1));
         } else if (command.equals("event")) {
             String from = "";
             String to = "";
@@ -67,11 +73,21 @@ public class Parser {
                     name += arrStrings[i] + " ";
                 }
             }
-            return new Events(name.substring(0, name.length() - 1), from.substring(0, from.length() - 1), to.substring(0, to.length() - 1));
+            return new Event(name.substring(0, name.length() - 1), from.substring(0, from.length() - 1), to.substring(0, to.length() - 1));
         } else {
             throw new Exception("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
+
+    /**
+     * Parse the input string by splitting based on whtiespaces.
+     * Sorts the string based on its command
+     *
+     * @param input The input string representing the task given by user
+     * @param ui The user interface responsible for sending outputs to the screen
+     * @param taskList ArrayList that stores the tasks loaded from memory
+     * @param storage Storage that can be written to or read from
+     */
     public static void parse(String input, Ui ui, TaskList taskList, Storage storage) {
         // Splits the input based on whitespaces.
         String command = input.split("\\s+")[0];

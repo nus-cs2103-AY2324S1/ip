@@ -7,16 +7,16 @@ import java.io.IOException;
  * Encapsulates the task.Events Task.
  * @author Donovan Chan Jia Jun
  */
-public class Events extends Task {
+public class Event extends Task {
     private String from;
     private String to;
-    public Events(String name, String from, String to) {
+    public Event(String name, String from, String to) {
         super(name);
         this.to = to;
         this.from = from;
     }
 
-    public Events(String name, String from, String to, boolean isComplete) {
+    public Event(String name, String from, String to, boolean isComplete) {
         super(name, isComplete);
         this.to = to;
         this.from = from;
@@ -30,16 +30,27 @@ public class Events extends Task {
         return this.from;
     }
 
+    /**
+     * Checks if both objects are equal.
+     *
+     * @param task Task object to be compared agianst
+     * @return {@code true} if both objects are equal
+     */
     @Override
     public boolean equals(Object task) {
         if (this == task) {
             return true;
         }
-        Events eventTask = (Events) task;
+        Event eventTask = (Event) task;
         return this.to.equals(eventTask.getTo()) && this.getName().equals(eventTask.getName())
                 && this.from.equals(eventTask.getFrom());
     }
 
+    /**
+     * Write the Event object to the storage file in its format.
+     *
+     * @param fileWriter Filewriter that writes to a specific output file
+     */
     public void writeToFile(FileWriter fileWriter) {
         String marking = super.isComplete() ? "0" : "1";
         try {
