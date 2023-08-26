@@ -1,9 +1,10 @@
 package main.java.actions;
 
 import main.java.exceptions.JukeException;
-import main.java.JukeParser;
-import main.java.JukeTaskManager;
-import main.java.exceptions.JukeIllegalArgumentException;
+import main.java.exceptions.arguments.JukeIllegalCommandArgumentException;
+import main.java.parsers.JukeCommandParser;
+import main.java.tasks.JukeTaskManager;
+import main.java.exceptions.arguments.JukeIllegalArgumentException;
 import main.java.primitivies.JukeObject;
 import main.java.tasks.JukeDeadline;
 import main.java.tasks.JukeEvent;
@@ -11,7 +12,6 @@ import main.java.tasks.JukeTask;
 import main.java.tasks.JukeTodo;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * Abstract class used to dispatch commands to the respective actions.
@@ -24,7 +24,7 @@ public abstract class JukeAction extends JukeObject {
      * @return Corresponding JukeAction object
      */
     public static final JukeAction of(String command, JukeTaskManager taskManager) throws JukeException {
-        String[] parsedArgs = JukeParser.parseBySpace(command);
+        String[] parsedArgs = JukeCommandParser.parseBySpace(command);
         return JukeAction.dispatch(parsedArgs, taskManager);
     }
 
@@ -49,8 +49,8 @@ public abstract class JukeAction extends JukeObject {
                 return new JukeExitAction();
             case "mark":
                 if (args.length == 1) {
-                    throw new JukeIllegalArgumentException("Oh no! I cannot understand your mark command!",
-                                                           "mark [task number]");
+                    throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your mark command!",
+                                                                  "mark [task number]");
                 } else {
                     try {
                         int i = Integer.parseInt(args[1]);
@@ -63,7 +63,7 @@ public abstract class JukeAction extends JukeObject {
                 }
             case "unmark":
                 if (args.length == 1) {
-                    throw new JukeIllegalArgumentException("Oh no! I cannot understand your unmark command!",
+                    throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your unmark command!",
                                                            "unmark [task number]");
                 } else {
                     try {
@@ -77,7 +77,7 @@ public abstract class JukeAction extends JukeObject {
                 }
             case "delete":
                 if (args.length == 1) {
-                    throw new JukeIllegalArgumentException("Oh no! I cannot understand your delete command!",
+                    throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your delete command!",
                                                            "delete [task number]");
                 } else {
                     try {
@@ -92,7 +92,7 @@ public abstract class JukeAction extends JukeObject {
             case "todo":
                 if (args.length == 1) {
                     // contains only the command text
-                    throw new JukeIllegalArgumentException("Oh no! I cannot understand your todo command!",
+                    throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your todo command!",
                                                            "todo [description]");
                 } else {
                     // concatenate back the string
@@ -105,11 +105,11 @@ public abstract class JukeAction extends JukeObject {
                 String newDeadlineArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 
                 // check if fulfills regex
-                if (!JukeParser.isMatchByString(newDeadlineArgs)) {
-                    throw new JukeIllegalArgumentException("Oh no! I cannot understand your deadline command!",
+                if (!JukeCommandParser.isMatchByString(newDeadlineArgs)) {
+                    throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your deadline command!",
                                                            "deadline [description] /by [deadline]");
                 } else {
-                    String[] parsedArguments = JukeParser.parseByByString(newDeadlineArgs);
+                    String[] parsedArguments = JukeCommandParser.parseByByString(newDeadlineArgs);
                     JukeTask jt = new JukeDeadline(parsedArguments[0], parsedArguments[1]);
                     return new JukeAddTaskAction(taskManager, jt);
                 }
@@ -118,11 +118,11 @@ public abstract class JukeAction extends JukeObject {
                 String newEventArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 
                 // check if fulfills regex
-                if (!JukeParser.isMatchFromToString(newEventArgs)) {
-                    throw new JukeIllegalArgumentException("Oh no! I cannot understand your event command!",
+                if (!JukeCommandParser.isMatchFromToString(newEventArgs)) {
+                    throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your event command!",
                                                            "event [description] /from [from time] /to [to time]");
                 } else {
-                    String[] parsedArguments = JukeParser.parseByFromToString(newEventArgs);
+                    String[] parsedArguments = JukeCommandParser.parseByFromToString(newEventArgs);
                     JukeTask jt = new JukeEvent(parsedArguments[0], parsedArguments[1], parsedArguments[2]);
                     return new JukeAddTaskAction(taskManager, jt);
                 }
@@ -140,9 +140,6 @@ public abstract class JukeAction extends JukeObject {
 
     /**
      * Necessary method that is invoked when the action is carried out.
-     * @return Optional<? extends JukeAction> object, which contains further action objects,
-     * made this way to ensure that actions can call other actions and thus lead to chains
-     * of actions for added complexity
      */
     abstract public void complete() throws JukeException;
 }

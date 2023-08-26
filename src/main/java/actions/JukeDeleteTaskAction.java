@@ -1,10 +1,9 @@
 package main.java.actions;
 
-import main.java.JukeTaskManager;
+import main.java.exceptions.storage.JukeStorageException;
+import main.java.tasks.JukeTaskManager;
 import main.java.exceptions.JukeException;
 import main.java.tasks.JukeTask;
-
-import java.util.Optional;
 
 /**
  * Action that deletes a Task from the Task Manager.
@@ -27,12 +26,8 @@ public class JukeDeleteTaskAction extends JukeAction {
     }
 
     @Override
-    public void complete() throws JukeException {
-        try {
-            JukeTask jt = this.taskManager.deleteTask(this.task);
-            System.out.print("Task deleted: " + jt);
-        } catch (JukeException ex) {
-            throw ex;
-        }
+    public void complete() throws JukeStorageException {
+        JukeTask jt = this.taskManager.deleteTask(this.task);
+        System.out.print("Task deleted: " + jt);
     }
 }

@@ -2,8 +2,6 @@ package main.java.actions;
 
 import main.java.exceptions.JukeException;
 
-import java.util.Optional;
-
 /**
  * Action that is invoked when the user wishes to quit the assistant.
  */

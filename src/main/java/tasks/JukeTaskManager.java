@@ -1,13 +1,12 @@
-package main.java;
+package main.java.tasks;
 
+import main.java.exceptions.arguments.JukeIllegalArgumentException;
+import main.java.exceptions.storage.JukeStorageException;
 import main.java.exceptions.JukeException;
 import main.java.primitivies.JukeObject;
-import main.java.actions.JukeAction;
-import main.java.tasks.JukeTask;
+import main.java.storage.JukeStorageManager;
 
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * A manager of JukeTasks. This class handles the addition/deletion/manipulation of
@@ -18,26 +17,26 @@ public class JukeTaskManager extends JukeObject {
     private final LinkedList<JukeTask> tasks;
 
     /**
-     * Private constructor for JukeTaskManager.
+     * {@code JukeStorageManager} instance in charge of storing, retrieving and
+     * modifying data.
      */
-    private JukeTaskManager() {
-        this.tasks = new LinkedList<>();
+    private final JukeStorageManager storageManager;
+
+    /**
+     * Private constructor for JukeTaskManager that initialises the
+     * tasks within this Manager.
+     */
+    private JukeTaskManager(JukeStorageManager storageManager) throws JukeStorageException {
+        this.storageManager = storageManager;
+        this.tasks = new LinkedList<>(storageManager.get());
     }
 
     /**
-     * Private constructor for JukeTaskManager that initialises with a series of JukeTasks.
-     * @param initialTasks List of initial JukeTasks
-     */
-    private JukeTaskManager(List<? extends JukeTask> initialTasks) {
-        this.tasks = new LinkedList<>(initialTasks);
-    }
-
-    /**
-     * Factory method to create a JukeTaskManager.
+     * Factory method to create a JukeTaskManager, from existing saved tasks.
      * @return JukeTaskManager object
      */
-    public static JukeTaskManager of() {
-        return new JukeTaskManager();
+    public static JukeTaskManager of(JukeStorageManager storageManager) throws JukeStorageException {
+        return new JukeTaskManager(storageManager);
     }
 
     /**
@@ -45,58 +44,65 @@ public class JukeTaskManager extends JukeObject {
      * @param task JukeTask object.
      * @return true if the task is added, else false
      */
-    public boolean addTask(JukeTask task) {
-        return this.tasks.add(task);
-    }
+    public boolean addTask(JukeTask task) throws JukeStorageException {
+        boolean success = this.tasks.add(task);
 
-    /**
-     * Deletes a task.
-     * @param task JukeTask object
-     * @return true if the task is successfully deleted, else false
-     */
-    public boolean deleteTask(JukeTask task) {
-        return this.tasks.remove(task);
+        if (success) {
+            this.storageManager.write(this.tasks);
+        }
+
+        return success;
     }
 
     /**
      * Deletes a task by index.
      * @param task Index of JukeTask object
      * @return true if the task is successfuly deleted, else false
+     * @throws {@code JukeIllegalArgumentException} if there the input argument is invalid
      */
-    public JukeTask deleteTask(int task) throws JukeException{
+    public JukeTask deleteTask(int task) throws JukeStorageException {
         try {
             JukeTask retTask = this.tasks.get(task);
-            this.tasks.remove(retTask);
+
+            if (this.tasks.remove(retTask)) {
+                this.storageManager.write(this.tasks);
+            }
+
             return retTask;
         } catch (IndexOutOfBoundsException ex) {
-            throw new JukeException("Oh no! The task index you have provided is not valid!");
+            throw new JukeIllegalArgumentException("Oh no! The task index you have provided is not valid!");
         }
     }
 
     /**
      * Marks a task as complete.
      * @param index Index of task to act on.
-     * @return Optional<? extends JukeAction> for further actions to take
+     * @throws {@code JukeIllegalArgumentException} if there the input argument is invalid, and
+     * {@code JukeIllegalArgumentException} if the user tries to mark a completed task as completed again, or
+     * {@code JukeStorageException} if there is an issue with storing the changes
      */
-    public void markAsDone(int index) throws JukeException {
+    public void markAsDone(int index) throws JukeStorageException {
         if (index < 0 || index > this.tasks.size()) {
-            throw new JukeException("Oh no! I do not have such task recorded!");
+            throw new JukeIllegalArgumentException("Oh no! I do not have such task recorded!");
         }
 
         this.tasks.get(index).markAsComplete();
+        this.storageManager.write(this.tasks);
     }
 
     /**
      * Marks a task as incomplete.
      * @param index Index of task to act on.
-     * @return Optional<? extends JukeAction> for further actions to take
+     * {@code JukeIllegalArgumentException} if the user tries to mark an incomplete task as incompleted again, or
+     * {@code JukeStorageException} if there is an issue with storing the changes
      */
-    public void markAsUndone(int index) throws JukeException {
+    public void markAsUndone(int index) throws JukeStorageException {
         if (index < 0 || index > this.tasks.size()) {
             throw new JukeException("Oh no! I do not have such task recorded!");
         }
 
         this.tasks.get(index).markAsIncomplete();
+        this.storageManager.write(this.tasks);
     }
 
     /**

@@ -1,7 +1,7 @@
 package main.java.tasks;
 
 /**
- * Represents a task with a deadline.
+ * Represents a Deadline task.
  */
 public class JukeDeadline extends JukeTask {
     /** String which represents the Task Identifier. */
@@ -20,6 +20,33 @@ public class JukeDeadline extends JukeTask {
         this.deadline = deadline;
     }
 
+    /**
+     * Constructor for JukeDeadline.
+     * @param task Task description
+     * @param deadline Deadline for task
+     * @param completion Status of completion of the task
+     */
+    public JukeDeadline(String task, String deadline, boolean completion) {
+        this(task, deadline);
+
+        if (completion) {
+            this.markAsComplete();
+        }
+    }
+
+    /**
+     * Returns the string which represents this object when it is saved into the datafile.
+     * @return Datafile representation of this object
+     */
+    @Override
+    public String save() {
+        return "D" + super.save() + "|" + deadline;
+    }
+
+    /**
+     * String representation of this {@code JukeDeadline} object
+     * @return String representation
+     */
     @Override
     public String toString() {
         return JukeDeadline.TASK_DESCRIPTOR + super.toString() + " (by: " + this.deadline + ")";

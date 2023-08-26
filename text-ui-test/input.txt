@@ -1,6 +1,17 @@
 list
-todo go to school
+todo complete tp
 deadline go to bed /by now
 event go to prom /from tonight /to tomorrow
 list
+mark 1
+mark 1
+unmark 1
+unmark 1
+mark 1000
+unmark 1000
+todo
+deadline
+event
+deadline /malformed
+event /malformed /request
 bye

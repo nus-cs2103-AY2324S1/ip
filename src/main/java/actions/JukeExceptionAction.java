@@ -1,9 +1,5 @@
 package main.java.actions;
 
-import main.java.exceptions.JukeException;
-
-import java.util.Optional;
-
 /**
  * Action class that corresponds to an error action.
  *
@@ -11,14 +7,13 @@ import java.util.Optional;
  */
 public class JukeExceptionAction extends JukeAction {
     /** Error description. */
-    private final JukeException err;
+    private final Exception err;
 
     /**
      * Constructor to create an Error Action.
      * @param err Error description
      */
-    public JukeExceptionAction(JukeException err) {
-
+    public JukeExceptionAction(Exception err) {
         this.err = err;
     }
 

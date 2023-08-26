@@ -1,7 +1,5 @@
 package main.java.actions;
 
-import java.util.Optional;
-
 /**
  * Action that invokes a print action on the command line.
  */

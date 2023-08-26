@@ -1,10 +1,10 @@
 package main.java.actions;
 
+import main.java.exceptions.JukeStateException;
+import main.java.exceptions.storage.JukeStorageException;
 import main.java.exceptions.JukeException;
 import main.java.tasks.JukeTask;
-import main.java.JukeTaskManager;
-
-import java.util.Optional;
+import main.java.tasks.JukeTaskManager;
 
 /**
  * Action that adds a Task to the Task Manager.
@@ -28,16 +28,11 @@ public class JukeAddTaskAction extends JukeAction {
 
     /**
      * Necessary method that is invoked when the action is carried out.
-     * @return Optional<? extends JukeAction> object, which contains further action objects,
-     * made this way to ensure that actions can call other actions and thus lead to chains
-     * of actions for added complexity
+     * @throws {@code JukeStorageException} If there is an issue with storing changes
      */
     @Override
-    public void complete() throws JukeException {
-        if (this.taskManager.addTask(this.task)) {
-            System.out.print("Task added: " + this.task);
-        } else {
-            throw new JukeException("Oops! We cannot add the task of interest to your task list!");
-        }
+    public void complete() throws JukeStorageException {
+        this.taskManager.addTask(this.task);
+        System.out.print("Task added: " + this.task);
     }
 }

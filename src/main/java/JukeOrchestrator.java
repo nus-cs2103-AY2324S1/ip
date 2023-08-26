@@ -2,11 +2,14 @@ package main.java;
 
 import main.java.actions.JukeExceptionAction;
 import main.java.actions.JukeExitAction;
+import main.java.exceptions.storage.JukeStorageException;
 import main.java.exceptions.JukeException;
+import main.java.exceptions.JukeInitialisationException;
 import main.java.primitivies.JukeObject;
 import main.java.actions.JukeAction;
+import main.java.storage.JukeStorageManager;
+import main.java.tasks.JukeTaskManager;
 
-import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -44,20 +47,24 @@ public class JukeOrchestrator extends JukeObject {
     /** Instance of JukeTaskManager that handles all JukeTasks. */
     private final JukeTaskManager jukeTaskManager;
 
+    /** Instance of JukeStorageManager that handles all saved tasks. */
+    private final JukeStorageManager jukeStorageManager;
+
     /**
      * Constructor for JukeOrchestrator.
      * @param jukeScanner Scanner object to read in user input
      */
-    private JukeOrchestrator(Scanner jukeScanner) {
+    private JukeOrchestrator(Scanner jukeScanner) throws JukeInitialisationException, JukeStorageException {
         this.jukeScanner = jukeScanner;
-        this.jukeTaskManager = JukeTaskManager.of();
+        this.jukeStorageManager = JukeStorageManager.of();
+        this.jukeTaskManager = JukeTaskManager.of(this.jukeStorageManager);
     }
 
     /**
      * Factory method that creates a JukeOrchestrator with the necessary Scanner object.
      * @param scanner Scanner object to read in user input
      */
-    public static JukeOrchestrator of(Scanner scanner) {
+    public static JukeOrchestrator of(Scanner scanner) throws JukeInitialisationException, JukeStorageException {
         return new JukeOrchestrator(scanner);
     }
 
@@ -91,6 +98,9 @@ public class JukeOrchestrator extends JukeObject {
 
                 System.out.print(JukeOrchestrator.SEPARATOR);
             } catch (JukeException ex) {
+                // a bit of Pokémon exception handling over here, but it is necessary
+                // to ensure that the UI obtains all possible exceptions to be thrown by the
+                // program over the course of its runtime
                 new JukeExceptionAction(ex).complete();
                 System.out.print(JukeOrchestrator.SEPARATOR);
             }
@@ -98,7 +108,7 @@ public class JukeOrchestrator extends JukeObject {
     }
 
     /**
-     * Prints out the Introduction statments.
+     * Prints out the Introduction statements.
      */
     private void printIntroduction() {
         String builder = JukeOrchestrator.LOGO +
