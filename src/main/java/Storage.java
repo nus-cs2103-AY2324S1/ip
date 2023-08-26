@@ -18,17 +18,28 @@ public class Storage<E> implements Iterable<E>  {
         return newMem;
     }
 
+    protected E get(int idx) {
+        return this.mem.get(idx);
+    }
+
+    protected Storage<E> update(int idx, E elem) {
+        Storage<E> newStore = new Storage<E>(this.mem);
+        newStore.mem.set(idx, elem);
+        return newStore;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return this.mem.iterator();
     }
 
     protected String list() {
-        String str = "____________________________________________________________\n";
+        String str = "____________________________________________________________\n" +
+                "Here are the tasks in your list:\n";
         Iterator<E> iter = this.mem.iterator();
         int i = 1;
         while (iter.hasNext()) {
-            str += Integer.toString(i) + ". " + iter.next() + "\n";
+            str += Integer.toString(i) + ". " + iter.next();
             i++;
         }
         str += "____________________________________________________________\n";

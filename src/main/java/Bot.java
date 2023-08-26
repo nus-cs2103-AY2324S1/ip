@@ -8,15 +8,33 @@ public class Bot {
                 " What can I do for you?\n" +
                 "____________________________________________________________");
         String str = sc.nextLine();
-        Storage<String> storage = new Storage<String>();
+        Storage<Task> storage = new Storage<>();
         while (!str.equals("bye")) {
-            if (!str.equals("list")) {
+            Task task;
+            if (str.equals("list")) {
+                System.out.println(storage.list());
+            } else if (str.contains("mark")) {
+                int idx = Integer.parseInt(str.substring(str.length() - 1)) - 1;
+                Task update = storage.get(idx).complete();
+                storage = storage.update(idx, update);
+                System.out.println("____________________________________________________________\n" +
+                        "Nice! I've marked this task as done:\n" +
+                        update +
+                        "____________________________________________________________\n");
+            } else if (str.contains("unmark")) {
+                int idx = Integer.parseInt(str.substring(str.length() - 1)) - 1;
+                Task update = storage.get(idx).incomplete();
+                storage = storage.update(idx, update);
+                System.out.println("____________________________________________________________\n" +
+                        "OK, I've marked this task as not done yet:" +
+                        update +
+                        "____________________________________________________________\n");
+            } else {
+                task = new Task(str);
                 System.out.println("____________________________________________________________\n" +
                         "added: " + str + "\n" +
                         "____________________________________________________________");
-                storage = storage.save(str);
-            } else {
-                System.out.println(storage.list());
+                storage = storage.save(task);
             }
             str = sc.nextLine();
         }
