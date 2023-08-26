@@ -1,9 +1,9 @@
-package extensions.tasks;
+package duke.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import extensions.exceptions.DukeIllegalArgumentException;
+import duke.exceptions.DukeIllegalArgumentException;
 
 /**
  * A Task that starts at a specific date/time and ends at a specific date/time.

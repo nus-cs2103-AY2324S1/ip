@@ -1,10 +1,10 @@
-import extensions.exceptions.DukeException;
-import extensions.exceptions.DukeIllegalArgumentException;
-import extensions.exceptions.DukeUnknownCommandException;
-import extensions.parser.Parser;
-import extensions.tasks.TaskList;
-import extensions.tasks.TaskList.TaskType;
-import extensions.ui.Ui;
+import duke.exceptions.DukeException;
+import duke.exceptions.DukeIllegalArgumentException;
+import duke.exceptions.DukeUnknownCommandException;
+import duke.parser.Parser;
+import duke.tasks.TaskList;
+import duke.tasks.TaskList.TaskType;
+import duke.ui.Ui;
 
 /**
  * Duke, the chatbot.

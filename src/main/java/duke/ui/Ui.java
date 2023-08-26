@@ -1,8 +1,8 @@
-package extensions.ui;
+package duke.ui;
 
 import java.util.Scanner;
 
-import extensions.exceptions.DukeException;
+import duke.exceptions.DukeException;
 
 /**
  * A UI to interact with the user.

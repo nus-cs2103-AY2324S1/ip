@@ -1,4 +1,4 @@
-package extensions.storage;
+package duke.storage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,8 +6,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import extensions.exceptions.DukeIOException;
-import extensions.ui.Ui;
+import duke.exceptions.DukeIOException;
+import duke.ui.Ui;
 
 /**
  * Stores data into specified files. Data is stored at ./data/ directory.

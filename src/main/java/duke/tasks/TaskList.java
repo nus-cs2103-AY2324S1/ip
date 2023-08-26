@@ -1,11 +1,11 @@
-package extensions.tasks;
+package duke.tasks;
 
 import java.util.ArrayList;
 
-import extensions.exceptions.DukeIOException;
-import extensions.exceptions.DukeIllegalArgumentException;
-import extensions.storage.Storage;
-import extensions.ui.Ui;
+import duke.exceptions.DukeIOException;
+import duke.exceptions.DukeIllegalArgumentException;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
 /**
  * A list of tasks.

@@ -1,4 +1,4 @@
-package extensions.exceptions;
+package duke.exceptions;
 
 /**
  * Thrown when there is an error reading/writing from the file.

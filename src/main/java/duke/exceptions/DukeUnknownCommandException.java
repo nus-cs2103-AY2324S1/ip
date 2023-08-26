@@ -1,4 +1,4 @@
-package extensions.exceptions;
+package duke.exceptions;
 
 /**
  * Thrown when the user inputs an unknown command into Duke.

@@ -1,4 +1,4 @@
-package extensions.tasks;
+package duke.tasks;
 
 /**
  * A Task without any date/time attached to it.
