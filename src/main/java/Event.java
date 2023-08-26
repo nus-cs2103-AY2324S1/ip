@@ -9,19 +9,19 @@ public class Event extends Task {
 
   public Event(String taskName, String startTime, String endTime) {
     super(taskName);
-    this.startTime = stringToDate(startTime);
-    this.endTime =  stringToDate(endTime);
+    this.startTime = Storage.stringToDate(startTime);
+    this.endTime =  Storage.stringToDate(endTime);
   }
 
   @Override
   protected String toDatabaseRepresentation() {
     return String.format("E | %s | %s | %s | %s",
-        isDone() ? 1 : 0, getTaskName(), dateToDatabaseRepresentation(startTime), dateToDatabaseRepresentation(endTime));
+        isDone() ? 1 : 0, getTaskName(), Storage.dateToDatabaseRepresentation(startTime), Storage.dateToDatabaseRepresentation(endTime));
   }
 
   @Override
   public String toString() {
     return String.format("[E]%s (from: %s to: %s)",
-        super.toString(), dateToString(startTime), dateToString(endTime));
+        super.toString(), Storage.dateToString(startTime), Storage.dateToString(endTime));
   }
 }

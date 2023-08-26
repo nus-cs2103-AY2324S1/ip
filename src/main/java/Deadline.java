@@ -8,17 +8,17 @@ public class Deadline extends Task {
 
   public Deadline(String taskName, String deadline) {
     super(taskName);
-    this.deadline = stringToDate(deadline);
+    this.deadline = Storage.stringToDate(deadline);
   }
 
   @Override
   protected String toDatabaseRepresentation() {
     return String.format("D | %s | %s | %s",
-        isDone() ? 1 : 0, getTaskName(), dateToDatabaseRepresentation(this.deadline));
+        isDone() ? 1 : 0, getTaskName(), Storage.dateToDatabaseRepresentation(this.deadline));
   }
 
   @Override
   public String toString() {
-    return String.format("[D]%s (by: %s)", super.toString(), dateToString(this.deadline));
+    return String.format("[D]%s (by: %s)", super.toString(), Storage.dateToString(this.deadline));
   }
 }
