@@ -1,0 +1,6 @@
+todo one
+deadline two /by time
+list
+mark 1
+event three /from now /to later
+bye
