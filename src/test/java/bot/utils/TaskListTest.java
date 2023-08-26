@@ -1,13 +1,14 @@
 package bot.utils;
 
-import bot.exceptions.InvalidIndexException;
-import bot.exceptions.InvalidTaskException;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+
+import bot.exceptions.InvalidIndexException;
+import bot.exceptions.InvalidTaskException;
 
 public class TaskListTest {
 
