@@ -29,7 +29,7 @@ public class Parser {
         try {
             DateTimeFormatter displayDateTimeFormat = DateTimeFormatter.ofPattern("MMM dd yyyy ha");
             LocalDateTime displayLocalDateTime = LocalDateTime.parse(displayDateTime, displayDateTimeFormat);
-            DateTimeFormatter storageDateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd hhmm");
+            DateTimeFormatter storageDateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
             return displayLocalDateTime.format(storageDateTimeFormat);
         } catch (DateTimeParseException e) {
             return displayDateTime;
