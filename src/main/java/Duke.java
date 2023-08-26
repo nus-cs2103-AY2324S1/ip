@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -183,6 +186,7 @@ public class Duke {
     static abstract class Task {
         protected boolean isDone = false;
         protected String description;
+        protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
 
         public static Task createTask(String task) throws WrongCommandException, WrongFormatException {
             TaskType taskType = getTaskType(task);
@@ -217,7 +221,7 @@ public class Duke {
                     default:
                         return null;
                 }
-            } catch (NullPointerException | IllegalArgumentException e) {
+            } catch (NullPointerException | IllegalArgumentException | DateTimeException e) {
                 throw new InvalidFileException("File is corrupted!");
             }
         }
@@ -293,7 +297,7 @@ public class Duke {
         }
 
         private static final class DeadlineTask extends Task {
-            private String dateEnd;
+            private LocalDate dateEnd;
 
             public DeadlineTask(String task) throws WrongFormatException {
                 String description = getDescription(task);
@@ -301,10 +305,10 @@ public class Duke {
                 this.description = description;
             }
 
-            public DeadlineTask(boolean isDone, String description, String taskDetail) {
+            public DeadlineTask(boolean isDone, String description, String dateEnd) {
                 this.isDone = isDone;
                 this.description = description;
-                this.dateEnd = taskDetail;
+                this.dateEnd = LocalDate.parse(dateEnd);
             }
 
             @Override
@@ -329,20 +333,25 @@ public class Duke {
                     return null;
                 }
 
-                this.dateEnd = split[1];
+                try {
+                    this.dateEnd = LocalDate.parse(split[1]);
+                } catch (DateTimeException e) {
+                    return null;
+                }
+
                 return split[0];
             }
 
             @Override
             public String toString() {
                 return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
-                        + " (by: " + dateEnd + ")";
+                        + " (by: " + dateEnd.format(formatter) + ")";
             }
         }
 
         private static final class EventTask extends Task {
-            private String dateStart;
-            private String dateEnd;
+            private LocalDate dateStart;
+            private LocalDate dateEnd;
 
             public EventTask(String task) throws WrongFormatException {
                 String description = getDescription(task);
@@ -353,8 +362,8 @@ public class Duke {
             public EventTask(boolean isDone, String description, String dateStart, String dateEnd) {
                 this.isDone = isDone;
                 this.description = description;
-                this.dateStart = dateStart;
-                this.dateEnd = dateEnd;
+                this.dateStart = LocalDate.parse(dateStart);
+                this.dateEnd = LocalDate.parse(dateEnd);
             }
 
             @Override
@@ -383,15 +392,20 @@ public class Duke {
                     return null;
                 }
 
-                this.dateStart = split2[0];
-                this.dateEnd = split2[1];
+                try {
+                    this.dateStart = LocalDate.parse(split2[0]);
+                    this.dateEnd = LocalDate.parse(split2[1]);
+                } catch (DateTimeException e) {
+                    return null;
+                }
+
                 return split[0];
             }
 
             @Override
             public String toString() {
                 return getTaskTypeString() + squareBracketWrapper(isDone ? "X" : " ") + " " + description
-                        + " (from: " + dateStart + " to: " + dateEnd + ")";
+                        + " (from: " + dateStart.format(formatter) + " to: " + dateEnd.format(formatter) + ")";
             }
         }
     }
