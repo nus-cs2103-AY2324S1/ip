@@ -7,13 +7,25 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Represents a list of tasks that can be managed, including adding, deleting, marking, and unmarking tasks.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList from serialized tasks.
+     *
+     * @param serializedTasks Serialized tasks in the form of strings.
+     * @throws DukeException If there's an issue parsing the serialized tasks.
+     */
     public TaskList(ArrayList<String> serializedTasks) throws DukeException {
         this.tasks = new ArrayList<>();
 
@@ -44,6 +56,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Validates and retrieves the real index from the given task index.
+     *
+     * @param index Task index to be validated.
+     * @return Validated real index of the task.
+     * @throws DukeException If the provided index is invalid.
+     */
     private int validateIndex(int index) throws DukeException {
         if (index < 1) {
             throw new DukeException("Please provide a task index that is 1 <= task index <= 100.");
@@ -60,49 +79,101 @@ public class TaskList {
         return realIndex;
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task Task to be added.
+     * @return The added task.
+     */
     public Task addTask(Task task) {
         this.tasks.add(task);
         return task;
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param index Index of the task to be deleted.
+     * @return The deleted task.
+     * @throws DukeException If the provided index is invalid.
+     */
     public Task deleteTask(int index) throws DukeException {
         return this.tasks.remove(this.validateIndex(index));
     }
 
-    public void clearTasks() {
-        this.tasks.clear();
-    }
-
+    /**
+     * Marks a task as done.
+     *
+     * @param index Index of the task to be marked.
+     * @return The marked task.
+     * @throws DukeException If the provided index is invalid.
+     */
     public Task markTask(int index) throws DukeException {
         Task task = this.tasks.get(this.validateIndex(index));
         task.markDone();
         return task;
     }
 
+    /**
+     * Unmarks a task (marks it as not done).
+     *
+     * @param index Index of the task to be unmarked.
+     * @return The unmarked task.
+     * @throws DukeException If the provided index is invalid.
+     */
     public Task unmarkTask(int index) throws DukeException {
         Task task = this.tasks.get(this.validateIndex(index));
         task.unmarkDone();
         return task;
     }
 
+    /**
+     * Adds a todo task to the task list.
+     *
+     * @param desc Description of the todo task.
+     * @return The added todo task.
+     */
     public Todo addTodo(String desc) {
         Todo todo = new Todo(desc);
         this.addTask(todo);
         return todo;
     }
 
+    /**
+     * Adds a deadline task to the task list.
+     *
+     * @param desc Description of the deadline task.
+     * @param by   Deadline of the task.
+     * @return The added deadline task.
+     * @throws DukeException If there's an issue with the deadline format.
+     */
     public Deadline addDeadline(String desc, String by) throws DukeException {
         Deadline deadline = new Deadline(desc, Validate.validateLocalDateTime(by));
         this.addTask(deadline);
         return deadline;
     }
 
+    /**
+     * Adds an event task to the task list.
+     *
+     * @param desc Description of the event task.
+     * @param from Start time of the event.
+     * @param to   End time of the event.
+     * @return The added event task.
+     * @throws DukeException If there's an issue with the date-time formats.
+     */
     public Event addEvent(String desc, String from, String to) throws DukeException {
         Event event = new Event(desc, Validate.validateLocalDateTime(from), Validate.validateLocalDateTime(to));
         this.addTask(event);
         return event;
     }
 
+    /**
+     * Saves the tasks in the task list to a BufferedWriter.
+     *
+     * @param writer BufferedWriter to write the tasks to.
+     * @throws IOException If there's an issue writing to the writer.
+     */
     public void save(BufferedWriter writer) throws IOException {
         for (Task task : this.tasks) {
             writer.write(task.serialize());
@@ -110,10 +181,20 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a summary of the number of tasks in the task list.
+     *
+     * @return Summary of the number of tasks.
+     */
     public String status() {
         return String.format("You have %d tasks in the list.", this.tasks.size());
     }
 
+    /**
+     * Returns a string representation of the task list.
+     *
+     * @return String representation of the task list.
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder(this.status());

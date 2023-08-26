@@ -6,7 +6,17 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+/**
+ * Parses user input commands and creates corresponding Command objects.
+ */
 public class Parser {
+    /**
+     * Parses the full user input command and returns the corresponding Command object.
+     *
+     * @param fullCommand The full user input command.
+     * @return The corresponding Command object.
+     * @throws DukeException If there's an issue parsing the command.
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String[] tokens = fullCommand.split(" ", 2);
         String rootCmd = tokens[0];
@@ -117,6 +127,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Throws a DukeException with a formatted error message including usage information.
+     *
+     * @param message   The error message to display.
+     * @param usageText The usage information for the command.
+     * @throws DukeException The exception with the formatted error message.
+     */
     private static void throwException(String message, String usageText) throws DukeException {
         throw new DukeException(String.format("%s\n\n\tUsage: %s", message, usageText));
     }
