@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.Storage;
+
 import java.time.LocalDateTime;
 
 /**
@@ -14,7 +18,7 @@ public class Event extends Task {
   }
 
   @Override
-  protected String toDatabaseRepresentation() {
+  public String toDatabaseRepresentation() {
     return String.format("E | %s | %s | %s | %s",
         isDone() ? 1 : 0, getTaskName(), Storage.dateToDatabaseRepresentation(startTime), Storage.dateToDatabaseRepresentation(endTime));
   }

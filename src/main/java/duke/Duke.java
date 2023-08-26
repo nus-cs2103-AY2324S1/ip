@@ -1,3 +1,9 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.ArrayList;
 
 /**
@@ -5,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Duke {
 
-    protected Storage storage;
+    public Storage storage;
     protected TaskList tasks;
     private Ui ui;
 

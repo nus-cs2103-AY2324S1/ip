@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.exception.DukeException;
+
 /**
  * This class represents a basic task that can be marked.
  */
@@ -10,7 +14,7 @@ public class Todo extends Task {
   }
 
   @Override
-  protected String toDatabaseRepresentation() {
+  public String toDatabaseRepresentation() {
     return String.format("T | %s | %s", isDone() ? 1 : 0, getTaskName());
   }
 

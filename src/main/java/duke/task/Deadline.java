@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.Storage;
+
 import java.time.LocalDateTime;
 
 /**
@@ -12,7 +16,7 @@ public class Deadline extends Task {
   }
 
   @Override
-  protected String toDatabaseRepresentation() {
+  public String toDatabaseRepresentation() {
     return String.format("D | %s | %s | %s",
         isDone() ? 1 : 0, getTaskName(), Storage.dateToDatabaseRepresentation(this.deadline));
   }

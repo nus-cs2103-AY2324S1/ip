@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -65,7 +73,7 @@ public class Storage {
      * Updates the database.
      * @param taskList The list containing the tasks to be saved.
      */
-    protected void writeToDatabase(ArrayList<Task> taskList) {
+    public void writeToDatabase(ArrayList<Task> taskList) {
         try {
             FileWriter writer = new FileWriter(DATABASE_PATH.toString(), false);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
@@ -115,7 +123,7 @@ public class Storage {
      * @param input The user input.
      * @return The LocalDateTime containing the date written in the input.
      */
-    protected static LocalDateTime stringToDate(String input) {
+    public static LocalDateTime stringToDate(String input) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return LocalDateTime.parse(input, formatter);
     }
@@ -125,7 +133,7 @@ public class Storage {
      * @param date The date to be converted.
      * @return The database representation of the date inputted.
      */
-    protected static String dateToDatabaseRepresentation(LocalDateTime date) {
+    public static String dateToDatabaseRepresentation(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return date.format(formatter);
     }
@@ -135,7 +143,7 @@ public class Storage {
      * @param date The date to be converted.
      * @return Date in a more readable format.
      */
-    protected static String dateToString(LocalDateTime date) {
+    public static String dateToString(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mma");
         return date.format(formatter);
     }
