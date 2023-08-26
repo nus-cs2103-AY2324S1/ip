@@ -2,20 +2,13 @@ package horo.data;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
 
 import horo.HoroException;
 
 public class Deadline extends Task {
 
   private LocalDateTime deadline;
-  private static DateTimeFormatter DATE_TIME_FORMAT = new DateTimeFormatterBuilder()
-      .appendPattern("yyyy/MM/dd[ [HH][:mm]]")
-      .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-      .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-      .toFormatter();
 
   public Deadline(String description, LocalDateTime deadline) throws HoroException {
     super(description);
