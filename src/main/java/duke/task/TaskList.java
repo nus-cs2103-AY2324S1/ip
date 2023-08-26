@@ -90,4 +90,20 @@ public class TaskList {
         }
         Ui.printLine();
     }
+
+    /**
+     * Prints all tasks with names strictly containing a keyword.
+     * @param key The keyword.
+     */
+    public void findTasks(String key) {
+        int count = 1;
+        Ui.printLine();
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : taskList) {
+            if (task.getTaskName().contains(key)) {
+                System.out.printf("%s. %s%n", count++, task);
+            }
+        }
+        Ui.printLine();
+    }
 }
