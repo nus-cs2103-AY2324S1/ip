@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Task {
     protected final String description;
     protected final Boolean marked;
@@ -10,6 +12,10 @@ public class Task {
     Task(String description) {
         this.description = description;
         this.marked = false;
+    }
+
+    Boolean happenOnThatDate(LocalDate date) {
+        return false;
     }
 
     Task mark() {
