@@ -23,6 +23,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list.
+     *
      * @param task The task to be added.
      */
     public void addTask(Task task) {
@@ -38,6 +39,7 @@ public class TaskList {
 
     /**
      * Marks a task as done.
+     *
      * @param i The index of the task in the list (1-based indexing).
      */
     public void markTask(int i) {
@@ -51,6 +53,7 @@ public class TaskList {
 
     /**
      * Marks a task as not done.
+     *
      * @param i The index of the task in the list (1-based indexing).
      */
     public void unmarkTask(int i) {
@@ -63,6 +66,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the list.
+     *
      * @param i The index of the task in the list (1-based indexing).
      */
     public void deleteTask(int i) {

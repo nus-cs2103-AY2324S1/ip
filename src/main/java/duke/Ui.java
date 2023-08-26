@@ -53,6 +53,7 @@ public class Ui {
 
     /**
      * Prints an exception in a predefined format.
+     *
      * @param e The exception to be printed.
      */
     public static void showError(DukeException e) {
@@ -63,6 +64,7 @@ public class Ui {
 
     /**
      * Repeatedly prompts the user for input until a "bye" is inputted.
+     *
      * @return The latest input by the user. To be cached.
      */
     public String promptInput() {
