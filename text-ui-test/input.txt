@@ -8,4 +8,8 @@ mark 3
 list
 unmark 1
 list
+todo
+deadline
+event
+blah
 bye
