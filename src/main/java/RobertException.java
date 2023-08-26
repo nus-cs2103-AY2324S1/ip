@@ -2,12 +2,12 @@ public class RobertException extends Exception {
     private final String errorMessage;
 
     public RobertException(String errorMessage) {
-        super(errorMessage);
-        this.errorMessage = errorMessage;
+        super("OOPS!!! " + errorMessage);
+        this.errorMessage = "OOPS!!! " + errorMessage;
     }
 
     @Override
     public String toString() {
-        return "OOPS!!! " + errorMessage;
+        return errorMessage;
     }
 }
