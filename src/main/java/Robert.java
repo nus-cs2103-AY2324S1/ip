@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -5,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.DateTimeException;
 
 public class Robert {
 	private static ArrayList<Task> tasks = new ArrayList<>();
@@ -41,14 +44,19 @@ public class Robert {
 						break;
 
 					case "E":
+						LocalDate fromDate = LocalDate.parse(taskParameters[3]);
+						LocalDate toDate = LocalDate.parse(taskParameters[4]);
+
 						Event newEvent = new Event(taskParameters[2],
-								taskParameters[3], taskParameters[4], taskParameters[1].equals("1"));
+								fromDate, toDate, taskParameters[1].equals("1"));
 						Robert.addTask(newEvent);
 						break;
 
 					case "D":
+						LocalDate byDate = LocalDate.parse(taskParameters[3]);
+
 						Deadline newDeadline = new Deadline(taskParameters[2],
-								taskParameters[3], taskParameters[1].equals("1"));
+								byDate, taskParameters[1].equals("1"));
 						Robert.addTask(newDeadline);
 						break;
 
@@ -165,11 +173,23 @@ public class Robert {
 
 					String[] eventParameters = parameters.split(" /from ");
 
-					String eventDescription = eventParameters[0];
-					String from = eventParameters[1].split(" /to ")[0];
-					String to = eventParameters[1].split(" /to ")[1];
+					if (eventParameters.length < 2) {
+						throw new RobertException("There are parameters missing.\n"
+								+ "Please make sure you have both the task description and the due date entered.");
+					}
 
-					Event newEvent = new Event(eventDescription, from, to);
+					String eventDescription = eventParameters[0];
+					String[] dateParameters = eventParameters[1].split(" /to ");
+
+					if (dateParameters.length < 2) {
+						throw new RobertException("There are parameters missing.\n"
+								+ "Please make sure you have both the task description and the due date entered.");
+					}
+
+					LocalDate fromDate = LocalDate.parse(dateParameters[0]);
+					LocalDate toDate = LocalDate.parse(dateParameters[1]);
+
+					Event newEvent = new Event(eventDescription, fromDate, toDate);
 					Robert.addTask(newEvent);
 					Robert.outputMessage("Got it. I have added this task:\n  " + newEvent
 							+ "\nNow you have " + Task.taskCount + " " + (Task.taskCount > 1 ? "task" : "tasks") + " in the list.");
@@ -190,13 +210,18 @@ public class Robert {
 
 					String[] deadlineParameters = parameters.split(" /by ");
 
-					String deadlineDescription = deadlineParameters[0];
-					String by = deadlineParameters[1];
+					if (deadlineParameters.length < 2) {
+						throw new RobertException("There are parameters missing.\n"
+								+ "Please make sure you have both the task description and the due date entered.");
+					}
 
-					Deadline newDeadline = new Deadline(deadlineDescription, by);
+					String deadlineDescription = deadlineParameters[0];
+					LocalDate byDate = LocalDate.parse(deadlineParameters[1]);
+
+					Deadline newDeadline = new Deadline(deadlineDescription, byDate);
 					Robert.addTask(newDeadline);
 					Robert.outputMessage("Got it. I have added this task:\n  " + newDeadline
-							+ "\nNow you have " + Task.taskCount + " " + (Task.taskCount > 1 ? "task" : "tasks") + " in the list.");
+							+ "\nNow you have " + Task.taskCount + " " + (Task.taskCount > 1 ? "tasks" : "task") + " in the list.");
 					break;    
 
 				case "delete":
@@ -215,7 +240,23 @@ public class Robert {
 
 					Task deletedTask = Robert.deleteTask(deletingTaskIndex);
 					Robert.outputMessage("Noted. I've removed this task:\n  " + deletedTask
-							+ "\nNow you have " + Task.taskCount + " " + (Task.taskCount > 1 ? "task" : "tasks") + " in the list.");
+							+ "\nNow you have " + Task.taskCount + " " + (Task.taskCount > 1 ? "tasks" : "task") + " in the list.");
+					break;
+
+				case "clear":
+					Robert.resetTasks();
+					Robert.outputMessage("Understood. I've removed every task in your list.\n"
+							+ "Now your list of tasks is empty!");
+					break;
+
+				case "filter":
+					if (userInput.length == 1) {
+						throw new RobertException("The date of the tasks is not indicated.\n"
+								+ "Please add a date in the format 'YYYY-MM-DD'.");
+					}
+
+					LocalDate date = LocalDate.parse(userInput[1]);
+					Robert.outputFilteredTasks(date);
 					break;
 
 				default:
@@ -227,6 +268,9 @@ public class Robert {
 
 			} catch (NumberFormatException e) {
 				Robert.outputMessage("Cannot convert given index as integer. Please use proper integer as the index!");
+			} catch (DateTimeException e) {
+				Robert.outputMessage("Date provided does not match format.\n"
+						+ "Please write your date in the format of 'YYYY-MM-DD'.");
 			}
         }
 
@@ -294,17 +338,17 @@ public class Robert {
 							+ task.description;
 
 				} else if (task instanceof Event) {
-					storedLine = "T | "
+					storedLine = "E | "
 							+ taskDone + " | "
 							+ task.description + " | "
-							+ ((Event) task).from + " | "
-							+ ((Event) task).to;
+							+ ((Event) task).fromDate + " | "
+							+ ((Event) task).toDate;
 
 				} else {
-					storedLine = "T | "
+					storedLine = "D | "
 							+ taskDone + " | "
 							+ task.description + " | "
-							+ ((Deadline) task).by;
+							+ ((Deadline) task).byDate;
 				}
 
 				fw.write(storedLine + "\n");
@@ -317,9 +361,51 @@ public class Robert {
 		}
 	}
 
+	private static void outputFilteredTasks(LocalDate date) {
+		int deadlineIndex = 0;
+		StringBuilder deadlinesOnDate = new StringBuilder();
+		for (Task task : Robert.tasks) {
+			if (task instanceof Deadline && ((Deadline) task).isDueOn(date)) {
+				deadlineIndex++;
+				deadlinesOnDate.append(deadlineIndex).append(". ").append(task).append("\n");
+			}
+		}
+
+		int eventIndex = 0;
+		StringBuilder eventsHappeningOnDate = new StringBuilder();
+		for (Task task : Robert.tasks) {
+			if (task instanceof Event && ((Event) task).isHappeningOn(date)) {
+				eventIndex++;
+				eventsHappeningOnDate.append(eventIndex).append(". ").append(task).append("\n");
+			}
+		}
+
+		if (deadlineIndex == 0 && eventIndex == 0) {
+			Robert.outputMessage("There are no tasks that are due and happening on "
+					+ date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".");
+			return;
+		}
+
+		String output = "";
+
+		if (deadlineIndex > 0) {
+			output += (deadlineIndex == 1 ? "This is the task that is" : "Here are the tasks that are")
+					+ " due on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":\n";
+		}
+		output += deadlinesOnDate.toString();
+
+		if (eventIndex > 0) {
+			output += (eventIndex == 1 ? "This is the task that is" : "Here are the tasks that are")
+					+ " happening on " + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ":\n";
+		}
+		output += eventsHappeningOnDate.toString();
+		Robert.outputMessage(output);
+	}
+
 	private static void resetTasks() {
 		Robert.tasks = new ArrayList<>();
 		Task.taskCount = 0;
+		Robert.uploadTasks();
 	}
 
     private static String formatOutput(String output) {
