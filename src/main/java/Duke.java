@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Scanner;  // Import the Scanner class
 
@@ -40,45 +39,78 @@ public class Duke {
         }
     }
 
-    private void changeMark(String command, Scanner tokeniser) {
-        int id = Integer.parseInt(tokeniser.next());
-        if (id > Task.numberOfTasks) {
-            System.out.println(TextFormat.botReply("Uh-oh... this task does not exist :("));
+    private void changeMark(String command, Scanner tokeniser) throws IllegalCommandException {
+        String content = tokeniser.next();
+        if (isInteger(content)) {
+            int id = Integer.parseInt(content);
+            if (id > Task.numberOfTasks) {
+                throw new IllegalCommandException("do that... this task does not exist :(");
+            } else {
+                if (command.equals("mark")) {
+                    taskList.get(id - 1).markDone();
+                    if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
+                        this.list();
+                    }
+                } else {
+                    taskList.get(id - 1).markNotDone();}
+            }
         } else {
-            if (command.equals("mark")) {
-                taskList.get(id - 1).markDone();
+            throw new IllegalCommandException("do that... try a number instead");
+        }
+    }
+
+    private void deleteTask(Scanner tokeniser) throws IllegalCommandException {
+        String content = tokeniser.next();
+        if (isInteger(content)) {
+            int id = Integer.parseInt(content);
+            if (id > Task.numberOfTasks) {
+                throw new IllegalCommandException("do that... this task does not exist :(");
+            } else {
+                Task.deleteTask(taskList.get(id - 1));
+                taskList.remove(id - 1);
                 if (Task.numberOfTasks == Task.numberOfCompletedTasks) {
                     this.list();
                 }
-            } else {
-                taskList.get(id - 1).markNotDone();}
+            }
+        } else {
+            throw new IllegalCommandException("do that... try a number instead");
         }
     }
 
     public void processInput() {
+        Scanner sc = new Scanner(System.in);
         while (true) {
             String command = "";
-            Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
             Scanner tokeniser = new Scanner(input);
-            command = tokeniser.next();
+            try {
+                command = tokeniser.next();
+            } catch (NoSuchElementException e) {
+                System.out.println(TextFormat.botReply("uhhh wat?"));
+                continue;
+            }
 
-            if (command.equals("bye")) {
+            if (command.contains("bye")) {
                 break;
             } else if (command.equals("list")) {
                 this.list();
                 continue;
             } else if (command.equals("mark") || command.equals("unmark")) {
                 if (tokeniser.hasNext()) {
-                    changeMark(command, tokeniser);
+                    try {
+                        changeMark(command, tokeniser);
+                    } catch (IllegalCommandException e) {
+                        System.out.println(e.getMessage());
+                    }
                     continue;
                 }
             } else if (command.equals("delete")) {
                 if (tokeniser.hasNext()) {
-                    int id = Integer.parseInt(tokeniser.next());
-                    Task.deleteTask(taskList.get(id - 1));
-                    taskList.remove(id - 1);
-                    Collections.sort(taskList);
+                    try {
+                        deleteTask(tokeniser);
+                    } catch (IllegalCommandException e) {
+                        System.out.println(e.getMessage());
+                    }
                     continue;
                 }
             }
@@ -92,9 +124,33 @@ public class Duke {
     }
 
     public void run() throws IllegalCommandException {
-        System.out.println(TextFormat.botReply(greet));  // print greet message
-        this.processInput();
-        System.out.println(TextFormat.botReply(exit));
+        System.out.println(TextFormat.botReply(greet)); // print greet message
+        this.processInput();                            // function to run the chatbot
+        System.out.println(TextFormat.botReply(exit));  // exit message
+    }
+
+    public static boolean isInteger(String str) {
+        if (str == null) {
+            return false;
+        }
+        int length = str.length();
+        if (length == 0) {
+            return false;
+        }
+        int i = 0;
+        if (str.charAt(0) == '-') {
+            if (length == 1) {
+                return false;
+            }
+            i = 1;
+        }
+        for (; i < length; i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {

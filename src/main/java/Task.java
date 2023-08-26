@@ -27,12 +27,34 @@ public abstract class Task implements Comparable<Task> {
             throw new IllegalCommandException("process an empty task");
         }
         if (command.equals("todo")) {
-            newTask = new ToDo(tokeniser.nextLine());
+            String contents = tokeniser.nextLine();
+            if (contents.contains("/by")) {
+                throw new IllegalCommandException("do that for a todo," +
+                        "are you thinking of a deadline?");
+            } else if (contents.contains("/from") || contents.contains("/to")) {
+                throw new IllegalCommandException("do that for a todo," +
+                        "are you thinking of an event?");
+            }
+            newTask = new ToDo(contents);
         } else if (command.equals("deadline")){
-            String[] parts = tokeniser.nextLine().split("/by", 2);
+            String contents = tokeniser.nextLine();
+            if (!contents.contains("/by")) {
+                throw new IllegalCommandException("set a deadline wihtout a \"\\by\"");
+            } else if (contents.contains("/from") || contents.contains("/to")) {
+                throw new IllegalCommandException("do that for a deadline," +
+                        "are you thinking of an event?");
+            }
+            String[] parts = contents.split("/by", 2);
             newTask = new Deadline(parts[0], parts[1]);
         } else {
-            String[] message = tokeniser.nextLine().split("/from", 2);
+            String contents = tokeniser.nextLine();
+            if (contents.contains("/from") && contents.contains("/to")) {
+                throw new IllegalCommandException("set an event wihtout a \"\\from\" and \"\\to\"");
+            } else if (contents.contains("/by")) {
+                throw new IllegalCommandException("do that for an event," +
+                        "are you thinking of a deadline?");
+            }
+            String[] message = contents.split("/from", 2);
             String[] fromto = message[1].split("/to", 2);
             newTask = new Event(message[0], fromto[0], fromto[1]);
         }
@@ -46,6 +68,7 @@ public abstract class Task implements Comparable<Task> {
 
     public static void deleteTask(Task toDelete) {
         numberOfTasks--;
+        if (toDelete.completed)  numberOfCompletedTasks--;
         System.out.println(TextFormat.botReply("Happily scratched this off your list:\n" +
                 TextFormat.indentLineBy(toDelete.toString(), 2) +
                 "Now you have " +
