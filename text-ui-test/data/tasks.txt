@@ -1,0 +1,6 @@
+E|F|i love cs|now|forever
+T|T|complete ip week3
+D|T|complete cs2100 labs|monday
+T|F|complete tp
+D|F|go to bed|now
+E|F|go to prom|tonight|tomorrow

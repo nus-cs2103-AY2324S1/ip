@@ -1,4 +1,4 @@
-package main.java;
+package main.java.parsers;
 
 import main.java.primitivies.JukeObject;
 
@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 
 /**
  * Class that helps to parse the commands given by the user.
- *
+ * <p>
  * This parser may not be instantiated. All methods are exposed via
  * static methods.
  */
-public abstract class JukeParser extends JukeObject {
+public abstract class JukeCommandParser extends JukeObject {
     /** String regex for splitting a command by spaces. */
     private static final String SPACE_REGEX = " ";
 
@@ -32,7 +32,7 @@ public abstract class JukeParser extends JukeObject {
      * @return Parsed array of Strings which represents the tokens in the command.
      */
     public static String[] parseBySpace(String command) {
-        return command.strip().split(JukeParser.SPACE_REGEX);
+        return command.strip().split(JukeCommandParser.SPACE_REGEX);
     }
 
     /**
@@ -42,7 +42,7 @@ public abstract class JukeParser extends JukeObject {
      * @return Parsed array of String which represents the parsed tokens in the command
      */
     public static String[] parseByByString(String command) {
-        return command.strip().split(JukeParser.SPLITTING_BY_REGEX);
+        return command.strip().split(JukeCommandParser.SPLITTING_BY_REGEX);
     }
 
     /**
@@ -52,14 +52,14 @@ public abstract class JukeParser extends JukeObject {
      * @return Parsed array of String which represents the parsed tokens in the command
      */
     public static String[] parseByFromToString(String command) {
-        return command.strip().split(JukeParser.SPLITTING_FROM_TO_REGEX);
+        return command.strip().split(JukeCommandParser.SPLITTING_FROM_TO_REGEX);
     }
 
     public static boolean isMatchByString(String command) {
-        return Pattern.matches(JukeParser.CHECKING_BY_REGEX, command);
+        return Pattern.matches(JukeCommandParser.CHECKING_BY_REGEX, command);
     }
 
     public static boolean isMatchFromToString(String command) {
-        return Pattern.matches(JukeParser.CHECKING_FROM_TO_REGEX, command);
+        return Pattern.matches(JukeCommandParser.CHECKING_FROM_TO_REGEX, command);
     }
 }

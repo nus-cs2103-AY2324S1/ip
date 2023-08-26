@@ -16,9 +16,29 @@ public class JukeTodo extends JukeTask {
     }
 
     /**
-     * Overridden toString method which now include the task's identifier
-     * in its String representation.
-     * @return String representation of a Todo object.
+     * Constructor to create a Todo Task.
+     * @param task Task description
+     * @param completion Status of completion of the task
+     */
+    public JukeTodo(String task, boolean completion) {
+        super(task);
+        if (completion) {
+            this.markAsComplete();
+        }
+    }
+
+    /**
+     * Returns the string which represents this object when it is saved into the datafile.
+     * @return Datafile representation of this object
+     */
+    @Override
+    public String save() {
+        return "T" + super.save();
+    }
+
+    /**
+     * String representation of this {@code JukeTodo} object
+     * @return String representation
      */
     @Override
     public String toString() {

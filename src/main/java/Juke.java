@@ -1,5 +1,10 @@
 package main.java;
 
+import main.java.actions.JukeExceptionAction;
+import main.java.exceptions.JukeInitialisationException;
+import main.java.exceptions.JukeParseException;
+import main.java.exceptions.storage.JukeStorageException;
+
 import java.util.Scanner;
 
 /**
@@ -12,7 +17,7 @@ public class Juke {
     /**
      * Constructor for Juke.
      */
-    public Juke() {
+    public Juke() throws JukeInitialisationException, JukeStorageException {
         this.jukeOrchestrator = JukeOrchestrator.of(new Scanner(System.in));
     }
 
@@ -22,8 +27,14 @@ public class Juke {
      * @param args CLI Arguments
      */
     public static void main(String[] args) {
-        Juke jukeAssistant = new Juke();
-        jukeAssistant.start();
+        try {
+            Juke jukeAssistant = new Juke();
+            jukeAssistant.start();
+        } catch (JukeInitialisationException | JukeStorageException | JukeParseException ex) {
+            // program should not continue if it cannot initialise properly
+            // or if there are issues with retrieving data from the datafile
+            new JukeExceptionAction(ex).complete();
+        }
     }
 
     /**

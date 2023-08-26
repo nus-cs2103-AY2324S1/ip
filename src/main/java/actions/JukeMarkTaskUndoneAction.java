@@ -1,9 +1,7 @@
 package main.java.actions;
 
-import main.java.exceptions.JukeException;
-import main.java.JukeTaskManager;
-
-import java.util.Optional;
+import main.java.exceptions.storage.JukeStorageException;
+import main.java.tasks.JukeTaskManager;
 
 /**
  * Action that marks a JukeTask as undone.
@@ -27,12 +25,10 @@ public class JukeMarkTaskUndoneAction extends JukeAction {
 
     /**
      * Necessary method that is invoked when the action is carried out.
-     * @return Optional<? extends JukeAction> object, which contains further action objects,
-     * made this way to ensure that actions can call other actions and thus lead to chains
-     * of actions for added complexity
+     * @throws {@code JukeStorageException} If there is an issue with storing changes
      */
     @Override
-    public void complete() throws JukeException {
+    public void complete() throws JukeStorageException {
         this.taskManager.markAsUndone(this.index);
         System.out.print("Task Marked as Undone!\n" + this.taskManager.taskInformation(this.index));
     }
