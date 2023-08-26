@@ -22,6 +22,24 @@ public class Events extends Task {
         this.from = from;
     }
 
+    private String getTo() {
+        return this.to;
+    }
+
+    private String getFrom() {
+        return this.from;
+    }
+
+    @Override
+    public boolean equals(Object task) {
+        if (this == task) {
+            return true;
+        }
+        Events eventTask = (Events) task;
+        return this.to.equals(eventTask.getTo()) && this.getName().equals(eventTask.getName())
+                && this.from.equals(eventTask.getFrom());
+    }
+
     public void writeToFile(FileWriter fileWriter) {
         String marking = super.isComplete() ? "0" : "1";
         try {

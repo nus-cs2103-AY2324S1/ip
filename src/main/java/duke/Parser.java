@@ -37,6 +37,9 @@ public class Parser {
                     name += arrStrings[i] + " ";
                 }
             }
+            if (!completedName) {
+                throw new Exception("Invalid deadline task!");
+            }
             return new Deadlines(name.substring(0, name.length() - 1), deadline.substring(0, deadline.length() - 1));
         } else if (command.equals("todo")) {
             if (arrStrings.length == 1) {

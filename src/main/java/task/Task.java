@@ -55,5 +55,6 @@ public abstract class Task {
     public String getName() {
         return this.name;
     }
+
     abstract public void writeToFile(FileWriter fileWriter);
 }

@@ -13,6 +13,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadlines extends Task {
     private String deadline;
+
+    private String getDeadline() {
+        return this.deadline;
+    }
     public Deadlines(String name, String deadline) {
         super(name);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -37,6 +41,15 @@ public class Deadlines extends Task {
 
         }
         this.deadline = deadline;
+    }
+
+    @Override
+    public boolean equals(Object task) {
+        if (this == task) {
+            return true;
+        }
+        Deadlines deadlineTask = (Deadlines) task;
+        return this.deadline.equals(deadlineTask.getDeadline()) && this.getName().equals(deadlineTask.getName());
     }
 
     public void writeToFile(FileWriter fileWriter) {
