@@ -1,3 +1,2 @@
 TODO ||   || restore data ||  ||  || 
-DEADLINE ||   || restore deadline || first run ||  || 
-EVENT ||   || restore data ||  || start || end
+DEADLINE ||   || 1 || 2023-08-11 12:34 ||  || 

@@ -7,9 +7,9 @@ delete 1
 list
 todo borrow book
 list
-deadline return book /by Sunday 1234567 :/
+deadline return book /by 2023-01-02 11:11
 list
-event project meeting /from Sat Aug 19 2023 20:00 /to Sat Aug 19 2023 23:00
+event project meeting /from 2023-04-01 20:00 /to 2023-04-02 23:00
 list
 mark
 unmark
@@ -32,6 +32,7 @@ deadline
 deadline   book  /until next week
 deadline   x   /by  
 deadline       /by when
+deadline y /by tmr
 event
 event     
 event     /start   /end   
@@ -39,6 +40,9 @@ event     /from    /to
 event a   /from    /to   
 event b   /from  s /to    
 event     /from 76 /to 1234567
+event c /from 1 /to tomorrow
+event d /from 2022-02-02 00:01 /to tomorrow
+event e /from today /to 2022-02-02 00:01
 mark 0
 unmark 0
 mark -1

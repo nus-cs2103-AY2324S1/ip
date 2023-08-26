@@ -1,25 +1,36 @@
 package extensions.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+import extensions.exceptions.DukeIllegalArgumentException;
+
 /**
  * A Task that starts at a specific date/time and ends at a specific date/time.
  */
 public class Event extends Task {
 
-    // The start and end date/time of the Event task.
-    protected final String start;
-    protected final String end;
+    // The start and end date/time of the Event task, stored as LocalDateTime Objects.
+    protected final LocalDateTime start;
+    protected final LocalDateTime end;
 
     /**
      * Constructor for a Deadline task.
      *
      * @param description The description of the Deadline task.
-     * @param start The start date/time of the Event task.
-     * @param end The end date/time of the Event task.
+     * @param start The start date/time of the Event task. Must follow the format yyyy-MM-dd HH:mm.
+     * @param end The end date/time of the Event task. Must follow the format yyyy-MM-dd HH:mm.
+     * @throws DukeIllegalArgumentException If the start/end date/time does not follow the format yyyy-MM-dd HH:mm.
      */
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        try {
+            this.start = LocalDateTime.parse(start, parseFormatter);
+            this.end = LocalDateTime.parse(end, parseFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeIllegalArgumentException(
+                    "The start and end date/time of an Event task must follow the format yyyy-MM-dd HH:mm.");
+        }
     }
 
     /**
@@ -29,7 +40,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.end);
+        return String.format("[E]%s (from: %s to: %s)", super.toString(),
+                this.start.format(printFormatter), this.end.format(printFormatter));
     }
 
     /**
@@ -39,6 +51,7 @@ public class Event extends Task {
      */
     @Override
     public String export() {
-        return String.format("EVENT || %s || %s || %s || %s", super.export(), "", this.start, this.end);
+        return String.format("EVENT || %s || %s || %s || %s", super.export(), "",
+                this.start.format(parseFormatter), this.end.format(parseFormatter));
     }
 }
