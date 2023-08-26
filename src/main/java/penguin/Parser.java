@@ -28,7 +28,7 @@ public class Parser {
         } else if (command.startsWith("delete")) {
             return "delete";
         } else if (command.startsWith("find")) {
-            return "find";
+            return "find"; 
         } else {
             return "unknown";
         }
