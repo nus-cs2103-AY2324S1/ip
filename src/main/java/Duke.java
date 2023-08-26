@@ -1,11 +1,10 @@
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.function.Consumer;
+import java.util.Scanner;
 
 /**
  * @author Donovan Chan Jia Jun
@@ -52,6 +51,7 @@ public class Duke {
      * @throws Exception
      */
     public static Task createTask(String input) throws Exception {
+        // Splits based on white spaces, identifies based on the relevant /...
         String[] arrStrings = input.split("\\s+");
         String command = arrStrings[0];
         String name = "";
@@ -103,8 +103,8 @@ public class Duke {
     }
 
     /**
-     * Encapsulates the Handling and storing of user input.
-     * When arraylist changes, the entire output file is overwriten and all contents is transfered over
+     * Handles and stores user inputs.
+     * When arraylist changes, the entire output file is overwritten and all contents is transferred over
      */
     public static void echo() {
         Scanner scanner = new Scanner(System.in);
@@ -119,50 +119,51 @@ public class Duke {
             } else {
                 System.out.println("File path could not be resolved");
             }
+            // Splits the input based on whitespaces.
             String command = userInput.split("\\s+")[0];
-            int choice;
+            int choice = -1;
             switch (command) {
-                case "list":
-                    int counter = 0;
-                    System.out.println("Here are the tasks in your list:");
-                    for (Task task : Duke.storage) {
-                        counter ++;
-                        System.out.printf("%d.%s\n", counter, task.toString());
-                    }
-                    break;
-                case "mark":
-                    choice = Integer.parseInt(userInput.split("\\s+")[1]);
-                    Duke.storage.get(choice - 1).markDone();
-                    System.out.printf("Nice! I've marked this task as done:\n" +
-                            "  %s\n", Duke.storage.get(choice - 1).toString());
-                    break;
-                case "unmark":
-                    choice = Integer.parseInt(userInput.split("\\s+")[1]);
-                    Duke.storage.get(choice - 1).markUndone();
-                    System.out.printf("OK, I've marked this task as not done yet:\n" +
-                            "  %s\n", Duke.storage.get(choice - 1).toString());
-                    break;
-                case "delete":
-                    choice = Integer.parseInt(userInput.split("\\s+")[1]);
-                    Task removedTask = Duke.storage.remove(choice - 1);
-                    System.out.printf("Noted. I've removed this task:\n" +
-                                        "  %s\n" +
-                                        "Now you have %d tasks in the list.\n"
-                                        , removedTask.toString(), Duke.storage.size());
-                    break;
-                default:
-                    Task task = null;
-                    try {
-                        task = createTask(userInput);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                    if (task != null) {
-                        Duke.storage.add(task);
-                        System.out.printf("Got it. I've added this task:\n" +
-                                "  %s\n" +
-                                "Now you have %d tasks in the list.\n", task.toString(), Duke.storage.size());
-                    }
+            case "list":
+                int counter = 0;
+                System.out.println("Here are the tasks in your list:");
+                for (Task task : Duke.storage) {
+                    counter ++;
+                    System.out.printf("%d.%s\n", counter, task.toString());
+                }
+                break;
+            case "mark":
+                choice = Integer.parseInt(userInput.split("\\s+")[1]);
+                Duke.storage.get(choice - 1).markDone();
+                System.out.printf("Nice! I've marked this task as done:\n" +
+                        "  %s\n", Duke.storage.get(choice - 1).toString());
+                break;
+            case "unmark":
+                choice = Integer.parseInt(userInput.split("\\s+")[1]);
+                Duke.storage.get(choice - 1).markUndone();
+                System.out.printf("OK, I've marked this task as not done yet:\n" +
+                        "  %s\n", Duke.storage.get(choice - 1).toString());
+                break;
+            case "delete":
+                choice = Integer.parseInt(userInput.split("\\s+")[1]);
+                Task removedTask = Duke.storage.remove(choice - 1);
+                System.out.printf("Noted. I've removed this task:\n" +
+                                    "  %s\n" +
+                                    "Now you have %d tasks in the list.\n"
+                                    , removedTask.toString(), Duke.storage.size());
+                break;
+            default:
+                Task task = null;
+                try {
+                    task = createTask(userInput);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                if (task != null) {
+                    Duke.storage.add(task);
+                    System.out.printf("Got it. I've added this task:\n" +
+                            "  %s\n" +
+                            "Now you have %d tasks in the list.\n", task.toString(), Duke.storage.size());
+                }
             }
             Duke.updateTasks();
             System.out.println(Duke.line);
@@ -214,21 +215,21 @@ public class Duke {
                 boolean itemComplete = itemParts[1].equals("0");
                 String name = itemParts[2];
                 switch (itemParts[0]) {
-                    case "T":
-                        Duke.storage.add(new Todos(name, itemComplete));
-                        break;
-                    case "D":
-                        String deadline = itemParts[3];
-                        Duke.storage.add(new Deadlines(name, deadline, itemComplete));
-                        break;
-                    case "E":
-                        System.out.println(item);
-                        String from = itemParts[3];
-                        String to = itemParts[4];
-                        Duke.storage.add(new Events(name, from, to, itemComplete));
-                        break;
-                    default:
-                        System.out.println("Error when reading file");
+                case "T":
+                    Duke.storage.add(new Todos(name, itemComplete));
+                    break;
+                case "D":
+                    String deadline = itemParts[3];
+                    Duke.storage.add(new Deadlines(name, deadline, itemComplete));
+                    break;
+                case "E":
+                    System.out.println(item);
+                    String from = itemParts[3];
+                    String to = itemParts[4];
+                    Duke.storage.add(new Events(name, from, to, itemComplete));
+                    break;
+                default:
+                    System.out.println("Error when reading file");
                 }
             }
         }
