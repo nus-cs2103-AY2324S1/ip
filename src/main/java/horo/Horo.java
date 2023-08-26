@@ -62,6 +62,7 @@ public class Horo {
             System.out.println(e.getMessage());
             break;
           }
+          storage.updateTaskData(taskList);
           break;
         case DEADLINE:
           try {
@@ -70,6 +71,7 @@ public class Horo {
             System.out.println(e.getMessage());
             break;
           }
+          storage.updateTaskData(taskList);
           break;
         case EVENT:
           try {
@@ -78,6 +80,7 @@ public class Horo {
             System.out.println(e.getMessage());
             break;
           }
+          storage.updateTaskData(taskList);
           break;
         default:
           break;

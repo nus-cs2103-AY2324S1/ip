@@ -27,6 +27,9 @@ public class Storage {
     ArrayList<Task> tList = new ArrayList<>();
     try {
       File taskFile = new File(filePath);
+      if (!taskFile.exists()) {
+        taskFile.mkdirs();
+      }
 
       if (taskFile.createNewFile()) {
         System.out.println("File created: " + taskFile.getName());
