@@ -37,6 +37,8 @@ public class FileUtils {
                 if (task != null) {
                     result.add(task);
                 }
+            } catch (DukeException dukeException) {
+                throw dukeException;
             } catch (Exception e) {
                 throw new DukeException("Error while parsing data file -- possibly corrupt? File will be overwritten if you proceed.");
             }

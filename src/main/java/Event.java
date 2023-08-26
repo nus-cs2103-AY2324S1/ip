@@ -1,19 +1,23 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
 
-    private final String startTime;
-    private final String endTime;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
     /**
      * Constructs an Event with the specified name, start time, and end time.
      *
      * @param name      The name of the event.
-     * @param startTime The start time of the event.
-     * @param endTime   The end time of the event.
+     * @param startDate The start time of the event.
+     * @param endDate   The end time of the event.
      */
-    private Event(String name, String startTime, String endTime) {
+    private Event(String name, LocalDate startDate, LocalDate endDate) {
         super(name);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -32,15 +36,31 @@ public class Event extends Task {
         if (splitByFrom.length < 2) {
             throw new DukeException("Missing '/from' or start date for event.");
         }
-        return new Event(splitByFrom[0], splitByFrom[1], splitByTo[1]);
+        LocalDate startDate;
+        LocalDate endDate;
+        try {
+            startDate = LocalDate.parse(splitByFrom[1].trim());
+            endDate = LocalDate.parse(splitByTo[1].trim());
+        } catch (DateTimeParseException dateTimeParseException) {
+            throw new DukeException("Event /from or /to dates should be in yyyy-mm-dd format (e.g. 2023-08-25)");
+        }
+
+        return new Event(splitByFrom[0], startDate, endDate);
     }
 
-    public static Event fromFileFormat(String[] parts) {
+    public static Event fromFileFormat(String[] parts) throws DukeException {
         boolean isDone = "1".equals(parts[1].trim());
         String name = parts[2].trim();
-        String startTime = parts[3].trim();
-        String endTime = parts[4].trim();
-        Event event = new Event(name, startTime, endTime);
+        LocalDate startDate;
+        LocalDate endDate;
+        try {
+            startDate = LocalDate.parse(parts[3].trim());
+            endDate = LocalDate.parse(parts[4].trim());
+        } catch (DateTimeParseException dateTimeParseException) {
+            throw new DukeException("Event /from or /to dates should be in yyyy-mm-dd format (e.g. 2023-08-25)");
+        }
+
+        Event event = new Event(name, startDate, endDate);
         if (isDone) {
             event.markAsDone();
         }
@@ -49,11 +69,14 @@ public class Event extends Task {
 
     @Override
     public String toFileFormat() {
-        return "E|" + (isDone ? "1" : "0") + "|" + this.name + "|" + this.startTime + "|" + this.endTime;
+        return "E|" + (isDone ? "1" : "0") + "|" + this.name + "|" + this.startDate + "|" + this.endDate;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startTime + "to: " + this.endTime + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        String formattedStart = this.startDate.format(formatter);
+        String formattedEnd = this.endDate.format(formatter);
+        return "[E]" + super.toString() + " (from: " + formattedStart + " to: " + formattedEnd + ")";
     }
 }
