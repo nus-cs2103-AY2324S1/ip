@@ -21,6 +21,30 @@ public class Ekud {
                 message,
                 HORIZONTALLINE));
     }
+
+    /**
+     * Represents a fixed set of input command strings which can be assigned to the
+     * Command variable.
+     */
+    public static enum Command {
+        SHOWTASKS("list"),
+        MARKTASKASDONE("mark"),
+        MARKTASKASNOTDONE("unmark"),
+        ADDTODO("todo"),
+        ADDDEADLINE("deadline"),
+        ADDEVENT("event"),
+        DELETETASK("delete");
+        private String command;
+        private Command(String command) {
+            this.command = command;
+        }
+        public static Command getCommand(String userInput) {
+            for (Command command : Command.values()) {
+                if (command.command.equals(userInput)) return command;
+            }
+            return null;
+        }
+    }
     /**
      * Core function for instructing the TaskList object to execute commands and handle
      * invalid inputs, for which EkudExceptions would be thrown by TaskList.
@@ -28,33 +52,34 @@ public class Ekud {
      * @param userArgs Args for the command supplied by the user.
      * @throws EkudException Either invalid commands or illegal arguments for the commands.
      */
-    public static void executeCommand(String command, String userArgs) throws EkudException {
+    public static void handleCommand(Command command, String userArgs) throws EkudException {
+        if (command == null) {
+            throw new EkudInvalidCommandException("Command not found :(");
+        }
         switch (command) {
-            case "list":
+            case SHOWTASKS:
                 taskList.showTasks();
                 break;
-            case "mark":
+            case MARKTASKASDONE:
                 taskList.markTaskAsDone(userArgs);
                 break;
-            case "unmark":
+            case MARKTASKASNOTDONE:
                 taskList.markTaskAsNotDone(userArgs);
                 break;
-            case "todo":
+            case ADDTODO:
                 taskList.addToDo(userArgs);
                 break;
-            case "deadline":
+            case ADDDEADLINE:
                 taskList.addDeadline(userArgs);
                 break;
-            case "event":
+            case ADDEVENT:
                 taskList.addEvent(userArgs);
                 break;
-            case "delete":
+            case DELETETASK:
                 taskList.deleteTask(userArgs);
                 break;
             default:
-                throw new EkudInvalidCommandException(
-                        String.format("Command '%s' not found :(",
-                                command));
+                throw new EkudInvalidCommandException("Command not found :(");
         }
     }
     // Main chatbot program
@@ -64,19 +89,20 @@ public class Ekud {
         // Process user input
         String userInput = scanner.nextLine();
         int firstSpace = userInput.indexOf(' ');
-        String command = firstSpace == -1 ? userInput : userInput.substring(0, firstSpace);
+        String inputCommand = firstSpace == -1 ? userInput : userInput.substring(0, firstSpace);
         // Main chatbot functionality
-        while (!command.equals("end")) {
+        while (!inputCommand.equals("end")) {
+            Command command = Command.getCommand(inputCommand);
             String userArgs = firstSpace == -1 ? "": userInput.substring(firstSpace + 1);
             try {
-                Ekud.executeCommand(command, userArgs); // throws EkudException for invalid inputs
+                Ekud.handleCommand(command, userArgs); // throws EkudException for invalid inputs
             } catch(EkudException e) {
                 Ekud.echo(e.toString()); // catch and print out EkudException message
             }
             // Process next line of user input
             userInput = scanner.nextLine();
             firstSpace = userInput.indexOf(' ');
-            command = firstSpace == -1 ? userInput : userInput.substring(0, firstSpace);
+            inputCommand = firstSpace == -1 ? userInput : userInput.substring(0, firstSpace);
         }
         Ekud.echo(OUTRO);
         scanner.close();

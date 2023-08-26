@@ -3,7 +3,7 @@ Hello there! I'm Ekud. :)
 What can I do for you? :O
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudInvalidCommandException: Command 'hi' not found :(
+extensions.EkudInvalidCommandException: Command not found :(
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 extensions.EkudIllegalArgException: Todo task shouldn't be empty :(
@@ -110,7 +110,7 @@ Here is your to-do list:
 3. [E][X] dinner (from: Fri 6pm, to: 8pm)
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
-extensions.EkudInvalidCommandException: Command 'mark2' not found :(
+extensions.EkudInvalidCommandException: Command not found :(
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 -~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
 extensions.EkudIllegalArgException: Please input a valid index number :o
