@@ -1,5 +1,6 @@
 import java.io.FileNotFoundException;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,5 +32,21 @@ public class Storage {
             tasks.add(t);
         }
         return tasks;
+    }
+
+    public void rewrite(TaskList tasks) throws IOException{
+        ArrayList<Task> arrayTasks = tasks.getTasks();
+        FileWriter file = new FileWriter("storage.txt");
+        for (int i = 0; i < arrayTasks.size(); i++) {
+            Task task = arrayTasks.get(i);
+            file.write(task.fileRepresentation());
+        }
+        file.close();
+    }
+
+    public void append(Task task) throws IOException {
+        FileWriter file = new FileWriter("storage.txt", true);
+        file.write(task.fileRepresentation());
+        file.close();
     }
 }

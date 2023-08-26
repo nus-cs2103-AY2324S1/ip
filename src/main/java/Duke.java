@@ -1,39 +1,52 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Duke {
-    public static void main(String[] args) {
-        // Initialising objects
-        UI ui = new UI();
-        Storage s = new Storage("storage.txt");
+    private Storage storage;
+    private TaskList tasks;
+    private UI ui;
 
-        // Opening Dialogue
-        ui.line();
-        System.out.println("Hello, I'm Prawn");
-        System.out.println("What would you like me to do sire?");
-        ui.line();
-
-        // Main Loop
+    public Duke(String filePath) {
+        ui = new UI();
+        storage = new Storage(filePath);
         try {
-            ArrayList tasks = s.load();
-            Parser p = new Parser(tasks);
-            p.run();
+            tasks = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
+            ui.showLoadingError();
             try {
-                File f = new File("storage.txt");
+                File f = new File(filePath);
                 if (f.createNewFile()) {
-                    Parser p = new Parser(new ArrayList());
-                    p.run();
+                    tasks = new TaskList();
                 }
             } catch (IOException Ioe) {
-                System.out.println(Ioe);
+                ui.showIoError();
             }
         }
+    }
 
-        // Ending Dialogue
-        System.out.println("Bye. Hope to see you again soon!");
-        ui.line();
+    public void run() {
+        ui.showWelcome();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.line();
+                Command c = Parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.showError(e.getMessage());
+            } catch (IOException e){
+                ui.showIoError();
+            } catch (IndexOutOfBoundsException e){
+                ui.showOutOfBounds();
+            } finally {
+                ui.line();
+            }
+        }
+    }
+    public static void main(String[] args) {
+        new Duke("storage.txt").run();
     }
 }
