@@ -62,16 +62,28 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
-        Model model = new Model();
+    static class UI {
+        Model model;
         boolean isExit = false;
-        InputHandler inputHandler = new InputHandler(model);
+        InputHandler inputHandler;
 
-        while (!isExit) {
-            inputHandler.handleInput();
-            isExit = inputHandler.isExit();
+        public UI() {
+            this.model = new Model();
+            this.inputHandler = new InputHandler(model);
         }
 
-        model.bye();
+        public void run() {
+            while (!isExit) {
+                inputHandler.handleInput();
+                isExit = inputHandler.isExit();
+            }
+
+            model.bye();
+        }
+    }
+
+    public static void main(String[] args) {
+        UI ui = new UI();
+        ui.run();
     }
 }
