@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import duke.exception.DukeException;
 
 public class Ui {
     private final String HORIZONTAL_LINE = "____________________________________________________________";
