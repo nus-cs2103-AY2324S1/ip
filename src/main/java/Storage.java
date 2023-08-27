@@ -51,9 +51,6 @@ class Storage {
         Scanner sc = new Scanner(loadFile());
         while (sc.hasNext()) {
             String[] temp = sc.nextLine().split(" \\| ");
-            for (String s: temp) {
-                System.out.print(s);
-            }
             switch (temp[0].strip()) {
             case "T":
                 taskList.add(new ToDo(temp[2].strip()));
