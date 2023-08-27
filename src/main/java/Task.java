@@ -20,7 +20,7 @@ public class Task {
         }
     }
 
-    public void unmarkedDone() {
+    public void unmarkDone() {
         if (!done) {
             System.out.println("____________________________________________________________\n" +
                     " This task is not done yet!\n" +
