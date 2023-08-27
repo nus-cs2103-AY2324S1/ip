@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -104,6 +106,49 @@ public class Duke {
         }
     }
 
+    private void validateDate(String date) throws DukeException {
+        try {
+            LocalDate d = LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Boop Beep OOPS! Please check that the date is in YYYY-MM-DD format.");
+        }
+    }
+
+    private String formatDate(String date) {
+        String dateString = date;
+        String month = dateString.substring(0, 3);
+        String day = dateString.substring(4, 6);
+        String year = dateString.substring(7, 11);
+
+        if (month.equals("Jan")) {
+            month = "01";
+        } else if (month.equals("Feb")) {
+            month = "02";
+        } else if (month.equals("Mar")) {
+            month = "03";
+        } else if (month.equals("Apr")) {
+            month = "04";
+        } else if (month.equals("May")) {
+            month = "05";
+        } else if (month.equals("Jun")) {
+            month = "06";
+        } else if (month.equals("Jul")) {
+            month = "07";
+        } else if (month.equals("Aug")) {
+            month = "08";
+        } else if (month.equals("Sep")) {
+            month = "09";
+        } else if (month.equals("Oct")) {
+            month = "10";
+        } else if (month.equals("Nov")) {
+            month = "11";
+        } else if (month.equals("Dec")) {
+            month = "12";
+        }
+
+        return String.format("%s-%s-%s", year, month, day);
+    }
+
     private void loadList() throws FileNotFoundException, DukeException {
         File f = new File(PATH);
         Scanner s = new Scanner(f);
@@ -128,9 +173,12 @@ public class Duke {
                 String description = deadlineString[0];
                 String taskDescription = description.substring(0, description.length() - 3).trim();
                 String date = deadlineString[1];
-                String taskDate = date.substring(0, date.length()).trim();
+                String taskDate = formatDate(date.substring(0, date.length()).trim());
 
-                Deadline deadline = new Deadline(taskDescription, taskDate);
+                validateDate(taskDate);
+                LocalDate d = LocalDate.parse(taskDate);
+
+                Deadline deadline = new Deadline(taskDescription, d);
                 list.add(deadline);
                 if (markDone.equals("[X]")) {
                     list.get(i).markDone();
@@ -140,11 +188,16 @@ public class Duke {
                 String description = eventString[0];
                 String taskDescription = description.substring(0, description.length() - 5).trim();
                 String startDate = eventString[1];
-                String taskStartDate = startDate.substring(0, startDate.length() - 2).trim();
+                String taskStartDate = formatDate(startDate.substring(0, startDate.length() - 2).trim());
                 String endDate = eventString[2];
-                String taskEndDate = endDate.substring(0, endDate.length() - 1).trim();
+                String taskEndDate = formatDate(endDate.substring(0, endDate.length() - 1).trim());
 
-                Event event = new Event(taskDescription, taskStartDate, taskEndDate);
+                validateDate(taskStartDate);
+                validateDate(taskEndDate);
+                LocalDate d1 = LocalDate.parse(taskStartDate);
+                LocalDate d2 = LocalDate.parse(taskEndDate);
+
+                Event event = new Event(taskDescription, d1, d2);
                 list.add(event);
                 if (markDone.equals("[X]")) {
                     list.get(i).markDone();
@@ -224,7 +277,10 @@ public class Duke {
                     String description = deadlineString[0].trim();
                     String deadlineDate = deadlineString[1].replaceFirst("by", "").trim();
 
-                    Deadline deadline = new Deadline(description, deadlineDate);
+                    validateDate(deadlineDate);
+                    LocalDate d = LocalDate.parse(deadlineDate);
+
+                    Deadline deadline = new Deadline(description, d);
                     addToList(deadline);
                 } else if (input.startsWith("event")) {
                     String[] eventString = input.replaceFirst("event", "").split("/", 3);
@@ -234,7 +290,12 @@ public class Duke {
                     String start = eventString[1].replaceFirst("from", "").trim();
                     String end = eventString[2].replaceFirst("to", "").trim();
 
-                    Event event = new Event(description, start, end);
+                    validateDate(start);
+                    validateDate(end);
+                    LocalDate d1 = LocalDate.parse(start);
+                    LocalDate d2 = LocalDate.parse(end);
+
+                    Event event = new Event(description, d1, d2);
                     addToList(event);
                 } else if (input.startsWith("delete")) {
                     String number = input.replaceFirst("delete", "").trim();

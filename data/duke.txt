@@ -1,4 +1,4 @@
-[T] [X] read book
-[D] [ ] return book (by: June 6th))))
-[E] [ ] project meeting (from: Aug 6th 2pm to: 4pm)
-[T] [X] join sports club
+[T] [ ] read book
+[D] [ ] return book (by: Jun 06 2023)
+[E] [ ] orientation week (from: Jul 31 2023 to: Aug 04 2023)
+[D] [ ] finish cs2103t quiz (by: Sep 01 2023)
