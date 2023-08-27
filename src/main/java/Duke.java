@@ -1,8 +1,12 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
+
+    public static final DateTimeFormatter DATETIME_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     public static void talk(String str) {
         String line = "_".repeat(50);
@@ -27,12 +31,12 @@ public class Duke {
                     break;
                 case "D":
                     String by = lineArr[3];
-                    items.add(new Deadline(name, by, isDone));
+                    items.add(new Deadline(name, LocalDateTime.parse(by), isDone));
                     break;
                 case "E":
                     String from = lineArr[3];
                     String to = lineArr[4];
-                    items.add(new Event(name, from, to, isDone));
+                    items.add(new Event(name, LocalDateTime.parse(from), LocalDateTime.parse(to), isDone));
                     break;
                 default:
                     continue;
