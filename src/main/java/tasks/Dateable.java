@@ -30,12 +30,12 @@ public abstract class Dateable {
         }
         @Override
         public boolean isBeforeOrOn(LocalDateTime date) {
-            return this.dotDateTime.isBefore(date);
+            return this.dotDateTime.isBefore(date) || this.dotDateTime.isEqual(date);
         }
 
         @Override
         public boolean isAfterOrOn(LocalDateTime date) {
-            return this.dotDateTime.isAfter(date);
+            return this.dotDateTime.isAfter(date) || this.dotDateTime.isEqual(date);
         }
 
 
