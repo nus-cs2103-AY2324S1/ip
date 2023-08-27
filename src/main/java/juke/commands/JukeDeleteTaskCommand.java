@@ -30,7 +30,7 @@ public class JukeDeleteTaskCommand extends JukeCommand {
      * @throws JukeStorageException If there is an issue with storing changes
      */
     @Override
-    public void complete() throws JukeStorageException {
+    public void execute() throws JukeStorageException {
         JukeTask jt = this.taskList.deleteTask(this.task);
         System.out.print("Task deleted: " + jt);
     }

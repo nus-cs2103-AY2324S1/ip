@@ -45,7 +45,7 @@ public class Juke {
                  | JukeParseException ex) {
             // program should not continue if it cannot initialise properly
             // or if there are issues with retrieving data from the datafile
-            new JukeExceptionCommand(ex).complete();
+            new JukeExceptionCommand(ex).execute();
         }
     }
 

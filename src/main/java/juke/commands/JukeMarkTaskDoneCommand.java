@@ -28,8 +28,8 @@ public class JukeMarkTaskDoneCommand extends JukeCommand {
      * @throws JukeStorageException if there are any errors encountered when reading the data
      */
     @Override
-    public void complete() throws JukeStorageException {
-        this.taskList.markAsDone(this.index);
-        System.out.print("Task Marked as Done!\n" + this.taskList.taskInformation(this.index));
+    public void execute() throws JukeStorageException {
+        this.taskList.setAsComplete(this.index);
+        System.out.print("Task Marked as Done!\n" + this.taskList.getTaskInformation(this.index));
     }
 }

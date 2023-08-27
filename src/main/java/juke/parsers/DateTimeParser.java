@@ -24,7 +24,7 @@ public class DateTimeParser extends JukeObject {
      * @return true if the String is a valid Date format, else false
      */
     public static boolean isValidDate(String date) {
-        return Pattern.matches(DATE_REGEX, date);
+        return Pattern.matches(DateTimeParser.DATE_REGEX, date);
     }
 
     /**
@@ -33,7 +33,7 @@ public class DateTimeParser extends JukeObject {
      * @return true if the String is a valid DateTime format, else false
      */
     public static boolean isValidDateTime(String datetime) {
-        return Pattern.matches(DATETIME_REGEX, datetime);
+        return Pattern.matches(DateTimeParser.DATETIME_REGEX, datetime);
     }
 
     /**
@@ -67,12 +67,12 @@ public class DateTimeParser extends JukeObject {
     /**
      * Directly parse stored datafile representation of {@code LocalDateTime}
      * objects into actual {@code LocalDateTime} objects.
-     * @param parsedDateTimeString Stored string
+     * @param dateTimeString Stored string
      * @return {@code LocalDateTime} object
      */
-    public static LocalDateTime fromParsedString(String parsedDateTimeString) {
+    public static LocalDateTime fromDateTimeString(String dateTimeString) {
         try {
-            return LocalDateTime.parse(parsedDateTimeString);
+            return LocalDateTime.parse(dateTimeString);
         } catch (DateTimeParseException ex) {
             throw new JukeParseException("Oh no! I cannot understand the date format you have given me!\nEnsure that "
                                                  + "datetimes are given as such: YYYY-MM-DDTHH:MM");

@@ -11,10 +11,10 @@ import juke.exceptions.JukeException;
 public class JukeIllegalArgumentException extends JukeException {
     /**
      * Constructor for {@code JukeIllegalArgumentException}.
-     * @param err Error Description
+     * @param error Error Description
      */
-    public JukeIllegalArgumentException(String err) {
-        super(err);
+    public JukeIllegalArgumentException(String error) {
+        super(error);
     }
 
     /**

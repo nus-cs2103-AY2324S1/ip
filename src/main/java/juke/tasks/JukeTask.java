@@ -32,7 +32,7 @@ public abstract class JukeTask extends JukeObject {
      * Marks a task as complete.
      * @throws JukeStateException if the task is already completed
      */
-    public void markAsComplete() throws JukeStateException {
+    public void setAsComplete() throws JukeStateException {
         if (this.isCompleted) {
             throw new JukeStateException("Oh no! The task selected is already completed!");
         } else {
@@ -44,7 +44,7 @@ public abstract class JukeTask extends JukeObject {
      * Marks a task as incomplete.
      * @throws JukeStateException if the task is already incomplete
      */
-    public void markAsIncomplete() throws JukeStateException {
+    public void setAsIncomplete() throws JukeStateException {
         if (!this.isCompleted) {
             throw new JukeStateException("The task selected is already not completed!");
         } else {

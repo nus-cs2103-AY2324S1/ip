@@ -40,7 +40,7 @@ public class JukeEvent extends JukeTask {
         this(taskName, start, end);
 
         if (completion) {
-            this.markAsComplete();
+            this.setAsComplete();
         }
     }
 

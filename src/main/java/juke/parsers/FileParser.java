@@ -15,7 +15,7 @@ import juke.tasks.JukeTodo;
  */
 public abstract class FileParser extends JukeObject {
     /** Regex String used to parse the datafile lines. */
-    private static final String REGEX = "\\|";
+    private static final String FILE_SEPARATOR_REGEX = "\\|";
 
     /**
      * Parses a single task into a {@code JukeTask} object.
@@ -24,7 +24,7 @@ public abstract class FileParser extends JukeObject {
      * @throws JukeParseException if there are errors with parsing the datafile
      */
     public static JukeTask parseTask(String task) {
-        String[] data = task.split(REGEX);
+        String[] data = task.split(FileParser.FILE_SEPARATOR_REGEX);
 
         if (data.length == 0) {
             throw new JukeParseException("Oh no! Data \"" + task + "\" cannot be parsed!");
@@ -42,13 +42,13 @@ public abstract class FileParser extends JukeObject {
                 throw new JukeParseException("Oh no! Deadline \"" + task + "\" cannot be parsed!");
             }
 
-            return new JukeDeadline(data[2], DateTimeParser.fromParsedString(data[3]), data[1].equals("T"));
+            return new JukeDeadline(data[2], DateTimeParser.fromDateTimeString(data[3]), data[1].equals("T"));
         case "E":
             if (data.length != 5) {
                 throw new JukeParseException("Oh no! Event \"" + task + "\" cannot be parsed!");
             }
-            return new JukeEvent(data[2], DateTimeParser.fromParsedString(data[3]),
-                                 DateTimeParser.fromParsedString(data[4]), data[1].equals("T"));
+            return new JukeEvent(data[2], DateTimeParser.fromDateTimeString(data[3]),
+                                 DateTimeParser.fromDateTimeString(data[4]), data[1].equals("T"));
         default:
             throw new JukeParseException("Oh no! Data \"" + task + "\" cannot be parsed!");
         }

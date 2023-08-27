@@ -1,5 +1,7 @@
 package juke.commands;
 
+import juke.exceptions.JukeException;
+
 /**
  * Action class that corresponds to an error action.
  *
@@ -7,21 +9,21 @@ package juke.commands;
  */
 public class JukeExceptionCommand extends JukeCommand {
     /** Error description. */
-    private final Exception err;
+    private final Exception exception;
 
     /**
      * Constructor to create an Error Action.
-     * @param err Error description
+     * @param exception Error description
      */
-    public JukeExceptionCommand(Exception err) {
-        this.err = err;
+    public JukeExceptionCommand(JukeException exception) {
+        this.exception = exception;
     }
 
     /**
      * Necessary method that is invoked when the action is carried out.
      */
     @Override
-    public void complete() {
-        System.out.print("Error: " + err);
+    public void execute() {
+        System.out.print("Error: " + exception);
     }
 }

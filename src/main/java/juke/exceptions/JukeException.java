@@ -10,14 +10,14 @@ package juke.exceptions;
  */
 public class JukeException extends RuntimeException {
     /** Error description. */
-    private final String err;
+    private final String error;
 
     /**
      * Constructor to create a JukeException.
-     * @param err Error description
+     * @param error Error description
      */
-    public JukeException(String err) {
-        this.err = err;
+    public JukeException(String error) {
+        this.error = error;
     }
 
     /**
@@ -26,6 +26,6 @@ public class JukeException extends RuntimeException {
      */
     @Override
     public String toString() {
-        return this.err;
+        return this.error;
     }
 }
