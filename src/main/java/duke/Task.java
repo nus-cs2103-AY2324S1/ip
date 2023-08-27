@@ -17,14 +17,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string indicator of whether the task is marked as completed
-     * @return the string representation of whether the task is marked as completed
-     */
-    public String getStatusIcon() {
-        return (this.isDone ? "X" : " "); // mark done task with X
-    }
-
-    /**
      * Marks the task as completed
      */
     public void markAsDone() {
