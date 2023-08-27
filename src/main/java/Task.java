@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class Task {
     private boolean completed = false;
     private String taskName = "";
@@ -12,6 +14,15 @@ public class Task {
 
     public void unmark() {
         this.completed = false;
+    }
+
+    /**
+     * Method to be overriden by tasks that have dates. For tasks without, always returns false.
+     *
+     * @return false
+     */
+    public boolean isDateWithinRange(LocalDate date) {
+        return false;
     }
 
     /**

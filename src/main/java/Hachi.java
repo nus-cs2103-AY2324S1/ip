@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Hachi {
@@ -61,21 +65,18 @@ public class Hachi {
 
             line();
             try {
-                if (command.equals("bye")) {
+                if (command.equals("bye")) { // BYE
                     if (arguments.length > 0) {
                         throw new TooManyArgumentsException("bye", 0, arguments.length);
                     }
                     System.out.println("Bye. Hope to see you again soon!");
                     break;
-                } else if (command.equals("list")) {
+                } else if (command.equals("list")) { // LIST
                     if (arguments.length > 0) {
                         throw new TooManyArgumentsException("list", 0, arguments.length);
                     }
-                    for (int i = 0; i < tasks.size(); i++) {
-                        int num = i + 1;
-                        System.out.println(num + ". " + tasks.get(i));
-                    }
-                } else if (command.equals("mark")) {
+                    printTaskList(tasks);
+                } else if (command.equals("mark")) { // MARK
                     if (arguments.length > 1) {
                         throw new TooManyArgumentsException("mark", 1, arguments.length);
                     }
@@ -95,7 +96,7 @@ public class Hachi {
                     } catch (NumberFormatException e) {
                         throw new InvalidArgumentException("mark");
                     }
-                } else if (command.equals("unmark")) {
+                } else if (command.equals("unmark")) { // UNMARK
                     if (arguments.length > 1) {
                         throw new TooManyArgumentsException("unmark", 1, arguments.length);
                     }
@@ -115,7 +116,7 @@ public class Hachi {
                     } catch (NumberFormatException e) {
                         System.out.println("Invalid argument for command \"unmark\"");
                     }
-                } else if (command.equals("delete")) {
+                } else if (command.equals("delete")) { // DELETE
                     if (arguments.length > 1) {
                         throw new TooManyArgumentsException("delete", 1, arguments.length);
                     }
@@ -136,7 +137,7 @@ public class Hachi {
                     } catch (NumberFormatException e) {
                         throw new InvalidArgumentException("delete");
                     }
-                } else if (command.equals("todo")) {
+                } else if (command.equals("todo")) { // TODO
                     if (arguments.length < 1) {
                         throw new EmptyTaskException("todo");
                     }
@@ -147,7 +148,7 @@ public class Hachi {
                     System.out.println("   " + td);
                     System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
                     updateTaskFile(tasks);
-                } else if (command.equals("deadline")) {
+                } else if (command.equals("deadline")) { // DEADLINE
                     if (arguments.length < 1) {
                         throw new EmptyTaskException("deadline");
                     }
@@ -164,16 +165,20 @@ public class Hachi {
                     if (byIndex == arguments.length - 1) {
                         throw new EmptyDeadlineException("deadline");
                     }
-                    System.out.println("Got it. I've added this task:");
                     String deadlineTask = String.join(" ",
                             Arrays.copyOfRange(arguments, 0, byIndex));
                     String deadlineDate = String.join(" ",
                             Arrays.copyOfRange(arguments, byIndex + 1, arguments.length));
-                    Deadline dl = new Deadline(deadlineTask, deadlineDate);
-                    tasks.add(dl);
-                    System.out.println("   " + dl);
-                    System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
-                    updateTaskFile(tasks);
+                    try {
+                        Deadline dl = new Deadline(deadlineTask, LocalDate.parse(deadlineDate));
+                        tasks.add(dl);
+                        System.out.println("Got it. I've added this task:");
+                        System.out.println("   " + dl);
+                        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+                        updateTaskFile(tasks);
+                    } catch (DateTimeParseException e) {
+                        throw new DateFormatWrongException(deadlineDate);
+                    }
                 } else if (command.equals("event")) {
                     if (arguments.length < 1) {
                         throw new EmptyTaskException("event");
@@ -209,13 +214,33 @@ public class Hachi {
                         } else if (eventStartDate.equals("")) {
                             throw new EventDateException("start date");
                         }
-                        Event ev = new Event(eventTask, eventStartDate, eventEndDate);
-                        tasks.add(ev);
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println("   " + ev);
-                        System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
-                        updateTaskFile(tasks);
+                        try {
+                            Event ev = new Event(eventTask, LocalDate.parse(eventStartDate),
+                                    LocalDate.parse(eventEndDate));
+                            tasks.add(ev);
+                            System.out.println("Got it. I've added this task:");
+                            System.out.println("   " + ev);
+                            System.out.println(String.format("Now you have %d tasks in the list.", tasks.size()));
+                            updateTaskFile(tasks);
+                        } catch (DateTimeParseException e) {
+                            throw new DateFormatWrongException(eventStartDate + ", " + eventEndDate);
+                        }
                     }
+                } else if (command.equals("search-date")) {
+                    if (arguments.length > 1) {
+                        throw new TooManyArgumentsException("search-date", 1, arguments.length);
+                    }
+                    if (arguments.length < 1) {
+                        throw new DateFormatWrongException("");
+                    }
+                    LocalDate searchDate = LocalDate.parse(arguments[0]);
+                    ArrayList<Task> filteredDates = new ArrayList<>();
+                    tasks.forEach(task -> {
+                        if(task.isDateWithinRange(searchDate)) {
+                            filteredDates.add(task);
+                        }
+                    });
+                    printTaskList(filteredDates);
                 } else {
                     throw new InvalidCommandException(command);
                 }
@@ -251,7 +276,7 @@ public class Hachi {
         });
     }
 
-    private static Task txtToTask(String txt) {
+    private static Task txtToTask(String txt) throws HachiException {
         String[] s = txt.split(" \\| "); // need to escape | character as it means something in regex
         Task temp = null;
         // set Task to the respective task type
@@ -259,9 +284,17 @@ public class Hachi {
             if (s[0].equals("T")) {
                 temp = new Todo(s[2]);
             } else if (s[0].equals("D")) {
-                temp = new Deadline(s[2], s[3]);
+                try {
+                    temp = new Deadline(s[2], LocalDate.parse(s[3]));
+                } catch (DateTimeParseException e) {
+                    throw new DateFormatWrongException(s[3]);
+                }
             } else if (s[0].equals("E")) {
-                temp = new Event(s[2], s[3], s[4]);
+                try {
+                    temp = new Event(s[2], LocalDate.parse(s[3]), LocalDate.parse(s[4]));
+                } catch (DateTimeParseException e) {
+                    throw new DateFormatWrongException(s[3] + ", " + s[4]);
+                }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Task stored in the wrong format! Please check the file at 'data/tasks.txt'");
@@ -277,6 +310,12 @@ public class Hachi {
         return temp;
     }
 
+    private static void printTaskList(ArrayList<Task> taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            int num = i + 1;
+            System.out.println(num + ". " + taskList.get(i));
+        }
+    }
 
     public static void line() {
         System.out.println("____________________________________________________________");
