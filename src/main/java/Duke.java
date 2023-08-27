@@ -4,12 +4,10 @@ import java.util.Scanner;
 
 public class Duke {
     private final String botName;
-    private final Scanner scanner;
     private final List<Task> taskList;
 
     public Duke(String botName) {
         this.botName = botName;
-        this.scanner = new Scanner(System.in);
         this.taskList = new ArrayList<>();
     }
 
