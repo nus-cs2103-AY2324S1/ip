@@ -1,8 +1,8 @@
-package tasks;
+package shiba.tasks;
 
-import datetimeformats.DateOptionalTime;
-import exceptions.InvalidCommandException;
-import parsers.SpaceSeparatedValuesParser;
+import shiba.datetimeformats.DateOptionalTime;
+import shiba.exceptions.InvalidCommandException;
+import shiba.parsers.SpaceSeparatedValuesParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

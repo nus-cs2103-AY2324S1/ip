@@ -1,8 +1,8 @@
-package filehandler;
+package shiba.filehandler;
 
-import exceptions.ShibaException;
-import parsers.SpaceSeparatedValuesParser;
-import tasks.ShibaTask;
+import shiba.exceptions.ShibaException;
+import shiba.parsers.SpaceSeparatedValuesParser;
+import shiba.tasks.ShibaTask;
 
 import java.io.File;
 import java.io.FileWriter;

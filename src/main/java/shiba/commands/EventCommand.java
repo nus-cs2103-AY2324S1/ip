@@ -1,8 +1,8 @@
-package commands;
+package shiba.commands;
 
-import exceptions.ShibaException;
-import tasks.EventTask;
-import tasks.TaskList;
+import shiba.exceptions.ShibaException;
+import shiba.tasks.EventTask;
+import shiba.tasks.TaskList;
 
 public class EventCommand extends ShibaCommand {
     private final String fullCmd;

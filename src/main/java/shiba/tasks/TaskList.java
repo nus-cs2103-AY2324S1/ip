@@ -1,8 +1,8 @@
-package tasks;
+package shiba.tasks;
 
-import exceptions.ShibaException;
-import filehandler.Storage;
-import ui.Replier;
+import shiba.exceptions.ShibaException;
+import shiba.filehandler.Storage;
+import shiba.ui.Replier;
 
 import java.util.ArrayList;
 

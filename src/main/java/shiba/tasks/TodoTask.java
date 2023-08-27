@@ -1,7 +1,7 @@
-package tasks;
+package shiba.tasks;
 
-import exceptions.InvalidCommandException;
-import parsers.SpaceSeparatedValuesParser;
+import shiba.exceptions.InvalidCommandException;
+import shiba.parsers.SpaceSeparatedValuesParser;
 
 public class TodoTask extends ShibaTask {
     /**

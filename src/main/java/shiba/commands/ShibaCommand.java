@@ -1,11 +1,11 @@
-package commands;
+package shiba.commands;
 
-import exceptions.EmptyTasksException;
-import exceptions.InvalidCommandException;
-import exceptions.ShibaException;
-import tasks.ShibaTask;
-import tasks.TaskList;
-import ui.Replier;
+import shiba.exceptions.EmptyTasksException;
+import shiba.exceptions.InvalidCommandException;
+import shiba.exceptions.ShibaException;
+import shiba.tasks.ShibaTask;
+import shiba.tasks.TaskList;
+import shiba.ui.Replier;
 
 public abstract class ShibaCommand {
     public enum CommandType {
