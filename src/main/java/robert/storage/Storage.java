@@ -1,5 +1,8 @@
+package robert.storage;
+
 import java.io.IOException;
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 
 import java.io.File;
@@ -8,6 +11,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.Scanner;
+
+import robert.task.TaskList;
+
+import robert.task.Task;
+import robert.task.ToDo;
+import robert.task.Event;
+import robert.task.Deadline;
+
+import robert.exception.RobertException;
 
 public class Storage {
     private final File tasksFile;
@@ -72,25 +84,25 @@ public class Storage {
             FileWriter fw = new FileWriter(this.tasksFile.toString(), false);
             for (Task task : tasks) {
                 String storedLine;
-                String taskDone = task.isDone ? "1" : "0";
+                String taskDone = task.getStatusIcon().equals("X") ? "1" : "0";
 
                 if (task instanceof ToDo) {
                     storedLine = "T | "
                             + taskDone + " | "
-                            + task.description;
+                            + task.getDescription();
 
                 } else if (task instanceof Event) {
                     storedLine = "E | "
                             + taskDone + " | "
-                            + task.description + " | "
-                            + ((Event) task).fromDate + " | "
-                            + ((Event) task).toDate;
+                            + task.getDescription() + " | "
+                            + ((Event) task).getFromDate() + " | "
+                            + ((Event) task).getToDate();
 
                 } else {
                     storedLine = "D | "
                             + taskDone + " | "
-                            + task.description + " | "
-                            + ((Deadline) task).byDate;
+                            + task.getDescription() + " | "
+                            + ((Deadline) task).getByDate();
                 }
 
                 fw.write(storedLine + "\n");

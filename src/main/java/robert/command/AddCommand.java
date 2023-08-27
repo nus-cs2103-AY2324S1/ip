@@ -1,4 +1,17 @@
+package robert.command;
+
 import java.time.LocalDate;
+
+import robert.ui.Ui;
+import robert.storage.Storage;
+import robert.task.TaskList;
+
+import robert.task.Task;
+import robert.task.ToDo;
+import robert.task.Event;
+import robert.task.Deadline;
+
+import robert.exception.RobertException;
 
 public class AddCommand extends Command {
 

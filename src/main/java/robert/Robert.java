@@ -1,12 +1,23 @@
+package robert;
+
+import robert.ui.Ui;
+import robert.storage.Storage;
+import robert.task.TaskList;
+
+import robert.command.Command;
+import robert.parser.Parser;
+
+import robert.exception.RobertException;
+
 public class Robert {
 
-	private final Storage storage;
 	private final Ui ui;
+	private final Storage storage;
 	private TaskList tasks;
 
 	public Robert(String filePath) {
-		this.storage = new Storage(filePath);
 		this.ui = new Ui();
+		this.storage = new Storage(filePath);
 
 		try {
 			this.tasks = new TaskList(this.storage.load());

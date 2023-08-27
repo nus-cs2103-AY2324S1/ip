@@ -1,9 +1,11 @@
+package robert.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    protected LocalDate fromDate;
-    protected LocalDate toDate;
+    private final LocalDate fromDate;
+    private final LocalDate toDate;
 
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
@@ -15,6 +17,14 @@ public class Event extends Task {
         super(description, isDone);
         this.fromDate = from;
         this.toDate = to;
+    }
+
+    public LocalDate getFromDate() {
+        return this.fromDate;
+    }
+
+    public LocalDate getToDate() {
+        return this.toDate;
     }
 
     public boolean isHappeningOn(LocalDate date) {

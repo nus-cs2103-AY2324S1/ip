@@ -1,8 +1,10 @@
+package robert.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    protected LocalDate byDate;
+    private final LocalDate byDate;
 
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -12,6 +14,10 @@ public class Deadline extends Task {
      public Deadline(String description, LocalDate by, boolean isDone) {
         super(description, isDone);
         this.byDate = by;
+    }
+
+    public LocalDate getByDate() {
+        return this.byDate;
     }
 
     public boolean isDueOn(LocalDate date) {
