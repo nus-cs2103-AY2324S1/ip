@@ -16,6 +16,7 @@ public class Duke {
                 " To view tasks, type 'list' \n" +
                 " To mark a task as 'done', type 'mark [index]' \n" +
                 " To mark a task as 'undone', type 'unmark [index]' \n" +
+                " To delete a task, type 'delete [index]' \n" +
                 " To exit, type 'bye' \n" +
                 "____________________________________________________________\n";
 
