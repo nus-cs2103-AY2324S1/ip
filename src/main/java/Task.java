@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Task {
+public abstract class Task {
     /**
      * name of task
      */
@@ -34,6 +34,16 @@ public class Task {
         } else {
             return "[ ] " + taskName;
         }
+    }
+
+    public abstract String toSaveStateString();
+
+    public boolean getDone() {
+        return this.done;
+    }
+
+    public String getTaskName() {
+        return this.taskName;
     }
 
     public static String[] processInput(String[] splitInput) throws InvalidTaskException {
