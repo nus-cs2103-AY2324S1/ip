@@ -7,9 +7,18 @@ public class Deadline extends Task {
      * @param description Describes the task.
      */
     public Deadline(String description, String by) {
-        super(description);
+        this(description, false, by);
+    }
+
+    /**
+     * Constructor to build a task with description and isDone as input.
+     * @param description Describes the task.
+     */
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
         this.by = by;
     }
+
     /**
      * Prints out the description of the task and its status.
      * @return A string that shows the task's description and status.

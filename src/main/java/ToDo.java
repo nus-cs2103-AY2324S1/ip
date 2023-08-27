@@ -4,7 +4,11 @@ public class ToDo extends Task {
      * @param description Describes the task.
      */
     public ToDo(String description) {
-        super(description);
+        this(description, false);
+    }
+
+    public ToDo(String description, boolean isDone) {
+        super(description, isDone);
     }
 
     /**
