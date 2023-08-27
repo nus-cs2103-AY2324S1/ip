@@ -9,14 +9,26 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    /**
+     * Return the right representation for whether the task is done
+     *
+     * @return string X if done and white space if not done
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    /**
+     * Change boolean of isDone to true
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Change boolean of isDone to false
+     */
     public void markAsNotDone() {
         this.isDone = false;
     }
@@ -25,11 +37,21 @@ public abstract class Task {
         return description;
     }
 
+    /**
+     * Reutrn the string representation of boolean isDone
+     *
+     * @return string [X] for done and [ ] for not done
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    /**
+     * Return the right string representation for saving to file
+     *
+     * @return string 1 for done and 0 for not done
+     */
     public String status() {
         String done = isDone ? "1" : "0";
         return done + "|" + description;
@@ -37,6 +59,12 @@ public abstract class Task {
 
     public abstract String save();
 
+    /**
+     * Return the task by reading the detail of the task from the file
+     *
+     * @param taskString the description of the task from the file
+     * @return the task fitting the description
+     */
     public static Task fromString(String taskString) {
         String[] parts = taskString.split("\\|");
         String type = parts[0];

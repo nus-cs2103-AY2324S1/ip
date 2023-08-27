@@ -4,11 +4,24 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Class that is responsible for handling the input of the user
+ */
 public class Parser {
 
+    /**
+     * Read the input from the user and carry out the required action
+     *
+     * @param input input from the user
+     * @param list TaskList created
+     * @param number number of task in the list
+     * @param filePath path of the storage file
+     * @param ui the UI class response for handling ui actions
+     * @param storage storage class that handles the loading and saving of files
+     * @throws DukeException if the input does not much the required format
+     */
     public static void parseInput(String input, TaskList list, int number, String filePath, Ui ui, Storage storage) throws DukeException{
 
-//        try {
             if (input.equalsIgnoreCase("bye")) {
                 ui.showGoodbyeMessage();
                 storage.saveTasksToFile(list.task());
