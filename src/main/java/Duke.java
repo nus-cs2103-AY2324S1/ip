@@ -47,28 +47,72 @@ public class Duke {
         System.out.println("What can I do for you?");
         System.out.println(LINE);
     }
-    public static void main(String[] args) {
-        List<Task> tasks = new ArrayList<>();
 
-        // check for the storage file
+    private static List<Task> loadTasksFromStorage(String dirName, String fileName) {
+        List<Task> tasks = new ArrayList<>();
+        File file = new File(dirName + "/" + fileName);
+
+        // scan for the storage file
         try {
-            File file = new File(DIR_NAME + "/" + FILE_NAME);
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
-                System.out.println(s.nextLine());
+
+                String curr = s.nextLine();
+                String[] segments = curr.split(" \\| ");
+                System.out.println(segments[2]);
+
+                // check for the correct format - minimum 3 different segments
+                if ((!segments[0].equals("[T]") && !segments[0].equals("[D]")
+                        && !segments[0].equals("[E]")) || segments.length < 3) {
+                    s.close(); // need to close scanner otherwise cannot replace file
+                    throw new UnrecognisedFormatException();
+                }
+
+                boolean isDone = segments[1].equals("[X]");
+
+                if (segments[0].equals("[T]")) { // To do task
+                    tasks.add(new ToDo(segments[2], isDone));
+                } else if (segments[0].equals("[D]")) { // Deadline task
+                    tasks.add(new Deadline(segments[2], segments[3], isDone));
+                } else { // Event task
+                    String[] times = segments[3].split("-");
+                    tasks.add(new Event(segments[2], times[0], times[1], isDone));
+                }
+
             }
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) { // File does not exist
             try {
-                if (new File(DIR_NAME).mkdir()) {
+                if (new File(dirName).mkdir()) {
                     System.out.println("Sorry, directory does not exist. Creating now...");
                 }
-                if (new File(DIR_NAME + "/" + FILE_NAME).createNewFile()) {
+                if (new File(dirName + "/" + fileName).createNewFile()) {
                     System.out.println("Sorry, file does not exist. Creating now...");
                 }
             } catch (Exception error) {
                 System.out.println("Error... Unable to create files");
             }
+
+        } catch (UnrecognisedFormatException e) { // File is corrupted
+            try {
+                if (file.delete()) {
+                    System.out.println("Deleting corrupted file...");
+
+                    if (file.createNewFile()) {
+                        System.out.println("Replacing file now...");
+                    }
+
+                }
+            } catch (Exception error) {
+                System.out.println("Error... Unable to create new file");
+            }
         }
+        return tasks;
+    }
+
+
+
+    public static void main(String[] args) {
+        List<Task> tasks = loadTasksFromStorage(DIR_NAME, FILE_NAME);
 
         Scanner scanner = new Scanner(System.in);
 

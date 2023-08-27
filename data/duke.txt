@@ -1,0 +1,3 @@
+[T] | [ ] | join library
+[E] | [ ] | project meeting | Mon 2pm-4pm
+[D] | [ ] | return book | Sunday
