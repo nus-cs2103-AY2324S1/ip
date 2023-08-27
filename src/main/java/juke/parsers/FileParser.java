@@ -10,7 +10,7 @@ import juke.tasks.JukeTask;
 import juke.tasks.JukeTodo;
 
 /**
- * Parses the datafile back into JukeTask objects.
+ * Parses the datafile back into {@code JukeTask} objects.
  * <p>
  * This parser may not be instantiated. All methods are exposed via
  * static methods.
@@ -21,6 +21,7 @@ public abstract class FileParser extends JukeObject {
 
     /**
      * Parses a single task into a {@code JukeTask} object.
+     *
      * @param task Single task to parse
      * @return {@code JukeTask} object
      * @throws JukeDataFileParseException if there are errors with parsing the datafile

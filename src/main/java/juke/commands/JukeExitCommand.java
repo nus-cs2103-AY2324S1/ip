@@ -8,7 +8,7 @@ public class JukeExitCommand extends JukeCommand {
     private static final String EXIT = "Goodbye!";
 
     /**
-     * JukeExitCommand Constructor.
+     * {@code JukeExitCommand} Constructor.
      */
     public JukeExitCommand() {}
 

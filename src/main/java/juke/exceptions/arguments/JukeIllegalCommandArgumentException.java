@@ -10,6 +10,7 @@ public class JukeIllegalCommandArgumentException extends JukeIllegalArgumentExce
 
     /**
      * Constructor for {@code JukeIllegalCommandArgumentException}
+     *
      * @param err Error Description
      * @param expectedArguments Expected arguments
      */
@@ -20,6 +21,7 @@ public class JukeIllegalCommandArgumentException extends JukeIllegalArgumentExce
 
     /**
      * String representation of {@code JukeIllegalCommandArgumentException}.
+     *
      * @return String representation of the exception
      */
     @Override

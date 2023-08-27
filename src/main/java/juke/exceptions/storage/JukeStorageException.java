@@ -8,7 +8,8 @@ import juke.exceptions.JukeException;
  */
 public class JukeStorageException extends JukeException {
     /**
-     * Constructor to create a JukeStorageException.
+     * Constructor to create a {@code JukeStorageException}.
+     *
      * @param err Error description
      */
     public JukeStorageException(String err) {

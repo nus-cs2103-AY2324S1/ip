@@ -5,7 +5,8 @@ package juke.exceptions.parsers;
  */
 public class JukeDateFormatParseException extends JukeParseException {
     /**
-     * Constructor to create a JukeDateFormatParseException.
+     * Constructor to create a {@code JukeDateFormatParseException}.
+     *
      * @param err Error description
      */
     public JukeDateFormatParseException(String err) {

@@ -15,7 +15,8 @@ public class JukeException extends RuntimeException {
     private final String err;
 
     /**
-     * Constructor to create a JukeException.
+     * Constructor to create a {@code JukeException}.
+     *
      * @param err Error description
      */
     public JukeException(String err) {
@@ -23,7 +24,8 @@ public class JukeException extends RuntimeException {
     }
 
     /**
-     * String representation of the Exception.
+     * String representation of the {@code JukeException}.
+     *
      * @return String representing the exception this object is encapsulating
      */
     @Override

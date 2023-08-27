@@ -47,6 +47,7 @@ public class Ui extends JukeObject {
 
     /**
      * Constructor for Ui.
+     *
      * @param jukeScanner {@code Scanner} object to read in user input
      * @param taskList {@code TaskList} object that handles all {@code JukeTasks}
      */

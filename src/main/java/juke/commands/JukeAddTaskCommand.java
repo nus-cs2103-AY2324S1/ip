@@ -15,9 +15,10 @@ public class JukeAddTaskCommand extends JukeCommand {
     private final JukeTask task;
 
     /**
-     * Constructor for JukeAddTaskAction
-     * @param taskList TaskList
-     * @param task JukeTask to add
+     * Constructor for {@code JukeAddTaskAction}
+     *
+     * @param taskList {@code TaskList} object
+     * @param task {@code JukeTask} to add
      */
     public JukeAddTaskCommand(TaskList taskList, JukeTask task) {
         this.taskList = taskList;
@@ -26,6 +27,7 @@ public class JukeAddTaskCommand extends JukeCommand {
 
     /**
      * Necessary method that is invoked when the action is carried out.
+     *
      * @throws JukeStorageException if there is an issue with storing changes
      */
     @Override

@@ -8,6 +8,7 @@ import juke.exceptions.JukeException;
 public class JukeIllegalArgumentException extends JukeException {
     /**
      * Constructor for {@code JukeIllegalArgumentException}.
+     *
      * @param err Error Description
      */
     public JukeIllegalArgumentException(String err) {
@@ -16,6 +17,7 @@ public class JukeIllegalArgumentException extends JukeException {
 
     /**
      * String representation of {@code JukeIllegalArgumentException}.
+     *
      * @return String representation of the exception
      */
     @Override

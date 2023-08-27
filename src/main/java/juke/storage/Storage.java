@@ -28,7 +28,7 @@ public class Storage extends JukeObject {
     public static final Path FILE_PATH = Paths.get("./data/tasks.txt");
 
     /**
-     * Private constructor for {@code Storage}. Prevent external instantiation through
+     * Private constructor for {@code Storage}. Prevents external instantiation through
      * any methods other than {@code Storage.of()}.
      */
     private Storage() {
@@ -38,6 +38,7 @@ public class Storage extends JukeObject {
     /**
      * Creates an instance of {@code Storage} and creates the files
      * and directories required if necessary.
+     *
      * @return {@code Storage} instance
      * @throws JukeInitialisationException if the directories or files cannot be
      *     created or initialised
@@ -68,7 +69,8 @@ public class Storage extends JukeObject {
 
     /**
      * Returns a list of saved task from the datafile.
-     * @return List of {@code JukeTasks}
+     *
+     * @return List of {@code JukeTasks} retrieved
      * @throws JukeStorageException If the file could not be opened or processed for any reason
      */
     public List<JukeTask> get() throws JukeStorageReadException {
@@ -89,6 +91,7 @@ public class Storage extends JukeObject {
 
     /**
      * Writes the list of tasks into the datafile.
+     *
      * @param tasks List of {@code JukeTasks} to write
      * @throws JukeStorageException If the file could not be opened or written to for any reason
      */

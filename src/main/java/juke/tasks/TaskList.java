@@ -29,8 +29,9 @@ public class TaskList extends JukeObject {
     private final Storage storageManager;
 
     /**
-     * Private constructor for TaskList that initialises the tasks within this {@code TaskList}.
-     * @return {@code TaskList} object that is properly constructed
+     * Private constructor for {@code TaskList} that initialises the tasks within
+     * this {@code TaskList}.
+     *
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
      */
     private TaskList(Storage storageManager) {
@@ -40,6 +41,7 @@ public class TaskList extends JukeObject {
 
     /**
      * Factory method to create a {@code TaskList}, from existing saved tasks.
+     *
      * @return {@code TaskList} object
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
      */
@@ -49,7 +51,8 @@ public class TaskList extends JukeObject {
 
     /**
      * Adds a task.
-     * @param task JukeTask object.
+     *
+     * @param task {@code JukeTask} object.
      * @return true if the task is added, else false
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
      */
@@ -65,8 +68,9 @@ public class TaskList extends JukeObject {
 
     /**
      * Deletes a task by index.
-     * @param task Index of JukeTask object
-     * @return true if the task is successfuly deleted, else false
+     *
+     * @param task Index of {@code JukeTask} object
+     * @return {@code JukeTask} deleted if the task is successfully deleted, else throws an exception
      * @throws JukeIllegalArgumentException if the input argument is invalid
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
      */
@@ -86,6 +90,7 @@ public class TaskList extends JukeObject {
 
     /**
      * Marks a task as complete.
+     *
      * @param index Index of task to act on.
      * @throws JukeIllegalArgumentException if the input argument is invalid
      * @throws JukeStateException if the user tries to mark a completed task as completed again
@@ -102,6 +107,7 @@ public class TaskList extends JukeObject {
 
     /**
      * Marks a task as incomplete.
+     *
      * @param index Index of task to act on.
      * @throws JukeIllegalArgumentException if the input argument is invalid
      * @throws JukeStateException if the user tries to mark an incomplete task as incompleted again
@@ -118,6 +124,7 @@ public class TaskList extends JukeObject {
 
     /**
      * Returns information of the task at the specified index.
+     *
      * @param index Index of task to act on.
      * @return String representation of the task.
      * @throws JukeIllegalArgumentException if the input argument is invalid
@@ -131,9 +138,10 @@ public class TaskList extends JukeObject {
     }
 
     /**
-     * String representation of the task manager. This consists of all the tasks
-     * managed by this task manager.
-     * @return String representation of the task manager.
+     * String representation of the {@code TaskList}. This consists of all the tasks
+     * managed by this {@code TaskList}.
+     *
+     * @return String representation of this {@code TaskList}.
      */
     @Override
     public String toString() {

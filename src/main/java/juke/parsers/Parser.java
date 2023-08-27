@@ -37,6 +37,7 @@ public abstract class Parser extends JukeObject {
 
     /**
      * Parse a command by a space. This method is used to obtain the first command in the command chain.
+     *
      * @param command Raw Command
      * @return Parsed array of Strings which represents the tokens in the command.
      */
@@ -47,6 +48,7 @@ public abstract class Parser extends JukeObject {
     /**
      * Parse a command by the String "/by". This method is to be invoked only on a cleaned String where
      * the first starting command is discarded.
+     *
      * @param command Processed Command
      * @return Parsed array of String which represents the parsed tokens in the command
      */
@@ -57,6 +59,7 @@ public abstract class Parser extends JukeObject {
     /**
      * Parse a command by the String "/from" and "/to". This method is to be invoked only on a
      * cleaned String where the first starting command is discarded.
+     *
      * @param command Processed Command
      * @return Parsed array of String which represents the parsed tokens in the command
      */
@@ -66,6 +69,7 @@ public abstract class Parser extends JukeObject {
 
     /**
      * Checks if the input string matches the "/by" sequence.
+     *
      * @param command String to check
      * @return true if the input string matches, else false
      */
@@ -75,6 +79,7 @@ public abstract class Parser extends JukeObject {
 
     /**
      * Checks if the input string matches the "/from ... /to" sequence.
+     *
      * @param command String to check
      * @return true if the input string matches, else false
      */

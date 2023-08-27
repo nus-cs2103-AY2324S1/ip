@@ -24,10 +24,11 @@ public abstract class JukeCommand extends JukeObject {
     private static final String ILLEGAL_TOPIC_REGEX = ".*\\|.*";
 
     /**
-     * Creates the specified JukeCommand of interest.
+     * Creates the specified {@code JukeCommand} of interest.
+     *
      * @param command Raw command from the user input
-     * @param taskList TaskList object which manages all tasks.
-     * @return Corresponding JukeCommand object
+     * @param taskList {@code TaskList} object which manages all tasks.
+     * @return Corresponding {@code JukeCommand} object
      */
     public static JukeCommand of(String command, TaskList taskList) throws JukeException {
         String[] parsedArgs = Parser.parseBySpace(command);
@@ -35,10 +36,11 @@ public abstract class JukeCommand extends JukeObject {
     }
 
     /**
-     * Dispatches the commands to the necessary subclasses of JukeCommand.
+     * Dispatches the commands to the necessary subclasses of {@code JukeCommand}.
+     *
      * @param args Parsed arguments
-     * @param taskList TaskList object which manages all tasks.
-     * @return Corresponding JukeCommand object
+     * @param taskList {@code TaskList} object which manages all tasks.
+     * @return Corresponding {@code JukeCommand} object
      */
     private static JukeCommand dispatch(String[] args, TaskList taskList) throws JukeException {
         if (args.length == 0) {

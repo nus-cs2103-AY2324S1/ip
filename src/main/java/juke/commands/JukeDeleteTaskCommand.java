@@ -16,8 +16,9 @@ public class JukeDeleteTaskCommand extends JukeCommand {
     private final int task;
 
     /**
-     * Constructor for JukeDeleteTaskCommand.
-     * @param taskList TaskList instance
+     * Constructor for {@code JukeDeleteTaskCommand}.
+     *
+     * @param taskList {@code TaskList} instance
      * @param task Index of task to delete
      */
     public JukeDeleteTaskCommand(TaskList taskList, int task) {
@@ -27,6 +28,7 @@ public class JukeDeleteTaskCommand extends JukeCommand {
 
     /**
      * Necessary method that is invoked when the action is carried out.
+     *
      * @throws JukeStorageException if there is an issue with storing changes
      */
     @Override

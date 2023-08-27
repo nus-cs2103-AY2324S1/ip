@@ -25,6 +25,7 @@ public class Juke {
 
     /**
      * Constructor for Juke.
+     *
      * @throws JukeInitialisationException if there are issues with initialising Juke (storage, etc.)
      * @throws JukeStorageException if there are issues with retrieving data from the datafile
      */
@@ -36,6 +37,7 @@ public class Juke {
 
     /**
      * Main function that is run when this Java file is compiled and executed.
+     *
      * @param args CLI Arguments
      */
     public static void main(String[] args) {

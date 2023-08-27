@@ -8,7 +8,8 @@ public class JukeExceptionCommand extends JukeCommand {
     private final Exception err;
 
     /**
-     * Constructor to create an Error Action.
+     * Constructor to create a {@code JukeExceptionCommand}.
+     *
      * @param err Error description
      */
     public JukeExceptionCommand(Exception err) {

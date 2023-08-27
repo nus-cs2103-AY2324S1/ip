@@ -20,7 +20,7 @@ public class JukeEvent extends JukeTask {
     private final LocalDateTime end;
 
     /**
-     * Constructor used to create an event.
+     * Constructor used to create a {@code JukeEvent}.
      *
      * @param taskName Task description
      * @param start Start date/time
@@ -33,8 +33,9 @@ public class JukeEvent extends JukeTask {
     }
 
     /**
-     * Overloaded constructor used to create an event.
-     * @param taskName Task descriptioni
+     * Overloaded constructor used to create a {@code JukeEvent}.
+     *
+     * @param taskName Task description
      * @param start Start date/time
      * @param end End date/time
      * @param completion Status of completion of the task
@@ -50,6 +51,7 @@ public class JukeEvent extends JukeTask {
 
     /**
      * Returns the string which represents this object when it is saved into the datafile.
+     *
      * @return Datafile representation of this object
      */
     @Override
@@ -59,6 +61,7 @@ public class JukeEvent extends JukeTask {
 
     /**
      * String representation of this {@code JukeEvent} object
+     *
      * @return String representation
      */
     @Override

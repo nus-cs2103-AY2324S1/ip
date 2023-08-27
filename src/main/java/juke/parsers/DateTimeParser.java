@@ -8,7 +8,7 @@ import juke.core.JukeObject;
 import juke.exceptions.parsers.JukeDateFormatParseException;
 
 /**
- * Parses Datetime Strings into the relevant DateTime objects.
+ * Parses Datetime Strings into the relevant {@code LocalDateTime} objects.
  */
 public class DateTimeParser extends JukeObject {
     /** Regex for recognising DateTime inputs. */
@@ -20,6 +20,7 @@ public class DateTimeParser extends JukeObject {
 
     /**
      * Checks if the input date is of the correct Date format.
+     *
      * @param date Input date
      * @return true if the String is a valid Date format, else false
      */
@@ -29,6 +30,7 @@ public class DateTimeParser extends JukeObject {
 
     /**
      * Checks if the input date is of the correct DateTime format.
+     *
      * @param datetime Input datetime
      * @return true if the String is a valid DateTime format, else false
      */
@@ -37,8 +39,9 @@ public class DateTimeParser extends JukeObject {
     }
 
     /**
-     * Parses the input String into a LocalDateTime object, provided that the
+     * Parses the input String into a {@code LocalDateTime} object, provided that the
      * string meets the requirement of either being a valid Date or DateTime.
+     *
      * @param datetime Input date/datetime string
      * @return {@code LocalDateTime} object representing the input datetime
      */
@@ -67,6 +70,7 @@ public class DateTimeParser extends JukeObject {
     /**
      * Directly parse stored datafile representation of {@code LocalDateTime}
      * objects into actual {@code LocalDateTime} objects.
+     *
      * @param parsedDateTimeString Stored string
      * @return {@code LocalDateTime} object
      */

@@ -8,8 +8,9 @@ public class JukePrintCommand extends JukeCommand {
     private final Object printTarget;
 
     /**
-     * Constructor for JukePrintCommand.
-     * @param printTarget Object to print
+     * Constructor for {@code JukePrintCommand}.
+     *
+     * @param printTarget {@code Object} to print
      */
     public JukePrintCommand(Object printTarget) {
         this.printTarget = printTarget;

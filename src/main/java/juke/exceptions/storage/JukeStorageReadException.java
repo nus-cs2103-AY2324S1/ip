@@ -6,6 +6,7 @@ package juke.exceptions.storage;
 public class JukeStorageReadException extends JukeStorageException {
     /**
      * Constructor to create a {@code JukeStorageReadException}.
+     *
      * @param err Error description
      */
     public JukeStorageReadException(String err) {

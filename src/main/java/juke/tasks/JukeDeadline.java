@@ -17,7 +17,8 @@ public class JukeDeadline extends JukeTask {
     private final LocalDateTime deadline;
 
     /**
-     * Constructor for JukeDeadline.
+     * Constructor for {@code JukeDeadline}.
+     *
      * @param task Task description
      * @param deadline Deadline for task
      */
@@ -27,7 +28,8 @@ public class JukeDeadline extends JukeTask {
     }
 
     /**
-     * Overloaded constructor for JukeDeadline.
+     * Overloaded constructor for {@code JukeDeadline}.
+     *
      * @param task Task description
      * @param deadline Deadline for task
      * @param completion Status of completion of the task
@@ -43,6 +45,7 @@ public class JukeDeadline extends JukeTask {
 
     /**
      * Returns the string which represents this object when it is saved into the datafile.
+     *
      * @return Datafile representation of this object
      */
     @Override
@@ -52,6 +55,7 @@ public class JukeDeadline extends JukeTask {
 
     /**
      * String representation of this {@code JukeDeadline} object
+     *
      * @return String representation
      */
     @Override

@@ -14,7 +14,8 @@ public class JukeMarkTaskDoneCommand extends JukeCommand {
     private final int index;
 
     /**
-     * Constructor for JukeMarkTaskDoneCommand.
+     * Constructor for {@code JukeMarkTaskDoneCommand}.
+     *
      * @param taskList {@code TaskList} that manages the tasks
      * @param index Index of the Task to act on
      */
@@ -25,6 +26,7 @@ public class JukeMarkTaskDoneCommand extends JukeCommand {
 
     /**
      * Necessary method that is invoked when the action is carried out.
+     *
      * @throws JukeStorageException if there are any errors encountered when reading the data
      */
     @Override

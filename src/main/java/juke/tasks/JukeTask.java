@@ -4,7 +4,7 @@ import juke.core.JukeObject;
 import juke.exceptions.JukeStateException;
 
 /**
- * Abstract Class that represents a task that the user adds to Juke.
+ * Abstract Class that represents a task that the user adds to {@code Juke}.
  */
 public abstract class JukeTask extends JukeObject {
     /** Icon to display when the task is completed. */
@@ -21,6 +21,7 @@ public abstract class JukeTask extends JukeObject {
 
     /**
      * Private constructor used to create an incomplete task.
+     *
      * @param taskName Task description
      */
     public JukeTask(String taskName) {
@@ -30,6 +31,7 @@ public abstract class JukeTask extends JukeObject {
 
     /**
      * Marks a task as complete.
+     *
      * @throws JukeStateException if the task is already completed
      */
     public void markAsComplete() throws JukeStateException {
@@ -42,6 +44,7 @@ public abstract class JukeTask extends JukeObject {
 
     /**
      * Marks a task as incomplete.
+     *
      * @throws JukeStateException if the task is already incomplete
      */
     public void markAsIncomplete() throws JukeStateException {
@@ -54,6 +57,7 @@ public abstract class JukeTask extends JukeObject {
 
     /**
      * Converts the task object to a String representation.
+     *
      * @return String representation of JukeTask
      */
     @Override
