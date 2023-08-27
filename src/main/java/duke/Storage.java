@@ -13,6 +13,12 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File f = new File(filePath);
+            if (!f.exists()) {
+                if (f.createNewFile()) {
+                    System.out.println("File created: " + f.getName());
+                }
+            }
+
             Scanner scanner = new Scanner(f);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -24,6 +30,8 @@ public class Storage {
             scanner.close();
         } catch (FileNotFoundException e) {
             throw new DukeException("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            throw new DukeException("Error creating file" + e.getMessage());
         }
         return tasks;
     }

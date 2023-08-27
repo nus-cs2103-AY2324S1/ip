@@ -20,17 +20,18 @@ public class TaskList {
     }
 
 
-    public void listTasks() {
+    public ArrayList<String> listTasks() {
+        ArrayList<String> msg = new ArrayList<String>();
         if (tasks.isEmpty()) {
-            System.out.println("List is empty");
-            return;
+            msg.add("List is empty");
         }
 
         System.out.println("List:");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            System.out.println((i + 1) + ". " + task.toString());
+            msg.add((i + 1) + ". " + task.toString()) ;
         }
+        return msg;
     }
 
     public void mark(String input, int number) {

@@ -14,7 +14,7 @@ public class Parser {
                 storage.saveTasksToFile(list.task());
                 System.exit(0);
             } else if (input.equalsIgnoreCase("list")) {
-                list.listTasks();
+                ui.print(list.listTasks());
             } else if (input.startsWith("mark")) {
                 list.mark(input, number);
             } else if (input.startsWith("unmark")) {
@@ -83,12 +83,7 @@ public class Parser {
                     throw new DukeException("Invalid input format.");
                 }
             } else {
-                ui.showError("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                ui.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-//        } catch (DukeException e) {
-//            ui.showError(e.getMessage());
-//        }
     }
-
-    // Implement other methods for parsing
 }

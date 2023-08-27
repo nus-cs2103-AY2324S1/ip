@@ -31,7 +31,7 @@ public class Duke {
                 int number = tasks.num();
                 Parser.parseInput(input, tasks, number, filePath, ui, storage);
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
     }
