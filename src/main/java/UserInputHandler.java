@@ -65,6 +65,7 @@ public class UserInputHandler {
     }
     private void readArray() {
         StorageHandler.readArray();
+        System.out.println(lineBreak);
     }
     private void addToArray() throws InvalidTaskException {
         Task t = new Task(input);
@@ -86,7 +87,6 @@ public class UserInputHandler {
         System.out.println(lineBreak);
     }
     private void todo(String s) throws InvalidTaskException{
-        System.out.println(s);
         Task t = new ToDos(input);
         StorageHandler.addToArray(t);
         System.out.println(lineBreak);

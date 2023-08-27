@@ -1,8 +1,9 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class SaveHandler {
-    private static int i = 0;
+    private static int listSize = 0;
     private static Task[] tasks = new Task[100];
     private static File file = new File("src/main/List.txt");
 
@@ -29,7 +30,14 @@ public class SaveHandler {
                     break;
                 }
                 String toStore = t.toStore() + "\n";
-                //System.out.println(toStore);
+
+
+
+                //System.out.println("toStore: " + toStore);
+
+
+
+
                 try {
                     Writer temp;
                     temp = new BufferedWriter(new FileWriter("src/main/List.txt", true));
@@ -44,22 +52,21 @@ public class SaveHandler {
     }
 
     public static Task[] loadFrom() {
+
         try {
             int pos = 0;
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                i++;
                 String s = scanner.nextLine();
                 String[] arr = s.split(" \\| ");
                 Task t = stringToTask(arr);
-                if (t == null) {
-                    continue;
-                } else {
+                if (t != null) {
                     tasks[pos] = t;
                     pos++;
                 }
 
             }
+            listSize = pos;
         } catch (FileNotFoundException e) {
             System.out.println("There's no file with your to do list peko");
         }
@@ -69,21 +76,22 @@ public class SaveHandler {
     private static Task stringToTask(String[] arr) {
         Task t;
         try {
+
             switch (arr[0]) {
                 case "T":
-                    t = new ToDos("todo " + arr[2]);
+                    t = new ToDos( arr[2]);
                     if (arr[1] == "1") {
                         t.setMark();
                     }
                     return t;
                 case "D":
-                    t = new Deadline("deadline " + arr[2] + " /by " + arr[3]);
+                    t = new Deadline(arr[2] + " /by " + arr[3]);
                     if (arr[1] == "1") {
                         t.setMark();
                     }
                     return t;
                 case "E":
-                    t = new Event("event " + arr[2] + " /from " + arr[3] + " /to " + arr[4]);
+                    t = new Event(arr[2] + " /from " + arr[3] + " /to " + arr[4]);
                     if (arr[1] == "1") {
                         t.setMark();
                     }
@@ -100,7 +108,7 @@ public class SaveHandler {
     }
 
     public static int size() {
-        return i;
+        return listSize;
     }
 
 

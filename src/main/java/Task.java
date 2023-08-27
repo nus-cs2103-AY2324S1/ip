@@ -20,11 +20,7 @@ public class Task {
     public void setUnmark() {
         status = false;
     }
-    public void reply(int i) {
-        i++;
-        System.out.println("Added: \n" + this.toString() + "\nPeko!");
-        System.out.println("You have: " + i + " tasks now Peko");
-    }
+
     public String toStore() {
         String state = status ? "0" : "1";
         return state + " | " + this.name;

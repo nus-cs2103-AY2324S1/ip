@@ -7,7 +7,6 @@ public class StorageHandler {
     private static int size;
     private static SaveHandler saveHandler;
     public StorageHandler() {
-        saveHandler = new SaveHandler();
         todoList = saveHandler.loadFrom();
         size = saveHandler.size();
     }
@@ -24,8 +23,8 @@ public class StorageHandler {
     }
     public static void addToArray(Task t) {
         todoList[size] = t;
-        todoList[size].reply(size);
-        size++;
+        System.out.println("Added: \n" + todoList[size].toString() + "\nPeko!");
+        System.out.println("    You have: " + (size+1) + " tasks now Peko");
         saveHandler.saveTo();
     }
     public static void setMarkArray(int i) {

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Deadline extends Task{
     char type =  'D';
     DateTimeHandler dateTimeHandler;
@@ -11,7 +13,12 @@ public class Deadline extends Task{
             System.out.println("You can't have two deadlines peko!");
             return;
         }
-        this.name = split[0];
+
+        String[] temp = split[0].split(" ",2);
+        //System.out.println(Arrays.toString(temp));
+
+        this.name = temp[0];
+
         dateTimeHandler = new DateTimeHandler(split[1]);
     }
 
@@ -22,6 +29,7 @@ public class Deadline extends Task{
 
     public String toStore() {
         String state = this.status ? "0" : "1";
-        return "D" + " | " + state + " | " + this.name + " | " + dateTimeHandler.toString();
+        String output = "D" + " | " + state + " | " + this.name + " | " + dateTimeHandler.toString();
+        return output;
     }
 }

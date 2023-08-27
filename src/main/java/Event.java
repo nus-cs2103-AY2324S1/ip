@@ -12,6 +12,8 @@ public class Event extends Task{
             System.out.println("You can't have two start dates peko!");
             return;
         }
+
+        split[0].split(" ",2);
         this.name = split[0];
         split = split[1].split(" /to ");
         if (split.length == 1) {
