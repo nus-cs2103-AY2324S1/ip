@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,8 +12,9 @@ public class Duke {
     }
 
     // Constants
-    private static final String name = "Beep Boop";
-    private static final String line = "─".repeat(100);
+    private static final String NAME = "Beep Boop";
+    private static final String LINE = "─".repeat(100);
+    private static final String PATH = "./data/duke.txt";
 
     // Fields
     private Scanner sc = new Scanner(System.in);
@@ -17,13 +22,22 @@ public class Duke {
 
     public void printMessage(String message) {
         System.out.printf("\t%s\n", message);
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     public void greet() {
-        String greeting = String.format("Hello! I'm %s\n\tWhat can I do for you?\n", name);
-        System.out.println(line);
-        printMessage(greeting);
+        System.out.println(LINE);
+        System.out.printf("\tHello! I'm %s!\n\n", NAME);
+
+        try {
+            loadList();
+        } catch (FileNotFoundException e) {
+            System.out.println("\tBoop Beep, you do not have any previous task.");
+        } catch (DukeException e) {
+            printMessage(e.getMessage());
+        }
+
+        printMessage("\n\tHow can I help you?\n");
     }
 
     public void exit() {
@@ -35,7 +49,7 @@ public class Duke {
         list.add(task);
         System.out.println("\tGot it. I've added this task:");
         System.out.printf("\t\t%s\n\tNow you have %d tasks in the list.\n", task.toString(), list.size());
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     private void deleteFromList(int index) {
@@ -43,7 +57,7 @@ public class Duke {
         list.remove(index);
         System.out.println("\tNoted. I've removed this task:");
         System.out.printf("\t\t%s\n\tNow you have %d tasks in the list.\n", task.toString(), list.size());
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     public void printList() {
@@ -51,7 +65,7 @@ public class Duke {
         for (int i =0; i < list.size(); i++) {
             System.out.printf("\t\t%d. %s\n", i + 1, list.get(i));
         }
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     private void validateToDo(String description) throws DukeException {
@@ -62,13 +76,15 @@ public class Duke {
 
     private void validateDeadline(String[] deadlineString) throws DukeException {
         if (deadlineString.length != 2 || deadlineString[0].isBlank() || deadlineString[1].isBlank()) {
-            throw new DukeException("Boop Beep OOPS!!! Please make sure that the description and date of the deadline is not empty.");
+            throw new DukeException("Boop Beep OOPS!!! Please make sure that"
+                    + " the description and date of the deadline is not empty.");
         }
     }
 
     private void validateEvent(String[] eventString) throws DukeException {
         if (eventString.length != 3 || eventString[0].isBlank() || eventString[1].isBlank() || eventString[2].isBlank()) {
-            throw new DukeException("Boop Beep OOPS!!! Please make sure that the description and dates of the event is not empty.");
+            throw new DukeException("Boop Beep OOPS!!! Please make sure that"
+                    + " the description and dates of the event is not empty.");
         }
     }
 
@@ -79,13 +95,89 @@ public class Duke {
             try {
                 int numberInt = Integer.parseInt(number);
                 if (numberInt <= 0 || numberInt > list.size()) {
-                    throw new DukeException("Boop Beep OOPS!!! Please make sure that the index of the task is within range.");
+                    throw new DukeException("Boop Beep OOPS!!! Please make sure that"
+                            + " the index of the task is within range.");
                 }
             } catch (NumberFormatException e) {
                 throw new DukeException("Boop Beep OOPS!!! Please make sure that the index of the task is an integer.");
             }
         }
     }
+
+    private void loadList() throws FileNotFoundException, DukeException {
+        File f = new File(PATH);
+        Scanner s = new Scanner(f);
+
+        System.out.println("\tHere are previous tasks in your list:");
+        int i = 0;
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String taskType = line.substring(0, 3);
+            String markDone = line.substring(4, 7);
+
+            if (taskType.equals("[T]")) {
+                String taskDescription = line.substring(8);
+
+                ToDo todo = new ToDo(taskDescription);
+                list.add(todo);
+                if (markDone.equals("[X]")) {
+                    list.get(i).markDone();
+                }
+            } else if (taskType.equals("[D]")) {
+                String[] deadlineString = line.substring(8).split(":", 2);
+                String description = deadlineString[0];
+                String taskDescription = description.substring(0, description.length() - 3).trim();
+                String date = deadlineString[1];
+                String taskDate = date.substring(0, date.length()).trim();
+
+                Deadline deadline = new Deadline(taskDescription, taskDate);
+                list.add(deadline);
+                if (markDone.equals("[X]")) {
+                    list.get(i).markDone();
+                }
+            } else if (taskType.equals("[E]")) {
+                String[] eventString = line.substring(8).split(":", 3);
+                String description = eventString[0];
+                String taskDescription = description.substring(0, description.length() - 5).trim();
+                String startDate = eventString[1];
+                String taskStartDate = startDate.substring(0, startDate.length() - 2).trim();
+                String endDate = eventString[2];
+                String taskEndDate = endDate.substring(0, endDate.length() - 1).trim();
+
+                Event event = new Event(taskDescription, taskStartDate, taskEndDate);
+                list.add(event);
+                if (markDone.equals("[X]")) {
+                    list.get(i).markDone();
+                }
+            } else {
+                throw new DukeException("Boop Beep OOPS!!! It seems like the data file is corrupted :(");
+            }
+
+            System.out.printf("\t\t%d. %s\n", i + 1, line);
+            i++;
+        }
+    }
+
+    private void saveList(String filePath) throws IOException {
+        File f = new File(filePath);
+        if (!f.exists()) {
+            try {
+                f.getParentFile().mkdirs();
+                f.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Boop Beep OOPS, " + e.getMessage());
+            }
+        }
+
+        FileWriter fw = new FileWriter(filePath);
+        String stringList = "";
+        for (int i = 0; i < list.size(); i++) {
+            stringList = stringList + list.get(i) + System.lineSeparator();
+        }
+        fw.write(stringList);
+        fw.close();
+    }
+
     public void runDuke() {
         greet();
 
@@ -125,7 +217,8 @@ public class Duke {
                     ToDo todo = new ToDo(description);
                     addToList(todo);
                 } else if (input.startsWith("deadline")) {
-                    String[] deadlineString = input.replaceFirst("deadline", "").split("/", 2);
+                    String[] deadlineString = input.replaceFirst("deadline", "")
+                            .split("/", 2);
                     validateDeadline(deadlineString);
 
                     String description = deadlineString[0].trim();
@@ -152,8 +245,12 @@ public class Duke {
                 } else {
                     throw new DukeException("Boop Beep OOPS!!! I'm sorry, but I don't know what that means :(");
                 }
+
+                saveList(PATH);
             } catch (DukeException e) {
                 printMessage(e.getMessage());
+            } catch (IOException e) {
+                printMessage("Boop Beep OOPS, " + e.getMessage());
             }
         }
 
