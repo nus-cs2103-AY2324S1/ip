@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<Task>();
         int taskCount = 0;
 
         String introduction = "____________________________________________________________\n" +
@@ -49,9 +50,9 @@ public class Duke {
                 System.out.println(output);
 
                 for (int i = 0; i < taskCount; i++) {
-                    String entryOutput = (i + 1) + ". " + tasks[i];
-                    if (tasks[i].isDone()) {
-                        entryOutput = (i + 1) + ". " + tasks[i];
+                    String entryOutput = (i + 1) + ". " + tasks.get(i);
+                    if (tasks.get(i).isDone()) {
+                        entryOutput = (i + 1) + ". " + tasks.get(i);
                     }
                     System.out.println(entryOutput);
                 }
@@ -76,10 +77,10 @@ public class Duke {
                     continue;
                 }
 
-                tasks[index].markAsDone();
+                tasks.get(index).markAsDone();
 
                 String output = "Nice! I've marked this task as done: \n" +
-                        tasks[index];
+                        tasks.get(index);
 
                 System.out.println("____________________________________________________________\n");
                 System.out.println(output);
@@ -104,10 +105,10 @@ public class Duke {
                     continue;
                 }
 
-                tasks[index].markAsUndone();
+                tasks.get(index).markAsUndone();
 
                 String output = "OK, I've marked this task as not done yet: \n" +
-                        tasks[index];
+                        tasks.get(index);
 
                 System.out.println("____________________________________________________________\n");
                 System.out.println(output);
@@ -122,12 +123,12 @@ public class Duke {
                 }
 
                 String taskName = input.substring(4).strip();
-                tasks[taskCount] = new ToDo(taskName);
+                tasks.add(new ToDo(taskName));
                 taskCount += 1;
 
                 String output = "____________________________________________________________\n" +
                         "Got it, I've added this task: \n" +
-                        tasks[taskCount - 1] + "\n" +
+                        tasks.get(taskCount - 1) + "\n" +
                         "You now have " + taskCount + " tasks in the list. \n" +
                         "____________________________________________________________\n";
 
@@ -152,7 +153,7 @@ public class Duke {
                         throw new DukeInvalidFormatException(errorStr);
                     }
 
-                    tasks[taskCount] = new Deadline(taskArr[0].strip(), taskArr[1].strip());
+                    tasks.add(new Deadline(taskArr[0].strip(), taskArr[1].strip()));
                     taskCount += 1;
 
                 } catch (DukeInvalidFormatException e) {
@@ -167,7 +168,7 @@ public class Duke {
 
                 String output = "____________________________________________________________\n" +
                         "Got it, I've added this task: \n" +
-                        tasks[taskCount - 1] + "\n" +
+                        tasks.get(taskCount - 1) + "\n" +
                         "You now have " + taskCount + " tasks in the list. \n" +
                         "____________________________________________________________\n";
 
@@ -192,7 +193,7 @@ public class Duke {
                         throw new DukeInvalidFormatException(errorStr);
                     }
 
-                    tasks[taskCount] = new Event(taskArr[0].strip(), taskArr[1].strip(), taskArr[2].strip());
+                    tasks.add(new Event(taskArr[0].strip(), taskArr[1].strip(), taskArr[2].strip()));
                     taskCount += 1;
                 } catch (DukeInvalidFormatException e) {
                     String errorString = "____________________________________________________________\n" +
@@ -206,7 +207,7 @@ public class Duke {
 
                 String output = "____________________________________________________________\n" +
                         "Got it, I've added this task: \n" +
-                        tasks[taskCount - 1] + "\n" +
+                        tasks.get(taskCount - 1) + "\n" +
                         "You now have " + taskCount + " tasks in the list. \n" +
                         "____________________________________________________________\n";
 
