@@ -1,5 +1,5 @@
-package milbot;
-import taskclasses.*;
+package main.java.milbot;
+import main.java.taskclasses.*;
 
 import java.io.*;
 import java.util.ArrayList;

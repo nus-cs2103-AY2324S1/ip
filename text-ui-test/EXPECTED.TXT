@@ -5,32 +5,49 @@
 |__|       |__|  |_|  |______|
 
      __________________________________________________________________________
-     Hi there, I'm milbot.Mil - your personal chatbot.
+     Hi there, I'm Mil - your personal chatbot.
      How can I help you today?
      __________________________________________________________________________
      __________________________________________________________________________
-     Got it. I've added this taskclasses:
-       [T][ ] go to sleep
+     Got it. I've added this task:
+       [T][ ] complete lab 1
      Now you have 1 tasks in the list.
      __________________________________________________________________________
      __________________________________________________________________________
-     Got it. I've added this taskclasses:
-       [D][ ] complete level 5  (by: Nov 7 2023)
+     Got it. I've added this task:
+       [T][ ] test
      Now you have 2 tasks in the list.
      __________________________________________________________________________
      __________________________________________________________________________
-     Got it. I've added this taskclasses:
-       [E][ ] watch movie  (from: Oct 11 2023to: Dec 3 2023)
+     Got it. I've added this task:
+       [D][ ] finish task  (by: Nov 7 2023)
      Now you have 3 tasks in the list.
      __________________________________________________________________________
      __________________________________________________________________________
-     Nice! I've marked this taskclasses as done:
-     [T][X] go to sleep
+     Got it. I've added this task:
+       [E][ ] do stuff  (from: Nov 1 2023 to: Nov 2 2023)
+     Now you have 4 tasks in the list.
      __________________________________________________________________________
      __________________________________________________________________________
-     Noted. I've removed this taskclasses:
-       [D][ ] complete level 5  (by: Nov 7 2023)
-     Now you have 2 tasks in the list.
+     Nice! I've marked this task as done:
+     [T][X] complete lab 1
+     __________________________________________________________________________
+     __________________________________________________________________________
+     Nice! I've marked this task as done:
+     [T][X] test
+     __________________________________________________________________________
+     __________________________________________________________________________
+     Nice! I've marked this task as done:
+     [D][X] finish task  (by: Nov 7 2023)
+     __________________________________________________________________________
+     __________________________________________________________________________
+     OK, I've marked this task as not done yet:
+     [T][ ] complete lab 1
+     __________________________________________________________________________
+     __________________________________________________________________________
+     Noted. I've removed this task:
+       [T][X] test
+     Now you have 3 tasks in the list.
      __________________________________________________________________________
      __________________________________________________________________________
      Have a nice day and see you again soon!

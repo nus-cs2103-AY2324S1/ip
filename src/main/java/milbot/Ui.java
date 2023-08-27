@@ -1,6 +1,6 @@
-package milbot;
+package main.java.milbot;
 
-import taskclasses.*;
+import main.java.taskclasses.*;
 
 public class Ui {
     private static final String INDENTATION = "     ";

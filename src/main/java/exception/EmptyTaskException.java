@@ -1,6 +1,4 @@
-package exception;
-
-import exception.MilException;
+package main.java.exception;
 
 public class EmptyTaskException extends MilException {
     public EmptyTaskException() {

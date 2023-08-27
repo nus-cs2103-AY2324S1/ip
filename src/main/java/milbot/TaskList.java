@@ -1,8 +1,8 @@
-package milbot;
+package main.java.milbot;
 
 import java.util.ArrayList;
 import java.util.List;
-import taskclasses.*;
+import main.java.taskclasses.*;
 
 public class TaskList {
     private List<Task> taskList;
