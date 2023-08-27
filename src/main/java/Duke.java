@@ -178,6 +178,7 @@ public class Duke {
             }
             Task task = tasks.get(index);
             task.markAsDone();
+            overrideStorage();
             System.out.println(LINE);
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println("  " + task);
@@ -196,6 +197,7 @@ public class Duke {
                 return;
             }
             Task task = tasks.remove(index);
+            overrideStorage();
             System.out.println(LINE);
             System.out.println("Noted. I've removed this task: ");
             System.out.println("  " + task);
@@ -205,6 +207,19 @@ public class Duke {
             
         } catch (NumberFormatException e) {
             printErrorMessage(new DukeException("Invalid command format"));
+        }
+    }
+
+    private static void overrideStorage() {
+        try {
+            File file = getFile();
+            FileWriter fw = new FileWriter(file, false);
+            for (Task task : tasks) {
+                fw.write(task.toStorageString() + "\n");
+            }
+            fw.close();
+        } catch (Exception e) {
+            printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
         }
     }
     
