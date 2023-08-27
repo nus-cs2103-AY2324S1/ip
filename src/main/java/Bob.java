@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Duke {
+public class Bob {
     private static final String divider = "\n____________________________________________________________\n";
     private static final String logo =
             ".-. .-')              .-. .-')   \n" +
@@ -17,11 +17,15 @@ public class Duke {
     private static int pointer = 0;
     private static boolean isActive = true;
     private static final Scanner scanner = new Scanner(System.in);
+    public enum Commands {
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
+    }
+
     public static void main(String[] args) {
-        Duke.printWelcomeMessage();
+        Bob.printWelcomeMessage();
         try {
             processResponse();
-        } catch (DukeException e) {
+        } catch (BobException e) {
             System.out.println(e.getMessage() + divider);
         }
     }
@@ -52,10 +56,9 @@ public class Duke {
         }
     }
 
-    private static void processResponse() throws DukeException{
+    private static void processResponse() throws BobException {
         String displayMessage = "I gotchu. New task added to the list:\n";
-
-        String input = Duke.scanner.nextLine();
+        String input = Bob.scanner.nextLine();
         String[] inputSplit = input.split(" ", 2);
         String command = inputSplit[0].toUpperCase();
         String argument = "";
@@ -66,8 +69,8 @@ public class Duke {
         try {
             switch (parseCommand(command)) {
                 case BYE:
-                    Duke.printGoodbyeMessage();
-                    Duke.isActive = false;
+                    Bob.printGoodbyeMessage();
+                    Bob.isActive = false;
                     break;
                 case LIST:
                     if (pointer == 0) {
@@ -116,9 +119,9 @@ public class Duke {
                         System.out.println("The description of your todo should not be empty! Try:\ntodo [description]" + divider);
                         break;
                     }
-                    Duke.tasks.add(new Todo(argument));
-                    System.out.println(displayMessage + Duke.tasks.get(pointer).toString());
-                    Duke.pointer++;
+                    Bob.tasks.add(new Todo(argument));
+                    System.out.println(displayMessage + Bob.tasks.get(pointer).toString());
+                    Bob.pointer++;
                     printListMessage();
                     break;
                 case DEADLINE:
@@ -131,9 +134,9 @@ public class Duke {
                         System.out.println("Incorrect deadline command format! It should be:\ndeadline [description] /by [duedate]" + divider);
                         break;
                     }
-                    Duke.tasks.add(new Deadline(bySplit[0], bySplit[1]));
-                    System.out.println(displayMessage + Duke.tasks.get(pointer).toString());
-                    Duke.pointer++;
+                    Bob.tasks.add(new Deadline(bySplit[0], bySplit[1]));
+                    System.out.println(displayMessage + Bob.tasks.get(pointer).toString());
+                    Bob.pointer++;
                     printListMessage();
                     break;
                 case EVENT:
@@ -151,9 +154,9 @@ public class Duke {
                         System.out.println("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]" + divider);
                         break;
                     }
-                    Duke.tasks.add(new Event(descSplit[0], periodSplit[0], periodSplit[1]));
-                    System.out.println(displayMessage + Duke.tasks.get(pointer).toString());
-                    Duke.pointer++;
+                    Bob.tasks.add(new Event(descSplit[0], periodSplit[0], periodSplit[1]));
+                    System.out.println(displayMessage + Bob.tasks.get(pointer).toString());
+                    Bob.pointer++;
                     printListMessage();
                     break;
                 case DELETE:
@@ -166,7 +169,7 @@ public class Duke {
                         Task deletedTask = tasks.remove(delIndex - 1);
                         System.out.println("Foosh! Let it be gone! I've helped delete the task:\n" +
                                 deletedTask.toString());
-                        Duke.pointer--;
+                        Bob.pointer--;
                         printListMessage();
                     } catch (NumberFormatException e) {
                         System.out.println("The delete command must be followed by an integer number." + divider);
@@ -179,16 +182,14 @@ public class Duke {
                     break;
             }
 
-            if (Duke.isActive) {
+            if (Bob.isActive) {
                 processResponse();
             }
 
         } catch (Exception e) {
-            throw new DukeException("An unknown error has occurred. I'll shut myself off for now.");
+            throw new BobException("An unknown error has occurred. I'll shut myself off for now.");
         }
     }
 
-    public enum Commands {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
-    }
+
 }
