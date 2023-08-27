@@ -2,17 +2,15 @@ package duke;
 
 import duke.task.*;
 
-import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StorageTest {
     @Test 
     public void testLoadFile() {
-        String directoryPath = "../../data";
-        String filePath = "../../data/test1.txt";
+        String directoryPath = "./data";
+        String filePath = "./data/test1.txt";
         Storage storage = new Storage(filePath, directoryPath);
         TaskList taskList = storage.loadFile();
 
@@ -30,5 +28,31 @@ public class StorageTest {
         Task task3 = taskList.getTask(2);
         Task task3Expected = new ToDo ("todo eat mcgriddles");
         assertEquals(task3.toString(), task3Expected.toString());
+    }
+
+    @Test 
+    public void emptyFile() {
+        String directoryPath = "";
+        String filePath = "";
+        Storage storage = new Storage(filePath, directoryPath);
+        TaskList taskList = storage.loadFile();
+        assertEquals(0, taskList.getSize());
+    }
+
+    @Test
+    public void testSaveFile() {
+        String directoryPath = "./data";
+        String filePath = "./data/test2.txt";
+        Storage storage = new Storage(filePath, directoryPath);
+        TaskList taskList = storage.loadFile();
+
+        Task task1 = new Deadline("deadline buy soju /by 2023-08-26 2300");
+        taskList.addTask(task1);
+        storage.saveFile(taskList);
+        TaskList taskList2 = storage.loadFile();
+        assertEquals(1, taskList2.getSize());
+        assertEquals(task1.toString(), taskList2.getTask(0).toString());
+        taskList2.deleteTask(0);
+        storage.saveFile(taskList2);
     }
 }
