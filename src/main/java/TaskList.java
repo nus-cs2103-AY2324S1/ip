@@ -124,9 +124,9 @@ public class TaskList {
     }
 
     public void listOutEverything() {
-        System.out.println(Duke.i5 + "Here are the tasks in your list:");
+        System.out.println(Ui.i5 + "Here are the tasks in your list:");
         for (int i = 0; i < this.list.size(); i++) {
-            System.out.println(Duke.i5 + (i + 1) + "." + this.list.get(i));
+            System.out.println(Ui.i5 + (i + 1) + "." + this.list.get(i));
         }
     }
 
@@ -146,17 +146,17 @@ public class TaskList {
 
     public void add(Task task) {
         this.list.add(task);
-        System.out.println(Duke.i5 + "Got it. I've added this task:");
-        System.out.println(Duke.i7 + task);
-        System.out.println(Duke.i5 + "Now you have " + this.list.size() + " tasks in the list.");
+        System.out.println(Ui.i5 + "Got it. I've added this task:");
+        System.out.println(Ui.i7 + task);
+        System.out.println(Ui.i5 + "Now you have " + this.list.size() + " tasks in the list.");
         updateHardDisk();
     }
 
     public void remove(int index) {
         Task t = this.list.remove(index);
-        System.out.println(Duke.i5 + "Noted. I've removed this task:");
-        System.out.println(Duke.i7 + t);
-        System.out.println(Duke.i5 + "Now you have " + this.list.size() + " tasks in the list.");
+        System.out.println(Ui.i5 + "Noted. I've removed this task:");
+        System.out.println(Ui.i7 + t);
+        System.out.println(Ui.i5 + "Now you have " + this.list.size() + " tasks in the list.");
         updateHardDisk();
     }
 
