@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +15,7 @@ public class Duke {
     /**
      * Represents the different commands accepted by the chatbot
      */
-    enum Command {
+    private enum Command {
         BYE,
         LIST,
         MARK,
@@ -23,24 +26,103 @@ public class Duke {
         DELETE
     }
 
-    public static void main(String[] args) {
-        List<Task> tasks = new ArrayList<>();
+    // CONSTANTS
+    private static final String LINE = "_______________________________________";
+    private static final String DIR_NAME = "./data";
+    private static final String FILE_NAME = "duke.txt";
 
-        String LINE = "_______________________________________";
+    private static void sendIntroduction() {
         String logo = "                     _                 _      \n" +
                 " _ __ ___  ___ _ __ (_)_ __ ___  _ __ (_)_  __\n" +
                 "| '__/ _ \\/ __| '_ \\| | '__/ _ \\| '_ \\| \\ \\/ /\n" +
                 "| | |  __/\\__ \\ |_) | | | | (_) | | | | |>  < \n" +
                 "|_|  \\___||___/ .__/|_|_|  \\___/|_| |_|_/_/\\_\\\n" +
                 "              |_|                             ";
-
-        Scanner scanner = new Scanner(System.in);
         System.out.println(LINE);
         System.out.println(logo);
         System.out.println(LINE);
         System.out.println("Hello! I'm your personal AI");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
+    }
+
+    private static List<Task> loadTasksFromStorage(String dirName, String fileName) {
+        List<Task> tasks = new ArrayList<>();
+        File file = new File(dirName + File.separator + fileName);
+
+        // scan for the storage file
+        try {
+            Scanner s = new Scanner(file);
+            while (s.hasNext()) {
+
+                String curr = s.nextLine();
+                String[] segments = curr.split(" \\| ");
+
+                // check for the correct format - minimum 3 different segments
+                if ((!segments[0].equals("[T]") && !segments[0].equals("[D]")
+                        && !segments[0].equals("[E]")) || segments.length < 3) {
+                    s.close(); // need to close scanner otherwise cannot replace file
+                    throw new UnrecognisedFormatException();
+                }
+
+                boolean isDone = segments[1].equals("[X]");
+
+                if (segments[0].equals("[T]")) { // To do task
+                    tasks.add(new ToDo(segments[2], isDone));
+                } else if (segments[0].equals("[D]")) { // Deadline task
+                    tasks.add(new Deadline(segments[2], segments[3], isDone));
+                } else { // Event task
+                    String[] times = segments[3].split("-");
+                    tasks.add(new Event(segments[2], times[0], times[1], isDone));
+                }
+
+            }
+        } catch (FileNotFoundException e) { // File does not exist
+            try {
+                if (new File(dirName).mkdir()) {
+                    System.out.println("Sorry, directory does not exist. Creating now...");
+                }
+                if (file.createNewFile()) {
+                    System.out.println("Sorry, file does not exist. Creating now...");
+                }
+            } catch (Exception error) {
+                System.out.println("Error... Unable to create files");
+            }
+
+        } catch (UnrecognisedFormatException e) { // File is corrupted
+            try {
+                if (file.delete()) {
+                    System.out.println("Deleting corrupted file...");
+
+                    if (file.createNewFile()) {
+                        System.out.println("Replacing file now...");
+                    }
+
+                }
+            } catch (Exception error) {
+                System.out.println("Error... Unable to create new file...");
+            }
+        }
+        return tasks;
+    }
+
+    private static void writeFile(String filePath, String text) {
+        try {
+            FileWriter fw = new FileWriter(filePath, false);
+            fw.write(text);
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Sorry... Unable to store tasks...");
+        }
+
+    }
+
+    public static void main(String[] args) {
+        List<Task> tasks = loadTasksFromStorage(DIR_NAME, FILE_NAME);
+
+        Scanner scanner = new Scanner(System.in);
+
+        sendIntroduction();
 
         try {
             while (true) {
@@ -53,6 +135,15 @@ public class Duke {
                 try { // In case there are exceptions
                     // User wants to end the chatbot
                     if (command.equals(Command.BYE.name())) {
+
+                        // store the data into the storage
+                        StringBuilder textForStorage = new StringBuilder();
+                        for (Task task : tasks) {
+                            textForStorage.append(task.toString()).append("\n");
+                        }
+
+                        writeFile(DIR_NAME + File.separator + FILE_NAME, textForStorage.toString());
+
                         System.out.println("Bye. Hope to see you again soon!");
                         System.out.println(LINE);
                         break;

@@ -16,9 +16,15 @@ public class Event extends Task {
         this.deadline = deadline;
     }
 
+    public Event(String description, String start, String deadline, boolean isDone) {
+        super(description, isDone);
+        this.start = start;
+        this.deadline = deadline;
+    }
+
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.start, this.deadline);
+        return String.format("[E] | %s | %s-%s", super.toString(), this.start, this.deadline);
     }
 
 }
