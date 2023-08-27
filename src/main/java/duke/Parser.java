@@ -94,7 +94,7 @@ public class Parser {
                     deadline.append(command);
                 }
             }
-            if (!title.isEmpty() && !deadline.isEmpty()) {
+            if (!title.isEmpty()) {
                 try {
                     LocalDate fromDate = LocalDate.parse(deadline);
                     deadline = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
@@ -102,7 +102,7 @@ public class Parser {
                 }
                 return new Deadline(title.toString(), deadline.toString());
             } else {
-                throw new DukeException("☹ OOPS!!! The title and given deadline cannot be empty.");
+                throw new DukeException("☹ OOPS!!! The title cannot be empty.");
             }
         } else if (response.startsWith("event")) {
             StringBuilder from = new StringBuilder();
@@ -136,7 +136,7 @@ public class Parser {
                     to.append(command);
                 }
             }
-            if (!title.isEmpty() && !from.isEmpty() && !to.isEmpty()) {
+            if (!title.isEmpty()) {
                 try {
                     LocalDate fromDate = LocalDate.parse(from);
                     from = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
@@ -149,7 +149,7 @@ public class Parser {
                 }
                 return new Event(title.toString(), from.toString(), to.toString());
             } else {
-                throw new DukeException("☹ OOPS!!! The title, from and to sections cannot be empty.");
+                throw new DukeException("☹ OOPS!!! The title cannot be empty.");
             }
         }
         return null;

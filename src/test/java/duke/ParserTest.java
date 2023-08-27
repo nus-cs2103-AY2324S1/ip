@@ -18,7 +18,8 @@ public class ParserTest {
     public void newTask_missingToFromEvent_nullReturned() {
         try {
             Task test = Parser.newTask("event 1 /from 2");
-            assertNull(test);
+            assert test != null;
+            assertEquals("[E][ ] 1 (from: 2 to: )", test.toString());
         } catch (Exception e) {
             assertEquals("☹ OOPS!!! The title, from and to sections cannot be empty.", e.getMessage());
         }
