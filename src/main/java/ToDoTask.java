@@ -7,6 +7,9 @@ public class ToDoTask extends Task {
     public ToDoTask(String description, boolean isDone) {
         super(description, isDone);
     }
+    public String toSave() {
+        return "[T]" + super.toString();
+    }
 
     @Override
     public String toString() {
