@@ -12,13 +12,13 @@ public class Backend {
     private String pathString;
 
     public Backend() {
-        this.pathString = "C:\\Users\\Admin\\Bobi\\task.txt";
+        this.pathString = "C:\\Users\\Admin\\ip\\text-ui-test\\data\\task.txt";
     }
 
     // Update task list in text file
     public void saveTask(Task newTask) {
         try {
-            Path path = Paths.get("C:\\Users\\Admin", "Bobi", "task.txt");
+            Path path = Paths.get("C:\\Users\\Admin\\ip\\text-ui-test", "data", "task.txt");
             String taskString = newTask.toStoreString() + "\n";
             Files.writeString(path, taskString, StandardOpenOption.APPEND);
         } catch (IOException e) {

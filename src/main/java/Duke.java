@@ -1,6 +1,3 @@
-import exception.EmptyCommandException;
-import exception.InvalidCommandException;
-
 public class Duke {
     public static void main(String[] args) {
         System.out.println(SystemText.greeting());

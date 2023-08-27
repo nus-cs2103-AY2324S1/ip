@@ -1,5 +1,3 @@
-import exception.InvalidTaskException;
-
 import java.util.ArrayList;
 
 public class TaskList {
