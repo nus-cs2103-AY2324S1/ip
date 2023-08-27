@@ -10,16 +10,16 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        String botName = "Changoose";
-        String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", botName);
+        Duke changooseBot = new Duke("Changoose");
+        String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", changooseBot.getBotName());
         String endMessage = "Bye! Hope to see you again soon!";
 
-        echo(startMessage);
-        startParse();
-        echo(endMessage);
+        changooseBot.echo(startMessage);
+        changooseBot.startParse();
+        changooseBot.echo(endMessage);
     }
 
-    private static void startParse() {
+    private void startParse() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String commandInput = scanner.nextLine();
@@ -32,7 +32,7 @@ public class Duke {
 
         }
     }
-    private static void echo(String input) {
+    private void echo(String input) {
         int indentLength = 4;
         String divider = indentLeft(String.format("%80s", "").replace(" ", "-"), indentLength);
         System.out.println(divider);
