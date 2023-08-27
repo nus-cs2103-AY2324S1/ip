@@ -1,11 +1,21 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+
 public class Duke {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Tasks> task = new ArrayList<>();
-        String count;
 
+        while (!FileHandler.readTasksFromFile(task)) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String count;
         String logo  =   "____    ____  ________   ___    ___   __________    _____\n"
                      + "\\   \\  /   / |  ____  |  |  |   |  |  |  _____  |  / ____|\n"
                      + " \\   \\/   /  | |    | |  |  |   |  |  |  |___|  |  | (___\n"
@@ -16,15 +26,14 @@ public class Duke {
 
         String name = "Yours";
 
-
         System.out.println("Hello! I'm " + name);
         System.out.println(logo);
         System.out.println("____________________________________________________________________________________");
         System.out.println("What can I do for you?");
 
+
         while (true) {
             String userInput = scanner.nextLine();
-
             //check for singular or plural "task"
             if (task.size() < 1) {
                 count = "task";
@@ -51,6 +60,7 @@ public class Duke {
                 try {
                     int index = Integer.parseInt(userInput.substring(5));
                     task.get(index - 1).markDone();
+                    FileHandler.writeTasksToFile(task);
                     System.out.println("   ____________________________________________________________________________________");
                     System.out.println("   " + name + ": Well done! I've marked this task as done :");
                     System.out.println("   " + task.get(index - 1).toString());
@@ -62,17 +72,19 @@ public class Duke {
                 try {
                     int index = Integer.parseInt(userInput.substring(7));
                     task.get(index - 1).markNotDone();
+                    FileHandler.writeTasksToFile(task);
                     System.out.println("   ____________________________________________________________________________________");
                     System.out.println("   " + name + ": Alright, I've marked this task as not done yet");
                     System.out.println("   " + task.get(index - 1).toString());
                     System.out.println("   ____________________________________________________________________________________");
-                }catch (IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("   " +  name + ": Please enter the correct task's index number.");
                 }
             } else if (userInput.startsWith("todo")) {
                 ToDos newtodo = new ToDos(userInput);
                 if (newtodo.isValid()) {
                     task.add(newtodo);
+                    FileHandler.writeTasksToFile(task);
                     System.out.println("   ____________________________________________________________________________________");
                     System.out.println("   " +  name + ": Help you added a new to-do.\n            " + newtodo.toString());
                     System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count));
@@ -82,6 +94,7 @@ public class Duke {
                 Deadlines newdeadlines = new Deadlines(userInput);
                 if (newdeadlines.isValid()) {
                     task.add(newdeadlines);
+                    FileHandler.writeTasksToFile(task);
                     System.out.println("   ____________________________________________________________________________________");
                     System.out.println("   " + name + ": Help you added a new deadline.\n           " + newdeadlines.toString());
                     System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count));
@@ -91,6 +104,7 @@ public class Duke {
                 Events newevents = new Events(userInput);
                 if (newevents.isValid()) {
                     task.add(newevents);
+                    FileHandler.writeTasksToFile(task);
                     System.out.println("   ____________________________________________________________________________________");
                     System.out.println("   " + name + ": Help you added a new event.\n           " + newevents.toString());
                     System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count));
@@ -98,13 +112,14 @@ public class Duke {
                 }
             } else if (userInput.startsWith("delete")) {
                 try {
-                int index = Integer.parseInt(userInput.substring(7));
-                Tasks deleted = task.get(index - 1);
-                task.remove(index - 1);
-                System.out.println("   ____________________________________________________________________________________");
-                System.out.println("   " + name + ": Helped you deleted this task\n           " + deleted.toString());
-                System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count));
-                System.out.println("   ____________________________________________________________________________________");
+                    int index = Integer.parseInt(userInput.substring(7));
+                    Tasks deleted = task.get(index - 1);
+                    task.remove(index - 1);
+                    FileHandler.writeTasksToFile(task);
+                    System.out.println("   ____________________________________________________________________________________");
+                    System.out.println("   " + name + ": Helped you deleted this task\n           " + deleted.toString());
+                    System.out.println("          Now you have " + task.size() + String.format(" %s in the list.", count));
+                    System.out.println("   ____________________________________________________________________________________");
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("   " +  name + ": Please enter the correct task's index number.");
                 }
@@ -114,6 +129,5 @@ public class Duke {
                 System.out.println("   ____________________________________________________________________________________");
             }
         }
-
     }
 }
