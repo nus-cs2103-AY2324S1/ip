@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EventTest {
     @Test
-    public void splitEventStringTest1() {
+    public void testSplitEventString() {
         String testString = "event project meeting /from 2019-10-15 1800 /to 2019-10-15 2000";
         String[] arr = Event.splitEventString(testString);
         assertEquals("project meeting", arr[0].trim());
@@ -16,7 +16,7 @@ public class EventTest {
     }
 
     @Test
-    public void splitEventStringTest2() {
+    public void emptyEvent() throws IllegalArgumentException {
         String testString = "event";
 
         IllegalArgumentException expectedException = assertThrows(IllegalArgumentException.class, 
@@ -30,7 +30,7 @@ public class EventTest {
     }
 
     @Test 
-    public void splitEventStringTest3() {
+    public void missingDescription() throws IllegalArgumentException {
         String testString = "event /from 2019-10-15 1800 /to";
 
         IllegalArgumentException expectedException = assertThrows(IllegalArgumentException.class, 
@@ -44,7 +44,7 @@ public class EventTest {
     }
 
     @Test 
-    public void splitEventStringTest4() {
+    public void missingFrom() throws IllegalArgumentException {
         String testString = "event project meeting /to 2019-10-15 2000";
 
         IllegalArgumentException expectedException = assertThrows(IllegalArgumentException.class, 
@@ -58,7 +58,7 @@ public class EventTest {
     }
 
     @Test
-    public void splitEventStringTest5() {
+    public void missingTo() throws IllegalArgumentException {
         String testString = "event project meeting /from 2019-10-15 1800";
         
         IllegalArgumentException expectedException = assertThrows(IllegalArgumentException.class, 
