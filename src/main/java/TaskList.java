@@ -5,73 +5,47 @@ import java.io.IOException;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
-    private final String saveAddress;
-    //static private FileWriter fw;
 
-    TaskList(String saveAddress) {
+    TaskList() {
         this.tasks = new ArrayList<>();
-        this.saveAddress = saveAddress;
     }
 
-    TaskList(ArrayList<Task> tasks, String saveAddress) {
+    TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
-        this.saveAddress = saveAddress;
+    }
+
+    ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 
     private TaskList update(ArrayList<Task> tasks) {
-        return new TaskList(tasks, this.saveAddress);
+        return new TaskList(tasks);
     }
-    TaskList add(Task task) throws IOException {
-        System.out.println(" Got it. I've added this task:\n");
+
+    TaskList add(Task task) {
         ArrayList<Task> currentTasks = this.tasks;
         currentTasks.add(task);
-        System.out.println("    " + task + "\n");
-        System.out.println(("Now you have " + Integer.toString(currentTasks.size()) +
-                " tasks in the list.\n"));
-        TaskList newTasks = update(currentTasks);
-        FileWriter fw = new FileWriter(saveAddress);
-        fw.write(newTasks.toString());
-        fw.close();
-        return newTasks;
+        return update(currentTasks);
     }
 
     TaskList delete(int index) throws IOException {
-        System.out.println(" Noted. I've removed this task:\n");
         ArrayList<Task> currentTasks = this.tasks;
-        System.out.println("    " + currentTasks.remove(index - 1) + "\n");
-        System.out.println(("Now you have " + Integer.toString(currentTasks.size()) +
-                " tasks in the list.\n"));
-        TaskList newTasks = update(currentTasks);
-        FileWriter fw = new FileWriter(saveAddress);
-        fw.write(newTasks.toString());
-        fw.close();
-        return newTasks;
+        currentTasks.remove(index - 1);
+        return update(currentTasks);
     }
 
     TaskList mark(int index) throws IOException {
-        System.out.println("Nice! I've marked this task as done:\n");
         ArrayList<Task> currentTasks = this.tasks;
         Task target = currentTasks.get(index - 1);
         currentTasks.set(index - 1, target.mark());
-        System.out.println("    " + currentTasks.get(index - 1));
-        TaskList newTasks = update(currentTasks);
-        FileWriter fw = new FileWriter(saveAddress);
-        fw.write(newTasks.toString());
-        fw.close();
-        return newTasks;
+        return update(currentTasks);
     }
 
     TaskList unmark(int index) throws IOException {
-        System.out.println("OK, I've marked this task as not done yet:\n");
         ArrayList<Task> currentTasks = this.tasks;
         Task target = currentTasks.get(index - 1);
         currentTasks.set(index - 1, target.unmark());
-        System.out.println("    " + currentTasks.get(index - 1));
-        TaskList newTasks = update(currentTasks);
-        FileWriter fw = new FileWriter(saveAddress);
-        fw.write(newTasks.toString());
-        fw.close();
-        return newTasks;
+        return update(currentTasks);
     }
 
     String dateSearch(LocalDate date) {
@@ -85,11 +59,6 @@ public class TaskList {
         return res;
     }
 
-    void save() throws IOException{
-        FileWriter fw = new FileWriter(saveAddress);
-        fw.write(this.toString());
-        fw.close();
-    }
 
     String saveMessage() {
         String result = "";

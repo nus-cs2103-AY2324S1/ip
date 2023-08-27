@@ -18,6 +18,19 @@ public class Event extends Task{
     }
 
     @Override
+    String getType() {
+        return "E";
+    }
+
+    String getFrom() {
+        return this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+
+    String getTo() {
+        return this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+
+    @Override
     Event mark() {
         return new Event(this.description, this.from, this.to, true);
     }

@@ -15,6 +15,11 @@ public class Deadline extends Task{
     }
 
     @Override
+    String getType() {
+        return "D";
+    }
+
+    @Override
     Deadline mark() {
         return new Deadline(this.description, this.due, true);
     }
@@ -27,6 +32,10 @@ public class Deadline extends Task{
     @Override
     Boolean happenOnThatDate(LocalDate date) {
         return date.isEqual(due);
+    }
+
+    String getDue() {
+        return due.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     @Override

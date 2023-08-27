@@ -14,6 +14,18 @@ public class Task {
         this.marked = false;
     }
 
+    String getType() {
+        return "None";
+    }
+
+    String getDescription() {
+        return this.description;
+    }
+
+    Boolean isMarked() {
+        return this.marked;
+    }
+
     Boolean happenOnThatDate(LocalDate date) {
         return false;
     }
