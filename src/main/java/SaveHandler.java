@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SaveHandler {
-  private static final Path SAVE_PATH = Paths.get(".", "data", "save.txt");
+  private static final Path SAVE_FOLDER = Paths.get(".", "data");
+  private static final Path SAVE_PATH = Paths.get(SAVE_FOLDER.toString(),
+      "save.txt");
 
   public static List<Task> load() {
     try {
@@ -38,14 +40,18 @@ public class SaveHandler {
       }
       System.out.println("List loaded");
       return tasks;
+    } catch (IOException e) {
+      System.out.println("Save file not found");
     } catch (Exception e) {
-      System.out.println("Invalid save file");
-      return new ArrayList<Task>();
+      System.out.println("Corrupted save file");
     }
+
+    return new ArrayList<Task>();
   }
 
   public static void save(List<Task> tasks) {
     try {
+      Files.createDirectories(SAVE_FOLDER);
       Files.createFile(SAVE_PATH);
     } catch (IOException e) {
     }
