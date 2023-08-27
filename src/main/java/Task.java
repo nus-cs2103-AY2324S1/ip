@@ -31,35 +31,4 @@ public class Task {
         return String.format("%s|%s", isDone ? "1" : "0", description);
     }
 
-    public static Task parseTask(String line) {
-        String[] split = line.split("\\|");
-        String type = split[0];
-        boolean isDone = split[1].equals("1");
-        String description = split[2];
-        Task task = null;
-
-        switch (type) {
-            case "T": {
-                task = new Todo(description);
-                if (isDone) task.markAsDone();
-                break;
-            }
-            case "D": {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                LocalDateTime by = LocalDateTime.parse(split[3], formatter);
-                task = new Deadline(description, by);
-                if (isDone) task.markAsDone();
-                break;
-            }
-            case "E": {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                LocalDateTime start = LocalDateTime.parse(split[3], formatter);
-                LocalDateTime end = LocalDateTime.parse(split[4], formatter);
-                task = new Event(description, start, end);
-                if (isDone) task.markAsDone();
-                break;
-            }
-        }
-        return task;
-    }
 }
