@@ -17,7 +17,9 @@ public class Event extends Task{
 
     @Override
     public String toSaveStateString() {
-        return "";
+        String[] state = new String[]{ Command.TODO.getCommand(), this.getDone() ? "1" : "0", this.getTaskName(),
+                this.from, this.to };
+        return String.join(" / ", state);
     }
 
     public static String[] processInput(String[] splitInput) throws InvalidTaskException {
