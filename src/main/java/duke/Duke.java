@@ -48,6 +48,9 @@ public class Duke {
                     Ui.listTasks(tasks.getTasks());
                     Storage.writeToDisk(tasks.getTasks());
                 }
+                case "find" -> {
+                    Ui.showFoundTasks(tasks.findTasks(Parser.findKeyword(fullCommand)));
+                }
                 default -> throw new DukeException("Invalid task, uncaught by duke.Parser.");
                 }
             }
