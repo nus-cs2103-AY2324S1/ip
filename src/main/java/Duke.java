@@ -73,9 +73,11 @@ public class Duke {
     }
 
     private void printTasks() {
+        List<String> tasksWithNumber = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i ++) {
-            String taskNumber = String.format("%s. ", i);
-            echo(taskList.get(i), taskNumber);
+            String taskNumber = String.format("%s. ", i + 1);
+            tasksWithNumber.add(taskNumber + taskList.get(i));
         }
+        echo(tasksWithNumber);
     }
 }
