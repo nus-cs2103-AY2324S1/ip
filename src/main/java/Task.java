@@ -1,8 +1,10 @@
+import java.io.Serializable;
+
 /**
  * Task superclass that supports todo, deadline and event tasks.
  * Taken from hint.
  */
-abstract public class Task {
+abstract public class Task implements Serializable {
   private final String description;
   private final String type;
   private boolean isDone;
