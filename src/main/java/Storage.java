@@ -40,7 +40,7 @@ public class Storage {
             }
             reader.close();
         } catch (IOException e) {
-            throw new DukeException("OOPS!!! I am unable to read your duke.txt data file. Exiting....");
+            throw new DukeException();
         }
         return items;
     }

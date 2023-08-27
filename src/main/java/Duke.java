@@ -1,7 +1,6 @@
-import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class Duke {
@@ -9,24 +8,21 @@ public class Duke {
     public static final DateTimeFormatter DATETIME_INPUT_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
     private Storage storage;
-//    private TaskList tasks;
+    private TaskList items;
     private Ui ui;
 
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        try {
+            items = new TaskList(storage.load());
+        } catch (DukeException c) {
+            ui.showLoadingError();
+            items = new TaskList();
+        }
     }
 
     public void run() {
-        ArrayList<Task> items = new ArrayList<>();
-
-        // Read data from duke.txt to be pre-populated into items
-        try {
-            items = storage.load();
-        } catch (DukeException e) {
-            ui.talk(e.getMessage());
-        }
-
         ui.greet();
 
         while (true) {
@@ -39,47 +35,39 @@ public class Duke {
                     break;
                 }
                 if (keyword.equals("list")) {
-                    String list = "";
-                    int count = items.size();
-                    if (count == 0) {
-                        ui.talk("Your list is currently empty.");
-                    } else {
-                        for (int i = 0; i < count; i++) {
-                            list += "  " + (i + 1) + ". " + items.get(i) + "\n";
-                        }
-                        ui.talk(list);
-                    }
+                    ArrayList list = items.getItems();
+                    ui.list(list);
                     continue;
                 }
 
                 String description = "";
+                Task item;
                 switch (keyword) {
                 case "mark":
                     if (inputArr.length != 2) {
                         throw new DukeException("OOPS!!! Please include the task number you would like to mark.");
                     }
                     description = input.split(" ", 2)[1];
-                    int indexMark = Integer.parseInt(description.trim()) - 1;
-                    items.get(indexMark).markDone();
-                    ui.talk("Nice! I've marked this task as done:\n  " + items.get(indexMark));
+                    int markNumber = Integer.parseInt(description.trim());
+                    item = items.mark(markNumber);
+                    ui.markItem(item.toString());
                     break;
                 case "unmark":
                     if (inputArr.length != 2) {
                         throw new DukeException("OOPS!!! Please include the task number you would like to unmark.");
                     }
                     description = input.split(" ", 2)[1];
-                    int indexUnmark = Integer.parseInt(description.trim()) - 1;
-                    items.get(indexUnmark).markUnDone();
-                    ui.talk("OK, I've marked this task as not done yet:\n  " + items.get(indexUnmark));
+                    int unmarkNumber = Integer.parseInt(description.trim());
+                    item = items.unmark(unmarkNumber);
+                    ui.unmarkItem(item.toString());
                     break;
                 case "todo":
                     if (inputArr.length != 2) {
                         throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
                     }
                     description = input.split(" ", 2)[1];
-                    items.add(new ToDo(description));
-                    ui.talk("Got it. I've added this task:\n  " + items.get(items.size() - 1) + "\n Now you have "
-                            + items.size() + " tasks in your list.");
+                    item = items.addToDo(description);
+                    ui.addItem(item.toString(), items.getCount());
                     break;
                 case "deadline":
                     if (inputArr.length != 2) {
@@ -102,9 +90,13 @@ public class Duke {
                     if (deadlineBy == "") {
                         throw new DukeException("OOPS!! Please include when the deadline is by.");
                     }
-                    items.add(new Deadline(deadlineName, deadlineBy));
-                    ui.talk("Got it. I've added this task:\n  " + items.get(items.size() - 1) + "\n Now you have "
-                            + items.size() + " tasks in your list.");
+                    try {
+                        LocalDateTime byParsed = LocalDateTime.parse(deadlineBy, Duke.DATETIME_INPUT_FORMAT);
+                        item = items.addDeadline(deadlineName, byParsed);
+                        ui.addItem(item.toString(), items.getCount());
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Wrong DateTime format!! Please use 'dd-MM-yyyy HHmm'.");
+                    }
                     break;
                 case "event":
                     if (inputArr.length != 2) {
@@ -133,24 +125,28 @@ public class Duke {
                     if (eventTo == "") {
                         throw new DukeException("OOPS!! Please include when the event is till.");
                     }
-                    items.add(new Event(eventName, eventFrom, eventTo));
-                    ui.talk("Got it. I've added this task:\n  " + items.get(items.size() - 1) + "\n Now you have " + items.size()
-                            + " tasks in your list.");
+                    try {
+                        LocalDateTime fromParsed =  LocalDateTime.parse(eventFrom, Duke.DATETIME_INPUT_FORMAT);
+                        LocalDateTime toParsed = LocalDateTime.parse(eventTo, Duke.DATETIME_INPUT_FORMAT);
+                        item = items.addEvent(eventName, fromParsed, toParsed);
+                        ui.addItem(item.toString(), items.getCount());
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Wrong DateTime format!! Please use 'dd-MM-yyyy HHmm'.");
+                    }
                     break;
                 case "delete":
                     if (inputArr.length != 2) {
                         throw new DukeException("OOPS!!! Please include the task number you would like to delete.");
                     }
                     description = input.split(" ", 2)[1];
-                    int indexDelete = Integer.parseInt(description) - 1;
-                    Task deleted = items.get(indexDelete);
-                    items.remove(indexDelete);
-                    ui.talk("Noted. I've removed this task:\n " + deleted + "\n Now you have " + items.size() + " tasks in your list");
+                    int indexDelete = Integer.parseInt(description);
+                    Task deleted = items.delete(indexDelete);
+                    ui.deleteItem(deleted.toString(), items.getCount());
                     break;
                 default:
                     throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
-                storage.writeData(items);
+                storage.writeData(items.getItems());
             } catch (DukeException e) {
                 ui.talk(e.getMessage());
             }
