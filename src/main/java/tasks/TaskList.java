@@ -1,16 +1,17 @@
 package tasks;
 
-import storage.Storage;
-import ui.Ui;
-
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import storage.Storage;
+import ui.Ui;
 
 public class TaskList {
 
     private final ArrayList<Task> tasks;
     private final int maxSize;
+
     protected TaskList(int maxSize) {
         this.tasks = new ArrayList<>();
         this.maxSize = maxSize;
@@ -24,22 +25,22 @@ public class TaskList {
     public void addTask(Task newTask) {
         if (this.tasks.size() < this.maxSize) {
             this.tasks.add(newTask);
-            Ui.wrapPrintWithHorizontalRules(String.format("Got it. I've added this task:\n" +
-                    "  %s\nNow you have %d tasks in the list.", newTask, this.tasks.size()));
+            Ui.wrapPrintWithHorizontalRules(String.format("Got it. I've added this task:\n"
+                + "  %s\nNow you have %d tasks in the list.", newTask, this.tasks.size()));
         } else {
-            Ui.wrapPrintWithHorizontalRules("Your task list has reached the limit of 100 tasks. " +
-                    "Please remove some tasks to proceed.");
+            Ui.wrapPrintWithHorizontalRules("Your task list has reached the limit of 100 tasks. "
+                + "Please remove some tasks to proceed.");
         }
     }
 
     // TODO: Move this method to Ui
     public void list() {
-        System.out.print(Ui.HORIZONTAL_RULE);
+        ArrayList<String> linesToBePrinted = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             Task currTask = this.tasks.get(i);
-            System.out.printf("%d.%s\n", i + 1, currTask);
+            linesToBePrinted.add(String.format("%d.%s", i + 1, currTask));
         }
-        System.out.print(Ui.HORIZONTAL_RULE + "\n");
+        Ui.displayArrayList(linesToBePrinted);
     }
 
     /**
@@ -76,28 +77,29 @@ public class TaskList {
         }
     }
 
-    public void listAllTasksFallingOnDate(LocalDateTime dateTime) {
+    // TODO: make this method more appropriate
+    public ArrayList<String> getAllTasksFallingOnDate(LocalDateTime dateTime) {
         // Deadline must be within the day
         // Event can either start or end on the date itself, or both
 
         // Note that dateTime is at the start of day due to parsing standardisation
         // Create a copy of dateTime to represent the endOfDay
         LocalDateTime endOfDay = LocalDateTime.from(dateTime).withHour(23).withMinute(59).withSecond(59);
-
-        StringBuilder sb = new StringBuilder("Finding the dots... to illuminate a constellation of " +
-                "tasks happening today!");
+        ArrayList<String> outputList = new ArrayList<>();
+        outputList.add("Finding the dots... to illuminate a constellation of "
+            + "tasks happening today!");
         boolean hasTaskToday = false;
         for (int i = 0; i < this.tasks.size(); i++) {
             Task currTask = this.tasks.get(i);
             if (currTask.isOnDate(dateTime, endOfDay)) {
-                sb.append("\n").append(currTask);
+                outputList.add(currTask.toString());
                 hasTaskToday = true;
             }
         }
         if (!hasTaskToday) {
-            sb.append("\n").append("Like a tiny dot in the sky, you're schedule is empty! ^o^");
+            outputList.add("Like a tiny dot in the sky, you're schedule is empty! ^o^");
         }
-        Ui.wrapPrintWithHorizontalRules(sb.toString());
+        return outputList;
     }
 
     public void saveTaskListToStorage(File file) {
