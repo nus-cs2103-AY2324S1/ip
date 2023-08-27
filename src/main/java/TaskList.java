@@ -19,11 +19,14 @@ public class TaskList {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String data = scanner.nextLine();
-                this.taskList.add(TaskList.parseTask(data));
+                Task task = TaskList.parseTask(data);
+                this.taskList.add(task);
             }
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found, unable to create list of tasks");
+        } catch (WrongInputTask e) {
+            System.out.println("Unable to create task from storage" + e.toString());
         }
     }
 
@@ -32,23 +35,31 @@ public class TaskList {
      * @param storedTextLine the string representing a line of text in the file to be parsed
      * @return a Task object of the right task type
      */
-    public static Task parseTask(String storedTextLine) {
+    public static Task parseTask(String storedTextLine) throws WrongInputTask {
         String[] splitString = storedTextLine.split(" \\| ");
         String taskType = splitString[0];
         boolean taskStatus = Boolean.parseBoolean(splitString[1]);
         String taskName = splitString[2];
+
         switch (taskType) {
-            case "T":
-                return new ToDos(taskName,taskStatus);
-            case "D":
-                String deadline = splitString[3];
-                return new Deadline(taskName, taskStatus, deadline);
-            case "E":
-                String to = splitString[3];
-                String from = splitString[4];
-                return new Event(taskName, taskStatus, from, to);
-            default:
-                return null;
+        case "T":
+            return new ToDos(taskName,taskStatus);
+        case "D":
+            String deadline = splitString[3];
+            DateTime deadlineDateTime = DateTime.createDateTimeFromStorage(deadline);
+            if (deadlineDateTime == null) {
+                throw new WrongInputTask("Stored deadline is invalid / corrupted",
+                        "Please clear the folder and restart the program");
+            }
+            return new Deadline(taskName, taskStatus, deadlineDateTime);
+        case "E":
+            String to = splitString[3];
+            String from = splitString[4];
+            DateTime fromDateTime = DateTime.createDateTimeFromStorage(from);
+            DateTime toDateTime = DateTime.createDateTimeFromStorage(to);
+            return new Event(taskName, taskStatus, fromDateTime, toDateTime);
+        default:
+            return null;
         }
     }
 

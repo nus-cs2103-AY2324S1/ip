@@ -1,3 +1,5 @@
+import java.util.Date;
+
 /**
  * Deadline encapsulates task that need to be done before a specific date or time
  */
@@ -5,30 +7,36 @@ public class Deadline extends Task {
     private String taskName;
     private String deadline;
 
+    private DateTime dateTime;
+
+
     /**
      * Constructor for creating a task
      *
      * @param taskName name of task.
      */
-    public Deadline(String taskName, String deadline) {
+    public Deadline(String taskName, DateTime dateTime) {
         super(taskName);
         this.taskName = taskName;
-        this.deadline = deadline;
+        this.deadline = dateTime.getDateTime();
+        this.dateTime = dateTime;
     }
 
     /**
      * Constructor for creating a task based on whether its done or not
      * @param taskName  name of task.
      * @param isDone    whether the task is done or not
-     * @param deadline  the deadline of the task
+     * @param dateTime the date and time of the deadline stored in a DateTime object
      */
-    public Deadline(String taskName, boolean isDone, String deadline) {
+    public Deadline(String taskName, boolean isDone, DateTime dateTime) {
         super(taskName);
         if (isDone) {
             super.quietlyCompleteTask();
         }
         this.taskName = taskName;
-        this.deadline = deadline;
+        this.deadline = dateTime.getDateTime();
+        this.dateTime = dateTime;
+
     }
 
     /**
@@ -58,6 +66,9 @@ public class Deadline extends Task {
             } else if (deadline.trim().isEmpty()) {
                 throw new WrongInputTask("for /by <time>, time cannot be blank",
                         "Please input valid text that are not space");
+            } else if (!DateTimeParser.isValidDateTime(deadline)) {
+                throw new WrongInputTask("Invalid date and time format",
+                        DateTimeParser.getValidDateTimeFormat());
             }
         }
     }
@@ -69,12 +80,12 @@ public class Deadline extends Task {
     @Override
     public String convertToSaveFormat() {
         return "D" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName
-                + Storage.FILESEPERATORCHARACTER + this.deadline;
+                + Storage.FILESEPERATORCHARACTER + this.dateTime.toString();
     }
 
     @Override
     public String toString() {
         return "[D]" + "[" + this.getStatusIcon() + "] "
-                + this.taskName + " (by: " + this.deadline + ")";
+                + this.taskName + " (by: " + this.dateTime + ")";
     }
 }

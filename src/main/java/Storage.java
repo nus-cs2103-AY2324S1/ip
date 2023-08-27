@@ -9,8 +9,8 @@ import java.io.FileWriter;
 public class Storage {
 
     public static final String FILESEPERATORCHARACTER = " | ";
-    private String filePath;
-    private File file;
+    private final String filePath;
+    private final File file;
 
 
     private Storage(String filePath, File file) {
@@ -20,7 +20,7 @@ public class Storage {
 
     /**
      * Factory method to creates a Storage object
-     * @param filePath
+     * @param filePath  the path of the file
      * @return Storage containing the file path and file
      */
     public static Storage createStorage(String filePath) {
@@ -38,8 +38,8 @@ public class Storage {
     /**
      * Checks if a file exists and is not a directory
      *
-     * @param filePath
-     * @return
+     * @param filePath  the path of the file
+     * @return  true if the file exists and is not a directory, false otherwise
      */
     public static boolean isValidFile(String filePath) {
         File file = new File(filePath);
@@ -49,13 +49,12 @@ public class Storage {
     /**
      * Creates a directory if it does not exist
      *
-     * @param directoryPath
+     * @param directoryPath the path of the directory
      */
     public static void createDirectory(String directoryPath) {
         File directory = new File(directoryPath);
         if (directory.exists() && directory.isDirectory()) {
             System.out.println("Directory already exists");
-            return;
         } else {
             if (directory.mkdir()) {
                 System.out.println("Directory has been created");
