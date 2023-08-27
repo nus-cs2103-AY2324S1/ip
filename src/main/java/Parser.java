@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * The class that provides the parser of the input.
  */
 public class Parser {
+
+    private static final Pattern DATE_PATTERN = Pattern.compile("\\d\\d\\d\\d-\\d\\d-\\d\\d");
 
     /**
      * Parses the input and prints the corresponding output.
@@ -71,9 +74,12 @@ public class Parser {
                 throw new DukeException("\tHmm, the description of a deadline cannot be empty :(");
             }
 
-            String deadline = input.substring(indexOfBy + 3);
+            String deadline = input.substring(indexOfBy + 3).strip();
             if (deadline.isBlank()) {
                 throw new DukeException("\tOOPS!!! You forgot to specify the deadline.");
+            }
+            if (!DATE_PATTERN.matcher(deadline).matches()) {
+                throw new DukeException("\tHmm, I don't understand the date. Use this format: YYYY-MM-DD");
             }
 
             storage.add(description, deadline);
@@ -82,25 +88,30 @@ public class Parser {
             int indexOfFrom = input.indexOf("/from");
             int indexOfTo = input.indexOf("/to");
             if (indexOfFrom == -1) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the starting date/time.\n\tUse \"/from\" to do so.");
+                throw new DukeException("\tOOPS!!! You forgot to specify the starting date."
+                        + "\n\tUse \"/from\" to do so.");
             }
             if (indexOfTo == -1) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the ending date/time.\n\tUse \"/to\" to do so.");
+                throw new DukeException("\tOOPS!!! You forgot to specify the ending date.\n\tUse \"/to\" to do so.");
             }
 
             description = input.substring(5, indexOfFrom);
             if (description.isBlank()) {
                 throw new DukeException("\tHmm, the description of an event cannot be empty :(");
             }
-            String from = input.substring(indexOfFrom + 5, indexOfTo);
+            String from = input.substring(indexOfFrom + 5, indexOfTo).strip();
 
             if (from.isBlank()) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the starting date/time.");
+                throw new DukeException("\tOOPS!!! You forgot to specify the starting date.");
             }
 
-            String to = input.substring(indexOfTo + 3);
+            String to = input.substring(indexOfTo + 3).strip();
             if (to.isBlank()) {
-                throw new DukeException("\tOOPS!!! You forgot to specify the ending date/time.");
+                throw new DukeException("\tOOPS!!! You forgot to specify the ending date.");
+            }
+
+            if (!DATE_PATTERN.matcher(from).matches() || !DATE_PATTERN.matcher(to).matches()) {
+                throw new DukeException("\tHmm, I don't understand the date. Use this format: YYYY-MM-DD");
             }
             storage.add(description, from, to);
             break;

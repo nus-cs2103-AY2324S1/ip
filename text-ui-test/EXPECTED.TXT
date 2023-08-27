@@ -9,6 +9,7 @@
 	Hi there! I'm Zean
 	How can I help you today?
 	__________________________________
+	A new folder and file to store your tasks has been created.
 	__________________________________
 	Got it. I've added this task:
 	  [T][ ] borrow book
@@ -20,19 +21,19 @@
 	__________________________________
 	__________________________________
 	Got it. I've added this task:
-	  [D][ ] return book (by: Sunday)
+	  [D][ ] return book (by: Aug 31 2023)
 	Now you have 2 tasks in the list.
 	__________________________________
 	__________________________________
 	Got it. I've added this task:
-	  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	  [E][ ] project meeting (from: Aug 30 2023 to: Aug 31 2023)
 	Now you have 3 tasks in the list.
 	__________________________________
 	__________________________________
 	As requested, here are the tasks in your list:
 	1.[T][ ] borrow book
-	2.[D][ ] return book (by: Sunday)
-	3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	2.[D][ ] return book (by: Aug 31 2023)
+	3.[E][ ] project meeting (from: Aug 30 2023 to: Aug 31 2023)
 	__________________________________
 	__________________________________
 	Nice! I've marked this task as done:
@@ -40,21 +41,21 @@
 	__________________________________
 	__________________________________
 	Nice! I've marked this task as done:
-	  [E][X] project meeting (from: Mon 2pm to: 4pm)
+	  [E][X] project meeting (from: Aug 30 2023 to: Aug 31 2023)
 	__________________________________
 	__________________________________
 	Sure, I've marked this task as not done yet:
-	  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	  [E][ ] project meeting (from: Aug 30 2023 to: Aug 31 2023)
 	__________________________________
 	__________________________________
 	Nice! I've marked this task as done:
-	  [D][X] return book (by: Sunday)
+	  [D][X] return book (by: Aug 31 2023)
 	__________________________________
 	__________________________________
 	As requested, here are the tasks in your list:
 	1.[T][X] borrow book
-	2.[D][X] return book (by: Sunday)
-	3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+	2.[D][X] return book (by: Aug 31 2023)
+	3.[E][ ] project meeting (from: Aug 30 2023 to: Aug 31 2023)
 	__________________________________
 	__________________________________
 	Hmm, the description of a todo cannot be empty :(
