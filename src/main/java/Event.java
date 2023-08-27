@@ -7,14 +7,14 @@ public class Event extends Task {
 
     Event(String content) {
         super(content);
-        split1 = this.content.split("/", 3);
+        split1 = content.split("/", 3);
         splitStart = split1[1].split(" ", 2);
         splitEnd = split1[2].split(" ", 2);
     }
 
     Event(String content, boolean status) {
         super(content, status);
-        split1 = this.content.split("/", 3);
+        split1 = content.split("/", 3);
         splitStart = split1[1].split(" ", 2);
         splitEnd = split1[2].split(" ", 2);
     }
@@ -28,9 +28,6 @@ public class Event extends Task {
     }
 
     String addTask(int listSize) {
-        String[] split1 = this.content.split("/", 3);
-        String[] splitStart = split1[1].split(" ", 2);
-        String[] splitEnd = split1[2].split(" ", 2);
         return "____________________________________________________________\n" +
                 "Got it. I've added this task:\n" +
                 toString() + "\n" +

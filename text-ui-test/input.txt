@@ -8,5 +8,8 @@ mark 4
 list
 todo
 blah
+delete 4
 list
+deadline brite
+event brite /by Sunday
 bye

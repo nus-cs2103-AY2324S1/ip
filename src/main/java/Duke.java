@@ -46,11 +46,20 @@ public class Duke {
                                 "OK, I've marked this task as not done yet:\n" + job.toString() + "\n" +
                                 "____________________________________________________________");
                         break;
+                    case "delete":
+                        index = Integer.parseInt(input[1]) - 1;
+                        job = list.get(index);
+                        list.remove(index);
+                        System.out.println("____________________________________________________________\n" +
+                                "Noted, I've removed this task:\n" + job.toString() + "\n" +
+                                String.format("Now you have %d tasks in the list\n", list.size()) +
+                                "____________________________________________________________");
+                        break;
                     default:
                         if (new ArrayList<String>(Arrays.asList("todo", "deadline", "event")).contains(input[0])
                                 && input.length == 1) {
                             try {
-                                throw new DukeException("");
+                                throw new DukeException();
                             } catch (Exception e) {
                                 System.out.println("____________________________________________________________\n" +
                                         "☹ OOPS!!! The description of a todo cannot be empty.\n" +
@@ -66,20 +75,34 @@ public class Duke {
                                 System.out.println(job.addTask(list.size()));
                                 break;
                             case "deadline":
-                                job = new Deadline(echo);
-                                list.add(job);
-                                System.out.println(job.addTask(list.size()));
+                                try {
+                                    String[] split1 = echo.split("/", 2);
+                                    job = new Deadline(echo);
+                                    list.add(job);
+                                    System.out.println(job.addTask(list.size()));
+                                } catch (ArrayIndexOutOfBoundsException e) {
+                                    System.out.println("____________________________________________________________\n" +
+                                            "☹ OOPS!!! I'm sorry, the format entered was incorrect :-(\n" +
+                                            "____________________________________________________________");
+                                }
                                 break;
                             case "event":
-                                job = new Event(echo);
-                                list.add(job);
-                                System.out.println(job.addTask(list.size()));
+                                try {
+                                    String[] split1 = echo.split("/", 3);
+                                    job = new Event(echo);
+                                    list.add(job);
+                                    System.out.println(job.addTask(list.size()));
+                                } catch (ArrayIndexOutOfBoundsException e) {
+                                    System.out.println("____________________________________________________________\n" +
+                                            "☹ OOPS!!! I'm sorry, the format entered was incorrect :-(\n" +
+                                            "____________________________________________________________");
+                                }
                                 break;
                             default:
                                 // list.add(job);
                                 // System.out.println(job.addTask(list.size()));
                                 try {
-                                    throw new DukeException("");
+                                    throw new DukeException();
                                 } catch (Exception e) {
                                     System.out.println("____________________________________________________________\n" +
                                             "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
