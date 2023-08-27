@@ -9,7 +9,7 @@ public class TaskManager {
     }
 
     public enum ActionType {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT;
+        BYE, LIST, SAVE, LOAD, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT;
     }
 
     public void handleAction(String input) throws DukeException{
@@ -23,6 +23,12 @@ public class TaskManager {
                 case LIST:
                     System.out.println("Here are the tasks in your list:");
                     System.out.println(this.toString());
+                    break;
+                case SAVE:
+                    this.saveToFile();
+                    break;
+                case LOAD:
+                    this.loadFromFile();
                     break;
                 case MARK:
                     this.markTaskAsDone(input);
@@ -100,5 +106,48 @@ public class TaskManager {
             output += (i + 1) + ". " + userTasks.get(i).toString() + "\n";
         }
         return output;
+    }
+
+    public String toFileString() {
+        String output = "";
+        for (int i = 0; i < userTasks.size(); i++) {
+            output += userTasks.get(i).toFileString() + "\n";
+        }
+        return output;
+    }
+
+    public void saveToFile() throws DukeException{
+        Storage storage  = new Storage();
+        storage.saveToFile(this.toFileString());
+    }
+
+    public void loadFromFile() throws DukeException{
+        Storage storage  = new Storage();
+        String fileString = storage.loadFromFile();
+        String[] fileStringArray = fileString.split("\n");
+        for (int i = 0; i < fileStringArray.length; i++) {
+            String[] taskStringArray = fileStringArray[i].split(" \\| ");
+            String taskType = taskStringArray[0];
+            boolean isDone = taskStringArray[1].equals("1");
+            String taskDescription = taskStringArray[2];
+            Task task;
+            switch (taskType) {
+                case "T":
+                    task = new TodoTask(taskDescription);
+                    break;
+                case "D":
+                    task = new DeadlineTask(taskDescription, taskStringArray[3]);
+                    break;
+                case "E":
+                    task = new EventTask(taskDescription, taskStringArray[3]);
+                    break;
+                default:
+                    throw new DukeException("Task type not recognised.");
+            }
+            if (isDone) {
+                task.markAsDone();
+            }
+            this.add(task);
+        }
     }
 }
