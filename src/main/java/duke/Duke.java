@@ -8,7 +8,7 @@ public class Duke {
     protected static ArrayList<Task> list = new ArrayList<Task>();
     protected static int counter = 0;
 
-    public static void println() {
+    public static void printline() {
         System.out.println("____________________________________________________________");
     }
 
@@ -38,10 +38,10 @@ public class Duke {
 
 
             Scanner scanIn = new Scanner(System.in);
-            println();
+            printline();
             System.out.println(String.format("Hello I'm %s, your personal assistant.", getName()));
             System.out.println("What can I do for you today, sir?");
-            println();
+            printline();
 
 
             while (true) {
@@ -51,7 +51,7 @@ public class Duke {
 
 
                 if (text.length() > 3 && text.substring(0, 4).equals("list")) {
-                    println();
+                    printline();
 
                     for (int i = 0; i < list.size(); i++) {
                         if (list.get(i) == null) {
@@ -60,7 +60,7 @@ public class Duke {
                             System.out.println(String.format("%d. [%s] [%s] %s", i + 1, list.get(i).tag, list.get(i).getStatusIcon(), list.get(i)));
                         }
                     }
-                    println();
+                    printline();n();
                     continue;
                 }
                 // never use .contains as the command "unmark" may be present in other commands//
@@ -68,27 +68,27 @@ public class Duke {
                     String[] splitText = text.split(" ");
                     int numToUnmark = Integer.parseInt(splitText[1]) - 1;
                     list.get(numToUnmark).markAsIncomplete();
-                    println();
+                    printline();
                     System.out.println("Alright! I'll uncheck this task for you: ");
                     System.out.println(String.format("\t [%s] [%s] %s", list.get(numToUnmark).tag, list.get(numToUnmark).getStatusIcon(), list.get(numToUnmark)));
-                    println();
+                    printline();
 
                     continue;
                 } else if (text.startsWith("mark")) {
                     String[] splitText = text.split(" ");
                     int numToMark = Integer.parseInt(splitText[1]) - 1;
                     list.get(numToMark).markAsComplete();
-                    println();
+                    printline();
                     System.out.println("Alright! I'll check this task as complete for you: ");
                     System.out.println(String.format("\t [%s] [%s] %s", list.get(numToMark).tag, list.get(numToMark).getStatusIcon(), list.get(numToMark)));
-                    println();
+                    printline();
 
                     continue;
                 } else if (text.equals("bye")) {
 
-                    println();
+                    printline();
                     System.out.println("Goodbye. Hope to be of service again soon!");
-                    println();
+                    printline();
                     break;
                 } else if (text.startsWith("todo")) {
 
@@ -99,11 +99,11 @@ public class Duke {
                         Todo todo = new Todo(description.trim());
                         setList(todo);
                         incrementCounter();
-                        println();
+                        printline();
                         System.out.println("Noted Sir. I've added this task to your list: ");
                         System.out.println(String.format("\t [%s] [%s] %s", todo.tag, todo.getStatusIcon(), todo.toString()));
                         System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
-                        println();
+                        printline();
                     }
 
                 } else if (text.startsWith("deadline")) {
@@ -117,11 +117,11 @@ public class Duke {
                         Deadline dl = new Deadline(description.trim(), deadline);
                         setList(dl);
                         incrementCounter();
-                        println();
+                        printline();
                         System.out.println("Noted Sir. I've added this task to your list: ");
                         System.out.println(String.format("\t [%s] [%s] %s", dl.tag, dl.getStatusIcon(), dl.toString()));
                         System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
-                        println();
+                        printline();
                     }
                 } else if (text.startsWith("event")) {
                     String[] splitText = text.split("/");
@@ -135,11 +135,11 @@ public class Duke {
                         Event event = new Event(description.trim(), start, end);
                         setList(event);
                         incrementCounter();
-                        println();
+                        printline();
                         System.out.println("Noted Sir. I've added this task to your list: ");
                         System.out.println(String.format("\t [%s] [%s] %s", event.tag, event.getStatusIcon(), event.toString()));
                         System.out.println(String.format("As of now, you have %d tasks on the agenda.", getCounter()));
-                        println();
+                        printline();
                     }
 
                 } else if (text.startsWith("delete")) {
@@ -147,7 +147,7 @@ public class Duke {
                     int numToDelete = Integer.parseInt(splitText[1]) - 1;
 
 
-                    println();
+                    printline();
                     System.out.println("Alright Sir, I have removed this task from the list for you.");
                     System.out.println(String.format("\t [%s] [%s] %s",list.get(numToDelete).tag, list.get(numToDelete).getStatusIcon(), list.get(numToDelete).toString()));
                     decrementCounter();
@@ -160,9 +160,9 @@ public class Duke {
                 }
                 }
                 catch(DukeException e){
-                    println();
+                    printline();
                     System.out.println(e.message);
-                    println();
+                    printline();
 
                 }
 
