@@ -15,4 +15,13 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
+
+    public void updateTaskStatus(boolean expectedStatus, String doneMessage, String undoneMessage) {
+        if (isDone == expectedStatus) {
+            System.out.println(doneMessage + "\n" + Duke.horizontalLine);
+        } else {
+            isDone = expectedStatus;
+            System.out.println(undoneMessage + "\n" + Duke.horizontalLine);
+        }
+    }
 }
