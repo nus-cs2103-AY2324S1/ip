@@ -9,6 +9,7 @@ import robert.command.Command;
 import robert.command.DeleteCommand;
 import robert.command.ExitCommand;
 import robert.command.FilterCommand;
+import robert.command.FindCommand;
 import robert.command.ListCommand;
 import robert.command.MarkCommand;
 import robert.command.UnmarkCommand;
@@ -19,6 +20,7 @@ import robert.exception.RobertException;
  *
  * @author Lee Zhan Peng
  */
+
 public class Parser {
 
     /**
@@ -194,6 +196,15 @@ public class Parser {
                 throw new RobertException("Date provided does not match format.\n"
                         + "Please write your date in the format of 'YYYY-MM-DD'.");
             }
+        }
+
+        if (commandType.equals("find")) {
+            if (splitCommand.length == 1) {
+                throw new RobertException("The keyword is not indicated.\n"
+                        + "Please add a keyword so that I can find relevant tasks.");
+            }
+
+            return new FindCommand(splitCommand[1]);
         }
 
         throw new RobertException("I'm sorry, but I don't know what that command means :(");
