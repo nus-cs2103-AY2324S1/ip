@@ -1,10 +1,10 @@
+package duke;
+
+import duke.exception.DukeFileNotFoundException;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -53,7 +53,7 @@ public class Storage {
      *//*
     private static void updateFile() throws IOException {
         FileWriter fw = new FileWriter(f);
-        for (Task t : tasks) {
+        for (duke.task.Task t : tasks) {
             fw.write(t.toStringInFile() + "\n");
         }
         fw.close();
@@ -74,10 +74,10 @@ public class Storage {
             String type = chars[0];
             boolean isDone = chars[1].equals("1");
             DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("HH:mm");
-            Task t;
+            duke.task.Task t;
             switch (type) {
             case "[T]":
-                t = new Todo(chars[2]);
+                t = new duke.task.Todo(chars[2]);
                 if (isDone) {
                     t.markDoneFromFile();
                 }
@@ -85,9 +85,9 @@ public class Storage {
                 break;
             case "[D]":
                 if (chars.length == 4) {
-                    t = new Deadline(chars[2], LocalDate.parse(chars[3]));
+                    t = new duke.task.Deadline(chars[2], LocalDate.parse(chars[3]));
                 } else {
-                    t = new Deadline(chars[2], LocalDate.parse(chars[3]),
+                    t = new duke.task.Deadline(chars[2], LocalDate.parse(chars[3]),
                             LocalTime.parse(chars[4], dateFormat));
                 }
                 if (isDone) {
@@ -97,16 +97,16 @@ public class Storage {
                 break;
             case "[E]":
                 if (chars.length == 7) {
-                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat),
+                    t = new duke.task.Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat),
                             LocalDate.parse(chars[5]), LocalTime.parse(chars[6]));
                 } else if (chars.length == 5) {
-                    t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]));
+                    t = new duke.task.Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]));
                 } else {
                     if (chars[5].length() > 5) {
-                        t = new Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat), //chars[5] is a date, last one is date
+                        t = new duke.task.Event(chars[2], LocalDate.parse(chars[3]), LocalTime.parse(chars[4], dateFormat), //chars[5] is a date, last one is date
                                 LocalDate.parse(chars[5]));
                     } else {
-                        t = new Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]),
+                        t = new duke.task.Event(chars[2], LocalDate.parse(chars[3]), LocalDate.parse(chars[4]),
                                 LocalTime.parse(chars[5], dateFormat));
                     }
                 }

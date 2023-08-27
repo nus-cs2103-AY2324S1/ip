@@ -1,3 +1,7 @@
+package duke;
+
+import duke.exception.DukeException;
+
 import java.time.format.DateTimeParseException;
 
 /**

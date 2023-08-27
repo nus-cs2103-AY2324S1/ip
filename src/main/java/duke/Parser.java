@@ -1,4 +1,14 @@
-import java.io.IOException;
+package duke;
+
+import duke.exception.InvalidInputException;
+import duke.exception.InvalidMarkingException;
+import duke.exception.LackDescriptionException;
+import duke.exception.LackInformationException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -212,7 +222,7 @@ public class Parser {
         }
         Task t = tasks.get(j-1);
         t.markDone();
-        this.ui.print("Task marked as done.");
+        this.ui.print("duke.task.Task marked as done.");
     }
 
     /**
@@ -235,7 +245,7 @@ public class Parser {
         }
         Task t = tasks.get(j-1);
         t.markUndone();
-        this.ui.print("Task marked as undone.");
+        this.ui.print("duke.task.Task marked as undone.");
     }
 
     /**
@@ -346,7 +356,7 @@ public class Parser {
                 delete(second);
                 break;
             default:
-                throw new InvalidInputException("OOPS! I do not know what " + first + " means. Please try again :)");
+                throw new duke.exception.InvalidInputException("OOPS! I do not know what " + first + " means. Please try again :)");
             }
             if (x.equals("bye")) {
                 ending();
