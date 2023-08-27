@@ -27,6 +27,11 @@ public class Deadline extends Task {
         }
     }
 
+    public Deadline (String description, LocalDateTime by) {
+        super(description, "D");
+        this.by = by;
+    }
+
     @Override
     public String toFileString() {
         return this.type + " | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + this.by;

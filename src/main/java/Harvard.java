@@ -92,6 +92,15 @@ public class Harvard {
                     }
                     String from = split2[0];
                     String to = split2[1];
+                    if (from.isEmpty() || to.isEmpty()) {
+                        throw new DukeException("☹ OOPS!!! The event time must be specified.");
+                    }
+                    if (from.equals(to)) {
+                        throw new DukeException("☹ OOPS!!! The event start time and end time cannot be the same.");
+                    }
+                    if (from.compareTo(to) > 0) {
+                        throw new DukeException("☹ OOPS!!! The event start time cannot be later than the end time.");
+                    }
                     Event event = new Event(description, from, to);
                     tasks.add(event);
                     taskCount++;

@@ -21,10 +21,21 @@ public class Event extends Task{
      * @param to          The end time of the event.
      */
 
-    public Event (String description, String from, String to) {
+    public Event (String description, String from, String to) throws DukeException {
         super(description, "E");
-        this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
-        this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        try {
+            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new DukeException("Please enter a valid date and time in the format d/M/yyyy HHmm");
+        }
+    }
+
+    public Event (String description, LocalDateTime from, LocalDateTime to) {
+        super(description, "E");
+        this.from = from;
+        this.to = to;
     }
 
     @Override

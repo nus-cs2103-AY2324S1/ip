@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
     protected String type;
@@ -65,10 +66,15 @@ public abstract class Task {
             break;
         case "D":
             String by = split[3];
-            task = new Deadline(description, by);
+            LocalDateTime dateTime = LocalDateTime.parse(by,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            task = new Deadline(description, dateTime);
             break;
         case "E":
-            task = new Event(description, split[3], split[4]);
+            String from = split[3];
+            String to = split[4];
+            LocalDateTime fromDateTime = LocalDateTime.parse(from,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            LocalDateTime toDateTime = LocalDateTime.parse(to,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            task = new Event(description, fromDateTime, toDateTime);
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + type);
