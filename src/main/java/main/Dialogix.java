@@ -1,5 +1,6 @@
 package main;
 
+import exception.DialogixException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -21,7 +22,9 @@ public class Dialogix {
         List<Task> list = new ArrayList<>();
 
         boolean continueDialog = true;
-        while (continueDialog) {
+
+
+        try {
             System.out.print("User: ");
             String userInput = scanner.nextLine();
 
@@ -54,8 +57,12 @@ public class Dialogix {
                 System.out.println("Bot: Bye. Hope to see you again soon!");
                 continueDialog = false;
             } else {
-                System.out.println("Bot: I'm sorry, I don't understand that command.");
+                throw new DialogixException("I'm sorry, but I don't know what that means :-(");
             }
+        } catch (DialogixException e) {
+            System.out.println("Bot: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Bot: An error occurred: " + e.getMessage());
         }
 
         System.out.println("____________________________________________________________");
