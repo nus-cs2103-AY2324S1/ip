@@ -20,6 +20,7 @@ public class Parser {
             throw new InvalidTaskException("ERROR: The description of a " + userInputSegmented[0] +
                     " cannot be empty.");
         }
+
         switch (actionWord) {
             case "todo":
                 return parseTodoInput(userInputSegmented);
@@ -41,6 +42,7 @@ public class Parser {
                 break;
             }
         }
+
         return new Deadline(
                 String.join(" ", Arrays.copyOfRange(userInputSegmented, 1, startIndex - 1)),
                 String.join(" ", Arrays.copyOfRange(userInputSegmented, startIndex, userInputSegmented.length)));
