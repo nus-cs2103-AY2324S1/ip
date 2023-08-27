@@ -98,6 +98,12 @@ public class Duke {
         list.delete(num);
     }
 
+    /**
+     * Executes the parsed command given by the user.
+     *
+     * @param parsedCommand a Parser Object containing the parsed command and arguments.
+     * @throws DukeException If the command is invalid.
+     */
     private static void executeCommand(Parser parsedCommand) throws DukeException {
         Parser.Command command = parsedCommand.getCommand();
         String argument = parsedCommand.getArgument();
@@ -161,6 +167,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Main entrypoint for Duke.
+     */
     public static void main(String[] args) {
         Ui.printWelcomeMessage();
 
