@@ -12,15 +12,21 @@ then
     rm ACTUAL.TXT
 fi
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
-then
+cd ".."
+
+# Run the Gradle build to compile the code along with dependencies
+./gradlew build
+
+# Check if the Gradle build succeeded
+if [ $? -ne 0 ]; then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -Dfile.encoding=UTF-8 -classpath ../bin Duke < input.txt > ACTUAL.TXT
+# Run the program, feed commands from input.txt file, and redirect the output to ACTUAL.TXT
+./gradlew run < text-ui-test/input.txt > text-ui-test/ACTUAL.TXT
+
+cd "./text-ui-test"
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
