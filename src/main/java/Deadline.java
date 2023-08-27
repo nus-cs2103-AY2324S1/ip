@@ -9,6 +9,10 @@ public class Deadline extends Task {
         super(description);
         this.by = by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
+    public Deadline(String description, boolean isDone, LocalDate by) {
+        super(description, isDone);
+        this.by = by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
     @Override
     public String formatToFile() {
         return "D | " + super.formatToFile() + "| " + by;

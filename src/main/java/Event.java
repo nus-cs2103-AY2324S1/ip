@@ -9,12 +9,17 @@ public class Event extends Task {
         this.from = from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         this.to = to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
+    public Event(String description, boolean isDone, LocalDate from, LocalDate to) {
+        super(description, isDone);
+        this.from = from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.to = to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
     @Override
     public String formatToFile() {
-        return "E | " + super.formatToFile() + "| " + "from: " + from + "to: " + to;
+        return "E | " + super.formatToFile() + "| " + "from: " + from + " to: " + to;
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + "to: " + to + ")";
+        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
 }
