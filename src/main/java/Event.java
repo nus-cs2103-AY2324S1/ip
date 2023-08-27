@@ -1,17 +1,21 @@
-public class Event extends Task {
-    private final String startTime;
-    private final String endTime;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-    public Event(String taskName, String startTime, String endTime) {
+public class Event extends Task {
+
+    private LocalDate startTime;
+    private LocalDate endTime;
+
+    public Event(String taskName, String startTime, String endTime) throws TimeParsingException {
         super(taskName);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = Time.parseTime(startTime);
+        this.endTime = Time.parseTime(endTime);
     }
 
-    public Event(String taskName, String startTime, String endTime, boolean isDone) {
+    public Event(String taskName, String startTime, String endTime, boolean isDone) throws TimeParsingException {
         super(taskName, isDone);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = Time.parseTime(startTime);
+        this.endTime = Time.parseTime(endTime);
     }
 
     @Override
@@ -21,11 +25,12 @@ public class Event extends Task {
 
     @Override
     public String getTaskTime() {
-        return " (from: " + this.startTime + " to: " + this.endTime + ")";
+        return " (from: " + Time.formatTime(startTime) + " to: " + Time.formatTime(endTime) + ")";
     }
 
     @Override
     public String toSaveFormat() {
-        return "E | " + (super.isDone() ? "1" : "0") + " | " + this.getTaskName() + " | " + this.startTime + "-" + this.endTime;
+        return "E | " + (super.isDone() ? "1" : "0") + " | " + this.getTaskName() + " | " + Time.formatTimeStoring(startTime) + "--" +
+                Time.formatTimeStoring(endTime);
     }
 }

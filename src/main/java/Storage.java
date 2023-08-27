@@ -24,13 +24,15 @@ public class Storage {
                 }
             } catch (IOException e) {
                 throw new StorageException(filePath);
+            } catch (TimeParsingException e) {
+                throw new RuntimeException(e);
             }
         }
         return tasks;
     }
 
 
-    private Task parseTask(String line) {
+    private Task parseTask(String line) throws TimeParsingException {
         String[] parts = line.split(" \\| ");
         switch (parts[0]) {
         case "T":
@@ -38,7 +40,7 @@ public class Storage {
         case "D":
             return new Deadline(parts[2], parts[3], "1".equals(parts[1]));
         case "E":
-            String[] eventTimes = parts[3].split("-");
+            String[] eventTimes = parts[3].split("--");
             return new Event(parts[2], eventTimes[0], eventTimes[1], "1".equals(parts[1]));
         default:
             return null;

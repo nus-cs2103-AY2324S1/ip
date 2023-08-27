@@ -26,7 +26,7 @@ public class Duke {
         lineSplitter();
     }
 
-    private static Task addTask(String input) throws CommandNotRecognizedException, NoCommandDetailException {
+    private static Task addTask(String input) throws CommandNotRecognizedException, NoCommandDetailException, TimeParsingException{
         String[] splittedInput = input.split(" ", 2); // Split into two parts: command and argument
         String command = splittedInput[0].toLowerCase();
         TaskType taskType = TaskType.valueOf(command.toUpperCase());
@@ -129,6 +129,9 @@ public class Duke {
                 } catch (StorageException e) {
                     System.out.println(e.getMessage());
                     break;
+                } catch (TimeParsingException e) {
+                    System.out.println(e.getMessage());
+                    break;
                 }
             }
         }
@@ -140,6 +143,7 @@ public class Duke {
             list = storage.load();
         } catch (StorageException e) {
             System.out.println(e.getMessage());
+            bye();
         }
         greet();
         echo(list);

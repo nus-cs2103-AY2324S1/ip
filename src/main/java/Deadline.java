@@ -1,14 +1,16 @@
-public class Deadline extends Task {
-    private final String deadline;
+import java.time.LocalDate;
 
-    public Deadline(String taskName, String deadline) {
+public class Deadline extends Task {
+    private final LocalDate deadline;
+
+    public Deadline(String taskName, String deadline) throws TimeParsingException {
         super(taskName);
-        this.deadline = deadline;
+        this.deadline = Time.parseTime(deadline);
     }
 
-    public Deadline(String taskName, String deadline, boolean isDone) {
+    public Deadline(String taskName, String deadline, boolean isDone) throws TimeParsingException {
         super(taskName, isDone);
-        this.deadline = deadline;
+        this.deadline = Time.parseTime(deadline);
     }
 
     @Override
@@ -18,11 +20,11 @@ public class Deadline extends Task {
 
     @Override
     public String getTaskTime() {
-        return " (by: " + this.deadline + ")";
+        return " (by: " + Time.formatTime(deadline) + ")";
     }
 
     @Override
     public String toSaveFormat() {
-        return "D | " + (super.isDone() ? "1" : "0") + " | " + this.getTaskName() + " | " + this.deadline;
+        return "D | " + (super.isDone() ? "1" : "0") + " | " + this.getTaskName() + " | " + Time.formatTimeStoring(deadline);
     }
 }
