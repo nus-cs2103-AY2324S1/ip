@@ -48,4 +48,7 @@ public class Duke {
         }
         return String.join(System.lineSeparator(), lines);
     }
+    private String getBotName() {
+        return this.botName;
+    }
 }
