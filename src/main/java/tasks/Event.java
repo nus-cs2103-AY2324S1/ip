@@ -1,5 +1,9 @@
 package tasks;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
 
     protected String from;
@@ -7,8 +11,20 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+
+        try {
+            LocalDate date = LocalDate.parse(from);
+            this.from = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            this.from = from;
+        }
+
+        try {
+            LocalDate date = LocalDate.parse(to);
+            this.to = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
+            this.to = to;
+        }
     }
 
     @Override
