@@ -66,6 +66,13 @@ public class Duke {
                     System.out.println("   " + newEvent.toString());
                     System.out.println(" Now you have " + list.size() + " tasks in the list.");
                     System.out.println("____________________________________________________________");
+                } else if (command.startsWith("delete")) {
+                    Task re = list.remove(Integer.valueOf(command.split(" ")[1]) - 1);
+                    System.out.println("____________________________________________________________");
+                    System.out.println(" Noted. I've removed this task:");
+                    System.out.println("   " + re.toString());
+                    System.out.println(" Now you have " + list.size() + " tasks in the list.");
+                    System.out.println("____________________________________________________________");
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
