@@ -1,7 +1,5 @@
 package robert.task;
 
-import robert.exception.RobertException;
-
 /**
  * An Event variation of the <tt>Task</tt> class. Used to track
  * a todo.

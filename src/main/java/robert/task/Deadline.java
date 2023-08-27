@@ -25,7 +25,6 @@ public class Deadline extends Task {
         this.byDate = by;
     }
 
-
     /**
      * Constructs Deadline using a description, a due date, and an indication on whether it is marked.
      *
@@ -33,7 +32,7 @@ public class Deadline extends Task {
      * @param by the due date.
      * @param isDone whether the task is completed.
      */
-     public Deadline(String description, LocalDate by, boolean isDone) {
+    public Deadline(String description, LocalDate by, boolean isDone) {
         super(description, isDone);
         this.byDate = by;
     }

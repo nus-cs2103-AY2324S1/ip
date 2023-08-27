@@ -1,7 +1,5 @@
 package robert.ui;
 
-import robert.exception.RobertException;
-
 import java.util.Scanner;
 
 /**
