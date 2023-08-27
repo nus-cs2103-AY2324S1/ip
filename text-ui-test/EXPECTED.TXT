@@ -18,13 +18,13 @@ $>
 
 $>  
 [D]: Added successfully!! d(*⌒▽⌒*)b
-[D]: 2: [D] [ ] return book (by: Sunday)
+[D]: 2: [D] [ ] return book (by: 2023-08-27)
 [D]: 
 [D]: Now you have 2 task(s)!! ヽ(´▽`)/
 
 $>  
 [D]: Task has been marked!! (＾▽＾)
-[D]: 2: [D] [X] return book (by: Sunday)
+[D]: 2: [D] [X] return book (by: 2023-08-27)
 
 $>  
 [D]: Added successfully!! d(*⌒▽⌒*)b
@@ -35,7 +35,7 @@ $>
 $>  
 [D]: Here are the things you said!! ヽ(^o^)丿
 [D]: 1: [T] [ ] borrow book
-[D]: 2: [D] [X] return book (by: Sunday)
+[D]: 2: [D] [X] return book (by: 2023-08-27)
 [D]: 3: [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 
 $>  
@@ -46,7 +46,7 @@ $>
 $>  
 [D]: (´；ω；`) Sorry, deadlines must have a deadline... ;-;
 [D]: (／°▽°)／Try something like this!!
-[D]: deadline [name] /by [date]
+[D]: deadline [name] /by [year-month-date]
 
 $>  
 [D]: (´；ω；`) Sorry, events must have an end time... ;-;
@@ -65,14 +65,19 @@ $>
 [D]: mark [task number]
 
 $>  
-[D]: (´；ω；`) Sorry, deadline names cannot be empty... ;-;
+[D]: (´；ω；`) Sorry, I don't recognize that date... ;-;
 [D]: (／°▽°)／Try something like this!!
-[D]: deadline [name] /by [date]
+[D]: deadline [name] /by [year-month-date]
+
+$>  
+[D]: (´；ω；`) Sorry, events must have a start time... ;-;
+[D]: (／°▽°)／Try something like this!!
+[D]: event [name] /from [time] /to [time]
 
 $>  
 [D]: Here are the things you said!! ヽ(^o^)丿
 [D]: 1: [T] [ ] borrow book
-[D]: 2: [D] [X] return book (by: Sunday)
+[D]: 2: [D] [X] return book (by: 2023-08-27)
 [D]: 3: [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 
 $>  
@@ -83,7 +88,7 @@ $>
 
 $>  
 [D]: Here are the things you said!! ヽ(^o^)丿
-[D]: 1: [D] [X] return book (by: Sunday)
+[D]: 1: [D] [X] return book (by: 2023-08-27)
 [D]: 2: [E] [ ] project meeting (from: Mon 2pm to: 4pm)
 
 $>  

@@ -1,7 +1,7 @@
 todo borrow book
 mark 1
 unmark 1
-deadline return book /by Sunday
+deadline return book /by 2023-08-27
 mark 2
 event project meeting /from Mon 2pm /to 4pm
 list
@@ -11,7 +11,8 @@ event abc /from def
 mark 4
 unmark 5
 mark 
-deadline 
+deadline hello world /by 2023
+event 123
 list
 delete 1
 list
