@@ -1,10 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     protected String from;
     protected String to;
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.to = to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
     @Override
     public String formatToFile() {

@@ -1,3 +1,2 @@
-T | incompleted | augf
-D | completed | su | ow
-E | incompleted | ksh | from: sugu to: su
+T | completed | go to sleep
+D | incompleted | complete level 5 | Nov 7 2023
