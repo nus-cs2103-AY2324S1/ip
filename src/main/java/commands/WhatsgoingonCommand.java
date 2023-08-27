@@ -2,8 +2,10 @@ package commands;
 
 import errors.DotException;
 import tasks.TaskList;
+import ui.Ui;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class WhatsgoingonCommand extends Command {
 
@@ -15,6 +17,7 @@ public class WhatsgoingonCommand extends Command {
         this.dotTaskList = dotTaskList;
     }
     public void execute() throws DotException {
-        dotTaskList.listAllTasksFallingOnDate(parsedLocalDateTime);
+        ArrayList<String> queriedTasks = dotTaskList.getAllTasksFallingOnDate(parsedLocalDateTime);
+        Ui.displayArrayList(queriedTasks);
     }
 }
