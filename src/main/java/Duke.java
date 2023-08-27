@@ -6,7 +6,7 @@ public class Duke {
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
-     * Print out the tasks that currently in the tasks arraylist.
+     * Prints out the tasks that currently in the tasks arraylist.
      */
     public static void listTasks() {
         System.out.println("Here are the tasks in your list:");
@@ -16,7 +16,7 @@ public class Duke {
     }
 
     /**
-     * Adding task into the tasks arraylist.
+     * Adds task into the tasks arraylist.
      *
      * @param task the task that going to be added into tasks arraylist.
      */
