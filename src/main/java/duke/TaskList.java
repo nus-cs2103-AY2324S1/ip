@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -12,6 +13,17 @@ public class TaskList {
     public TaskList(Ui ui) {
         this.tasks = new ArrayList<>();
         this.ui = ui;
+    }
+
+    public void filterTasks(String description) {
+        List<Task> filteredTasks = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(description)) {
+                filteredTasks.add(task);
+            }
+        }
+        this.ui.listFoundTasks(filteredTasks);
     }
 
     public void save(Storage storage) {

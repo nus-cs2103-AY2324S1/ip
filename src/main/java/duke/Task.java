@@ -4,8 +4,8 @@ package duke;
  * Abstract class which all the different types of tasks inherit from
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
     /**
      * Class constructor specifying the description of the task.
@@ -14,6 +14,22 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    /**
+     * Returns the description of the task.
+     * @return the string description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Returns a boolean indicator of whether the task is done.
+     * @return a boolean indicator of whether the task is done.
+     */
+    public boolean isDone() {
+        return this.isDone;
     }
 
     /**

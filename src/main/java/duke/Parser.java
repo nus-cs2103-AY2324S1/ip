@@ -4,6 +4,14 @@ import java.util.Arrays;
 
 public class Parser {
 
+    public String parseFindDescription(String userInput) {
+        String[] userInputSegmented = userInput.split(" ");
+        StringBuilder description = new StringBuilder();
+        for (int i = 1; i < userInputSegmented.length; i++) {
+            description.append(userInputSegmented[i] + " ");
+        }
+        return description.toString();
+    }
     public String parseActionWord(String userInput) {
         String[] userInputSegmented = userInput.split(" ");
         return userInputSegmented[0];
