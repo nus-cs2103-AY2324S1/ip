@@ -3,11 +3,18 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-//duke.Deadline class
+/**duke.Deadline class
+ *
+ */
 public class Deadline extends Task {
     LocalDate by;
 
-    //Stores the due date as by
+    /**Stores the due date as by
+     *
+     * @param name set the name of the deadline
+     * @param by set the due date
+     * @return
+     */
     public Deadline(String name, String by) {
         super(name);
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -20,7 +27,10 @@ public class Deadline extends Task {
     }
 
 
-    //default display for this type
+    /**default display for this type
+     *
+     * @return the display of the obj
+     */
     public String display() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         if (done) {

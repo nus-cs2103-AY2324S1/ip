@@ -7,11 +7,18 @@ import java.util.regex.Pattern;
  * This class is to store patterns to match against user input
  * */
 public class MarkPattern {
-    //Empty constructor to just initialise it
-    public MarkPattern() {
+  
+    /** Empty constructor to just initialise it
+     *
+     */
+    public MarkPattern () {
     }
 
-    //The pattern for mark
+    /**The pattern for mark
+     *
+     * @param args string to test
+     * @return returns the int to mark or -1 if false
+     */
     public int mark(String args) {
         Pattern pattern = Pattern.compile("mark\\s*(\\d+)");
         Matcher matcher = pattern.matcher(args);
@@ -24,7 +31,11 @@ public class MarkPattern {
         }
     }
 
-    //The pattern for unmark
+    /** The pattern for unmark
+     *
+     * @param args the string to test
+     * @return return the no to unmark
+     */
     public int unmark(String args) {
         Pattern pattern = Pattern.compile("unmark\\s*(\\d+)");
         Matcher matcher = pattern.matcher(args);
@@ -37,7 +48,11 @@ public class MarkPattern {
         }
     }
 
-    //The pattern for delete
+    /** The pattern for delete
+     *
+     * @param args the string to test
+     * @return returns the item to delete
+     */
     public int del(String args) {
         Pattern pattern = Pattern.compile("delete\\s*(\\d+)");
         Matcher matcher = pattern.matcher(args);

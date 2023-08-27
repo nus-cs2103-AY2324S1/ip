@@ -3,13 +3,24 @@ package duke;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * The storage class to handle data saving
+ */
 public class Storage {
     private final String filepath;
 
+    /**
+     * constructor for filepath
+     * @param filepath key in where you want to store
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * save a arrlist to the file
+     * @param arr the arraylist it takes in
+     */
     public void saveDataToFile(ArrayList<Task> arr) {
         try {
             File file = new File(filepath);
@@ -25,6 +36,10 @@ public class Storage {
         }
     }
 
+    /**
+     * loads data from the saved file
+     * @return the saved arrlist
+     */
     public ArrayList<Task> loadDataFromFile() {
         ArrayList<Task> arr = new ArrayList<>();
         try (ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream(filepath))) {

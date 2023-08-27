@@ -1,12 +1,26 @@
 package duke;
 
-public class Parser {
 
+
+/** This is the class to parse stuff
+ *
+ */
+public class Parser {
+  
     MarkPattern check = new MarkPattern();
 
+    /** The constructor to init
+     *
+     */
     public Parser() {
     }
 
+    /**
+     * Enter your things to parse here
+     * @param stuff your parse items
+     * @param items your tasklist
+     * @return returns the modified tasklist
+     */
     public TaskList parse(String stuff, TaskList items) {
 
         if (stuff.equalsIgnoreCase("list")) {
