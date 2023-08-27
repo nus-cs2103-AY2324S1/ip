@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -7,7 +8,18 @@ public class Ren {
         Set<String> TASK_TYPES = Set.of(
                 "todo", "deadline", "event"
         );
-        TaskList tasks = new TaskList();
+
+
+        RenObjectMapper objectMapper = new RenObjectMapper();
+        TaskList tasks;
+        try {
+            tasks = objectMapper.retrieveFromHarddisk();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            tasks = new TaskList(new ArrayList<Task>());
+        }
+
 
         Scanner input = new Scanner(System.in);
         String welcomeMsg = "____________________________________________________________\n" +

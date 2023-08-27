@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Event extends Task {
 
     private final String startTime;
@@ -23,7 +26,21 @@ public class Event extends Task {
         return this.endTime;
     }
 
+    public Event() {
+        super();
+        this.startTime = "";
+        this.endTime = "";
+        this.taskType = TaskType.EVENT;
+    }
+
     public Event(String eventDesc, boolean isDone, String startTime, String endTime) {
+        super(eventDesc, isDone);
+        this.taskType = TaskType.EVENT;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    public Event(String eventDesc, boolean isDone, TaskType taskType, String startTime, String endTime) {
         super(eventDesc, isDone);
         this.taskType = TaskType.EVENT;
         this.startTime = startTime;
