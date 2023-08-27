@@ -5,6 +5,8 @@ public class Duke {
     private final String line = "_____________________________________________________";
     private final ArrayList<Task> lst = new ArrayList<>();
 
+    private final Storage storage = new Storage("./data/data.txt");
+
     private enum TaskType {
         TODO,
         DEADLINE,
@@ -113,7 +115,7 @@ public class Duke {
                         if (description.equals("")) {
                             throw new DukeInvalidCommandException(command);
                         }
-                        this.addTodo(description);
+                        this.addTodo(description, false);
                     } else if (taskType == TaskType.DEADLINE) {
 
                         if (input.replaceAll("\\s", "").equals(input)) {
@@ -135,7 +137,7 @@ public class Duke {
                         } else if ( by.equals("")) {
                             throw new DukeEmptyParametersException();
                         } else {
-                            this.addDeadline(description, by);
+                            this.addDeadline(description, false, by);
                         }
                     } else if (taskType == TaskType.EVENT) {
 
@@ -159,7 +161,7 @@ public class Duke {
                         } else if (start.equals("") || by.equals("")) {
                             throw new DukeEmptyParametersException();
                         } else {
-                            this.addEvent(description, start, by);
+                            this.addEvent(description, false, start, by);
                         }
                     } else {
                         throw new DukeInvalidCommandException();
@@ -173,32 +175,47 @@ public class Duke {
         }
     }
 
-    public void addTodo(String input) {
-        Todo newTask = new Todo(input);
+    public void addTodo(String input, boolean isDone) {
+        Todo newTask = new Todo(input, isDone);
+        String newTaskString = newTask.fileFormat();
+
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + newTask);
+
         lst.add(newTask);
+        storage.addTask(newTaskString);
+
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
     }
 
-    public void addDeadline(String input, String by) {
-        Deadline newTask = new Deadline(input, by);
+    public void addDeadline(String input, boolean isDone, String by) {
+        Deadline newTask = new Deadline(input, isDone, by);
+        String newTaskString = newTask.fileFormat();
+
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + newTask);
+
         lst.add(newTask);
+        storage.addTask(newTaskString);
+
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
     }
 
-    public void addEvent(String input, String start, String end) {
-        Event newTask = new Event(input, start, end);
+    public void addEvent(String input, boolean isDone, String start, String end) {
+        Event newTask = new Event(input, isDone, start, end);
+        String newTaskString = newTask.fileFormat();
+
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + newTask);
+
         lst.add(newTask);
+        storage.addTask(newTaskString);
+
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
     }
