@@ -1,3 +1,4 @@
+package duke;
 /**
  * Class to encapsulate the whole chatbot and its functionality
  */
