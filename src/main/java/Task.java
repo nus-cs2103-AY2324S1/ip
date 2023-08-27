@@ -18,6 +18,8 @@ abstract class Task {
 
     abstract Task undone();
 
+    abstract String storageText();
+
     protected String getTask() {
         return this.task;
     }
@@ -25,8 +27,8 @@ abstract class Task {
     @Override
     public String toString() {
         if (isDone) {
-            return "[X] " + this.task;
+            return "[X] " + this.task.trim();
         }
-        return "[ ] " + this.task;
+        return "[ ] " + this.task.trim();
     }
 }

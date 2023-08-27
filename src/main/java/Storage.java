@@ -45,10 +45,10 @@ public class Storage {
                         Task task = new Todo(taskName);
                         tasks.add(task);
                     } else if (taskInfo.charAt(1) == 'D') {
-                        Task task = new Todo(taskName);
+                        Task task = new Deadline(taskName);
                         tasks.add(task);
                     } else if (taskInfo.charAt(1) == 'E') {
-                        Task task = new Deadline(taskName);
+                        Task task = new Event(taskName);
                         tasks.add(task);
                     }
 
@@ -76,7 +76,7 @@ public class Storage {
             writer.close();
 
             for (int i = 0; i < tasklist.size(); i++) {
-                writeToFile(tasklist.get(i).toString());
+                writeToFile(tasklist.get(i).storageText());
             }
         } catch(IOException e) {
             throw new DukeException(e.getMessage());

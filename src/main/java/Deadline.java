@@ -1,6 +1,11 @@
-public class Deadline extends Task {
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    private static String parseDeadline(String task) throws DukeException {
+public class Deadline extends Task {
+    private final LocalDate deadlineDate;
+
+
+    private static String[] parseDeadline(String task) throws DukeException {
         String [] taskSplit = task.split("/by", 2);
         String taskName = taskSplit[0].trim();
 
@@ -17,30 +22,38 @@ public class Deadline extends Task {
             throw new DukeException("Please enter valid deadline: Do not leave it empty");
         }
 
-        String deadlineInfoString = taskSplit[0] + "(by: " + dueDate + ")";
-        return deadlineInfoString;
+        return new String[] {taskSplit[0], dueDate};
     }
 
     Deadline(String task) throws DukeException {
-        super(parseDeadline(task));
+        super(parseDeadline(task)[0]);
+        this.deadlineDate = LocalDate.parse(parseDeadline(task)[1]);
     }
 
-    Deadline(String task, boolean isDone) {
+    Deadline(String task, boolean isDone, LocalDate deadlineDate) {
         super(task, isDone);
+        this.deadlineDate = deadlineDate;
     }
 
     @Override
     public Deadline done() {
-        return new Deadline(super.getTask(), true);
+        return new Deadline(super.getTask(), true, this.deadlineDate);
     }
     @Override
     public Deadline undone() {
-        return new Deadline(super.getTask(), false);
+        return new Deadline(super.getTask(), false, this.deadlineDate);
+    }
+
+    @Override
+    public String storageText() {
+        String end = deadlineDate.toString();
+        return "[D]" + super.toString() + "/by " + end;
     }
 
 
     @Override
     public String toString() {
-        return "[D]" + super.toString();
+        return "[D]" + super.toString() + " (by: "
+                + deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
