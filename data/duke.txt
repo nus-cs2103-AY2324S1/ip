@@ -8,3 +8,27 @@ T | 0 | do homework | 2020-02-20
 T | 0 | jog | 2022-02-23
 T | 0 | work | 2022-03-20
 T | 0 | do assignment | Feb 20 2022
+T | 0 | reading
+T | 1 | reading
+T | 0 | reading | Sep 22 2022
+T | 0 | play games
+T | 0 | playyy
+T | 0 | play game
+T | 0 | eat lunch
+T | 0 | assignment | Feb 23 2022
+T | 0 | play
+T | 0 | play
+T | 1 | play
+T | 0 | assignment | Mar 23 2023
+T | 0 | play
+T | 0 | play games
+T | 0 | play games
+T | 0 | play games
+T | 0 | return book | Feb 23 2022
+T | 0 | borrow book
+T | 0 | project meeting | Mon 2pm 4pm
+T | 0 | do homework | Mar 23 2022
+T | 0 | return book | Feb 23 2022
+T | 0 | borrow book
+T | 0 | project meeting | Mon 2pm 4pm
+T | 0 | do homework | Mar 23 2022
