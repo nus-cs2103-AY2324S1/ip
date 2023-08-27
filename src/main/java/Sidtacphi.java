@@ -85,14 +85,14 @@ public class Sidtacphi {
                 } catch (Exception e) {
                     System.out.println("\nSidtacphi: Invalid task ID. ");
                 }
-            } else if (input.length() > 5 && Objects.equals(input.substring(0, 5), "todo ")) {
+            } else if (input.length() > 4 && Objects.equals(input.substring(0, 5), "todo ")) {
                 addTask(TaskType.TODO, input);
-            } else if (input.length() > 6 && Objects.equals(input.substring(0, 6), "event ")) {
+            } else if (input.length() > 5 && Objects.equals(input.substring(0, 6), "event ")) {
                 addTask(TaskType.EVENT, input);
-            } else if (input.length() > 9 && Objects.equals(input.substring(0, 9), "deadline ")) {
+            } else if (input.length() > 6 && Objects.equals(input.substring(0, 9), "deadline ")) {
                 addTask(TaskType.DEADLINE, input);
             } else {
-                System.out.print("\nSidtacphi: \"" + input + "\". is not a valid command. \n");
+                System.out.print("\nSidtacphi: \"" + input + "\" is not a valid command. \n");
             }
             System.out.print("\nYou: ");
         }
@@ -145,8 +145,13 @@ public class Sidtacphi {
                 break;
         }
         
-        System.out.println("\nSidtacphi: I have added \"" + taskList[listPtr] + "\".");
-        listPtr++;
+        if (Objects.nonNull(taskList[listPtr])) {
+            System.out.println("\nSidtacphi: I have added \"" + taskList[listPtr] + "\".");
+            listPtr++;
+        } else {
+            return;
+        }
+        
         if (listPtr == 1) {
             System.out.println("Sidtacphi: You now have 1 task in your list.");
         } else {
