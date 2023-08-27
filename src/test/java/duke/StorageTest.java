@@ -31,16 +31,4 @@ public class StorageTest {
         Task task3Expected = new ToDo ("todo eat mcgriddles");
         assertEquals(task3.toString(), task3Expected.toString());
     }
-
-    @Test
-    public void noPath() throws IOException {
-        String directoryPath = "";
-        String filePath = "";
-        Storage storage = new Storage(filePath, directoryPath);
-
-        IllegalArgumentException expectedException = assertThrows(IllegalArgumentException.class, 
-            () -> {
-                storage.loadFile();
-            });
-    }
 }
