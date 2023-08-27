@@ -1,10 +1,17 @@
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected LocalDateTime by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeException {
         super(description);
-        this.by = by;
+        try {
+            this.by = LocalDateTime.parse(by, Task.DATE_FORMAT);
+        } catch (DateTimeException e) {
+            throw new DukeException("Date should follow the format d/M/yyyy HHmm");
+        }
     }
 
     public Deadline() {
@@ -13,18 +20,22 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(DATE_FORMAT_OUTPUT) + ")";
     }
 
     public String toFileString() {
-        return "D | " + super.getStatusIcon() + " | " + description + " | " + by;
+        return "D | " + super.getStatusIcon() + " | " + description + " | " + by.format(DATE_FORMAT);
     }
 
-    public void fromFileString(String fileString) {
+    public void fromFileString(String fileString) throws DukeException {
         String[] fileStringArray = fileString.split(" \\| ");
         this.setStatusIcon(fileStringArray[1]);
         this.description = fileStringArray[2];
-        this.by = fileStringArray[3];
+        try {
+            this.by = LocalDateTime.parse(fileStringArray[3], Task.DATE_FORMAT);
+        } catch (DateTimeException e) {
+            throw new DukeException("Date should follow the format d/M/yyyy HHmm");
+        }
     }
 
 }
