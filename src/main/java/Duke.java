@@ -1,12 +1,16 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
     private final String botName;
     private final Scanner scanner;
+    private final List<String> taskList;
 
     public Duke(String botName) {
         this.botName = botName;
         this.scanner = new Scanner(System.in);
+        this.taskList = new ArrayList<>();
     }
 
     public static void main(String[] args) {
