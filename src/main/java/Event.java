@@ -1,4 +1,5 @@
 public class Event extends Task{
+
     protected String from;
     protected String to;
 
@@ -6,6 +7,19 @@ public class Event extends Task{
         super(description);
         this.from = from;
         this.to = to;
+
+    }
+
+    public Event(String description, String from, String to, boolean isDone) {
+        super(description, isDone);
+        this.from = from;
+        this.to = to;
+
+    }
+
+    @Override
+    public String getSaveableString() {
+        return String.format("E//%s//%s//%s//%s", getStatusIcon(), description, from, to);
     }
 
     @Override
