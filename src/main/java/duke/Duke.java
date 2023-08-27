@@ -1,10 +1,10 @@
+package duke;
+
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 import duke.exception.InvalidInputException;
-import duke.Storage;
 import duke.parser.UserInputParser;
 import duke.task.TaskList;
-import duke.Ui;
 
 import java.io.IOException;
 import java.util.Scanner;
