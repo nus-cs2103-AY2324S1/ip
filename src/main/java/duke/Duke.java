@@ -3,6 +3,9 @@ package duke;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * The main class that contains and controls the other components.
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
@@ -17,6 +20,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Main loop that constantly requests input from user when necessary.
+     */
     public void run() {
         Ui.showWelcome();
         boolean isExit = false;

@@ -7,7 +7,15 @@ import java.util.Objects;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * Processes the string the user put in.
+ */
 public class Parser {
+    /**
+     * Returns the type of task.
+     * @param response the string the user put in.
+     * @return type of task.
+     */
     public static String parseCommandType(String response) throws DukeException {
         if (Objects.equals(response, "bye")) {
             return "bye";
@@ -23,11 +31,26 @@ public class Parser {
             throw new DukeException("Invalid command");
         }
     }
+    /**
+     * Returns the number associated with a delete or mark command.
+     * number is reduced by 1 since user will write with 1-indexing while
+     * taskList is 0-indexed.
+     * Not to be used for other types of command.
+     * @param response the string the user put in.
+     * @return task number.
+     */
     public static int taskNumber(String response) {
         String[] array = response.split(" ");
         String lastVal = array[array.length - 1];
         return parseInt(lastVal) - 1;
     }
+
+    /**
+     * Returns the task given in a command.
+     * @param response the string the user put in.
+     * @return the task.
+     * @throws DukeException if incomplete task or not a task.
+     */
     public static Task newTask(String response) throws DukeException {
         String[] array = response.split(" ");
         StringBuilder title = new StringBuilder();

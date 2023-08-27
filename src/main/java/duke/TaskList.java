@@ -2,6 +2,9 @@ package duke;
 
 import java.util.ArrayList;
 
+/**
+ * Class that contains all the tasks.
+ */
 public class TaskList {
     ArrayList<Task> tasks;
     public TaskList(ArrayList<Task> tasks) {
@@ -12,6 +15,11 @@ public class TaskList {
         return this.tasks;
     }
 
+    /**
+     * Deletes the task with index taskNumber.
+     * @param taskNumber the index of task to remove.
+     * @throws DukeException if given task does not exist.
+     */
     public void deleteTask(int taskNumber) throws DukeException {
         if (taskNumber < tasks.size()) {
             Ui.showMessage("Noted. I've removed this task:");
@@ -22,6 +30,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Completes the task with index taskNumber.
+     * @param taskNumber the index of task to complete.
+     * @throws DukeException if given task does not exist.
+     */
     public void markTask(int taskNumber) throws DukeException {
         // Assumption: "mark" is not allowed as a task name & you can mark already done tasks.
         // Issue: "mark" by itself crashes.
@@ -34,6 +47,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds the task newTask.
+     * @param newTask task to add.
+     */
     public void addTask(Task newTask) {
         this.tasks.add(newTask);
     }

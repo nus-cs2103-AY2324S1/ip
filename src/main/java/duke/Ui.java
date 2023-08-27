@@ -3,15 +3,28 @@ package duke;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class that deals with interactions with the user.
+ */
 public class Ui {
+    /**
+     * Shows a loading error if failing to initialise starting classes.
+     */
     public static void showLoadingError() {
         System.out.println("Unable to initialise duke.Duke.");
     }
 
+    /**
+     * Shows welcome message.
+     */
     public static void showWelcome() {
         System.out.println("Hello I'm iP");
     }
 
+    /**
+     * Shows a list of tasks.
+     * @param tasks Tasks to show.
+     */
     public static void listTasks(ArrayList<Task> tasks) {
         System.out.println("List of tasks:");
         for (Task task : tasks) {
@@ -20,6 +33,9 @@ public class Ui {
         System.out.println("You have " + tasks.size() + " tasks in the list.");
     }
 
+    /**
+     * Requests input from the user.
+     */
     public static String readCommand() {
         Scanner input = new Scanner(System.in);
         return input.nextLine();

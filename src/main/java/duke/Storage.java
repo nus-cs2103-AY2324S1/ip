@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Handles reading and writing of the data file.
+ */
 public class Storage {
     private final File file;
     public Storage(String filePath) {
@@ -29,6 +32,13 @@ public class Storage {
             System.out.println("IOException in reading files: " + e.getMessage());
         }
     }
+
+    /**
+     * Parses one line of the task and returns the associated task.
+     * @param oneTask one line from the data file.
+     * @return the task represented by the line from the data file.
+     * @throws DukeException if the data file's input does not match writing.
+     */
     private Task parseOneLine(String oneTask) throws DukeException {
         Task theTask;
         String taskName;
@@ -97,6 +107,11 @@ public class Storage {
         }
         return theTask;
     }
+
+    /**
+     * Prepares a list of tasks from a data file.
+     * @return The tasks represented by the line from the data file.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>(100);
         try {
@@ -111,6 +126,10 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Writes tasks to the data files.
+     * @param tasks Tasks to write to the data file.
+     */
     public static void writeToDisk(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter("./data/duke.txt");
