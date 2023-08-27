@@ -10,7 +10,7 @@ import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
-public class SaveHandler {
+public class Storage {
   private static final Path SAVE_FOLDER = Paths.get(".", "data");
   private static final Path SAVE_PATH = Paths.get(SAVE_FOLDER.toString(),
       "save.txt");

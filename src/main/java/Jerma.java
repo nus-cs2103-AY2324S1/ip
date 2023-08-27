@@ -23,7 +23,7 @@ public class Jerma {
     System.out.println("Hello! I'm Jerma.");
 
     Scanner scanner = new Scanner(System.in);
-    List<Task> toDoList = SaveHandler.load();
+    List<Task> toDoList = Storage.load();
 
     listen: while (true) {
       String input = scanner.nextLine();
@@ -94,7 +94,7 @@ public class Jerma {
       }
     }
     scanner.close();
-    SaveHandler.save(toDoList);
+    Storage.save(toDoList);
 
     System.out.println("See ya soon!");
   }
