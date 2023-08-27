@@ -1,12 +1,7 @@
 import exceptions.*;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -68,6 +63,7 @@ public class Tasks {
             Task task = this.getTask(number);
             if (task != null) {
                 Task t = this.tasks.remove(number - 1);
+                this.saveTasks();
                 System.out.println(line);
                 System.out.println("    Noted. I've removed this task:");
                 System.out.println("    " + t);
@@ -218,7 +214,6 @@ public class Tasks {
                 String dateTimeString = datetime[0] + "T" + datetime[1];
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm");
                 parsedDateTime = LocalDateTime.parse(dateTimeString, formatter);
-                System.out.println(parsedDateTime);
             } else {
                 return null;
             }
