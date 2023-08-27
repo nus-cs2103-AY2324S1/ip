@@ -58,6 +58,10 @@ public class TaskList {
             String from = splitString[4];
             DateTime fromDateTime = DateTime.createDateTimeFromStorage(from);
             DateTime toDateTime = DateTime.createDateTimeFromStorage(to);
+            if (fromDateTime == null || toDateTime == null) {
+                throw new WrongInputTask("Stored event is invalid / corrupted",
+                        "Please clear the folder and restart the program");
+            }
             return new Event(taskName, taskStatus, fromDateTime, toDateTime);
         default:
             return null;
@@ -99,6 +103,15 @@ public class TaskList {
      */
     public String getTask(int index) {
         return this.taskList.get(index).toString();
+    }
+
+    /**
+     *  Returns the task object at a particular index
+     *  @param index index of the task in the taskList
+     *  @return  the task object
+     */
+    public Task getTaskObject(int index) {
+        return this.taskList.get(index);
     }
 
     /**
