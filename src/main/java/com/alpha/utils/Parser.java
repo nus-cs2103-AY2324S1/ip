@@ -4,6 +4,8 @@ import com.alpha.exceptions.InvalidTaskException.InvalidCommandException;
 import com.alpha.exceptions.InvalidTaskException.InvalidDeadlineException;
 import com.alpha.exceptions.InvalidTaskException.InvalidEventException;
 import com.alpha.exceptions.InvalidTaskException.InvalidToDoException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
@@ -77,5 +79,18 @@ public class Parser {
       throw new InvalidEventException();
     }
     return result.substring(indexOfLastTo + 4);
+  }
+
+  public static LocalDateTime parseDateTimeString(String text) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    return LocalDateTime.parse(text, formatter);
+  }
+
+  public static String parseDateTimeObjectToDisplay(LocalDateTime localDateTime) {
+    return localDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+  }
+
+  public static String parseDateTimeObjectToStore(LocalDateTime localDateTime) {
+    return localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
   }
 }

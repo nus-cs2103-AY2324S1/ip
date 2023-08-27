@@ -1,30 +1,40 @@
 package com.alpha.tasks;
 
 import com.alpha.enums.TagEnum;
+import com.alpha.utils.Parser;
+import java.time.LocalDateTime;
 
 public class Event extends Task {
 
-  private final String start;
+  private final LocalDateTime start;
 
-  private final String end;
+  private final LocalDateTime end;
 
   public Event(String name, String start, String end) {
     super(name);
     this.setTag(TagEnum.EVENT);
-    this.start = start;
-    this.end = end;
+    this.start = Parser.parseDateTimeString(start);
+    this.end = Parser.parseDateTimeString(end);
   }
 
-  public String getStart() {
-    return this.start;
+  public String getStartToDisplay() {
+    return Parser.parseDateTimeObjectToDisplay(start);
   }
 
-  public String getEnd() {
-    return end;
+  public String getStartToStore() {
+    return Parser.parseDateTimeObjectToStore(start);
+  }
+
+  public String getEndToDisplay() {
+    return Parser.parseDateTimeObjectToDisplay(end);
+  }
+
+  public String getEndToStore() {
+    return Parser.parseDateTimeObjectToStore(end);
   }
 
   @Override
   public String toString() {
-    return super.toString() + "(from: " + start + " to: " + end + ")";
+    return super.toString() + "(from: " + getStartToDisplay() + " to: " + getEndToDisplay() + ")";
   }
 }
