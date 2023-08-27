@@ -2,17 +2,12 @@ public class Event extends Task {
     private String from;
     private String to;
 
-    public Event(String description, String from, String to) {
-        super(description, "event");
-        this.from = from;
-        this.to = to;
-    }
 
     public Event(String description, String from, String to, boolean marked) {
         super(description, "event");
         this.from = from;
         this.to = to;
-        this.mark(marked);
+        this.mark(marked, true);
     }
 
     @Override

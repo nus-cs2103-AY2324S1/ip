@@ -21,7 +21,7 @@ public class Tasks {
     }
 
 
-    public void handle(String text, boolean isSilent) {
+    public void handle(String text, boolean isRestoring) {
         try {
             // Check if input text is valid
             String[] parsedText = checkValid(text);
@@ -43,7 +43,7 @@ public class Tasks {
                 case "todo":
                 case "deadline":
                 case "event":
-                    this.addTask(action, restOfText, isSilent);
+                    this.addTask(action, restOfText, isRestoring);
                     break;
                 default:
                     System.out.println(line);
@@ -110,7 +110,8 @@ public class Tasks {
             int number = Integer.parseInt(id);
             Task task = this.getTask(number);
             if (task != null) {
-                task.mark(val);
+                task.mark(val, false);
+                this.saveTasks();
             } else {
                 System.out.println(line);
                 System.out.println("    Unknown task number! Please try again :-)");
@@ -123,21 +124,27 @@ public class Tasks {
         }
     }
 
-    private void addTask(String action, String text, boolean isSilent) {
+    private void addTask(String action, String text, boolean isRestoring) {
         // Check if input text is valid
         Task task;
+        boolean marked = false;
+        if (isRestoring) {
+            String marker = text.substring(text.length() - 1);
+            marked = marker.equals("1");
+            text = text.substring(0, text.length() - 1);
+        }
         try {
             switch (action) {
                 case "todo":
-                    task = new Todo(text);
+                    task = new Todo(text, marked);
                     break;
                 case "deadline":
                     String[] deadline = checkDeadline(text);
-                    task = new Deadline(deadline[0], deadline[1]);
+                    task = new Deadline(deadline[0], deadline[1], marked);
                     break;
                 case "event":
                     String[] event = checkEvent(text);
-                    task = new Event(event[0], event[1], event[2]);
+                    task = new Event(event[0], event[1], event[2], marked);
                     break;
                 default:
                     System.out.println("    You shouldn't be here, something went wrong...");
@@ -151,8 +158,9 @@ public class Tasks {
             return;
         }
 
-        this.addTask(task);
-        if (!isSilent) {
+        this.tasks.add(task);
+        this.saveTasks();
+        if (!isRestoring) {
             System.out.println(line);
             System.out.println("    Got it. I've added this task:");
             System.out.println("      " + task);
@@ -161,8 +169,7 @@ public class Tasks {
         }
     }
 
-    private void addTask(Task task) {
-        this.tasks.add(task);
+    private void saveTasks() {
         // Delete everything in
         try {
             PrintWriter writer = new PrintWriter(this.filepath);
