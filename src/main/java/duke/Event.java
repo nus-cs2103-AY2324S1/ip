@@ -30,7 +30,7 @@ public class Event extends Task{
     }
 
     public String saveTask() {
-        return "E|" + (this.isDone ? "X|" : " |") + this.description + "|" + this.from + "|" + this.to;
+        return "E|" + (this.isDone() ? "X|" : " |") + this.getDescription() + "|" + this.from + "|" + this.to;
     }
 
 }

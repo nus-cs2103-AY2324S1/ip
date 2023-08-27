@@ -26,7 +26,7 @@ public class Deadline extends Task {
     }
 
     public String saveTask() {
-        return "D|" + (this.isDone ? "X|" : " |") + this.description + "|" + this.by;
+        return "D|" + (this.isDone() ? "X|" : " |") + this.getDescription() + "|" + this.by;
     }
 }
 

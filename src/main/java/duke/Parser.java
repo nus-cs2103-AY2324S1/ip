@@ -2,15 +2,33 @@ package duke;
 
 import java.util.Arrays;
 
+import static java.lang.String.join;
+
 public class Parser {
 
+    public String parseFindDescription(String userInput) {
+        String[] userInputSegmented = userInput.split(" ");
+
+        StringBuilder joinedString = new StringBuilder();
+        for (int i = 1; i < userInputSegmented.length; i++) {
+            joinedString.append(userInputSegmented[i]);
+            if (i < userInputSegmented.length - 1) {
+                joinedString.append(" ");
+            }
+        }
+
+        return joinedString.toString();
+    }
     public String parseActionWord(String userInput) {
         String[] userInputSegmented = userInput.split(" ");
         return userInputSegmented[0];
     }
 
-    public int parseTaskNumber(String userInput) {
+    public int parseTaskNumber(String userInput) throws InvalidInputException {
         String[] userInputSegmented = userInput.split(" ");
+        if (userInputSegmented.length <= 1) {
+            throw new InvalidInputException("ERROR: Invalid Input");
+        }
         return Integer.parseInt(userInputSegmented[1]) - 1;
     }
 
@@ -42,8 +60,8 @@ public class Parser {
             }
         }
         return new Deadline(
-                String.join(" ", Arrays.copyOfRange(userInputSegmented, 1, startIndex - 1)),
-                String.join(" ", Arrays.copyOfRange(userInputSegmented, startIndex, userInputSegmented.length)));
+                join(" ", Arrays.copyOfRange(userInputSegmented, 1, startIndex - 1)),
+                join(" ", Arrays.copyOfRange(userInputSegmented, startIndex, userInputSegmented.length)));
     }
 
     private Event parseEventInput(String[] userInputSegmented) {
@@ -67,14 +85,14 @@ public class Parser {
         }
 
         return new Event(
-                String.join(" ", Arrays.copyOfRange(userInputSegmented, 1, fromIndex - 1)),
-                String.join(" ", Arrays.copyOfRange(userInputSegmented, fromIndex, toIndex - 1)),
-                String.join(" ", Arrays.copyOfRange(userInputSegmented, toIndex, userInputSegmented.length))
+                join(" ", Arrays.copyOfRange(userInputSegmented, 1, fromIndex - 1)),
+                join(" ", Arrays.copyOfRange(userInputSegmented, fromIndex, toIndex - 1)),
+                join(" ", Arrays.copyOfRange(userInputSegmented, toIndex, userInputSegmented.length))
         );
     }
 
     private Todo parseTodoInput(String[] userInputSegmented) {
-        return new Todo(String.join(" ", Arrays.copyOfRange(userInputSegmented, 1,
+        return new Todo(join(" ", Arrays.copyOfRange(userInputSegmented, 1,
                 userInputSegmented.length)));
     }
 }

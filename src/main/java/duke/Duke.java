@@ -58,6 +58,9 @@ public class Duke {
                 else if (actionWord.equals("delete")) {
                     int taskNumber = this.parser.parseTaskNumber(userInput);
                     this.taskList.deleteTask(taskNumber);
+                } else if (actionWord.equals("find")) {
+                    String description = this.parser.parseFindDescription(userInput);
+                    this.taskList.filterTasks(description);
                 }
                 else if (Arrays.stream(specialTasksKeywords).anyMatch(
                         keyword -> keyword.toString().toLowerCase().equals(actionWord))) {

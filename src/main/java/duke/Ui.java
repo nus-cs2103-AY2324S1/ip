@@ -1,8 +1,16 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ui {
+
+    public void findTasks(List<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("%d.%s\n", i + 1, tasks.get(i));
+        }
+    }
     public void showLoadingError() {
         System.out.println("~~No stored tasks detected~~\n");
     }

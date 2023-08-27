@@ -20,6 +20,6 @@ public class Todo extends Task {
     }
 
     public String saveTask() {
-        return "T|" + (this.isDone ? "X|" : " |") + this.description;
+        return "T|" + (this.isDone() ? "X|" : " |") + this.getDescription();
     }
 }

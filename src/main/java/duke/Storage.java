@@ -87,7 +87,7 @@ public class Storage {
 
     public void save(ArrayList<Task> tasks) {
         try {
-            FileWriter writer = new FileWriter(this.fileName);
+            FileWriter writer = new FileWriter(this.dataFolderName + "/" + this.fileName);
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
                 writer.write(task.saveTask());
