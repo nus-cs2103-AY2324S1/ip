@@ -8,33 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.time.LocalDate;
 
 public class Storage {
-
-    public String[] parseEntry(String entry) throws DukeDatabaseException {
-        ArrayList<String> elements = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\[([A-Z])\\]\\[(.)\\] (.+?)(?: \\(by: (.+?)\\)| \\(from: (.+?) to: (.+?)\\))?");
-        Matcher matcher = pattern.matcher(entry);
-
-        if (matcher.matches()) {
-            elements.add(matcher.group(1));
-            elements.add(matcher.group(2));
-            elements.add(matcher.group(3));
-            if (matcher.group(4) != null) {
-                elements.add(matcher.group(4));
-            } else if (matcher.group(5) != null && matcher.group(6) != null) {
-                elements.add(matcher.group(5));
-                elements.add(matcher.group(6));
-            }
-        } else {
-            throw new DukeDatabaseException();
-        }
-
-        return elements.toArray(new String[0]);
-    }
 
     public ArrayList<Task> loadData() {
         ArrayList<Task> taskList = new ArrayList<>();
@@ -44,27 +20,27 @@ public class Storage {
             while (fileReader.hasNextLine()) {
                 String entry = fileReader.nextLine();
                 try {
-                    String[] entryList = this.parseEntry(entry);
+                    ArrayList<String> entryList = Parser.parseDatabaseEntry(entry);
                     Task newTask;
-                    switch (entryList[0]) {
+                    switch (entryList.get(0)) {
                         case "T":
-                            newTask = new Todo(entryList[2]);
-                            if (entryList[1].equals("X")) {
+                            newTask = new Todo(entryList.get(2));
+                            if (entryList.get(1).equals("X")) {
                                 newTask.markAsDone();
                             }
                             taskList.add(newTask);
                             break;
                         case "D":
-                            newTask = new Deadline(entryList[2], formatDate(entryList[3]));
-                            if (entryList[1].equals("X")) {
+                            newTask = new Deadline(entryList.get(2), formatDate(entryList.get(3)));
+                            if (entryList.get(1).equals("X")) {
                                 newTask.markAsDone();
                             }
                             taskList.add(newTask);
                             break;
                         case "E":
-                            newTask = new Event(entryList[2], formatDate(entryList[3]),
-                                    formatDate(entryList[4]));
-                            if (entryList[1].equals("X")) {
+                            newTask = new Event(entryList.get(2), formatDate(entryList.get(3)),
+                                    formatDate(entryList.get(4)));
+                            if (entryList.get(1).equals("X")) {
                                 newTask.markAsDone();
                             }
                             taskList.add(newTask);

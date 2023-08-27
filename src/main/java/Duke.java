@@ -1,12 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private Storage storage = new Storage();
     private TaskList taskList;
 
-    private enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, HELP
-    }
     private void greet() {
         String greetMsg = "Hello! I'm Atlas\n"
                 + "What can I do for you?\n"
@@ -28,9 +26,9 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         while (true) {
             try {
-                String msg = sc.nextLine();
-                String[] msgArr = msg.split(" ");
-                Command command = this.convert((msgArr[0]));
+                String input = sc.nextLine();
+                ArrayList<String> parsedInput = Parser.parseUserInput(input);
+                Command command = Parser.parseCommand(input);
                 switch (command) {
                     case BYE:
                         this.exit();
@@ -38,39 +36,31 @@ public class Duke {
                     case LIST:
                         this.list();
                         break;
-                    case MARK:
-                        this.taskList.markAsDone(msgArr);
-                        break;
-                    case UNMARK:
-                        this.taskList.markAsUndone(msgArr);
-                        break;
-                    case DELETE:
-                        this.taskList.delete(msgArr);
-                        break;
-                    case TODO:
-                        this.taskList.newTodo(msg);
-                        break;
-                    case DEADLINE:
-                        this.taskList.newDeadline(msg);
-                        break;
-                    case EVENT:
-                        this.taskList.newEvent(msg);
-                        break;
                     case HELP:
                         this.help();
+                        break;
+                    case MARK:
+                        this.taskList.markAsDone(parsedInput);
+                        break;
+                    case UNMARK:
+                        this.taskList.markAsUndone(parsedInput);
+                        break;
+                    case DELETE:
+                        this.taskList.delete(parsedInput);
+                        break;
+                    case TODO:
+                        this.taskList.newTodo(parsedInput);
+                        break;
+                    case DEADLINE:
+                        this.taskList.newDeadline(parsedInput);
+                        break;
+                    case EVENT:
+                        this.taskList.newEvent(parsedInput);
                         break;
                 }
             } catch (DukeException e) {
                 System.out.println(e);
             }
-        }
-    }
-
-    private Command convert(String str) throws DukeNoSuchCommandException {
-        try {
-            return Command.valueOf(str.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new DukeNoSuchCommandException();
         }
     }
 

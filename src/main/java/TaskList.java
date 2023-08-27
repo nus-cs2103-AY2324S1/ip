@@ -9,53 +9,49 @@ public class TaskList {
         this.taskList = taskList;
     }
 
-    public void newTodo(String input) throws DukeMissingArgumentException {
+    public void newTodo(ArrayList<String> parsedInput) throws DukeMissingArgumentException {
         try {
-            String[] msgArr = input.split("todo ");
-            Task newTask = new Todo(msgArr[1]);
+            Task newTask = new Todo(parsedInput.get(1));
             this.taskList.add(newTask);
             String msg = "Got it. I've added this task:\n"
                     + "\t" + newTask + "\n"
                     + "Now you have " + this.taskList.size() + " task"
                     + (taskList.size() <= 1 ? "" : "s") + " in the list.\n";
             System.out.println(msg);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
         }
     }
 
-    public void newDeadline(String input) throws DukeMissingArgumentException, DukeInvalidDateFormatException {
+    public void newDeadline(ArrayList<String> parsedInput) throws DukeMissingArgumentException,
+            DukeInvalidDateFormatException {
         try {
-            String[] msgArr = input.split("deadline ");
-            msgArr = msgArr[1].split(" /by ");
-            Task newTask = new Deadline(msgArr[0], LocalDate.parse(msgArr[1]));
+            Task newTask = new Deadline(parsedInput.get(1), LocalDate.parse(parsedInput.get(2)));
             this.taskList.add(newTask);
             String msg = "Got it. I've added this task:\n"
                     + "\t" + newTask + "\n"
                     + "Now you have " + this.taskList.size() + " task"
                     + (taskList.size() <= 1 ? "" : "s") + " in the list.\n";
             System.out.println(msg);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
         } catch (DateTimeParseException e) {
             throw new DukeInvalidDateFormatException();
         }
     }
 
-    public void newEvent(String input) throws DukeMissingArgumentException, DukeInvalidDateFormatException {
+    public void newEvent(ArrayList<String> parsedInput) throws DukeMissingArgumentException,
+            DukeInvalidDateFormatException {
         try {
-            String[] msgArr = input.split("event ");
-            msgArr = msgArr[1].split(" /from ");
-            String description = msgArr[0];
-            msgArr = msgArr[1].split(" /to ");
-            Task newTask = new Event(description, LocalDate.parse(msgArr[0]), LocalDate.parse(msgArr[1]));
+            Task newTask = new Event(parsedInput.get(1), LocalDate.parse(parsedInput.get(2)),
+                    LocalDate.parse(parsedInput.get(3)));
             taskList.add(newTask);
             String msg = "Got it. I've added this task:\n"
                     + "\t" + newTask + "\n"
                     + "Now you have " + this.taskList.size() + " task"
                     + (taskList.size() <= 1 ? "" : "s") + " in the list.\n";
             System.out.println(msg);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             throw new DukeMissingArgumentException();
         } catch (DateTimeParseException e) {
             throw new DukeInvalidDateFormatException();
@@ -80,10 +76,10 @@ public class TaskList {
         System.out.println(msg);
     }
 
-    public void markAsDone(String[] msgArr) throws DukeNoTaskFoundException,
+    public void markAsDone(ArrayList<String> parsedInput) throws DukeNoTaskFoundException,
             DukeInvalidArgumentException, DukeMissingArgumentException {
         try {
-            int i = Integer.parseInt(msgArr[1]);
+            int i = Integer.parseInt(parsedInput.get(1));
             if (i - 1 >= this.taskList.size()) {
                 throw new DukeNoTaskFoundException();
             }
@@ -95,10 +91,10 @@ public class TaskList {
         }
     }
 
-    public void markAsUndone(String[] msgArr) throws DukeNoTaskFoundException,
+    public void markAsUndone(ArrayList<String> parsedInput) throws DukeNoTaskFoundException,
             DukeInvalidArgumentException, DukeMissingArgumentException {
         try {
-            int i = Integer.parseInt(msgArr[1]);
+            int i = Integer.parseInt(parsedInput.get(1));
             if (i - 1 >= this.taskList.size()) {
                 throw new DukeNoTaskFoundException();
             }
@@ -110,10 +106,10 @@ public class TaskList {
         }
     }
 
-    public void delete(String[] msgArr) throws DukeNoTaskFoundException,
+    public void delete(ArrayList<String> parsedInput) throws DukeNoTaskFoundException,
             DukeInvalidArgumentException, DukeMissingArgumentException {
         try {
-            int i = Integer.parseInt(msgArr[1]);
+            int i = Integer.parseInt(parsedInput.get(1));
             if (i - 1 >= this.taskList.size()) {
                 throw new DukeNoTaskFoundException();
             }
