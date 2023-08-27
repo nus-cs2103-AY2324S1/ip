@@ -1,7 +1,10 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.logging.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class EchoBot {
     public static int extractTaskNum(String userInput, String command) {
@@ -11,6 +14,16 @@ public class EchoBot {
     public static String extractTaskDesc(String userInput, String command) {
         return userInput.substring(command.length()).trim();
     }
+
+    private static LocalDateTime parseDateTime(String dateTime) {
+        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    private static LocalDate parseDate(String date) {
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+
 
     // Load tasks from the file
     public static ArrayList<Task> loadTasks(String filePath) {
@@ -107,7 +120,7 @@ public class EchoBot {
                     String taskDescription = extractTaskDesc(userInput, "todo");
                     if (taskDescription.isEmpty()) {
                         throw new DukeException(horizontalLine + "    ☹ OOPS!!! The description of a todo cannot be empty."
-                            + "\n"+ horizontalLine);
+                                + "\n"+ horizontalLine);
                     }
 
                     Task newTodo = new Todo(taskDescription);
@@ -124,7 +137,7 @@ public class EchoBot {
                 int indexOfBy = taskDescription.indexOf("/by");
                 String deadlineDescription = taskDescription.substring(0, indexOfBy).trim();
                 String by = taskDescription.substring(indexOfBy + 3).trim();
-                Task newDeadline = new Deadline(deadlineDescription, by);
+                Task newDeadline = new Deadline(deadlineDescription, parseDate(by));
                 tasks.add(newDeadline);
 
                 System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + newDeadline);
@@ -137,7 +150,7 @@ public class EchoBot {
                 String eventDescription = taskDescription.substring(0, indexOfFrom).trim();
                 String from = taskDescription.substring(indexOfFrom + 5, indexOfTo).trim();
                 String to = taskDescription.substring(indexOfTo + 3).trim();
-                Task newEvent = new Event(eventDescription, from, to);
+                Task newEvent = new Event(eventDescription, parseDateTime(from), parseDateTime(to));
                 tasks.add(newEvent);
 
                 System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + newEvent);
