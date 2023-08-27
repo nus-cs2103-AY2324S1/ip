@@ -90,6 +90,7 @@ public class Jerma {
       }
     }
     scanner.close();
+    SaveHandler.save(toDoList);
 
     System.out.println("See ya soon!");
   }

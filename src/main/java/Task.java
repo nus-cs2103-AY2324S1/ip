@@ -1,6 +1,6 @@
 abstract class Task {
   private String description;
-  private boolean isDone;
+  private Boolean isDone;
   protected String symbol;
 
   public Task(String description) {
@@ -21,7 +21,7 @@ abstract class Task {
   }
 
   protected String save() {
-    return String.format("%d|%s", Boolean.valueOf(this.isDone),
+    return String.format("%d|%s", this.isDone.compareTo(false),
         this.description);
   };
 
