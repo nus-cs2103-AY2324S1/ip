@@ -19,7 +19,7 @@ public class Parser {
      * @return    whether the command is a list tasks command.
      */
     public static boolean isListTasksCommand(String s) {
-        return Utility.matchesRegex(s, "^list$");
+        return Utility.matchesRegex(s, "^list$") || Utility.matchesRegex(s, "^ls$");
     }
 
 
@@ -83,7 +83,7 @@ public class Parser {
      * @return    whether the command is an delete task command.
      */
     public static boolean isDeleteTaskCommand(String s) {
-        return Utility.matchesRegex(s, "^delete");
+        return Utility.matchesRegex(s, "^delete") || Utility.matchesRegex(s, "^rm");
     }
 
     /**
@@ -93,7 +93,7 @@ public class Parser {
      * @return    an integer describing the index of the task to be deleted.
      */
     public static int parseDeleteTaskCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^delete( [0-9]+)?$");
+        Matcher m = Utility.parseRegex(s, "^(?:delete|rm)( [0-9]+)?$");
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, I don't know which task to delete... ;-;");

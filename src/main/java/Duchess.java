@@ -127,10 +127,10 @@ public class Duchess {
         Duchess.printGreeting();
 
         // Create the save file, if it does not exist.
-        Data.createSaveFile();
+        Storage.createSaveFile();
 
         // Load tasks from the save file.
-        Data.loadTasksFromFile(Duchess.storedTasks);
+        Storage.loadTasksFromFile(Duchess.storedTasks);
 
         Scanner sc = new Scanner(System.in);
         String userInput = "";
@@ -245,7 +245,7 @@ public class Duchess {
         sc.close();
         
         // Save the tasks.
-        Data.saveTasksToFile(Duchess.storedTasks);
+        Storage.saveTasksToFile(Duchess.storedTasks);
 
         Duchess.printFarewell();
     }
