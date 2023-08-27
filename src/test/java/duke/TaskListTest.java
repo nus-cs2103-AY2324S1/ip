@@ -49,4 +49,22 @@ public class TaskListTest {
 
     assertEquals( "    Enter a valid index", e.getMessage());
   }
+
+  @Test
+  void findTask_emptyString_false() {
+    Task t = new ToDoTask("name1 name2");
+    LinkedList<Task> lists = new LinkedList<>();
+    lists.add(t);
+    TaskList taskList = new TaskList(lists);
+    assertFalse(taskList.findTasks(""));
+  }
+
+  @Test
+  void findTask_validString_true() {
+    Task t = new ToDoTask("name1 name2");
+    LinkedList<Task> lists = new LinkedList<>();
+    lists.add(t);
+    TaskList taskList = new TaskList(lists);
+    assertTrue(taskList.findTasks("name1 "));
+  }
 }

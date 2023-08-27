@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaskList {
 
@@ -81,5 +83,24 @@ public class TaskList {
     } catch (NumberFormatException e) {
       throw new WrongIndexException();
     }
+  }
+
+  public boolean findTasks(String expr) {
+    System.out.println("     Here are the matching tasks in your list:");
+    if (expr.equals("")) {
+      return false;
+    }
+    boolean match = false;
+    int i = 1;
+    Pattern p = Pattern.compile(expr);
+    for (Task task : tasks) {
+      Matcher m = p.matcher(task.toString());
+      if (m.find()) {
+        System.out.println("     " + i + "." + task);
+        match = true;
+      }
+      i += 1;
+    }
+    return match;
   }
 }
