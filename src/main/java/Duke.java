@@ -1,14 +1,23 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 public class Duke {
     private static boolean isDone = false;
 
     public static void main(String[] args) {
-        String chatbotName = "Albatross\n";
-        System.out.print("Hello! I'm " + chatbotName);
-        System.out.println("What can I do for you?");
-
+        File file = new File("duke.txt");
         // Task list to store user responses
         TaskList taskList = new TaskList();
+
+        // Loads the data from the file
+        try {
+            taskList.loadTaskList();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
+        String chatbotName = "Albatross";
+        System.out.println("Hello! I'm " + chatbotName);
 
         // Scanner to read user response
         Scanner scanner = new Scanner(System.in);
@@ -29,13 +38,13 @@ public class Duke {
                 } else if (command.equals("list")) {
                     taskList.printTaskList();
                 } else if (command.equals("todo")) {
-                    Todo todo = new Todo(strSegments[1]);
+                    Todo todo = new Todo(strSegments[1], false);
                     taskList.addTask(todo);
                 } else if (command.equals("deadline")) {
-                    Deadline deadline = new Deadline(strSegments[1], strSegments[2]);
+                    Deadline deadline = new Deadline(strSegments[1], strSegments[2], false);
                     taskList.addTask(deadline);
                 } else if (command.equals("event")) {
-                    Event event = new Event(strSegments[1], strSegments[2], strSegments[3]);
+                    Event event = new Event(strSegments[1], strSegments[2], strSegments[3], false);
                     taskList.addTask(event);
                 } else if (command.equals("mark")) {
                     taskList.markDone((int) Double.parseDouble(strSegments[1]));
