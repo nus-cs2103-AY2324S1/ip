@@ -9,65 +9,10 @@ public class CommandProcessor {
     private final TaskList tasks;
     private static final String[] VALIDCOMMANDS = {"mark", "unmark", "list", "todo", "event", "deadline", "delete"};
 
-    private static void writeToFile(String textToAdd) throws DukeException {
-        try {
-            File theDir = new File("\\data");
-            if (!theDir.exists()) {
-                theDir.mkdirs();
-                File dataFile = new File("\\data\\duke.txt");
-                dataFile.createNewFile();
-            }
-
-            FileWriter fw = new FileWriter("\\data\\duke.txt", true);
-
-            fw.write(System.lineSeparator());
-            fw.write(textToAdd);
-
-            fw.close();
-        } catch(IOException e) {
-            throw new DukeException(e.getMessage());
-        }
-    }
-    private static TaskList loadFromFile() {
-        try {
-            File dataFile = new File("\\data\\duke.txt");
-            if (dataFile.exists()) {
-                Scanner sc = new Scanner(dataFile);
-                TaskList tasks = new TaskList();
-                while (sc.hasNext()) {
-                    String taskInfo = sc.nextLine();
-                    String taskName = taskInfo.substring(3);
-                    boolean marked = taskInfo.charAt(1) == 'x';
-
-                    if (taskInfo.charAt(0) == 'T') {
-                        Task task = new Todo(taskName);
-                        tasks.add(task);
-                    } else if (taskInfo.charAt(0) == 'D') {
-                        Task task = new Todo(taskName);
-                        tasks.add(task);
-                    } else if (taskInfo.charAt(0) == 'E') {
-                        Task task = new Deadline(taskName);
-                        tasks.add(task);
-                    }
-
-                    if (marked) {
-                        tasks.mark(tasks.size() - 1);
-                    }
-                }
-                sc.close();
-
-                return tasks;
-            }
-            return new TaskList();
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return new TaskList();
-    }
+    private static final Storage storage = new Storage();
 
     CommandProcessor() {
-        this.tasks = loadFromFile();
+        this.tasks = storage.loadFromFile();
     }
 
 
@@ -125,18 +70,18 @@ public class CommandProcessor {
             // process commands involving tasks (todo, deadline, event)
             if (commandType.equals("todo")) {
                 Task task = new Todo(taskName);
-                writeToFile("Tu " + taskName);
+                storage.writeToFile(task.toString());
                 tasks.addToList(task);
             } else if (commandType.equals("deadline")) {
                 Task task = new Deadline(taskName);
-                writeToFile("Du " + taskName);
+                storage.writeToFile(task.toString());
                 tasks.addToList(task);
 
 
 
             } else if (commandType.equals("event")) {
                 Task task = new Event(taskName);
-                writeToFile("Eu " + taskName);
+                storage.writeToFile(task.toString());
                 tasks.addToList(task);
             }
 

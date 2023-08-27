@@ -1,17 +1,18 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
 public class TaskList {
     private ArrayList<Task> tasklist;
+    private static final Storage STORAGE = new Storage();
 
     TaskList() {
         this.tasklist = new ArrayList<Task>();
     }
 
-    TaskList(ArrayList<Task> tasklist) {
-        this.tasklist = tasklist;
-    }
 
     private static boolean isInteger(String taskNumber) {
         for (int i = 0; i < taskNumber.length(); i++) {
@@ -21,6 +22,7 @@ public class TaskList {
         }
         return true;
     }
+
 
 
 
@@ -62,6 +64,7 @@ public class TaskList {
         Task markedTask = this.tasklist.get(taskIndex).done();
         System.out.println("Nice! I've marked this task as done:\n" + markedTask.toString());
         tasklist.set(taskIndex, markedTask);
+        STORAGE.writeAllToFile(tasklist);
     }
 
     void mark(int taskIndex) {
@@ -74,14 +77,18 @@ public class TaskList {
         Task unmarkedTask = this.tasklist.get(taskIndex).undone();
         System.out.println("OK, I've marked this task as not done yet:\n" + unmarkedTask.toString());
         tasklist.set(taskIndex, unmarkedTask);
+        STORAGE.writeAllToFile(tasklist);
     }
 
     void delete(String taskNumber) throws DukeException {
         int taskIndex = getTaskIndex(taskNumber);
         Task removedTask = tasklist.remove(taskIndex);
-        System.out.println("Noted. I've removed this task:\n" +
-                removedTask.toString() +
-                "\nNow you have " + tasklist.size() + " tasks in the list.");
+        System.out.println("Noted. I've removed this task:\n"
+                + removedTask.toString()
+                + "\nNow you have " + tasklist.size()
+                + " tasks in the list.");
+
+        STORAGE.writeAllToFile(tasklist);
     }
 
     void listContent() {
@@ -92,7 +99,5 @@ public class TaskList {
             System.out.println((i + 1) + ": " + tasklist.get(i).toString());
         }
     }
-
-
 
 }
