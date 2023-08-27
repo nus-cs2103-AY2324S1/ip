@@ -11,8 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DataSaverLoader {
-    private static final String FILE_PATH = "./shibaData/tasks.txt";
+public class Storage {
+    private final String dataPath;
+
+    public Storage(String dataPath) {
+        this.dataPath = dataPath;
+    }
 
     /**
      * Saves the tasks to the disk, creating the file if it does not exist.
@@ -20,9 +24,9 @@ public class DataSaverLoader {
      * @param tasks List of tasks to be saved.
      * @throws ShibaException If there is an error saving the tasks.
      */
-    public static void saveTasks(List<ShibaTask> tasks) throws ShibaException {
+    public void saveTasks(List<ShibaTask> tasks) throws ShibaException {
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(dataPath);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
@@ -31,7 +35,7 @@ public class DataSaverLoader {
             throw new ShibaException("Error creating save file!");
         }
 
-        try(FileWriter fw = new FileWriter(FILE_PATH)) {
+        try(FileWriter fw = new FileWriter(dataPath)) {
             boolean firstLineWritten = false;
             for (ShibaTask task : tasks) {
                 if (firstLineWritten) {
@@ -51,9 +55,9 @@ public class DataSaverLoader {
      * @return List of tasks read from the disk.
      * @throws ShibaException If there is an error reading the tasks.
      */
-    public static List<ShibaTask> readSavedTasks() throws ShibaException {
+    public List<ShibaTask> readSavedTasks() throws ShibaException {
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(dataPath);
 
             ArrayList<ShibaTask> tasks = new ArrayList<>();
             if (!file.exists()) {
