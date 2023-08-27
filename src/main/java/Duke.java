@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -102,13 +103,22 @@ public class Duke {
 
                 }
             } catch (Exception error) {
-                System.out.println("Error... Unable to create new file");
+                System.out.println("Error... Unable to create new file...");
             }
         }
         return tasks;
     }
 
+    private static void writeFile(String filePath, String text) {
+        try {
+            FileWriter fw = new FileWriter(filePath, false);
+            fw.write(text);
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Sorry... Unable to store tasks...");
+        }
 
+    }
 
     public static void main(String[] args) {
         List<Task> tasks = loadTasksFromStorage(DIR_NAME, FILE_NAME);
@@ -128,6 +138,15 @@ public class Duke {
                 try { // In case there are exceptions
                     // User wants to end the chatbot
                     if (command.equals(Command.BYE.name())) {
+
+                        // store the data into the storage
+                        StringBuilder textForStorage = new StringBuilder();
+                        for (Task task : tasks) {
+                            textForStorage.append(task.toString()).append("\n");
+                        }
+
+                        writeFile(DIR_NAME + File.separator + FILE_NAME, textForStorage.toString());
+
                         System.out.println("Bye. Hope to see you again soon!");
                         System.out.println(LINE);
                         break;
