@@ -8,4 +8,12 @@ public class ToDo extends Task{
     public String toString(){
         return "[T]" + super.toString();
     }
+
+    public String convertIsDone() {
+        return super.isDone ? "1" : "0";
+    }
+
+    public String saveToFileString() {
+        return "T | " +  convertIsDone() + " | " + description + "\n";
+    }
 }

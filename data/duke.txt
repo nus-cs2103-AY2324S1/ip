@@ -1,0 +1,6 @@
+T | 0 | eat
+T | 0 | return book | Sunday
+T | 0 | project meeting | Mon 2pm 4pm
+T | 0 | code
+T | 0 | watch lecture
+T | 1 | watch lecture

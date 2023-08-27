@@ -21,4 +21,7 @@ public class Task {
         return getStatusIcon() + " " + this.description;
     }
 
+    public String saveToFileString() {
+        return getStatusIcon() + " | " + this.isDone + " | " + this.description;
+    }
 }
