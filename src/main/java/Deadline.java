@@ -3,23 +3,20 @@
  */
 public class Deadline extends Task{
     private String due;
-    public Deadline(String reply) {
+    public Deadline(String taskContent, String due) {
 
-        super(reply);
+        super(taskContent);
+        this.due = due;
     }
 
     @Override
     public String toString() {
-        String message = super.toString();
-        String due = message.substring(message.indexOf("/by") + 4);
-        String newMessage = message.substring(0, message.indexOf("/by")).replace("deadline", "");
-        return String.format("  [D] %s(by: %s)", newMessage, due);
+        String statusAndTaskContent = super.toString();
+        return String.format("  [D] %s (by: %s)", statusAndTaskContent, due);
     }
 
     public static Deadline create(String status, String description, String due) {
-        String newDue = String.format(" /by %s", due);
-        Deadline task = new Deadline(description);
-//        Deadline task = new Deadline(description + newDue);
+        Deadline task = new Deadline(description, due);
         if (status == "1") {
             task.mark();
         }
@@ -27,6 +24,6 @@ public class Deadline extends Task{
     }
 
     public String saveToFileLine() {
-        return String.format("D | %s", super.saveToFileLine());
+        return String.format("D | %s | %s\n", super.saveToFileLine(), due);
     }
 }

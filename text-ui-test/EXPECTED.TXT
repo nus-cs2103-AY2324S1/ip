@@ -11,7 +11,7 @@
   Now you have 2 task(s) in the list.
 ------------------------------------------
   Nice! I've marked this task as done:
-      [T] [X] wakeup happily
+    [T] [X] wakeup happily
 ------------------------------------------
   Got it. I've added this task:
     [E] [ ] CS2101 Lecture (from: 12PM to: 2PM)
@@ -26,7 +26,7 @@
   Now you have 5 task(s) in the list.
 ------------------------------------------
   Nice! I've marked this task as done:
-      [T] [X] be engaging in class
+    [T] [X] be engaging in class
 ------------------------------------------
   Got it. I've added this task:
     [E] [ ] CS2106 Tutorial (from: 2PM to: 3PM)
@@ -37,7 +37,7 @@
   Now you have 7 task(s) in the list.
 ------------------------------------------
   Noted. I've removed this task:
-  [T] [ ] be lazy
+    [T] [ ] be lazy
   Now you have 6 task(s) in the list.
 ------------------------------------------
   :< OOPS! I'm sorry, but I don't know what that means.
@@ -53,7 +53,7 @@
   Now you have 8 task(s) in the list.
 ------------------------------------------
   Ok, I've marked this task as not done yet:
-      [T] [ ] wakeup happily
+    [T] [ ] wakeup happily
 ------------------------------------------
   Got it. I've added this task:
     [D] [ ] sleep (by: 1.20AM)

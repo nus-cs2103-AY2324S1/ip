@@ -52,7 +52,7 @@ public class Duke {
     private void listOutTasks() {
         String tasksList = "";
         for(int i = 0; i < tasks.size(); i++) {
-            tasksList += String.format("%d. %s\n", i + 1, tasks.get(i).toString().replace("  ", ""));
+            tasksList += String.format("%d. %s\n", i + 1, tasks.get(i).toString().trim());
         }
         this.line(tasksList);
     }
@@ -64,7 +64,7 @@ public class Duke {
     private void mark(int index) {
         Task task = tasks.get(index);
         task.mark();
-        this.line(String.format("  Nice! I've marked this task as done:\n    %s", task.toString()));
+        this.line(String.format("  Nice! I've marked this task as done:\n  %s", task.toString()));
     }
 
     /**
@@ -74,7 +74,7 @@ public class Duke {
     private void unmark(int index) {
         Task task = tasks.get(index);
         task.unmark();
-        this.line(String.format("  Ok, I've marked this task as not done yet:\n    %s", task.toString()));
+        this.line(String.format("  Ok, I've marked this task as not done yet:\n  %s", task.toString()));
     }
 
     /**
@@ -86,8 +86,9 @@ public class Duke {
         if (reply.length() == "todo".length()) {
             throw new DukeEmptyToDoException();
         }
-        
-        Task task = new ToDo(reply);
+
+        String taskContent = reply.replace("todo ", "");
+        Task task = new ToDo(taskContent);
         addTask(task);
     }
 
@@ -98,8 +99,10 @@ public class Duke {
      */
     private void addDeadline(String reply) throws DukeException {
 
-        Task task = new Deadline(reply);
+        String taskContent = reply.substring(0, reply.indexOf(" /by")).replace("deadline ", "");
+        String due = reply.substring(reply.indexOf("/by") + 4);
 
+        Task task = new Deadline(taskContent, due);
         addTask(task);
     }
 
@@ -109,8 +112,12 @@ public class Duke {
      * @throws DukeException
      */
     private void addEvent(String reply) throws DukeException {
-        Task task = new Event(reply);
 
+        String from = reply.substring(reply.indexOf("/from") + 6, reply.indexOf(" /to"));
+        String to = reply.substring(reply.indexOf("/to") + 4);
+        String taskContent = reply.substring(0, reply.indexOf(" /from")).replace("event ", "");
+
+        Task task = new Event(taskContent, from, to);
         addTask(task);
     }
 
@@ -121,7 +128,7 @@ public class Duke {
     private void delete(int index) {
         Task removedTask = tasks.remove(index);
         System.out.println(String.format("  Noted. I've removed this task:"));
-        System.out.println(removedTask.toString());
+        System.out.println(String.format("  %s", removedTask.toString()));
         this.line(String.format("  Now you have %d task(s) in the list.", tasks.size()));
         this.save();
     }
@@ -150,7 +157,7 @@ public class Duke {
             }
             writer.close();
         } catch (IOException e) {
-
+            System.out.println("File duke.txt not found.");
         }
 
     }
@@ -164,12 +171,13 @@ public class Duke {
                 tasks.add(fileToTask(line));
             }
         } catch (IOException ex) {
-
+            System.out.println("File duke.txt not found.");
+        } catch (DukeException ex) {
+            System.out.println(ex.toString());
         }
-
     }
 
-    private Task fileToTask(String line) {
+    private Task fileToTask(String line) throws DukeInvalidSavedToFileLineType {
         String[] savedToFileLine = line.split(" \\| ");
         String type = savedToFileLine[0];
 
@@ -179,15 +187,15 @@ public class Duke {
             case "T":
                 return ToDo.create(status, description);
             case "D":
-                String due = "";
+                String due = savedToFileLine[3];
                 return Deadline.create(status, description, due);
             case "E":
-                String from = "";
-                String to = "";
+                String range = savedToFileLine[3];
+                String from = range.substring(0, range.indexOf(" to")).replace("from ", "");
+                String to = range.substring(range.indexOf("to ")).replace("to ", "");
                 return Event.create(status, description, from, to);
             default:
-//                TODO
-                return new Task("");
+                throw new DukeInvalidSavedToFileLineType();
         }
     }
 

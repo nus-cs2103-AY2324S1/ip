@@ -2,23 +2,22 @@
  * Event task.
  */
 public class Event extends Task{
-    public Event(String reply) {
-        super(reply);
+    private String from;
+    private String to;
+    public Event(String taskContent, String from, String to) {
+        super(taskContent);
+        this.from = from;
+        this.to = to;
     }
 
     @Override
     public String toString() {
-        String message = super.toString();
-        String from = message.substring(message.indexOf("/from") + 6, message.indexOf("/to"));
-        String to = message.substring(message.indexOf("/to") + 4);
-        String newMessage = message.substring(0, message.indexOf("/from")).replace("event", "");
-        return String.format("  [E] %s(from: %sto: %s)", newMessage, from, to);
+        String statusAndTaskContent = super.toString();
+        return String.format("  [E] %s (from: %s to: %s)", statusAndTaskContent, from, to);
     }
 
-    public static Deadline create(String status, String description, String from, String to) {
-        String newFrom = String.format(" /from %s", from);
-        String newTo = String.format(" /to %s", to);
-        Deadline task = new Deadline(description + newFrom + newTo);
+    public static Event create(String status, String description, String from, String to) {
+        Event task = new Event(description, from, to);
         if (status == "1") {
             task.mark();
         }
@@ -26,6 +25,6 @@ public class Event extends Task{
     }
 
     public String saveToFileLine() {
-        return String.format("E | %s", super.saveToFileLine());
+        return String.format("E | %s | from %s to %s\n", super.saveToFileLine(), from, to);
     }
 }

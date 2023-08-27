@@ -27,9 +27,9 @@ public class Task {
     @Override
     public String toString() {
         if (status) {
-            return String.format("[X]%s", taskContent);
+            return String.format("[X] %s", taskContent);
         } else {
-            return String.format("[ ]%s", taskContent);
+            return String.format("[ ] %s", taskContent);
         }
     }
 
@@ -38,6 +38,6 @@ public class Task {
     }
 
     public String saveToFileLine() {
-        return String.format("%s | %s\n", status ? "1" : "0", taskContent);
+        return String.format("%s | %s", status ? "1" : "0", taskContent);
     }
 }

@@ -2,15 +2,14 @@
  * To Do task.
  */
 public class ToDo extends Task{
-    public ToDo(String reply) {
-        super(reply);
+    public ToDo(String taskContent) {
+        super(taskContent);
     }
 
     @Override
     public String toString() {
-        String message = super.toString();
-        String newMessage = message.substring(0, message.length()).replace("todo", "");
-        return String.format("  [T] %s", newMessage);
+        String statusAndTaskContent = super.toString();
+        return String.format("  [T] %s", statusAndTaskContent);
     }
 
     public static ToDo create(String status, String description) {
@@ -22,6 +21,6 @@ public class ToDo extends Task{
     }
 
     public String saveToFileLine() {
-        return String.format("T | %s", super.saveToFileLine());
+        return String.format("T | %s\n", super.saveToFileLine());
     }
 }
