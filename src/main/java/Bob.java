@@ -20,8 +20,20 @@ public class Bob {
     public void run() {
         ui.greet();
         Scanner sc = new Scanner(System.in);
-        new Parser(ui, tasks, storage).parse(sc);
-        ui.exit();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String nextLine = sc.nextLine();
+                if (nextLine.isEmpty()) {
+                    throw new NoSuchElementException();
+                }
+                Command c = Parser.parse(nextLine);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit;
+            } catch (NoSuchElementException e) {
+                ui.stringFormat(new String[]{"Write something!"});
+            }
+        }
     }
 
     public static void main(String[] args) {
