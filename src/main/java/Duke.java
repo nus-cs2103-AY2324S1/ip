@@ -213,6 +213,46 @@ public class Duke {
 
                 System.out.println(output);
 
+            } else if (input.startsWith("delete")) {
+                if (input.equals("delete")) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("Please specify a task to delete!");
+                    System.out.println("____________________________________________________________\n");
+
+                    continue;
+                }
+
+                try {
+                    int index = Integer.parseInt(input.substring(6).strip()) - 1;
+
+                    if (index >= taskCount) {
+                        System.out.println("____________________________________________________________\n");
+                        System.out.println("Task " + (index + 1) + " not found!");
+                        System.out.println("____________________________________________________________\n");
+
+                        continue;
+                    }
+
+                    String output = "____________________________________________________________\n" +
+                            "Noted, I've removed this task: \n" +
+                            tasks.get(index) + "\n" +
+                            "You now have " + (taskCount - 1) + " tasks in the list. \n" +
+                            "____________________________________________________________\n";
+
+                    System.out.println(output);
+
+                    tasks.remove(index);
+                    taskCount -= 1;
+
+                } catch (java.lang.NumberFormatException e) {
+                    String errorString = "____________________________________________________________\n" +
+                            "Something went wrong! Please make sure you are deleting a valid task. \n\n" +
+                            "Error: " + e + "\n" +
+                            "____________________________________________________________\n";
+
+                    System.out.println(errorString);
+                }
+
             } else {
                 String output = "____________________________________________________________\n" +
                         "Not a valid command! \n" +
