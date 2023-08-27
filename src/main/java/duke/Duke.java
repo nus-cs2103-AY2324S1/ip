@@ -1,3 +1,12 @@
+package duke;
+
+import duke.exception.DukeDatabaseNotFoundException;
+import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
