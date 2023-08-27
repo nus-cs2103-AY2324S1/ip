@@ -31,6 +31,7 @@ public class Duke {
                 case "bye":
                     return;
                 default:
+                    addTask(commandInput);
                     echo(commandInput);
             }
 
@@ -54,5 +55,9 @@ public class Duke {
     }
     private String getBotName() {
         return this.botName;
+    }
+
+    private boolean addTask(String task) {
+        return this.taskList.add(task);
     }
 }
