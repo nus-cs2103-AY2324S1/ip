@@ -28,19 +28,19 @@ public class TaskList {
         return tasks.get(index);
     }
 
-    public ToDo addTodo(String description) throws SpotException {
+    public ToDo addTodo(String description) {
         ToDo newTask = new ToDo(description);
         tasks.add(newTask);
         return newTask;
     }
 
-    public Deadline addDeadline(String description, LocalDate deadline) throws SpotException {
+    public Deadline addDeadline(String description, LocalDate deadline) {
         Deadline newTask = new Deadline(description, deadline);
         tasks.add(newTask);
         return newTask;
     }
 
-    public Event addEvent(String description, LocalDate start, LocalDate end) throws SpotException {
+    public Event addEvent(String description, LocalDate start, LocalDate end) {
         Event newTask = new Event(description, start, end);
         tasks.add(newTask);
         return newTask;

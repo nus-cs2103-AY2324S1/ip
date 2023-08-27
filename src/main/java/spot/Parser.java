@@ -2,6 +2,8 @@ package spot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import spot.command.AddDeadlineCommand;
 import spot.command.AddEventCommand;
@@ -17,18 +19,17 @@ import spot.exception.SpotException;
 
 public class Parser {
 
-    public static Command parse(String input) throws SpotException {
-        if (input.startsWith("list")) {
-            return new ListCommand();
-        } else if (input.startsWith("list tasks on")) {
+    public static Command parseCommand(String input) throws SpotException {
+        if (input.startsWith("list tasks on")) {
             if (input.length() <= 14) {
                 throw new SpotException("Spot thinks you might've " +
                         "forgotten to add a date!");
             }
             String d = input.substring(14);
-            LocalDate date = LocalDate.parse(d,
-                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate date = Parser.parseDate(d);
             return new ListTasksOnCommand(date);
+        } else if (input.startsWith("list")) {
+            return new ListCommand();
         } else if (input.startsWith("mark")) {
             if (input.length() <= 5) {
                 throw new SpotException("Spot needs more details than that!");
@@ -67,8 +68,7 @@ public class Parser {
                 throw new SpotException("Spot thinks you're missing a deadline!");
             }
             String description = keywords[0].trim();
-            LocalDate deadline = LocalDate.parse(keywords[1].trim(),
-                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate deadline = Parser.parseDate(keywords[1].trim());
             return new AddDeadlineCommand(description, deadline);
         } else if (input.startsWith("event")) {
             if (input.length() <= 6) {
@@ -85,15 +85,24 @@ public class Parser {
                         " and/or an end time!");
             }
             String description = keywords[0].trim();
-            LocalDate start = LocalDate.parse(keywords[1].trim(),
-                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            LocalDate end = LocalDate.parse(keywords[2].trim(),
-                    DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate start = Parser.parseDate(keywords[1].trim());
+            LocalDate end = Parser.parseDate(keywords[2].trim());
             return new AddEventCommand(description, start, end);
         } else if (input.startsWith("bye")) {
             return new ExitCommand();
         } else {
             throw new SpotException("Spot doesn't know what command that is!");
+        }
+    }
+
+    public static LocalDate parseDate(String input) throws SpotException {
+        try {
+            return LocalDate.parse(input,
+                    DateTimeFormatter.ofPattern("dd-MM-uuuu")
+                            .withResolverStyle(ResolverStyle.STRICT));
+        } catch (DateTimeParseException e) {
+            throw new SpotException("This doesn't seem like a valid date to Spot!" +
+                    "Please make sure your date is given in this format: dd-mm-yyyy");
         }
     }
 
