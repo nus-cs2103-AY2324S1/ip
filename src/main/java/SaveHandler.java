@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class SaveHandler {
     private static int listSize = 0;
     private static Task[] tasks = new Task[100];
-    private static File file = new File("src/List.txt");
+    private static File file = new File("src/main/List.txt");
 
     public SaveHandler() {
 
@@ -53,9 +53,8 @@ public class SaveHandler {
     public static Task[] loadFrom() {
 
         try {
-            System.out.println(file.getAbsolutePath());
             int pos = 0;
-            Scanner scanner = new Scanner(file);
+            Scanner scanner = new Scanner(file.getAbsoluteFile());
             while (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
                 String[] arr = s.split(" \\| ");
@@ -67,8 +66,8 @@ public class SaveHandler {
 
             }
             listSize = pos;
-        } catch (FileNotFoundException e) {
-            System.out.println("There's no file with your to do list peko");
+        } catch (Exception e){
+
         }
         return tasks;
     }
@@ -100,6 +99,7 @@ public class SaveHandler {
                     throw new InvalidTaskException();
             }
         } catch (InvalidTaskException e) {
+            System.out.println(e);
             System.out.println("There's an error in the list, Pain peko, I'll delete it");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Incomplete task an error in the list, Pain peko, I'll delete it");

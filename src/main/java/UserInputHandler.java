@@ -49,10 +49,15 @@ public class UserInputHandler {
     }
     public void newInput() {
         Scanner scanner = new Scanner(System.in);
-        input = scanner.nextLine();
-        command = getResponseValue(input);
-        input = input.split(" ",2).length < 2 ? " " : input.split(" ", 2)[1];
-        System.out.println(lineBreak);
+        if (scanner.hasNextLine()) {
+
+            input = scanner.nextLine();
+            command = getResponseValue(input);
+            input = input.split(" ",2).length < 2 ? " " : input.split(" ", 2)[1];
+            System.out.println(lineBreak);
+        } else {
+            command = CommandsInternal.ECHO;
+        }
     }
     private void echo() {
         if (input.isBlank()) {
