@@ -454,8 +454,7 @@ public class Duke {
 
 
     public static void main(String[] args) {
-
-        new Duke("./src/main/data/data.txt").run();
+        new Duke("./data/data.txt").run();
 
     }
 }
