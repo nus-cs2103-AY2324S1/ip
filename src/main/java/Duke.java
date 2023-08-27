@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Duke {
@@ -46,21 +47,45 @@ public class Duke {
                                 "____________________________________________________________");
                         break;
                     default:
+                        if (new ArrayList<String>(Arrays.asList("todo", "deadline", "event")).contains(input[0])
+                                && input.length == 1) {
+                            try {
+                                throw new DukeException("");
+                            } catch (Exception e) {
+                                System.out.println("____________________________________________________________\n" +
+                                        "☹ OOPS!!! The description of a todo cannot be empty.\n" +
+                                        "____________________________________________________________"
+                                );
+                                break;
+                            }
+                        }
                         switch (input[0]) {
                             case "todo":
                                 job = new ToDo(echo);
+                                list.add(job);
+                                System.out.println(job.addTask(list.size()));
                                 break;
                             case "deadline":
                                 job = new Deadline(echo);
+                                list.add(job);
+                                System.out.println(job.addTask(list.size()));
                                 break;
                             case "event":
                                 job = new Event(echo);
+                                list.add(job);
+                                System.out.println(job.addTask(list.size()));
                                 break;
                             default:
-                                job = new Task(echo);
+                                // list.add(job);
+                                // System.out.println(job.addTask(list.size()));
+                                try {
+                                    throw new DukeException("");
+                                } catch (Exception e) {
+                                    System.out.println("____________________________________________________________\n" +
+                                            "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
+                                            "____________________________________________________________");
+                                }
                         }
-                        list.add(job);
-                        System.out.println(job.addTask(list.size()));
                 }
             }
         }
