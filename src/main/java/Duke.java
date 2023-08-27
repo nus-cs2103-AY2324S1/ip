@@ -1,5 +1,8 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 /**
  * The Duke class contains the code for interacting
@@ -13,9 +16,17 @@ public class Duke {
     /** Contains the list of all tasks. **/
     private ArrayList<Task> tasks;
 
+    /** Contains the stored data for Duke Class. **/
+    private Storage storage;
+
     /** Constructor for Duke Class. **/
     public Duke() {
-        this.tasks = new ArrayList<>();
+        this.storage = new Storage();
+    }
+
+    /** Sets up the file to store data in. **/
+    public void setup() {
+        this.tasks = this.storage.readData();
     }
 
     /** The command to greet the user. **/
@@ -37,6 +48,7 @@ public class Duke {
         System.out.println(this.tasks.size() + ") " + this.tasks.get(this.tasks.size() - 1).toString());
         System.out.println("You currently have " + this.tasks.size() + " tasks in your list.");
         this.indent();
+        this.storage.writeData(this.tasks);
     }
 
     /** The command to mark tasks in the tasks list.
@@ -48,6 +60,7 @@ public class Duke {
         System.out.println(index + ") " + this.tasks.get(index - 1).toString());
         System.out.println("Is there anything else I can assist you with?");
         this.indent();
+        this.storage.writeData(this.tasks);
     }
 
     /** The command to unmark tasks in the tasks list.
@@ -59,6 +72,7 @@ public class Duke {
         System.out.println(index + ") " + this.tasks.get(index - 1).toString());
         System.out.println("Is there anything else I can assist you with?");
         this.indent();
+        this.storage.writeData(this.tasks);
     }
 
     /** The command to delete tasks from the tasks list.
@@ -140,6 +154,7 @@ public class Duke {
 
         deleteCommand(index);
         this.tasks.remove(index - 1);
+        this.storage.writeData(this.tasks);
     }
 
     /** The function to add todo tasks.
@@ -264,6 +279,7 @@ public class Duke {
     public static void main(String[] args) {
         // Create a scanner object to read input
         Duke bot = new Duke();
+        bot.setup();
         bot.greet();
         bot.interact();
         bot.exit();

@@ -19,12 +19,25 @@ abstract public class Task {
         this.completed = false;
     }
 
+    /** The overloaded constructor
+     * @param action The description of the task
+     * @param status The status of completion of the task
+     * **/
+    public Task(String action, String status) {
+        this.action = action;
+        this.completed = status.equals("X");
+    }
+
     /** The string representation of the task.
      * @return The string representation
      * **/
     @Override
     public String toString() {
         return "[" + (this.completed ? "X" : " ") + "] " + this.action + " ";
+    }
+
+    public String toFile() {
+        return " | " + (this.completed ? "X" : "O") + " | " + this.action;
     }
 
     /** The function to complete a task. **/
