@@ -7,4 +7,9 @@ public class ToDo extends Task {
     public String getString() {
         return "[T]" + super.getString();
     }
+
+    @Override
+    public String getFileString() {
+        return "T|" + super.getFileString();
+    }
 }
