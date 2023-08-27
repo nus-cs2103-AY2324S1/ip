@@ -1,5 +1,7 @@
+package Duke;
+
 /**
- * The UI class is the driver that runs the input handler and output handler.
+ * The Duke.UI class is the driver that runs the input handler and output handler.
  */
 class UI {
     OutputUI outputUI;
@@ -21,8 +23,8 @@ class UI {
     }
 
     /**
-     * Handles all output to the user. This was initially in the main Duke class and was moved here after the UI class
-     * was made. Ideally this is integrated into the UI class not as an inner class but on second thought, it is fine
+     * Handles all output to the user. This was initially in the main Duke.Duke class and was moved here after the Duke.UI class
+     * was made. Ideally this is integrated into the Duke.UI class not as an inner class but on second thought, it is fine
      * as is because it kinda makes it neater to separate the output from the input.
      */
     static class OutputUI {
