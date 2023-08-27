@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,7 +29,6 @@ public class Storage {
     try {
       LinkedList<Task> tasks = new LinkedList<>();
       File f = new File(SAVE_DATA_PATH);
-      f.createNewFile();
       Scanner scanner = new Scanner(f);
       while (scanner.hasNext()) {
         String s = scanner.nextLine();

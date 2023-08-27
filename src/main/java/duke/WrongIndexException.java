@@ -1,3 +1,5 @@
+package duke;
+
 public class WrongIndexException extends DukeException {
 
   WrongIndexException() {

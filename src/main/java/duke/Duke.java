@@ -1,3 +1,5 @@
+package duke;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -40,9 +42,9 @@ public class Duke {
 
 
 
-/*    private LinkedList<Task> tasks = new LinkedList<>();
+/*    private LinkedList<duke.Task> tasks = new LinkedList<>();
 
-    private final String SAVE_DATA_PATH = "./data/Duke.txt";
+    private final String SAVE_DATA_PATH = "./data/duke.Duke.txt";
 
     private void printLine() {
         System.out.println("    ____________________________________________________________");
@@ -50,7 +52,7 @@ public class Duke {
 
     private void greet() {
         printLine();
-        System.out.println("    Hello! I'm Duke");
+        System.out.println("    Hello! I'm duke.Duke");
         System.out.println("    What can I do for you?");
         printLine();
     }
@@ -60,24 +62,24 @@ public class Duke {
         printLine();
     }
 
-    private LocalDate parseTime(String s) throws InvalidDateException {
+    private LocalDate parseTime(String s) throws duke.InvalidDateException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[dd/MM/yyyy]");
             return LocalDate.parse(s, formatter);
         } catch (DateTimeParseException e) {
-            throw new InvalidDateException();
+            throw new duke.InvalidDateException();
         }
     }
 
-    private Task createTodoTask(String[] words) {
+    private duke.Task createTodoTask(String[] words) {
         StringBuilder taskName = new StringBuilder();
         for (int i = 1; i < words.length; i += 1) {
             taskName.append(words[i]).append(" ");
         }
-        return new ToDoTask(taskName.toString().stripTrailing());
+        return new duke.ToDoTask(taskName.toString().stripTrailing());
     }
 
-    private Task createEventTask(String[] words) throws InvalidDateException {
+    private duke.Task createEventTask(String[] words) throws duke.InvalidDateException {
         StringBuilder taskName = new StringBuilder();
         StringBuilder startDate = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
@@ -98,10 +100,10 @@ public class Duke {
             i += 1;
         }
 
-        return new EventTask(taskName.toString().stripTrailing(), parseTime(startDate.toString().trim()), parseTime(endDate.toString().trim()));
+        return new duke.EventTask(taskName.toString().stripTrailing(), parseTime(startDate.toString().trim()), parseTime(endDate.toString().trim()));
     }
 
-    private Task createDeadlineTask(String[] words) throws InvalidDateException {
+    private duke.Task createDeadlineTask(String[] words) throws duke.InvalidDateException {
         StringBuilder taskName = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
 
@@ -115,12 +117,12 @@ public class Duke {
             endDate.append(words[i]).append(" ");
             i += 1;
         }
-        return new DeadlineTask(taskName.toString().stripTrailing(), parseTime(endDate.toString().trim()));
+        return new duke.DeadlineTask(taskName.toString().stripTrailing(), parseTime(endDate.toString().trim()));
     }
 
-    private Task createTask(String[] words) throws EmptyBodyException, InvalidDateException {
+    private duke.Task createTask(String[] words) throws duke.EmptyBodyException, duke.InvalidDateException {
         if (words.length == 1) {
-            throw new EmptyBodyException();
+            throw new duke.EmptyBodyException();
         }
 
         if (words[0].equals("todo")) {
@@ -132,7 +134,7 @@ public class Duke {
         }
     }
 
-    private void addTask(Task task) {
+    private void addTask(duke.Task task) {
         tasks.add(task);
         saveFile();
         System.out.println("     " + "Got it. I've added this task:");
@@ -140,73 +142,73 @@ public class Duke {
         System.out.println("     " + "Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    private void deleteTask(String index) throws WrongIndexException {
+    private void deleteTask(String index) throws duke.WrongIndexException {
         try {
             String regex = "\\d+";
             if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
                     || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
-                throw new WrongIndexException();
+                throw new duke.WrongIndexException();
             }
             int i = Integer.parseInt(index, 10) - 1;
-            Task task = tasks.remove(i);
+            duke.Task task = tasks.remove(i);
             saveFile();
             System.out.println("     Noted. I've removed this task:");
             System.out.println("       " + task.toString());
             System.out.println("     " + "Now you have " + tasks.size() + " tasks in the list.");
         } catch (NumberFormatException e) {
-            throw new WrongIndexException();
+            throw new duke.WrongIndexException();
         }
     }
 
     private void listTasks() {
         int i = 1;
         System.out.println("     Here are the tasks in your list:");
-        for (Task task : tasks) {
+        for (duke.Task task : tasks) {
             System.out.println("     " + i + "." + task);
             i += 1;
         }
     }
 
-    private void markTask(String index) throws WrongIndexException {
+    private void markTask(String index) throws duke.WrongIndexException {
         try {
             String regex = "\\d+";
             if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
                     || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
-                throw new WrongIndexException();
+                throw new duke.WrongIndexException();
             }
             int i = Integer.parseInt(index, 10) - 1;
-            Task task = tasks.get(i);
+            duke.Task task = tasks.get(i);
             task.markCompleted();
             saveFile();
             System.out.println("     Nice! I've marked this task as done:");
             System.out.println("       " + task.toString());
 
         } catch (NumberFormatException e) {
-            throw new WrongIndexException();
+            throw new duke.WrongIndexException();
         }
     }
 
-    private void unmarkedTask(String index) throws WrongIndexException {
+    private void unmarkedTask(String index) throws duke.WrongIndexException {
         try {
             String regex = "\\d+";
             if (!index.matches(regex) || Integer.parseInt(index, 10) - 1 < 0
                     || Integer.parseInt(index, 10) - 1 >= tasks.size()) {
-                throw new WrongIndexException();
+                throw new duke.WrongIndexException();
             }
 
             int i = Integer.parseInt(index, 10) - 1;
-            Task task = tasks.get(i);
+            duke.Task task = tasks.get(i);
             task.markNotCompleted();
             saveFile();
             System.out.println("     OK, I've marked this task as not done yet:");
             System.out.println("       " + task.toString());
         } catch (NumberFormatException e) {
-            throw new WrongIndexException();
+            throw new duke.WrongIndexException();
         }
     }
 
 
-    private boolean parseCommand(String command) throws DukeException {
+    private boolean parseCommand(String command) throws duke.DukeException {
         String[] words = command.trim().split("\\s");
         if (words[0].equals("bye") && words.length == 1) {
             return false;
@@ -221,7 +223,7 @@ public class Duke {
         } else if ((words[0].equals("deadline") || words[0].equals("todo") || words[0].equals("event"))) {
             this.addTask(createTask(words));
         } else {
-            throw new InvalidCommandException();
+            throw new duke.InvalidCommandException();
         }
         return true;
     }
@@ -237,7 +239,7 @@ public class Duke {
                 if (!continueLoop) {
                     break;
                 }
-            } catch (DukeException e) {
+            } catch (duke.DukeException e) {
                 System.out.println(e);
             }
             printLine();
@@ -249,7 +251,7 @@ public class Duke {
     private void saveFile() {
         try {
             FileWriter fw = new FileWriter(SAVE_DATA_PATH);
-            for (Task task : tasks) {
+            for (duke.Task task : tasks) {
                 fw.write(task.saveData() + "\n");
             }
             fw.close();
@@ -270,24 +272,24 @@ public class Duke {
                 boolean isComplete = taskData[1].equals("1");
                 switch (taskData[0]) {
                     case "event":
-                        tasks.add((new EventTask(taskData[2], parseTime(taskData[3]), parseTime(taskData[4]), isComplete)));
+                        tasks.add((new duke.EventTask(taskData[2], parseTime(taskData[3]), parseTime(taskData[4]), isComplete)));
                         break;
                     case "todo":
-                        tasks.add(new ToDoTask(taskData[2], isComplete));
+                        tasks.add(new duke.ToDoTask(taskData[2], isComplete));
                         break;
                     default:
-                        tasks.add(new DeadlineTask(taskData[2], parseTime(taskData[3]), isComplete));
+                        tasks.add(new duke.DeadlineTask(taskData[2], parseTime(taskData[3]), isComplete));
                 }
             }
         } catch (IOException e) {
             System.out.println("     Unable to load/find file");
-        } catch (InvalidDateException e) {
+        } catch (duke.InvalidDateException e) {
             System.out.println("     Error parsing date when loading file");
         }
     }
 
     public static void main(String[] args) {
-        Duke duke = new Duke();
+        duke.Duke duke = new duke.Duke();
         duke.loadFile();
         duke.greet();
         duke.handleUI();
