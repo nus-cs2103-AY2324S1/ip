@@ -1,4 +1,4 @@
-package bob.commands;
+package bob.command;
 import bob.*;
 
 /**

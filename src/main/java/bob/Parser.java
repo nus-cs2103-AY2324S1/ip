@@ -1,5 +1,5 @@
 package bob;
-import bob.commands.*;
+import bob.command.*;
 
 /**
  * Handles user input and convert them into the right command.
