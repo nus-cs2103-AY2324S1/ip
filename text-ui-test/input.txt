@@ -1,4 +1,7 @@
-hi
-deadline drive car /by Sunday 2pm
+deadline study CS2100 /by 28/08/23 1800
+todo drive car
+event play badminton /from 29/08/23 1500 /to 29/08/23 1800
 mark 1
+unmark 1
+delete 2
 bye
