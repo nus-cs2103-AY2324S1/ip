@@ -1,3 +1,6 @@
+package carbonbot;
+import carbonbot.command.Command;
+
 import java.io.IOException;
 
 public class CarbonBot {
@@ -49,5 +52,4 @@ public class CarbonBot {
         String saveFilePath = "./data/tasks.txt";
         new CarbonBot(saveFilePath).run();
     }
-
 }
