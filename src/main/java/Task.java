@@ -13,6 +13,10 @@ public class Task {
                     "____________________________________________________________\n");
         } else {
             this.done = true;
+            System.out.println("____________________________________________________________\n" +
+                    " Nice! I've marked this task as done:\n " +
+                    this.toString() +
+                    "\n____________________________________________________________\n");
         }
     }
 
@@ -23,12 +27,12 @@ public class Task {
                     "____________________________________________________________\n");
         } else {
             this.done = false;
+            System.out.println("____________________________________________________________\n" +
+                    " OK, I've marked this task not done yet:\n " +
+                    this.toString() +
+                    "\n____________________________________________________________\n");
         }
         this.done = false;
-    }
-
-    public String toList() {
-        return String.format(" | %s | %s", done ? "X" : " ", this.task);
     }
 
     @Override
