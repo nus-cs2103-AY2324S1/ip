@@ -1,4 +1,4 @@
-import ExceptionFolder.NoTasksStoredException;
+package duke;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class Storage {
                             storedTasks.add(eventTask);
                             break;
                         default:
-                            System.out.println("Unknown Task Type");
+                            System.out.println("Unknown duke.Task Type");
                             break;
                         }
                         break;
@@ -66,7 +66,7 @@ public class Storage {
                             storedTasks.add(eventTask);
                             break;
                         default:
-                            System.out.println("Unknown Task Type");
+                            System.out.println("Unknown duke.Task Type");
                             break;
                         }
                         break;

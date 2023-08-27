@@ -1,4 +1,4 @@
-package ExceptionFolder;
+package duke;
 
 public class NoTasksStoredException extends DukeException{
     /**

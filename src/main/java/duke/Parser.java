@@ -1,4 +1,4 @@
-import ExceptionFolder.InvalidTaskException;
+package duke;
 
 import java.util.Arrays;
 

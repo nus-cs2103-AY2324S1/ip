@@ -1,4 +1,4 @@
-package ExceptionFolder;
+package duke;
 
 /**
  * Exception which occurs when the user input is invalid

@@ -1,7 +1,7 @@
-package ExceptionFolder;
+package duke;
 
 /**
- * Parent class of all the checked exceptions to be implemented for Duke
+ * Parent class of all the checked duke.exceptions to be implemented for duke.Duke
  */
 public class DukeException extends Exception {
 

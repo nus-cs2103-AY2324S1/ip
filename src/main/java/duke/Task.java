@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * Abstract class which all the different types of tasks inherit from
  */

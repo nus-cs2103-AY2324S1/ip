@@ -1,6 +1,4 @@
-import ExceptionFolder.InvalidInputException;
-import ExceptionFolder.InvalidTaskException;
-import ExceptionFolder.NoTasksStoredException;
+package duke;
 
 import java.util.Arrays;
 import java.util.Scanner;
