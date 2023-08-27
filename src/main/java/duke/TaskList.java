@@ -90,5 +90,23 @@ public class TaskList {
     public void add(Task task) {
         tasks.add(task);
     }
-    // Implement methods to add/delete tasks, mark tasks as done, etc.
+
+    public ArrayList<String> find(String input) {
+        String trimmedInput = input.substring(5).trim();
+        ArrayList<String> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(trimmedInput)) {
+                String string = task.toString();
+                matchingTasks.add(string);
+            }
+        }
+        if (!matchingTasks.isEmpty()) {
+            System.out.println("Here are the matching tasks in your list:");
+            return matchingTasks;
+        } else {
+            matchingTasks.add("There are no matching tasks in your list");
+            return matchingTasks;
+        }
+
+    }
 }
