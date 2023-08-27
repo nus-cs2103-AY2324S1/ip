@@ -44,6 +44,9 @@ public class UserInputParser {
         if (Pattern.matches("delete \\d+", userInput)) {
             return Action.DELETE;
         }
+        if (Pattern.matches("find .+", userInput)) {
+            return Action.FIND;
+        }
         throw new InvalidCommandException();
     }
     public static Message parse(String userInput, TaskList taskList)
@@ -91,6 +94,9 @@ public class UserInputParser {
         case DELETE:
             num = Integer.parseInt(userInput.split(" ", 2)[1]);
             return taskList.delete(num);
+        case FIND:
+            name = userInput.split(" ", 2)[1];
+            return taskList.find(name);
         default:
             throw new InvalidCommandException();
         }

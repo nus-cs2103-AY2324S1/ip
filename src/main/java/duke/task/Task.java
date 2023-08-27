@@ -21,4 +21,7 @@ abstract public class Task {
         return String.format("%s %s", this.getCheckBox(), this.name);
     }
     public abstract String toStringStore();
+    public boolean containsKeyword(String keyword) {
+        return this.name.contains(keyword);
+    }
 }

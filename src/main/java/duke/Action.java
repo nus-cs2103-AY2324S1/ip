@@ -1,5 +1,5 @@
 package duke;
 
 public enum Action {
-    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE
+    BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND
 }

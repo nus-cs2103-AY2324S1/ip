@@ -14,6 +14,7 @@ public class MessageTemplates {
             "deadline {task name} /by {deadline}: create task with deadline",
             "event {event name} /from {start date} /to {end date}: create event",
             "delete {task number}: delete a task",
+            "find {keyword}: find tasks with keyword",
             "bye: close application"
     };
 
@@ -32,6 +33,7 @@ public class MessageTemplates {
     public static final String MESSAGE_NUMBER_OF_TASKS = "Now you have %d tasks in the list.";
     public static final String MESSAGE_MARK_DONE = "Nice! I've marked this task as done:";
     public static final String MESSAGE_MARK_NOT_DONE = "OK, I've marked this task as not done yet:";
+    public static final String MESSAGE_FOUND_TASKS = "Here are the matching tasks in your list:";
     public static final String MESSAGE_HI = "Hello! I'm ChatGPA 5.0\nWhat can I do for you?";
     public static final String MESSAGE_BYE = "Bye. Hope to see you again soon!";
 }

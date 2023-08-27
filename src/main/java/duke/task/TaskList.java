@@ -2,6 +2,7 @@ package duke.task;
 
 import duke.exception.InvalidIndexException;
 import duke.message.AddTaskMessage;
+import duke.message.FindTaskMessage;
 import duke.message.MarkTaskMessage;
 import duke.message.DeleteTaskMessage;
 import duke.message.TaskListMessage;
@@ -51,6 +52,17 @@ public class TaskList {
         Task task = this.list.get(index);
         return new UnmarkTaskMessage(task);
     }
+
+    public FindTaskMessage find(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        for (Task t: this.list) {
+            if (t.containsKeyword(keyword)) {
+                result.add(t);
+            }
+        }
+        return new FindTaskMessage(result);
+    }
+
     public String toStringStore() {
         StringBuilder sb = new StringBuilder();
         for (Task t: this.list) {
