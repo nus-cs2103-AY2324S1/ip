@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Duke {
     private final String botName;
     private final List<Task> taskList;
+    private static final int indentLength = 4;
 
     public Duke(String botName) {
         this.botName = botName;
@@ -48,7 +49,6 @@ public class Duke {
     }
 
     private void echo(List<String> inputs) {
-        int indentLength = 4;
         String divider = indentLeft(String.format("%80s", "").replace(" ", "-"), indentLength);
         System.out.println(divider);
         inputs.stream().map(input -> indentLeft(input, indentLength))
@@ -80,5 +80,31 @@ public class Duke {
             tasksWithNumber.add(taskNumber + taskList.get(i));
         }
         echo(tasksWithNumber);
+    }
+
+    private void markTask(int index) {
+        if (index < 0 || index >= taskList.size()) {
+            echo(String.format("Invalid Task Index: %s provided.", index));
+            return;
+        }
+        Task task = taskList.get(index);
+        task.markAsDone();
+        List<String> displayText = new ArrayList<>();
+        displayText.add("Nice! I've marked this task as done:");
+        displayText.add(indentLeft(task.toString(), indentLength));
+        echo(displayText);
+    }
+
+    private void unmarkTask(int index) {
+        if (index < 0 || index >= taskList.size()) {
+            echo(String.format("Invalid Task Index: %s provided.", index));
+            return;
+        }
+        Task task = taskList.get(index);
+        task.markAsNotDone();
+        List<String> displayText = new ArrayList<>();
+        displayText.add("OK, I've marked this task as not done yet:");
+        displayText.add(indentLeft(task.toString(), indentLength));
+        echo(displayText);
     }
 }
