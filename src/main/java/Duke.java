@@ -1,5 +1,7 @@
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 
 public class Duke {
     private final String line = "_____________________________________________________";
@@ -129,20 +131,22 @@ public class Duke {
 
                         String command = input.substring(0, input.indexOf(' '));
                         String task = input.substring(input.indexOf(' ') + 1);
-                        String[] parsedTask = task.split("/");
+                        String[] parsedTask = task.split("/", 2);
                         String description = parsedTask[0].trim();
 
                         if (parsedTask.length < 2) {
                             throw new DukeEmptyParametersException();
                         }
 
-                        String by = parsedTask[1].substring(parsedTask[1].indexOf(' ') + 1).trim();
+                        String by = parsedTask[1].trim();
+                        LocalDateTime deadlineDate = parseDate(by);
+
                         if (description.equals("")) {
                             throw new DukeInvalidCommandException(command);
-                        } else if ( by.equals("")) {
-                            throw new DukeEmptyParametersException();
+                        } else if (deadlineDate == null) {
+                            throw new DukeInvalidDateException();
                         } else {
-                            this.addDeadline(description, false, by);
+                            this.addDeadline(description, false, deadlineDate);
                         }
                     } else if (taskType == TaskType.EVENT) {
 
@@ -180,6 +184,18 @@ public class Duke {
         }
     }
 
+    private LocalDateTime parseDate(String dateStr) {
+        try {
+            String[] parts = dateStr.split("\\s+", 2);
+            String dateString = parts.length > 1 ? parts[1] : parts[0]; // Use the second part if available
+
+            LocalDateTime dateTime = LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            return dateTime;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public void addTodo(String input, boolean isDone) {
         Todo newTask = new Todo(input, isDone);
         String newTaskString = newTask.fileFormat();
@@ -195,7 +211,7 @@ public class Duke {
         System.out.println(line);
     }
 
-    public void addDeadline(String input, boolean isDone, String by) {
+    public void addDeadline(String input, boolean isDone, LocalDateTime by) {
         Deadline newTask = new Deadline(input, isDone, by);
         String newTaskString = newTask.fileFormat();
 

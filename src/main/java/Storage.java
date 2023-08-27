@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -49,7 +51,8 @@ public class Storage {
                 if (task[0].equals("T")) {
                     taskList.add(new Todo(task[2], task[1].equals("1")));
                 } else if (task[0].equals("D")) {
-                    taskList.add(new Deadline(task[2], task[1].equals("1"), task[3]));
+                    LocalDateTime deadline = LocalDateTime.parse(task[3]);
+                    taskList.add(new Deadline(task[2], task[1].equals("1"), deadline));
                 } else if (task[0].equals("E")) {
                     String[] timeframe = task[3].split("-");
                     taskList.add(new Event(task[2], task[1].equals("1"), timeframe[0], timeframe[1]));
