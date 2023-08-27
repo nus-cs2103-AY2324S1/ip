@@ -1,26 +1,45 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Locale;
-import java.util.Scanner;
-import java.util.regex.Pattern;
-import java.io.File;
-import java.time.format.DateTimeFormatter;
+import java.io.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
-public class ChatbotAlain{
-    private  Ui ui;
-    private  Storage storage;
-    private  TaskList tasks;
+public class Storage {
+    private String filePath;
+    private Ui ui = new Ui();
+    private Boolean alrBye;
 
-    public ChatbotAlain(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            tasks = storage.loadTasksFromFile();
-        } catch (IOException e) {
-            ui.showError("Error Occurs when loading tasks from file");
-        }
+    public Storage(String filePath) {
+        this.filePath = filePath;
+        this.alrBye = false;
     }
+
+    public Boolean isBye() {
+        return this.alrBye;
+    }
+    public static void saveTasksToFile(TaskList list, String fileName, Boolean except, String msg) throws IOException {
+        File listFile = new File(fileName);
+        if (!listFile.exists()) {
+            listFile.createNewFile();
+        }
+        FileWriter writer = new FileWriter(listFile);
+        String filecontent = "";
+        if (except) {
+            filecontent +="Oops! Seems like there is an exception detected in your input\n";
+            filecontent += msg + "\n";
+        } else {
+            filecontent += "____________________________________________________________\n"
+                    + "Here are the tasks in your list:\n";
+            for (int i = 0; i < list.size(); i++) {
+                filecontent += " " + (i + 1) + ". " + list.getTask(i) + "\n";
+            }
+            filecontent += "____________________________________________________________\n";
+        }
+        writer.write(filecontent);
+        writer.close();
+    }
+
     public static String stringToTimeString(String inputTime) throws AlainException {
         if (Pattern.matches("\\d+-\\d+-\\d+",inputTime)) {
             DateTimeFormatter inputPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -47,16 +66,13 @@ public class ChatbotAlain{
         }
     }
 
-    public  void run() throws AlainException, IOException {
-        if (this.storage.isBye()) {
-            return;
-        }
-        TaskList list = this.tasks;
-        while (true) {
-            try {
-                Scanner s = new Scanner(System.in);
-                String text = new String();
-                text = s.nextLine();
+    public TaskList loadTasksFromFile() throws IOException {
+        ui.showWelcome();
+        ArrayList<Task> tasks = new ArrayList<>();
+        TaskList list = new TaskList(tasks);
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String text;
+            while ((text = reader.readLine()) != null) {
                 boolean isMatchMark = Pattern.matches("mark \\d+", text);
                 boolean isMatchUnmark = Pattern.matches("unmark \\d+", text);
                 boolean isDeadline = Pattern.matches("deadline .+", text);
@@ -110,6 +126,9 @@ public class ChatbotAlain{
                     continue;
                 }
                 if (text.equals("bye")) {
+                    this.alrBye = true;
+                    ui.showList(list);
+                    ui.showGoodbye();
                     break;
                 } else if (isMatchMark) {
                     String numericPart = text.substring(5);
@@ -126,23 +145,11 @@ public class ChatbotAlain{
                     continue;
                 }
                 throw new AlainException("I'm sorry, but I don't know what that means :-(");
-            } catch (AlainException e){
-                ui.showError(e.getMessage());
-                storage.saveTasksToFile(null, "list.txt", true, e.getMessage());
             }
-        }
-
-        try {
-            ui.showList(list);
-            storage.saveTasksToFile(list, "list.txt", false,null);
-        } catch (IOException e) {
-            ui.showError("Error saving tasks to file");
-        } finally {
+        } catch (AlainException e) {
+            ui.showError(e.getMessage());
             ui.showGoodbye();
         }
-    }
-
-    public static void main(String[] args) throws AlainException, IOException {
-        new ChatbotAlain("tasks.txt").run();
+        return list;
     }
 }
