@@ -1,6 +1,13 @@
 package ui;
 
+import java.util.Scanner;
+
 public class Ui {
+
+    private final Scanner sc;
+    public Ui() {
+        this.sc = new Scanner(System.in);
+    }
     public static final String HORIZONTAL_RULE = "_".repeat(80) + "\n";
 
     private static final String LOGO = " ____          _\n"
@@ -67,5 +74,9 @@ public class Ui {
                     "OK, I've marked this task as not done yet:\n  %s", task));
         }
 
+    }
+
+    public String readNextLine() {
+        return this.sc.nextLine();
     }
 }
