@@ -10,7 +10,7 @@ public class Duke {
     public Duke(String botName) {
         this.botName = botName;
         this.taskList = new ArrayList<>();
-        this.outputService = new OutputService(this);
+        this.outputService = new OutputService();
     }
 
     public static void main(String[] args) {
@@ -33,7 +33,7 @@ public class Duke {
                 case "bye":
                     return;
                 case "list":
-                    outputService.printTasks();
+                    outputService.printTasks(getTaskList());
                     break;
                 case "mark":
                     if (words.length > 1 && isNumeric(words[1])) {

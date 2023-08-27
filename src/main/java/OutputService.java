@@ -2,13 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OutputService {
-    private final Duke dukeBot;
     private static final int indentLength = 4;
-
-    public OutputService(Duke dukeBot) {
-        this.dukeBot = dukeBot;
-    }
-
 
     public void echo(String input) {
         echo(input, "");
@@ -35,11 +29,11 @@ public class OutputService {
         return String.join(System.lineSeparator(), lines);
     }
 
-    public void printTasks() {
+    public void printTasks(List<Task> taskList) {
         List<String> tasksWithNumber = new ArrayList<>();
-        for (int i = 0; i < dukeBot.getTaskList().size(); i ++) {
+        for (int i = 0; i < taskList.size(); i ++) {
             String taskNumber = String.format("%s. ", i + 1);
-            tasksWithNumber.add(taskNumber + dukeBot.getTaskList().get(i));
+            tasksWithNumber.add(taskNumber + taskList.get(i));
         }
         echo(tasksWithNumber);
     }
