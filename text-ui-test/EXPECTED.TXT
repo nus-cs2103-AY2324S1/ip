@@ -16,12 +16,12 @@ Now you have 1 tasks in the list.
 _____________________________________________________
 _____________________________________________________
 Got it. I've added this task:
-  [D][ ] Assignment 2 (by: tomorrow)
+  [D][ ] Assignment 2 (by: 01-Jan-2023 1245)
 Now you have 2 tasks in the list.
 _____________________________________________________
 _____________________________________________________
 Got it. I've added this task:
-  [E][ ] exam (from: today to: tomorrow)
+  [E][ ] exam (from: 01-Jan-2023 1245 to: 01-Jan-2023 1300)
 Now you have 3 tasks in the list.
 _____________________________________________________
 _____________________________________________________
@@ -34,13 +34,13 @@ OK, I've marked this task as not done yet:
 _____________________________________________________
 _____________________________________________________
 Noted. I've removed this task:
-  [D][ ] Assignment 2 (by: tomorrow)
+  [D][ ] Assignment 2 (by: 01-Jan-2023 1245)
 Now you have 2 tasks in the list.
 _____________________________________________________
 _____________________________________________________
 Here are the tasks in your list:
 1. [T][ ] Assignment 1
-2. [E][ ] exam (from: today to: tomorrow)
+2. [E][ ] exam (from: 01-Jan-2023 1245 to: 01-Jan-2023 1300)
 _____________________________________________________
 _____________________________________________________
 OOPS!!! I'm sorry, but I don't know what that means :-(
@@ -51,11 +51,19 @@ Format should be: todo <task description>
 _____________________________________________________
 _____________________________________________________
 Missing description/end for deadline task.
-Format should be: deadline <task description> /by <end date/time>
+Format should be: deadline <task description> /by <yyyy-MM-dd HHmm>
 _____________________________________________________
 _____________________________________________________
 Missing description/start/end for event task.
-Format should be: event <task description> /from <start date/time> /to <end date/time>
+Format should be: event <task description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>
+_____________________________________________________
+_____________________________________________________
+Missing description/end for deadline task.
+Format should be: deadline <task description> /by <yyyy-MM-dd HHmm>
+_____________________________________________________
+_____________________________________________________
+Missing description/start/end for event task.
+Format should be: event <task description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>
 _____________________________________________________
 _____________________________________________________
 Invalid index format.

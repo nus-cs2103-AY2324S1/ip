@@ -1,19 +1,18 @@
 package extensions;
 
-import java.util.ArrayList;
 import java.lang.StringBuilder;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class TaskList {
+    protected static final DateTimeFormatter DATETIME_FORMAT
+            = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     protected ArrayList<Task> list;
 
     public TaskList() {
         this.list = new ArrayList<>();
-    }
-
-    public Task addTodo(String desc) {
-        Task task = new TodoTask(desc);
-        this.list.add(task);
-        return task;
     }
 
     public Task addTodo(String desc, int isMarked) {
@@ -22,26 +21,19 @@ public class TaskList {
         return task;
     }
 
-    public Task addDeadline(String desc, String deadline) {
-        Task task = new DeadlineTask(desc, deadline);
+    public Task addDeadline(String desc, String deadline, int isMarked)
+            throws DateTimeParseException {
+        LocalDateTime dateTime = LocalDateTime.parse(deadline, DATETIME_FORMAT);
+        Task task = new DeadlineTask(desc, dateTime, isMarked);
         this.list.add(task);
         return task;
     }
 
-    public Task addDeadline(String desc, String deadline, int isMarked) {
-        Task task = new DeadlineTask(desc, deadline, isMarked);
-        this.list.add(task);
-        return task;
-    }
-
-    public Task addEvent(String desc, String start, String end) {
-        Task task = new EventTask(desc, start, end);
-        this.list.add(task);
-        return task;
-    }
-
-    public Task addEvent(String desc, String start, String end, int isMarked) {
-        Task task = new EventTask(desc, start, end, isMarked);
+    public Task addEvent(String desc, String start, String end, int isMarked)
+            throws DateTimeParseException{
+        LocalDateTime dateTimeStart = LocalDateTime.parse(start, DATETIME_FORMAT);
+        LocalDateTime dateTimeEnd = LocalDateTime.parse(end, DATETIME_FORMAT);
+        Task task = new EventTask(desc, dateTimeStart, dateTimeEnd, isMarked);
         this.list.add(task);
         return task;
     }
