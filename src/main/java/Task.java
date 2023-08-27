@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -23,6 +23,10 @@ public class Task {
         System.out.println("       " + this);
     }
 
+    public String toStringForSave() {
+        int status = this.isDone ? 1 : 0;
+        return status + " | " + this.description;
+    }
 
     @Override
     public String toString() {
