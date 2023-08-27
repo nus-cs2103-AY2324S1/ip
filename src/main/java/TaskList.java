@@ -1,15 +1,25 @@
 import java.util.ArrayList;
 
 public class TaskList {
+    private static TaskList obj;
     private ArrayList<Task> list;
     private final Reply reply = Reply.init();
 
-    public TaskList() {
-        list = new ArrayList<>();
+    private TaskList() {
+        list = Database.loadData();
+    }
+
+    public static TaskList init() {
+        if (obj == null) {
+            obj = new TaskList();
+        }
+        return obj;
     }
 
     public void addTask(Task task) {
         list.add(task);
+        Database.save(this.list);
+
         StringBuilder dialog = new StringBuilder("Got it. I've added this task:\n       ")
                 .append(task)
                 .append("\n     ")
@@ -42,6 +52,7 @@ public class TaskList {
         StringBuilder dialog = new StringBuilder();
         Task element = list.get(index - 1);
         element.markAsDone();
+        Database.save(list);
         dialog.append("Nice! I've marked this task as done:\n")
                 .append("       ")
                 .append(element);
@@ -52,6 +63,7 @@ public class TaskList {
         StringBuilder dialog = new StringBuilder();
         Task element = list.get(index - 1);
         element.markAsNotDone();
+        Database.save(list);
         dialog.append("OK! I've marked this task as not done yet:\n")
                 .append("       ")
                 .append(element);
@@ -62,6 +74,7 @@ public class TaskList {
         StringBuilder dialog = new StringBuilder();
         Task element = list.get(index - 1);
         list.remove(index - 1);
+        Database.save(list);
         dialog.append("Noted. I've removed this task:\n")
                 .append("       ")
                 .append(element)
