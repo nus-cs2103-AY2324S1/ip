@@ -76,7 +76,7 @@ public class Chatbot {
 							"Now you have %s tasks in the list.\n" +
 							"____________________________________________________________", t.toString(), remaining);
 					System.out.println(echo);
-				} else if (!Event.equals("list")) {
+				} else if (Event.equals("todo") || Event.equals("deadline") || Event.equals("event")) {
 					// add to task to list then print list if event is list
 					// String[] slice = Arrays.copyOfRange(items, 1, items.length - 1);
 					String[] items = action.split("/");
