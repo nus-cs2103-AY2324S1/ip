@@ -10,7 +10,17 @@ public class Event extends Task {
     }
 
     @Override
+    public String type() {
+        return "[E]";
+    }
+
+    @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to " + to + ")";
+        return type() + super.toString() + " (from: " + from + " to " + to + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return type() + " | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
     }
 }

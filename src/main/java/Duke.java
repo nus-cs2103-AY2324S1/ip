@@ -1,8 +1,11 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    static String horizontalLine = "______________________________________________";
+    static String horizontalLine = "___________________________________________________________________";
+    static String filePath = "./data/duke.txt";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -14,14 +17,27 @@ public class Duke {
         ArrayList<Task> tasks = new ArrayList<>();
         String userInput;
 
+        try {
+            tasks = load();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks.");
+        }
+
         do {
             userInput = scanner.nextLine();
             String[] individualWords = userInput.split(" ");
             String firstWord = individualWords[0];
             String lowerCapsFirstWord = firstWord.toLowerCase();
 
+            if (userInput.equalsIgnoreCase("bye")) {
+                break;
+            }
+
             try {
                 if (lowerCapsFirstWord.equalsIgnoreCase("list")) {
+                    if (tasks.size() == 0) {
+                        System.out.println("You have 0 task.");
+                    }
                     for (int i = 0; i < tasks.size(); i++) {
                         Task task = tasks.get(i);
                         System.out.println((i + 1) + "." + task.toString());
@@ -79,7 +95,7 @@ public class Duke {
                     }
                     try {
                         String fullStr = userInput.substring(9);
-                        String[] parts = fullStr.split(" /by ");
+                        String[] parts = fullStr.split("/by");
                         String description = parts[0].trim();
                         String by = parts[1].trim();
                         Task task = new Deadline(description, by);
@@ -96,9 +112,9 @@ public class Duke {
                     }
                     try {
                         String fullStr = userInput.substring(6);
-                        String[] partialStr = fullStr.split(" /from ");
+                        String[] partialStr = fullStr.split("/from");
                         String description = partialStr[0].trim();
-                        String[] toFrom = partialStr[1].split(" /to ");
+                        String[] toFrom = partialStr[1].split("/to");
                         String from = toFrom[0].trim();
                         String to = toFrom[1].trim();
                         Task task = new Event(description, from, to);
@@ -117,9 +133,73 @@ public class Duke {
                 e.print();
             }
 
-        } while (!userInput.equalsIgnoreCase("bye"));
+        } while (true);
+
+        try {
+            save(tasks);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks.");
+        }
 
         System.out.println("Goodbye. Catch you later!" + "\n" + horizontalLine);
         scanner.close();
+    }
+
+    private static void save(ArrayList<Task> tasks) throws IOException {
+        FileWriter writer = new FileWriter(filePath);
+
+        for (Task task: tasks) {
+            String taskFileString = task.toFileString();
+            writer.write(taskFileString + "\n");
+        }
+
+        writer.close();
+    }
+
+    private static ArrayList<Task> load() throws IOException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            file.createNewFile();
+        } else {
+            FileReader reader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+
+            String fileLine;
+            while ((fileLine = bufferedReader.readLine()) != null) {
+                Task task = createTaskFromFile(fileLine);
+                tasks.add(task);
+            }
+
+            bufferedReader.close();
+        }
+
+        return tasks;
+    }
+
+    private static Task createTaskFromFile(String fileLine) {
+        String[] parts = fileLine.split("\\|");
+        for (int i = 0; i < parts.length; i++) {
+            parts[i] = parts[i].trim();
+        }
+        String type = parts[0];
+        String description = parts[2];
+
+        Task task;
+
+        if (type.equals("[T]")) {
+            task = new ToDo(description);
+        } else if (type.equals("[D]")) {
+            String by = parts[3];
+            task = new Deadline(description, by);
+        } else {
+            String from = parts[3];
+            String to = parts[4];
+            task = new Event(description, from, to);
+        }
+
+        task.isDone = parts[1].equals("1");
+        return task;
     }
 }

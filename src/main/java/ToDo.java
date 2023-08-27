@@ -5,7 +5,17 @@ public class ToDo extends Task {
     }
 
     @Override
+    public String type() {
+        return "[T]";
+    }
+
+    @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return type() + super.toString();
+    }
+
+    @Override
+    public String toFileString() {
+        return type() + " | " + (isDone ? "1" : "0") + " | " + description;
     }
 }
