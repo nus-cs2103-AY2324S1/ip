@@ -151,10 +151,9 @@ public class Duke {
 
     public static Task constructTaskFromFile(String line) {
         String type = line.substring(1, 2);
-        String done = line.substring(4, 5);
+        String doneString = line.substring(4, 5);
         String text = line.substring(7);
 
-        int bracketIndex;
         String description;
         Task newTask = new Task("");
 
@@ -182,6 +181,8 @@ public class Duke {
                 break;
         }
 
+        boolean done = doneString.equals("X");
+        newTask.setDone(done);
         return newTask;
     }
 
@@ -192,7 +193,6 @@ public class Duke {
         ArrayList<Task> tasks = new ArrayList<>();
         while (fileScanner.hasNext()) {
             String line = fileScanner.nextLine();
-            System.out.println(line);
             tasks.add(constructTaskFromFile(line));
         }
 
