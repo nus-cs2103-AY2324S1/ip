@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +49,9 @@ public class TaskList {
                 builder.append(commandArr[i]).append(" ");
             }
 
-            String deadline = builder.toString();
+            String deadlineString = builder.toString();
+            deadlineString = deadlineString.trim();
+            LocalDate deadline = LocalDate.parse(deadlineString);
             this.tasks.add(new Deadline(deadlineDesc, false, deadline));
         } else {
             StringBuilder builder = new StringBuilder();
