@@ -37,7 +37,16 @@ public class Parser {
             System.out.println("Yay, done with " + items.get(check.mark(stuff)).display());
         } else if (check.del(stuff) != -1) {
             System.out.println("Deleted: " + items.remove(check.del(stuff)).display());
-        } else {
+        }
+        else if (check.find1(stuff) != null) {
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).display().contains(check.find1(stuff))) {
+                    System.out.println((i+1) + ". " + items.get(i).display());
+                }
+            }
+        }
+
+        else{
             if (stuff.trim().toLowerCase().startsWith("todo")) {
                 if (stuff.trim().substring(4).trim().length() == 0) {
                     System.out.println("Why empty???");

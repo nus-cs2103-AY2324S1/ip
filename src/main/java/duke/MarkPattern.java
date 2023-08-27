@@ -64,4 +64,17 @@ public class MarkPattern {
             return -1;
         }
     }
+
+    //The pattern for find
+    public String find1(String args) {
+        Pattern pattern = Pattern.compile("find\\s+(\\S+)");
+        Matcher matcher = pattern.matcher(args);
+
+        if (matcher.find()) {
+            return matcher.group(1);
+        } else {
+            return null;
+        }
+    }
+
 }
