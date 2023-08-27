@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Deadline extends Task {
     private final String DEADLINE;
 
@@ -17,7 +20,19 @@ public class Deadline extends Task {
         return this.DEADLINE;
     }
 
+    public Deadline() {
+        super();
+        this.DEADLINE = "";
+        this.taskType = TaskType.DEADLINE;
+    }
+
     public Deadline(String deadlineDesc, boolean isDone, String deadline) {
+        super(deadlineDesc, isDone);
+        this.DEADLINE = deadline;
+        this.taskType = TaskType.DEADLINE;
+    }
+
+    public Deadline(String deadlineDesc, boolean isDone, TaskType taskType, String deadline) {
         super(deadlineDesc, isDone);
         this.DEADLINE = deadline;
         this.taskType = TaskType.DEADLINE;

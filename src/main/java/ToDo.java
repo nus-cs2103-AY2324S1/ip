@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ToDo extends Task {
     public String getDescription() {
         return this.description;
@@ -11,8 +14,23 @@ public class ToDo extends Task {
         return this.taskType;
     }
 
+    public ToDo() {
+        super();
+        this.taskType = TaskType.TODO;
+    }
+
     public ToDo(String todoDesc, boolean isDone) {
         super(todoDesc, isDone);
+        this.taskType = TaskType.TODO;
+    }
+
+    public ToDo(String description, boolean isDone, TaskType taskType) {
+        super(description, isDone);
+        this.taskType = TaskType.TODO;
+    }
+
+    public ToDo(String type, String description, boolean isDone, TaskType taskType) {
+        super(description, isDone);
         this.taskType = TaskType.TODO;
     }
 
