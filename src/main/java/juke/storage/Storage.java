@@ -28,18 +28,26 @@ public class Storage extends JukeObject {
     private static final Path FILE_PATH = Paths.get("./data/tasks.txt");
 
     /**
-     * Creates an instance of {@code JukeStorageManager} and creates the files
+     * Creates an instance of {@code Storage}. Prevents external instantiation through
+     * any methods other than {@code Storage.of()}.
+     */
+    private Storage() {
+        super();
+    }
+
+    /**
+     * Creates an instance of {@code Storage} and creates the files
      * and directories required if necessary.
-     * @return {@code JukeStorageManager} instance
+     *
+     * @return {@code Storage} instance
      * @throws JukeInitialisationException if the directories or files cannot be
      *     created or initialised
      */
     public static Storage of() throws JukeInitialisationException {
-        // if the directory does not exist, the file also cannot exist
+        // if the directory does not exist, create the directory
         if (!Files.exists(Storage.DIRECTORY_PATH)) {
             try {
                 Files.createDirectory(Storage.DIRECTORY_PATH);
-                Files.createFile(Storage.FILE_PATH);
             } catch (IOException ex) {
                 throw new JukeInitialisationException("Oh no! I am unable to create a directory to store your "
                                                               + "tasks! Please try again later!");
@@ -59,7 +67,8 @@ public class Storage extends JukeObject {
 
     /**
      * Returns a list of saved task from the datafile.
-     * @return List of {@code JukeTasks}
+     *
+     * @return List of {@code JukeTasks} retrieved
      * @throws JukeStorageException If the file could not be opened or processed for any reason
      */
     public List<JukeTask> read() throws JukeStorageReadException {
@@ -80,6 +89,7 @@ public class Storage extends JukeObject {
 
     /**
      * Writes the list of tasks into the datafile.
+     *
      * @param tasks List of {@code JukeTasks} to write
      * @throws JukeStorageException If the file could not be opened or written to for any reason
      */

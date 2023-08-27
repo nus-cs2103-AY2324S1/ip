@@ -5,19 +5,20 @@ import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
 
 /**
- * Action that adds a Task to the Task Manager.
+ * Action that adds a Task to the {@code TaskList}.
  */
 public class JukeAddTaskCommand extends JukeCommand {
-    /** TaskList to manage all tasks. */
+    /** {@code TaskList} to manage all tasks. */
     private final TaskList taskList;
 
-    /** JukeTask to add. */
+    /** {@code JukeTask} to add. */
     private final JukeTask task;
 
     /**
-     * Constructor for JukeAddTaskAction
-     * @param taskList TaskList
-     * @param task JukeTask to add
+     * Creates an instance of {@code JukeAddTaskAction}
+     *
+     * @param taskList {@code TaskList} object
+     * @param task {@code JukeTask} to add
      */
     public JukeAddTaskCommand(TaskList taskList, JukeTask task) {
         this.taskList = taskList;
@@ -25,11 +26,12 @@ public class JukeAddTaskCommand extends JukeCommand {
     }
 
     /**
-     * Necessary method that is invoked when the action is carried out.
-     * @throws JukeStorageException If there is an issue with storing changes
+     * Carries out an action when the command is executed.
+     *
+     * @throws JukeStorageException if there is an issue with storing changes
      */
     @Override
-    public void execute() throws JukeStorageException {
+    public void execute() {
         this.taskList.addTask(this.task);
         System.out.print("Task added: " + this.task);
     }

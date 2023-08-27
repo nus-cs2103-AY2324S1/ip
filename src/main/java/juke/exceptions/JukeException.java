@@ -7,13 +7,16 @@ package juke.exceptions;
  * format before being thrown back to the user through {@code JukeExceptionAction},
  * almost all exceptions should be unchecked and be caught only by the main event
  * loop which executes the Actions.
+ *
+ * @see java.lang.RuntimeException
  */
 public class JukeException extends RuntimeException {
     /** Error description. */
     private final String error;
 
     /**
-     * Constructor to create a JukeException.
+     * Creates an instance of {@code JukeException}.
+     *
      * @param error Error description
      */
     public JukeException(String error) {
@@ -21,7 +24,8 @@ public class JukeException extends RuntimeException {
     }
 
     /**
-     * String representation of the Exception.
+     * Returns String representation of the {@code JukeException}.
+     *
      * @return String representing the exception this object is encapsulating
      */
     @Override

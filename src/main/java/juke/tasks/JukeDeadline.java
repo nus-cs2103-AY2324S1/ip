@@ -6,7 +6,8 @@ import java.time.format.DateTimeFormatter;
 import juke.exceptions.JukeStateException;
 
 /**
- * Represents a Deadline task.
+ * Represents a Deadline task. Deadline tasks contain a deadline which is
+ * represented by a {@code LocalDateTime} object.
  */
 public class JukeDeadline extends JukeTask {
     /** String which represents the Task Identifier. */
@@ -16,7 +17,8 @@ public class JukeDeadline extends JukeTask {
     private final LocalDateTime deadline;
 
     /**
-     * Constructor for JukeDeadline.
+     * Creates an instance of {@code JukeDeadline}.
+     *
      * @param task Task description
      * @param deadline Deadline for task
      */
@@ -26,12 +28,14 @@ public class JukeDeadline extends JukeTask {
     }
 
     /**
-     * Constructor for JukeDeadline.
+     * Creates an instance of {@code JukeDeadline}.
+     *
      * @param task Task description
      * @param deadline Deadline for task
      * @param completion Status of completion of the task
+     * @throws JukeStateException if the task is already completed
      */
-    public JukeDeadline(String task, LocalDateTime deadline, boolean completion) throws JukeStateException {
+    public JukeDeadline(String task, LocalDateTime deadline, boolean completion) {
         this(task, deadline);
 
         if (completion) {
@@ -41,6 +45,7 @@ public class JukeDeadline extends JukeTask {
 
     /**
      * Returns the string which represents this object when it is saved into the datafile.
+     *
      * @return Datafile representation of this object
      */
     @Override
@@ -49,7 +54,8 @@ public class JukeDeadline extends JukeTask {
     }
 
     /**
-     * String representation of this {@code JukeDeadline} object
+     * Returns String representation of this {@code JukeDeadline} object
+     *
      * @return String representation
      */
     @Override

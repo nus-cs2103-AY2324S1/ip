@@ -10,15 +10,16 @@ public class JukePrintCommand extends JukeCommand {
     private final JukeObject printTarget;
 
     /**
-     * Constructor for JukePrintAction.
-     * @param printTarget Object to print
+     * Creates an instance of {@code JukePrintCommand}.
+     *
+     * @param printTarget {@code Object} to print
      */
     public JukePrintCommand(JukeObject printTarget) {
         this.printTarget = printTarget;
     }
 
     /**
-     * Necessary method that is invoked when the action is carried out.
+     * Carries out an action when the command is executed.
      */
     @Override
     public void execute() {

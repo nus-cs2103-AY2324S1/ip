@@ -4,15 +4,14 @@ import juke.exceptions.JukeException;
 
 /**
  * Action class that corresponds to an error action.
- *
- * This class may be deprecated in future use for favour of proper exception handling.
  */
 public class JukeExceptionCommand extends JukeCommand {
     /** Error description. */
     private final Exception exception;
 
     /**
-     * Constructor to create an Error Action.
+     * Creates an instance of {@code JukeExceptionCommand}.
+     *
      * @param exception Error description
      */
     public JukeExceptionCommand(JukeException exception) {
@@ -20,7 +19,7 @@ public class JukeExceptionCommand extends JukeCommand {
     }
 
     /**
-     * Necessary method that is invoked when the action is carried out.
+     * Carries out an action when the command is executed.
      */
     @Override
     public void execute() {

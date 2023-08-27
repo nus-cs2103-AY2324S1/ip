@@ -1,14 +1,15 @@
 package juke.tasks;
 
 /**
- * Represents a Todo task.
+ * Represents a Todo task. Todo tasks do not have any deadlines.
  */
 public class JukeTodo extends JukeTask {
     /** String which represents the Task Identifier. */
     private static final String TASK_DESCRIPTOR = "[T] ";
 
     /**
-     * Constructor to create a Todo Task.
+     * Constructor to create a {@code JukeTodo}.
+     *
      * @param task Task description
      */
     public JukeTodo(String task) {
@@ -16,12 +17,14 @@ public class JukeTodo extends JukeTask {
     }
 
     /**
-     * Constructor to create a Todo Task.
+     * Creates an instance of {@code JukeTodo}.
+     *
      * @param task Task description
      * @param completion Status of completion of the task
      */
     public JukeTodo(String task, boolean completion) {
         super(task);
+
         if (completion) {
             this.setAsComplete();
         }
@@ -29,6 +32,7 @@ public class JukeTodo extends JukeTask {
 
     /**
      * Returns the string which represents this object when it is saved into the datafile.
+     *
      * @return Datafile representation of this object
      */
     @Override
@@ -37,7 +41,8 @@ public class JukeTodo extends JukeTask {
     }
 
     /**
-     * String representation of this {@code JukeTodo} object
+     * Returns String representation of this {@code JukeTodo} object
+     *
      * @return String representation
      */
     @Override

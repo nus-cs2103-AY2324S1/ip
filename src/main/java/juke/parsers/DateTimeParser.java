@@ -5,10 +5,10 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 import juke.core.JukeObject;
-import juke.exceptions.JukeParseException;
+import juke.exceptions.parsers.JukeDateFormatParseException;
 
 /**
- * Parses Datetime Strings into the relevant DateTime objects.
+ * Parses Datetime Strings into the relevant {@code LocalDateTime} objects.
  */
 public class DateTimeParser extends JukeObject {
     /** Regex for recognising DateTime inputs. */
@@ -20,6 +20,7 @@ public class DateTimeParser extends JukeObject {
 
     /**
      * Checks if the input date is of the correct Date format.
+     *
      * @param date Input date
      * @return true if the String is a valid Date format, else false
      */
@@ -29,6 +30,7 @@ public class DateTimeParser extends JukeObject {
 
     /**
      * Checks if the input date is of the correct DateTime format.
+     *
      * @param datetime Input datetime
      * @return true if the String is a valid DateTime format, else false
      */
@@ -37,10 +39,11 @@ public class DateTimeParser extends JukeObject {
     }
 
     /**
-     * Parses the input String into a LocalDateTime object, provided that the
+     * Parses the input String into a {@code LocalDateTime} object, provided that the
      * string meets the requirement of either being a valid Date or DateTime.
+     *
      * @param datetime Input date/datetime string
-     * @return
+     * @return {@code LocalDateTime} object representing the input datetime
      */
     public static LocalDateTime parse(String datetime) {
         // strip the datetime first to avoid any errors
@@ -58,15 +61,16 @@ public class DateTimeParser extends JukeObject {
             return LocalDateTime.parse(date[2] + "-" + date[1] + "-" + date[0] + "T00:00:00");
         }
 
-        throw new JukeParseException("Oh no! I cannot understand the date format you have given me!\nEnsure that "
-                                             + "datetimes are given as such: DD(/-)MM(/-)YYYY[ HH(:-)MM],\nwhere "
-                                             + "(...) represents the set of acceptable symbols and [...] represents\n"
-                                             + "optional arguments.");
+        throw new JukeDateFormatParseException("Oh no! I cannot understand the date format you have given me!\nEnsure "
+                                                       + "that datetimes are given as such: DD(/-)MM(/-)YYYY[ "
+                                                       + "HH(:-)MM],\nwhere (...) represents the set of acceptable "
+                                                       + "symbols and [...] represents\noptional arguments.");
     }
 
     /**
-     * Directly parse stored datafile representation of {@code LocalDateTime}
+     * Parses stored datafile representation of {@code LocalDateTime}
      * objects into actual {@code LocalDateTime} objects.
+     *
      * @param dateTimeString Stored string
      * @return {@code LocalDateTime} object
      */
@@ -74,8 +78,9 @@ public class DateTimeParser extends JukeObject {
         try {
             return LocalDateTime.parse(dateTimeString);
         } catch (DateTimeParseException ex) {
-            throw new JukeParseException("Oh no! I cannot understand the date format you have given me!\nEnsure that "
-                                                 + "datetimes are given as such: YYYY-MM-DDTHH:MM");
+            throw new JukeDateFormatParseException("Oh no! I cannot understand the date format you have given me!"
+                                                           + "\nEnsure that datetimes are given as such: "
+                                                           + "YYYY-MM-DDTHH:MM");
         }
     }
 }

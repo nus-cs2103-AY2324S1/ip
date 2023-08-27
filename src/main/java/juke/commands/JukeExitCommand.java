@@ -1,7 +1,5 @@
 package juke.commands;
 
-import juke.exceptions.JukeException;
-
 /**
  * Action that is invoked when the user wishes to quit the assistant.
  */
@@ -10,15 +8,15 @@ public class JukeExitCommand extends JukeCommand {
     private static final String EXIT_STRING = "Goodbye!";
 
     /**
-     * JukeExitAction Constructor.
+     * Creates an instance of {@code JukeExitCommand}.
      */
     public JukeExitCommand() {}
 
     /**
-     * Necessary method that is invoked when the action is carried out.
+     * Carries out an action when the command is executed.
      */
     @Override
-    public void execute() throws JukeException {
+    public void execute() {
         System.out.print(JukeExitCommand.EXIT_STRING);
     }
 }

@@ -3,12 +3,12 @@ package juke.exceptions.storage;
 import juke.exceptions.JukeException;
 
 /**
- * Represents an error with the storing, retrieving or modifying of data
+ * Represents a generic error with the storing, retrieving or modifying of data
  * in the datafile.
  */
 public class JukeStorageException extends JukeException {
     /**
-     * Constructor to create a JukeStorageException.
+     * Creates an instance of {@code JukeStorageException}.
      *
      * @param error Error description
      */

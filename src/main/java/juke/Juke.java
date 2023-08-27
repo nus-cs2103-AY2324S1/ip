@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import juke.commands.JukeExceptionCommand;
 import juke.exceptions.JukeInitialisationException;
-import juke.exceptions.JukeParseException;
+import juke.exceptions.parsers.JukeParseException;
 import juke.exceptions.storage.JukeStorageException;
 import juke.storage.Storage;
 import juke.tasks.TaskList;
@@ -24,16 +24,20 @@ public class Juke {
     private final TaskList taskList;
 
     /**
-     * Constructor for Juke.
+     * Creates an instance of {@code Juke}.
+     *
+     * @throws JukeInitialisationException if there are issues with initialising Juke (storage, etc.)
+     * @throws JukeStorageException if there are issues with retrieving data from the datafile
      */
     public Juke() throws JukeInitialisationException, JukeStorageException {
         this.storage = Storage.of();
         this.taskList = TaskList.of(this.storage);
-        this.ui = new Ui(new Scanner(System.in), this.storage, this.taskList);
+        this.ui = new Ui(new Scanner(System.in), this.taskList);
     }
 
     /**
-     * Main function that is run when this Java file is compiled and executed.
+     * Runs when this Java file is compiled and executed. This method is used to start {@code Juke}
+     * and begin the request-response cycle.
      *
      * @param args CLI Arguments
      */
@@ -50,7 +54,7 @@ public class Juke {
     }
 
     /**
-     * Starts the orchestrator for Juke.
+     * Starts the UI for Juke.
      */
     public void start() {
         this.ui.start();

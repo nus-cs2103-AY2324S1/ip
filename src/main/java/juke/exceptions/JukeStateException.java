@@ -1,12 +1,12 @@
 package juke.exceptions;
 
 /**
- * Represents the error when the user tries to modify the state of
- * any {@code JukeObject} unsuccessfully.
+ * Represents the error when the user tries to modify the state of any
+ * {@code JukeObject} unsuccessfully.
  */
 public class JukeStateException extends JukeException {
     /**
-     * Constructor to create a JukeStateException.
+     * Creates an instance of {@code JukeStateException}.
      *
      * @param error Error description
      */

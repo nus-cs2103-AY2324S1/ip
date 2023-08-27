@@ -1,23 +1,23 @@
 package juke.commands;
 
-
 import juke.exceptions.storage.JukeStorageException;
 import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
 
 /**
- * Action that deletes a Task from the Task Manager.
+ * Action that deletes a Task from the {@code TaskList}.
  */
 public class JukeDeleteTaskCommand extends JukeCommand {
-    /** TaskList to manage all tasks. */
+    /** {@code TaskList} to manage all tasks. */
     private final TaskList taskList;
 
     /** JukeTask to remove. */
     private final int task;
 
     /**
-     * Constructor for JukeDeleteTaskAction.
-     * @param taskList TaskList instance
+     * Creates an instance of {@code JukeDeleteTaskCommand}.
+     *
+     * @param taskList {@code TaskList} instance
      * @param task Index of task to delete
      */
     public JukeDeleteTaskCommand(TaskList taskList, int task) {
@@ -26,11 +26,12 @@ public class JukeDeleteTaskCommand extends JukeCommand {
     }
 
     /**
-     * Necessary method that is invoked when the action is carried out.
-     * @throws JukeStorageException If there is an issue with storing changes
+     * Carries out an action when the command is executed.
+     *
+     * @throws JukeStorageException if there is an issue with storing changes
      */
     @Override
-    public void execute() throws JukeStorageException {
+    public void execute() {
         JukeTask jt = this.taskList.deleteTask(this.task);
         System.out.print("Task deleted: " + jt);
     }

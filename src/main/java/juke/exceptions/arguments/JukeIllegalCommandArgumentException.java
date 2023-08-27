@@ -5,11 +5,12 @@ package juke.exceptions.arguments;
  * the command line.
  */
 public class JukeIllegalCommandArgumentException extends JukeIllegalArgumentException {
-    /** Expected Arguments. */
+    /** String representing the expected arguments for a command. */
     private final String expectedArguments;
 
     /**
-     * Constructor for {@code JukeIllegalCommandArgumentException}
+     * Creates an instance of {@code JukeIllegalCommandArgumentException}
+     *
      * @param error Error Description
      * @param expectedArguments Expected arguments
      */
@@ -19,7 +20,8 @@ public class JukeIllegalCommandArgumentException extends JukeIllegalArgumentExce
     }
 
     /**
-     * String representation of {@code JukeIllegalCommandArgumentException}.
+     * Returns String representation of {@code JukeIllegalCommandArgumentException}.
+     *
      * @return String representation of the exception
      */
     @Override
