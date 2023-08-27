@@ -6,13 +6,9 @@ public class Deadline extends Task {
 
     protected LocalDate by;
 
-    public Deadline(String description, String by) throws DukeException {
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
-        try {
-            this.by = LocalDate.parse(by);
-        } catch (DateTimeParseException e) {
-            throw new DukeException("☹ OOPS!!! Invalid date format. Please type dates in the format yyyy-mm-dd");
-        }
+        this.by = LocalDate.parse(by);
     }
 
     @Override
