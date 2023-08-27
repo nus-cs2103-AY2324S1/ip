@@ -20,9 +20,9 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList load() throws FileNotFoundException{
+    public ArrayList<Task> load() throws FileNotFoundException{
         File file = new File(filePath);
-        ArrayList tasks = new ArrayList();
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         Scanner s = new Scanner(file);
         while (s.hasNext()) {
