@@ -1,7 +1,11 @@
-public class Deadline extends Task{
-    private String deadline;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
-    public Deadline(String name, String deadline) {
+public class Deadline extends Task{
+    private LocalDate deadline;
+
+    public Deadline(String name, LocalDate deadline) {
         super(name);
         this.deadline = deadline;
     }
@@ -11,7 +15,7 @@ public class Deadline extends Task{
     }
 
     public String getDeadline() {
-        return deadline;
+        return deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     public String toString() {
