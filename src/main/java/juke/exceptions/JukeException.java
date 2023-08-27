@@ -7,6 +7,8 @@ package juke.exceptions;
  * format before being thrown back to the user through {@code JukeExceptionAction},
  * almost all exceptions should be unchecked and be caught only by the main event
  * loop which executes the Actions.
+ *
+ * @see java.lang.RuntimeException
  */
 public class JukeException extends RuntimeException {
     /** Error description. */

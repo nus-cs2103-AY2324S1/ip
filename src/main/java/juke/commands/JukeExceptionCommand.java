@@ -2,8 +2,6 @@ package juke.commands;
 
 /**
  * Action class that corresponds to an error action.
- *
- * This class may be deprecated in future use for favour of proper exception handling.
  */
 public class JukeExceptionCommand extends JukeCommand {
     /** Error description. */

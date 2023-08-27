@@ -3,10 +3,7 @@ package juke.exceptions.arguments;
 import juke.exceptions.JukeException;
 
 /**
- * Exception that is thrown when an illegal argument(s) are used.
- * <p>
- * This exception is unchecked as we cannot anticipate the value of
- * the input arguments given by the user.
+ * Exception that is thrown when illegal argument(s) is/are used anywhere.
  */
 public class JukeIllegalArgumentException extends JukeException {
     /**

@@ -5,7 +5,7 @@ package juke.exceptions.arguments;
  * the command line.
  */
 public class JukeIllegalCommandArgumentException extends JukeIllegalArgumentException {
-    /** Expected Arguments. */
+    /** String representing the expected arguments for a command. */
     private final String expectedArguments;
 
     /**

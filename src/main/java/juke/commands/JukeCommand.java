@@ -2,6 +2,7 @@ package juke.commands;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 import juke.core.JukeObject;
 import juke.exceptions.JukeException;
@@ -19,13 +20,16 @@ import juke.tasks.TaskList;
  * Abstract class used to dispatch commands to the respective commands.
  */
 public abstract class JukeCommand extends JukeObject {
+    /** Regex to detect | in the topic, which is a reserved character for the datafile. */
+    private static final String ILLEGAL_TOPIC_REGEX = ".*\\|.*";
+
     /**
      * Creates the specified JukeCommand of interest.
      * @param command Raw command from the user input
      * @param taskList TaskList object which manages all tasks.
      * @return Corresponding JukeCommand object
      */
-    public static final JukeCommand of(String command, TaskList taskList) throws JukeException {
+    public static JukeCommand of(String command, TaskList taskList) throws JukeException {
         String[] parsedArgs = Parser.parseBySpace(command);
         return JukeCommand.dispatch(parsedArgs, taskList);
     }
@@ -42,7 +46,6 @@ public abstract class JukeCommand extends JukeObject {
         }
 
         String mainCommand = args[0];
-        String jukeOpError = "";
 
         switch (mainCommand) {
         case "list":
@@ -58,9 +61,8 @@ public abstract class JukeCommand extends JukeObject {
                     int i = Integer.parseInt(args[1]);
                     return new JukeMarkTaskDoneCommand(taskList, i - 1);
                 } catch (NumberFormatException ex) {
-                    jukeOpError = "Oh no! You must input a valid task number "
-                            + "for the command \"mark\"!";
-                    break;
+                    throw new JukeIllegalArgumentException("Oh no! You must input a valid task number "
+                            + "for the command \"mark\"!");
                 }
             }
         case "unmark":
@@ -72,9 +74,8 @@ public abstract class JukeCommand extends JukeObject {
                     int i = Integer.parseInt(args[1]);
                     return new JukeMarkTaskUndoneCommand(taskList, i - 1);
                 } catch (NumberFormatException ex) {
-                    jukeOpError = "Oh no! You must input a valid task number "
-                            + "for the command \"unmark\"!";
-                    break;
+                    throw new JukeIllegalArgumentException("Oh no! You must input a valid task number "
+                            + "for the command \"unmark\"!");
                 }
             }
         case "delete":
@@ -86,9 +87,8 @@ public abstract class JukeCommand extends JukeObject {
                     int i = Integer.parseInt(args[1]);
                     return new JukeDeleteTaskCommand(taskList, i - 1);
                 } catch (NumberFormatException ex) {
-                    jukeOpError = "Oh no! You must input a valid task number "
-                            + "for the command \"unmark\"!";
-                    break;
+                    throw new JukeIllegalArgumentException("Oh no! You must input a valid task number "
+                            + "for the command \"unmark\"!");
                 }
             }
         case "todo":
@@ -99,6 +99,11 @@ public abstract class JukeCommand extends JukeObject {
             } else {
                 // concatenate back the string
                 String newArgs = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+
+                if (Pattern.matches(ILLEGAL_TOPIC_REGEX, newArgs)) {
+                    throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
+                }
+
                 JukeTask jt = new JukeTodo(newArgs);
                 return new JukeAddTaskCommand(taskList, jt);
             }
@@ -109,10 +114,15 @@ public abstract class JukeCommand extends JukeObject {
             // check if fulfills regex
             if (!Parser.isMatchByString(newDeadlineArgs)) {
                 throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your deadline command!",
-                                                       "deadline [description] /by [DD(-/|)MM(-/|)YYYY HH(-:)MM "
-                                                               + "or DD(-/|)MM(-/|)YYYY]\n(..) -> any of");
+                                                       "deadline [description] /by [DD(-/)MM(-/)YYYY HH(-:)MM "
+                                                               + "or DD(-/)MM(-/)YYYY]\n(..) -> any of");
             } else {
                 String[] parsedArguments = Parser.parseByByString(newDeadlineArgs);
+
+                if (Pattern.matches(ILLEGAL_TOPIC_REGEX, parsedArguments[0])) {
+                    throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
+                }
+
                 JukeTask jt = new JukeDeadline(parsedArguments[0], DateTimeParser.parse(parsedArguments[1]));
                 return new JukeAddTaskCommand(taskList, jt);
             }
@@ -123,12 +133,17 @@ public abstract class JukeCommand extends JukeObject {
             // check if fulfills regex
             if (!Parser.isMatchFromToString(newEventArgs)) {
                 throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your event command!",
-                                                       "event [description] /from [DD(-/|)MM(-/|)YYYY HH(-:)MM "
-                                                               + "or DD(-/|)MM(-/|)YYYY]\n"
-                                                               + "/to [DD(-/|)MM(-/|)YYYY HH(-:)MM or DD(-/|)"
-                                                               + "MM(-/|)YYYY]\n(..) -> any of");
+                                                       "event [description] /from [DD(-/)MM(-/)YYYY HH(-:)MM "
+                                                               + "or DD(-/)MM(-/)YYYY]\n"
+                                                               + "/to [DD(-/)MM(-/)YYYY HH(-:)MM or DD(-/)"
+                                                               + "MM(-/)YYYY]\n(..) -> any of");
             } else {
                 String[] parsedArguments = Parser.parseByFromToString(newEventArgs);
+
+                if (Pattern.matches(ILLEGAL_TOPIC_REGEX, parsedArguments[0])) {
+                    throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
+                }
+
                 LocalDateTime localTimeOne = DateTimeParser.parse(parsedArguments[1]);
                 LocalDateTime localTimeTwo = DateTimeParser.parse(parsedArguments[2]);
 
@@ -141,14 +156,12 @@ public abstract class JukeCommand extends JukeObject {
                 return new JukeAddTaskCommand(taskList, jt);
             }
         default:
-            jukeOpError = "Oh no! I do not understand that command!";
+            // exits the switch and throws an exception in the proceeding line
             break;
         }
 
-        // checks if there are any operational errors
-        // note that this behaves similar to exceptions, in that older exceptions are overwritten by
-        // newer ones
-        throw new JukeIllegalArgumentException(jukeOpError);
+        // runs if no commands are matched
+        throw new JukeIllegalArgumentException("Oh no! I do not understand that command!");
     }
 
     /**

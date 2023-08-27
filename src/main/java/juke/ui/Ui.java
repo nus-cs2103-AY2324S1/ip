@@ -7,7 +7,6 @@ import juke.commands.JukeExceptionCommand;
 import juke.commands.JukeExitCommand;
 import juke.core.JukeObject;
 import juke.exceptions.JukeException;
-import juke.storage.Storage;
 import juke.tasks.TaskList;
 
 /**
@@ -30,7 +29,7 @@ public class Ui extends JukeObject {
                     + "/ /_/ / /_/ / ,< /  __/\n"
                     + "\\____/\\__,_/_/|_|\\___/";
 
-    /** Introductory statement used by the assistant when first booting up. */
+    /** Introductory statement used by the assistant when first starting the assistant. */
     private static final String INTRO = "What's up! My name is Juke (J|ava D|uke) and I will be your personal "
             + "assistant for today!\nHow may I assist you?";
 
@@ -46,16 +45,13 @@ public class Ui extends JukeObject {
     /** Instance of TaskList that handles all JukeTasks. */
     private final TaskList taskList;
 
-    /** Instance of Storage that handles all saved tasks. */
-    private final Storage storage;
-
     /**
-     * Constructor for JukeOrchestrator.
-     * @param jukeScanner Scanner object to read in user input
+     * Constructor for Ui.
+     * @param jukeScanner {@code Scanner} object to read in user input
+     * @param taskList {@code TaskList} object that handles all {@code JukeTasks}
      */
-    public Ui(Scanner jukeScanner, Storage storage, TaskList taskList) {
+    public Ui(Scanner jukeScanner, TaskList taskList) {
         this.jukeScanner = jukeScanner;
-        this.storage = storage;
         this.taskList = taskList;
     }
 

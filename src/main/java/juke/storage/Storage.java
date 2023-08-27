@@ -28,24 +28,33 @@ public class Storage extends JukeObject {
     public static final Path FILE_PATH = Paths.get("./data/tasks.txt");
 
     /**
-     * Creates an instance of {@code JukeStorageManager} and creates the files
+     * Private constructor for {@code Storage}. Prevent external instantiation through
+     * any methods other than {@code Storage.of()}.
+     */
+    private Storage() {
+        super();
+    }
+
+    /**
+     * Creates an instance of {@code Storage} and creates the files
      * and directories required if necessary.
-     * @return {@code JukeStorageManager} instance
+     * @return {@code Storage} instance
      * @throws JukeInitialisationException if the directories or files cannot be
      *     created or initialised
      */
     public static Storage of() throws JukeInitialisationException {
-        // if the directory does not exist, the file also cannot exist
+        // if the directory does not exist, create the directory
         if (!Files.exists(DIR_PATH)) {
             try {
                 Files.createDirectory(DIR_PATH);
-                Files.createFile(FILE_PATH);
             } catch (IOException ex) {
                 throw new JukeInitialisationException("Oh no! I am unable to create a directory to store your "
                                                               + "tasks! Please try again later!");
             }
-        } else if (!Files.exists(FILE_PATH)) {
-            // if the dir exist but file doesn't, then just create the file
+        }
+
+        // if the dir exist but file doesn't, then just create the file
+        if (!Files.exists(FILE_PATH)) {
             try {
                 Files.createFile(FILE_PATH);
             } catch (IOException ex) {

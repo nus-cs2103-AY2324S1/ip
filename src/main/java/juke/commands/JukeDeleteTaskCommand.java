@@ -6,7 +6,7 @@ import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
 
 /**
- * Action that deletes a Task from the Task Manager.
+ * Action that deletes a Task from the {@code TaskList}.
  */
 public class JukeDeleteTaskCommand extends JukeCommand {
     /** TaskList to manage all tasks. */
@@ -16,7 +16,7 @@ public class JukeDeleteTaskCommand extends JukeCommand {
     private final int task;
 
     /**
-     * Constructor for JukeDeleteTaskAction.
+     * Constructor for JukeDeleteTaskCommand.
      * @param taskList TaskList instance
      * @param task Index of task to delete
      */
@@ -27,10 +27,10 @@ public class JukeDeleteTaskCommand extends JukeCommand {
 
     /**
      * Necessary method that is invoked when the action is carried out.
-     * @throws JukeStorageException If there is an issue with storing changes
+     * @throws JukeStorageException if there is an issue with storing changes
      */
     @Override
-    public void complete() throws JukeStorageException {
+    public void complete() {
         JukeTask jt = this.taskList.deleteTask(this.task);
         System.out.print("Task deleted: " + jt);
     }

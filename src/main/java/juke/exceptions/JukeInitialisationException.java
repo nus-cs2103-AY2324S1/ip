@@ -2,7 +2,7 @@ package juke.exceptions;
 
 /**
  * Exception that encapsulates the situation whereby Juke cannot
- * properly instantiate.
+ * properly instantiate and should therefore exit.
  * <p>
  * All JukeInitialisationExceptions and subclasses of it should cause
  * the program to exit, as there is no way for the program to continue
@@ -11,7 +11,6 @@ package juke.exceptions;
 public class JukeInitialisationException extends JukeException {
     /**
      * Constructor to create a JukeInitialisationException.
-     *
      * @param err Error description
      */
     public JukeInitialisationException(String err) {

@@ -3,8 +3,11 @@ package juke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import juke.exceptions.JukeStateException;
+
 /**
- * Represents an Event task.
+ * Represents an Event task. Event tasks contain both a start and end
+ * deadline, which are represented by {@code LocalDateTime} objects.
  */
 public class JukeEvent extends JukeTask {
     /** String which represents the Task Identifier. */
@@ -30,11 +33,12 @@ public class JukeEvent extends JukeTask {
     }
 
     /**
-     * Constructor used to create an event.
+     * Overloaded constructor used to create an event.
      * @param taskName Task descriptioni
      * @param start Start date/time
      * @param end End date/time
      * @param completion Status of completion of the task
+     * @throws JukeStateException if the task is already completed
      */
     public JukeEvent(String taskName, LocalDateTime start, LocalDateTime end, boolean completion) {
         this(taskName, start, end);

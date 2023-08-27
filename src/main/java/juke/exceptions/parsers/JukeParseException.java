@@ -1,16 +1,14 @@
-package juke.exceptions;
+package juke.exceptions.parsers;
+
+import juke.exceptions.JukeException;
 
 /**
- * Represents an error thrown when the parser for the data files cannot
- * parse the data.
- * <p>
- * This is an unchecked exception as we cannot anticipate when a parsing
- * error will occur.
+ * Represents an error thrown when any parser encounters an error with parsing
+ * some input data.
  */
 public class JukeParseException extends JukeException {
     /**
      * Constructor to create a JukeParseException.
-     *
      * @param err Error description
      */
     public JukeParseException(String err) {

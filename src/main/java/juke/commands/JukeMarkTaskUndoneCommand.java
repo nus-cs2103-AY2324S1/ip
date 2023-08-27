@@ -4,7 +4,7 @@ import juke.exceptions.storage.JukeStorageException;
 import juke.tasks.TaskList;
 
 /**
- * Action that marks a JukeTask as undone.
+ * Action that marks a {@code JukeTask} as undone.
  */
 public class JukeMarkTaskUndoneCommand extends JukeCommand {
     /** TaskList that manages the tasks. */
@@ -14,7 +14,7 @@ public class JukeMarkTaskUndoneCommand extends JukeCommand {
     private final int index;
 
     /**
-     * Constructor for JukeMarkTaskUndoneAction.
+     * Constructor for JukeMarkTaskUndoneCommand.
      * @param taskList TaskList that manages the tasks
      * @param index Index of the Task to act on
      */
@@ -25,10 +25,10 @@ public class JukeMarkTaskUndoneCommand extends JukeCommand {
 
     /**
      * Necessary method that is invoked when the action is carried out.
-     * @throws JukeStorageException If there is an issue with storing changes
+     * @throws JukeStorageException if there is an issue with storing changes
      */
     @Override
-    public void complete() throws JukeStorageException {
+    public void complete() {
         this.taskList.markAsUndone(this.index);
         System.out.print("Task Marked as Undone!\n" + this.taskList.taskInformation(this.index));
     }

@@ -1,7 +1,7 @@
 package juke.tasks;
 
 /**
- * Represents a Todo task.
+ * Represents a Todo task. Todo tasks do not have any deadlines.
  */
 public class JukeTodo extends JukeTask {
     /** String which represents the Task Identifier. */
@@ -16,12 +16,13 @@ public class JukeTodo extends JukeTask {
     }
 
     /**
-     * Constructor to create a Todo Task.
+     * Overloaded constructor to create a Todo Task.
      * @param task Task description
      * @param completion Status of completion of the task
      */
     public JukeTodo(String task, boolean completion) {
         super(task);
+
         if (completion) {
             this.markAsComplete();
         }

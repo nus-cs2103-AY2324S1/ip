@@ -14,7 +14,7 @@ public abstract class JukeTask extends JukeObject {
     private static final String INCOMPLETE_INDICATOR = "[ ] ";
 
     /** Task description. */
-    private String taskName;
+    private final String taskName;
 
     /** Boolean to check if the task is completed */
     private boolean isCompleted;
