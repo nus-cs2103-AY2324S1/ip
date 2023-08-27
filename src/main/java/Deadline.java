@@ -17,6 +17,14 @@ public class Deadline extends Task {
         this.by = by.strip();
     }
 
+    public Deadline(String bool, String description, String by) {
+        super(description.strip());
+        this.by = by.strip();
+        if (Integer.parseInt(bool) == 1) {
+            this.isDone = true;
+        }
+    }
+
     /**
      * Returns the string representation of the deadline task.
      *
@@ -26,5 +34,15 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    /**
+     * Returns the string representing the task to be written in the disk.
+     *
+     * @return The string describing this task to be written in the disk.
+     */
+    @Override
+    public String toStringForFile() {
+        return "D | " + super.toStringForFile() + " | " + this.by;
     }
 }

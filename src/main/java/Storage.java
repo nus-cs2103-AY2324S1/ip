@@ -1,4 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * The class that provides the storage for the tasks.
@@ -11,10 +16,29 @@ public class Storage {
 
     /**
      * Constructor for storage.
+     * Creates the necessary directory and file if not present.
+     * Reads the present content in the file into the ArrayList.
      */
-    public Storage() {
+    public Storage() throws FileNotFoundException, IOException {
         this.tasks = new ArrayList<>();
         this.count = 0;
+
+        File dir = new File("./data");
+        if (!dir.exists()) {
+            if (!dir.mkdir()) {
+                throw new DukeException("\t OOPS! The file cannot be created.");
+            }
+        }
+        File f = new File("./data/zean.txt");
+        if (!f.exists()) {
+            f.createNewFile();
+            System.out.println("\tA new folder and file to store your tasks has been created.");
+        }
+        Scanner sc = new Scanner(f);
+        while (sc.hasNext()) {
+            this.count += Parser.parseToTask(this.tasks, sc.nextLine());
+        }
+        sc.close();
     }
 
     /**
@@ -27,6 +51,7 @@ public class Storage {
         this.tasks.add(task);
         this.count++;
         printAddTask(task);
+        addToDisk(task);
     }
 
     /**
@@ -40,6 +65,7 @@ public class Storage {
         this.tasks.add(task);
         this.count++;
         printAddTask(task);
+        addToDisk(task);
     }
 
     /**
@@ -54,6 +80,7 @@ public class Storage {
         this.tasks.add(task);
         this.count++;
         printAddTask(task);
+        addToDisk(task);
     }
 
     private void printAddTask(Task task) {
@@ -87,6 +114,7 @@ public class Storage {
         }
         System.out.println("\tNice! I've marked this task as done:");
         this.tasks.get(index - 1).markTaskDone();
+        rewriteToDisk();
     }
 
     /**
@@ -101,6 +129,7 @@ public class Storage {
         }
         System.out.println("\tSure, I've marked this task as not done yet:");
         this.tasks.get(index - 1).markTaskNotDone();
+        rewriteToDisk();
     }
 
     private void printNumOfTasks() {
@@ -125,5 +154,28 @@ public class Storage {
         this.count--;
         System.out.println("\tNoted. I've removed this task.");
         printNumOfTasks();
+        rewriteToDisk();
+    }
+
+    public void addToDisk(Task task) {
+        try {
+            FileWriter fw = new FileWriter("./data/zean.txt", true);
+            fw.write(task.toStringForFile() + System.lineSeparator());
+            fw.close();
+        } catch (IOException e) {
+            throw new DukeException("\tOOPS! The file is not available!");
+        }
+    }
+
+    public void rewriteToDisk() {
+        try {
+            FileWriter fw = new FileWriter("./data/zean.txt");
+            for (int i = 0; i < this.count; i++) {
+                fw.write(this.tasks.get(i).toStringForFile() + System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            throw new DukeException("\tOOPS! The file is not available!");
+        }
     }
 }

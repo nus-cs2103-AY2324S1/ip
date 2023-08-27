@@ -4,8 +4,8 @@
  * @author Zhong Han
  */
 public class Task {
-    private final String description;
-    private boolean isDone;
+    protected final String description;
+    protected boolean isDone;
 
     /**
      * Constructor of the task.
@@ -50,5 +50,18 @@ public class Task {
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
+    }
+
+    /**
+     * Returns the string representing the task to be written in the disk.
+     *
+     * @return The string describing this task to be written in the disk.
+     */
+    public String toStringForFile() {
+        if (this.isDone) {
+            return "1 | " + this.description;
+        } else {
+            return "0 | " + this.description;
+        }
     }
 }
