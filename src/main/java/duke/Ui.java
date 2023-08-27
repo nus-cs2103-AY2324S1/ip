@@ -10,31 +10,37 @@ public class Ui {
         this.sc = new Scanner(System.in);
     }
 
-    public void greeting() {
+    public String greeting() {
         String greeting = lnspace + "\n"
                 + "Hello! I'm Lorem\n"
                 + "What can I do for you?\n"
                 + lnspace + "\n";
         System.out.println(greeting);
+        return greeting;
     }
 
-    public void ending() {
+    public String ending() {
         String ending = "Bye. Hope to see you again soon!\n"
                 + lnspace;
         System.out.println(ending);
         this.sc.close();
+        return ending;
     }
 
-    public void printLine() {
+    public String printLine() {
         System.out.println(lnspace);
+        return lnspace;
     }
 
-    public void showLoadingError() {
-        System.out.println("Existing data not found. Creating new data file tasks.txt found in ./data/ folder.");
+    public String showLoadingError() {
+        String out = "Existing data not found. Creating new data file tasks.txt found in ./data/ folder.";
+        System.out.println(out);
+        return out;
     }
 
-    public void showError(String message) {
+    public String showError(String message) {
         System.out.println(message);
+        return message;
     }
 
     public String readCommand() {
