@@ -9,6 +9,9 @@ public class Duke {
         String introduction = "____________________________________________________________\n" +
                 " Hello! I'm eggbot\n" +
                 " Please add a task!\n\n" +
+                " To add a ToDo task, type 'todo [Task]'\n" +
+                " To add a Deadline task, type 'deadline [Task /Deadline]'\n" +
+                " To add an Event task, type 'event [Task /Start Date/End Date]'\n" +
                 " To view tasks, type 'list' \n" +
                 " To mark a task as 'done', type 'mark [index]' \n" +
                 " To mark a task as 'undone', type 'unmark [index]' \n" +
@@ -65,7 +68,7 @@ public class Duke {
                 }
                 int index = Integer.parseInt(input.substring(input.length() - 1)) - 1;
 
-                if (index >= taskCount || index < 1) {
+                if (index >= taskCount || index < 0) {
                     System.out.println("____________________________________________________________\n");
                     System.out.println("Task " + (index + 1) + " not found!");
                     System.out.println("____________________________________________________________\n");
@@ -109,12 +112,95 @@ public class Duke {
                 System.out.println("____________________________________________________________\n");
                 System.out.println(output);
                 System.out.println("____________________________________________________________\n");
-            } else {
-                tasks[taskCount] = new Task(input);
+            } else if (input.startsWith("todo")) {
+                if (input.equals("todo")) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("You cannot add an empty task!");
+                    System.out.println("____________________________________________________________\n");
+
+                    continue;
+                }
+
+                String taskName = input.substring(4).strip();
+                tasks[taskCount] = new ToDo(taskName);
                 taskCount += 1;
 
                 String output = "____________________________________________________________\n" +
-                        "added: " + input + "\n" +
+                        "Got it, I've added this task: \n" +
+                        tasks[taskCount - 1] + "\n" +
+                        "You now have " + taskCount + " tasks in the list. \n" +
+                        "____________________________________________________________\n";
+
+                System.out.println(output);
+
+            } else if (input.startsWith("deadline")) {
+                if (input.equals("deadline")) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("You cannot add an empty task!");
+                    System.out.println("____________________________________________________________\n");
+
+                    continue;
+                }
+
+                try {
+                    String task = input.substring(8).strip();
+                    String[] taskArr = task.split("/", 2);
+
+                    tasks[taskCount] = new Deadline(taskArr[0].strip(), taskArr[1].strip());
+                    taskCount += 1;
+
+                } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+                    String errorString = "____________________________________________________________\n" +
+                            "Something went wrong! Please format the task properly and add it again. \n" +
+                            "____________________________________________________________\n";
+
+                    System.out.println(errorString);
+                    continue;
+                }
+
+                String output = "____________________________________________________________\n" +
+                        "Got it, I've added this task: \n" +
+                        tasks[taskCount - 1] + "\n" +
+                        "You now have " + taskCount + " tasks in the list. \n" +
+                        "____________________________________________________________\n";
+
+                System.out.println(output);
+
+            } else if (input.startsWith("event")) {
+                if (input.equals("event")) {
+                    System.out.println("____________________________________________________________\n");
+                    System.out.println("You cannot add an empty task!");
+                    System.out.println("____________________________________________________________\n");
+
+                    continue;
+                }
+
+                try {
+                    String task = input.substring(5).strip();
+                    String[] taskArr = task.split("/", 3);
+
+                    tasks[taskCount] = new Event(taskArr[0].strip(), taskArr[1].strip(), taskArr[2].strip());
+                    taskCount += 1;
+                } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+                    String errorString = "____________________________________________________________\n" +
+                            "Something went wrong! Please format the task properly and add it again. \n" +
+                            "____________________________________________________________\n";
+
+                    System.out.println(errorString);
+                    continue;
+                }
+
+                String output = "____________________________________________________________\n" +
+                        "Got it, I've added this task: \n" +
+                        tasks[taskCount - 1] + "\n" +
+                        "You now have " + taskCount + " tasks in the list. \n" +
+                        "____________________________________________________________\n";
+
+                System.out.println(output);
+
+            } else {
+                String output = "____________________________________________________________\n" +
+                        "Not a valid command! \n" +
                         "____________________________________________________________\n";
 
                 System.out.println(output);

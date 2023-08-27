@@ -1,6 +1,6 @@
 public class Task {
-    private Boolean done;
-    private String name;
+    Boolean done;
+    String name;
 
     public Task(String name) {
         this.name = name;
@@ -20,9 +20,9 @@ public class Task {
 
     public String toString() {
         if (this.done) {
-            return "[X] " + name;
+            return "[X] " + this.name;
         }
 
-        return "[ ] " + name;
+        return "[ ] " + this.name;
     }
 }
