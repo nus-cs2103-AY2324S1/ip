@@ -12,16 +12,10 @@ public abstract class Task {
         return this.name;
     }
 
-    public String getTask() {
-        return String.format("[%s][T] %s", checkDone(), name);
-    }
+    public abstract String getTask();
 
-    public void markDone() {
-        isDone = true;
-    }
-
-    public void unmarkDone() {
-        isDone = false;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     protected String checkDone() {
