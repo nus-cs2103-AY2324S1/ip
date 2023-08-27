@@ -43,10 +43,15 @@ public class Duke {
     }
 
     private void echo(String input, String prefix) {
+        echo(List.of(prefix + input));
+    }
+
+    private void echo(List<String> inputs) {
         int indentLength = 4;
         String divider = indentLeft(String.format("%80s", "").replace(" ", "-"), indentLength);
         System.out.println(divider);
-        System.out.println(indentLeft(prefix + input, indentLength));
+        inputs.stream().map(input -> indentLeft(input, indentLength))
+                        .forEach(System.out::println);
         System.out.println(divider);
     }
 
