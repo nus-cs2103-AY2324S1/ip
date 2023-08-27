@@ -2,16 +2,16 @@ hello
 test
 blah
 todo read book
-deadline return book /by June 6th
-event project meeting /from Aug 6th 2pm /to 4pm
+deadline return book /by 2023-06-06
+event project meeting /from 2023-08-06T14:00 /to 2023-08-06T16:00
 list
 todo join sports club
 todo borrow book
 list
-deadline ip week 2 /by Aug 24th
+deadline ip week 2 /by 2024-08-24
 deadline tp /by idk
 deadline nonsense
-event test /from blah /to bleh
+event test /from 2030-01-01 /to 2040-12-31
 event wrong /from /to
 event missing
 list
