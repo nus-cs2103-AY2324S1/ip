@@ -34,7 +34,7 @@ public class TaskList {
             throw new DukeException("There are no tasks to delete");
         }
 
-        Task deletedTask = tasks.get(index);
+        Task deletedTask = this.get(index);
         tasks.remove(index);
         return deletedTask;
     }

@@ -15,23 +15,13 @@ public class Storage {
         this.file = getFile();
     }
 
-    public Storage(String filePath) {
-        this.filePath = filePath;
-        this.file = getFile();
-    }
-
     private File getFile() {
         File file = new File(this.filePath);
-        if (file.exists()) {
-            return file;
-        } 
-
         try {
             file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (Exception e) {
-            // printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
-            // throw new DukeException(e.getMessage());
+            new DukeException("Unable to create file: " + e.getMessage());
         }
         return file;
     }
@@ -59,7 +49,7 @@ public class Storage {
                 System.out.println(newTask);
             }
         } catch (Exception e) {
-            throw new DukeException(e.getMessage());
+            throw new DukeException("Unable to read from storage: " + e.getMessage());
         }
         return tasks;
     }
@@ -72,7 +62,7 @@ public class Storage {
             }
             fw.close();
         } catch (Exception e) {
-            throw new DukeException(e.getMessage());
+            throw new DukeException("Unable to write to storage: " + e.getMessage());
         }
     }
 
@@ -82,7 +72,7 @@ public class Storage {
             fw.write(newTask.toStorageString() + "\n");
             fw.close();
         } catch (Exception e) {
-            throw new DukeException(e.getMessage());
+            throw new DukeException("Unable to write to storage: " + e.getMessage());
         }
     }
 

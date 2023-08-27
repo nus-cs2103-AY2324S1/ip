@@ -12,16 +12,14 @@ public class Duke {
     private Parser parser;
 
     private Duke() {
-        this.ui = new Ui();
-        this.storage = new Storage();
-        this.tasks = new TaskList();
-
         try {
+            this.ui = new Ui();
+            this.storage = new Storage();
             this.tasks = new TaskList(storage.readTasks());
+            this.parser = new Parser();
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
-        this.parser = new Parser();
     }
 
     private void run() {
@@ -35,6 +33,8 @@ public class Duke {
                 CommandType commandType = parser.parseCommandType(input);
                 handleCommand(commandType, input);
             }
+        } catch (DukeException e) {
+            ui.printErrorMessage(e);
         } catch (Exception e) {
             ui.printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
         }
@@ -48,7 +48,7 @@ public class Duke {
 
     
 
-    private void handleCommand(CommandType commandType, String command) {
+    private void handleCommand(CommandType commandType, String command) throws DukeException {
         switch (commandType) {
         case LIST:
             ui.printList(tasks.getTasks());
@@ -65,7 +65,6 @@ public class Duke {
             addTask(command);
             break;
         case UNKNOWN:
-            ui.printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
             break;
         }
     }
@@ -98,7 +97,7 @@ public class Duke {
             Task task = tasks.get(index);
             task.markAsDone();
             storage.write(tasks.getTasks());
-            ui.printAddedTaskConfirmation(task, tasks);            
+            ui.printMarkedTaskConfirmation(task);            
         } catch (NumberFormatException e) {
             ui.printErrorMessage(new DukeException("Invalid command format"));
         } catch (DukeException e) {
