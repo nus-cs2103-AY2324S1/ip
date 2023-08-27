@@ -1,6 +1,9 @@
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * CS2103T IP
  * AY 23/24 Semester 1
@@ -11,8 +14,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @version CS2103T AY 23/24 Sem 1
  */
 public class Event extends Task {
-    private String start;
-    private String end;
+    private LocalDate start;
+    private LocalDate end;
 
     /**
      * A constructor that constructs an Event Task
@@ -22,30 +25,36 @@ public class Event extends Task {
      */
     @JsonCreator
     public Event(@JsonProperty("taskName") String taskName
-            , @JsonProperty("start") String start, @JsonProperty("end") String end) {
+            , @JsonProperty("start") LocalDate start, @JsonProperty("end") LocalDate end) {
         super(taskName);
         this.start = start;
         this.end = end;
     }
 
-    public String getStart() {
+    public LocalDate getStart() {
         return start;
     }
 
-    public String getEnd() {
+    public LocalDate getEnd() {
         return end;
     }
 
-    public void setStart(String start) {
+    public void setStart(LocalDate start) {
         this.start = start;
     }
 
-    public void setEnd(String end) {
+    public void setEnd(LocalDate end) {
         this.end = end;
+    }
+
+    private String getFormattedDate(LocalDate date) {
+        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
+        return "[E]" + super.toString()
+                + " (from: " + getFormattedDate(this.start)
+                + " to: " + getFormattedDate(this.end) + ")";
     }
 }

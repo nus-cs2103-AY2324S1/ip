@@ -1,6 +1,7 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.*;
 
@@ -11,6 +12,7 @@ public class DiskManager {
         MAPPER.registerSubtypes(new NamedType(Todo.class, "Todo"));
         MAPPER.registerSubtypes(new NamedType(Deadline.class, "Deadline"));
         MAPPER.registerSubtypes(new NamedType(Event.class, "Event"));
+        MAPPER.registerModule(new JavaTimeModule());
     }
 
     private static File getFile() {

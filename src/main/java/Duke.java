@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -138,7 +140,14 @@ public class Duke {
                         throw new DukeException("Oops!!! You forgot to provide a deadline for the deadline task");
                     }
 
-                    String output = taskManager.addTask(new Deadline(taskName, deadline));
+                    LocalDate date;
+                    try {
+                        date = LocalDate.parse(deadline);
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Oops!! the date format of deadline is incorrect, "
+                                + "please use the format yyyy-mm-dd");
+                    }
+                    String output = taskManager.addTask(new Deadline(taskName, date));
                     printOutput(output);
                     continue;
                 }
@@ -161,8 +170,21 @@ public class Duke {
                         throw new DukeException("Oops!!! Please provide a proper period for the event task");
                     }
 
+                    LocalDate startDate;
+                    LocalDate endDate;
+                    try {
+                        startDate = LocalDate.parse(start);
+                        endDate = LocalDate.parse(end);
+                        if (endDate.isBefore(startDate)) {
+                            throw new DukeException("Oops!!! End date of an event should "
+                                    + "not be earlier than the start date.");
+                        }
+                    } catch (DateTimeParseException e) {
+                        throw new DukeException("Oops!! the date format of event is incorrect, "
+                                + "please use the format yyyy-mm-dd");
+                    }
 
-                    String output = taskManager.addTask(new Event(taskName, start, end));
+                    String output = taskManager.addTask(new Event(taskName, startDate, endDate));
                     printOutput(output);
                     continue;
                 }
