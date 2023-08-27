@@ -65,4 +65,15 @@ public abstract class JukeTask extends JukeObject {
     public String save() {
         return (this.isCompleted ? "|T|" : "|F|") + this.taskName;
     }
+
+    /**
+     * Simple check if the task description contains the word being queried. All subclassses of
+     * JukeTask will reuse this method for checking.
+     *
+     * @param word Keyword to check
+     * @return true if the task description contains the keyword, false otherwise
+     */
+    public boolean stringMatches(String word) {
+        return this.taskName.contains(word);
+    }
 }

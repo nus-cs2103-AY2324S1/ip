@@ -140,6 +140,14 @@ public abstract class JukeCommand extends JukeObject {
                 JukeTask jt = new JukeEvent(parsedArguments[0], localTimeOne, localTimeTwo);
                 return new JukeAddTaskCommand(taskList, jt);
             }
+        case "find":
+            if (args.length == 1) {
+                throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your find command!",
+                                                       "find [word]");
+            }
+
+            String newFindArgs = String.join(" ", Arrays.copyOfRange(args,1, args.length));
+            return new JukeFindTaskCommand(taskList, newFindArgs);
         default:
             jukeOpError = "Oh no! I do not understand that command!";
             break;
