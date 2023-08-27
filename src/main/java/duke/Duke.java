@@ -10,10 +10,17 @@ import duke.task.TaskList;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents the Duke program.
+ */
 public class Duke {
     private TaskList tasks;
     private final Storage storage;
     private final Ui ui;
+    /**
+     * Constructor for Duke.
+     * @param filePath Path to file.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -26,9 +33,16 @@ public class Duke {
             this.tasks = new TaskList();
         }
     }
+    /**
+     * Main method.
+     * @param args Arguments.
+     */
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
+    /**
+     * Runs the program.
+     */
     private void run() {
         Scanner sc = new Scanner(System.in);
         while (UserInputParser.isActive) {

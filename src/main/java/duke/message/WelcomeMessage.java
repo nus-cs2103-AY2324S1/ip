@@ -2,7 +2,13 @@ package duke.message;
 
 import duke.templates.MessageTemplates;
 
+/**
+ * Represents the WelcomeMessage.
+ */
 public class WelcomeMessage extends Message {
+    /**
+     * Prints WelcomeMessage.
+     */
     @Override
     public void send() {
         System.out.println(

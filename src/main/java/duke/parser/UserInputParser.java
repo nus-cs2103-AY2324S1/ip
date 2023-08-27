@@ -14,8 +14,18 @@ import duke.templates.MessageTemplates;
 
 import java.util.regex.Pattern;
 
+/**
+ * Represents the UserInputParser.
+ */
 public class UserInputParser {
     public static boolean isActive = true;
+    /**
+     * Returns the Action of the user input.
+     * @param userInput User input.
+     * @return Action of the user input.
+     * @throws InvalidInputException If user input is invalid.
+     * @throws InvalidCommandException If user input is invalid.
+     */
     private static Action getAction(String userInput) throws InvalidInputException, InvalidCommandException {
         if (userInput.equals("bye")) {
             return Action.BYE;
@@ -46,6 +56,15 @@ public class UserInputParser {
         }
         throw new InvalidCommandException();
     }
+    /**
+     * Parses the user input.
+     * @param userInput User input.
+     * @param taskList TaskList.
+     * @return Message.
+     * @throws InvalidInputException If user input is invalid.
+     * @throws InvalidCommandException Command does not exist.
+     * @throws InvalidIndexException If index is invalid.
+     */
     public static Message parse(String userInput, TaskList taskList)
             throws InvalidInputException, InvalidCommandException, InvalidIndexException {
         Action action = UserInputParser.getAction(userInput);

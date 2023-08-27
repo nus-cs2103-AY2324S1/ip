@@ -10,8 +10,17 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Represents the FileParser.
+ */
 public class FileParser {
     private static final String SEPERATOR = ",";
+    /**
+     * Parses the file.
+     * @param f File to be parsed.
+     * @return ArrayList of Tasks.
+     * @throws FileNotFoundException If file cannot be found.
+     */
     public static ArrayList<Task> parse(File f) throws FileNotFoundException {
         Scanner sc = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
