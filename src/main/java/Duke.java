@@ -1,6 +1,3 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,7 +12,7 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        printHorizontalLine();
+        Utils.printHorizontalLine();
         System.out.println("Hello! I'm Zac");
         System.out.println("What can I do for you?");
 
@@ -25,7 +22,7 @@ public class Duke {
                 String scannerIn = scanner.nextLine();
                 String[] userIn = scannerIn.split(" ");
                 String command = userIn[0];
-                printHorizontalLine();
+                Utils.printHorizontalLine();
                 switch (command) {
                     case "bye":
                         isBotRunning = false;
@@ -91,31 +88,11 @@ public class Duke {
                     default:
                         throw new UnknownCommandException();
                 }
-                writeToFile(taskList);
+                Utils.writeToFile(taskList);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
-    }
-
-    public static void printHorizontalLine() {
-        System.out.println("____________________________________________________________");
-    }
-
-    public static void writeToFile(ArrayList<Task> taskList) {
-        try {
-            File file = new File("./data/duke.txt");
-            file.createNewFile();
-            FileWriter fileWriter = new FileWriter("./data/duke.txt");
-            for (Task task : taskList) {
-                fileWriter.write(task + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-
     }
 
 }
