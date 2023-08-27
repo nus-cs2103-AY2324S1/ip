@@ -18,7 +18,11 @@ public class Task {
     this.name = name;
   }
 
-  public String getTag() {
+  public TagEnum getTag() {
+    return tag;
+  }
+
+  public String getTagName() {
     if (tag == TagEnum.TODO) {
       return "todo";
     } else if (tag == TagEnum.DEADLINE) {
@@ -32,12 +36,8 @@ public class Task {
     this.tag = tag;
   }
 
-  public String getMark() {
-    if (mark == MarkEnum.DONE) {
-      return "1";
-    } else {
-      return "0";
-    }
+  public MarkEnum getMark() {
+    return mark;
   }
 
   public void setMark(MarkEnum mark) {

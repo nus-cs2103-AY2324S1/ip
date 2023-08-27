@@ -1,6 +1,7 @@
 package com.alpha.storage;
 
 import com.alpha.commands.Command;
+import com.alpha.enums.MarkEnum;
 import com.alpha.exceptions.InvalidTaskException;
 import com.alpha.tasks.Deadline;
 import com.alpha.tasks.Event;
@@ -56,7 +57,7 @@ public class Storage {
       StringBuilder row = new StringBuilder();
       if (!first) row.append("\n");
       if (first) first = false;
-      row.append(task.getTag());
+      row.append(task.getTagName());
       row.append(" ");
       row.append(task.getName());
       if (task instanceof Deadline) {
@@ -70,7 +71,7 @@ public class Storage {
         row.append(" /to ");
         row.append(event.getEndToStore());
       }
-      if (task.getMark() == "1") {
+      if (task.getMark() == MarkEnum.DONE) {
         row.append("\n1");
       } else {
         row.append("\n0");
