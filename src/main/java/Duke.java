@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 
 
@@ -23,6 +26,7 @@ public class Duke {
 //    }
 
     public static void readFile() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
         try {
             File eddieTaskList = new File("EddieTaskList.txt");
             Scanner sc = new Scanner(eddieTaskList);
@@ -40,14 +44,14 @@ public class Duke {
 
                     tasks.add(todo);
                 } if (task[0].equals("D")) {
-                    Deadline deadline = new Deadline(task[2], task[3]);
+                    Deadline deadline = new Deadline(task[2], LocalDate.parse(task[3], formatter));
 //                    System.out.println(task[1]);
                     if (task[1].equals("x")){
                         deadline.taskIsDone();
                     }
                     tasks.add(deadline);
                 } if (task[0].equals("E")) {
-                    Event event = new Event(task[2], task[3], task[4]);
+                    Event event = new Event(task[2], LocalDate.parse(task[3], formatter), LocalDate.parse(task[4], formatter));
 
                     if (task[1].equals("x")) {
                         event.taskIsDone();
@@ -76,6 +80,17 @@ public class Duke {
         }
 
 
+    }
+
+    public static void clear() {
+        tasks.clear();
+        System.out.println("List Cleared!");
+
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.println("IOException when clearing tasks");
+        }
     }
 
     public static void writeToFile () throws IOException {
@@ -173,7 +188,8 @@ public class Duke {
                     }
                     String taskName = restOfString.substring(0, slashIndex - 1);
                     String date = restOfString.substring(slashIndex + 4);
-                    Task taskToAdd = new Deadline(taskName, date);
+                    LocalDate d = LocalDate.parse(date);
+                    Task taskToAdd = new Deadline(taskName, d);
                     Duke.add(taskToAdd);
                 } else {
                     throw new EmptyDescriptionException();
@@ -193,15 +209,19 @@ public class Duke {
 
                     String taskName = restOfString.substring(0, fromIndex - 1);
                     String fromDate = restOfString.substring(fromIndex + 6, toIndex - 1);
-
                     String toDate = restOfString.substring(toIndex + 4);
-                    Task taskToAdd = new Event(taskName, fromDate, toDate);
+
+                    LocalDate from = LocalDate.parse(fromDate);
+                    LocalDate to = LocalDate.parse(toDate);
+                    Task taskToAdd = new Event(taskName, from, to);
                     Duke.add(taskToAdd);
                 } else {
                     throw new EmptyDescriptionException();
                 }
 
 
+            } else if (command.equals("clear")){
+                Duke.clear();
             } else {
                 throw new NoSuchCommandException();
             }
