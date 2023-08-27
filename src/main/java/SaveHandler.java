@@ -7,45 +7,46 @@ public class SaveHandler {
     private static Task[] tasks = new Task[100];
     private static File file = new File("src/main/List.txt");
 
-    public SaveHandler() {
 
+    public SaveHandler() {
     }
 
+    //System.out.println("Gomen peko, something broke...");
     public static void saveTo() {
         PrintWriter printWriter;
+
         try {
-            printWriter = new PrintWriter(file);
+
+            printWriter = new PrintWriter(file.getAbsoluteFile());
             printWriter.write("");
             printWriter.close();
         } catch (FileNotFoundException e) {
             try {
-                file.createNewFile();
-            } catch (IOException ex) {
-                System.out.println("Gomen peko, something broke...");
-            }
-        } finally {
-            for (Task t : tasks) {
-                if (t == null) {
-                    break;
+                File temp = new File(file.getParentFile(), "List.txt");
+                file = temp;
+
+
+            } finally {
+                for (Task t : tasks) {
+                    if (t == null) {
+                        break;
+                    }
+                    String toStore = t.toStore() + "\n";
+
+
+                    //System.out.println("toStore: " + toStore);
+
+
+                    try {
+                        Writer temp;
+                        temp = new BufferedWriter(new FileWriter("src/main/List.txt", true));
+                        temp.append(toStore);
+                        temp.close();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
                 }
-                String toStore = t.toStore() + "\n";
-
-
-
-                //System.out.println("toStore: " + toStore);
-
-
-
-
-                try {
-                    Writer temp;
-                    temp = new BufferedWriter(new FileWriter("src/main/List.txt", true));
-                    temp.append(toStore);
-                    temp.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-
             }
         }
     }

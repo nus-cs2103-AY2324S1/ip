@@ -1,4 +1,8 @@
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class UserInputHandler {
@@ -26,6 +30,8 @@ public class UserInputHandler {
                     "todo", "deadline", "event", "delete","tell me a joke"};
 
     String input;
+
+    Scanner scanner = new Scanner(System.in);
     CommandsInternal command;
     public UserInputHandler() {
         input = "";
@@ -48,16 +54,12 @@ public class UserInputHandler {
         return CommandsInternal.valueOf(temp);
     }
     public void newInput() {
-        Scanner scanner = new Scanner(System.in);
-        if (scanner.hasNextLine()) {
+        scanner = new Scanner(System.in);
+        input = scanner.nextLine();
 
-            input = scanner.nextLine();
-            command = getResponseValue(input);
-            input = input.split(" ",2).length < 2 ? " " : input.split(" ", 2)[1];
-            System.out.println(lineBreak);
-        } else {
-            command = CommandsInternal.ECHO;
-        }
+        command = getResponseValue(input);
+        input = input.split(" ",2).length < 2 ? " " : input.split(" ", 2)[1];
+        System.out.println(lineBreak);
     }
     private void echo() {
         if (input.isBlank()) {
