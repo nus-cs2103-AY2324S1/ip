@@ -1,6 +1,6 @@
 todo borrow book
-deadline return book /by Sunday 3pm
-event project meeting /from Mon 2pm /to Thurs 8pm
+deadline return book /by 2/12/2019 1800
+event project meeting /from 2/12/2020 1800 /to 2/12/2020 2350
 list
 mark 2
 list
@@ -12,13 +12,13 @@ todo
 todo
 deadline do homework
 deadline do homework /by
-deadline /by Today
+deadline /by 2/12/2024 1800
 event lecture
 event lecture /from
 event lecture /from /to
-event lecture /from wed 10pm
-event lecture /to thurs 2pm
-event /from wed 5pm /to wed 6pm
+event lecture /from 2/12/2020 1800
+event lecture /to 2/12/2020 1800
+event /from 2/12/2020 1800 /to 4/12/2020 1800
 list
 delete 2
 list
