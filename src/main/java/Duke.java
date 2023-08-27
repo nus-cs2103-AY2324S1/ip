@@ -41,6 +41,7 @@ public class Duke {
     private void echo(String input) {
         echo(input, "");
     }
+
     private void echo(String input, String prefix) {
         int indentLength = 4;
         String divider = indentLeft(String.format("%80s", "").replace(" ", "-"), indentLength);
@@ -57,6 +58,7 @@ public class Duke {
         }
         return String.join(System.lineSeparator(), lines);
     }
+
     private String getBotName() {
         return this.botName;
     }
