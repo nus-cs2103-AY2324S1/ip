@@ -70,20 +70,20 @@ public class Duke {
 
     private void validateToDo(String description) throws DukeException {
         if (description.isBlank()) {
-            throw new DukeException("Boop Beep OOPS!!! The description of a todo cannot be empty.");
+            throw new DukeException("Boop Beep OOPS! The description of a todo cannot be empty.");
         }
     }
 
     private void validateDeadline(String[] deadlineString) throws DukeException {
         if (deadlineString.length != 2 || deadlineString[0].isBlank() || deadlineString[1].isBlank()) {
-            throw new DukeException("Boop Beep OOPS!!! Please make sure that"
+            throw new DukeException("Boop Beep OOPS! Please make sure that"
                     + " the description and date of the deadline is not empty.");
         }
     }
 
     private void validateEvent(String[] eventString) throws DukeException {
         if (eventString.length != 3 || eventString[0].isBlank() || eventString[1].isBlank() || eventString[2].isBlank()) {
-            throw new DukeException("Boop Beep OOPS!!! Please make sure that"
+            throw new DukeException("Boop Beep OOPS! Please make sure that"
                     + " the description and dates of the event is not empty.");
         }
     }
@@ -99,7 +99,7 @@ public class Duke {
                             + " the index of the task is within range.");
                 }
             } catch (NumberFormatException e) {
-                throw new DukeException("Boop Beep OOPS!!! Please make sure that the index of the task is an integer.");
+                throw new DukeException("Boop Beep OOPS! Please make sure that the index of the task is an integer.");
             }
         }
     }
@@ -150,7 +150,7 @@ public class Duke {
                     list.get(i).markDone();
                 }
             } else {
-                throw new DukeException("Boop Beep OOPS!!! It seems like the data file is corrupted :(");
+                throw new DukeException("Boop Beep OOPS! It seems like the data file is corrupted :(");
             }
 
             System.out.printf("\t\t%d. %s\n", i + 1, line);
