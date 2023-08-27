@@ -25,29 +25,24 @@ public class Duke {
                 String fullCommand = Ui.readCommand();
                 String commandType = Parser.parseCommandType(fullCommand);
                 switch (Objects.requireNonNull(commandType)) {
-                    case "bye":
-                        isExit = true;
-                        break;
-                    case "list":
-                        Ui.listTasks(tasks.getTasks());
-                        break;
-                    case "delete":
-                        tasks.deleteTask(Parser.taskNumber(fullCommand));
-                        Ui.listTasks(tasks.getTasks());
-                        Storage.writeToDisk(tasks.getTasks());
-                        break;
-                    case "mark":
-                        tasks.markTask(Parser.taskNumber(fullCommand));
-                        Ui.listTasks(tasks.getTasks());
-                        Storage.writeToDisk(tasks.getTasks());
-                        break;
-                    case "task":
-                        tasks.addTask(Parser.newTask(fullCommand));
-                        Ui.listTasks(tasks.getTasks());
-                        Storage.writeToDisk(tasks.getTasks());
-                        break;
-                    default:
-                        throw new DukeException("Invalid task, uncaught by duke.Parser.");
+                case "bye" -> isExit = true;
+                case "list" -> Ui.listTasks(tasks.getTasks());
+                case "delete" -> {
+                    tasks.deleteTask(Parser.taskNumber(fullCommand));
+                    Ui.listTasks(tasks.getTasks());
+                    Storage.writeToDisk(tasks.getTasks());
+                }
+                case "mark" -> {
+                    tasks.markTask(Parser.taskNumber(fullCommand));
+                    Ui.listTasks(tasks.getTasks());
+                    Storage.writeToDisk(tasks.getTasks());
+                }
+                case "task" -> {
+                    tasks.addTask(Parser.newTask(fullCommand));
+                    Ui.listTasks(tasks.getTasks());
+                    Storage.writeToDisk(tasks.getTasks());
+                }
+                default -> throw new DukeException("Invalid task, uncaught by duke.Parser.");
                 }
             }
         } catch (DukeException e) {
