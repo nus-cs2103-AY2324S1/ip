@@ -1,12 +1,16 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
+        this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
     }
 
     public static Event createEventFromCommand(String command) throws DukeException {
@@ -46,11 +50,15 @@ public class Event extends Task {
     
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to +")";
+        String fromString = from.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
+        String toString = to.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
+        return "[E]" + super.toString() + " (from: " + fromString + " to: " + toString +")";
     }
 
     public String toStorageString() {
-        return "E" + super.toStorageString() + " | " + from + " | " + to;
+        String fromString = from.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
+        String toString = to.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
+        return "E" + super.toStorageString() + " | " + fromString + " | " + toString;
     }
     
 }
