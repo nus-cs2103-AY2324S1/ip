@@ -40,6 +40,12 @@ public class Task {
         return ("[" + getStatusIcon() + "] " + this.description);
     }
 
+    /**
+     * Output String format to be written in file.
+     * Format : Task description|isDone
+     *
+     * @return formatted String
+     */
     public String fileFormat() {
         String kk;
         if (this.isDone) {
