@@ -1,7 +1,9 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task{
-    private String start;
-    private String end;
-    public Event(String task, boolean isDone, String start, String end) {
+    private LocalDateTime start;
+    private LocalDateTime end;
+    public Event(String task, boolean isDone, LocalDateTime start, LocalDateTime end) {
         super(task, isDone);
         this.start = start;
         this.end = end;
@@ -9,11 +11,13 @@ public class Event extends Task{
 
     @Override
     public String toSaveFormat() {
-        return "E|" + super.toSaveFormat() + String.format("|%s|%s\n", start, end);
+        return "E|" + super.toSaveFormat()
+                + String.format("|%s|%s\n", super.getSaveDateTime(start), super.getSaveDateTime(end));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format("(from: %sto: %s)", start, end);
+        return "[E]" + super.toString()
+                + String.format("(from: %s to: %s)", super.getDisplayDateTime(start), super.getDisplayDateTime(end));
     }
 }

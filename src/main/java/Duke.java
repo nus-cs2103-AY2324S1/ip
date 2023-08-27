@@ -1,11 +1,15 @@
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     static List<Task> taskList = new ArrayList<>();
@@ -26,7 +30,7 @@ public class Duke {
                 while (scanner.hasNextLine()) {
                     String task = scanner.nextLine();
                     String[] data = task.split("\\|");
-                    boolean isDone = data[1].equals("Y");
+                    boolean isDone = data[1].equals("X");
                     switch (data[0]) {
                         case "T":
                             addTask(String.format("%s", data[2]), TaskType.TODO, isDone);
@@ -64,6 +68,7 @@ public class Duke {
     }
 
     static void addTask(String task, TaskType taskType, boolean isDone) throws GlubException {
+        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         if (task.equals("")) {
             throw new GlubException(String.format("OOPS!! The description of a %s cannot be empty.\n", taskType));
         }
@@ -76,20 +81,30 @@ public class Duke {
             String deadlineDesc = deadlinePortions[0];
             try {
                 String deadline = deadlinePortions[1].split(" ", 2)[1];
-                taskList.add(new Deadline(deadlineDesc, isDone, deadline));
+                LocalDateTime deadlineDateTime = LocalDateTime.parse(deadline, dateTimeFormat);
+                taskList.add(new Deadline(deadlineDesc, isDone, deadlineDateTime));
             } catch (ArrayIndexOutOfBoundsException ex) {
                 throw new GlubException("OOPS!! Please provide a deadline for your deadline task.\n");
+            } catch (DateTimeParseException ex) {
+                throw new GlubException("Invalid deadline format! Please ensure it is in dd-MM-yyyy HHmm format!\n");
             }
             break;
         case EVENT:
             String[] eventPortions = task.split("/");
             String eventDesc = eventPortions[0];
             try {
-                String start = eventPortions[1].split(" ", 2)[1];
-                String end = eventPortions[2].split(" ", 2)[1];
-                taskList.add(new Event(eventDesc, isDone, start, end));
+                String[] startParts = eventPortions[1].split(" ");
+                String start = startParts[1] + " " + startParts[2];
+                String[] endParts = eventPortions[2].split(" ");
+                String end = endParts[1] + " " + endParts[2];
+                LocalDateTime startDateTime = LocalDateTime.parse(start, dateTimeFormat);
+                LocalDateTime endDateTime = LocalDateTime.parse(end, dateTimeFormat);
+                taskList.add(new Event(eventDesc, isDone, startDateTime, endDateTime));
             } catch (ArrayIndexOutOfBoundsException ex) {
                 throw new GlubException("OOPS!! Ensure that your event has a start and end!\n");
+            } catch (DateTimeParseException ex) {
+                throw new GlubException(
+                        "Invalid start/end format! Please ensure they are in dd/MM/yyyy HH:mm format!\n");
             }
             break;
         }
@@ -155,8 +170,8 @@ public class Duke {
             loadTasks();
             Scanner inputScanner = new Scanner(System.in);
             greet();
-        try {
             while (isListening) {
+                try {
                 String command = inputScanner.next();
                 switch (command) {
                 case "bye":
@@ -192,9 +207,11 @@ public class Duke {
                 default:
                     throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
                 }
+                } catch (GlubException ex) {
+                    System.out.println(ex.getMessage());
+                }
+
             }
-        } catch (GlubException ex) {
-            System.out.println(ex.getMessage());
-        }
+
     }
 }
