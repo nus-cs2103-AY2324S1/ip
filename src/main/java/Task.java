@@ -39,4 +39,14 @@ public class Task {
     public String toString(){
         return ("[" + getStatusIcon() + "] " + this.description);
     }
+
+    public String fileFormat() {
+        String kk;
+        if (this.isDone) {
+            kk = "1";
+        } else {
+            kk = "0";
+        }
+        return this.description + "|" + kk;
+    }
 }

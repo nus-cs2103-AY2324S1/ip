@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
@@ -33,7 +35,7 @@ public class Duke {
      * @return output reply.
      */
     private String replyUser(String input) {
-        String output = "";
+        String output;
         switch (input) {
             case "bye":
                 output = "Bye. Hope to see you again soon!";
@@ -170,15 +172,28 @@ public class Duke {
             this.lists.add(new ToDo(task[1]));
             break;
         case "D":
-            this.lists.add(new Deadline(task[1], task[2]));
+            this.lists.add(new Deadline(task[1], task[3]));
             break;
         case "E":
-            this.lists.add(new Event(task[1], task[2], task[3]));
+            this.lists.add(new Event(task[1], task[3], task[4]));
             break;
         }
 
-        if (task[task.length - 1].equals("1")) {
+        if (task[2].equals("1")) {
             this.lists.get(this.lists.size() - 1).markAsDone();
+        }
+    }
+
+    private void writeToFile() {
+        try{
+            FileWriter fw = new FileWriter("data/duke.txt");
+            for (Task i : this.lists) {
+                fw.write(i.fileFormat());
+                fw.write(System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("The file doesn't exist!");
         }
     }
     public static void main(String[] args) {
@@ -200,6 +215,7 @@ public class Duke {
             System.out.println(horLine);
             System.out.println(chatBot.replyUser(userInput));
             System.out.println(horLine);
+            chatBot.writeToFile();
         }
     }
 }
