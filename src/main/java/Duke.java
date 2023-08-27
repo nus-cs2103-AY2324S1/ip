@@ -33,6 +33,23 @@ public class Duke {
         return this.taskList.add(task);
     }
 
+    public boolean deleteTask(int index) {
+        if (index < 0 || index >= taskList.size()) {
+            outputService.echo(String.format("Invalid Task Index: %s provided.", index));
+            return false;
+        }
+        Task removedTask = taskList.remove(index);
+        List<String> displayText = new ArrayList<>();
+        displayText.add("Noted. I have removed this task:");
+        displayText.add(outputService.indentLeft(removedTask.toString()));
+        displayText.add(String.format("Now you have %s %s in the list.",
+                taskList.size(),
+                taskList.size() == 1 ? "task" : "tasks"));
+
+        outputService.echo(displayText);
+        return true;
+    }
+
     public void markTask(int index) {
         if (index < 0 || index >= taskList.size()) {
             outputService.echo(String.format("Invalid Task Index: %s provided.", index));

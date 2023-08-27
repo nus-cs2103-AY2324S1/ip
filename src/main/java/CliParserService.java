@@ -41,6 +41,12 @@ public class CliParserService {
                         dukeBot.unmarkTask(taskNumber - 1); // task numbers start from 1
                     }
                     break;
+                case "delete":
+                    if (input.length > 1 && isNumeric(input[1])) {
+                        int taskNumber = Integer.parseInt(input[1]);
+                        dukeBot.deleteTask(taskNumber - 1); // task numbers start from 1
+                    }
+                    break;
                 case "todo":
                 case "deadline":
                 case "event":
@@ -66,7 +72,7 @@ public class CliParserService {
             displayText.add("Got it. I've added this task:");
             displayText.add(outputService.indentLeft(task.toString()));
             int numberOfTasks = dukeBot.getTaskList().size();
-            displayText.add(String.format("Now you have %s %s in the list",
+            displayText.add(String.format("Now you have %s %s in the list.",
                     numberOfTasks,
                     numberOfTasks == 1 ? "task" : "tasks"));
             outputService.echo(displayText);
@@ -84,5 +90,4 @@ public class CliParserService {
             return false;
         }
     }
-
 }
