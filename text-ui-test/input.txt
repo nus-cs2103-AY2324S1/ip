@@ -14,5 +14,10 @@ delete 2
 mark 3
 unmark 0
 delete -1
+mark
+unmark
+delete
+deadline a
+event a /from B
 list
 bye

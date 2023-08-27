@@ -35,18 +35,24 @@ class Storage {
         return file;
     }
 
-    void writeFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        for (Task task : tasks) {
-            fw.write(task.stringToFile() + "\n");
+    void writeFile(String msg) throws DukeException {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            fw.write(msg);
+            fw.close();
+        } catch (IOException e) {
+            throw new DukeException("I/O Error!");
         }
-        fw.close();
     }
 
-    void appendFile(Task task) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(task.stringToFile() + "\n");
-        fw.close();
+    void appendFile(Task task) throws DukeException {
+        try {
+            FileWriter fw = new FileWriter(filePath, true);
+            fw.write(task.stringToFile() + "\n");
+            fw.close();
+        } catch (IOException e) {
+            throw new DukeException("I/O Error!");
+        }
     }
 
     ArrayList<Task> createList() throws DukeException {
