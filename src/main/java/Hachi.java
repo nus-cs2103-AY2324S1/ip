@@ -17,7 +17,18 @@ public class Hachi {
     private static String dataPath = "./data";
     private static String taskPath = "./data/tasks.txt";
 
+    private Ui ui;
+
+    public Hachi(String filePath) {
+        ui = new Ui();
+    }
+
     public static void main(String[] args) throws HachiException {
+        new Hachi(taskPath).run();
+
+    }
+
+    public void run() {
         String name = "Hachi";
 
         // creating the directory and file to store the tasks in
@@ -46,23 +57,21 @@ public class Hachi {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return;
+        } catch (HachiException e) {
+            ui.showError(e);
         }
 
         // Printing opening line
-        line();
-        System.out.println("Hello! I'm " + name + "\nWhat can I do for you?");
-        line();
+        ui.showWelcome();
 
-        Scanner sc = new Scanner(System.in);
+
 
         // repeats until user types bye, which quits the program
         while (true) {
             // getting command and argument separately
-            String input = sc.nextLine();
-            String[] words = input.split(" ");
-            String command = words[0];
-            String[] arguments = Arrays.copyOfRange(words, 1, words.length);
-
+            Command cmd = Parser.parse(ui.getInput());
+            String command = cmd.getCommand();
+            String[] arguments = cmd.getArguments();
             line();
             try {
                 if (command.equals("bye")) { // BYE
@@ -104,7 +113,7 @@ public class Hachi {
                         throw new EmptyNumberException("unmark");
                     }
                     try {
-                        int number = Integer.parseInt(words[1]);
+                        int number = Integer.parseInt(arguments[0]);
                         int i = number - 1;
                         if (number > tasks.size()) {
                             throw new NumberOutOfBoundsException(tasks.size());
@@ -249,7 +258,6 @@ public class Hachi {
             }
             line();
         }
-
     }
 
     private static void appendToFile(String filePath, String textToAdd) throws IOException {
