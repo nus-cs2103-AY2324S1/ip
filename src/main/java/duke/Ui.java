@@ -1,9 +1,11 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
     public static void showLoadingError() {
-        System.out.println("Unable to initialise Duke.");
+        System.out.println("Unable to initialise duke.Duke.");
     }
 
     public static void showWelcome() {

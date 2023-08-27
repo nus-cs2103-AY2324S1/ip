@@ -1,6 +1,7 @@
+package duke;
+
 import java.util.ArrayList;
 import java.util.Objects;
-import duke.DukeException;
 
 public class Duke {
     private Storage storage;
@@ -46,7 +47,7 @@ public class Duke {
                         Storage.writeToDisk(tasks.getTasks());
                         break;
                     default:
-                        throw new DukeException("Invalid task, uncaught by Parser.");
+                        throw new DukeException("Invalid task, uncaught by duke.Parser.");
                 }
             }
         } catch (DukeException e) {
