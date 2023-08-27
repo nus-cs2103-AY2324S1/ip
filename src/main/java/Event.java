@@ -8,7 +8,8 @@ public class Event extends Task {
     private String end = "";
 
     /**
-     * Constructor for the Event class
+     * Constructor for the Event class.
+     * 
      * @param name
      */
     public Event(String name, String start, String end) {

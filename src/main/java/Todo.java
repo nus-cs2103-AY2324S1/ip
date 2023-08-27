@@ -6,7 +6,8 @@
 public class Todo extends Task {
 
     /**
-     * Constructor for the Todo class
+     * Constructor for the Todo class.
+     * 
      * @param name
      */
     public Todo(String name) {
