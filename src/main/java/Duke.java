@@ -1,15 +1,46 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Duke {
 
-    private LinkedList<Task> tasks = new LinkedList<>();
+    private final UI ui = new UI();
+
+    private final Storage storage = new Storage();
+
+    private final CommandParser parser = new CommandParser();
+
+    private final TaskList taskList = new TaskList(storage.loadFile());
+
+    private void handleUI() {
+        ui.greet();
+        Scanner scanner = new Scanner(System.in);
+        String command = "";
+        while (true) {
+            try {
+                command = scanner.nextLine();
+                ui.printLine();
+                Action action = parser.parseCommand(command);
+                if (!action.execute(taskList, storage)) {
+                    break;
+                }
+            } catch (DukeException e) {
+                System.out.println(e);
+            }
+            ui.printLine();
+        }
+        ui.bye();
+        scanner.close();
+    }
+
+    public static void main(String[] args) {
+        Duke duke = new Duke();
+        duke.handleUI();
+    }
+
+
+
+
+
+/*    private LinkedList<Task> tasks = new LinkedList<>();
 
     private final String SAVE_DATA_PATH = "./data/Duke.txt";
 
@@ -260,5 +291,5 @@ public class Duke {
         duke.loadFile();
         duke.greet();
         duke.handleUI();
-    }
+    }*/
 }
