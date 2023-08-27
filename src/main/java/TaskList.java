@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TaskList {
-
     private List<Task> list;
     private String filePath;
 
@@ -28,76 +27,64 @@ public class TaskList {
         try {
             Files.createDirectories(directoriesPath);
             File data = new File(this.filePath);
-            boolean fileAlreadyExists = !data.createNewFile();
+            boolean isNewFile = data.createNewFile();
 
-            if (fileAlreadyExists) {
-                Scanner fileScanner = new Scanner(data);
-                while (fileScanner.hasNextLine()) {
-                    String input = fileScanner.nextLine();
-                    char taskType = input.charAt(0);
+            if (isNewFile) {
+                return;
+            }
 
-                    switch (taskType) {
-                        case 'T':
-                            this.loadTodo(input);
-                            break;
-                        case 'D':
-                            this.loadDeadline(input);
-                            break;
-                        case 'E':
-                            this.loadEvent(input);
-                            break;
-                    }
+            Scanner fileScanner = new Scanner(data);
+            while (fileScanner.hasNextLine()) {
+                String input = fileScanner.nextLine();
+                char taskType = input.charAt(0);
+
+
+                switch (taskType) {
+                case 'T':
+                    this.loadTodo(input);
+                    break;
+                case 'D':
+                    this.loadDeadline(input);
+                    break;
+                case 'E':
+                    this.loadEvent(input);
+                    break;
+                default:
+                    throw new DukeException(this.filePath + " file is corrupted");
                 }
             }
-        } catch (IOException e) {
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
     }
 
-    public void loadTodo(String input) {
-        int[] vLines = new int[2];
-        for (int i = 0, j = 0; i < input.length(); i++) {
-            if (input.charAt(i) != '|') {
-                continue;
-            }
-            vLines[j++] = i;
-        }
+    public void loadTodo(String input) throws DukeException {
+        int[] vLines = newVLines(2, input);
 
         Task task = new Todo(input.substring(vLines[1] + 2));
         if (input.charAt(4) == '1') {
-            task.mark();
+            task.setDone();
         }
         this.list.add(task);
     }
 
-    public void loadDeadline(String input) {
-        int[] vLines = new int[3];
-        for (int i = 0, j = 0; i < input.length(); i++) {
-            if (input.charAt(i) != '|') {
-                continue;
-            }
-            vLines[j++] = i;
-        }
+    public void loadDeadline(String input) throws DukeException {
+        int[] vLines = newVLines(3, input);
 
         String description = input.substring(vLines[1] + 2, vLines[2] - 1);
         String by = input.substring(vLines[2] + 2);
 
         Task task = new Deadline(description, by);
         if (input.charAt(4) == '1') {
-            task.mark();
+            task.setDone();
         }
         this.list.add(task);
     }
 
-    public void loadEvent(String input) {
-        int[] vLines = new int[4];
-        for (int i = 0, j = 0; i < input.length(); i++) {
-            if (input.charAt(i) != '|') {
-                continue;
-            }
-            vLines[j++] = i;
-        }
+    public void loadEvent(String input) throws DukeException {
+        int[] vLines = newVLines(4, input);
 
         String description = input.substring(vLines[1] + 2, vLines[2] - 1);
         String from = input.substring(vLines[2] + 2, vLines[3] - 1);
@@ -105,9 +92,23 @@ public class TaskList {
 
         Task task = new Event(description, from, to);
         if (input.charAt(4) == '1') {
-            task.mark();
+            task.setDone();
         }
         this.list.add(task);
+    }
+
+    public int[] newVLines(int size, String input) throws DukeException {
+        int[] vLines = new int[size];
+        for (int i = 0, j = 0; i < input.length(); i++) {
+            if (input.charAt(i) != '|') {
+                continue;
+            }
+            if (input.charAt(i - 1) != ' ' || input.charAt(i + 1) != ' ') {
+                throw new DukeException(this.filePath + " file is corrupted");
+            }
+            vLines[j++] = i;
+        }
+        return vLines;
     }
 
     public String getParentDirectoriesPathFromFilePath() {

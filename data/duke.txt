@@ -1,3 +1,1 @@
-T | 1 | read book
-D | 0 | return book | Aug 27th 10pm
-E | 1 | NUS GreyHats | Aug 28th 8pm | Aug 28th 11pm
+D | 0 | return book | 28/08/2023 2359
