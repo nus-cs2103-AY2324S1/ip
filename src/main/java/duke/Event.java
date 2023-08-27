@@ -12,7 +12,7 @@ public class Event extends Task {
     private DateTime end;
 
     /**
-     * Constructor for creating a Event
+     * Constructor for creating an Event
      *
      * @param taskName name of task.
      */
@@ -29,8 +29,8 @@ public class Event extends Task {
      * Constructor for creating an Event based on whether its done or not
      * @param taskName  name of task.
      * @param isDone    whether the task is done or not
-     * @param startTime the start time of the event
-     * @param endTime   the end time of the event
+     * @param start    the start time of the event
+     * @param end    the end time of the event
      */
     public Event(String taskName, boolean isDone, DateTime start, DateTime end) {
         super(taskName);
