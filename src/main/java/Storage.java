@@ -1,9 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.function.Consumer;
 
 public class Storage {
     private static String DATA_DIRECTORY = "./";
@@ -30,14 +28,14 @@ public class Storage {
      *
      * @param tasks - the ArrayList of tasks to be saved.
      */
-    public static void saveTasksToFile(ArrayList<Task> tasks) {
+    public static void saveTasksToFile(TaskList tasks) {
         try {
             File file = new File(DATA_DIRECTORY + DATA_FILE);
 
             FileWriter fileWriter = new FileWriter(file);
 
             for (int i = 0; i < tasks.size(); i++) {
-                fileWriter.write(tasks.get(i).toSaveString());
+                fileWriter.write(tasks.getTask(i).toSaveString());
 
                 // Add a newline unless I just wrote the last item.
                 if (i != tasks.size() - 1) {
@@ -53,11 +51,13 @@ public class Storage {
     }
 
     /**
-     * Loads the specified ArrayList of tasks to the data file specified by DATA_DIRECTORY and DATA_FILE.
+     * Loads Tasks from the data file specified by DATA_DIRECTORY and DATA_FILE and returns a TaskList of the loaded tasks.
      *
-     * @param tasks - the ArrayList for tasks to be loaded into. Any existing tasks in this arraylist will be overridden.
+     * @return a TaskList of tasks that were loaded.
      */
-    public static void loadTasksFromFile(ArrayList<Task> tasks) {
+    public static TaskList loadTasksFromFile() {
+        TaskList tasks = new TaskList();
+
         try {
             File file = new File(DATA_DIRECTORY + DATA_FILE);
             Scanner sc = new Scanner(file);
@@ -66,7 +66,7 @@ public class Storage {
                 Task task = Task.parseSaveString(sc.nextLine());
 
                 if (task != null) {
-                    tasks.add(task);
+                    tasks.addTask(task);
                 }
             }
 
@@ -75,5 +75,7 @@ public class Storage {
         } catch(IOException e) {
             System.out.println(String.format("An error has occurred: %s", e.getMessage()));
         }
+
+        return tasks;
     }
 }

@@ -10,7 +10,7 @@ public class Duchess {
     /**
      * An ArrayList to store text in.
      */
-    private static final ArrayList<Task> storedTasks = new ArrayList<>();
+    private static TaskList storedTasks = new TaskList();
     /**
      * Outputs the same string parameter that was passed in.
      *
@@ -28,7 +28,7 @@ public class Duchess {
     private static void listTasks() {
         Ui.duchessPrint("Here are the things you said!! ヽ(^o^)丿");
         for (int i = 0; i < Duchess.storedTasks.size(); i++) {
-            Ui.duchessPrint(String.format("%d: %s", i + 1, Duchess.storedTasks.get(i).toString()));
+            Ui.duchessPrint(String.format("%d: %s", i + 1, Duchess.storedTasks.getTask(i).toString()));
         }
     }
     /**
@@ -43,9 +43,9 @@ public class Duchess {
             return;
         }
 
-        Duchess.storedTasks.get(index).changeStatus(TaskStatus.MARKED);
+        Duchess.storedTasks.getTask(index).changeStatus(TaskStatus.MARKED);
         Ui.duchessPrint("Task has been marked!! (＾▽＾)");
-        Ui.duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.get(index).toString()));
+        Ui.duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.getTask(index).toString()));
     }
 
     /**
@@ -59,9 +59,9 @@ public class Duchess {
             return;
         }
 
-        Duchess.storedTasks.get(index).changeStatus(TaskStatus.UNMARKED);
+        Duchess.storedTasks.getTask(index).changeStatus(TaskStatus.UNMARKED);
         Ui.duchessPrint("Task has been unmarked!! (＾▽＾)");
-        Ui.duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.get(index).toString()));
+        Ui.duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.getTask(index).toString()));
     }
 
     /**
@@ -75,7 +75,7 @@ public class Duchess {
             return;
         }
 
-        Task task = Duchess.storedTasks.remove(index);
+        Task task = Duchess.storedTasks.removeTask(index);
         Ui.duchessPrint("Deleted successfully!! d(*⌒▽⌒*)b");
         Ui.duchessPrint(String.format("%d: %s", index + 1, task.toString()));
         Ui.duchessPrint("");
@@ -88,7 +88,7 @@ public class Duchess {
      * @param event - the Event object to be added
      */
     private static void addTask(Task task) {
-        Duchess.storedTasks.add(task);
+        Duchess.storedTasks.addTask(task);
 
         Ui.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
         Ui.duchessPrint(String.format("%d: %s", Duchess.storedTasks.indexOf(task) + 1, task.toString()));
@@ -105,7 +105,7 @@ public class Duchess {
         Storage.createSaveFile();
 
         // Load tasks from the save file.
-        Storage.loadTasksFromFile(Duchess.storedTasks);
+        Duchess.storedTasks = Storage.loadTasksFromFile();
 
         Scanner sc = new Scanner(System.in);
         String userInput = "";
