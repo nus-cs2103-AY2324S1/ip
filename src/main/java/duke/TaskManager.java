@@ -1,12 +1,7 @@
-import java.io.File;
-import java.io.IOException;
+package duke;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.NamedType;
+import task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +59,6 @@ public class TaskManager {
      */
     public String addTask(Task task) {
         this.tasks.add(task);
-        notifyTasksChange();
         return "Got it. I've added this task:\n  "
                 + task.toString() + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.\n";
@@ -88,7 +82,6 @@ public class TaskManager {
 
         Task task = this.tasks.get(i);
         task.markTask(done);
-        notifyTasksChange();
         return done
                 ? "Nice! I've marked this task as done:\n  " + task.toString() + "\n"
                 : "OK, I've marked this task as not done yet:\n  " + task.toString() + "\n";
@@ -109,14 +102,9 @@ public class TaskManager {
         }
 
         Task task = this.tasks.remove(i);
-        notifyTasksChange();
         return "Noted! I've removed this task:\n  "
                 + task.toString() + "\n"
                 + "Now you have " + this.tasks.size() + " tasks in the list.\n";
 
-    }
-
-    private void notifyTasksChange() {
-        DiskManager.saveToDisk(this);
     }
 }

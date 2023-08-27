@@ -1,3 +1,8 @@
+package duke;
+
+import task.Deadline;
+import task.Event;
+import task.Todo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
@@ -7,17 +12,21 @@ import java.io.*;
 
 public class DiskManager {
     private static final ObjectMapper MAPPER = new ObjectMapper();
-
     static {
         MAPPER.registerSubtypes(new NamedType(Todo.class, "Todo"));
         MAPPER.registerSubtypes(new NamedType(Deadline.class, "Deadline"));
         MAPPER.registerSubtypes(new NamedType(Event.class, "Event"));
         MAPPER.registerModule(new JavaTimeModule());
     }
+    private String directoryPath;
+    private String fileName;
 
-    private static File getFile() {
-        String directoryPath = "data";
-        String fileName = "tasks.json";
+    public DiskManager(String directoryPath, String fileName) {
+        this.directoryPath = directoryPath;
+        this.fileName = fileName;
+    }
+
+    private File getFile() {
         String filePath = directoryPath + "/" + fileName;
         try {
             String currentWorkingDir = System.getProperty("user.dir");
@@ -45,7 +54,7 @@ public class DiskManager {
         }
     }
 
-    public static void saveToDisk(TaskManager taskManager) {
+    public void saveToDisk(TaskManager taskManager) {
         try {
             String json = MAPPER.writeValueAsString(taskManager);
             File file = getFile();
@@ -61,11 +70,11 @@ public class DiskManager {
         }
     }
 
-    public static TaskManager loadFromDisk() {
+    public TaskManager loadFromDisk() throws DukeException {
         try {
             File file = getFile();
             if (file == null) {
-                return new TaskManager();
+                throw new DukeException("Error when loading file: could not get file");
             }
 
             // read the file
@@ -80,11 +89,9 @@ public class DiskManager {
             TaskManager taskManager = MAPPER.readValue(json, TaskManager.class);
             return taskManager;
         } catch (JsonProcessingException e) {
-            // e.printStackTrace();
-            return new TaskManager();
+            throw new DukeException("Error when deserializing file");
         } catch (IOException e) {
-            // e.printStackTrace();
-            return new TaskManager();
+            throw new DukeException("Error when reading file");
         }
     }
 }
