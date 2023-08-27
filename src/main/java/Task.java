@@ -32,8 +32,9 @@ public class Task {
     /**
      * Toggles task from undone to done and vice versa
      */
-    public void toggleTask() {
+    public boolean toggleTask() {
         this.isDone = !this.isDone;
+        return this.isDone;
     }
 
     @Override
