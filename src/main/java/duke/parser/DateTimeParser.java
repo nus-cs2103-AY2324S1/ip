@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 public class DateTimeParser {
     private static final String inputFormat = "yyyy-MM-dd HHmm";
     private static final String outputFormat = "MMM dd yyyy h:mma";
+
     public static String parseDateTime(String s) throws InvalidInputException {
         DateTimeFormatter in = DateTimeFormatter.ofPattern(inputFormat);
         DateTimeFormatter out = DateTimeFormatter.ofPattern(outputFormat);
@@ -19,6 +20,7 @@ public class DateTimeParser {
             throw new InvalidInputException(MessageTemplates.MESSAGE_INVALID_DATETIME);
         }
     }
+
     public static boolean isValidPeriod(String from, String to) {
         LocalDateTime before = LocalDateTime.parse(from, DateTimeFormatter.ofPattern(outputFormat));
         LocalDateTime after = LocalDateTime.parse(to, DateTimeFormatter.ofPattern(outputFormat));

@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 public class TaskListMessage extends Message {
     private final String[] list;
+
     public TaskListMessage(ArrayList<Task> list) {
         this.list = formatList(list);
     }
+
     private String[] formatList(ArrayList<Task> list) {
         String[] ls = new String[list.size()];
         int index = 1;
@@ -18,6 +20,7 @@ public class TaskListMessage extends Message {
         }
         return ls;
     }
+
     @Override
     public void send() {
         System.out.println(createMessage(list));

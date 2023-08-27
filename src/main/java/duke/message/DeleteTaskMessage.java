@@ -6,10 +6,12 @@ import duke.templates.MessageTemplates;
 public class DeleteTaskMessage extends Message {
     private final Task task;
     private final int totalTasks;
+
     public DeleteTaskMessage(Task task, int totalTasks) {
         this.task = task;
         this.totalTasks = totalTasks;
     }
+
     @Override
     public void send() {
         System.out.println(

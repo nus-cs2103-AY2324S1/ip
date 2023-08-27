@@ -5,9 +5,11 @@ import duke.templates.MessageTemplates;
 
 public class MarkTaskMessage extends Message {
     private final Task task;
+
     public MarkTaskMessage(Task task) {
         this.task = task;
     }
+
     @Override
     public void send() {
         task.markTask();

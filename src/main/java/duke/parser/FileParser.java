@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class FileParser {
     private static final String SEPERATOR = ",";
+
     public static ArrayList<Task> parse(File f) throws FileNotFoundException {
         Scanner sc = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();

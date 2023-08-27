@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 public class UserInputParser {
     public static boolean isActive = true;
+
     private static Action getAction(String userInput) throws InvalidInputException, InvalidCommandException {
         if (userInput.equals("bye")) {
             return Action.BYE;
@@ -46,6 +47,7 @@ public class UserInputParser {
         }
         throw new InvalidCommandException();
     }
+
     public static Message parse(String userInput, TaskList taskList)
             throws InvalidInputException, InvalidCommandException, InvalidIndexException {
         Action action = UserInputParser.getAction(userInput);

@@ -9,5 +9,6 @@ public abstract class Message {
         }
         return s.toString();
     }
+
     public abstract void send();
 }

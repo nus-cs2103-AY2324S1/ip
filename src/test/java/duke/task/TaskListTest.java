@@ -3,7 +3,9 @@ package duke.task;
 import duke.exception.InvalidIndexException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TaskListTest {
     @Test
@@ -11,12 +13,14 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         assertNotNull(taskList.add(new TodoTask("1", false)));
     }
+
     @Test
     public void delete_task_success() throws Exception {
         TaskList taskList = new TaskList();
         taskList.add(new TodoTask("1", false));
         assertNotNull(taskList.delete(1));
     }
+
     @Test
     public void delete_task_invalidIndexExceptionThrown() {
         TaskList taskList = new TaskList();
@@ -28,18 +32,21 @@ public class TaskListTest {
 
         }
     }
+
     @Test
     public void printList_success() {
         TaskList taskList = new TaskList();
         taskList.add(new TodoTask("1", false));
         assertNotNull(taskList.printList());
     }
+
     @Test
     public void markTask_success() throws Exception {
         TaskList taskList = new TaskList();
         taskList.add(new TodoTask("1", false));
         assertNotNull(taskList.markTask(1));
     }
+
     @Test
     public void markTask_invalidIndexExceptionThrown() {
         TaskList taskList = new TaskList();
@@ -51,12 +58,14 @@ public class TaskListTest {
 
         }
     }
+
     @Test
     public void unmarkTask_success() throws Exception {
         TaskList taskList = new TaskList();
         taskList.add(new TodoTask("1", true));
         assertNotNull(taskList.unmarkTask(1));
     }
+
     @Test
     public void unmarkTask_invalidIndexExceptionThrown() {
         TaskList taskList = new TaskList();
@@ -68,6 +77,7 @@ public class TaskListTest {
 
         }
     }
+
     @Test
     public void toStringStore_success() {
         TaskList taskList = new TaskList();
