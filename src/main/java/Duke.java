@@ -1,6 +1,14 @@
 import java.util.Scanner;
 
 public class Duke {
+    private final String botName;
+    private final Scanner scanner;
+
+    public Duke(String botName) {
+        this.botName = botName;
+        this.scanner = new Scanner(System.in);
+    }
+
     public static void main(String[] args) {
         String botName = "Changoose";
         String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", botName);
