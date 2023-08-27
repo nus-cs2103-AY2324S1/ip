@@ -2,12 +2,61 @@ import TaskPackages.TaskList;
 import Utility.DukeException;
 import Utility.InvalidCommandException;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 public class DukeHandler {
     
     TaskList tasklist;
 
     public DukeHandler() {
-        tasklist = new TaskList();
+        tasklist = returnTaskList();
+    }
+
+    private TaskList returnTaskList() {
+        String homedir = new File(System.getProperty("user.dir")).getParent();
+        Path path = Paths.get(homedir, "data", "duke.txt");
+        if (Files.exists(path)) {
+            TaskList tasklist = new TaskList();
+            try {
+                List<String> contents = Files.readAllLines(path);
+                for (String content : contents) {
+                    System.err.println(content);
+                    String[] parsedContent = content.split(" # ");
+                    System.err.println(parsedContent.length);
+                    System.err.println(parsedContent[0]);
+                    if (parsedContent.length == 4 && parsedContent[0].charAt(0) == 'D') {
+                        System.err.println(tasklist.addDeadline(parsedContent[2] + " " + parsedContent[3]));
+                    } else if (parsedContent.length == 4 && parsedContent[0].charAt(0) == 'E') {
+                        System.err.println(tasklist.addEvent(parsedContent[2] + " " + parsedContent[3]));
+                    } else if (parsedContent.length == 3 && parsedContent[0].charAt(0) == 'T') {
+                        System.err.println(tasklist.addTodo(parsedContent[2]));
+                    } else {
+                        System.err.println("Invalid file format");
+                    }
+                }
+                return tasklist;
+            } catch (FileNotFoundException e) {
+                System.err.println(e);
+                return new TaskList();
+            } catch (IOException e) {
+                System.err.println(e);
+                return new TaskList();
+            } catch (NumberFormatException e) {
+                System.err.println(e);
+                return new TaskList();
+            } catch (Exception e) {
+                System.err.println(e);
+                return new TaskList();
+            }
+        } else {
+            return new TaskList();
+        }
     }
 
     private static String[] inputParser(String input) {
