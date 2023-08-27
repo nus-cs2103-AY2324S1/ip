@@ -15,11 +15,23 @@ import rua.exception.InvalidTypeException;
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object which reads and writes to a file located at the filePath.
+     *
+     * @param filePath The path of the file to be loaded and saved.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    static Task stringToTask(String str) throws Exception{
+    /**
+     * Returns a Task corresponding to a given String.
+     *
+     * @param str A String that represents a Task object.
+     * @return The corresponding Task object.
+     * @throws InvalidTypeException if the task type is not supported.
+     */
+    static Task stringToTask(String str) throws InvalidTypeException{
         String[] arr = str.split(" \\| ");
         Task output;
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM dd yyyy");
@@ -40,7 +52,14 @@ public class Storage {
         return output;
     }
 
-    static String taskToString(Task task) throws Exception{
+    /**
+     * Returns a Task corresponding to a given String.
+     *
+     * @param task A Task object that needs to be translated into a String.
+     * @return The corresponding String.
+     * @throws InvalidTypeException if the task type is not supported.
+     */
+    static String taskToString(Task task) throws InvalidTypeException{
         String output = task.getType() + " | " + (task.isMarked() ? 1:0) + " | "+ task.getDescription();
         switch (task.getType()) {
             case "T":
@@ -58,7 +77,14 @@ public class Storage {
         return output;
     }
 
-    public ArrayList<Task> load() throws Exception {
+    /**
+     * Returns the ArrayList of tasks represented by the input String located in the filePath.
+     *
+     * @return The corresponding ArrayList of Task objects.
+     * @throws InvalidTypeException if the task type is not supported.
+     * @throws FileNotFoundException if the filePath is invalid.
+     */
+    public ArrayList<Task> load() throws InvalidTypeException, FileNotFoundException {
         File f = new File(filePath);
         Scanner sc = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -68,7 +94,14 @@ public class Storage {
         return tasks;
     }
 
-    public void save(TaskList tasks) throws Exception {
+    /**
+     * Saves the string representing a list of tasks at the filePath.
+     *
+     * @param tasks A TaskList object that needs to be translated into String and saved.
+     * @throws InvalidTypeException if the task type is not supported.
+     * @throws IOException if the filePath is invalid.
+     */
+    public void save(TaskList tasks) throws InvalidTypeException, IOException {
         try {
             FileWriter fw = new FileWriter(filePath);
             String saveTxt = "";

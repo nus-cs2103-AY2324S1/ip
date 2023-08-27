@@ -9,6 +9,14 @@ import rua.exception.*;
 import java.time.LocalDate;
 
 public class Parser {
+    /**
+     * Translates the input message into a Command object.
+     *
+     * @param message The String input from the user.
+     * @return The corresponding Command object.
+     * @throws EmptyDescriptionException if there is no description for the string representing the input task.
+     * @throws InvalidCommandException if the message is not supported.
+     */
     static public Command parse(String message) throws EmptyDescriptionException, InvalidCommandException {
         String[] input = message.split(" ", 2);
         String command = input[0];
