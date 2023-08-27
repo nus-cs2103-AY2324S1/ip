@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Task {
+public abstract class Task {
     /**
      * name of task
      */
