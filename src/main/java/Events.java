@@ -29,8 +29,39 @@ public class Events extends Tasks {
         }
     }
 
+    public Events(String completion, String taskDesc, String from, String to) {
+        try {
+            if (completion.equals("1")){
+                this.taskDesc = taskDesc.trim();
+                this.from = from.trim();
+                this.to = to.trim();
+                this.markDone();
+            } else {
+                this.taskDesc = taskDesc.trim();
+                this.from = from.trim();
+                this.to = to.trim();
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Hey! There is an invalid todo task in the task list!");
+            this.taskDesc = null;
+        }
+    }
+
+
     public boolean isValid() {
         return taskDesc != null;
+    }
+    @Override
+    public String toFileString() {
+        String x;
+        if (this.status) {
+            x = "1";
+        } else {
+            x = "0";
+        }
+
+        String str1 = String.format("%s", x);
+        return "E | " + str1 + " | " + this.taskDesc + " | " + this.from + " | " + this.to;
     }
 
     @Override

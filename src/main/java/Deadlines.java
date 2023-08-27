@@ -19,8 +19,37 @@ public class Deadlines extends Tasks {
         }
     }
 
+    public Deadlines(String completion, String taskDesc, String duedate) {
+        try {
+            if (completion.equals("1")){
+                this.taskDesc = taskDesc.trim();
+                this.duedate = duedate.trim();
+                this.markDone();
+            } else {
+                this.taskDesc = taskDesc.trim();
+                this.duedate = duedate.trim();
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Hey! There is an invalid todo task in the task list!");
+            this.taskDesc = null;
+        }
+    }
+
     public boolean isValid() {
         return taskDesc != null;
+    }
+
+    @Override
+    public String toFileString() {
+        String x;
+        if (this.status) {
+            x = "1";
+        } else {
+            x = "0";
+        }
+
+        String str1 = String.format("%s", x);
+        return "D | " + str1 + " | " + this.taskDesc + " | " + this.duedate;
     }
 
     @Override
