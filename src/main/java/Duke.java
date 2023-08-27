@@ -92,7 +92,7 @@ public class Duke {
 
     private void validateMarkOrUnmarkorDelete(String number) throws DukeException {
         if (number.isBlank()) {
-            throw new DukeException("Boop Beep OOPS!!! Please make sure that the index of the task is not empty.");
+            throw new DukeException("Boop Beep OOPS! Please make sure that the index of the task is not empty.");
         } else {
             try {
                 int numberInt = Integer.parseInt(number);
@@ -218,7 +218,7 @@ public class Duke {
                 f.getParentFile().mkdirs();
                 f.createNewFile();
             } catch (IOException e) {
-                System.out.println("Boop Beep OOPS, " + e.getMessage());
+                System.out.println("Boop Beep OOPS! " + e.getMessage());
             }
         }
 
@@ -304,14 +304,14 @@ public class Duke {
                     int index = Integer.parseInt(number) - 1;
                     deleteFromList(index);
                 } else {
-                    throw new DukeException("Boop Beep OOPS!!! I'm sorry, but I don't know what that means :(");
+                    throw new DukeException("Boop Beep OOPS! I'm sorry, but I don't know what that means :(");
                 }
 
                 saveList(PATH);
             } catch (DukeException e) {
                 printMessage(e.getMessage());
             } catch (IOException e) {
-                printMessage("Boop Beep OOPS, " + e.getMessage());
+                printMessage("Boop Beep OOPS! " + e.getMessage());
             }
         }
 
