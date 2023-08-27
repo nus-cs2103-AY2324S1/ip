@@ -1,7 +1,12 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Scanner;
 
 public class Duke {
     public static class DukeException extends Exception {
@@ -188,6 +193,11 @@ public class Duke {
                         }
                     }
                     if (title.length() != 0 || deadline.length() != 0) {
+                        try {
+                            LocalDate fromDate = LocalDate.parse(deadline);
+                            deadline = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+                        } catch (DateTimeException ignored) {
+                        }
                         tasks.add(new Deadline(title.toString(), deadline.toString()));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.get(tasks.size() - 1));
@@ -232,6 +242,16 @@ public class Duke {
                         }
                     }
                     if (title.length() != 0 || from.length() != 0 || to.length() != 0) {
+                        try {
+                            LocalDate fromDate = LocalDate.parse(from);
+                            from = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+                        } catch (DateTimeException ignored) {
+                        }
+                        try {
+                            LocalDate fromDate = LocalDate.parse(to);
+                            to = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
+                        } catch (DateTimeException ignored) {
+                        }
                         tasks.add(new Event(title.toString(), from.toString(), to.toString()));
                         System.out.println("Got it. I've added this task:");
                         System.out.println(tasks.get(tasks.size() - 1));
