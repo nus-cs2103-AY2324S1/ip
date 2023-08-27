@@ -11,8 +11,23 @@ public class ToDo extends Task {
         return new ToDo (command.substring(5));
     }
 
+    public static ToDo createToDoFromStorage(String storageString) {
+        String[] split = storageString.split(" \\| ");
+        String isDone = split[1];
+        String taskDescription = split[2];
+        ToDo todo = new ToDo (taskDescription);
+        if (isDone.equals("1")) {
+            todo.markAsDone();
+        }
+        return todo;
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    public String toStorageString() {
+        return "T" + super.toStorageString();
     }
 }

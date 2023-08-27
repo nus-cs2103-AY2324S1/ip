@@ -30,10 +30,27 @@ public class Event extends Task {
         String to = split[1];
         return new Event(taskDescription, from, to);
     }
+
+    public static Event createEventFromStorage(String storageString) {
+        String[] split = storageString.split(" \\| ");
+        String isDone = split[1];
+        String taskDescription = split[2];
+        String from = split[3];
+        String to = split[4];
+        Event event = new Event(taskDescription, from, to);
+        if (isDone.equals("1")) {
+            event.markAsDone();
+        }
+        return event;
+    }
     
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to +")";
+    }
+
+    public String toStorageString() {
+        return "E" + super.toStorageString() + " | " + from + " | " + to;
     }
     
 }

@@ -21,9 +21,25 @@ public class Deadline extends Task {
         return new Deadline(split[0], split[1]);
     }
 
+    public static Deadline createDeadlineFromStorage(String storageString) {
+        String[] split = storageString.split(" \\| ");
+        String isDone = split[1];
+        String taskDescription = split[2];
+        String by = split[3];
+        Deadline deadline = new Deadline(taskDescription, by);
+        if (isDone.equals("1")) {
+            deadline.markAsDone();
+        }
+        return deadline;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    public String toStorageString() {
+        return "D" + super.toStorageString() + " | " + by;
     }
 }
 

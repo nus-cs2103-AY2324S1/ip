@@ -1,6 +1,8 @@
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
 
 public class Duke {
     private static final String LOGO = ",------.,--.              ,--.  \n"
@@ -16,9 +18,39 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        loadTasksFromFile();
         printWelcomeMessage();
         handleUserInput();
         printFarewellMessage();
+    }
+
+    private static void loadTasksFromFile() {
+        File file = getFile();
+        
+        try (Scanner sc = new Scanner(file)) {
+            file.createNewFile();
+            while (sc.hasNextLine()) {
+                String entry = sc.nextLine();
+                addTaskFromStorage(entry);
+            }
+        } catch (Exception e) {
+            printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
+        }
+    }
+
+    private static File getFile() {
+        File file = new File("data/duke.txt");
+        if (file.exists()) {
+            return file;
+        } 
+
+        try {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        } catch (Exception e) {
+            printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
+        }
+        return file;
     }
 
     private static void handleUserInput() {
@@ -101,11 +133,38 @@ public class Duke {
 
             if (newTask != null) {
                 tasks.add(newTask);
+                saveTaskToStorage(newTask);
                 printAddedTaskConfirmation(newTask);
             } 
 
         } catch (DukeException e) {
             printErrorMessage(e);
+        }
+    }
+
+    private static void addTaskFromStorage(String task) {
+        Task newTask = null;
+        if (task.startsWith("T")) {
+            newTask = ToDo.createToDoFromStorage(task);
+        } else if (task.startsWith("D")) {
+            newTask = Deadline.createDeadlineFromStorage(task);
+        } else if (task.startsWith("E")) {
+            newTask = Event.createEventFromStorage(task);
+        }
+
+        if (newTask != null) {
+            tasks.add(newTask);
+        } 
+    }
+
+    private static void saveTaskToStorage(Task task) {
+        try {
+            File file = getFile();
+            FileWriter fw = new FileWriter(file, true);
+            fw.write(task.toStorageString() + "\n");
+            fw.close();
+        } catch (Exception e) {
+            printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
         }
     }
     
@@ -123,6 +182,7 @@ public class Duke {
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println("  " + task);
             System.out.println(LINE);
+            
         } catch (NumberFormatException e) {
             printErrorMessage(new DukeException("Invalid command format"));
         }
@@ -141,6 +201,8 @@ public class Duke {
             System.out.println("  " + task);
             System.out.println("Now you have " + tasks.size() + " tasks in the list.");
             System.out.println(LINE);
+
+            
         } catch (NumberFormatException e) {
             printErrorMessage(new DukeException("Invalid command format"));
         }
