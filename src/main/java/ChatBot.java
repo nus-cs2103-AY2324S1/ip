@@ -19,11 +19,12 @@ public class ChatBot {
                 " What can I do for you?\n" +
                 lineBreak);
 
+        // Checks if data directory is available
         File dir = new File("./data");
         if (!dir.exists()) {
             dir.mkdir();
         }
-
+        // Checks if file is available
         file = new File("./data/list.txt");
         if (!file.exists()) {
             try {
@@ -32,6 +33,8 @@ public class ChatBot {
                 e.printStackTrace();
             }
         }
+        
+        // Reads all the tasks on the file
         try {
             readAllTasks();
         } catch (FileNotFoundException f) {

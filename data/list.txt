@@ -1,3 +1,0 @@
-T | X | read book
-T | X | eat
-T |   | sleep
