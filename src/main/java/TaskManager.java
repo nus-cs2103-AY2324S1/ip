@@ -9,7 +9,7 @@ public class TaskManager {
     }
 
     public enum ActionType {
-        BYE, LIST, SAVE, LOAD, MARK, UNMARK, DELETE, CLEAR, TODO, DEADLINE, EVENT;
+        BYE, LIST, SAVE, LOAD, MARK, UNMARK, DELETE, CLEAR, CLEARFILE, TODO, DEADLINE, EVENT;
     }
 
     public void handleAction(String input) throws DukeException{
@@ -41,6 +41,10 @@ public class TaskManager {
                 break;
             case CLEAR:
                 this.clear();
+                break;
+            case CLEARFILE:
+                Storage storage = new Storage();
+                storage.clearFile();
                 break;
             default:
                 Task task = Task.createTask(input);
@@ -125,12 +129,12 @@ public class TaskManager {
 
     public void saveToFile() throws DukeException{
         Storage storage  = new Storage();
-        storage.saveToFile(this.toFileString());
+        storage.saveStringToFile(this.toFileString());
     }
 
     public void loadFromFile() throws DukeException{
         Storage storage  = new Storage();
-        String fileString = storage.loadFromFile();
+        String fileString = storage.loadStringFromFile();
         String[] fileStringArray = fileString.split("\n");
         if (userTasks.size() > 0) {
             throw new DukeException("Please clear your current task list before loading from file.");
@@ -150,7 +154,7 @@ public class TaskManager {
                 task = new Event();
                 break;
             default:
-                throw new DukeException("Task type not recognised.");
+                throw new DukeException("Corrupted, task type not recognised.");
             }
             task.fromFileString(fileStringArray[i]);
             this.add(task);

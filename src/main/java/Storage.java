@@ -5,18 +5,19 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath = "data/tasks.txt";
-    private String fileDirectory = "data";
-    private String fileName = "tasks.txt";
+    private String FILEPATH = "data/tasks.txt";
 
-    public void saveToFile(String textToAdd) throws DukeException {
+    public void saveStringToFile(String textToAdd) throws DukeException {
         try {
-            File file = new File(filePath);
+            File file = new File(FILEPATH);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
+                System.out.println("File created: " + file.getName());
+            } else if (file.length() > 0) {
+                throw new DukeException("Clear the file before saving by using clearfile.");
             }
-            FileWriter fw = new FileWriter(filePath, true);
+            FileWriter fw = new FileWriter(FILEPATH, true);
             fw.write(textToAdd);
             fw.close();
         } catch (IOException e) {
@@ -24,10 +25,10 @@ public class Storage {
         }
     }
 
-    public String loadFromFile() throws DukeException {
+    public String loadStringFromFile() throws DukeException {
         try {
             // check if file exists
-            File file = new File(filePath);
+            File file = new File(FILEPATH);
             if (!file.exists()) {
                 throw new DukeException("File does not exist.");
             }
@@ -41,5 +42,20 @@ public class Storage {
             throw new DukeException("Loading failed: " + e.getMessage());
         }
     }
+
+    public void clearFile() throws DukeException {
+        try {
+            File file = new File(FILEPATH);
+            if (!file.exists()) {
+                throw new DukeException("File does not exist.");
+            } 
+            FileWriter fw = new FileWriter(FILEPATH);
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            throw new DukeException("Clearing failed: " + e.getMessage());
+        }
+    }
+
 
 }
