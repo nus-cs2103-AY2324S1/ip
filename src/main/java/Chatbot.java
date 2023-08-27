@@ -1,3 +1,4 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -222,9 +223,21 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                                             "The 'deadline' command requires supplying '/by <deadline>'!"
                                     );
                                 }
+
+                                long byTimestamp;
+                                try {
+                                    byTimestamp = EpochConverter.getEpochFromISODateString(command.getParam("by"));
+                                } catch (DateTimeParseException e) {
+                                    throw new ChatbotException(
+                                            "The deadline supplied is invalid! It must be a correct date and follow the " +
+                                                    "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm).\n" +
+                                                    "For example, 2023-01-31T12:34 is one such valid date."
+                                    );
+                                }
+
                                 task = new TaskManager.Deadline(
                                         command.getData(),
-                                        command.getParam("by")
+                                        byTimestamp
                                 );
                                 break;
 
@@ -235,10 +248,24 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                                             "The 'event' command requires supplying both '/from <date>' and '/to <date>'!"
                                     );
                                 }
+
+                                long startTimestamp;
+                                long endTimestamp;
+                                try {
+                                    startTimestamp = EpochConverter.getEpochFromISODateString(command.getParam("from"));
+                                    endTimestamp = EpochConverter.getEpochFromISODateString(command.getParam("to"));
+                                } catch (DateTimeParseException e) {
+                                    throw new ChatbotException(
+                                            "The date range supplied is invalid! They must be correct dates and follow the " +
+                                                    "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm:ss).\n" +
+                                                    "For example, 2023-01-31T12:34 is one such valid date."
+                                    );
+                                }
+
                                 task = new TaskManager.Event(
                                         command.getData(),
-                                        command.getParam("from"),
-                                        command.getParam("to")
+                                        startTimestamp,
+                                        endTimestamp
                                 );
                                 break;
 
@@ -300,7 +327,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         } catch (ChatbotException e) {
             this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oops! " + e.getMessage());
         } catch (Exception e) {
-            this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oh no, something unexpectedly went wrong! :(");
+            this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oh no, something unexpectedly went wrong! The internal error was: " + e.getLocalizedMessage());
         }
     }
 

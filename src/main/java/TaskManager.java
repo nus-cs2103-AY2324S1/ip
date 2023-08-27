@@ -88,18 +88,18 @@ public class TaskManager {
      */
     public static class Deadline extends Task {
 
-        private String deadline; // TODO: dates should not be a string
+        private long deadline;
 
-        public Deadline(String title, String deadline) {
+        public Deadline(String title, long deadline) {
             super(title);
             this.deadline = deadline;
         }
 
         /**
          * Obtains the deadline of this task.
-         * @return The deadline of this task as a string.
+         * @return The deadline of this task as seconds since Unix epoch (1970-01-01 00:00:00 UTC).
          */
-        public String getDeadline() {
+        public long getDeadline() {
             return this.deadline;
         }
 
@@ -109,7 +109,7 @@ public class TaskManager {
                     "<D> %s %s (by: %s)",
                     this.getCompletedIndicatorString(),
                     this.getTitle(),
-                    this.getDeadline()
+                    EpochConverter.getUserReadableStringFromEpoch(this.getDeadline())
             );
         }
     }
@@ -120,10 +120,10 @@ public class TaskManager {
      */
     public static class Event extends Task {
 
-        private String startTimestamp; // TODO: Start times should not be a string.
-        private String endTimestamp; // TODO: End times should not be a string.
+        private long startTimestamp; // TODO: Start times should not be a string.
+        private long endTimestamp; // TODO: End times should not be a string.
 
-        public Event(String title, String startTimestamp, String endTimestamp) {
+        public Event(String title, long startTimestamp, long endTimestamp) {
             super(title);
             this.startTimestamp = startTimestamp;
             this.endTimestamp = endTimestamp;
@@ -132,18 +132,18 @@ public class TaskManager {
         /**
          * Obtains the starting timestamp of this event task.
          *
-         * @return The starting timestamp as a string.
+         * @return The starting timestamp as seconds since Unix epoch (1970-01-01 00:00:00 UTC).
          */
-        public String getStartTimestamp() {
+        public long getStartTimestamp() {
             return this.startTimestamp;
         }
 
         /**
          * Obtains the ending timestamp of this event task.
          *
-         * @return The ending timestamp as a string.
+         * @return The ending timestamp as seconds since Unix epoch (1970-01-01 00:00:00 UTC).
          */
-        public String getEndTimestamp() {
+        public long getEndTimestamp() {
             return this.endTimestamp;
         }
 
@@ -153,8 +153,8 @@ public class TaskManager {
                     "<E> %s %s (from: %s, to: %s)",
                     this.getCompletedIndicatorString(),
                     this.getTitle(),
-                    this.getStartTimestamp(),
-                    this.getEndTimestamp()
+                    EpochConverter.getUserReadableStringFromEpoch(this.getStartTimestamp()),
+                    EpochConverter.getUserReadableStringFromEpoch(this.getEndTimestamp())
             );
         }
     }

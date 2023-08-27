@@ -17,19 +17,19 @@ You have 1 tasks in your list now! :)
 
 > 
 Got it. I've added this task:
-  <D> [ ] return book (by: June 6th)
+  <D> [ ] return book (by: Jun 6, 2023, 12:00 AM)
 You have 2 tasks in your list now! :)
 
 > 
 Got it. I've added this task:
-  <E> [ ] project meeting (from: Aug 6th 2pm, to: 4pm)
+  <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
 You have 3 tasks in your list now! :)
 
 > 
 Here are your tasks, glhf! :)
 1. <T> [ ] read book
-2. <D> [ ] return book (by: June 6th)
-3. <E> [ ] project meeting (from: Aug 6th 2pm, to: 4pm)
+2. <D> [ ] return book (by: Jun 6, 2023, 12:00 AM)
+3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
 
 > 
 Got it. I've added this task:
@@ -44,28 +44,27 @@ You have 5 tasks in your list now! :)
 > 
 Here are your tasks, glhf! :)
 1. <T> [ ] read book
-2. <D> [ ] return book (by: June 6th)
-3. <E> [ ] project meeting (from: Aug 6th 2pm, to: 4pm)
+2. <D> [ ] return book (by: Jun 6, 2023, 12:00 AM)
+3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
 4. <T> [ ] join sports club
 5. <T> [ ] borrow book
 
 > 
 Got it. I've added this task:
-  <D> [ ] ip week 2 (by: Aug 24th)
+  <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
 You have 6 tasks in your list now! :)
 
 > 
-Got it. I've added this task:
-  <D> [ ] tp (by: idk)
-You have 7 tasks in your list now! :)
+Oops! The deadline supplied is invalid! It must be a correct date and follow the ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm).
+For example, 2023-01-31T12:34 is one such valid date.
 
 > 
 Oops! The 'deadline' command requires supplying '/by <deadline>'!
 
 > 
 Got it. I've added this task:
-  <E> [ ] test (from: blah, to: bleh)
-You have 8 tasks in your list now! :)
+  <E> [ ] test (from: Jan 1, 2030, 12:00 AM, to: Dec 31, 2040, 12:00 AM)
+You have 7 tasks in your list now! :)
 
 > 
 Oops! The 'event' command requires supplying both '/from <date>' and '/to <date>'!
@@ -76,13 +75,12 @@ Oops! The 'event' command requires supplying both '/from <date>' and '/to <date>
 > 
 Here are your tasks, glhf! :)
 1. <T> [ ] read book
-2. <D> [ ] return book (by: June 6th)
-3. <E> [ ] project meeting (from: Aug 6th 2pm, to: 4pm)
+2. <D> [ ] return book (by: Jun 6, 2023, 12:00 AM)
+3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
 4. <T> [ ] join sports club
 5. <T> [ ] borrow book
-6. <D> [ ] ip week 2 (by: Aug 24th)
-7. <D> [ ] tp (by: idk)
-8. <E> [ ] test (from: blah, to: bleh)
+6. <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
+7. <E> [ ] test (from: Jan 1, 2030, 12:00 AM, to: Dec 31, 2040, 12:00 AM)
 
 > 
 Nice! I've marked this task as done:
@@ -99,13 +97,12 @@ Nice! I've marked this task as done:
 > 
 Here are your tasks, glhf! :)
 1. <T> [X] read book
-2. <D> [ ] return book (by: June 6th)
-3. <E> [ ] project meeting (from: Aug 6th 2pm, to: 4pm)
+2. <D> [ ] return book (by: Jun 6, 2023, 12:00 AM)
+3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
 4. <T> [X] join sports club
 5. <T> [X] borrow book
-6. <D> [ ] ip week 2 (by: Aug 24th)
-7. <D> [ ] tp (by: idk)
-8. <E> [ ] test (from: blah, to: bleh)
+6. <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
+7. <E> [ ] test (from: Jan 1, 2030, 12:00 AM, to: Dec 31, 2040, 12:00 AM)
 
 > 
 OK, I've marked this task as not done yet:
@@ -113,48 +110,44 @@ OK, I've marked this task as not done yet:
 
 > 
 Nice! I've marked this task as done:
-   <D> [X] return book (by: June 6th)
+   <D> [X] return book (by: Jun 6, 2023, 12:00 AM)
 
 > 
 Nice! I've marked this task as done:
-   <D> [X] ip week 2 (by: Aug 24th)
+   <D> [X] ip week 2 (by: Aug 24, 2024, 12:00 AM)
 
 > 
 OK, I've marked this task as not done yet:
-   <D> [ ] ip week 2 (by: Aug 24th)
+   <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
 
 > 
-Nice! I've marked this task as done:
-   <E> [X] test (from: blah, to: bleh)
+Oops! There is no task in the list numbered 8!
 
 > 
-Oops! The task was already done!
+Oops! There is no task in the list numbered 8!
 
 > 
 Here are your tasks, glhf! :)
 1. <T> [X] read book
-2. <D> [X] return book (by: June 6th)
-3. <E> [ ] project meeting (from: Aug 6th 2pm, to: 4pm)
+2. <D> [X] return book (by: Jun 6, 2023, 12:00 AM)
+3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
 4. <T> [ ] join sports club
 5. <T> [X] borrow book
-6. <D> [ ] ip week 2 (by: Aug 24th)
-7. <D> [ ] tp (by: idk)
-8. <E> [X] test (from: blah, to: bleh)
+6. <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
+7. <E> [ ] test (from: Jan 1, 2030, 12:00 AM, to: Dec 31, 2040, 12:00 AM)
 
 > 
 Alright, I've deleted this task:
-   <D> [ ] ip week 2 (by: Aug 24th)
-You're left with 7 tasks now! :)
-
-> 
-Alright, I've deleted this task:
-   <T> [ ] join sports club
+   <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
 You're left with 6 tasks now! :)
 
 > 
 Alright, I've deleted this task:
-   <E> [X] test (from: blah, to: bleh)
+   <T> [ ] join sports club
 You're left with 5 tasks now! :)
+
+> 
+Oops! There is no task in the list numbered 6!
 
 > 
 Oops! There is no task in the list numbered 6!
@@ -162,10 +155,10 @@ Oops! There is no task in the list numbered 6!
 > 
 Here are your tasks, glhf! :)
 1. <T> [X] read book
-2. <D> [X] return book (by: June 6th)
-3. <E> [ ] project meeting (from: Aug 6th 2pm, to: 4pm)
+2. <D> [X] return book (by: Jun 6, 2023, 12:00 AM)
+3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
 4. <T> [X] borrow book
-5. <D> [ ] tp (by: idk)
+5. <E> [ ] test (from: Jan 1, 2030, 12:00 AM, to: Dec 31, 2040, 12:00 AM)
 
 > 
 Bye! Hope to see you again soon! ^-^
