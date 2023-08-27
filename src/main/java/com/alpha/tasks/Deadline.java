@@ -12,6 +12,10 @@ public class Deadline extends Task {
     this.end = end;
   }
 
+  public String getEnd() {
+    return end;
+  }
+
   @Override
   public String toString() {
     return super.toString() + " (by: " + end + ")";
