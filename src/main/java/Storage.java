@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -66,10 +67,11 @@ public class Storage {
                     Todo.addTodo(splitInput[2]).changeStatus(isDone);
                     break;
                 case "D":
-                    Deadline.addDeadline(splitInput[2], splitInput[3]).changeStatus(isDone);
+                    Deadline.addDeadline(splitInput[2], LocalDateTime.parse(splitInput[3], Task.dataFormat)).changeStatus(isDone);
                     break;
                 case "E":
-                    Event.addEvent(splitInput[2], splitInput[3], splitInput[4]).changeStatus(isDone);
+                    Event.addEvent(splitInput[2], LocalDateTime.parse(splitInput[3], Task.dataFormat), LocalDateTime.parse(splitInput[4], Task.dataFormat))
+                         .changeStatus(isDone);
                     break;
                 }
             }

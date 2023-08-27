@@ -10,34 +10,45 @@
     ____________________________________________________________
 
     ____________________________________________________________
+     Try the date format [dd.mm.yyyy tttt]:
+       eg. [05.08.2020 1500] for 5 Aug 2020, 3PM
+    ____________________________________________________________
+
+    ____________________________________________________________
      I've added the following task as requested:
-       [D][ ] eat lunch (by: 1st june mon)
+       [D][ ] eat lunch (by: 01 Jun 2024, 03:00 PM)
      There are currently 2 tasks in your list.
     ____________________________________________________________
 
     ____________________________________________________________
-     Wrong format, try "event [DESCRIPTION] /from [START] /to [END]"
+     Wrong format, make sure your command is in the format:
+      event [DESCRIPTION] /from [dd.mm.yyyy] /to [dd.mm.yyyy]
     ____________________________________________________________
 
     ____________________________________________________________
      Here are your tasks:
      1.[T][ ] buy 2 groceries
-     2.[D][ ] eat lunch (by: 1st june mon)
+     2.[D][ ] eat lunch (by: 01 Jun 2024, 03:00 PM)
     ____________________________________________________________
 
     ____________________________________________________________
      Task updated as requested:
-       [D][X] eat lunch (by: 1st june mon)
+       [D][X] eat lunch (by: 01 Jun 2024, 03:00 PM)
+    ____________________________________________________________
+
+    ____________________________________________________________
+     An event cannot end before it starts... might wanna check your dates
     ____________________________________________________________
 
     ____________________________________________________________
      I've added the following task as requested:
-       [E][ ] japan holiday trip (from: mid june to: end july)
+       [E][ ] japan holiday trip (from: 06 Jul 2023, 12:00 AM to: 07 Jul 2023, 07:30 PM)
      There are currently 3 tasks in your list.
     ____________________________________________________________
 
     ____________________________________________________________
-     Wrong format, try "deadline [DESCRIPTION] /by [TIME]"
+     Try the date format [dd.mm.yyyy tttt]:
+       eg. [05.08.2020 1500] for 5 Aug 2020, 3PM
     ____________________________________________________________
 
     ____________________________________________________________
@@ -46,7 +57,7 @@
 
     ____________________________________________________________
      Task updated as requested:
-       [E][X] japan holiday trip (from: mid june to: end july)
+       [E][X] japan holiday trip (from: 06 Jul 2023, 12:00 AM to: 07 Jul 2023, 07:30 PM)
     ____________________________________________________________
 
     ____________________________________________________________
@@ -56,7 +67,7 @@
 
     ____________________________________________________________
      Task updated as requested:
-       [D][ ] eat lunch (by: 1st june mon)
+       [D][ ] eat lunch (by: 01 Jun 2024, 03:00 PM)
     ____________________________________________________________
 
     ____________________________________________________________
@@ -64,23 +75,25 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     Wrong format, try "todo [DESCRIPTION]"
+     Wrong format, make sure your command is in the format:
+       todo [DESCRIPTION]
     ____________________________________________________________
 
     ____________________________________________________________
      Here are your tasks:
      1.[T][ ] buy 2 groceries
-     2.[D][ ] eat lunch (by: 1st june mon)
-     3.[E][X] japan holiday trip (from: mid june to: end july)
+     2.[D][ ] eat lunch (by: 01 Jun 2024, 03:00 PM)
+     3.[E][X] japan holiday trip (from: 06 Jul 2023, 12:00 AM to: 07 Jul 2023, 07:30 PM)
     ____________________________________________________________
 
     ____________________________________________________________
-     You need to provide a valid number
+     You need to provide a valid number:
+       eg. delete 1
     ____________________________________________________________
 
     ____________________________________________________________
      I've removed the following task as requested:
-       [D][ ] eat lunch (by: 1st june mon)
+       [D][ ] eat lunch (by: 01 Jun 2024, 03:00 PM)
      There are currently 2 tasks in your list.
     ____________________________________________________________
 
@@ -92,7 +105,23 @@
     ____________________________________________________________
      Here are your tasks:
      1.[T][ ] buy 2 groceries
-     2.[E][X] japan holiday trip (from: mid june to: end july)
+     2.[E][X] japan holiday trip (from: 06 Jul 2023, 12:00 AM to: 07 Jul 2023, 07:30 PM)
+    ____________________________________________________________
+
+    ____________________________________________________________
+     I've removed the following task as requested:
+       [T][ ] buy 2 groceries
+     There are currently 1 tasks in your list.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     I've removed the following task as requested:
+       [E][X] japan holiday trip (from: 06 Jul 2023, 12:00 AM to: 07 Jul 2023, 07:30 PM)
+     There are currently 0 tasks in your list.
+    ____________________________________________________________
+
+    ____________________________________________________________
+     Here are your tasks:
     ____________________________________________________________
 
     ____________________________________________________________
