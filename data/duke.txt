@@ -1,4 +1,0 @@
-[T] [ ] read book
-[D] [ ] return book (by: Jun 06 2023)
-[E] [ ] orientation week (from: Jul 31 2023 to: Aug 04 2023)
-[D] [ ] finish cs2103t quiz (by: Sep 01 2023)
