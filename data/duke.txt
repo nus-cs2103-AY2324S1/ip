@@ -1,0 +1,4 @@
+T |   | buy book
+T |   | sell book
+E |   | project meeting | Aug 5th 2pm to 6pm
+D |   | CS2103T iP | Thursday 2359

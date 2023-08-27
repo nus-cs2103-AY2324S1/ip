@@ -23,4 +23,8 @@ public class Task {
     public void markNotDone() {
         this.isDone = false;
     }
+
+    public String lineToWriteFile() {
+        return (isDone ? "X" : " ") + " | " + this.description;
+    }
 }
