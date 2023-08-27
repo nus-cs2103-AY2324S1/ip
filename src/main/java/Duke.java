@@ -8,16 +8,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private static final String LINE = "\t____________________________________________________________";
     private static String DATAPATH = "./data/duke.txt";
 
-    Scanner scanner = new Scanner(System.in);
-    private TaskList taskList = new TaskList();
+    private TaskList taskList;
+    private Ui ui;
 
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, DELETE, CHECK, TODAY,
         TODO, DEADLINE, EVENT,
+    }
 
+    public Duke() {
+        this.taskList = new TaskList();
+        this.ui = new Ui();
     }
 
     private void loadData() {
@@ -31,18 +34,13 @@ public class Duke {
         }
     }
 
-    private void greet() {
-        System.out.println(LINE);
-        System.out.println("\t Hello! I'm Bard.");
-        System.out.println("\t What can I do for you?");
-        System.out.println(LINE);
-        System.out.println();
-    }
+    private void run() {
+        this.ui.showGreet();
+        this.loadData();
 
-    private void getUserInput() {
         while (true) {
             try {
-                String userInput = scanner.nextLine();
+                String userInput = this.ui.readInput();
 
                 if (userInput.trim().isEmpty()) {
                     throw new EmptyCommandException();
@@ -56,7 +54,7 @@ public class Duke {
                     this.exit();
                     return;
                 case LIST:
-                    this.showList();
+                    this.ui.showList(this.taskList);
                     break;
                 case MARK:
                     this.markTaskAsDone(parts);
@@ -80,16 +78,13 @@ public class Duke {
                     this.checkTasksOnDate(parts);
                     break;
                 case TODAY:
-                    this.printTasksForToday();
+                    this.checkTasksForToday();
                     break;
                 default:
                     throw new UnknownCommandException();
                 }
             } catch (DukeException e) {
-                System.out.println(LINE);
-                System.out.println("\t" + e.getMessage());
-                System.out.println(LINE);
-                System.out.println();
+                this.ui.showDukeException(e);
             }
         }
     }
@@ -103,27 +98,8 @@ public class Duke {
     }
 
     private void exit() {
-        System.out.println(LINE);
-        System.out.println("\t Bye. Hope to see you again soon!");
-        System.out.println(LINE);
-    }
-
-    private void showList() {
-        if (taskList.isEmpty()) {
-            System.out.println(LINE);
-            System.out.println("\t There are no tasks in your list.");
-            System.out.println(LINE);
-            System.out.println();
-            return;
-        }
-
-        System.out.println(LINE);
-        System.out.println("\t Here are the tasks in your list:");
-        for (int i = 0; i < taskList.getLength(); i++) {
-            System.out.println("\t " + (i + 1) + ". " + taskList.get(i));
-        }
-        System.out.println(LINE);
-        System.out.println();
+        this.saveTask();
+        this.ui.closeInput();
     }
 
     private void markTaskAsDone(String[] userCommandParts) throws InvalidTaskIndexException {
@@ -134,31 +110,13 @@ public class Duke {
             }
 
             Task task = taskList.get(taskIndex);
-            if (task.isDone) {
-                System.out.println(LINE);
-                System.out.println("\t ☹ OOPS!!! This task is already marked as done:\n" +
-                        "\t\t" + taskList.get(taskIndex));
-                System.out.println(LINE);
-                System.out.println();
-            } else {
-                task.markAsDone();
-                System.out.println(LINE);
-                System.out.println("\t Nice! I've marked this task as done:\n" +
-                        "\t\t" + taskList.get(taskIndex));
-                System.out.println(LINE);
-                System.out.println();
-                saveTask();
-            }
+            task.markAsDone();
+            this.ui.showDone(task);
+            saveTask();
         } catch (InvalidTaskIndexException e) {
-            System.out.println(LINE);
-            System.out.println("\t" + e.getMessage());
-            System.out.println(LINE);
-            System.out.println();
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println(LINE);
-            System.out.println("\t ☹ OOPS!!! Please provide a valid task number to mark as done.");
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showDukeException(e);
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            this.ui.showArrayIndexOutOfBoundsException();
         }
     }
 
@@ -170,31 +128,13 @@ public class Duke {
             }
 
             Task task = taskList.get(taskIndex);
-            if (!task.isDone) {
-                System.out.println(LINE);
-                System.out.println("\t OOPS!!! This task is already marked as not done:\n" +
-                        "\t\t" + taskList.get(taskIndex));
-                System.out.println(LINE);
-                System.out.println();
-            } else {
-                task.markAsNotDone();
-                System.out.println(LINE);
-                System.out.println("\t OK, I've marked this task as NOT done yet:\n" +
-                        "\t\t" + taskList.get(taskIndex));
-                System.out.println(LINE);
-                System.out.println();
-                saveTask();
-            }
+            task.markAsNotDone();
+            this.ui.showNotDone(task);
+            saveTask();
         } catch (InvalidTaskIndexException e) {
-            System.out.println(LINE);
-            System.out.println("\t" + e.getMessage());
-            System.out.println(LINE);
-            System.out.println();
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            System.out.println(LINE);
-            System.out.println("\t ☹ OOPS!!! Please provide a valid task number to mark as not done.");
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showDukeException(e);
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            this.ui.showArrayIndexOutOfBoundsException();
         }
 
     }
@@ -207,20 +147,12 @@ public class Duke {
 
             String description = userCommandParts[1].trim();
 
-            Todo newTask = new Todo(description);
-            taskList.add(newTask);
-
-            System.out.println(LINE);
-            System.out.println("\t Got it. I've added this task:\n" +
-                    "\t\t" + newTask + "\n\t Now you have " + taskList.getLength() + " tasks in the list.");
-            System.out.println(LINE);
-            System.out.println();
+            Todo newTodo = new Todo(description);
+            taskList.add(newTodo);
+            this.ui.showAdd(newTodo, this.taskList.getLength());
             saveTask();
         } catch (EmptyDescriptionException e) {
-            System.out.println(LINE);
-            System.out.println("\t" + e.getMessage());
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showDukeException(e);
         }
     }
 
@@ -241,21 +173,13 @@ public class Duke {
 
             Deadline newDeadline = new Deadline(description, dateTime);
             taskList.add(newDeadline);
-
-            System.out.println(LINE);
-            System.out.println("\t Got it. I've added this task:\n" +
-                    "\t\t" + newDeadline + "\n\t Now you have " + taskList.getLength() + " tasks in the list.");
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showAdd(newDeadline, this.taskList.getLength());
             saveTask();
 
         } catch (EmptyDescriptionException | InvalidFormatException e) {
-            System.out.println(LINE);
-            System.out.println("\t" + e.getMessage());
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showDukeException(e);
         } catch (DateTimeParseException e) {
-            System.out.println("\tPlease enter the time in the format of <d/M/yyyy HHmm>!\n");
+            this.ui.showInvalidDateTimeFormat();
         }
     }
 
@@ -277,20 +201,13 @@ public class Duke {
             Event newEvent = new Event(description, dateTime);
 
             taskList.add(newEvent);
-            System.out.println(LINE);
-            System.out.println("\t Got it. I've added this task:\n" +
-                    "\t\t" + newEvent + "\n\t Now you have " + taskList.getLength() + " tasks in the list.");
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showAdd(newEvent, this.taskList.getLength());
             saveTask();
 
         } catch (EmptyDescriptionException | InvalidFormatException e) {
-            System.out.println(LINE);
-            System.out.println("\t" + e.getMessage());
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showDukeException(e);
         } catch (DateTimeParseException e) {
-            System.out.println("\tPlease enter the time in the format of <d/M/yyyy HHmm>!\n");
+            this.ui.showInvalidDateTimeFormat();
         }
     }
 
@@ -304,24 +221,12 @@ public class Duke {
 
             Task removedTask = taskList.get(taskIndex);
             taskList.delete(taskIndex);
-
-            System.out.println(LINE);
-            System.out.println("\t Noted. I've removed this task:\n" +
-                    "\t\t" + removedTask +
-                    "\n\t Now you have " + taskList.getLength() + " tasks in the list.");
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showDelete(removedTask, this.taskList.getLength());
             saveTask();
         } catch (InvalidTaskIndexException e) {
-            System.out.println(LINE);
-            System.out.println("\t" + e.getMessage());
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showDukeException(e);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            System.out.println(LINE);
-            System.out.println("\t ☹ OOPS!!! Please provide a valid task number to delete.");
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showArrayIndexOutOfBoundsException();
         }
     }
 
@@ -330,7 +235,7 @@ public class Duke {
             Storage storage = new Storage(DATAPATH);
             storage.saveTasks(taskList);
         } catch (IOException e) {
-            System.out.println("Error saving tasks to the data file:" + e.getMessage());
+            this.ui.showSavingError();
         }
     }
 
@@ -342,87 +247,21 @@ public class Duke {
 
             String dateString = userCommandParts[1].trim();
             LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy"));
-
-            System.out.println(LINE);
-            System.out.println("\t Tasks on " + date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":");
-
-            boolean foundTasks = false;
-
-            for (int i = 0; i < taskList.getLength(); i++) {
-                Task task = taskList.get(i);
-                if (task instanceof Deadline) {
-                    Deadline deadline = (Deadline) task;
-                    if (deadline.time.toLocalDate().equals(date)) {
-                        System.out.println("\t\t " + task);
-                        foundTasks = true;
-                    }
-                } else if (task instanceof Event) {
-                    Event event = (Event) task;
-                    if (event.time.toLocalDate().equals(date)) {
-                        System.out.println("\t\t " + task);
-                        foundTasks = true;
-                    }
-                }
-            }
-
-            if (!foundTasks) {
-                System.out.println("\t\t Yay! You have no tasks on "
-                        + date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " :D");
-            }
-
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showTasksOnDate(date, taskList);
 
         } catch (EmptyDescriptionException e) {
-            System.out.println(LINE);
-            System.out.println("\t" + e.getMessage());
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showDukeException(e);
         } catch (DateTimeParseException e) {
-            System.out.println(LINE);
-            System.out.println("\t ☹ OOPS!!! Please provide a valid date in the format: d/M/yyyy.");
-            System.out.println(LINE);
-            System.out.println();
+            this.ui.showInvalidDateFormat();
         }
     }
 
-    private void printTasksForToday() {
+    private void checkTasksForToday() {
         LocalDate today = LocalDate.now();
-
-        System.out.println(LINE);
-        System.out.println("\t Tasks for today (" + today.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + "):");
-
-        boolean foundTasks = false;
-
-        for (int i = 0; i < taskList.getLength(); i++) {
-            Task task = taskList.get(i);
-            if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
-                if (deadline.time.toLocalDate().equals(today)) {
-                    System.out.println("\t\t " + task);
-                    foundTasks = true;
-                }
-            } else if (task instanceof Event) {
-                Event event = (Event) task;
-                if (event.time.toLocalDate().equals(today)) {
-                    System.out.println("\t\t " + task);
-                    foundTasks = true;
-                }
-            }
-        }
-
-        if (!foundTasks) {
-            System.out.println("\t\t Yay! You have no tasks today :D");
-        }
-
-        System.out.println(LINE);
-        System.out.println();
+        this.ui.showTasksForToday(today, taskList);
     }
 
     public static void main(String[] args) {
-        Duke duke = new Duke();
-        duke.loadData();
-        duke.greet();
-        duke.getUserInput();
+        new Duke().run();
     }
 }
