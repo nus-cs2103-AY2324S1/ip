@@ -115,19 +115,6 @@ public class Duchess {
     }
 
     /**
-     * Stores the provided String into an internal ArrayList.
-     *
-     * @param s - the string to be stored.
-     */
-    private static void storeTasks(String s) {
-        Task t = new Task(s);
-        Duchess.storedTasks.add(t);
-
-        Duchess.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
-        Duchess.duchessPrint(t.toString());
-    }
-
-    /**
      * Returns true if the command is recognized as a "list text" command.
      *
      * @param s - the command to check for "list text" command.
@@ -386,6 +373,12 @@ public class Duchess {
     public static void main(String[] args) {
         Duchess.printGreeting();
 
+        // Create the save file, if it does not exist.
+        Data.createSaveFile();
+
+        // Load tasks from the save file.
+        Data.loadTasksFromFile(Duchess.storedTasks);
+
         Scanner sc = new Scanner(System.in);
         String userInput = "";
 
@@ -497,6 +490,10 @@ public class Duchess {
         }
 
         sc.close();
+        
+        // Save the tasks.
+        Data.saveTasksToFile(Duchess.storedTasks);
+
         Duchess.printFarewell();
     }
 }
