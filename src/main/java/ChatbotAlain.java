@@ -1,11 +1,41 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 public class ChatbotAlain{
+    public static String stringToTimeString(String inputTime) throws AlainException {
+        if (Pattern.matches("\\d+-\\d+-\\d+",inputTime)) {
+            DateTimeFormatter inputPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.from(LocalDate.parse(inputTime, inputPattern));
+            DateTimeFormatter outputPattern = DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH);
+            String transformedTime = date.format(outputPattern);
+            return transformedTime.toString();
+        } else if (Pattern.matches("\\d+-\\d+-\\d+ .+",inputTime)) {
+            String[] dateAndTime = inputTime.split(" ");
+            String addMsg = "";
+            for (int i = 1; i < dateAndTime.length; i++) {
+                addMsg += dateAndTime[i];
+            }
+            DateTimeFormatter inputPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(dateAndTime[0], inputPattern);
+
+            DateTimeFormatter outputPattern = DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH);
+            String transformedTime = date.format(outputPattern);
+            return transformedTime.toString() + " " + addMsg;
+        } else if (inputTime.length() == 0) {
+            throw new AlainException(" ☹ OOPS!!! The description of a Task cannot be empty.");
+        } else {
+            return inputTime;
+        }
+    }
+
     private static void saveTasksToFile(ArrayList<Task> list, String fileName, Boolean except, String msg) throws IOException {
         File listFile = new File(fileName);
         if (!listFile.exists()) {
@@ -82,11 +112,11 @@ public class ChatbotAlain{
                     if (mission.length() == 0) {
                         throw new AlainException(" ☹ OOPS!!! The description of a Deadline cannot be empty.");
                     }
-                    String[] parts = mission.split("/");
+                    String[] parts = mission.split("by ");
                     if (parts.length != 2) {
                         throw new AlainException(" ☹ OOPS!!! The description of a Deadline is invalid");
                     }
-                    list.add(new Deadlines(parts[0], parts[1]));
+                    list.add(new Deadlines(parts[0], stringToTimeString(parts[1])));
                     String output = "____________________________________________________________\n"
                             + " Got it. I've added this task:\n"
                             + "   " + list.get(list.size() - 1) + "\n"
@@ -104,7 +134,7 @@ public class ChatbotAlain{
                     if (parts.length != 3) {
                         throw new AlainException(" ☹ OOPS!!! The description of a Event is invalid");
                     }
-                    list.add(new Events(parts[0], parts[1], parts[2]));
+                    list.add(new Events(parts[0], stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3))));
                     String output = "____________________________________________________________\n"
                             + " Got it. I've added this task:\n"
                             + "   " + list.get(list.size() - 1) + "\n"
