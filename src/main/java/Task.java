@@ -13,6 +13,10 @@ public class Task {
         return "[" + (isDone ? "X" : " ") + "] " + description;
     }
 
+    public String getFileString() {
+        return (isDone ? "✅" : "⭕️") + "|" + description;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
