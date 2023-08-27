@@ -1,20 +1,19 @@
-import java.io.File;
-import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class SaveHandler {
-  private static final String SAVE_PATH = "./data/save.txt";
+  private static final Path SAVE_PATH = Paths.get(".", "data", "save.txt");
 
   public static List<Task> load() {
     try {
-      File save = new File(SAVE_PATH);
-      Scanner reader = new Scanner(save);
+      List<String> save = Files.readAllLines(SAVE_PATH);
       List<Task> tasks = new ArrayList<>();
 
-      while (reader.hasNextLine()) {
-        String taskString = reader.nextLine();
+      for (String taskString : save) {
         String[] taskElements = taskString.split("\\|");
         Task task;
 
@@ -37,7 +36,6 @@ public class SaveHandler {
 
         tasks.add(task);
       }
-      reader.close();
       System.out.println("List loaded");
       return tasks;
     } catch (Exception e) {
@@ -48,14 +46,18 @@ public class SaveHandler {
 
   public static void save(List<Task> tasks) {
     try {
-      File save = new File(SAVE_PATH);
+      Files.createFile(SAVE_PATH);
+    } catch (IOException e) {
+    }
 
-      save.createNewFile();
-      FileWriter writer = new FileWriter(save);
+    try {
+      String saveString = "";
       for (Task task : tasks) {
-        writer.write(task.save() + "\n");
+        saveString += task.save() + "\n";
       }
-      writer.close();
+
+      byte[] saveBytes = saveString.getBytes();
+      Files.write(SAVE_PATH, saveBytes);
       System.out.println("List saved");
     } catch (Exception e) {
       System.out.println("Failed to save");
