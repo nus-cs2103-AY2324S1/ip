@@ -1,8 +1,7 @@
+package duke.task;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task {
     // Constants
@@ -11,7 +10,7 @@ public class Deadline extends Task {
     // Fields
     LocalDate deadline;
 
-    // Constructor for Deadline
+    // Constructor for duke.task.Deadline
     public Deadline(String description, LocalDate deadline) {
         super(description);
         this.deadline = deadline;

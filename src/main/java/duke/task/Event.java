@@ -1,8 +1,7 @@
+package duke.task;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 public class Event extends Task {
     // Constants
@@ -12,7 +11,7 @@ public class Event extends Task {
     LocalDate start;
     LocalDate end;
 
-    //Constructor for Event
+    //Constructor for duke.task.Event
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;

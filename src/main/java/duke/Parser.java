@@ -1,6 +1,10 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.DukeException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 public class Parser {
     public static Command parse(String input, TaskList tasks) throws DukeException {

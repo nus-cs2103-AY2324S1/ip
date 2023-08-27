@@ -1,9 +1,11 @@
+package duke.task;
+
 public class Task {
     // Fields
     private String description;
     private boolean isDone;
 
-    // Constructor for Task
+    // Constructor for duke.task.Task
     public Task(String description) {
         this.description = description;
         this.isDone = false;
