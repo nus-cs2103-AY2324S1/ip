@@ -1,9 +1,11 @@
 public class MarkCommand extends Command {
 	private String s;
+	private SaveFile saveFile;
 
-	public MarkCommand(Printer out, TaskList taskList, String s) {
+	public MarkCommand(Printer out, TaskList taskList, String s, SaveFile saveFile) {
 		super(out, taskList);
 		this.s=s;
+		this.saveFile = saveFile;
 	}
 
 	@Override
@@ -18,5 +20,6 @@ public class MarkCommand extends Command {
 		task.mark();
 
 		out.print("Nice! I've marked this task as done:", task);
+		saveFile.saveToSaveFile(taskList);
 	}
 }

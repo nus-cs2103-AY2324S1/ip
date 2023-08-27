@@ -1,9 +1,11 @@
 public class UnmarkCommand extends Command {
-  String s;
+  private String s;
+	private SaveFile saveFile;
 
-  public UnmarkCommand(Printer out, TaskList taskList, String s) {
+  public UnmarkCommand(Printer out, TaskList taskList, String s, SaveFile saveFile) {
     super(out, taskList);
     this.s = s;
+		this.saveFile = saveFile;
   }
 
   @Override
@@ -17,5 +19,6 @@ public class UnmarkCommand extends Command {
     task.unmark();
 
     out.print("Ok, I've marked this task as not done yet", task);
+		saveFile.saveToSaveFile(taskList);
   }
 }

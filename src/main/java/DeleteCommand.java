@@ -1,9 +1,11 @@
 public class DeleteCommand extends Command {
 	private String s;
+	private SaveFile saveFile;
 
-	public DeleteCommand(Printer out, TaskList taskList, String name) {
+	public DeleteCommand(Printer out, TaskList taskList, String name, SaveFile saveFile) {
 		super(out, taskList);
 		s = name;
+		this.saveFile = saveFile;
 	}
 
 	@Override
@@ -18,5 +20,6 @@ public class DeleteCommand extends Command {
     }
 
     out.print("Noted. I've removed this task:", task, taskList.getNumberOfTasks());
+		saveFile.saveToSaveFile(taskList);
   }
 }

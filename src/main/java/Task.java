@@ -40,4 +40,8 @@ public abstract class Task {
   public String toString() {
     return String.format("  [%c][%c] %s", type, mark ? 'X' : ' ', description);
   }
+
+	public String toCommand() {
+		return String.format("%s %s %s", this.getClass().getSimpleName().toLowerCase(), description, mark ? "/mark" : "");
+	}
 }

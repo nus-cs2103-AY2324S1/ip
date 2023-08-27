@@ -5,13 +5,16 @@ import java.util.Scanner;
 public class Duke {
 
 	private static final String BOT_NAME = "GOAT";
+	private static final String SAVE_FILEPATH = "data/save.txt";
+
 	private static final Scanner in = new Scanner(System.in);
 	private static final TaskList taskList = new TaskList();
 	private static final Printer out = new Printer();
-	private static final CommandFactory commandFactory = new CommandFactory(out, taskList);
+	private static final SaveFile saveFile = new SaveFile(SAVE_FILEPATH);
+	private static final CommandFactory commandFactory = new CommandFactory(out, taskList, saveFile);
 
 	public static void main(String[] args) {
-		greet();
+		initialize();
 		while (true) {
 			String input = in.nextLine().trim();
 			if (input.equals("bye"))
@@ -30,7 +33,7 @@ public class Duke {
 		out.print(e.getMessage());
 	}
 
-	static void greet() {
+	static void initialize() {
 		String logo = "        ______    ___        _    _________ \n"
 				+ "      .' ___  | .'   `.     / \\  |  _   _  |\n"
 				+ "     / .'   \\_|/  .-.  \\   / _ \\ |_/ | | \\_|\n"
@@ -39,6 +42,11 @@ public class Duke {
 				+ "      `._____.' `.___.'|____| |____|_____|  \n";
 
 		out.print(String.format("Hello from\n%s", logo), String.format("Hello! I'm %s", BOT_NAME));
+		try {
+			saveFile.readFromSaveFile();
+		} catch(Exception e) {
+			out.print("Cannot read from savefile");
+		}
 	}
 
 	static void sayBye() {

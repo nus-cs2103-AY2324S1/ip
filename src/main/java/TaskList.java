@@ -36,4 +36,13 @@ public class TaskList {
 	public int size() {
 		return tasks.size();
 	}
+
+	public String getTasksAsCommands() {
+		StringBuilder sb = new StringBuilder();
+		tasks.forEach((task) -> {
+			sb.append(task.toCommand());
+			sb.append('\n');
+		});
+		return sb.toString();
+	}
 }
