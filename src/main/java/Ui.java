@@ -25,10 +25,9 @@ public class Ui {
     public void greet() {
         talk(GREETING);
     }
+
     public void bye() {
         talk(GOODBYE);
         sc.close();
     }
-
-
 }
