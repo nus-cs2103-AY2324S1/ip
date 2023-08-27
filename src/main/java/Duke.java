@@ -1,22 +1,13 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class Duke {
 
-    private static String BOT_NAME = "SoCrates";
+    private static final String BOT_NAME = "SoCrates";
 
     private Ui ui;
     private Storage storage;
-    private List<Task> tasks;
+    private TaskList tasks;
     private boolean isRunning = true;
 
     public static void main(String[] args) {
@@ -28,10 +19,10 @@ public class Duke {
         ui = new Ui(BOT_NAME);
         storage = new Storage(filePath);
         try {
-            tasks = storage.load();
+            tasks = new TaskList(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
-            tasks = new ArrayList<>();
+            tasks = new TaskList();
         }
     }
 
@@ -78,8 +69,6 @@ public class Duke {
         }
     }
 
-
-
     private void printTaskAdded(Task task) {
         ui.showMessage(
                 "Got it. I've added this task:",
@@ -97,11 +86,11 @@ public class Duke {
     }
 
     private void performListCommand() {
-        ui.showTaskList(tasks);
+        ui.showTaskList(tasks.getAllTasks());
     }
 
     private void performClearCommand() throws DukeException {
-        tasks = new ArrayList<>();
+        tasks = new TaskList();
         saveTasks();
         ui.showMessage("Got it. I've cleared all tasks.");
     }
@@ -118,8 +107,7 @@ public class Duke {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new DukeException("No such task exists.");
         }
-        Task task = tasks.get(taskNumber - 1);
-        task.markAsDone();
+        Task task = tasks.mark(taskNumber);
 
         saveTasks();
         ui.showMessage(
@@ -140,8 +128,8 @@ public class Duke {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
             throw new DukeException("No such task exists.");
         }
-        Task task = tasks.get(taskNumber - 1);
-        task.markAsUndone();
+
+        Task task = tasks.unmark(taskNumber);
 
         saveTasks();
         ui.showMessage(
@@ -163,8 +151,7 @@ public class Duke {
             throw new DukeException("No such task exists.");
         }
 
-        Task task = tasks.get(taskNumber - 1);
-        tasks.remove(taskNumber - 1);
+        Task task = tasks.remove(taskNumber);
 
         saveTasks();
         ui.showMessage(
@@ -178,10 +165,10 @@ public class Duke {
             throw new DukeException("The description of a todo cannot be empty.");
         }
 
-        ToDo toDo = new ToDo(args);
-        addToTasks(toDo);
+        Todo todo = new Todo(args);
+        addToTasks(todo);
         saveTasks();
-        printTaskAdded(toDo);
+        printTaskAdded(todo);
     }
 
     private void performDeadlineCommand(String args) throws DukeException {

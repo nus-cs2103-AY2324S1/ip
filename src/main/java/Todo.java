@@ -1,5 +1,5 @@
-public class ToDo extends Task {
-    public ToDo(String description) {
+public class Todo extends Task {
+    public Todo(String description) {
         super(description);
     }
 
@@ -9,7 +9,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toSaveString() {
-        return "T | " + super.toSaveString();
+    public String getStorageString() {
+        return "T | " + super.getStorageString();
     }
 }

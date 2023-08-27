@@ -24,7 +24,7 @@ public abstract class Task {
         return String.format("[%s] %s", getStatusIcon(), description);
     }
 
-    public String toSaveString() {
+    public String getStorageString() {
         return String.format("%d | %s", isDone ? 1 : 0, description);
     }
 }

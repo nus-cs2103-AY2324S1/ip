@@ -30,8 +30,8 @@ public class Event extends Task {
     }
 
     @Override
-    public String toSaveString() {
-        return "E | " + super.toSaveString() + " | "
+    public String getStorageString() {
+        return "E | " + super.getStorageString() + " | "
                 + getFormattedFrom(PARSE_FORMATTER) + " | " + getFormattedTo(PARSE_FORMATTER);
     }
 }

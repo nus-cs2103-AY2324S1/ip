@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -37,7 +36,7 @@ public class Storage {
 
                 switch (type) {
                     case "T":
-                        task = new ToDo(description);
+                        task = new Todo(description);
                         break;
                     case "D":
                         String by = saveStringArgs[3];
@@ -68,16 +67,14 @@ public class Storage {
         }
     }
 
-    public void save(List<? extends Task> tasks) throws DukeException {
+    public void save(TaskList tasks) throws DukeException {
         try {
             File file = new File(filePath);
             file.getParentFile().mkdir();
 
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-            for (Task task : tasks) {
-                bufferedWriter.append(task.toSaveString()).append("\n");
-            }
-            bufferedWriter.close();
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.append(tasks.getStorageString());
+            fileWriter.close();
 
         } catch (IOException e) {
             throw new DukeException("There was an IOException while saving the tasks.");
