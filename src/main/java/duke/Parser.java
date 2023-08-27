@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Parser {
 
-    public static void parseInput(String input, TaskList list, int number, String filePath, Ui ui, Storage storage) throws DukeException{
+    public static void parseInput(String input, TaskList list, int number,
+                                  String filePath, Ui ui, Storage storage) throws DukeException{
 
-//        try {
             if (input.equalsIgnoreCase("bye")) {
                 ui.showGoodbyeMessage();
                 storage.saveTasksToFile(list.task());
