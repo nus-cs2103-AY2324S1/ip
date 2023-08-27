@@ -8,7 +8,14 @@ public class Event extends Task {
      * @param description Describes the task.
      */
     public Event(String description, String from, String to) {
-        super(description);
+        this(description, false, from, to);
+    }
+    /**
+     * Constructor to build a task with description as input.
+     * @param description Describes the task.
+     */
+    public Event(String description, boolean isDone, String from, String to) {
+        super(description, isDone);
         this.from = from;
         this.to = to;
     }

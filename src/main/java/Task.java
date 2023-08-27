@@ -7,10 +7,17 @@ public class Task {
      * @param description Describes the task.
      */
     public Task(String description) {
-        this.description = description;
-        this.isDone = false;
+         this(description, false);
     }
 
+    /**
+     * Constructor to build a task with description and isDone as input.
+     * @param description Describes the task.
+     */
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
     /**
      * It gets the status icon of whether the task is done or not.
      * @return "X" to indicate it is done and " " to indicate it is not done.
