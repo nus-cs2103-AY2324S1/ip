@@ -8,6 +8,7 @@ import exceptions.KniazRuntimeException;
 import logic.taskhandling.*;
 import parser.KniazCommand;
 import parser.KniazParser;
+import save.KniazLoader;
 import save.KniazSaver;
 import task.Deadline;
 import task.Event;
@@ -63,7 +64,16 @@ public class Kniaz {
         System.out.println(Kniaz.SEPERATOR);
 
         KniazSaver kniazSaver = new KniazSaver(); //use default
-
+        KniazLoader loader = new KniazLoader();
+        try {
+            taskList = loader.load();
+        } catch (IOException e) {
+            System.out.println("Could not load previous.");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Data did not align to a class");
+            System.out.println(e.getMessage());
+        }
         KniazCommand nextCommand; //Initialise the input
         while (true) { // I find this a bit icky but we rely on guard clauses to break instead
 

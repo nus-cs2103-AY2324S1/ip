@@ -5,12 +5,11 @@ import task.TaskList;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.ObjectOutputStream;
 
 public class KniazSaver {
 
-    public final static String DEFAULTPATH = "./data/Kniaz.txt";
+    public final static String DEFAULT_PATH = "./data/Kniaz.dat";
 
     private File saveFile;
     public KniazSaver(String path) {
@@ -18,7 +17,7 @@ public class KniazSaver {
     }
 
     public KniazSaver() {
-        this(DEFAULTPATH);
+        this(DEFAULT_PATH);
     }
 
     public void save(TaskList taskList) throws java.io.IOException,java.lang.SecurityException {
@@ -33,12 +32,9 @@ public class KniazSaver {
         }
 
         FileOutputStream fileOutputStream = new FileOutputStream(this.saveFile);
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        ObjectOutputStream taskListOutputStream = new ObjectOutputStream(fileOutputStream);
 
-        for (int i = 0; i < taskList.size(); i++) {
-            Task currTask = taskList.get(i);
-            objectOutputStream.writeObject(currTask);
-        }
+        taskListOutputStream.writeObject(taskList);
 
 
     }

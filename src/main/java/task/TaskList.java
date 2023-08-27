@@ -1,5 +1,6 @@
 package task;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  * Class encapsulating a list of Tasks, supports easy string representation, refer to Task for more details about
  * what Tasks are.
  */
-public class TaskList extends ArrayList<Task> {
+public class TaskList extends ArrayList<Task> implements Serializable {
 
     // Parent constructor is (implicitly) used
 
