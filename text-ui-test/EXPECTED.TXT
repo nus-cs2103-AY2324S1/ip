@@ -1,73 +1,85 @@
+File duke.txt not found.
 ------------------------------------------
-  Hello! I'm Jokey :) 
+  Hello! I'm Jokey :)
   What can I do for you?
 ------------------------------------------
   Got it. I've added this task:
     [T] [ ] wakeup happily
   Now you have 1 task(s) in the list.
 ------------------------------------------
+File duke.txt not found.
   Got it. I've added this task:
     [T] [ ] step out of comfort zone
   Now you have 2 task(s) in the list.
 ------------------------------------------
+File duke.txt not found.
   Nice! I've marked this task as done:
     [T] [X] wakeup happily
 ------------------------------------------
   Got it. I've added this task:
-    [E] [ ] CS2101 Lecture (from: 12PM to: 2PM)
+    [E] [ ] CS2101 Lecture (from: Aug 26 2023 to: Aug 27 2023)
   Now you have 3 task(s) in the list.
 ------------------------------------------
+File duke.txt not found.
   Got it. I've added this task:
     [T] [ ] be engaging in class
   Now you have 4 task(s) in the list.
 ------------------------------------------
+File duke.txt not found.
   Got it. I've added this task:
     [T] [ ] be lazy
   Now you have 5 task(s) in the list.
 ------------------------------------------
+File duke.txt not found.
   Nice! I've marked this task as done:
     [T] [X] be engaging in class
 ------------------------------------------
   Got it. I've added this task:
-    [E] [ ] CS2106 Tutorial (from: 2PM to: 3PM)
+    [E] [ ] CS2106 Tutorial (from: Aug 18 2003 to: Aug 18 2023)
   Now you have 6 task(s) in the list.
 ------------------------------------------
+File duke.txt not found.
   Got it. I've added this task:
     [T] [ ] pay attention to lecture
   Now you have 7 task(s) in the list.
 ------------------------------------------
+File duke.txt not found.
   Noted. I've removed this task:
     [T] [ ] be lazy
   Now you have 6 task(s) in the list.
 ------------------------------------------
+File duke.txt not found.
   :< OOPS! I'm sorry, but I don't know what that means.
 ------------------------------------------
   :< OOPS! I'm sorry, but I don't know what that means.
 ------------------------------------------
   Got it. I've added this task:
-    [E] [ ] GEC1005 Tutorial (from: 3PM to: 4PM)
+    [E] [ ] GEC1005 Tutorial (from: Jan 01 0001 to: Dec 31 9999)
   Now you have 7 task(s) in the list.
 ------------------------------------------
+File duke.txt not found.
   Got it. I've added this task:
-    [E] [ ] LAJ2201 Tutorial (from: 4PM to: 6PM)
+    [E] [ ] LAJ2201 Tutorial (from: Sep 07 1998 to: Oct 10 1998)
   Now you have 8 task(s) in the list.
 ------------------------------------------
+File duke.txt not found.
   Ok, I've marked this task as not done yet:
     [T] [ ] wakeup happily
 ------------------------------------------
   Got it. I've added this task:
-    [D] [ ] sleep (by: 1.20AM)
+    [D] [ ] sleep (by: Oct 21 2023)
   Now you have 9 task(s) in the list.
 ------------------------------------------
+File duke.txt not found.
 1. [T] [ ] wakeup happily
 2. [T] [ ] step out of comfort zone
-3. [E] [ ] CS2101 Lecture (from: 12PM to: 2PM)
+3. [E] [ ] CS2101 Lecture (from: Aug 26 2023 to: Aug 27 2023)
 4. [T] [X] be engaging in class
-5. [E] [ ] CS2106 Tutorial (from: 2PM to: 3PM)
+5. [E] [ ] CS2106 Tutorial (from: Aug 18 2003 to: Aug 18 2023)
 6. [T] [ ] pay attention to lecture
-7. [E] [ ] GEC1005 Tutorial (from: 3PM to: 4PM)
-8. [E] [ ] LAJ2201 Tutorial (from: 4PM to: 6PM)
-9. [D] [ ] sleep (by: 1.20AM)
+7. [E] [ ] GEC1005 Tutorial (from: Jan 01 0001 to: Dec 31 9999)
+8. [E] [ ] LAJ2201 Tutorial (from: Sep 07 1998 to: Oct 10 1998)
+9. [D] [ ] sleep (by: Oct 21 2023)
 
 ------------------------------------------
   Bye~ Hope to see you again soon! >w<

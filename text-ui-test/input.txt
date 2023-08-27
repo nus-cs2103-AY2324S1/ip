@@ -1,18 +1,18 @@
 todo wakeup happily
 todo step out of comfort zone
 mark 1
-event CS2101 Lecture /from 12PM /to 2PM
+event CS2101 Lecture /from 2023-08-26 /to 2023-08-27
 todo be engaging in class
 todo be lazy
 mark 4
-event CS2106 Tutorial /from 2PM /to 3PM
+event CS2106 Tutorial /from 2003-08-18 /to 2023-08-18
 todo pay attention to lecture
 delete 5
 banana~
 banananaaaaaaa!!!!!
-event GEC1005 Tutorial /from 3PM /to 4PM
-event LAJ2201 Tutorial /from 4PM /to 6PM
+event GEC1005 Tutorial /from 0000-01-01 /to 9999-12-31
+event LAJ2201 Tutorial /from 1998-09-07 /to 1998-10-10
 unmark 1
-deadline sleep /by 1.20AM
+deadline sleep /by 2023-10-21
 list
 bye
