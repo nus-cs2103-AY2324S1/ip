@@ -115,7 +115,7 @@ public class Duke {
             } else if (input.startsWith("todo")) {
                 if (input.equals("todo")) {
                     System.out.println("____________________________________________________________\n");
-                    System.out.println("You cannot add an empty task!");
+                    System.out.println("You cannot add an empty 'ToDo' task!");
                     System.out.println("____________________________________________________________\n");
 
                     continue;
@@ -136,7 +136,7 @@ public class Duke {
             } else if (input.startsWith("deadline")) {
                 if (input.equals("deadline")) {
                     System.out.println("____________________________________________________________\n");
-                    System.out.println("You cannot add an empty task!");
+                    System.out.println("You cannot add an empty 'Deadline' task!");
                     System.out.println("____________________________________________________________\n");
 
                     continue;
@@ -146,12 +146,19 @@ public class Duke {
                     String task = input.substring(8).strip();
                     String[] taskArr = task.split("/", 2);
 
+                    if (taskArr.length != 2) {
+                        String errorStr = "\nFormat for Deadline task incorrect!\n" +
+                                "Expected 2 parts (Task name & deadline) in input, got " + taskArr.length;
+                        throw new DukeInvalidFormatException(errorStr);
+                    }
+
                     tasks[taskCount] = new Deadline(taskArr[0].strip(), taskArr[1].strip());
                     taskCount += 1;
 
-                } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+                } catch (DukeInvalidFormatException e) {
                     String errorString = "____________________________________________________________\n" +
                             "Something went wrong! Please format the task properly and add it again. \n" +
+                            "Error: " + e + "\n" +
                             "____________________________________________________________\n";
 
                     System.out.println(errorString);
@@ -169,7 +176,7 @@ public class Duke {
             } else if (input.startsWith("event")) {
                 if (input.equals("event")) {
                     System.out.println("____________________________________________________________\n");
-                    System.out.println("You cannot add an empty task!");
+                    System.out.println("You cannot add an empty 'Event' task!");
                     System.out.println("____________________________________________________________\n");
 
                     continue;
@@ -179,11 +186,18 @@ public class Duke {
                     String task = input.substring(5).strip();
                     String[] taskArr = task.split("/", 3);
 
+                    if (taskArr.length != 3) {
+                        String errorStr = "\nFormat for Event task incorrect!\n" +
+                                "Expected 3 parts (Task name, start & end time) in input, got " + taskArr.length;
+                        throw new DukeInvalidFormatException(errorStr);
+                    }
+
                     tasks[taskCount] = new Event(taskArr[0].strip(), taskArr[1].strip(), taskArr[2].strip());
                     taskCount += 1;
-                } catch (java.lang.ArrayIndexOutOfBoundsException e) {
+                } catch (DukeInvalidFormatException e) {
                     String errorString = "____________________________________________________________\n" +
-                            "Something went wrong! Please format the task properly and add it again. \n" +
+                            "Something went wrong! Please format the task properly and add it again. \n\n" +
+                            "Error: " + e + "\n" +
                             "____________________________________________________________\n";
 
                     System.out.println(errorString);

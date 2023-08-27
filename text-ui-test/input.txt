@@ -4,3 +4,4 @@ deadline Finish EGGBOT / tmr 3pm
 list
 mark 3
 unmark 3
+event Swim/6pm

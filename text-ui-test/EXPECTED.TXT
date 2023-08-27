@@ -56,3 +56,12 @@ OK, I've marked this task as not done yet:
 ____________________________________________________________
 
 Please add a task, or type list to show tasks.
+____________________________________________________________
+Something went wrong! Please format the task properly and add it again.
+
+Error: DukeInvalidFormatException:
+Format for Event task incorrect!
+Expected 3 parts (Task name, start & end time) in input, got 2
+____________________________________________________________
+
+Please add a task, or type list to show tasks.
