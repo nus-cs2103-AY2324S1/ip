@@ -1,1 +1,3 @@
+todo | 1 | read
 todo | 0 | read
+todo | 1 | hih
