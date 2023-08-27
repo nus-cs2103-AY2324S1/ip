@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -9,76 +8,109 @@ import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Scanner;
 import java.time.LocalDate;
+import java.io.*;
+import java.nio.file.*;
 
 public class Storage {
+    private String filepath;
 
-    public ArrayList<Task> loadData() {
-        ArrayList<Task> taskList = new ArrayList<>();
-        File file = new File("data/duke.txt");
+    public Storage(String filepath) {
+        this.filepath = filepath;
+    }
+
+    public ArrayList<Task> loadData() throws DukeDatabaseNotFoundException {
         try {
+            ArrayList<Task> taskList = new ArrayList<>();
+            File file = new File(this.filepath);
             Scanner fileReader = new Scanner(file);
             while (fileReader.hasNextLine()) {
                 String entry = fileReader.nextLine();
                 try {
-                    ArrayList<String> entryList = Parser.parseDatabaseEntry(entry);
-                    Task newTask;
-                    switch (entryList.get(0)) {
-                        case "T":
-                            newTask = new Todo(entryList.get(2));
-                            if (entryList.get(1).equals("X")) {
-                                newTask.markAsDone();
-                            }
-                            taskList.add(newTask);
-                            break;
-                        case "D":
-                            newTask = new Deadline(entryList.get(2), formatDate(entryList.get(3)));
-                            if (entryList.get(1).equals("X")) {
-                                newTask.markAsDone();
-                            }
-                            taskList.add(newTask);
-                            break;
-                        case "E":
-                            newTask = new Event(entryList.get(2), formatDate(entryList.get(3)),
-                                    formatDate(entryList.get(4)));
-                            if (entryList.get(1).equals("X")) {
-                                newTask.markAsDone();
-                            }
-                            taskList.add(newTask);
-                            break;
-                    }
-                } catch (DukeDatabaseException e) {
+                    ArrayList<String> parsedEntry = Parser.parseDatabaseEntry(entry);
+                    taskList.add(readEntry(parsedEntry));
+                } catch (DukeDatabaseInvalidEntryException e) {
                     System.out.println(e);
                 } catch (DukeEndDateBeforeStartDateException e) {
                     System.out.println(e);
                 }
             }
             fileReader.close();
+            return taskList;
         } catch (FileNotFoundException e) {
-            File dataDirectory = new File("data");
-            if (!dataDirectory.exists()) {
-                dataDirectory.mkdir();
-            }
-            File dukeFile = new File("data/duke.txt");
-            try {
-                dukeFile.createNewFile();
-            } catch (IOException ex) {
-                System.out.println("Failed to create duke file: " + ex.getMessage());
-            }
+            throw new DukeDatabaseNotFoundException();
         }
-        return taskList;
     }
 
     public void saveData(TaskList taskList) {
         try {
-            Files.delete(Paths.get("data/duke.txt"));
-            FileWriter fw = new FileWriter("data/duke.txt");
-            for (String taskString : taskList.stringify()) {
-                fw.write(taskString + System.lineSeparator());
-            }
-            fw.close();
-            System.out.println("Storage updated successfully !");
+            createDataDirectory();
+            createDukeFile();
+            writeTaskListToFile(taskList);
+            System.out.println("Storage updated successfully!");
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e );
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private Task readEntry(ArrayList<String> parsedEntry) throws DukeDatabaseInvalidEntryException,
+            DukeEndDateBeforeStartDateException {
+        Task newTask;
+        switch (parsedEntry.get(0)) {
+            case "T":
+                newTask = new Todo(parsedEntry.get(2));
+                if (parsedEntry.get(1).equals("X")) {
+                    newTask.markAsDone();
+                }
+                break;
+            case "D":
+                newTask = new Deadline(parsedEntry.get(2), formatDate(parsedEntry.get(3)));
+                if (parsedEntry.get(1).equals("X")) {
+                    newTask.markAsDone();
+                }
+                break;
+            case "E":
+                newTask = new Event(parsedEntry.get(2), formatDate(parsedEntry.get(3)),
+                        formatDate(parsedEntry.get(4)));
+                if (parsedEntry.get(1).equals("X")) {
+                    newTask.markAsDone();
+                }
+                break;
+            default:
+                throw new DukeDatabaseInvalidEntryException();
+        }
+        return newTask;
+    }
+
+    private void createDataDirectory() throws IOException {
+        File dataDirectory = new File(this.filepath).getParentFile();
+        if (!dataDirectory.exists()) {
+            if (!dataDirectory.mkdirs()) {
+                throw new IOException("Failed to create data directory");
+            }
+        }
+    }
+
+    private void createDukeFile() throws IOException {
+        File dukeFile = new File(this.filepath);
+        if (!dukeFile.exists()) {
+            if (!dukeFile.createNewFile()) {
+                throw new IOException("Failed to create duke file");
+            }
+        }
+    }
+
+    private void writeTaskListToFile(TaskList taskList) throws IOException {
+        Path filePath = Paths.get(this.filepath);
+        try {
+            Files.deleteIfExists(filePath);
+            BufferedWriter writer = Files.newBufferedWriter(filePath);
+            for (String taskString : taskList.stringify()) {
+                writer.write(taskString);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
         }
     }
 

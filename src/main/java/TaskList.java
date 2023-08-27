@@ -5,6 +5,10 @@ import java.time.LocalDate;
 public class TaskList {
     private ArrayList<Task> taskList;
 
+    public TaskList() {
+        this.taskList = new ArrayList<>();
+    }
+
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }

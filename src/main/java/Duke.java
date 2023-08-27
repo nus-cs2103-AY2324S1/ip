@@ -2,8 +2,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private Storage storage = new Storage();
+    private Ui ui;
+    private Storage storage;
     private TaskList taskList;
+
+    public Duke(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        try {
+            this.taskList = new TaskList(storage.loadData());
+        } catch (DukeDatabaseNotFoundException e) {
+            this.taskList = new TaskList();
+        }
+    }
 
     private void greet() {
         String greetMsg = "Hello! I'm Atlas\n"
@@ -64,9 +75,8 @@ public class Duke {
         }
     }
 
-    private void start() {
+    private void run() {
         this.greet();
-        this.taskList = new TaskList(this.storage.loadData());
         this.listen();
     }
 
@@ -85,6 +95,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke().start();
+        new Duke("data/tasks.txt").run();
     }
 }

@@ -3,7 +3,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    public static ArrayList<String> parseDatabaseEntry(String entry) throws DukeDatabaseException {
+    public static ArrayList<String> parseDatabaseEntry(String entry) throws DukeDatabaseInvalidEntryException {
         ArrayList<String> elements = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\[([A-Z])\\]\\[(.)\\] (.+?)(?: \\(by: (.+?)\\)| \\(from: (.+?) to: (.+?)\\))?");
         Matcher matcher = pattern.matcher(entry);
@@ -19,7 +19,7 @@ public class Parser {
                 elements.add(matcher.group(6));
             }
         } else {
-            throw new DukeDatabaseException();
+            throw new DukeDatabaseInvalidEntryException();
         }
 
         return elements;
