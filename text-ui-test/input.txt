@@ -1,0 +1,9 @@
+todo master rizz
+deadline get baddies /tomorrow
+event club! /today /tomorrow
+mark 1
+mark 2
+list
+unmark 2
+list
+bye
