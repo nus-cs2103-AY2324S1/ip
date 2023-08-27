@@ -16,54 +16,61 @@ I gotchu. New task added to the list:
 [T][ ] borrow book
 
 Now you have 1 task in your list!
+
 ____________________________________________________________
 
 I gotchu. New task added to the list:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Oct 15 2019)
 
 Now you have 2 tasks in your list!
+
 ____________________________________________________________
 
 I gotchu. New task added to the list:
 [E][ ] project meeting (from: Mon 2pm, to: 4pm)
 
 Now you have 3 tasks in your list!
+
 ____________________________________________________________
 
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Oct 15 2019)
 3. [E][ ] project meeting (from: Mon 2pm, to: 4pm)
 
 ____________________________________________________________
 
 Great Job! I've helped mark this task as done:
 [T][X] borrow book
+
 ____________________________________________________________
 
 Great Job! I've helped mark this task as done:
 [E][X] project meeting (from: Mon 2pm, to: 4pm)
+
 ____________________________________________________________
 
 1. [T][X] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Oct 15 2019)
 3. [E][X] project meeting (from: Mon 2pm, to: 4pm)
 
 ____________________________________________________________
 
 No worries! I will help you unmark this task:
 [T][ ] borrow book
+
 ____________________________________________________________
 
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
+2. [D][ ] return book (by: Oct 15 2019)
 3. [E][X] project meeting (from: Mon 2pm, to: 4pm)
 
 ____________________________________________________________
 
 Foosh! Let it be gone! I've helped delete the task:
-[D][ ] return book (by: Sunday)
+[D][ ] return book (by: Oct 15 2019)
 
 Now you have 2 tasks in your list!
+
 ____________________________________________________________
 
 1. [T][ ] borrow book
@@ -72,4 +79,6 @@ ____________________________________________________________
 ____________________________________________________________
 
 Goodbye! Bob signing out!
+
 ____________________________________________________________
+
