@@ -14,4 +14,18 @@ public class Event extends Task{
         String newMessage = message.substring(0, message.indexOf("/from")).replace("event", "");
         return String.format("  [E] %s(from: %sto: %s)", newMessage, from, to);
     }
+
+    public static Deadline create(String status, String description, String from, String to) {
+        String newFrom = String.format(" /from %s", from);
+        String newTo = String.format(" /to %s", to);
+        Deadline task = new Deadline(description + newFrom + newTo);
+        if (status == "1") {
+            task.mark();
+        }
+        return task;
+    }
+
+    public String saveToFileLine() {
+        return String.format("E | %s", super.saveToFileLine());
+    }
 }

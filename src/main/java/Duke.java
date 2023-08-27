@@ -1,5 +1,10 @@
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * A chatbot that helps to record tasks.
@@ -37,6 +42,7 @@ public class Duke {
      * Exits chatbot.
      */
     private void exit() {
+
         this.line("  Bye~ Hope to see you again soon! >w<");
     }
 
@@ -80,9 +86,9 @@ public class Duke {
         if (reply.length() == "todo".length()) {
             throw new DukeEmptyToDoException();
         }
-
+        
         Task task = new ToDo(reply);
-        constructTaskMessage(task);
+        addTask(task);
     }
 
     /**
@@ -94,7 +100,7 @@ public class Duke {
 
         Task task = new Deadline(reply);
 
-        constructTaskMessage(task);
+        addTask(task);
     }
 
     /**
@@ -105,7 +111,7 @@ public class Duke {
     private void addEvent(String reply) throws DukeException {
         Task task = new Event(reply);
 
-        constructTaskMessage(task);
+        addTask(task);
     }
 
     /**
@@ -117,17 +123,72 @@ public class Duke {
         System.out.println(String.format("  Noted. I've removed this task:"));
         System.out.println(removedTask.toString());
         this.line(String.format("  Now you have %d task(s) in the list.", tasks.size()));
+        this.save();
     }
 
     /**
      * Constructs message for adding task.
      * @param task
      */
-    private void constructTaskMessage(Task task) {
+    private void addTask(Task task) {
         System.out.println(String.format("  Got it. I've added this task:"));
         tasks.add(task);
         System.out.println(String.format("  %s", task.toString()));
         this.line(String.format("  Now you have %d task(s) in the list.", tasks.size()));
+        this.save();
+    }
+
+    private void save() {
+        String dataPath = Paths.get("data", "duke.txt").toString();
+        try {
+            File dataFile = new File(dataPath);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile));
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                String line = task.saveToFileLine();
+                writer.write(line);
+            }
+            writer.close();
+        } catch (IOException e) {
+
+        }
+
+    }
+
+    private void load() {
+        try {
+            String dataPath = Paths.get("data", "duke.txt").toString();
+            File dataFile = new File(dataPath);
+            BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+            for (String line; (line = reader.readLine()) != null;) {
+                tasks.add(fileToTask(line));
+            }
+        } catch (IOException ex) {
+
+        }
+
+    }
+
+    private Task fileToTask(String line) {
+        String[] savedToFileLine = line.split(" \\| ");
+        String type = savedToFileLine[0];
+
+        String status = savedToFileLine[1];
+        String description = savedToFileLine[2];
+        switch (type) {
+            case "T":
+                return ToDo.create(status, description);
+            case "D":
+                String due = "";
+                return Deadline.create(status, description, due);
+            case "E":
+                String from = "";
+                String to = "";
+                return Event.create(status, description, from, to);
+            default:
+//                TODO
+                return new Task("");
+        }
     }
 
     /**
@@ -143,7 +204,6 @@ public class Duke {
                 firstWord = FirstWord.INVALID;
             }
             try {
-
                 switch (firstWord) {
                     case BYE:
                         exit();
@@ -179,6 +239,7 @@ public class Duke {
     }
     public static void main(String[] args) {
         Duke duke = new Duke();
+        duke.load();
         duke.greet();
         duke.interact();
 

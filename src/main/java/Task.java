@@ -33,8 +33,11 @@ public class Task {
         }
     }
 
-
     public String showContent() {
         return taskContent;
+    }
+
+    public String saveToFileLine() {
+        return String.format("%s | %s\n", status ? "1" : "0", taskContent);
     }
 }
