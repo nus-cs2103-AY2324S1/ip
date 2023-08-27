@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.server.ExportException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +14,7 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -33,10 +36,10 @@ public class Storage {
                     tasks.add(new Todo(parts[2]));
                     break;
                 case "D":
-                    tasks.add(new Deadline(parts[2], parts[3]));
+                    tasks.add(new Deadline(parts[2], LocalDateTime.parse(parts[3], formatter)));
                     break;
                 case "E":
-                    tasks.add(new Event(parts[2], parts[3], parts[4]));
+                    tasks.add(new Event(parts[2], LocalDateTime.parse(parts[3], formatter)));
                     break;
                 default:
                     break;

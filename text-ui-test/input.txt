@@ -1,6 +1,6 @@
 todo read book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 29/8/2023 1800
+event project meeting /at 29/8/2023 2000
 mark 2
 list
 delete 2

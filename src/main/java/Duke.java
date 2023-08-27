@@ -1,6 +1,9 @@
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -223,14 +226,16 @@ public class Duke {
 
             String[] deadlineParts = userCommandParts[1].split("/by");
             if (deadlineParts.length < 2) {
-                throw new InvalidFormatException("Please use the format: deadline <description> /by <deadline>.");
+                throw new InvalidFormatException("Please use the format: deadline <description> /by <d/M/yyyy HHmm>.");
             }
 
             String description = deadlineParts[0].trim();
             String by = deadlineParts[1].trim();
+            LocalDateTime dateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
 
-            Deadline newDeadline = new Deadline(description, by);
+            Deadline newDeadline = new Deadline(description, dateTime);
             list.add(newDeadline);
+
             System.out.println(LINE);
             System.out.println("\t Got it. I've added this task:\n" +
                     "\t\t" + newDeadline + "\n\t Now you have " + list.size() + " tasks in the list.");
@@ -243,6 +248,8 @@ public class Duke {
             System.out.println("\t" + e.getMessage());
             System.out.println(LINE);
             System.out.println();
+        } catch (DateTimeParseException e) {
+            System.out.println("\tPlease enter the time in the format of <d/M/yyyy HHmm>!\n");
         }
     }
 
@@ -252,20 +259,16 @@ public class Duke {
                 throw new EmptyDescriptionException("event");
             }
 
-            String[] eventParts = userCommandParts[1].split("/from");
+            String[] eventParts = userCommandParts[1].split("/at");
             if (eventParts.length < 2) {
-                throw new InvalidFormatException("Please use the format: event <description> /from <start> /to <end>");
+                throw new InvalidFormatException("Please use the format: event <description> /at <d/M/yyyy HHmm>");
             }
 
             String description = eventParts[0].trim();
-            String[] eventTime = eventParts[1].split("/to");
-            if (eventTime.length < 2) {
-                throw new InvalidFormatException("Please use the format: event <description> /from <start> /to <end>");
-            }
 
-            String from = eventTime[0].trim();
-            String to = eventTime[1].trim();
-            Event newEvent = new Event(description, from, to);
+            LocalDateTime dateTime = LocalDateTime.parse(eventParts[1].trim(),
+                    DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            Event newEvent = new Event(description, dateTime);
 
             list.add(newEvent);
             System.out.println(LINE);
@@ -280,6 +283,8 @@ public class Duke {
             System.out.println("\t" + e.getMessage());
             System.out.println(LINE);
             System.out.println();
+        } catch (DateTimeParseException e) {
+            System.out.println("\tPlease enter the time in the format of <d/M/yyyy HHmm>!\n");
         }
     }
 
