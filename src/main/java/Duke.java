@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
@@ -84,7 +86,13 @@ public class Duke {
                     } else if (input.startsWith("deadline ")) {
                         try {
                             int index = input.indexOf("/by");
-                            this.lists.add(new Deadline(input.substring(9,index - 1), input.substring(index + 4)));
+                            String date;
+                            if (isValidDate(input.substring(index + 4))) {
+                                date = parseDate(input.substring(index + 4));
+                            } else {
+                                date = input.substring(index + 4);
+                            }
+                            this.lists.add(new Deadline(input.substring(9,index - 1), date));
                             output = "Got it. I've added this task: \n" + this.lists.get(this.lists.size() - 1) + "\n"
                                     + "Now you have " + this.lists.size() + " tasks in the list.";
                         } catch (StringIndexOutOfBoundsException err) {
@@ -96,9 +104,21 @@ public class Duke {
                         try {
                             int indexFrom = input.indexOf("/from");
                             int indexTo = input.indexOf("/to");
+                            String dateFrom;
+                            if (isValidDate(input.substring(indexFrom + 6,indexTo - 1))) {
+                                dateFrom = parseDate(input.substring(indexFrom + 6,indexTo - 1));
+                            } else {
+                                dateFrom = input.substring(indexFrom + 6,indexTo - 1);
+                            }
+                            String dateTo;
+                            if (isValidDate(input.substring(indexTo + 4))) {
+                                dateTo = parseDate(input.substring(indexTo + 4));
+                            } else {
+                                dateTo = input.substring(indexTo + 4);
+                            }
                             this.lists.add(new Event(input.substring(6,indexFrom - 1),
-                                    input.substring(indexFrom + 6,indexTo - 1),
-                                    input.substring(indexTo + 4)));
+                                    dateFrom,
+                                    dateTo));
                             output = "Got it. I've added this task: \n" + this.lists.get(this.lists.size() - 1) + "\n"
                                     + "Now you have " + this.lists.size() + " tasks in the list.";
                         } catch (StringIndexOutOfBoundsException err){
@@ -184,6 +204,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Write the task list to file.
+     */
     private void writeToFile() {
         try{
             FileWriter fw = new FileWriter("data/duke.txt");
@@ -196,6 +219,66 @@ public class Duke {
             System.out.println("The file doesn't exist!");
         }
     }
+
+    /**
+     * check if the input is a valid Date.
+     * valid date format: dd/MM/yyyy HHmm
+     * @param input of String type
+     * @return true if it is a valid date format
+     */
+    private boolean isValidDate(String input) {
+        String[] splitInput = input.split("/");
+
+        if (splitInput.length != 3) {
+            return false;
+        }
+
+        if (!isNumeric(splitInput[0]) || !isNumeric(splitInput[1])) {
+            return false;
+        }
+
+        String[] yearAndTime = splitInput[2].split(" ");
+
+        if (yearAndTime.length != 2) {
+            return false;
+        }
+
+        if (!isNumeric(yearAndTime[0]) || !isNumeric(yearAndTime[1])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Convert a valid String date to a different format.
+     *
+     * @param input of String type.
+     * @return new String date format: MMM dd yyyy hh:mm a
+     */
+    private String parseDate(String input) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+            LocalDateTime d1 = LocalDateTime.parse(input, formatter);
+
+            DateTimeFormatter returnFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+            return d1.format(returnFormatter);
+
+        } catch (Exception e) {
+            return input;
+        }
+    }
+
+    /**
+     * Check if the string input is a numeric characters.
+     *
+     * @param str of String type.
+     * @return true if the str only contain numeric characters.
+     */
+    public static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
+
     public static void main(String[] args) {
 
         Duke chatBot = new Duke();
