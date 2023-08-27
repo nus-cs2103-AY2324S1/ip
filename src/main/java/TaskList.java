@@ -1,3 +1,5 @@
+import exception.InvalidTaskException;
+
 public class TaskList {
     private Task[] array;
     private int nextIndex;
@@ -8,12 +10,19 @@ public class TaskList {
     }
 
     public void addTask(Task newTask) {
-        // add new task into our array
-        array[this.nextIndex] = newTask;
-        this.nextIndex += 1;
+        try {
+            // add new task into our array
+            array[this.nextIndex] = newTask;
+            this.nextIndex += 1;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Oh no! You have exceeded the maximum capacity of this list!");
+        }
     }
 
-    public Task getTask(int taskNumber) {
+    public Task getTask(int taskNumber) throws InvalidTaskException {
+        if (taskNumber > this.getLength() || taskNumber == 0) {
+            throw new InvalidTaskException();
+        }
         return this.array[taskNumber-1];
     }
 

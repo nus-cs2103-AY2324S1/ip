@@ -1,3 +1,5 @@
+import exception.DukeException;
+
 import java.util.Scanner;
 
 public class SystemText {
@@ -44,6 +46,10 @@ public class SystemText {
     // Update task
     public String printUpdateTask(Task task) {
         return SEPARATOR + UPDATE_TASK + task.toString() + "\n" + SEPARATOR;
+    }
+
+    public String printError(DukeException e) {
+        return SEPARATOR + e.getMessage() + "\n" + SEPARATOR;
     }
 
     // exit message

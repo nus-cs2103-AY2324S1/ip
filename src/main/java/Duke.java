@@ -1,8 +1,8 @@
-import java.io.IOException;
-import java.util.Scanner;
+import exception.EmptyCommandException;
+import exception.InvalidCommandException;
 
 public class Duke {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         System.out.println(SystemText.greeting());
 
         // Load list of tasks stored in text file "task.txt" into the local TaskList
@@ -39,13 +39,15 @@ public class Duke {
             } else if (answer.startsWith("event")) {
                 System.out.println(command.handleEvent(answer));
                 answer = ui.getInput();
+            } else if (answer.length() == 0) {
+                System.out.println(ui.printError(new EmptyCommandException()));
+                answer = ui.getInput();
             } else {
-                break;
+                System.out.println(ui.printError(new InvalidCommandException()));
+                answer = ui.getInput();
             }
         }
-
         System.out.println(SystemText.exit());
         ui.stopScanner();
-        return;
     }
 }
