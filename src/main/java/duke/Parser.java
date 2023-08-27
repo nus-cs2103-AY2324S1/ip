@@ -9,8 +9,8 @@ public class Parser {
     private Storage storage;
     private TaskList taskList;
 
-    public Parser(Ui ui, Storage storage, TaskList taskList) {
-        this.ui = ui;
+    public Parser(Storage storage, TaskList taskList) {
+        this.ui = new Ui();
         this.storage = storage;
         this.taskList = taskList;
     }

@@ -70,4 +70,21 @@ public class EventTest {
         String actualErrorMsg = expectedException.getMessage();
         assertEquals(expectedErrorMsg, actualErrorMsg);
     }
+
+    @Test
+    public void testStringToSave() {
+        String testString = "event project meeting /from 2019-10-15 1800 /to 2019-10-15 2000";
+        Event event = new Event(testString);
+        String expected = "E | [ ] | project meeting | 2019-10-15 1800 | 2019-10-15 2000";
+        assertEquals(expected, event.stringToSave());
+    }
+
+    @Test
+    public void testStringToSaveMarked() {
+        String testString = "event project meeting /from 2019-10-15 1800 /to 2019-10-15 2000";
+        Event event = new Event(testString);
+        event.markAsDone();
+        String expected = "E | [X] | project meeting | 2019-10-15 1800 | 2019-10-15 2000";
+        assertEquals(expected, event.stringToSave());
+    }
 }

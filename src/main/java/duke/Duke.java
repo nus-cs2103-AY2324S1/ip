@@ -18,7 +18,7 @@ public class Duke {
         this.ui.greet();
         boolean shouldExit =  false;
         Scanner scanner  = new Scanner(System.in);
-        Parser parser = new Parser(this.ui, this.storage, this.taskList);
+        Parser parser = new Parser(this.storage, this.taskList);
 
         while (!shouldExit) {
             String input = scanner.nextLine();
