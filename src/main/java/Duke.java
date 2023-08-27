@@ -1,11 +1,24 @@
+import javax.management.openmbean.OpenMBeanAttributeInfo;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
 
 public class Duke {
     public static void main(String[] args) {
         String name = "Beary";
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks;
+        String filepath = "data/tasks.txt";
+
+        try {
+            tasks = readFile(filepath);
+        } catch (FileNotFoundException e) {
+            tasks = new ArrayList<>();
+        }
 
         System.out.println(String.format("Hello! I'm %s\nWhat can I do for you?", name));
         printLine();
@@ -22,9 +35,14 @@ public class Duke {
             }
 
             if (command.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                printLine();
-                break;
+                try {
+                    writeToFile(tasks, filepath);
+                    System.out.println("Bye. Hope to see you again soon!");
+                    printLine();
+                    break;
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
             }
 
             if (command.equals("list")) {
@@ -130,6 +148,74 @@ public class Duke {
         }
     }
 
+
+    public static Task constructTaskFromFile(String line) {
+        String type = line.substring(1, 2);
+        String doneString = line.substring(4, 5);
+        String text = line.substring(7);
+
+        String description;
+        Task newTask = new Task("");
+
+        switch (type) {
+            case "T":
+                description = text;
+                newTask = new ToDo(text);
+                break;
+
+            case "D":
+                int OpenBracketIndex = text.indexOf("(by: ");
+                description = text.substring(0, OpenBracketIndex -1);
+                String by = text.substring(OpenBracketIndex + 5, text.length()-1);
+                newTask = new Deadline(description, by);
+                break;
+
+            case "E":
+                int fromIndex = text.indexOf("(from: ");
+                int toIndex = text.indexOf("to: ");
+
+                description = text.substring(0, fromIndex-1);
+                String from = text.substring(fromIndex+7, toIndex-1);
+                String to = text.substring(toIndex+4);
+                newTask = new Event(description, from, to);
+                break;
+        }
+
+        boolean done = doneString.equals("X");
+        newTask.setDone(done);
+        return newTask;
+    }
+
+
+    public static ArrayList<Task> readFile(String filepath) throws FileNotFoundException {
+        File file = new File(filepath);
+        Scanner fileScanner = new Scanner(file);
+        ArrayList<Task> tasks = new ArrayList<>();
+        while (fileScanner.hasNext()) {
+            String line = fileScanner.nextLine();
+            tasks.add(constructTaskFromFile(line));
+        }
+
+        return tasks;
+    }
+
+
+    public static void writeToFile(ArrayList<Task> tasks, String filepath) throws IOException {
+        // create data folder if it does not exist
+        File file = new File(filepath);
+        System.out.println(System.getProperty("user.dir"));
+        if (!file.getParentFile().exists()) {
+            System.out.println("FILE does not exists");
+            file.getParentFile().mkdir();
+        }
+
+        FileWriter fileWriter = new FileWriter(filepath);
+        for (Task task : tasks) {
+            String line = task.toString() + "\n";
+            fileWriter.write(line);
+        }
+        fileWriter.close();
+    }
 
     public static void printLine() {
         System.out.println("____________________________________________________________");
