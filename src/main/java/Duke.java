@@ -32,16 +32,20 @@ public class Duke {
                     return;
                 default:
                     addTask(commandInput);
-                    echo(commandInput);
+                    echo(commandInput, "added: ");
             }
 
         }
     }
+
     private void echo(String input) {
+        echo(input, "");
+    }
+    private void echo(String input, String prefix) {
         int indentLength = 4;
         String divider = indentLeft(String.format("%80s", "").replace(" ", "-"), indentLength);
         System.out.println(divider);
-        System.out.println(indentLeft("added: " + input, indentLength));
+        System.out.println(indentLeft(prefix + input, indentLength));
         System.out.println(divider);
     }
 
