@@ -1,49 +1,49 @@
 import exception.InvalidTaskException;
 
+import java.util.ArrayList;
+
 public class TaskList {
-    private Task[] array;
-    private int nextIndex;
+    private ArrayList<Task> array;
 
     public TaskList() {
-        this.array = new Task[100];
-        this.nextIndex = 0;
+        this.array = new ArrayList<>();
     }
 
     public void addTask(Task newTask) {
-        try {
-            // add new task into our array
-            array[this.nextIndex] = newTask;
-            this.nextIndex += 1;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Oh no! You have exceeded the maximum capacity of this list!");
-        }
+        // add new task into our array
+        this.array.add(newTask);
     }
 
     public Task getTask(int taskNumber) throws InvalidTaskException {
-        if (taskNumber > this.getLength() || taskNumber == 0) {
+        if (taskNumber > this.array.size() || taskNumber == 0) {
             throw new InvalidTaskException();
         }
-        return this.array[taskNumber-1];
+        return this.array.get(taskNumber - 1);
     }
 
     public int getLength() {
-        int count = 0;
-        while (this.array[count] != null) {
-            count += 1;
+        return this.array.size();
+    }
+
+    public void deleteTask(Task task) {
+        for (int i = 0; i < 100; i++) {
+            if (this.array.get(i).equals(task)) {
+                this.array.remove(i);
+                break;
+            }
         }
-        return count;
     }
 
     @Override
     public String toString() {
         // display in numerical pointers
         String list = "";
-        for (int i = 0; i < this.nextIndex; i++) {
-            Task task = this.array[i];
+        for (int i = 0; i < this.array.size(); i++) {
+            Task task = this.array.get(i);
             if (task == null) {
                 break;
             } else {
-                list += (i + 1) + "." + task.toString() + "\n";
+                list += (i + 1) + "." + task + "\n";
             }
         }
         return list;

@@ -3,9 +3,9 @@ import exception.InvalidTaskException;
 import exception.MissingTimeException;
 
 public class Command {
-    private Backend backend;
-    private SystemText systemText;
-    private TaskList taskList;
+    private final Backend backend;
+    private final SystemText systemText;
+    private final TaskList taskList;
 
     public Command(Backend backend, SystemText systemText, TaskList taskList) {
         this.backend = backend;
@@ -127,6 +127,29 @@ public class Command {
             task.unMark();
             // Return system message to inform action
             return this.systemText.printUpdateTask(task);
+        } catch (EmptyTaskException | InvalidTaskException e) {
+            return systemText.printError(e);
+        }
+    }
+
+    public String handleDelete(String input) {
+        try {
+            // Get task from input
+            String[] keyword = input.split(" ");
+            if (keyword.length == 1 || keyword[1].equals("")) {
+                throw new EmptyTaskException();
+            }
+            int taskNumber = Integer.parseInt(keyword[1]);
+            Task task = this.taskList.getTask(taskNumber);
+
+            // Delete task from backend
+            this.backend.deleteTask(task);
+
+            // Delete task from task list
+            this.taskList.deleteTask(task);
+
+            // Return system message to inform action
+            return this.systemText.printDeleteTask(task);
         } catch (EmptyTaskException | InvalidTaskException e) {
             return systemText.printError(e);
         }

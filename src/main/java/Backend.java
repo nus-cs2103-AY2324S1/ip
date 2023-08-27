@@ -65,6 +65,44 @@ public class Backend {
         }
     }
 
+    // Delete task from task list
+    public void deleteTask(Task task) {
+        String oldTask = task.toStoreString();
+
+        File fileToUpdate = new File(this.pathString);
+        String newContent = "";
+        BufferedReader reader = null;
+        FileWriter writer = null;
+        try {
+            reader = new BufferedReader(new FileReader(fileToUpdate));
+
+            //Reading all the lines of input text file into oldContent
+            String line = reader.readLine();
+
+            while (line != null) {
+                if (!line.equals(oldTask)) {
+                    newContent += line + System.lineSeparator();
+                }
+                line = reader.readLine();
+            }
+
+            //Rewriting the input text file with newContent
+            writer = new FileWriter(fileToUpdate);
+
+            writer.write(newContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                //Closing the resources
+                reader.close();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     // Retrieve task list from text file and convert to readable codes
     public void handleLoad(TaskList list) {
         Scanner sc = null;

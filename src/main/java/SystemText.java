@@ -10,6 +10,7 @@ public class SystemText {
     private static String TASK_COUNT;
     private static final String LIST_TASKS = "Things you need to do: \n";
     private static final String UPDATE_TASK = "OK! Your task has now been updated to: \n";
+    private static final String DELETE_TASK = "Alright! I have deleted this task from the list:\n";
 
     private Scanner sc;
     private TaskList taskList;
@@ -50,6 +51,11 @@ public class SystemText {
 
     public String printError(DukeException e) {
         return SEPARATOR + e.getMessage() + "\n" + SEPARATOR;
+    }
+
+    public String printDeleteTask(Task task) {
+        TASK_COUNT = "You currently have " + this.taskList.getLength() + " tasks to do.\n";
+        return SEPARATOR + DELETE_TASK + task.toString() + "\n" + TASK_COUNT + SEPARATOR;
     }
 
     // exit message

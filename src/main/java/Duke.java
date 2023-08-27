@@ -39,6 +39,9 @@ public class Duke {
             } else if (answer.startsWith("event")) {
                 System.out.println(command.handleEvent(answer));
                 answer = ui.getInput();
+            } else if (answer.startsWith("delete")) {
+                System.out.println(command.handleDelete(answer));
+                answer = ui.getInput();
             } else if (answer.length() == 0) {
                 System.out.println(ui.printError(new EmptyCommandException()));
                 answer = ui.getInput();
