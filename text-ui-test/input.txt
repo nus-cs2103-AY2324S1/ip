@@ -25,7 +25,7 @@ mark 1
 list
 unmark -1
 unmark 100
-unmark -1
+unmark 1
 list
 delete -1
 delete 100

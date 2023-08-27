@@ -22,7 +22,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toSaveString() {
-        return "D | " + super.toSaveString() + " | " + getFormattedBy(PARSE_FORMATTER);
+    public String getStorageString() {
+        return "D | " + super.getStorageString() + " | " + getFormattedBy(PARSE_FORMATTER);
     }
 }
