@@ -17,8 +17,8 @@ public class Duke {
         return this.botName;
     }
 
-    public boolean addTask(String task) {
-        return this.taskList.add(new Task(task));
+    public boolean addTask(Task task) {
+        return this.taskList.add(task);
     }
 
     public void markTask(int index) {
