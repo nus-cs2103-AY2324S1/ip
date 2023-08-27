@@ -1,14 +1,21 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
-    public Event(String name, String from, String to) {
+public class Event extends Task {
+    protected LocalDateTime from;
+    protected LocalDateTime to;
+
+    public Event(String name, String from, String to) throws DukeException {
         super(name);
-        this.from = from;
-        this.to = to;
+        try {
+            this.from = LocalDateTime.parse(from, Duke.DATETIME_INPUT_FORMAT);
+            this.to = LocalDateTime.parse(to, Duke.DATETIME_INPUT_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Wrong DateTime format!! Please use 'dd-MM-yyyy HHmm'.");
+        }
     }
 
-    public Event(String name, String from, String to, boolean isDone) {
+    public Event(String name, LocalDateTime from, LocalDateTime to, boolean isDone) {
         super(name, isDone);
         this.from = from;
         this.to = to;

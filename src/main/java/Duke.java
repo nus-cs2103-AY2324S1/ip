@@ -36,7 +36,7 @@ public class Duke {
                 case "E":
                     String from = lineArr[3];
                     String to = lineArr[4];
-                    items.add(new Event(name, from, to, isDone));
+                    items.add(new Event(name, LocalDateTime.parse(from), LocalDateTime.parse(to), isDone));
                     break;
                 default:
                     continue;
