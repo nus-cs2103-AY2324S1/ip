@@ -30,6 +30,9 @@ public class Duke {
             switch (commandInput) {
                 case "bye":
                     return;
+                case "list":
+                    printTasks();
+                    break;
                 default:
                     addTask(commandInput);
                     echo(commandInput, "added: ");
