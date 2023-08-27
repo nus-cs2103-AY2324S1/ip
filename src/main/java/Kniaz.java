@@ -1,5 +1,6 @@
 
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 
@@ -7,6 +8,8 @@ import exceptions.KniazRuntimeException;
 import logic.taskhandling.*;
 import parser.KniazCommand;
 import parser.KniazParser;
+import save.KniazLoader;
+import save.KniazSaver;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -59,6 +62,18 @@ public class Kniaz {
 
         System.out.println("What can I do for you?");
         System.out.println(Kniaz.SEPERATOR);
+
+        KniazSaver kniazSaver = new KniazSaver(); // use default
+        KniazLoader kniazLoader = new KniazLoader(); // use default
+        try { //wrap this in a try-catch because loading has many runtime exceptions that might occur
+            taskList = kniazLoader.load();
+        } catch (IOException e) { // For IOExceptions in general
+            System.out.println("Could not load previous.");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) { // For when the data is corrupted
+            System.out.println("Data did not align to a class");
+            System.out.println(e.getMessage());
+        }
 
         KniazCommand nextCommand; //Initialise the input
         while (true) { // I find this a bit icky but we rely on guard clauses to break instead
@@ -163,6 +178,26 @@ public class Kniaz {
             // Each command input will invariably result in a seperator line being printed
             // Helps to keep it looking nice
             System.out.println((Kniaz.SEPERATOR));
+
+
+            try {
+                kniazSaver.save(taskList);
+                // Every time a command is entered, save.
+                // This is because the list can only ever be updated via command.
+            } catch (IOException e) {
+                // When something goes wrong in trying to save with regards to IO
+                // Should not happen in usual operation
+                System.out.println("Something went wrong trying to save, I won't remember your tasks on reload!");
+                System.out.println(e.getMessage());
+                break;
+
+            } catch (SecurityException e) {
+                // When the security manager doesn't let us save
+                // Complain back to the user
+                System.out.println("I couldn't save because I wasn't allowed!");
+                System.out.println(e.getMessage());
+                break;
+            }
 
 
         }

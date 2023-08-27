@@ -5,6 +5,8 @@ ____________________
 What can I do for you?
 ____________________
 
+Could not load previous.
+C:\Users\Xavier\IdeaProjects\ip\text-ui-test\.\data\Kniaz.dat does not exist
 As you say. The task has been added To-Do :
 [T][ ] read book
 ____________________
