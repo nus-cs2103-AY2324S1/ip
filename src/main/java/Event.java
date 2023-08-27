@@ -10,7 +10,6 @@ public class Event extends Task{
     /**
      * The type of the task.
      */
-    protected String type = "E";
     /**
      * Constructs an Event object.
      *
@@ -20,10 +19,16 @@ public class Event extends Task{
      */
 
     public Event (String description, String from, String to) {
-        super(description);
+        super(description, "E");
         this.from = from;
         this.to = to;
     }
+
+    @Override
+    public String toFileString() {
+        return this.type + " | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + this.from + " | " + this.to;
+    }
+
     /**
      * Returns the string representation of the task.
      *

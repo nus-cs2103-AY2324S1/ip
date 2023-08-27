@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 //write javacoc documentaion for the javadoc tool
@@ -7,10 +8,18 @@ public class Harvard {
         System.out.println(line);
         System.out.println("Hello! I'm Harvard\nWhat can I do for you?");
         System.out.println(line);
+        String filePath = "./data/tasks.txt";
+
+        File dataDirectory = new File("./data");
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+
+        TaskReader taskReader = new TaskReader(filePath);
+        ArrayList<Task> tasks = taskReader.readTasks();
+        int taskCount = tasks.size();
 
         Scanner in = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
-        int taskCount = 0;
 
         while (true) {
             String command = in.nextLine();
@@ -66,7 +75,6 @@ public class Harvard {
                     if (!command.contains(" /from ") || !command.contains(" /to ")) {
                         throw new DukeException("☹ OOPS!!! The event time must be specified.");
                     }
-
                     String[] split = command.split("/from ");
                     if (split[0].length() < 6) {
                         throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
@@ -110,10 +118,7 @@ public class Harvard {
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(task);
                     System.out.println("Now you have " + taskCount + " tasks in the list.");
-
-
-
-                }else if (command.startsWith("mark")) {
+                } else if (command.startsWith("mark")) {
                     String[] split = command.split(" ");
                     int index = Integer.parseInt(split[1]) - 1;
                     if (index >= taskCount || index < 0) {
@@ -136,6 +141,8 @@ public class Harvard {
                 } else {
                     throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
+                TaskWriter taskWriter = new TaskWriter(filePath);
+                taskWriter.write(tasks);
             } catch (DukeException e) {
                 System.out.println(line);
                 System.out.println(e.getMessage());

@@ -1,4 +1,6 @@
-public class Task {
+public abstract class Task {
+    protected String type;
+
     /**
      * The description of the task.
      */
@@ -13,9 +15,10 @@ public class Task {
      * @param description The description of the task.
      */
 
-    public Task(String description) {
+    public Task(String description, String type) {
         this.description = description;
         this.isDone = false;
+        this.type = type;
     }
     /**
      * Returns the status icon of the task.
@@ -45,6 +48,34 @@ public class Task {
     public void markAsUndone() {
         this.isDone = false;
     }
+
+    public abstract String toFileString() ;
+
+    public static Task fromFileString(String fileString) {
+        String[] split = fileString.split(" \\| ");
+        String type = split[0];
+        boolean isDone = split[1].equals("1");
+        String description = split[2];
+        Task task;
+        switch (type) {
+        case "T":
+            task = new Todo (description);
+            break;
+        case "D":
+            task = new Deadline(description, split[3]);
+            break;
+        case "E":
+            task = new Event(description, split[3], split[4]);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + type);
+        }
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
     /**
      * Returns the string representation of the task.
      * @return The string representation of the task.
