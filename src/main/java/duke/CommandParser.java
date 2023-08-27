@@ -114,6 +114,12 @@ public class CommandParser {
         storage.saveFile(taskList);
         return true;
       };
+    } else if (words[0].equals("find")) {
+      String expr = command.trim().substring(4).trim();
+      return (taskList, storage) -> {
+        taskList.findTasks(expr);
+        return true;
+      };
     } else {
       throw new InvalidCommandException();
     }
