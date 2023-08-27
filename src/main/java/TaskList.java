@@ -26,7 +26,7 @@ public class TaskList {
     }
 
     public Task unmark(int number) {
-        items.get(number - 1).markUnDone();
+        items.get(number - 1).markUndone();
         return items.get(number - 1);
     }
 
