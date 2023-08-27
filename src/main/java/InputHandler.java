@@ -3,7 +3,7 @@ import java.util.Scanner;
 class InputHandler {
     private final Scanner scanner = new Scanner(System.in);
     private final Duke.Model model;
-    private final Duke.TaskStorage taskStorage = new Duke.TaskStorage();
+    private final TaskStorage taskStorage = new TaskStorage();
 
     private boolean isExit = false;
 
