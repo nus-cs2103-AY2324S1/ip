@@ -1,5 +1,8 @@
+import java.io.IOException;
+import java.time.LocalDate;
+
 class Deadline extends Task {
-    private String deadline;
+    private LocalDate deadline;
 
     /**
      * Creates a new Deadline instance with the provided name, deadline and status.
@@ -8,10 +11,10 @@ class Deadline extends Task {
      * @param deadline - the deadline in String format.
      * @param status   - the current task status of the Deadline.
      */
-    public Deadline(String name, String deadline, TaskStatus status) {
+    public Deadline(String name, String deadlineString, TaskStatus status) throws DuchessException {
         super(name, status);
 
-        this.deadline = deadline;
+        this.deadline = Utility.parseDateString(deadlineString);
     }
 
     /**
@@ -20,10 +23,10 @@ class Deadline extends Task {
      * @param name     - the name of the Deadline.
      * @param deadline - the deadline in String format.
      */
-    public Deadline(String name, String deadline) {
+    public Deadline(String name, String deadlineString) throws DuchessException {
         super(name);
 
-        this.deadline = deadline;
+        this.deadline = Utility.parseDateString(deadlineString);
     }
 
     /**
@@ -49,7 +52,7 @@ class Deadline extends Task {
     /**
      * Returns a new Deadline from a Save String.
      *
-     * @return the Deadline that this String is represented by.
+     * @return the Deadline that this String is represented by, or null if the Deadline string is ill-formatted.
      */
     public static Deadline fromSaveString(String s) {
         String[] splitString = s.split(Task.SAVE_STRING_DELIMITER);
@@ -69,6 +72,10 @@ class Deadline extends Task {
         name = splitString[2];
         deadline = splitString[3];
 
-        return new Deadline(name, deadline, taskStatus);
+        try {
+            return new Deadline(name, deadline, taskStatus);
+        } catch(DuchessException e) {
+            return null;
+        }
     }
 }

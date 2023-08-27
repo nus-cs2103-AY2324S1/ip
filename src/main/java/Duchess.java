@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Duchess {
     /**
@@ -38,7 +37,7 @@ public class Duchess {
      * @return    whether the command is an exit command.
      */
     private static boolean isExitCommand(String s) {
-        return Duchess.matchesRegex(s, "^bye$", true) || Duchess.matchesRegex(s, "^exit$", true);
+        return Utility.matchesRegex(s, "^bye$", true) || Utility.matchesRegex(s, "^exit$", true);
     }
 
     /**
@@ -57,62 +56,6 @@ public class Duchess {
         Duchess.duchessPrint(s);
     }
 
-    /**
-     * Checks whether the given string matches the given regex pattern.
-     *
-     * @param s               - the string to check if it matches the pattern.
-     * @param patternString   - the pattern to match against.
-     * @param caseInsensitive - whether the match should be performed ignoring the case.
-     * @return                  whether the string matches the pattern.
-     */
-    private static boolean matchesRegex(String s, String patternString, boolean caseInsensitive) {
-        return Duchess.parseRegex(s, patternString, caseInsensitive).find(0);
-    }
-
-    /**
-     * Checks whether the given string matches the given regex pattern. Defaults to case-sensitive matching.
-     *
-     * @param s               - the string to check if it matches the pattern.
-     * @param patternString   - the pattern to match against.
-     * @return                  whether the string matches the pattern.
-     */
-    private static boolean matchesRegex(String s, String patternString) {
-        return Duchess.parseRegex(s, patternString).find(0);
-    }
-
-    /**
-     * Returns the regex groups that is parsed from the regex pattern.
-     *
-     * @param s               - the string to check if it matches the pattern.
-     * @param patternString   - the pattern to match against.
-     * @param caseInsensitive - whether the match should be performed ignoring the case.
-     * @return                  the matcher containing the parsed regex groups.
-     */
-    private static Matcher parseRegex(String s, String patternString, boolean caseInsensitive) {
-        Pattern pattern;
-
-        if (caseInsensitive) {
-            pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
-        }
-        else {
-            pattern = Pattern.compile(patternString);
-        }
-
-        Matcher matcher = pattern.matcher(s);
-        matcher.find(0);
-        return matcher;
-    }
-
-    /**
-     * Returns the regex groups that is parsed from the regex pattern. By default, is case sensitive.
-     *
-     * @param s               - the string to check if it matches the pattern.
-     * @param patternString   - the pattern to match against.
-     * @return                  the matcher containing the parsed regex groups.
-     */
-    private static Matcher parseRegex(String s, String patternString) {
-        return Duchess.parseRegex(s, patternString, false);
-    }
 
     /**
      * Returns true if the command is recognized as a "list text" command.
@@ -121,7 +64,7 @@ public class Duchess {
      * @return    whether the command is a list tasks command.
      */
     private static boolean isListTasksCommand(String s) {
-        return Duchess.matchesRegex(s, "^list$");
+        return Utility.matchesRegex(s, "^list$");
     }
 
     /**
@@ -143,7 +86,7 @@ public class Duchess {
      * @return    whether the command is a mark task command.
      */
     private static boolean isMarkTaskCommand(String s) {
-        return Duchess.matchesRegex(s, "^mark");
+        return Utility.matchesRegex(s, "^mark");
     }
 
     /**
@@ -153,7 +96,7 @@ public class Duchess {
      * @return    an integer describing the index of the task to be marked.
      */
     private static int parseMarkTaskCommand(String s) throws DuchessException {
-        Matcher m = Duchess.parseRegex(s, "^mark( [0-9]+)?$");
+        Matcher m = Utility.parseRegex(s, "^mark( [0-9]+)?$");
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, I don't know which task to mark... ;-;");
@@ -186,7 +129,7 @@ public class Duchess {
      * @return    whether the command is an unmark task command.
      */
     private static boolean isUnmarkTaskCommand(String s) {
-        return Duchess.matchesRegex(s, "^unmark");
+        return Utility.matchesRegex(s, "^unmark");
     }
 
     /**
@@ -196,7 +139,7 @@ public class Duchess {
      * @return    an integer describing the index of the task to be unmarked.
      */
     private static int parseUnmarkTaskCommand(String s) throws DuchessException {
-        Matcher m = Duchess.parseRegex(s, "^unmark( [0-9]+)?$");
+        Matcher m = Utility.parseRegex(s, "^unmark( [0-9]+)?$");
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, I don't know which task to unmark... ;-;");
@@ -229,7 +172,7 @@ public class Duchess {
      * @return    whether the command is an delete task command.
      */
     private static boolean isDeleteTaskCommand(String s) {
-        return Duchess.matchesRegex(s, "^delete");
+        return Utility.matchesRegex(s, "^delete");
     }
 
     /**
@@ -239,7 +182,7 @@ public class Duchess {
      * @return    an integer describing the index of the task to be deleted.
      */
     private static int parseDeleteTaskCommand(String s) throws DuchessException {
-        Matcher m = Duchess.parseRegex(s, "^delete( [0-9]+)?$");
+        Matcher m = Utility.parseRegex(s, "^delete( [0-9]+)?$");
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, I don't know which task to delete... ;-;");
@@ -273,7 +216,7 @@ public class Duchess {
      * @return    whether the command is recognized as a ToDo command.
      */
     private static boolean isToDoCommand(String s) {
-        return Duchess.matchesRegex(s, "^todo");
+        return Utility.matchesRegex(s, "^todo");
     }
 
     /**
@@ -283,7 +226,7 @@ public class Duchess {
      * @return    the ToDo task.
      */
     private static ToDo parseToDoCommand(String s) throws DuchessException {
-        Matcher m = Duchess.parseRegex(s, "^todo( [A-Za-z0-9 ]+)?$");
+        Matcher m = Utility.parseRegex(s, "^todo( [A-Za-z0-9 ]+)?$");
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, todo names cannot be empty... ;-;");
@@ -300,7 +243,7 @@ public class Duchess {
      */
     private static boolean isDeadlineCommand(String s) {
         // This mmatches the start of a string, then the word "deadline", then anything afterwards.
-        return Duchess.parseRegex(s, "^deadline").find(0);
+        return Utility.parseRegex(s, "^deadline").find(0);
     }
 
     /**
@@ -310,7 +253,7 @@ public class Duchess {
      * @return    the Deadline task.
      */
     private static Deadline parseDeadlineCommand(String s) throws DuchessException {
-        Matcher m = Duchess.parseRegex(s, "^deadline( [A-Za-z0-9 ]+)?( /by ([A-Za-z0-9 ]+)?)?$");
+        Matcher m = Utility.parseRegex(s, "^deadline( [A-Za-z0-9 ]+)?( /by ([0-9\\-]+)?)?$");
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, deadline names cannot be empty... ;-;");
@@ -329,7 +272,7 @@ public class Duchess {
      * @return    whether the command is recognized as an "event" command.
      */
     private static boolean isEventCommand(String s) {
-        return Duchess.matchesRegex(s, "^event");
+        return Utility.matchesRegex(s, "^event");
     }
 
     /**
@@ -339,7 +282,7 @@ public class Duchess {
      * @return    the Event task.
      */
     private static Event parseEventCommand(String s) throws DuchessException {
-        Matcher m = Duchess.parseRegex(s, "^event( [A-Za-z0-9 ]+)?( /from( [A-Za-z0-9 ]+)?)?( /to( [A-Za-z0-9 ]+)?)?$");
+        Matcher m = Utility.parseRegex(s, "^event( [A-Za-z0-9 ]+)?( /from( [A-Za-z0-9 ]+)?)?( /to( [A-Za-z0-9 ]+)?)?$");
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, event names cannot be empty... ;-;");
@@ -467,7 +410,7 @@ public class Duchess {
                 catch(DuchessException e) {                    
                     Duchess.duchessPrint(e.getMessage());
                     Duchess.duchessPrint("(／°▽°)／Try something like this!!");
-                    Duchess.duchessPrint("deadline [name] /by [date]");
+                    Duchess.duchessPrint("deadline [name] /by [year-month-date]");
                 }
                 continue;
             }
