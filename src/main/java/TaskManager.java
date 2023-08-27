@@ -1,15 +1,20 @@
 import java.lang.reflect.Array;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class TaskManager {
     private ArrayList<Task> userTasks;
+    protected static final DateTimeFormatter DATE_FORMAT_OUTPUT = DateTimeFormatter.ofPattern("d/M/yyyy");
 
     public TaskManager() {
         this.userTasks = new ArrayList<Task>();
     }
 
     public enum ActionType {
-        BYE, LIST, SAVE, LOAD, MARK, UNMARK, DELETE, CLEAR, CLEARFILE, TODO, DEADLINE, EVENT;
+        BYE, LIST, SAVE, LOAD, MARK, UNMARK, DELETE, CLEAR, CLEARFILE, TODO, DEADLINE, EVENT, SCHEDULE;
     }
 
     public void handleAction(String input) throws DukeException{
@@ -45,6 +50,9 @@ public class TaskManager {
             case CLEARFILE:
                 Storage storage = new Storage();
                 storage.clearFile();
+                break;
+            case SCHEDULE:
+                this.getSchedule(input);
                 break;
             default:
                 Task task = Task.createTask(input);
@@ -158,6 +166,38 @@ public class TaskManager {
             }
             task.fromFileString(fileStringArray[i]);
             this.add(task);
+        }
+    }
+
+    public void getSchedule(String input) {
+        LocalDate queryDateTime;
+        System.out.println(input.substring(9));
+        try {
+            queryDateTime = LocalDate.parse(input.substring(9), DATE_FORMAT_OUTPUT);
+        } catch (DateTimeException e) {
+            System.out.println("Date should follow the format d/M/yyyy");
+            return;
+        }
+        String output = "";
+        for (int i = 0; i < userTasks.size(); i++) {
+            Task task = userTasks.get(i);
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.by.toLocalDate().equals(queryDateTime)) {
+                    output += (i + 1) + ". " + deadline.toString() + "\n";
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (!event.startDate.toLocalDate().isAfter(queryDateTime) & !event.endDate.toLocalDate().isBefore(queryDateTime)) {
+                    output += (i + 1) + ". " + event.toString() + "\n";
+                }
+            }
+        }
+        if (output.equals("")) {
+            System.out.println("There are no tasks on this date.");
+        } else {
+            System.out.println("Here are the tasks on this date:");
+            System.out.println(output);
         }
     }
 }
