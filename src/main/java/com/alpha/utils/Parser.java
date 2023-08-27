@@ -1,5 +1,14 @@
 package com.alpha.utils;
 
+import com.alpha.commands.ByeCommand;
+import com.alpha.commands.Command;
+import com.alpha.commands.DeadlineCommand;
+import com.alpha.commands.DeleteCommand;
+import com.alpha.commands.EventCommand;
+import com.alpha.commands.ListCommand;
+import com.alpha.commands.MarkCommand;
+import com.alpha.commands.ToDoCommand;
+import com.alpha.commands.UnmarkCommand;
 import com.alpha.exceptions.InvalidTaskException.InvalidCommandException;
 import com.alpha.exceptions.InvalidTaskException.InvalidDeadlineException;
 import com.alpha.exceptions.InvalidTaskException.InvalidEventException;
@@ -18,10 +27,6 @@ public class Parser {
       throw new InvalidCommandException();
     }
     return tokens;
-  }
-
-  public static String getTask(String text) {
-    return text.split(" ")[0];
   }
 
   public static String getToDoName(String text) throws InvalidToDoException {
@@ -92,5 +97,30 @@ public class Parser {
 
   public static String parseDateTimeObjectToStore(LocalDateTime localDateTime) {
     return localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+  }
+
+  public static Command parse(String userInput) {
+    String[] tokens = userInput.split(" ");
+
+    switch(tokens[0]) {
+      case "list":
+        return new ListCommand();
+      case "mark":
+        return new MarkCommand(tokens[1]);
+      case "unmark":
+        return new UnmarkCommand(tokens[1]);
+      case "delete":
+        return new DeleteCommand(tokens[1]);
+      case "bye":
+        return new ByeCommand();
+      case "todo":
+        return new ToDoCommand(userInput);
+      case "deadline":
+        return new DeadlineCommand(userInput);
+      case "event":
+        return new EventCommand(userInput);
+      default:
+        return null;
+    }
   }
 }
