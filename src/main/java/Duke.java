@@ -27,7 +27,7 @@ public class Duke {
     }
 
     public void exit() {
-        String exiting = "Bye. Hope to see you again soon! Beep Boop!\n";
+        String exiting = "Bye Bye. Hope to see you again soon! Beep Boop!\n";
         printMessage(exiting);
     }
 
