@@ -1,5 +1,18 @@
-class Parser {
-    static Command parse(String userInput) throws DukeException {
+package duke.parser;
+
+import duke.exception.DukeException;
+import duke.command.Command;
+import duke.command.ByeCommand;
+import duke.command.DeadlineCommand;
+import duke.command.DeleteCommand;
+import duke.command.EventCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.ToDoCommand;
+import duke.command.UnmarkCommand;
+
+public class Parser {
+    public static Command parse(String userInput) throws DukeException {
         try {
             String[] tokens = userInput.split(" ", 2);
             String keyword = tokens[0].strip();
@@ -17,7 +30,7 @@ class Parser {
             case "delete":
                 return new DeleteCommand(details);
             case "todo":
-                return new TodoCommand(details);
+                return new ToDoCommand(details);
             case "deadline":
                 return new DeadlineCommand(details);
             case "event":

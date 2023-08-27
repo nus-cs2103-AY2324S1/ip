@@ -1,10 +1,12 @@
-class ToDo extends Task {
-    ToDo(String description) {
+package duke.task;
+
+public class ToDo extends Task {
+    public ToDo(String description) {
         super(description);
     }
 
     @Override
-    String stringToFile() {
+    public String stringToFile() {
         return String.format("T | %s", super.stringToFile());
     }
 

@@ -1,29 +1,31 @@
-class Task {
+package duke.task;
+
+public class Task {
     protected String description;
     protected boolean isDone;
 
-    Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
 
-    Task(String description) {
+    public Task(String description) {
         this(description, false);
     }
 
-    String stringToFile() {
+    public String stringToFile() {
         return String.format("%s | %s", isDone ? "1" : "0", description);
     }
 
-    String getStatusIcon() {
+    public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
-    void markIsDone() {
+    public void markIsDone() {
         this.isDone = true;
     }
 
-    void markNotDone() {
+    public void markNotDone() {
         this.isDone = false;
     }
 

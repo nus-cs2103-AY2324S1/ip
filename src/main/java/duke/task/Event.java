@@ -1,15 +1,17 @@
-class Event extends Task {
+package duke.task;
+
+public class Event extends Task {
     protected String from;
     protected String to;
 
-    Event(String description, String from, String to) {
+    public Event(String description, String from, String to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
     @Override
-    String stringToFile() {
+    public String stringToFile() {
         return String.format("E | %s | %s | %s", super.stringToFile(), from, to);
     }
 

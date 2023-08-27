@@ -1,7 +1,15 @@
-class EventCommand extends Command {
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.task.Event;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
+public class EventCommand extends Command {
     private final Event event;
 
-    EventCommand(String input) throws DukeException {
+    public EventCommand(String input) throws DukeException {
         if (input == null) {
             throw new DukeException(" ☹ OOPS!!! The description of a event cannot be empty.");
         } else if (!input.contains("/from")) {
@@ -15,7 +23,7 @@ class EventCommand extends Command {
     }
 
     @Override
-    void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(event);
         ui.showMessage(String.format("Got it. I've added this task:\n    " +
                 "%s\nNow you have %d tasks in the list.", event, taskList.getListSize()));

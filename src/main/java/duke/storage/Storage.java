@@ -1,3 +1,11 @@
+package duke.storage;
+
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -5,14 +13,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Storage {
+public class Storage {
     private final String filePath;
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    void createFile() throws IOException {
+    public void createFile() throws IOException {
         String[] temp = filePath.split("/");
         String directoryPath = "";
         for (int i = 0; i < temp.length - 1; i++) {
@@ -27,7 +35,7 @@ class Storage {
         file.createNewFile();
     }
 
-    File loadFile() throws IOException {
+    public File loadFile() throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
             createFile();
@@ -35,7 +43,7 @@ class Storage {
         return file;
     }
 
-    void writeFile(String msg) throws DukeException {
+    public void writeFile(String msg) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filePath);
             fw.write(msg);
@@ -45,7 +53,7 @@ class Storage {
         }
     }
 
-    void appendFile(Task task) throws DukeException {
+    public void appendFile(Task task) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filePath, true);
             fw.write(task.stringToFile() + "\n");
@@ -55,7 +63,7 @@ class Storage {
         }
     }
 
-    ArrayList<Task> createList() throws DukeException {
+    public ArrayList<Task> createList() throws DukeException {
         try {
             ArrayList<Task> taskList = new ArrayList<>();
             Scanner sc = new Scanner(loadFile());

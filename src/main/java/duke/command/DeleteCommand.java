@@ -1,7 +1,14 @@
-class DeleteCommand extends Command {
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.ui.Ui;
+public class DeleteCommand extends Command {
     private final int index;
 
-    DeleteCommand(String input) throws DukeException {
+    public DeleteCommand(String input) throws DukeException {
         if (input == null) {
             throw new DukeException(" ☹ Which task?");
         }
@@ -9,7 +16,7 @@ class DeleteCommand extends Command {
     }
 
     @Override
-    void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         Task deletedTask = taskList.deleteTask(index);
         ui.showMessage(String.format("Noted. I've removed this task:\n    " +
                 "%s\nNow you have %d tasks in the list.", deletedTask, taskList.getListSize()));

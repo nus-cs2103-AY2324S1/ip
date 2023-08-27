@@ -1,40 +1,42 @@
+package duke.ui;
+
 import java.util.Scanner;
 
-class Ui {
+public class Ui {
     private static final String HORIZONTAL_LINE = "----------------------------(≧▽≦)----------------------------";
     private final Scanner scanner;
 
-    Ui() {
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
-    void showHorizontalLine() {
+    public void showHorizontalLine() {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    void showMessage(String msg) {
+    public void showMessage(String msg) {
         showHorizontalLine();
         System.out.println(msg);
         showHorizontalLine();
     }
 
-    void helloGreeting() {
+    public void helloGreeting() {
         showMessage("Hello! I'm ForsakenX\nWhat can I do for you?");
     }
 
-    void byeGreeting() {
+    public void byeGreeting() {
         showMessage("Bye. Hope to see you again soon!");
     }
 
-    void showLoadingError() {
+    public void showLoadingError() {
         showMessage(" ☹ Loading error! File may be corrupted.");
     }
 
-    void showError(String errorMsg) {
+    public void showError(String errorMsg) {
         showMessage(errorMsg);
     }
 
-    String readCommand() {
+    public String readCommand() {
         return scanner.nextLine();
     }
 }

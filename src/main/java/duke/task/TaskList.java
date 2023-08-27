@@ -1,33 +1,37 @@
+package duke.task;
+
+import duke.exception.DukeException;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class TaskList {
+public class TaskList {
     private List<Task> taskList;
 
-    TaskList(List<Task> tasks) {
+    public TaskList(List<Task> tasks) {
         this.taskList = tasks;
     }
 
-    TaskList() {
+    public TaskList() {
         this(new ArrayList<>());
     }
 
-    int getListSize() {
+    public int getListSize() {
         return taskList.size();
     }
 
-    void addTask(Task task) {
+    public void addTask(Task task) {
         taskList.add(task);
     }
 
-    Task deleteTask(int index) throws DukeException {
+    public Task deleteTask(int index) throws DukeException {
         if (index > taskList.size() || index <= 0) {
             throw new DukeException(String.format(" ☹ OOPS!!! Task %d does not exist.", index));
         }
         return taskList.remove(index - 1);
     }
 
-    Task markTask(int index) throws DukeException {
+    public Task markTask(int index) throws DukeException {
         if (index > taskList.size() || index <= 0) {
             throw new DukeException(String.format(" ☹ OOPS!!! Task %d does not exist.", index));
         }
@@ -36,7 +40,7 @@ class TaskList {
         return task;
     }
 
-    Task unmarkTask(int index) throws DukeException {
+    public Task unmarkTask(int index) throws DukeException {
         if (index > taskList.size() || index <= 0) {
             throw new DukeException(String.format(" ☹ OOPS!!! Task %d does not exist.", index));
         }
@@ -45,7 +49,7 @@ class TaskList {
         return task;
     }
 
-    String stringToFile() {
+    public String stringToFile() {
         StringBuilder msg = new StringBuilder();
         for (Task task : taskList) {
             msg.append(String.format("%s\n", task.stringToFile()));

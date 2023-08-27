@@ -1,7 +1,16 @@
-class DeadlineCommand extends Command {
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.task.Deadline;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
+public class DeadlineCommand extends Command {
+
     private final Deadline deadline;
 
-    DeadlineCommand(String input) throws DukeException {
+    public DeadlineCommand(String input) throws DukeException {
         if (input == null) {
             throw new DukeException(" ☹ OOPS!!! The description of a deadline cannot be empty.");
         } else if (!input.contains("/by")) {
@@ -12,7 +21,7 @@ class DeadlineCommand extends Command {
     }
 
     @Override
-    void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(deadline);
         ui.showMessage(String.format("Got it. I've added this task:\n    " +
                 "%s\nNow you have %d tasks in the list.", deadline, taskList.getListSize()));
