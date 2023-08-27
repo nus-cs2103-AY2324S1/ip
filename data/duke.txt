@@ -1,3 +1,0 @@
-T | 1 | homework
-E | 0 | badminton | 2pm | 4pm
-T | 0 | shit

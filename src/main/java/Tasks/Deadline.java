@@ -1,3 +1,7 @@
+package Tasks;
+
+import Utilities.Exceptions.IncompleteDescriptionException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -7,7 +11,7 @@ public class Deadline extends Task {
     private String deadline;
     private LocalDate ld;
 
-    private Deadline(String taskName, String deadline) throws IncompleteDescriptionException {
+    public Deadline(String taskName, String deadline) throws IncompleteDescriptionException {
         super(taskName);
         try {
             this.ld = LocalDate.parse(deadline);
@@ -15,9 +19,13 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
-    public static Deadline create(String taskName, String deadline) throws IncompleteDescriptionException {
-        if (deadline.isBlank()) throw new IncompleteDescriptionException();
-        return new Deadline(taskName, deadline);
+    public static Deadline create(String taskDesc) throws IncompleteDescriptionException {
+        String[] tmp = taskDesc.split(" /by ");
+        if (tmp.length <= 1) throw new IncompleteDescriptionException();
+        String taskName = tmp[0];
+        String deadline = tmp[1];
+        if (taskName.isBlank() || deadline.isBlank()) throw new IncompleteDescriptionException();
+        return new Deadline(tmp[0], tmp[1]);
     }
 
     @Override
