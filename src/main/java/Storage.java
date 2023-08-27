@@ -9,28 +9,35 @@ public class Storage {
     String path;
     File file;
 
-    public Storage() {
-        this.path = "./duke.txt";
+    public Storage(String path) {
+        this.path = path;
         this.file = new File(this.path);
     }
 
-    public void saveTasks(ArrayList<Task> tasks) throws IOException {
-        FileWriter filewriter = new FileWriter(this.path);
-        for (Task task : tasks) {
-            filewriter.write(task.toSaveString() + "\n");
+    public void saveTasks(ArrayList<Task> tasks) throws DukeException {
+        try {
+            FileWriter filewriter = new FileWriter(this.path);
+            for (Task task : tasks) {
+                filewriter.write(task.toSaveString() + "\n");
+            }
+            filewriter.close();
+        } catch (IOException e) {
+            throw new DukeException();
         }
-        filewriter.close();
     }
 
-    public ArrayList<Task> loadTasks() throws FileNotFoundException {
+    public ArrayList<Task> loadTasks() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
-
-        File file = new File(this.path);
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            Task task = Task.parseTask(line);
-            tasks.add(task);
+        try {
+            File file = new File(this.path);
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Task task = new Parser().parseTask(line);
+                tasks.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            throw new DukeException();
         }
         return tasks;
     }
