@@ -2,16 +2,21 @@ import java.util.Scanner;
 
 public class Cheems {
     private final static Scanner scanner = new Scanner(System.in);
-    private final Parser parser = new Parser();
+    private final Storage storage;
+
+    public Cheems(String filepath) {
+        this.storage = Storage.getInstance(filepath);
+    }
 
     public void run() {
         UI.showWelcomeMsg();
+        storage.loadData();
         String input = UI.getInput(scanner);
 
         // business logic
         while (!input.equals("bye")) {
             try {
-                parser.parseAndExecute(input);
+                Parser.parseAndExecute(input);
             } catch (RuntimeException e) {
                 System.out.println(e.toString());
             }
@@ -22,7 +27,7 @@ public class Cheems {
     }
 
     public static void main(String[] args) {
-        Cheems cheems = new Cheems();
+        Cheems cheems = new Cheems("data.txt");
         cheems.run();
     }
 }
