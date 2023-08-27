@@ -1,9 +1,6 @@
 import exceptions.BobCorruptFileException;
 import exceptions.BobException;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -69,6 +66,7 @@ public class Bob {
         }
     }
 
+    // DateTime edit here
     private static Task parseStoredTask(String inputString) throws BobException {
         String[] split = inputString.split("\\|");
         String commandType = split[0];
@@ -199,6 +197,8 @@ public class Bob {
                         break;
                     }
                     String[] bySplit = argument.split(" /by ", 2);
+
+                    // DateTime edit here
                     if (bySplit.length != 2) {
                         System.out.println("Incorrect deadline command format! It should be:\ndeadline [description] /by [duedate]");
                         break;
@@ -212,6 +212,8 @@ public class Bob {
                         System.out.println("The description of your event should not be empty! Try:\nevent [description] /from [start] /to [end]");
                         break;
                     }
+
+                    // DateTime edit here
                     String[] descSplit = argument.split(" /from ", 2);
                     if (descSplit.length != 2) {
                         System.out.println("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]");

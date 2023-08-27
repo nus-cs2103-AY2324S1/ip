@@ -1,23 +1,25 @@
 package task;
 
+import java.util.Date;
+
 public class Event extends Task {
     protected String startDateTime;
     protected String endDateTime;
     public Event(String description, String startDateTime, String endDateTime) {
         super(description);
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.startDateTime = DateFormatter.format(startDateTime, "MMM d yyyy");
+        this.endDateTime = DateFormatter.format(endDateTime, "MMM d yyyy");
     }
 
     public Event(String description, String startDateTime, String endDateTime, boolean isDone) {
         super(description, isDone);
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.startDateTime = DateFormatter.format(startDateTime, "MMM d yyyy");
+        this.endDateTime = DateFormatter.format(endDateTime, "MMM d yyyy");
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + String.format(" (from: %s, to: %s)", startDateTime, endDateTime);
+        return String.format("[E]%s (from: %s, to: %s)", super.toString(), this.startDateTime, this.endDateTime);
     }
 
     @Override
