@@ -1,12 +1,15 @@
+import java.io.FileNotFoundException;
 import java.util.*;
 public class Duke {
     protected static String H_LINE = "____________________________________________________________\n";
     protected static boolean botInUse = true;
     protected static TaskManager taskManager = new TaskManager();
     protected static ResponseGen responseGen = new ResponseGen();
+    protected static FileManager fileManager = new FileManager();
 
-//    public static void updates
-    
+    public static void updateSaveFile() {
+        fileManager.saveFile(taskManager.outputNumberedList());
+    }
     public static void listen(String input) throws InvalidUserInputException {
         if (input.equals("bye")) {
             botInUse=false;
@@ -19,17 +22,20 @@ public class Duke {
             Task t = taskManager.getTask(a-1);
             t.markAsUndone();
             System.out.println(responseGen.unmarkTask(t));
+            updateSaveFile();
         } else if (input.contains("mark")) {
             int a = Integer.parseInt(input.substring(5));
             Task t = taskManager.getTask(a-1);
             t.markAsDone();
             System.out.println(responseGen.markTask(t));
+            updateSaveFile();
         } else if (input.contains("todo")) {
             try {
                 String toDoDescription = input.split("todo ")[1];
                 ToDo toDoTask = new ToDo(toDoDescription);
                 taskManager.addTask(toDoTask);
                 System.out.println(responseGen.toDoAdded(toDoTask, taskManager));
+                updateSaveFile();
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(responseGen.toDoMissingContent());
             }
@@ -40,6 +46,7 @@ public class Duke {
                 Deadline deadlineTask = new Deadline(deadlineDescription, by);
                 taskManager.addTask(deadlineTask);
                 System.out.println(responseGen.deadlineAdded(deadlineTask, taskManager));
+                updateSaveFile();
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(responseGen.deadlineMissingContent());
             }
@@ -51,6 +58,7 @@ public class Duke {
                 Event eventTask = new Event(eventDescription, from, to);
                 taskManager.addTask(eventTask);
                 System.out.println(responseGen.eventAdded(eventTask, taskManager));
+                updateSaveFile();
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(responseGen.eventMissingContent());
             }
@@ -59,6 +67,7 @@ public class Duke {
             Task toBeRemoved = taskManager.getTask(a-1);
             taskManager.deleteTask(a-1);
             System.out.println(responseGen.taskDeleted(toBeRemoved, taskManager));
+            updateSaveFile();
         } else {
             throw new InvalidUserInputException();
         }
@@ -71,6 +80,7 @@ public class Duke {
                             + H_LINE) ;
         Scanner sc = new Scanner(System.in);
         while(botInUse) {
+            fileManager.loadFileToTaskManager(taskManager);
             String input = sc.nextLine();
             try {
                 listen(input);
