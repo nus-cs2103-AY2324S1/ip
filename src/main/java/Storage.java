@@ -13,8 +13,8 @@ public class Storage {
     private File file;
     private final String PATH = System.getProperty("user.dir");
 
-    public Storage() {
-        this.file = new File("data/duke.txt");
+    public Storage(String filePath) {
+        this.file = new File(filePath);
         this.folder = new File("data");
 
         // Directory doesn't exist
@@ -28,7 +28,7 @@ public class Storage {
     }
 
     void createDirectory() {
-        folder.mkdir();
+        this.folder.mkdir();
     }
 
     void createFile() {
