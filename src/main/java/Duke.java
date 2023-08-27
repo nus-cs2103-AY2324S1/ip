@@ -2,14 +2,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static ArrayList<Task> tasks;
     private static final String FILE_PATH = "./data/state.txt";
+    private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
+    public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
     public static void main(String[] args) {
         Duke.tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
@@ -67,7 +69,8 @@ public class Duke {
                 }
                 if (command.equals(Command.DEADLINE.getCommand())) {
                     String[] processedDeadlineInput = Deadline.processInput(split);
-                    Deadline newDeadline = new Deadline(processedDeadlineInput[0], processedDeadlineInput[1]);
+                    Deadline newDeadline = new Deadline(processedDeadlineInput[0],
+                            LocalDateTime.parse(processedDeadlineInput[1], dateTimeInputFormatter));
                     Duke.tasks.add(newDeadline);
                     Duke.printTaskAddedMessages(newDeadline);
                     continue;
@@ -128,7 +131,7 @@ public class Duke {
                 if (taskArray[0].equals(Command.TODO.getCommand())) {
                     task = new ToDo(taskArray[2]);
                 } else if (taskArray[0].equals(Command.DEADLINE.getCommand())) {
-                    task = new Deadline(taskArray[2], taskArray[3]);
+                    task = new Deadline(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter));
                 } else {
                     task = new Event(taskArray[2], taskArray[3], taskArray[4]);
                 }

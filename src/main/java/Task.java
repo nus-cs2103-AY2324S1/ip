@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 public abstract class Task {
@@ -9,6 +10,9 @@ public abstract class Task {
      * boolean to track whether the task has been marked as done
      */
     private boolean done;
+
+    private static final String DATETIME_OUTPUT_FORMAT = "dd-MM-yyyy HH:mm";
+    public static final DateTimeFormatter dateTimeOutputFormatter = DateTimeFormatter.ofPattern(DATETIME_OUTPUT_FORMAT);
 
     /**
      * Constructor for the task class
