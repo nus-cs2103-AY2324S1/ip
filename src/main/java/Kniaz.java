@@ -1,5 +1,6 @@
 
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import exceptions.KniazRuntimeException;
 import logic.taskhandling.*;
 import parser.KniazCommand;
 import parser.KniazParser;
+import save.KniazSaver;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -59,6 +61,8 @@ public class Kniaz {
 
         System.out.println("What can I do for you?");
         System.out.println(Kniaz.SEPERATOR);
+
+        KniazSaver kniazSaver = new KniazSaver(); //use default
 
         KniazCommand nextCommand; //Initialise the input
         while (true) { // I find this a bit icky but we rely on guard clauses to break instead
@@ -163,6 +167,18 @@ public class Kniaz {
             // Each command input will invariably result in a seperator line being printed
             // Helps to keep it looking nice
             System.out.println((Kniaz.SEPERATOR));
+            try {
+                kniazSaver.save(taskList);
+            } catch (IOException e) {
+                System.out.println("Something went wrong trying to save, I won't remember your tasks on reload!");
+                System.out.println(e.getMessage());
+                break;
+
+            } catch (SecurityException e) {
+                System.out.println("I couldn't save because I wasn't allowed!");
+                System.out.println(e.getMessage());
+                break;
+            }
 
 
         }
