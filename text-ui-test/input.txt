@@ -10,4 +10,9 @@ list
 deadline erroneous deadline by now
 event wrong event input from 6pm to 8pm
 invalid input
+todo finish CS2103T ip ASAP BRUH
+delete non-Number
+delete 1234.98765
+delete 2
+list
 bye
