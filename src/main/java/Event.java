@@ -7,16 +7,21 @@ public class Event extends Task {
     private String startTime;
     private String endTime;
 
+    private DateTime start;
+    private DateTime end;
+
     /**
      * Constructor for creating a Event
      *
      * @param taskName name of task.
      */
-    public Event(String taskName, String startTime, String endTime) {
+    public Event(String taskName, DateTime start, DateTime end) {
         super(taskName);
         this.taskName = taskName;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = start.getDateTime();
+        this.endTime = end.getDateTime();
+        this.start = start;
+        this.end = end;
     }
 
     /**
@@ -26,14 +31,16 @@ public class Event extends Task {
      * @param startTime the start time of the event
      * @param endTime   the end time of the event
      */
-    public Event(String taskName, boolean isDone, String startTime, String endTime) {
+    public Event(String taskName, boolean isDone, DateTime start, DateTime end) {
         super(taskName);
         if (isDone) {
             super.quietlyCompleteTask();
         }
         this.taskName = taskName;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = start.getDateTime();
+        this.endTime = end.getDateTime();
+        this.start = start;
+        this.end = end;
     }
 
     /**
@@ -69,6 +76,12 @@ public class Event extends Task {
 
             } else if (end.trim().isEmpty()) {
                 throw new WrongInputTask("/to <content>, content cannot be blank", "Enter text after /to ");
+            } else if (!DateTimeParser.isValidDateTime(start)) {
+                throw new WrongInputTask("Invalid date and time format for /from <datetime>",
+                        DateTimeParser.getValidDateTimeFormat());
+            } else if (!DateTimeParser.isValidDateTime(end)) {
+                throw new WrongInputTask("Invalid date and time format for /to <datetime>",
+                        DateTimeParser.getValidDateTimeFormat());
             }
         }
     }
@@ -81,13 +94,14 @@ public class Event extends Task {
     @Override
     public String convertToSaveFormat() {
         return "E" + Storage.FILESEPERATORCHARACTER + this.isDone() + Storage.FILESEPERATORCHARACTER + this.taskName
-                + Storage.FILESEPERATORCHARACTER + this.endTime + Storage.FILESEPERATORCHARACTER + this.startTime;
+                + Storage.FILESEPERATORCHARACTER + this.end.toString() + Storage.FILESEPERATORCHARACTER
+                + this.start.toString();
     }
 
     @Override
     public String toString() {
         return "[E]" + "[" + this.getStatusIcon() + "] "
                 + this.taskName + " (from: "
-                + this.startTime + " to: " + this.endTime + ")";
+                + this.start.toString() + " to: " + this.end.toString() + ")";
     }
 }

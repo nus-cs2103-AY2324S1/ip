@@ -70,7 +70,8 @@ public class Duke {
                             String deadline = segementedString[1];
                             // Hardcoded because we know how words are positioned
                             String taskNameDeadline = segementedString[0].substring(DEADLINEOFFSET);
-                            Task deadlineTask = new Deadline(taskNameDeadline, deadline);
+                            DateTime deadlineDateTime = DateTime.createDateTime(deadline);
+                            Task deadlineTask = new Deadline(taskNameDeadline, deadlineDateTime);
                             totalItemNumber++;
                             this.taskList.addTask(deadlineTask, totalItemNumber, storage);
                             break;
@@ -82,8 +83,10 @@ public class Duke {
                             String taskNameEvent = segmentedViaBy[0].substring(EVENTOFFSET);
                             String[] segmentedViaTo = segmentedViaBy[1].split(" /to ");
                             String start = segmentedViaTo[0];
+                            DateTime startDateTime = DateTime.createDateTime(start);
                             String end = segmentedViaTo[1];
-                            Task event = new Event(taskNameEvent, start, end);
+                            DateTime endDateTime = DateTime.createDateTime(end);
+                            Task event = new Event(taskNameEvent, startDateTime, endDateTime);
                             totalItemNumber++;
                             this.taskList.addTask(event, totalItemNumber, storage);
                             break;
