@@ -9,6 +9,12 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Generates the formatted representation of the event task.
+     * The format includes the task status, task type, description, start time, and end time.
+     *
+     * @return The formatted representation of the event task.
+     */
     @Override
     public String getTask() {
         return String.format("[%s][E] %s (from: %s to: %s)", super.checkDone(), super.getName(), start, end);
