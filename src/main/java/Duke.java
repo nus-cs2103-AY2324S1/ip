@@ -2,12 +2,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private Ui ui;
     private Storage storage;
     private TaskList taskList;
 
     public Duke(String filePath) {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
             this.taskList = new TaskList(storage.loadData());
@@ -17,20 +15,20 @@ public class Duke {
     }
 
     private void greet() {
-        String greetMsg = "Hello! I'm Atlas\n"
-                + "What can I do for you?\n"
-                + "Type 'help' to view available commands\n";
-        System.out.println(greetMsg);
+        Ui.showGreetMessage();
     }
 
     private void exit() {
-        String exitMsg = "Bye. Hope to see you again soon!";
         this.storage.saveData(this.taskList);
-        System.out.println(exitMsg);
+        Ui.showExitMessage();
     }
 
     private void list() {
         this.taskList.list();
+    }
+
+    private void help() {
+        Ui.showHelpMessage();
     }
 
     private void listen() {
@@ -70,7 +68,7 @@ public class Duke {
                         break;
                 }
             } catch (DukeException e) {
-                System.out.println(e);
+                Ui.showError(e);
             }
         }
     }
@@ -78,20 +76,6 @@ public class Duke {
     private void run() {
         this.greet();
         this.listen();
-    }
-
-    private void help() {
-        String helpMsg = "Here are the available commands:\n"
-                + "1. bye - Exit the program\n"
-                + "2. list - List all tasks\n"
-                + "3. mark <taskNumber> - Mark a task as done\n"
-                + "4. unmark <taskNumber> - Mark a task as undone\n"
-                + "5. delete <taskNumber> - Delete a task\n"
-                + "6. todo <description> - Add a new todo task\n"
-                + "7. deadline <description> /by <dueDate> - Add a new deadline task\n"
-                + "8. event <description> /from <startDate> /to <endDate> - Add a new event task\n"
-                + "9. help - Displays the available commands\n";
-        System.out.println(helpMsg);
     }
 
     public static void main(String[] args) {

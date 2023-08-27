@@ -8,16 +8,10 @@ public abstract class Task {
 
     public void markAsDone() {
         this.isDone = true;
-        String msg = "Nice! I've marked this task as done:\n"
-                + "\t" + this + "\n";
-        System.out.println(msg);
     }
 
     public void markAsUndone() {
         this.isDone = false;
-        String msg = "OK, I've marked this task as not done yet:\n"
-                + "\t" + this + "\n";
-        System.out.println(msg);
     }
 
     @Override

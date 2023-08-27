@@ -46,7 +46,6 @@ public class Storage {
             createDataDirectory();
             createDukeFile();
             writeTaskListToFile(taskList);
-            System.out.println("Storage updated successfully!");
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
