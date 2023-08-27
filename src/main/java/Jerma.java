@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,7 +18,7 @@ public class Jerma {
     System.out.println("Hello! I'm Jerma.");
 
     Scanner scanner = new Scanner(System.in);
-    List<Task> toDoList = new ArrayList<>();
+    List<Task> toDoList = SaveHandler.load();
 
     listen: while (true) {
       String input = scanner.nextLine();
