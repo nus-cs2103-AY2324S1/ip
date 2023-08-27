@@ -8,7 +8,7 @@ abstract class Task {
     protected final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     public static Task createTask(String task) throws Duke.WrongCommandException, Duke.WrongFormatException {
-        Duke.TaskType taskType = getTaskType(task);
+        TaskType taskType = getTaskType(task);
         if (taskType == null) throw new Duke.WrongCommandException("Whopsie daisies! I don't understand that command!");
 
         switch (taskType) {
@@ -26,7 +26,7 @@ abstract class Task {
     public static Task loadTask(String fileTask) throws Duke.WrongFormatException, Duke.InvalidFileException {
         String[] taskDetails = fileTask.split(" \\| ");
         try {
-            Duke.TaskType taskType = Duke.TaskType.valueOf(taskDetails[0]);
+            TaskType taskType = TaskType.valueOf(taskDetails[0]);
             boolean isDone = taskDetails[1].equals("1");
             String description = taskDetails[2];
 
@@ -45,17 +45,17 @@ abstract class Task {
         }
     }
 
-    private static Duke.TaskType getTaskType(String input) {
+    private static TaskType getTaskType(String input) {
         if (input.startsWith("todo")) {
-            return Duke.TaskType.TODO;
+            return TaskType.TODO;
         }
 
         if (input.startsWith("deadline")) {
-            return Duke.TaskType.DEADLINE;
+            return TaskType.DEADLINE;
         }
 
         if (input.startsWith("event")) {
-            return Duke.TaskType.EVENT;
+            return TaskType.EVENT;
         }
 
         return null;
@@ -78,6 +78,12 @@ abstract class Task {
     protected abstract String getDescription(String input);
 
     protected abstract String saveToFileString();
+
+    enum TaskType {
+        TODO,
+        DEADLINE,
+        EVENT
+    }
 
     private static final class TodoTask extends Task {
         public TodoTask(String task) throws Duke.WrongFormatException {

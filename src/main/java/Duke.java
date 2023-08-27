@@ -1,9 +1,4 @@
 public class Duke {
-    enum TaskType {
-        TODO,
-        DEADLINE,
-        EVENT
-    }
 
     static class Model {
         public Model() {
