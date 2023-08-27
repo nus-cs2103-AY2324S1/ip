@@ -1,3 +1,4 @@
+package duke.taskmanagement;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -7,7 +8,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Duke {
-
     String PATH = "./data/duke.txt";
 
     private Ui ui = new Ui();

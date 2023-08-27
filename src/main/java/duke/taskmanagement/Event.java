@@ -1,3 +1,4 @@
+package duke.taskmanagement;
 public class Event extends Task{
     protected String from;
     protected String till;

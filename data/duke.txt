@@ -32,3 +32,4 @@ T | 0 | return book | Feb 23 2022
 T | 0 | borrow book
 T | 0 | project meeting | Mon 2pm 4pm
 T | 0 | do homework | Mar 23 2022
+T | 0 | play games

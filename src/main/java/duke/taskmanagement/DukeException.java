@@ -1,3 +1,4 @@
+package duke.taskmanagement;
 public class DukeException {
     protected String typeOfTask;
 
