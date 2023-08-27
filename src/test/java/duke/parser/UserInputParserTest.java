@@ -22,6 +22,7 @@ public class UserInputParserTest {
         assertDoesNotThrow(() -> UserInputParser.parse("bye", new TaskList()));
         assertFalse(UserInputParser.isActive);
     }
+
     @Test
     public void parse_byeMessage_success() throws Exception {
         assertTrue(UserInputParser.parse("bye", new TaskList()) instanceof ByeMessage);
