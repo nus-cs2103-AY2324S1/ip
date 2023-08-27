@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -5,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * A task that has a starting and ending time.
  */
-public class Event extends Task{
+public class Event extends Task {
     private final LocalDate start;
     private final LocalTime startTime;
     private final LocalDate end;

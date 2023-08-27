@@ -1,10 +1,12 @@
+package duke.exception;
+
 /**
- * An exception pertaining to Duke.
+ * An exception pertaining to duke.Duke.
  */
 public class DukeException extends RuntimeException{
 
     /**
-     * Creates a Duke Exception instance.
+     * Creates a duke.Duke Exception instance.
      *
      * @param s Message of the exception.
      */

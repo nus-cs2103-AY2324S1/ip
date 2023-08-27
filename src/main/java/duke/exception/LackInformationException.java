@@ -1,9 +1,11 @@
+package duke.exception;
+
 /**
  * An exception that arises when the information provided is insufficient.
  */
-public class LackInformationException extends DukeException{
+public class LackInformationException extends DukeException {
     /**
-     * Creates an LackInformationException instance.
+     * Creates an duke.exception.LackInformationException instance.
      *
      * @param s Message of the exception.
      */

@@ -1,7 +1,9 @@
+package duke.task;
+
 /**
  * A task to be done.
  */
-public class Todo extends Task{
+public class Todo extends Task {
 
     /**
      * Creates a todo instance.

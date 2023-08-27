@@ -1,9 +1,11 @@
+package duke.exception;
+
 /**
  * An exception that arises when the description of the task is not provided.
  */
 public class LackDescriptionException extends DukeException {
     /**
-     * Creates a LackDescriptionException instance.
+     * Creates a duke.exception.LackDescriptionException instance.
      *
      * @param s Message of the exception.
      */
