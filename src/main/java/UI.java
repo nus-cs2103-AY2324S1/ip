@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class UI {
-    public void showWelcomeMsg() {
+    public static void showWelcomeMsg() {
         String logo = "\n" +
                 "         __                                             \n" +
                 "        [  |                                            \n" +
@@ -17,12 +17,12 @@ public class UI {
         printWithFormat(hello);
     }
 
-    public void showExitMsg() {
+    public static void showExitMsg() {
         String bye = "Okay bye:( Let's get the fries next time.";
         printWithFormat(bye);
     }
 
-    public String getInput(Scanner scanner) {
+    public static String getInput(Scanner scanner) {
         System.out.println("> You: ");
         return scanner.nextLine();
     }

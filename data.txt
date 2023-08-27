@@ -1,0 +1,7 @@
+1|TODO|drink coffee
+1|TODO|singing lesson
+1|EVENT|conference|8th aug|9th aug
+0|TODO|borrow book
+0|DEADLINE|return book|Sunday
+1|EVENT|project meeting|Mon 2pm|4pm
+0|TODO|borrow book

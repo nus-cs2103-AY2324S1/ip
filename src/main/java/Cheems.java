@@ -1,34 +1,33 @@
 import java.util.Scanner;
 
 public class Cheems {
-    private final static UI ui = new UI();
     private final static Scanner scanner = new Scanner(System.in);
-    private final Parser parser;
-    private final Database db;
-    public Cheems() {
-        this.db = new Database();
-        this.parser = new Parser(this.db);
+    private final Storage storage;
+
+    public Cheems(String filepath) {
+        this.storage = Storage.getInstance(filepath);
     }
 
     public void run() {
-        ui.showWelcomeMsg();
-        String input = ui.getInput(scanner);
+        UI.showWelcomeMsg();
+        storage.loadData();
+        String input = UI.getInput(scanner);
 
         // business logic
         while (!input.equals("bye")) {
             try {
-                parser.parseAndExecute(input);
+                Parser.parseAndExecute(input);
             } catch (RuntimeException e) {
                 System.out.println(e.toString());
             }
-            input = ui.getInput(scanner);
+            input = UI.getInput(scanner);
         }
 
-        ui.showExitMsg();
+        UI.showExitMsg();
     }
 
     public static void main(String[] args) {
-        Cheems cheems = new Cheems();
+        Cheems cheems = new Cheems("data.txt");
         cheems.run();
     }
 }
