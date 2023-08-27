@@ -15,11 +15,15 @@ public class TaskListTest {
     @Test
     public void testGetters() {
 
-        assertEquals("[X] TASKSTUB",
-                new TaskList(this.sampleTaskArrayList).getTask(1).toString());
+        try {
+            assertEquals("[X] TASKSTUB",
+                    new TaskList(this.sampleTaskArrayList).getTask(1).toString());
 
-        assertEquals(3,
-                new TaskList(this.sampleTaskArrayList).getTaskCount());
+            assertEquals(3,
+                    new TaskList(this.sampleTaskArrayList).getTaskCount());
+        } catch (Exception e) {
+            fail(); // the test should not reach this line
+        }
     }
 
     @Test
