@@ -2,6 +2,10 @@ package duke;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+/**
+ * A class to handle all the loading and saving of tasks from the file
+ */
 public class Storage {
     private String filePath;
 
@@ -9,6 +13,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Load the list of tasks from the storage file
+     *
+     * @return the array list containing all the task from the file
+     * @throws DukeException if file is not found or there is IO excpetion
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
@@ -36,6 +46,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Save the list of tasks to the storage file
+     *
+     * @param list the list of task that has been edited
+     * @throws DukeException if there is error saving to the file
+     */
     public void saveTasksToFile(ArrayList<Task> list) throws DukeException {
         try {
             FileWriter fw = new FileWriter(filePath);

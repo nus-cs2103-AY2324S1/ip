@@ -21,6 +21,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the chatbot by initiating the scanner and parser
+     */
     public void run() {
         ui.showWelcomeMessage();
 

@@ -20,6 +20,11 @@ public class TaskList {
     }
 
 
+    /**
+     * Return the list of task descriptions
+     *
+     * @return an ArrayList with the String of description of each task in the file
+     */
     public ArrayList<String> listTasks() {
         ArrayList<String> msg = new ArrayList<String>();
         if (tasks.isEmpty()) {
@@ -34,6 +39,12 @@ public class TaskList {
         return msg;
     }
 
+    /**
+     * Mark the task as done
+     *
+     * @param input string that user key in to dictate which task to mark
+     * @param number number of tasks in the list
+     */
     public void mark(String input, int number) {
         try {
             int taskIndex = Integer.parseInt(input.substring(5).trim()) - 1;
@@ -50,6 +61,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Mark task as undone
+     *
+     * @param input string that user key in to dictate which task to unmark
+     * @param number number of tasks in the list
+     */
     public void unmark(String input, int number) {
         try {
             int taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
@@ -66,6 +83,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Remove the task from the list
+     *
+     * @param input string that user key in to dictate which task to delete
+     * @param number number of task in the list
+     * @return the number of task in the list after deleting
+     */
     public int delete(String input, int number) {
         try {
             int taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
@@ -87,6 +111,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Add the given task to the ArrayList
+     * @param task task to be added into the ArrayList
+     */
     public void add(Task task) {
         tasks.add(task);
     }

@@ -4,10 +4,23 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Class that is responsible for handling the input of the user
+ */
 public class Parser {
 
-    public static void parseInput(String input, TaskList list, int number,
-                                  String filePath, Ui ui, Storage storage) throws DukeException{
+    /**
+     * Read the input from the user and carry out the required action
+     *
+     * @param input input from the user
+     * @param list TaskList created
+     * @param number number of task in the list
+     * @param filePath path of the storage file
+     * @param ui the UI class response for handling ui actions
+     * @param storage storage class that handles the loading and saving of files
+     * @throws DukeException if the input does not much the required format
+     */
+    public static void parseInput(String input, TaskList list, int number, String filePath, Ui ui, Storage storage) throws DukeException{
 
             if (input.equalsIgnoreCase("bye")) {
                 ui.showGoodbyeMessage();
@@ -27,11 +40,8 @@ public class Parser {
                 throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
             } else if (input.equalsIgnoreCase("event")) {
                 throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
-            } else if (input.equalsIgnoreCase("find")) {
-                throw new DukeException("☹ OOPS!!! The description of find cannot be empty.");
-            } else if (input.startsWith("find")) {
-                ui.print(list.find(input));
             } else if (input.startsWith("todo")) {
+                // Implement todo logic here
                 String task = input.substring(5).trim();
                 ToDo todo = new ToDo(task);
                 list.add(todo);
