@@ -1,20 +1,26 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
 
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        this.from = super.parseStringToTime(from);
+        this.to = super.parseStringToTime(to);
     }
 
     public String toStringForSave() {
-        return "E" + " | " + super.toStringForSave() + " | " + this.from + " | " + this.to;
+        return "E" + " | " + super.toStringForSave() + " | "
+                + super.convertTimeForSave(this.from) + " | "
+                + super.convertTimeForSave(this.to);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString()
+                + " (from: " + super.convertTimeToString(this.from)
+                + " to: " + super.convertTimeToString(this.to) + ")";
     }
 }
