@@ -1,4 +1,8 @@
+import com.google.gson.*;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +17,12 @@ public class TaskManager {
      * <p>
      * This is an abstract class which should be inherited by custom task types.
      * It contains basic properties for a task, which can be extended as needed.
+     * All subclasses must also ensure they conform to compatibility with GSON
+     * and do not allow any null fields.
      * </p>
      */
     public abstract static class Task {
+
         private String title;
         private boolean completed = false;
 
@@ -60,6 +67,26 @@ public class TaskManager {
         }
 
         /**
+         * Asserts that this task's parameters are in a valid state, having correctly configured with no null values.
+         *
+         * @throws IllegalArgumentException if the object is incorrectly constructed with invalid, null parameters.
+         */
+        public void assertValidState() {
+            Field[] fields = this.getClass().getDeclaredFields();
+            for (Field field: fields) {
+                try {
+                    if (field.get(this) == null) {
+                        throw new IllegalArgumentException(String.format(
+                                "Tasks may not have null values, but %s is null.", field.getName()
+                        ));
+                    }
+                } catch (IllegalAccessException e) {
+                    // Do nothing.
+                }
+            }
+        }
+
+        /**
          * Returns a string representation of the task, to be implemented by inherited classes.
          *
          * @return A string representing the task.
@@ -88,7 +115,6 @@ public class TaskManager {
      * with it, and can be marked as completed.
      */
     public static class Deadline extends Task {
-
         private String deadline; // TODO: dates should not be a string
 
         public Deadline(String title, String deadline) {
@@ -164,6 +190,7 @@ public class TaskManager {
 
     private List<Task> taskList;
     private InternalStorage.Path storageLocation;
+    private static final String DEFAULT_FILENAME = "tasks.json";
 
     /**
      * Constructor for a task manager, managing a list of items representing "tasks",
@@ -181,7 +208,7 @@ public class TaskManager {
      * with the default storage location.
      */
     public TaskManager() {
-        this(new InternalStorage.Path());
+        this(new InternalStorage.Path(DEFAULT_FILENAME));
     }
 
     /**
@@ -245,10 +272,64 @@ public class TaskManager {
     /**
      * Loads and replaces the task list in memory with the one currently in storage.
      *
+     * <p>
+     *     This method will load the data from storage and replace all in-memory contents.
+     *     Any unrecognized, incompatible tasks may be omitted entirely.
+     * </p>
+     *
      * @throws IOException if there were any issues retrieving the data.
      */
-    public void loadFromStorage() throws IOException {
-        throw new RuntimeException("Not implemented");
+    public void loadFromStorage() throws IOException, JsonSyntaxException {
+        Gson gson = new Gson();
+        try {
+            String data = InternalStorage.loadFrom(this.storageLocation);
+            JsonArray array = JsonParser.parseString(data).getAsJsonArray();
+
+            // Prepare a new list of tasks.
+            List<Task> tasks = new ArrayList<>();
+
+            // Prepare a new set of classes, from most specific to least specific.
+            // This ordering is required to match the provided JSON to a class that's as specific as possible.
+            @SuppressWarnings("unchecked")
+            Class<Task>[] availClasses = new Class[]{ Event.class, Deadline.class, Todo.class };
+
+            // Iterate through the items in the JSON array.
+            for (JsonElement item: array) {
+                Task task = null;
+
+                // Iterate through possible classes and attempt to get them.
+                for (Class<Task> cls: availClasses) {
+                    try {
+                        task = gson.fromJson(item, cls);
+                        task.assertValidState();
+                    } catch (JsonSyntaxException | IllegalArgumentException e) {
+                        // This particular task is broken. Make it null.
+                        task = null;
+                    }
+
+                    if (task != null) {
+                        break;
+                    }
+                }
+
+                // Skip if we cannot parse.
+                if (task == null) {
+                    continue;
+                }
+
+                // Add it if we can.
+                tasks.add(task);
+            }
+
+            // Replace the task list with a new one
+            this.taskList = tasks;
+
+        } catch (JsonSyntaxException | FileNotFoundException e) {
+
+            // Silence these errors and replace the task list with a new one.
+            this.taskList = new ArrayList<>();
+
+        }
     }
 
     /**
@@ -257,6 +338,8 @@ public class TaskManager {
      * @throws IOException if there were any issues saving the data.
      */
     public void saveToStorage() throws IOException {
-        throw new RuntimeException("Not implemented");
+        Gson gson = new Gson();
+        String data = gson.toJson(this.taskList);
+        InternalStorage.saveTo(this.storageLocation, data);
     }
 }

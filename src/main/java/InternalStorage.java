@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class InternalStorage {
 
-    private static final java.nio.file.Path BASE_JAVA_NIO_FILE_PATH = java.nio.file.Path.of(".","data");
+    private static final java.nio.file.Path BASE_JAVA_NIO_FILE_PATH = java.nio.file.Path.of(".","todoifydata");
 
     /**
      * A path wrapper that represents the path from the base directory of the program.
@@ -92,6 +92,7 @@ public class InternalStorage {
      *
      * @param path The path to read from.
      * @return The resulting data read from the file.
+     * @throws FileNotFoundException if the file does not exist.
      * @throws IOException if the file cannot be read for any reason.
      */
     public static String loadFrom(Path path) throws IOException {
