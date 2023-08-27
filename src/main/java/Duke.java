@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Duke {
     private final String botName;
     private final Scanner scanner;
-    private final List<String> taskList;
+    private final List<Task> taskList;
 
     public Duke(String botName) {
         this.botName = botName;
@@ -72,7 +72,7 @@ public class Duke {
     }
 
     private boolean addTask(String task) {
-        return this.taskList.add(task);
+        return this.taskList.add(new Task(task));
     }
 
     private void printTasks() {
