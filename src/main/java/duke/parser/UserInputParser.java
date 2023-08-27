@@ -5,6 +5,7 @@ import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 import duke.exception.InvalidInputException;
 import duke.message.ByeMessage;
+import duke.message.Message;
 import duke.task.DeadlinesTask;
 import duke.task.EventsTask;
 import duke.task.TaskList;
@@ -45,7 +46,7 @@ public class UserInputParser {
         }
         throw new InvalidCommandException();
     }
-    public static void parse(String userInput, TaskList taskList)
+    public static Message parse(String userInput, TaskList taskList)
             throws InvalidInputException, InvalidCommandException, InvalidIndexException {
         Action action = UserInputParser.getAction(userInput);
         int num;
@@ -54,34 +55,31 @@ public class UserInputParser {
         switch (action) {
         case BYE:
             isActive = false;
-            new ByeMessage().send();
-            break;
+            return new ByeMessage();
         case LIST:
-            taskList.printList();
-            break;
+            return taskList.printList();
         case MARK:
             num = Integer.parseInt(userInput.split(" ", 2)[1]);
-            taskList.markTask(num);
-            break;
+            return taskList.markTask(num);
         case UNMARK:
             num = Integer.parseInt(userInput.split(" ", 2)[1]);
-            taskList.unmarkTask(num);
-            break;
+            return taskList.unmarkTask(num);
         case TODO:
             name = userInput.split(" ", 2)[1];
-            taskList.add(new TodoTask(name, false));
-            break;
+            return taskList.add(new TodoTask(name, false));
         case DEADLINE:
-            // assumes " /by " is not contained in deadline name
+            // TODO: fix bug and test
+            //  assumes " /by " is not contained in deadline name
             a1 = userInput.split(" /by ", 2);
             name = a1[0].split(" ", 2)[1];
             deadline = DateTimeParser.parseDateTime(a1[1]);
-            taskList.add(new DeadlinesTask(name, false, deadline));
-            break;
+            return taskList.add(new DeadlinesTask(name, false, deadline));
         case EVENT:
-            // assumes " /to " is not in event name and from date
+            // TODO: fix bug and test
+            //  assumes " /to " is not in event name and from date
             a1 = userInput.split(" /to ", 2);
-            // assumes " /from " is not in event name
+            // TODO: fix bug and test
+            //  assumes " /from " is not in event name
             a2 = a1[0].split(" /from ", 2);
             name = a2[0].split(" ", 2)[1];
             from = DateTimeParser.parseDateTime(a2[1]);
@@ -89,12 +87,12 @@ public class UserInputParser {
             if (!DateTimeParser.isValidPeriod(from, to)) {
                 throw new InvalidInputException(MessageTemplates.MESSAGE_INVALID_EVENT_PERIOD);
             }
-            taskList.add(new EventsTask(name, false, from, to));
-            break;
+            return taskList.add(new EventsTask(name, false, from, to));
         case DELETE:
             num = Integer.parseInt(userInput.split(" ", 2)[1]);
-            taskList.delete(num);
-            break;
+            return taskList.delete(num);
+        default:
+            throw new InvalidCommandException();
         }
     }
 }

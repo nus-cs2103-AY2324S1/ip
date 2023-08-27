@@ -3,7 +3,7 @@ package duke.task;
 import duke.exception.InvalidIndexException;
 import duke.message.AddTaskMessage;
 import duke.message.MarkTaskMessage;
-import duke.message.RemoveTaskMessage;
+import duke.message.DeleteTaskMessage;
 import duke.message.TaskListMessage;
 import duke.message.UnmarkTaskMessage;
 
@@ -20,36 +20,36 @@ public class TaskList {
     private boolean isValidIndex(int index) {
         return 0 <= index && index < list.size();
     }
-    public void add(Task item) {
+    public AddTaskMessage add(Task item) {
         this.list.add(item);
-        new AddTaskMessage(item, this.list.size()).send();
+        return new AddTaskMessage(item, this.list.size());
     }
-    public void delete(int num) throws InvalidIndexException {
+    public DeleteTaskMessage delete(int num) throws InvalidIndexException {
         int index = num - 1;
         if (!isValidIndex(index)) {
             throw new InvalidIndexException();
         }
         Task task = this.list.remove(index);
-        new RemoveTaskMessage(task, this.list.size()).send();
+        return new DeleteTaskMessage(task, this.list.size());
     }
-    public void printList() {
-        new TaskListMessage(list).send();
+    public TaskListMessage printList() {
+        return new TaskListMessage(list);
     }
-    public void markTask(int num) throws InvalidIndexException {
+    public MarkTaskMessage markTask(int num) throws InvalidIndexException {
         int index = num - 1;
         if (!isValidIndex(index)) {
             throw new InvalidIndexException();
         }
         Task task = this.list.get(index);
-        new MarkTaskMessage(task).send();
+        return new MarkTaskMessage(task);
     }
-    public void unmarkTask(int num) throws InvalidIndexException {
+    public UnmarkTaskMessage unmarkTask(int num) throws InvalidIndexException {
         int index = num - 1;
         if (!isValidIndex(index)) {
             throw new InvalidIndexException();
         }
         Task task = this.list.get(index);
-        new UnmarkTaskMessage(task).send();
+        return new UnmarkTaskMessage(task);
     }
     public String toStringStore() {
         StringBuilder sb = new StringBuilder();

@@ -3,6 +3,7 @@ package duke;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidIndexException;
 import duke.exception.InvalidInputException;
+import duke.message.Message;
 import duke.parser.UserInputParser;
 import duke.task.TaskList;
 
@@ -33,7 +34,8 @@ public class Duke {
         while (UserInputParser.isActive) {
             String userInput = sc.nextLine();
             try {
-                UserInputParser.parse(userInput, this.tasks);
+                Message message = UserInputParser.parse(userInput, this.tasks);
+                message.send();
                 this.storage.writeToFile(this.tasks);
             } catch (InvalidInputException e) {
                 this.ui.showError(e.getMessage());

@@ -3,10 +3,10 @@ package duke.message;
 import duke.task.Task;
 import duke.templates.MessageTemplates;
 
-public class RemoveTaskMessage extends Message {
+public class DeleteTaskMessage extends Message {
     private final Task task;
     private final int totalTasks;
-    public RemoveTaskMessage(Task task, int totalTasks) {
+    public DeleteTaskMessage(Task task, int totalTasks) {
         this.task = task;
         this.totalTasks = totalTasks;
     }
