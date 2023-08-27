@@ -3,6 +3,10 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
 
+    public TaskList(ArrayList<Task> tasks) {
+        this.list.addAll(tasks);
+    }
+
     public void add(Task task) {
         this.list.add(task);
     }

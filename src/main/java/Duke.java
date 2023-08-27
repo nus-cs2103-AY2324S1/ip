@@ -4,12 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
     private static String DATAPATH = "./data/duke.txt";
-
+    private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
@@ -18,25 +16,18 @@ public class Duke {
         TODO, DEADLINE, EVENT,
     }
 
-    public Duke() {
-        this.taskList = new TaskList();
+    public Duke(String filePath) {
+        this.storage = new Storage(filePath);
         this.ui = new Ui();
-    }
-
-    private void loadData() {
         try {
-            Storage storage = new Storage(DATAPATH);
-            storage.loadTasks(taskList);
-        } catch (FileNotFoundException e) {
-            System.out.println("No data file found.");
-        } catch (IOException e) {
-            System.out.println("Error loading tasks from the data file.");
+            this.taskList = new TaskList(this.storage.loadData());
+        } catch (DukeDatabaseException e) {
+            this.ui.showDukeException(e);
         }
     }
 
     private void run() {
         this.ui.showGreet();
-        this.loadData();
 
         while (true) {
             try {
@@ -98,8 +89,12 @@ public class Duke {
     }
 
     private void exit() {
-        this.saveTask();
-        this.ui.closeInput();
+        try {
+            this.storage.saveData(this.taskList);
+            this.ui.showExit();
+        } catch (IOException e) {
+            this.ui.showSavingError();
+        }
     }
 
     private void markTaskAsDone(String[] userCommandParts) throws InvalidTaskIndexException {
@@ -112,7 +107,6 @@ public class Duke {
             Task task = taskList.get(taskIndex);
             task.markAsDone();
             this.ui.showDone(task);
-            saveTask();
         } catch (InvalidTaskIndexException e) {
             this.ui.showDukeException(e);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
@@ -130,7 +124,6 @@ public class Duke {
             Task task = taskList.get(taskIndex);
             task.markAsNotDone();
             this.ui.showNotDone(task);
-            saveTask();
         } catch (InvalidTaskIndexException e) {
             this.ui.showDukeException(e);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
@@ -150,7 +143,6 @@ public class Duke {
             Todo newTodo = new Todo(description);
             taskList.add(newTodo);
             this.ui.showAdd(newTodo, this.taskList.getLength());
-            saveTask();
         } catch (EmptyDescriptionException e) {
             this.ui.showDukeException(e);
         }
@@ -174,7 +166,6 @@ public class Duke {
             Deadline newDeadline = new Deadline(description, dateTime);
             taskList.add(newDeadline);
             this.ui.showAdd(newDeadline, this.taskList.getLength());
-            saveTask();
 
         } catch (EmptyDescriptionException | InvalidFormatException e) {
             this.ui.showDukeException(e);
@@ -202,7 +193,6 @@ public class Duke {
 
             taskList.add(newEvent);
             this.ui.showAdd(newEvent, this.taskList.getLength());
-            saveTask();
 
         } catch (EmptyDescriptionException | InvalidFormatException e) {
             this.ui.showDukeException(e);
@@ -222,20 +212,10 @@ public class Duke {
             Task removedTask = taskList.get(taskIndex);
             taskList.delete(taskIndex);
             this.ui.showDelete(removedTask, this.taskList.getLength());
-            saveTask();
         } catch (InvalidTaskIndexException e) {
             this.ui.showDukeException(e);
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
             this.ui.showArrayIndexOutOfBoundsException();
-        }
-    }
-
-    private void saveTask() {
-        try {
-            Storage storage = new Storage(DATAPATH);
-            storage.saveTasks(taskList);
-        } catch (IOException e) {
-            this.ui.showSavingError();
         }
     }
 
@@ -262,6 +242,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke().run();
+        new Duke(DATAPATH).run();
     }
 }

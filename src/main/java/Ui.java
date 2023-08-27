@@ -10,11 +10,6 @@ public class Ui {
         return this.input.nextLine();
     }
 
-    public void closeInput() {
-        this.input.close();
-        this.showExit();
-    }
-
     public void showGreet() {
         System.out.println(LINE);
         System.out.println("\t Hello! I'm Bard.");
@@ -24,6 +19,7 @@ public class Ui {
     }
 
     public void showExit() {
+        this.input.close();
         System.out.println(LINE);
         System.out.println("\t Bye. Hope to see you again soon!");
         System.out.println(LINE);

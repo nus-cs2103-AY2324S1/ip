@@ -14,54 +14,68 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public void loadTasks(TaskList taskList) throws IOException {
-        File file = new File(filePath);
-        File directory = file.getParentFile();
+    public ArrayList<Task> loadData() throws DukeDatabaseException {
+        ArrayList<Task> loadedTasks = new ArrayList<>();
+        File file = new File(this.filePath);
+
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                loadedTasks.add(readEntry(line));
+            }
+
+            return loadedTasks;
+        } catch (FileNotFoundException e) {
+            this.createFile();
+        }
+
+        return new ArrayList<>();
+    }
+
+    private void createFile() throws DukeDatabaseException{
+        File file = new File(this.filePath);
+        File directory = new File(file.getParent());
 
         if (!directory.exists()) {
             directory.mkdirs();
         }
 
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNext()) {
-            String line = scanner.nextLine();
-            try {
-                String[] parts = line.split(" \\| ");
-
-                switch (parts[0]) {
-                case "T":
-                    taskList.add(new Todo(parts[2]));
-                    break;
-                case "D":
-                    taskList.add(new Deadline(parts[2], LocalDateTime.parse(parts[3], formatter)));
-                    break;
-                case "E":
-                    taskList.add(new Event(parts[2], LocalDateTime.parse(parts[3], formatter)));
-                    break;
-                default:
-                    break;
-                }
-
-                if (parts[1].equals("1")) {
-                    taskList.get(taskList.getLength() - 1).markAsDone();
-                }
-
-            } catch (Exception e) {
-                System.err.println("Error loading task: " + line);
-            }
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new DukeDatabaseException();
         }
     }
 
-    public void saveTasks(TaskList taskList) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        File file = new File(filePath);
+    private Task readEntry(String entry) {
+        String[] parts = entry.split(" \\| ");
+        Task taskToAdd = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-        File directory = file.getParentFile();
-        if (!directory.exists()) {
-            directory.mkdirs();
+        switch (parts[0]) {
+        case "T":
+            taskToAdd = new Todo(parts[2]);
+            break;
+        case "D":
+            taskToAdd = new Deadline(parts[2], LocalDateTime.parse(parts[3], formatter));
+            break;
+        case "E":
+            taskToAdd = new Event(parts[2], LocalDateTime.parse(parts[3], formatter));
+            break;
+        default:
+            break;
         }
+
+        if (parts[1].equals("1")) {
+            taskToAdd.markAsDone();
+        }
+        return taskToAdd;
+    }
+
+    public void saveData(TaskList taskList) throws IOException {
+        FileWriter fw = new FileWriter(filePath);
 
         for (int i = 0; i < taskList.getLength(); i++) {
             Task task = taskList.get(i);
