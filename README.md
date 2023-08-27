@@ -22,3 +22,8 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+TODO:
+ - refactor exceptions to interrupt exceptions and noninterrupt
+ - refactor printer
+ - add cs2103t specific rules to linter

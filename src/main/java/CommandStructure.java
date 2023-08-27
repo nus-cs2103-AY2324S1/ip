@@ -1,16 +1,16 @@
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CommandStructure {
-	public String command;
-	public String name;
-	public Map<String, String> arguments;
+  public String command;
+  public String name;
+  public Map<String, String> arguments;
 
-	public CommandStructure(String command, String name, Map<String, String> arguments) {
-		this.command = command;
-		this.name = name;
-		this.arguments = arguments;
-	}
+  public CommandStructure(String command, String name, Map<String, String> arguments) {
+    this.command = command;
+    this.name = name;
+    this.arguments = arguments;
+  }
 
   public static CommandStructure parse(String line) {
     String[] input = line.split(" ", 2);
@@ -33,5 +33,4 @@ public class CommandStructure {
 
     return new CommandStructure(command, name, arguments);
   }
-
 }

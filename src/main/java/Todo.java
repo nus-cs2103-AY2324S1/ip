@@ -1,5 +1,5 @@
 public class Todo extends Task {
-	public Todo(String description) {
-		super(description, 'T');
-	}
+  public Todo(String description, boolean mark) {
+    super(description, mark, 'T');
+  }
 }

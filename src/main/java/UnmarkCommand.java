@@ -1,16 +1,16 @@
 public class UnmarkCommand extends Command {
   private String s;
-	private SaveFile saveFile;
+  private SaveFile saveFile;
 
   public UnmarkCommand(Printer out, TaskList taskList, String s, SaveFile saveFile) {
     super(out, taskList);
     this.s = s;
-		this.saveFile = saveFile;
+    this.saveFile = saveFile;
   }
 
   @Override
   public void execute() {
-		Task task;
+    Task task;
     try {
       task = taskList.getTask(Integer.parseInt(s));
     } catch (NumberFormatException e) {
@@ -19,6 +19,6 @@ public class UnmarkCommand extends Command {
     task.unmark();
 
     out.print("Ok, I've marked this task as not done yet", task);
-		saveFile.saveToSaveFile(taskList);
+    saveFile.saveToSaveFile(taskList);
   }
 }

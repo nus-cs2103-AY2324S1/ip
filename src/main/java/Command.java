@@ -1,5 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
 
 public abstract class Command {
   static final String LIST = "list";

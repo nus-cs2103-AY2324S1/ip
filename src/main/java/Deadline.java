@@ -1,16 +1,17 @@
 public class Deadline extends Task {
-	private String by;
+  private String by;
 
-	public Deadline(String description, String by) throws DukeException {
-		super(description, 'D');
-		this.by = by;
+  public Deadline(String description, boolean mark, String by) throws DukeException {
+    super(description, mark, 'D');
+    this.by = by;
 
-		if (by.isEmpty())
-			throw new DukeException("The by of a deadline cannot be empty.");
-	}
+    if (by.isEmpty()) {
+      throw new DukeException("The by of a deadline cannot be empty.");
+    }
+  }
 
-	@Override
-	public String toString() {
-		return String.format("%s (by: %s)", super.toString(), by);
-	}
+  @Override
+  public String toString() {
+    return String.format("%s (by: %s)", super.toString(), by);
+  }
 }
