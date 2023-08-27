@@ -1,10 +1,17 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Deadline extends Task {
-  private String by;
+  private LocalDate by;
 
   public Deadline(String description, String by) {
     super(description);
     this.symbol = "D";
-    this.by = by;
+    try {
+      this.by = LocalDate.parse(by);
+    } catch (DateTimeParseException e) {
+      System.out.println("Invalid date format");
+    }
   }
 
   @Override
