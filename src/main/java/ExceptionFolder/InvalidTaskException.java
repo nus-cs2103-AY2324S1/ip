@@ -1,7 +1,9 @@
+package ExceptionFolder;
+
 /**
  * Exception which occurs when the description of the task is empty
  */
-public class InvalidTaskException extends DukeException{
+public class InvalidTaskException extends DukeException {
 
     /**
      * Class constructor containing the message of the exception

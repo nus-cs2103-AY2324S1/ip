@@ -1,3 +1,5 @@
+package ExceptionFolder;
+
 /**
  * Exception which occurs when the user input is invalid
  */

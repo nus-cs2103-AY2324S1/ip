@@ -1,3 +1,5 @@
+~~No stored tasks detected~~
+
 Hello! I'm HAPPY
 What can I do for you?
 
@@ -15,9 +17,9 @@ Now you have 3 tasks in the list.
 OK, I've marked this task as not done yet:
   [D][ ] return book (by: Jan 15 2019)
 Here are the tasks in your list:
-1.[T][ ] borrow book
-2.[D][ ] return book (by: Jan 15 2019)
-3.[E][ ] project meeting (from: Feb 15 2019 to: Mar 30 2019)
+  1.[T][ ] borrow book
+  2.[D][ ] return book (by: Jan 15 2019)
+  3.[E][ ] project meeting (from: Feb 15 2019 to: Mar 30 2019)
 Noted. I've removed this task:
   [T][ ] borrow book
 Now you have 2 tasks in the list.
