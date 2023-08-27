@@ -41,7 +41,7 @@ public class Duke {
         int indentLength = 4;
         String divider = indentLeft(String.format("%80s", "").replace(" ", "-"), indentLength);
         System.out.println(divider);
-        System.out.println(indentLeft(input, indentLength));
+        System.out.println(indentLeft("added: " + input, indentLength));
         System.out.println(divider);
     }
 
