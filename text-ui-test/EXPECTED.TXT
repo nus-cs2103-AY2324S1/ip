@@ -8,13 +8,19 @@ Got it. I've added this task:
 [T][ ] Borrow Book
 Now you have 1 task in the list.
 ____________________________________________________________
+
+____________________________________________________________
 Got it. I've added this task:
 [E][ ] Read Book (from: today to: next Sunday)
 Now you have 2 tasks in the list.
 ____________________________________________________________
+
+____________________________________________________________
 Got it. I've added this task:
 [D][ ] Buy bread (by: Sunday)
 Now you have 3 tasks in the list.
+____________________________________________________________
+
 ____________________________________________________________
 Nice! I've marked this task as done:
 [T][X] Borrow Book
@@ -40,6 +46,14 @@ Here are the tasks in your list:
 ____________________________________________________________
 
 ____________________________________________________________
-☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+Noted. I've removed this task:
+[T][ ] Borrow Book
+Now you have 2 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+Here are the tasks in your list:
+1.[E][ ] Read Book (from: today to: next Sunday)
+2.[D][ ] Buy bread (by: Sunday)
 ____________________________________________________________
 
