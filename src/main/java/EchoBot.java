@@ -24,27 +24,32 @@ public class EchoBot {
             return tasks; // Return an empty list
         }
 
-        if (file.exists()) {
-            try {
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    String formattedTask = scanner.nextLine();
-                    try {
-                        Task task = Task.fromFileString(formattedTask);
-                        tasks.add(task);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Invalid task format: " + formattedTask);
-                    }
-                }
-                scanner.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("File not found: " + filePath);
-            } catch (Exception e) {
-                Logger logger = Logger.getLogger(EchoBot.class.getName());
-                logger.log(Level.SEVERE, "An error occurred while loading tasks", e);
+        try {
+            if (!file.exists() && !file.createNewFile()) {
+                System.err.println("Unable to create file: " + filePath);
+                return tasks; // Return an empty list
             }
-        } else {
-            System.out.println("File not found: " + filePath);
+
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String formattedTask = scanner.nextLine();
+                try {
+                    Task task = Task.fromFileString(formattedTask);
+                    tasks.add(task);
+                } catch (NumberFormatException e) {
+                    // Handle corrupted data - logging the issue
+                    Logger logger = Logger.getLogger(EchoBot.class.getName());
+                    logger.log(Level.SEVERE, "Corrupted data: " + formattedTask, e);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid data: " + formattedTask);
+                }
+            }
+            scanner.close();
+        } catch (IOException e) {
+            System.err.println("An error occurred while handling file operations: " + e.getMessage());
+        } catch (Exception e) {
+            Logger logger = Logger.getLogger(EchoBot.class.getName());
+            logger.log(Level.SEVERE, "An error occurred while loading tasks", e);
         }
 
         return tasks;
@@ -70,11 +75,6 @@ public class EchoBot {
                 + "    |____/ \\__,_|_|\\_\\___|\n";
         String horizontalLine = "   _____________________________________________________________\n";
         String filePath = "./data/duke.txt"; // Default path
-
-        // Check if a command-line argument for the file path is provided
-        if (args.length > 0) {
-            filePath = args[0];
-        }
 
         ArrayList<Task> tasks = new ArrayList<>();
         System.out.println(horizontalLine + "    Hello! I'm EchoBot\n" + logo);
