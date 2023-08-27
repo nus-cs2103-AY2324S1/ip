@@ -1,6 +1,6 @@
 package duke;
 
-import java.util.*;
+import java.util.ArrayList;
 
 import duke.exception.DukeException;
 import duke.exception.IndexOutOfBoundsException;
