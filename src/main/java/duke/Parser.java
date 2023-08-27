@@ -20,7 +20,8 @@ public class Parser {
      * @param storage storage class that handles the loading and saving of files
      * @throws DukeException if the input does not much the required format
      */
-    public static void parseInput(String input, TaskList list, int number, String filePath, Ui ui, Storage storage) throws DukeException{
+    public static void parseInput(String input, TaskList list, int number,
+                                  String filePath, Ui ui, Storage storage) throws DukeException{
 
             if (input.equalsIgnoreCase("bye")) {
                 ui.showGoodbyeMessage();
@@ -40,8 +41,11 @@ public class Parser {
                 throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
             } else if (input.equalsIgnoreCase("event")) {
                 throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+            } else if (input.equalsIgnoreCase("find")) {
+                throw new DukeException("☹ OOPS!!! The description of find cannot be empty.");
+            } else if (input.startsWith("find")) {
+                ui.print(list.find(input));
             } else if (input.startsWith("todo")) {
-                // Implement todo logic here
                 String task = input.substring(5).trim();
                 ToDo todo = new ToDo(task);
                 list.add(todo);

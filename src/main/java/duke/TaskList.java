@@ -122,10 +122,12 @@ public class TaskList {
     public ArrayList<String> find(String input) {
         String trimmedInput = input.substring(5).trim();
         ArrayList<String> matchingTasks = new ArrayList<>();
+        int number = 1;
         for (Task task : tasks) {
             if (task.getDescription().contains(trimmedInput)) {
                 String string = task.toString();
-                matchingTasks.add(string);
+                matchingTasks.add(number + "." + string);
+                number++;
             }
         }
         if (!matchingTasks.isEmpty()) {
