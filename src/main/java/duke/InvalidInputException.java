@@ -1,8 +1,6 @@
 package duke;
 
-/**
- * Exception which occurs when the user input is invalid
- */
+/** Exception which occurs when the user input is invalid. */
 public class InvalidInputException extends DukeException {
 
     /**

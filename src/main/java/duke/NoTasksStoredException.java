@@ -1,5 +1,6 @@
 package duke;
 
+/** Exception which occurs when the description of the task is empty. */
 public class NoTasksStoredException extends DukeException{
     /**
      * Class constructor containing the message of the exception

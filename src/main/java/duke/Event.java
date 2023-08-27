@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 /** Task which contains a date to start and date to finish. */
 public class Event extends Task{
-    protected LocalDate from;
-    protected LocalDate to;
+    private LocalDate from;
+    private LocalDate to;
 
     /**
      * Class constructor specifying the description of the event task.

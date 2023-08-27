@@ -1,8 +1,6 @@
 package duke;
 
-/**
- * Exception which occurs when the description of the task is empty
- */
+/** Exception which occurs when the description of the task is empty. */
 public class InvalidTaskException extends DukeException {
 
     /**
