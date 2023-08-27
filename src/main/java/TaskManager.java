@@ -154,7 +154,7 @@ public class TaskManager {
                 task = new Event();
                 break;
             default:
-                throw new DukeException("Corrupted, task type not recognised.");
+                throw new DukeException("Corrupted file, ensure content is in format.");
             }
             task.fromFileString(fileStringArray[i]);
             this.add(task);
