@@ -2,6 +2,7 @@ package duke;
 
 import duke.task.Task;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -77,6 +78,13 @@ public class UI {
 
     public void showOutOfBounds() {
         System.out.println("Cannot access out of bounds index");
+    }
+
+    public void showFoundTask(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching task in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ". " + tasks.get(i));
+        }
     }
 
 }
