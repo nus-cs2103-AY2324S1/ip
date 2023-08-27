@@ -1,18 +1,28 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime deadline;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
+        this.deadline = this.convertToDateTime(by);
+    }
+
+    public String displayDeadline() {
+        return this.displayTime(this.deadline);
+    }
+
+    public String saveDeadline() {
+        return this.saveTime(this.deadline);
     }
 
     @Override
     public String getOutputString() {
-        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, by);
+        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description, this.saveDeadline());
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + this.displayDeadline() + ")";
     }
 }

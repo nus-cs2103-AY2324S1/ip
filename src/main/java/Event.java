@@ -1,22 +1,40 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    protected String startTime;
-    protected String endTime;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
 
     public Event(String description, String startTime, String endTime) {
         super(description);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = this.convertToDateTime(startTime);
+        this.endTime = this.convertToDateTime(endTime);
+    }
+
+    public String displayStartTime() {
+        return this.displayTime(startTime);
+    }
+
+    public String saveStartTime() {
+        return this.saveTime(this.startTime);
+    }
+
+    public String displayEndTime() {
+        return this.displayTime(this.endTime);
+    }
+
+    public String saveEndTime() {
+        return this.saveTime(this.endTime);
     }
 
     @Override
     public String getOutputString() {
         return String.format("E | %d | %s | %s", isDone ? 1 : 0, description, 
-        startTime.concat("-" + endTime));
+        this.saveStartTime().concat("-" + this.saveEndTime()));
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " 
-        + this.endTime + ")";
+        return "[E]" + super.toString() + " (from: " + this.displayStartTime() + " to: " 
+        + this.displayEndTime() + ")";
     }
 }
