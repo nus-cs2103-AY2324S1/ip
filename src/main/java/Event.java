@@ -27,7 +27,8 @@ public class Event extends Task{
 
     @Override
     public boolean isOnDate(LocalDate date) {
-        return false;
+        return date.isEqual(this.from.toLocalDate()) || date.isEqual(this.to.toLocalDate()) ||
+                (date.isAfter(this.from.toLocalDate()) && date.isBefore(this.to.toLocalDate()));
     }
 
     public static String[] processInput(String[] splitInput) throws InvalidTaskException {
