@@ -103,7 +103,8 @@ public class Tasklist {
         Task t = list.get(index);
         list.remove(index);
         total--;
-        Storage.getInstance().deleteTask(index);
+        Storage.getInstance().delete(index);
+
         String resp = "Noted. I've removed this task:\n" +
                         t +
                         String.format("\nNow you have %d tasks in your list!", total);

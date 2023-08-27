@@ -55,6 +55,31 @@ public class Storage {
         }
     }
 
+    public void delete(int lineToDelete) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(this.file));
+            String content = "";
+            int currentLine = 1;
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                if (currentLine != lineToDelete + 1) {
+                    content += line + System.lineSeparator();;
+                }
+                currentLine++;
+            }
+            reader.close();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.file));
+            writer.write(content);
+            writer.close();
+
+            System.out.println("Task deleted successfully from storage.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void mark(int lineToModify, boolean done) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(this.file));
@@ -77,7 +102,7 @@ public class Storage {
             writer.write(content);
             writer.close();
 
-            System.out.println("First character modified successfully.");
+            System.out.println("Task udpated successfully from storage.");
         } catch (IOException e) {
             e.printStackTrace();
         }
