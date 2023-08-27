@@ -9,7 +9,7 @@ public class TaskManager {
     }
 
     public enum ActionType {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT;
+        BYE, LIST, SAVE, LOAD, MARK, UNMARK, DELETE, CLEAR, CLEARFILE, TODO, DEADLINE, EVENT;
     }
 
     public void handleAction(String input) throws DukeException{
@@ -17,25 +17,38 @@ public class TaskManager {
         String taskType = inputArray[0];
         try {
             switch (ActionType.valueOf(taskType.toUpperCase())) {
-                case BYE:
-                    System.out.println("Bye. Hope to see you again soon!");
-                    break;
-                case LIST:
-                    System.out.println("Here are the tasks in your list:");
-                    System.out.println(this.toString());
-                    break;
-                case MARK:
-                    this.markTaskAsDone(input);
-                    break;
-                case UNMARK:
-                    this.markTaskAsUndone(input);
-                    break;
-                case DELETE:
-                    this.delete(input);
-                    break;
-                default:
-                    Task task = Task.createTask(input);
-                    this.add(task);
+            case BYE:
+                System.out.println("Bye. Hope to see you again soon!");
+                break;
+            case LIST:
+                System.out.println("Here are the tasks in your list:");
+                System.out.println(this.toString());
+                break;
+            case SAVE:
+                this.saveToFile();
+                break;
+            case LOAD:
+                this.loadFromFile();
+                break;
+            case MARK:
+                this.markTaskAsDone(input);
+                break;
+            case UNMARK:
+                this.markTaskAsUndone(input);
+                break;
+            case DELETE:
+                this.delete(input);
+                break;
+            case CLEAR:
+                this.clear();
+                break;
+            case CLEARFILE:
+                Storage storage = new Storage();
+                storage.clearFile();
+                break;
+            default:
+                Task task = Task.createTask(input);
+                this.add(task);
             }
         } catch (IllegalArgumentException e) {
             throw new DukeException("Action is not recognised. Please use bye, list, mark, unmark, delete, todo, deadline or event.");
@@ -61,6 +74,10 @@ public class TaskManager {
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Please ensure task exists.");
         }
+    }
+
+    public void clear() {
+        this.userTasks.clear();
     }
 
     public void markTaskAsDone(String input) throws DukeException {
@@ -100,5 +117,47 @@ public class TaskManager {
             output += (i + 1) + ". " + userTasks.get(i).toString() + "\n";
         }
         return output;
+    }
+
+    public String toFileString() {
+        String output = "";
+        for (int i = 0; i < userTasks.size(); i++) {
+            output += userTasks.get(i).toFileString() + "\n";
+        }
+        return output;
+    }
+
+    public void saveToFile() throws DukeException{
+        Storage storage  = new Storage();
+        storage.saveStringToFile(this.toFileString());
+    }
+
+    public void loadFromFile() throws DukeException{
+        Storage storage  = new Storage();
+        String fileString = storage.loadStringFromFile();
+        String[] fileStringArray = fileString.split("\n");
+        if (userTasks.size() > 0) {
+            throw new DukeException("Please clear your current task list before loading from file.");
+        }
+        for (int i = 0; i < fileStringArray.length; i++) {
+            String[] taskStringArray = fileStringArray[i].split(" \\| ");
+            String taskType = taskStringArray[0];
+            Task task;
+            switch (taskType) {
+            case "T":
+                task = new Todo();
+                break;
+            case "D":
+                task = new Deadline();
+                break;
+            case "E":
+                task = new Event();
+                break;
+            default:
+                throw new DukeException("Corrupted file, ensure content is in format.");
+            }
+            task.fromFileString(fileStringArray[i]);
+            this.add(task);
+        }
     }
 }
