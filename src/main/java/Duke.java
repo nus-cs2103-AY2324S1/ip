@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 import Enums.Command;
 import Exception.InvalidInputException;
+import Exception.InvalidTimeException;
+import Exception.InvalidDateException;
 import Exception.InvalidCommandException;
 import Exception.MissingArgumentException;
 import Exception.MissingTaskArgumentException;
@@ -65,10 +67,20 @@ public class Duke {
         String date = scanner.nextLine();
 
         try {
-            date = Time.FormatDate(date);
+            date = Time.formatDate(date);
             tasks.addTask(new Deadlines(desc, date));
         } catch (InvalidDateException e) {
             reply.printDialog(e.toString());
+        }
+        reply.printDialog("Indicate a start time in ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time");
+        String time = scanner.nextLine();
+        if (!time.toLowerCase().equals("skip")) {
+            try {
+                date = Time.formatTime(date, time);
+                tasks.addTask(new Deadlines(desc, date));
+            } catch (InvalidTimeException | InvalidDateException e) {
+                reply.printDialog(e.toString());
+            }
         }
     }
 
@@ -78,15 +90,36 @@ public class Duke {
         String desc = scanner.nextLine();
         reply.printDialog("Now indicate the start date.");
         String from = scanner.nextLine();
-        reply.printDialog("Now indicate the end date.");
-        String to = scanner.nextLine();
-
         try {
-            from = Time.FormatDate(from);
-            to = Time.FormatDate(to);
-            tasks.addTask(new Events(desc, from, to));
+            from = Time.formatDate(from);
         } catch (InvalidDateException e) {
             reply.printDialog(e.toString());
+        }
+        reply.printDialog("Indicate a start time in ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time");
+        String fromTime = scanner.nextLine();
+        if (!fromTime.toLowerCase().equals("skip")) {
+            try {
+                from = Time.formatTime(from, fromTime);
+            } catch (InvalidTimeException | InvalidDateException e) {
+                reply.printDialog(e.toString());
+            }
+        }
+        reply.printDialog("Now indicate the end date.");
+        String to = scanner.nextLine();
+        try {
+            to = Time.formatDate(to);
+        } catch (InvalidDateException e) {
+            reply.printDialog(e.toString());
+        }
+        reply.printDialog("Indicate a start time in ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time");
+        String toTime = scanner.nextLine();
+        if (!toTime.toLowerCase().equals("skip")) {
+            try {
+                to = Time.formatTime(to, toTime);
+                tasks.addTask(new Events(desc, from, to));
+            } catch (InvalidTimeException | InvalidDateException e) {
+                reply.printDialog(e.toString());
+            }
         }
     }
     public static void markTask(String input, boolean mark) throws
