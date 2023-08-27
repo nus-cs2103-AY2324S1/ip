@@ -26,17 +26,40 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String commandInput = scanner.nextLine();
-            switch (commandInput) {
+            String[] words = commandInput.split(" ");
+
+            switch (words[0]) {
                 case "bye":
                     return;
                 case "list":
                     printTasks();
                     break;
+                case "mark":
+                    if (words.length > 1 && isNumeric(words[1])) {
+                        int taskNumber = Integer.parseInt(words[1]);
+                        markTask(taskNumber - 1); // task numbers start from 1
+                    }
+                    break;
+                case "unmark":
+                    if (words.length > 1 && isNumeric(words[1])) {
+                        int taskNumber = Integer.parseInt(words[1]);
+                        unmarkTask(taskNumber - 1); // task numbers start from 1
+                    }
+                    break;
                 default:
                     addTask(commandInput);
                     echo(commandInput, "added: ");
             }
+        }
+    }
 
+    // Utility method to check if a string is numeric
+    private boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 
