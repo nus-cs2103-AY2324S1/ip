@@ -64,4 +64,11 @@ public class Duke {
     private boolean addTask(String task) {
         return this.taskList.add(task);
     }
+
+    private void printTasks() {
+        for (int i = 0; i < taskList.size(); i ++) {
+            String taskNumber = String.format("%s. ", i);
+            echo(taskList.get(i), taskNumber);
+        }
+    }
 }
