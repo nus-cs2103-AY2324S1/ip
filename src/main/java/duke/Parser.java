@@ -31,6 +31,13 @@ public class Parser {
         else if (check.del(stuff) != -1) {
             System.out.println("Deleted: " + items.remove(check.del(stuff)).display());
         }
+        else if (check.find1(stuff) != null) {
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).display().contains(check.find1(stuff))) {
+                    System.out.println((i+1) + ". " + items.get(i).display());
+                }
+            }
+        }
 
         else{
             if(stuff.trim().toLowerCase().startsWith("todo")) {
