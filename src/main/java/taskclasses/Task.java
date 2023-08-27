@@ -1,4 +1,7 @@
+package taskclasses;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     protected String description;
@@ -14,19 +17,26 @@ public class Task {
     }
 
     public static Task createTaskFromData(String dataLine) {
-        String[] parts = dataLine.split(" \\| ");
-        String type = parts[0];
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
 
+        String[] parts = dataLine.split(" \\| ");
+        String type = parts[0].trim();
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2].trim();
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
         if (type.equals("T")) {
             return new Todo(description);
         } else if (type.equals("D")) {
-            LocalDate by = LocalDate.parse(parts[3]);
+            LocalDate by = LocalDate.parse(parts[3].trim(), inputFormatter);
             return new Deadline(description, isDone, by);
         } else if (type.equals("E")) {
-            LocalDate from = LocalDate.parse(parts[3].split(":")[1].trim());
-            LocalDate to = LocalDate.parse(parts[3].split(":")[2].trim());
+
+            String[] dates = parts[3].split(" - ");
+
+            String fromDateString = dates[0];
+            String toDateString = dates[1];
+
+            LocalDate from = LocalDate.parse(fromDateString, inputFormatter);
+            LocalDate to = LocalDate.parse(toDateString, inputFormatter);
             return new Event(description, isDone, from, to);
         } else {
             return null; // Unknown task type

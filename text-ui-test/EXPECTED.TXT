@@ -5,30 +5,30 @@
 |__|       |__|  |_|  |______|
 
      __________________________________________________________________________
-     Hi there, I'm Mil - your personal chatbot.
+     Hi there, I'm milbot.Mil - your personal chatbot.
      How can I help you today?
      __________________________________________________________________________
      __________________________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this taskclasses:
        [T][ ] go to sleep
      Now you have 1 tasks in the list.
      __________________________________________________________________________
      __________________________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this taskclasses:
        [D][ ] complete level 5  (by: Nov 7 2023)
      Now you have 2 tasks in the list.
      __________________________________________________________________________
      __________________________________________________________________________
-     Got it. I've added this task:
+     Got it. I've added this taskclasses:
        [E][ ] watch movie  (from: Oct 11 2023to: Dec 3 2023)
      Now you have 3 tasks in the list.
      __________________________________________________________________________
      __________________________________________________________________________
-     Nice! I've marked this task as done:
+     Nice! I've marked this taskclasses as done:
      [T][X] go to sleep
      __________________________________________________________________________
      __________________________________________________________________________
-     Noted. I've removed this task:
+     Noted. I've removed this taskclasses:
        [D][ ] complete level 5  (by: Nov 7 2023)
      Now you have 2 tasks in the list.
      __________________________________________________________________________

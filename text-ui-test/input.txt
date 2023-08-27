@@ -1,6 +1,10 @@
-todo go to sleep
-deadline complete level 5 /by 2023-11-07
-event watch movie /from 2023-10-11 /to 2023-12-03
+todo complete lab 1
+todo test
+deadline finish task /by 2023-11-07
+event do stuff /from 2023-11-01 /to 2023-11-02
 mark 1
+mark 2
+mark 3
+unmark 1
 delete 2
 bye

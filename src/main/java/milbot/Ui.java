@@ -1,3 +1,7 @@
+package milbot;
+
+import taskclasses.*;
+
 public class Ui {
     private static final String INDENTATION = "     ";
     private static final String HORIZONTAL_LINE = "__________________________________________________________________________";

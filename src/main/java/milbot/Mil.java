@@ -1,7 +1,6 @@
-import java.time.format.DateTimeParseException;
+package milbot;
+
 import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Mil {
     private static Storage storage;
@@ -20,7 +19,7 @@ public class Mil {
         Scanner scanner = new Scanner(System.in);
         String input;
         ui.printWelcomeMessage();
-        storage.loadTasksFromFile(taskList);
+        storage.loadTasksFromFile();
 
         while (scanner.hasNext()) {
             input = scanner.nextLine();
