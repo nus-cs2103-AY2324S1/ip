@@ -20,6 +20,15 @@ public class Event extends Task {
         this.to = to.strip();
     }
 
+    public Event(String bool, String description, String from, String to) {
+        super(description.strip());
+        this.from = from.strip();
+        this.to = to.strip();
+        if (Integer.parseInt(bool) == 1) {
+            this.isDone = true;
+        }
+    }
+
     /**
      * Returns the string representation of the event task.
      *
@@ -29,5 +38,15 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
+    }
+
+    /**
+     * Returns the string representing the task to be written in the disk.
+     *
+     * @return The string describing this task to be written in the disk.
+     */
+    @Override
+    public String toStringForFile() {
+        return "E | " + super.toStringForFile() + " | " + this.from + " | " + this.to;
     }
 }

@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -45,10 +47,9 @@ public class Ui {
 
     /**
      * Handles the input provided and outputs corresponding messages.
-     *
-     * @param storage The storage object that stores the tasks.
      */
-    public static void takeInstructions(Storage storage) {
+    public static void takeInstructions() throws FileNotFoundException, IOException {
+        Storage storage = new Storage();
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine();

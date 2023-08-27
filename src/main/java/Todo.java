@@ -14,6 +14,13 @@ public class Todo extends Task {
         super(description.strip());
     }
 
+    public Todo(String bool, String description) {
+        super(description.strip());
+        if (Integer.parseInt(bool) == 1) {
+            this.isDone = true;
+        }
+    }
+
     /**
      * Returns the string representation of the todo task.
      *
@@ -23,5 +30,15 @@ public class Todo extends Task {
     @Override
     public String toString() {
         return "[T]" + super.toString();
+    }
+
+    /**
+     * Returns the string representing the task to be written in the disk.
+     *
+     * @return The string describing this task to be written in the disk.
+     */
+    @Override
+    public String toStringForFile() {
+        return "T | " + super.toStringForFile();
     }
 }
