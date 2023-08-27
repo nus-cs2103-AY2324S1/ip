@@ -1,0 +1,6 @@
+todo finish homework
+event class /from 8 am /to 10 am
+deadline buy lunch /by noon
+list
+mark 1
+bye
