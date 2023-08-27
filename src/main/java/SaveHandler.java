@@ -38,6 +38,7 @@ public class SaveHandler {
         tasks.add(task);
       }
       reader.close();
+      System.out.println("List loaded");
       return tasks;
     } catch (Exception e) {
       System.out.println("Invalid save file");
@@ -55,6 +56,7 @@ public class SaveHandler {
         writer.write(task.save() + "\n");
       }
       writer.close();
+      System.out.println("List saved");
     } catch (Exception e) {
       System.out.println("Failed to save");
     }
