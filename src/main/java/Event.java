@@ -1,12 +1,15 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
-    private String start;
-    private String end;
+    private LocalDate start;
+    private LocalDate end;
 
     public Event(String description) throws MissingEventDatesException {
         super(description.split(" /from ")[0]);
         try {
-            this.start = description.split(" /from ")[1].split(" /to ")[0];
-            this.end = description.split(" /from ")[1].split(" /to ")[1];
+            this.start = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[0]);
+            this.end = LocalDate.parse(description.split(" /from ")[1].split(" /to ")[1]);
         } catch (Exception e) {
             throw new MissingEventDatesException();
         }
@@ -15,15 +18,16 @@ public class Event extends Task {
     public Event(String name, boolean done, String start, String end) {
         super(name);
         super.done = done;
-        this.start = start;
-        this.end = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     @Override
     public String toString() {
         String done = this.done ? "[X]" : "[ ]";
         return "[E]" + done + " " + this.name
-                + " (from: " + this.start + " to: " + this.end + ")";
+                + " (from: " + this.start.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                + " to: " + this.end.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
     /**

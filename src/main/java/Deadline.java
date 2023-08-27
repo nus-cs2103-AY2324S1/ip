@@ -1,10 +1,13 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String due;
+    private LocalDate due;
 
     public Deadline(String description) throws MissingDeadlineException {
         super(description.split(" /by ")[0]);
         try {
-            this.due = description.split(" /by ")[1];
+            this.due = LocalDate.parse(description.split(" /by ")[1]);
         } catch (Exception e) {
             throw new MissingDeadlineException();
         }
@@ -13,14 +16,14 @@ public class Deadline extends Task {
     public Deadline(String name, boolean done, String due) {
         super(name);
         super.done = done;
-        this.due = due;
+        this.due = LocalDate.parse(due);
     }
 
     @Override
     public String toString() {
         String done = this.done ? "[X]" : "[ ]";
         return "[D]" + done + " " + this.name
-                + " (by: " + this.due + ")";
+                + " (by: " + this.due.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 
     /**
@@ -44,3 +47,4 @@ public class Deadline extends Task {
                 + super.name + separation + due;
     }
 }
+
