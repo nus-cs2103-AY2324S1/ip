@@ -25,9 +25,19 @@ public class Duke {
         }
     }
     private static void echo(String input) {
-        String divider = String.format("%80s", "").replace(" ", "-");
+        int indentLength = 4;
+        String divider = indentLeft(String.format("%80s", "").replace(" ", "-"), indentLength);
         System.out.println(divider);
-        System.out.println(input);
+        System.out.println(indentLeft(input, indentLength));
         System.out.println(divider);
+    }
+
+    private static String indentLeft(String input, int indentLength) {
+        String indent = String.format("%" + indentLength + "s", "");
+        String[] lines = input.split(System.lineSeparator()); // handle Unix and Windows new lines.
+        for (int i = 0; i < lines.length; i++) {
+            lines[i] = indent + lines[i];
+        }
+        return String.join(System.lineSeparator(), lines);
     }
 }
