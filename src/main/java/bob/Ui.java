@@ -1,3 +1,5 @@
+package bob;
+
 /**
  * Handles user interaction
  */

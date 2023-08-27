@@ -1,4 +1,7 @@
+package bob;
 import java.util.ArrayList;
+import bob.task.*;
+import bob.exception.*;
 
 /**
  * Contains list of tasks, and operations that alter it.

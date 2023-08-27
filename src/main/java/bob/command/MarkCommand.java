@@ -1,24 +1,31 @@
+package bob.command;
 import java.io.IOException;
+import bob.*;
+import bob.exception.*;
 
-public class DeleteCommand extends Command {
-    public DeleteCommand(String input) {
+public class MarkCommand extends Command {
+    public MarkCommand(String input) {
         super.input = input;
         super.isExit = false;
     }
 
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            String[] deleteIndex = input.split(" ");
-            if (deleteIndex.length == 1) {
+            String[] markIndex = input.split(" ");
+            if (markIndex.length == 1) {
                 throw new MissingIndexException();
             }
             int index = 0;
             try {
-                index = Integer.parseInt(deleteIndex[1]);
+                index = Integer.parseInt(markIndex[1]);
             } catch (NumberFormatException e) {
                 throw new MissingIndexException();
             }
-            ui.stringFormat(tasks.deleteTask(index));
+            boolean doneOrNot = true;
+            if (input.contains("unmark")) {
+                doneOrNot = false;
+            }
+            ui.stringFormat(tasks.markDoneOrNot(index, doneOrNot));
             storage.write(tasks.lst);
         } catch (IOException e) {
             ui.showLoadingError();

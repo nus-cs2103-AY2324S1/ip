@@ -1,3 +1,6 @@
+package bob.command;
+import bob.*;
+
 public class DisplayCommand extends Command {
     public DisplayCommand() {
         super.isExit = false;

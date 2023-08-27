@@ -1,8 +1,10 @@
+package bob;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import bob.task.*;
 
 /**
  * Handles loading tasks from, and saving tasks to file
