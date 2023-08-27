@@ -33,11 +33,11 @@ public class Event extends Task {
         }
         ArrayList<String> out = new ArrayList<String>();
         if (j > i) {
-            out.add(desc.substring(0, i - 1));
+            out.add(i == 0 ? "" : desc.substring(0, i - 1));
             out.add(desc.substring(i + 6, j - 1));
             out.add(desc.substring(j + 4));
         } else {
-            out.add(desc.substring(0, j - 1));
+            out.add(j == 0 ? "" : desc.substring(0, j - 1));
             out.add(desc.substring(i + 6));
             out.add(desc.substring(j + 4, i - 1));
         }

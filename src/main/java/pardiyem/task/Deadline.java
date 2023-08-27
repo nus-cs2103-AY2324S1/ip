@@ -20,10 +20,10 @@ public class Deadline extends Task {
     public static ArrayList<String> parseDesc(String desc) throws IllegalArgumentException {
         int i = desc.indexOf("/by");
         if (i == -1) {
-            throw new IllegalArgumentException("Whoops, you forgot to indicate the deadline by using \"\\by *insert deadline*\"");
+            throw new IllegalArgumentException("Whoops, you forgot to indicate the deadline by using \"/by *insert deadline*\"");
         }
         ArrayList<String> out = new ArrayList<String>();
-        out.add(desc.substring(0, i - 1));
+        out.add(i == 0 ? "" : desc.substring(0, i - 1));
         out.add(desc.substring(i + 4));
         return out;
     }
