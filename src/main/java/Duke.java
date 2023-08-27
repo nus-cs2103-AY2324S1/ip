@@ -84,8 +84,11 @@ public class Duke {
                 } else if (segments[0].equals("D")) { // Deadline task
                     tasks.add(new Deadline(segments[2], LocalDateTime.parse(segments[3]), isDone));
                 } else { // Event task
-                    String[] times = segments[3].split("-");
-                    tasks.add(new Event(segments[2], times[0], times[1], isDone));
+                    String[] times = segments[3].split("--");
+                    tasks.add(new Event(segments[2],
+                            LocalDateTime.parse(times[0]),
+                            LocalDateTime.parse(times[1]),
+                            isDone));
                 }
 
             }
@@ -268,7 +271,9 @@ public class Duke {
                             throw new UnknownTimeException(desc_time[0]);
                         }
 
-                        Task task = new Event(desc_time[0], times[0], times[1]);
+                        Task task = new Event(desc_time[0],
+                                LocalDateTime.parse(times[0], FORMATTER),
+                                LocalDateTime.parse(times[1], FORMATTER));
                         tasks.add(task);
                         System.out.println("Got it!. I've added this task:");
                         System.out.println(" " + task);

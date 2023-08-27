@@ -1,2 +1,3 @@
 T | 1 | join comclub
 D | 0 | write speech | 2019-01-01T12:00
+E | 0 | listen to elections | 2023-08-22T12:00--2023-08-23T13:00

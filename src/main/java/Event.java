@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Encapsulates an Event.
  * Tasks that start at a specific date/time and
@@ -7,16 +10,16 @@
  */
 public class Event extends Task {
 
-    String start;
-    String deadline;
+    private final LocalDateTime start;
+    private final LocalDateTime deadline;
 
-    public Event(String description, String start, String deadline) {
+    public Event(String description, LocalDateTime start, LocalDateTime deadline) {
         super(description);
         this.start = start;
         this.deadline = deadline;
     }
 
-    public Event(String description, String start, String deadline, boolean isDone) {
+    public Event(String description, LocalDateTime start, LocalDateTime deadline, boolean isDone) {
         super(description, isDone);
         this.start = start;
         this.deadline = deadline;
@@ -24,12 +27,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to %s)", super.toString(), this.start, this.deadline);
+        return String.format("[E]%s (from: %s to %s)", super.toString(),
+                this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")),
+                this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")));
     }
 
     @Override
     public String formatForStorage() {
-        return String.format("E | %s | %s-%s", super.formatForStorage(), this.start, this.deadline);
+        return String.format("E | %s | %s--%s", super.formatForStorage(), this.start, this.deadline);
     }
 
 }
