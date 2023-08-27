@@ -1,3 +1,5 @@
+package duke.exception;
+
 /**
  * Handles creating To Do event without description.
  */

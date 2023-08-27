@@ -1,3 +1,14 @@
+package duke.main;
+
+import duke.command.FirstWord;
+import duke.exception.DukeEmptyToDoException;
+import duke.exception.DukeException;
+import duke.exception.DukeInvalidDateFormatException;
+import duke.exception.DukeUnknownCommandException;
+import duke.task.Task;
+import duke.task.ToDo;
+import duke.task.Event;
+import duke.task.Deadline;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
