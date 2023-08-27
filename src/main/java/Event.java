@@ -24,7 +24,12 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E] | %s | %s-%s", super.toString(), this.start, this.deadline);
+        return String.format("[E]%s (from: %s to %s)", super.toString(), this.start, this.deadline);
+    }
+
+    @Override
+    public String formatForStorage() {
+        return String.format("E | %s | %s-%s", super.formatForStorage(), this.start, this.deadline);
     }
 
 }

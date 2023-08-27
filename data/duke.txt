@@ -1,3 +1,2 @@
-[T] | [ ] | join comclub
-[D] | [ ] | return book | Sunday
-[E] | [ ] | project meeting | Mon 2pm-4pm
+T | 1 | join comclub
+D | 0 | write speech | 2019-01-01T12:00

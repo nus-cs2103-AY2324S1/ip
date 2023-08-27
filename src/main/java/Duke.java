@@ -1,6 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -30,6 +34,14 @@ public class Duke {
     private static final String LINE = "_______________________________________";
     private static final String DIR_NAME = "./data";
     private static final String FILE_NAME = "duke.txt";
+    private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
+            .appendPattern("yyyy-MM-dd")
+            .optionalStart()
+            .appendPattern(" HH:mm")
+            .optionalEnd()
+            .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+            .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+            .toFormatter();
 
     private static void sendIntroduction() {
         String logo = "                     _                 _      \n" +
@@ -59,18 +71,18 @@ public class Duke {
                 String[] segments = curr.split(" \\| ");
 
                 // check for the correct format - minimum 3 different segments
-                if ((!segments[0].equals("[T]") && !segments[0].equals("[D]")
-                        && !segments[0].equals("[E]")) || segments.length < 3) {
+                if ((!segments[0].equals("T") && !segments[0].equals("D")
+                        && !segments[0].equals("E")) || segments.length < 3) {
                     s.close(); // need to close scanner otherwise cannot replace file
                     throw new UnrecognisedFormatException();
                 }
 
-                boolean isDone = segments[1].equals("[X]");
+                boolean isDone = segments[1].equals("1");
 
-                if (segments[0].equals("[T]")) { // To do task
+                if (segments[0].equals("T")) { // To do task
                     tasks.add(new ToDo(segments[2], isDone));
-                } else if (segments[0].equals("[D]")) { // Deadline task
-                    tasks.add(new Deadline(segments[2], segments[3], isDone));
+                } else if (segments[0].equals("D")) { // Deadline task
+                    tasks.add(new Deadline(segments[2], LocalDateTime.parse(segments[3]), isDone));
                 } else { // Event task
                     String[] times = segments[3].split("-");
                     tasks.add(new Event(segments[2], times[0], times[1], isDone));
@@ -139,7 +151,7 @@ public class Duke {
                         // store the data into the storage
                         StringBuilder textForStorage = new StringBuilder();
                         for (Task task : tasks) {
-                            textForStorage.append(task.toString()).append("\n");
+                            textForStorage.append(task.formatForStorage()).append("\n");
                         }
 
                         writeFile(DIR_NAME + File.separator + FILE_NAME, textForStorage.toString());
@@ -232,7 +244,8 @@ public class Duke {
                             throw new UnknownTimeException(strings[0]);
                         }
 
-                        Task task = new Deadline(strings[0], strings[1]);
+                        Task task = new Deadline(strings[0],
+                                LocalDateTime.parse(strings[1], FORMATTER));
                         tasks.add(task);
                         System.out.println("Got it!. I've added this task:");
                         System.out.println(" " + task);

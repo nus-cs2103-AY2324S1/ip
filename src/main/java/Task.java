@@ -32,7 +32,11 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("%s | %s", getStatus(), this.description);
+        return String.format("%s %s", getStatus(), this.description);
+    }
+
+    public String formatForStorage() {
+        return String.format("%s | %s", isDone ? "1" : "0", this.description);
     }
 
 }
