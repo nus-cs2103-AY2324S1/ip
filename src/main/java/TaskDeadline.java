@@ -18,6 +18,10 @@ public class TaskDeadline extends Task {
         this.deadlineTime = deadlineTime;
     }
     @Override
+    /**
+     * String representation of Deadline
+     * @return String representation of deadline
+     */
     public String toString() {
         return super.toString() + 
         " (by: " + this.deadlineTime + ")";

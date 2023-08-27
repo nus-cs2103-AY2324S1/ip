@@ -1,6 +1,8 @@
 /**
  * Representation of a task
  * recorded by the chatbot.
+ * 
+ * @author Alvis Ng (supermii2)
  */
 public abstract class Task {
     /** Name of task */

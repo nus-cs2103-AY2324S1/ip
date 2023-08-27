@@ -23,6 +23,7 @@ public class Rock {
             " |    |   (  <_> )  \\___|    <|  Y Y  \\/ __ \\|   |  \\\r\n" +
             " |____|_  /\\____/ \\___  >__|_ \\__|_|  (____  /___|  /\r\n" +
             "        \\/            \\/     \\/     \\/     \\/     \\/ \r\n";
+            
     /**
      * Scanner object used for detecting user input.
      */
