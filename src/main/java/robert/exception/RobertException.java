@@ -1,3 +1,5 @@
+package robert.exception;
+
 public class RobertException extends Exception {
     private final String errorMessage;
 

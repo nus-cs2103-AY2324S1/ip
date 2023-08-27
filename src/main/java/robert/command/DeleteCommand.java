@@ -1,3 +1,11 @@
+package robert.command;
+
+import robert.ui.Ui;
+import robert.storage.Storage;
+import robert.task.TaskList;
+
+import robert.task.Task;
+
 public class DeleteCommand extends Command {
 
     private final int taskIndex;
