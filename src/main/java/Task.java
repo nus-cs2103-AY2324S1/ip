@@ -1,29 +1,42 @@
 public abstract class Task {
-    private String taskName;
-    private boolean doneOrNot;
+    private final String taskName;
+    private boolean isDone;
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.doneOrNot = false;
+        this.isDone = false;
+    }
+
+    public Task(String taskName, boolean isDone) {
+        this.taskName = taskName;
+        this.isDone = isDone;
     }
 
     public void setDone() {
-        this.doneOrNot = true;
+        this.isDone = true;
     }
 
     public void setUndone() {
-        this.doneOrNot = false;
+        this.isDone = false;
     }
 
     public String getTaskStatus() {
-        return this.doneOrNot ? "[X]" : "[ ]";
+        return this.isDone ? "[X]" : "[ ]";
     }
 
     public String getTaskName() {
         return this.taskName;
     }
+
     public abstract String getTaskType();
+
     public abstract String getTaskTime();
+
+    public abstract String toSaveFormat();
+
+    public boolean isDone() {
+        return this.isDone;
+    }
 
     @Override
     public String toString() {
