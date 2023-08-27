@@ -4,7 +4,7 @@ public class Deadlines extends Task {
 
     public Deadlines(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = by.substring(3);
     }
 
     @Override
