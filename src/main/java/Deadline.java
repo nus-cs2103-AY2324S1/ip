@@ -23,7 +23,7 @@ public class Deadline extends Task{
 
     @Override
     public boolean isOnDate(LocalDate date) {
-        return false;
+        return date.isEqual(this.by.toLocalDate());
     }
 
     public static String[] processInput(String[] splitInput) throws InvalidTaskException {
