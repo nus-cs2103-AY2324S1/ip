@@ -18,7 +18,7 @@ public class Event extends Task {
     }
     @Override
     public String formatToFile() {
-        return "E | " + super.formatToFile() + "| " + from + " - " + to;
+        return "E | " + super.formatToFile() + " | " + from + " - " + to;
     }
     @Override
     public String toString() {

@@ -17,7 +17,7 @@ public class Deadline extends Task {
     }
     @Override
     public String formatToFile() {
-        return "D | " + super.formatToFile() + "| " + by;
+        return "D | " + super.formatToFile() + " | " + by;
     }
     @Override
     public String toString() {
