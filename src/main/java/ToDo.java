@@ -1,6 +1,10 @@
 public class ToDo extends Task {
-    public ToDo (String taskName) {
+    public ToDo(String taskName) {
         super(taskName);
+    }
+
+    public ToDo(String taskName, boolean isDone) {
+        super(taskName, isDone);
     }
 
     @Override
@@ -11,6 +15,11 @@ public class ToDo extends Task {
     @Override
     public String getTaskTime() {
         return "";
+    }
+
+    @Override
+    public String toSaveFormat() {
+        return "T | " + (super.isDone() ? "1" : "0") + " | " + this.getTaskName();
     }
 
 }

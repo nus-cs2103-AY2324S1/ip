@@ -3,19 +3,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
-    private static final String name = "Kevin";
-    private static final int splitterLength = 50;
-
-    private enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
-
-    private TaskType getTaskType(String input) {
-        return TaskType.valueOf(input.toUpperCase());
-    }
+    private static final String NAME = "Kevin";
+    private static final int SPLITTER_LENGTH = 50;
+    private static String DATA_FILE_PATH = "./data/duke.txt";
+    private static final Storage storage = new Storage(DATA_FILE_PATH);
 
     private static void lineSplitter() {
-        for (int i = 0; i < Duke.splitterLength; i++) {
+        for (int i = 0; i < Duke.SPLITTER_LENGTH; i++) {
             System.out.print("-");
         }
         System.out.println();
@@ -23,7 +17,7 @@ public class Duke {
 
     private static void greet() {
         lineSplitter();
-        System.out.println("Hello! I'm " + Duke.name + "\n" + "What can I do for you?\n");
+        System.out.println("Hello! I'm " + Duke.NAME + "\n" + "What can I do for you?\n");
     }
 
     private static void bye() {
@@ -70,7 +64,6 @@ public class Duke {
     private static String[] splitByDelimiter(String input, String delimiter) {
         return input.split(delimiter, 2); // Split into two parts by the specified delimiter
     }
-
 
     public static void echo(List<Task> list) {
         Scanner sc = new Scanner(System.in);
@@ -124,6 +117,7 @@ public class Duke {
                         lineSplitter();
                         System.out.println("added: " + task + " \n" + list.size() + " tasks in the list");
                         lineSplitter();
+                        storage.save(list);
                     }
                     break;
                 } catch (CommandNotRecognizedException e) {
@@ -132,16 +126,32 @@ public class Duke {
                 } catch (NoCommandDetailException e) {
                     System.out.println(e.getMessage());
                     break;
+                } catch (StorageException e) {
+                    System.out.println(e.getMessage());
+                    break;
                 }
             }
         }
     }
 
-
     public static void main(String[] args) {
         List<Task> list = new ArrayList<>();
+        try {
+            list = storage.load();
+        } catch (StorageException e) {
+            System.out.println(e.getMessage());
+        }
         greet();
         echo(list);
         bye();
+    }
+
+    private TaskType getTaskType(String input) {
+        return TaskType.valueOf(input.toUpperCase());
+    }
+
+
+    private enum TaskType {
+        TODO, DEADLINE, EVENT
     }
 }
