@@ -10,6 +10,27 @@ public class Storage {
 
     public Storage(String path) {
         this.file = new File(path);
+
+        if (!file.exists()) {
+            createFile();
+        }
+    }
+
+    private void createFile() {
+        File parentFolder = this.file.getParentFile();
+
+        if (!parentFolder.exists()) {
+            parentFolder.mkdirs();
+        }
+
+        try {
+            if (this.file.createNewFile()) {
+                System.out.println("File has been created successfully: " + this.file.getPath());
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+            System.out.println("There is an error creating the file.");
+        }
     }
 
     public ArrayList<Task> read() {
@@ -43,18 +64,6 @@ public class Storage {
         }
 
         return taskList;
-    }
-
-    private void createFile() {
-        this.file.getParentFile().mkdir();
-        try {
-            if (this.file.createNewFile()) {
-                System.out.println("File has been created successfully: " + this.file.getPath());
-            }
-        } catch (IOException e) {
-            System.out.println(e);
-            System.out.println("There is an error creating the file.");
-        }
     }
 
     public void addTask(String fileFormat) {

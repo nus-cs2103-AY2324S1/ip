@@ -59,7 +59,7 @@ public class Duke {
                             throw new DukeInvalidIndexException(lst.size());
                         }
                         Task selectedTask = lst.get(num - 1);
-                        this.markCompletion(selectedTask);
+                        this.markCompletion(selectedTask, num);
                     } catch (NumberFormatException e) {
                         throw new DukeInvalidIndexException(lst.size());
                     }
@@ -76,7 +76,7 @@ public class Duke {
                             throw new DukeInvalidIndexException(lst.size());
                         }
                         Task selectedTask = lst.get(num - 1);
-                        this.unmarkCompletion(selectedTask);
+                        this.unmarkCompletion(selectedTask, num);
                     } catch (NumberFormatException e) {
                         throw new DukeInvalidIndexException(lst.size());
                     }
@@ -240,7 +240,7 @@ public class Duke {
         System.out.println(line);
     }
 
-    public void markCompletion(Task task) {
+    public void markCompletion(Task task, int num) {
         if (task.getStatusIcon().equals("X")) {
             System.out.println(line);
             System.out.println("Nice! I've marked this task as done:");
@@ -249,13 +249,17 @@ public class Duke {
         } else {
             System.out.println(line);
             System.out.println("Nice! I've marked this task as done:");
+
             task.toggleCompletion();
+            String updatedTaskString = task.fileFormat();
+            this.storage.updateTask(num - 1, updatedTaskString);
+
             System.out.println("\t" + task);
             System.out.println(line);
         }
     }
 
-    public void unmarkCompletion(Task task) {
+    public void unmarkCompletion(Task task, int num) {
         if (task.getStatusIcon().equals(" ")) {
             System.out.println(line);
             System.out.println("OK, I've marked this task as not done yet:");
@@ -264,7 +268,11 @@ public class Duke {
         } else {
             System.out.println(line);
             System.out.println("OK, I've marked this task as not done yet:");
+
             task.toggleCompletion();
+            String updatedTaskString = task.fileFormat();
+            this.storage.updateTask(num - 1, updatedTaskString);
+
             System.out.println("\t" + task);
             System.out.println(line);
         }
@@ -273,7 +281,10 @@ public class Duke {
     public void deleteTask(Integer num) {
         System.out.println(line);
         System.out.println("Noted. I've removed this task:");
+
         Task selectedTask = lst.remove(num - 1);
+        this.storage.updateTask(num - 1, null);
+
         System.out.println("\t" + selectedTask);
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
