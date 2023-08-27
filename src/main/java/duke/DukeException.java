@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * CS2103T IP
  * AY 23/24 Semester 1
