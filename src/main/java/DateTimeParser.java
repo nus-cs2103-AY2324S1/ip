@@ -27,8 +27,6 @@ public class DateTimeParser {
                 // do nothing
             }
         }
-        System.out.println("Invalid date and time format");
-
         return false;
     }
 
@@ -51,9 +49,13 @@ public class DateTimeParser {
                 "Please enter a valid date and time format");
     }
 
+    /**
+     *  Warns the user to follow a certain date and time format
+     *  @return a String message to warn the user to follow a certain date and time format
+     */
     public static String getValidDateTimeFormat() {
         String message = "";
-        message += "Please enter a valid date and time format:\n";
+        message += "Please enter a valid date and time format seen below\n";
         for (int i = 0; i < VALID_DATE_TIME_FORMAT.length; i++) {
             message += VALID_DATE_TIME_FORMAT[i] + "\n";
         }

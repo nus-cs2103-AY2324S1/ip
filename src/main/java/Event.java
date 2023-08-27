@@ -56,11 +56,11 @@ public class Event extends Task {
                     "Use the /from command in 'event <event_name> /from <start> /to <end>'");
         }
         try {
-            String taskNameEvent = segmentedViaFrom[0].substring(Duke.EVENTOFFSET);
+            String taskNameEvent = segmentedViaFrom[0].substring(Parser.EVENTOFFSET);
         } catch (StringIndexOutOfBoundsException e) {
             throw new WrongInputTask("Task name cannot be blank", "Enter a non-blank name");
         }
-        String taskNameEvent = segmentedViaFrom[0].substring(Duke.EVENTOFFSET);
+        String taskNameEvent = segmentedViaFrom[0].substring(Parser.EVENTOFFSET);
         String[] segmentedViaTo = segmentedViaFrom[1].split(" /to ");
         if (segmentedViaTo.length < 2) {
             throw new WrongInputTask("/to command is required",
