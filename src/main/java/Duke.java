@@ -28,7 +28,11 @@ public class Duke {
                 ui.closeScanner();
                 break;
             } else {
-                Parser.parse(command, tasks);
+                try {
+                    Parser.parse(command, tasks);
+                } catch (DukeException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
         storage.saveTasks(tasks.getTasks());

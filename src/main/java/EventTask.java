@@ -6,13 +6,13 @@ public class EventTask extends Task {
     protected LocalDate fromDate;
     protected LocalDate toDate;
 
-    public EventTask(String description, String from, String to, boolean isDone) {
+    public EventTask(String description, String from, String to, boolean isDone) throws DukeException {
         super(description, isDone);
         try {
             setEventFromDate(from);
             setEventToDate(to);
         } catch (DateTimeException e) {
-            throw new DateTimeException("Please input your date in the YYYY-MM-DD format!");
+            throw new DukeException("Please input your date in the YYYY-MM-DD format!");
         }
     }
 

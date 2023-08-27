@@ -8,36 +8,55 @@ public class Parser {
         switch (command) {
         case "list":
             tasks.listTask();
+            break;
         case "delete":
             int task = parseDeleteCommand(parts);
             tasks.deleteTask(task);
+            break;
         case "todo":
             ToDoTask toDoTask = parseTodoCommand(parts, false);
             tasks.addTask(toDoTask);
+            break;
         case "deadline":
             DeadlineTask deadlineTask = parseDeadline(parts[1], false);
             tasks.addTask(deadlineTask);
+            break;
         case "event":
             EventTask eventTask = parseEvent(parts[1], false);
             tasks.addTask(eventTask);
+            break;
         case "mark":
-            int markTask = parseMarkCommand(parts);
+            int markTask = parseMarkCommand(parts) - 1;
+            if (markTask < 0 || markTask >= tasks.getTotalTasks()) {
+                System.out.println("There is no task for this number!");
+                break;
+            }
             tasks.getTask(markTask).markTask();
+            break;
         case "unmark":
-            int unmarkTask = parseUnmarkCommand(parts);
+            int unmarkTask = parseUnmarkCommand(parts) - 1;
+            if (unmarkTask < 0 || unmarkTask >= tasks.getTotalTasks()) {
+                System.out.println("There is no task for this number!");
+                break;
+            }
             tasks.getTask(unmarkTask).unmarkTask();
+            break;
         default:
-            throw new DukeException("You inputted an invalid command! Please try deadline, todo or event :)")
+            System.out.println("You inputted an invalid command! Please try deadline, todo or event :)");
         }
     }
 
     //For the data loading
-    public static re parse(String input) throws DukeException {
-        String[] parts = input.split(" ", 2);
-        String command = parts[0];
-
-        default:
-            throw new DukeException("You inputted an invalid command! Please try deadline, todo or event :)")
+    public static Task parse(String taskType, String taskDetails, boolean isDone) throws DukeException {
+        if (taskType.equalsIgnoreCase("[T")) {
+            taskDetails = taskDetails.replace(" ", "");
+            return new ToDoTask(taskDetails, isDone);
+        } else if (taskType.equals("[D")) {
+            return Parser.parseDeadline(taskDetails, isDone);
+        } else if (taskType.equals("[E")) {
+            return Parser.parseEvent(taskDetails, isDone);
+        } else {
+            return null;
         }
     }
 

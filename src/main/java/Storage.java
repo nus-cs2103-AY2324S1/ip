@@ -31,12 +31,14 @@ public class Storage {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                try {
-                    Task task = Parser.parse(line);
-                    loadedTasks.add(task);
-                } catch (DukeException e) {
-                    System.err.println("Error parsing task: " + e.getMessage());
-                }
+                String[] parts = line.split("]", 3);
+                String taskType = parts[0];
+                boolean isDone = parts[1].equals("[X");
+                String description = parts[2];
+                description = description.replace("(", "");
+                description = description.replace(")", "");
+                Task task = Parser.parse(taskType, description, isDone);
+                loadedTasks.add(task);
             }
             scanner.close();
         } catch (IOException e) {
@@ -44,6 +46,7 @@ public class Storage {
         }
         return loadedTasks;
     }
+
 
     public void saveTasks(ArrayList<Task> tasks) throws DukeException {
         try {

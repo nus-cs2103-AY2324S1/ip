@@ -9,7 +9,7 @@ public class Ui {
         System.out.println("What can I do for you today?");
     }
     public String getUserInput() {
-        System.out.print("Enter a command: ");
+        System.out.print("\nEnter a command: ");
         return scanner.nextLine();
     }
     public void showTaskAddedMessage(Task task, int totalTasks) {
@@ -19,9 +19,6 @@ public class Ui {
     }
     public void showGoodbyeMessage() {
         System.out.println("I wish you a pleasant day ahead, goodbye!");
-    }
-    public void showError(String errorMessage) {
-        System.err.println("Error: " + errorMessage);
     }
     public void showLoadingError() {
         System.err.println("Error! Cannot load tasks from data file.");
