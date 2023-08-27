@@ -1,6 +1,13 @@
-public class Event extends Task {
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    private static String parseEvent(String task) throws DukeException {
+public class Event extends Task {
+    private final LocalDate deadlineDate;
+    private final LocalDate startDate;
+
+
+
+    private static String[] parseEvent(String task) throws DukeException {
         // index 0: task name, index 1: task time range
         String [] taskSplit = task.split("/from", 2);
         String taskName = taskSplit[0].trim();
@@ -22,29 +29,44 @@ public class Event extends Task {
         if (parseTimeRange[1].trim().isEmpty()) {
             throw new DukeException("Please enter valid end date");
         }
-        String eventInfoString = taskSplit[0] + "(from:" + parseTimeRange[0] +
-                "to:" + parseTimeRange[1] + ")";
 
-        return eventInfoString;
+        String eventInfoString = taskSplit[0];
+
+        return new String[] {eventInfoString, parseTimeRange[0].trim(), parseTimeRange[1].trim()};
     }
     Event(String task) throws DukeException {
-        super(parseEvent(task));
+        super(parseEvent(task)[0]);
+        this.deadlineDate = LocalDate.parse(parseEvent(task)[1]);
+        this.startDate = LocalDate.parse(parseEvent(task)[2]);
     }
 
-    Event(String task, boolean isDone) {
+    Event(String task, boolean isDone, LocalDate deadlineDate, LocalDate startDate) {
         super(task, isDone);
+        this.deadlineDate = deadlineDate;
+        this.startDate = startDate;
     }
     @Override
     public Event done() {
-        return new Event(super.getTask(), true);
+        return new Event(super.getTask(), true, this.deadlineDate, this.startDate);
     }
     @Override
     public Event undone() {
-        return new Event(super.getTask(), false);
+        return new Event(super.getTask(), false, this.deadlineDate, this.startDate);
+    }
+
+    @Override
+    public String storageText() {
+        String start = startDate.toString();
+        String end = deadlineDate.toString();
+        return "[E]" + super.toString() + " /from " + start + " /to " + end;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString();
+        return "[E]" + super.toString() + " (from: "
+                + startDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: "
+                + deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + ")";
     }
 }

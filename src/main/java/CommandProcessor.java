@@ -1,8 +1,5 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.Scanner;
+
 
 
 public class CommandProcessor {
@@ -70,18 +67,18 @@ public class CommandProcessor {
             // process commands involving tasks (todo, deadline, event)
             if (commandType.equals("todo")) {
                 Task task = new Todo(taskName);
-                storage.writeToFile(task.toString());
+                storage.writeToFile(task.storageText());
                 tasks.addToList(task);
             } else if (commandType.equals("deadline")) {
                 Task task = new Deadline(taskName);
-                storage.writeToFile(task.toString());
+                storage.writeToFile(task.storageText());
                 tasks.addToList(task);
 
 
 
             } else if (commandType.equals("event")) {
                 Task task = new Event(taskName);
-                storage.writeToFile(task.toString());
+                storage.writeToFile(task.storageText());
                 tasks.addToList(task);
             }
 
