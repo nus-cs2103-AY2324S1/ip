@@ -11,7 +11,7 @@ public class Storage {
   private String filePath;
 
   public Storage(String filePath) {
-    this.filePath =filePath;
+    this.filePath = filePath;
   }
 
   private TimeParser parser = new TimeParser();
@@ -32,6 +32,9 @@ public class Storage {
     try {
       LinkedList<Task> tasks = new LinkedList<>();
       File f = new File(filePath);
+      f.getParentFile().mkdirs();
+      f.createNewFile();
+
       Scanner scanner = new Scanner(f);
       while (scanner.hasNext()) {
         String s = scanner.nextLine();
@@ -51,6 +54,8 @@ public class Storage {
       }
       return tasks;
     } catch (IOException | InvalidDateException e2) {
+      File f = new File(filePath);
+      System.out.println(f.getAbsolutePath());
       System.out.println("     Unable to load/find file, using an empty task list");
       return new LinkedList<>();
     }

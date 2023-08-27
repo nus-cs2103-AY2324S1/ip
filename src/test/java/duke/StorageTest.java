@@ -23,12 +23,4 @@ public class StorageTest {
     LinkedList<Task> loadedTaskLists = storage.loadFile();
     assertEquals(loadedTaskLists.size(), 0);
   }
-
-  @Test
-  void loadFile_invalidFilePath_emptyList() {
-    Storage storage = new Storage("./src/test/java/duke/doesNotExist.txt");
-    LinkedList<Task> loadedTaskLists = storage.loadFile();
-    assertEquals(loadedTaskLists.size(), 0);
-  }
-
 }

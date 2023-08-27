@@ -6,7 +6,7 @@ public class Duke {
 
     private final UI ui = new UI();
 
-    private final Storage storage = new Storage("./src/main/data/Duke.txt");
+    private final Storage storage = new Storage("./data/Duke.txt");
 
     private final CommandParser parser = new CommandParser();
 
