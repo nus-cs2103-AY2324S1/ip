@@ -1,8 +1,20 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
-    private String deadline;
-    public Deadline(String taskName, String deadline) {
+    private LocalDate deadline;
+    public Deadline(String taskName, LocalDate deadline) {
         super(taskName);
         this.deadline = deadline;
+    }
+
+    /**
+     * Checks if supplied date is before the deadline
+     *
+     * @return true if given date is before deadline, false otherwise
+     */
+    public boolean isDateWithinRange(LocalDate date) {
+        return date.compareTo(deadline) <= 0;
     }
 
     /**
@@ -12,11 +24,12 @@ public class Deadline extends Task {
      */
     @Override
     public String toData() {
-        return "D" + " | " + super.toData() + " | " + deadline;
+        return "D" + " | " + super.toData() + " | " + deadline.format(DateTimeFormatter.ISO_DATE);
     }
 
     @Override
     public String toString() {
-        return String.format("[D]%s (by: %s)", super.toString(), deadline);
+        return String.format("[D]%s (by: %s)", super.toString(),
+                deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
     }
 }
