@@ -3,6 +3,6 @@ package Exception;
 public class InvalidDateException extends Exception {
     @Override
     public String toString() {
-        return "  ☹ OOPS!!! Please fill in a valid date!";
+        return "The given date is invalid. Returning to homepage...";
     }
 }

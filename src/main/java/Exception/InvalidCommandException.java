@@ -1,2 +1,4 @@
-package Exception;public class InvalidCommandException {
+package Exception;
+
+public class InvalidCommandException extends Exception {
 }
