@@ -1,6 +1,11 @@
 import java.util.List;
 import java.util.Scanner;
 
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 enum Command {
   LIST, BYE, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE;
 

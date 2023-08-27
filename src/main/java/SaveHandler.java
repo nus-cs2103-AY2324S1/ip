@@ -5,6 +5,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.Todo;
+
 public class SaveHandler {
   private static final Path SAVE_FOLDER = Paths.get(".", "data");
   private static final Path SAVE_PATH = Paths.get(SAVE_FOLDER.toString(),
