@@ -1,3 +1,5 @@
+package duke.utils;
+
 public class Ui {
     /**
      * Prints a horizontal line for formatting purposes.

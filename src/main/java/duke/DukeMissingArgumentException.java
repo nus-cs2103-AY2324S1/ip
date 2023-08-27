@@ -1,3 +1,5 @@
+package duke;
+
 public class DukeMissingArgumentException extends DukeException {
     private final String message;
     public DukeMissingArgumentException(String message) {
