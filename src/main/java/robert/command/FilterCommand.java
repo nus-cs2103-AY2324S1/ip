@@ -1,17 +1,15 @@
 package robert.command;
 
-import robert.ui.Ui;
-import robert.storage.Storage;
-import robert.task.TaskList;
-
-import robert.task.Task;
-import robert.task.Event;
-import robert.task.Deadline;
-
-import robert.exception.RobertException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import robert.exception.RobertException;
+import robert.storage.Storage;
+import robert.task.Deadline;
+import robert.task.Event;
+import robert.task.Task;
+import robert.task.TaskList;
+import robert.ui.Ui;
 
 public class FilterCommand extends Command {
 

@@ -1,25 +1,20 @@
 package robert.storage;
 
-import java.io.IOException;
-import java.time.LocalDate;
-
-import java.util.ArrayList;
-
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-import robert.task.TaskList;
-
-import robert.task.Task;
-import robert.task.ToDo;
-import robert.task.Event;
-import robert.task.Deadline;
-
 import robert.exception.RobertException;
+import robert.task.Deadline;
+import robert.task.Event;
+import robert.task.Task;
+import robert.task.TaskList;
+import robert.task.ToDo;
 
 public class Storage {
     private final File tasksFile;
@@ -69,7 +64,8 @@ public class Storage {
                     break;
 
                 default:
-                    throw new RobertException("An unknown task type was identified when parsing previously stored tasks.");
+                    throw new RobertException("An unknown task type was identified "
+                            + "when parsing previously stored tasks.");
                 }
             }
         } catch (Exception e) {
