@@ -1,3 +1,4 @@
+package carbonbot;
 import java.util.Scanner;
 
 public class Ui {
