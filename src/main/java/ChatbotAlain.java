@@ -1,9 +1,34 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.io.File;
 
 public class ChatbotAlain{
-    public static void main(String[] args) throws AlainException {
+    private static void saveTasksToFile(ArrayList<Task> list, String fileName, Boolean except, String msg) throws IOException {
+        File listFile = new File(fileName);
+        if (!listFile.exists()) {
+            listFile.createNewFile();
+        }
+        FileWriter writer = new FileWriter(listFile);
+        String filecontent = "";
+        if (except) {
+           filecontent +="Oops! Seems like there is an exception detected in your input\n";
+           filecontent += msg + "\n";
+        } else {
+            filecontent += "____________________________________________________________\n"
+                    + "Here are the tasks in your list:\n";
+            for (int i = 0; i < list.size(); i++) {
+                filecontent += " " + (i + 1) + ". " + list.get(i) + "\n";
+            }
+            filecontent += "____________________________________________________________\n";
+        }
+        writer.write(filecontent);
+        writer.close();
+    }
+    public static void main(String[] args) throws AlainException, IOException {
+
         try {
             ArrayList<Task> list = new ArrayList<>();
             int numDeleted = 0;
@@ -125,10 +150,12 @@ public class ChatbotAlain{
                     + " Bye. Hope to see you again soon!\n"
                     + "____________________________________________________________\n";
             System.out.println(endingLine);
+            saveTasksToFile(list, "list.txt", false, null);
         } catch (AlainException e) {
             System.out.println("____________________________________________________________\n");
             System.out.println(e.getMessage());
             System.out.println("____________________________________________________________\n");
+            saveTasksToFile(null, "list.txt", true, e.getMessage());
         }
     }
 }
