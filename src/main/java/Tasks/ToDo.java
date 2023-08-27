@@ -1,10 +1,15 @@
+package Tasks;
+
+import Utilities.Exceptions.IncompleteDescriptionException;
+
 public class ToDo extends Task {
 
-    private ToDo(String taskName) throws IncompleteDescriptionException {
+    public ToDo(String taskName) throws IncompleteDescriptionException {
         super(taskName);
     }
 
     public static ToDo create(String taskName) throws IncompleteDescriptionException {
+        if (taskName.isBlank()) throw new IncompleteDescriptionException();
         return new ToDo(taskName);
     }
 

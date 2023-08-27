@@ -1,3 +1,7 @@
+package Tasks;
+
+import Utilities.Exceptions.IncompleteDescriptionException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,7 +12,7 @@ public class Event extends Task {
     private LocalDate fromLd;
     private LocalDate toLd;
 
-    private Event(String taskName, String from, String to) throws IncompleteDescriptionException {
+    public Event(String taskName, String from, String to) throws IncompleteDescriptionException {
         super(taskName);
         try {
             this.fromLd = LocalDate.parse(from);
@@ -18,8 +22,15 @@ public class Event extends Task {
         this.to = to;
     }
 
-    public static Event create(String taskName, String from, String to) throws IncompleteDescriptionException {
-        if (from.isBlank() || to.isBlank()) throw new IncompleteDescriptionException();
+    public static Event create(String taskDesc) throws IncompleteDescriptionException {
+        String[] tmp = taskDesc.split(" /from ");
+        if (tmp.length <= 1) throw new IncompleteDescriptionException();
+        String taskName = tmp[0];
+        String[] tmp2 = tmp[1].split(" /to ");
+        if (tmp2.length <= 1) throw new IncompleteDescriptionException();
+        String from = tmp2[0];
+        String to = tmp2[1];
+        if (taskName.isBlank() || from.isBlank() || to.isBlank()) throw new IncompleteDescriptionException();
         return new Event(taskName, from, to);
     }
 

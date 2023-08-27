@@ -1,4 +1,6 @@
-public final class Constants {
+package Utilities;
+
+public final class Ui {
 
     public static final String divider = "____________________________________________________________";
     public static final String opening = divider + "\n"
