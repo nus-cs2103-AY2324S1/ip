@@ -1,8 +1,5 @@
 package duke;
 
-import duke.Parser;
-import duke.TaskList;
-
 import java.util.Scanner;
 
 public class UI {
@@ -16,7 +13,7 @@ public class UI {
 
     public void run(TaskList items, Storage load, Parser parser) {
         while (!stuff.equalsIgnoreCase("bye")) {
-            items = parser.parse(stuff,items);
+            items = parser.parse(stuff, items);
             load.saveDataToFile(items.toArray());
             stuff = scanner.nextLine();
         }

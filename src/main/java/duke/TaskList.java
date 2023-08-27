@@ -3,9 +3,9 @@ package duke;
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> items;
+    private final ArrayList<Task> items;
 
-    public TaskList (ArrayList<Task> items) {
+    public TaskList(ArrayList<Task> items) {
         this.items = items;
     }
 

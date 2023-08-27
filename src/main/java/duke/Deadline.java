@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 //duke.Deadline class
 public class Deadline extends Task {
     LocalDate by;
+
     //Stores the due date as by
     public Deadline(String name, String by) {
         super(name);
@@ -19,11 +20,10 @@ public class Deadline extends Task {
     }
 
 
-
     //default display for this type
     public String display() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        if(done) {
+        if (done) {
             return "[D][X] " + this.name + " (Due By: " + by.format(outputFormatter) + ")";
         }
         return "[D][] " + this.name + " (Due By: " + by.format(outputFormatter) + ")";
