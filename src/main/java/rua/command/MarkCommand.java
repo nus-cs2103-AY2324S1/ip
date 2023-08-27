@@ -13,11 +13,24 @@ public class MarkCommand implements Command {
         this.marked = marked;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return The exit status after this execution.
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Sets a Task at given index to be marked/unmarked and returns the updated TaskList.
+     *
+     * @param tasks Current TaskList.
+     * @param ui A UI to show messages to the user.
+     * @param storage A Storage to save and load tasks
+     * @return The updated TaskList after marking/unmarking the Task.
+     */
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception{
         if (marked) {
@@ -30,6 +43,12 @@ public class MarkCommand implements Command {
         return newTasks;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param o Another object to be compared with.
+     * @return A boolean indicating whether they are equal or not.
+     */
     @Override
     public boolean equals(Object o) {
         if (o == this) {
