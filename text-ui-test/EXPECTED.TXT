@@ -1,5 +1,7 @@
-Hello, it's Spot!
-Spot will add this new task to your list:
-  [T][ ] read book
-Tasks in list: 1
-Spot's going to take a nap now. Goodnight!
+Hello from
+ ____        _        
+|  _ \ _   _| | _____ 
+| | | | | | | |/ / _ \
+| |_| | |_| |   <  __/
+|____/ \__,_|_|\_\___|
+
