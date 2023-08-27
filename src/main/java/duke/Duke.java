@@ -5,9 +5,14 @@ import duke.Storage;
 import duke.TaskList;
 import duke.UI;
 
-//The main class to run
+/**The main class to run
+ *
+ */
 public class Duke {
-    //Main method to start the program
+    /**Main method to start the program
+     *
+     * @param args main func
+     */
     public static void main(String[] args) {
         String name = "Termina";
         System.out.println("Hello, I am your chatbot!\nMy name is " + name + "\nHow may I help?");
