@@ -60,8 +60,18 @@ public class Dialogix {
                 } else if (userInput.equalsIgnoreCase("bye")) {
                     System.out.println("Bot: Bye. Hope to see you again soon!");
                     continueDialog = false;
+                } else if (userInput.startsWith("delete")) {
+                    int taskIndex = Integer.parseInt(userInput.replaceFirst("delete\\s+", "")) - 1;
+                    if (taskIndex >= 0 && taskIndex < list.size()) {
+                        Task deletedTask = list.remove(taskIndex);
+                        System.out.println("Bot: Noted. I've removed this task:\n  " + deletedTask.toString());
+                    } else {
+                        throw new DialogixException(":( OOPS!!! Task index is out of range.");
+                    }
+                } else if (userInput.trim().isEmpty()) {
+                    throw new DialogixException(":( OOPS!!! The description cannot be empty.");
                 } else {
-                    throw new DialogixException("I'm sorry, but I don't know what that means :-(");
+                    throw new DialogixException(":( OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (DialogixException e) {
                 System.out.println("Bot: " + e.getMessage());
