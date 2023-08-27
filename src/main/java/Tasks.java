@@ -1,5 +1,11 @@
 import exceptions.*;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,10 +13,15 @@ import java.util.List;
 
 public class Tasks {
     public Line line = new Line();
+    private String filepath;
     private List<Task> tasks = new ArrayList<>();
 
+    public Tasks(String filepath) {
+        this.filepath = filepath;
+    }
 
-    public void handle(String text) {
+
+    public void handle(String text, boolean isRestoring) {
         try {
             // Check if input text is valid
             String[] parsedText = checkValid(text);
@@ -32,7 +43,7 @@ public class Tasks {
                 case "todo":
                 case "deadline":
                 case "event":
-                    this.addTask(action, restOfText);
+                    this.addTask(action, restOfText, isRestoring);
                     break;
                 default:
                     System.out.println(line);
@@ -99,7 +110,8 @@ public class Tasks {
             int number = Integer.parseInt(id);
             Task task = this.getTask(number);
             if (task != null) {
-                task.mark(val);
+                task.mark(val, false);
+                this.saveTasks();
             } else {
                 System.out.println(line);
                 System.out.println("    Unknown task number! Please try again :-)");
@@ -112,25 +124,32 @@ public class Tasks {
         }
     }
 
-    private void addTask(String action, String text) {
+    private void addTask(String action, String text, boolean isRestoring) {
         // Check if input text is valid
         Task task;
+        boolean marked = false;
+        if (isRestoring) {
+            String marker = text.substring(text.length() - 1);
+            marked = marker.equals("1");
+            text = text.substring(0, text.length() - 1);
+        }
         try {
             switch (action) {
                 case "todo":
-                    task = new Todo(text);
+                    task = new Todo(text, marked);
                     break;
                 case "deadline":
                     String[] deadline = checkDeadline(text);
-                    task = new Deadline(deadline[0], deadline[1]);
+                    task = new Deadline(deadline[0], deadline[1], marked);
                     break;
                 case "event":
                     String[] event = checkEvent(text);
-                    task = new Event(event[0], event[1], event[2]);
+                    task = new Event(event[0], event[1], event[2], marked);
                     break;
                 default:
-                    task = new Task(text);
-                    break;
+                    System.out.println("    You shouldn't be here, something went wrong...");
+                    System.exit(1);
+                    return;
             }
         } catch (DukeException e) {
             System.out.println(line);
@@ -140,11 +159,31 @@ public class Tasks {
         }
 
         this.tasks.add(task);
-        System.out.println(line);
-        System.out.println("    Got it. I've added this task:");
-        System.out.println("      " + task);
-        System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(line);
+        this.saveTasks();
+        if (!isRestoring) {
+            System.out.println(line);
+            System.out.println("    Got it. I've added this task:");
+            System.out.println("      " + task);
+            System.out.println("    Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println(line);
+        }
+    }
+
+    private void saveTasks() {
+        // Delete everything in
+        try {
+            PrintWriter writer = new PrintWriter(this.filepath);
+            writer.print("");
+            writer.close();
+        } catch (IOException ex) {
+            System.out.println("    Error saving file... exiting");
+            System.exit(1);
+        }
+
+        // Rewrite everything
+        for (int i = 0; i < tasks.size(); i++) {
+            tasks.get(i).save(this.filepath);
+        }
     }
 
     private String[] checkValid(String text) throws DukeException {
