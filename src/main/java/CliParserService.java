@@ -47,7 +47,7 @@ public class CliParserService {
                     parseTaskCommand(line);
                     break;
                 default:
-                    outputService.echo(String.format("Command: %s not recognised!", input[0]));
+                    outputService.echo(String.format(":< Command: %s not recognised!", input[0]));
             }
         }
     }

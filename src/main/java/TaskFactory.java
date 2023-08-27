@@ -25,7 +25,7 @@ public class TaskFactory {
                 return new TodoTask(taskName);
             case DEADLINE:
                 if (args.length != 1) {
-                    outputService.echo(String.format("deadline Tasks must have an end date%n" +
+                    outputService.echo(String.format(":< deadline Tasks must have an end date%n" +
                             "usage: deadline taskName /10 May 2023"));
                     throw new TaskParseException("Invalid args provided for deadline Task");
                 }
@@ -33,7 +33,7 @@ public class TaskFactory {
                 return new DeadlineTask(taskName, endDate);
             case EVENT:
                 if (args.length != 2) {
-                    outputService.echo(String.format("event Tasks must have a start and end date%n" +
+                    outputService.echo(String.format(":< event Tasks must have a start and end date%n" +
                             "usage: event taskName /10 May 2023 /20 May 2023"));
                     throw new TaskParseException("Invalid args provided for event Task");
                 }
