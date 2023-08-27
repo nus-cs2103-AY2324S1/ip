@@ -21,14 +21,32 @@ import robert.task.Deadline;
 
 import robert.exception.RobertException;
 
+/**
+ * A class that is used to load stored tasks to and from the hard disk.
+ *
+ * @author Lee Zhan Peng
+ */
 public class Storage {
+
+    /** The file used to store the data of list of tasks */
     private final File tasksFile;
 
+    /**
+     * Constructs Storage using a file path.
+     *
+     * @param filePath the file path that stores the data of list of tasks.
+     */
     public Storage(String filePath) {
         Path tasksFilePath = Paths.get(System.getProperty("user.dir"), filePath);
         this.tasksFile = new File(tasksFilePath.toString());
     }
 
+    /**
+     * Loads the stored tasks from hard disk into Robert.
+     *
+     * @return an ArrayList of Task stored in the hard disk.
+     * @throws RobertException if the stored tasks in hard disk is corrupted or wrongly formatted.
+     */
     public ArrayList<Task> load() throws RobertException {
         if (!this.tasksFile.exists()) {
             this.tasksFile.getParentFile().mkdirs();
@@ -79,6 +97,11 @@ public class Storage {
         return downloadedTasks;
     }
 
+    /**
+     * Saves the tasks from Robert into the hard disk.
+     *
+     * @throws RobertException if there is an issue saving the tasks into the hard disk.
+     */
     public void save(TaskList tasks) throws RobertException {
         try {
             FileWriter fw = new FileWriter(this.tasksFile.toString(), false);

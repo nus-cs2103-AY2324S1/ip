@@ -13,14 +13,34 @@ import robert.exception.RobertException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A Filter extension of the <tt>Command</tt> class. Used to filter out
+ * tasks that have deadline or an event happening on a particular date.
+ *
+ * @author Lee Zhan Peng
+ */
 public class FilterCommand extends Command {
 
+    /** The date that is used for querying */
     private final LocalDate date;
 
+    /**
+     * Constructs FilterCommand using a date.
+     *
+     * @param date the date to be used for querying of tasks.
+     */
     public FilterCommand(LocalDate date) {
         this.date = date;
     }
 
+    /**
+     * Executes the filtering of tasks.
+     *
+     * @param tasks the list of tasks to be added onto.
+     * @param ui the ui that is responsible for the output of the CLI.
+     * @param storage the storage that loads stored tasks from hard disk.
+     * @throws RobertException as a mean of overriding the function.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws RobertException {
 

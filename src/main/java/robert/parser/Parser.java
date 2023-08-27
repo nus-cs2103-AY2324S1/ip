@@ -15,8 +15,20 @@ import robert.command.FilterCommand;
 
 import robert.exception.RobertException;
 
+/**
+ * A parser that is used to read in and manipulate user commands.
+ *
+ * @author Lee Zhan Peng
+ */
 public class Parser {
 
+    /**
+     * Parses the line of command given by the user.
+     *
+     * @param fullCommand the line of command to be parsed.
+     * @return Command associated to the line of command given by the user.
+     * @throws RobertException if the line of command is of wrong format.
+     */
     public static Command parse(String fullCommand) throws RobertException {
 
         String[] splitCommand = fullCommand.split(" ", 2);
