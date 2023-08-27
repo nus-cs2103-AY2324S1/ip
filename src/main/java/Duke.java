@@ -3,7 +3,9 @@ import java.util.ArrayList;
 
 public class Duke {
     private final String line = "_____________________________________________________";
-    private final ArrayList<Task> lst = new ArrayList<>();
+    private final ArrayList<Task> lst;
+
+    private final Storage storage;
 
     private enum TaskType {
         TODO,
@@ -21,6 +23,11 @@ public class Duke {
 
         Duke bot = new Duke();
         bot.run();
+    }
+
+    public Duke() {
+        this.storage = new Storage("./data/data.txt");
+        this.lst = this.storage.read();
     }
 
     public void run() {
@@ -52,7 +59,7 @@ public class Duke {
                             throw new DukeInvalidIndexException(lst.size());
                         }
                         Task selectedTask = lst.get(num - 1);
-                        this.markCompletion(selectedTask);
+                        this.markCompletion(selectedTask, num);
                     } catch (NumberFormatException e) {
                         throw new DukeInvalidIndexException(lst.size());
                     }
@@ -69,7 +76,7 @@ public class Duke {
                             throw new DukeInvalidIndexException(lst.size());
                         }
                         Task selectedTask = lst.get(num - 1);
-                        this.unmarkCompletion(selectedTask);
+                        this.unmarkCompletion(selectedTask, num);
                     } catch (NumberFormatException e) {
                         throw new DukeInvalidIndexException(lst.size());
                     }
@@ -113,7 +120,7 @@ public class Duke {
                         if (description.equals("")) {
                             throw new DukeInvalidCommandException(command);
                         }
-                        this.addTodo(description);
+                        this.addTodo(description, false);
                     } else if (taskType == TaskType.DEADLINE) {
 
                         if (input.replaceAll("\\s", "").equals(input)) {
@@ -135,7 +142,7 @@ public class Duke {
                         } else if ( by.equals("")) {
                             throw new DukeEmptyParametersException();
                         } else {
-                            this.addDeadline(description, by);
+                            this.addDeadline(description, false, by);
                         }
                     } else if (taskType == TaskType.EVENT) {
 
@@ -159,7 +166,7 @@ public class Duke {
                         } else if (start.equals("") || by.equals("")) {
                             throw new DukeEmptyParametersException();
                         } else {
-                            this.addEvent(description, start, by);
+                            this.addEvent(description, false, start, by);
                         }
                     } else {
                         throw new DukeInvalidCommandException();
@@ -173,32 +180,47 @@ public class Duke {
         }
     }
 
-    public void addTodo(String input) {
-        Todo newTask = new Todo(input);
+    public void addTodo(String input, boolean isDone) {
+        Todo newTask = new Todo(input, isDone);
+        String newTaskString = newTask.fileFormat();
+
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + newTask);
+
         lst.add(newTask);
+        storage.addTask(newTaskString);
+
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
     }
 
-    public void addDeadline(String input, String by) {
-        Deadline newTask = new Deadline(input, by);
+    public void addDeadline(String input, boolean isDone, String by) {
+        Deadline newTask = new Deadline(input, isDone, by);
+        String newTaskString = newTask.fileFormat();
+
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + newTask);
+
         lst.add(newTask);
+        storage.addTask(newTaskString);
+
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
     }
 
-    public void addEvent(String input, String start, String end) {
-        Event newTask = new Event(input, start, end);
+    public void addEvent(String input, boolean isDone, String start, String end) {
+        Event newTask = new Event(input, isDone, start, end);
+        String newTaskString = newTask.fileFormat();
+
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + newTask);
+
         lst.add(newTask);
+        storage.addTask(newTaskString);
+
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
     }
@@ -218,7 +240,7 @@ public class Duke {
         System.out.println(line);
     }
 
-    public void markCompletion(Task task) {
+    public void markCompletion(Task task, int num) {
         if (task.getStatusIcon().equals("X")) {
             System.out.println(line);
             System.out.println("Nice! I've marked this task as done:");
@@ -227,13 +249,17 @@ public class Duke {
         } else {
             System.out.println(line);
             System.out.println("Nice! I've marked this task as done:");
+
             task.toggleCompletion();
+            String updatedTaskString = task.fileFormat();
+            this.storage.updateTask(num - 1, updatedTaskString);
+
             System.out.println("\t" + task);
             System.out.println(line);
         }
     }
 
-    public void unmarkCompletion(Task task) {
+    public void unmarkCompletion(Task task, int num) {
         if (task.getStatusIcon().equals(" ")) {
             System.out.println(line);
             System.out.println("OK, I've marked this task as not done yet:");
@@ -242,7 +268,11 @@ public class Duke {
         } else {
             System.out.println(line);
             System.out.println("OK, I've marked this task as not done yet:");
+
             task.toggleCompletion();
+            String updatedTaskString = task.fileFormat();
+            this.storage.updateTask(num - 1, updatedTaskString);
+
             System.out.println("\t" + task);
             System.out.println(line);
         }
@@ -251,7 +281,10 @@ public class Duke {
     public void deleteTask(Integer num) {
         System.out.println(line);
         System.out.println("Noted. I've removed this task:");
+
         Task selectedTask = lst.remove(num - 1);
+        this.storage.updateTask(num - 1, null);
+
         System.out.println("\t" + selectedTask);
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
         System.out.println(line);
