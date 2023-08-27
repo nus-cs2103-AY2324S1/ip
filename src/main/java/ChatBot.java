@@ -211,7 +211,7 @@ public class ChatBot {
         }
 
         Task curr = list.get(num);
-        curr.unmarkedDone();
+        curr.unmarkDone();
         try {
             writeAll();
         } catch (IOException e) {
