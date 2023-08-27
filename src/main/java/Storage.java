@@ -9,7 +9,7 @@ public class Storage {
 
     public static final String FILE_DIRECTORY = "./data";
     public static final String FILE_NAME = "TaskData.txt";
-    public static final String FILE_LOCATION = FILE_DIRECTORY + File.separator + FILE_NAME;
+    public static final String FILE_LOCATION = FILE_DIRECTORY + "/" + FILE_NAME;
 
     /**
      * Creates directory and txt file for storing task data if they do not exist, else does nothing.
@@ -47,7 +47,7 @@ public class Storage {
     /**
      * Loads task data from txt file to chatbot.
      */
-    public static void loadData() {
+    public static boolean loadData() {
         Storage.openFile();
 
         try {
@@ -73,8 +73,13 @@ public class Storage {
                     break;
                 }
             }
+            return true;
+        } catch (ArrayIndexOutOfBoundsException e) { // File formatted with wrong no. of " | " dividers for task types.
+            Duke.output("There seems to be a problem with reading in data from:\n      [" + FILE_LOCATION
+                    + "]\n\n     Proceeding will overwrite the current data file [Y/N]:");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        return false;
     }
 }

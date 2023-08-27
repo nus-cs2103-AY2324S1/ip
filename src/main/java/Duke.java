@@ -23,15 +23,41 @@ public class Duke {
     }
 
     /**
-     * Runs the chatbot, terminates when chatbot receives "end" command.
+     * Initialises chatbot by loading data from file, queries user for decision when file cannot be read.
      */
-    public static void runJyuuni() {
+    public static void initialise() {
+        if (!Storage.loadData()) {  // Error with loading data file, prompts for user input for next step
+            boolean isUnresolved = true;
+            Scanner userInput = new Scanner(System.in);
+            while (isUnresolved) {
+                String input = userInput.nextLine().toUpperCase();
+                switch (input) {
+                case "Y":
+                    parseUserInput();
+                    isUnresolved = false;
+                    break;
+                case "N":
+                    isUnresolved = false;
+                    Duke.output("Exiting program... Restore or delete the data file");
+                    break;
+                default:
+                    Duke.output("Please reply with Y/N only");
+                    break;
+                }
+            }
+            userInput.close();
+        } else {    // No error with reading data
+            parseUserInput();
+        }
+    }
 
-        Storage.loadData();
-        Duke.output("Hey its Jyuuni, your helpful assistant.\n     How can I help you?");
-
-        Scanner userInput = new Scanner(System.in);
+    /**
+     * Parses and acts on user input for chatbot.
+     */
+    private static void parseUserInput() {
         boolean isRun = true;
+        Scanner userInput = new Scanner(System.in);
+        Duke.output("Hey its Jyuuni, your helpful assistant.\n     How can I help you?");
 
         // Requests user input until program is instructed to end.
         while (isRun) {
@@ -118,6 +144,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        Duke.runJyuuni();
+        Duke.initialise();
     }
 }
