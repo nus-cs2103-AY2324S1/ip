@@ -21,6 +21,9 @@ public class Todo extends Task{
         return "☹ OOPS!!! The description of a todo cannot be empty.";
     }
 
-
+    @Override
+    public String taskWithoutTime() {
+        return this.eventDescription();
+    }
 
 }

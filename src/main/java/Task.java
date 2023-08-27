@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 
 public class Task {
     public static final String EXIT_COMMAND = "bye";
@@ -90,6 +91,22 @@ public class Task {
 
     public boolean isDelete() {
         return this.task.contains("delete");
+    }
+
+    public DateTimeFormatter formatter() {
+        return DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    }
+
+    public String taskWithoutTime() {
+        return "";
+    }
+
+    public String taskStartTime() {
+        return "";
+    }
+
+    public String taskEndTime() {
+        return "";
     }
 
 }

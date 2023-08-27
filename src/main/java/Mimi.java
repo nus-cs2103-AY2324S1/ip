@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 public class Mimi {
     public static void main(String[] args) {
@@ -93,17 +94,39 @@ public class Mimi {
                             System.out.println(LINE);
                             break;
                         case "deadline":
-                            Deadline deadline = new Deadline(command);
-                            previousCommands.add(deadline);
-                            readWriteData.write(deadline);
-                            System.out.println(LINE);
-                            break;
+                            try {
+                                Deadline deadline = new Deadline(command);
+                                previousCommands.add(deadline);
+                                readWriteData.write(deadline);
+                                System.out.println(LINE);
+                            } catch (DateTimeParseException e) {
+                                System.out.println(
+                                        "OOPS!! Looks like your time format is wrong, make sure to use " +
+                                                "this format: DD/MM/YYYY HHmm.\nExample is 30/05/2023 2100.\n" +
+                                                "You typed: " + command
+                                );
+                            } finally {
+                                System.out.println(LINE);
+                                break;
+
+                            }
+
                         case "event":
-                            Event event = new Event(command);
-                            previousCommands.add(event);
-                            readWriteData.write(event);
-                            System.out.println(LINE);
-                            break;
+                            try {
+                                Event event = new Event(command);
+                                previousCommands.add(event);
+                                readWriteData.write(event);
+                                System.out.println(LINE);
+                            } catch (DateTimeParseException e) {
+                                System.out.println(
+                                        "OOPS!! Looks like your time format is wrong, make sure to use " +
+                                        "this format: DD/MM/YYYY HHmm.\nExample is 30/05/2023 2100.\n" +
+                                        "You typed: " + command
+                                );
+                            } finally {
+                                System.out.println(LINE);
+                                break;
+                            }
                     }
                 } else {
                     if (task.isValidCommand()) {
