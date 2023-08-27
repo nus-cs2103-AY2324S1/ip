@@ -5,3 +5,4 @@ list
 mark 3
 unmark 3
 event Swim/6pm
+delete 2

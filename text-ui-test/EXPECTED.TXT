@@ -65,3 +65,10 @@ Expected 3 parts (Task name, start & end time) in input, got 2
 ____________________________________________________________
 
 Please add a task, or type list to show tasks.
+____________________________________________________________
+Noted, I've removed this task:
+[E][ ] Graduation (from: Monday 2pm to: Tuesday 3pm)
+You now have 2 tasks in the list.
+____________________________________________________________
+
+Please add a task, or type list to show tasks.
