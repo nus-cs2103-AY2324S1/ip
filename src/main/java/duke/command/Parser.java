@@ -1,3 +1,7 @@
+package duke.command;
+
+import duke.exception.DukeException;
+
 public class Parser {
 
     public enum CommandType {

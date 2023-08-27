@@ -1,15 +1,22 @@
-public class DeleteCommand extends Command {
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
+
+public class MarkAsDoneCommand extends Command {
     private final int taskIndex;
 
-    public DeleteCommand(int taskIndex) {
+    public MarkAsDoneCommand(int taskIndex) {
         this.taskIndex = taskIndex - 1;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            Task removedTask = tasks.deleteTask(taskIndex);
-            ui.showTaskRemoved(tasks, removedTask);
+            tasks.markTaskAsDone(taskIndex);
+            ui.showTaskMarkedAsDone(tasks, taskIndex);
         } else {
             throw new DukeException("Invalid task number.");
         }
