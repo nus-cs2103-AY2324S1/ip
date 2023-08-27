@@ -1,36 +1,43 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    private Storage storage = new Storage();
+    private Storage storage;
     private TaskList taskList;
 
-    private enum Command {
-        BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, HELP
+    public Duke(String filePath) {
+        this.storage = new Storage(filePath);
+        try {
+            this.taskList = new TaskList(storage.loadData());
+        } catch (DukeDatabaseNotFoundException e) {
+            this.taskList = new TaskList();
+        }
     }
+
     private void greet() {
-        String greetMsg = "Hello! I'm Atlas\n"
-                + "What can I do for you?\n"
-                + "Type 'help' to view available commands\n";
-        System.out.println(greetMsg);
+        Ui.showGreetMessage();
     }
 
     private void exit() {
-        String exitMsg = "Bye. Hope to see you again soon!";
         this.storage.saveData(this.taskList);
-        System.out.println(exitMsg);
+        Ui.showExitMessage();
     }
 
     private void list() {
         this.taskList.list();
     }
 
+    private void help() {
+        Ui.showHelpMessage();
+    }
+
     private void listen() {
         Scanner sc = new Scanner(System.in);
         while (true) {
             try {
-                String msg = sc.nextLine();
-                String[] msgArr = msg.split(" ");
-                Command command = this.convert((msgArr[0]));
+                String input = sc.nextLine();
+                ArrayList<String> parsedInput = Parser.parseUserInput(input);
+                Command command = Parser.parseCommand(input);
                 switch (command) {
                     case BYE:
                         this.exit();
@@ -38,63 +45,40 @@ public class Duke {
                     case LIST:
                         this.list();
                         break;
-                    case MARK:
-                        this.taskList.markAsDone(msgArr);
-                        break;
-                    case UNMARK:
-                        this.taskList.markAsUndone(msgArr);
-                        break;
-                    case DELETE:
-                        this.taskList.delete(msgArr);
-                        break;
-                    case TODO:
-                        this.taskList.newTodo(msg);
-                        break;
-                    case DEADLINE:
-                        this.taskList.newDeadline(msg);
-                        break;
-                    case EVENT:
-                        this.taskList.newEvent(msg);
-                        break;
                     case HELP:
                         this.help();
                         break;
+                    case MARK:
+                        this.taskList.markAsDone(parsedInput);
+                        break;
+                    case UNMARK:
+                        this.taskList.markAsUndone(parsedInput);
+                        break;
+                    case DELETE:
+                        this.taskList.delete(parsedInput);
+                        break;
+                    case TODO:
+                        this.taskList.newTodo(parsedInput);
+                        break;
+                    case DEADLINE:
+                        this.taskList.newDeadline(parsedInput);
+                        break;
+                    case EVENT:
+                        this.taskList.newEvent(parsedInput);
+                        break;
                 }
             } catch (DukeException e) {
-                System.out.println(e);
+                Ui.showError(e);
             }
         }
     }
 
-    private Command convert(String str) throws DukeNoSuchCommandException {
-        try {
-            return Command.valueOf(str.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new DukeNoSuchCommandException();
-        }
-    }
-
-    private void start() {
+    private void run() {
         this.greet();
-        this.taskList = new TaskList(this.storage.loadData());
         this.listen();
     }
 
-    private void help() {
-        String helpMsg = "Here are the available commands:\n"
-                + "1. bye - Exit the program\n"
-                + "2. list - List all tasks\n"
-                + "3. mark <taskNumber> - Mark a task as done\n"
-                + "4. unmark <taskNumber> - Mark a task as undone\n"
-                + "5. delete <taskNumber> - Delete a task\n"
-                + "6. todo <description> - Add a new todo task\n"
-                + "7. deadline <description> /by <dueDate> - Add a new deadline task\n"
-                + "8. event <description> /from <startDate> /to <endDate> - Add a new event task\n"
-                + "9. help - Displays the available commands\n";
-        System.out.println(helpMsg);
-    }
-
     public static void main(String[] args) {
-        new Duke().start();
+        new Duke("data/tasks.txt").run();
     }
 }
