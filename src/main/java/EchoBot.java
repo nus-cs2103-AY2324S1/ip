@@ -46,6 +46,11 @@ public class EchoBot {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String formattedTask = scanner.nextLine();
+
+                if (formattedTask.isEmpty()) {
+                    continue; // Skip empty lines
+                }
+
                 try {
                     Task task = Task.fromFileString(formattedTask);
                     tasks.add(task);

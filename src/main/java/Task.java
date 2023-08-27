@@ -29,8 +29,9 @@ public class Task  {
         return type + " | " + (isDone ? "1" : "0") + " | " + description + dateTime;
     }
 
+
     public static Task fromFileString(String fileString) {
-        String[] parts = fileString.split(" \\| ");
+        String[] parts = fileString.split("\\s*\\|\\s*"); // Adjusted delimiter
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
