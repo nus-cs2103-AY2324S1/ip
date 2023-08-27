@@ -26,8 +26,7 @@ public abstract class JukeCommand extends JukeObject {
      * @return Corresponding JukeCommand object
      */
     public static final JukeCommand of(String command, TaskList taskList) throws JukeException {
-        String[] parsedArgs = Parser.parseBySpace(command);
-        return JukeCommand.dispatch(parsedArgs, taskList);
+        return JukeCommand.dispatchCommand(Parser.parseBySpace(command), taskList);
     }
 
     /**
@@ -36,7 +35,7 @@ public abstract class JukeCommand extends JukeObject {
      * @param taskList TaskList object which manages all tasks.
      * @return Corresponding JukeCommand object
      */
-    private static JukeCommand dispatch(String[] args, TaskList taskList) throws JukeException {
+    private static JukeCommand dispatchCommand(String[] args, TaskList taskList) throws JukeException {
         if (args.length == 0) {
             throw new JukeException("Oh no! No commands are present!");
         }
@@ -154,5 +153,5 @@ public abstract class JukeCommand extends JukeObject {
     /**
      * Necessary method that is invoked when the command is carried out.
      */
-    public abstract void complete() throws JukeException;
+    public abstract void execute() throws JukeException;
 }

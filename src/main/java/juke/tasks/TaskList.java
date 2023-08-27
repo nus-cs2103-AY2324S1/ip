@@ -14,11 +14,11 @@ import juke.storage.Storage;
  */
 public class TaskList extends JukeObject {
     /** Header for Task Manager String representation. */
-    private static final String HEADER = "\n\t>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TASK LIST <<<<<<<<<<<<<<"
+    private static final String TASK_LIST_HEADER = "\n\t>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> TASK LIST <<<<<<<<<<<<<<"
             + "<<<<<<<<<<<<<<<<<<<<<\n";
 
     /** String representation of the Task Manager when it is empty. */
-    private static final String EMPTY = "\t\t\t\t\t\t\t\t\t!No Tasks Present!";
+    private static final String NO_TASKS_PRESENT_STRING = "\t\t\t\t\t\t\t\t\t!No Tasks Present!";
 
     /** List of JukeTasks under this Task Manager's control. */
     private final LinkedList<JukeTask> tasks;
@@ -35,7 +35,7 @@ public class TaskList extends JukeObject {
      */
     private TaskList(Storage storageManager) throws JukeStorageException {
         this.storageManager = storageManager;
-        this.tasks = new LinkedList<>(storageManager.get());
+        this.tasks = new LinkedList<>(storageManager.read());
     }
 
     /**
@@ -88,12 +88,12 @@ public class TaskList extends JukeObject {
      *     {@code JukeIllegalArgumentException} if the user tries to mark a completed task as completed again, or
      *     {@code JukeStorageException} if there is an issue with storing the changes
      */
-    public void markAsDone(int index) throws JukeStorageException {
+    public void setAsComplete(int index) throws JukeStorageException {
         if (index < 0 || index > this.tasks.size()) {
             throw new JukeIllegalArgumentException("Oh no! I do not have such task recorded!");
         }
 
-        this.tasks.get(index).markAsComplete();
+        this.tasks.get(index).setAsComplete();
         this.storageManager.write(this.tasks);
     }
 
@@ -103,12 +103,12 @@ public class TaskList extends JukeObject {
      * @throws JukeIllegalArgumentException if the user tries to mark an incomplete task as incompleted again, or
      *     {@code JukeStorageException} if there is an issue with storing the changes
      */
-    public void markAsUndone(int index) throws JukeStorageException {
+    public void setAsIncomplete(int index) throws JukeStorageException {
         if (index < 0 || index > this.tasks.size()) {
             throw new JukeException("Oh no! I do not have such task recorded!");
         }
 
-        this.tasks.get(index).markAsIncomplete();
+        this.tasks.get(index).setAsIncomplete();
         this.storageManager.write(this.tasks);
     }
 
@@ -117,7 +117,7 @@ public class TaskList extends JukeObject {
      * @param index Index of task to act on.
      * @return String representation of the task.
      */
-    public String taskInformation(int index) {
+    public String getTaskInformation(int index) {
         return this.tasks.get(index).toString();
     }
 
@@ -129,10 +129,10 @@ public class TaskList extends JukeObject {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(TaskList.HEADER);
+        builder.append(TaskList.TASK_LIST_HEADER);
 
         if (this.tasks.isEmpty()) {
-            builder.append(TaskList.EMPTY);
+            builder.append(TaskList.NO_TASKS_PRESENT_STRING);
         } else {
             for (int i = 0; i < this.tasks.size(); i++) {
                 builder.append("\t")

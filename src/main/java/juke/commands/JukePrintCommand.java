@@ -1,17 +1,19 @@
 package juke.commands;
 
+import juke.core.JukeObject;
+
 /**
  * Action that invokes a print action on the command line.
  */
 public class JukePrintCommand extends JukeCommand {
     /** Object to print. */
-    private final Object printTarget;
+    private final JukeObject printTarget;
 
     /**
      * Constructor for JukePrintAction.
      * @param printTarget Object to print
      */
-    public JukePrintCommand(Object printTarget) {
+    public JukePrintCommand(JukeObject printTarget) {
         this.printTarget = printTarget;
     }
 
@@ -19,7 +21,7 @@ public class JukePrintCommand extends JukeCommand {
      * Necessary method that is invoked when the action is carried out.
      */
     @Override
-    public void complete() {
+    public void execute() {
         System.out.print(printTarget);
     }
 }

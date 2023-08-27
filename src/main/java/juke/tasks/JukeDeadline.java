@@ -35,7 +35,7 @@ public class JukeDeadline extends JukeTask {
         this(task, deadline);
 
         if (completion) {
-            this.markAsComplete();
+            this.setAsComplete();
         }
     }
 

@@ -22,10 +22,10 @@ import juke.tasks.JukeTask;
  */
 public class Storage extends JukeObject {
     /** Path to the data directory. */
-    public static final Path DIR_PATH = Paths.get("./data");
+    private static final Path DIRECTORY_PATH = Paths.get("./data");
 
     /** Path to the data file. */
-    public static final Path FILE_PATH = Paths.get("./data/tasks.txt");
+    private static final Path FILE_PATH = Paths.get("./data/tasks.txt");
 
     /**
      * Creates an instance of {@code JukeStorageManager} and creates the files
@@ -36,18 +36,18 @@ public class Storage extends JukeObject {
      */
     public static Storage of() throws JukeInitialisationException {
         // if the directory does not exist, the file also cannot exist
-        if (!Files.exists(DIR_PATH)) {
+        if (!Files.exists(Storage.DIRECTORY_PATH)) {
             try {
-                Files.createDirectory(DIR_PATH);
-                Files.createFile(FILE_PATH);
+                Files.createDirectory(Storage.DIRECTORY_PATH);
+                Files.createFile(Storage.FILE_PATH);
             } catch (IOException ex) {
                 throw new JukeInitialisationException("Oh no! I am unable to create a directory to store your "
                                                               + "tasks! Please try again later!");
             }
-        } else if (!Files.exists(FILE_PATH)) {
+        } else if (!Files.exists(Storage.FILE_PATH)) {
             // if the dir exist but file doesn't, then just create the file
             try {
-                Files.createFile(FILE_PATH);
+                Files.createFile(Storage.FILE_PATH);
             } catch (IOException ex) {
                 throw new JukeInitialisationException("Oh no! I am unable to create a datafile to store your "
                                                               + "tasks! Please try again later!");
@@ -62,8 +62,8 @@ public class Storage extends JukeObject {
      * @return List of {@code JukeTasks}
      * @throws JukeStorageException If the file could not be opened or processed for any reason
      */
-    public List<JukeTask> get() throws JukeStorageReadException {
-        try (BufferedReader br = Files.newBufferedReader(FILE_PATH)) {
+    public List<JukeTask> read() throws JukeStorageReadException {
+        try (BufferedReader br = Files.newBufferedReader(Storage.FILE_PATH)) {
             String curr;
             List<JukeTask> tasks = new LinkedList<>();
 
@@ -84,7 +84,7 @@ public class Storage extends JukeObject {
      * @throws JukeStorageException If the file could not be opened or written to for any reason
      */
     public void write(List<JukeTask> tasks) throws JukeStorageWriteException {
-        try (BufferedWriter bw = Files.newBufferedWriter(FILE_PATH)) {
+        try (BufferedWriter bw = Files.newBufferedWriter(Storage.FILE_PATH)) {
             for (JukeTask t : tasks) {
                 bw.write(t.save());
                 bw.newLine();

@@ -28,8 +28,8 @@ public class JukeMarkTaskUndoneCommand extends JukeCommand {
      * @throws JukeStorageException If there is an issue with storing changes
      */
     @Override
-    public void complete() throws JukeStorageException {
-        this.taskList.markAsUndone(this.index);
-        System.out.print("Task Marked as Undone!\n" + this.taskList.taskInformation(this.index));
+    public void execute() throws JukeStorageException {
+        this.taskList.setAsIncomplete(this.index);
+        System.out.print("Task Marked as Undone!\n" + this.taskList.getTaskInformation(this.index));
     }
 }

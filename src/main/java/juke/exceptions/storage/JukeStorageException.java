@@ -10,9 +10,9 @@ public class JukeStorageException extends JukeException {
     /**
      * Constructor to create a JukeStorageException.
      *
-     * @param err Error description
+     * @param error Error description
      */
-    public JukeStorageException(String err) {
-        super(err);
+    public JukeStorageException(String error) {
+        super(error);
     }
 }

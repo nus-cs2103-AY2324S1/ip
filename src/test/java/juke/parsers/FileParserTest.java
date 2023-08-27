@@ -13,10 +13,10 @@ public class FileParserTest {
     @Test
     public void parseTask_normal_success() {
         assertEquals(new JukeTodo("testing", false).toString(), FileParser.parseTask("T|F|testing").toString());
-        assertEquals(new JukeDeadline("testing", DateTimeParser.fromParsedString("2027-07-15T15:34"), false).toString(),
+        assertEquals(new JukeDeadline("testing", DateTimeParser.fromDateTimeString("2027-07-15T15:34"), false).toString(),
                      FileParser.parseTask("D|F|testing|2027-07-15T15:34").toString());
-        assertEquals(new JukeEvent("testing", DateTimeParser.fromParsedString("2027-07-15T15:34"),
-                                   DateTimeParser.fromParsedString("2027-08-15T15:34"), false).toString(),
+        assertEquals(new JukeEvent("testing", DateTimeParser.fromDateTimeString("2027-07-15T15:34"),
+                                   DateTimeParser.fromDateTimeString("2027-08-15T15:34"), false).toString(),
                      FileParser.parseTask("E|F|testing|2027-07-15T15:34|2027-08-15T15:34").toString());
     }
 

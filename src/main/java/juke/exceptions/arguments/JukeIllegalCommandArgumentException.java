@@ -10,11 +10,11 @@ public class JukeIllegalCommandArgumentException extends JukeIllegalArgumentExce
 
     /**
      * Constructor for {@code JukeIllegalCommandArgumentException}
-     * @param err Error Description
+     * @param error Error Description
      * @param expectedArguments Expected arguments
      */
-    public JukeIllegalCommandArgumentException(String err, String expectedArguments) {
-        super(err);
+    public JukeIllegalCommandArgumentException(String error, String expectedArguments) {
+        super(error);
         this.expectedArguments = expectedArguments;
     }
 

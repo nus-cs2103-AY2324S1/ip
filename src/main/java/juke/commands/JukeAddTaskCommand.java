@@ -29,7 +29,7 @@ public class JukeAddTaskCommand extends JukeCommand {
      * @throws JukeStorageException If there is an issue with storing changes
      */
     @Override
-    public void complete() throws JukeStorageException {
+    public void execute() throws JukeStorageException {
         this.taskList.addTask(this.task);
         System.out.print("Task added: " + this.task);
     }

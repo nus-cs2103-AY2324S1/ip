@@ -15,16 +15,16 @@ public abstract class Parser extends JukeObject {
     private static final String SPACE_REGEX = "\\s+";
 
     /** String regex for checking a command by "/by". */
-    private static final String CHECKING_BY_REGEX = ".*\\s+/by\\s+.*";
+    private static final String CHECKING_BY_STRING_REGEX = ".*\\s+/by\\s+.*";
 
     /** String regex for splitting a command by "/by". */
-    private static final String SPLITTING_BY_REGEX = "\\s+/by\\s+";
+    private static final String SPLITTING_BY_STRING_REGEX = "\\s+/by\\s+";
 
     /** String regex for checking a command for "/from" and "/to". */
-    private static final String CHECKING_FROM_TO_REGEX = ".*\\s+/from\\s+.*|.*\\s+/to\\s+.*";
+    private static final String CHECKING_FROM_TO_STRING_REGEX = ".*\\s+/from\\s+.*|.*\\s+/to\\s+.*";
 
     /** String regex for splitting a command by "/from" and "/to". */
-    private static final String SPLITTING_FROM_TO_REGEX = "\\s+/from\\s+|\\s+/to\\s+";
+    private static final String SPLITTING_FROM_TO_STRING_REGEX = "\\s+/from\\s+|\\s+/to\\s+";
 
     /**
      * Parse a command by a space. This method is used to obtain the first command in the command chain.
@@ -42,7 +42,7 @@ public abstract class Parser extends JukeObject {
      * @return Parsed array of String which represents the parsed tokens in the command
      */
     public static String[] parseByByString(String command) {
-        return command.strip().split(Parser.SPLITTING_BY_REGEX);
+        return command.strip().split(Parser.SPLITTING_BY_STRING_REGEX);
     }
 
     /**
@@ -52,7 +52,7 @@ public abstract class Parser extends JukeObject {
      * @return Parsed array of String which represents the parsed tokens in the command
      */
     public static String[] parseByFromToString(String command) {
-        return command.strip().split(Parser.SPLITTING_FROM_TO_REGEX);
+        return command.strip().split(Parser.SPLITTING_FROM_TO_STRING_REGEX);
     }
 
     /**
@@ -61,7 +61,7 @@ public abstract class Parser extends JukeObject {
      * @return true if the input string matches, else false
      */
     public static boolean isMatchByString(String command) {
-        return Pattern.matches(Parser.CHECKING_BY_REGEX, command);
+        return Pattern.matches(Parser.CHECKING_BY_STRING_REGEX, command);
     }
 
     /**
@@ -70,6 +70,6 @@ public abstract class Parser extends JukeObject {
      * @return true if the input string matches, else false
      */
     public static boolean isMatchFromToString(String command) {
-        return Pattern.matches(Parser.CHECKING_FROM_TO_REGEX, command);
+        return Pattern.matches(Parser.CHECKING_FROM_TO_STRING_REGEX, command);
     }
 }

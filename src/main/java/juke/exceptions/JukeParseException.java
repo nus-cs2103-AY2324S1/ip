@@ -11,9 +11,9 @@ public class JukeParseException extends JukeException {
     /**
      * Constructor to create a JukeParseException.
      *
-     * @param err Error description
+     * @param error Error description
      */
-    public JukeParseException(String err) {
-        super(err);
+    public JukeParseException(String error) {
+        super(error);
     }
 }

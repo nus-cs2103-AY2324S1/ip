@@ -23,7 +23,7 @@ public class JukeTodo extends JukeTask {
     public JukeTodo(String task, boolean completion) {
         super(task);
         if (completion) {
-            this.markAsComplete();
+            this.setAsComplete();
         }
     }
 

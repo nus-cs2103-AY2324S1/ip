@@ -12,9 +12,9 @@ public class JukeInitialisationException extends JukeException {
     /**
      * Constructor to create a JukeInitialisationException.
      *
-     * @param err Error description
+     * @param error Error description
      */
-    public JukeInitialisationException(String err) {
-        super(err);
+    public JukeInitialisationException(String error) {
+        super(error);
     }
 }
