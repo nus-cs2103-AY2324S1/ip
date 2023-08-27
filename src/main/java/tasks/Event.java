@@ -30,8 +30,10 @@ public class Event extends Task {
     @Override
     public boolean isOnDate(LocalDateTime startOfDay, LocalDateTime endOfDay) {
         // Event can either start or end on the date itself, or both
+        // Or it can surround the date
         return (this.start.isAfterOrOn(startOfDay) && this.start.isBeforeOrOn(endOfDay))
-                || (this.end.isAfterOrOn(startOfDay) && this.end.isBeforeOrOn(endOfDay));
+                || (this.end.isAfterOrOn(startOfDay) && this.end.isBeforeOrOn(endOfDay))
+                || (this.start.isBeforeOrOn(startOfDay) && this.end.isAfterOrOn(endOfDay));
     }
 
     @Override
