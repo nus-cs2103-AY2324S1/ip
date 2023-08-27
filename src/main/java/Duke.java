@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -88,7 +91,7 @@ public class Duke {
                     default:
                         throw new UnknownCommandException();
                 }
-
+                writeToFile(taskList);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -97,6 +100,22 @@ public class Duke {
 
     public static void printHorizontalLine() {
         System.out.println("____________________________________________________________");
+    }
+
+    public static void writeToFile(ArrayList<Task> taskList) {
+        try {
+            File file = new File("./data/duke.txt");
+            file.createNewFile();
+            FileWriter fileWriter = new FileWriter("./data/duke.txt");
+            for (Task task : taskList) {
+                fileWriter.write(task + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
     }
 
 }
