@@ -3,9 +3,10 @@ public class Todo extends Task {
      * Constructor for the Todo class.
      *
      * @param name The name of the todo task.
+     * @param done Whether the task is marked done or not.
      */
-    public Todo(String name) {
-        super(name);
+    public Todo(String name, boolean done) {
+        super(name, done);
     }
 
     @Override

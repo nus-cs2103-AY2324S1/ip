@@ -122,7 +122,7 @@ public class Parser {
             String string = input.substring(5).trim();
             if (string.contains(" /from ")) {
                 String[] segments = string.split("/from");
-                String eventName = segments[0];
+                String eventName = segments[0].trim();
                 if (segments[1].contains(" /to ")) {
                     String[] segments2 = segments[1].split(" /to ");
                     String startDate = segments2[0].trim();

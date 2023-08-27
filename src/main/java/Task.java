@@ -6,9 +6,11 @@ public class Task {
      * Constructor for the Task class.
      *
      * @param name The name of the task.
+     * @param done Whether the task is marked done or not.
      */
-    public Task(String name) {
+    public Task(String name, boolean done) {
         this.name = name;
+        this.done = done;
     }
 
     /**

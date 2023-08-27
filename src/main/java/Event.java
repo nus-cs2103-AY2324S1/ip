@@ -8,9 +8,10 @@ public class Event extends Task {
      * @param name Name of the event task.
      * @param startDate Start date of the event.
      * @param endDate End date of the event.
+     * @param done Whether the task is marked done or not.
      */
-    public Event(String name, String startDate, String endDate) {
-        super(name);
+    public Event(String name, String startDate, String endDate, boolean done) {
+        super(name, done);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -18,9 +19,9 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (this.done) {
-            return "[E][X] " + this.name + " (from: " + this.startDate + " to: " + this.endDate + ")";
+            return "[E][X] " + this.name + " From: " + this.startDate + " To: " + this.endDate;
         } else {
-            return "[E][ ] " + this.name + " (from: " + this.startDate + " to: " + this.endDate + ")";
+            return "[E][ ] " + this.name + " From: " + this.startDate + " To: " + this.endDate;
         }
     }
 }
