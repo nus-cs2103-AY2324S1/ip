@@ -13,63 +13,8 @@ public class Duke {
         this.outputService = new OutputService();
     }
 
-    public static void main(String[] args) {
-        Duke changooseBot = new Duke("Changoose");
-        String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", changooseBot.getBotName());
-        String endMessage = "Bye! Hope to see you again soon!";
-
-        changooseBot.getOutputService().echo(startMessage);
-        changooseBot.startParse();
-        changooseBot.getOutputService().echo(endMessage);
-    }
-
-    private void startParse() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String commandInput = scanner.nextLine();
-            String[] words = commandInput.split(" ");
-
-            switch (words[0]) {
-                case "bye":
-                    return;
-                case "list":
-                    outputService.printTasks(getTaskList());
-                    break;
-                case "mark":
-                    if (words.length > 1 && isNumeric(words[1])) {
-                        int taskNumber = Integer.parseInt(words[1]);
-                        markTask(taskNumber - 1); // task numbers start from 1
-                    }
-                    break;
-                case "unmark":
-                    if (words.length > 1 && isNumeric(words[1])) {
-                        int taskNumber = Integer.parseInt(words[1]);
-                        unmarkTask(taskNumber - 1); // task numbers start from 1
-                    }
-                    break;
-                default:
-                    addTask(commandInput);
-                    outputService.echo(commandInput, "added: ");
-            }
-        }
-    }
-
-    // Utility method to check if a string is numeric
-    private boolean isNumeric(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    private String getBotName() {
+    public String getBotName() {
         return this.botName;
-    }
-
-    private OutputService getOutputService() {
-        return this.outputService;
     }
 
     public boolean addTask(String task) {
