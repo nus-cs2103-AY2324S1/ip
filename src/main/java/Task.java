@@ -1,9 +1,11 @@
 public class Task {
     private String taskName;
+    private TaskType taskType;
     private boolean isDone;
 
-    public Task(String taskName) {
+    public Task(String taskName, TaskType taskType) {
         this.taskName = taskName;
+        this.taskType = taskType;
         this.isDone = false;
     }
 
@@ -28,6 +30,6 @@ public class Task {
         String taskStatus = isDone
                 ? "[X]"
                 : "[ ]";
-        return String.format("%s %s", taskStatus, taskName);
+        return String.format("[%s]%s %s", taskType.getTaskType(), taskStatus, taskName);
     }
 }
