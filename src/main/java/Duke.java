@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +17,7 @@ public class Duke {
     /**
      * Represents the different commands accepted by the chatbot
      */
-    enum Command {
+    private enum Command {
         BYE,
         LIST,
         MARK,
@@ -23,24 +28,51 @@ public class Duke {
         DELETE
     }
 
-    public static void main(String[] args) {
-        List<Task> tasks = new ArrayList<>();
+    // CONSTANTS
+    private static final String LINE = "_______________________________________";
+    private static final String DIR_NAME = "./data";
+    private static final String FILE_NAME = "duke.txt";
 
-        String LINE = "_______________________________________";
+    private static void sendIntroduction() {
         String logo = "                     _                 _      \n" +
                 " _ __ ___  ___ _ __ (_)_ __ ___  _ __ (_)_  __\n" +
                 "| '__/ _ \\/ __| '_ \\| | '__/ _ \\| '_ \\| \\ \\/ /\n" +
                 "| | |  __/\\__ \\ |_) | | | | (_) | | | | |>  < \n" +
                 "|_|  \\___||___/ .__/|_|_|  \\___/|_| |_|_/_/\\_\\\n" +
                 "              |_|                             ";
-
-        Scanner scanner = new Scanner(System.in);
         System.out.println(LINE);
         System.out.println(logo);
         System.out.println(LINE);
         System.out.println("Hello! I'm your personal AI");
         System.out.println("What can I do for you?");
         System.out.println(LINE);
+    }
+    public static void main(String[] args) {
+        List<Task> tasks = new ArrayList<>();
+
+        // check for the storage file
+        try {
+            File file = new File(DIR_NAME + "/" + FILE_NAME);
+            Scanner s = new Scanner(file);
+            while (s.hasNext()) {
+                System.out.println(s.nextLine());
+            }
+        } catch (Exception e) {
+            try {
+                if (new File(DIR_NAME).mkdir()) {
+                    System.out.println("Sorry, directory does not exist. Creating now...");
+                }
+                if (new File(DIR_NAME + "/" + FILE_NAME).createNewFile()) {
+                    System.out.println("Sorry, file does not exist. Creating now...");
+                }
+            } catch (Exception error) {
+                System.out.println("Error... Unable to create files");
+            }
+        }
+
+        Scanner scanner = new Scanner(System.in);
+
+        sendIntroduction();
 
         try {
             while (true) {
