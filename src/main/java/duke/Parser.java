@@ -4,12 +4,24 @@ import duke.Deadline;
 import duke.Event;
 import duke.MarkPattern;
 
+/** This is the class to parse stuff
+ *
+ */
 public class Parser {
 
+    /** The constructor to init
+     *
+     */
     public Parser() {
     }
     MarkPattern check = new MarkPattern();
 
+    /**
+     * Enter your things to parse here
+     * @param stuff your parse items
+     * @param items your tasklist
+     * @return returns the modified tasklist
+     */
     public TaskList parse(String stuff, TaskList items) {
 
         if(stuff.equalsIgnoreCase("list")) {
