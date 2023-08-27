@@ -1,11 +1,17 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static ArrayList<Task> tasks;
+    private static final String FILE_PATH = "./data/state.txt";
     public static void main(String[] args) {
         Duke.tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
+        Duke.loadState();
 
         String name = "Derek";
         System.out.println("Hello! I'm " + name);
@@ -106,5 +112,31 @@ public class Duke {
 
     private static boolean isTaskIndexValid(int index) {
         return index >= 0 && index < Duke.tasks.size();
+    }
+
+    private static void loadState() {
+        try {
+            File f = new File(Duke.FILE_PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String[] taskArray = s.nextLine().split(" / ");
+                Task task;
+
+                if (taskArray[0].equals(Command.TODO.getCommand())) {
+                    task = new ToDo(taskArray[2]);
+                } else if (taskArray[0].equals(Command.DEADLINE.getCommand())) {
+                    task = new Deadline(taskArray[2], taskArray[3]);
+                } else {
+                    task = new Event(taskArray[2], taskArray[3], taskArray[4]);
+                }
+
+                if (taskArray[1].equals("1")) {
+                    task.markAsDone();
+                }
+                Duke.tasks.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File to save state cannot be found");
+        }
     }
 }
