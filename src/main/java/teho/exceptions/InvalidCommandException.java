@@ -1,3 +1,5 @@
+package teho.exceptions;
+
 public class InvalidCommandException extends TehOException {
     @Override
     public String toString() {

@@ -1,3 +1,9 @@
+package teho.main;
+
+import teho.main.Deadline;
+import teho.main.Event;
+import teho.main.Task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 

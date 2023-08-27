@@ -1,3 +1,7 @@
+package teho.main;
+
+import teho.main.Task;
+
 import java.util.ArrayList;
 //contains the task list
 public class TaskList {

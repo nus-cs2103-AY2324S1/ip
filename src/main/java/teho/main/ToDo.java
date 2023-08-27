@@ -1,3 +1,7 @@
+package teho.main;
+
+import teho.main.Task;
+
 public class ToDo extends Task {
     public ToDo(String description) {
         super(description);

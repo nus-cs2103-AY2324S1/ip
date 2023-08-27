@@ -1,3 +1,10 @@
+package teho.main;
+
+import teho.exceptions.EmptyDeadlineDescriptionException;
+import teho.exceptions.EmptyEventDescriptionException;
+import teho.exceptions.EmptyToDoDescriptionException;
+import teho.exceptions.InvalidCommandException;
+
 import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 import java.time.LocalDate;

@@ -1,3 +1,9 @@
+package teho.main;
+
+import teho.main.Parser;
+import teho.main.Task;
+import teho.main.TaskList;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;

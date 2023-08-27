@@ -1,3 +1,5 @@
+package teho.main;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;

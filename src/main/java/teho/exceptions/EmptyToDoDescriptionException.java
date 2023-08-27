@@ -1,3 +1,5 @@
+package teho.exceptions;
+
 public class EmptyToDoDescriptionException extends TehOException {
     @Override
     public String toString() {

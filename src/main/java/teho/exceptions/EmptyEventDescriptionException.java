@@ -1,3 +1,5 @@
+package teho.exceptions;
+
 public class EmptyEventDescriptionException extends TehOException {
     @Override
     public String toString() {

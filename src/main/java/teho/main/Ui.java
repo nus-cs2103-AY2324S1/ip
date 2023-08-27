@@ -1,3 +1,8 @@
+package teho.main;
+
+import teho.main.Task;
+import teho.main.TaskList;
+
 public class Ui {
     public static void generateHelloMessage() {
         System.out.println("Hello! I'm TehO \nWhat can I do for you?");
