@@ -1,8 +1,10 @@
+import java.time.LocalDateTime;
+
 public class Deadline extends Task{
 
-    protected String limit;
+    protected LocalDateTime limit;
 
-    private Deadline(String title, String limit) {
+    private Deadline(String title, LocalDateTime limit) {
         super(title);
         this.limit = limit;
     }
@@ -13,7 +15,7 @@ public class Deadline extends Task{
      * @param limit Deadline of task.
      * @return Task object created.
      */
-    public static Task addDeadline(String title, String limit) {
+    public static Task addDeadline(String title, LocalDateTime limit) {
         Task deadline = new Deadline(title, limit);
         taskList.add(deadline);
         return deadline;
@@ -21,12 +23,16 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        String time = String.format(" (by: %s)", limit);
+        String time = String.format(" (by: %s)", limit.format(displayFormat));
         return "[D]" + super.toString() + time;
     }
 
+    /**
+     * Convert Deadline task to a string for storing in data file.
+     * @return Formatted string with data for Deadline task.
+     */
     @Override
     public String toFileString() {
-        return "D" + super.toFileString() + " | " + limit;
+        return "D" + super.toFileString() + " | " + limit.format(dataFormat);
     }
 }

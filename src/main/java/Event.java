@@ -1,9 +1,11 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task{
 
-    protected String start;
-    protected String end;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
 
-    private Event(String title, String start, String end) {
+    private Event(String title, LocalDateTime start, LocalDateTime end) {
         super(title);
         this.start = start;
         this.end = end;
@@ -16,7 +18,7 @@ public class Event extends Task{
      * @param end End time of task.
      * @return Task object created.
      */
-    public static Task addEvent(String title, String start, String end) {
+    public static Task addEvent(String title, LocalDateTime start, LocalDateTime end) {
         Task event = new Event(title, start, end);
         taskList.add(event);
         return event;
@@ -24,12 +26,18 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        String time = String.format(" (from: %s to: %s)", start, end);
+        String from = start.format(displayFormat);
+        String to = end.format(displayFormat);
+        String time = String.format(" (from: %s to: %s)", from, to);
         return "[E]" + super.toString() + time;
     }
 
+    /**
+     * Convert Event task to a string for storing in data file.
+     * @return Formatted string with data for Event task.
+     */
     @Override
     public String toFileString() {
-        return "E" + super.toFileString() + String.format(" | %s | %s", start, end);
+        return "E" + super.toFileString() + String.format(" | %s | %s", start.format(dataFormat), end.format(dataFormat));
     }
 }

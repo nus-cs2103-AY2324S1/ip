@@ -1,7 +1,10 @@
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Task {
 
+    protected static final DateTimeFormatter displayFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
+    protected static final DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy HHmm");
     protected static final ArrayList<Task> taskList= new ArrayList<>(1);
     protected String title;
     protected Boolean isDone;
