@@ -1,12 +1,19 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class Event extends Task {
-  private String from;
-  private String to;
+  private LocalDate from;
+  private LocalDate to;
 
   public Event(String descriptor, String from, String to) {
     super(descriptor);
     this.symbol = "E";
-    this.from = from;
-    this.to = to;
+    try {
+      this.from = LocalDate.parse(from);
+      this.to = LocalDate.parse(to);
+    } catch (DateTimeParseException e) {
+      System.out.println("Invalid date format");
+    }
   }
 
   @Override
