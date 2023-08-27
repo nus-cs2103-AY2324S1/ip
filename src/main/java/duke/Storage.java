@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+/**
+ * A class that loads and save to an external .txt file specified by the path name.
+ */
 public class Storage {
 
   private String filePath;
@@ -16,6 +19,12 @@ public class Storage {
 
   private TimeParser parser = new TimeParser();
 
+
+  /**
+   *  Writes the current state of the task lists into a .txt file
+   *
+   * @param tasks a list for tasks to be loaded into
+   */
   public void saveFile(TaskList tasks) {
     try {
       FileWriter fw = new FileWriter(filePath);
@@ -28,6 +37,13 @@ public class Storage {
     }
   }
 
+
+  /**
+   *  Gets the local save .txt file and read it line by line,
+   *  parsing the lines into a task and adding that to the list.
+   *
+   * @return a list that has tasks parsed from a local .txt file
+   */
   public LinkedList<Task> loadFile() {
     try {
       LinkedList<Task> tasks = new LinkedList<>();

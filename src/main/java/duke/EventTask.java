@@ -3,6 +3,9 @@ package duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A subclass of Task that has a start and end date.
+ */
 public class EventTask extends Task {
 
   private LocalDate startDate;
@@ -22,6 +25,12 @@ public class EventTask extends Task {
     this.endDate = endDate;
   }
 
+
+  /**
+   * Returns the current state of the task in String for saving purposes.
+   *
+   * @return the current state of the task in String for saving purposes
+   */
   @Override
   public String saveData() {
     char delimiter = 31;
@@ -30,6 +39,11 @@ public class EventTask extends Task {
             + this.startDate.format(this.saveFormatter) + delimiter + this.endDate.format(this.saveFormatter);
   }
 
+  /**
+   *  Returns a string representation of the object.
+   *
+   * @return a string representation of the object
+   */
   public String toString() {
     return "[E]" + super.toString() + " (from: " + startDate.format(this.displayFormatter) + " to: "
             + endDate.format(this.displayFormatter) + ")";
