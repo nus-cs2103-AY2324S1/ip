@@ -3,10 +3,10 @@ public class Duke {
 
 
     public static void main(String[] args) {
-        String chatBotName = "RatSpeak";
         Parser parser = new Parser();
         CommandProcessor commandProcessor = new CommandProcessor();
-        System.out.println("Hello from " + chatBotName + "\nWhat can I do for you?");
+        Ui ui = new Ui();
+        ui.greeting();
 
         while (true) {
             // getting the input command
@@ -14,12 +14,14 @@ public class Duke {
 
             //break out of the loop when it is "bye"
             if (command.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
+                ui.bye();
                 break;
             }
 
+            ui.setAnswerBorder();
             // process the command
             commandProcessor.processCommand(command);
+            ui.setAnswerBorder();
 
 
         }
