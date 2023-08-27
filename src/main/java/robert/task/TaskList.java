@@ -28,7 +28,11 @@ public class TaskList implements Iterable<Task> {
         this.tasks.add(task);
     }
 
-    public Task deleteTask(int taskIndex) {
+    public Task deleteTask(int taskIndex) throws RobertException {
+        if (taskIndex < 0 || this.getTaskCount() <= taskIndex) {
+            throw new RobertException("Index is out of bounds.\n"
+                    + "Please choose a valid index.");
+        }
         Task deletedTask = this.tasks.get(taskIndex);
         this.tasks.remove(taskIndex);
         return deletedTask;

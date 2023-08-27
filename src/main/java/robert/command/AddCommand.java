@@ -21,7 +21,7 @@ public class AddCommand extends Command {
         this.task = new ToDo(description);
     }
 
-    public AddCommand(String description, LocalDate fromDate, LocalDate toDate) {
+    public AddCommand(String description, LocalDate fromDate, LocalDate toDate) throws RobertException {
         this.task = new Event(description, fromDate, toDate);
     }
 
