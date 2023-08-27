@@ -9,7 +9,6 @@ import com.alpha.commands.ListCommand;
 import com.alpha.commands.MarkCommand;
 import com.alpha.commands.ToDoCommand;
 import com.alpha.commands.UnmarkCommand;
-import com.alpha.exceptions.InvalidTaskException.InvalidCommandException;
 import com.alpha.exceptions.InvalidTaskException.InvalidDeadlineException;
 import com.alpha.exceptions.InvalidTaskException.InvalidEventException;
 import com.alpha.exceptions.InvalidTaskException.InvalidToDoException;
@@ -19,14 +18,6 @@ import java.time.format.DateTimeFormatter;
 public class Parser {
 
   private Parser() {
-  }
-
-  public static String[] getTokens(String text) throws InvalidCommandException {
-    String[] tokens = text.split(" ");
-    if (tokens.length == 0) {
-      throw new InvalidCommandException();
-    }
-    return tokens;
   }
 
   public static String getToDoName(String text) throws InvalidToDoException {
