@@ -36,6 +36,7 @@ shadowJar {
     archiveBaseName = "robert"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'robert.jar'
 }
 
 run {
@@ -46,3 +47,4 @@ checkstyle {
     toolVersion = '10.2'
 }
 
+mainClassName = 'robert.Robert'
