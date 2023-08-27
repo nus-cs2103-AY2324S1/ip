@@ -6,12 +6,18 @@ public class AddCommand implements Command{
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) throws Exception{
+    public boolean isExit() {
+        return false;
+    }
+
+    @Override
+    public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception{
         ui.showMessage(" Got it. I've added this task:\n");
-        tasks.add(task);
+        TaskList newTasks = tasks.add(task);
         ui.showMessage("    " + task + "\n");
         ui.showMessage("Now you have " + Integer.toString(tasks.getTasks().size()) +
                 " tasks in the list.\n");
         storage.save(tasks);
+        return newTasks;
     }
 }

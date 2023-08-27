@@ -1,3 +1,4 @@
 public interface Command {
-    void execute(TaskList tasks, UI ui, Storage storage) throws Exception;
+    TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
+    boolean isExit();
 }

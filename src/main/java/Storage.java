@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.IOException;
 
 public class Storage {
     private final String filePath;
@@ -14,7 +15,7 @@ public class Storage {
     }
 
     Task stringToTask(String str) throws Exception{
-        String[] arr = str.split(" | ");
+        String[] arr = str.split(" \\| ");
         Task output;
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
         switch (arr[0]) {
@@ -35,7 +36,7 @@ public class Storage {
     }
 
     String taskToString(Task task) throws Exception{
-        String output = task.getType() + " | " + task.isMarked() + " | "+ task.getDescription();
+        String output = task.getType() + " | " + (task.isMarked() ? 1:0) + " | "+ task.getDescription();
         switch (task.getType()) {
             case "T":
                 break;
@@ -43,7 +44,7 @@ public class Storage {
                 output += " | " + ((Deadline) task).getDue();
                 break;
             case "E":
-                output = " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo();
+                output += " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo();
                 break;
             default:
                 output = null;
@@ -63,14 +64,36 @@ public class Storage {
     }
 
     void save(TaskList tasks) throws Exception {
-        FileWriter fw = new FileWriter(filePath);
-        String saveTxt = "";
-        ArrayList<Task> tasksList = tasks.getTasks();
-        for (int i = 0; i < tasksList.size(); i++) {
-            saveTxt += taskToString(tasksList.get(i)) + "\n";
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            String saveTxt = "";
+            ArrayList<Task> tasksList = tasks.getTasks();
+            for (int i = 0; i < tasksList.size(); i++) {
+                saveTxt += taskToString(tasksList.get(i)) + "\n";
+            }
+            fw.write(saveTxt);
+            fw.close();
         }
-        fw.write(saveTxt);
-        fw.close();
+        catch (FileNotFoundException exp) {
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Target file not found. Do you want to create it now? Please type yes or no\n");
+            String create = sc.nextLine();
+            while (!create.equals("yes") && !create.equals("no")) {
+                System.out.println("Incorrect input. Please type yes or no\n");
+            }
+            if (create.equals("yes")) {
+                int index = filePath.lastIndexOf("/");
+                String saveDir = filePath.substring(0, index);
+                File fileCreator = new File(saveDir);
+                fileCreator.mkdir();
+                System.out.println("File successfully created. Progress saved.\n");
+                try {
+                    save(tasks);
+                }
+                catch (IOException ioExp) {
+                    System.out.println("Some error occurs and progress is not saved.\n");
+                }
+            }
+        }
     }
-
 }
