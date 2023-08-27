@@ -1,12 +1,22 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Duke {
     private static final String dataPath = "./data/duke.txt";
+
+    private static final String[] dateFormats = {
+            "dd-MM-yyyy", "yyyy-MM-dd", "dd/MM/yyyy", "yyyy/MM/dd"
+    };
+
+    private static final String[] timeFormats = { "HHmm", "HH:mm" };
+
     public static void main(String[] args) {
         printHorizontalLine();
         System.out.println("WEEWOOWEEWOO WELCOME! I'm Siren");
@@ -49,6 +59,8 @@ public class Duke {
                         rewriteFile(taskArray);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new DukeException("BEEPBEEP! You forgot to give a task number!");
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("WOIWOI! That is an invalid input!");
                     }
                     break;
                 case "bye":
@@ -81,6 +93,8 @@ public class Duke {
                         rewriteFile(taskArray);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         throw new DukeException("BEEPBEEP! You forgot to give a task number!");
+                    } catch (NumberFormatException e) {
+                        throw new DukeException("WOIWOI! That is an invalid input!");
                     }
                     break;
                 default:
@@ -138,11 +152,12 @@ public class Duke {
     public static void deadlineOrEventTask(String action, String[] remainLine, ArrayList<Task> taskArray)
             throws DukeException {
         if (action.equals("deadline")) {
-            if (!remainLine[1].contains("by")) {
+            try {
+                String dateTime = remainLine[1].substring(3);
+                taskArray.add(new Deadline(remainLine[0], findDateFormatInput(dateTime)));
+            } catch (StringIndexOutOfBoundsException e) {
                 throw new DukeException("BEEPBEEP! You forgot to give a \"/by date/time\" for the deadline!");
             }
-            String dateTime = remainLine[1].substring(3);
-            taskArray.add(new Deadline(remainLine[0],dateTime));
         } else {
             if (!remainLine[1].contains("from ")) {
                 throw new DukeException("BEEPBEEP! You forgot to give a \"/from date/time\" for the event");
@@ -150,9 +165,13 @@ public class Duke {
             try {
                 String[] splitTo = remainLine[1].split("/to ", 2);
                 String fromDateTime = splitTo[0].substring(5, splitTo[0].length() - 1);
-                taskArray.add(new Event(remainLine[0], fromDateTime, splitTo[1]));
+                taskArray.add(new Event(remainLine[0],
+                        findDateFormatInput(fromDateTime), findDateFormatInput(splitTo[1])));
             } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
                 throw new DukeException("BEEPBEEP! You forget to give a \"/to date/time\" for the event!");
+            } catch (DateTimeParseException e) {
+                throw new DukeException("HOHOHO! The date/time format seems to be wrong! "
+                        + "Please use the format yyyy-mm-dd HH:MM instead! E.g. 2023-08-21 01:00");
             }
         }
         printAdded(taskArray.size(), taskArray.get(taskArray.size() - 1));
@@ -164,7 +183,7 @@ public class Duke {
             System.out.println("ALRIGHTY! I've removed this task:");
             System.out.println(taskDeleted.toString());
             System.out.println("Now you have " + taskArray.size() + " tasks in the list.");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
             throw new DukeException("WARBLE WARBLE, this task number does not exist!");
         }
     }
@@ -219,12 +238,13 @@ public class Duke {
                 break;
             case "D":
                 String[] remainLine = line[2].split(" \\| ", 2);
-                taskArray.add(new Deadline(remainLine[0], remainLine[1]));
+                taskArray.add(new Deadline(remainLine[0], undoDateFormatInputFile(remainLine[1])));
                 break;
             case "E":
                 String[] remainingLine = line[2].split(" \\| ", 2);
                 String[] getDateTime = remainingLine[1].split(" to ");
-                taskArray.add(new Event(remainingLine[0], getDateTime[0], getDateTime[1]));
+                taskArray.add(new Event(remainingLine[0],
+                        undoDateFormatInputFile(getDateTime[0]), undoDateFormatInputFile(getDateTime[1])));
                 break;
             }
 
@@ -264,5 +284,29 @@ public class Duke {
         } catch (IOException e) {
             throw new DukeException("UHOH! Something went wrong when attempting to write to file!");
         }
+    }
+
+    public static LocalDateTime findDateFormatInput(String input) throws DukeException {
+        LocalDateTime dateTime = null;
+        for (int i = 0; i < dateFormats.length; i++) {
+            for (int j = 0; j < timeFormats.length; j++) {
+                try {
+                    dateTime = LocalDateTime.parse(input,
+                            DateTimeFormatter.ofPattern(dateFormats[i] + " " + timeFormats[j]));
+                } catch (DateTimeParseException e) {
+                }
+            }
+        }
+        if (dateTime == null){
+            throw new DukeException("HOHOHO! The date/time format seems to be wrong!"
+                    + "\nPermitted formats for date: dd-mm-yyyy | yyyy-mm-dd | dd/mm/yyyy | yyyy/mm/dd"
+                    + "\nPermitted formats for time (Only 24-hours format): HH:MM | HHMM"
+                    + "\nE.g. 22/09/2023 22:00 | 2023-08-30 0100");
+        }
+        return dateTime;
+    }
+
+    public static LocalDateTime undoDateFormatInputFile(String lineInFile) {
+        return LocalDateTime.parse(lineInFile, DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma"));
     }
 }

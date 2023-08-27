@@ -1,4 +1,5 @@
-T |   | buy book
-T |   | sell book
-E |   | project meeting | Aug 5th 2pm to 6pm
-D |   | CS2103T iP | Thursday 2359
+T | X | buy book
+D | X | project | Mar 04 2023 08:00PM
+E |   | CCA Training | Aug 28 2023 08:00PM to Aug 28 2023 10:00PM
+T |   | read book
+D |   | CS2103T iP | Aug 31 2023 11:59PM
