@@ -56,8 +56,8 @@ public class Event extends Task {
     }
 
     public String toStorageString() {
-        String fromString = from.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
-        String toString = to.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
+        String fromString = from.format(DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
+        String toString = to.format(DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
         return "E" + super.toStorageString() + " | " + fromString + " | " + toString;
     }
     

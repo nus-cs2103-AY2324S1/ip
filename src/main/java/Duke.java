@@ -1,79 +1,57 @@
-import java.util.List;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
 
 public class Duke {
-    private static final String LOGO = ",------.,--.              ,--.  \n"
-            + "|  .---\'|  |,-.,--.,--. ,-|  |  \n"
-            + "|  `--, |     /|  ||  |' .-. |   \n"
-            + "|  `---.|  \\\\  \\\\  ''  '\\\\ `-\'   \n"
-            + "`------'`--'`--'`----'  `---' \n";
-    private static final String LINE = "-".repeat(60);
-    private static List<Task> tasks = new ArrayList<>();
-
+    
     public enum CommandType {
         LIST, MARK, DELETE, TODO, DEADLINE, EVENT, UNKNOWN
     }
 
-    public static void main(String[] args) {
-        loadTasksFromFile();
-        printWelcomeMessage();
-        handleUserInput();
-        printFarewellMessage();
-    }
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
 
-    private static void loadTasksFromFile() {
-        File file = getFile();
-        
-        try (Scanner sc = new Scanner(file)) {
-            file.createNewFile();
-            while (sc.hasNextLine()) {
-                String entry = sc.nextLine();
-                addTaskFromStorage(entry);
-            }
-        } catch (Exception e) {
-            printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
-        }
-    }
-
-    private static File getFile() {
-        File file = new File("data/duke.txt");
-        if (file.exists()) {
-            return file;
-        } 
+    private Duke() {
+        this.ui = new Ui();
+        this.storage = new Storage();
+        this.tasks = new TaskList();
 
         try {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-        } catch (Exception e) {
-            printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
+            this.tasks = new TaskList(storage.readTasks());
+        } catch (DukeException e) {
+            ui.printErrorMessage(e);
         }
-        return file;
+        this.parser = new Parser();
     }
 
-    private static void handleUserInput() {
+    private void run() {
+        ui.printWelcomeMessage();
         try (Scanner sc = new Scanner(System.in)) {
             while (true) {
                 String input = sc.nextLine();
                 if (input.equals("bye")) {
                     break;
                 }
-                handleCommand(input);
+                CommandType commandType = parser.parseCommandType(input);
+                handleCommand(commandType, input);
             }
         } catch (Exception e) {
-            printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
+            ui.printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
         }
+        ui.printFarewellMessage();
     }
 
-    private static void handleCommand(String command) {
-        
-        CommandType commandType = parseCommandType(command);
+    public static void main(String[] args) {
+        Duke ekud = new Duke();
+        ekud.run();
+    }
 
+    
+
+    private void handleCommand(CommandType commandType, String command) {
         switch (commandType) {
         case LIST:
-            printList();
+            ui.printList(tasks.getTasks());
             break;
         case MARK:
             markTask(command);
@@ -87,40 +65,12 @@ public class Duke {
             addTask(command);
             break;
         case UNKNOWN:
-            printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
+            ui.printErrorMessage(new DukeException("I'm sorry, but I don't know what that means :-("));
             break;
         }
     }
 
-    private static CommandType parseCommandType(String command) {
-        if (command.startsWith("list")) {
-            return CommandType.LIST;
-        } else if (command.startsWith("mark")) {
-            return CommandType.MARK;
-        } else if (command.startsWith("delete")) {
-            return CommandType.DELETE;
-        } else if (command.startsWith("todo")) {
-            return CommandType.TODO;
-        } else if (command.startsWith("deadline")) {
-            return CommandType.DEADLINE;
-        } else if (command.startsWith("event")) {
-            return CommandType.EVENT;
-        }
-        else {
-            return CommandType.UNKNOWN;
-        }
-    }
-    
-
-    private static void printList() {
-        System.out.println(LINE);
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
-        }
-        System.out.println(LINE);
-    }
-
-    private static void addTask(String task) {
+    private void addTask(String task) {
         try {
             Task newTask = null;
             if (task.startsWith("todo")) {
@@ -133,122 +83,41 @@ public class Duke {
 
             if (newTask != null) {
                 tasks.add(newTask);
-                saveTaskToStorage(newTask);
-                printAddedTaskConfirmation(newTask);
+                storage.write(newTask);
+                ui.printAddedTaskConfirmation(newTask, tasks);
             } 
-
         } catch (DukeException e) {
-            printErrorMessage(e);
+            ui.printErrorMessage(e);
         }
     }
 
-    private static void addTaskFromStorage(String task) {
-        Task newTask = null;
-        if (task.startsWith("T")) {
-            newTask = ToDo.createToDoFromStorage(task);
-        } else if (task.startsWith("D")) {
-            newTask = Deadline.createDeadlineFromStorage(task);
-        } else if (task.startsWith("E")) {
-            newTask = Event.createEventFromStorage(task);
-        }
 
-        if (newTask != null) {
-            tasks.add(newTask);
+    private void markTask(String command) {
+        try {
+            int index = Integer.parseInt(command.split(" ")[1]) - 1;
+            Task task = tasks.get(index);
+            task.markAsDone();
+            storage.write(tasks.getTasks());
+            ui.printAddedTaskConfirmation(task, tasks);            
+        } catch (NumberFormatException e) {
+            ui.printErrorMessage(new DukeException("Invalid command format"));
+        } catch (DukeException e) {
+            ui.printErrorMessage(e);
+        }
+    }
+
+    private void deleteTask(String command) {
+        try {
+            int index = Integer.parseInt(command.split(" ")[1]) - 1;
+            Task task = tasks.remove(index);
+            storage.write(tasks.getTasks());
+            ui.printDeletedTaskConfirmation(task, tasks);    
+        } catch (NumberFormatException e) {
+            ui.printErrorMessage(new DukeException("Invalid command format"));
+        } catch (DukeException e) {
+            ui.printErrorMessage(e);
         } 
     }
 
-    private static void saveTaskToStorage(Task task) {
-        try {
-            File file = getFile();
-            FileWriter fw = new FileWriter(file, true);
-            fw.write(task.toStorageString() + "\n");
-            fw.close();
-        } catch (Exception e) {
-            printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
-        }
-    }
-    
-
-    private static void markTask(String command) {
-        try {
-            int index = Integer.parseInt(command.split(" ")[1]) - 1;
-            if (index < 0 || index >= tasks.size()) {
-                printErrorMessage(new DukeException("Invalid task index"));
-                return;
-            }
-            Task task = tasks.get(index);
-            task.markAsDone();
-            overrideStorage();
-            System.out.println(LINE);
-            System.out.println("Nice! I've marked this task as done: ");
-            System.out.println("  " + task);
-            System.out.println(LINE);
-            
-        } catch (NumberFormatException e) {
-            printErrorMessage(new DukeException("Invalid command format"));
-        }
-    }
-
-    private static void deleteTask(String command) {
-        try {
-            int index = Integer.parseInt(command.split(" ")[1]) - 1;
-            if (index < 0 || index >= tasks.size()) {
-                printErrorMessage(new DukeException("Invalid task index"));
-                return;
-            }
-            Task task = tasks.remove(index);
-            overrideStorage();
-            System.out.println(LINE);
-            System.out.println("Noted. I've removed this task: ");
-            System.out.println("  " + task);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            System.out.println(LINE);
-
-            
-        } catch (NumberFormatException e) {
-            printErrorMessage(new DukeException("Invalid command format"));
-        }
-    }
-
-    private static void overrideStorage() {
-        try {
-            File file = getFile();
-            FileWriter fw = new FileWriter(file, false);
-            for (Task task : tasks) {
-                fw.write(task.toStorageString() + "\n");
-            }
-            fw.close();
-        } catch (Exception e) {
-            printErrorMessage(new DukeException("An unexpected error occurred: " + e.getMessage()));
-        }
-    }
-    
-
-    private static void printWelcomeMessage() {
-        System.out.println(LINE);
-        System.out.println("Hello! I'm \\n");
-        System.out.println(LOGO);
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
-    }
-
-    private static void printFarewellMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(LINE);
-    }
-
-    private static void printAddedTaskConfirmation(Task task) {
-        System.out.println(LINE);
-        System.out.println("Got it. I've added this task: ");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(LINE);
-    }
-
-    private static void printErrorMessage(DukeException e) {
-        System.out.println(LINE);
-        System.out.println("OOPS!!! " + e.getMessage());
-        System.out.println(LINE);
-    }
 
 }

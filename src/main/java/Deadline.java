@@ -43,7 +43,7 @@ public class Deadline extends Task {
     }
 
     public String toStorageString() {
-        String byString = by.format(DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm"));
+        String byString = by.format(DateTimeFormatter.ofPattern("d MMM yyyy HHmm"));
         return "D" + super.toStorageString() + " | " + byString;
     }
 }
