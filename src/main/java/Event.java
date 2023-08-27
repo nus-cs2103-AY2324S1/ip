@@ -9,18 +9,22 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
+    public Event() {
+        super("");
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startData + " to: " + endDate + ")";
     }
 
     public String toFileString() {
-        return "E | " + super.toFileString() + " | " + startData + " | " + endDate;
+        return "E | "  + super.getStatusIcon() + " | " + description + " | " + startData + " | " + endDate;
     }
 
     public void fromFileString(String fileString) {
         String[] fileStringArray = fileString.split(" \\| ");
-        this.isDone = fileStringArray[1].equals("1");
+        this.setStatusIcon(fileStringArray[1]);
         this.description = fileStringArray[2];
         this.startData = fileStringArray[3];
         this.endDate = fileStringArray[4];

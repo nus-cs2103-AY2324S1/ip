@@ -49,6 +49,10 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public void setStatusIcon(String statusIcon) {
+        this.isDone = statusIcon.equals("X");
+    }
+    
     public String getDescription() {
         return description;
     }
@@ -80,5 +84,5 @@ public abstract class Task {
 
     public abstract String toFileString();
 
-    public abstract String fromFileString();
+    public abstract void fromFileString(String fileString);
 }
