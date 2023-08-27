@@ -1,6 +1,4 @@
-enum TaskType {
-    todo, event, deadline
-}
+package bob.tasks;
 
 public class Task {
     protected String name;

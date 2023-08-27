@@ -1,3 +1,6 @@
+package bob.commands;
+import bob.*;
+
 /**
  * Handles the execution of different types of commands.
  */

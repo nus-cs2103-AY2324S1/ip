@@ -1,4 +1,7 @@
+package bob.commands;
 import java.io.IOException;
+import bob.*;
+import bob.exceptions.*;
 
 public class DeleteCommand extends Command {
     public DeleteCommand(String input) {

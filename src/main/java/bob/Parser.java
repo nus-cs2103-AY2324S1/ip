@@ -1,3 +1,6 @@
+package bob;
+import bob.commands.*;
+
 /**
  * Handles user input and convert them into the right command.
  */

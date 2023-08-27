@@ -1,3 +1,6 @@
+package bob.commands;
+import bob.*;
+
 public class ExitCommand extends Command {
     public ExitCommand() {
         super.isExit = true;

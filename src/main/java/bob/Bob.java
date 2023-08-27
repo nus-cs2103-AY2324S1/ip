@@ -1,5 +1,7 @@
+package bob;
 import java.util.*;
 import java.io.IOException;
+import bob.commands.*;
 
 public class Bob {
     private Storage storage;
