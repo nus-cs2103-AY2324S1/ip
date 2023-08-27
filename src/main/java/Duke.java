@@ -50,7 +50,7 @@ public class Duke {
 
     private static List<Task> loadTasksFromStorage(String dirName, String fileName) {
         List<Task> tasks = new ArrayList<>();
-        File file = new File(dirName + "/" + fileName);
+        File file = new File(dirName + File.separator + fileName);
 
         // scan for the storage file
         try {
@@ -59,7 +59,6 @@ public class Duke {
 
                 String curr = s.nextLine();
                 String[] segments = curr.split(" \\| ");
-                System.out.println(segments[2]);
 
                 // check for the correct format - minimum 3 different segments
                 if ((!segments[0].equals("[T]") && !segments[0].equals("[D]")
@@ -85,7 +84,7 @@ public class Duke {
                 if (new File(dirName).mkdir()) {
                     System.out.println("Sorry, directory does not exist. Creating now...");
                 }
-                if (new File(dirName + "/" + fileName).createNewFile()) {
+                if (file.createNewFile()) {
                     System.out.println("Sorry, file does not exist. Creating now...");
                 }
             } catch (Exception error) {
