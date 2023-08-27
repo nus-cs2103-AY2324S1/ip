@@ -20,6 +20,15 @@ public class Ui {
 		return this.scanner.nextLine();
 	}
 
+	public void showGreetings() {
+		printDivider();
+		System.out.println("Hello! I'm CarbonBot");
+		System.out.println("What can I do for you?");
+		printDivider();
+	}
+
+	public void showMessage(String message) { System.out.println(message); }
+
 	/**
 	 * Prints the error message when the task list could not be loaded from disk.
 	 */

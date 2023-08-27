@@ -73,7 +73,7 @@ public class TaskList {
 	 * Deletes the task at the index.
 	 * @param index 1-based index of the task
 	 */
-	public void delete(int index) {
+	public void delete(int index) throws IndexOutOfBoundsException {
 		if (index <= tasks.size() && index >= 1) {
 			tasks.remove(index - 1);
 		} else {
@@ -85,18 +85,18 @@ public class TaskList {
 	 * Fetches the task at the index.
 	 * @param index 1-based index of the task
 	 */
-	public Task get(int index) {
+	public Task get(int index) throws IndexOutOfBoundsException {
 		if (index <= tasks.size() && index >= 1) {
 			return tasks.get(index - 1);
 		} else {
-			throw new IndexOutOfBoundsException("The task list does not contain the given index.");
+			throw new IndexOutOfBoundsException();
 		}
 	}
 
 	public String serialize() {
 		StringBuilder sb = new StringBuilder();
 		for (Task task : tasks) {
-			sb.append(task.toString() + "\n");
+			sb.append(task.serialize() + "\n");
 		}
 		return sb.toString();
 	}
