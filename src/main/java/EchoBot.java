@@ -1,3 +1,5 @@
+import java.io.*;
+import java.util.logging.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,6 +12,55 @@ public class EchoBot {
         return userInput.substring(command.length()).trim();
     }
 
+    // Load tasks from the file
+    public static ArrayList<Task> loadTasks(String filePath) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        File file = new File(filePath);
+        File folder = file.getParentFile();
+
+        // Create the parent folder if it doesn't exist
+        if (!folder.exists() && !folder.mkdirs()) {
+            System.err.println("Unable to create directory: " + folder.getAbsolutePath());
+            return tasks; // Return an empty list
+        }
+
+        if (file.exists()) {
+            try {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String formattedTask = scanner.nextLine();
+                    try {
+                        Task task = Task.fromFileString(formattedTask);
+                        tasks.add(task);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid task format: " + formattedTask);
+                    }
+                }
+                scanner.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("File not found: " + filePath);
+            } catch (Exception e) {
+                Logger logger = Logger.getLogger(EchoBot.class.getName());
+                logger.log(Level.SEVERE, "An error occurred while loading tasks", e);
+            }
+        } else {
+            System.out.println("File not found: " + filePath);
+        }
+
+        return tasks;
+    }
+
+    // Save tasks to the file
+    public static void saveTasks(ArrayList<Task> tasks, String filePath) {
+        try (PrintWriter writer = new PrintWriter(filePath)) {
+            for (Task task : tasks) {
+                writer.println(task.toFileString());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String logo = "     ____        _        \n"
@@ -18,12 +69,22 @@ public class EchoBot {
                 + "    | |_| | |_| |   <  __/\n"
                 + "    |____/ \\__,_|_|\\_\\___|\n";
         String horizontalLine = "   _____________________________________________________________\n";
+        String filePath = "./data/duke.txt"; // Default path
 
-        //ArrayList to store the tasks
+        // Check if a command-line argument for the file path is provided
+        if (args.length > 0) {
+            filePath = args[0];
+        }
+
         ArrayList<Task> tasks = new ArrayList<>();
-
         System.out.println(horizontalLine + "    Hello! I'm EchoBot\n" + logo);
         System.out.println("    What can I do for you?\n" + horizontalLine);
+
+        try {
+            tasks = loadTasks(filePath);
+        } catch (Exception e) {
+            System.out.println("An error occurred while loading tasks: " + e.getMessage());
+        }
 
         while(true) {
             // Read the user input
@@ -37,7 +98,7 @@ public class EchoBot {
 
                 for (int i = 0; i < tasks.size(); i++) {
                     Task task = tasks.get(i);
-                    System.out.println("    " + (i + 1) + "." + task);
+                    System.out.println("    " + (i + 1) + "." + task.toString());
                 }
 
                 System.out.println(horizontalLine);
@@ -54,6 +115,7 @@ public class EchoBot {
 
                     System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + newTodo);
                     System.out.println("    Now you have " + tasks.size() + " tasks in the list.\n" + horizontalLine);
+                    saveTasks(tasks, filePath); // Save after adding
                 } catch (DukeException e) {
                     System.out.println(e.getMessage());
                 }
@@ -67,6 +129,7 @@ public class EchoBot {
 
                 System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + newDeadline);
                 System.out.println("    Now you have " + tasks.size() + " tasks in the list.\n" + horizontalLine);
+                saveTasks(tasks, filePath); // Save after adding
             } else if (userInput.startsWith("event")) {
                 String taskDescription = extractTaskDesc(userInput, "event");
                 int indexOfFrom = taskDescription.indexOf("/from");
@@ -79,6 +142,7 @@ public class EchoBot {
 
                 System.out.println(horizontalLine + "    Got it. I've added this task:\n" + "     " + newEvent);
                 System.out.println("    Now you have " + tasks.size() + " tasks in the list.\n" + horizontalLine);
+                saveTasks(tasks, filePath); // Save after adding
             } else if (userInput.startsWith("mark")) {
                 int taskNum = extractTaskNum(userInput, "mark");
 
@@ -98,6 +162,7 @@ public class EchoBot {
 
                     System.out.println("\n" + horizontalLine);
                 }
+                saveTasks(tasks, filePath); // Save after marking
             } else if (userInput.startsWith("unmark")) {
                 int taskNum = extractTaskNum(userInput, "unmark");
 
@@ -117,6 +182,7 @@ public class EchoBot {
 
                     System.out.println("\n" + horizontalLine);
                 }
+                saveTasks(tasks, filePath); // Save after unmarking
             } else if (userInput.startsWith("delete")) {
                 int taskNum = extractTaskNum(userInput, "delete");
 
@@ -126,6 +192,7 @@ public class EchoBot {
                     System.out.println(horizontalLine + "    Noted. I've removed this task:\n" + "     " + deletedTask.toString());
                     System.out.println("    Now you have " + tasks.size() + " tasks in the list.\n" + horizontalLine);
                 }
+                saveTasks(tasks, filePath); // Save after deleting
             } else {
                 System.out.println(horizontalLine + "    ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
                 System.out.println(horizontalLine);
