@@ -1,4 +1,8 @@
-import java.util.ArrayList;
+package duke.ui;
+
+import duke.exception.DukeException;
+import duke.task.Task;
+import duke.task.TaskList;
 
 public class Ui {
     private final String HORIZONTAL_LINE = "____________________________________________________________";
