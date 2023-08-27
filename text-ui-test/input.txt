@@ -1,7 +1,7 @@
 list
 todo Assignment 1
-deadline Assignment 2 /by tomorrow
-event exam /from today /to tomorrow
+deadline Assignment 2 /by 2023-01-01 1245
+event exam /from 2023-01-01 1245 /to 2023-01-01 1300
 mark 1
 unmark 1
 delete 2
@@ -10,6 +10,8 @@ unknown command
 todo
 deadline /by
 event something /from /to tomorrow
+deadline a /by b
+event a /from b /to c
 mark 0
 
 bye
