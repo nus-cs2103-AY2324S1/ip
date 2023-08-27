@@ -15,6 +15,9 @@ public class Ui {
 
     public String getUserCommand() {
         String command = scanner.nextLine();
+        while (command.trim().isEmpty()) {
+            command = scanner.nextLine();
+        }
         return command;
     }
 
@@ -42,7 +45,7 @@ public class Ui {
         showErrorMessage("There was an error in loading the existing tasks.");
     }
 
-    public void showTaskList(List<? extends Task> tasks) {
+    public void showList(List<? extends Task> tasks) {
         System.out.println(LINE);
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("\t%d. %s\n", i + 1, tasks.get(i));

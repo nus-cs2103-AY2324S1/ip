@@ -3,7 +3,7 @@ import java.util.List;
 
 public class TaskList {
 
-    private final List<Task> tasks;
+    private List<Task> tasks;
 
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
@@ -43,6 +43,10 @@ public class TaskList {
         Task task = tasks.get(taskNumber - 1);
         task.markAsUndone();
         return task;
+    }
+
+    public void clear() {
+        tasks = new ArrayList<>();
     }
 
     public int size() {

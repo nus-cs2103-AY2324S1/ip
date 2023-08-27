@@ -27,22 +27,22 @@
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! The deadline must be specified.
+	☹ OOPS!!! The description and the /by field must be specified.
 
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! The deadline must be specified.
+	☹ OOPS!!! The description and the /by field must be specified.
 
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! The description of a deadline cannot be empty.
+	☹ OOPS!!! The description and the /by field must be specified.
 
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! The deadline must be specified.
+	☹ OOPS!!! The description and the /by field must be specified.
 
 	____________________________________________________________
 
@@ -59,37 +59,37 @@
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! The from and to must be specified.
+	☹ OOPS!!! The description and the /from and /to fields must be specified.
 
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! The from and to must be specified.
+	☹ OOPS!!! The description and the /from and /to fields must be specified.
 
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! The description of a deadline cannot be empty.
+	☹ OOPS!!! The description and the /from and /to fields must be specified.
 
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! The from and to must be specified.
+	☹ OOPS!!! The description and the /from and /to fields must be specified.
 
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! The description of a deadline cannot be empty.
+	☹ OOPS!!! The description and the /from and /to fields must be specified.
 
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! The from and to must be specified.
+	☹ OOPS!!! The description and the /from and /to fields must be specified.
 
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! The from and to must be specified.
+	☹ OOPS!!! The description and the /from and /to fields must be specified.
 
 	____________________________________________________________
 
@@ -151,12 +151,13 @@
 	____________________________________________________________
 
 	____________________________________________________________
-	☹ OOPS!!! No such task exists.
+	Nice! I've marked this task as not done yet:
+		 [T] [ ] borrow book
 
 	____________________________________________________________
 
 	____________________________________________________________
-	1. [T] [?] borrow book
+	1. [T] [ ] borrow book
 	2. [D] [ ] return book (by: 27 Aug 2023)
 	3. [E] [ ] party (from: 27 Aug 2023 to: 28 Aug 2023)
 
@@ -179,7 +180,7 @@
 	____________________________________________________________
 
 	____________________________________________________________
-	1. [T] [?] borrow book
+	1. [T] [ ] borrow book
 	2. [E] [ ] party (from: 27 Aug 2023 to: 28 Aug 2023)
 
 	____________________________________________________________
