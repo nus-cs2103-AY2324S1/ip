@@ -43,7 +43,13 @@ public class Dot {
         Ui.goodbye();
     }
     public static void main(String[] args) {
-        Dot dotInstance = new Dot("src/main/java/data/dot.txt", 100);
+        Dot dotInstance;
+        // If args[0] == "test", we enter Dot into testing mode
+        if (args.length == 1 && args[0].equals("test")) {
+            dotInstance = new Dot("../src/main/java/data/text-ui-test.txt", 100);
+        } else {
+            dotInstance = new Dot("src/main/java/data/dot.txt", 100);
+        }
         dotInstance.run();
     }
 }
