@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class Duke {
                     continue;
                 }
                 if (command.equals(Command.BYE.getCommand())) {
+                    Duke.saveState();
                     System.out.println("Bye. Hope to see you again soon!");
                     break;
                 }
@@ -137,6 +140,19 @@ public class Duke {
             }
         } catch (FileNotFoundException e) {
             System.out.println("File to save state cannot be found");
+        }
+    }
+
+    private static void saveState() {
+        try {
+            FileWriter fw = new FileWriter(Duke.FILE_PATH);
+            for (int i = 0; i < Duke.tasks.size(); i++) {
+                fw.write(Duke.tasks.get(i).toSaveStateString() + "\n");
+            }
+            fw.close();
+            System.out.println("Sucessfully saved state");
+        } catch (IOException e) {
+            System.out.println("Failed to save state");
         }
     }
 }
