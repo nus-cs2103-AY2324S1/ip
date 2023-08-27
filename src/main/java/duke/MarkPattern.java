@@ -2,14 +2,17 @@ package duke;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 /*
-* This class is to store patterns to match against user input
-* */
+ * This class is to store patterns to match against user input
+ * */
 public class MarkPattern {
+  
     /** Empty constructor to just initialise it
      *
      */
-    public MarkPattern () {}
+    public MarkPattern () {
+    }
 
     /**The pattern for mark
      *
@@ -22,7 +25,7 @@ public class MarkPattern {
 
         if (matcher.find()) {
             String num = matcher.group(1);
-            return Integer.parseInt(num)-1;
+            return Integer.parseInt(num) - 1;
         } else {
             return -1;
         }
@@ -39,7 +42,7 @@ public class MarkPattern {
 
         if (matcher.find()) {
             String num = matcher.group(1);
-            return Integer.parseInt(num)-1;
+            return Integer.parseInt(num) - 1;
         } else {
             return -1;
         }
@@ -56,7 +59,7 @@ public class MarkPattern {
 
         if (matcher.find()) {
             String num = matcher.group(1);
-            return Integer.parseInt(num)-1;
+            return Integer.parseInt(num) - 1;
         } else {
             return -1;
         }

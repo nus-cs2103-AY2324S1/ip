@@ -20,7 +20,7 @@ public class Duke {
         Storage load = new Storage("tasks.ser");
         TaskList items = new TaskList(load.loadDataFromFile());
         Parser parser = new Parser();
-        ui.run(items,load,parser);
+        ui.run(items, load, parser);
 
         System.out.println("Byeeee! Use me again please!");
     }

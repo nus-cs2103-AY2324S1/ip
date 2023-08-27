@@ -6,13 +6,13 @@ import java.util.ArrayList;
  * The tasklist to create
  */
 public class TaskList {
-    private ArrayList<Task> items;
+    private final ArrayList<Task> items;
 
     /**
      * Converts arraylist to tasklist
      * @param items takes in arraylist
      */
-    public TaskList (ArrayList<Task> items) {
+    public TaskList(ArrayList<Task> items) {
         this.items = items;
     }
 

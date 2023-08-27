@@ -1,6 +1,5 @@
 package duke;
 
-import duke.Task;
 
 /** This class represents the to-do task
  *
@@ -19,7 +18,7 @@ public class ToDo extends Task {
      * @return the default display
      */
     public String display() {
-        if(done) {
+        if (done) {
             return "[T][X] " + this.name;
         }
         return "[T][] " + this.name;

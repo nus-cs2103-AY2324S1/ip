@@ -15,7 +15,6 @@ public class Deadline extends Task {
      * @param by set the due date
      * @return
      */
-
     public Deadline(String name, String by) {
         super(name);
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -34,7 +33,7 @@ public class Deadline extends Task {
      */
     public String display() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        if(done) {
+        if (done) {
             return "[D][X] " + this.name + " (Due By: " + by.format(outputFormatter) + ")";
         }
         return "[D][] " + this.name + " (Due By: " + by.format(outputFormatter) + ")";

@@ -21,7 +21,7 @@ public class Event extends Task {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             this.start = LocalDate.parse(start, inputFormatter);
-            this.end=LocalDate.parse(end, inputFormatter);
+            this.end = LocalDate.parse(end, inputFormatter);
         } catch (Exception e) {
             System.out.println("Invalid date!");
         }
@@ -33,7 +33,7 @@ public class Event extends Task {
      */
     public String display() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        if(done) {
+        if (done) {
             return "[E][X] " + this.name + " (From: " + start.format(outputFormatter) + " To: " + end.format(outputFormatter) + ")";
         }
         return "[E][] " + this.name + " (From: " + start.format(outputFormatter) + " To: " + end.format(outputFormatter) + ")";

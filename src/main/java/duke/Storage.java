@@ -1,7 +1,5 @@
 package duke;
 
-import duke.Task;
-
 import java.io.*;
 import java.util.ArrayList;
 
@@ -9,7 +7,7 @@ import java.util.ArrayList;
  * The storage class to handle data saving
  */
 public class Storage {
-    private String filepath;
+    private final String filepath;
 
     /**
      * constructor for filepath

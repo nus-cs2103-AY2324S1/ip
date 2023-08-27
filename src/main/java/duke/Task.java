@@ -7,24 +7,26 @@ import java.io.Serializable;
  *
  */
 public class Task implements Serializable {
-    protected String name;
     public Boolean done;
+    protected String name;
+
 
     /** constructor to init this class
      *
      * @param name the name of the task
      */
-    public Task (String name) {
+    public Task(String name) {
         this.name = name;
         this.done = false;
     }
+
 
     /** default display for a task
      *
      * @return returns the display
      */
     public String display() {
-        if(done) {
+        if (done) {
             return "[X] " + this.name;
         }
         return "[] " + this.name;
