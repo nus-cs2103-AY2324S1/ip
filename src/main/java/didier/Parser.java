@@ -1,6 +1,9 @@
 package didier;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import didier.command.AddCommand;
 import didier.command.Command;
 import didier.command.DeleteCommand;
@@ -13,9 +16,6 @@ import didier.exception.DidierException;
 import didier.exception.ElementMissingException;
 import didier.exception.InvalidCommandException;
 import didier.exception.TaskNumberException;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Deals with making sense of all user input to the bot.

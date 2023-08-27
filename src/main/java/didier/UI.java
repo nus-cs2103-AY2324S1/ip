@@ -1,10 +1,10 @@
 package didier;
 
+import java.util.Scanner;
+
 import didier.exception.DidierException;
 import didier.exception.TaskNumberException;
 import didier.task.Task;
-
-import java.util.Scanner;
 
 /**
  * Deals with all interaction between the bot and the user.

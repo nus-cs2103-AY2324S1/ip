@@ -1,5 +1,7 @@
 package didier.command;
 
+import java.time.LocalDate;
+
 import didier.Storage;
 import didier.TaskList;
 import didier.UI;
@@ -8,8 +10,6 @@ import didier.task.Deadline;
 import didier.task.Event;
 import didier.task.Task;
 import didier.task.ToDo;
-
-import java.time.LocalDate;
 
 /**
  * The AddCommand encapsulates the logic of what occurs when the user tries to add any type of task

@@ -1,9 +1,9 @@
 package didier;
 
+import java.util.ArrayList;
+
 import didier.exception.TaskNumberException;
 import didier.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks that the bot stores. Allows for several operations

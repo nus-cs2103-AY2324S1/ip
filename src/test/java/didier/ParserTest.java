@@ -1,11 +1,18 @@
 package didier;
 
-import didier.command.*;
-import didier.exception.DidierException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import didier.command.AddCommand;
+import didier.command.Command;
+import didier.command.DeleteCommand;
+import didier.command.ExitCommand;
+import didier.command.FindCommand;
+import didier.command.ListCommand;
+import didier.command.MarkCommand;
+import didier.exception.DidierException;
 
 public class ParserTest {
 
@@ -18,6 +25,7 @@ public class ParserTest {
             fail();
         }
     }
+
     @Test
     public void parse_mark_success() {
         try {
@@ -27,6 +35,7 @@ public class ParserTest {
             fail();
         }
     }
+
     @Test
     public void parse_delete_success() {
         try {
@@ -46,6 +55,7 @@ public class ParserTest {
             fail();
         }
     }
+
     @Test
     public void parse_bye_success() {
         try {
@@ -77,6 +87,7 @@ public class ParserTest {
             assertEquals("a is an invalid task number. ", e.getMessage());
         }
     }
+
     @Test
     public void parse_deadline_exceptionThrown() {
         try {
@@ -98,6 +109,7 @@ public class ParserTest {
             assertEquals("The end date of the task is missing. ", e.getMessage());
         }
     }
+
     @Test
     public void parse_eventDateFormatWrong_exceptionThrown() {
         try {

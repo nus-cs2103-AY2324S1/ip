@@ -1,10 +1,11 @@
 package didier.task;
 
-import didier.exception.FileCorruptedException;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import didier.exception.FileCorruptedException;
 
 public class TaskTest {
 
@@ -16,6 +17,7 @@ public class TaskTest {
             fail();
         }
     }
+
     @Test
     public void parseFileString_validUnmarkedDeadline_success() {
         try {
@@ -35,10 +37,11 @@ public class TaskTest {
             fail();
         }
     }
+
     @Test
     public void parseFileString_invalidTask_exceptionThrown() {
         try {
-            assertEquals(Task.parseFileString("X|0|borrow book|2011-12-11"),null);
+            assertEquals(Task.parseFileString("X|0|borrow book|2011-12-11"), null);
             fail();
         } catch (FileCorruptedException e) {
             assertEquals("The task file was corrupted. Please delete the file.", e.getMessage());
@@ -48,7 +51,7 @@ public class TaskTest {
     @Test
     public void parseFileString_invalidDate_exceptionThrown() {
         try {
-            assertEquals(Task.parseFileString("D|0|borrow book|2011-13-11"),null);
+            assertEquals(Task.parseFileString("D|0|borrow book|2011-13-11"), null);
             fail();
         } catch (FileCorruptedException e) {
             assertEquals("The task file was corrupted. Please delete the file.", e.getMessage());
@@ -58,7 +61,7 @@ public class TaskTest {
     @Test
     public void parseFileString_invalidSeparator_exceptionThrown() {
         try {
-            assertEquals(Task.parseFileString("D,0,borrow book,2011-10-11"),null);
+            assertEquals(Task.parseFileString("D,0,borrow book,2011-10-11"), null);
             fail();
         } catch (FileCorruptedException e) {
             assertEquals("The task file was corrupted. Please delete the file.", e.getMessage());
@@ -68,7 +71,7 @@ public class TaskTest {
     @Test
     public void parseFileString_truncatedEvent_exceptionThrown() {
         try {
-            assertEquals(Task.parseFileString("E|0|borrow book|2011-10-11"),null);
+            assertEquals(Task.parseFileString("E|0|borrow book|2011-10-11"), null);
             fail();
         } catch (FileCorruptedException e) {
             assertEquals("The task file was corrupted. Please delete the file.", e.getMessage());

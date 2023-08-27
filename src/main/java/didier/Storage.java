@@ -1,14 +1,14 @@
 package didier;
 
-import didier.exception.FileCorruptedException;
-import didier.exception.TaskNumberException;
-import didier.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import didier.exception.FileCorruptedException;
+import didier.exception.TaskNumberException;
+import didier.task.Task;
 
 /**
  * Deals with reading tasks from a file and writing tasks to a fil. A storage object refers to

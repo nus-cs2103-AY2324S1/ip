@@ -1,9 +1,9 @@
 package didier.task;
 
-import didier.exception.FileCorruptedException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import didier.exception.FileCorruptedException;
 
 /**
  * The Task class encapsulates a real-life task. A basic task has a description and keeps track of
