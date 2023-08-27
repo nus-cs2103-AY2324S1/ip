@@ -7,15 +7,15 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Duke {
 
-    private static String name = "SoCrates";
-    private static String line =
-        "\t____________________________________________________________";
-    private Scanner scanner = new Scanner(System.in);
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private static String BOT_NAME = "SoCrates";
+
+    private Ui ui;
+    private List<Task> tasks;
     private boolean isRunning = true;
 
     public static void main(String[] args) {
@@ -23,30 +23,33 @@ public class Duke {
         duke.run();
     }
 
-    private void run() {
-        printWelcome();
-
+    public Duke() {
+        ui = new Ui(BOT_NAME);
         try {
-            loadTasks();
-        } catch (DukeException exception) {
-            printErrorMessage(exception.getMessage());
-            printExit();
-            return;
+            tasks = loadTasks();
+        } catch (DukeException e) {
+            ui.showLoadingError();
+            tasks = new ArrayList<>();
+            throw new RuntimeException(e);
         }
+    }
+
+    private void run() {
+        ui.showWelcomeMessage();
 
         while (isRunning) {
             try {
                 runCommand();
             } catch (DukeException exception) {
-                printErrorMessage(exception.getMessage());
+                ui.showErrorMessage(exception.getMessage());
             }
         }
 
-        printExit();
+        ui.showExitMessage();
     }
 
     private void runCommand() throws DukeException {
-        String input = scanner.nextLine().trim();
+        String input = ui.getUserCommand();
         String args = input.contains(" ")
                 ? input.split(" ", 2)[1]
                 : "";
@@ -74,44 +77,14 @@ public class Duke {
         }
     }
 
-    private static void printMessage(String message) {
-        System.out.println(line);
-        System.out.println("\t" + message);
-        System.out.println("\n" + line + "\n");
-    }
 
-    private static void printMessage(String[] message) {
-        System.out.println(line);
-        for (String messageLine : message) {
-            System.out.println("\t" + messageLine);
-        }
-        System.out.println("\n" + line + "\n");
-    }
-
-    private static void printErrorMessage(String message) {
-        printMessage("☹ OOPS!!! " + message);
-    }
-
-    private static void printWelcome() {
-        String[] message = {
-                "Hello! I'm " + name,
-                "What can I do for you?"
-        };
-
-        printMessage(message);
-    }
-
-    private static void printExit() {
-        printMessage("Bye. Hope to see you again soon!");
-    }
 
     private void printTaskAdded(Task task) {
-        String[] message = {
+        ui.showMessage(
                 "Got it. I've added this task:",
                 "\t" + task,
                 "Now you have " + tasks.size() + " tasks in the list."
-        };
-        printMessage(message);
+        );
     }
 
     private void addToTasks(Task task) {
@@ -135,15 +108,17 @@ public class Duke {
         }
     }
 
-    private void loadTasks() throws DukeException {
+    private List<Task> loadTasks() throws DukeException {
         try {
+            List<Task> tasks = new ArrayList<>();
             File file = new File("./data/duke.txt");
             if (!file.exists()) {
-                return;
+                return tasks;
             }
 
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             String saveString;
+
             while ((saveString = bufferedReader.readLine()) != null) {
                 String[] saveStringArgs = saveString.split(" \\| ");
                 String type = saveStringArgs[0];
@@ -153,30 +128,32 @@ public class Duke {
                 Task task;
 
                 switch (type) {
-                case "T":
-                    task = new ToDo(description);
-                    break;
-                case "D":
-                    String by = saveStringArgs[3];
-                    LocalDate localBy = LocalDate.parse(by);
-                    task = new Deadline(description, localBy);
-                    break;
-                case "E":
-                    String from = saveStringArgs[3];
-                    String to = saveStringArgs[4];
-                    LocalDate localFrom = LocalDate.parse(from);
-                    LocalDate localTo = LocalDate.parse(to);
-                    task = new Event(description, localFrom, localTo);
-                    break;
-                default:
-                    throw new DukeException("Invalid save data.");
+                    case "T":
+                        task = new ToDo(description);
+                        break;
+                    case "D":
+                        String by = saveStringArgs[3];
+                        LocalDate localBy = LocalDate.parse(by);
+                        task = new Deadline(description, localBy);
+                        break;
+                    case "E":
+                        String from = saveStringArgs[3];
+                        String to = saveStringArgs[4];
+                        LocalDate localFrom = LocalDate.parse(from);
+                        LocalDate localTo = LocalDate.parse(to);
+                        task = new Event(description, localFrom, localTo);
+                        break;
+                    default:
+                        throw new DukeException("Invalid save data.");
                 }
 
-                addToTasks(task);
+                tasks.add(task);
                 if (isMarked) {
                     task.markAsDone();
                 }
             }
+
+            return tasks;
 
         } catch (IOException e) {
             throw new DukeException("There was an IOException while loading the tasks.");
@@ -184,18 +161,13 @@ public class Duke {
     }
 
     private void performListCommand() {
-        System.out.println(line);
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("\t%d. %s\n", i + 1, tasks.get(i));
-        }
-
-        System.out.println("\n" + line + "\n");
+        ui.showTaskList(tasks);
     }
 
     private void performClearCommand() throws DukeException {
         tasks = new ArrayList<>();
         saveTasks();
-        printMessage("Got it. I've cleared all tasks.");
+        ui.showMessage("Got it. I've cleared all tasks.");
     }
 
     private void performMarkCommand(String args) throws DukeException {
@@ -213,13 +185,11 @@ public class Duke {
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
 
-        String[] message = {
+        saveTasks();
+        ui.showMessage(
                 "Nice! I've marked this task as done:",
                 "\t " + task
-        };
-
-        saveTasks();
-        printMessage(message);
+        );
     }
 
     private void performUnmarkCommand(String args) throws DukeException {
@@ -237,13 +207,11 @@ public class Duke {
         Task task = tasks.get(taskNumber - 1);
         task.markAsUndone();
 
-        String[] message = {
+        saveTasks();
+        ui.showMessage(
                 "Ok, I've marked this task as not done yet:",
                 "\t " + task
-        };
-
-        saveTasks();
-        printMessage(message);
+        );
     }
 
     private void performDeleteCommand(String args) throws DukeException {
@@ -262,13 +230,11 @@ public class Duke {
         Task task = tasks.get(taskNumber - 1);
         tasks.remove(taskNumber - 1);
 
-        String[] message = {
+        saveTasks();
+        ui.showMessage(
                 "Noted. I've removed this task:",
                 "\t " + task
-        };
-
-        saveTasks();
-        printMessage(message);
+        );
     }
 
     private void performTodoCommand(String args) throws DukeException {
