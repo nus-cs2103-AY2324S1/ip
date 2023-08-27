@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 class Storage {
     private final String filePath;
+
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -33,42 +35,52 @@ class Storage {
         return file;
     }
 
-    void writeFile(ArrayList<Task> tasks) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        for (Task task: tasks) {
+    void writeFile(String msg) throws DukeException {
+        try {
+            FileWriter fw = new FileWriter(filePath);
+            fw.write(msg);
+            fw.close();
+        } catch (IOException e) {
+            throw new DukeException("I/O Error!");
+        }
+    }
+
+    void appendFile(Task task) throws DukeException {
+        try {
+            FileWriter fw = new FileWriter(filePath, true);
             fw.write(task.stringToFile() + "\n");
+            fw.close();
+        } catch (IOException e) {
+            throw new DukeException("I/O Error!");
         }
-        fw.close();
-    }
-    void appendFile(Task task) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true);
-        fw.write(task.stringToFile() + "\n");
-        fw.close();
     }
 
-    ArrayList<Task> createList() throws IOException {
-        ArrayList<Task> taskList = new ArrayList<>();
-        Scanner sc = new Scanner(loadFile());
-        while (sc.hasNext()) {
-            String[] temp = sc.nextLine().split(" \\| ");
-            switch (temp[0].strip()) {
-            case "T":
-                taskList.add(new ToDo(temp[2].strip()));
-                break;
-            case "D":
-                taskList.add(new Deadline(temp[2].strip(), temp[3].strip()));
-                break;
-            case "E":
-                taskList.add(new Event(temp[2].strip(), temp[3].strip(), temp[4].strip()));
-                break;
-            default:
-                break;
+    ArrayList<Task> createList() throws DukeException {
+        try {
+            ArrayList<Task> taskList = new ArrayList<>();
+            Scanner sc = new Scanner(loadFile());
+            while (sc.hasNext()) {
+                String[] temp = sc.nextLine().split(" \\| ");
+                switch (temp[0].strip()) {
+                case "T":
+                    taskList.add(new ToDo(temp[2].strip()));
+                    break;
+                case "D":
+                    taskList.add(new Deadline(temp[2].strip(), temp[3].strip()));
+                    break;
+                case "E":
+                    taskList.add(new Event(temp[2].strip(), temp[3].strip(), temp[4].strip()));
+                    break;
+                default:
+                    break;
+                }
+                if (temp[1].strip().equals("1")) {
+                    taskList.get(taskList.size() - 1).markIsDone();
+                }
             }
-            if (temp[1].strip().equals("1")) {
-                taskList.get(taskList.size() - 1).markIsDone();
-            }
+            return taskList;
+        } catch (IOException e) {
+            throw new DukeException("Loading error!");
         }
-        return taskList;
     }
-
 }
