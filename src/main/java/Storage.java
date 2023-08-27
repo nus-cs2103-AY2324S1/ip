@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.io.File;
@@ -8,37 +7,42 @@ import java.io.FileNotFoundException;
 
 public class Storage {
 
-    public static final String FILE_DIRECTORY = "./data";
-    public static final String FILE_NAME = "TaskData.txt";
-    public static final String FILE_LOCATION = FILE_DIRECTORY + "/" + FILE_NAME;
+    private static final String FILE_NAME = "TaskData.txt";
+
+    private final String fileDirectory;
+    private final String fileLocation;
+
+    public Storage(String fileDirectory) {
+        this.fileDirectory = fileDirectory;
+        this.fileLocation = fileDirectory + "/" + FILE_NAME;
+    }
 
     /**
      * Creates directory and txt file for storing task data if they do not exist, else does nothing.
      */
-    private static void openFile() {
-        File directory = new File(FILE_DIRECTORY);
-        File dataFile = new File(FILE_LOCATION);
+    private boolean openFile() {
+        File directory = new File(fileDirectory);
+        File dataFile = new File(fileDirectory + "/" + FILE_NAME);
         try {
-            directory.mkdir();
-            dataFile.createNewFile();
+            if (directory.mkdir() && dataFile.createNewFile()) {
+                Ui.output("File to store task data have been created and stored at:\n       "
+                        + fileDirectory + "/" + FILE_NAME);
+            }
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     /**
      * Write data from ArrayList of tasks to a file.
      * @param taskList An ArrayList of tasks.
      */
-    public static void writeToFile(ArrayList<Task> taskList) {
+    public void writeToFile(TaskList taskList) {
         try {
-            FileWriter file = new FileWriter(FILE_LOCATION);
-            StringBuilder fileData = new StringBuilder();
-            for (Task task : taskList) {
-                String taskString = task.toFileString() + "\n";
-                fileData.append(taskString);
-            }
-            file.write(fileData.toString());
+            FileWriter file = new FileWriter(fileLocation);
+            file.write(taskList.listToStringData());
             file.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,11 +52,14 @@ public class Storage {
     /**
      * Loads task data from txt file to chatbot.
      */
-    public static boolean loadData() {
-        Storage.openFile();
+    public boolean loadData(TaskList taskList) {
+        if (!this.openFile()) {
+            Ui.output("An error occured where the file cannot be read");
+            return false;
+        }
 
         try {
-            File dataFile = new File(FILE_LOCATION);
+            File dataFile = new File(fileLocation);
             Scanner reader = new Scanner(dataFile);
 
             // Add error checking for wrong data format (probably as long as split works shld be fine)
@@ -64,20 +71,27 @@ public class Storage {
                 // Data is in format [type, isDone, title, from/by, to], from/by/to are only present depending on type.
                 switch(splitInput[0]) {
                 case "T":
-                    Todo.addTodo(splitInput[2]).changeStatus(isDone);
+                    Todo todo = new Todo(splitInput[2]);
+                    todo.changeStatus(isDone);
+                    taskList.addTask(todo);
                     break;
                 case "D":
-                    Deadline.addDeadline(splitInput[2], LocalDateTime.parse(splitInput[3], Task.dataFormat)).changeStatus(isDone);
+                    Deadline deadline = new Deadline(splitInput[2], Parser.parseDate(splitInput[3]));
+                    deadline.changeStatus(isDone);
+                    taskList.addTask(deadline);
                     break;
                 case "E":
-                    Event.addEvent(splitInput[2], LocalDateTime.parse(splitInput[3], Task.dataFormat), LocalDateTime.parse(splitInput[4], Task.dataFormat))
-                         .changeStatus(isDone);
+                    LocalDateTime start = Parser.parseDate(splitInput[3]);
+                    LocalDateTime end = Parser.parseDate(splitInput[4]);
+                    Event event = new Event(splitInput[2], start, end);
+                    event.changeStatus(isDone);
+                    taskList.addTask(event);
                     break;
                 }
             }
             return true;
         } catch (ArrayIndexOutOfBoundsException e) { // File formatted with wrong no. of " | " dividers for task types.
-            Duke.output("There seems to be a problem with reading in data from:\n      [" + FILE_LOCATION
+            Ui.output("There seems to be a problem with reading in data from:\n      [" + fileLocation
                     + "]\n\n     Proceeding will overwrite the current data file [Y/N]:");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
