@@ -1,8 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Duke {
     enum TaskType {
         TODO,
@@ -59,26 +54,6 @@ public class Duke {
     static class InvalidFileException extends RuntimeException {
         public InvalidFileException(String message) {
             super(message);
-        }
-    }
-
-    static class UI {
-        Model model;
-        boolean isExit = false;
-        InputHandler inputHandler;
-
-        public UI() {
-            this.model = new Model();
-            this.inputHandler = new InputHandler(model);
-        }
-
-        public void run() {
-            while (!isExit) {
-                inputHandler.handleInput();
-                isExit = inputHandler.isExit();
-            }
-
-            model.bye();
         }
     }
 
