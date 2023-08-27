@@ -118,6 +118,14 @@ Here are the tasks in your list:
 2.[D][ ] return book (by: Mon 02 Jan 2023 11:11)
 3.[E][ ] project meeting (from: Sat 01 Apr 2023 20:00 to: Sun 02 Apr 2023 23:00)
 [ERROR] I'm sorry, but I don't know what "asdfghjkl" means.
+Here are the 2 matching tasks in your list:
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Mon 02 Jan 2023 11:11)
+Here is the 1 matching task in your list:
+3.[E][ ] project meeting (from: Sat 01 Apr 2023 20:00 to: Sun 02 Apr 2023 23:00)
+There are no matching tasks in your list.
+[ERROR] Find command is missing a search term.
+[ERROR] I'm sorry, but I don't know what "find    " means.
 [ERROR] Please enter a valid task number. You entered: ""
 [ERROR] The task number is out of range. Use "list" to see your tasks.
 [ERROR] Please enter a valid task number. You entered: "2147483650"

@@ -153,6 +153,13 @@ public class Duke {
                         String.format(ERROR_MESSAGE_TEMPLATE_INVALID_TASK_NUMBER, argument));
             }
             break;
+        case FIND:
+            if (argument.isBlank()) {
+                throw new DukeIllegalArgumentException("Find command is missing a search term.");
+            } else {
+                Ui.printMessage(list.find(argument));
+            }
+            break;
         case INVALID:
             throw new DukeUnknownCommandException(String.format(
                     ERROR_MESSAGE_TEMPLATE_UNKNOWN_COMMAND, parsedCommand.getInvalidCommand()));

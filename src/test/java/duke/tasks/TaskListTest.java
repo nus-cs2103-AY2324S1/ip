@@ -200,4 +200,20 @@ public class TaskListTest {
                         + "\n3.[E][ ] event (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)",
                 taskList.toString());
     }
+
+    @Test
+    public void find_tasks_success() {
+        String fileName = "test_find.txt";
+        Storage storage = new Storage(fileName);
+        String data = "TODO || X || homework || || ||\n"
+                + "DEADLINE ||   || return book || 2023-08-25 23:59 || ||\n"
+                + "EVENT || X || booking ||  || 2023-08-26 23:59 || 2023-08-27 23:59\n";
+        storage.save(data);
+
+        TaskList taskList = new TaskList(fileName);
+        assertEquals("Here are the 2 matching tasks in your list:\n"
+                        + "2.[D][ ] return book (by: Fri 25 Aug 2023 23:59)\n"
+                        + "3.[E][X] booking (from: Sat 26 Aug 2023 23:59 to: Sun 27 Aug 2023 23:59)",
+                taskList.find("book"));
+    }
 }

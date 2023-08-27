@@ -62,6 +62,16 @@ public class Task {
     }
 
     /**
+     * Checks if the task description contains a keyword.
+     *
+     * @param keyword The keyword to be checked.
+     * @return True if the task description contains the keyword, false otherwise.
+     */
+    public boolean hasKeywordInDescription(String keyword) {
+        return description.contains(keyword);
+    }
+
+    /**
      * Exports the task to a String to be saved.
      *
      * @return String representation of the task to be saved.

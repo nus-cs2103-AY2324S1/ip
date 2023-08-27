@@ -212,6 +212,31 @@ public class TaskList {
     }
 
     /**
+     * Prints tasks that contain the keyword in the description.
+     *
+     * @param keyword The keyword to search for.
+     * @return The String representation of the tasks that contain the keyword in the description.
+     */
+    public String find(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        for (int i = 0; i < list.size(); i++) {
+            Task task = list.get(i);
+            if (task.hasKeywordInDescription(keyword)) {
+                count++;
+                sb.append("\n").append(i + 1).append(".").append(task);
+            }
+        }
+        if (count == 0) {
+            return "There are no matching tasks in your list.";
+        } else {
+            String isOrAre = count == 1 ? "is" : "are";
+            String taskOrTasks = count == 1 ? "task" : "tasks";
+            return String.format("Here %s the %d matching %s in your list:%s", isOrAre, count, taskOrTasks, sb);
+        }
+    }
+
+    /**
      * Returns the String representation of the TaskList.
      *
      * @return String representation of the TaskList.

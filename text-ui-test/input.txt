@@ -53,6 +53,11 @@ mark a
 unmark b
 list
 asdfghjkl
+find book
+find meeting
+find asdfghjkl
+find
+find    
 delete
 delete -1
 delete 2147483650
