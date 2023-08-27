@@ -1,6 +1,9 @@
 package main;
 
+import task.Deadline;
+import task.Event;
 import task.Task;
+import task.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,32 +28,33 @@ public class Dialogix {
             if (userInput.equalsIgnoreCase("list")) {
                 System.out.println("Bot: Here are the tasks in your list:");
                 for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + ". " + list.get(i).getStatusIcon() + " " + list.get(i).getDescription());
+                    System.out.println((i + 1) + ". " + list.get(i).toString());
                 }
-            } else if (userInput.startsWith("mark")) {
-                int index = Integer.parseInt(userInput.replaceFirst("mark\\s+", "")) - 1;
-                if (index >= 0 && index < list.size()) {
-                    list.get(index).markAsDone();
-                    System.out.println("Bot: Nice! I've marked this task as done:");
-                    System.out.println("  " + list.get(index).getStatusIcon() + " " + list.get(index).getDescription());
+            } else if (userInput.startsWith("todo")) {
+                String description = userInput.replaceFirst("todo\\s+", "");
+                list.add(new Todo(description));
+                System.out.println("Bot: Got it. I've added this task:\n  " + list.get(list.size() - 1).toString());
+            } else if (userInput.startsWith("deadline")) {
+                String[] parts = userInput.replaceFirst("deadline\\s+", "").split(" /by ");
+                if (parts.length == 2) {
+                    list.add(new Deadline(parts[0], parts[1]));
+                    System.out.println("Bot: Got it. I've added this task:\n  " + list.get(list.size() - 1).toString());
                 } else {
-                    System.out.println("Bot: Invalid task index.");
+                    System.out.println("Bot: Invalid input format for 'deadline'.");
                 }
-            } else if (userInput.startsWith("unmark")) {
-                int index = Integer.parseInt(userInput.replaceFirst("unmark\\s+", "")) - 1;
-                if (index >= 0 && index < list.size()) {
-                    list.get(index).markAsNotDone();
-                    System.out.println("Bot: OK, I've marked this task as not done yet:");
-                    System.out.println("  " + list.get(index).getStatusIcon() + " " + list.get(index).getDescription());
+            } else if (userInput.startsWith("event")) {
+                String[] parts = userInput.replaceFirst("event\\s+", "").split(" /from | /to ");
+                if (parts.length == 3) {
+                    list.add(new Event(parts[0], parts[1], parts[2]));
+                    System.out.println("Bot: Got it. I've added this task:\n  " + list.get(list.size() - 1).toString());
                 } else {
-                    System.out.println("Bot: Invalid task index.");
+                    System.out.println("Bot: Invalid input format for 'event'.");
                 }
             } else if (userInput.equalsIgnoreCase("bye")) {
                 System.out.println("Bot: Bye. Hope to see you again soon!");
                 continueDialog = false;
             } else {
-                list.add(new Task(userInput));
-                System.out.println("Bot: I have added task '" + userInput + "' to the database.");
+                System.out.println("Bot: I'm sorry, I don't understand that command.");
             }
         }
 
