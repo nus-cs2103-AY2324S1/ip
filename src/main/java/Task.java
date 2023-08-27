@@ -32,4 +32,10 @@ public class Task {
         return "[" + this.getType() + "]" + "[" + this.getStatus() + "]" + this.getName();
     }
 
+    public String getDeadline() {return null;}
+
+    public String getStartDate() {return null;}
+
+    public String getEndDate() {return null;}
+
 }

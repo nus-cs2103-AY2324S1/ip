@@ -1,5 +1,13 @@
+
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+
+
+
 
 public class Duke {
     static boolean exited = false;
@@ -14,14 +22,77 @@ public class Duke {
 //        System.out.println(input);
 //    }
 
-    public static void add(Task t) {
+    public static void readFile() {
+        try {
+            File eddieTaskList = new File("EddieTaskList.txt");
+            Scanner sc = new Scanner(eddieTaskList);
+            while (sc.hasNextLine()) {
+                String t = sc.nextLine();
+                String[] task = new String[5];
+                task = t.split(" , ");
+
+                if(task[0].equals("T")) {
+                    //System.out.println(task[2]);
+                    Todo todo = new Todo(task[2]);
+                    if (task[1].equals("x")) {
+                        todo.taskIsDone();
+                    }
+
+                    tasks.add(todo);
+                } if (task[0].equals("D")) {
+                    Deadline deadline = new Deadline(task[2], task[3]);
+//                    System.out.println(task[1]);
+                    if (task[1].equals("x")){
+                        deadline.taskIsDone();
+                    }
+                    tasks.add(deadline);
+                } if (task[0].equals("E")) {
+                    Event event = new Event(task[2], task[3], task[4]);
+
+                    if (task[1].equals("x")) {
+                        event.taskIsDone();
+                    }
+
+                    tasks.add(event);
+                }
+            }
+
+            sc.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+
+    public static void add(Task t){
         String taskName = t.getName();
         tasks.add(t);
         System.out.println("Got it. I've added this task:\n "
                 + t.toString() + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.");
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
 
+    }
+
+    public static void writeToFile () throws IOException {
+        FileWriter eddieTaskList = new FileWriter("EddieTaskList.txt");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+
+            if (t.getType() == "T") {
+                eddieTaskList.write("T , " + t.getStatus() + " , " + t.getName() + " , \n");
+            } else if (t.getType() == "D") {
+                eddieTaskList.write("D , " + t.getStatus() + " , " + t.getName() + " , " + t.getDeadline() + " , \n");
+            } else if (t.getType() == "E") {
+                eddieTaskList.write("E , " + t.getStatus() + " , " + t.getName() + " , " + t.getStartDate() + " , "
+                + t.getEndDate() + " , \n");
+            }
+        }
+        eddieTaskList.close();
     }
 
     public static void list() {
@@ -39,6 +110,12 @@ public class Duke {
         System.out.println("Noted. I've removed this task: \n" +
                 t.toString() + "\n" +
                 "Now you have " + tasks.size() + " tasks in the list.");
+
+        try {
+            writeToFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void execute() throws DukeException {
@@ -56,10 +133,21 @@ public class Duke {
                 int taskNum = sc.nextInt();
                 Task task = tasks.get(taskNum - 1);
                 task.taskIsDone();
+                try {
+                    writeToFile();
+                } catch (IOException e) {
+                    System.out.println("Cannot write to file (mark)");
+                }
             } else if (command.equals("unmark")) {
                 int taskNum = sc.nextInt();
                 Task task = tasks.get(taskNum - 1);
+                task.taskNotDone();
 
+                try {
+                    writeToFile();
+                } catch (IOException e) {
+                    System.out.println("Cannot write to file (unmark)");
+                }
             } else if (command.equals("delete")) {
                 int index = sc.nextInt();
                 delete(index);
@@ -122,6 +210,8 @@ public class Duke {
     public static void main(String[] args) {
 
         tasks.clear();
+        readFile();
+
 
         String welcome = "Hello! I'm Eddie\n" +
                 "What can I do for you?";
