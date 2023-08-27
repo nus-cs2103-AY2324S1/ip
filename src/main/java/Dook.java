@@ -5,7 +5,7 @@ import java.util.jar.Attributes;
 
 public class Dook {
     public static final String name = "Dook";
-    public static final String FILEPATH = "../../../data/dook.txt";
+    public static final String FILEPATH = "./data/dook.txt";
     private Storage storage;
     private Parser parser;
     private UiDisplay uiDisplay = new UiDisplay();
@@ -15,6 +15,7 @@ public class Dook {
         mark("Marks selected task as done."), unmark("Marks selected task as undone."),
         todo("Adds a task."), deadline("Adds a task with a deadline."),
         event("Adds a task with a start and end time."), delete("Deletes selected task from list."),
+        save("Saves the current task list to a file"),
         invalid("You entered an invalid command.");
 
         private final String desc;
@@ -57,8 +58,12 @@ public class Dook {
             try {
                 switch (command) {
                     case bye:
+                        storage.save(taskList);
                         uiDisplay.bidFarewell();
                         return;
+                    case save:
+                        uiDisplay.printMessage(storage.save(taskList));
+                        break;
                     case list:
                         displayList();
                         break;
@@ -95,6 +100,9 @@ public class Dook {
             taskList = new TaskList(storage.load());
         } catch (FileNotFoundException e) {
             uiDisplay.printMessage("Failed to load file from text.");
+            taskList = new TaskList(new ArrayList<>());
+        } catch (DookException d) {
+            uiDisplay.printMessage(d.getMessage());
             taskList = new TaskList(new ArrayList<>());
         }
     }

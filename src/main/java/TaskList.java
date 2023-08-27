@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private ArrayList<Task> taskList;
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
@@ -39,6 +39,14 @@ public class TaskList {
         String message = String.format("I have marked this task as %s:\n   %s",
                 value ? "done" : "not done yet", curr);
         return message;
+    }
+
+    public String getSaveableString() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < taskList.size(); i++) {
+            result.append(taskList.get(i).getSaveableString() + "\n");
+        }
+        return result.toString();
     }
     @Override public String toString() {
         StringBuilder result = new StringBuilder();

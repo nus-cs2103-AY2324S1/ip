@@ -11,6 +11,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public String getSaveableString() {
+        return String.format("T//%s//%s", getStatusIcon(), description);
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
