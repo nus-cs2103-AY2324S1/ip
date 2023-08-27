@@ -1,3 +1,4 @@
+import java.time.Instant;
 
 /**
  * The read only instance for a single message.
@@ -16,7 +17,7 @@ public class ChatMessage {
     private String message;
 
     ChatMessage(SenderType senderType, String message) {
-        this.timestamp = System.currentTimeMillis();
+        this.timestamp = Instant.now().getEpochSecond();
         this.senderType = senderType;
         this.message = message;
     }
