@@ -1,8 +1,8 @@
-package commands;
+package shiba.commands;
 
-import exceptions.ShibaException;
-import tasks.TaskList;
-import tasks.TodoTask;
+import shiba.exceptions.ShibaException;
+import shiba.tasks.TaskList;
+import shiba.tasks.TodoTask;
 
 public class TodoCommand extends ShibaCommand {
     private final String fullCmd;

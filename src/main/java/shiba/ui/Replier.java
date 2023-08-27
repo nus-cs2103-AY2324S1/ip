@@ -1,6 +1,6 @@
-package ui;
+package shiba.ui;
 
-import exceptions.ShibaException;
+import shiba.exceptions.ShibaException;
 
 public class Replier {
     private static final String HORZ_LINE = "____________________________________________________________";

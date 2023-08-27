@@ -1,7 +1,7 @@
-package commands;
+package shiba.commands;
 
-import tasks.TaskList;
-import ui.Replier;
+import shiba.tasks.TaskList;
+import shiba.ui.Replier;
 
 public class ListCommand extends ShibaCommand {
     /**

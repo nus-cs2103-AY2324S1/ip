@@ -1,8 +1,8 @@
-package commands;
+package shiba.commands;
 
-import exceptions.ShibaException;
-import tasks.DeadlineTask;
-import tasks.TaskList;
+import shiba.exceptions.ShibaException;
+import shiba.tasks.DeadlineTask;
+import shiba.tasks.TaskList;
 
 public class DeadlineCommand extends ShibaCommand {
     private final String fullCmd;

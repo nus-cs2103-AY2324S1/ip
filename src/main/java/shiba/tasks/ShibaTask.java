@@ -1,6 +1,6 @@
-package tasks;
+package shiba.tasks;
 
-import exceptions.InvalidCommandException;
+import shiba.exceptions.InvalidCommandException;
 
 import java.util.List;
 

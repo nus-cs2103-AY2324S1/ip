@@ -1,20 +1,20 @@
-package commands;
+package shiba.commands;
 
-import exceptions.ShibaException;
-import tasks.ShibaTask;
-import tasks.TaskList;
-import ui.Replier;
+import shiba.exceptions.ShibaException;
+import shiba.tasks.ShibaTask;
+import shiba.tasks.TaskList;
+import shiba.ui.Replier;
 
-public class MarkCommand extends ShibaCommand {
+public class UnmarkCommand extends ShibaCommand {
     private final String[] params;
 
     /**
-     * Constructor for MarkCommand, which marks a task as done
+     * Constructor for UnmarkCommand, which marks a task as not done
      *
      * @param tasks Current state of task list
      * @param cmd Full command string
      */
-    public MarkCommand(TaskList tasks, String cmd) {
+    public UnmarkCommand(TaskList tasks, String cmd) {
         super(tasks);
         params = cmd.split(" ");
     }
@@ -24,12 +24,12 @@ public class MarkCommand extends ShibaCommand {
         int taskNumber = checkTaskNumber(params);
 
         ShibaTask task = tasks.get(taskNumber - 1);
-        boolean res = task.markDone();
+        boolean res = task.markNotDone();
         Replier.printHorizontalLine();
         if (res) {
-            Replier.printWithLevel2Indent("Woof! I've marked this task as done:");
+            Replier.printWithLevel2Indent("Woof! I've marked this task as not done yet:");
         } else {
-            Replier.printWithLevel2Indent("Woof! This task is already done!");
+            Replier.printWithLevel2Indent("Woof! You have not done this task yet!");
         }
         Replier.printWithLevel3Indent(task.toString());
         Replier.printHorizontalLine();

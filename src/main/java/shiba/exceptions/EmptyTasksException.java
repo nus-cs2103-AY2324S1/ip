@@ -1,4 +1,4 @@
-package exceptions;
+package shiba.exceptions;
 
 public class EmptyTasksException extends ShibaException {
     public EmptyTasksException() {

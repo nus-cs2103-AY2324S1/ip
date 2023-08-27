@@ -1,9 +1,9 @@
-package commands;
+package shiba.commands;
 
-import exceptions.ShibaException;
-import tasks.ShibaTask;
-import tasks.TaskList;
-import ui.Replier;
+import shiba.exceptions.ShibaException;
+import shiba.tasks.ShibaTask;
+import shiba.tasks.TaskList;
+import shiba.ui.Replier;
 
 public class DeleteCommand extends ShibaCommand {
     private final String[] params;

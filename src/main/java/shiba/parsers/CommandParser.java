@@ -1,9 +1,9 @@
-package parsers;
+package shiba.parsers;
 
-import commands.*;
-import exceptions.ShibaException;
-import tasks.*;
-import ui.Replier;
+import shiba.commands.*;
+import shiba.exceptions.ShibaException;
+import shiba.tasks.*;
+import shiba.ui.Replier;
 
 import java.util.Scanner;
 

@@ -1,6 +1,8 @@
-import parsers.CommandParser;
-import tasks.*;
-import ui.Replier;
+package shiba;
+
+import shiba.parsers.CommandParser;
+import shiba.tasks.*;
+import shiba.ui.Replier;
 
 public class Shiba {
     private final String name;
