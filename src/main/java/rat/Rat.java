@@ -13,7 +13,7 @@ import rat.storage.RatStorage;
  * Rat is a chatbot that helps the user keep track of their tasks.
  *
  * @author Keagan
- * @version Week-2
+ * @version Week-3
  */
 public class Rat {
 
@@ -51,7 +51,7 @@ public class Rat {
 
     /**
      * The main method of Rat.
-     * @param args The command line arguments.
+     * @param args The rat.command line arguments.
      */
     public static void main(String[] args) {
         Rat.initialise();

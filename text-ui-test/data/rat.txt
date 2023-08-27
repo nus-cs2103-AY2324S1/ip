@@ -1,3 +1,1 @@
-D, 0, Java Quiz, 21 Aug
-E, 0, class, 10am, 12pm
 T, 0, nonsense

@@ -2,9 +2,9 @@ help
 list
 todo CS2100 Tutorial
 list
-deadline Java Quiz /by 21 Aug
+deadline Java Quiz /by 27/09/2023 23:59
 list
-event class /from 10am /to 12pm
+event class /from 28/09/2023 10:00 /to 28/09/2023 12:00
 list
 mark 1
 list
