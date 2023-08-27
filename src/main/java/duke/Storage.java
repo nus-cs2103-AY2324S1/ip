@@ -7,15 +7,18 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Storage {
-  public Storage() {}
 
-  private final String SAVE_DATA_PATH = "./data/Duke.txt";
+  private String filePath;
+
+  public Storage(String filePath) {
+    this.filePath =filePath;
+  }
 
   private TimeParser parser = new TimeParser();
 
   public void saveFile(TaskList tasks) {
     try {
-      FileWriter fw = new FileWriter(SAVE_DATA_PATH);
+      FileWriter fw = new FileWriter(filePath);
       for (Task task : tasks.getTaskList()) {
         fw.write(task.saveData() + "\n");
       }
@@ -28,7 +31,7 @@ public class Storage {
   public LinkedList<Task> loadFile() {
     try {
       LinkedList<Task> tasks = new LinkedList<>();
-      File f = new File(SAVE_DATA_PATH);
+      File f = new File(filePath);
       Scanner scanner = new Scanner(f);
       while (scanner.hasNext()) {
         String s = scanner.nextLine();
