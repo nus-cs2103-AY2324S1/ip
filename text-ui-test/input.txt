@@ -1,11 +1,27 @@
-todo borrow book
 list
-deadline return book /by Sunday
+todo sleep
 list
-event project meeting /from Mon 2pm /to 4pm
+deadline project
+deadline project /by Sunday
+deadline project /by 2023-12-12
+list
+event finals
+event finals /from 2023-10-10
+event finals /from 2023-50-50 /to 2023-50-50
+event finals /from 2023-10-10 /to 2023-11-11
 list
 mark 2
 list
+mark 3
+list
 unmark 2
+list
+delete 2
+list
+delete 2
+list
+delete 1
+list
+deadline submit assignment /by 2023-11-11
 list
 bye

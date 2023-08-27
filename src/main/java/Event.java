@@ -7,14 +7,10 @@ public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
-    public Event(String description, String from, String to) throws DukeException {
+    public Event(String description, String from, String to) throws DateTimeParseException {
         super(description);
-        try {
-            this.from = LocalDate.parse(from);
-            this.to = LocalDate.parse(to);
-        } catch (DateTimeParseException e) {
-            throw new DukeException("☹ OOPS!!! Invalid date format. Please type dates in the format yyyy-mm-dd");
-        }
+        this.from = LocalDate.parse(from);
+        this.to = LocalDate.parse(to);
     }
 
     @Override
