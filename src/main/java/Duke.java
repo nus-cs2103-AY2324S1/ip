@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static final ToDoList list = new ToDoList();
+    private static ToDoList list;
     private static void greet() {
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
         System.out.println("Hello! I'm Bot");
@@ -62,8 +62,9 @@ public class Duke {
         return true;
     }
     public static void main(String[] args) {
-        Duke.greet();
         Scanner scanner = new Scanner(System.in);
+        list = new ToDoList("./data/duke.txt");
+        Duke.greet();
         while (true) {
             try {
                 String input = scanner.nextLine();
@@ -76,5 +77,6 @@ public class Duke {
                 System.out.println("–––––––––––––––––––––––––––––––––––––––––");
             }
         }
+        scanner.close();
     }
 }

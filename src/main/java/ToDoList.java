@@ -1,12 +1,32 @@
+import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ToDoList {
     private ArrayList<Task> list;
+    private Storage storage;
 
-    public ToDoList() {
+    public ToDoList(String filePath) {
         this.list = new ArrayList<>();
+        this.storage = new Storage(filePath);
+        fetchList();
     }
 
+    public void fetchList() {
+        try {
+            this.list = this.storage.fetchTasks();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error when fetching to-do list: " + e.getMessage());
+        }
+    }
+
+    public void saveToFile() {
+        try {
+            storage.saveToFile(list);
+        } catch (IOException e) {
+            System.out.println("Error while saving to-do list: " + e.getMessage());
+        }
+    }
     public void addTask(Task task) {
         this.list.add(task);
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
@@ -14,6 +34,7 @@ public class ToDoList {
         System.out.println(task.toString());
         System.out.println("Now you have " + this.list.size() + " tasks in the list.");
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
+        saveToFile();
     }
 
     public void listTasks() {
@@ -32,6 +53,7 @@ public class ToDoList {
         System.out.println("Nice! I've marked this task as done:");
         System.out.println(task);
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
+        saveToFile();
     }
 
     public void delete(int taskNum) {
@@ -42,5 +64,6 @@ public class ToDoList {
         System.out.println(task);
         System.out.println("Now you have " + this.list.size() + " tasks in the list.");
         System.out.println("–––––––––––––––––––––––––––––––––––––––––");
+        saveToFile();
     }
 }
