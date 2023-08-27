@@ -3,6 +3,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Duke {
     public static String PATH = "./data/duke.txt";
     public static void greet(){
@@ -97,7 +100,9 @@ public class Duke {
                 if (parts.length == 2) {
                     String description = parts[0].replace("deadline", "").trim(); // Remove "deadline"
                     String deadline = parts[1].trim();
-                    Task task = new Deadline(description, deadline);
+                    LocalDate d1 = LocalDate.parse(deadline);
+                    String formattedDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    Task task = new Deadline(description, formattedDate);
                     ls.add(task);
                     int size = ls.size();
                     printAddTask(task.toString(), size);
