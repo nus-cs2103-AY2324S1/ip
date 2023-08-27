@@ -1,12 +1,15 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task{
     /**
      * The start time of the event.
      */
-    protected String from;
+    protected LocalDateTime from;
     /**
      * The end time of the event.
      */
-    protected String to;
+    protected LocalDateTime to;
     /**
      * The type of the task.
      */
@@ -18,7 +21,18 @@ public class Event extends Task{
      * @param to          The end time of the event.
      */
 
-    public Event (String description, String from, String to) {
+    public Event (String description, String from, String to) throws DukeException {
+        super(description, "E");
+        try {
+            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new DukeException("Please enter a valid date and time in the format d/M/yyyy HHmm");
+        }
+    }
+
+    public Event (String description, LocalDateTime from, LocalDateTime to) {
         super(description, "E");
         this.from = from;
         this.to = to;
@@ -36,6 +50,9 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[" + this.type + "]" + super.toString() + " (from: " + from + " to: " + to + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        String formattedFrom = from.format(formatter);
+        String formattedTo = to.format(formatter);
+        return "[" + this.type + "]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 }

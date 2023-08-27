@@ -1,9 +1,11 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
     /**
      * The deadline of the task.
      */
-    protected String by;
+    protected LocalDateTime by;
     /**
      * The type of the task.
      */
@@ -15,18 +17,19 @@ public class Deadline extends Task {
      * @param by          The deadline of the task.
      */
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DukeException {
+        super(description, "D");
+        try {
+            this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new DukeException("Please enter a valid date and time in the format dd/MM/yyyy HHmm");
+        }
+    }
+
+    public Deadline (String description, LocalDateTime by) {
         super(description, "D");
         this.by = by;
-    }
-    /**
-     * Returns the deadline of the task.
-     *
-     * @return The deadline of the task.
-     */
-
-    public String getBy() {
-        return by;
     }
 
     @Override
@@ -41,6 +44,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[" + this.type + "]" + super.toString() + " (by: " + getBy() + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        String formattedBy = by.format(formatter);
+        return "[" + type + "]" + super.toString() + " (by: " + formattedBy + ")";
     }
 }

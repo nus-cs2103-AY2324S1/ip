@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
     protected String type;
 
@@ -51,7 +54,7 @@ public abstract class Task {
 
     public abstract String toFileString() ;
 
-    public static Task fromFileString(String fileString) {
+    public static Task fromFileString(String fileString) throws DukeException{
         String[] split = fileString.split(" \\| ");
         String type = split[0];
         boolean isDone = split[1].equals("1");
@@ -62,10 +65,16 @@ public abstract class Task {
             task = new Todo (description);
             break;
         case "D":
-            task = new Deadline(description, split[3]);
+            String by = split[3];
+            LocalDateTime dateTime = LocalDateTime.parse(by,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            task = new Deadline(description, dateTime);
             break;
         case "E":
-            task = new Event(description, split[3], split[4]);
+            String from = split[3];
+            String to = split[4];
+            LocalDateTime fromDateTime = LocalDateTime.parse(from,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            LocalDateTime toDateTime = LocalDateTime.parse(to,DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            task = new Event(description, fromDateTime, toDateTime);
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + type);
