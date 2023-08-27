@@ -12,6 +12,11 @@ public class Deadline extends Task{
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
 
+    @Override
+    public String toSaveStateString() {
+        return "";
+    }
+
     public static String[] processInput(String[] splitInput) throws InvalidTaskException {
         splitInput = Task.processInput(splitInput);
         if (splitInput.length < 2) {

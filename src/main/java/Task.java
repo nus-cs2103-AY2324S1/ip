@@ -36,6 +36,8 @@ public abstract class Task {
         }
     }
 
+    public abstract String toSaveStateString();
+
     public static String[] processInput(String[] splitInput) throws InvalidTaskException {
         String joined = String.join(" ", Arrays.copyOfRange(splitInput, 1, splitInput.length));
         return joined.split(" /");
