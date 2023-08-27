@@ -29,17 +29,6 @@ public class Duchess {
         Duchess.duchessPrint("I am ~~Duchess~~!!");
         Duchess.duchessPrint("What can I do for you!! o_O");
     }
-
-    /**
-     * Returns true if the command would cause Duchess to exit operations.
-     *
-     * @param s - the command to check for exit operations
-     * @return    whether the command is an exit command.
-     */
-    private static boolean isExitCommand(String s) {
-        return Utility.matchesRegex(s, "^bye$", true) || Utility.matchesRegex(s, "^exit$", true);
-    }
-
     /**
      * Prints farewell/exit message.
      */
@@ -56,17 +45,6 @@ public class Duchess {
         Duchess.duchessPrint(s);
     }
 
-
-    /**
-     * Returns true if the command is recognized as a "list text" command.
-     *
-     * @param s - the command to check for "list text" command.
-     * @return    whether the command is a list tasks command.
-     */
-    private static boolean isListTasksCommand(String s) {
-        return Utility.matchesRegex(s, "^list$");
-    }
-
     /**
      * Prints all stored text.
      *
@@ -78,33 +56,6 @@ public class Duchess {
             Duchess.duchessPrint(String.format("%d: %s", i + 1, Duchess.storedTasks.get(i).toString()));
         }
     }
-
-    /**
-     * Returns true if the command is recognized as a "mark task" command.
-     *
-     * @param s - the command to check for "mark task" command.
-     * @return    whether the command is a mark task command.
-     */
-    private static boolean isMarkTaskCommand(String s) {
-        return Utility.matchesRegex(s, "^mark");
-    }
-
-    /**
-     * Parses a mark task command, returning the index of the task to be marked.
-     *
-     * @param s - the command to parse for "mark task" command.
-     * @return    an integer describing the index of the task to be marked.
-     */
-    private static int parseMarkTaskCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^mark( [0-9]+)?$");
-
-        if (m.group(1) == null) {
-            throw new DuchessException("(´；ω；`) Sorry, I don't know which task to mark... ;-;");
-        }
-
-        return Integer.parseInt(m.group(1).trim());
-    }
-
     /**
      * Marks a task.
      *
@@ -120,32 +71,6 @@ public class Duchess {
         Duchess.storedTasks.get(index).changeStatus(TaskStatus.MARKED);
         Duchess.duchessPrint("Task has been marked!! (＾▽＾)");
         duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.get(index).toString()));
-    }
-
-    /**
-     * Returns true if the command is recognized as an "unmark task" command.
-     *
-     * @param s - the command to check for "unmark task" command.
-     * @return    whether the command is an unmark task command.
-     */
-    private static boolean isUnmarkTaskCommand(String s) {
-        return Utility.matchesRegex(s, "^unmark");
-    }
-
-    /**
-     * Parses an unmark task command, returning the index of the task to be unmarked.
-     *
-     * @param s - the command to parse for "unmark task" command.
-     * @return    an integer describing the index of the task to be unmarked.
-     */
-    private static int parseUnmarkTaskCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^unmark( [0-9]+)?$");
-
-        if (m.group(1) == null) {
-            throw new DuchessException("(´；ω；`) Sorry, I don't know which task to unmark... ;-;");
-        }
-
-        return Integer.parseInt(m.group(1).trim());
     }
 
     /**
@@ -165,33 +90,6 @@ public class Duchess {
     }
 
     /**
-     * Returns true if the command is recognized as an "delete task" command.
-     *
-     *
-     * @param s - the command to check for "delete task" command.
-     * @return    whether the command is an delete task command.
-     */
-    private static boolean isDeleteTaskCommand(String s) {
-        return Utility.matchesRegex(s, "^delete");
-    }
-
-    /**
-     * Parses a delete task command, returning the index of the task to be deleted.
-     *
-     * @param s - the command to parse for "delete task" command.
-     * @return    an integer describing the index of the task to be deleted.
-     */
-    private static int parseDeleteTaskCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^delete( [0-9]+)?$");
-
-        if (m.group(1) == null) {
-            throw new DuchessException("(´；ω；`) Sorry, I don't know which task to delete... ;-;");
-        }
-
-        return Integer.parseInt(m.group(1).trim());
-    }
-
-    /**
      * Unmarks a task.
      *
      * @param i - the index of the task to be unmarked.
@@ -207,94 +105,6 @@ public class Duchess {
         duchessPrint(String.format("%d: %s", index + 1, task.toString()));
         Duchess.duchessPrint("");
         Duchess.duchessPrint(String.format("Now you have %d task(s)!! ヽ(´▽`)/", Duchess.storedTasks.size()));
-    }
-
-    /**
-     * Returns true if the command is recognized as a "todo" command.
-     *
-     * @param s - the command to check for "todo" command.
-     * @return    whether the command is recognized as a ToDo command.
-     */
-    private static boolean isToDoCommand(String s) {
-        return Utility.matchesRegex(s, "^todo");
-    }
-
-    /**
-     * Parses a ToDo command, returning a ToDo task that was parsed from the command.
-     *
-     * @param s - the command to parse for "todo" command.
-     * @return    the ToDo task.
-     */
-    private static ToDo parseToDoCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^todo( [A-Za-z0-9 ]+)?$");
-
-        if (m.group(1) == null) {
-            throw new DuchessException("(´；ω；`) Sorry, todo names cannot be empty... ;-;");
-        }
-
-        return new ToDo(m.group(1).trim());
-    }
-
-    /**
-     * Returns true if the command is recognized as an "deadline" command.
-     *
-     * @param s - the command to check for "deadline" command.
-     * @return    whether the command is recognized as a Deadline command.
-     */
-    private static boolean isDeadlineCommand(String s) {
-        // This mmatches the start of a string, then the word "deadline", then anything afterwards.
-        return Utility.parseRegex(s, "^deadline").find(0);
-    }
-
-    /**
-     * Parses a deadline command, returning the deadline object parsed from the command.
-     *
-     * @param s - the command to parse for "deadline" command.
-     * @return    the Deadline task.
-     */
-    private static Deadline parseDeadlineCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^deadline( [A-Za-z0-9 ]+)?( /by ([0-9\\-]+)?)?$");
-
-        if (m.group(1) == null) {
-            throw new DuchessException("(´；ω；`) Sorry, deadline names cannot be empty... ;-;");
-        }
-        if (m.group(2) == null || m.group(3) == null) {
-            throw new DuchessException("(´；ω；`) Sorry, deadlines must have a deadline... ;-;");
-        }
-
-        return new Deadline(m.group(1).trim(), m.group(3).trim());
-    }
-
-    /**
-     * Returns true if the command is recognized as an "event" command.
-     *
-     * @param s - the command to check for "event" command.
-     * @return    whether the command is recognized as an "event" command.
-     */
-    private static boolean isEventCommand(String s) {
-        return Utility.matchesRegex(s, "^event");
-    }
-
-    /**
-     * Parses a event command, returning the event object parsed from the command.
-     *
-     * @param s - the command to parse for "event" command.
-     * @return    the Event task.
-     */
-    private static Event parseEventCommand(String s) throws DuchessException {
-        Matcher m = Utility.parseRegex(s, "^event( [A-Za-z0-9 ]+)?( /from( [A-Za-z0-9 ]+)?)?( /to( [A-Za-z0-9 ]+)?)?$");
-
-        if (m.group(1) == null) {
-            throw new DuchessException("(´；ω；`) Sorry, event names cannot be empty... ;-;");
-        }
-        if (m.group(2) == null || m.group(3) == null) {
-            throw new DuchessException("(´；ω；`) Sorry, events must have a start time... ;-;");
-        }
-        if (m.group(4) == null || m.group(5) == null) {
-            throw new DuchessException("(´；ω；`) Sorry, events must have an end time... ;-;");
-        }
-
-        return new Event(m.group(1).trim(), m.group(3).trim(), m.group(5).trim());
     }
 
     /**
@@ -325,27 +135,27 @@ public class Duchess {
         Scanner sc = new Scanner(System.in);
         String userInput = "";
 
-        while (!Duchess.isExitCommand(userInput)) {
+        while (!Parser.isExitCommand(userInput)) {
             System.out.println();
             System.out.print("$>  ");
             userInput = sc.nextLine().trim();
             System.out.println();
 
             // Check if this command is an exit.
-            if (Duchess.isExitCommand(userInput)) {
+            if (Parser.isExitCommand(userInput)) {
                 break;
             }
 
             // Check if this command is a list.
-            if (Duchess.isListTasksCommand(userInput)) {
+            if (Parser.isListTasksCommand(userInput)) {
                 Duchess.listTasks();
                 continue;
             }
 
             // Check if this command is a mark task command.
-            if (Duchess.isMarkTaskCommand(userInput)) {
+            if (Parser.isMarkTaskCommand(userInput)) {
                 try {
-                    int index = Duchess.parseMarkTaskCommand(userInput);
+                    int index = Parser.parseMarkTaskCommand(userInput);
                     index -= 1; // 1-indexing for user-facing side
                     Duchess.markTask(index);
                 }
@@ -358,9 +168,9 @@ public class Duchess {
             }
 
             // Check if this command is an unmarked task command.
-            if (Duchess.isUnmarkTaskCommand(userInput)) {
+            if (Parser.isUnmarkTaskCommand(userInput)) {
                 try {
-                    int index = Duchess.parseUnmarkTaskCommand(userInput);
+                    int index = Parser.parseUnmarkTaskCommand(userInput);
                     index -= 1; // 1-indexing for user-facing side
                     Duchess.unmarkTask(index);
                 }
@@ -373,9 +183,9 @@ public class Duchess {
             }
 
             // Check if this command is an unmarked task command.
-            if (Duchess.isDeleteTaskCommand(userInput)) {
+            if (Parser.isDeleteTaskCommand(userInput)) {
                 try {
-                    int index = Duchess.parseDeleteTaskCommand(userInput);
+                    int index = Parser.parseDeleteTaskCommand(userInput);
                     index -= 1; // 1-indexing for user-facing side
                     Duchess.deleteTask(index);
                 }
@@ -388,9 +198,9 @@ public class Duchess {
             }
 
             // Check if this command is a ToDo command.
-            if (Duchess.isToDoCommand(userInput)) {
+            if (Parser.isToDoCommand(userInput)) {
                 try {
-                    ToDo todo = Duchess.parseToDoCommand(userInput);
+                    ToDo todo = Parser.parseToDoCommand(userInput);
                     Duchess.addTask(todo);
                 }
                 catch (DuchessException e) {
@@ -402,9 +212,9 @@ public class Duchess {
             }
 
             // Check if this command is a Deadline command.
-            if (Duchess.isDeadlineCommand(userInput)) {
+            if (Parser.isDeadlineCommand(userInput)) {
                 try {
-                    Deadline deadline = Duchess.parseDeadlineCommand(userInput);
+                    Deadline deadline = Parser.parseDeadlineCommand(userInput);
                     Duchess.addTask(deadline);
                 }
                 catch(DuchessException e) {                    
@@ -416,9 +226,9 @@ public class Duchess {
             }
 
             // Check if this command is a Event command.
-            if (Duchess.isEventCommand(userInput)) {
+            if (Parser.isEventCommand(userInput)) {
                 try {
-                    Event event = Duchess.parseEventCommand(userInput);
+                    Event event = Parser.parseEventCommand(userInput);
                     Duchess.addTask(event);
                 }
                 catch(DuchessException e) {
