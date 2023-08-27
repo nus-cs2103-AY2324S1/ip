@@ -1,4 +1,8 @@
+import java.time.LocalDate;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     private static ToDoList list;
@@ -42,12 +46,23 @@ public class Duke {
                 break;
             case "deadline":
                 String[] subParts = details.split(" /by ", 2);
-                Duke.list.addTask(new Deadline(subParts[0], subParts[1]));
+                try {
+                    LocalDateTime dateTime = formatDateTime(subParts[1]);
+                    Duke.list.addTask(new Deadline(subParts[0], dateTime));
+                } catch (DateTimeParseException e) {
+                    throw new DukeException("Check the date time format again!");
+                }
                 break;
             case "event":
                 String[] taskPart = details.split(" /from ", 2);
                 String[] timePart = taskPart[1].split(" /to ", 2);
-                Duke.list.addTask(new Event(taskPart[0], timePart[0], timePart[1]));
+                try {
+                    LocalDateTime from = formatDateTime(timePart[0]);
+                    LocalDateTime to = formatDateTime(timePart[1]);
+                    Duke.list.addTask(new Event(taskPart[0], from, to));
+                } catch (DateTimeParseException e) {
+                    throw new DukeException("Oh no! Check the date time format again!");
+                }
                 break;
             case "delete":
                 try {
@@ -61,6 +76,11 @@ public class Duke {
         }
         return true;
     }
+
+    private static LocalDateTime formatDateTime(String input) throws DateTimeParseException {
+        return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         list = new ToDoList("./data/duke.txt");
