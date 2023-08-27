@@ -11,11 +11,17 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Dot {
-    private static final String DATA_FILE_PATHNAME = "src/main/java/data/dot.txt";
-    private static final TaskList dotTaskList = TaskList.taskListFromArrayList(100,
-            Storage.getTasks(new File(DATA_FILE_PATHNAME)));
+    private final String dataFilePathname;
+    private final TaskList dotTaskList;
 
-    public static void main(String[] args) {
+    public Dot(String dataFilePathname, int maxSize) {
+        this.dataFilePathname = dataFilePathname;
+        this.dotTaskList = TaskList.taskListFromArrayList(maxSize,
+                Storage.getTasks(new File(dataFilePathname)));
+    }
+
+    // Inspired by tutorial sheet
+    public void run() {
         Ui.welcome();
         Scanner sc = new Scanner(System.in);
 
@@ -45,7 +51,7 @@ public class Dot {
                             if (substrings.length == 2) {
                                 int position = Integer.parseInt(substrings[1]);
                                 dotTaskList.markTask(position - 1, true);
-                                dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
+                                dotTaskList.saveTaskListToStorage(new File(this.dataFilePathname));
                             } else if (substrings.length == 1) {
                                 throw new DotException("No task number stated", TaskError.ERR_USING_MARK);
                             } else {
@@ -57,7 +63,7 @@ public class Dot {
                             if (substrings.length == 2) {
                                 int position = Integer.parseInt(substrings[1]);
                                 dotTaskList.markTask(position - 1, false);
-                                dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
+                                dotTaskList.saveTaskListToStorage(new File(this.dataFilePathname));
                             } else if (substrings.length == 1) {
                                 throw new DotException("No task number stated", TaskError.ERR_USING_UNMARK);
                             } else {
@@ -71,7 +77,7 @@ public class Dot {
                             String restOfString = input.substring(5);
                             Task newTodoTask = new Todo(restOfString);
                             dotTaskList.addTask(newTodoTask);
-                            dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
+                            dotTaskList.saveTaskListToStorage(new File(this.dataFilePathname));
                             break;
                         } else if (input.startsWith("deadline") && (input.length() == 8 || input.charAt(8) == ' ')) {
                             if (input.length() <= 9) {
@@ -111,7 +117,7 @@ public class Dot {
                             }
                             Task newDeadlineTask = new Deadline(description, deadline);
                             dotTaskList.addTask(newDeadlineTask);
-                            dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
+                            dotTaskList.saveTaskListToStorage(new File(this.dataFilePathname));
                             break;
                         } else if (input.startsWith("event")) {
                             // .+ enforces at least one character, but disallows empty string
@@ -129,14 +135,14 @@ public class Dot {
                             String end = input.substring(indexOfFSecondSlash + 4);
                             Task newEventTask = new Event(description, start, end);
                             dotTaskList.addTask(newEventTask);
-                            dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
+                            dotTaskList.saveTaskListToStorage(new File(this.dataFilePathname));
                             break;
                         } else if (input.startsWith("delete") && (input.length() == 6 || input.charAt(6) == ' ')) {
                             String[] substrings = input.split(" ");
                             if (substrings.length == 2) {
                                 int position = Integer.parseInt(substrings[1]);
                                 dotTaskList.deleteTask(position - 1);
-                                dotTaskList.saveTaskListToStorage(new File(DATA_FILE_PATHNAME));
+                                dotTaskList.saveTaskListToStorage(new File(this.dataFilePathname));
                             } else if (substrings.length == 1) {
                                 throw new DotException("No task number stated", TaskError.ERR_DELETING_TASK);
                             } else {
@@ -172,5 +178,9 @@ public class Dot {
             }
         }
         Ui.goodbye();
+    }
+    public static void main(String[] args) {
+        Dot dotInstance = new Dot("src/main/java/data/dot.txt", 100);
+        dotInstance.run();
     }
 }
