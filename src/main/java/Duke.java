@@ -37,7 +37,7 @@ public class Duke {
             printMessage(e.getMessage());
         }
 
-        printMessage("\n\tWhat can I do for you?\n");
+        printMessage("\n\tHow can I help you?\n");
     }
 
     public void exit() {
