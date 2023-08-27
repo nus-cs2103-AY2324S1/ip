@@ -1,3 +1,6 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -6,6 +9,8 @@ import java.util.Scanner;
  */
 public class Oscar {
     static ArrayList<Task> taskList = new ArrayList<>();
+    static final String FILE_DIRECTORY = "./data";
+    static final String FILE_LOCATION = FILE_DIRECTORY + "/tasklist";
 
     enum Commands {
         BYE,
@@ -19,7 +24,50 @@ public class Oscar {
     }
 
     /**
-     * Display message to greet user.
+     * Initialises Oscar from a local saved file.
+     * Solution adapted by <a href="https://howtodoinjava.com/java/collections/arraylist/
+     * serialize-deserialize-arraylist/">...</a>
+     */
+    private static void init() throws OscarException {
+        File savedFile = new File(FILE_LOCATION);
+        if (savedFile.exists() && !savedFile.isDirectory()) {
+            try {
+                FileInputStream fileInputStream = new FileInputStream(savedFile);
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                taskList = (ArrayList<Task>) objectInputStream.readObject();
+                System.out.println("Oscar has successfully loaded the saved task list.\n");
+            } catch (IOException e) {
+                throw new OscarException("Sorry! There is an error loading the saved task list.\n");
+            } catch (ClassNotFoundException c) {
+                throw new OscarException("Sorry! Class cannot be found.\n");
+            }
+        } else {
+            throw new OscarException("Sorry! Oscar cannot find a save task list to load.\n");
+        }
+    }
+
+    /**
+     * Saves the current taskList to a text file after executing a command.
+     * Solution adapted by <a href="https://howtodoinjava.com/java/collections/arraylist/
+     * serialize-deserialize-arraylist/">...</a>
+     * @throws OscarException Unable to serialise taskList.
+     */
+    private static void save() throws OscarException {
+        try {
+            Files.createDirectories(Paths.get(FILE_DIRECTORY));
+            FileOutputStream fileOutputStream = new FileOutputStream(FILE_LOCATION);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(taskList);
+            System.out.println("Oscar has saved your task list!\n");
+        } catch (FileNotFoundException e) {
+            throw new OscarException("Sorry! File is not found.\n");
+        } catch (IOException e) {
+            throw new OscarException("Sorry! There is an issue with input or output.\n");
+        }
+    }
+
+    /**
+     * Displays message to greet user.
      */
     private static void greet() {
         System.out.println("Hello! This is Oscar, your friendly chatbot :)");
@@ -27,7 +75,7 @@ public class Oscar {
     }
 
     /**
-     * Display message when terminating Duke.
+     * Displays message when terminating Duke.
      */
     private static void bye() {
         System.out.println("Goodbye for now. " +
@@ -35,7 +83,7 @@ public class Oscar {
     }
 
     /**
-     * List stored tasks in chronological order of addition.
+     * Lists stored tasks in chronological order of addition.
      */
     private static void list() {
         System.out.println("Here are the tasks in your list:");
@@ -61,7 +109,7 @@ public class Oscar {
     }
 
     /**
-     * Mark a task as done using the task number.
+     * Marks a task as done using the task number.
      * @param index Number of task to be marked as done.
      * @throws OscarException Failure of task number validation.
      */
@@ -88,7 +136,7 @@ public class Oscar {
     }
 
     /**
-     * Mark a task as not done using the task number.
+     * Marks a task as not done using the task number.
      * @param index Number of task to be marked as not done.
      * @throws OscarException Failure of task number validation.
      */
@@ -115,7 +163,7 @@ public class Oscar {
     }
 
     /**
-     * Delete a task using the task number.
+     * Deletes a task using the task number.
      * @param index Number of task to be deleted.
      * @throws OscarException Failure of task number validation.
      */
@@ -142,11 +190,11 @@ public class Oscar {
     }
 
     /**
-     * Create a new todo task and save it to the collection.
+     * Creates a new todo task and save it to the collection.
      * @param description Details of todo task.
      * @throws OscarException Todo missing description.
      */
-    public static void todo(String description) throws OscarException {
+    private static void todo(String description) throws OscarException {
         if (description.length() == 0) {
             throw new OscarException("Sorry! " +
                     "The description of a todo task cannot be empty.\n");
@@ -158,11 +206,11 @@ public class Oscar {
     }
 
     /**
-     * Create a new deadline task and save it to the collection.
+     * Creates a new deadline task and save it to the collection.
      * @param details Information about the details and deadline of task.
      * @throws OscarException Deadline missing details.
      */
-    public static void deadline(String details) throws OscarException {
+    private static void deadline(String details) throws OscarException {
         if (!details.contains(" /by ")) {
             throw new OscarException("Sorry! " +
                     "The deadline task is not formatted correctly.\n");
@@ -185,12 +233,12 @@ public class Oscar {
     }
 
     /**
-     * Create a new event task and save it to the collection.
+     * Creates a new event task and save it to the collection.
      * @param details Information about the details, as well as start and end
      *                date/time of task.
      * @throws OscarException Event missing details.
      */
-    public static void event(String details) throws OscarException {
+    private static void event(String details) throws OscarException {
         if (!details.contains(" /from ") || !details.contains(" /to ")) {
             throw new OscarException("Sorry! " +
                     "The event task is not formatted correctly.\n");
@@ -218,14 +266,19 @@ public class Oscar {
     }
 
     /**
-     * Programme flow to run Oscar
-     * @throws OscarException Handling unknown commands.
+     * Programme flow to run Oscar.
      */
-    public static void main(String[] args) throws OscarException {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
         greet();
+
+        try {
+            init();
+        } catch (OscarException e) {
+            System.out.println(e.getMessage());
+        }
 
         while (running) {
             // Obtain command and details entered by user to determine the next
@@ -284,6 +337,8 @@ public class Oscar {
                 } catch (IllegalArgumentException e) {
                         // Default response for unknown commands
                         throw new OscarException("Sorry! Oscar does not recognise this command\n");
+                } finally {
+                    save();
                 }
             } catch (OscarException e){
                 System.out.println(e.getMessage());
