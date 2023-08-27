@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class TehO {
@@ -87,7 +89,7 @@ public class TehO {
             System.out.println("Got it. I've added this task:");
             String commandWithDate = userCommand.substring(9); //"deadline " 9 index
             String cDeadline = commandWithDate.split(" /by ")[0]; //just description
-            String byDate = commandWithDate.split(" /by ")[1]; //just byDate
+            LocalDate byDate = LocalDate.parse(commandWithDate.split(" /by ")[1]); //just byDate
             Task task = new Deadline(cDeadline, byDate);
             taskList.add(task);
             System.out.println(task.toString());
@@ -106,8 +108,8 @@ public class TehO {
             String commandWithDate = userCommand.substring(6); //"todo " 6 index
             String cEvent = commandWithDate.split(" /from ")[0]; //just description
             String dates = commandWithDate.split(" /from ")[1]; //bothDates
-            String fromDate = dates.split(" /to ")[0]; //just fromDate
-            String toDate = dates.split(" /to ")[1]; //just toDate
+            LocalDate fromDate = LocalDate.parse(dates.split(" /to ")[0]); //just fromDate
+            LocalDate toDate = LocalDate.parse(dates.split(" /to ")[1]); //just toDate
             Task task = new Event(cEvent, fromDate, toDate);
             taskList.add(task);
             System.out.println(task.toString());
@@ -179,13 +181,13 @@ public class TehO {
                 taskToAddFirst.markAsDone(taskNumber);
             }
         } else if (sections[0].equals("D")) {
-            taskToAddFirst = new Deadline(sections[2], sections[3]);
+            taskToAddFirst = new Deadline(sections[2], LocalDate.parse(sections[3]));
             taskList.add(taskToAddFirst);
             if (sections[1].equals("1")) {
                 taskToAddFirst.markAsDone(taskNumber);
             }
         } else if (sections[0].equals("E")) {
-            taskToAddFirst = new Event(sections[2], sections[3], sections[4]);
+            taskToAddFirst = new Event(sections[2], LocalDate.parse(sections[3]), LocalDate.parse(sections[4]));
             taskList.add(taskToAddFirst);
             if (sections[1].equals("1")) {
                 taskToAddFirst.markAsDone(taskNumber);
