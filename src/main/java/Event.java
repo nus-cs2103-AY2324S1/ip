@@ -5,23 +5,10 @@ public class Event extends Task{
     protected LocalDateTime start;
     protected LocalDateTime end;
 
-    private Event(String title, LocalDateTime start, LocalDateTime end) {
+    public Event(String title, LocalDateTime start, LocalDateTime end) {
         super(title);
         this.start = start;
         this.end = end;
-    }
-
-    /**
-     * Adds a new Event task to the list of tasks.
-     * @param title Title of task.
-     * @param start Start time of task.
-     * @param end End time of task.
-     * @return Task object created.
-     */
-    public static Task addEvent(String title, LocalDateTime start, LocalDateTime end) {
-        Task event = new Event(title, start, end);
-        taskList.add(event);
-        return event;
     }
 
     @Override
@@ -38,6 +25,7 @@ public class Event extends Task{
      */
     @Override
     public String toFileString() {
-        return "E" + super.toFileString() + String.format(" | %s | %s", start.format(dataFormat), end.format(dataFormat));
+        String period = String.format(" | %s | %s", Parser.dateFormat(start), Parser.dateFormat(end));
+        return "E" + super.toFileString() + period;
     }
 }
