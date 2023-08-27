@@ -1,7 +1,9 @@
+package task;
+
 public class Event extends Task {
     protected String startDateTime;
     protected String endDateTime;
-    Event(String description, String startDateTime, String endDateTime) {
+    public Event(String description, String startDateTime, String endDateTime) {
         super(description);
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
