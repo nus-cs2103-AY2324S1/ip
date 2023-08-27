@@ -72,7 +72,6 @@ public class Duke {
         }
 
 
-
         switch (cmd) {
 
         case BYE:
