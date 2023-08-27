@@ -14,8 +14,9 @@ public class Storage {
     private final String PATH = System.getProperty("user.dir");
 
     public Storage() {
-        this.file = new File(PATH + "\\data\\duke.txt");
-        this.folder = new File(PATH + "\\data");
+        this.file = new File("data/duke.txt");
+        this.folder = new File("data");
+
         // Directory doesn't exist
         if (!this.directoryExists()) {
             this.createDirectory();
