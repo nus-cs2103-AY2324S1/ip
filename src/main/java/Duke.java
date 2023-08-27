@@ -12,7 +12,7 @@ public class Duke {
     private static String DATAPATH = "./data/duke.txt";
 
     Scanner scanner = new Scanner(System.in);
-    private ArrayList<Task> list = new ArrayList<>();
+    private TaskList taskList = new TaskList();
 
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, DELETE, CHECK, TODAY,
@@ -23,7 +23,7 @@ public class Duke {
     private void loadData() {
         try {
             Storage storage = new Storage(DATAPATH);
-            list = storage.loadTasks();
+            storage.loadTasks(taskList);
         } catch (FileNotFoundException e) {
             System.out.println("No data file found.");
         } catch (IOException e) {
@@ -109,7 +109,7 @@ public class Duke {
     }
 
     private void showList() {
-        if (list.isEmpty()) {
+        if (taskList.isEmpty()) {
             System.out.println(LINE);
             System.out.println("\t There are no tasks in your list.");
             System.out.println(LINE);
@@ -119,8 +119,8 @@ public class Duke {
 
         System.out.println(LINE);
         System.out.println("\t Here are the tasks in your list:");
-        for (int i = 0; i < this.list.size(); i++) {
-            System.out.println("\t " + (i + 1) + ". " + this.list.get(i));
+        for (int i = 0; i < taskList.getLength(); i++) {
+            System.out.println("\t " + (i + 1) + ". " + taskList.get(i));
         }
         System.out.println(LINE);
         System.out.println();
@@ -129,22 +129,22 @@ public class Duke {
     private void markTaskAsDone(String[] userCommandParts) throws InvalidTaskIndexException {
         try {
             int taskIndex = Integer.parseInt(userCommandParts[1]) - 1;
-            if (taskIndex < 0 || taskIndex >= list.size()) {
+            if (taskIndex < 0 || taskIndex >= taskList.getLength()) {
                 throw new InvalidTaskIndexException(taskIndex + 1);
             }
 
-            Task task = list.get(taskIndex);
+            Task task = taskList.get(taskIndex);
             if (task.isDone) {
                 System.out.println(LINE);
                 System.out.println("\t ☹ OOPS!!! This task is already marked as done:\n" +
-                        "\t\t" + this.list.get(taskIndex));
+                        "\t\t" + taskList.get(taskIndex));
                 System.out.println(LINE);
                 System.out.println();
             } else {
                 task.markAsDone();
                 System.out.println(LINE);
                 System.out.println("\t Nice! I've marked this task as done:\n" +
-                        "\t\t" + this.list.get(taskIndex));
+                        "\t\t" + taskList.get(taskIndex));
                 System.out.println(LINE);
                 System.out.println();
                 saveTask();
@@ -165,22 +165,22 @@ public class Duke {
     private void markTaskAsNotDone(String[] userCommandParts) throws InvalidTaskIndexException {
         try {
             int taskIndex = Integer.parseInt(userCommandParts[1]) - 1;
-            if (taskIndex < 0 || taskIndex >= list.size()) {
+            if (taskIndex < 0 || taskIndex >= taskList.getLength()) {
                 throw new InvalidTaskIndexException(taskIndex + 1);
             }
 
-            Task task = list.get(taskIndex);
+            Task task = taskList.get(taskIndex);
             if (!task.isDone) {
                 System.out.println(LINE);
                 System.out.println("\t OOPS!!! This task is already marked as not done:\n" +
-                        "\t\t" + this.list.get(taskIndex));
+                        "\t\t" + taskList.get(taskIndex));
                 System.out.println(LINE);
                 System.out.println();
             } else {
                 task.markAsNotDone();
                 System.out.println(LINE);
                 System.out.println("\t OK, I've marked this task as NOT done yet:\n" +
-                        "\t\t" + this.list.get(taskIndex));
+                        "\t\t" + taskList.get(taskIndex));
                 System.out.println(LINE);
                 System.out.println();
                 saveTask();
@@ -208,11 +208,11 @@ public class Duke {
             String description = userCommandParts[1].trim();
 
             Todo newTask = new Todo(description);
-            list.add(newTask);
+            taskList.add(newTask);
 
             System.out.println(LINE);
             System.out.println("\t Got it. I've added this task:\n" +
-                    "\t\t" + newTask + "\n\t Now you have " + list.size() + " tasks in the list.");
+                    "\t\t" + newTask + "\n\t Now you have " + taskList.getLength() + " tasks in the list.");
             System.out.println(LINE);
             System.out.println();
             saveTask();
@@ -240,11 +240,11 @@ public class Duke {
             LocalDateTime dateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
 
             Deadline newDeadline = new Deadline(description, dateTime);
-            list.add(newDeadline);
+            taskList.add(newDeadline);
 
             System.out.println(LINE);
             System.out.println("\t Got it. I've added this task:\n" +
-                    "\t\t" + newDeadline + "\n\t Now you have " + list.size() + " tasks in the list.");
+                    "\t\t" + newDeadline + "\n\t Now you have " + taskList.getLength() + " tasks in the list.");
             System.out.println(LINE);
             System.out.println();
             saveTask();
@@ -276,10 +276,10 @@ public class Duke {
                     DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
             Event newEvent = new Event(description, dateTime);
 
-            list.add(newEvent);
+            taskList.add(newEvent);
             System.out.println(LINE);
             System.out.println("\t Got it. I've added this task:\n" +
-                    "\t\t" + newEvent + "\n\t Now you have " + list.size() + " tasks in the list.");
+                    "\t\t" + newEvent + "\n\t Now you have " + taskList.getLength() + " tasks in the list.");
             System.out.println(LINE);
             System.out.println();
             saveTask();
@@ -298,16 +298,17 @@ public class Duke {
         try {
             int taskIndex = Integer.parseInt(userCommandParts[1]) - 1;
 
-            if (taskIndex < 0 || taskIndex >= list.size()) {
+            if (taskIndex < 0 || taskIndex >= taskList.getLength()) {
                 throw new InvalidTaskIndexException(taskIndex + 1);
             }
 
-            Task removedTask = list.remove(taskIndex);
+            Task removedTask = taskList.get(taskIndex);
+            taskList.delete(taskIndex);
 
             System.out.println(LINE);
             System.out.println("\t Noted. I've removed this task:\n" +
                     "\t\t" + removedTask +
-                    "\n\t Now you have " + list.size() + " tasks in the list.");
+                    "\n\t Now you have " + taskList.getLength() + " tasks in the list.");
             System.out.println(LINE);
             System.out.println();
             saveTask();
@@ -327,7 +328,7 @@ public class Duke {
     private void saveTask() {
         try {
             Storage storage = new Storage(DATAPATH);
-            storage.saveTasks(list);
+            storage.saveTasks(taskList);
         } catch (IOException e) {
             System.out.println("Error saving tasks to the data file:" + e.getMessage());
         }
@@ -347,7 +348,8 @@ public class Duke {
 
             boolean foundTasks = false;
 
-            for (Task task : list) {
+            for (int i = 0; i < taskList.getLength(); i++) {
+                Task task = taskList.get(i);
                 if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
                     if (deadline.time.toLocalDate().equals(date)) {
@@ -392,7 +394,8 @@ public class Duke {
 
         boolean foundTasks = false;
 
-        for (Task task : list) {
+        for (int i = 0; i < taskList.getLength(); i++) {
+            Task task = taskList.get(i);
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
                 if (deadline.time.toLocalDate().equals(today)) {

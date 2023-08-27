@@ -16,8 +16,7 @@ public class Storage {
     }
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public ArrayList<Task> loadTasks() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public void loadTasks(TaskList taskList) throws IOException {
         File file = new File(filePath);
         File directory = file.getParentFile();
 
@@ -33,29 +32,29 @@ public class Storage {
 
                 switch (parts[0]) {
                 case "T":
-                    tasks.add(new Todo(parts[2]));
+                    taskList.add(new Todo(parts[2]));
                     break;
                 case "D":
-                    tasks.add(new Deadline(parts[2], LocalDateTime.parse(parts[3], formatter)));
+                    taskList.add(new Deadline(parts[2], LocalDateTime.parse(parts[3], formatter)));
                     break;
                 case "E":
-                    tasks.add(new Event(parts[2], LocalDateTime.parse(parts[3], formatter)));
+                    taskList.add(new Event(parts[2], LocalDateTime.parse(parts[3], formatter)));
                     break;
                 default:
                     break;
                 }
 
                 if (parts[1].equals("1")) {
-                    tasks.get(tasks.size() - 1).markAsDone();
+                    taskList.get(taskList.getLength() - 1).markAsDone();
                 }
+
             } catch (Exception e) {
                 System.err.println("Error loading task: " + line);
             }
         }
-        return tasks;
     }
 
-    public void saveTasks(ArrayList<Task> tasks) throws IOException {
+    public void saveTasks(TaskList taskList) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         File file = new File(filePath);
 
@@ -64,7 +63,8 @@ public class Storage {
             directory.mkdirs();
         }
 
-        for (Task task : tasks) {
+        for (int i = 0; i < taskList.getLength(); i++) {
+            Task task = taskList.get(i);
             String line = task.toFileString();
             fw.write(line + System.lineSeparator());
         }
