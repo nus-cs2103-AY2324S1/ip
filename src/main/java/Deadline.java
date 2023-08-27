@@ -53,13 +53,13 @@ public class Deadline extends Task {
         } else {
             String deadline = segementedString[1];
             try {
-                String taskNameDeadline = segementedString[0].substring(Duke.DEADLINEOFFSET);
+                String taskNameDeadline = segementedString[0].substring(Parser.DEADLINEOFFSET);
             } catch (StringIndexOutOfBoundsException e) {
                 throw new WrongInputTask("Task name cannot be blank",
                         "Enter a non-blank deadline task name");
             }
 
-            String taskNameDeadline = segementedString[0].substring(Duke.DEADLINEOFFSET);
+            String taskNameDeadline = segementedString[0].substring(Parser.DEADLINEOFFSET);
             if (taskNameDeadline.trim().isEmpty()) {
                 throw new WrongInputTask("Task name cannot be blank",
                         "Enter a non-blank deadline task name");
