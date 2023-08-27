@@ -1,7 +1,7 @@
-package main.java.milbot;
+package milbot;
 
-import main.java.taskclasses.*;
-import main.java.exception.*;
+import taskclasses.*;
+import exception.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

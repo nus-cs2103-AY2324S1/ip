@@ -1,4 +1,4 @@
-package main.java.exception;
+package exception;
 
 public class InvalidEventException extends MilException {
     public InvalidEventException() {

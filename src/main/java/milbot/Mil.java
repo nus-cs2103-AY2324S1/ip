@@ -1,4 +1,4 @@
-package main.java.milbot;
+package milbot;
 
 import java.util.Scanner;
 

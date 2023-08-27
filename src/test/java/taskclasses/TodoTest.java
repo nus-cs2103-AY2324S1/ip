@@ -1,6 +1,6 @@
 package taskclasses;
 
-import main.java.taskclasses.Todo;
+import taskclasses.Todo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -1,6 +1,6 @@
 package taskclasses;
 
-import main.java.taskclasses.Deadline;
+import taskclasses.Deadline;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

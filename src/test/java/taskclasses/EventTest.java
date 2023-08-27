@@ -1,6 +1,6 @@
 package taskclasses;
 
-import main.java.taskclasses.Event;
+import taskclasses.Event;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

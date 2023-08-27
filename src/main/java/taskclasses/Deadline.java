@@ -1,4 +1,4 @@
-package main.java.taskclasses;
+package taskclasses;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

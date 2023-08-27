@@ -1,4 +1,4 @@
-package main.java.taskclasses;
+package taskclasses;
 
 public class Todo extends Task {
     public Todo(String description) {
