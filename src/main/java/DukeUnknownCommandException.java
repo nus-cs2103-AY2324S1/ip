@@ -1,3 +1,6 @@
+/**
+ * Handles unknown command entered.
+ */
 public class DukeUnknownCommandException extends DukeException{
     @Override
     public String toString() {

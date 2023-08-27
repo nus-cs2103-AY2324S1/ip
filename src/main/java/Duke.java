@@ -17,7 +17,7 @@ public class Duke {
     }
 
     /**
-     * Add horizontal line for replies by chatbot.
+     * Adds horizontal line for replies by chatbot.
      * @param text
      */
     private void line(String text) {
@@ -26,7 +26,7 @@ public class Duke {
     }
 
     /**
-     * Greet by chatbot.
+     * Greets by chatbot.
      */
     private void greet() {
         System.out.println("------------------------------------------");
@@ -34,14 +34,14 @@ public class Duke {
     }
 
     /**
-     * Exit chatbot.
+     * Exits chatbot.
      */
     private void exit() {
         this.line("  Bye~ Hope to see you again soon! >w<");
     }
 
     /**
-     * List out all tasks.
+     * Lists out all tasks.
      */
     private void listOutTasks() {
         String tasksList = "";
@@ -52,7 +52,7 @@ public class Duke {
     }
 
     /**
-     * Mark task as done.
+     * Marks task as done.
      * @param index
      */
     private void mark(int index) {
@@ -62,7 +62,7 @@ public class Duke {
     }
 
     /**
-     * Mark task as not done.
+     * Marks task as not done.
      * @param index
      */
     private void unmark(int index) {
@@ -72,7 +72,7 @@ public class Duke {
     }
 
     /**
-     * Add a To Do task.
+     * Adds a To Do task.
      * @param reply
      * @throws DukeException
      */
@@ -86,7 +86,7 @@ public class Duke {
     }
 
     /**
-     * Add a Deadline task.
+     * Adds a Deadline task.
      * @param reply
      * @throws DukeException
      */
@@ -98,7 +98,7 @@ public class Duke {
     }
 
     /**
-     * Add an Event task.
+     * Adds an Event task.
      * @param reply
      * @throws DukeException
      */
@@ -109,7 +109,7 @@ public class Duke {
     }
 
     /**
-     * Delete a task.
+     * Deletes a task.
      * @param index
      */
     private void delete(int index) {
@@ -120,7 +120,7 @@ public class Duke {
     }
 
     /**
-     * Construct message for adding task.
+     * Constructs message for adding task.
      * @param task
      */
     private void constructTaskMessage(Task task) {
@@ -131,7 +131,7 @@ public class Duke {
     }
 
     /**
-     * Trigger respective actions.
+     * Triggers respective actions.
      */
     private void interact() {
         while(true) {

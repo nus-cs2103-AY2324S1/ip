@@ -1,3 +1,6 @@
+/**
+ * Deadline task.
+ */
 public class Deadline extends Task{
     public Deadline(String reply) {
         super(reply);

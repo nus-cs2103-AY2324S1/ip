@@ -1,3 +1,6 @@
+/**
+ * Handles creating To Do event without description.
+ */
 public class DukeEmptyToDoException extends DukeException{
     @Override
     public String toString() {
