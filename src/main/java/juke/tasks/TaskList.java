@@ -1,6 +1,7 @@
 package juke.tasks;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import juke.core.JukeObject;
 import juke.exceptions.JukeException;
@@ -121,6 +122,18 @@ public class TaskList extends JukeObject {
         return this.tasks.get(index).toString();
     }
 
+    public List<JukeTask> findTask(String word) {
+        List<JukeTask> matchesWord = new LinkedList<>();
+
+        for (JukeTask t : this.tasks) {
+            if (t.stringMatches(word)) {
+                matchesWord.add(t);
+            }
+        }
+
+        return matchesWord;
+    }
+
     /**
      * String representation of the task manager. This consists of all the tasks
      * managed by this task manager.
@@ -144,5 +157,4 @@ public class TaskList extends JukeObject {
 
         return builder.toString();
     }
-
 }
