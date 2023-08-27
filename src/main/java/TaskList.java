@@ -1,3 +1,5 @@
+import Task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -30,7 +32,7 @@ public class TaskList {
     }
 
     public void printTasks() {
-        Task[] tasks = list.toArray(Task[]::new);
+        Task[] tasks = list.toArray(new Task[0]);
         StringBuilder dialog = new StringBuilder("Here are the tasks in your list:\n     ");
         for (int i = 0; i < tasks.length; i++) {
             int listIndex = i + 1;

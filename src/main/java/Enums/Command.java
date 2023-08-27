@@ -1,3 +1,5 @@
+package Enums;
+
 public enum Command {
     BYE("bye"),
     LIST("list"),

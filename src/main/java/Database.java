@@ -1,3 +1,9 @@
+import Enums.Command;
+import Task.Task;
+import Task.Deadlines;
+import Task.ToDo;
+import Task.Events;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -6,7 +12,7 @@ public class Database {
         File file = new File("data/tasklist.txt");
         try {
             FileWriter fileToWrite = new FileWriter(file);
-            Task[] tasks = list.toArray(Task[]::new);
+            Task[] tasks = list.toArray(new Task[0]);
 
             for (int i = 0; i < tasks.length; i++) {
                 fileToWrite.write(tasks[i].dataFormat());

@@ -1,6 +1,8 @@
+package Exception;
+
 public class MissingDateArgumentException extends MissingArgumentException {
     private String string;
-    MissingDateArgumentException(String string) {
+    public MissingDateArgumentException(String string) {
         this.string = string;
     }
 

@@ -1,3 +1,7 @@
+package Task;
+
+import Task.Task;
+
 public class Events extends Task {
     protected String from;
     protected String to;

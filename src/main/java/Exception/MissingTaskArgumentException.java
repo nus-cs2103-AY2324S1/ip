@@ -1,6 +1,8 @@
+package Exception;
+
 public class MissingTaskArgumentException extends MissingArgumentException {
     private String task;
-    MissingTaskArgumentException(String task) {
+    public MissingTaskArgumentException(String task) {
         this.task = task;
     }
 
