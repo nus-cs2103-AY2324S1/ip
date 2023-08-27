@@ -112,7 +112,6 @@ public class Duke {
                 }
 
                 this.taskList.mark(index);
-
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
