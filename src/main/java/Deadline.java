@@ -16,7 +16,7 @@ public class Deadline extends Task {
      */
 
     public Deadline(String description, String by) {
-        super(description);
+        super(description, "D");
         this.by = by;
     }
     /**
@@ -27,6 +27,11 @@ public class Deadline extends Task {
 
     public String getBy() {
         return by;
+    }
+
+    @Override
+    public String toFileString() {
+        return this.type + " | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + this.by;
     }
 
     /**

@@ -9,13 +9,19 @@ public class Todo extends Task{
      * @param description The description of the task.
      */
     public Todo (String description) {
-        super(description);
+        super(description, "T");
     }
     /**
      * Returns the string representation of the task.
      *
      * @return The string representation of the task.
      */
+
+    @Override
+    public String toFileString() {
+        return this.type + " | " + (this.isDone ? "1" : "0") + " | " + this.description;
+    }
+
     @Override
     public String toString() {
         return "[" + this.type + "]" + super.toString();
