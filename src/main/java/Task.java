@@ -33,7 +33,7 @@ abstract public class Task {
      * **/
     @Override
     public String toString() {
-        return "[" + (this.completed ? "X" : " ") + "] " + this.action + " ";
+        return "[" + (this.completed ? "X" : " ") + "] " + this.action;
     }
 
     public String toFile() {

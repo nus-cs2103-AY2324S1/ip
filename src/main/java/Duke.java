@@ -1,8 +1,8 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The Duke class contains the code for interacting
@@ -186,8 +186,15 @@ public class Duke {
             throw new DukeException("Please enter a valid task and deadline.");
         }
 
-        this.tasks.add(new Deadline(task[0], task[1]));
-        this.addCommand();
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
+            this.tasks.add(new Deadline(task[0], LocalDateTime.parse(task[1], formatter)));
+            this.addCommand();
+        } catch (DateTimeParseException exp) {
+            this.indent();
+            System.out.println("Please enter the date & time in a valid format! (DD/MM/YY HHMM)");
+            this.indent();
+        }
     }
 
     /** The function to add event tasks.
@@ -218,8 +225,14 @@ public class Duke {
             throw new DukeException("There enter valid to & from dates");
         }
 
-        this.tasks.add(new Event(task[0], to[0], to[1]));
-        this.addCommand();
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HHmm");
+            this.tasks.add(new Event(task[0], LocalDateTime.parse(to[0], formatter), LocalDateTime.parse(to[1], formatter)));
+            this.addCommand();
+        } catch (DateTimeParseException exc) {
+            System.out.println("Enter the date & time in a valid format! (DD/MM/YY HHMM)");
+        }
+
     }
 
     /** The exit command when user types "bye" **/
