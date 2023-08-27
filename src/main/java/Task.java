@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 public abstract class Task {
@@ -9,6 +11,9 @@ public abstract class Task {
      * boolean to track whether the task has been marked as done
      */
     private boolean done;
+
+    private static final String DATETIME_OUTPUT_FORMAT = "dd-MM-yyyy HH:mm";
+    public static final DateTimeFormatter dateTimeOutputFormatter = DateTimeFormatter.ofPattern(DATETIME_OUTPUT_FORMAT);
 
     /**
      * Constructor for the task class
@@ -45,6 +50,8 @@ public abstract class Task {
     public String getTaskName() {
         return this.taskName;
     }
+
+    public abstract boolean isOnDate(LocalDate date);
 
     public static String[] processInput(String[] splitInput) throws InvalidTaskException {
         String joined = String.join(" ", Arrays.copyOfRange(splitInput, 1, splitInput.length));

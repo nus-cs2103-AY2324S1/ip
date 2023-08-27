@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 public class ToDo extends Task{
     public ToDo(String name) {
         super(name);
@@ -12,6 +14,11 @@ public class ToDo extends Task{
     public String toSaveStateString() {
         String[] state = new String[]{ Command.TODO.getCommand(), this.getDone() ? "1" : "0", this.getTaskName() };
         return String.join(" / ", state);
+    }
+
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return false;
     }
 
     public static String[] processInput(String[] splitInput) throws InvalidTaskException {

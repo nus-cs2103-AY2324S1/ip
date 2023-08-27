@@ -2,14 +2,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
     private static ArrayList<Task> tasks;
     private static final String FILE_PATH = "./data/state.txt";
+    private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
+    public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
+    private static final String DATE_INPUT_FORMAT = "yyyy-MM-dd";
+    public static final DateTimeFormatter dateInputFormatter = DateTimeFormatter.ofPattern(DATE_INPUT_FORMAT);
     public static void main(String[] args) {
         Duke.tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
@@ -67,14 +73,17 @@ public class Duke {
                 }
                 if (command.equals(Command.DEADLINE.getCommand())) {
                     String[] processedDeadlineInput = Deadline.processInput(split);
-                    Deadline newDeadline = new Deadline(processedDeadlineInput[0], processedDeadlineInput[1]);
+                    Deadline newDeadline = new Deadline(processedDeadlineInput[0],
+                            LocalDateTime.parse(processedDeadlineInput[1], dateTimeInputFormatter));
                     Duke.tasks.add(newDeadline);
                     Duke.printTaskAddedMessages(newDeadline);
                     continue;
                 }
                 if (command.equals(Command.EVENT.getCommand())) {
                     String[] processedEventInput = Event.processInput(split);
-                    Event newEvent = new Event(processedEventInput[0], processedEventInput[1], processedEventInput[2]);
+                    Event newEvent = new Event(processedEventInput[0],
+                            LocalDateTime.parse(processedEventInput[1], dateTimeInputFormatter),
+                            LocalDateTime.parse(processedEventInput[2], dateTimeInputFormatter));
                     Duke.tasks.add(newEvent);
                     Duke.printTaskAddedMessages(newEvent);
                     continue;
@@ -86,6 +95,15 @@ public class Duke {
                     }
                     Task task = Duke.tasks.remove(index);
                     Duke.printTaskDeletedMessage(task);
+                    continue;
+                }
+                if (command.equals(Command.ON.getCommand())) {
+                    LocalDate date = LocalDate.parse(split[1]);
+                    for (int i = 0; i < Duke.tasks.size(); i++) {
+                        if (Duke.tasks.get(i).isOnDate(date)) {
+                            System.out.println((i + 1) + "." + Duke.tasks.get(i));
+                        }
+                    }
                     continue;
                 }
                 throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -128,9 +146,10 @@ public class Duke {
                 if (taskArray[0].equals(Command.TODO.getCommand())) {
                     task = new ToDo(taskArray[2]);
                 } else if (taskArray[0].equals(Command.DEADLINE.getCommand())) {
-                    task = new Deadline(taskArray[2], taskArray[3]);
+                    task = new Deadline(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter));
                 } else {
-                    task = new Event(taskArray[2], taskArray[3], taskArray[4]);
+                    task = new Event(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter),
+                            LocalDateTime.parse(taskArray[4], dateTimeInputFormatter));
                 }
 
                 if (taskArray[1].equals("1")) {
