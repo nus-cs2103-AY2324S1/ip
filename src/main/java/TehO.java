@@ -1,4 +1,3 @@
-//import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
@@ -8,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+
 public class TehO {
     static ArrayList<Task> taskList = new ArrayList<Task>();
 
@@ -15,7 +15,6 @@ public class TehO {
         Scanner sc = new Scanner(System.in);
         System.out.println("Hello! I'm TehO \nWhat can I do for you?");
         loadTasks();
-
         while (true) {
             String userCommand = sc.nextLine();
             if (userCommand.equals("bye")) {
@@ -46,7 +45,7 @@ public class TehO {
         sc.close();
         saveTasks();
     }
-    
+
     public static void markTask(String userCommand) {
         //note that split returns a String[]
         //parseInt returns the integer value which is represented by the argument
@@ -135,6 +134,7 @@ public class TehO {
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+
     public static void saveTasks() {
         try {
             //Solution below inspired by https://www.geeksforgeeks.org/io-bufferedwriter-class-methods-java/
@@ -193,3 +193,4 @@ public class TehO {
         }
     }
 }
+
