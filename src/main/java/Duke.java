@@ -1,14 +1,17 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class Duke {
 
     private static ArrayList<Task> tasks = new ArrayList<>();
-    private static int position = 0;
 
     public static void start() {
         String intro = "Hi! This is your AI assistant LoyBoy!\n";
         String question = "What can I do for you today?";
         System.out.println(intro + question);
+        Duke.loadTasks();
+
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -39,6 +42,25 @@ public class Duke {
 
         }
         scanner.close();
+        Duke.saveTasks();
+    }
+
+    private static void loadTasks() {
+        Storage storage = new Storage();
+        try {
+            tasks = storage.loadTask();
+        } catch (IOException e) {
+            System.out.println("Error! Cannot load task from data file");
+        }
+    }
+
+    private static void saveTasks() {
+        Storage storage = new Storage();
+        try {
+            storage.saveTasks(tasks);
+        } catch (IOException e) {
+            System.out.println("Error! Cannot save task to data file");
+        }
     }
 
     public static boolean checkMark(String command) throws RuntimeException {
@@ -52,15 +74,14 @@ public class Duke {
                 return true;
             } else if (parts[0].equalsIgnoreCase("delete")) {
                 Task removedTask = tasks.remove(Integer.valueOf(parts[1]) - 1);
-                position--;
                 System.out.println("Yes Sir. I've removed the following task\n" + removedTask + "\nNow you" +
-                        " have " + position + " task(s) in the list!");
+                        " have " + tasks.size() + " task(s) in the list!");
                 return true;
             }
         } catch (IndexOutOfBoundsException e) {
             throw new RuntimeException("The task does not exist in this list! Pick a number where a task exist!");
         } catch (NumberFormatException e) {
-            throw new RuntimeException("Please pick a number instead of letters!");
+            throw new RuntimeException("Please pick a number instead of using letters!");
         }
         return false;
     }
@@ -75,9 +96,8 @@ public class Duke {
             Task task = parseTask(taskType, taskDetails);
             if (task != null) {
                 tasks.add(task);
-                position++;
-                System.out.println("You added '" + tasks.get(position - 1) + "' to the list!"
-                        + "\nNow you have " + position + " task(s) in the list!");
+                System.out.println("You added '" + tasks.get(tasks.size() - 1) + "' to the list!"
+                        + "\nNow you have " + tasks.size() + " task(s) in the list!");
             } else {
                 throw new DukeException("You inputted an invalid command! Please try deadline, todo or event :)");
             }
@@ -97,7 +117,7 @@ public class Duke {
         }
     }
     private static void listTask() {
-        if (position == 0) {
+        if (tasks.size() == 0) {
             System.out.println("List is empty!");
         } else {
             System.out.println("Here are the tasks in your list:");
@@ -108,12 +128,8 @@ public class Duke {
 
     }
 
-
-
     public static void main(String[] args) {
         Duke.start();
-
-
     }
 }
 
