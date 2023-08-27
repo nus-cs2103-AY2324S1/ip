@@ -1,10 +1,16 @@
 import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class TaskList {
     private ArrayList<Task> tasklist;
 
     TaskList() {
         this.tasklist = new ArrayList<Task>();
+    }
+
+    TaskList(ArrayList<Task> tasklist) {
+        this.tasklist = tasklist;
     }
 
     private static boolean isInteger(String taskNumber) {
@@ -17,12 +23,24 @@ public class TaskList {
     }
 
 
-    // adding task into tasklist and output the relevant information
+
     void add(Task task) {
         this.tasklist.add(task);
-        System.out.println("Got it. I've added this task:\n" +
-                task.toString() + "\nNow you have " +
-                tasklist.size() + " tasks in the list.");
+    }
+
+    int size() {
+        return this.tasklist.size();
+    }
+
+
+
+
+    // adding task into tasklist and output the relevant information
+    void addToList(Task task) {
+        this.tasklist.add(task);
+        System.out.println("Got it. I've added this task:\n"
+                + task.toString() + "\nNow you have "
+                + tasklist.size() + " tasks in the list.");
 
     }
     // getTaskIndex checks if the input is valid and
@@ -43,6 +61,11 @@ public class TaskList {
         int taskIndex = getTaskIndex(taskNumber);
         Task markedTask = this.tasklist.get(taskIndex).done();
         System.out.println("Nice! I've marked this task as done:\n" + markedTask.toString());
+        tasklist.set(taskIndex, markedTask);
+    }
+
+    void mark(int taskIndex) {
+        Task markedTask = this.tasklist.get(taskIndex).done();
         tasklist.set(taskIndex, markedTask);
     }
 

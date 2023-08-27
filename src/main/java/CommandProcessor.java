@@ -1,12 +1,75 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Scanner;
+
 
 public class CommandProcessor {
     private final TaskList tasks;
     private static final String[] VALIDCOMMANDS = {"mark", "unmark", "list", "todo", "event", "deadline", "delete"};
 
-    CommandProcessor() {
-        this.tasks = new TaskList();
+    private static void writeToFile(String textToAdd) throws DukeException {
+        try {
+            File theDir = new File("\\data");
+            if (!theDir.exists()) {
+                theDir.mkdirs();
+                File dataFile = new File("\\data\\duke.txt");
+                dataFile.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter("\\data\\duke.txt", true);
+
+            fw.write(System.lineSeparator());
+            fw.write(textToAdd);
+
+            fw.close();
+        } catch(IOException e) {
+            throw new DukeException(e.getMessage());
+        }
     }
+    private static TaskList loadFromFile() {
+        try {
+            File dataFile = new File("\\data\\duke.txt");
+            if (dataFile.exists()) {
+                Scanner sc = new Scanner(dataFile);
+                TaskList tasks = new TaskList();
+                while (sc.hasNext()) {
+                    String taskInfo = sc.nextLine();
+                    String taskName = taskInfo.substring(3);
+                    boolean marked = taskInfo.charAt(1) == 'x';
+
+                    if (taskInfo.charAt(0) == 'T') {
+                        Task task = new Todo(taskName);
+                        tasks.add(task);
+                    } else if (taskInfo.charAt(0) == 'D') {
+                        Task task = new Todo(taskName);
+                        tasks.add(task);
+                    } else if (taskInfo.charAt(0) == 'E') {
+                        Task task = new Deadline(taskName);
+                        tasks.add(task);
+                    }
+
+                    if (marked) {
+                        tasks.mark(tasks.size() - 1);
+                    }
+                }
+                sc.close();
+
+                return tasks;
+            }
+            return new TaskList();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return new TaskList();
+    }
+
+    CommandProcessor() {
+        this.tasks = loadFromFile();
+    }
+
 
     private String[] parseCommand(String command) throws DukeException {
         String [] splitCommand = command.split(" ", 2);
@@ -45,7 +108,7 @@ public class CommandProcessor {
 
             String taskName = splitCommand[1];
 
-            // processing command types: mark, unmark
+            // process command types: mark, unmark
             if (commandType.equals("mark")) {
                 tasks.mark(taskName);
                 return;
@@ -59,19 +122,22 @@ public class CommandProcessor {
                 return;
             }
 
-            // processing commands involving tasks (todo, deadline, event)
+            // process commands involving tasks (todo, deadline, event)
             if (commandType.equals("todo")) {
                 Task task = new Todo(taskName);
-                tasks.add(task);
+                writeToFile("Tu " + taskName);
+                tasks.addToList(task);
             } else if (commandType.equals("deadline")) {
                 Task task = new Deadline(taskName);
-                tasks.add(task);
+                writeToFile("Du " + taskName);
+                tasks.addToList(task);
 
 
 
             } else if (commandType.equals("event")) {
                 Task task = new Event(taskName);
-                tasks.add(task);
+                writeToFile("Eu " + taskName);
+                tasks.addToList(task);
             }
 
         } catch(DukeException e) {
