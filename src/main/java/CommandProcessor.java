@@ -1,12 +1,20 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Scanner;
+
 
 public class CommandProcessor {
     private final TaskList tasks;
     private static final String[] VALIDCOMMANDS = {"mark", "unmark", "list", "todo", "event", "deadline", "delete"};
 
+    private static final Storage storage = new Storage();
+
     CommandProcessor() {
-        this.tasks = new TaskList();
+        this.tasks = storage.loadFromFile();
     }
+
 
     private String[] parseCommand(String command) throws DukeException {
         String [] splitCommand = command.split(" ", 2);
@@ -45,7 +53,7 @@ public class CommandProcessor {
 
             String taskName = splitCommand[1];
 
-            // processing command types: mark, unmark
+            // process command types: mark, unmark
             if (commandType.equals("mark")) {
                 tasks.mark(taskName);
                 return;
@@ -59,19 +67,22 @@ public class CommandProcessor {
                 return;
             }
 
-            // processing commands involving tasks (todo, deadline, event)
+            // process commands involving tasks (todo, deadline, event)
             if (commandType.equals("todo")) {
                 Task task = new Todo(taskName);
-                tasks.add(task);
+                storage.writeToFile(task.toString());
+                tasks.addToList(task);
             } else if (commandType.equals("deadline")) {
                 Task task = new Deadline(taskName);
-                tasks.add(task);
+                storage.writeToFile(task.toString());
+                tasks.addToList(task);
 
 
 
             } else if (commandType.equals("event")) {
                 Task task = new Event(taskName);
-                tasks.add(task);
+                storage.writeToFile(task.toString());
+                tasks.addToList(task);
             }
 
         } catch(DukeException e) {
