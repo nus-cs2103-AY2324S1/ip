@@ -7,6 +7,6 @@ public class InvalidTypeException extends Exception{
         this.type = type;
     }
     public String toString(){
-        return ("☹ OOPS!!! I'm sorry, but type " +  type + " is not supported :-(\n");
+        return (" OOPS!!! I'm sorry, but type " +  type + " is not supported :-(\n");
     }
 }
