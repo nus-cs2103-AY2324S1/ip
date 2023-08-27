@@ -2,41 +2,12 @@
 Hello! I'm Kevin
 What can I do for you?
 
---------------------------------------------------
-added: [E][ ] dating her (from: Mon 10pm to: Tue 2am) 
-1 tasks in the list
---------------------------------------------------
---------------------------------------------------
-added: [D][ ] finish CS2103 homework (by: Mon 11pm) 
-2 tasks in the list
---------------------------------------------------
---------------------------------------------------
-added: [T][ ] listen to the lecture 
-3 tasks in the list
---------------------------------------------------
---------------------------------------------------
-1. [E][ ] dating her (from: Mon 10pm to: Tue 2am)
-2. [D][ ] finish CS2103 homework (by: Mon 11pm)
-3. [T][ ] listen to the lecture
---------------------------------------------------
---------------------------------------------------
-I've marked this task as done:
-  [D][X] finish CS2103 homework (by: Mon 11pm)
---------------------------------------------------
---------------------------------------------------
-I've marked this task as undone:
-  [D][ ] finish CS2103 homework (by: Mon 11pm)
---------------------------------------------------
---------------------------------------------------
-Deleted this task:
-  [D][ ] finish CS2103 homework (by: Mon 11pm)
-2 tasks in the list
---------------------------------------------------
---------------------------------------------------
-1. [E][ ] dating her (from: Mon 10pm to: Tue 2am)
-2. [T][ ] listen to the lecture
---------------------------------------------------
---------------------------------------------------
-Bye. Hope to see you again soon!
-
---------------------------------------------------
+Exception in thread "main" java.time.format.DateTimeParseException: Text 'Mon 10pm' could not be parsed at index 0
+	at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2046)
+	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:1948)
+	at java.base/java.time.LocalDate.parse(LocalDate.java:428)
+	at Time.parseTime(Time.java:6)
+	at Event.<init>(Event.java:11)
+	at Duke.addTask(Duke.java:54)
+	at Duke.echo(Duke.java:114)
+	at Duke.main(Duke.java:145)
