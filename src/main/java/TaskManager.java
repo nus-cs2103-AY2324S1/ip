@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,12 +163,25 @@ public class TaskManager {
 
 
     private List<Task> taskList;
+    private InternalStorage.Path storageLocation;
 
     /**
-     * Constructor for a task manager, managing a list of items representing "tasks".
+     * Constructor for a task manager, managing a list of items representing "tasks",
+     * with a custom storage location.
+     *
+     * @param storageLocation Path
+     */
+    public TaskManager(InternalStorage.Path storageLocation) {
+        this.taskList = new ArrayList<>();
+        this.storageLocation = storageLocation;
+    }
+
+    /**
+     * Constructor for a task manager, managing a list of items representing "tasks",
+     * with the default storage location.
      */
     public TaskManager() {
-        this.taskList = new ArrayList<>();
+        this(new InternalStorage.Path());
     }
 
     /**
@@ -228,4 +242,21 @@ public class TaskManager {
         return this.taskList.remove(index);
     }
 
+    /**
+     * Loads and replaces the task list in memory with the one currently in storage.
+     *
+     * @throws IOException if there were any issues retrieving the data.
+     */
+    public void loadFromStorage() throws IOException {
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * Saves and replaces the task list in storage with the one currently in memory.
+     *
+     * @throws IOException if there were any issues saving the data.
+     */
+    public void saveToStorage() throws IOException {
+        throw new RuntimeException("Not implemented");
+    }
 }
