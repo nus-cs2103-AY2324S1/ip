@@ -2,13 +2,13 @@ import java.util.Scanner;
 
 class InputHandler {
     private final Scanner scanner = new Scanner(System.in);
-    private final Duke.Model model;
+    private final UI.OutputUI outputUI;
     private final TaskStorage taskStorage = new TaskStorage();
 
     private boolean isExit = false;
 
-    public InputHandler(Duke.Model model) {
-        this.model = model;
+    public InputHandler(UI.OutputUI outputUI) {
+        this.outputUI = outputUI;
     }
 
     // TODO: Implement a parser instead of hard coding if-elses here
@@ -26,23 +26,23 @@ class InputHandler {
 
         if (input.startsWith("mark")) {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            model.echo(taskStorage.markAsDone(index));
+            outputUI.echo(taskStorage.markAsDone(index));
             return;
         }
 
         if (input.startsWith("unmark")) {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            model.echo(taskStorage.unmarkAsDone(index));
+            outputUI.echo(taskStorage.unmarkAsDone(index));
             return;
         }
 
         if (input.startsWith("delete")) {
             int index = Integer.parseInt(input.split(" ")[1]) - 1;
-            model.echo(taskStorage.delete(index));
+            outputUI.echo(taskStorage.delete(index));
             return;
         }
 
-        model.echo(taskStorage.save(input));
+        outputUI.echo(taskStorage.save(input));
     }
 
     public boolean isExit() {

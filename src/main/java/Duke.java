@@ -1,30 +1,5 @@
 public class Duke {
 
-    static class Model {
-        public Model() {
-            // Greeting
-            greet();
-        }
-
-        public void greet() {
-            printer("Hello! I'm Meowies\n    What can I do for you?");
-        }
-
-        public void bye() {
-            printer("Bye. Hope to see you again soon!");
-        }
-
-        public void echo(String input) {
-            printer(input);
-        }
-
-        private void printer(String input) {
-            System.out.println("    ------------------------------------------");
-            System.out.println("    " + input);
-            System.out.println("    ------------------------------------------");
-        }
-    }
-
     /**
      * All exceptions that arise when parsing user input.
      */
