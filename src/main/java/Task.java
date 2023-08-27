@@ -1,8 +1,10 @@
-public class Task {
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+public abstract class Task {
 
         protected String description;
         protected boolean isDone;
-
         public Task(String description, boolean isDone) {
             this.description = description;
             this.isDone = isDone;
@@ -31,5 +33,6 @@ public class Task {
             return "[" + this.getStatus() + "] " + description;
         }
 
+        public abstract String toSave();
 
 }

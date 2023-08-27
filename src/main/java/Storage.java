@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class Storage {
                     description = description.replace(")", "");
                     Task task = parseTask(taskType, description, isDone);
                     loadedTasks.add(task);
-                } catch (Exception e) {
+                } catch (RuntimeException e) {
                     System.err.println("Corrupted data!");
                 }
             }
@@ -67,7 +66,7 @@ public class Storage {
         FileWriter fw = new FileWriter(filePath);
 
         for (int i = 0; i < tasks.size(); i++) {
-            fw.write((tasks.get(i)).toString() + "\n");
+            fw.write((tasks.get(i)).toSave() + "\n");
         }
 
         fw.close();
@@ -78,9 +77,9 @@ public class Storage {
         if (taskType.equalsIgnoreCase("[T")) {
             taskDetails = taskDetails.replace(" ", "");
             return new ToDoTask(taskDetails, isDone);
-        } else if (taskType.equalsIgnoreCase("[D")) {
+        } else if (taskType.equals("[D")) {
             return DeadlineTask.parseDeadline(taskDetails, isDone);
-        } else if (taskType.equalsIgnoreCase("[E")) {
+        } else if (taskType.equals("[E")) {
             return EventTask.parseEvent(taskDetails, isDone);
         } else {
             return null;

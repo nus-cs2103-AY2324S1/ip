@@ -1,4 +1,4 @@
-import java.io.File;
+
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -89,7 +89,7 @@ public class Duke {
     private static void addTask(String description) throws DukeException {
         String[] parts = description.split(" ", 2);
         if (parts.length < 2) {
-            throw new DukeException("You inputted an invalid command! Please try deadline, todo or event :)");
+            throw new DukeException("Please input a command followed by an argument! Try deadline, todo, event or delete!");
         } else {
             String taskType = parts[0].toLowerCase();
             String taskDetails = parts[1].toLowerCase();
@@ -109,9 +109,9 @@ public class Duke {
         if (taskType.equalsIgnoreCase("todo")) {
             return new ToDoTask(taskDetails);
         } else if (taskType.equalsIgnoreCase("deadline")) {
-            return DeadlineTask.parseDeadline(taskDetails);
+            return DeadlineTask.parseDeadline(taskDetails, false);
         } else if (taskType.equalsIgnoreCase("event")) {
-            return EventTask.parseEvent(taskDetails);
+            return EventTask.parseEvent(taskDetails, false);
         } else {
             return null;
         }
