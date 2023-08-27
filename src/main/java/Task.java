@@ -1,3 +1,8 @@
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class Task {
     protected TaskType type;
     protected String description;
@@ -23,5 +28,15 @@ public class Task {
 
     public void unMark() {
         this.isDone = false;
+    }
+
+    public LocalDateTime convertToLocalDateTime(String s) throws DateTimeException{
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(s, formatter);
+    }
+
+    public String convertDateTimeToString(LocalDateTime dt) throws DateTimeException{
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm", Locale.ENGLISH);
+        return dt.format(formatter);
     }
 }

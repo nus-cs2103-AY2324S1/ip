@@ -1,11 +1,11 @@
 todo buy eggs
 todo break eggs
 todo cook eggs
-deadline take bread out of oven /by 6pm
+deadline take bread out of oven /by 2023-08-29 1800
 mark 1
 mark 2
 list
-event cooking session /from 7pm /to 9pm
+event cooking session /from 2023-08-31 1900 /to 2023-08-31 2100
 mark 3
 mark 5
 list
