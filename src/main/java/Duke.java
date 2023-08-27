@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Duke {
     static List<Task> taskList = new ArrayList<>();
-    static boolean listening = true;
+    static boolean isListening = true;
     static void greet() {
         String greeting = "_________________________________________________\n"
                 + "Hello! I'm Glub!\n"
@@ -91,38 +91,38 @@ public class Duke {
                 + "Bye. Hope to see you again soon!\n"
                 + "_________________________________________________\n";
         System.out.println(exitMsg);
-        listening = false;
+        isListening = false;
     }
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
         greet();
-        while (listening) {
+        while (isListening) {
             try {
                 String command = inputScanner.next();
                 switch (command) {
-                    case "bye":
-                        exit();
-                        break;
-                    case "list":
-                        list();
-                        break;
-                    case "mark":
-                        mark(inputScanner.nextInt());
-                        break;
-                    case "unmark":
-                        unmark(inputScanner.nextInt());
-                        break;
-                    case "delete":
-                        deleteTask(inputScanner.nextInt());
-                        break;
-                    case "todo":
-                    case "deadline":
-                    case "event":
-                        String task = inputScanner.nextLine();
-                        addTask(task, command);
-                        break;
-                    default:
-                        throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
+                case "bye":
+                    exit();
+                    break;
+                case "list":
+                    list();
+                    break;
+                case "mark":
+                    mark(inputScanner.nextInt());
+                    break;
+                case "unmark":
+                    unmark(inputScanner.nextInt());
+                    break;
+                case "delete":
+                    deleteTask(inputScanner.nextInt());
+                    break;
+                case "todo":
+                case "deadline":
+                case "event":
+                    String task = inputScanner.nextLine();
+                    addTask(task, command);
+                    break;
+                default:
+                    throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
                 }
             } catch (GlubException ex) {
                 System.out.println(ex.getMessage());
