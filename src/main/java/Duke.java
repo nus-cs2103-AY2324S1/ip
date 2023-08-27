@@ -3,9 +3,9 @@ import java.util.ArrayList;
 
 public class Duke {
     private final String line = "_____________________________________________________";
-    private final ArrayList<Task> lst = new ArrayList<>();
+    private final ArrayList<Task> lst;
 
-    private final Storage storage = new Storage("./data/data.txt");
+    private final Storage storage;
 
     private enum TaskType {
         TODO,
@@ -23,6 +23,11 @@ public class Duke {
 
         Duke bot = new Duke();
         bot.run();
+    }
+
+    public Duke() {
+        this.storage = new Storage("./data/data.txt");
+        this.lst = this.storage.read();
     }
 
     public void run() {

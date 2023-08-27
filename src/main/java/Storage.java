@@ -19,18 +19,19 @@ public class Storage {
             Scanner sc = new Scanner(this.file);
 
             while (sc.hasNextLine()) {
-                String[] task = sc.nextLine().split("\\|");
+                String[] line = sc.nextLine().split("\\|");
+                String[] task = new String[line.length];
+                for (int i = 0; i < line.length; i++) {
+                    task[i] = line[i].trim();
+                }
 
-                if (task[0] == "T") {
+                if (task[0].equals("T")) {
                     taskList.add(new Todo(task[2], task[1].equals("1")));
-                    break;
-                } else if (task[0] == "D") {
+                } else if (task[0].equals("D")) {
                     taskList.add(new Deadline(task[2], task[1].equals("1"), task[3]));
-                    break;
-                } else if (task[0] == "E") {
+                } else if (task[0].equals("E")) {
                     String[] timeframe = task[3].split("-");
                     taskList.add(new Event(task[2], task[1].equals("1"), timeframe[0], timeframe[1]));
-                    break;
                 } else {
                     System.out.println("Unknown task type: " + task[0]);
                 }
