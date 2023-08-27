@@ -37,12 +37,12 @@ public class Parser {
                 if (Objects.equals(command, "todo")) {
                     continue;
                 }
-                if (title.length() != 0) {
+                if (!title.isEmpty()) {
                     title.append(" ");
                 }
                 title.append(command);
             }
-            if (title.length() != 0) {
+            if (!title.isEmpty()) {
                 return new Todo(title.toString());
             } else {
                 throw new DukeException("☹ OOPS!!! The title of a todo cannot be empty.");
@@ -58,18 +58,18 @@ public class Parser {
                     continue;
                 }
                 if (Objects.equals(mode, "title")) {
-                    if (title.length() != 0) {
+                    if (!title.isEmpty()) {
                         title.append(" ");
                     }
                     title.append(command);
                 } else {
-                    if (deadline.length() != 0) {
+                    if (!deadline.isEmpty()) {
                         deadline.append(" ");
                     }
                     deadline.append(command);
                 }
             }
-            if (title.length() != 0 || deadline.length() != 0) {
+            if (!title.isEmpty() && !deadline.isEmpty()) {
                 try {
                     LocalDate fromDate = LocalDate.parse(deadline);
                     deadline = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));
@@ -95,23 +95,23 @@ public class Parser {
                     continue;
                 }
                 if (Objects.equals(mode, "title")) {
-                    if (title.length() != 0) {
+                    if (!title.isEmpty()) {
                         title.append(" ");
                     }
                     title.append(command);
                 } else if (Objects.equals(mode, "from")) {
-                    if (from.length() != 0) {
+                    if (!from.isEmpty()) {
                         from.append(" ");
                     }
                     from.append(command);
                 } else {
-                    if (to.length() != 0) {
+                    if (!to.isEmpty()) {
                         to.append(" ");
                     }
                     to.append(command);
                 }
             }
-            if (title.length() != 0 || from.length() != 0 || to.length() != 0) {
+            if (!title.isEmpty() && !from.isEmpty() && !to.isEmpty()) {
                 try {
                     LocalDate fromDate = LocalDate.parse(from);
                     from = new StringBuilder(fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")));

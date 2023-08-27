@@ -51,7 +51,7 @@ public class Duke {
                 }
             }
         } catch (DukeException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 
