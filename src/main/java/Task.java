@@ -28,18 +28,6 @@ public class Task {
      * Marks a task as done.
      */
     public void markDone() {
-        if (this.isDone) {
-            System.out.println("It has already been done");
-        } else {
-            this.isDone = true;
-            System.out.println("I've marked this task as done!\n" + this);
-        }
-    }
-
-    /**
-     * Marks a task as done after reading from a file.
-     */
-    public void markDoneFromFile() {
         this.isDone = true;
     }
 
@@ -47,12 +35,7 @@ public class Task {
      * Marks a task as undone.
      */
     public void markUndone() {
-        if (!this.isDone) {
-            System.out.println("It was already undone");
-        } else {
-            this.isDone = false;
-            System.out.println("I've marked this task as undone!\n" + this);
-        }
+        this.isDone = false;
     }
 
     /**
