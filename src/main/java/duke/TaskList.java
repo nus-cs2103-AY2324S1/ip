@@ -1,12 +1,10 @@
 package duke;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TaskList {
     private ArrayList<Task> tasks;
     private Ui ui;
-
     public TaskList(ArrayList<Task> tasks, Ui ui) {
         this.tasks = tasks;
         this.ui = ui;
@@ -22,23 +20,12 @@ public class TaskList {
     }
 
     /**
-     * Prints out the list of tasks tracked by Duke.
+     * Prints out the list of tasks tracked by the chatbot
      */
     public void listTasks() {
         this.ui.listMessage(tasks);
     }
 
-    public void filterTasks(String description) {
-
-        List<Task> filteredTasks = new ArrayList<>();
-        for (int i = 0; i < this.tasks.size(); i++) {
-            Task task = this.tasks.get(i);
-            if (task.getDescription().contains(description)) {
-                filteredTasks.add(task);
-            }
-        }
-        this.ui.findTasks(filteredTasks);
-    }
     public void markTaskAsDone(int taskNumber) {
         Task task = this.tasks.get(taskNumber);
         task.markAsDone();
