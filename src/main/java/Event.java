@@ -1,9 +1,11 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
 
-    public Event(String description, String from, String to, boolean marked) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean marked) {
         super(description, "event");
         this.from = from;
         this.to = to;
@@ -12,11 +14,11 @@ public class Event extends Task {
 
     @Override
     public String getOriginalMessage() {
-        return "event " + this.getDescription() + " /from " + this.from + " /to " + this.to;
+        return "event " + this.getDescription() + " /from " + this.stringifyDate(this.from) + " /to " + this.stringifyDate(this.to);
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (from: " + from + " to: " + to + ")" ;
+        return super.toString() + " (from: " + this.formatDate(this.from) + " to: " + this.formatDate(this.to) + ")" ;
     }
 }

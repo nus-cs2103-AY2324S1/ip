@@ -1,5 +1,8 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Task {
     private String type;
@@ -37,6 +40,15 @@ public abstract class Task {
             System.out.println("    Error saving to file");
             System.exit(1);
         }
+    }
+
+    public String stringifyDate(LocalDateTime datetime) {
+        String formatted = datetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm"));
+        return String.join(" ", formatted.split("T"));
+    }
+
+    public String formatDate(LocalDateTime datetime) {
+        return datetime.format(DateTimeFormatter.ofPattern("HHmm, MMM d yyyy"));
     }
 
     public String getDescription() {

@@ -1,11 +1,10 @@
 import exceptions.*;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,6 +63,7 @@ public class Tasks {
             Task task = this.getTask(number);
             if (task != null) {
                 Task t = this.tasks.remove(number - 1);
+                this.saveTasks();
                 System.out.println(line);
                 System.out.println("    Noted. I've removed this task:");
                 System.out.println("    " + t);
@@ -139,12 +139,10 @@ public class Tasks {
                     task = new Todo(text, marked);
                     break;
                 case "deadline":
-                    String[] deadline = checkDeadline(text);
-                    task = new Deadline(deadline[0], deadline[1], marked);
+                    task = checkDeadline(text, marked);
                     break;
                 case "event":
-                    String[] event = checkEvent(text);
-                    task = new Event(event[0], event[1], event[2], marked);
+                    task = checkEvent(text, marked);
                     break;
                 default:
                     System.out.println("    You shouldn't be here, something went wrong...");
@@ -208,15 +206,39 @@ public class Tasks {
         return new String[] {action, restOfText};
     }
 
-    private String[] checkDeadline(String text) throws InvalidDeadlineException {
+    private LocalDateTime parseDateTime(String text) {
+        String[] datetime = text.split(" ");
+        LocalDateTime parsedDateTime;
+        try {
+            if (datetime.length == 2) {
+                String dateTimeString = datetime[0] + "T" + datetime[1];
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm");
+                parsedDateTime = LocalDateTime.parse(dateTimeString, formatter);
+            } else {
+                return null;
+            }
+        } catch (DateTimeParseException ex) {
+            return null;
+        }
+
+        return parsedDateTime;
+    }
+
+    private Deadline checkDeadline(String text, boolean marked) throws InvalidDeadlineException {
         String[] deadline = text.split(" /by ");
         if (deadline.length != 2) {
             throw new InvalidDeadlineException();
         }
-        return deadline;
+
+        LocalDateTime parsedDateTime = this.parseDateTime(deadline[1]);
+        if (parsedDateTime == null) {
+            throw new InvalidDeadlineException();
+        }
+
+        return new Deadline(deadline[0], parsedDateTime, marked);
     }
 
-    private String[] checkEvent(String text) throws InvalidEventException {
+    private Event checkEvent(String text, boolean marked) throws InvalidEventException {
         String[] first = text.split(" /from ");
         if (first.length != 2) {
             throw new InvalidEventException();
@@ -225,6 +247,13 @@ public class Tasks {
         if (second.length != 2) {
             throw new InvalidEventException();
         }
-        return new String[] {first[0], second[0], second[1]};
+        LocalDateTime fromDate = this.parseDateTime(second[0]);
+        LocalDateTime toDate = this.parseDateTime(second[1]);
+
+        if (fromDate == null || toDate == null) {
+            throw new InvalidEventException();
+        }
+
+        return new Event(first[0], fromDate, toDate, marked);
     }
 }

@@ -7,6 +7,6 @@ public class InvalidDeadlineException extends DukeException {
 
     @Override
     public String toString() {
-        return super.toString() + " Please enter a deadline with the '/by' annotation";
+        return super.toString() + " Please enter a deadline with the format '<<message>> /by dd/mm/yyyy HH:mm' format";
     }
 }

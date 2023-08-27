@@ -1,7 +1,9 @@
-public class Deadline extends Task {
-    private String by;
+import java.time.LocalDateTime;
 
-    public Deadline(String description, String by, boolean marked) {
+public class Deadline extends Task {
+    private LocalDateTime by;
+
+    public Deadline(String description, LocalDateTime by, boolean marked) {
         super(description, "deadline");
         this.by = by;
         this.mark(marked, true);
@@ -9,12 +11,12 @@ public class Deadline extends Task {
 
     @Override
     public String getOriginalMessage() {
-        return "deadline " + this.getDescription() + " /by " + this.by;
+        return "deadline " + this.getDescription() + " /by " + this.stringifyDate(this.by);
     }
 
     @Override
 
     public String toString() {
-        return super.toString() + " (by: " + by + ")";
+        return super.toString() + " (by: " + this.formatDate(this.by) + ")";
     }
 }
