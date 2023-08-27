@@ -7,6 +7,7 @@ import com.alpha.utils.Parser;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -57,13 +58,13 @@ public class TaskList {
         if (task instanceof Deadline) {
           textToAdd.append(" /by ");
           Deadline deadline = (Deadline) task;
-          textToAdd.append(deadline.getEnd());
+          textToAdd.append(deadline.getEndToStore());
         } else if (task instanceof Event) {
           textToAdd.append(" /from ");
           Event event = (Event) task;
-          textToAdd.append(event.getStart());
+          textToAdd.append(event.getStartToStore());
           textToAdd.append(" /to ");
-          textToAdd.append(event.getEnd());
+          textToAdd.append(event.getEndToStore());
         }
         if (task.getMark() == "1") {
           textToAdd.append("\n1");
@@ -78,7 +79,7 @@ public class TaskList {
     }
   }
 
-  public void addTask(String task) throws InvalidTaskException {
+  public void addTask(String task) throws InvalidTaskException, DateTimeParseException {
     Task currentTask;
     switch (Parser.getTask(task)) {
       case "todo":

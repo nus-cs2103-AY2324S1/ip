@@ -2,6 +2,7 @@ import com.alpha.exceptions.InvalidTaskException;
 import com.alpha.exceptions.InvalidTaskException.InvalidCommandException;
 import com.alpha.tasks.TaskList;
 import com.alpha.utils.Parser;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Alpha {
@@ -55,13 +56,14 @@ public class Alpha {
           }
           break;
         case "bye":
+          taskList.saveData();
           System.out.println("Bye. Hope to see you again soon!");
           System.out.println("______________________________");
           return;
         default:
           try {
             taskList.addTask(userInput);
-          } catch (InvalidTaskException e) {
+          } catch (InvalidTaskException | DateTimeParseException e) {
             System.out.println(e.getMessage());
           }
 
