@@ -29,7 +29,7 @@ public class Task {
     public void markAsUndone() {
         isDone = false;
     }
-    
+
     @Override
     public String toString() {
         return String.format("[%s] %s", getStatusIcon(), description);

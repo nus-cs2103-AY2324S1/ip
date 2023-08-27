@@ -1,9 +1,9 @@
 package robert.task;
 
-import robert.exception.RobertException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import robert.exception.RobertException;
 
 public class Event extends Task {
     private final LocalDate fromDate;

@@ -1,10 +1,9 @@
 package robert.command;
 
-import robert.ui.Ui;
+import robert.exception.RobertException;
 import robert.storage.Storage;
 import robert.task.TaskList;
-
-import robert.exception.RobertException;
+import robert.ui.Ui;
 
 public class MarkCommand extends Command {
 

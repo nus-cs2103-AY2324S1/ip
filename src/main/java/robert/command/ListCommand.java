@@ -1,12 +1,10 @@
 package robert.command;
 
-import robert.ui.Ui;
-import robert.storage.Storage;
-import robert.task.TaskList;
-
-import robert.task.Task;
-
 import robert.exception.RobertException;
+import robert.storage.Storage;
+import robert.task.Task;
+import robert.task.TaskList;
+import robert.ui.Ui;
 
 public class ListCommand extends Command {
 

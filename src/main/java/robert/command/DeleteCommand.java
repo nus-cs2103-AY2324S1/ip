@@ -1,12 +1,10 @@
 package robert.command;
 
 import robert.exception.RobertException;
-
-import robert.ui.Ui;
 import robert.storage.Storage;
-import robert.task.TaskList;
-
 import robert.task.Task;
+import robert.task.TaskList;
+import robert.ui.Ui;
 
 public class DeleteCommand extends Command {
 
@@ -17,7 +15,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RobertException  {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws RobertException {
         Task deletedTask = tasks.deleteTask(taskIndex);
         ui.showMessage("Noted. I've removed this task:\n  " + deletedTask
                 + "\nNow you have " + tasks.getTaskCount() + " "
