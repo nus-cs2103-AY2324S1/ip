@@ -23,4 +23,8 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
 
+    public String saveTask() {
+        return "E|" + (this.isDone ? "X|" : " |") + this.description + "|" + this.from + "|" + this.to;
+    }
+
 }

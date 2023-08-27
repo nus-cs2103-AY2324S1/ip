@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class Duke {
     /**
      * Runs the chatbot and allows users to keep track of pending tasks
      *
-     * @param args user inputs to interact with the chat bot
+     * @param args user inputs to interact with the chatbot
      */
     public static void main(String[] args) {
         System.out.println("Hello! I'm HAPPY\nWhat can I do for you?\n");
@@ -24,6 +25,18 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> storedTasks = new ArrayList<>();
         SpecialTaskKeyword[] specialTasksKeywords = SpecialTaskKeyword.values();
+
+        File dataFolder = new File("data");
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs();
+        }
+        // Create or overwrite the duke.txt file and write the data
+        File file = new File(dataFolder, "duke.txt");
+        if (file.exists()) {
+            storedTasks = DukeManager.loadData(file);
+        }
+
+
         while (true) {
             String userInput = scanner.nextLine();
             try {
@@ -31,15 +44,26 @@ public class Duke {
                 int numStoredTasks = storedTasks.size();
                 String actionWord = userInputSegmented[0];
                 if (actionWord.equals("bye")) {
+                    try {
+                        FileWriter writer = new FileWriter(file);
+                        for (int i = 0; i < numStoredTasks; i++) {
+                            Task task = storedTasks.get(i);
+                            writer.write(task.saveTask());
+
+                            if (i < numStoredTasks - 1) {
+                                writer.write(System.lineSeparator());
+                            }
+                        }
+                        writer.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println("Bye. Hope to see you again soon!");
                     break;
                 }
                 else if (actionWord.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < numStoredTasks; i++){
-                        Task task = storedTasks.get(i);
-                        System.out.printf("%d.%s%n", i + 1, task);
-                    }
+                    listTasks(numStoredTasks, storedTasks);
                 }
                 else if (actionWord.equals("mark")) {
                     int taskNumber = Integer.parseInt(userInputSegmented[1]) - 1;
@@ -126,10 +150,28 @@ public class Duke {
                 else {
                     throw new InvalidInputException("ERROR: Invalid input");
                 }
+
+
+
             } catch (InvalidInputException e) {
                 System.out.println(e.getMessage());
             }
         }
         scanner.close();
     }
+
+    /**
+     * Prints out the list of tasks tracked by the chatbot
+     *
+     * @param numStoredTasks the total number of tasks trakced by the chatbot
+     * @param storedTasks an array list storing the tasks tracked by the chatbot
+     */
+    public static void listTasks(int numStoredTasks, ArrayList<Task> storedTasks) {
+        for (int i = 0; i < numStoredTasks; i++) {
+            Task task = storedTasks.get(i);
+            System.out.printf("%d.%s%n", i + 1, task);
+        }
+    }
+
+
 }

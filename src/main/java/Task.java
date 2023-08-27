@@ -50,4 +50,6 @@ public abstract class Task {
         }
         return prefix + " " + this.description;
     }
+
+    public abstract String saveTask();
 }

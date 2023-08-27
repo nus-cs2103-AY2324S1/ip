@@ -16,4 +16,8 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    public String saveTask() {
+        return "T|" + (this.isDone ? "X|" : " |") + this.description;
+    }
 }
