@@ -1,11 +1,18 @@
-public class Task {
+import java.io.FileWriter;
+import java.io.IOException;
+
+public abstract class Task {
+    private String type;
     private Line line = new Line();
     private String description;
     private boolean isDone = false;
 
-    public Task(String description) {
+    public Task(String description, String type) {
         this.description = description;
+        this.type = type;
     }
+
+    abstract String getOriginalMessage();
 
     public void mark(boolean val) {
         this.isDone = val;
@@ -19,6 +26,21 @@ public class Task {
         System.out.println(line);
     }
 
+    public void save(String filepath) {
+        try {
+            FileWriter myWriter = new FileWriter(filepath, true);
+            myWriter.write(this.getOriginalMessage() + "\n");
+            myWriter.close();
+        } catch (IOException ex) {
+            System.out.println("    Error saving to file");
+            System.exit(1);
+        }
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
     private String getStatusIcon() {
         return (isDone ? "X" : " "); //return tick or X symbols
     }
@@ -26,7 +48,7 @@ public class Task {
     @Override
 
     public String toString() {
-        String s = String.format("[%s] %s", this.getStatusIcon(), this.description);
+        String s = String.format("[%s][%s] %s", this.type.substring(0,1).toUpperCase(), this.getStatusIcon(), this.description);
         return s;
     }
 }

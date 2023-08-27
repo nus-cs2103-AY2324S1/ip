@@ -1,14 +1,15 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class Duke {
     private static Line line = new Line();
+    private static final String FILE_PATH = "./data/duke.txt";
     public static void main(String[] args) {
+        Tasks tasks = readData();
         printGreetings();
         Scanner s = new Scanner(System.in);
-        Tasks tasks = new Tasks();
 
         while (true) {
             String text = s.nextLine();
@@ -23,9 +24,34 @@ public class Duke {
                 break;
             }
 
-            tasks.handle(text);
+            tasks.handle(text, false);
         }
         printExit();
+    }
+
+    private static Tasks readData() {
+        Tasks tasks = new Tasks(FILE_PATH);
+        File myObj = new File(FILE_PATH);
+        System.out.println(line);
+        try {
+            Scanner myReader = new Scanner(myObj);
+            System.out.println("    Data has been restored from " + FILE_PATH);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                tasks.handle(data, true);
+            }
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("    Data file not found, creating a new one");
+            try {
+                myObj.createNewFile();
+            } catch (IOException e) {
+                System.out.println("    Error creating new file, quitting program now...");
+                System.exit(1);
+            }
+        }
+        System.out.println(line);
+        return tasks;
     }
 
     private static void printGreetings() {
