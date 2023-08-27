@@ -2,18 +2,36 @@ package duke;
 
 import java.util.Arrays;
 
+/** Class which deals with making sense of the user command. */
 public class Parser {
 
+    /**
+     * Returns a string containing the type of command the user inputted.
+     * @param userInput string value of the user input to be parsed.
+     * @return a string representing the type of command.
+     */
     public String parseActionWord(String userInput) {
         String[] userInputSegmented = userInput.split(" ");
         return userInputSegmented[0];
     }
 
+    /**
+     * Returns the index of the task the user is referring to.
+     * @param userInput string value of the user input to be parsed.
+     * @return an integer representing the index of the task.
+     */
     public int parseTaskNumber(String userInput) {
         String[] userInputSegmented = userInput.split(" ");
         return Integer.parseInt(userInputSegmented[1]) - 1;
     }
 
+    /**
+     * Returns the task that is added to Duke.
+     * @param userInput string value of the user input to be parsed.
+     * @param actionWord the type of task that is added.
+     * @return the task that is added to Duke.
+     * @throws InvalidTaskException if the task type is invalid.
+     */
     public Task parseAddTaskInput(String userInput, String actionWord) throws InvalidTaskException {
         String[] userInputSegmented = userInput.split(" ");
         if (userInputSegmented.length == 1) {

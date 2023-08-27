@@ -3,16 +3,27 @@ package duke;
 import java.io.*;
 import java.util.ArrayList;
 
+/** CLass which deals with loading tasks from the file and saving tasks in the file. */
 public class Storage {
 
     private String dataFolderName;
     private String fileName;
+
+    /**
+     * Class constructor specifying the filePath to load and save data.
+     * @param filePath string representation of the required filePath.
+     */
     public Storage(String filePath) {
         String[] filePathSegmented = filePath.split("/");
         this.dataFolderName = filePathSegmented[0];
         this.fileName = filePathSegmented[1];
     }
 
+    /**
+     * Loads the tasks stored in the local hard disk.
+     * @return an ArrayList containing the stored tasks.
+     * @throws NoTasksStoredException
+     */
     public ArrayList<Task> load() throws NoTasksStoredException {
         ArrayList<Task> storedTasks = new ArrayList<>();
         File dataFolder = new File(this.dataFolderName);
@@ -85,6 +96,10 @@ public class Storage {
         return storedTasks;
     }
 
+    /**
+     * Saves the tasks onto the local hard disk.
+     * @param tasks an ArrayList containing the tasks to be stored.
+     */
     public void save(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(this.fileName);
