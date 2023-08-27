@@ -1,17 +1,19 @@
 package extensions;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class EventTask extends Task {
 
-    protected String start;
-    protected String end;
+    protected final DateTimeFormatter INPUT_FORMAT
+            = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    protected final DateTimeFormatter DISPLAY_FORMAT
+            = DateTimeFormatter.ofPattern("dd-MMM-yyyy HHmm");
 
-    public EventTask(String desc, String start, String end) {
-        super(desc);
-        this.start = start;
-        this.end = end;
-    }
+    protected LocalDateTime start;
+    protected LocalDateTime end;
 
-    public EventTask(String desc, String start, String end, int isMarked) {
+    public EventTask(String desc, LocalDateTime start, LocalDateTime end, int isMarked) {
         super(desc);
         this.start = start;
         this.end = end;
@@ -22,15 +24,17 @@ public class EventTask extends Task {
 
     @Override
     protected String getTextFormattedString() {
-        return String.format("E|%d|%s|%s|%s", this.isDone ? 1 : 0, this.desc, this.end, this.start);
+        return String.format("E|%d|%s|%s|%s", this.isDone ? 1 : 0, this.desc,
+                this.end.format(INPUT_FORMAT).toString(),
+                this.start.format(INPUT_FORMAT).toString());
     }
 
     @Override
     public String toString() {
         String output = String.format("[E]%s (from: %s to: %s)",
                 super.toString(),
-                this.start,
-                this.end);
+                this.start.format(DISPLAY_FORMAT).toString(),
+                this.end.format(DISPLAY_FORMAT).toString());
         return output;
     }
 

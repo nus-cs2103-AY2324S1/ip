@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import java.util.ArrayList;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
 
@@ -84,7 +85,7 @@ public class Duke {
                 case "E":
                     end = segmented[3];
                     start = segmented[4];
-                    Duke.list.addEvent(desc, end, start, isMarked);
+                    Duke.list.addEvent(desc, start, end, isMarked);
                     break;
             }
 
@@ -172,7 +173,7 @@ public class Duke {
         if (desc.equals("")) {
             throw new InvalidTodoException();
         }
-        Task task = Duke.list.addTodo(desc);
+        Task task = Duke.list.addTodo(desc, 0);
         return "Got it. I've added this task:\n" +
                 "  " +
                 task +
@@ -182,55 +183,63 @@ public class Duke {
     }
 
     private static String createDeadline(String action) {
-        if (!action.contains("/by")) {
+        try {
+            if (!action.contains("/by")) {
+                throw new InvalidDeadlineException();
+            }
+
+            String[] arr = action.split("/by");
+            if (arr.length < 2) {
+                throw new InvalidDeadlineException();
+            }
+
+            String desc = arr[0].trim();
+            String deadline = arr[1].trim();
+
+            if (desc.equals("") || deadline.equals("")) {
+                throw new InvalidDeadlineException();
+            }
+            Task task = Duke.list.addDeadline(desc, deadline, 0);
+            return "Got it. I've added this task:\n" +
+                    "  " +
+                    task +
+                    "\nNow you have " +
+                    Duke.list.getSize() +
+                    " tasks in the list.";
+        } catch (DateTimeParseException e) {
             throw new InvalidDeadlineException();
         }
-
-        String[] arr = action.split("/by");
-        if (arr.length < 2) {
-            throw new InvalidDeadlineException();
-        }
-
-        String desc = arr[0].trim();
-        String deadline = arr[1].trim();
-
-        if (desc.equals("") || deadline.equals("")) {
-            throw new InvalidDeadlineException();
-        }
-        Task task = Duke.list.addDeadline(desc, deadline);
-        return "Got it. I've added this task:\n" +
-                "  " +
-                task +
-                "\nNow you have " +
-                Duke.list.getSize() +
-                " tasks in the list.";
     }
 
     private static String createEvent(String action) {
-        if (!action.contains("/from") || !action.contains("/to")) {
+        try {
+            if (!action.contains("/from") || !action.contains("/to")) {
+                throw new InvalidEventException();
+            }
+
+            String[] arr = action.split("/from|/to");
+            if (arr.length < 3) {
+                throw new InvalidEventException();
+            }
+
+            String desc = arr[0].trim();
+            String start = arr[1].trim();
+            String end = arr[2].trim();
+
+            if (desc.equals("") || start.equals("") || end.equals("")) {
+                throw new InvalidEventException();
+            }
+
+            Task task = Duke.list.addEvent(desc, start, end, 0);
+            return "Got it. I've added this task:\n" +
+                    "  " +
+                    task +
+                    "\nNow you have " +
+                    Duke.list.getSize() +
+                    " tasks in the list.";
+        } catch (DateTimeParseException e) {
             throw new InvalidEventException();
         }
-
-        String[] arr = action.split("/from|/to");
-        if (arr.length < 3) {
-            throw new InvalidEventException();
-        }
-
-        String desc = arr[0].trim();
-        String start = arr[1].trim();
-        String end = arr[2].trim();
-
-        if (desc.equals("") || start.equals("") || end.equals("")) {
-            throw new InvalidEventException();
-        }
-
-        Task task = Duke.list.addEvent(desc, start, end);
-        return "Got it. I've added this task:\n" +
-                "  " +
-                task +
-                "\nNow you have " +
-                Duke.list.getSize() +
-                " tasks in the list.";
     }
 
     private static String processInput(String userInput) {

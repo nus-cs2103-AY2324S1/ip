@@ -16,5 +16,8 @@ bin/
 # Compiled class files
 *.class
 
+# Stored chatbot data
+/data/duke.txt
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
