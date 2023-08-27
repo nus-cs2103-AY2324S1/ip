@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task  {
     protected String description;
     protected boolean isDone;
@@ -15,15 +19,15 @@ public class Task  {
             type = "T";
         } else if (this instanceof Deadline) {
             type = "D";
-            dateTime = " | " + ((Deadline) this).getBy();
+            dateTime = " | " + ((Deadline) this).getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } else if (this instanceof Event) {
             type = "E";
-            dateTime = " | " + ((Event) this).getFrom() + " | " + ((Event) this).getTo();
+            dateTime = " | " + ((Event) this).getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " +
+                    ((Event) this).getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         }
 
         return type + " | " + (isDone ? "1" : "0") + " | " + description + dateTime;
     }
-
 
     public static Task fromFileString(String fileString) {
         String[] parts = fileString.split(" \\| ");
@@ -37,11 +41,13 @@ public class Task  {
             task = new Todo(description);
         } else if (type.equals("D")) {
             String by = parts[3];
-            task = new Deadline(description, by);
+            // Use parseDate method to convert to LocalDate
+            task = new Deadline(description, parseDate(by));
         } else if (type.equals("E")) {
             String from = parts[3];
             String to = parts[4];
-            task = new Event(description, from, to);
+            // Use parseDateTime method to convert to LocalDateTime
+            task = new Event(description, parseDateTime(from), parseDateTime(to));
         } else {
             throw new IllegalArgumentException("Invalid task type: " + type);
         }
@@ -53,6 +59,13 @@ public class Task  {
         return task;
     }
 
+    private static LocalDateTime parseDateTime(String dateTime) {
+        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
+
+    private static LocalDate parseDate(String date) {
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
 
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
@@ -73,5 +86,6 @@ public class Task  {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "]" + " " + getDescription();
+
     }
 }
