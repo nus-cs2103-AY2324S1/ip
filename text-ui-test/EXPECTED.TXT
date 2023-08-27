@@ -1,7 +1,81 @@
+____________________________________________________________
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ _______  ___   ______   _______  _______  _______  _______  __   __  ___  
+|       ||   | |      | |       ||   _   ||       ||       ||  | |  ||   | 
+|  _____||   | |  _    ||_     _||  |_|  ||       ||    _  ||  |_|  ||   | 
+| |_____ |   | | | |   |  |   |  |       ||       ||   |_| ||       ||   | 
+|_____  ||   | | |_|   |  |   |  |       ||      _||    ___||       ||   | 
+ _____| ||   | |       |  |   |  |   _   ||     |_ |   |    |   _   ||   | 
+|_______||___| |______|   |___|  |__| |__||_______||___|    |__| |__||___| 
 
+
+What can I do for you?
+____________________________________________________________
+
+You: 
+Sidtacphi: I have added "[T] [ ] read book".
+Sidtacphi: You now have 1 task in your list.
+
+You: 
+Sidtacphi: I have added "[D] [ ] return book (by: June 6th)".
+Sidtacphi: You now have 2 tasks in your list.
+
+You: 
+Sidtacphi: I have added "[E] [ ] project meeting (from: Aug 6th 2pm, to: 4pm)".
+Sidtacphi: You now have 3 tasks in your list.
+
+You: 
+Sidtacphi: Marked "[T] [X] read book".
+
+You: 
+Sidtacphi: I have added "[T] [ ] join sports club".
+Sidtacphi: You now have 4 tasks in your list.
+
+You: 
+Sidtacphi: Marked "[T] [X] join sports club".
+
+You: 
+Sidtacphi: I have added "[T] [ ] borrow book".
+Sidtacphi: You now have 5 tasks in your list.
+
+You: 
+Sidtacphi: These are the tasks in your list.
+1. [T] [X] read book
+2. [D] [ ] return book (by: June 6th)
+3. [E] [ ] project meeting (from: Aug 6th 2pm, to: 4pm)
+4. [T] [X] join sports club
+5. [T] [ ] borrow book
+
+You: 
+Sidtacphi: Marked "[T] [X] borrow book".
+
+You: 
+Sidtacphi: Unmarked "[T] [ ] borrow book".
+
+You: 
+Sidtacphi: These are the tasks in your list.
+1. [T] [X] read book
+2. [D] [ ] return book (by: June 6th)
+3. [E] [ ] project meeting (from: Aug 6th 2pm, to: 4pm)
+4. [T] [X] join sports club
+5. [T] [ ] borrow book
+
+You: 
+Sidtacphi: I have added "[D] [ ] return book (by: Sunday)".
+Sidtacphi: You now have 6 tasks in your list.
+
+You: 
+Sidtacphi: I have added "[E] [ ] project meeting (from: Mon 2pm, to: 4pm)".
+Sidtacphi: You now have 7 tasks in your list.
+
+You: 
+Sidtacphi: These are the tasks in your list.
+1. [T] [X] read book
+2. [D] [ ] return book (by: June 6th)
+3. [E] [ ] project meeting (from: Aug 6th 2pm, to: 4pm)
+4. [T] [X] join sports club
+5. [T] [ ] borrow book
+6. [D] [ ] return book (by: Sunday)
+7. [E] [ ] project meeting (from: Mon 2pm, to: 4pm)
+
+You: 
