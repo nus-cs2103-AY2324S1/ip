@@ -1,18 +1,26 @@
-task
+todo cs2103t lab
 todo
-todo message students
-deadline finish assignment /by
-deadline finish assignment /by Tuesday
-event /by /from
-event ta meeting /from Monday 2pm /to 4pm
+help
+todo find the key to your heart
+deadline cs2103t quiz /by Monday 2359
+deadline cs2100 quiz /by 28/8/2023 2359
+event career fair /from 29/08/2023 0900 /to 30/08/2023 1800
+event ta meeting /from choo choo train
+event ta meeting /from 27/08/2023 2100 /to 27/8/2023 2200
 list
-mark
-mark 4
-mark 1
 mark 2
-mark 3
-unmark 3
+mark 4
+mark 5
+mark 6
 list
-delete 3
+unmark 5
+list
+unmark
+unmark 69
+whatsgoingon 29/8/2023
+event long /from 1/1/1999 0000 /to 2/2/2222 0000
+whastgoingon 27/8/2023
+whatsgoingon 27/8/2023
+delete 6
 list
 bye
