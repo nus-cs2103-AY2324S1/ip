@@ -15,18 +15,6 @@ public class CliParserService {
         this.outputService = new OutputService();
         this.taskFactory = new TaskFactory();
     }
-    
-    public static void main(String[] args) {
-        Duke changooseBot = new Duke("Changoose");
-        CliParserService cliParserService = new CliParserService(changooseBot);
-        OutputService outputService = new OutputService();
-        String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", changooseBot.getBotName());
-        String endMessage = "Bye! Hope to see you again soon!";
-
-        outputService.echo(startMessage);
-        cliParserService.parse();
-        outputService.echo(endMessage);
-    }
 
     public void parse() {
         Scanner scanner = new Scanner(System.in);

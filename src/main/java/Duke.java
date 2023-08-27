@@ -13,6 +13,18 @@ public class Duke {
         this.outputService = new OutputService();
     }
 
+    public static void main(String[] args) {
+        Duke changooseBot = new Duke("Changoose");
+        CliParserService cliParserService = new CliParserService(changooseBot);
+        OutputService outputService = new OutputService();
+        String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", changooseBot.getBotName());
+        String endMessage = "Bye! Hope to see you again soon!";
+
+        outputService.echo(startMessage);
+        cliParserService.parse();
+        outputService.echo(endMessage);
+    }
+
     public String getBotName() {
         return this.botName;
     }
