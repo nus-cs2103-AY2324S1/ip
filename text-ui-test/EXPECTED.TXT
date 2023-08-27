@@ -26,7 +26,7 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     Good job on completing this task:
+     Task updated as requested:
        [D][X] eat lunch (by: 1st june mon)
     ____________________________________________________________
 
@@ -45,17 +45,17 @@
     ____________________________________________________________
 
     ____________________________________________________________
-     Good job on completing this task:
+     Task updated as requested:
        [E][X] japan holiday trip (from: mid june to: end july)
     ____________________________________________________________
 
     ____________________________________________________________
-     I can't mark something that doesn't exist...
+     I can't modify a task that doesn't exist...
      Try a number from the list
     ____________________________________________________________
 
     ____________________________________________________________
-     Unmarked task as requested:
+     Task updated as requested:
        [D][ ] eat lunch (by: 1st june mon)
     ____________________________________________________________
 
