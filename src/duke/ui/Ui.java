@@ -1,4 +1,10 @@
+package duke.ui;
+
 import java.util.List;
+
+import duke.exceptions.DukeException;
+import duke.tasks.Task;
+import duke.util.TaskList;
 
 public class Ui {
     private final String LOGO = ",------.,--.              ,--.  \n"
@@ -7,9 +13,6 @@ public class Ui {
             + "|  `---.|  \\\\  \\\\  ''  '\\\\ `-\'   \n"
             + "`------'`--'`--'`----'  `---' \n";
     private final String LINE = "-".repeat(60);
-
-    public Ui () {
-    }
 
     public void printWelcomeMessage() {
         System.out.println(LINE);

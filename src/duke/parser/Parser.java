@@ -1,3 +1,7 @@
+package duke.parser;
+
+import duke.main.Duke;
+
 public class Parser {
 
     public Duke.CommandType parseCommandType(String command) {

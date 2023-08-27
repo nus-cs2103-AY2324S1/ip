@@ -1,5 +1,10 @@
+package duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import duke.exceptions.DukeException;
+
 
 public class Event extends Task {
 
