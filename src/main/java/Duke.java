@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
@@ -124,7 +125,7 @@ public class Duke {
                 String desc = sub.substring(0, sub.indexOf(div));
                 int firstLine = sub.indexOf(div) + div.length();
                 String by = sub.substring(firstLine, sub.indexOf(div, firstLine));
-                task = new Deadline(desc, by);
+                task = new Deadline(desc, LocalDateTime.parse(by));
 
             } else if (line.charAt(0) == 'E') {
                 String sub = line.substring(div.length() + 1);
@@ -133,7 +134,7 @@ public class Duke {
                 String from = sub.substring(firstLine, sub.indexOf(div, firstLine));
                 int secLine = sub.indexOf(div, firstLine) + div.length();
                 String to = sub.substring(secLine, sub.indexOf(div, secLine));
-                task = new Event(desc, from, to);
+                task = new Event(desc, LocalDateTime.parse(from), LocalDateTime.parse(to));
             }
             // check if task is completed
             if (line.charAt(line.length() - 1) == '1') {
@@ -212,10 +213,13 @@ public class Duke {
 
                     Parser parser = new Parser("D");
                     ArrayList<String> texts = parser.convert(input);
-                    Task dl = new Deadline(texts.get(0), texts.get(1));
+                    CustomDate cD = new CustomDate();
+                    Task dl = new Deadline(texts.get(0), cD.strToDateTime(texts.get(1)));
                     tasks.add(dl);
+
                     System.out.println("Got it. I've added this task:\n" + dl +
                             "\nNow you have " + tasks.size() + " tasks in the list.");
+
                     writeToFile(filePath, fileName, dl);
                     continue;
                 }
@@ -232,8 +236,11 @@ public class Duke {
                     }
                     Parser parser = new Parser("E");
                     ArrayList<String> texts = parser.convert(input);
-                    Task event = new Event(texts.get(0), texts.get(1), texts.get(2));
+                    CustomDate cD = new CustomDate();
+                    Task event = new Event(texts.get(0),
+                            cD.strToDateTime(texts.get(1)), cD.strToDateTime(texts.get(2)));
                     tasks.add(event);
+
                     System.out.println("Got it. I've added this task:\n" + event +
                             "\nNow you have " + tasks.size()  + " tasks in the list.");
                     writeToFile(filePath, fileName, event);
@@ -281,9 +288,11 @@ public class Duke {
                 } else if (e.getMessage().equals("Empty event")) {
                     System.out.println("You cannot have an empty event");
                 } else if (e.getMessage().equals("Wrong event")) {
-                    System.out.println("Your event structure is wrong");
+                    System.out.println("Your event structure is wrong, it is " +
+                            "event <your task> /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm");
                 } else if (e.getMessage().equals("Wrong deadline")) {
-                    System.out.println("Your deadline structure is wrong");
+                    System.out.println("Your deadline structure is wrong, it is" +
+                            " deadline <your task> /by dd/mm/yyyy hhmm");
                 } else {
                     System.out.println(e.getMessage());
                 }
