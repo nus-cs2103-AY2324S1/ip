@@ -296,8 +296,22 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        retrieveSavedData();
-        intro();
+//        retrieveSavedData();
+//        intro();
+//
+//        Scanner myObj = new Scanner(System.in);
+//        String userInput = myObj.nextLine();
+//        String bye = "bye";
+//
+//        while (!userInput.toLowerCase().equals(bye)) {
+//            displayOutput(userInput);
+//            userInput = myObj.nextLine();
+//        }
+//
+//        saveChanges();
+//        exit();
+        Duke.list = Storage.retrieveSavedData();
+        Ui.intro();
 
         Scanner myObj = new Scanner(System.in);
         String userInput = myObj.nextLine();
@@ -309,7 +323,7 @@ public class Duke {
         }
 
         saveChanges();
-        exit();
+        Ui.outro();
     }
 
 }
