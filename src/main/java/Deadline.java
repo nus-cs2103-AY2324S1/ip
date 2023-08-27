@@ -1,9 +1,14 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  * Deadline task.
  */
 public class Deadline extends Task{
-    private String due;
-    public Deadline(String taskContent, String due) {
+//    private String due;
+    private LocalDate due;
+
+    public Deadline(String taskContent, LocalDate due) {
 
         super(taskContent);
         this.due = due;
@@ -12,11 +17,11 @@ public class Deadline extends Task{
     @Override
     public String toString() {
         String statusAndTaskContent = super.toString();
-        return String.format("  [D] %s (by: %s)", statusAndTaskContent, due);
+        return String.format("  [D] %s (by: %s)", statusAndTaskContent, due.format(formatter));
     }
 
     public static Deadline create(String status, String description, String due) {
-        Deadline task = new Deadline(description, due);
+        Deadline task = new Deadline(description, LocalDate.parse(due));
         if (status == "1") {
             task.mark();
         }
@@ -24,6 +29,6 @@ public class Deadline extends Task{
     }
 
     public String saveToFileLine() {
-        return String.format("D | %s | %s\n", super.saveToFileLine(), due);
+        return String.format("D | %s | %s\n", super.saveToFileLine(), due.toString());
     }
 }

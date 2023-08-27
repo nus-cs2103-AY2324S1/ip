@@ -1,9 +1,14 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Class for tasks created.
  */
 public class Task {
     private boolean status;
     private String taskContent;
+    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
 
     public Task(String reply) {
         this.status = false;
@@ -39,5 +44,9 @@ public class Task {
 
     public String saveToFileLine() {
         return String.format("%s | %s", status ? "1" : "0", taskContent);
+    }
+
+    public String formatDate(LocalDate date) {
+        return LocalDate.parse(date.toString()).format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 }

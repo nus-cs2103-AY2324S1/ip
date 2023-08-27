@@ -1,10 +1,12 @@
+import java.time.LocalDate;
+
 /**
  * Event task.
  */
 public class Event extends Task{
-    private String from;
-    private String to;
-    public Event(String taskContent, String from, String to) {
+    private LocalDate from;
+    private LocalDate to;
+    public Event(String taskContent, LocalDate from, LocalDate to) {
         super(taskContent);
         this.from = from;
         this.to = to;
@@ -13,11 +15,12 @@ public class Event extends Task{
     @Override
     public String toString() {
         String statusAndTaskContent = super.toString();
-        return String.format("  [E] %s (from: %s to: %s)", statusAndTaskContent, from, to);
+        return String.format("  [E] %s (from: %s to: %s)",
+                statusAndTaskContent, from.format(formatter), to.format(formatter));
     }
 
     public static Event create(String status, String description, String from, String to) {
-        Event task = new Event(description, from, to);
+        Event task = new Event(description, LocalDate.parse(from), LocalDate.parse(to));
         if (status == "1") {
             task.mark();
         }

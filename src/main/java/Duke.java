@@ -1,7 +1,12 @@
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -102,8 +107,13 @@ public class Duke {
         String taskContent = reply.substring(0, reply.indexOf(" /by")).replace("deadline ", "");
         String due = reply.substring(reply.indexOf("/by") + 4);
 
-        Task task = new Deadline(taskContent, due);
-        addTask(task);
+        try {
+            Task task = new Deadline(taskContent, LocalDate.parse(due));
+            addTask(task);
+        } catch (DateTimeParseException e) {
+            throw new DukeInvalidDateFormatException();
+        }
+
     }
 
     /**
@@ -117,8 +127,12 @@ public class Duke {
         String to = reply.substring(reply.indexOf("/to") + 4);
         String taskContent = reply.substring(0, reply.indexOf(" /from")).replace("event ", "");
 
-        Task task = new Event(taskContent, from, to);
-        addTask(task);
+        try {
+            Task task = new Event(taskContent, LocalDate.parse(from), LocalDate.parse(to));
+            addTask(task);
+        } catch (DateTimeParseException e) {
+            throw new DukeInvalidDateFormatException();
+        }
     }
 
     /**
