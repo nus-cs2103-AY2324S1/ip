@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -22,6 +23,11 @@ public class Event extends Task{
         String[] state = new String[]{ Command.EVENT.getCommand(), this.getDone() ? "1" : "0", this.getTaskName(),
                 this.from.format(Duke.dateTimeInputFormatter), this.to.format(Duke.dateTimeInputFormatter) };
         return String.join(" / ", state);
+    }
+
+    @Override
+    public boolean isOnDate(LocalDate date) {
+        return false;
     }
 
     public static String[] processInput(String[] splitInput) throws InvalidTaskException {
