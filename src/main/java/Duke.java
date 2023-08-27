@@ -15,7 +15,7 @@ public class Duke {
     private ArrayList<Task> list = new ArrayList<>();
 
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, DELETE,
+        BYE, LIST, MARK, UNMARK, DELETE, CHECK, TODAY,
         TODO, DEADLINE, EVENT,
 
     }
@@ -75,6 +75,12 @@ public class Duke {
                     break;
                 case DELETE:
                     this.deleteTask(parts);
+                    break;
+                case CHECK:
+                    this.checkTasksOnDate(parts);
+                    break;
+                case TODAY:
+                    this.printTasksForToday();
                     break;
                 default:
                     throw new UnknownCommandException();
@@ -325,6 +331,89 @@ public class Duke {
         } catch (IOException e) {
             System.out.println("Error saving tasks to the data file:" + e.getMessage());
         }
+    }
+
+    private void checkTasksOnDate(String[] userCommandParts) {
+        try {
+            if (userCommandParts.length < 2) {
+                throw new EmptyDescriptionException("date");
+            }
+
+            String dateString = userCommandParts[1].trim();
+            LocalDate date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d/M/yyyy"));
+
+            System.out.println(LINE);
+            System.out.println("\t Tasks on " + date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + ":");
+
+            boolean foundTasks = false;
+
+            for (Task task : list) {
+                if (task instanceof Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    if (deadline.time.toLocalDate().equals(date)) {
+                        System.out.println("\t\t " + task);
+                        foundTasks = true;
+                    }
+                } else if (task instanceof Event) {
+                    Event event = (Event) task;
+                    if (event.time.toLocalDate().equals(date)) {
+                        System.out.println("\t\t " + task);
+                        foundTasks = true;
+                    }
+                }
+            }
+
+            if (!foundTasks) {
+                System.out.println("\t\t Yay! You have no tasks on "
+                        + date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " :D");
+            }
+
+            System.out.println(LINE);
+            System.out.println();
+
+        } catch (EmptyDescriptionException e) {
+            System.out.println(LINE);
+            System.out.println("\t" + e.getMessage());
+            System.out.println(LINE);
+            System.out.println();
+        } catch (DateTimeParseException e) {
+            System.out.println(LINE);
+            System.out.println("\t ☹ OOPS!!! Please provide a valid date in the format: d/M/yyyy.");
+            System.out.println(LINE);
+            System.out.println();
+        }
+    }
+
+    private void printTasksForToday() {
+        LocalDate today = LocalDate.now();
+
+        System.out.println(LINE);
+        System.out.println("\t Tasks for today (" + today.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + "):");
+
+        boolean foundTasks = false;
+
+        for (Task task : list) {
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.time.toLocalDate().equals(today)) {
+                    System.out.println("\t\t " + task);
+                    foundTasks = true;
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.time.toLocalDate().equals(today)) {
+                    System.out.println("\t\t " + task);
+                    foundTasks = true;
+                }
+            }
+        }
+
+        if (!foundTasks) {
+            System.out.println("\t\t Yay! You have no tasks today :D");
+        }
+
+        System.out.println(LINE);
+        System.out.println();
     }
 
     public static void main(String[] args) {
