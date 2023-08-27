@@ -1,3 +1,8 @@
+import com.google.gson.*;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +17,12 @@ public class TaskManager {
      * <p>
      * This is an abstract class which should be inherited by custom task types.
      * It contains basic properties for a task, which can be extended as needed.
+     * All subclasses must also ensure they conform to compatibility with GSON
+     * and do not allow any null fields.
      * </p>
      */
     public abstract static class Task {
+
         private String title;
         private boolean completed = false;
 
@@ -59,6 +67,27 @@ public class TaskManager {
         }
 
         /**
+         * Asserts that this task's parameters are in a valid state, having correctly configured with no null values.
+         *
+         * @throws IllegalArgumentException if the object is incorrectly constructed with invalid, null parameters.
+         */
+        public void assertValidState() {
+            Field[] fields = this.getClass().getDeclaredFields();
+            for (Field field: fields) {
+                try {
+                    if (field.get(this) == null) {
+                        throw new IllegalArgumentException(String.format(
+                                "Tasks may not have null values, but %s is null.", field.getName()
+                        ));
+                    }
+
+                } catch (IllegalAccessException e) {
+                    // Do nothing.
+                }
+            }
+        }
+
+        /**
          * Returns a string representation of the task, to be implemented by inherited classes.
          *
          * @return A string representing the task.
@@ -72,6 +101,11 @@ public class TaskManager {
      * It has a title and can be marked as completed.
      */
     public static class Todo extends Task {
+        /**
+         * Constructor for a To-do task.
+         *
+         * @param title The title of the to-do.
+         */
         public Todo(String title) {
             super(title);
         }
@@ -88,8 +122,22 @@ public class TaskManager {
      */
     public static class Deadline extends Task {
 
-        private long deadline;
+        /**
+         * Deadline timestamp of the event as Unix epoch in seconds.
+         *
+         * <p>
+         *     This is intentionally using the object instead of the primitive type
+         *     to allow for Gson to set to null, flagging the value as missing.
+         * </p>
+         */
+        private Long deadline;
 
+        /**
+         * Constructor for a deadline task.
+         *
+         * @param title The title of the deadline.
+         * @param deadline The deadline, as Unix epoch in seconds.
+         */
         public Deadline(String title, long deadline) {
             super(title);
             this.deadline = deadline;
@@ -120,9 +168,33 @@ public class TaskManager {
      */
     public static class Event extends Task {
 
-        private long startTimestamp; // TODO: Start times should not be a string.
-        private long endTimestamp; // TODO: End times should not be a string.
+        /**
+         * Starting timestamp of the event as Unix epoch in seconds.
+         *
+         * <p>
+         *     This is intentionally using the object instead of the primitive type
+         *     to allow for Gson to set to null, flagging the value as missing.
+         * </p>
+         */
+        private Long startTimestamp;
 
+        /**
+         * Ending timestamp of the event as Unix epoch in seconds.
+         *
+         * <p>
+         *     This is intentionally using the object instead of the primitive type
+         *     to allow for Gson to set to null, flagging the value as missing.
+         * </p>
+         */
+        private Long endTimestamp;
+
+        /**
+         * Constructor for an Event task.
+         *
+         * @param title The title of the event.
+         * @param startTimestamp The start of the event as Unix epoch in seconds.
+         * @param endTimestamp The end of the event as Unix epoch in seconds.
+         */
         public Event(String title, long startTimestamp, long endTimestamp) {
             super(title);
             this.startTimestamp = startTimestamp;
@@ -162,12 +234,26 @@ public class TaskManager {
 
 
     private List<Task> taskList;
+    private InternalStorage.Path storageLocation;
+    private static final String DEFAULT_FILENAME = "tasks.json";
 
     /**
-     * Constructor for a task manager, managing a list of items representing "tasks".
+     * Constructor for a task manager, managing a list of items representing "tasks",
+     * with a custom storage location.
+     *
+     * @param storageLocation Path
+     */
+    public TaskManager(InternalStorage.Path storageLocation) {
+        this.taskList = new ArrayList<>();
+        this.storageLocation = storageLocation;
+    }
+
+    /**
+     * Constructor for a task manager, managing a list of items representing "tasks",
+     * with the default storage location.
      */
     public TaskManager() {
-        this.taskList = new ArrayList<>();
+        this(new InternalStorage.Path(DEFAULT_FILENAME));
     }
 
     /**
@@ -228,4 +314,77 @@ public class TaskManager {
         return this.taskList.remove(index);
     }
 
+    /**
+     * Loads and replaces the task list in memory with the one currently in storage.
+     *
+     * <p>
+     *     This method will load the data from storage and replace all in-memory contents.
+     *     Any unrecognized, incompatible tasks may be omitted entirely.
+     * </p>
+     *
+     * @throws IOException if there were any issues retrieving the data.
+     */
+    public void loadFromStorage() throws IOException, JsonSyntaxException {
+        Gson gson = new Gson();
+        try {
+            String data = InternalStorage.loadFrom(this.storageLocation);
+            JsonArray array = JsonParser.parseString(data).getAsJsonArray();
+
+            // Prepare a new list of tasks.
+            List<Task> tasks = new ArrayList<>();
+
+            // Prepare a new set of classes, from most specific to least specific.
+            // This ordering is required to match the provided JSON to a class that's as specific as possible.
+            @SuppressWarnings("unchecked")
+            Class<Task>[] availClasses = new Class[]{ Event.class, Deadline.class, Todo.class };
+
+            // Iterate through the items in the JSON array.
+            for (JsonElement item: array) {
+                Task task = null;
+
+                // Iterate through possible classes and attempt to get them.
+                for (Class<Task> cls: availClasses) {
+                    try {
+                        task = gson.fromJson(item, cls);
+                        task.assertValidState();
+                    } catch (JsonSyntaxException | IllegalArgumentException e) {
+                        // This particular task is broken. Make it null.
+                        task = null;
+                    }
+
+                    if (task != null) {
+                        break;
+                    }
+                }
+
+                // Skip if we cannot parse.
+                if (task == null) {
+                    continue;
+                }
+
+                // Add it if we can.
+                tasks.add(task);
+            }
+
+            // Replace the task list with a new one
+            this.taskList = tasks;
+
+        } catch (JsonSyntaxException | FileNotFoundException e) {
+
+            // Silence these errors and replace the task list with a new one.
+            this.taskList = new ArrayList<>();
+
+        }
+    }
+
+    /**
+     * Saves and replaces the task list in storage with the one currently in memory.
+     *
+     * @throws IOException if there were any issues saving the data.
+     */
+    public void saveToStorage() throws IOException {
+        Gson gson = new Gson();
+        String data = gson.toJson(this.taskList);
+        InternalStorage.saveTo(this.storageLocation, data);
+    }
 }

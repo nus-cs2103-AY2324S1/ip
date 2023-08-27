@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -57,6 +58,13 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             return;
         }
         this.closed = false;
+
+        try {
+            this.taskManager.loadFromStorage();
+        } catch (IOException e) {
+            // Do nothing.
+        }
+
         this.sendMessage(ChatMessage.SenderType.CHATBOT, String.format("Hello! I'm %s!\nWhat can I do for you?", this.name));
     }
 
@@ -203,6 +211,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
                         }
                     }
+                    this.taskManager.saveToStorage();
                     break;
 
                 case AddTodo:
@@ -290,6 +299,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                                 command.getName()
                         ));
                     }
+                    this.taskManager.saveToStorage();
                     break;
 
                 case List:
@@ -326,6 +336,12 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             }
         } catch (ChatbotException e) {
             this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oops! " + e.getMessage());
+        } catch (IOException e) {
+            this.sendMessage(
+                    ChatMessage.SenderType.CHATBOT,
+                    "Oops! I'm having problems saving your data to storage. Your data may not be preserved. " +
+                            e.getMessage()
+            );
         } catch (Exception e) {
             this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oh no, something unexpectedly went wrong! The internal error was: " + e.getLocalizedMessage());
         }
