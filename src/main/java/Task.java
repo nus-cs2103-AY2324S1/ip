@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -46,6 +46,8 @@ public class Task {
     public void markAsNotDone() {
         setDone(false);
     }
+
+    public abstract String toSaveDataFormat();
 
     @Override
     public String toString() {
