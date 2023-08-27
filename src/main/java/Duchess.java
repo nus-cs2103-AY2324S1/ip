@@ -1,8 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import java.util.regex.Matcher;
-
 public class Duchess {
     /**
      * Name for the Duchess AI.
@@ -13,36 +11,13 @@ public class Duchess {
      * An ArrayList to store text in.
      */
     private static final ArrayList<Task> storedTasks = new ArrayList<>();
-
-    /**
-     * Prints text, but with a consistent formatting in Duchess style.
-     */
-    private static void duchessPrint(String s) {
-        System.out.println(String.format("[D]: %s", s));
-    }
-
-    /**
-     * Prints greeting to the user and returns.
-     */
-    private static void printGreeting() {
-        Duchess.duchessPrint("(^O^)／ Heya~");
-        Duchess.duchessPrint("I am ~~Duchess~~!!");
-        Duchess.duchessPrint("What can I do for you!! o_O");
-    }
-    /**
-     * Prints farewell/exit message.
-     */
-    private static void printFarewell() {
-        Duchess.duchessPrint("Bye bye!! Hope to see you again (＾▽＾)");
-    }
-
     /**
      * Outputs the same string parameter that was passed in.
      *
      * @param s - the string to be echoed.
      */
     private static void echo(String s) {
-        Duchess.duchessPrint(s);
+        Ui.duchessPrint(s);
     }
 
     /**
@@ -51,9 +26,9 @@ public class Duchess {
      * @param s - the string to be stored.
      */
     private static void listTasks() {
-        Duchess.duchessPrint("Here are the things you said!! ヽ(^o^)丿");
+        Ui.duchessPrint("Here are the things you said!! ヽ(^o^)丿");
         for (int i = 0; i < Duchess.storedTasks.size(); i++) {
-            Duchess.duchessPrint(String.format("%d: %s", i + 1, Duchess.storedTasks.get(i).toString()));
+            Ui.duchessPrint(String.format("%d: %s", i + 1, Duchess.storedTasks.get(i).toString()));
         }
     }
     /**
@@ -64,13 +39,13 @@ public class Duchess {
     private static void markTask(int index) {
         // Within bounds
         if (index < 0 || index >= Duchess.storedTasks.size()) {
-            Duchess.duchessPrint("(´；ω；`) Sorry, no such task exists... ;-;");
+            Ui.duchessPrint("(´；ω；`) Sorry, no such task exists... ;-;");
             return;
         }
 
         Duchess.storedTasks.get(index).changeStatus(TaskStatus.MARKED);
-        Duchess.duchessPrint("Task has been marked!! (＾▽＾)");
-        duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.get(index).toString()));
+        Ui.duchessPrint("Task has been marked!! (＾▽＾)");
+        Ui.duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.get(index).toString()));
     }
 
     /**
@@ -80,13 +55,13 @@ public class Duchess {
      */
     private static void unmarkTask(int index) {
         if (index < 0 || index >= Duchess.storedTasks.size()) {
-            Duchess.duchessPrint("(´；ω；`) Sorry, no such task exists... ;-;");
+            Ui.duchessPrint("(´；ω；`) Sorry, no such task exists... ;-;");
             return;
         }
 
         Duchess.storedTasks.get(index).changeStatus(TaskStatus.UNMARKED);
-        Duchess.duchessPrint("Task has been unmarked!! (＾▽＾)");
-        duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.get(index).toString()));
+        Ui.duchessPrint("Task has been unmarked!! (＾▽＾)");
+        Ui.duchessPrint(String.format("%d: %s", index + 1, Duchess.storedTasks.get(index).toString()));
     }
 
     /**
@@ -96,15 +71,15 @@ public class Duchess {
      */
     private static void deleteTask(int index) {
         if (index < 0 || index >= Duchess.storedTasks.size()) {
-            Duchess.duchessPrint("(´；ω；`) Sorry, no such task exists... ;-;");
+            Ui.duchessPrint("(´；ω；`) Sorry, no such task exists... ;-;");
             return;
         }
 
         Task task = Duchess.storedTasks.remove(index);
-        Duchess.duchessPrint("Deleted successfully!! d(*⌒▽⌒*)b");
-        duchessPrint(String.format("%d: %s", index + 1, task.toString()));
-        Duchess.duchessPrint("");
-        Duchess.duchessPrint(String.format("Now you have %d task(s)!! ヽ(´▽`)/", Duchess.storedTasks.size()));
+        Ui.duchessPrint("Deleted successfully!! d(*⌒▽⌒*)b");
+        Ui.duchessPrint(String.format("%d: %s", index + 1, task.toString()));
+        Ui.duchessPrint("");
+        Ui.duchessPrint(String.format("Now you have %d task(s)!! ヽ(´▽`)/", Duchess.storedTasks.size()));
     }
 
     /**
@@ -115,16 +90,16 @@ public class Duchess {
     private static void addTask(Task task) {
         Duchess.storedTasks.add(task);
 
-        Duchess.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
-        Duchess.duchessPrint(String.format("%d: %s", Duchess.storedTasks.indexOf(task) + 1, task.toString()));
-        Duchess.duchessPrint("");
-        Duchess.duchessPrint(String.format("Now you have %d task(s)!! ヽ(´▽`)/", Duchess.storedTasks.size()));
+        Ui.duchessPrint("Added successfully!! d(*⌒▽⌒*)b");
+        Ui.duchessPrint(String.format("%d: %s", Duchess.storedTasks.indexOf(task) + 1, task.toString()));
+        Ui.duchessPrint("");
+        Ui.duchessPrint(String.format("Now you have %d task(s)!! ヽ(´▽`)/", Duchess.storedTasks.size()));
     }
 
 
 
     public static void main(String[] args) {
-        Duchess.printGreeting();
+        Ui.printGreeting();
 
         // Create the save file, if it does not exist.
         Storage.createSaveFile();
@@ -160,9 +135,9 @@ public class Duchess {
                     Duchess.markTask(index);
                 }
                 catch (DuchessException e) {
-                    Duchess.duchessPrint(e.getMessage());
-                    Duchess.duchessPrint("(／°▽°)／Try something like this!!");
-                    Duchess.duchessPrint("mark [task number]");
+                    Ui.duchessPrint(e.getMessage());
+                    Ui.duchessPrint("(／°▽°)／Try something like this!!");
+                    Ui.duchessPrint("mark [task number]");
                 }
                 continue;
             }
@@ -175,9 +150,9 @@ public class Duchess {
                     Duchess.unmarkTask(index);
                 }
                 catch (DuchessException e) {
-                    Duchess.duchessPrint(e.getMessage());
-                    Duchess.duchessPrint("(／°▽°)／Try something like this!!");
-                    Duchess.duchessPrint("unmark [task number]");
+                    Ui.duchessPrint(e.getMessage());
+                    Ui.duchessPrint("(／°▽°)／Try something like this!!");
+                    Ui.duchessPrint("unmark [task number]");
                 }
                 continue;
             }
@@ -190,9 +165,9 @@ public class Duchess {
                     Duchess.deleteTask(index);
                 }
                 catch (DuchessException e) {
-                    Duchess.duchessPrint(e.getMessage());
-                    Duchess.duchessPrint("(／°▽°)／Try something like this!!");
-                    Duchess.duchessPrint("delete [task number]");
+                    Ui.duchessPrint(e.getMessage());
+                    Ui.duchessPrint("(／°▽°)／Try something like this!!");
+                    Ui.duchessPrint("delete [task number]");
                 }
                 continue;
             }
@@ -204,9 +179,9 @@ public class Duchess {
                     Duchess.addTask(todo);
                 }
                 catch (DuchessException e) {
-                    Duchess.duchessPrint(e.getMessage());
-                    Duchess.duchessPrint("(／°▽°)／Try something like this!!");
-                    Duchess.duchessPrint("todo [name]");
+                    Ui.duchessPrint(e.getMessage());
+                    Ui.duchessPrint("(／°▽°)／Try something like this!!");
+                    Ui.duchessPrint("todo [name]");
                 }
                 continue;
             }
@@ -218,9 +193,9 @@ public class Duchess {
                     Duchess.addTask(deadline);
                 }
                 catch(DuchessException e) {                    
-                    Duchess.duchessPrint(e.getMessage());
-                    Duchess.duchessPrint("(／°▽°)／Try something like this!!");
-                    Duchess.duchessPrint("deadline [name] /by [year-month-date]");
+                    Ui.duchessPrint(e.getMessage());
+                    Ui.duchessPrint("(／°▽°)／Try something like this!!");
+                    Ui.duchessPrint("deadline [name] /by [year-month-date]");
                 }
                 continue;
             }
@@ -232,14 +207,14 @@ public class Duchess {
                     Duchess.addTask(event);
                 }
                 catch(DuchessException e) {
-                    Duchess.duchessPrint(e.getMessage());
-                    Duchess.duchessPrint("(／°▽°)／Try something like this!!");
-                    Duchess.duchessPrint("event [name] /from [time] /to [time]");
+                    Ui.duchessPrint(e.getMessage());
+                    Ui.duchessPrint("(／°▽°)／Try something like this!!");
+                    Ui.duchessPrint("event [name] /from [time] /to [time]");
                 }
                 continue;
             }
 
-            Duchess.duchessPrint("(´；ω；`) Oopsies... I don't know what that means ;-;");
+            Ui.duchessPrint("(´；ω；`) Oopsies... I don't know what that means ;-;");
         }
 
         sc.close();
@@ -247,6 +222,6 @@ public class Duchess {
         // Save the tasks.
         Storage.saveTasksToFile(Duchess.storedTasks);
 
-        Duchess.printFarewell();
+        Ui.printFarewell();
     }
 }
