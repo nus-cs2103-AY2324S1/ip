@@ -35,6 +35,7 @@ shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    getDestinationDirectory().set(new File(projectDir, "./src")) // to specify jar file location
 }
 
 run{
