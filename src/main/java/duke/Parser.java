@@ -19,6 +19,8 @@ public class Parser {
             return "mark";
         } else if (response.startsWith("todo") || response.startsWith("deadline") || response.startsWith("event")) {
             return "task";
+        } else if (response.startsWith("find")) {
+            return "find";
         } else {
             throw new DukeException("Invalid command");
         }
@@ -128,5 +130,8 @@ public class Parser {
             }
         }
         return null;
+    }
+    public static String findKeyword(String response) {
+        return response.substring(5);
     }
 }

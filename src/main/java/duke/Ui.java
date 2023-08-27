@@ -28,4 +28,11 @@ public class Ui {
     public static void showMessage(String message) {
         System.out.println(message);
     }
+
+    public static void showFoundTasks(ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (Task task : tasks) {
+            System.out.println(task.toString());
+        }
+    }
 }

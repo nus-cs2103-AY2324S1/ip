@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TaskList {
     ArrayList<Task> tasks;
@@ -36,5 +38,17 @@ public class TaskList {
 
     public void addTask(Task newTask) {
         this.tasks.add(newTask);
+    }
+
+    public ArrayList<Task> findTasks(String keyword) {
+        Pattern pattern = Pattern.compile(keyword, Pattern.CASE_INSENSITIVE);
+        ArrayList<Task> foundTasks = new ArrayList<>();
+        for (Task task : this.tasks) {
+            Matcher matcher = pattern.matcher(task.description);
+            if (matcher.find()) {
+                foundTasks.add(task);
+            }
+        }
+        return foundTasks;
     }
 }
