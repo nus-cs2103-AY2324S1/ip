@@ -1,7 +1,9 @@
+import Exception.InvalidDateException;
 import java.util.Scanner;
 
 import Enums.Command;
 import Exception.InvalidInputException;
+import Exception.TooManyCommandException;
 import Exception.MissingArgumentException;
 import Exception.MissingDateArgumentException;
 import Exception.MissingTaskArgumentException;
@@ -43,6 +45,8 @@ public class Duke {
                 reply.printDialog(e.toString());
             } catch (MissingArgumentException e) {
                 reply.printDialog(e.toString());
+            } catch (TooManyCommandException e) {
+                reply.printDialog(e.toString());
             }
         }
 
@@ -72,11 +76,13 @@ public class Duke {
         tasks.addTask(new ToDo(todo));
     }
 
-    private static void handleDeadline(String input) throws InvalidInputException, MissingArgumentException {
+    private static void handleDeadline(String input) throws InvalidInputException,
+            MissingArgumentException,
+            TooManyCommandException {
         String deadline = getCommandArguments(input, Command.DEADLINE);
         String[] slice = deadline.split("/");
         if (slice.length > 2) {
-            throw new InvalidInputException();
+            throw new TooManyCommandException();
         } else if (slice.length == 1) {
             throw new MissingDateArgumentException(Command.BY.getCommand());
         } else {
@@ -87,17 +93,23 @@ public class Duke {
             } else {
                 throw new MissingDateArgumentException(Command.BY.getCommand());
             }
-
-            tasks.addTask(new Deadlines(desc, date));
+            try {
+                date = Time.FormatDate(date);
+                tasks.addTask(new Deadlines(desc, date));
+            } catch (InvalidDateException e) {
+                reply.printDialog(e.toString());
+            }
         }
     }
 
-    private static void handleEvent(String input) throws InvalidInputException, MissingArgumentException {
+    private static void handleEvent(String input) throws InvalidInputException,
+            MissingArgumentException,
+            TooManyCommandException {
         String event = getCommandArguments(input, Command.EVENT);
         String[] slice = event.split("/");
 
         if (slice.length > 3) {
-            throw new InvalidInputException();
+            throw new TooManyCommandException();
         } else if (slice.length < 3) {
             throw new MissingDateArgumentException("from and /to");
         } else {
@@ -116,7 +128,13 @@ public class Duke {
             } else {
                 throw new MissingDateArgumentException(Command.TO.getCommand());
             }
-            tasks.addTask(new Events(desc, from, to));
+            try {
+                to = Time.FormatDate(to);
+                from = Time.FormatDate(from);
+                tasks.addTask(new Events(desc, from, to));
+            } catch (InvalidDateException e) {
+                reply.printDialog(e.toString());
+            }
         }
     }
 
