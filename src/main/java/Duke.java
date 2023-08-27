@@ -15,22 +15,23 @@ public class Duke {
     private static String BOT_NAME = "SoCrates";
 
     private Ui ui;
+    private Storage storage;
     private List<Task> tasks;
     private boolean isRunning = true;
 
     public static void main(String[] args) {
-        Duke duke = new Duke();
+        Duke duke = new Duke("data/tasks.txt");
         duke.run();
     }
 
-    public Duke() {
+    public Duke(String filePath) {
         ui = new Ui(BOT_NAME);
+        storage = new Storage(filePath);
         try {
-            tasks = loadTasks();
+            tasks = storage.load();
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new ArrayList<>();
-            throw new RuntimeException(e);
         }
     }
 
@@ -92,72 +93,7 @@ public class Duke {
     }
 
     private void saveTasks() throws DukeException {
-
-        try {
-            File file = new File("./data/duke.txt");
-            file.getParentFile().mkdir();
-
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-            for (Task task : tasks) {
-                bufferedWriter.append((task.toSaveString()) + "\n");
-            }
-            bufferedWriter.close();
-
-        } catch (IOException e) {
-            throw new DukeException("There was an IOException while saving the tasks.");
-        }
-    }
-
-    private List<Task> loadTasks() throws DukeException {
-        try {
-            List<Task> tasks = new ArrayList<>();
-            File file = new File("./data/duke.txt");
-            if (!file.exists()) {
-                return tasks;
-            }
-
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            String saveString;
-
-            while ((saveString = bufferedReader.readLine()) != null) {
-                String[] saveStringArgs = saveString.split(" \\| ");
-                String type = saveStringArgs[0];
-                boolean isMarked = saveStringArgs[1].equals("1");
-                String description = saveStringArgs[2];
-
-                Task task;
-
-                switch (type) {
-                    case "T":
-                        task = new ToDo(description);
-                        break;
-                    case "D":
-                        String by = saveStringArgs[3];
-                        LocalDate localBy = LocalDate.parse(by);
-                        task = new Deadline(description, localBy);
-                        break;
-                    case "E":
-                        String from = saveStringArgs[3];
-                        String to = saveStringArgs[4];
-                        LocalDate localFrom = LocalDate.parse(from);
-                        LocalDate localTo = LocalDate.parse(to);
-                        task = new Event(description, localFrom, localTo);
-                        break;
-                    default:
-                        throw new DukeException("Invalid save data.");
-                }
-
-                tasks.add(task);
-                if (isMarked) {
-                    task.markAsDone();
-                }
-            }
-
-            return tasks;
-
-        } catch (IOException e) {
-            throw new DukeException("There was an IOException while loading the tasks.");
-        }
+        storage.save(tasks);
     }
 
     private void performListCommand() {
