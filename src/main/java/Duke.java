@@ -98,17 +98,22 @@ public class Duke {
     public void run() {
         printWithLines("Hello, I'm Je-O" + "\n"
                 + "What can I do for you?");
-        while (sc.hasNextLine()) {
-            String input = sc.nextLine();
-            if (input.equals("bye")) {
-                printWithLines("Bye. Hope to see you again soon!");
-                break;
-            }
-            try {
+        try {
+            DukeFile dukeFile = new DukeFile();
+            tasks = dukeFile.readFile();
+            countTasks = tasks.size();
+            while (sc.hasNextLine()) {
+                String input = sc.nextLine();
+                if (input.equals("bye")) {
+                    dukeFile.writeToFile(tasks);
+                    printWithLines("Bye. Hope to see you again soon!");
+                    sc.close();
+                    break;
+                }
                 check(input);
-            } catch (DukeException e) {
-                printWithLines(e.toString());
             }
+        } catch (DukeException e) {
+            printWithLines(e.toString());
         }
     }
 }
