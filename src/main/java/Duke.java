@@ -1,24 +1,35 @@
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     private static final int LINE_LENGTH = 100;
     private boolean isRunning = true;
-    private final ArrayList<Task> tasks;
+    private final TaskRepository taskRepository;
+    private final ConsoleRenderer consoleRenderer;
 
     public Duke() {
-        this.tasks = new ArrayList<>();
+        this.taskRepository = new TaskRepository();
+        this.consoleRenderer = new ConsoleRenderer();
     }
 
     public static void main(String[] args) {
         Duke program = new Duke();
+        program.start();
+    }
+
+    private void start() {
+        // Attempt to load data from data/tasks.txt
+        try {
+            taskRepository.loadSaveData();
+        } catch (IOException exception) {
+            consoleRenderer.printMessage(exception.getMessage());
+        }
+
         Scanner scanner = new Scanner(System.in);
 
         // Welcome message
-        program.printMessage(
-            "Hello! I'm Skye, your personal task assistant.\n" +
-            "What can I do for you?"
-        );
+        consoleRenderer.printMessage("Hello! I'm Skye, your personal task assistant.\n"
+                + "What can I do for you?");
 
         // Program only exits when user enters "bye" command
         do {
@@ -30,124 +41,57 @@ public class Duke {
 
                 // Switch statement to check for command keywords in the first word
                 switch (command) {
-                    case "bye":
-                        scanner.close();
-                        program.exit();
-                        break;
+                case "bye":
+                    scanner.close();
+                    exit();
+                    break;
 
-                    case "list":
-                        program.listTasks();
-                        break;
+                case "list":
+                    taskRepository.listTasks();
+                    break;
 
-                    case "mark":
-                        int completedTaskNumber = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
-                        program.markTask(completedTaskNumber);
-                        break;
+                case "mark":
+                    int completedTaskNumber = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
+                    taskRepository.markTask(completedTaskNumber);
+                    break;
 
-                    case "unmark":
-                        int incompleteTaskNumber = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
-                        program.unmarkTask(incompleteTaskNumber);
-                        break;
+                case "unmark":
+                    int incompleteTaskNumber = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
+                    taskRepository.unmarkTask(incompleteTaskNumber);
+                    break;
 
-                    case "deadline":
-                        program.addDeadline(tokens);
-                        break;
+                case "deadline":
+                    addDeadline(tokens);
+                    break;
 
-                    case "event":
-                        program.addEvent(tokens);
-                        break;
+                case "event":
+                    addEvent(tokens);
+                    break;
 
-                    case "todo":
-                        program.addToDo(tokens);
-                        break;
+                case "todo":
+                    addToDo(tokens);
+                    break;
 
-                    case "delete":
-                        int taskNumberToDelete = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
-                        program.deleteTask(taskNumberToDelete);
-                        break;
+                case "delete":
+                    int taskNumberToDelete = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
+                    taskRepository.deleteTask(taskNumberToDelete);
+                    break;
 
-                    default:
-                        throw new DukeException(DukeExceptionType.UNKNOWN_COMMAND);
+                default:
+                    throw new DukeException(DukeExceptionType.UNKNOWN_COMMAND);
                 }
-            } catch (DukeException exception) {
-                program.printMessage(exception.getMessage());
+            } catch (DukeException | IOException exception) {
+                consoleRenderer.printMessage(exception.getMessage());
             } catch (NumberFormatException exception) {
-                program.printMessage("Error: Task number must be an integer.\n(example: mark 1)");
+                consoleRenderer.printMessage("Error: Task number must be an integer.\n(example: mark 1)");
             }
-        } while (program.isRunning);
-    }
-
-    public void setRunning(boolean running) {
-        isRunning = running;
-    }
-
-    private void renderLine() {
-        System.out.println("_".repeat(LINE_LENGTH));
-    }
-
-    private void printMessage(String message) {
-        renderLine();
-        System.out.println(message);
-        renderLine();
-    }
-
-    private void addTask(Task task) {
-        tasks.add(task);
-        printMessage(
-            String.format(
-                "Got it. I've added this task:\n %s\nNow you have %d task(s) in the list.",
-                task.toString(),
-                tasks.size()
-            )
-        );
-    }
-
-    private void listTasks() {
-        renderLine();
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d.%s%n", i + 1, tasks.get(i).toString());
-        }
-        renderLine();
+        } while (isRunning);
     }
 
     private void exit() {
-        printMessage("Bye. Hope to see you again soon!");
-        setRunning(false);
+        consoleRenderer.printMessage("Bye. Hope to see you again soon!");
+        isRunning = false;
         System.exit(0);
-    }
-
-    private boolean isInvalidTaskNumber(int taskNumber) {
-        return (taskNumber <= 0) || (taskNumber > tasks.size());
-    }
-
-    private void markTask(int taskNumber) throws DukeException {
-        if (isInvalidTaskNumber(taskNumber)) {
-            throw new DukeException(DukeExceptionType.INVALID_RANGE);
-        } else if (tasks.get(taskNumber - 1).isDone()) {
-            throw new DukeException(DukeExceptionType.TASK_ALREADY_MARKED);
-        } else {
-            tasks.get(taskNumber - 1).markAsDone();
-            printMessage(
-                String.format("Nice! I've marked this task as done:\n %s", tasks.get(taskNumber - 1).toString())
-            );
-        }
-    }
-
-    private void unmarkTask(int taskNumber) throws DukeException {
-        if (isInvalidTaskNumber(taskNumber)) {
-            throw new DukeException(DukeExceptionType.INVALID_RANGE);
-        } else if (!tasks.get(taskNumber - 1).isDone()) {
-            throw new DukeException(DukeExceptionType.TASK_ALREADY_UNMARKED);
-        } else {
-            tasks.get(taskNumber - 1).markAsNotDone();
-            printMessage(
-                String.format(
-                    "OK, I've marked this task as not done yet:\n %s",
-                    tasks.get(taskNumber - 1).toString()
-                )
-            );
-        }
     }
 
     private String[] getEventParams(String[] tokens) throws DukeException {
@@ -165,7 +109,7 @@ public class Duke {
         return commands.split("\\s+/\\w+");
     }
 
-    private void addDeadline(String[] tokens) throws DukeException {
+    private void addDeadline(String[] tokens) throws DukeException, IOException {
         if (tokens.length < 2) {
             throw new DukeException(DukeExceptionType.DEADLINE_NO_DESCRIPTION);
         }
@@ -183,10 +127,10 @@ public class Duke {
         String by = deadlineParams[1].trim();
 
         // Add deadline to tasks
-        addTask(new Deadline(deadlineDescription, by));
+        taskRepository.addTask(new Deadline(deadlineDescription, by));
     }
 
-    private void addEvent(String[] tokens) throws DukeException {
+    private void addEvent(String[] tokens) throws DukeException, IOException {
         if (tokens.length < 2) {
             throw new DukeException(DukeExceptionType.EVENT_NO_DESCRIPTION);
         }
@@ -199,29 +143,14 @@ public class Duke {
         String to = eventParams[2].trim();
 
         // Add event to tasks
-        addTask(new Event(eventDescription, from, to));
+        taskRepository.addTask(new Event(eventDescription, from, to));
     }
 
-    private void addToDo(String[] tokens) throws DukeException {
+    private void addToDo(String[] tokens) throws DukeException, IOException {
         if (tokens.length < 2) {
             throw new DukeException(DukeExceptionType.TODO_NO_DESCRIPTION);
         } else {
-            addTask(new ToDo(tokens[1]));
-        }
-    }
-
-    private void deleteTask(int taskNumber) throws DukeException {
-        if (isInvalidTaskNumber(taskNumber)) {
-            throw new DukeException(DukeExceptionType.INVALID_RANGE);
-        } else {
-            Task removedTask = tasks.remove(taskNumber - 1);
-            printMessage(
-                String.format(
-                    "Noted. I've removed this task:\n %s\nNow you have %d tasks in the list",
-                    removedTask.toString(),
-                    tasks.size()
-                )
-            );
+            taskRepository.addTask(new ToDo(tokens[1]));
         }
     }
 }
