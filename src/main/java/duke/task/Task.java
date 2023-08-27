@@ -52,4 +52,13 @@ abstract public class Task {
      * @return String representation of Task to store.
      */
     public abstract String toStringStore();
+
+    /**
+     * Returns true if Task contains keyword.
+     * @param keyword Keyword to be searched.
+     * @return True if Task contains keyword.
+     */
+    public boolean containsKeyword(String keyword) {
+        return this.name.contains(keyword);
+    }
 }
