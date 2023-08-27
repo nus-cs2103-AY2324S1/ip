@@ -66,32 +66,40 @@ public class Duke {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void check(String input) throws DukeException {
-        if (input.equals("list")) {
-            printList();
-        } else if (input.startsWith("mark ")) {
-            int index = Integer.parseInt(input.replace("mark ", ""));
-            tasks.get(index - 1).markAsDone();
-            printWithLines("Nice! I've marked this task as done:" + "\n"
-                    + tasks.get(index - 1));
-        } else if (input.startsWith("unmark ")) {
-            int index = Integer.parseInt(input.replace("unmark ", ""));
-            tasks.get(index - 1).unmarkAsDone();
-            printWithLines("OK, I've marked this task as not done yet:" + "\n"
-                    + tasks.get(index - 1));
-        } else if (input.startsWith("todo")) {
-            addToDo(input);
-        } else if (input.startsWith("deadline")) {
-            addDeadline(input);
-        } else if (input.startsWith("event")) {
-            addEvent(input);
-        } else if (input.startsWith("delete ")) {
-            int index = Integer.parseInt(input.replace("delete ", ""));
-            countTasks--;
-            printDeleteTask(tasks.get(index - 1).toString());
-            tasks.remove(index - 1);
-        } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    public void unknownInput() throws DukeException {
+        throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+    }
+
+    public void check(String input) {
+        try {
+            if (input.equals("list")) {
+                printList();
+            } else if (input.startsWith("mark ")) {
+                int index = Integer.parseInt(input.replace("mark ", ""));
+                tasks.get(index - 1).markAsDone();
+                printWithLines("Nice! I've marked this task as done:" + "\n"
+                        + tasks.get(index - 1));
+            } else if (input.startsWith("unmark ")) {
+                int index = Integer.parseInt(input.replace("unmark ", ""));
+                tasks.get(index - 1).unmarkAsDone();
+                printWithLines("OK, I've marked this task as not done yet:" + "\n"
+                        + tasks.get(index - 1));
+            } else if (input.startsWith("todo")) {
+                addToDo(input);
+            } else if (input.startsWith("deadline")) {
+                addDeadline(input);
+            } else if (input.startsWith("event")) {
+                addEvent(input);
+            } else if (input.startsWith("delete ")) {
+                int index = Integer.parseInt(input.replace("delete ", ""));
+                countTasks--;
+                printDeleteTask(tasks.get(index - 1).toString());
+                tasks.remove(index - 1);
+            } else {
+                unknownInput();
+            }
+        } catch (DukeException e) {
+            printWithLines(e.toString());
         }
     }
 
