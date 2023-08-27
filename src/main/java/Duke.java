@@ -1,18 +1,65 @@
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.IOException;
 public class Duke {
 
+    private static String PATH = "data/duke.txt";
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Prints out the tasks that currently in the tasks arraylist.
      */
-    public static void listTasks() {
+    public static void listTasks() throws IOException{
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i).toString());
         }
+    }
+
+    public static void load() throws IOException{
+        File f = new File(PATH);
+        Scanner sc;
+        try {
+            sc = new Scanner(f);
+        } catch (FileNotFoundException e) {
+            save();
+            sc = new Scanner(f);
+        }
+        while (sc.hasNext()) {
+            String input = sc.nextLine();
+            System.out.println(input);
+            String[] inputArr = input.split("/");
+            Task temp;
+            String des = inputArr[1];
+            if (inputArr.length == 2) {
+                temp = new Todo(des);
+            } else if (inputArr.length == 3) {
+                String by = inputArr[2];
+                temp = new Deadline(des, by);
+            } else {
+                String from = inputArr[2];
+                String to = inputArr[3];
+                temp = new Event(des, from, to);
+            }
+            if (inputArr[0] == "1") {
+                temp.mark();
+            }
+            tasks.add(temp);
+        }
+        sc.close();
+    }
+
+    public static void save() throws IOException{
+        FileWriter fw = new FileWriter(PATH);
+        for (int i = 0; i < tasks.size(); i++) {
+            fw.write(tasks.get(i).saveString() + '\n');
+        }
+        fw.close();
+
     }
 
     /**
@@ -22,14 +69,16 @@ public class Duke {
      */
     public static void addTask(Task task) {
         tasks.add(task);
+
         System.out.println("Got it, I've added this task:\n    "  +
                 task.toString() + "\n" +
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException{
+        load();
 
+        Scanner sc = new Scanner(System.in);
         String LOGO = "   /\\_/\\  \n" +
                 "  ( o.o ) \n" +
                 "   > ^ <\n";
@@ -46,6 +95,7 @@ public class Duke {
                 String[] inputArr = input.split(" ", 2);
                 String command = inputArr[0];
                 if (Objects.equals(command, "exit")) {
+                    save();
                     break;
                 } else if (Objects.equals(command, "list")) {
                     if (inputArr.length > 1) {
@@ -145,5 +195,6 @@ public class Duke {
             }
         }
         System.out.println(EXIT);
+        sc.close();
     }
 }
