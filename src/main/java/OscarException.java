@@ -1,8 +1,8 @@
 /**
  * Class to handle checked exceptions due to incorrect user input
  */
-public class DukeException extends Exception{
-  public DukeException(String errorMessage) {
+public class OscarException extends Exception{
+  public OscarException(String errorMessage) {
     super(errorMessage);
   }
 }

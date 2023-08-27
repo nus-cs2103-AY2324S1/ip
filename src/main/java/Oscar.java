@@ -63,22 +63,22 @@ public class Oscar {
     /**
      * Mark a task as done using the task number.
      * @param index Number of task to be marked as done.
-     * @throws DukeException Failure of task number validation.
+     * @throws OscarException Failure of task number validation.
      */
-    private static void mark(String index) throws DukeException {
+    private static void mark(String index) throws OscarException {
         int taskIndex;
         try {
             taskIndex = Integer.parseInt(index) - 1;
         } catch(NumberFormatException e){
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "Please enter the number of the task to be marked as done.\n");
         }
         if (taskIndex < 0) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "Task numbers must be natural numbers.\n");
 
         } else if (taskIndex >= taskList.size()) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "Task number is too large.\n");
         }
         Task currentTask = taskList.get(taskIndex);
@@ -90,22 +90,22 @@ public class Oscar {
     /**
      * Mark a task as not done using the task number.
      * @param index Number of task to be marked as not done.
-     * @throws DukeException Failure of task number validation.
+     * @throws OscarException Failure of task number validation.
      */
-    private static void unmark(String index) throws DukeException {
+    private static void unmark(String index) throws OscarException {
         int taskIndex;
         try {
             taskIndex = Integer.parseInt(index) - 1;
         } catch(NumberFormatException e){
-            throw new DukeException("Sorry! Please enter the order " +
+            throw new OscarException("Sorry! Please enter the order " +
                     "of the task to be marked as not done.\n");
         }
         if (taskIndex < 0) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "Task numbers must be natural numbers.\n");
 
         } else if (taskIndex >= taskList.size()) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "Task number is too large.\n");
         }
         Task currentTask = taskList.get(taskIndex);
@@ -117,22 +117,22 @@ public class Oscar {
     /**
      * Delete a task using the task number.
      * @param index Number of task to be deleted.
-     * @throws DukeException Failure of task number validation.
+     * @throws OscarException Failure of task number validation.
      */
-    private static void delete(String index) throws DukeException {
+    private static void delete(String index) throws OscarException {
         int taskIndex;
         try {
             taskIndex = Integer.parseInt(index) - 1;
         } catch(NumberFormatException e){
-            throw new DukeException("Sorry! Please enter the order " +
+            throw new OscarException("Sorry! Please enter the order " +
                     "of the task to be deleted.\n");
         }
         if (taskIndex < 0) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "Task numbers must be natural numbers.\n");
 
         } else if (taskIndex >= taskList.size()) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "Task number is too large.\n");
         }
         Task removedTask = taskList.remove(taskIndex);
@@ -144,11 +144,11 @@ public class Oscar {
     /**
      * Create a new todo task and save it to the collection.
      * @param description Details of todo task.
-     * @throws DukeException Todo missing description.
+     * @throws OscarException Todo missing description.
      */
-    public static void todo(String description) throws DukeException {
+    public static void todo(String description) throws OscarException {
         if (description.length() == 0) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "The description of a todo task cannot be empty.\n");
         }
         Task newTodo = new Todo(description);
@@ -160,22 +160,22 @@ public class Oscar {
     /**
      * Create a new deadline task and save it to the collection.
      * @param details Information about the details and deadline of task.
-     * @throws DukeException Deadline missing details.
+     * @throws OscarException Deadline missing details.
      */
-    public static void deadline(String details) throws DukeException {
+    public static void deadline(String details) throws OscarException {
         if (!details.contains(" /by ")) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "The deadline task is not formatted correctly.\n");
         }
         String[] split = details.split(" /by ", 2);
         String description = split[0];
         if (description.length() == 0) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "The description of a deadline task cannot be empty.\n");
         }
         String deadline = split[1];
         if (deadline.length() == 0) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "The deadline of a deadline task cannot be empty.\n");
         }
         Task newDeadline = new Deadline(description, deadline);
@@ -188,27 +188,27 @@ public class Oscar {
      * Create a new event task and save it to the collection.
      * @param details Information about the details, as well as start and end
      *                date/time of task.
-     * @throws DukeException Event missing details.
+     * @throws OscarException Event missing details.
      */
-    public static void event(String details) throws DukeException {
+    public static void event(String details) throws OscarException {
         if (!details.contains(" /from ") || !details.contains(" /to ")) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "The event task is not formatted correctly.\n");
         }
         String[] split = details.split(" /from | /to ");
         String description = split[0];
         if (description.length() == 0) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "The description of an event task cannot be empty.\n");
         }
         String start = split[1];
         if (start.length() == 0) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "The start date/time of an event task cannot be empty.\n");
         }
         String end = split[2];
         if (end.length() == 0) {
-            throw new DukeException("Sorry! " +
+            throw new OscarException("Sorry! " +
                     "The end date/time of an event task cannot be empty.\n");
         }
         Task newEvent = new Event(description, start, end);
@@ -219,9 +219,9 @@ public class Oscar {
 
     /**
      * Programme flow to run Oscar
-     * @throws DukeException Handling unknown commands.
+     * @throws OscarException Handling unknown commands.
      */
-    public static void main(String[] args) throws DukeException {
+    public static void main(String[] args) throws OscarException {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
@@ -239,53 +239,53 @@ public class Oscar {
                     c = Commands.valueOf(split[0].toUpperCase());
                     String details = userInput.length() > command.length() ? split[1] : "";
                     switch (c) {
-                        // Exit programme if user enters "bye" command
-                        case BYE:
-                            bye();
-                            running = false;
-                            break;
+                    // Exit programme if user enters "bye" command
+                    case BYE:
+                        bye();
+                        running = false;
+                        break;
 
-                        // Display text stored by user in chronological order if
-                        // user enters "list" command
-                        case LIST:
-                            list();
-                            break;
+                    // Display text stored by user in chronological order if
+                    // user enters "list" command
+                    case LIST:
+                        list();
+                        break;
 
-                        // Mark task as done if user enters "mark" command
-                        case MARK:
-                            mark(details);
-                            break;
+                    // Mark task as done if user enters "mark" command
+                    case MARK:
+                        mark(details);
+                        break;
 
-                        // Mark task as not done if user enters "unmark" command
-                        case UNMARK:
-                            unmark(details);
-                            break;
+                    // Mark task as not done if user enters "unmark" command
+                    case UNMARK:
+                        unmark(details);
+                        break;
 
-                        // Delete a task if user enters "delete" command
-                        case DELETE:
-                            delete(details);
-                            break;
+                    // Delete a task if user enters "delete" command
+                    case DELETE:
+                        delete(details);
+                        break;
 
-                        // Create a new todo task if user enters "todo" command
-                        case TODO:
-                            todo(details);
-                            break;
+                    // Create a new todo task if user enters "todo" command
+                    case TODO:
+                        todo(details);
+                        break;
 
-                        // Create a new deadline task if user enters "deadline" command
-                        case DEADLINE:
-                            deadline(details);
-                            break;
+                    // Create a new deadline task if user enters "deadline" command
+                    case DEADLINE:
+                        deadline(details);
+                        break;
 
-                        // Create a new event task if user enters "event" command
-                        case EVENT:
-                            event(details);
-                            break;
+                    // Create a new event task if user enters "event" command
+                    case EVENT:
+                        event(details);
+                        break;
                     }
                 } catch (IllegalArgumentException e) {
                         // Default response for unknown commands
-                        throw new DukeException("Sorry! Oscar does not recognise this command\n");
+                        throw new OscarException("Sorry! Oscar does not recognise this command\n");
                 }
-            } catch (DukeException e){
+            } catch (OscarException e){
                 System.out.println(e.getMessage());
             }
         }
