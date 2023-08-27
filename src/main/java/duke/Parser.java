@@ -1,9 +1,13 @@
 package duke;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+/**
+ * Represents the parsing of user input, making sense of what command the user has given.
+*/
 public class Parser {
     private Ui ui;
     private Storage storage;
@@ -15,12 +19,12 @@ public class Parser {
         this.taskList = taskList;
     }
 
-    /*
-     * Method that handles input with the command "mark" or "unmark".
+    /**
+     * Returns a task number from either a mark or unmark command.
      * 
      * @param command the command that the user inputs: either "mark" or "unmark"
-     * @param input   what the user inputs 
-     * @return        the task number that the user wants to mark or unmark
+     * @param input   user input
+     * @return        task number that the user wants to mark or unmark
      */
     public static int getTaskNumber(String command, String input) {
         String taskNum = input.replace(command + " ", "");
@@ -29,6 +33,12 @@ public class Parser {
         return Integer.valueOf(trimmedTaskNum);
     }
 
+    /**
+     * Parses the input that the user gives.
+     * 
+     * @param input  user input
+     * @return       a boolean that indicates whether the program should break out of the while loop
+    */
     public boolean parse(String input) {
         int n = this.taskList.getSize();
         boolean toBreak = false;

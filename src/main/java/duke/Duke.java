@@ -1,8 +1,12 @@
 package duke;
+
 import java.util.Scanner;
 
+/**
+ * Represents our chat bot, Miles.
+ */
 public class Duke {
-    private static String filePath = "../../../data/duke.txt";
+    private static String filePath = "../../../data/miles.txt";
     private static String directoryPath = "../../../data";
     private Ui ui;
     private Storage storage;
@@ -14,6 +18,9 @@ public class Duke {
         this.taskList = this.storage.loadFile();
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         this.ui.greet();
         boolean shouldExit =  false;

@@ -1,29 +1,33 @@
 package duke.task;
+
 import java.time.LocalDateTime;
 
+/**
+ * Represents a task that starts at a specific time and ends at a specific time.
+ */
 public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private static String noDescErrorMsg = "OOPS!!! The description of a event cannot be empty.";
 
     public Event(String task) {
-        // this is for creating a task with the "event" command
+        // this constructor is for creating a task with the "event" command
         super(getTask(task));
         this.startTime = this.convertToDateTime(this.getStartTime(task));
         this.endTime = this.convertToDateTime(getEndTime(task));
     }
 
     public Event(String task, String startTime, String endTime) {
-        // this is for loading the file
+        // this constructor is for loading the file
         super(task);
         this.startTime = this.convertToDateTime(startTime);
         this.endTime = this.convertToDateTime(endTime);
     }
 
-    /*
-     * Returns an array of 3 elements, the first element is the task, the second is the start time,
-     * the third is the end time. Worth noting that the task, start time and end time strings here 
-     * still have whitespaces that need to be trimmed for use.
+    /**
+     * Splits a string into an array of 3 elements, the first element is the task, second is 
+     * the start time, third is the end time. Worth noting that the task, start time and end time 
+     * strings here are not trimmed yet (i.e. they still have leading or trailing whitespaces).
      * 
      * @param taskString the string that contains the task, start time and end time
      * @return           an array of 3 strings
@@ -110,22 +114,49 @@ public class Event extends Task {
         return endTime.trim();
     }
 
+    /**
+     * Returns a string representing the start time to be displayed in the user interface.
+     * 
+     * @return the start time to be displayed in the UI
+     */
     public String displayStartTime() {
         return this.displayTime(this.startTime);
     }
 
+    /**
+     * Returns a string representing the start time which would form a part of the string to be 
+     * saved in the text file.
+     * 
+     * @return string representing the start time to be saved in the text file
+     */
     public String saveStartTime() {
         return this.saveTime(this.startTime);
     }
 
+    /**
+     * Returns a string representing the end time to be displayed in the user interface.
+     * 
+     * @return the end time to be displayed in the UI
+     */
     public String displayEndTime() {
         return this.displayTime(this.endTime);
     }
 
+    /**
+     * Returns a string representing the end time which would form a part of the string to be saved 
+     * in the text file.
+     * 
+     * @return string representing the end time to be saved in the text file
+     */
     public String saveEndTime() {
         return this.saveTime(this.endTime);
     }
 
+    /**
+     * Returns a string to be saved in the text file, specifically for an event.
+     * 
+     * @return a string to be saved in the text file
+     */
     @Override
     public String stringToSave() {
         return "E" + super.stringToSave() + " | " + this.saveStartTime() + " | " + 

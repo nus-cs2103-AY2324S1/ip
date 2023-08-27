@@ -1,6 +1,10 @@
 package duke.task;
+
+/**
+ * Represents a todo task that has no dates involved.
+ */
 public class ToDo extends Task {
-    private static String noDescErrorMsg = "\u2639 OOPS!!! The description of a todo cannot be empty.";
+    private static String noDescErrorMsg = "OOPS!!! The description of a todo cannot be empty.";
 
     public ToDo(String task) {
         super(formatToDoString(task));
@@ -25,6 +29,11 @@ public class ToDo extends Task {
         return output.trim();
     }
 
+    /**
+     * Represents a string to be saved in the text file, specifically for a todo.
+     * 
+     * @return a string that is to be saved in the text file
+    */
     @Override
     public String stringToSave() {
         return "T" + super.stringToSave(); 

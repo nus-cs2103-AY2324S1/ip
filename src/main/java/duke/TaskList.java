@@ -1,8 +1,11 @@
 package duke;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import duke.task.Task;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
     private Ui ui;
@@ -16,19 +19,41 @@ public class TaskList {
         this.taskList = taskList;
     }
 
+    /**
+     * Adds task into a task list.
+     * 
+     * @param task
+     */
     public void addTask(Task task) {
         this.taskList.add(task);
     }
 
+    /**
+     * Deletes a task from a task list.
+     * 
+     * @param taskNum the task number to be deleted
+     * @return        the deleted task
+     */
     public Task deleteTask(int taskNum) {
         Task deletedTask = this.taskList.remove(taskNum);
         return deletedTask;
     }
 
+    /**
+     * Gets a task from a task list when given the task number.
+     * 
+     * @param taskNum the task number to be retrieved
+     * @return        the task
+     */
     public Task getTask(int taskNum) {
         return this.taskList.get(taskNum);
     }
 
+    /**
+     * Gets the number of tasks in the list.
+     * 
+     * @return the number of tasks in the list
+     */
     public int getSize() {
         return this.taskList.size();
     }
@@ -41,6 +66,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a particular task as done when given the task number.
+     * 
+     * @param taskNum the task number to be marked as done
+     */
     public void markTaskAsDone(int taskNum) {
         if (taskNum <= 0 || taskNum > this.taskList.size()) {
             DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
@@ -55,6 +85,11 @@ public class TaskList {
         this.ui.showLine();
     }
 
+    /**
+     * Marks a particular task as undone when given the task number.
+     * 
+     * @param taskNum the task number to be marked as undone
+     */
     public void markTaskAsUndone(int taskNum) {
         if (taskNum <= 0 || taskNum > taskList.size()) {
             DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);
@@ -70,7 +105,7 @@ public class TaskList {
     }
 
     /*
-     * Method that prints every task in the task list.
+     * Prints every task in the task list.
      */
     public void displayList() {
         int n = this.getSize();

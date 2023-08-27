@@ -1,0 +1,3 @@
+D | [ ] | buy soju | 2023-08-26 2300
+E | [X] | orbital splashdown | 2023-08-30 1700 | 2023-08-30 1930
+T | [ ] | eat mcgriddles
