@@ -8,6 +8,7 @@ import duke.templates.MessageTemplates;
  */
 public class MarkTaskMessage extends Message {
     private final Task task;
+
     /**
      * Constructor for MarkTaskMessage.
      * @param task Task to be marked.
@@ -15,6 +16,7 @@ public class MarkTaskMessage extends Message {
     public MarkTaskMessage(Task task) {
         this.task = task;
     }
+
     /**
      * Prints MarkTaskMessage.
      */

@@ -7,6 +7,7 @@ public class EventsTask extends Task {
     private final String TYPE = "E";
     private final String from;
     private final String to;
+
     /**
      * Constructor for EventsTask.
      * @param name Name of EventsTask.
@@ -18,6 +19,7 @@ public class EventsTask extends Task {
         this.from = from;
         this.to = to;
     }
+
     /**
      * Returns the string representation of EventsTask.
      * @return String representation of EventsTask.
@@ -27,6 +29,7 @@ public class EventsTask extends Task {
         return String.format("[%s]%s (from: %s to: %s)",
                 TYPE, super.toString(), this.from, this.to);
     }
+
     /**
      * Returns the string representation of EventsTask to store.
      * @return String representation of EventsTask to store.

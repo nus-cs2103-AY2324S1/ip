@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
  */
 public class UserInputParser {
     public static boolean isActive = true;
+
     /**
      * Returns the Action of the user input.
      * @param userInput User input.
@@ -56,6 +57,7 @@ public class UserInputParser {
         }
         throw new InvalidCommandException();
     }
+
     /**
      * Parses the user input.
      * @param userInput User input.

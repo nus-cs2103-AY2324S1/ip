@@ -9,6 +9,7 @@ import duke.templates.MessageTemplates;
 public class DeleteTaskMessage extends Message {
     private final Task task;
     private final int totalTasks;
+
     /**
      * Constructor for DeleteTaskMessage.
      * @param task Task to be deleted.
@@ -18,6 +19,7 @@ public class DeleteTaskMessage extends Message {
         this.task = task;
         this.totalTasks = totalTasks;
     }
+
     /**
      * Prints DeleteTaskMessage.
      */

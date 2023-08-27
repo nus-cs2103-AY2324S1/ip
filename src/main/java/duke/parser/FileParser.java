@@ -15,6 +15,7 @@ import java.util.Scanner;
  */
 public class FileParser {
     private static final String SEPERATOR = ",";
+
     /**
      * Parses the file.
      * @param f File to be parsed.

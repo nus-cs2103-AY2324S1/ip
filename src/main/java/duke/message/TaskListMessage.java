@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public class TaskListMessage extends Message {
     private final String[] list;
+
     /**
      * Constructor for TaskListMessage.
      * @param list ArrayList of Tasks.
@@ -16,6 +17,7 @@ public class TaskListMessage extends Message {
     public TaskListMessage(ArrayList<Task> list) {
         this.list = formatList(list);
     }
+
     /**
      * Creates the message for TaskListMessage.
      * @param list ArrayList of Tasks.
@@ -30,6 +32,7 @@ public class TaskListMessage extends Message {
         }
         return ls;
     }
+
     /**
      * Prints TaskListMessage.
      */

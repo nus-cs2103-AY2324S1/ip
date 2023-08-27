@@ -9,6 +9,7 @@ import duke.templates.MessageTemplates;
 public class AddTaskMessage extends Message {
     private final Task task;
     private final int totalTasks;
+
     /**
      * Constructor for AddTaskMessage.
      * @param task Task to be added.
@@ -18,6 +19,7 @@ public class AddTaskMessage extends Message {
         this.task = task;
         this.totalTasks = totalTasks;
     }
+
     /**
      * Prints AddTaskMessage.
      */

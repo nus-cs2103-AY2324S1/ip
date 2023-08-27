@@ -8,6 +8,7 @@ import duke.templates.MessageTemplates;
  */
 public class UnmarkTaskMessage extends Message {
     private final Task task;
+
     /**
      * Constructor for UnmarkTaskMessage.
      * @param task Task to be unmarked.
@@ -15,6 +16,7 @@ public class UnmarkTaskMessage extends Message {
     public UnmarkTaskMessage(Task task) {
         this.task = task;
     }
+
     /**
      * Prints UnmarkTaskMessage.
      */

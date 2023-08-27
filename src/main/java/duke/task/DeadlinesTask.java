@@ -6,6 +6,7 @@ package duke.task;
 public class DeadlinesTask extends Task {
     private final String TYPE = "D";
     private final String deadline;
+
     /**
      * Constructor for DeadlinesTask.
      * @param name Name of DeadlinesTask.
@@ -15,6 +16,7 @@ public class DeadlinesTask extends Task {
         super(name, isDone);
         this.deadline = deadline;
     }
+
     /**
      * Returns the string representation of DeadlinesTask.
      * @return String representation of DeadlinesTask.
@@ -23,6 +25,7 @@ public class DeadlinesTask extends Task {
     public String toString() {
         return String.format("[%s]%s (by: %s)", TYPE, super.toString(), this.deadline);
     }
+
     /**
      * Returns the string representation of DeadlinesTask to store.
      * @return String representation of DeadlinesTask to store.

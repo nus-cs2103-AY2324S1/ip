@@ -17,6 +17,7 @@ public abstract class Message {
         }
         return s.toString();
     }
+
     /**
      * Print message to be overridden.
      */

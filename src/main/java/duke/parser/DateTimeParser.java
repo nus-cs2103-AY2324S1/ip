@@ -13,6 +13,7 @@ import java.time.format.DateTimeParseException;
 public class DateTimeParser {
     private static final String inputFormat = "yyyy-MM-dd HHmm";
     private static final String outputFormat = "MMM dd yyyy h:mma";
+
     /**
      * Parses the date and time.
      * @param s Date and time.
@@ -28,6 +29,7 @@ public class DateTimeParser {
             throw new InvalidInputException(MessageTemplates.MESSAGE_INVALID_DATETIME);
         }
     }
+
     /**
      * Checks if the period is valid.
      * @param from Start of period.

@@ -17,6 +17,7 @@ public class Duke {
     private TaskList tasks;
     private final Storage storage;
     private final Ui ui;
+
     /**
      * Constructor for Duke.
      * @param filePath Path to file.
@@ -33,6 +34,7 @@ public class Duke {
             this.tasks = new TaskList();
         }
     }
+
     /**
      * Main method.
      * @param args Arguments.
@@ -40,6 +42,7 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("data/duke.txt").run();
     }
+
     /**
      * Runs the program.
      */

@@ -5,6 +5,7 @@ package duke.message;
  */
 public class ErrorMessage extends Message {
     private final String message;
+
     /**
      * Constructor for ErrorMessage.
      * @param message Error message.
@@ -12,6 +13,7 @@ public class ErrorMessage extends Message {
     public ErrorMessage(String message) {
         this.message = message;
     }
+
     /**
      * Prints ErrorMessage.
      */
