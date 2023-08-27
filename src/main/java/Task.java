@@ -1,4 +1,4 @@
-public abstract class Task {
+public class Task {
     private String description;
 
     private boolean isDone;
@@ -33,10 +33,6 @@ public abstract class Task {
     public void unmark() {
         this.isDone = false;
 
-    }
-
-    public String saveString() {
-        return isDone ? "1/" + description : "0/" + description;
     }
 
     /**
