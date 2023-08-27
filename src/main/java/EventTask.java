@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class EventTask extends Task {
-
     protected LocalDate fromDate;
     protected LocalDate toDate;
 
@@ -15,22 +14,6 @@ public class EventTask extends Task {
         } catch (DateTimeException e) {
             throw new DateTimeException("Please input your date in the YYYY-MM-DD format!");
         }
-    }
-
-    public static EventTask parseEvent(String taskDetails, boolean isDone) {
-        if (!taskDetails.contains("from:") || !taskDetails.contains("to:")) {
-            throw new RuntimeException("Error! Remember to include 'from:' and 'to:' after the event command!");
-        }
-        String[] details = taskDetails.split("from:", 2);
-        String[] innerDetails = details[1].split(" to:", 2);
-        String description = details[0];
-        description = description.replace(" ", "");
-        String from = innerDetails[0];
-        from = from.replace(" ", "");
-        String to = innerDetails[1];
-        to = to.replace(" ", "");
-
-        return new EventTask(description, from, to, isDone);
     }
 
     public void setEventFromDate(String date) {
