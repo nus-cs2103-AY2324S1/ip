@@ -16,14 +16,32 @@ public class TaskList {
         return task;
     }
 
+    public Task addTodo(String desc, int isMarked) {
+        Task task = new TodoTask(desc, isMarked);
+        this.list.add(task);
+        return task;
+    }
+
     public Task addDeadline(String desc, String deadline) {
         Task task = new DeadlineTask(desc, deadline);
         this.list.add(task);
         return task;
     }
 
+    public Task addDeadline(String desc, String deadline, int isMarked) {
+        Task task = new DeadlineTask(desc, deadline, isMarked);
+        this.list.add(task);
+        return task;
+    }
+
     public Task addEvent(String desc, String start, String end) {
         Task task = new EventTask(desc, start, end);
+        this.list.add(task);
+        return task;
+    }
+
+    public Task addEvent(String desc, String start, String end, int isMarked) {
+        Task task = new EventTask(desc, start, end, isMarked);
         this.list.add(task);
         return task;
     }
@@ -47,6 +65,14 @@ public class TaskList {
 
     public int getSize() {
         return this.list.size();
+    }
+
+    public String getTextFormattedString() {
+        StringBuilder str = new StringBuilder();
+        for (Task task : this.list) {
+            str.append(task.getTextFormattedString() + "\n");
+        }
+        return str.toString();
     }
 
     @Override
