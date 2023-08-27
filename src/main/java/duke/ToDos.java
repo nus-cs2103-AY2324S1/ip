@@ -1,3 +1,5 @@
+package duke;
+
 /**
  * ToDos encapsulates a task without any date or timeline attached to it
  */

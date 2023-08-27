@@ -1,3 +1,4 @@
+package duke;
 /**
  * Parser class that handles the parsing of user input
  */

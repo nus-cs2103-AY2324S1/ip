@@ -1,4 +1,4 @@
-import java.util.Date;
+package duke;
 
 /**
  * Deadline encapsulates task that need to be done before a specific date or time
