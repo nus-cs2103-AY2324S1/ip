@@ -1,4 +1,3 @@
-There's no file with your to do list peko
  _____      _
 |     |___ | | ______
 |  ___/ _ \| |/ /    \
@@ -9,8 +8,11 @@ Konpeko, Konpeko, Konpeko!
 Hololive san kisei no
 Usada Pekora-peko! almondo almondo!
 ------------------------------------------
+C:\Users\wongj\Documents\GitHub\2103T_IP\ip\text-ui-test\src\main\List.txt
+There's no file with your to do list peko
 ------------------------------------------
 --------------LIST-PEKO------------------
 You are FREE PEKO!!!!!
 ------------------------------------------
+C:\Users\wongj\Documents\GitHub\2103T_IP\ip\text-ui-test\src\main\List.txt
 There's no file with your to do list peko

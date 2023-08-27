@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class SaveHandler {
     private static int listSize = 0;
     private static Task[] tasks = new Task[100];
-    private static File file = new File("src/main/List.txt");
+    private static File file = new File("src/List.txt");
 
     public SaveHandler() {
 
@@ -14,7 +14,6 @@ public class SaveHandler {
     public static void saveTo() {
         PrintWriter printWriter;
         try {
-            Scanner sc = new Scanner(file);
             printWriter = new PrintWriter(file);
             printWriter.write("");
             printWriter.close();
@@ -54,6 +53,7 @@ public class SaveHandler {
     public static Task[] loadFrom() {
 
         try {
+            System.out.println(file.getAbsolutePath());
             int pos = 0;
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {

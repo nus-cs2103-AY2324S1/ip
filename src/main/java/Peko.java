@@ -10,14 +10,14 @@ public class Peko {
     private static final String exitText = "Otsupeko! Bye bye!";
     private static SaveHandler saveHandler;
     public static void main(String[] args) {
-        UserInputHandler UIhandler = new UserInputHandler();
+        UserInputHandler UIhandler;
         intro();
         while (true) {
+            UIhandler = new UserInputHandler();
             UIhandler.newInput();
             if (!UIhandler.run()) {
                 break;
             }
-            UIhandler = new UserInputHandler();
         }
         System.out.println(exitText);
     }
