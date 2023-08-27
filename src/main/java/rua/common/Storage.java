@@ -19,19 +19,19 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    Task stringToTask(String str) throws Exception{
+    static Task stringToTask(String str) throws Exception{
         String[] arr = str.split(" \\| ");
         Task output;
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM dd yyyy");
         switch (arr[0]) {
             case "T":
                 output = new Todo(arr[2], arr[1].equals("1"));
                 break;
             case "D":
-                output = new Deadline(arr[1], LocalDate.parse(arr[3]), arr[2].equals("1"));
+                output = new Deadline(arr[2], LocalDate.parse(arr[3], dateFormat), arr[1].equals("1"));
                 break;
             case "E":
-                output = new Event(arr[1], LocalDate.parse(arr[3]), LocalDate.parse(arr[4]), arr[2].equals("1"));
+                output = new Event(arr[2], LocalDate.parse(arr[3], dateFormat), LocalDate.parse(arr[4], dateFormat), arr[1].equals("1"));
                 break;
             default:
                 output = null;
@@ -40,7 +40,7 @@ public class Storage {
         return output;
     }
 
-    String taskToString(Task task) throws Exception{
+    static String taskToString(Task task) throws Exception{
         String output = task.getType() + " | " + (task.isMarked() ? 1:0) + " | "+ task.getDescription();
         switch (task.getType()) {
             case "T":

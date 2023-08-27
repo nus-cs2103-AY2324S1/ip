@@ -37,12 +37,29 @@ public class Deadline extends Task{
     }
 
     public String getDue() {
-        return due.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return due.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Deadline)) {
+            return false;
+        }
+        Deadline c = (Deadline) o;
+
+        // Compare the data members and return accordingly
+        return c.description.equals(this.description) &&
+                c.marked.equals(this.marked) &&
+                c.due.isEqual(this.due);
     }
 
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " +
-                due.format(DateTimeFormatter.ofPattern("MMM d yyyy"))  + ")";
+                due.format(DateTimeFormatter.ofPattern("MM dd yyyy"))  + ")";
     }
 }

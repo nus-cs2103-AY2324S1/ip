@@ -16,4 +16,13 @@ public class ClearCommand implements Command{
         storage.save(tasks);
         return tasks;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        return o instanceof ClearCommand;
+    }
 }

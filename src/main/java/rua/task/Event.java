@@ -25,11 +25,11 @@ public class Event extends Task{
     }
 
     public String getFrom() {
-        return this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return this.from.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
     }
 
     public String getTo() {
-        return this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return this.to.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
     }
 
     @Override
@@ -49,10 +49,27 @@ public class Event extends Task{
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Event)) {
+            return false;
+        }
+        Event c = (Event) o;
+
+        // Compare the data members and return accordingly
+        return c.description.equals(this.description) &&
+                c.marked.equals(this.marked) &&
+                c.from.isEqual(this.from) &&
+                c.to.isEqual(this.to);
+    }
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " +
-                this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                this.from.format(DateTimeFormatter.ofPattern("MM dd yyyy")) +
+                " to: " + this.to.format(DateTimeFormatter.ofPattern("MM dd yyyy")) +
                 ")";
     }
 }

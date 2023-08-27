@@ -12,6 +12,16 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testImplementation 'junit:junit:4.13.1'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
 application {
     mainClass.set("rua/Rua")
 }

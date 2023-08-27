@@ -7,4 +7,7 @@ import rua.task.TaskList;
 public interface Command {
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
     boolean isExit();
+
+    @Override
+    public boolean equals(Object o);
 }

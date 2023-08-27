@@ -44,6 +44,23 @@ public class Task {
     public Task unmark() {
         return new Task(this.description, false);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Task)) {
+            return false;
+        }
+        Task c = (Task) o;
+
+        // Compare the data members and return accordingly
+        return c.description.equals(this.description) &&
+                c.marked.equals(this.marked);
+    }
+
     @Override
     public String toString() {
         return "[" +  (this.marked ? "X" : " ") + "] " + this.description;

@@ -18,6 +18,20 @@ public class AddCommand implements Command{
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof AddCommand)) {
+            return false;
+        }
+
+        AddCommand c = (AddCommand) o;
+        return c.task.equals(this.task);
+    }
+
+    @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception{
         ui.showMessage(" Got it. I've added this task:\n");
         TaskList newTasks = tasks.add(task);

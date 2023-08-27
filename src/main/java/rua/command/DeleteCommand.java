@@ -25,4 +25,18 @@ public class DeleteCommand implements Command {
                 " tasks in the list.\n");
         return newTasks;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof DeleteCommand)) {
+            return false;
+        }
+
+        DeleteCommand c = (DeleteCommand) o;
+        return c.index == this.index;
+    }
 }

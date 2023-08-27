@@ -16,4 +16,13 @@ public class ExitCommand implements Command {
         ui.showGoodbye();
         return tasks;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        return o instanceof ExitCommand;
+    }
 }

@@ -15,4 +15,13 @@ public class ListCommand implements Command {
         ui.showMessage(tasks.toString() + "\n");
         return tasks;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        return o instanceof ListCommand;
+    }
 }

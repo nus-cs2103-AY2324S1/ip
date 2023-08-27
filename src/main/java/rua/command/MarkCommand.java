@@ -29,4 +29,18 @@ public class MarkCommand implements Command {
         ui.showMessage("    " + tasks.getTasks().get(index - 1));;
         return newTasks;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof MarkCommand)) {
+            return false;
+        }
+
+        MarkCommand c = (MarkCommand) o;
+        return c.marked.equals(this.marked) && c.index == this.index;
+    }
 }

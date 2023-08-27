@@ -23,4 +23,18 @@ public class DateSearchCommand implements Command{
         ui.showMessage(result);
         return tasks;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof DateSearchCommand)) {
+            return false;
+        }
+
+        DateSearchCommand c = (DateSearchCommand) o;
+        return c.date.isEqual(this.date);
+    }
 }
