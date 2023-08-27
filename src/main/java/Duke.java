@@ -14,6 +14,8 @@ public class Duke {
     private static final String FILE_PATH = "./data/state.txt";
     private static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HHmm";
     public static final DateTimeFormatter dateTimeInputFormatter = DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT);
+    private static final String DATE_INPUT_FORMAT = "yyyy-MM-dd";
+    public static final DateTimeFormatter dateInputFormatter = DateTimeFormatter.ofPattern(DATE_INPUT_FORMAT);
     public static void main(String[] args) {
         Duke.tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
@@ -93,6 +95,15 @@ public class Duke {
                     }
                     Task task = Duke.tasks.remove(index);
                     Duke.printTaskDeletedMessage(task);
+                    continue;
+                }
+                if (command.equals(Command.ON.getCommand())) {
+                    LocalDate date = LocalDate.parse(split[1]);
+                    for (int i = 0; i < Duke.tasks.size(); i++) {
+                        if (Duke.tasks.get(i).isOnDate(date)) {
+                            System.out.println((i + 1) + "." + Duke.tasks.get(i));
+                        }
+                    }
                     continue;
                 }
                 throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
