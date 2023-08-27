@@ -1,7 +1,9 @@
+package rua.exception;
+
 public class EmptyDescriptionException extends Exception {
     private final String type;
 
-    EmptyDescriptionException(String type) {
+    public EmptyDescriptionException(String type) {
         super();
         this.type = type;
     }

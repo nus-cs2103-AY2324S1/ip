@@ -1,10 +1,14 @@
-import java.util.ArrayList;
+package rua.command;
 
-public class MarkCommand implements Command{
+import rua.command.Command;
+import rua.task.TaskList;
+import rua.common.*;
+
+public class MarkCommand implements Command {
     private final Boolean marked;
     private final int index;
 
-    MarkCommand(int index, Boolean marked) {
+    public MarkCommand(int index, Boolean marked) {
         this.index = index;
         this.marked = marked;
     }

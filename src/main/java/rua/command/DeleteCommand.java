@@ -1,9 +1,13 @@
-import java.util.ArrayList;
+package rua.command;
 
-public class DeleteCommand implements Command{
+import rua.command.Command;
+import rua.task.TaskList;
+import rua.common.*;
+
+public class DeleteCommand implements Command {
     private final int index;
 
-    DeleteCommand(int index) {
+    public DeleteCommand(int index) {
         this.index = index;
     }
 

@@ -1,3 +1,5 @@
+package rua.task;
+
 import java.time.LocalDate;
 
 public class Task {
@@ -14,27 +16,32 @@ public class Task {
         this.marked = false;
     }
 
-    String getType() {
+    public String getType() {
         return "None";
     }
 
-    String getDescription() {
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    public String getDescription() {
         return this.description;
     }
 
-    Boolean isMarked() {
+    public Boolean isMarked() {
         return this.marked;
     }
 
-    Boolean happenOnThatDate(LocalDate date) {
+    public Boolean happenOnThatDate(LocalDate date) {
         return false;
     }
 
-    Task mark() {
+    public Task mark() {
         return new Task(this.description, true);
     }
 
-    Task unmark() {
+    public Task unmark() {
         return new Task(this.description, false);
     }
     @Override

@@ -1,40 +1,42 @@
+package rua.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
     private final LocalDate due;
 
-    Deadline(String description, LocalDate due) {
+    public Deadline(String description, LocalDate due) {
         super(description);
         this.due = due;
     }
 
-    Deadline(String description, LocalDate due, Boolean marked) {
+    public Deadline(String description, LocalDate due, Boolean marked) {
         super(description, marked);
         this.due = due;
     }
 
     @Override
-    String getType() {
+    public String getType() {
         return "D";
     }
 
     @Override
-    Deadline mark() {
+    public Deadline mark() {
         return new Deadline(this.description, this.due, true);
     }
 
     @Override
-    Deadline unmark() {
+    public Deadline unmark() {
         return new Deadline(this.description, this.due, false);
     }
 
     @Override
-    Boolean happenOnThatDate(LocalDate date) {
+    public Boolean happenOnThatDate(LocalDate date) {
         return date.isEqual(due);
     }
 
-    String getDue() {
+    public String getDue() {
         return due.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 

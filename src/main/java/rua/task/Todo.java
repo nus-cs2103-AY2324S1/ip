@@ -1,24 +1,26 @@
+package rua.task;
+
 public class Todo extends Task{
-    Todo(String description) {
+    public Todo(String description) {
         super(description);
     }
 
-    Todo(String description, Boolean marked) {
+    public Todo(String description, Boolean marked) {
         super(description, marked);
     }
 
     @Override
-    String getType() {
+    public String getType() {
         return "T";
     }
 
     @Override
-    Todo mark() {
+    public Todo mark() {
         return new Todo(this.description, true);
     }
 
     @Override
-    Todo unmark() {
+    public Todo unmark() {
         return new Todo(this.description, false);
     }
 

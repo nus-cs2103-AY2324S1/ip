@@ -1,20 +1,21 @@
+package rua.task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class TaskList {
     private final ArrayList<Task> tasks;
 
-    TaskList() {
+    public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    TaskList(ArrayList<Task> tasks) {
+    public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
-    ArrayList<Task> getTasks() {
+    public ArrayList<Task> getTasks() {
         return this.tasks;
     }
 
@@ -22,33 +23,33 @@ public class TaskList {
         return new TaskList(tasks);
     }
 
-    TaskList add(Task task) {
+    public TaskList add(Task task) {
         ArrayList<Task> currentTasks = this.tasks;
         currentTasks.add(task);
         return update(currentTasks);
     }
 
-    TaskList delete(int index) throws IOException {
+    public TaskList delete(int index) throws IOException {
         ArrayList<Task> currentTasks = this.tasks;
         currentTasks.remove(index - 1);
         return update(currentTasks);
     }
 
-    TaskList mark(int index) throws IOException {
+    public TaskList mark(int index) throws IOException {
         ArrayList<Task> currentTasks = this.tasks;
         Task target = currentTasks.get(index - 1);
         currentTasks.set(index - 1, target.mark());
         return update(currentTasks);
     }
 
-    TaskList unmark(int index) throws IOException {
+    public TaskList unmark(int index) throws IOException {
         ArrayList<Task> currentTasks = this.tasks;
         Task target = currentTasks.get(index - 1);
         currentTasks.set(index - 1, target.unmark());
         return update(currentTasks);
     }
 
-    String dateSearch(LocalDate date) {
+    public String dateSearch(LocalDate date) {
         String res= "";
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).happenOnThatDate(date)) {
@@ -60,7 +61,7 @@ public class TaskList {
     }
 
 
-    String saveMessage() {
+    public String saveMessage() {
         String result = "";
         for (int i = 0; i < tasks.size(); i++) {
             result = result + Integer.toString(i + 1) +

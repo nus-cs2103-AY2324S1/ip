@@ -1,3 +1,5 @@
+package rua.common;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
@@ -13,11 +15,11 @@ public class Ui {
         this.in = new Scanner(in);
         this.out = out;
     }
-    void showLine() {
+    public void showLine() {
         out.println("____________________________________________________________");
     }
 
-    void showWelcome() {
+    public void showWelcome() {
         String greeting = "____________________________________________________________\n" +
                 " Hello! I'm Rua, your ChatBot\n" +
                 " What can I do for you?\n" +
@@ -25,24 +27,24 @@ public class Ui {
         out.println(greeting);
     }
 
-    void showGoodbye() {
+    public void showGoodbye() {
         String goodbye= " Bye. Hope to see you again soon!";
         out.println(goodbye);
     }
 
-    void showMessage(String str) {
+    public void showMessage(String str) {
         out.println(str);
     }
 
-    void showError(String errorMessage) {
+    public void showError(String errorMessage) {
         out.println("You get an error: " + errorMessage);
     }
 
-    void showLoadingError() {
+    public void showLoadingError() {
         showError("Given tasklist cannot be loaded. Now creating a new tasklist instead.");
     }
 
-    String readCommand() {
+    public String readCommand() {
         return in.nextLine();
     }
 }

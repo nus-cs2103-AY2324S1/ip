@@ -1,4 +1,11 @@
-public class ExitCommand implements Command{
+package rua.command;
+
+import rua.common.Ui;
+import rua.common.Storage;
+import rua.task.TaskList;
+
+
+public class ExitCommand implements Command {
     @Override
     public boolean isExit() {
         return true;

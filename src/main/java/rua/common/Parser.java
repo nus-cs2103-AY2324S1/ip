@@ -1,7 +1,15 @@
+package rua.common;
+
+import rua.command.*;
+import rua.task.Deadline;
+import rua.task.Event;
+import rua.task.Todo;
+import rua.exception.*;
+
 import java.time.LocalDate;
 
 public class Parser {
-    static Command parse(String message) throws EmptyDescriptionException, InvalidCommandException{
+    static public Command parse(String message) throws EmptyDescriptionException, InvalidCommandException {
         String[] input = message.split(" ", 2);
         String command = input[0];
         Command output;

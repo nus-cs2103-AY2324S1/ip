@@ -1,7 +1,9 @@
+package rua.exception;
+
 public class InvalidTypeException extends Exception{
     private final String type;
 
-    InvalidTypeException(String type) {
+    public InvalidTypeException(String type) {
         this.type = type;
     }
     public String toString(){

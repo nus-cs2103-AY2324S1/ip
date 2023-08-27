@@ -1,3 +1,7 @@
+package rua.common;
+
+import rua.task.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -6,11 +10,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.IOException;
+import rua.exception.InvalidTypeException;
 
 public class Storage {
     private final String filePath;
 
-    Storage(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
@@ -53,7 +58,7 @@ public class Storage {
         return output;
     }
 
-    ArrayList<Task> load() throws Exception {
+    public ArrayList<Task> load() throws Exception {
         File f = new File(filePath);
         Scanner sc = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
@@ -63,7 +68,7 @@ public class Storage {
         return tasks;
     }
 
-    void save(TaskList tasks) throws Exception {
+    public void save(TaskList tasks) throws Exception {
         try {
             FileWriter fw = new FileWriter(filePath);
             String saveTxt = "";

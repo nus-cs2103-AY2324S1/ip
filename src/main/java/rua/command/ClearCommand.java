@@ -1,3 +1,8 @@
+package rua.command;
+
+import rua.task.TaskList;
+import rua.common.*;
+
 public class ClearCommand implements Command{
     @Override
     public boolean isExit() {

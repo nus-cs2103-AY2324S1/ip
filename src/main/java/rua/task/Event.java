@@ -1,3 +1,5 @@
+package rua.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -5,43 +7,43 @@ public class Event extends Task{
     private final LocalDate from;
     private final LocalDate to;
 
-    Event(String description, LocalDate from, LocalDate to) {
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
-    Event(String description, LocalDate from, LocalDate to, Boolean marked) {
+    public Event(String description, LocalDate from, LocalDate to, Boolean marked) {
         super(description, marked);
         this.from = from;
         this.to = to;
     }
 
     @Override
-    String getType() {
+    public String getType() {
         return "E";
     }
 
-    String getFrom() {
+    public String getFrom() {
         return this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
-    String getTo() {
+    public String getTo() {
         return this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     @Override
-    Event mark() {
+    public Event mark() {
         return new Event(this.description, this.from, this.to, true);
     }
 
     @Override
-    Event unmark() {
+    public Event unmark() {
         return new Event(this.description, this.from, this.to, false);
     }
 
     @Override
-    Boolean happenOnThatDate(LocalDate date) {
+    public Boolean happenOnThatDate(LocalDate date) {
         return (date.isEqual(from) || date.isAfter(from)) &&
                 (date.isEqual(to) || date.isBefore(to));
     }

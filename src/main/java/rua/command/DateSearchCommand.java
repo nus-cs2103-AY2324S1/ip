@@ -1,9 +1,13 @@
+package rua.command;
+
 import java.time.LocalDate;
+import rua.task.TaskList;
+import rua.common.*;
 
 public class DateSearchCommand implements Command{
     private final LocalDate date;
 
-    DateSearchCommand(LocalDate date) {
+    public DateSearchCommand(LocalDate date) {
         this.date = date;
     }
 
