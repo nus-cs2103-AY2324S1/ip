@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private static String noDescErrorMsg = "\u2639 OOPS!!! The description of a event cannot be empty.";
+    private static String noDescErrorMsg = "OOPS!!! The description of a event cannot be empty.";
 
     public Event(String task) {
         // this is for creating a task with the "event" command
@@ -41,7 +41,12 @@ public class Event extends Task {
         String[] arr1 = removeCmd.split("/from");
         if (arr1.length == 1) {
             throw new IllegalArgumentException("Invalid event format: missing /from");
+        } 
+
+        if (checkAllWhiteSpace(arr1[0])) {
+            throw new IllegalArgumentException(noDescErrorMsg);
         }
+        
         // we still need to split the 2nd element because it contains both the start and end time
         String secondPart = arr1[1];
         String[] arr2 = secondPart.split("/to");

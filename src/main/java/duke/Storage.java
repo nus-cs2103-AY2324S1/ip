@@ -12,11 +12,19 @@ import duke.task.ToDo;
 
 public class Storage {
     private String filePath;
+    private String directoryPath;
 
-    public Storage(String filePath) {
+    public Storage(String filePath, String directoryPath) {
         this.filePath = filePath;
+        this.directoryPath = directoryPath;
     }
 
+    /**
+     * Adds task into task list and triggers a save to the text file when the user adds a task.
+     * 
+     * @param task      the task to be saved
+     * @param taskList  the task list containing the task to be saved
+     */
     public void saveWhenAddTask(Task task, TaskList taskList) {
         taskList.addTask(task);
         this.saveFile(taskList);
@@ -31,8 +39,8 @@ public class Storage {
      */
     public TaskList loadFile() {
         try {
-            File directory = new File("../../../data");
-            File newFile = new File(filePath);
+            File directory = new File(this.directoryPath);
+            File newFile = new File(this.filePath);
 
             // check if directory exists
             if (!directory.exists()) {
@@ -42,6 +50,7 @@ public class Storage {
             // check if file exists
             if (!newFile.exists()) {
                 newFile.createNewFile();
+                System.out.println("created a new file");
                 return new TaskList(); 
             }
 
@@ -84,11 +93,18 @@ public class Storage {
             return taskList;
 
         } catch (IOException e) {
+            System.out.println("Error creating file");
             e.printStackTrace();
             return new TaskList();
         }
     }
 
+    /**
+     * Saves the tasks in the task list to the text file.
+     * 
+     * @param taskList     the task list containing the tasks to be saved
+     * @throws IOException if there is an error writing to the file
+     */
     public void saveFile(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
