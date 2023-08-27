@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class DukeEndDateBeforeStartDateException extends DukeException {
     @Override
     public String toString() {
