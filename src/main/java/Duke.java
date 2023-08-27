@@ -271,9 +271,14 @@ public class Duke {
                             throw new UnknownTimeException(desc_time[0]);
                         }
 
-                        Task task = new Event(desc_time[0],
-                                LocalDateTime.parse(times[0], FORMATTER),
-                                LocalDateTime.parse(times[1], FORMATTER));
+                        LocalDateTime start = LocalDateTime.parse(times[0], FORMATTER);
+                        LocalDateTime end = LocalDateTime.parse(times[1], FORMATTER);
+
+                        if (start.isAfter(end)) {
+                            throw new BackwardsTimeException();
+                        }
+
+                        Task task = new Event(desc_time[0], start, end);
                         tasks.add(task);
                         System.out.println("Got it!. I've added this task:");
                         System.out.println(" " + task);
@@ -305,7 +310,7 @@ public class Duke {
                     throw new UnknownCommandException(input);
 
                 } catch (UnknownTimeException | UnknownCommandException | EmptyTaskListException |
-                         NoDescriptionException | NoIndexException e) {
+                         NoDescriptionException | NoIndexException | BackwardsTimeException e) {
                     System.out.println(e.getMessage());
                     System.out.println(LINE);
                 }
