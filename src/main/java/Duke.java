@@ -77,7 +77,9 @@ public class Duke {
                 }
                 if (command.equals(Command.EVENT.getCommand())) {
                     String[] processedEventInput = Event.processInput(split);
-                    Event newEvent = new Event(processedEventInput[0], processedEventInput[1], processedEventInput[2]);
+                    Event newEvent = new Event(processedEventInput[0],
+                            LocalDateTime.parse(processedEventInput[1], dateTimeInputFormatter),
+                            LocalDateTime.parse(processedEventInput[2], dateTimeInputFormatter));
                     Duke.tasks.add(newEvent);
                     Duke.printTaskAddedMessages(newEvent);
                     continue;
@@ -133,7 +135,8 @@ public class Duke {
                 } else if (taskArray[0].equals(Command.DEADLINE.getCommand())) {
                     task = new Deadline(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter));
                 } else {
-                    task = new Event(taskArray[2], taskArray[3], taskArray[4]);
+                    task = new Event(taskArray[2], LocalDateTime.parse(taskArray[3], dateTimeInputFormatter),
+                            LocalDateTime.parse(taskArray[4], dateTimeInputFormatter));
                 }
 
                 if (taskArray[1].equals("1")) {

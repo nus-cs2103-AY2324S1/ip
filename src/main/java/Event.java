@@ -1,10 +1,11 @@
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class Event extends Task{
-    String from;
-    String to;
+    LocalDateTime from;
+    LocalDateTime to;
 
-    public Event(String name, String from, String to) {
+    public Event(String name, LocalDateTime from, LocalDateTime to) {
         super(name);
         this.from = from;
         this.to = to;
@@ -12,13 +13,14 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(dateTimeOutputFormatter)
+                + " to: " + this.to.format(dateTimeOutputFormatter) + ")";
     }
 
     @Override
     public String toSaveStateString() {
         String[] state = new String[]{ Command.EVENT.getCommand(), this.getDone() ? "1" : "0", this.getTaskName(),
-                this.from, this.to };
+                this.from.format(Duke.dateTimeInputFormatter), this.to.format(Duke.dateTimeInputFormatter) };
         return String.join(" / ", state);
     }
 
