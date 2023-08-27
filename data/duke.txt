@@ -1,1 +1,5 @@
-T | 0 | buy bread
+T | 1 | buy bread
+D | 0 | buy bread | 2023-08-31
+E | 0 | meeting | 2023-09-04 1200 | 2023-09-04 1500
+T | 0 | do homework
+T | 0 | read book
