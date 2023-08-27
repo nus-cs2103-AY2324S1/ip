@@ -1,9 +1,6 @@
-enum TaskStatus {
-    UNMARKED,
-    MARKED
-}
+public abstract class Task {
+    public static final String SAVE_STRING_DELIMITER = "\\|";
 
-public class Task {
     private String name;
     private TaskStatus status;
 
@@ -28,12 +25,38 @@ public class Task {
         this.status = TaskStatus.UNMARKED;
     }
 
+    /**
+     * Factory method of Task, creating a Task by parsing a String that represents a Task.
+     *
+     * @param s - the String that represents the Task.
+     * @return    either the Task that was parsed successfully using the String, or null if the string is an invalid Task.
+     */
+    public static Task parseSaveString(String s) {
+        String[] splitString = s.split(Task.SAVE_STRING_DELIMITER);
+
+        // Check for the types
+        if (splitString[0].equals("T")) {
+            // Not enough arguments; minmally, it needs the Type, the Marked status, and the Name.
+            return ToDo.fromSaveString(s);
+        } else if (splitString[0].equals("D")) {
+            // Not enough arguments; minmally, it needs the Type, the Marked status, and the Name.
+            return Deadline.fromSaveString(s);
+        } else if (splitString[0].equals("E")) {
+            // Not enough arguments; minmally, it needs the Type, the Marked status, and the Name.
+            return Event.fromSaveString(s);
+        }
+
+        return null;
+    }
+
     public void changeStatus(TaskStatus newStatus) {
         this.status = newStatus;
     }
 
     /**
      * Returns a String representation of this task.
+     *
+     * @return the String representation of this task.
      */
     public String toString() {
         if(this.status == TaskStatus.UNMARKED) {
@@ -41,6 +64,19 @@ public class Task {
         }
         if(this.status == TaskStatus.MARKED) {
             return String.format("[X] %s", this.name);
+        }
+        return "";
+    }
+
+    /**
+     * Returns a String representation of this task, for the purposes of data saving.
+     */
+    public String toSaveString() {
+        if(this.status == TaskStatus.UNMARKED) {
+            return String.format("0|%s", this.name);
+        }
+        if(this.status == TaskStatus.MARKED) {
+            return String.format("1|%s", this.name);
         }
         return "";
     }

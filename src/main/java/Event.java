@@ -41,4 +41,42 @@ class Event extends Task {
     public String toString() {
         return String.format("[E] %s (from: %s to: %s)", super.toString(), this.startTime, this.endTime);
     }
+
+    /**
+     * Returns the String representation of this Event, for the purposes of saving.
+     *
+     * @return the String representation of this Event.
+     */
+    @Override
+    public String toSaveString() {
+        return String.format("E|%s|%s|%s|", super.toSaveString(), this.startTime, this.endTime);
+    }
+
+    /**
+     * Returns a new Event from a Save String.
+     *
+     * @return the Event that this String is represented by.
+     */
+    public static Event fromSaveString(String s) {
+        String[] splitString = s.split(Task.SAVE_STRING_DELIMITER);
+        // Not enough arguments; minmally, it needs the Type, the Marked status, the Name, the Start Time, and the End Time.
+        if (splitString.length < 5) {
+            return null;
+        }
+
+        TaskStatus taskStatus = TaskStatus.UNMARKED;
+        String name = "";
+        String startTime = "";
+        String endTime = "";
+
+        if(Integer.parseInt(splitString[1]) == 1) {
+            taskStatus = TaskStatus.MARKED;
+        }
+
+        name = splitString[2];
+        startTime = splitString[3];
+        endTime = splitString[4];
+
+        return new Event(name, startTime, endTime, taskStatus);
+    }
 }

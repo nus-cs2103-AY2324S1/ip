@@ -35,4 +35,40 @@ class Deadline extends Task {
     public String toString() {
         return String.format("[D] %s (by: %s)", super.toString(), this.deadline);
     }
+
+    /**
+     * Returns the String representation of this Deadline, for the purposes of saving.
+     *
+     * @return the String representation of this Deadline.
+     */
+    @Override
+    public String toSaveString() {
+        return String.format("D|%s|%s|", super.toSaveString(), this.deadline);
+    }
+
+    /**
+     * Returns a new Deadline from a Save String.
+     *
+     * @return the Deadline that this String is represented by.
+     */
+    public static Deadline fromSaveString(String s) {
+        String[] splitString = s.split(Task.SAVE_STRING_DELIMITER);
+        // Not enough arguments; minmally, it needs the Type, the Marked status, the Name and the Deadline.
+        if (splitString.length < 4) {
+            return null;
+        }
+
+        TaskStatus taskStatus = TaskStatus.UNMARKED;
+        String name = "";
+        String deadline = "";
+
+        if(Integer.parseInt(splitString[1]) == 1) {
+            taskStatus = TaskStatus.MARKED;
+        }
+
+        name = splitString[2];
+        deadline = splitString[3];
+
+        return new Deadline(name, deadline, taskStatus);
+    }
 }
