@@ -39,7 +39,8 @@ public class CommandParser {
       i += 1;
     }
 
-    return new EventTask(taskName.toString().stripTrailing(), parser.parseTime(startDate.toString().trim()), parser.parseTime(endDate.toString().trim()));
+    return new EventTask(taskName.toString().stripTrailing(),
+            parser.parseTime(startDate.toString().trim()), parser.parseTime(endDate.toString().trim()));
   }
 
   private Task createDeadlineTask(String[] words) throws InvalidDateException {

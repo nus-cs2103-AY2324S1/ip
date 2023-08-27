@@ -59,7 +59,8 @@ public class Storage {
         boolean isComplete = taskData[1].equals("1");
         switch (taskData[0]) {
           case "event":
-            tasks.add((new EventTask(taskData[2], parser.parseTime(taskData[3]), parser.parseTime(taskData[4]), isComplete)));
+            tasks.add((new EventTask(taskData[2], parser.parseTime(taskData[3]),
+                    parser.parseTime(taskData[4]), isComplete)));
             break;
           case "todo":
             tasks.add(new ToDoTask(taskData[2], isComplete));
