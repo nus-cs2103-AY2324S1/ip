@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Deadline class containing tasks
  * with deadlines.
@@ -6,13 +9,13 @@
 public class Deadline extends Task {
 
     /** The deadline of the task. **/
-    private String deadline;
+    private LocalDateTime deadline;
 
     /** The constructor
      * @param deadline The deadline of the task.
      * @param description The description of the task.
      * **/
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
@@ -22,7 +25,7 @@ public class Deadline extends Task {
      * @param status The status of completion.
      * @param deadline The deadline of the task.
      **/
-    public Deadline(String description, String deadline, String status) {
+    public Deadline(String description, LocalDateTime deadline, String status) {
         super(description, status);
         this.deadline = deadline;
     }
@@ -32,10 +35,11 @@ public class Deadline extends Task {
      * **/
     @Override
     public String toString() {
-        return "[Deadline] " + super.toString() + " (by: " + deadline + ")";
+        return "[Deadline] " + super.toString()
+                + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")";
     }
 
     public String toFile() {
-        return "D" + super.toFile() + " | " + deadline;
+        return "D" + super.toFile() + " | " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
     }
 }

@@ -1,2 +1,3 @@
 T | X | drive car
-E | O | play valorant | Aug 10PM-12PM
+D | O | study | Aug 15 2023 02:30 PM
+E | O | play valorant | Aug 22 2023 02:00 PM - Aug 23 2023 03:00 PM

@@ -1,3 +1,7 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * The Event class contains the tasks
  * with to and from date/time inputs.
@@ -7,17 +11,17 @@
 public class Event extends Task {
 
     /** The from date/time **/
-    private String from;
+    private LocalDateTime from;
 
     /** The to date/time **/
-    private String to;
+    private LocalDateTime to;
 
     /** The constructor.
      * @param description The description of the task.
      * @param from The from date/time
      * @param to The to date/time
      **/
-    public Event(String description, String from, String to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
@@ -29,7 +33,7 @@ public class Event extends Task {
      * @param from The from date/time.
      * @param to The to date/time.
      **/
-    public Event(String description, String from, String to, String status) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, String status) {
         super(description, status);
         this.from = from;
         this.to = to;
@@ -40,10 +44,14 @@ public class Event extends Task {
      * **/
     @Override
     public String toString() {
-        return "[Event] " + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[Event] " + super.toString()
+                + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"))
+                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")";
     }
 
     public String toFile() {
-        return "E" + super.toFile() + " | " + this.from + "-" + this.to;
+        return "E" + super.toFile() + " | "
+                + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"))
+                + " - " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
     }
 }

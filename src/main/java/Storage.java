@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -88,19 +90,21 @@ public class Storage {
 
         Task task;
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
+
         switch(split[0]) {
             case "T":
                 task = new Todo(action, status);
                 break;
             case "D":
-                task = new Deadline(action, split[3], status);
+                task = new Deadline(action, LocalDateTime.parse(split[3], formatter), status);
                 break;
             case "E":
-                String[] interval = split[3].split("-", 2);
+                String[] interval = split[3].split(" - ", 2);
                 if (interval.length < 2) {
                     task = null;
                 } else {
-                    task = new Event(action, interval[0], interval[1], status);
+                    task = new Event(action, LocalDateTime.parse(interval[0], formatter),  LocalDateTime.parse(interval[1], formatter), status);
                 }
                 break;
             default:
