@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,11 +17,16 @@ import spot.task.ToDo;
 
 public class Storage {
 
-    File storage;
+    private File storage;
     private final static String DIRECTORY_NAME = "./data";
     private final static String FILE_NAME = "spot.txt";
     private final static String FULL_PATH = DIRECTORY_NAME + "/" + FILE_NAME;
 
+    /**
+     * Constructs an instance of the Storage class.
+     *
+     * @throws SpotException  If the text file from the file path cannot be opened as a file.
+     */
     public Storage() throws SpotException {
         try {
             File directory = new File(DIRECTORY_NAME);
@@ -39,6 +43,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from a text file in the hard disk into an ArrayList of Tasks.
+     *
+     * @return Resulting ArrayList of Tasks.
+     * @throws SpotException  If the file cannot be found.
+     */
     public ArrayList<Task> loadTasks() throws SpotException {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
@@ -53,8 +63,7 @@ public class Storage {
                         tasks.add(new ToDo(keywords[2], false));
                     }
                 } else if (keywords[0].equals("D")) {
-                    LocalDate deadline = LocalDate.parse(keywords[3],
-                            DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    LocalDate deadline = Parser.parseDate(keywords[3]);
                     if (keywords[1].equals("X")) {
                         tasks.add(new Deadline(keywords[2], true,
                                 deadline));
@@ -63,10 +72,8 @@ public class Storage {
                                 deadline));
                     }
                 } else {
-                    LocalDate start = LocalDate.parse(keywords[3],
-                            DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                    LocalDate end = LocalDate.parse(keywords[4],
-                            DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    LocalDate start = Parser.parseDate(keywords[3]);
+                    LocalDate end = Parser.parseDate(keywords[4]);
                     if (keywords[1].equals("X")) {
                         tasks.add(new Event(keywords[2], true, start, end));
                     } else {
@@ -81,6 +88,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks in the specified TaskList into a text file in the hard disk.
+     *
+     * @param tasks TaskList to be saved.
+     * @throws SpotException  If the text file cannot be opened as a file.
+     */
     public void saveTasks(TaskList tasks) throws SpotException {
         try {
             FileWriter fileWriter = new FileWriter(Storage.FULL_PATH);
