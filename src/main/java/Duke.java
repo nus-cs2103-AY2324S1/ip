@@ -1,6 +1,11 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Duke {
     static List<Task> taskList = new ArrayList<>();
@@ -13,20 +18,65 @@ public class Duke {
         System.out.println(greeting);
     }
 
-    static void addTask(String task, TaskType taskType) throws GlubException {
+    static void loadTasks() {
+        File taskFile = new File("tasks.txt");
+            try {
+                taskFile.createNewFile();
+                Scanner scanner = new Scanner(taskFile);
+                while (scanner.hasNextLine()) {
+                    String task = scanner.nextLine();
+                    String[] data = task.split("\\|");
+                    boolean isDone = data[1].equals("Y");
+                    switch (data[0]) {
+                        case "T":
+                            addTask(String.format("%s", data[2]), TaskType.TODO, isDone);
+                            break;
+                        case "D":
+                            addTask(String.format("%s /by %s", data[2], data[3]),
+                                    TaskType.DEADLINE, isDone);
+                            break;
+                        case "E":
+                            addTask(String.format("%s /from %s /to %s", data[2], data[3], data[4]),
+                                    TaskType.EVENT, isDone);
+                            break;
+                    }
+                }
+                scanner.close();
+            } catch (FileNotFoundException ex) {
+                System.out.println("Task list not found!");
+            } catch (IOException ex) {
+                System.out.println("Task list file creation failed!");
+            } catch (GlubException ex) {
+                System.out.println("Loading failed!");
+            }
+        }
+    static void saveTasks() {
+        try {
+            FileWriter writer = new FileWriter("tasks.txt", false);
+            for (int i = 0; i < taskList.size(); i++) {
+                writer.write(taskList.get(i).toSaveFormat());
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Saving tasks failed.\n");
+            e.printStackTrace();
+        }
+    }
+
+    static void addTask(String task, TaskType taskType, boolean isDone) throws GlubException {
         if (task.equals("")) {
             throw new GlubException(String.format("OOPS!! The description of a %s cannot be empty.\n", taskType));
         }
         switch (taskType) {
         case TODO:
-            taskList.add(new ToDo(task));
+            taskList.add(new ToDo(task, isDone));
             break;
         case DEADLINE:
             String[] deadlinePortions = task.split("/");
             String deadlineDesc = deadlinePortions[0];
             try {
                 String deadline = deadlinePortions[1].split(" ", 2)[1];
-                taskList.add(new Deadline(deadlineDesc, deadline));
+                taskList.add(new Deadline(deadlineDesc, isDone, deadline));
             } catch (ArrayIndexOutOfBoundsException ex) {
                 throw new GlubException("OOPS!! Please provide a deadline for your deadline task.\n");
             }
@@ -37,7 +87,7 @@ public class Duke {
             try {
                 String start = eventPortions[1].split(" ", 2)[1];
                 String end = eventPortions[2].split(" ", 2)[1];
-                taskList.add(new Event(eventDesc, start, end));
+                taskList.add(new Event(eventDesc, isDone, start, end));
             } catch (ArrayIndexOutOfBoundsException ex) {
                 throw new GlubException("OOPS!! Ensure that your event has a start and end!\n");
             }
@@ -63,6 +113,7 @@ public class Duke {
         } catch (IndexOutOfBoundsException ex) {
             throw new GlubException(String.format("OOPS!! Task %d does not exist!\n", taskNum));
         }
+        saveTasks();
     }
 
     static void list() {
@@ -80,6 +131,7 @@ public class Duke {
                 + String.format("\t %s\n", task)
                 + "_________________________________________________\n";
         System.out.println(markMsg);
+        saveTasks();
     }
 
     static void unmark(int taskNum) {
@@ -90,6 +142,7 @@ public class Duke {
                 + String.format("\t %s\n", task)
                 + "_________________________________________________\n";
         System.out.println(markMsg);
+        saveTasks();
     }
     static void exit() {
         String exitMsg = "_________________________________________________\n"
@@ -99,10 +152,11 @@ public class Duke {
         isListening = false;
     }
     public static void main(String[] args) {
-        Scanner inputScanner = new Scanner(System.in);
-        greet();
-        while (isListening) {
-            try {
+            loadTasks();
+            Scanner inputScanner = new Scanner(System.in);
+            greet();
+        try {
+            while (isListening) {
                 String command = inputScanner.next();
                 switch (command) {
                 case "bye":
@@ -122,22 +176,25 @@ public class Duke {
                     break;
                 case "todo":
                     String todo = inputScanner.nextLine();
-                    addTask(todo, TaskType.TODO);
+                    addTask(todo, TaskType.TODO, false);
+                    saveTasks();
                     break;
                 case "deadline":
                     String deadline = inputScanner.nextLine();
-                    addTask(deadline, TaskType.DEADLINE);
+                    addTask(deadline, TaskType.DEADLINE, false);
+                    saveTasks();
                     break;
                 case "event":
                     String event = inputScanner.nextLine();
-                    addTask(event, TaskType.EVENT);
+                    addTask(event, TaskType.EVENT, false);
+                    saveTasks();
                     break;
                 default:
                     throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
                 }
-            } catch (GlubException ex) {
-                System.out.println(ex.getMessage());
             }
+        } catch (GlubException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 }

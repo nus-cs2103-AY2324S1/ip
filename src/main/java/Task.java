@@ -1,13 +1,13 @@
 public class Task {
     private String task;
     private boolean isDone;
-    public Task(String task) {
+    public Task(String task, boolean isDone) {
         this.task = task;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getDoneIcon() {
-        return isDone ? "X" : " ";
+        return isDone ? "Y" : "N";
     }
     public void setDone() {
         this.isDone = true;
@@ -15,6 +15,10 @@ public class Task {
 
     public void setUndone() {
         this.isDone = false;
+    }
+
+    public String toSaveFormat() {
+        return String.format("%s|%s", getDoneIcon(), task);
     }
 
     @Override
