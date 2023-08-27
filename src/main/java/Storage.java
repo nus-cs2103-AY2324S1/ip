@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
-public class Data {
+public class Storage {
     private static String DATA_DIRECTORY = "./";
     private static String DATA_FILE = "data.duchess";
 
