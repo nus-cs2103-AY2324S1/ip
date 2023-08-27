@@ -138,6 +138,7 @@ public class Duke {
                 }
                 Duke.tasks.add(task);
             }
+            System.out.println("Successfully loaded saved state");
         } catch (FileNotFoundException e) {
             System.out.println("File to save state cannot be found");
         }
