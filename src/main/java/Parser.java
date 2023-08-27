@@ -2,7 +2,11 @@ import java.util.ArrayList;
 
 public class Parser {
 
-    private final String type;
+    private String type = "";
+
+    public Parser(){
+
+    }
 
     public Parser(String type) {
         this.type = type;
@@ -33,8 +37,17 @@ public class Parser {
             break;
         }
         }
-
-
         return texts;
+    }
+    public ArrayList<String> splitter(String text, String cutOff) {
+        ArrayList<String> res = new ArrayList<>();
+        String resStrAftCutting = text;
+        while (resStrAftCutting.contains(cutOff)) {
+            String sub = resStrAftCutting.substring(0, resStrAftCutting.indexOf(cutOff));
+            res.add(sub);
+            resStrAftCutting = resStrAftCutting.substring(resStrAftCutting.indexOf(cutOff) + 1);
+        }
+        res.add(resStrAftCutting);
+        return res;
     }
 }
