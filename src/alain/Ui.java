@@ -1,3 +1,5 @@
+package alain;
+
 public class Ui {
     public void showlines() {
         System.out.println("____________________________________________________________\n");

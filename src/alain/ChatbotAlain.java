@@ -1,9 +1,9 @@
-import java.io.FileWriter;
+package alain;
+
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import java.io.File;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
@@ -41,7 +41,7 @@ public class ChatbotAlain{
             String transformedTime = date.format(outputPattern);
             return transformedTime.toString() + " " + addMsg;
         } else if (inputTime.length() == 0) {
-            throw new AlainException(" ☹ OOPS!!! The description of a Task cannot be empty.");
+            throw new AlainException(" ☹ OOPS!!! The description of a alain.Task cannot be empty.");
         } else {
             return inputTime;
         }
