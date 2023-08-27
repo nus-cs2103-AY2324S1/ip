@@ -12,31 +12,35 @@ public class Duke {
         System.out.println(greeting);
     }
 
-    static void addTask(String task, String type) throws GlubException {
+    static void addTask(String task, TaskType taskType) throws GlubException {
         if (task.equals("")) {
-            throw new GlubException(String.format("OOPS!! The description of a %s cannot be empty.\n", type));
+            throw new GlubException(String.format("OOPS!! The description of a %s cannot be empty.\n", taskType));
         }
-        if (type.equals("todo")) {
+        switch (taskType) {
+        case TODO:
             taskList.add(new ToDo(task));
-        } else if (type.equals("deadline")) {
-            String[] taskPortions = task.split("/");
-            String desc = taskPortions[0];
+            break;
+        case DEADLINE:
+            String[] deadlinePortions = task.split("/");
+            String deadlineDesc = deadlinePortions[0];
             try {
-                String deadline = taskPortions[1].split(" ", 2)[1];
-                taskList.add(new Deadline(desc, deadline));
+                String deadline = deadlinePortions[1].split(" ", 2)[1];
+                taskList.add(new Deadline(deadlineDesc, deadline));
             } catch (ArrayIndexOutOfBoundsException ex) {
                 throw new GlubException("OOPS!! Please provide a deadline for your deadline task.\n");
             }
-        } else {
-            String[] taskPortions = task.split("/");
-            String desc = taskPortions[0];
+            break;
+        case EVENT:
+            String[] eventPortions = task.split("/");
+            String eventDesc = eventPortions[0];
             try {
-                String start = taskPortions[1].split(" ", 2)[1];
-                String end = taskPortions[2].split(" ", 2)[1];
-                taskList.add(new Event(desc, start, end));
+                String start = eventPortions[1].split(" ", 2)[1];
+                String end = eventPortions[2].split(" ", 2)[1];
+                taskList.add(new Event(eventDesc, start, end));
             } catch (ArrayIndexOutOfBoundsException ex) {
                 throw new GlubException("OOPS!! Ensure that your event has a start and end!\n");
             }
+            break;
         }
         String addMsg = "_________________________________________________\n"
                 + "Got it. I've added this task:\n"
@@ -116,10 +120,16 @@ public class Duke {
                     deleteTask(inputScanner.nextInt());
                     break;
                 case "todo":
+                    String todo = inputScanner.nextLine();
+                    addTask(todo, TaskType.TODO);
+                    break;
                 case "deadline":
+                    String deadline = inputScanner.nextLine();
+                    addTask(deadline, TaskType.DEADLINE);
+                    break;
                 case "event":
-                    String task = inputScanner.nextLine();
-                    addTask(task, command);
+                    String event = inputScanner.nextLine();
+                    addTask(event, TaskType.EVENT);
                     break;
                 default:
                     throw new GlubException("OOPS!! I'm sorry, but I don't know what that means :-(\n");
