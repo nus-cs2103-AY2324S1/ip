@@ -7,6 +7,14 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getTaskName() {
+        return this.taskName;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
