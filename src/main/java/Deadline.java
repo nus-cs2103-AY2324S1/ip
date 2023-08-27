@@ -1,18 +1,21 @@
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+
 public class Deadline extends Task {
-    protected String by;
+    protected LocalDateTime by;
 
     public Deadline(String description, String by) {
         super(TaskType.DEADLINE, description);
-        this.by = by;
+        this.by = this.convertToLocalDateTime(by);
     }
 
     @Override
-    public String getString() {
-        return "[D]" + super.getString() + " (by: " + this.by + ")";
+    public String getString() throws DateTimeException {
+        return "[D]" + super.getString() + " (by: " + convertDateTimeToString(by) + ")";
     }
 
     @Override
     public String getFileString() {
-        return "D|" + super.getFileString() + "|" + this.by;
+        return "D|" + super.getFileString() + "|" + by.toString().replace('T', ' ');
     }
 }

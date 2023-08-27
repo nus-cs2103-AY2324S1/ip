@@ -1,6 +1,10 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,7 +26,7 @@ public class TaskList {
     }
 
     public String addDeadline(String task) throws DukeException {
-        if (task.split(" ").length == 1) {
+        if (task.split(" ").length == 1 || task.indexOf('/') == 9) {
             System.out.print("\t");
             throw new DukeEmptyException(task.split(" ")[0]);
         }
@@ -35,7 +39,7 @@ public class TaskList {
     }
 
     public String addEvent(String task) throws DukeException {
-        if (task.split(" ").length == 1) {
+        if (task.split(" ").length == 1 || task.indexOf('/') == 6) {
             System.out.print("\t");
             throw new DukeEmptyException(task.split(" ")[0]);
         }
@@ -103,6 +107,27 @@ public class TaskList {
             System.out.print("\t\t");
             System.out.println((i + 1) + ". " + list.get(i).getString());
         }
+    }
+    public String showSchedule(String task) throws DateTimeException {
+        String s = "";
+        int counter = 0;
+        LocalDate d = LocalDate.parse(task.split(" ")[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        for (Task t : list) {
+            if (t instanceof Deadline) {
+                if (d.isEqual(((Deadline) t).by.toLocalDate())) {
+                    s = s + "\t" + (++counter) + ". " + t.getString() + "\n";
+                }
+            }
+            else if (t instanceof Event) {
+                if ((d.isAfter(((Event) t).from.toLocalDate()) && d.isBefore(((Event) t).by.toLocalDate())) || d.isEqual(((Event) t).from.toLocalDate()) || d.isEqual(((Event) t).by.toLocalDate())){
+                    s = s + "\t" + (++counter) + ". " + t.getString() + "\n";
+                }
+            }
+        }
+        if (counter == 0) {
+            return "\tYou have no deadlines or events on this date.";
+        }
+        return s;
     }
 
     public void writeToFile() {

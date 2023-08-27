@@ -1,20 +1,24 @@
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class Event extends Task {
-    protected String from;
-    protected String by;
+    protected LocalDateTime from;
+    protected LocalDateTime by;
 
     public Event(String description, String from, String by) {
         super(TaskType.EVENT, description);
-        this.from = from;
-        this.by = by;
+        this.from = this.convertToLocalDateTime(from);
+        this.by = this.convertToLocalDateTime(by);
     }
 
     @Override
-    public String getString() {
-        return "[E]" + super.getString() + " (from: " + this.from + " to: " + this.by + ")";
+    public String getString() throws DateTimeException {
+        return "[E]" + super.getString() + " (from: " + convertDateTimeToString(from) + " to: " + convertDateTimeToString(by) + ")";
     }
 
     @Override
-    public String getFileString() {
-        return "E|" + super.getFileString() + "|" + this.from + "|" + this.by;
+    public String getFileString() throws DateTimeException {
+        return "E|" + super.getFileString() + "|" + from.toString().replace('T', ' ') + "|" + by.toString().replace('T', ' ');
     }
 }
