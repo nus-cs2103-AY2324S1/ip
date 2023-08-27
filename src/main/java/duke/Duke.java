@@ -2,6 +2,10 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * A bot that allows creation, deletion of tasks.
+ * It also can mark and unmarked tasks as completed.
+ */
 public class Duke {
 
     private final UI ui = new UI();

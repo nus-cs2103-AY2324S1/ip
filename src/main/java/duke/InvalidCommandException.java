@@ -1,5 +1,8 @@
 package duke;
 
+/**
+ * Exception to handle invalid user input.
+ */
 public class InvalidCommandException extends DukeException {
 
   InvalidCommandException() {

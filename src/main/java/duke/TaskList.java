@@ -2,6 +2,9 @@ package duke;
 
 import java.util.LinkedList;
 
+/**
+ * Represents a list of tasks, and supports methods like add, delete, mark, unmarked.
+ */
 public class TaskList {
 
   private LinkedList<Task> tasks = new LinkedList<>();
@@ -14,6 +17,10 @@ public class TaskList {
     return this.tasks;
   }
 
+
+  /**
+   * List the current state of the tasks list
+   */
   public void listTasks() {
     int i = 1;
     System.out.println("     Here are the tasks in your list:");
@@ -23,6 +30,11 @@ public class TaskList {
     }
   }
 
+  /**
+   * Adds the task to the list
+   *
+   * @param task the task to be added
+   */
   public void addTask(Task task) {
     tasks.add(task);
     System.out.println("     " + "Got it. I've added this task:");
@@ -30,6 +42,12 @@ public class TaskList {
     System.out.println("     " + "Now you have " + tasks.size() + " tasks in the list.");
   }
 
+  /**
+   * Deletes the task at the specified position
+   *
+   * @param index position of task to be deleted
+   * @throws WrongIndexException when index is out of bounds, or too big to parse
+   */
   public void deleteTask(String index) throws WrongIndexException {
     try {
       String regex = "\\d+";
@@ -47,6 +65,12 @@ public class TaskList {
     }
   }
 
+  /**
+   * Marks the task as completed at the specified position
+   *
+   * @param index the position of the tasks to be mark completed
+   * @throws WrongIndexException when index is out of bounds, or too big to parse
+   */
   public void markTask(String index) throws WrongIndexException {
     try {
       String regex = "\\d+";
@@ -65,6 +89,13 @@ public class TaskList {
     }
   }
 
+
+  /**
+   * Unmarked the task as completed at the specified position.
+   *
+   * @param index the position of the tasks to be unmarked
+   * @throws WrongIndexException when index is out of bounds, or too big to parse
+   */
   public void unmarkedTask(String index) throws WrongIndexException {
     try {
       String regex = "\\d+";

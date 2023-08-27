@@ -1,13 +1,22 @@
 package duke;
 
+/**
+ * Responsible for the miscellaneous console outputs.
+ */
 public class UI {
 
   public UI() {}
 
+  /**
+   * Prints a divider line.
+   */
   public void printLine() {
     System.out.println("    ____________________________________________________________");
   }
 
+  /**
+   * Greets the user.
+   */
   public void greet() {
     printLine();
     System.out.println("    Hello! I'm Duke");
@@ -15,6 +24,9 @@ public class UI {
     printLine();
   }
 
+  /**
+   * Says bye to the user.
+   */
   public void bye() {
     System.out.println("    Bye. Hope to see you again soon!");
     printLine();

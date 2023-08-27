@@ -1,5 +1,9 @@
 package duke;
 
+
+/**
+ * Parses the command given by the user and returns a corresponding action.
+ */
 public class CommandParser {
 
   public CommandParser() {}
@@ -69,6 +73,13 @@ public class CommandParser {
     }
   }
 
+  /**
+   *  Checks the first word of the input string and returns an Action.
+   *
+   * @param command input given by the user
+   * @return action an action to be executed depending on the first word of command
+   * @throws DukeException if input string is invalid
+   */
   public Action parseCommand(String command) throws DukeException {
     String[] words = command.trim().split("\\s");
     if (words[0].equals("bye") && words.length == 1) {
