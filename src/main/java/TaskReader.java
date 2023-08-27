@@ -22,6 +22,8 @@ public class TaskReader {
             reader.close();
         } catch (IOException e) {
             System.out.println("Error reading from file: " + e.getMessage());
+        } catch (DukeException e) {
+            System.out.println("Error parsing file: " + e.getMessage());
         }
         return tasks;
     }

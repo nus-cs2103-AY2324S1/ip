@@ -62,6 +62,9 @@ public class Harvard {
                         throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                     }
                     String by = split[1];
+                    if (by.isEmpty()) {
+                        throw new DukeException("☹ OOPS!!! The deadline must be specified.");
+                    }
                     Deadline deadline = new Deadline(description, by);
                     tasks.add(deadline);
                     taskCount++;
