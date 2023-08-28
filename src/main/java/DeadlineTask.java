@@ -1,5 +1,9 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class DeadlineTask extends Task {
-    private final String by;
+    private final LocalDate by;
+
 
     /**
      * Constructor for DeadlineTask.
@@ -9,7 +13,7 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String description, String by) {
         super(description);
-        this.by = by;
+        this.by = LocalDate.parse(by);
     }
 
     @Override
@@ -23,7 +27,7 @@ public class DeadlineTask extends Task {
      * @return deadline of the task.
      */
     public String getBy() {
-        return this.by;
+        return this.by.format(DateTimeFormatter.ofPattern(Task.DATE_FORMAT));
     }
 
     @Override

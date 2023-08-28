@@ -1,7 +1,10 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class EventTask extends Task {
 
-    private final String from;
-    private final String to;
+    private final LocalDate from;
+    private final LocalDate to;
 
     /**
      * Constructor for Task.
@@ -10,8 +13,20 @@ public class EventTask extends Task {
      */
     public EventTask(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        // convert date string in the format of yyyy-mm-dd to LocalDate object
+        this.from = LocalDate.parse(from);
+        // convert LocalDate object to MMM dd yyyy format
+        this.to = LocalDate.parse(to);
+    }
+
+    public String getFrom() {
+        // Format in MMM dd yyyy
+        return this.from.format(DateTimeFormatter.ofPattern(Task.DATE_FORMAT));
+    }
+
+    public String getTo() {
+
+        return this.to.format(DateTimeFormatter.ofPattern(Task.DATE_FORMAT));
     }
 
     public String getFrom() {
@@ -29,6 +44,6 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E] " + super.toString() + " (from: " + this.getFrom() + " to: " + this.getTo() + ")";
     }
 }

@@ -3,6 +3,7 @@ public class Task {
      * Task description.
      */
     private final String description;
+    public static final String DATE_FORMAT = "MMM dd yyyy";
 
     /**
      * Task status.
