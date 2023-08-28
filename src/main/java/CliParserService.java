@@ -66,7 +66,7 @@ public class CliParserService {
                     dukeBot.getNumberOfTasks() == 1 ? "task" : "tasks"));
             outputService.echo(displayText);
         } catch (TaskParseException e) {
-            return;
+            outputService.echo(e.getMessage());
         }
     }
 

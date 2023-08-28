@@ -9,10 +9,9 @@ public class TaskFactory {
 
     public Task createTask(String taskType, String taskName, String[] args) {
         if (taskName.isEmpty()) {
-            outputService.echo("usage: TaskType(todo | deadline | event) " +
+            throw new TaskParseException("usage: TaskType(todo | deadline | event) " +
                     "TaskName " +
                     "[/StartDate] [/EndDate]");
-            throw new TaskParseException("Task Name must be provided");
         }
 
         // Safe to get the TaskType enum without checking for errors, because the only way for
@@ -25,23 +24,22 @@ public class TaskFactory {
                 return new TodoTask(taskName);
             case DEADLINE:
                 if (args.length != 1) {
-                    outputService.echo(String.format(":< deadline Tasks must have an end date%n" +
+                    throw new TaskParseException(String.format(":< deadline Tasks must have an end date%n" +
                             "usage: deadline taskName /10 May 2023"));
-                    throw new TaskParseException("Invalid args provided for deadline Task");
                 }
                 endDate = args[0].trim();
                 return new DeadlineTask(taskName, endDate);
             case EVENT:
                 if (args.length != 2) {
-                    outputService.echo(String.format(":< event Tasks must have a start and end date%n" +
+                    throw new TaskParseException(String.format(":< event Tasks must have a start and end date%n" +
                             "usage: event taskName /10 May 2023 /20 May 2023"));
-                    throw new TaskParseException("Invalid args provided for event Task");
                 }
                 startDate = args[0].trim();
                 endDate = args[1].trim();
                 return new EventTask(taskName, startDate, endDate);
             default:
-                throw new RuntimeException();
+                // should never reach here as explained above.
+                throw new IllegalArgumentException("Invalid task type: " + taskType);
         }
     }
 }
