@@ -1,13 +1,29 @@
 package seedu.james;
 
+/**
+ * Parser class to parse user input.
+ */
 public class Parser {
+
+    /**
+     * Enum to represent the type of task.
+     */
     public enum TaskType {
         TODO,
         DEADLINE,
         EVENT
     }
+
     private static String sadFace = "\u2639";
     private static String line = "____________________________________________________________";
+
+    /**
+     * Parses the user input and returns a Task object.
+     *
+     * @param input User input.
+     * @return Task object.
+     * @throws JamesException If the user input is invalid.
+     */
     public Task parseTask(String input) throws JamesException {
         Parser.TaskType taskType = null;
         if (input.contains("todo")) {
@@ -58,6 +74,12 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Parses the user input and prints the corresponding output.
+     *
+     * @param tasks TaskList object.
+     * @param input User input.
+     */
     public void parse(TaskList tasks, String input) {
         if (input.equals("list")) {
             System.out.println(tasks);

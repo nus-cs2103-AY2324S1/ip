@@ -4,10 +4,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/*
+* EventTask class
+* Represents a task that starts and ends at a specific time
+ */
 public class EventTask extends Task{
+    /** The start time of the event */
     private LocalDateTime startTime;
+
+    /** The end time of the event */
     private LocalDateTime endTime;
 
+    /**
+     * Constructor for EventTask
+     *
+     * @param description The description of the task
+     * @param startTimeInput The start time of the task
+     * @param endTimeInput The end time of the task
+     */
     public EventTask(String description, String startTimeInput, String endTimeInput) {
         super(description);
         String[] possibleFormats = {
@@ -31,6 +45,11 @@ public class EventTask extends Task{
         }
     }
 
+    /**
+    * Returns the start time and end time of the task
+    *
+    * @return The string representation of the start time and end time of the task
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
