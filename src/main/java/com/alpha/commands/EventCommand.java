@@ -10,17 +10,18 @@ import com.alpha.utils.Parser;
 
 public class EventCommand extends Command {
 
-  public EventCommand(String args) {
-    super(args);
-  }
-
-  public void execute(TaskList taskList, Ui ui, Storage storage) {
-    try {
-      Task task = new Event(Parser.getEventName(getArgs()), Parser.getEventStart(getArgs()), Parser.getEventEnd(getArgs()));
-      taskList.addTask(task);
-      ui.addTask(task, taskList);
-    } catch (InvalidEventException e) {
-      System.out.println(e.getMessage());
+    public EventCommand(String args) {
+        super(args);
     }
-  }
+
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        try {
+            Task task = new Event(Parser.getEventName(getArgs()), Parser.getEventStart(getArgs()),
+                    Parser.getEventEnd(getArgs()));
+            taskList.addTask(task);
+            ui.addTask(task, taskList);
+        } catch (InvalidEventException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

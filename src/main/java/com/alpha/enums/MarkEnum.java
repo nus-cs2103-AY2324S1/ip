@@ -2,15 +2,15 @@ package com.alpha.enums;
 
 public enum MarkEnum {
 
-  DONE("X"), NOTDONE(" ");
+    DONE("X"), NOTDONE(" ");
 
-  private String mark;
+    private final String mark;
 
-  MarkEnum(String mark) {
-    this.mark = mark;
-  }
+    MarkEnum(String mark) {
+        this.mark = mark;
+    }
 
-  public String getMark() {
-    return this.mark;
-  }
+    public String getMark() {
+        return this.mark;
+    }
 }
