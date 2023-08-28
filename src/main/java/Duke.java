@@ -6,18 +6,17 @@ import java.util.Scanner;
 public class Duke {
     private final String botName;
     private final List<Task> taskList;
-    private final OutputService outputService;
 
     public Duke(String botName) {
         this.botName = botName;
         this.taskList = new ArrayList<>();
-        this.outputService = new OutputService();
     }
 
     public static void main(String[] args) {
         Duke changooseBot = new Duke("Changoose");
-        CliParserService cliParserService = new CliParserService(changooseBot);
         OutputService outputService = new OutputService();
+        TaskFactory taskFactory = new TaskFactory();
+        CliParserService cliParserService = new CliParserService(changooseBot, outputService, taskFactory);
         String startMessage = String.format("Hello! I'm %s%nWhat can I do for you?", changooseBot.getBotName());
         String endMessage = "Bye! Hope to see you again soon!";
 

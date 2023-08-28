@@ -9,10 +9,10 @@ public class CliParserService {
     private final OutputService outputService;
     private final TaskFactory taskFactory;
 
-    public CliParserService(Duke dukeBot) {
+    public CliParserService(Duke dukeBot, OutputService outputService, TaskFactory taskFactory) {
         this.dukeBot = dukeBot;
-        this.outputService = new OutputService();
-        this.taskFactory = new TaskFactory();
+        this.outputService = outputService;
+        this.taskFactory = taskFactory;
     }
 
     public void parse() {

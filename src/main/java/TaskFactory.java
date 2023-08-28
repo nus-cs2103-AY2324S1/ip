@@ -1,10 +1,7 @@
 import exception.TaskParseException;
 
 public class TaskFactory {
-    private final OutputService outputService;
-
     public TaskFactory() {
-        this.outputService = new OutputService();
     }
 
     public Task createTask(String taskType, String taskName, String[] args) {
