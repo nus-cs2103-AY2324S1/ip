@@ -6,26 +6,26 @@
  * @version Level-4
  */
 public class Deadline extends Task {
-  /** The Deadline of the task. **/
-  String by;
+    /** The Deadline of the task. **/
+    String by;
 
-  /**
-   * The constructor for the class.
-   * @param desc The description of the Deadline task.
-   */
-  public Deadline(String desc, String by) {
-    super(desc);
-    this.by = by;
-  }
+    /**
+     * The constructor for the class.
+     * @param desc The description of the Deadline task.
+     */
+    public Deadline(String desc, String by) {
+        super(desc);
+        this.by = by;
+    }
 
-  /**
-   * toString method of Deadline. <br>
-   * The String representation of To-do appends the [D] tag in front of the Task toString, and
-   * the deadline date to the end of the toString.
-   * @return "[D]" prefixed to task.toString(), and "(by: [deadline])" postfixed to task.toString().
-   */
-  @Override
-  public String toString() {
-    return "[D]" + super.toString() + " (by: " + this.by + ")";
-  }
+    /**
+     * toString method of Deadline. <br>
+     * The String representation of To-do appends the [D] tag in front of the Task toString, and
+     * the deadline date to the end of the toString.
+     * @return "[D]" prefixed to task.toString(), and "(by: [deadline])" postfixed to task.toString().
+     */
+    @Override
+    public String toString() {
+        return "[D]" + super.toString() + " (by: " + this.by + ")";
+    }
 }
