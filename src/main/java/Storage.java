@@ -7,15 +7,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Storage {
-    private static String filePath;
-    private final static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private String filePath;
+    private final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
-    private static void writeFile(TaskList taskList) {
+
+    public void writeFile(TaskList taskList) {
         try {
-            // dont have to handle case of file path not existing as
+            // don't have to handle case of file path not existing as
             // during readFile (which occurs at start of script, checks if filepath exists)
             File file = new File(filePath);
             FileWriter writer = new FileWriter(file);
@@ -28,8 +29,8 @@ public class Storage {
         }
     }
 
-    private static TaskList readFile() throws IOException {
-        TaskList taskList = new TaskList(); // Create an empty task list
+    public TaskList readFile(Ui ui) throws IOException {
+        TaskList taskList = new TaskList(ui); // Create an empty task list
         try {
             File myData = new File(filePath);
             Scanner scanner = new Scanner(myData);
@@ -37,7 +38,8 @@ public class Storage {
                 String line = scanner.nextLine();
                 Task task = parseTaskFromLine(line, taskList);
                 if (task != null) {
-                    taskList.addTask(task);
+                    // this adds to taskList without printing anything
+                    taskList.addAvailTasks(task);
                 }
             }
             scanner.close();
@@ -51,7 +53,7 @@ public class Storage {
         return taskList;
     }
 
-    private static Task parseTaskFromLine(String line, TaskList taskList) {
+    private Task parseTaskFromLine(String line, TaskList taskList) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0];
         String description = parts[2];

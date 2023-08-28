@@ -5,61 +5,66 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Parser {
+    private Storage storage;
+    public Parser(Storage storage) {
+        this.storage = storage;
+    }
     public enum Operation {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, CHECKDATE
     }
 
-    private final static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 
     // main functionality -> trying to make sense of the users command
-    public static void parse(String userInput, TaskList taskList) {
-        boolean ongoing = true;
-        while(ongoing) {
-            Operation operation;
-            try {
+    public boolean parse(String userInput, TaskList taskList) {
+        Operation operation;
+        try {
 //            System.out.print("> ");
-                try {
-                    operation = Operation.valueOf(userInput.toUpperCase().split(" ")[0]);
-                } catch (Exception e) {
-                    throw new InvalidCommandException();
-                }
-                switch (operation) {
-                case LIST:
-                    taskList.listAllTasks();
-                    break;
-                case DELETE:
-                    delete(userInput, taskList);
-                    break;
-                case MARK:
-                    mark(userInput, taskList);
-                    break;
-                case UNMARK:
-                    unmark(userInput, taskList);
-                    break;
-                case TODO:
-                    todo(userInput, taskList);
-                    break;
-                case DEADLINE:
-                    deadline(userInput, taskList);
-                    break;
-                case EVENT:
-                    event(userInput, taskList);
-                    break;
-                case CHECKDATE:
-                    checkDate(userInput, taskList);
-                    break;
-                default:
-                    throw new InvalidCommandException();
-                }
-            } catch (TaskException | InvalidCommandException | EmptyDescriptionException
-                     | NotIntegerException | MissingKeywordException e) {
-                System.out.println(e.getMessage());
+            try {
+                operation = Operation.valueOf(userInput.toUpperCase().split(" ")[0]);
+            } catch (Exception e) {
+                throw new InvalidCommandException();
             }
+            switch (operation) {
+            case BYE:
+                return false;
+            case LIST:
+                taskList.listAllTasks();
+                break;
+            case DELETE:
+                delete(userInput, taskList);
+                break;
+            case MARK:
+                mark(userInput, taskList);
+                break;
+            case UNMARK:
+                unmark(userInput, taskList);
+                break;
+            case TODO:
+                todo(userInput, taskList);
+                break;
+            case DEADLINE:
+                deadline(userInput, taskList);
+                break;
+            case EVENT:
+                event(userInput, taskList);
+                break;
+            case CHECKDATE:
+                checkDate(userInput, taskList);
+                break;
+            default:
+                throw new InvalidCommandException();
+            }
+            storage.writeFile(taskList);
+        } catch (TaskException | InvalidCommandException | EmptyDescriptionException
+                 | NotIntegerException | MissingKeywordException e) {
+            System.out.println(e.getMessage());
         }
+        return true;
     }
 
-    public static void delete(String userInput, TaskList taskList) throws TaskException, NotIntegerException {
+    public void delete(String userInput, TaskList taskList) throws TaskException, NotIntegerException {
         String[] parts = userInput.split(" ", 2);
         if (!isInteger(parts[1])) {
             throw new NotIntegerException();
@@ -70,7 +75,7 @@ public class Parser {
         taskList.deleteTask(taskIndex);
     }
 
-    public static void mark(String userInput, TaskList taskList) throws EmptyDescriptionException,
+    public void mark(String userInput, TaskList taskList) throws EmptyDescriptionException,
             NotIntegerException, TaskException {
         String details = extractNoKeywordsDetails(userInput);
         if (!isInteger(details)) {
@@ -80,7 +85,7 @@ public class Parser {
         taskList.mark(taskIndex);
     }
 
-    public static void unmark(String userInput, TaskList taskList) throws EmptyDescriptionException,
+    public void unmark(String userInput, TaskList taskList) throws EmptyDescriptionException,
             TaskException, NotIntegerException {
         String details = extractNoKeywordsDetails(userInput);
         if (!isInteger(details)) {
@@ -90,13 +95,13 @@ public class Parser {
         taskList.unMark(taskIndex);
     }
 
-    public static void todo(String userInput, TaskList taskList) throws EmptyDescriptionException {
+    public void todo(String userInput, TaskList taskList) throws EmptyDescriptionException {
         String details = extractNoKeywordsDetails(userInput);
         Task todoTask = new Todo(details, false);
         taskList.addTask(todoTask);
     }
 
-    public static void deadline(String userInput, TaskList taskList) throws EmptyDescriptionException,
+    public void deadline(String userInput, TaskList taskList) throws EmptyDescriptionException,
             MissingKeywordException {
         String details = extractTaskDetails(userInput, "deadline", "/by");
         String dateString = extractAfterKeyword(userInput, "/by");
@@ -122,7 +127,7 @@ public class Parser {
         }
     }
 
-    public static void event(String userInput, TaskList taskList) throws EmptyDescriptionException,
+    public void event(String userInput, TaskList taskList) throws EmptyDescriptionException,
             MissingKeywordException {
         String details = extractTaskDetails(userInput, "event", "/from");
         String from = extractAfterKeyword(userInput, "/from", "/to");
@@ -137,7 +142,7 @@ public class Parser {
         }
     }
 
-    public static void checkDate(String userInput, TaskList taskList) throws EmptyDescriptionException {
+    public void checkDate(String userInput, TaskList taskList) throws EmptyDescriptionException {
         String details = extractNoKeywordsDetails(userInput);
         try {
             LocalDate detailsDate = LocalDate.parse(details.trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -148,7 +153,7 @@ public class Parser {
     }
 
     /*  helper functions */
-    private static String extractNoKeywordsDetails(String userInput) throws EmptyDescriptionException {
+    private String extractNoKeywordsDetails(String userInput) throws EmptyDescriptionException {
         String[] parts = userInput.toLowerCase().split(" ", 2);
         if (parts.length == 1 || parts[1].isBlank()) {
             throw new EmptyDescriptionException("Description cannot be empty");
@@ -165,7 +170,7 @@ public class Parser {
      * @param commandAndKeyword todo/deadline/event
      * @return string in between command and keyword
      */
-    private static String extractTaskDetails(String userInput, String... commandAndKeyword)
+    private String extractTaskDetails(String userInput, String... commandAndKeyword)
             throws EmptyDescriptionException, MissingKeywordException {
         String[] tokens = userInput.toLowerCase().split(commandAndKeyword[0], 2);
         if (tokens.length == 0 || tokens[1].isBlank()) {
@@ -193,7 +198,7 @@ public class Parser {
      * @param keywords the keywords in use
      * @return string after keyword/ between 2 keywords.
      */
-    private static String extractAfterKeyword(String userInput, String... keywords) throws EmptyDescriptionException {
+    private String extractAfterKeyword(String userInput, String... keywords) throws EmptyDescriptionException {
         String[] tokens = userInput.toLowerCase().split(keywords[0]);
         if (tokens.length == 1 || tokens[1].isBlank()) {
             throw new EmptyDescriptionException("Details after " + keywords[0] + " cannot be empty");
@@ -215,7 +220,7 @@ public class Parser {
      * @param input
      * @return boolean
      */
-    private static boolean isInteger(String input) {
+    private boolean isInteger(String input) {
         if (input == null) {
             return false;
         } else {

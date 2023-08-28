@@ -12,7 +12,8 @@ class Deadline extends Task {
 
     public String writeFormat() {
         int isDone = isMarked ? 1 : 0;
-        String formattedDate = byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+//        String formattedDate = byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String formattedDate = byDate.format(super.timeFormat);
         return "D" + " | " + isDone + " | " + super.description + " | " + formattedDate;
     }
 

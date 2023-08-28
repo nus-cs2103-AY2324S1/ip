@@ -15,10 +15,10 @@ class Event extends Task {
         if (isMarked) {
             isDone = 1;
         }
-
-        String formattedDateFrom = from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        String formattedDateTo = to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-
+//        String formattedDateFrom = from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+//        String formattedDateTo = to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String formattedDateFrom = from.format(super.timeFormat);
+        String formattedDateTo = to.format(super.timeFormat);
         return "E" + " | " + isDone + " | " + super.description + " | " + formattedDateFrom + " | " + formattedDateTo;
     };
 
@@ -30,6 +30,5 @@ class Event extends Task {
     public String toString() {
         return "[E]" + super.toString() + " (from:" + from.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm"))
                 + " to:" + to.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) +")";
-
     }
 }
