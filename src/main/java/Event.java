@@ -1,3 +1,4 @@
+
 /**
  * Represents an event task, which is a task that start at a specific date/time and ends at a specific date/time
  */

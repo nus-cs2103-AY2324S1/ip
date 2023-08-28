@@ -1,8 +1,10 @@
+
 /**
  * Represents a deadline task, which is a task that need to be done before a specific date/time.
  */
 public class Deadline extends Task {
     private String by;
+
 
     /**
      * Constructs a Deadline object with the specified description and deadline time.
