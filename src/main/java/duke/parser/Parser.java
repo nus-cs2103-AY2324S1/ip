@@ -5,6 +5,7 @@ import duke.command.Command;
 import duke.command.DeadlineCommand;
 import duke.command.DeleteCommand;
 import duke.command.EventCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.ToDoCommand;
@@ -26,6 +27,7 @@ public class Parser {
         LIST,
         MARK,
         UNMARK,
+        FIND,
         TODO,
         DEADLINE,
         EVENT,
@@ -52,6 +54,8 @@ public class Parser {
                 return new MarkCommand(Integer.parseInt(input.split(" ")[1]) - 1);
             case UNMARK:
                 return new UnmarkCommand(Integer.parseInt(input.split(" ")[1]) - 1);
+            case FIND:
+                return new FindCommand(input.split(" ", 2)[1].trim());
             case TODO:
                 try {
                     return new ToDoCommand(input.split(" ")[1].trim());

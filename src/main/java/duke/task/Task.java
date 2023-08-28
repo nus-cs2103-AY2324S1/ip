@@ -42,6 +42,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean contains(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     /**
      * Returns the String representation of the Task.
      *
