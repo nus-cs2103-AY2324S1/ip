@@ -1,19 +1,22 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * A class for Deadlines tasks.
  */
 public class Deadlines extends Task{
     /** Class field by that tells when the deadline is due. */
-    protected String by;
+    protected LocalDate deadlineDate;
 
     /**
      * Constructor to initialize the Deadlines class.
      *
      * @param description Describes the deadline.
-     * @param by When the task is due.
+     * @param deadlineDate When the task is due.
      */
-    public Deadlines(String description, String by) {
+    public Deadlines(String description, LocalDate deadlineDate) {
         super(description);
-        this.by = by;
+        this.deadlineDate = deadlineDate;
     }
 
     /**
@@ -21,7 +24,8 @@ public class Deadlines extends Task{
      */
     public String toFileString() {
         String doneStatus = isDone ? "1" : "0";
-        return String.format("D | %s | %s | %s", doneStatus, this.description, this.by);
+        String formattedDate = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return String.format("D | %s | %s | %s", doneStatus, this.description, formattedDate);
     }
 
     /**
@@ -29,6 +33,7 @@ public class Deadlines extends Task{
      */
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", this.getStatusIcon(), this.description, this.by);
+        String formattedDate = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        return String.format("[D][%s] %s (by: %s)", this.getStatusIcon(), this.description, formattedDate);
     }
 }

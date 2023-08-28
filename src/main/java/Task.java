@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 /**
  * A class for Tasks.
  */
@@ -65,11 +67,16 @@ public class Task {
                 break;
             case "D":
                 String by = parts[2].trim();
-                task = new Deadlines(description, by);
+
+                // Parse the date and time
+                LocalDate deadlineDate = LocalDate.parse(by);
+
+                task = new Deadlines(description, deadlineDate);
                 break;
             case "E":
                 String from = parts[3].trim();
                 String to = parts[4].trim();
+
                 task = new Events(description, from, to);
                 break;
         }
