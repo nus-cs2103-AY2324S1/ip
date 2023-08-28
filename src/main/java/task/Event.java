@@ -1,7 +1,5 @@
 package task;
 
-import java.util.Date;
-
 public class Event extends Task {
     protected String startDateTime;
     protected String endDateTime;
