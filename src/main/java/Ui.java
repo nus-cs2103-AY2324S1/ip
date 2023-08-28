@@ -24,13 +24,13 @@ public class Ui {
     }
 
     private void begin() {
-        String str = sc.nextLine();
+        String str;
         ControlFlow control = new ControlFlow(taskLst);
         Command command;
         do {
+            str = sc.nextLine();
             command = control.execute(str);
             command.execute();
-            str = sc.nextLine();
         } while (!(command instanceof TerminateCommand));
     }
 
