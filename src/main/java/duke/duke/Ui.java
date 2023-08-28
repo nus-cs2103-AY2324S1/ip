@@ -1,3 +1,5 @@
+package duke.duke;
+
 public class Ui {
 
     public void showWelcomeMessage() {
