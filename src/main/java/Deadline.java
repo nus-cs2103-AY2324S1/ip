@@ -8,6 +8,11 @@ public class Deadline extends Task {
         this.deadline = this.convertToDateTime(by);
     }
 
+    public Deadline(String description, LocalDateTime deadline) {
+        super(description);
+        this.deadline = deadline;
+    }
+
     public String displayDeadline() {
         return this.displayTime(this.deadline);
     }

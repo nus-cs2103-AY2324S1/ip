@@ -10,6 +10,12 @@ public class Event extends Task {
         this.endTime = this.convertToDateTime(endTime);
     }
 
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
+        super(description);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     public String displayStartTime() {
         return this.displayTime(startTime);
     }
@@ -29,7 +35,7 @@ public class Event extends Task {
     @Override
     public String getOutputString() {
         return String.format("E | %d | %s | %s", isDone ? 1 : 0, description, 
-        this.saveStartTime().concat("-" + this.saveEndTime()));
+        this.saveStartTime().concat(" to " + this.saveEndTime()));
     }
 
     @Override
