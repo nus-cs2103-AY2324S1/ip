@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import action.Action;
+import action.ByeAction;
 import error.ArgumentException;
 import error.ParseException;
 import reducer.Reducer;
@@ -16,11 +17,21 @@ import util.Pair;
 public final class Program {
     private final Scanner scanner;
     private final PrintStream out;
+    private final PrintStream save;
     private final Reducer reducer;
 
+    public Program(InputStream in) {
+        this(in, OutputStream.nullOutputStream(), OutputStream.nullOutputStream());
+    }
+
     public Program(InputStream in, OutputStream out) {
+        this(in, out, OutputStream.nullOutputStream());
+    }
+
+    public Program(InputStream in, OutputStream out, OutputStream save) {
         this.scanner = new Scanner(in);
         this.out = new PrintStream(out);
+        this.save = new PrintStream(save);
         this.reducer = new Reducer();
     }
 
@@ -43,6 +54,9 @@ public final class Program {
         try {
             Action action = Parser.parseAction(line);
             Pair<State, Boolean> result = reducer.run(state, action, out);
+            if (!(action instanceof ByeAction)) {
+                save.println(action);
+            }
             newState = result.getFirst();
             isRunning = result.getSecond();
         } catch (ParseException error) {
@@ -69,7 +83,7 @@ public final class Program {
 
         out.println("Bye. Hope to see you again soon!");
 
-        return state;
+        return currentState;
     }
 
     public State run() {

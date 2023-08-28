@@ -25,6 +25,9 @@ public final class State {
     }
 
     public Task getTask(int taskId) {
+        if (taskId < 1 || taskId > tasks.size()) {
+            return null;
+        }
         return tasks.get(taskId - 1);
     }
 

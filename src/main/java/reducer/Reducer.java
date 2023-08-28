@@ -58,7 +58,7 @@ public final class Reducer {
             State newState = result.getFirst();
             Task markedTask = result.getSecond();
             if (markedTask == null) {
-                throw new ArgumentException("Invalid task identifier");
+                throw new ArgumentException("Invalid task identifier.");
             }
             out.println("Nice! I've marked this task as done:");
             out.println("   " + markedTask);
@@ -69,7 +69,7 @@ public final class Reducer {
             State newState = result.getFirst();
             Task unmarkedTask = result.getSecond();
             if (unmarkedTask == null) {
-                throw new ArgumentException("Invalid task identifier");
+                throw new ArgumentException("Invalid task identifier.");
             }
             out.println("OK, I've marked this task as not done yet:");
             out.println("   " + unmarkedTask);
@@ -80,7 +80,7 @@ public final class Reducer {
             State newState = result.getFirst();
             Task deletedTask = result.getSecond();
             if (deletedTask == null) {
-                throw new ArgumentException("Invalid task identifier");
+                throw new ArgumentException("Invalid task identifier.");
             }
             out.println("Noted. I've removed this task:");
             out.println("   " + deletedTask);
