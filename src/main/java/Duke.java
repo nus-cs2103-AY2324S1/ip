@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Duke {
@@ -21,7 +24,7 @@ public class Duke {
         // Attempt to load data from data/tasks.txt
         try {
             taskRepository.loadSaveData();
-        } catch (IOException exception) {
+        } catch (IOException | DukeException exception) {
             consoleRenderer.printMessage(exception.getMessage());
         }
 
@@ -77,6 +80,9 @@ public class Duke {
                     taskRepository.deleteTask(taskNumberToDelete);
                     break;
 
+                case "due":
+                    due(tokens);
+                    break;
                 default:
                     throw new DukeException(DukeExceptionType.UNKNOWN_COMMAND);
                 }
@@ -84,6 +90,8 @@ public class Duke {
                 consoleRenderer.printMessage(exception.getMessage());
             } catch (NumberFormatException exception) {
                 consoleRenderer.printMessage("Error: Task number must be an integer.\n(example: mark 1)");
+            } catch (DateTimeParseException exception) {
+                consoleRenderer.printMessage("Invalid Datetime Format: it should be dd-mm-yyyy hh:mm!");
             }
         } while (isRunning);
     }
@@ -109,7 +117,7 @@ public class Duke {
         return commands.split("\\s+/\\w+");
     }
 
-    private void addDeadline(String[] tokens) throws DukeException, IOException {
+    private void addDeadline(String[] tokens) throws DukeException, IOException, DateTimeParseException {
         if (tokens.length < 2) {
             throw new DukeException(DukeExceptionType.DEADLINE_NO_DESCRIPTION);
         }
@@ -126,8 +134,12 @@ public class Duke {
         String deadlineDescription = deadlineParams[0].trim();
         String by = deadlineParams[1].trim();
 
+        // Ensure deadline date is a Datetime object
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime localDateTime = LocalDateTime.parse(by, formatter);
+
         // Add deadline to tasks
-        taskRepository.addTask(new Deadline(deadlineDescription, by));
+        taskRepository.addTask(new Deadline(deadlineDescription, localDateTime));
     }
 
     private void addEvent(String[] tokens) throws DukeException, IOException {
@@ -142,8 +154,12 @@ public class Duke {
         String from = eventParams[1].trim();
         String to = eventParams[2].trim();
 
+        // LocalDateTime Formatter
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
         // Add event to tasks
-        taskRepository.addTask(new Event(eventDescription, from, to));
+        taskRepository.addTask(new Event(eventDescription, LocalDateTime.parse(from, formatter),
+                LocalDateTime.parse(to, formatter)));
     }
 
     private void addToDo(String[] tokens) throws DukeException, IOException {
@@ -151,6 +167,14 @@ public class Duke {
             throw new DukeException(DukeExceptionType.TODO_NO_DESCRIPTION);
         } else {
             taskRepository.addTask(new ToDo(tokens[1]));
+        }
+    }
+
+    private void due(String[] tokens) throws DukeException {
+        if (tokens.length < 2) {
+            throw new DukeException(DukeExceptionType.DUE_NO_DATE);
+        } else {
+            taskRepository.dueOn(tokens[1]);
         }
     }
 }

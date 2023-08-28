@@ -2,8 +2,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class TaskRepository {
     private static final String DIRECTORY_NAME = "/data";
@@ -17,7 +22,7 @@ public class TaskRepository {
         this.consoleRenderer = new ConsoleRenderer();
     }
 
-    public void loadSaveData() throws IOException {
+    public void loadSaveData() throws IOException, DateTimeParseException, DukeException {
         File directory = new File(Paths.get(CURRENT_DIRECTORY, DIRECTORY_NAME).toString());
         if (!directory.exists()) {
             directory.mkdir();
@@ -33,7 +38,11 @@ public class TaskRepository {
                 case "D":
                     // Deadline
                     if (data.length == 4) {
-                        Task t = new Deadline(data[2].trim(), data[3].trim());
+                        // Ensure deadline date is a Datetime object
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                        LocalDateTime localDateTime = LocalDateTime.parse(data[3].trim(), formatter);
+                        // Create new task object
+                        Task t = new Deadline(data[2].trim(), localDateTime);
                         if (Integer.parseInt(data[1].trim()) == 1) {
                             t.markAsDone();
                         }
@@ -43,7 +52,10 @@ public class TaskRepository {
                 case "E":
                     // Event
                     if (data.length == 5) {
-                        Task t = new Event(data[2].trim(), data[3].trim(), data[4].trim());
+                        // Ensure deadline date is a Datetime object
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                        Task t = new Event(data[2].trim(), LocalDateTime.parse(data[3].trim(), formatter),
+                                LocalDateTime.parse(data[4].trim(), formatter));
                         if (Integer.parseInt(data[1].trim()) == 1) {
                             t.markAsDone();
                         }
@@ -155,4 +167,26 @@ public class TaskRepository {
             consoleRenderer.printMessage(exception.getMessage());
         }
     }
+
+    public void dueOn(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date = LocalDate.parse(dateString, formatter);
+        System.out.println("Here are the tasks due on: " + dateString);
+        Stream<Deadline> deadlineStream = tasks.stream()
+                .filter(x -> x instanceof Deadline)
+                .map(task -> (Deadline) task)
+                .filter(deadline -> deadline.getBy().toLocalDate().equals(date));
+        consoleRenderer.renderLine();
+        if (deadlineStream.findAny().isPresent()) {
+            tasks.stream()
+                    .filter(x -> x instanceof Deadline)
+                    .map(task -> (Deadline) task)
+                    .filter(deadline -> deadline.getBy().toLocalDate().equals(date))
+                    .forEach(System.out::println);
+        } else {
+            System.out.printf("Great!! You've nothing due on %s!%n", dateString);
+        }
+        consoleRenderer.renderLine();
+    }
+
 }

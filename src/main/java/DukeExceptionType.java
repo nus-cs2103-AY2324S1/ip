@@ -11,13 +11,20 @@ public enum DukeExceptionType {
 "The description of a todo cannot be empty.\n" +
         "Correct usage: todo <description>"
     ),
+    DUE_NO_DATE(
+"Invalid\n" +
+        "Correct usage: due <dd-mm-yyyy>"
+    ),
     INVALID_DEADLINE_FORMAT(
 "Invalid deadline format!\n" +
-        "Correct usage: deadline <description> /by <date>"
+        "Correct usage: deadline <description> /by <dd-mm-yyyy hh:mm>"
     ),
     INVALID_EVENT_FORMAT(
 "Invalid event format!\n" +
-        "Correct usage: event <description> /from <start> /to <end>"
+        "Correct usage: event <description> /from <dd-mm-yyyy hh:mm> /to <dd-mm-yyyy hh:mm>"
+    ),
+    INVALID_EVENT_ARGUMENT(
+"Invalid Argument: /from date time cannot be after /to date time"
     ),
     INVALID_RANGE("The task number you've entered is out of the valid range."),
     TASK_ALREADY_MARKED("The task number you've entered is already marked as complete."),

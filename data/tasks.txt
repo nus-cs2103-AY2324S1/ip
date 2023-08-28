@@ -1,1 +1,5 @@
-E | 0 | Mid Autumn | 29 Sep 10am | 29 Sep 2pm
+E | 0 | Mid Autumn | 29-09-2023 10:00 | 29-09-2023 14:00
+D | 1 | Budget | 31-08-2023 23:59
+D | 0 | Study for quiz | 31-08-2023 23:59
+D | 0 | GESS1025 Report | 05-09-2023 14:00
+E | 0 | Workshop | 02-09-2023 09:30 | 02-09-2023 12:30
