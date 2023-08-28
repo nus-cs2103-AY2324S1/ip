@@ -1,15 +1,30 @@
 package tasks;
 
-import utility.PrintUtility;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static java.lang.Boolean.parseBoolean;
 
 public class TaskList {
   private static TaskList INSTANCE;
   private final List<Task> tasks = new ArrayList<>();
+  private static final String DATA_FILE_PATH = "data/data.json";
+
+  public TaskList() {
+    List<Task> existingTasks = loadTasks();
+    if (existingTasks.size() > 0) {
+      this.tasks.addAll(existingTasks);
+    }
+  }
 
   public static TaskList getInstance() {
     if (INSTANCE == null) {
@@ -59,5 +74,82 @@ public class TaskList {
         .collect(Collectors.toList());
     formatted.add(0, "Here are the tasks in your list:");
     return String.join("\n", formatted);
+  }
+
+  private static List<Task> loadTasks() {
+    try {
+      BufferedReader br = new BufferedReader(new FileReader(DATA_FILE_PATH));
+      Gson gson = new Gson();
+      Type listType = new TypeToken<List<HashMap<String, String>>>() {
+      }.getType();
+      List<HashMap<String, String>> jsonTasks = gson.fromJson(br, listType);
+      List<Task> fileTasks = new ArrayList<>();
+
+      if (jsonTasks == null) {
+        // Means the data file is empty
+        return new ArrayList<>();
+      }
+
+      for (HashMap<String, String> entry : jsonTasks) {
+        enforceFields(entry);
+        String type = entry.get("type");
+        Task task;
+        switch (type) {
+          case "todo":
+            task = new ToDo(entry.get("name"));
+            break;
+          case "deadline":
+            task = new Deadline(entry.get("name"), entry.get("due"));
+            break;
+          case "event":
+            task = new Event(entry.get("name"), entry.get("from"), entry.get("to"));
+            break;
+          default:
+            throw new IllegalStateException("Invalid task type found in data.json");
+        }
+        task.setDone(parseBoolean(entry.get("status")));
+        fileTasks.add(task);
+      }
+      return fileTasks;
+    } catch (FileNotFoundException e) {
+      createDataFile();
+    }
+
+    return new ArrayList<>();
+  }
+
+  private static void createDataFile() {
+    File file = new File(DATA_FILE_PATH);
+    try {
+      file.getParentFile().mkdirs();
+      file.createNewFile();
+    } catch (IOException ne) {
+      System.out.println("Unable to create file, Cyrus cannot run");
+      System.exit(0);
+    }
+  }
+
+  private static void enforceFields(HashMap<String, String> map) {
+    String[] mandatoryKeys = {"type", "status", "name"};
+    Consumer<String[]> checkKeys = (keys) -> {
+      for (String key : keys) {
+        if (!map.containsKey(key)) {
+          throw new IllegalStateException(
+              String.format("All entries in data.json must contain \"%s\" field", key)
+          );
+        }
+      }
+    };
+    checkKeys.accept(mandatoryKeys);
+
+    String type = map.get("type");
+    switch (type) {
+      case "deadline":
+        checkKeys.accept(new String[]{"due"});
+        break;
+      case "event":
+        checkKeys.accept(new String[]{"from", "to"});
+        break;
+    }
   }
 }

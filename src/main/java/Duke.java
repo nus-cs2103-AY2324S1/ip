@@ -1,4 +1,5 @@
 import commands.*;
+import tasks.TaskList;
 import utility.PrintUtility;
 
 import java.util.List;
@@ -27,6 +28,11 @@ public class Duke {
   }
 
   public static void main(String[] args) {
+    // This loads the tasks from the data file by forcing TaskList to be instantiated at the very
+    // beginning
+    // TODO: Handle if file reading has error
+    TaskList.getInstance();
+
     PrintUtility.printText("Hello! I'm Cyrus", "What can I do for you?");
     String input;
     Scanner sc = new Scanner(System.in);
