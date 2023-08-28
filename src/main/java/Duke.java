@@ -10,6 +10,7 @@ public class Duke {
     private static Ui ui = new Ui();
     public static void main(String[] args) {
         greet();
+
     }
 
     private static void greet() {

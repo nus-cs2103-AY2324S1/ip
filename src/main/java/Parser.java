@@ -1,5 +1,8 @@
 package main.java;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 public class Parser {
     private String command;
     private String[] initialParse;
@@ -7,6 +10,47 @@ public class Parser {
     public Parser(String command) {
         this.command = command;
     }
+
+    public Commands parse() {
+        Commands.COMMANDS cmd = this.mainCommand();
+        if (cmd == Commands.COMMANDS.BYE || cmd == Commands.COMMANDS.LIST) {
+            return new Commands(cmd);
+        }
+
+        if (cmd == Commands.COMMANDS.TODO) {
+            if (this.secondWord() == null) {
+                System.out.println("Please add the task name");
+            } else {
+                return new Commands(cmd, this.secondWord());
+            }
+        }
+
+        if (cmd == Commands.COMMANDS.BY || cmd == Commands.COMMANDS.FROM || cmd == Commands.COMMANDS.TO) {
+            String restOfCommand = this.secondWord();
+            try {
+                LocalDateTime dateTime = LocalDateTime.parse(restOfCommand, Duke.FORMAT);
+                return new Commands(cmd, dateTime);
+            } catch (DateTimeParseException e) {
+                System.out.println("The format for dates&time is 'dd-MM-yyyy hhmm'");
+            }
+        }
+
+        if (cmd == Commands.COMMANDS.MARK || cmd == Commands.COMMANDS.UNMARK || cmd == Commands.COMMANDS.DELETE) {
+            try {
+                int index = Integer.parseInt(this.secondWord());
+                return new Commands(cmd, index);
+            } catch (NumberFormatException e) {
+                System.out.println("Place a number after the command");
+            }
+        }
+
+        if (cmd == Commands.COMMANDS.DEADLINE) {
+            String task = this.phaseParse();
+            String command2 = this.phaseTwo();
+        }
+        return new Commands(Commands.COMMANDS.UNKNOWN);
+    }
+
     public Commands.COMMANDS mainCommand() {
         this.initialParse = command.split(" ",2);
         switch (initialParse[0]) {
