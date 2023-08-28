@@ -1,5 +1,7 @@
-import extensions.Task;
-import extensions.TaskList;
+package duke;
+
+import tasks.Task;
+import tasks.TaskList;
 
 public class Ui {
 

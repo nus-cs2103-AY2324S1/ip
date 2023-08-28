@@ -1,9 +1,11 @@
+package duke;
+
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import exceptions.DukeException;
-import extensions.Task;
-import extensions.TaskList;
+import tasks.Task;
+import tasks.TaskList;
 
 public class Duke {
 
