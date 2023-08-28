@@ -200,6 +200,8 @@ public class Duke {
             String line;
             while((line = br.readLine()) != null) {
                 String[] parse = line.strip().split("\\|");
+                // Shortest length is 3 for any task type
+                if (parse.length < 3) continue;
                 String taskType = parse[0];
                 boolean isDone = parse[1].equals("1");
 
@@ -211,11 +213,13 @@ public class Duke {
                     );
                     break;
                 case "D":
+                    if (parse.length < 4) break;
                     this.addTask(
                         new Deadline(parse[2], parse[3], isDone)
                     );
                     break;
                 case "E":
+                    if (parse.length < 5) break;
                     this.addTask(
                         new Event(parse[2], parse[3], parse[4], isDone)
                     );
