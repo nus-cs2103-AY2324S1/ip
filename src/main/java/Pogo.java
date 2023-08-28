@@ -25,9 +25,7 @@ public class Pogo {
             file.getParentFile().mkdirs();
         }
 
-        if (!file.exists()) {
-            file.createNewFile();
-        }
+        file.createNewFile();
     }
 
     private static String formatTasks() {
@@ -53,6 +51,63 @@ public class Pogo {
         } catch (IOException e) {
             System.out.println("Error saving tasks");
         }
+    }
+
+    private static TaskType toTaskType(String input) {
+        if (input.startsWith("todo") || input.startsWith("T")) {
+            return TaskType.TODO;
+        } else if (input.startsWith("deadline") || input.startsWith("D")) {
+            return TaskType.DEADLINE;
+        } else if (input.startsWith("event") || input.startsWith("E")) {
+            return TaskType.EVENT;
+        } else {
+            return null;
+        }
+    }
+
+    private static int loadTasks() throws IOException {
+        createTaskFileIfNotExist();
+
+        File f = new File(TASKS_FILE);
+        Scanner s = new Scanner(f);
+
+        int count = 0;
+        while (s.hasNext()) {
+            String line = s.nextLine();
+            String[] split = line.split(" \\| ");
+            TaskType taskType = toTaskType(split[0]);
+
+            if (taskType == null) {
+                System.out.println("Failed to read the following task: " + line);
+                continue;
+            }
+
+            boolean isDone = split[1].equals("1");
+            Task task = null;
+
+            try {
+                switch (taskType) {
+                case TODO:
+                    task = ToDo.fromFormattedString(line);
+                    break;
+                case DEADLINE:
+                    task = Deadline.fromFormattedString(line);
+                    break;
+                case EVENT:
+                    task = Event.fromFormattedString(line);
+                    break;
+                }
+
+                if (task != null) {
+                    tasks.add(task);
+                    count++;
+                }
+            } catch (PogoInvalidTaskException e) {
+                System.out.println("Failed to read the following task: " + line);
+                continue;
+            }
+        }
+        return count;
     }
 
     private static int parseTaskIndex(String input) {
@@ -212,6 +267,14 @@ public class Pogo {
     }
 
     public static void main(String[] args) {
+        try {
+            int count = Pogo.loadTasks();
+            System.out.println("Loaded " + count + " tasks from file.");
+        } catch (IOException e) {
+            System.out.println("Failed to load tasks from file.");
+            return;
+        }
+
         System.out.println(HORIZONTAL_LINE);
         System.out.println("Hello! I'm Pogo\nWhat can I do for you?");
         System.out.println(HORIZONTAL_LINE);
