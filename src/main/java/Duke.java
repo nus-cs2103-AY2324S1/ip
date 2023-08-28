@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Duke {
     private static int count = 0;
@@ -14,10 +17,10 @@ public class Duke {
     public static void saveToFile() {
         String home = "C:/Users/user/CS2103Tip/src/main";
 
-        //small issue maybe w my deviice: data/tasks.txt not being created when i run this
+        //small issue maybe w my device: data/tasks.txt not being created when i run this
         try {
             java.nio.file.Path folderPath = java.nio.file.Paths.get(home, "data");
-            System.out.println("Folder Path: " + folderPath);
+            //System.out.println("Folder Path: " + folderPath);
             boolean folderExists = java.nio.file.Files.exists(folderPath);
             if (!folderExists) {
                 System.out.println("Hol up, folder doesn't exist. Creating a folder rnrn");
@@ -28,7 +31,7 @@ public class Duke {
                 }
             }
             java.nio.file.Path filePath = java.nio.file.Paths.get(home, "data", "tasks.txt");
-            System.out.println("File Path: " + filePath);
+            //System.out.println("File Path: " + filePath);
             boolean fileExists = java.nio.file.Files.exists(filePath);
             if (!fileExists) {
                 System.out.println("Hol up, file doesn't exist. Creating a file rnrn");
@@ -40,7 +43,7 @@ public class Duke {
             }
             File file = filePath.toFile();
             FileWriter writer = new FileWriter(file, true);
-            for (Task task : taskList) { //its gonna overwrite the entire file each time, is there a better way to just append?
+            for (Task task : taskList) {
                 writer.write(task.toString() + "\n");
             }
             writer.close();
@@ -48,6 +51,8 @@ public class Duke {
             System.out.println("Error! " +e.getMessage());
         }
     }
+
+
 
     public static void main(String[] args) throws DukeException {
         String logo = " __          _        \n"
@@ -109,43 +114,40 @@ public class Duke {
                     taskList.add(newTask);
                     count++;
                     saveToFile();
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println("Got it. I've added this todo:");
                     System.out.println("  " + newTask);
                     System.out.println("Now you have " + count + " tasks in the list.");
                 } else if (keyword.equals("deadline")) {
                     if (restOfSentence.isEmpty()) {
-                        throw new DukeException("☹ OOPS!!! The description of a task cannot be empty.");
+                        throw new DukeException("Hey I'm gonna need the deadline description!");
                     }
                     //new deadline
                     if (descr.length > 1) {
-                        String st = descr[1];
-                        Task newTask = new Deadline(taskName, st);
+                        Task newTask = new Deadline(restOfSentence); //breakdown of description abstracted into deadline.java
                         taskList.add(newTask);
                         count++;
                         saveToFile();
-                        System.out.println("Got it. I've added this task:");
+                        System.out.println("Got it. I've added this deadline:");
                         System.out.println("  " + newTask);
                         System.out.println("Now you have " + count + " tasks in the list.");
                     }
                 } else if (keyword.equals("event")) {
                     if (restOfSentence.isEmpty()) {
-                        throw new DukeException("☹ OOPS!!! The description of a task cannot be empty.");
+                        throw new DukeException("Hey I'm gonna need the event description!");
                     }
-                    if (descr.length < 2) {
+                    if (descr.length < 3) {
                         throw new ArrayIndexOutOfBoundsException();
                     }
                     //new event
-                    if (descr.length > 1) {
-                        String st = descr[1];
-                        String end = descr[2];
-                        Task newTask = new Event(taskName, st, end);
+                    //if (descr.length > 1) {
+                        Task newTask = new Event(restOfSentence);
                         taskList.add(newTask);
                         count++;
                         saveToFile();
-                        System.out.println("Got it. I've added this task:");
+                        System.out.println("Got it. I've added this event:");
                         System.out.println("  " + newTask);
                         System.out.println("Now you have " + count + " tasks in the list.");
-                    }
+                    //}
                 } else if (keyword.equals("mark")) {
                     if (restOfSentence.isEmpty()) {
                         throw new DukeException("☹ OOPS!!! Which do you want to mark?");
@@ -172,7 +174,7 @@ public class Duke {
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("☹ OOPS!!! We need both the start and end time of an event.");
+                System.out.println("☹ OOPS!!! We need more deets!");
             }
         }
         scanner.close();

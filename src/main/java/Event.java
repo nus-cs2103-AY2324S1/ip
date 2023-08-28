@@ -1,22 +1,30 @@
 public class Event extends Task{
-    private final String start;
-    private final String end;
+    private final String descr;
 
-    public Event(String descr, String start, String end) {
-        super(descr);
-        this.start = start;
-        this.end = end;
+    public Event(String descr) {
+        super(descr.split("/")[0]);
+        this.descr = descr;
+    }
+
+    public String breakdown(String descr) {
+        String[] descrArr = descr.split("/"); //you get 0: taskName, 1: start, 2: end
+
+        String start = descrArr[1];
+        String[] parts = start.split(" ");
+        String from = parts[0];
+        String restOfFrom = start.substring(from.length()).trim();
+
+        String end = descrArr[2];
+        String[] parts2 = end.split(" ");
+        String to = parts2[0];
+        String restOfTo = end.substring(to.length()).trim();
+
+        return "(from: " + restOfFrom + " to: " + restOfTo + ")";
     }
 
     @Override
     public String toString() {
-        String[] parts = this.start.split(" ");
-        String from = parts[0];
-        String restOfFrom = this.start.substring(from.length()).trim();
-
-        String[] segments = this.end.split(" ");
-        String to = segments[0];
-        String restOfTo = this.end.substring(to.length()).trim();
-        return "[E]" + super.toString() + "(" + from + ": " + restOfFrom + " " + to + ": " + restOfTo + ")";
+        return "[E]" + super.toString() + breakdown(this.descr);
     }
 }
+//project meeting /from Mon 2pm /to 4pm
