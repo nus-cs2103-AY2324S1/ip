@@ -29,15 +29,29 @@ public class Task {
     /**
      * Marks the task as done.
      */
-    public void markAsDone(){
+    public void markAsDone() {
         this.isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
-    public void markAsUndone(){
+    public void markAsUndone() {
         this.isDone = false;
+    }
+
+    /**
+     * Checks if the task description contains a specified keyword.
+     *
+     * @param keyWord The keyword to search for in the task description.
+     * @return True if the keyword is found in the description, false otherwise.
+     */
+    public Boolean descriptionContain(String keyWord) {
+        if (this.name.contains(keyWord)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

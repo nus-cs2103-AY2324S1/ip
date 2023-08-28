@@ -117,6 +117,18 @@ public class Storage {
                 boolean isToDo = Pattern.matches("todo .+", text);
                 boolean isEvent = Pattern.matches("event .+", text);
                 boolean isDelete = Pattern.matches("delete .+", text);
+                boolean isFind = Pattern.matches("find .+", text);
+                if (isFind) {
+                    String keyWord = text.substring(4);
+                    TaskList tmpList = new TaskList();
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.getTask(i).descriptionContain(keyWord)) {
+                            tmpList.addTask(list.getTask(i));
+                        }
+                    }
+                    ui.showListContainingKeyword(tmpList);
+                    continue;
+                }
                 if (isDelete) {
                     String numericPart = text.substring(7);
                     int pos = Integer.parseInt(numericPart) - 1;
