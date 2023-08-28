@@ -12,6 +12,10 @@ public class Todo extends Task {
         }
     }
 
+    public static Todo initializeFromStorage(String input) {
+        return new Todo(input);
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

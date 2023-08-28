@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
@@ -23,8 +24,16 @@ public class Deadline extends Task {
         }
     }
 
+    public static Deadline initializeFromStorage(String input) {
+        String[] processed = input.split("\\(");
+        String taskName = processed[0].trim();
+        String dateString = processed[1].split("by:")[1].split("\\)")[0].trim();
+        LocalDate doBy = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return new Deadline(taskName, doBy);
+    }
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + Utils.outputDate(by) + ")";
+        return "[D]" + super.toString() + " (by: " + Ui.outputDate(by) + ")";
     }
 }

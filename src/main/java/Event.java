@@ -21,6 +21,14 @@ public class Event extends Task {
         }
     }
 
+    public static Event initializeFromStorage(String input) {
+        String[] processed = input.split("\\(");
+        String taskName = processed[0].trim();
+        String from = processed[1].split("from:")[1].split("to:")[0].trim();
+        String to = processed[1].split("to:")[1].split("\\)")[0].trim();
+        return new Event(taskName, from, to);
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
