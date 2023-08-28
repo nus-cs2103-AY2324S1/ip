@@ -65,6 +65,17 @@ public class Ui {
     }
 
     /**
+     * Shows the list of filtered tasks.
+     *
+     * @param tasks The list of filtered tasks.
+     */
+    public void showFilteredTaskList(TaskList tasks) {
+        String message = "Here are the matching tasks in your list:";
+        showMessage(message);
+        showTaskList(tasks);
+    }
+
+    /**
      * Shows the success message after adding a task.
      * 
      * @param task The task that was added.

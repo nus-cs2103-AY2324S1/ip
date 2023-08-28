@@ -4,6 +4,7 @@ import duke.command.AddCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkAsDoneCommand;
 import duke.command.UnmarkAsDoneCommand;
@@ -20,7 +21,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
     private static enum COMMAND {
-        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT
+        LIST, MARK, UNMARK, DELETE, BYE, TODO, DEADLINE, EVENT, FIND
     }
 
     /**
@@ -96,6 +97,8 @@ public class Parser {
                     throw new DukeException(
                             "\u2639 OOPS!!! The date time format must be something like 2007-12-03T10:15:30.");
                 }
+            case FIND:
+                return new FindCommand(argument);
             default:
                 return new Command();
             }

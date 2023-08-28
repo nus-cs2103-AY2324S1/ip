@@ -53,6 +53,10 @@ public class Task {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Marks the task as done.
      */

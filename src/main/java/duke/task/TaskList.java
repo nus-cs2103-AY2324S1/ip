@@ -58,6 +58,15 @@ public class TaskList {
     }
 
     /**
+     * Returns the list of tasks.
+     * 
+     * @return The list of tasks.
+     */
+    public List<Task> getTasks() {
+        return this.tasks;
+    }
+
+    /**
      * Adds the given task to the list.
      * 
      * @param task The task to be added.
