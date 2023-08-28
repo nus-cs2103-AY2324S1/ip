@@ -5,13 +5,16 @@ import java.util.List;
  * DukeList is a class that represents a list of tasks.
  */
 public class DukeList {
-    private List<Task> dukeList;
+    private final List<Task> dukeList;
+    private final DukeFileWriter fileWriter;
 
     /**
      * Constructs a new DukeList object with an empty list of tasks.
      */
     public DukeList() {
         dukeList = new ArrayList<Task>(100);
+
+        fileWriter = new DukeFileWriter("./src/main/java/data", "duke.txt");
     }
 
     /**
@@ -21,6 +24,7 @@ public class DukeList {
      */
     private void add(Task task) {
         dukeList.add(task);
+        fileWriter.writeToFile(dukeList);
         System.out.println("Got it. I've added this task:\n\t" + task.toString() + "\nNow you have " + dukeList.size() + " tasks in the list.");
     }
 
@@ -98,6 +102,7 @@ public class DukeList {
     private void delete(int key) {
         Task task = dukeList.get(key - 1);
         dukeList.remove(task);
+        fileWriter.writeToFile(dukeList);
         System.out.println("Noted. I've removed this task:\n\t" +
                 task.toString() + "\n Now you have " + dukeList.size() +
                 " tasks in the list.");
