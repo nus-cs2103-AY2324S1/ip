@@ -12,16 +12,6 @@ public class CommandTaskList extends Command {
      * @throws IllegalArgumentException Thrown when invalid index is given.
      */
     public void accept(Parser input) {
-        if (Rock.taskList.size() == 0) {
-            Rock.respond("Task list is empty!");
-        } else {
-            int counter = 1;
-            String response = "Task List: ";
-            for (Task task:Rock.taskList.toArray()) {
-                response += "\n" + Integer.toString(counter) + ". " + task.toString();
-                counter++;
-            }
-            Rock.respond(response);
-        }
+        Rock.respond(Rock.taskList.toString());
     }
 }

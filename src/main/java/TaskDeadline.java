@@ -25,6 +25,10 @@ public class TaskDeadline extends Task {
         }
     }
     @Override
+    public LocalDate getDate() {
+        return this.deadlineTime;
+    }
+    @Override
     /**
      * String representation of Deadline
      * @return String representation of deadline

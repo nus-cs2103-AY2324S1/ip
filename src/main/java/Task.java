@@ -1,5 +1,5 @@
 import java.io.Serializable;
-
+import java.time.LocalDate;
 /**
  * Representation of a task
  * recorded by the chatbot.
@@ -37,6 +37,7 @@ public abstract class Task implements Serializable{
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+    public abstract LocalDate getDate();
     @Override
     /**
      * String representation of Task

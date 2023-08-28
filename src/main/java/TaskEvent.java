@@ -28,6 +28,10 @@ public class TaskEvent extends Task{
         }
     }
     @Override
+    public LocalDate getDate() {
+        return this.startTime;
+    }
+    @Override
     /**
      * String representation of Event
      * @return String representation of Event
