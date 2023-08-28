@@ -1,9 +1,10 @@
-import java.time.LocalDate;
+package duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Event class contains the tasks
+ * The duke.tasks.Event class contains the tasks
  * with to and from date/time inputs.
  *
  * @author: Shishir

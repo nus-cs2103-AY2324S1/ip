@@ -1,6 +1,8 @@
+package duke.tasks;
+
 /**
- * The Abstract Task class containing tasks
- * of three types: Event, Deadline and Todo
+ * The Abstract duke.tasks.Task class containing tasks
+ * of three types: duke.tasks.Event, duke.tasks.Deadline and duke.tasks.Todo
  * @author: Shishir
  **/
 abstract public class Task {

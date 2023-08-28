@@ -1,3 +1,10 @@
+package duke.storage;
+
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -6,21 +13,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
 public class Storage {
     private File folder;
     private File file;
     private final String PATH = System.getProperty("user.dir");
 
     public Storage(String filePath) {
+        String[] folder = filePath.split("/");
         this.file = new File(filePath);
-        this.folder = new File("data");
+        this.folder = new File(folder[0]);
 
         // Directory doesn't exist
-        if (!this.directoryExists()) {
+        if (!this.folder.isDirectory()) {
             this.createDirectory();
         }
+
         // File doesn't exist
         if (!this.fileExists()) {
             this.createFile();
@@ -39,16 +46,11 @@ public class Storage {
         }
     }
 
-    boolean directoryExists() {
-        java.nio.file.Path path = java.nio.file.Paths.get(PATH, "data");
-        return java.nio.file.Files.exists(path);
-    }
-
     boolean fileExists() {
         return this.file.exists();
     }
 
-    ArrayList<Task> readData() {
+    public ArrayList<Task> readData() {
         ArrayList<Task> data = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(this.file);
@@ -64,7 +66,7 @@ public class Storage {
         return data;
     }
 
-    void writeData(ArrayList<Task> tasks) {
+    public void writeData(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(this.file);
             for (Task task: tasks) {
@@ -93,7 +95,7 @@ public class Storage {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
 
-        switch(split[0]) {
+        switch(type) {
             case "T":
                 task = new Todo(action, status);
                 break;

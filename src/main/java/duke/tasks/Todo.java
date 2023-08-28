@@ -1,5 +1,7 @@
+package duke.tasks;
+
 /**
- * The Todo class containing
+ * The duke.tasks.Todo class containing
  * tasks with no time limits.
  * @author: Shishir
  **/
