@@ -25,6 +25,10 @@ public class ToDo extends Task {
         return taskType + super.toString();
     }
 
+    /**
+     * Returns a String representation of a ToDo task that is used to write to a file.
+     * @return The String representation of a ToDo task in the format used to write to a file.
+     */
     @Override
     public String formatForFile() {
         String taskType = "T";

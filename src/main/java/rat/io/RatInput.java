@@ -39,7 +39,7 @@ public class RatInput {
 
     /**
      * Parses and processes the user input based on a set of commands.
-     * Handles system exit.
+     * Creates and executes the corresponding command object.
      */
     public void handleInput() {
         while (sc.hasNext()) {

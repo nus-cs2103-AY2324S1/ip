@@ -50,6 +50,10 @@ public abstract class Task {
         return status + " " + this.name;
     }
 
+    /**
+     * Returns a String representation of a task that is used to write to a file.
+     * @return The String representation of a task in the format used to write to a file.
+     */
     public String formatForFile() {
         String status = isDone ? "1" : "0";
         return status + ", " + this.name;

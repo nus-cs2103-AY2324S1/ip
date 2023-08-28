@@ -11,6 +11,7 @@ public class RatPrinter {
 
     /**
      * Prints the welcome message to the user.
+     * The welcome message includes the current local date and time.
      */
     public static void printWelcome() {
         String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("EEE, d MMM yyyy HH:mm"));

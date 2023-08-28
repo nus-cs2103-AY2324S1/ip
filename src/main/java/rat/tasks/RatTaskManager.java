@@ -21,6 +21,9 @@ public class RatTaskManager {
      */
     private final ArrayList<Task> taskList;
 
+    /**
+     * The RatStorage object used to read and write the task list to local storage.
+     */
     private RatStorage storage;
 
     /**
