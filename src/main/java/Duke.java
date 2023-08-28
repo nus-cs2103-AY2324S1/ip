@@ -1,8 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,7 +15,16 @@ public class Duke {
      */
     public Duke() {
         this.lists = new ArrayList<>();
+
+        storage = new Storage();
+        try {
+            lists = storage.load();
+        } catch (DukeException e) {
+            System.out.println(e.toString());
+        }
     }
+
+    private Storage storage;
     /**
      * Return the name of the Duke ChatBot.
      *
@@ -166,61 +170,6 @@ public class Duke {
     }
 
     /**
-     * Read task from duke.txt file and copy to ArrayList list.
-     */
-    private void readFile() {
-        try {
-            File f = new File("data/duke.txt");
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String[] task = s.nextLine().split("\\|");
-                stringToList(task);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
-        }
-    }
-
-    /**
-     * Copy every line of task from file to ArrayList list.
-     * @param task String array that store task in file.
-     */
-    private void stringToList(String[] task) {
-
-        switch (task[0]) {
-        case "T":
-            this.lists.add(new ToDo(task[1]));
-            break;
-        case "D":
-            this.lists.add(new Deadline(task[1], task[3]));
-            break;
-        case "E":
-            this.lists.add(new Event(task[1], task[3], task[4]));
-            break;
-        }
-
-        if (task[2].equals("1")) {
-            this.lists.get(this.lists.size() - 1).markAsDone();
-        }
-    }
-
-    /**
-     * Write the task list to file.
-     */
-    private void writeToFile() {
-        try{
-            FileWriter fw = new FileWriter("data/duke.txt");
-            for (Task i : this.lists) {
-                fw.write(i.fileFormat());
-                fw.write(System.lineSeparator());
-            }
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("The file doesn't exist!");
-        }
-    }
-
-    /**
      * check if the input is a valid Date.
      * valid date format: dd/MM/yyyy HHmm
      * @param input of String type
@@ -282,7 +231,6 @@ public class Duke {
     public static void main(String[] args) {
 
         Duke chatBot = new Duke();
-        chatBot.readFile();
 
         String horLine = "____________________________________________________________";
         String userInput = "";
@@ -298,7 +246,16 @@ public class Duke {
             System.out.println(horLine);
             System.out.println(chatBot.replyUser(userInput));
             System.out.println(horLine);
-            chatBot.writeToFile();
+            chatBot.exit();
         }
+    }
+
+    private void exit() {
+        try {
+            storage.save(this.lists);
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
+
     }
 }
