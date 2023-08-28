@@ -1,3 +1,5 @@
+import emiyaexception.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -68,7 +70,8 @@ public class Emiya {
                     for (Task task : taskArrayList) {
                         if (task == null) {
                             if (listPointer == 1) {
-                                throw new EmiyaException("List is empty! Please add items to list before trying to display list contents!");
+                                // throw new EmiyaException("List is empty! Please add items to list before trying to display list contents!");
+                                throw new ListEmptyException();
                             }
                             break;
                         }
@@ -84,7 +87,8 @@ public class Emiya {
                 // If a given input is only one word long (partsOfInput < 2 ) and not a reserved keyword, will throw exception
                 // to inform them that an unknown command was received.
                 if (partsOfInput.length < 2 && !enumContainsKeyword(partsOfInput[0].toUpperCase())) {
-                    throw new EmiyaException("Unknown command received! Please try again!");
+                    // throw new EmiyaException("Unknown command received! Please try again!");
+                    throw new UnknownCommandException();
                 }
 
                 // Used to handle the case of when mark and unmark commands are used.
@@ -104,33 +108,38 @@ public class Emiya {
                 case "mark":
                     if (position != null) {
                         if (position <= 0 || position > taskArrayList.size()) {
-                            throw new EmiyaException("Task does not exist! Please try with a different value");
+                            // throw new EmiyaException("Task does not exist! Please try with a different value");
+                            throw new OutOfListBoundsException();
                         }
                         taskArrayList.get(position-1).setMarked();
                         System.out.println("-----------------------------------------\n" +
                                 "Nice job! I have marked this task as done:\n" + taskArrayList.get(position-1) + "\n"
                                 + "-----------------------------------------\n");
                     } else {
-                        throw new EmiyaException("Unknown command received! Please try again!");
+                        // throw new EmiyaException("Unknown command received! Please try again!");
+                        throw new UnknownCommandException();
                     }
                     break;
                 case "unmark":
                     if (position != null) {
                         if (position <= 0 || position > taskArrayList.size()) {
-                            throw new EmiyaException("Task does not exist! Please try with a different value");
+                            // throw new EmiyaException("Task does not exist! Please try with a different value");
+                            throw new OutOfListBoundsException();
                         }
                         taskArrayList.get(position-1).setUnmarked();
                         System.out.println("-----------------------------------------\n" +
                                 "Oof, alright I have set this task as unmarked:\n" + taskArrayList.get(position-1) + "\n"
                                 + "-----------------------------------------\n");
                     } else {
-                        throw new EmiyaException("Unknown command received! Please try again!");
+                        // throw new EmiyaException("Unknown command received! Please try again!");
+                        throw new UnknownCommandException();
                     }
                     break;
                 case "delete":
                     if (position != null) {
                         if (position <= 0 || position > taskArrayList.size()) {
-                            throw new EmiyaException("Task does not exist! Please try with a different value");
+                            // throw new EmiyaException("Task does not exist! Please try with a different value");
+                            throw new OutOfListBoundsException();
                         }
                         Task task = taskArrayList.get(position-1);
                         taskArrayList.remove(task);
@@ -148,13 +157,15 @@ public class Emiya {
                         }
                         System.out.println(deleteOutputMessage);
                     } else {
-                        throw new EmiyaException("Unknown command received! Please try again!");
+                        // throw new EmiyaException("Unknown command received! Please try again!");
+                        throw new UnknownCommandException();
                     }
                     break;
                 case "todo":
                     // need to be able to go through the rest of the string and add it inside
                     if (taskDetails.length() < 1) {
-                        throw new EmiyaException("Oh no! Todo tasks cannot be empty! Please try again!");
+                        // throw new EmiyaException("Oh no! Tod0 tasks cannot be empty! Please try again!");
+                        throw new EmptyTodoException();
                     }
                     ToDo todo = new ToDo(taskDetails);
                     taskArrayList.add(todo);
@@ -174,11 +185,13 @@ public class Emiya {
                     break;
                 case "deadline": // go through taskDetails and find /by
                     if (taskDetails.length() < 1) {
-                        throw new EmiyaException("Oh no! Deadline tasks cannot be empty! Please try again!");
+                        // throw new EmiyaException("Oh no! Deadline tasks cannot be empty! Please try again!");
+                        throw new EmptyDeadlineException();
                     }
                     String[] deadlineDetails = taskDetails.split("/by", 2);
                     if (deadlineDetails.length <= 1) {
-                        throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /by in your input?");
+                        // throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /by in your input?");
+                        throw new NoByException();
                     }
                     Deadline deadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
                     taskArrayList.add(deadline);
@@ -198,15 +211,18 @@ public class Emiya {
                     break;
                 case "event": // need to go through taskDetails and find /from and /to
                     if (taskDetails.length() <= 1) {
-                        throw new EmiyaException("Oh no! Event tasks cannot be empty! Please try again!");
+                        // throw new EmiyaException("Oh no! Event tasks cannot be empty! Please try again!");
+                        throw new EmptyEventException();
                     }
                     String[] eventDetails = taskDetails.split("/from ", 2);
                     if (eventDetails.length <= 1) {
-                        throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /from in your input?");
+                        // throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /from in your input?");
+                        throw new NoFromException();
                     }
                     String[] eventDurationDetails = eventDetails[1].split("/to ", 2);
                     if (eventDurationDetails.length <= 1) {
-                        throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /to in your input?");
+                        // throw new EmiyaException("It seems like there's an error in your input! Did you remember to use /to in your input?");
+                        throw new NoToException();
                     }
                     Event event = new Event(eventDetails[0], eventDurationDetails[0], eventDurationDetails[1]);
                     taskArrayList.add(event);
@@ -226,7 +242,8 @@ public class Emiya {
                     System.out.println(eventOutputMessage);
                     break;
                 default:
-                    throw new EmiyaException("Unknown command received! Please try again!");
+                    // throw new EmiyaException("Unknown command received! Please try again!");
+                    throw new UnknownCommandException();
                 }
             } catch (EmiyaException e) {
                 System.out.println(e.getMessage());
