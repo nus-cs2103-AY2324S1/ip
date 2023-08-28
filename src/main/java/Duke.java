@@ -46,16 +46,7 @@ public class Duke {
             try {
                 String userInput = scan.nextLine().trim();
                 if (Objects.equals(userInput, "bye")) {
-                    String file = "tasks.txt";
-                    try {
-                        String textToWrite = "";
-                        for (Task task: taskArray) {
-                            textToWrite += writeTaskLine(task);
-                        }
-                        writeToFile(file, textToWrite);
-                    } catch (IOException e) {
-                        System.out.println("Something went wrong: " + e.getMessage());
-                    }
+                    updateTaskFile();
                     System.out.println(
                             "    ____________________________________________________________\n" +
                                     "     Bye. Hope to see you again soon!\n" +
