@@ -2,7 +2,7 @@ package duke;
 import java.util.Scanner;
 
 public class Duke {
-    private static String filePath = "../../../data/duke.txt";
+    private static String filePath = "../../../data/miles.txt";
     private static String directoryPath = "../../../data";
     private Ui ui;
     private Storage storage;

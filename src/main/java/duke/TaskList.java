@@ -69,6 +69,31 @@ public class TaskList {
         this.ui.showLine();
     }
 
+    /**
+     * Prints every task in the task list that contains the keyword.
+     * 
+     * @param keyword the keyword that each task must contain
+     */
+    public void displayListWithKeyword(String keyword) {
+        int n = this.getSize();
+        int count = 0;
+        
+        this.ui.showLine();
+        this.ui.formatString(" Here are the matching tasks in your list:");
+
+        for (int i = 0; i < n; i += 1) {
+            Task currentTask = this.getTask(i);
+            String taskString = currentTask.toString();
+            if (taskString.contains(keyword)) {
+                String output = " " + (count + 1) + ". " + currentTask.toString();
+                ui.formatString(output);
+                count += 1;
+            }
+        }
+
+        this.ui.showLine();
+    }
+
     /*
      * Method that prints every task in the task list.
      */
