@@ -1,5 +1,5 @@
 /**
- * Represent an event.
+ * Represents an event.
  *
  * @author Pearlynn
  */
@@ -30,7 +30,7 @@ public class Event extends Task {
     }
 
     /**
-     * Return the string representation of the event.
+     * Returns the string representation of the event.
      *
      * @return A string representation of the event.
      */

@@ -1,5 +1,5 @@
 /**
- * Represent a task.
+ * Represents a task.
  *
  * @author Pearlynn
  */
@@ -36,21 +36,21 @@ public class Task {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark the task as undone.
+     * Marks the task as undone.
      */
     public void markAsUndone() {
         this.isDone = false;
     }
 
     /**
-     * Return the string representation of the task.
+     * Returns the string representation of the task.
      *
      * @return A string representation of the task.
      */

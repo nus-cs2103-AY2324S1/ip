@@ -1,5 +1,5 @@
 /**
- * Represent a deadline.
+ * Represents a deadline.
  *
  * @author Pearlynn
  */
@@ -23,7 +23,7 @@ public class Deadline extends Task{
     }
 
     /**
-     * Return the string representation of the deadline.
+     * Returns the string representation of the deadline.
      *
      * @return A string representation of the deadline.
      */

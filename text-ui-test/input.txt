@@ -33,6 +33,7 @@ event bday dinner/from
 event bday dinner /from
 event bday dinner /from /to
 event bday dinner /fromSat 7pm /to
+event bday dinner /from Sat 7pm/to
 event bday dinner /from Sat 7pm /to
 event bday dinner /from Sat 7pm /to8pm
 event bday dinner /from Sat 7pm /to 8pm

@@ -1,5 +1,5 @@
 /**
- * Represent a todo.
+ * Represents a todo.
  *
  * @author Pearlynn
  */
@@ -16,7 +16,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Return the string representation of the todo.
+     * Returns the string representation of the todo.
      *
      * @return A string representation of the todo.
      */

@@ -45,9 +45,9 @@ public class Duke {
                 } else if (command.startsWith("mark")) {
                     String[] result = command.split(" ");
                     if (result.length == 1 && !command.startsWith("mark ") && command.length() > 4) {
-                        throw new DukeException("☹ OOPS!!! Pls add a space after typing mark.");
+                        throw new NoSpaceAfterException("mark");
                     } else if (result.length == 1) {
-                        throw new DukeException("☹ OOPS!!! Pls select a task to mark.");
+                        throw new EmptyTaskException("mark");
                     }
                     int idx = Character.getNumericValue(command.charAt(5));
                     Task t = list.get(idx - 1);
@@ -57,9 +57,9 @@ public class Duke {
                 } else if (command.startsWith("unmark")) {
                     String[] result = command.split(" ");
                     if (result.length == 1 && !command.startsWith("unmark ") && command.length() > 6) {
-                        throw new DukeException("☹ OOPS!!! Pls add a space after typing unmark.");
+                        throw new NoSpaceAfterException("unmark");
                     } else if (result.length == 1) {
-                        throw new DukeException("☹ OOPS!!! Pls select a task to unmark.");
+                        throw new EmptyTaskException("unmark");
                     }
                     int idx = Character.getNumericValue(command.charAt(7));
                     Task t = list.get(idx - 1);
@@ -70,9 +70,9 @@ public class Duke {
                     String[] result = command.split(" ");
                     if ((result.length == 1 && !command.startsWith("todo ") && command.length() > 4) ||
                             (result.length > 1 && !command.startsWith("todo "))) {
-                        throw new DukeException("☹ OOPS!!! Pls add a space after typing todo.");
+                        throw new NoSpaceAfterException("todo");
                     } else if (result.length == 1) {
-                        throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        throw new EmptyDescriptionException("todo");
                     }
                     Todo todo = new Todo(command.substring(5));
                     list.add(todo);
@@ -84,19 +84,19 @@ public class Duke {
                     String[] result2 = command.split("/by");
                     if ((result1.length == 1 && !command.startsWith("deadline ") && command.length() > 8) ||
                             (result1.length > 1 && !command.startsWith("deadline "))) {
-                        throw new DukeException("☹ OOPS!!! Pls add a space after typing deadline.");
+                        throw new NoSpaceAfterException("deadline");
                     } else if (result1.length == 1 ||
                             (command.contains("/by") &&
                                     textBtwnWords(command, "deadline", "/by").isBlank())) {
-                        throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                        throw new EmptyDescriptionException("deadline");
                     } else if (!command.contains("/by")) {
                         throw new DukeException("☹ OOPS!!! Pls provide a date/time for the deadline.");
                     } else if (!command.contains(" /by")) {
-                        throw new DukeException("☹ OOPS!!! Pls add a space before typing /by");
+                        throw new NoSpaceBeforeException("/by");
                     } else if (result2.length == 1 || result2[1].isBlank()) {
                         throw new DukeException("☹ OOPS!!! The date/time for the deadline cannot be empty");
                     } else if (!command.contains("/by ")) {
-                        throw new DukeException("☹ OOPS!!! Pls add a space after typing /by.");
+                        throw new NoSpaceAfterException("/by");
                     }
                     Deadline deadline = new Deadline(command.substring(9, command.indexOf("/") - 1),
                             command.substring(command.indexOf("/by") + 4));
@@ -109,26 +109,28 @@ public class Duke {
                     String[] result2 = command.split("/to");
                     if ((result1.length == 1 && !command.startsWith("event ") && command.length() > 5) ||
                             (result1.length > 1 && !command.startsWith("event "))) {
-                        throw new DukeException("☹ OOPS!!! Pls add a space after typing event.");
+                        throw new NoSpaceAfterException("event");
                     } else if (result1.length == 1 ||
                             (command.contains("/from") &&
                                     textBtwnWords(command, "event", "/from").isBlank())) {
-                        throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                        throw new EmptyDescriptionException("event");
                     } else if (!command.contains("/from")) {
                         throw new DukeException("☹ OOPS!!! Pls provide a start date/time for the event.");
                     } else if (!command.contains(" /from")) {
-                        throw new DukeException("☹ OOPS!!! Pls add a space before typing /from");
+                        throw new NoSpaceBeforeException("/from");
                     } else if (!command.contains("/to")) {
                         throw new DukeException("☹ OOPS!!! Pls provide an end date/time for the event.");
                     } else if (command.contains("/from ") && command.contains("/to") &&
                             textBtwnWords(command, "/from", "/to").isBlank()) {
                         throw new DukeException("☹ OOPS!!! The start date/time for the event cannot be empty");
                     } else if (!command.contains("/from ")) {
-                        throw new DukeException("☹ OOPS!!! Pls add a space after typing /from.");
+                        throw new NoSpaceAfterException("/from");
+                    } else if (!command.contains(" /to")) {
+                        throw new NoSpaceBeforeException("/to");
                     } else if (result2.length == 1 || result2[1].isBlank()) {
                         throw new DukeException("☹ OOPS!!! The end date/time for the event cannot be empty");
                     } else if (!command.contains("/to ")) {
-                        throw new DukeException("☹ OOPS!!! Pls add a space after typing /to.");
+                        throw new NoSpaceAfterException("/to");
                     }
                     Event event = new Event(command.substring(6, command.indexOf("/") - 1),
                             command.substring(command.indexOf("/from") + 6, command.indexOf("/to") - 1),
@@ -140,9 +142,9 @@ public class Duke {
                 } else if (command.startsWith("delete")) {
                     String[] result = command.split(" ");
                     if (result.length == 1 && !command.startsWith("delete ") && command.length() > 6) {
-                        throw new DukeException("☹ OOPS!!! Pls add a space after typing delete.");
+                        throw new NoSpaceAfterException("delete");
                     } else if (result.length == 1) {
-                        throw new DukeException("☹ OOPS!!! Pls select a task to delete.");
+                        throw new EmptyTaskException("delete");
                     }
                     int idx = Character.getNumericValue(command.charAt(7));
                     Task t = list.get(idx - 1);
@@ -161,7 +163,8 @@ public class Duke {
                 } else {
                     System.out.println("\t ☹ OOPS!!! Pls select a task number between 1 and " + list.size());
                 }
-            } catch (DukeException e) {
+            } catch (NoSpaceAfterException | NoSpaceBeforeException | EmptyTaskException | EmptyDescriptionException |
+                    DukeException e) {
                 System.out.println("\t " + e.toString());
             }
             System.out.println(line);

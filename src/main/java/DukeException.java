@@ -1,5 +1,5 @@
 /**
- * Represent a DukeException.
+ * Represents a DukeException.
  *
  * @author Pearlynn
  */
