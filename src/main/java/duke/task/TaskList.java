@@ -46,6 +46,10 @@ public class TaskList {
         return lines;
     }
 
+    public List<Task> getTasks() {
+        return this.tasks;
+    }
+
     public void add(Task task) {
         this.tasks.add(task);
     }

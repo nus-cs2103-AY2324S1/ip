@@ -41,6 +41,12 @@ public class Ui {
         }
     }
 
+    public void showFilteredTaskList(TaskList tasks) {
+        String message = "Here are the matching tasks in your list:";
+        showMessage(message);
+        showTaskList(tasks);
+    }
+
     public void showAddTask(Task task, int numberOfTasks) {
         String message = "Got it. I've added this task:\n  " + task + "\nNow you have " + numberOfTasks
                 + (numberOfTasks == 1 ? " task" : " tasks") + " in the list.";
