@@ -52,7 +52,6 @@ public class TaskListTester {
                taskList.addTask(task, 0, testStorage);
                taskList.addTask(deadline, 1, testStorage);
                taskList.addTask(event, 2, testStorage);
-               TaskList taskListAfterSave = new TaskList(TEST_PATH);
 
                File file = new File(TEST_PATH);
                Scanner scanner = new Scanner(file);
