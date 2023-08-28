@@ -9,11 +9,16 @@ import jeeves.exception.MissingFromException;
 import jeeves.exception.MissingToException;
 import jeeves.exception.DeletedIdException;
 
+import java.io.IOException;
+
 import jeeves.task.Task;
 import jeeves.task.Todo;
 import jeeves.task.Deadline;
 import jeeves.task.Event;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -22,6 +27,8 @@ import java.util.ArrayList;
  */
 public class Jeeves {
 
+    private static final String RELATIVEPATH_DATA_DIRECTORY = "data";
+    private static final String RELATIVEPATH_DATA_FILE = "data/JeevesData.txt";
     private static final int FINDCOMMAND_TODO_OFFSET = 5;
     private static final int FINDCOMMAND_DEADLINE_OFFSET = 9;
     private static final int FINDCOMMAND_EVENT_OFFSET = 6;
@@ -50,6 +57,27 @@ public class Jeeves {
         System.out.println("Greetings, Master. Jeeves at your service");
         System.out.println("How may I serve you today?\n");
         Scanner sc = new Scanner(System.in);
+        
+        Path dirPath = Paths.get(RELATIVEPATH_DATA_DIRECTORY);
+        // If the directory does not exist, create it for the user
+        if (Files.notExists(dirPath)) {
+            try {
+                Files.createDirectories(dirPath);
+            } catch (IOException e) {
+                // Do nothing if an error is encountered since the directory existence is already checked
+            }
+        }
+        Path dataPath = Paths.get(RELATIVEPATH_DATA_FILE);
+        // If the file does not exist, create it for the user
+        if (Files.notExists(dataPath)) {
+            try {
+                Files.createFile(dataPath);
+            } catch (IOException e) {
+                // Do nothing if an error is encountered since the file existence is already checked
+            }
+        }
+        System.out.println(dataPath.toAbsolutePath());
+        System.out.println(Files.exists(dataPath));
         // Initialization step for task list, adds an empty object so the arraylist is 1-indexed
         taskList.add(null);
 
