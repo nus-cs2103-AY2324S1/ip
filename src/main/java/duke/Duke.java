@@ -35,7 +35,7 @@ public class Duke {
                 Command command = Parser.parse(input);
                 command.execute(this.tasks, this.ui, this.storage);
                 if (input.split(" ")[0].equals("bye")) {
-                    sc.close();
+                    this.sc.close();
                     break;
                 }
             } catch (DukeException e) {
