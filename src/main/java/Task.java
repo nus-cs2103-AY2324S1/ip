@@ -82,8 +82,6 @@ public class Task {
         return newTask;
     }
 
-
-
     @Override
     public String toString() {
         return getStatusIcon() + " " + task;
