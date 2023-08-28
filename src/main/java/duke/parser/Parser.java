@@ -2,6 +2,7 @@ package duke.parser;
 
 import duke.Command;
 import duke.exception.DukeDatabaseInvalidEntryException;
+import duke.exception.DukeInvalidArgumentException;
 import duke.exception.DukeNoSuchCommandException;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class Parser {
         }
     }
 
-    public static ArrayList<String> parseUserInput(String input) {
+    public static ArrayList<String> parseUserInput(String input) throws DukeInvalidArgumentException {
         ArrayList<String> result = new ArrayList<>();
 
         String byePattern = "bye";
@@ -52,6 +53,7 @@ public class Parser {
         String markPattern = "mark (\\d+)";
         String unmarkPattern = "unmark (\\d+)";
         String deletePattern = "delete (\\d+)";
+        String findPattern = "find ([a-zA-Z0-9]+)";
 
         if (input.matches(byePattern)) {
             result.add("bye");
@@ -100,6 +102,15 @@ public class Parser {
                 result.add("delete");
                 result.add(matcher.group(1));
             }
+
+            matcher = Pattern.compile(findPattern).matcher(input);
+            if (matcher.matches()) {
+                result.add("find");
+                result.add(matcher.group(1));
+            }
+        }
+        if (result.isEmpty()) {
+            throw new DukeInvalidArgumentException();
         }
         return result;
     }

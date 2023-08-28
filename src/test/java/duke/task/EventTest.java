@@ -14,7 +14,7 @@ public class EventTest {
             Event task = new Event("career fair", LocalDate.parse("2023-08-10"), LocalDate.parse("2023-08-11"));
             assertEquals(task.toString(), "[E][ ] career fair (from: Aug 10 2023 to: Aug 11 2023)");
         } catch (DukeEndDateBeforeStartDateException e) {
-            assertEquals(e.toString(), "☹ OOPS!!! Your start date cannot be after your end date :-(\n");
+            assertEquals(e.toString(), "OOPS!!! Your start date cannot be after your end date :-(\n");
         }
     }
 
@@ -24,7 +24,7 @@ public class EventTest {
             Event task = new Event("career fair", LocalDate.parse("2023-08-10"), LocalDate.parse("2023-08-09"));
             assertEquals(task.toString(), "[E][ ] career fair (from: Aug 10 2023 to: Aug 11 2023)");
         } catch (DukeEndDateBeforeStartDateException e) {
-            assertEquals(e.toString(), "☹ OOPS!!! Your start date cannot be after your end date :-(\n");
+            assertEquals(e.toString(), "OOPS!!! Your start date cannot be after your end date :-(\n");
         }
     }
 }
