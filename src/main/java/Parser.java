@@ -22,12 +22,12 @@ public class Parser {
         // case "load":
         //     command = new LoadCommand();
         //     break;
-        // case "mark":
-        //     command = new MarkCommand(fullCommand);
-        //     break;
-        // case "unmark":
-        //     command = new UnmarkCommand(fullCommand);
-        //     break;
+        case "mark":
+            command = new MarkCommand(fullCommand);
+            break;
+        case "unmark":
+            command = new UnmarkCommand(fullCommand);
+            break;
         case "todo":
             command = new AddCommand(fullCommand);
             break;

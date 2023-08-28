@@ -62,4 +62,14 @@ public class Ui {
     public void showInvalidCommandMessage() {
         System.out.println("Command is invalid. Please try again.");
     }
+
+    public void showTaskMarked(Task task) {
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(task.toString());
+    }
+
+    public void showTaskUnmarked(Task task) {
+        System.out.println("Nice! I've marked this task as undone:");
+        System.out.println(task.toString());
+    }
 }

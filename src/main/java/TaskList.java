@@ -79,26 +79,12 @@ public class TaskList {
         this.userTasks.clear();
     }
 
-    public void markTaskAsDone(String input) throws DukeException {
-        try {
-            int taskID = Integer.parseInt(input.substring(5)) - 1;
-            this.userTasks.get(taskID).markAsDone();
-        } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid task number.");
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Please ensure task exists.");
-        }
+    public void mark(int taskId) throws DukeException {
+        this.userTasks.get(taskId).markAsDone();
     }
 
-    public void markTaskAsUndone(String input) throws DukeException {
-        try {
-            int taskID = Integer.parseInt(input.substring(7)) - 1;
-            this.userTasks.get(taskID).markAsUndone();
-        } catch (NumberFormatException e) {
-            throw new DukeException("Please enter a valid task number.");
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Please ensure task exists.");
-        }
+    public void unmark(int taskId) throws DukeException {
+        this.userTasks.get(taskId).markAsUndone();
     }
 
     public Task get(int taskID) {
