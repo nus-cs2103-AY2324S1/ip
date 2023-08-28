@@ -149,6 +149,13 @@ public class Parser {
         storage.save();
     }
 
+    private void find(String reply) {
+        System.out.println(String.format("  Here are the matching tasks in your list:"));
+        String keyword = reply.replace("find ", "");
+        String matchingTasks = tasks.find(keyword);;
+        this.line(matchingTasks);
+    }
+
     /**
      * Triggers respective actions.
      */
@@ -186,6 +193,9 @@ public class Parser {
                         break;
                     case DELETE:
                         delete(Character.getNumericValue(reply.charAt(7) - 1));
+                        break;
+                    case FIND:
+                        find(reply);
                         break;
                     default:
                         throw new DukeUnknownCommandException();
