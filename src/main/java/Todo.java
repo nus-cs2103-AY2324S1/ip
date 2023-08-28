@@ -9,4 +9,9 @@ public class Todo extends Task{
         return "[T]" + super.getDescription();
     }
 
+    @Override
+    public String savedString() {
+        return "T " + super.savedString();
+    }
+
 }

@@ -18,4 +18,9 @@ public class Task {
     public String getDescription() {
         return this.isDone ? "[X] " + this.description: "[ ] " + this.description;
     }
+
+    public String savedString() {
+        String status = this.isDone ? "1" : "0";
+        return "| " + status + " | " + this.description;
+    }
 }

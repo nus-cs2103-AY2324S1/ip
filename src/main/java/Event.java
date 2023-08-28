@@ -15,4 +15,9 @@ public class Event extends Task{
                 + "to:" + this.endTime + ")";
     }
 
+    @Override
+    public String savedString() {
+        return "E " + super.savedString() + " | " + this.startTime + "-" + this.endTime;
+    }
+
 }

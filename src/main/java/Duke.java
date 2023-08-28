@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
 
 public class Duke {
     public static void main(String[] args) {
@@ -11,6 +14,7 @@ public class Duke {
         String greeting = "        Hello! I'm " + name + "\n        What can I do for you?\n";
         //this will be goodbye
         String goodbye = "        Bye. Hope to see you again soon! :D\n";
+
         //scanner to get user input
         Scanner sc = new Scanner(System.in);
         //this is what the user typed in
@@ -18,10 +22,44 @@ public class Duke {
         //fixed size array to store the items
         ArrayList<Task> toDo = new ArrayList<>();
 
+        //create the directory to store tasks
+        File directory = new File("./data");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        //create the file to store tasks
+        File taskList = new File("./data/duke.txt");
+        if (!taskList.exists()) {
+            try {
+                taskList.createNewFile();
+            } catch (IOException e) {
+                System.out.println("File cannot be created!");
+            }
+        }
+
         //initial greeting
         System.out.println(lines + "\n" + greeting + lines);
         //getting user input
         userCommand = sc.nextLine();
+
+        /**
+         * public class CreateFile {
+         *   public static void main(String[] args) {
+         *     try {
+         *       File myObj = new File("filename.txt");
+         *       if (myObj.createNewFile()) {
+         *         System.out.println("File created: " + myObj.getName());
+         *       } else {
+         *         System.out.println("File already exists.");
+         *       }
+         *     } catch (IOException e) {
+         *       System.out.println("An error occurred.");
+         *       e.printStackTrace();
+         *     }
+         *   }
+         * }
+         */
+
 
 
         while (!userCommand.equals("bye")) {

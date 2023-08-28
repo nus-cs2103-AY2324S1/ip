@@ -11,4 +11,9 @@ public class Deadline extends Task{
         return "[D]" + super.getDescription()
                 + "(by:" + this.deadline + ")";
     }
+
+    @Override
+    public String savedString() {
+        return "D " + super.savedString() + " | " + this.deadline;
+    }
 }
