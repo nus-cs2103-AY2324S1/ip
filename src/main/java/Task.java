@@ -1,25 +1,30 @@
 public class Task {
     private String description;
-    private boolean done;
+    private boolean isDone;
 
     public Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
+    }
+
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
         return String.format(
             "[%s] %s",
-            this.done ? "X" : " ", 
+            this.isDone ? "X" : " ", 
             this.description
         );
     }
@@ -27,7 +32,7 @@ public class Task {
     public String toFileFormatString() {
         return String.format(
             "%s|%s",
-            this.done ? "1" : "0",
+            this.isDone ? "1" : "0",
             this.description
         );
     }

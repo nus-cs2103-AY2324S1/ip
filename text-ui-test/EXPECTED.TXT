@@ -1,4 +1,10 @@
 
+    Initalizing... Please be patient
+
+
+    I've created a new folder to store your tasks :)
+
+
     Hi. I'm [35mBryan[0m
     What can I do for you?
 

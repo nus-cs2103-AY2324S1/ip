@@ -3,6 +3,10 @@ public class Todo extends Task {
         super(detail);
     }
 
+    public Todo(String detail, boolean isDone) {
+        super(detail, isDone);
+    }
+
     @Override
     public String toString() {
         return String.format(

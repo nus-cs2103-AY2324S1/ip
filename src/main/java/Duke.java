@@ -1,4 +1,8 @@
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -12,6 +16,8 @@ public class Duke {
     private static String PURPLE = "\u001B[35m";
     private static String RED = "\033[0;31m";
 
+    private static String SAVE_TASKS_DIR = "./data/data.txt"; 
+
     private ArrayList<Task> tasks = new ArrayList<Task>();
 
     private static String extractTail(String[] item) {
@@ -24,6 +30,40 @@ public class Duke {
 
     private static String cTxt(String text, String color) {
         return color + text + COLOR_RESET;
+    }
+
+    public void start() throws IOException {
+        this.speak("Initalizing... Please be patient");
+        // Load tasks from local file (if it exists)
+        this.readTasksFromFile();
+
+        this.speak(new String[] {
+            "Hi. I'm " + cTxt("Bryan", PURPLE),
+            "What can I do for you?"
+        });
+
+        BufferedReader reader = new BufferedReader(
+            new InputStreamReader(System.in)
+        );
+
+        // Begin chatbot's main event loop
+        String input = "";
+        while (true) {
+            System.out.print("> ");
+            input = reader.readLine();
+            if (input.equals("bye")) break;
+            try {
+                this.parseInput(input);
+            } catch (DukeException e) {
+                this.error(e.toString());
+            }
+        }
+
+        this.exit();
+    }
+
+    private void exit() {
+        this.speak("Bye~ Come back soon :)");
     }
 
     private void parseInput(String input) throws DukeException {
@@ -151,13 +191,72 @@ public class Duke {
         this.speak(formatTasks);
     }
 
+    private void readTasksFromFile() {
+        try {
+            BufferedReader br = new BufferedReader(
+                new FileReader(SAVE_TASKS_DIR)
+            );
+
+            String line;
+            while((line = br.readLine()) != null) {
+                String[] parse = line.strip().split("\\|");
+                String taskType = parse[0];
+                boolean isDone = parse[1].equals("1");
+
+                // Add task based on type given
+                switch(taskType) {
+                case "T":
+                    this.addTask(
+                        new Todo(parse[2], isDone)
+                    );
+                    break;
+                case "D":
+                    this.addTask(
+                        new Deadline(parse[2], parse[3], isDone)
+                    );
+                    break;
+                case "E":
+                    this.addTask(
+                        new Event(parse[2], parse[3], parse[4], isDone)
+                    );
+                    break;
+                default:
+                    break;
+                }
+            }
+            this.speak("Tasks successfully loaded!"); 
+            // Close the reader after parsing the file
+            br.close();
+        } catch (FileNotFoundException f) {
+            // Create a new data directory if it cannot be found
+            if (new File("./data").mkdir()) {
+                this.speak(
+                    "I've created a new folder to store your tasks :)"
+                );
+            }
+        } catch (IOException e) {
+            this.error(
+                "Oops, there was an issue retrieving your saved tasks"
+            );
+        }
+    }
+
     private String taskListToString() {
         String taskListString = "";
         for (Task task : this.tasks) {
             taskListString += task.toFileFormatString() + "\n";
         }
-        System.out.println(taskListString);
         return taskListString.strip();
+    }
+
+    private void updateSavedTasks() {
+        try {
+            FileWriter fw = new FileWriter(SAVE_TASKS_DIR);
+            fw.write(this.taskListToString());
+            fw.close();
+        } catch (IOException e) {
+            this.error("Sorry error with saving tasks!");
+        }
     }
 
     private void delete(String taskCount) throws DukeException {
@@ -189,7 +288,8 @@ public class Duke {
             "Total no. of tasks stored: " + tasks.size()
         });
 
-        // TODO: Rewrite to file?
+        // Write modified task list to file
+        this.updateSavedTasks();
     }
 
     private void addTodo(String description) {
@@ -200,6 +300,7 @@ public class Duke {
             "  " + todo.toString(),
             "Total no. of tasks stored: " + tasks.size()
         });
+        this.updateSavedTasks();
     }
 
     private void addDeadline(String description, String by) {
@@ -210,6 +311,7 @@ public class Duke {
             "  " + deadline.toString(),
             "Total no. of tasks stored: " + tasks.size()
         });
+        this.updateSavedTasks();
     }
 
     private void addEvent(String description, String start, String end) {
@@ -220,21 +322,21 @@ public class Duke {
             "  " + event.toString(),
             "Total no. of tasks stored: " + tasks.size()
         });
+        this.updateSavedTasks();
     }
 
     private void addTask(Task task) {
         tasks.add(task);
-        // TODO: Write to file
     }
 
-    private void markTask(String taskCount, boolean done) throws DukeException {
+    private void markTask(String taskCount, boolean isDone) throws DukeException {
         int index;
         // User passes a non-integer argument.
         try {
             index = Integer.parseInt(taskCount);
         } catch (NumberFormatException e) {
             this.error(
-                cTxt((done ? "mark" : "unmark"), PURPLE)
+                cTxt((isDone ? "mark" : "unmark"), PURPLE)
                 + " takes in a number. Try " + cTxt("mark", PURPLE) + " 1."
             );
             return;
@@ -244,16 +346,16 @@ public class Duke {
         if (index < 1 || index > tasks.size()) {
             throw new DukeException(String.format(
                 "Unable to %s task %d :( You have %d task(s) stored.",
-                done ? "mark" : "unmark", index, tasks.size()
+                isDone ? "mark" : "unmark", index, tasks.size()
             ));
         }
 
         // Mark or unmark the task if the taskCount given is correct.
         Task task = this.tasks.get(index - 1);
-        if (done) task.mark(); 
+        if (isDone) task.mark(); 
         else      task.unmark();
 
-        String success = done
+        String success = isDone
             ? "Nice, I've marked this task as done:"
             : "Okie, I've marked this task as not done yet:";
 
@@ -261,6 +363,8 @@ public class Duke {
             success,
             "  " + task.toString()
         });
+
+        this.updateSavedTasks();
     }
 
     private void speak(String text) {
@@ -298,27 +402,6 @@ public class Duke {
 
     public static void main(String[] args) throws IOException {
         Duke chatbot = new Duke();
-        BufferedReader reader = new BufferedReader(
-            new InputStreamReader(System.in)
-        );
-
-        chatbot.speak(new String[] {
-            "Hi. I'm " + cTxt("Bryan", PURPLE),
-            "What can I do for you?"
-        });
-
-        String input = "";
-        while (true) {
-            System.out.print("> ");
-            input = reader.readLine();
-            if (input.equals("bye")) break;
-            try {
-                chatbot.parseInput(input);
-            } catch (DukeException e) {
-                chatbot.error(e.toString());
-            }
-        }
-
-        chatbot.speak("Bye~ Come back soon :)");
+        chatbot.start();
     }
 }
