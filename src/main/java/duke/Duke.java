@@ -9,6 +9,7 @@ public class Duke {
     private final TaskList taskList;
 
     private final Parser parser;
+    private final SearchEngine searchEngine;
 
     /**
      * Constructor for Duke
@@ -18,7 +19,8 @@ public class Duke {
         this.storage = Storage.createStorage(filePath);
         this.taskList = new TaskList(filePath);
         this.ui = new Ui();
-        this.parser = new Parser(this.taskList, this.storage, this.ui);
+        this.searchEngine = new SearchEngine(this.ui);
+        this.parser = new Parser(this.taskList, this.storage, this.ui, this.searchEngine);
     }
 
     /**

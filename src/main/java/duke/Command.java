@@ -12,7 +12,8 @@ public enum Command {
     TODO,
     DEADLINE,
     EVENT,
-    DELETE;
+    DELETE,
+    FIND;
 
     /**
      * This array is used to represent the valid commands that can be given to the chatbot
@@ -20,7 +21,7 @@ public enum Command {
     public static final String[] validCommands =
             {"list", "bye", "todo <task_name>", "deadline <task_name> /by <deadline>",
                     "event <task_name> /from <start-time> /to <end-time>", "mark <number>",
-                    "unmark <number>", "delete <number>"};
+                    "unmark <number>", "delete <number>", "find <keyword>"};
 
     /**
      * This method is used to get the command from the user's input
@@ -48,6 +49,8 @@ public enum Command {
             return Command.EVENT;
         } else if (commandWord.startsWith("delete")) {
             return Command.DELETE;
+        } else if (commandWord.startsWith("find")) {
+            return Command.FIND;
         } else {
             throw new InvalidInputException();
         }

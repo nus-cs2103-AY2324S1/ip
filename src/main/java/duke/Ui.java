@@ -1,11 +1,11 @@
 package duke;
-
 import java.util.Scanner;
 
 /**
  * Ui encapsulates the user interface of the chat bot
  */
 public class Ui {
+
     private Scanner scanner;
 
     public Ui() {
@@ -27,6 +27,7 @@ public class Ui {
     public String readCommand() {
         return this.scanner.nextLine();
     }
+
 
     /**
      * Shows the user the list of tasks
@@ -59,6 +60,22 @@ public class Ui {
             message += ("\n" + Command.validCommands[i]);
         }
         System.out.println(message);
+    }
+
+    /**
+     * Shows the user the result of the search
+     * @param taskList  the list of tasks
+     */
+    public void showSearchResult(TaskList taskList) {
+        if (taskList.length() < 1) {
+            System.out.println("There are no matching tasks in your list");
+            System.out.println("Remember it is space sensitive!");
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.length(); i++) {
+            System.out.println(i + 1 + ". " +taskList.getTask(i));
+        }
     }
 
 }

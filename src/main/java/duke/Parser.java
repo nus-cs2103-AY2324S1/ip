@@ -1,5 +1,4 @@
 package duke;
-
 /**
  * Parser class that handles the parsing of user input
  */
@@ -7,9 +6,12 @@ public class Parser {
     public static final int DEADLINEOFFSET = 9;
     public static final int EVENTOFFSET = 6;
 
-    private TaskList taskList;
-    private Storage storage;
-    private Ui ui;
+    private final TaskList taskList;
+    private final Storage storage;
+    private final Ui ui;
+
+    private final SearchEngine searchEngine;
+
     private boolean hasCommands = true;
 
     /**
@@ -18,10 +20,11 @@ public class Parser {
      * @param storage   the storage
      * @param ui    the ui
      */
-    public Parser(TaskList taskList, Storage storage, Ui ui) {
+    public Parser(TaskList taskList, Storage storage, Ui ui, SearchEngine searchEngine) {
         this.taskList = taskList;
         this.storage = storage;
         this.ui = ui;
+        this.searchEngine = searchEngine;
     }
 
     /**
@@ -98,25 +101,26 @@ public class Parser {
                 totalItemNumber--;
                 this.taskList.deleteTask(taskNumberDelete - 1, totalItemNumber, storage);
                 break;
+            case FIND:
+                searchEngine.searchValidator(input);
+                String keyword = input.split(" ")[1];
+                TaskList searchResult = this.searchEngine.search(keyword);
+                this.ui.showSearchResult(searchResult);
+                break;
             }
         } catch (NullPointerException e) {
             // If we mark a task number outside the range
-            System.out.println(e.toString() + "\nPlease enter a valid task number from list");
+            System.out.println(e + "\nPlease enter a valid task number from list");
         } catch (NumberFormatException e) {
             // If we mark a non int task number
             System.out.println("Enter a valid task number that is a integer shown in list");
         } catch (WrongInputException e) {
-            System.out.println(e.toString());
+            System.out.println(e);
         } catch (IndexOutOfBoundsException e) {
             // To catch invalid number inputs for delete
             System.out.println("Please enter a valid task number from the range in  list");
         }
     }
-
-    /**
-     * Checks whether the program should continue running
-     * @return  whether the program should continue running
-     */
     public boolean shouldContinue() {
         return this.hasCommands;
     }
