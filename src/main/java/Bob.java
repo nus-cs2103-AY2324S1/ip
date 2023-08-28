@@ -1,5 +1,5 @@
-import exceptions.BobCorruptFileException;
-import exceptions.BobException;
+import exception.BobCorruptFileException;
+import exception.BobException;
 import task.*;
 
 import java.io.File;
@@ -24,9 +24,9 @@ public class Bob {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static boolean isActive = true;
     private static final Scanner scanner = new Scanner(System.in);
-    private static String taskDirectoryRelativePath = "data/";
+    private static String taskDirectoryRelativePath = "storage/";
     private static String taskFileName = "Bob.txt";
-    public enum Commands {
+    public enum CommandType {
         BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID
     }
 
@@ -58,11 +58,11 @@ public class Bob {
         }
     }
 
-    private static Commands parseCommand(String keyword) {
+    private static CommandType parseCommand(String keyword) {
         try {
-            return Commands.valueOf(keyword);
+            return CommandType.valueOf(keyword);
         } catch (IllegalArgumentException e) {
-            return Commands.INVALID;
+            return CommandType.INVALID;
         }
     }
 
@@ -260,5 +260,4 @@ public class Bob {
             throw new BobException("An unknown error has occurred. I'll shut myself off for now.");
         }
     }
-
 }

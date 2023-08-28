@@ -16,6 +16,6 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-# Local Storage
+# Local storage.StorageFile
 /data/
 /text-ui-test/data/

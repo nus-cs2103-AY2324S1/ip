@@ -3,9 +3,14 @@ package task;
 import exception.BobTaskOutOfBoundsException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TaskList {
     private ArrayList<Task> tasks;
+
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+    }
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
