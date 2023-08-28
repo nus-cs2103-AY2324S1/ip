@@ -1,14 +1,62 @@
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
 
 public class Duke {
+    private static List<Task> lst =new ArrayList<>();
+
     public static String doneCheckbox = "[X] ";
     public static String undoneCheckbox = "[ ] ";
 
+    public static String relativePath = "C:\\Users\\wenji\\OneDrive\\Desktop\\Y2S1\\CS2103T\\CS2103T projects\\ip\\data";
+
+    public static void saveTasks() {
+        try {
+            Path folderPath = Paths.get(relativePath);
+
+            if (!Files.exists(folderPath)) {
+                //file does not exist
+                System.out.println("Data folder does not exist, Creating one now");
+                try {
+                    Files.createDirectories(folderPath);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+            //folder does exist
+            Path filePath = Paths.get(relativePath , "TaskList.txt");
+            if (!Files.exists(filePath)) {
+                //file does not exist
+                System.out.println("File does not exist, Creating one now");
+                try {
+                    Files.createFile(filePath);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            //file exists
+            File file = filePath.toFile();
+            FileWriter writer = new FileWriter(file, false);
+
+            for (Task t : lst) {
+                writer.write(t.newFormat() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
     public static void main(String[] args) {
         System.out.println(greet());
-        List<Task> lst = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -20,15 +68,18 @@ public class Duke {
                         //mark as completed
                         Task tsk = lst.get(Integer.valueOf(words[1]) - 1);
                         tsk.setCompleted();
+                        saveTasks();
                         continue;
                     } else if (words[0].equalsIgnoreCase("unmark")) {
                         Task tsk = lst.get(Integer.valueOf(words[1]) - 1);
                         tsk.setUncompleted();
+                        saveTasks();
                         continue;
                     } else if (words[0].equalsIgnoreCase("delete")) {
                         int index = Integer.valueOf(words[1]) - 1;
                         lst.get(index).removed();
                         lst.remove(index);
+                        saveTasks();
                         System.out.println("Now you have " + lst.size() + " tasks in the list.");
                         continue;
                     }
@@ -82,6 +133,7 @@ public class Duke {
                         }
                     }
                     lst.add(tsk);
+                    saveTasks();
                     System.out.println(tsk.confirmation(lst.size()));
                 }
             } catch (InvalidInputException e) {
@@ -92,7 +144,8 @@ public class Duke {
     }
 
     public static boolean isInvalidType(String input) {
-        return !input.equalsIgnoreCase("todo") && !input.equalsIgnoreCase("deadline") && !input.equalsIgnoreCase("event");
+        return !input.equalsIgnoreCase("todo") && !input.equalsIgnoreCase("deadline")
+                && !input.equalsIgnoreCase("event");
     }
 
     public static String byeGreetings = "Bye. Hope to see you again soon!";

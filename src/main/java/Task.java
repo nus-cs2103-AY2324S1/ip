@@ -1,4 +1,4 @@
-public class Task {
+abstract class Task {
     private String name;
     private boolean completed;
 
@@ -33,6 +33,14 @@ public class Task {
             return Duke.doneCheckbox;
         } else {
             return Duke.undoneCheckbox;
+        }
+    }
+    abstract String newFormat();
+    public String getInt() {
+        if (this.completed) {
+            return "1";
+        } else {
+            return "0";
         }
     }
     public String confirmation(int size) {

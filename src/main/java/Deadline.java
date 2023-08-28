@@ -6,6 +6,10 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
     @Override
+    public String newFormat() {
+        return this.symbol + " | " + this.getInt() + " | " + this.getName() + " | " + this.deadline;
+    }
+    @Override
     public String toString() {
         return this.symbol + this.getCheckbox() + this.getName() + " (by: " + deadline + ")";
     }
