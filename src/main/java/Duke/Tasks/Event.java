@@ -1,7 +1,9 @@
+package Duke.Tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-class Event extends Task {
+public class Event extends Task {
     private LocalDateTime from, to;
     public Event(String description, LocalDateTime from, LocalDateTime to, boolean isMarked) {
         super(description); // initializes its task

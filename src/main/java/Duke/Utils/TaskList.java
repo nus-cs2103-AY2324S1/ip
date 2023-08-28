@@ -1,5 +1,13 @@
+package Duke.Utils;
+
+import Duke.Exceptions.TaskException;
+import Duke.Ui;
+
+import Duke.Tasks.Task;
+import Duke.Tasks.Deadline;
+import Duke.Tasks.Event;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +37,7 @@ public class TaskList {
         return taskList;
     }
 
-    public void deleteTask(int i) throws TaskException{
+    public void deleteTask(int i) throws TaskException {
         if (i > taskList.size()) {
             throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
         }
@@ -50,7 +58,7 @@ public class TaskList {
         ui.printMarkTask(taskToMark, beforeMarking);
     }
 
-    public void unMark(int i) throws TaskException{
+    public void unMark(int i) throws TaskException {
         if (i > taskList.size() || i <= 0) {
             throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
         }

@@ -1,8 +1,19 @@
+package Duke.Utils;
+
+import Duke.Exceptions.EmptyDescriptionException;
+import Duke.Exceptions.TaskException;
+import Duke.Exceptions.NotIntegerException;
+import Duke.Exceptions.InvalidCommandException;
+import Duke.Exceptions.MissingKeywordException;
+import Duke.Tasks.Deadline;
+import Duke.Tasks.Task;
+import Duke.Tasks.Todo;
+import Duke.Tasks.Event;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 public class Parser {
     private Storage storage;

@@ -1,3 +1,9 @@
+package Duke;
+
+import Duke.Utils.Parser;
+import Duke.Utils.Storage;
+import Duke.Utils.TaskList;
+
 import java.io.IOException;
 
 public class Duke {

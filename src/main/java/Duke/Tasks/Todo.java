@@ -1,4 +1,8 @@
-class Todo extends Task {
+package Duke.Tasks;
+
+import Duke.Tasks.Task;
+
+public class Todo extends Task {
     public Todo(String description, boolean isMarked) {
         super(description); // initializes its task
         super.isMarked = isMarked;

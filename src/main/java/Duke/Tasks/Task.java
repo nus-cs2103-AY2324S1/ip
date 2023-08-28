@@ -1,6 +1,8 @@
+package Duke.Tasks;
+
 import java.time.format.DateTimeFormatter;
 
-abstract public class Task {
+public abstract class Task {
     public final DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public String description;
