@@ -5,7 +5,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
-// https://www.w3schools.com/java/java_files_create.asp
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 public class Duke {
     public static void printHorizontalLine() {
 
@@ -57,7 +60,6 @@ public class Duke {
                         break;
                 }
             }
-            System.out.println("w");
             myReader.close();
         } catch (FileNotFoundException e) {
             File myObj = new File("./src/main/data/duke.txt");
@@ -120,27 +122,11 @@ public class Duke {
         }
     }
 
-    public static void readFile() {
-        try {
-            File myObj = new File("./src/main/data/duke.txt");
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                System.out.println(data);
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
     public static void main(String[] args) {
         introduction();
 
         toDo();
-//        createFile();
-//        writeFile();
-//        readFile();
+
 
         conclusion();
 
