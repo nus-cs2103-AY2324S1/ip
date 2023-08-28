@@ -15,4 +15,10 @@ public class Deadline extends Task {
     public String taskName() {
         return super.taskName() + " (by: " + date + ")";
     }
+
+
+    @Override
+    public String type() {
+        return "Deadline";
+    }
 }

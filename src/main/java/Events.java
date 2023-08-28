@@ -19,4 +19,9 @@ public class Events extends Task {
     public String taskName() {
         return super.taskName() + "(from: " + startDate + " to: " + endDate + ")";
     }
+
+    @Override
+    public String type() {
+        return "Events";
+    }
 }

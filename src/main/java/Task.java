@@ -4,9 +4,15 @@ public class Task {
 
     private boolean done;
 
+    private int index;
+
     public Task(String task) {
         name = task;
         done = false;
+    }
+
+    public String type() {
+        return "Task";
     }
 
     public String taskName() {
