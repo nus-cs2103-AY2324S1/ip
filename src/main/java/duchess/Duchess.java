@@ -1,3 +1,5 @@
+package duchess;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
