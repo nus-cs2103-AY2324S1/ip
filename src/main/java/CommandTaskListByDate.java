@@ -11,19 +11,16 @@ public class CommandTaskListByDate extends Command {
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Illegal Date");
         }
-        String response = "";
-
         List<Task> taskList = Rock.taskList.toList();
-        taskList.removeIf(task -> !(task instanceof TaskDeadline));
-        taskList.removeIf(task -> task.getDate() != filterDate);
-        
-        if (taskList.size() == 0) {
-            Rock.respond("No tasks found!");
-        } else {
-            response = "Found tasks: ";
-            for (int i = 0; i < taskList.size(); i++) {
+        String response = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDate().equals(filterDate)) {
                 response += "\n" + taskList.get(i).toString();
             }
+        }
+        if (response == "") {
+            Rock.respond("No tasks found!");
+        } else {
             Rock.respond(response);
         }
     }

@@ -20,6 +20,7 @@ public abstract class Command implements Consumer<Parser> {
         put("deadline" ,new CommandTaskCreate(TaskTypes.DEADLINE));
         put("event", new CommandTaskCreate(TaskTypes.EVENT));
         put("delete", new CommandTaskDelete());
+        put("listbydate", new CommandTaskListByDate());
     }};
     /**
      * Method used to get the appropriate command from a keyword
