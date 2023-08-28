@@ -11,7 +11,7 @@ public class EventCommand extends Command {
 
     public EventCommand(String input) throws DukeException {
         if (input == null) {
-            throw new DukeException(" ☹ OOPS!!! The description of a event cannot be empty.");
+            throw new DukeException(" ☹ OOPS!!! The description of an event cannot be empty.");
         } else if (!input.contains("/from")) {
             throw new DukeException(" ☹ OOPS!!! From when?");
         } else if (!input.contains("/to")) {
