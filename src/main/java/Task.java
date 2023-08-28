@@ -6,8 +6,11 @@ public class Task {
         this.task = task;
     }
 
+    public boolean checkDone() {
+        return this.done;
+    }
     public void markDone() {
-        if (done) {
+        if (this.done) {
             System.out.println("____________________________________________________________\n" +
                     " This task is already marked done!\n" +
                     "____________________________________________________________\n");
@@ -17,13 +20,6 @@ public class Task {
     }
 
     public void unmarkDone() {
-        if (!done) {
-            System.out.println("____________________________________________________________\n" +
-                    " This task is not done yet!\n" +
-                    "____________________________________________________________\n");
-        } else {
-            this.done = false;
-        }
         this.done = false;
     }
 
