@@ -1,8 +1,6 @@
 package duke;
-
 public class Parser {
     private String userCommand;
-
     public Parser(String command) {
         this.userCommand = command;
     }
