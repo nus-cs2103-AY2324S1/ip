@@ -85,6 +85,12 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Returns a String of all Task objects containing the keyword.
+     *
+     * @param keyword Keyword.
+     * @return String.
+     */
     public String findTasks(String keyword) {
         StringBuilder msg = new StringBuilder();
         int foundCount = 0;

@@ -26,6 +26,12 @@ public class Task {
         return String.format("%s | %s", isDone ? "1" : "0", description);
     }
 
+    /**
+     * Checks whether the Task object contains the keyword.
+     *
+     * @param keyword Keyword.
+     * @return Whether the Task object contains the keyword.
+     */
     public boolean contains(String keyword) {
         return description.contains(keyword);
     }
