@@ -16,7 +16,7 @@ public class Storage {
         }
     }
 
-    public ArrayList<Task> fetchTasks() throws IOException, ClassNotFoundException {
+    public ArrayList<Task> load() throws IOException, ClassNotFoundException {
         ObjectInputStream in = null;
         try {
             FileInputStream fileIn = new FileInputStream(filePath);
