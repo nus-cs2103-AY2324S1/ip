@@ -85,6 +85,7 @@ public class Duke {
                         if (!parser.checkInputDetailsPresent()) throw new DukeException("The task number to mark cannot be empty.");
                         int taskNumber = Integer.parseInt(inputDetails);
                         taskList.removeTask(taskNumber);
+                        storage.deleteTaskFromFile(taskNumber);
                         break;
                     }
                     default:

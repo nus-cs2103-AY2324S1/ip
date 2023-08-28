@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
@@ -66,6 +67,32 @@ public class Storage {
                     writer.write(task);
                 }
             }
+        } catch (Exception e) {
+            throw new DukeException(e.getMessage());
+        }
+    }
+
+    public void deleteTaskFromFile(Integer taskNumber) throws DukeException {
+        String fileName = filePath;
+        List<String> lines = new ArrayList<>();
+        String currentLine;
+        try {
+
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            Integer lineNumber = 1;
+            while ((currentLine = reader.readLine()) != null) {
+                if (!lineNumber.equals(taskNumber)) {
+                    lines.add(currentLine);
+                }
+                lineNumber++;
+            }
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+            writer.close();
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }
