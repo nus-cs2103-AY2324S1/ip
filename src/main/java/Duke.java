@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -13,7 +14,7 @@ public class Duke {
         System.out.println("Greetings from\n" + logo);
         System.out.println("Hi! This is your intelligent friend L.\n\"Dream big.\"\n" +
                 "What can I do for you today?");
-        while(scanner.hasNextLine()) {
+        while (scanner.hasNextLine()) {
             try {
                 String repeat = scanner.nextLine();
                 Pattern markPattern = Pattern.compile("(mark|unmark|delete) (\\d+)");
@@ -26,8 +27,9 @@ public class Duke {
                 } else if (markMatcher.matches()) {
                     String action = markMatcher.group(1);
                     int taskIndex = Integer.parseInt(markMatcher.group(2));
-                    if (action.equals("delete")) System.out.println(storage.deleteTask(taskIndex));
-                    else {
+                    if (action.equals("delete")) {
+                        System.out.println(storage.deleteTask(taskIndex));
+                    } else {
                         boolean isDone = markMatcher.group(1).equals("mark");
                         System.out.println(storage.markTask(taskIndex, isDone));
                     }
@@ -38,21 +40,22 @@ public class Duke {
                 } else {
                     throw new DukeException("undefined");
                 }
-            } catch (DukeException e){
+            } catch (DukeException e) {
                 String message = e.getMessage();
-                if (message.equals("undefined")){
+                if (message.equals("undefined")) {
                     System.out.println("⚠ Sorry! I am not able to understand you. Try another language:D");
-                } else if (message.equals("task not found")){
+                } else if (message.equals("task not found")) {
                     System.out.println("⚠ Oops! Cannot find the task:(");
-                } else if (message.equals("todo error")){
+                } else if (message.equals("todo error")) {
                     System.out.println("⚠ Oops! Need description for the todo:(");
-                } else if (message.equals("deadline error")){
+                } else if (message.equals("deadline error")) {
                     System.out.println("⚠ Oops! Need description and by date for the deadline:(");
-                } else if (message.equals("event error")){
+                } else if (message.equals("event error")) {
                     System.out.println("⚠ Oops! Need description, from and to date for the event:(");
                 }
             }
         }
+        scanner.close();
     }
 }
 
