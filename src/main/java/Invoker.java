@@ -25,14 +25,14 @@ public class Invoker {
      * Used to handle a given user input and call the corresponding method.
      * @param inputString User's input.
      */
-    public void handle(String inputString) throws RockError{
+    public void handle(String inputString) throws RockException{
         Parser input = new Parser(removeFirstWord(inputString));
         String keyword = inputString.split(" ")[0];
         try {
             Consumer<Parser> calledConsumer = this.commands.getCommand(keyword);
             calledConsumer.accept(input);
         } catch (IllegalArgumentException e) {
-            throw new RockError(e.getMessage());
+            throw new RockException(e.getMessage());
         }
     }
 }

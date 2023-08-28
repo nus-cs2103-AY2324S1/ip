@@ -20,6 +20,8 @@ public class Rock {
         this.ui = new Ui();
         this.commands = new Commands(this);
         this.ui.startup();
+        this.storage = new Storage(path, this.taskList);
+
     }
 
     public void run() {
@@ -28,7 +30,7 @@ public class Rock {
             String userInput = this.ui.getInput();
             try {
                 invoker.handle(userInput);
-            } catch (RockError e) {
+            } catch (RockException e) {
                 this.ui.respond(e.getMessage());
             }
         }
