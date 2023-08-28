@@ -1,10 +1,17 @@
 public class Duke {
     private UI ui;
     private TaskList list;
+    private Storage storage;
 
     public Duke() {
-        ui = new UI();
-        this.list = new TaskList();
+        this.ui = new UI();
+        this.storage = new Storage();
+        try {
+            this.list = new TaskList(storage.loadFile());
+        } catch (DukeException e) {
+            ui.displayException(e);
+            this.list = new TaskList();
+        }
     }
 
     private void run() {
@@ -40,6 +47,7 @@ public class Duke {
                     ui.displayRemoveFromList(list.deleteFromList(Parser.parseOptions(line)), list.getSize());
                     break;
                 case BYE:
+                    storage.saveCommandsToFile(list);
                     ui.exit();
                     return;
                 }

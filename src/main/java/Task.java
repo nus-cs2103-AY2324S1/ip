@@ -15,6 +15,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String toLogString() {
+        return description;
+    }
+
     @Override
     public String toString() {
         String statusIcon = isDone ? "[X]" : "[ ]";

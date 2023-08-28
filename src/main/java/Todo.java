@@ -4,6 +4,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public String toLogString() {
+        return String.format("T|%s|%s", (isDone ? "X" : "O"), description);
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
