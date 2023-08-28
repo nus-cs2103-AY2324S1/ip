@@ -38,6 +38,9 @@ public abstract class Task {
 	 */
 	public abstract String serialize();
 
+	public String getDescription() {
+		return description;
+	}
 
 	@Override
 	public String toString() {
