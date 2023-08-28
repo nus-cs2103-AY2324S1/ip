@@ -45,12 +45,19 @@ public class Parser {
         boolean isFind = Pattern.compile("^find").matcher(userInput).find();
         boolean isValidTask = isTodo || isDeadline || isEvent;
 
-        return isList ? 0
-                : isMark ? 1
-                        : isUnmark ? 2
-                                : isValidTask ? 3
-                                        : isDelete ? 4
-                                                : isFind ? 5 : isExit ? 6 : 7;
+        return isList
+                ? 0
+                : isMark
+                ? 1
+                : isUnmark
+                ? 2
+                : isValidTask
+                ? 3
+                : isDelete
+                ? 4
+                : isExit
+                ? 5
+                : 6;
     }
 
     /*
