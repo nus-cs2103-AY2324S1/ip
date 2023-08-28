@@ -13,6 +13,7 @@ public class Task {
         if (description.isEmpty()) {
             throw new DukeException("\u2639 OOPS!!! The description of a task cannot be empty.");
         }
+        
         this.description = description;
         this.isDone = false;
     }
@@ -21,6 +22,7 @@ public class Task {
         if (description.isEmpty()) {
             throw new DukeException("\u2639 OOPS!!! The description of a task cannot be empty.");
         }
+
         this.description = description;
         this.isDone = isDone;
     }

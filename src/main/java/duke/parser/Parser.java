@@ -22,8 +22,10 @@ public class Parser {
 
     public static Command parse(String fullCommand) throws DukeException {
         String[] inputs = fullCommand.split(" ", 2);
+
         String command = inputs[0].toUpperCase();
         String argument = inputs.length == 2 ? inputs[1] : "";
+        
         try {
             switch (COMMAND.valueOf(command)) {
             case LIST:

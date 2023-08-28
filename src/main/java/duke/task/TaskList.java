@@ -16,9 +16,11 @@ public class TaskList {
         this.tasks = new ArrayList<>();
         for (String line : lines) {
             String[] inputs = line.split(" \\| ");
+
             String taskType = inputs[0];
             Boolean isDone = inputs[1].equals("1");
             String description = inputs[2];
+            
             switch (taskType) {
             case "T":
                 this.add(new Todo(description, isDone));
