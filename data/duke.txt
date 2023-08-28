@@ -1,5 +1,0 @@
-T | X | buy book
-D | X | project | Mar 04 2023 08:00PM
-E |   | CCA Training | Aug 28 2023 08:00PM to Aug 28 2023 10:00PM
-T |   | read book
-D |   | CS2103T iP | Aug 31 2023 11:59PM
