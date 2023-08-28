@@ -1,12 +1,8 @@
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -43,8 +39,6 @@ public class Duke {
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
             .toFormatter();
 
-    private static TaskList tasks;
-
 
     private static void sendIntroduction() {
         String logo = "                     _                 _      \n" +
@@ -61,94 +55,9 @@ public class Duke {
         System.out.println(LINE);
     }
 
-    private static List<Task> checkScheduleOnDate(LocalDateTime date, List<Task> tasks) {
-        List<Task> relevantTasks = new ArrayList<>();
-
-        for (Task task : tasks) {
-            if (task.isWithinDateRange(date)) {
-                relevantTasks.add(task);
-            }
-        }
-        return relevantTasks;
-
-    }
-
-    private static List<Task> loadTasksFromStorage(String dirName, String fileName) {
-        List<Task> tasks = new ArrayList<>();
-        File file = new File(dirName + File.separator + fileName);
-
-        // scan for the storage file
-        try {
-            Scanner s = new Scanner(file);
-            while (s.hasNext()) {
-
-                String curr = s.nextLine();
-                String[] segments = curr.split(" \\| ");
-
-                // check for the correct format - minimum 3 different segments
-                if ((!segments[0].equals("T") && !segments[0].equals("D")
-                        && !segments[0].equals("E")) || segments.length < 3) {
-                    s.close(); // need to close scanner otherwise cannot replace file
-                    throw new UnrecognisedFormatException();
-                }
-
-                boolean isDone = segments[1].equals("1");
-
-                if (segments[0].equals("T")) { // To do task
-                    tasks.add(new ToDo(segments[2], isDone));
-                } else if (segments[0].equals("D")) { // Deadline task
-                    tasks.add(new Deadline(segments[2], LocalDateTime.parse(segments[3]), isDone));
-                } else { // Event task
-                    String[] times = segments[3].split("--");
-                    tasks.add(new Event(segments[2],
-                            LocalDateTime.parse(times[0]),
-                            LocalDateTime.parse(times[1]),
-                            isDone));
-                }
-
-            }
-        } catch (FileNotFoundException e) { // File does not exist
-            try {
-                if (new File(dirName).mkdir()) {
-                    System.out.println("Sorry, directory does not exist. Creating now...");
-                }
-                if (file.createNewFile()) {
-                    System.out.println("Sorry, file does not exist. Creating now...");
-                }
-            } catch (Exception error) {
-                System.out.println("Error... Unable to create files");
-            }
-
-        } catch (UnrecognisedFormatException e) { // File is corrupted
-            try {
-                if (file.delete()) {
-                    System.out.println("Deleting corrupted file...");
-
-                    if (file.createNewFile()) {
-                        System.out.println("Replacing file now...");
-                    }
-
-                }
-            } catch (Exception error) {
-                System.out.println("Error... Unable to create new file...");
-            }
-        }
-        return tasks;
-    }
-
-    private static void writeFile(String filePath, String text) {
-        try {
-            FileWriter fw = new FileWriter(filePath, false);
-            fw.write(text);
-            fw.close();
-        } catch (Exception e) {
-            System.out.println("Sorry... Unable to store tasks...");
-        }
-
-    }
-
     public static void main(String[] args) {
-        tasks = new TaskList(loadTasksFromStorage(DIR_NAME, FILE_NAME));
+        Storage storage = new Storage(DIR_NAME + File.separator + FILE_NAME);
+        TaskList tasks = new TaskList(storage.loadTasksFromStorage());
         Scanner scanner = new Scanner(System.in);
 
         sendIntroduction();
@@ -165,7 +74,7 @@ public class Duke {
                     // User wants to end the chatbot
                     if (command.equals(Command.BYE.name())) {
 
-                        writeFile(DIR_NAME + File.separator + FILE_NAME, tasks.retrieveForStorage());
+                        storage.writeFile(tasks.retrieveForStorage());
 
                         System.out.println("Bye. Hope to see you again soon!");
                         System.out.println(LINE);
