@@ -70,11 +70,7 @@ public class TaskList {
         }
     }
 
-    public void handleToDo(String task) throws DukeException {
-
-        if (task.length() == 0) {
-            throw new DukeException("Hey! The task description cannot be empty!");
-        }
+    public void handleToDo(String task) {
         ToDo item = new ToDo(task);
         taskList.add(item);
         this.saveList();
@@ -83,17 +79,9 @@ public class TaskList {
                 taskList.size() + " tasks in the list."));
     }
 
-    public void handleDeadline(String task) throws DukeException {
-        if (task.length() == 0) {
-            throw new DukeException("Hey! The task description cannot be empty!");
-        }
-        String[] arr = task.split(" /by ");
-        if (arr.length != 2) {
-            throw new DukeException("Hey, the Deadline given is Invalid! " +
-                    "Make sure that you follow this format:\n" +
-                    INDENTATION + "'taskDescription /by time'");
-        }
-        Deadline item = new Deadline(arr[0], arr[1]);
+    public void handleDeadline(String desc, String by) throws DukeException {
+
+        Deadline item = new Deadline(desc, by);
         taskList.add(item);
         this.saveList();
         System.out.println(formatOutput("Got it. I've added this task:\n   " +
@@ -101,27 +89,7 @@ public class TaskList {
                 taskList.size() + " tasks in the list."));
     }
 
-    public void handleEvent(String task) throws DukeException {
-        if (task.length() == 0) {
-            throw new DukeException("Hey! The task description cannot be empty!");
-        }
-        String[] arr = task.split(" /from ");
-        if (arr.length != 2) {
-            throw new DukeException("Hey, the Event given is Invalid!" +
-                    " Make sure that you follow this format:\n" +
-                    INDENTATION + " 'eventDescription /from startTime /to endTime'");
-        }
-        String desc = arr[0];
-
-        String[] startEnd = arr[1].split(" /to ");
-        if (startEnd.length != 2) {
-            throw new DukeException("Hey, the Event given is Invalid!" +
-                    " Make sure that you follow this format:\n" +
-                    INDENTATION + " 'eventDescription /from startTime /to endTime'");
-        }
-        String start = startEnd[0];
-        String end = startEnd[1];
-
+    public void handleEvent(String desc, String start, String end) throws DukeException {
         Event item = new Event(desc, start, end);
         taskList.add(item);
         this.saveList();

@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Duke {
 
-    private static final String INDENTATION = "    ";
+    public static final String INDENTATION = "    ";
     private static ArrayList<Task> store = new ArrayList<Task>();
 
     private static Storage storage;
@@ -16,54 +16,17 @@ public class Duke {
                 INDENTATION + output + '\n' + INDENTATION + horizontalLine + '\n';
     }
 
-    private static void checkCommandArguments(String[] commandArr) throws DukeException {
-        if (commandArr.length == 1) {
-            throw new DukeException("Hey, the description of a " + commandArr[0] + " cannot be empty!");
-        }
-    }
-
-    private enum Command {
-        BYE("bye"),
-        LIST("list"),
-        MARK("mark"),
-        UNMARK("unmark"),
-        DELETE("delete"),
-        TODO("todo"),
-        DEADLINE("deadline"),
-        EVENT("event");
-
-        private String value;
-
-        Command(String value) {
-            this.value = value;
-        }
-
-        public static Command getCommand(String value) {
-            for (Command cmd : Command.values()) {
-                if (cmd.value.equals(value)) {
-                    return cmd;
-                }
-            }
-            return null;
-        }
-    }
 
     private void handleCommand() {
         Scanner sc = new Scanner(System.in);
         String commandString;
         Command command;
-        String[] commandArray;
 
         while (true) {
             commandString = sc.nextLine();
 
-            if (commandString.length() == 0) {
-                System.out.println(formatOutput("Hey, Type Something!"));
-                continue;
-            }
-
-            commandArray = commandString.split(" ", 2);
-            command = Command.getCommand(commandArray[0]);
+            Parser parseLine = new Parser(commandString);
+            command = parseLine.getCommand();
 
             if (command == null) {
                 System.out.println(formatOutput("I don't understand what you're saying."));
@@ -80,24 +43,22 @@ public class Duke {
                         break;
                     case MARK:
                     case UNMARK:
-                        checkCommandArguments(commandArray);
-                        tasks.handleMarking(commandArray[1], command.value);
+                        tasks.handleMarking(parseLine.getArguments(), command.getCommandName());
                         break;
                     case DELETE:
-                        checkCommandArguments(commandArray);
-                        tasks.handleDelete(commandArray[1]);
+                        tasks.handleDelete(parseLine.getArguments());
                         break;
                     case TODO:
-                        checkCommandArguments(commandArray);
-                        tasks.handleToDo(commandArray[1]);
+                        String todoData = parseLine.parseToDoArguments();
+                        tasks.handleToDo(todoData);
                         break;
                     case DEADLINE:
-                        checkCommandArguments(commandArray);
-                        tasks.handleDeadline(commandArray[1]);
+                        String[] deadlineData = parseLine.parseDeadlineArguments();
+                        tasks.handleDeadline(deadlineData[0], deadlineData[1]);
                         break;
                     case EVENT:
-                        checkCommandArguments(commandArray);
-                        tasks.handleEvent(commandArray[1]);
+                        String[] eventData = parseLine.parseEventArguments();
+                        tasks.handleEvent(eventData[0], eventData[1], eventData[2]);
                         break;
                     default:
                         System.out.println(formatOutput("I don't understand what you're saying."));
@@ -112,8 +73,8 @@ public class Duke {
 
     public void run() {
         storage = new Storage(FILEPATH);
-
         System.out.println(formatOutput("Hello! I'm Nano\n" + INDENTATION + " What can I do for you?"));
+
         try {
             tasks = new TaskList(storage.load(), storage);
 
@@ -121,6 +82,7 @@ public class Duke {
             System.out.println("--- No Data Stored ---");
             tasks = new TaskList(new ArrayList<>(), storage);
         }
+
         handleCommand();
     }
 
