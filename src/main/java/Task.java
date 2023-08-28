@@ -1,8 +1,10 @@
+import java.io.Serializable;
+
 /**
  * This class is used as the superclass to all three types o tasks that is used in the chatbot Adam
  * This class holds information such as the description of the task and whether or not someone has completed it
  */
-public class Task {
+public class Task implements Serializable {
     /**
      * This variable holds the information on what the task is
      */

@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * This class is used to create Deadline objects that holds the description and when the task is due
  */
-public class Deadlines extends  Task{
+public class Deadlines extends  Task implements Serializable {
     /**
      * This variable holds the information on when this instance of a deadline object is due
      */

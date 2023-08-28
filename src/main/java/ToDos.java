@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * This class is used to create Todos object that holds the description of your todo
  */
-public class ToDos extends Task{
+public class ToDos extends Task implements Serializable {
     /**
      * This constructor creates an instance of a Todo Object that has its description
      * @param text This param gives the description of the Todo object

@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,6 +6,10 @@ import java.util.Scanner;
  * This is the main java class that contains instructions to create the chatbot Task manager Adam
  */
 public class Adam {
+    String home = System.getProperty("user.home");
+    java.nio.file.Path path = java.nio.file.Paths.get(home, "Objtestdrive.txt");
+
+    boolean directoryExists = java.nio.file.Files.exists(path);
     /**
      * This array holds all the Task that has been added
      */
@@ -17,6 +22,38 @@ public class Adam {
      * This is used to take in user input
      */
     protected Scanner scaner = new Scanner(System.in);
+
+    public void read() {
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(path.toFile()));
+            array = (ArrayList<Task>) in.readObject();
+            in.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public  void write() {
+        try {
+            ObjectOutputStream ob = new ObjectOutputStream(new FileOutputStream(path.toFile()));
+            ob.writeObject(array);
+            ob.flush();
+            ob.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void initialize() {
+        if(directoryExists) {
+            read();
+        } else {
+            write();
+        }
+    }
 
     /**
      * This method is used to delete Items of the class or subclass Task from the Task array
@@ -188,6 +225,7 @@ public class Adam {
      * starts the chabot
      */
     public void start() {
+        initialize();
         System.out.println("Hello! I am Adam\n" + "What can I do for you?");
             while (running) {
                 String li = scaner.nextLine();
@@ -204,11 +242,13 @@ public class Adam {
                         case "deadline":
                         case "event":
                             taskCall(tokens, item, tokens[0]);
+                            write();
                             break;
                         case "mark":
                         case "unmark":
                         case "delete":
                             edit(tokens, tokens[0]);
+                            write();
                             break;
                         default:
                                 throw new AdamException();
