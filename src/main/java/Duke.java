@@ -125,7 +125,7 @@ public class Duke {
         }
     }
 
-    public static void saveTaskToFile(String task) {
+    public static void saveTaskToFile(String task) throws DukeException {
         String fileName = "./data/tasks.txt";
         Path filePath = Paths.get(fileName);
 
@@ -141,11 +141,11 @@ public class Duke {
                     writer.write(task);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new DukeException(e.getMessage());
         }
     }
-    public static List<Task> loadTasksFromFile(List<Task> list) {
+    public static List<Task> loadTasksFromFile(List<Task> list) throws DukeException {
         String fileName = "./data/tasks.txt";
         Path filePath = Paths.get(fileName);
 
@@ -184,8 +184,8 @@ public class Duke {
                 }
                 fileReader.close();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new DukeException(e.getMessage());
         }
         return list;
     }
