@@ -1,3 +1,5 @@
+package friday;
+
 /**
  * Represents a task in the Duke application.
  */

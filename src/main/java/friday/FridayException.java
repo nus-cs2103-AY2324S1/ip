@@ -1,3 +1,5 @@
+package friday;
+
 /**
  * Represents an exception specific to the Duke application.
  */
