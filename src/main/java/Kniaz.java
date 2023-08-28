@@ -2,19 +2,15 @@
 
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.List;
 
 import exceptions.KniazRuntimeException;
 import logic.taskhandling.*;
-import parser.KniazCommand;
-import parser.KniazParser;
+import ui.inputparser.InstructionType;
+import ui.inputparser.KniazCommand;
+import ui.inputparser.KniazParser;
 import save.KniazLoader;
 import save.KniazSaver;
-import task.Deadline;
-import task.Event;
-import task.Task;
 import task.TaskList;
-import task.ToDo;
 
 public class Kniaz {
 
@@ -91,16 +87,16 @@ public class Kniaz {
             }
 
 
-            if (nextCommand.instructionEquals(KniazParser.InstructionType.QUIT)) {
+            if (nextCommand.instructionEquals(InstructionType.QUIT)) {
 
                 break; // exit if we are told to quit
             }
 
-            if (nextCommand.instructionEquals(KniazParser.InstructionType.LIST)) {
+            if (nextCommand.instructionEquals(InstructionType.LIST)) {
 
                 System.out.println(taskList.toPrintString());
                 // print out if we are asked to list
-            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.MARK)) {
+            } else if (nextCommand.instructionEquals(InstructionType.MARK)) {
 
                 try {
 
@@ -114,7 +110,7 @@ public class Kniaz {
 
 
 
-            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.UNMARK)) {
+            } else if (nextCommand.instructionEquals(InstructionType.UNMARK)) {
 
                 try {
 
@@ -126,7 +122,7 @@ public class Kniaz {
                     System.out.println(e.getUserMessage());
                 }
 
-            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.DELETE)){
+            } else if (nextCommand.instructionEquals(InstructionType.DELETE)){
 
                 try {
                     String taskString = DeleteHandler.handle(taskList, nextCommand.getArgs());
@@ -136,7 +132,7 @@ public class Kniaz {
                 } catch (KniazRuntimeException e) {
                     System.out.println(e.getUserMessage());
                 }
-            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.TODO)) {
+            } else if (nextCommand.instructionEquals(InstructionType.TODO)) {
 
                 try {
 
@@ -148,7 +144,7 @@ public class Kniaz {
                     System.out.println(e.getUserMessage());
                 }
 
-            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.DEADLINE)) {
+            } else if (nextCommand.instructionEquals(InstructionType.DEADLINE)) {
 
                 try {
 
@@ -160,7 +156,7 @@ public class Kniaz {
                     System.out.println(e.getUserMessage());
                 }
 
-            } else if (nextCommand.instructionEquals(KniazParser.InstructionType.EVENT)) {
+            } else if (nextCommand.instructionEquals(InstructionType.EVENT)) {
 
 
                 try {

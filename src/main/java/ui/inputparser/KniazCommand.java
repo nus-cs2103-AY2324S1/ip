@@ -1,4 +1,4 @@
-package parser;
+package ui.inputparser;
 
 import java.util.List;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ public class KniazCommand {
     /**
      * The type of instruction this command contains -- Such as list, event, bye, etc.
      */
-    private KniazParser.InstructionType instruction;
+    private InstructionType instruction;
 
     /**
      * the arguments given to this command
@@ -19,11 +19,11 @@ public class KniazCommand {
     private List<String> args;
 
     /**
-     * Protected constructor -- This shouldn't be instantiated from areas outside the parser package
+     * Protected constructor -- This shouldn't be instantiated from areas outside the ui.parser package
      * @param instruction the type of instruction this command contains
      * @param args the arguments to the command
      */
-    protected KniazCommand(KniazParser.InstructionType instruction, String... args) {
+    protected KniazCommand(InstructionType instruction, String... args) {
         this.instruction = instruction;
         this.args = Arrays.asList(args);
     }
@@ -33,7 +33,7 @@ public class KniazCommand {
      * @param compareTo the instruction to comapre against
      * @return whether this command has the supplied instruction
      */
-    public boolean instructionEquals(KniazParser.InstructionType compareTo) {
+    public boolean instructionEquals(InstructionType compareTo) {
         return this.instruction.equals(compareTo);
     }
 

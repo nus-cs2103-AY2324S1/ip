@@ -1,4 +1,4 @@
-package parser;
+package ui.inputparser;
 
 import exceptions.KniazRuntimeException;
 
@@ -16,32 +16,6 @@ public abstract class KniazParser {
      * TODO : Implement similar regex for all commands
      */
     private static final String EVENTPATTERN  = ".*from.*to.*";
-
-    /**
-     * The types of instructions that Kniaz can accept
-     * Each member of this enum has an alias, that represents the command typed into Kniaz
-     * E.g. the DEADLINE InstructionType is related to the command "deadline".
-     */
-    public enum InstructionType {
-        TODO("todo"),
-        DEADLINE("deadline"),
-        EVENT("event"),
-        MARK("mark"),
-        UNMARK("unmark"),
-        LIST("list"),
-        QUIT("bye"),
-        DELETE("delete"),
-        INVALID(""); // placeholder for anything not recognised
-
-        public final String alias;
-
-        private InstructionType(String alias){
-            this.alias = alias;
-        }
-
-
-
-    }
 
     /**
      * Parses the given line and breaks it down into a KniazCommand

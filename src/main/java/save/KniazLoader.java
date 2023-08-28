@@ -1,6 +1,5 @@
 package save;
 
-import parser.KniazParser;
 import task.TaskList;
 
 import java.io.File;
