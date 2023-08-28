@@ -10,8 +10,8 @@ public class Ui {
     }
 
     public void printDivider() {
-        String DIVIDER = "____________________________________________________________";
-        System.out.println(DIVIDER);
+        String divider = "____________________________________________________________";
+        System.out.println(divider);
     }
 
     /**

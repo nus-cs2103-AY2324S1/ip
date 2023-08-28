@@ -1,8 +1,8 @@
 package carbonbot;
 
-import carbonbot.command.Command;
-
 import java.io.IOException;
+
+import carbonbot.command.Command;
 
 public class CarbonBot {
     private final String saveFilePath;

@@ -1,6 +1,5 @@
 package carbonbot.command;
 
-import carbonbot.DukeException;
 import carbonbot.Storage;
 import carbonbot.TaskList;
 import carbonbot.Ui;

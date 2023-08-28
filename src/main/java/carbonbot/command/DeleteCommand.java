@@ -9,7 +9,7 @@ import carbonbot.Ui;
 import carbonbot.task.Task;
 
 public class DeleteCommand extends Command {
-    private int taskIdx;
+    private final int taskIdx;
 
     public DeleteCommand(int taskIdx) {
         this.taskIdx = taskIdx;
@@ -25,8 +25,8 @@ public class DeleteCommand extends Command {
             ui.showMessage(task.toString());
             ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
         } catch (IndexOutOfBoundsException ie) {
-            throw new DukeException("Index provided was out-of-bounds. Use the index" +
-                    " number labelled for the task in the command 'list'!");
+            throw new DukeException("Index provided was out-of-bounds. Use the index"
+                    + " number labelled for the task in the command 'list'!");
         }
 
         try {

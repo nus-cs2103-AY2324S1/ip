@@ -30,28 +30,28 @@ public class TaskList {
 
                 String taskType = cols[0];
                 switch (taskType) {
-                    case "T":
-                        task = new Todo(cols[2]);
-                        break;
-                    case "D":
-                        try {
-                            LocalDateTime byDt = parseDateTimeString(cols[3]);
-                            task = new Deadline(cols[2], byDt);
-                        } catch (DateTimeParseException ex) {
-                            throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format.");
-                        }
-                        break;
-                    case "E":
-                        try {
-                            LocalDateTime fromDt = parseDateTimeString(cols[3]);
-                            LocalDateTime toDt = parseDateTimeString(cols[4]);
-                            task = new Event(cols[2], fromDt, toDt);
-                        } catch (DateTimeParseException ex) {
-                            throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format.");
-                        }
-                        break;
-                    default:
-                        throw new DukeException("Invalid File Format");
+                case "T":
+                    task = new Todo(cols[2]);
+                    break;
+                case "D":
+                    try {
+                        LocalDateTime byDt = parseDateTimeString(cols[3]);
+                        task = new Deadline(cols[2], byDt);
+                    } catch (DateTimeParseException ex) {
+                        throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format.");
+                    }
+                    break;
+                case "E":
+                    try {
+                        LocalDateTime fromDt = parseDateTimeString(cols[3]);
+                        LocalDateTime toDt = parseDateTimeString(cols[4]);
+                        task = new Event(cols[2], fromDt, toDt);
+                    } catch (DateTimeParseException ex) {
+                        throw new DukeException("☹ OOPS!!! The 'by' datetime was not in a valid format.");
+                    }
+                    break;
+                default:
+                    throw new DukeException("Invalid File Format");
                 }
                 if (cols[1].equals("1")) {
                     task.markAsDone();

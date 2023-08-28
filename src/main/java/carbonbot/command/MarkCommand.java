@@ -9,8 +9,8 @@ import carbonbot.Ui;
 import carbonbot.task.Task;
 
 public class MarkCommand extends Command {
-    private int taskIdx;
-    private boolean isMark;
+    private final int taskIdx;
+    private final boolean isMark;
 
     public MarkCommand(int taskIdx, boolean isMark) {
         this.taskIdx = taskIdx;
@@ -30,8 +30,8 @@ public class MarkCommand extends Command {
             }
             ui.showMessage(task.toString());
         } catch (IndexOutOfBoundsException ioe) {
-            throw new DukeException("Index provided was out-of-bounds. Use the index" +
-                    " number labelled for the task in the command 'list'!");
+            throw new DukeException("Index provided was out-of-bounds. Use the index"
+                    + " number labelled for the task in the command 'list'!");
         }
 
         // Save the TaskList to Storage

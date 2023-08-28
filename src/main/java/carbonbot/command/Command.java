@@ -6,7 +6,7 @@ import carbonbot.TaskList;
 import carbonbot.Ui;
 
 public abstract class Command {
-    private boolean isExit;
+    private final boolean isExit;
 
     public Command() {
         this.isExit = false;

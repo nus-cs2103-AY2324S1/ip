@@ -1,12 +1,12 @@
 package carbonbot.command;
 
+import java.io.IOException;
+
 import carbonbot.DukeException;
 import carbonbot.Storage;
 import carbonbot.TaskList;
 import carbonbot.Ui;
 import carbonbot.task.Task;
-
-import java.io.IOException;
 
 public class AddCommand extends Command {
     private final Task task;

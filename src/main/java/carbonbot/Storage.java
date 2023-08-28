@@ -22,7 +22,7 @@ public class Storage {
      * @throws IOException The file data could not be fetched from the storage.
      */
     public List<String> load() throws IOException {
-        // Returns an empty list if the file does not exists
+        // Returns an empty list if the file does not exist
         if (!new File(this.filePath).exists()) {
             return new ArrayList<String>();
         }
@@ -31,7 +31,7 @@ public class Storage {
     }
 
     public void write(String data) throws IOException {
-        // Create the file, and its directories if it does not already exists
+        // Create the file, and its directories if it does not already exist
         File file = new File(filePath);
         if (!file.exists()) {
             file.getParentFile().mkdirs();
