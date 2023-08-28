@@ -1,14 +1,27 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
 
     protected String by;
 
+    protected LocalDate date;
+
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+        this.date = null;
+    }
+
+    public Deadline(String description, String by, LocalDate date) {
+        super(description);
+        this.by = by;
+        this.date = date;
     }
 
     public static void addDeadline(ArrayList<Task> list, String command) {
@@ -51,8 +64,14 @@ public class Deadline extends Task {
         int dateIndex = currStr.indexOf("/");
         String date = currStr.substring(dateIndex + 4);
         String description = currStr.substring(0, dateIndex);
-        Task deadlineTask = new Deadline(description, date);
-        list.add(deadlineTask);
+        Task deadlineTask;
+        try {
+            LocalDate d1 = LocalDate.parse(date);
+            deadlineTask = new Deadline(description, date, d1);
+        } catch (DateTimeParseException e) {
+            deadlineTask = new Deadline(description, date);;
+        }
+
         try {
             FileWriter myWriter = new FileWriter("./src/main/data/duke.txt", true);
             myWriter.write(  "D | 0 | " + description + "| " + date + "\n");
@@ -61,6 +80,8 @@ public class Deadline extends Task {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+
+        list.add(deadlineTask);
         System.out.println(deadlineTask);
         System.out.println("Now you have " + list.size() + " tasks in the list." );
         printHorizontalLine();
@@ -70,19 +91,31 @@ public class Deadline extends Task {
     public static void readData(ArrayList<Task> list, String data) {
         String splitDeadline[] = data.split(" \\| ");
 
-//        for (int i = 0; i < splitDeadline.length; i++) {
-//            System.out.println(splitDeadline[i]);
-//        }
+        Task deadlineTask;
+        try {
+            LocalDate d1 = LocalDate.parse(splitDeadline[3]);
+            deadlineTask = new Deadline(splitDeadline[2] + " ", splitDeadline[3], d1);
+        } catch (DateTimeParseException e) {
+            deadlineTask = new Deadline(splitDeadline[2], splitDeadline[3]);
+        }
 
-        Task deadlineTask = new Deadline(splitDeadline[2], splitDeadline[3]);
         list.add(deadlineTask);
         if (splitDeadline[1].equals("1")) {
             list.get(list.size()-1).markDoneNoPrint();
         }
     }
 
+
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        if (this.date == null) {
+            return "[D]" + super.toString() + " (by: " + by + ")";
+        } else {
+            return "[D]" + super.toString() + getDate();
+        }
+    }
+
+    public String getDate() {
+        return this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 }
