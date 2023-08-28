@@ -14,6 +14,8 @@ import java.util.Map;
  */
 public class ChatCommand {
 
+    private static final String PARAMETER_PREFIX = "/";
+
     /**
      * A command operation, representing an identified operation for a command.
      */
@@ -68,7 +70,7 @@ public class ChatCommand {
      * @return The resulting command.
      */
     public static ChatCommand parse(String instruction) {
-        String[] parts = instruction.trim().split(" ");
+        String[] parts = instruction.trim().split("[ \t\n]");
 
         // 1. The first space delimited component is our name
         String name = parts[0].trim();
@@ -79,10 +81,10 @@ public class ChatCommand {
         // Search up till next part with starting "/".
         // That's our data. We mark the index onwards where
         // the components are no longer data (so it is excluded).
-        int dataEndIndex = 1;
+        int dataEndIndex = name.startsWith(PARAMETER_PREFIX) ? 0 : 1;
         while (dataEndIndex < parts.length) {
             String part = parts[dataEndIndex];
-            if (part.startsWith("/")) {
+            if (part.startsWith(PARAMETER_PREFIX)) {
                 break;
             }
             dataEndIndex++;
@@ -104,7 +106,7 @@ public class ChatCommand {
         StringBuilder currParamValue = new StringBuilder();
         for (int i = dataEndIndex; i < parts.length; i++) {
             String part = parts[i].trim();
-            if (part.startsWith("/")) {
+            if (part.startsWith(PARAMETER_PREFIX)) {
                 // New key value pair.
                 // Check if old key exists, then add it if it does.
                 if (!currParamKey.isEmpty()) {
@@ -122,7 +124,12 @@ public class ChatCommand {
             params.put(currParamKey, currParamValue.toString().trim());
         }
 
-        // 4. Now we are done! Construct and return the result.
+        // 4. Do a cleanup if there is no name (the name part is actually a parameter keyword).
+        if (name.startsWith(PARAMETER_PREFIX)) {
+            name = "";
+        }
+
+        // 5. Now we are done! Construct and return the result.
         return new ChatCommand(name, data.toString(), params);
     }
 
@@ -197,8 +204,8 @@ public class ChatCommand {
      * @return The value of this param, or null if unset.
      */
     public String getParam(String key) {
-        if (!key.startsWith("/")) {
-            key = "/" + key;
+        if (!key.startsWith(PARAMETER_PREFIX)) {
+            key = PARAMETER_PREFIX + key;
         }
         return this.params.get(key);
     }
@@ -219,8 +226,8 @@ public class ChatCommand {
      * @return `true` if it was initialised, `false` otherwise.
      */
     public boolean hasParam(String key) {
-        if (!key.startsWith("/")) {
-            key = "/" + key;
+        if (!key.startsWith(PARAMETER_PREFIX)) {
+            key = PARAMETER_PREFIX + key;
         }
         return this.params.containsKey(key);
     }
@@ -233,8 +240,8 @@ public class ChatCommand {
      * @return `true` if it has any non-empty, non-whitespace value, `false` otherwise.
      */
     public boolean hasParamWithUsefulValue(String key) {
-        if (!key.startsWith("/")) {
-            key = "/" + key;
+        if (!key.startsWith(PARAMETER_PREFIX)) {
+            key = PARAMETER_PREFIX + key;
         }
         String value = this.params.get(key);
         if (value == null) {

@@ -15,6 +15,7 @@ import taskmanager.task.Todo;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -60,16 +61,16 @@ public class TaskManager {
     }
 
     /**
-     * Obtains the items as an iterable.
-     * @return The iterable of list of items.
+     * Obtains the currently stored tasks as an immutable list.
+     * @return The list of tasks.
      */
-    public Iterable<Task> getTasks() {
-        return this.taskList;
+    public List<Task> getTasks() {
+        return Collections.unmodifiableList(this.taskList);
     }
 
     /**
-     * Queries the number of items stored.
-     * @return The number of items currently stored as an integer.
+     * Queries the number of tasks stored.
+     * @return The number of tasks currently stored as an integer.
      */
     public int getTaskCount() {
         return this.taskList.size();

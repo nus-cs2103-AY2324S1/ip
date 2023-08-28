@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class InternalPath {
 
-    private static final java.nio.file.Path DEFAULT_BASE_JAVA_NIO_FILE_PATH = java.nio.file.Path.of(".", "todoifydata");
+    private static final Path DEFAULT_BASE_JAVA_NIO_FILE_PATH = Path.of(".", "todoifydata");
 
     private final String[] components;
 
@@ -39,13 +39,24 @@ public class InternalPath {
     }
 
     /**
+     * Returns the internal relative path components, representing the path if joined
+     * with a path separator.
+     *
+     * @return The internal relative path components.
+     */
+    public String[] getComponents() {
+        return Arrays.copyOf(this.components, this.components.length);
+    }
+
+    /**
      * Returns a new path relative to the configured base directory, while removing the last
      * component in the path.
      *
      * @return The path after removing the last path component.
+     * @throws NegativeArraySizeException if there are no more components in the path to strip.
      */
     public InternalPath excludingLastComponent() {
-        String[] pathComponents = Arrays.copyOf(this.components, Math.max(0, this.components.length - 1));
+        String[] pathComponents = Arrays.copyOf(this.components, this.components.length - 1);
         return new InternalPath(pathComponents);
     }
 
