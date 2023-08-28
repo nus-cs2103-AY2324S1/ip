@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Arrays;
 
 /**
- * The duke.Parser class is used to run the infinite loop and
- * take in inputs by the user
+ * The duke.Parser class takes an input and returns
+ * a corresponding command.
  *
  * @author Zi Xiang
  * @version CS2103 AY23/24 Sem 1
@@ -24,6 +24,13 @@ public class Parser {
     // Initialisation of objects and variables
     static List<String> commands = Arrays.asList(new String[]{"todo", "deadline", "event", "mark", "unmark", "delete"});;
 
+    /**
+     * Returns a corresponding Command from input.
+     *
+     * @param fullCommand a String with the command
+     * @return A Command to be executed
+     * @throws DukeException If input does not match
+     */
     public static Command parse(String fullCommand) throws DukeException {
         if (fullCommand.equals("bye")) {
             return new ExitCommand();

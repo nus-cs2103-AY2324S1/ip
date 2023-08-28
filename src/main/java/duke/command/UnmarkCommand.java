@@ -6,6 +6,10 @@ import duke.UI;
 
 import java.io.IOException;
 
+/**
+ * The UnmarkCommand represents a Command that
+ * unmarks a specific task.
+ */
 public class UnmarkCommand extends Command {
     int index;
 

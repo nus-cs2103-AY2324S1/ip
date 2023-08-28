@@ -7,6 +7,10 @@ import duke.task.Task;
 
 import java.io.IOException;
 
+/**
+ * The DeleteCommand represents a command
+ * to delete a task from the TaskList.
+ */
 public class DeleteCommand extends Command{
     int index;
 

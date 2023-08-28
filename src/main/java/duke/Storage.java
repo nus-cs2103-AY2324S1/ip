@@ -13,6 +13,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The storage class reads and writes from
+ * the hard drive.
+ */
 public class Storage {
     String filePath;
 
@@ -20,6 +24,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Reads from the hard drive and returns the
+     * tasks that have been read.
+     *
+     * @return An ArrayList of the tasks on hard drive.
+     * @throws FileNotFoundException If file does not exist.
+     */
     public ArrayList<Task> load() throws FileNotFoundException{
         File file = new File(filePath);
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -42,9 +53,10 @@ public class Storage {
     }
 
     /**
-     * Rewrites the file in hard drive
-     * @param tasks
-     * @throws IOException
+     * Rewrites the file in hard drive.
+     *
+     * @param tasks TaskList containing the tasks.
+     * @throws IOException If file is corrupted.
      */
     public void rewrite(TaskList tasks) throws IOException{
         ArrayList<Task> arrayTasks = tasks.getTasks();
@@ -56,6 +68,12 @@ public class Storage {
         file.close();
     }
 
+    /**
+     * Adds a new task to the hard drive.
+     *
+     * @param task The task to be added.
+     * @throws IOException If the file is corrupted.
+     */
     public void append(Task task) throws IOException {
         FileWriter file = new FileWriter("storage.txt", true);
         file.write(task.fileRepresentation());
