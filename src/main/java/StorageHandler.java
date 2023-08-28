@@ -24,6 +24,7 @@ public class StorageHandler {
         todoList[size] = t;
         System.out.println("Added: \n   " + todoList[size].toString() + "\nPeko!");
         System.out.println("You have: " + (size+1) + " tasks now Peko");
+        size++;
         SaveHandler.saveTo();
     }
     public static void setMarkArray(int i) {
