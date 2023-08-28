@@ -9,11 +9,21 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Stores data of the list of tasks.
+ *
+ * @author Joseph Oliver Lim
+ */
 public class Storage {
     private final String DIRECTORY = "./data";
     private final String FILE_PATH = DIRECTORY + "/duke.txt";
     private File FILE;
 
+    /**
+     * Creates a new file to store data if no file exists yet.
+     *
+     * @throws DukeException If a file cannot be created.
+     */
     public void initialize() throws DukeException {
         try {
             File directory = new File(this.DIRECTORY);
@@ -29,6 +39,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads from the file to retrieve the list of tasks.
+     *
+     * @return A TaskList containing tasks read from the file.
+     * @throws DukeException If the reading file process failed.
+     */
     public TaskList readFile() throws DukeException {
         try {
             TaskList tasks = new TaskList();
@@ -70,6 +86,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes the list of tasks to the file.
+     *
+     * @param tasks The tasks to be written to the file.
+     * @throws DukeException If the writing to file process failed.
+     */
     public void writeToFile(TaskList tasks) throws DukeException {
         try {
             FileWriter fw = new FileWriter(FILE);
