@@ -11,6 +11,14 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String toFileString() {
+        if (this.done == true) {
+            return "D | 1 | " + this.title + " | " + this.deadline;
+        }
+        return "D | 0 | " + this.title + " | " + this.deadline;
+    }
+
+    @Override
     public String toString() {
         String s = String.format("(by: %s)", deadline);
         if (this.done == true) {

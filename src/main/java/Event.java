@@ -15,6 +15,14 @@ public class Event extends Task {
     }
 
     @Override
+    public String toFileString() {
+        if (this.done == true) {
+            return "D | 1 | " + this.title + " | " + this.start + "-" + this.end;
+        }
+        return "D | 0 | " + this.title + " | " +  this.start + "-" + this.end;
+    }
+
+    @Override
     public String toString() {
         String s = String.format("(from: %s to: %s)", start, end);
         if (this.done == true) {

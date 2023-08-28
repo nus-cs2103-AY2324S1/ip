@@ -13,4 +13,8 @@ public abstract class Task {
     public void markUndone() {
         this.done = false;
     }
+
+    public String toFileString() {
+        return "task";
+    }
 }
