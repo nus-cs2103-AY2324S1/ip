@@ -1,3 +1,4 @@
+	A new folder and file to store your tasks has been created.
 	__________________________________
 	++      ++      ++
 	||      ||      ||
@@ -9,7 +10,6 @@
 	Hi there! I'm Zean
 	How can I help you today?
 	__________________________________
-	A new folder and file to store your tasks has been created.
 	__________________________________
 	Got it. I've added this task:
 	  [T][ ] borrow book
@@ -59,10 +59,10 @@
 	__________________________________
 	__________________________________
 	Hmm, the description of a todo cannot be empty :(
-	__________________________________
+	**********************************
 	__________________________________
 	OOPS!!! I'm sorry, but I don't understand what that means :-(
-	__________________________________
+	**********************************
 	__________________________________
 	Got it. I've added this task:
 	  [T][ ] join sports club
