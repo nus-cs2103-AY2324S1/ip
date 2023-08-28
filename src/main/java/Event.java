@@ -27,6 +27,12 @@ public class Event extends Task {
         }
     }
 
+    public Event(String description, String startTime, String endTime) {
+        super(description);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     @Override
     public String getStatusIcon() {
         return "[E]" + super.getStatusIcon();
@@ -36,5 +42,14 @@ public class Event extends Task {
     public String toString() {
         if (startTime == null && endTime == null) return super.toString();
         return super.toString() + String.format(" (from %s to %s)", startTime, endTime);
+    }
+
+    @Override
+    public String toFileString() {
+        return "E | "
+                + super.toFileString()
+                + (startTime == null && endTime == null
+                        ? ""
+                        : String.format(" | %s | %s", startTime, endTime));
     }
 }

@@ -11,6 +11,11 @@ public class Deadline extends Task {
         }
     }
 
+    public Deadline(String description, String deadline) {
+        super(description);
+        this.deadline = deadline;
+    }
+
     @Override
     public String getStatusIcon() {
         return "[D]" + super.getStatusIcon();
@@ -20,5 +25,10 @@ public class Deadline extends Task {
     public String toString() {
         if (deadline == null) return super.toString();
         return super.toString() + String.format(" (by: %s)",deadline);
+    }
+
+    @Override
+    public String toFileString() {
+        return "D | " + super.toFileString() + (deadline == null ? "" : " | " + deadline);
     }
 }

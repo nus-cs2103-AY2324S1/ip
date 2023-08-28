@@ -7,4 +7,9 @@ public class Todo extends Task{
     public String getStatusIcon() {
         return "[T]" + super.getStatusIcon();
     }
+
+    @Override
+    public String toFileString() {
+        return "T | " + super.toFileString();
+    }
 }

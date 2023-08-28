@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,9 @@ public class Duke {
         // Store tasks entered by the user in tasks
         List<Task> tasks = new ArrayList<>();
 
+        // Load tasks
+        loadTasksFromFile(tasks);
+
         // Start command loop
         while (true) {
             // Read the next line of input
@@ -29,12 +33,16 @@ public class Duke {
                     listTasks(tasks);
                 } else if (userInput.startsWith("mark")) {
                     markTaskAsDone(userInput, tasks);
+                    saveTask(tasks);
                 } else if (userInput.startsWith("unmark")) {
                     unmarkTaskAsDone(userInput, tasks);
+                    saveTask(tasks);
                 } else if (userInput.startsWith("delete")) {
                     deleteTask(userInput, tasks);
+                    saveTask(tasks);
                 } else {
                     addTask(userInput, tasks);
+                    saveTask(tasks);
                 }
             } catch (DukeException e) {
                 System.out.println(":( Chewy can't understand! " + e.getMessage());
@@ -42,6 +50,70 @@ public class Duke {
                 System.out.println("Something unexpected happened. try 'help' to see a list of commands");
             }
         }
+    }
+
+    private static void saveTask(List<Task> tasks) {
+        System.out.println("Saving tasks...");
+        try (PrintWriter writer = new PrintWriter("./data/duke.txt")) {
+            for (Task task: tasks) {
+                writer.println(task.toFileString());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error saving tasks to file" + e.getMessage());
+        }
+        System.out.println("Task saved successfully");
+    }
+
+    private static void loadTasksFromFile(List<Task> tasks) {
+        System.out.println("Loading tasks...");
+        try (BufferedReader reader = new BufferedReader(new FileReader("./data/duke.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = parseTaskFromFileString(line);
+                tasks.add(task);
+            }
+        } catch (IOException e) {
+            System.out.println("Cant load file!");
+        }
+        System.out.println("Tasks loaded successfully, see 'list' to view all tasks");
+    }
+
+    private static Task parseTaskFromFileString(String lineFromFile) {
+        Task task;
+        String[] lineParts = lineFromFile.split(" \\| ");
+        String taskType = lineParts[0];
+        boolean isDone = lineParts[1].equals("X");
+        String description = lineParts[2];
+        switch (taskType) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                String by;
+                if (lineParts.length == 4) {
+                    by = lineParts[3];
+                    task = new Deadline(description, by); // add by
+                } else {
+                    task = new Deadline(description);
+                }
+                break;
+            case "E":
+                String from;
+                String to;
+                if (lineParts.length == 5) {
+                    from = lineParts[3];
+                    to = lineParts[4];
+                    task = new Event(description, from, to); // add from and to
+                } else {
+                    task = new Event(description);
+                }
+                break;
+            default:
+                // Line does not start with a task value (T,D,E), file corrupted, throw error
+                throw new IllegalArgumentException("Invalid Task Type");
+        }
+        if (isDone) task.markAsDone();
+        return task;
     }
 
     private static void addTask(String userInput, List<Task> tasks) throws DukeException {

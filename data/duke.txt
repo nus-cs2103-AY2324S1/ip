@@ -1,0 +1,3 @@
+T | X | yy
+E | 0 | ff | 3pm | 4pm
+D | 0 | ddd | tomorrow
