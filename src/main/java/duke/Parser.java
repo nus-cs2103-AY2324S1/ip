@@ -84,10 +84,6 @@ public class Parser {
         return userInput.split(" ", 2)[1].trim();
     }
 
-    public static String getKeyString(String userInput) {
-        return userInput.split(" ", 2)[1].trim();
-    }
-
     /*
      * A method to parse command that user gave
      * 

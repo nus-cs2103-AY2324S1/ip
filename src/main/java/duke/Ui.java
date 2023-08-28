@@ -124,7 +124,7 @@ public class Ui {
      * A method that prints message when user wants a list of tasks in TaskList
      * object
      * 
-     * @params arr TaskList object that contains existing Task object
+     * @params arr TaskList object that contains existing Task objects
      * 
      * @return string that is printed representing list of tasks in specified
      * TaskList
@@ -138,21 +138,15 @@ public class Ui {
         return out;
     }
 
-    public String find(TaskList arr, String keyString) {
-        String out = "Here are the matching tasks in your list:\n";
-        TaskList outTaskList = arr.filter(keyString);
-        if (outTaskList.length() == 0) {
-            out = "There are no matching tasks in the list.";
-            System.out.println(out);
-            return out;
-        }
-        for (int i = 0; i < outTaskList.length(); i++) {
-            out = out + (i + 1) + ". " + outTaskList.taskToString(i) + "\n";
-        }
-        System.out.println(out);
-        return out;
-    }
-
+    /*
+     * A method that finds all existing tasks that contains specified substring and lists it
+     * 
+     * @params arr taskList object that contains existing Task objects
+     * 
+     * @params keyString string that user wants to search for
+     * 
+     * @return string that lists all tasks with descriptions containing specified substring
+     */
     public String find(TaskList arr, String keyString) {
         String out = "Here are the matching tasks in your list:\n";
         TaskList outTaskList = arr.filter(keyString);
