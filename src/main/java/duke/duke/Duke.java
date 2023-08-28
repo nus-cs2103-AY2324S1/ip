@@ -1,12 +1,16 @@
-import java.util.ArrayList;
+package duke.duke;
+
+import duke.exception.DukeException;
+import duke.task.*;
+import duke.util.Parser;
+import duke.util.Storage;
+
 import java.util.Scanner;
 import java.util.List;
 
 public class Duke {
 
-
     private final Storage storage;
-    private TaskList tasks;
     private final Ui ui;
 
     public Duke(String filePath) {
@@ -93,7 +97,7 @@ public class Duke {
     }
 
     /**
-     * The main method to run the Duke program, a task management application.
+     * The main method to run the duke.duke.Duke program, a task management application.
      * It reads user input and performs various tasks based on the input commands.
      *
      * @param args The command-line arguments (not used in this context).

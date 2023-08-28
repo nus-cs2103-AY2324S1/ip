@@ -1,3 +1,7 @@
+package duke.util;
+
+import duke.exception.DukeException;
+
 public class Parser {
 
     private String command;
