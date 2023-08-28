@@ -10,7 +10,7 @@ public class MarkCommand extends Command{
     private int taskNumber;
     private boolean isDone;
 
-    MarkCommand(int taskNumber, boolean isDone) {
+    public MarkCommand(int taskNumber, boolean isDone) {
         this.taskNumber = taskNumber;
         this.isDone = isDone;
     }

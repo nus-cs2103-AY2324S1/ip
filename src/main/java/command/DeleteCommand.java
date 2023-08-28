@@ -1,7 +1,7 @@
 package command;
 
 import exception.BobException;
-import exception.BobTaskOutOfBoundsException;
+import exception.BobInvalidTaskNumberException;
 import storage.StorageFile;
 import task.Task;
 import task.TaskList;
@@ -16,12 +16,8 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, StorageFile storageFile, TextUi ui) throws BobException {
-        try {
-            Task deletedTask = taskList.deleteTask(taskNumber);
-            //TODO: Ui print delete message
-        } catch (BobTaskOutOfBoundsException e) {
-            //TODO: Ui print error message
-        }
+        Task deletedTask = taskList.deleteTask(taskNumber);
+        //TODO: Ui print delete message
         storageFile.saveTasks(taskList);
     }
 }

@@ -59,7 +59,7 @@ public class TextUi {
 
     private void printList(TaskList taskList) {
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.getTask(i).toString());
+            //System.out.println((i + 1) + ". " + taskList.getTask(i).toString());
         }
     }
 }

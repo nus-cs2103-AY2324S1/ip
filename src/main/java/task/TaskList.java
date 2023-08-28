@@ -1,9 +1,8 @@
 package task;
 
-import exception.BobTaskOutOfBoundsException;
+import exception.BobInvalidTaskNumberException;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -19,11 +18,11 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public Task deleteTask(int num) throws BobTaskOutOfBoundsException {
+    public Task deleteTask(int num) throws BobInvalidTaskNumberException {
         try {
             return tasks.remove(num - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new BobTaskOutOfBoundsException();
+            throw new BobInvalidTaskNumberException();
         }
     }
 
@@ -31,11 +30,11 @@ public class TaskList {
         return this.tasks.size();
     }
 
-    public Task getTask(int num) {
+    public Task getTask(int num) throws BobInvalidTaskNumberException {
         try {
             return this.tasks.get(num - 1);
         } catch (IndexOutOfBoundsException e) {
-            throw new IndexOutOfBoundsException();
+            throw new BobInvalidTaskNumberException();
         }
     }
 }
