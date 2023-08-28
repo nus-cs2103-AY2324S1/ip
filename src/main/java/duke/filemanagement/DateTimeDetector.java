@@ -19,7 +19,7 @@ public class DateTimeDetector {
     /**
      * Constructor of DateTimeDetector.
      */
-    public DateTimeDetector(){}
+    public DateTimeDetector() {}
 
     /**
      * Format the input date.

@@ -2,6 +2,9 @@ package duke.task;
 
 import java.util.LinkedList;
 
+/**
+ * A list of task that handles the tasks.
+ */
 public class TaskList {
     protected LinkedList<Task> storage;
 

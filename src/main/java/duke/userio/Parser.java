@@ -3,20 +3,41 @@ package duke.userio;
 import duke.filemanagement.Storage;
 import duke.task.*;
 
-public class Parser  {
+/**
+ * Deals with making sense of user command.
+ */
+public class Parser {
     private Ui ui;
     private TaskList taskList;
     private boolean botInUse;
     private Storage storage;
+
+    /**
+     *  Deals with making sense of user command.
+     * @param ui Helps generate appropriate responses.
+     * @param taskList TaskList that the bot uses.
+     * @param botInUse Status of bot.
+     * @param storage Storage that the bot uses.
+     */
     public Parser(Ui ui, TaskList taskList, boolean botInUse, Storage storage) {
         this.ui = ui;
         this.taskList = taskList;
         this.storage = storage;
         this.botInUse = botInUse;
     }
+
+    /**
+     * Update task content from task list into the task file.
+     */
     private void updateSaveFile() {
         storage.saveFile(taskList.outputNumberedList());
     }
+
+    /**
+     * Takes in user input and generate responses accordingly.
+     * @param input User input.
+     * @throws InvalidUserInputException User input does not generate any specific response.
+     */
     public void listen(String input) throws InvalidUserInputException {
         if (input.equals("bye")) {
             botInUse = false;
@@ -26,13 +47,13 @@ public class Parser  {
             ui.list(outputList);
         } else if (input.contains("unmark")) {
             int a = Integer.parseInt(input.substring(7));
-            Task t = taskList.getTask(a-1);
+            Task t = taskList.getTask(a - 1);
             t.markAsUndone();
             ui.unmarkTask(t);
             updateSaveFile();
         } else if (input.contains("mark")) {
             int a = Integer.parseInt(input.substring(5));
-            Task t = taskList.getTask(a-1);
+            Task t = taskList.getTask(a - 1);
             t.markAsDone();
             ui.markTask(t);
             updateSaveFile();
@@ -71,8 +92,8 @@ public class Parser  {
             }
         } else if (input.contains("delete")) {
             int a = Integer.parseInt(input.substring(7));
-            Task toBeRemoved = taskList.getTask(a-1);
-            taskList.deleteTask(a-1);
+            Task toBeRemoved = taskList.getTask(a - 1);
+            taskList.deleteTask(a - 1);
             ui.taskDeleted(toBeRemoved, taskList);
             updateSaveFile();
         } else if (input.contains("find")) {
@@ -90,6 +111,10 @@ public class Parser  {
         }
     }
 
+    /**
+     * Updates bot usage.
+     * @return
+     */
     public boolean updateBotUsage() {
         return botInUse;
     }

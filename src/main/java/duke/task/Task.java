@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * A general task that has description and status whether it is completed.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -9,7 +12,7 @@ public class Task {
      * @param description Describes the task.
      */
     public Task(String description) {
-         this(description, false);
+        this(description, false);
     }
 
     /**

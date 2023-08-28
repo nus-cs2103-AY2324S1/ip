@@ -1,7 +1,8 @@
 package duke.task;
 
-import duke.task.Task;
-
+/**
+ * A task that has no additional properties.
+ */
 public class ToDo extends Task {
     /**
      * Constructor to build a task with description as input.

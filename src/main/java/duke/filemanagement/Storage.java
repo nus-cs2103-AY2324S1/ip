@@ -11,6 +11,9 @@ import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.IOException;
 
+/**
+ * Represents a storage to store the task file content that can perform different operations to the content.
+ */
 public class Storage {
     private String filepath;
 
@@ -18,7 +21,7 @@ public class Storage {
      * Constructor of storage.
      * @param filepath Filepath that leads to the task file to be loaded into bot.
      */
-    public Storage(String filepath){
+    public Storage(String filepath) {
         this.filepath = filepath;
     }
 
@@ -78,7 +81,7 @@ public class Storage {
                 // line = "A. [B][C] Details" where A is index of task, B is type of task, C is mark status
                 String[] lineSplit = line.split("\\[");
                 int taskIndex = Integer.parseInt(lineSplit[0].split("\\.")[0]);
-                String taskType = lineSplit[1].substring(0 ,1);
+                String taskType = lineSplit[1].substring(0 , 1);
                 boolean markStatus = lineSplit[2].charAt(0) == 'X';
                 String taskDetails = lineSplit[2].split("] ")[1];
                 if (taskType.equals("T")) {

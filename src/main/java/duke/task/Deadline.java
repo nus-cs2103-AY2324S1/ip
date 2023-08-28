@@ -2,6 +2,9 @@ package duke.task;
 
 import duke.filemanagement.DateTimeDetector;
 
+/**
+ * Represents a task with deadline.
+ */
 public class Deadline extends Task {
 
     protected String by;

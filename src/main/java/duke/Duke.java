@@ -7,6 +7,9 @@ import duke.userio.Parser;
 import duke.userio.Ui;
 import java.util.*;
 
+/**
+ * Chatbot of the program.
+ */
 public class Duke {
     private final TaskList taskList;
     private final Ui ui;
@@ -31,7 +34,7 @@ public class Duke {
     /**
      * Runs the Duke bot.
      */
-    public void run(){
+    public void run() {
         storage.loadFileToTaskManager(taskList);
         ui.greetings();
         Scanner sc = new Scanner(System.in);

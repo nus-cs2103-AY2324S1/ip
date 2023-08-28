@@ -2,14 +2,17 @@ package duke.userio;
 
 import duke.task.*;
 
+/**
+ * Class to generate appropriate responses.
+ */
 public class Ui {
     protected static String H_LINE = "____________________________________________________________\n";
-    public Ui(){}
+    public Ui() {}
 
     /**
      * Greets the user.
      */
-    public void greetings(){
+    public void greetings() {
         System.out.println(H_LINE
                 + "Hello! I'm ChadBob.\n"
                 + "What can I do for you?\n"
@@ -21,7 +24,7 @@ public class Ui {
      */
     public void bye() {
         System.out.println(H_LINE
-                +  "Bye. Hope to see you again soon!\n"
+                + "Bye. Hope to see you again soon!\n"
                 + H_LINE);
     }
 
@@ -67,7 +70,8 @@ public class Ui {
         System.out.println(H_LINE
                 + "Got it. I've added this task:\n"
                 + toDoTask + "\n"
-                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
+                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ")
+                + "in the list." + "\n"
                 + H_LINE);
     }
 
@@ -89,7 +93,8 @@ public class Ui {
         System.out.println(H_LINE
                 + "Got it. I've added this task:\n"
                 + deadlineTask + "\n"
-                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
+                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ")
+                + "in the list." + "\n"
                 + H_LINE);
     }
 
@@ -111,14 +116,15 @@ public class Ui {
         System.out.println(H_LINE
                 + "Got it. I've added this task:\n"
                 + eventTask + "\n"
-                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
+                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ")
+                + "in the list." + "\n"
                 + H_LINE);
     }
 
     /**
      * Informs user that there is missing content in the Event task that user tried to create.
      */
-    public void eventMissingContent(){
+    public void eventMissingContent() {
         System.out.println(H_LINE
                 + "☹ OOPS!!! The event needs to have a task description, /from and /to.\n"
                 + H_LINE);
@@ -129,15 +135,20 @@ public class Ui {
      * @param deletedTask Task to be deleted.
      * @param taskList TaskList that contains the task.
      */
-    public void taskDeleted(Task deletedTask, TaskList taskList){
+    public void taskDeleted(Task deletedTask, TaskList taskList) {
         System.out.println(H_LINE
                 + "Noted. I've removed this task:\n"
                 + deletedTask + "\n"
-                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
+                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ")
+                + "in the list." + "\n"
                 + H_LINE);
     }
 
-    public void findResponse(String tasks){
+    /**
+     * Informs user the tasks found based on the Find functionality.
+     * @param tasks Matching tasks gathered from Find functionality.
+     */
+    public void findResponse(String tasks) {
         System.out.println(H_LINE
                 + "Here are the matching tasks in your list:\n"
                 + tasks
@@ -147,7 +158,7 @@ public class Ui {
     /**
      * Informs user the given input does not work.
      */
-    public void invalidInputRes(){
+    public void invalidInputRes() {
         System.out.println(H_LINE
                 + "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
                 + H_LINE);

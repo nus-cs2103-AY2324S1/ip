@@ -2,6 +2,9 @@ package duke.task;
 
 import duke.filemanagement.DateTimeDetector;
 
+/**
+ * Represents a task that is an Event.
+ */
 public class Event extends Task {
 
     protected String from;
