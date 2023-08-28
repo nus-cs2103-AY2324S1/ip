@@ -8,6 +8,7 @@ import carbonbot.command.AddCommand;
 import carbonbot.command.Command;
 import carbonbot.command.DeleteCommand;
 import carbonbot.command.ExitCommand;
+import carbonbot.command.FindCommand;
 import carbonbot.command.ListCommand;
 import carbonbot.command.MarkCommand;
 import carbonbot.task.Deadline;
@@ -92,7 +93,6 @@ public class Parser {
             if (to.isBlank()) {
                 throw new DukeException("☹ OOPS!!! The 'to' of an event cannot be empty.");
             }
-
             try {
                 LocalDateTime fromDt = parseDateTimeString(from);
                 LocalDateTime toDt = parseDateTimeString(to);
@@ -106,11 +106,15 @@ public class Parser {
             return new MarkCommand(getIntegerArgument(fullCommand), false);
         case "delete":
             return new DeleteCommand(getIntegerArgument(fullCommand));
+        case "find":
+            String keyword = fullCommand.substring("find".length()).trim();
+            return new FindCommand(keyword);
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-("
                     + "\nMy supported commands are: list, mark, unmark, todo, deadline, event, bye.");
         }
     }
+
 
     private static LocalDateTime parseDateTimeString(String dateTime) throws DateTimeParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
