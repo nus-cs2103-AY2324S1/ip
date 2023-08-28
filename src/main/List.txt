@@ -1,2 +1,0 @@
-T | 1 | run
-D | 1 | help | today
