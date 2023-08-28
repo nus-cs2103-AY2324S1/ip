@@ -5,8 +5,14 @@ import carbonbot.TaskList;
 import carbonbot.Ui;
 import carbonbot.task.Task;
 
+/**
+ * The command lists all the tasks in the task list.
+ */
 public class ListCommand extends Command {
 
+	/**
+	 * Constructs a ListCommand object.
+	 */
 	public ListCommand() {
 
 	}

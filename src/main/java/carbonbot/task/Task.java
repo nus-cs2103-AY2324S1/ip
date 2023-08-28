@@ -1,11 +1,14 @@
 package carbonbot.task;
 
+/**
+ * This abstract class is the superclass of all classes representing a task.
+ */
 public abstract class Task {
 	protected String description;
 	protected boolean isDone;
 
 	/**
-	 * Represents a task that has a completion status
+	 * Constructs a task that has a completion status
 	 * @param description Description of the task
 	 */
 	public Task(String description) {

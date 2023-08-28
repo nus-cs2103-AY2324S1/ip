@@ -1,13 +1,23 @@
 package carbonbot;
 import java.util.Scanner;
 
+/**
+ * Ui deals with interactions with the user such as receiving inputs and printing outputs.
+ */
 public class Ui {
 	private final Scanner scanner;
 
+
+	/**
+	 * Constructs a new Ui that takes input from System.in, and outputs to System.out
+	 */
 	public Ui() {
 		this.scanner = new Scanner(System.in);
 	}
 
+	/**
+	 * Prints a line of divider
+	 */
 	public void printDivider() {
 		String DIVIDER = "____________________________________________________________";
 		System.out.println(DIVIDER);
@@ -21,6 +31,9 @@ public class Ui {
 		return this.scanner.nextLine();
 	}
 
+	/**
+	 * Prints a greeting to welcome the user and ask for input.
+	 */
 	public void showGreetings() {
 		printDivider();
 		System.out.println("Hello! I'm CarbonBot");
@@ -28,6 +41,10 @@ public class Ui {
 		printDivider();
 	}
 
+	/**
+	 * Displays the message through System.out.
+	 * @param message Message to be displayed.
+	 */
 	public void showMessage(String message) { System.out.println(message); }
 
 	/**

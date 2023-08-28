@@ -7,9 +7,16 @@ import carbonbot.TaskList;
 import carbonbot.Ui;
 import carbonbot.task.Task;
 
+/**
+ * The command deletes a task from the task list and saves the list to disk.
+ */
 public class DeleteCommand extends Command {
 	private int taskIdx;
 
+	/**
+	 * Constructs a DeleteCommand object that will delete the task at the provided index
+	 * @param taskIdx Task index to be deleted from the list
+	 */
 	public DeleteCommand(int taskIdx) {
 		this.taskIdx = taskIdx;
 	}

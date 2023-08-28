@@ -10,13 +10,22 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TaskList contains the task list and provides operations to interact with the tasks in the list.
+ */
 public class TaskList {
 	private List<Task> tasks;
 
+	/**
+	 * Constructs an empty list of tasks.
+	 */
 	public TaskList() {
 		this.tasks = new ArrayList<>();
 	}
 
+	/**
+	 * Constructs a list of tasks based on the serialized list of tasks.
+	 */
 	public TaskList(List<String> tasks) throws DukeException {
 		this.tasks = new ArrayList<Task>();
 		for(String str : tasks) {
@@ -99,6 +108,10 @@ public class TaskList {
 		}
 	}
 
+	/**
+	 * Serializes the tasks in the list to a String
+	 * @return Serialized tasks
+	 */
 	public String serialize() {
 		StringBuilder sb = new StringBuilder();
 		for (Task task : tasks) {
@@ -107,6 +120,9 @@ public class TaskList {
 		return sb.toString();
 	}
 
+	/**
+	 * Prints the tasks in the list
+	 */
 	public void printList() {
 		int idx = 1;
 		for(Task t : tasks) {
@@ -115,6 +131,10 @@ public class TaskList {
 		}
 	}
 
+	/**
+	 * Returns the number of tasks in the list
+	 * @return Size of the list
+	 */
 	public int size() {
 		return this.tasks.size();
 	}

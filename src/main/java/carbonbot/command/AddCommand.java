@@ -8,9 +8,16 @@ import carbonbot.task.Task;
 
 import java.io.IOException;
 
+/**
+ * The command adds a task to the task list and saves the list to disk.
+ */
 public class AddCommand extends Command {
 	private final Task task;
 
+	/**
+	 * Constructs an AddCommand object that will add the provided task
+	 * @param task Task to be added to the list
+	 */
 	public AddCommand(Task task) {
 		this.task = task;
 	}
