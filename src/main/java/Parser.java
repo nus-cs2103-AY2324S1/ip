@@ -1,0 +1,144 @@
+import exceptions.DukeException;
+import exceptions.InvalidDeadlineException;
+import exceptions.InvalidEventException;
+import exceptions.InvalidIndexException;
+import exceptions.InvalidTodoException;
+import exceptions.UnknownCommandException;
+
+import java.time.format.DateTimeParseException;
+
+public class Parser {
+
+    public static void processInput(String userInput, int taskListSize)
+            throws UnknownCommandException,
+            InvalidIndexException,
+            InvalidTodoException,
+            InvalidDeadlineException,
+            InvalidEventException {
+        String[] inputArr = userInput.trim().split(" ");
+        if (inputArr.length == 0) {
+            throw new UnknownCommandException();
+        }
+
+        String command = inputArr[0];
+        switch(command) {
+        case "list":
+            Duke.listTasks();
+            break;
+        case "mark":
+            parseMark(userInput, taskListSize);
+            break;
+        case "unmark":
+            parseUnmark(userInput, taskListSize);
+            break;
+        case "delete":
+            parseDelete(userInput, taskListSize);
+            break;
+        case "todo":
+            parseTodo(userInput);
+            break;
+        case "deadline":
+            parseDeadline(userInput);
+            break;
+        case "event":
+            parseEvent(userInput);
+            break;
+        default:
+            throw new UnknownCommandException();
+        }
+    }
+
+    private static void parseMark(String userInput, int taskListSize)
+            throws InvalidIndexException {
+        String restOfInput = userInput.trim().substring(4).trim();
+        try {
+            int taskNum = Integer.parseInt(restOfInput);
+            Duke.mark(taskNum);
+        } catch (NumberFormatException | DukeException e) {
+            throw new InvalidIndexException(taskListSize);
+        }
+    }
+
+    private static void parseUnmark(String userInput, int taskListSize)
+            throws InvalidIndexException {
+        String restOfInput = userInput.trim().substring(6).trim();
+        try {
+            int taskNum = Integer.parseInt(restOfInput);
+            Duke.unmark(taskNum);
+        } catch (NumberFormatException | DukeException e) {
+            throw new InvalidIndexException(taskListSize);
+        }
+    }
+
+    private static void parseDelete(String userInput, int taskListSize)
+            throws InvalidIndexException {
+        String restOfInput = userInput.trim().substring(6).trim();
+        try {
+            int taskNum = Integer.parseInt(restOfInput);
+            Duke.deleteTask(taskNum);
+        } catch (NumberFormatException | DukeException e) {
+            throw new InvalidIndexException(taskListSize);
+        }
+    }
+
+    private static void parseTodo(String userInput)
+            throws InvalidTodoException {
+        String restOfInput = userInput.trim().substring(4).trim();
+        if (restOfInput.equals("")) {
+            throw new InvalidTodoException();
+        }
+        Duke.createTodo(restOfInput);
+    }
+
+    private static void parseDeadline(String userInput)
+            throws InvalidDeadlineException {
+        String restOfInput = userInput.trim().substring(8).trim();
+        try {
+            if (!restOfInput.contains("/by")) {
+                throw new InvalidDeadlineException();
+            }
+
+            String[] arr = restOfInput.split("/by");
+            if (arr.length < 2) {
+                throw new InvalidDeadlineException();
+            }
+
+            String desc = arr[0].trim();
+            String deadline = arr[1].trim();
+
+            if (desc.equals("") || deadline.equals("")) {
+                throw new InvalidDeadlineException();
+            }
+            Duke.createDeadline(desc, deadline);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDeadlineException();
+        }
+    }
+
+    private static void parseEvent(String userInput)
+            throws InvalidEventException {
+        String restOfInput = userInput.trim().substring(5).trim();
+        try {
+            if (!restOfInput.contains("/from") || !restOfInput.contains("/to")) {
+                throw new InvalidEventException();
+            }
+
+            String[] arr = restOfInput.split("/from|/to");
+            if (arr.length < 3) {
+                throw new InvalidEventException();
+            }
+
+            String desc = arr[0].trim();
+            String start = arr[1].trim();
+            String end = arr[2].trim();
+
+            if (desc.equals("") || start.equals("") || end.equals("")) {
+                throw new InvalidEventException();
+            }
+            Duke.createEvent(desc, start, end);
+        } catch (DateTimeParseException e) {
+            throw new InvalidEventException();
+        }
+    }
+
+}

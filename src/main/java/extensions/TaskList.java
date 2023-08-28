@@ -6,6 +6,9 @@ import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import exceptions.DukeException;
+import exceptions.InvalidIndexException;
+
 public class TaskList {
     protected static final DateTimeFormatter DATETIME_FORMAT
             = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -30,7 +33,7 @@ public class TaskList {
     }
 
     public Task addEvent(String desc, String start, String end, int isMarked)
-            throws DateTimeParseException{
+            throws DateTimeParseException {
         LocalDateTime dateTimeStart = LocalDateTime.parse(start, DATETIME_FORMAT);
         LocalDateTime dateTimeEnd = LocalDateTime.parse(end, DATETIME_FORMAT);
         Task task = new EventTask(desc, dateTimeStart, dateTimeEnd, isMarked);
@@ -39,18 +42,36 @@ public class TaskList {
     }
 
     public Task markTaskAsDone(int i) {
+        if (this.list.size() < 1) {
+            throw new DukeException("The task list is empty.");
+        }
+        if (i < 1 || i > this.list.size()) {
+            throw new InvalidIndexException(this.list.size());
+        }
         Task task = this.list.get(i-1);
         task.markAsDone();
         return task;
     }
 
     public Task unmarkTask(int i) {
+        if (this.list.size() < 1) {
+            throw new DukeException("The task list is empty.");
+        }
+        if (i < 1 || i > this.list.size()) {
+            throw new InvalidIndexException(this.list.size());
+        }
         Task task = this.list.get(i-1);
         task.unmark();
         return task;
     }
 
     public Task deleteTask(int i) {
+        if (this.list.size() < 1) {
+            throw new DukeException("The task list is empty.");
+        }
+        if (i < 1 || i > this.list.size()) {
+            throw new InvalidIndexException(this.list.size());
+        }
         Task task = this.list.remove(i-1);
         return task;
     }

@@ -1,9 +1,6 @@
 package extensions;
 
 public class TodoTask extends Task {
-    public TodoTask(String desc) {
-        super(desc);
-    }
 
     public TodoTask(String desc, int isMarked) {
         super(desc);
