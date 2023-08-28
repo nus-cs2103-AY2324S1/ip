@@ -1,10 +1,53 @@
 import java.util.EnumMap;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Duke {
     private static int count = 0;
     private static ArrayList<Task> taskList = new ArrayList<>(); //universal task list in memory
+    public static void saveToFile() {
+        String home = "C:/Users/user/CS2103Tip/src/main";
+
+        //small issue maybe w my deviice: data/tasks.txt not being created when i run this
+        try {
+            java.nio.file.Path folderPath = java.nio.file.Paths.get(home, "data");
+            System.out.println("Folder Path: " + folderPath);
+            boolean folderExists = java.nio.file.Files.exists(folderPath);
+            if (!folderExists) {
+                System.out.println("Hol up, folder doesn't exist. Creating a folder rnrn");
+                try {
+                    Files.createDirectories(folderPath);
+                } catch (IOException e) {
+                    System.out.println("An error occurred while creating the 'data' folder: " + e.getMessage());
+                }
+            }
+            java.nio.file.Path filePath = java.nio.file.Paths.get(home, "data", "tasks.txt");
+            System.out.println("File Path: " + filePath);
+            boolean fileExists = java.nio.file.Files.exists(filePath);
+            if (!fileExists) {
+                System.out.println("Hol up, file doesn't exist. Creating a file rnrn");
+                try {
+                    Files.createFile(filePath);
+                } catch (IOException e) {
+                    System.out.println("An error occurred while creating the 'data' folder: " + e.getMessage());
+                }
+            }
+            File file = filePath.toFile();
+            FileWriter writer = new FileWriter(file, true);
+            for (Task task : taskList) { //its gonna overwrite the entire file each time, is there a better way to just append?
+                writer.write(task.toString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error! " +e.getMessage());
+        }
+    }
 
     public static void main(String[] args) throws DukeException {
         String logo = " __          _        \n"
@@ -16,6 +59,8 @@ public class Duke {
         System.out.println("What can I do for you?\n");
         Scanner scanner = new Scanner(System.in);
         String input;
+
+
 
         while (true) {
             input = scanner.nextLine();
@@ -51,6 +96,7 @@ public class Duke {
                     Task taskChanged = taskList.get(taskID);
                     taskList.remove(taskID);
                     count--;
+                    saveToFile();
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(taskChanged);
                     System.out.println("Now you have " + count + " tasks in the list.");
@@ -62,6 +108,7 @@ public class Duke {
                     Task newTask = new ToDo(taskName);
                     taskList.add(newTask);
                     count++;
+                    saveToFile();
                     System.out.println("Got it. I've added this task:");
                     System.out.println("  " + newTask);
                     System.out.println("Now you have " + count + " tasks in the list.");
@@ -75,6 +122,7 @@ public class Duke {
                         Task newTask = new Deadline(taskName, st);
                         taskList.add(newTask);
                         count++;
+                        saveToFile();
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + newTask);
                         System.out.println("Now you have " + count + " tasks in the list.");
@@ -93,6 +141,7 @@ public class Duke {
                         Task newTask = new Event(taskName, st, end);
                         taskList.add(newTask);
                         count++;
+                        saveToFile();
                         System.out.println("Got it. I've added this task:");
                         System.out.println("  " + newTask);
                         System.out.println("Now you have " + count + " tasks in the list.");
@@ -104,6 +153,7 @@ public class Duke {
                     int taskID = Integer.parseInt(restOfSentence) - 1;
                     Task taskChanged = taskList.get(taskID);
                     taskChanged.markDone();
+                    saveToFile();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(taskChanged);
                 } else if (keyword.equals("unmark")){
@@ -113,6 +163,7 @@ public class Duke {
                     int taskID = Integer.parseInt(restOfSentence) - 1;
                     Task taskChanged = taskList.get(taskID);
                     taskChanged.markUndone();
+                    saveToFile();
                     System.out.println("OK, I've marked this task as not done yet:");
                     System.out.println(taskChanged);
                 } else { //covers unknown words and empty input
