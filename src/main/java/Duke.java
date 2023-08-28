@@ -1,4 +1,7 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -163,7 +166,10 @@ public class Duke {
                                 // Check if deadline is present.
                                 throw new DukeException("Deadline is not provided. Please indicate your deadline by placing a '/by' before the deadline.");
                             } else {
-                                Deadline deadlineTask = new Deadline(deadlineString[0].trim(), deadlineString[1].substring(3));
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd ha");
+                                LocalDateTime deadlineDate = LocalDateTime.parse(deadlineString[1].substring(3), formatter);
+
+                                Deadline deadlineTask = new Deadline(deadlineString[0].trim(), deadlineDate);
                                 taskList.add(deadlineTask);
 
                                 try{
@@ -191,19 +197,26 @@ public class Duke {
                             } else if (eventString.length > 3){
                                 throw new DukeException("I'm sorry, you seem to have entered too many timings.");
                             } else {
-                                Event eventTask = new Event(eventString[0].trim(), eventString[1].substring(5).trim(), eventString[2].substring(3));
-                                taskList.add(eventTask);
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd ha");
+                                LocalDateTime startDate = LocalDateTime.parse(eventString[1].substring(5).trim(), formatter);
+                                LocalDateTime endDate = LocalDateTime.parse(eventString[2].substring(3).trim(), formatter);
+                                if (endDate.isBefore(startDate)){
+                                    throw new DukeException("End date cannot be before start date!");
+                                } else {
+                                    Event eventTask = new Event(eventString[0].trim(), startDate, endDate);
+                                    taskList.add(eventTask);
 
-                                try{
-                                    FileWriter writer = new FileWriter(filePath, true);
-                                    writer.write(eventTask.toString() + '\n');
-                                    writer.close();
-                                } catch (IOException e){
-                                    throw new DukeException("Incorrect FilePath");
+                                    try{
+                                        FileWriter writer = new FileWriter(filePath, true);
+                                        writer.write(eventTask.toString() + '\n');
+                                        writer.close();
+                                    } catch (IOException e){
+                                        throw new DukeException("Incorrect FilePath");
+                                    }
+                                    System.out.println(ErrorMessages.TASK_ADDED.getMessage());
+                                    System.out.println(eventTask.toString());
+                                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                                 }
-                                System.out.println(ErrorMessages.TASK_ADDED.getMessage());
-                                System.out.println(eventTask.toString());
-                                System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                             }
                         }
                     }
