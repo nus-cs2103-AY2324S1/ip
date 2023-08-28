@@ -7,6 +7,7 @@ public class Deadlines extends Task{
 
     /**
      * Constructor to initialize the Deadlines class.
+     *
      * @param description Describes the deadline.
      * @param by When the task is due.
      */
@@ -16,8 +17,15 @@ public class Deadlines extends Task{
     }
 
     /**
-     * Method that overrides default toString.
-     * @return String representation of Deadlines.
+     * {@inheritDoc}
+     */
+    public String toFileString() {
+        String doneStatus = isDone ? "1" : "0";
+        return String.format("D | %s | %s | %s", doneStatus, this.description, this.by);
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

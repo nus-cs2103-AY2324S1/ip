@@ -1,9 +1,17 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 public class Duke {
     /** Divider constant */
     private static final String DIVIDER = "      ____________________________________________________________";
+
+    /**
+     * The file path for storing and retrieving tasks. */
+    private static final String DATA_FILE_PATH = "./data/duke.txt";
 
     /**
      * Method that marks a given task in a list
@@ -72,6 +80,75 @@ public class Duke {
         }
     }
 
+    /**
+     * Loads tasks from a file and populates the provided list with the loaded tasks.
+     * This method reads tasks from a file specified by the DATA_FILE_PATH and adds them to
+     * the provided list of tasks. If the file does not exist, it will be created.
+     *
+     * @param list The list to which loaded tasks will be added.
+     */
+    private static void loadTasks(List<Task> list) {
+        try {
+            // Create a File object representing the data file
+            File file = new File(DATA_FILE_PATH);
+
+            // Create the file if it doesn't exist and print a message
+            if (file.createNewFile()) {
+                System.out.println("        New File Created");
+                System.out.println(DIVIDER);
+            }
+
+            // Use a Scanner to read tasks from the file
+            try (Scanner sc = new Scanner(file)) {
+                while (sc.hasNextLine()) {
+                    // Read each line from the file
+                    String line = sc.nextLine();
+                    // Convert the line to a Task object using Task.fromString
+                    Task task = Task.fromString(line);
+                    // Add the task to the provided list if it's not null
+                    if (task != null) {
+                        list.add(task);
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            // Handle IO exception by printing an error message
+            System.out.println("        An error occurred while loading tasks");
+        }
+    }
+
+    /**
+     * Saves tasks from a list to a file.
+     * This method writes tasks from the provided list to a file specified by the DATA_FILE_PATH.
+     * The tasks are converted to their file representation using the toFileString method of
+     * the Task class. If an error occurs during the file writing process, an error message
+     * is printed.
+     *
+     * @param list The list of tasks to be saved to the file.
+     */
+    private static void saveTasks(List<Task> list) {
+        try {
+            // Create a File object representing the data file
+            File file = new File(DATA_FILE_PATH);
+
+            // Create a FileWriter to write tasks to the file
+            FileWriter writer = new FileWriter(file);
+
+            // Write each task's file representation to the file
+            for (Task task : list) {
+                writer.write(task.toFileString() + "\n");
+            }
+
+            // Close the FileWriter
+            writer.close();
+
+        } catch (IOException e) {
+            // Handle IO exception by printing an error message
+            System.out.println("        An error occurred while saving tasks");
+        }
+    }
+
     public static void main(String[] args) {
         // Opening lines
         System.out.println(DIVIDER);
@@ -79,15 +156,28 @@ public class Duke {
         System.out.println("        What can I do for you?");
         System.out.println(DIVIDER);
 
+        // Creates data folder if doesn't exist
+        File dataDirectory = new File("./data");
+        if (!dataDirectory.exists()) {
+            if (dataDirectory.mkdir()) {
+                System.out.println("        Data directory created successfully.");
+            } else {
+                System.out.println("        Failed to create data directory.");
+            }
+            System.out.println(DIVIDER);
+        }
+
         // Check user input
         Scanner sc = new Scanner(System.in);
         List<Task> userList = new ArrayList<>();
+        loadTasks(userList); // Load tasks to list
 
         while (true) {
             String userInput = sc.nextLine();
 
             if (userInput.equals("bye")) {
                 // If user wants to quit
+                saveTasks(userList); // Save changes to list
                 System.out.println(DIVIDER);
                 System.out.println("        Bye ~ Hope to see you again soon ~");
                 System.out.println(DIVIDER);
