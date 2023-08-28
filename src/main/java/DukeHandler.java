@@ -2,12 +2,15 @@ import TaskPackages.TaskList;
 import Utility.DukeException;
 import Utility.InvalidCommandException;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 public class DukeHandler {
@@ -16,6 +19,22 @@ public class DukeHandler {
 
     public DukeHandler() {
         tasklist = returnTaskList();
+    }
+
+    public void writeTaskList() {
+        String homedir = new File(System.getProperty("user.dir")).getParent();
+        Path path = Paths.get(homedir, "data", "duke.txt");
+        try {
+            if (Files.notExists(path)) {
+                Files.createFile(path);
+            }  
+            BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
+            while (!tasklist.isEmpty()) {
+                writer.write(tasklist.clearList());
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }
 
     private TaskList returnTaskList() {

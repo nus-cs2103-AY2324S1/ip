@@ -13,4 +13,9 @@ public class Deadline extends Task{
   public String toString() {
     return String.format("[D][%s] %s (by: %s)", this.getStatusIcon(), this.description, this.by);
   }
+
+  @Override
+  public String toFileString() {
+    return String.format("  # %d # %s # /by %s", (isDone ? 1 : 0), this.description, this.by);
+  }
 }

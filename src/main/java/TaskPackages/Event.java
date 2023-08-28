@@ -15,4 +15,9 @@ public class Event extends Task{
   public String toString() {
     return String.format("[E][%s] %s (from: %s to: %s)", this.getStatusIcon(), this.description, this.from, this.to);
   }
+
+  @Override
+  public String toFileString() {
+    return String.format("  # %d # %s # %s # %s", (isDone ? 1 : 0), this.description, this.from, this.to);
+  }
 }
