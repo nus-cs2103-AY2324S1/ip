@@ -1,6 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
+
+    protected static String getDate(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("h:mm a, MMM d yyyy"));
+    }
 
     public Task(String description) {
         this.description = description;
