@@ -11,5 +11,12 @@ public class Deadline extends Task {
         return "[D]" + super.toString().substring(3) + " (by: " + by + ")";
     }
 
+    public String type() {
+        return "D";
+    }
+    public String getBy() {
+        return by;
+    }
+
 
 }

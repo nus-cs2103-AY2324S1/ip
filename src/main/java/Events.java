@@ -14,4 +14,10 @@ public class Events extends Task{
         return "[E]" + super.toString().substring(3) + " (from: " + this.start + " to: " + this.end + ")";
     }
 
+    public String type() {
+        return "E";
+    }
+    public String getDate() {
+        return this.start + "-" + this.end;
+    }
 }
