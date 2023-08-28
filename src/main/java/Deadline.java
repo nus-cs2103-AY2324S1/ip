@@ -1,9 +1,12 @@
+import java.time.LocalDate;
+
 public class Deadline extends Task {
 
     private String date;
-    public Deadline(String task, String date) {
+
+    public Deadline(String task, LocalDate date) {
         super(task);
-        this.date = date;
+        this.date = date.toString();
     }
 
     @Override

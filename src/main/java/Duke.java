@@ -2,6 +2,10 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,6 +17,8 @@ public class Duke {
     private static List<Task> list = new ArrayList<>();
 
     private static Scanner scanner;
+
+    private static DateTimeFormatter format = DateTimeFormatter.ISO_DATE;
 
     private static SaveData save;
 
@@ -120,8 +126,10 @@ public class Duke {
                 readInput();
                 break;
             case "mark":
-                if (!scanner.hasNextInt())
+                if (!scanner.hasNextInt()) {
+                    scanner.nextLine();
                     throw new DukeException("Chewie doesn't see the index of task list.");
+                }
 
                 int i = scanner.nextInt();
                 if (i < 1 || i > list.size())
@@ -132,8 +140,10 @@ public class Duke {
                 readInput();
                 break;
             case "unmark":
-                if (!scanner.hasNextInt())
+                if (!scanner.hasNextInt()) {
+                    scanner.nextLine();
                     throw new DukeException("Chewie doesn't see the index of task list.");
+                }
 
                 int k = scanner.nextInt();
                 if (k < 1 || k > list.size())
@@ -144,8 +154,10 @@ public class Duke {
                 readInput();
                 break;
             case "delete":
-                if (!scanner.hasNextInt())
+                if (!scanner.hasNextInt()) {
+                    scanner.nextLine();
                     throw new DukeException("Chewie doesn't see the index of task list.");
+                }
 
                 int j = scanner.nextInt();
                 if (j < 1 || j > list.size())
@@ -166,7 +178,10 @@ public class Duke {
                     throw new DukeException("Chewie says deadline's description is wrong.");
 
                 String task = deadlineRemain[0];
-                String date = deadlineRemain[1];
+                String dateString = deadlineRemain[1];
+
+                LocalDate date = LocalDate.parse(dateString,format);
+
                 createDeadline(task, date);
 
                 readInput();
@@ -200,19 +215,27 @@ public class Duke {
                 if (startDate.isBlank() || endDate.isBlank())
                     throw new DukeException("Chewie says event's time is wrong.");
 
-                createEvent(eventTask, startDate, endDate);
+                LocalDate start = LocalDate.parse(startDate,format);
+                LocalDate end = LocalDate.parse(endDate,format);
+
+                createEvent(eventTask, start, end);
 
                 readInput();
                 break;
             default:
                 throw new DukeException("Chewie doesn't recgonize this command: " + command);
             }
-        } catch (DukeException e) {
+        } catch (DukeException e ) {
             System.out.println(drawLine());
             System.out.println(e.getMessage());
             System.out.println("\n" + drawLine());
 
-            scanner.nextLine();
+            readInput();
+        } catch (DateTimeParseException e) {
+            System.out.println(drawLine());
+            System.out.println("The date format is incorrect, please use yyyy-mm-dd format");
+            System.out.println("\n" + drawLine());
+
             readInput();
         }
     }
@@ -238,7 +261,7 @@ public class Duke {
         System.out.println(drawLine());
     }
 
-    private static void createDeadline(String task, String date) {
+    private static void createDeadline(String task, LocalDate date) {
         Deadline dl = new Deadline(task, date);
         list.add(dl);
         System.out.println(drawLine());
@@ -247,7 +270,7 @@ public class Duke {
         System.out.println(drawLine());
     }
 
-    private static void createEvent(String task, String start, String end) {
+    private static void createEvent(String task, LocalDate start, LocalDate end) {
         Events ev = new Events(task,start,end);
         list.add(ev);
         System.out.println(drawLine());
