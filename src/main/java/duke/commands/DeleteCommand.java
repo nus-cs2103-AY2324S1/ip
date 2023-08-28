@@ -1,7 +1,11 @@
-package Commands;
-import Tasks.Task;
-import Utilities.*;
-import Utilities.Exceptions.InvalidTaskIndexException;
+package duke.commands;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.tasks.Task;
+
+
+import duke.Exceptions.InvalidTaskIndexException;
 
 public class DeleteCommand extends Command {
     private int deleteIdx;

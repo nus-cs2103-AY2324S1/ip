@@ -1,4 +1,4 @@
-package Utilities;
+package duke;
 
 public final class Ui {
 

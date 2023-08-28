@@ -1,6 +1,6 @@
-package Utilities.Exceptions;
+package duke.Exceptions;
 
-import Utilities.Ui;
+import duke.Ui;
 
 public class UnknownCommandException extends Exception{
     @Override

@@ -1,6 +1,6 @@
-package Tasks;
+package duke.tasks;
 
-import Utilities.Exceptions.IncompleteDescriptionException;
+import duke.Exceptions.IncompleteDescriptionException;
 
 abstract public class Task {
     protected boolean isDone;

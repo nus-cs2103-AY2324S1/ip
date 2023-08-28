@@ -1,7 +1,7 @@
-package Commands;
-import Utilities.Exceptions.InvalidTaskIndexException;
-import Utilities.Storage;
-import Utilities.TaskList;
+package duke.commands;
+import duke.Exceptions.InvalidTaskIndexException;
+import duke.Storage;
+import duke.TaskList;
 
 public class MarkCommand extends Command {
     private int markIdx;

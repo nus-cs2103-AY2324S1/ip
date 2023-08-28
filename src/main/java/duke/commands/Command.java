@@ -1,6 +1,6 @@
-package Commands;
-import Utilities.Storage;
-import Utilities.TaskList;
+package duke.commands;
+import duke.Storage;
+import duke.TaskList;
 
 public abstract class Command {
     public abstract void execute(TaskList tasklist, Storage storage);

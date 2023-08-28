@@ -1,8 +1,8 @@
-package Commands;
-import Tasks.Task;
-import Utilities.Ui;
-import Utilities.Storage;
-import Utilities.TaskList;
+package duke.commands;
+import duke.tasks.Task;
+import duke.Ui;
+import duke.Storage;
+import duke.TaskList;
 
 public class TaskCommand extends Command {
     private Task task;

@@ -1,6 +1,8 @@
-package Commands;
-import Utilities.*;
-import Utilities.Exceptions.InvalidTaskIndexException;
+package duke.commands;
+import duke.Exceptions.InvalidTaskIndexException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
 
 public class ListCommand extends Command {
     @Override

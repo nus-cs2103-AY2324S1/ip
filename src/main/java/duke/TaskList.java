@@ -1,6 +1,6 @@
-package Utilities;
-import Tasks.Task;
-import Utilities.Exceptions.InvalidTaskIndexException;
+package duke;
+import duke.Exceptions.InvalidTaskIndexException;
+import duke.tasks.Task;
 
 import java.util.ArrayList;
 

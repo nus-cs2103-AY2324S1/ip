@@ -1,7 +1,8 @@
-import Commands.Command;
-import Utilities.*;
-import Utilities.Exceptions.IncompleteDescriptionException;
-import Utilities.Exceptions.UnknownCommandException;
+package duke;
+
+import duke.commands.Command;
+import duke.Exceptions.IncompleteDescriptionException;
+import duke.Exceptions.UnknownCommandException;
 
 import java.util.Scanner;
 

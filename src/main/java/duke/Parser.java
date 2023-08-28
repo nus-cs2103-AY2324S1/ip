@@ -1,12 +1,12 @@
-package Utilities;
+package duke;
 
-import Commands.*;
-import Tasks.Deadline;
-import Tasks.Event;
-import Tasks.Task;
-import Tasks.ToDo;
-import Utilities.Exceptions.IncompleteDescriptionException;
-import Utilities.Exceptions.UnknownCommandException;
+import duke.commands.*;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+import duke.Exceptions.IncompleteDescriptionException;
+import duke.Exceptions.UnknownCommandException;
 
 public class Parser {
 
@@ -26,12 +26,15 @@ public class Parser {
         Task t;
         switch (dataArr[0]) {
             case "T":
+                if (dataArr.length != 3) throw new IncompleteDescriptionException();
                 t = new ToDo(dataArr[2]);
                 break;
             case "D":
+                if (dataArr.length != 4) throw new IncompleteDescriptionException();
                 t = new Deadline(dataArr[2], dataArr[3]);
                 break;
             case "E" :
+                if (dataArr.length != 5) throw new IncompleteDescriptionException();
                 t = new Event(dataArr[2], dataArr[3], dataArr[4]);
                 break;
             default:
