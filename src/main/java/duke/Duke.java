@@ -1,7 +1,14 @@
-import java.util.Scanner;
+package duke;
+
+import duke.commands.Command;
+import duke.exceptions.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 /**
- * The Duke class contains the code for interacting
+ * The duke.Duke class contains the code for interacting
  * with Jarvis, a task manager bot.
  *
  * @author: Shishir
@@ -10,13 +17,13 @@ public class Duke {
     /** Contains the list of all tasks. **/
     private TaskList tasks;
 
-    /** Contains the stored data for Duke Class. **/
+    /** Contains the stored data for duke.Duke Class. **/
     private Storage storage;
 
-    /** Contains the UI for Duke Class **/
+    /** Contains the UI for duke.Duke Class **/
     private Ui ui;
 
-    /** Constructor for Duke Class. **/
+    /** Constructor for duke.Duke Class. **/
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(this.storage.readData());

@@ -1,6 +1,8 @@
+package duke.exceptions;
+
 /**
- * The DukeException class contains the error
- * handling for Duke.
+ * The duke.exceptions.DukeException class contains the error
+ * handling for duke.Duke.
  *
  * @author: Shishir
  **/
@@ -11,7 +13,7 @@ public class DukeException extends Exception {
     /** The constructor.
      * @param message The description of the error message.
      **/
-    DukeException(String message) {
+    public DukeException(String message) {
         super(message);
         this.message = message;
     }

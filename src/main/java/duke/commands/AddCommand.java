@@ -1,5 +1,10 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package duke.commands;
+
+import duke.commands.Command;
+import duke.storage.Storage;
+import duke.tasks.*;
+import duke.ui.Ui;
+
 import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {
@@ -14,14 +19,14 @@ public class AddCommand extends Command {
         this.type = "todo";
     }
 
-    // Deadline Constructor
+    // duke.tasks.Deadline Constructor
     public AddCommand(String description, String till) {
         this.description = description;
         this.till = till;
         this.type = "deadline";
     }
 
-    // Event Constructor
+    // duke.tasks.Event Constructor
     public AddCommand(String description, String from, String till) {
         this.description = description;
         this.till = till;

@@ -1,8 +1,15 @@
+package duke.commands;
+
+import duke.exceptions.DukeException;
+import duke.storage.Storage;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
+
 public class MarkCommand extends Command {
     private int index;
     private boolean flag;
 
-    MarkCommand(int index, String type) {
+    public MarkCommand(int index, String type) {
         this.index = index;
         this.flag = type.equals("mark");
     }

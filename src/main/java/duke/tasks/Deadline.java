@@ -1,8 +1,10 @@
+package duke.tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Deadline class containing tasks
+ * The duke.tasks.Deadline class containing tasks
  * with deadlines.
  * @author: Shishir
  **/
