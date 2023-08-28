@@ -26,7 +26,7 @@ public class Duke {
     }
 
     public String getBotName() {
-        return this.botName;
+        return botName;
     }
 
     public boolean addTask(Task task) {
@@ -77,6 +77,10 @@ public class Duke {
     }
 
     public List<Task> getTaskList() {
-        return this.taskList;
+        return taskList;
+    }
+
+    public int getNumberOfTasks() {
+        return taskList.size();
     }
 }
