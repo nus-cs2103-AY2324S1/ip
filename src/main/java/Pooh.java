@@ -1,9 +1,15 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Pooh {
-    protected static final String horizontalLine = "      _______________________________________________________________________________";
+    protected static final String horizontalLine = "      " +
+            "_______________________________________________________________________________";
 
     public static void welcomeMsg() {
         String logo = "      .----------------.  .----------------.  .----------------.  .----------------.\n" +
@@ -62,7 +68,8 @@ public class Pooh {
         System.out.println(horizontalLine);
     }
 
-    public static void addTask(List<Task> taskList, String userAction, String cmd) throws EmptyTaskDescriptorsException {
+    public static void addTask(List<Task> taskList, String userAction, String cmd) throws
+            EmptyTaskDescriptorsException {
         if (cmd.split(" ", 2).length == 1) {
             throw new EmptyTaskDescriptorsException();
         }
@@ -84,26 +91,68 @@ public class Pooh {
             task = new Event(description, eventStartTime, eventEndTime);
         }
         taskList.add(task);
-        String addTaskMessage = String.format("      Got it. I've added this task:\n          %s\n      Now you have %d tasks in the list", task, taskList.size());
+        String addTaskMessage = String.format("      Got it. I've added this task:\n          %s\n      Now you have " +
+                "%d tasks in the list", task, taskList.size());
         generalRespond(addTaskMessage);
     }
 
     public static void deleteTask(List<Task> taskList, int index) {
         Task task = taskList.get(index);
         taskList.remove(index);
-        String delTaskMessage = String.format("      Noted. I've removed this task:\n          %s\n      Now you have %d tasks in the list", task, taskList.size());
+        String delTaskMessage = String.format("      Noted. I've removed this task:\n          %s\n      Now you have" +
+                " %d tasks in the list", task, taskList.size());
         generalRespond(delTaskMessage);
     }
 
+    public static void loadTasks(List<Task> taskList) {
+        String filePath = "pooh.txt";
+        File file = new File(filePath);
+        try {
+            if (file.exists()) {
+                BufferedReader fileReader = new BufferedReader(new FileReader(file));
+                String line = fileReader.readLine();
+
+                while (line != null) {
+                    Task task = Task.readTaskFromFile(line);
+                    taskList.add(task);
+                    line = fileReader.readLine();
+                }
+
+                fileReader.close();
+            } else {
+                generalRespond(
+                        "      Looks like this is the first time here! Say hi to POOH!\n      No worries, Pooh will " +
+                                "save your tasks to pooh.txt");
+                boolean fileCreated = file.createNewFile();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void writeTask(List<Task> taskList) {
+        try (FileWriter fileWriter = new FileWriter("pooh.txt")) {
+            for (Task task : taskList) {
+                fileWriter.write(task.writeTaskToFile() + "\n");
+            }
+        } catch (IOException ex) {
+            generalRespond("An error has occurred whilst writing to file. Error is:" + ex.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
-        welcomeMsg();
         List<Task> todoList = new ArrayList<>();
+        loadTasks(todoList);
+
+        welcomeMsg();
+
         Scanner userInput = new Scanner(System.in);
         while (userInput.hasNextLine()) {
             try {
                 String userCmd = userInput.nextLine();
                 String userAction = userCmd.split(" ")[0];
                 if (userAction.equalsIgnoreCase("bye")) {
+                    writeTask(todoList);
                     exitMsg();
                     userInput.close();
                     System.exit(0);
@@ -125,7 +174,8 @@ public class Pooh {
                     Task task = todoList.get(index);
                     task.markAsUndone();
                     taskUndoneMsg(task);
-                } else if (userAction.equalsIgnoreCase("todo") || userAction.equalsIgnoreCase("event") || userAction.equalsIgnoreCase("deadline")) {
+                } else if (userAction.equalsIgnoreCase("todo") || userAction.equalsIgnoreCase(
+                        "event") || userAction.equalsIgnoreCase("deadline")) {
                     try {
                         addTask(todoList, userAction, userCmd);
                     } catch (EmptyTaskDescriptorsException ex) {
