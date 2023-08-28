@@ -1,4 +1,5 @@
 public class Task {
+    // TODO: Make this class abstract?
     protected String description;
     protected boolean isDone = false;
 
@@ -21,5 +22,11 @@ public class Task {
     @Override
     public String toString() {
         return getStatusIcon() + " " + description;
+    }
+
+    public String toFileString() {
+        return isDone
+                ? "X | " + description
+                : "0 | " + description;
     }
 }
