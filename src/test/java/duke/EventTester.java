@@ -13,7 +13,7 @@ public class EventTester {
      * should pass if no exception is thrown
      */
     @Test
-    public void taskValidator_validInputs_success() throws WrongInputTask {
+    public void taskValidator_validInputs_success() throws WrongInputException {
         // We assume that it has passed the command test successfully
         // That is it starts with any command verbs
 
@@ -42,7 +42,7 @@ public class EventTester {
         String input4 = "event hey /from 25/08/2023 1800 /to 25/08/2023 1700 /from 25/08/2023 1800";
         try {
             Event.taskValidator(input4);
-        } catch (WrongInputTask e) {
+        } catch (WrongInputException e) {
             Assertions.fail();
         }
     }
@@ -57,7 +57,7 @@ public class EventTester {
         try {
             Event.taskValidator(input1);
             Assertions.fail();
-        } catch (WrongInputTask e) {
+        } catch (WrongInputException e) {
             assertEquals("Invalid Format: /to command is required\n" +
             "Recommendation: Use the /to command in 'event <event_name> /from <start> /to <end>'",
                     e.getMessage());
@@ -75,7 +75,7 @@ public class EventTester {
         try {
             Event.taskValidator(input2);
             Assertions.fail();
-        } catch (WrongInputTask e) {
+        } catch (WrongInputException e) {
             assertEquals("Invalid Format: /from command is required\n" +
                     "Recommendation: Use the /from command in 'event <event_name> /from <start> /to <end>'",
                     e.getMessage());
@@ -92,7 +92,7 @@ public class EventTester {
         try {
             Event.taskValidator(input3);
             Assertions.fail();
-        } catch (WrongInputTask e) {
+        } catch (WrongInputException e) {
             assertEquals("Invalid Format: Task name cannot be blank\n" +
                     "Recommendation: Enter a non-blank name", e.getMessage());
         }
@@ -118,7 +118,7 @@ public class EventTester {
         try {
             taskValidator_validInputs_success();
             taskValidator_additionalCommands_success();
-        } catch (WrongInputTask e) {
+        } catch (WrongInputException e) {
             Assertions.fail();
         }
     }
@@ -137,7 +137,7 @@ public class EventTester {
 
             event.quietlyCompleteTask();
             assertEquals("E | true | test | Aug-25-2023 1900 PM | Aug-25-2023 1800 PM", event.convertToSaveFormat());
-        } catch (WrongInputTask e) {
+        } catch (WrongInputException e) {
             Assertions.fail();
         }
 

@@ -43,31 +43,31 @@ public class Deadline extends Task {
      * taskValidator does nothing if there are no wrong inputs but throws a WrongInputException
      * if inputs are invalid
      * @param input the user's string input
-     * @throws WrongInputTask which informs the user of the error and actions to take
+     * @throws WrongInputException which informs the user of the error and actions to take
      */
-    public static void taskValidator(String input) throws WrongInputTask {
+    public static void taskValidator(String input) throws WrongInputException {
         String[] segementedString = input.split(" /by ");
         if (segementedString.length < 2) {
-            throw new WrongInputTask("/by command is required",
+            throw new WrongInputException("/by command is required",
                     "Use the /by command using 'deadline <name> /by <time>");
         } else {
             String deadline = segementedString[1];
             try {
                 String taskNameDeadline = segementedString[0].substring(Parser.DEADLINEOFFSET);
             } catch (StringIndexOutOfBoundsException e) {
-                throw new WrongInputTask("Task name cannot be blank",
+                throw new WrongInputException("Task name cannot be blank",
                         "Enter a non-blank deadline task name");
             }
 
             String taskNameDeadline = segementedString[0].substring(Parser.DEADLINEOFFSET);
             if (taskNameDeadline.trim().isEmpty()) {
-                throw new WrongInputTask("Task name cannot be blank",
+                throw new WrongInputException("Task name cannot be blank",
                         "Enter a non-blank deadline task name");
             } else if (deadline.trim().isEmpty()) {
-                throw new WrongInputTask("for /by <time>, time cannot be blank",
+                throw new WrongInputException("for /by <time>, time cannot be blank",
                         "Please input valid text that are not space");
             } else if (!DateTimeParser.isValidDateTime(deadline)) {
-                throw new WrongInputTask("Invalid date and time format",
+                throw new WrongInputException("Invalid date and time format",
                         DateTimeParser.getValidDateTimeFormat());
             }
         }

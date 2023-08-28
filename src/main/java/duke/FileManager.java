@@ -5,6 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * This class is used to represent the Management of the files
+ * TODO: Remove this class it is not needed
+ */
 public class FileManager {
 
     /**

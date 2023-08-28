@@ -9,11 +9,21 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * This class is used to test the TaskList class
+ */
 public class TaskListTester {
-        private final static String TEST_PATH = "./data/dukeTest.txt";
-        private final Storage testStorage = Storage.createStorage(TEST_PATH);
+    /**
+     * The path of the test file
+     */
+    private final static String TEST_PATH = "./data/dukeTest.txt";
+    /**
+     * The storage object used for testing
+     */
+    private final Storage testStorage = Storage.createStorage(TEST_PATH);
+
         /**
-        * Testing the addTask method
+        * Testing the addTask method for valid input
         */
         @Test
         public void addTask_validInput_success() {
@@ -24,6 +34,7 @@ public class TaskListTester {
             taskList.addTask(task, 1, testStorage);
             assertEquals(taskList.getTaskObject(0), task);
         }
+
 
         /**
         * Testing the deleteTask method
@@ -39,8 +50,12 @@ public class TaskListTester {
             assertEquals(taskList.length(), 0);
         }
 
-        @Test
-        public void parseTask_validInput_success() throws WrongInputTask {
+    /**
+     * Testing the parseTask method based on valid inputs
+     * @throws WrongInputException if the input is invalid however should not occur at all
+     */
+    @Test
+        public void parseTask_validInput_success() throws WrongInputException {
            try {
                // Always clear file to start a-fresh
                testStorage.clearFile();
@@ -64,20 +79,24 @@ public class TaskListTester {
                }
 
 
-           } catch (WrongInputTask e) {
+           } catch (WrongInputException e) {
                Assertions.fail();
            } catch (FileNotFoundException e) {
                 Assertions.fail();
            }
         }
 
-        @Test
-        public void parseTask_corruptedData_exceptionThrown() {
+    /**
+     * Testing the parseTask method based on invalid inputs
+     * Should fail if it is able to run parseTask without throwing an exception
+     */
+    @Test
+    public void parseTask_corruptedData_exceptionThrown() {
             String corruptedData3 = "E | false | test | WAug-25-2023 1900 PM | Aug-35-2023 9999 PM";
             try {
                 TaskList.parseTask(corruptedData3);
                 Assertions.fail();
-            } catch (WrongInputTask e) {
+            } catch (WrongInputException e) {
                 assertEquals("Invalid Format: Stored event is invalid / corrupted\n" +
                                 "Recommendation: Please clear the folder and restart the program",
                         e.getMessage());
