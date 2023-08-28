@@ -1,6 +1,10 @@
-import java.io.*;
-import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Sally {
 
@@ -102,7 +106,6 @@ public class Sally {
         System.out.println(" " + newDeadline);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
-
     private static void handleEvent(String input, ArrayList<Task> tasks) throws SallyException {
         if (!input.contains(" /from ") || !input.contains(" /to ")) {
             throw new SallyException("OOPS! The description of an event cannot be incomplete, you need a '/from' and '/to'.");
@@ -173,7 +176,6 @@ public class Sally {
         ArrayList<Task> tasks = loadTasksFromFile();
 
         Scanner scanner = new Scanner(System.in);
-
         while (true) {
             try {
                 String input = scanner.nextLine();

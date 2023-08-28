@@ -33,35 +33,6 @@ public class Task {
             return this.toString();
         }
     }
-/*
-    public String toFileString() {
-        String taskType = "";
-        if (this instanceof Todo) {
-            taskType = "T";
-            Todo todo = (Todo) this;
-            return (toBeDone ? "[ ]" : "[X]") + "|" + taskType + "|" + todo;
-        } else if (this instanceof Event) {
-            taskType = "E";
-            Event event = (Event) this;
-            return (toBeDone ? "[ ]" : "[X]") + "|" + taskType + "|" + event;
-        } else if (this instanceof Deadline) {
-            taskType = "D";
-            Deadline deadline = (Deadline) this;
-            return (toBeDone ? "[ ]" : "[X]") + "|" + taskType + "|" + deadline;
-        } else {
-            return (toBeDone ? "[ ]" : "[X]") + "|" + taskType + "|" + task;
-        }
-    }
-    */
-    // [ ]|D|[D][ ] read (by: fri)
-    //OR [ ]|D| read (by: fri)
-
-/*
-    public static Task fromFileString(String fileString) {
-        Task newTask = new Task(fileString);
-        return newTask;
-    }
-   */
 
     public static Task fromFileString(String fileString) {
         String target =  fileString;
@@ -76,7 +47,7 @@ public class Task {
         boolean isDone = false;
 
         if (statusIcon.equals(" ")) {
-             isDone = false;
+            isDone = false;
         } else {
             isDone = true;
         }
@@ -111,19 +82,6 @@ public class Task {
         return newTask;
     }
 
-
-    /*
-    public static Task fromFileString(String fileString) {
-        String[] split = fileString.split("\\|");
-        String statusIcon = split[0];
-        String task = split[1];
-        Task newTask = new Task(task);
-        if (statusIcon.equals("[X]")) {
-            newTask.mark();
-        }
-        return newTask;
-    }
-*/
     @Override
     public String toString() {
         return getStatusIcon() + " " + task;
