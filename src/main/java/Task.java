@@ -49,6 +49,13 @@ public class Task {
     public String showTaskinList() {
         return this.statusIcon() + " " + this.showTask();
     }
+    public String printList() {
+        if (this.isDone) {
+            return "1 | " + this.showTask();
+        } else {
+            return "0 | " + this.showTask();
+        }
+    }
 
 
 }

@@ -14,4 +14,11 @@ public class ToDo extends Task{
     public String showTaskinList() {
         return "[T]" + super.showTaskinList();
     }
+
+    @Override
+    public String printList() {
+        return "T | " + super.printList();
+    }
+
+
 }

@@ -19,4 +19,9 @@ public class Deadline extends Task{
         return "[D]" + super.showTaskinList() + "(" + "by: " + this.by + ")";
     }
 
+    @Override
+    public String printList() {
+        return "D | " + super.printList() + " | " + this.by;
+    }
+
 }

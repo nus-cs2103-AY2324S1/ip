@@ -19,4 +19,8 @@ public class Event extends Task{
     public String showTaskinList() {
         return "[E]" + super.showTaskinList() + "(" + "from: " + this.from + " to: " + this.to + ")";
     }
+    @Override
+    public String printList() {
+        return "E | " + super.printList() + " | " + this.from + " to " + this.to;
+    }
 }

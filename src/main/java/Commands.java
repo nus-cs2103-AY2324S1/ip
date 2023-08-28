@@ -1,6 +1,8 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.File;
 
 /**
  * The Command Class encapsulates the functions to check the input string with the available commands.
@@ -26,9 +28,16 @@ public class Commands {
      * This method Run the Scanner to begin taking inputs from user, and check to see which commands to run.
      *
      */
-    public static void Run() {
+    public static void Run(File file) {
         Scanner sc = new Scanner(System.in);
-        ItemList items = new ItemList();
+        ItemList items = new ItemList(file);
+        try {
+            items.loadAll();
+        } catch (FileNotFoundException e) {
+            System.out.println(Greeting.linebreak);
+            System.out.println("List not found, empty list will be created");
+            System.out.println(Greeting.linebreak);
+        }
         boolean isRunning = true;
         do {
             if(!sc.hasNextLine()) {
@@ -119,9 +128,6 @@ public class Commands {
                 System.out.println("Invalid input");
                 System.out.println(Greeting.linebreak);
             }
-
-
-
 
 
         } while (isRunning);
