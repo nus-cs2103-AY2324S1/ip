@@ -6,7 +6,8 @@ public class Deadline extends Task {
 
     /**
      * Constructor for a deadline task.
-     * @param endTime ending time for deadline task
+     *
+     * @param endTime     ending time for deadline task
      * @param description task description
      */
     public Deadline(String endTime, String description) {
@@ -16,6 +17,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the string representation of a deadline task with its status.
+     *
      * @return String representation of deadline.
      */
     @Override

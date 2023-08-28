@@ -7,6 +7,7 @@ public class Task {
 
     /**
      * Constructor for a task object.
+     *
      * @param description the task description
      */
     public Task(String description) {
@@ -16,6 +17,7 @@ public class Task {
 
     /**
      * Returns status icon depending on whether task has been marked as done or not.
+     *
      * @return Status icon as a string.
      */
     private String getStatusIcon() {
@@ -38,6 +40,7 @@ public class Task {
 
     /**
      * Returns the string representation of a task with its status.
+     *
      * @return String representation of task.
      */
     @Override
