@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import commands.List;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -47,10 +49,7 @@ public class Jerma {
 
         switch (command) {
         case LIST:
-          for (int i = 0; i < tasks.size(); i++) {
-            String output = String.format("%d. %s", i + 1, tasks.get(i));
-            System.out.println(output);
-          }
+          new List(tasks, ui).execute();
           break;
         case BYE:
           break listen;
