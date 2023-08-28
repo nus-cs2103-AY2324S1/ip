@@ -1,3 +1,8 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Task {
     protected String task;
     protected boolean toBeDone;
@@ -34,6 +39,12 @@ public class Task {
         }
     }
 
+    private static LocalDateTime convertToDateTime(String input) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+        LocalDateTime dateTime = LocalDateTime.parse(input, inputFormatter);
+        return dateTime;
+    }
+
     public static Task fromFileString(String fileString) {
         String target =  fileString;
         String[] split = target.split("]\\[");
@@ -61,14 +72,14 @@ public class Task {
         } else if (taskType.equals("E")) {
             String[] toGetFromTo = taskDescription.split(" \\(from: | to: |\\)"); // soc (from: mon to: tues)
             String task = toGetFromTo[0]; // soc
-            String from = toGetFromTo[1]; // mon
-            String to = toGetFromTo[2]; // tues
+            LocalDateTime from = convertToDateTime(toGetFromTo[1]); // mon
+            LocalDateTime to = convertToDateTime(toGetFromTo[2]); // tues
             newTask = new Event(task, from, to);
 
         } else if (taskType.equals("D")) {
             String[] toGetBy = taskDescription.split(" \\(by: |\\)"); // soc (by: sun)
             String task = toGetBy[0]; // soc
-            String by = toGetBy[1]; // sun
+            LocalDateTime by = convertToDateTime(toGetBy[1]); // sun
             newTask = new Deadline(task, by);
 
         } else {

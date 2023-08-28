@@ -5,6 +5,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.time.LocalTime;
 
 public class Sally {
 
@@ -83,6 +89,35 @@ public class Sally {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
 
+    private static LocalDateTime convertToDateTime(String input) {
+        String formattedDate;
+        String pattern1 = "\\d{4}-\\d{1,2}-\\d{1,2} \\d{4}";
+        String pattern2 = "\\d{4}-\\d{1,2}-\\d{1,2}";
+        String pattern3 = "\\d{4}";
+        Pattern regexPattern1 = Pattern.compile(pattern1);
+        Pattern regexPattern2 = Pattern.compile(pattern2);
+        Pattern regexPattern3 = Pattern.compile(pattern3);
+        Matcher matcher1 = regexPattern1.matcher(input);
+        Matcher matcher2 = regexPattern2.matcher(input);
+        Matcher matcher3 = regexPattern3.matcher(input);
+
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
+
+        if (matcher1.matches()) {
+            LocalDateTime dateTime = LocalDateTime.parse(input, inputFormatter);
+            return dateTime;
+        } else if (matcher2.matches()) {
+            LocalDateTime dateTime = LocalDateTime.parse(input + " 0000", inputFormatter);
+            return dateTime;
+        } else if (matcher3.matches()) {
+            LocalDate today = LocalDate.now();
+            LocalDateTime dateTime = LocalDateTime.parse(today.toString() + " " + input, inputFormatter);
+            return dateTime;
+        } else {
+            return null;
+        }
+    }
+
     private static void handleDeadline(String input, ArrayList<Task> tasks) throws SallyException {
         if (input.length() < 10 || !input.contains(" /by ")) {
             throw new SallyException("OOPS! The description of a deadline cannot be incomplete, you need a ' /by '.");
@@ -98,7 +133,7 @@ public class Sally {
             throw new SallyException("OOPS! The time of a deadline cannot be empty.");
         }
 
-        Task newDeadline = new Deadline(parts[0].substring(9), parts[1]);
+        Task newDeadline = new Deadline(parts[0].substring(9), convertToDateTime(parts[1]));
 
         tasks.add(newDeadline);
         saveTasksToFile(tasks);
@@ -121,7 +156,7 @@ public class Sally {
             throw new SallyException("OOPS! The start or end time of an event cannot be empty.");
         }
 
-        Task newEvent = new Event(parts[0].substring(6), parts[1], parts[2]);
+        Task newEvent = new Event(parts[0].substring(6), convertToDateTime(parts[1]), convertToDateTime(parts[2]));
 
         tasks.add(newEvent);
         saveTasksToFile(tasks);
