@@ -1,5 +1,8 @@
 package main.java;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 class Task {
@@ -24,6 +27,14 @@ class Task {
         this.done = false;
     }
 
+    protected boolean isDone() {
+        return this.done;
+    }
+
+    protected String write() {
+        return "task " + this.taskName + "\n";
+    }
+
     public static class ToDos extends Task {
         public ToDos(String taskName) {
             super(taskName);
@@ -31,6 +42,10 @@ class Task {
         @Override
         public String toString() {
             return "[T]" + super.toString();
+        }
+
+        protected String write() {
+            return "todo " + super.taskName + "\n";
         }
     }
 
@@ -44,6 +59,10 @@ class Task {
         @Override
         public String toString() {
             return "[D]" + super.toString() + "(by: " + dayDate + ")";
+        }
+
+        protected String write() {
+            return "deadline " + super.taskName + "/by " + this.dayDate + "\n";
         }
     }
 
@@ -60,6 +79,10 @@ class Task {
         public String toString() {
             return "[E]" + super.toString() + "(from: " + startDayDateTime + "to: " + endDayDateTime +")";
         }
+
+        protected String write() {
+            return "event " + super.taskName + "/from " + this.startDayDateTime + "/to " + this.endDayDateTime + "\n";
+        }
     }
 }
 
@@ -74,18 +97,21 @@ class ListOfTask {
         Task temp = new Task.ToDos(task);
         listOfTask.add(temp);
         System.out.println("added: " + temp);
+        save();
     }
 
     protected void addTask(String task, String dayDate) {
         Task temp = new Task.Deadlines(task, dayDate);
         listOfTask.add(temp);
         System.out.println("added: " + temp);
+        save();
     }
 
     protected void addTask(String task, String startDayDateTime, String endDayDateTime) {
         Task temp = new Task.Event(task, startDayDateTime, endDayDateTime);
         listOfTask.add(temp);
         System.out.println("added: " + temp);
+        save();
     }
 
     protected void loadTask(String task) {
@@ -118,6 +144,7 @@ class ListOfTask {
         try {
             listOfTask.get(index - 1).mark();
             System.out.println(listOfTask.get(index - 1).toString());
+            save();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please select from index 1 to " + listOfTask.size());
         }
@@ -131,6 +158,7 @@ class ListOfTask {
         try {
             listOfTask.get(index - 1).unMark();
             System.out.println(listOfTask.get(index - 1).toString());
+            save();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please select from index 1 to " + listOfTask.size());
         }
@@ -140,8 +168,31 @@ class ListOfTask {
         try {
             Task removed = listOfTask.remove(index - 1);
             System.out.println(removed + " has been removed");
+            save();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please select from index 1 to " + listOfTask.size());
         }
+    }
+
+    protected void save() {
+        File writeData = new File("./src/data/duke.txt");
+        try {
+            writeData.createNewFile();
+            FileWriter writer = new FileWriter(writeData);
+            listOfTask.forEach(x-> {
+                try {
+                    writer.write(x.write());
+                    if (x.isDone()) {
+                        writer.write("mark\n");
+                    }
+                } catch (IOException e) {
+                    System.out.println("You do not have access to write to your save file");
+                }
+            });
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("You do not have access to save your file");
+        }
+
     }
 }
