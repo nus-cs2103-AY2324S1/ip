@@ -16,7 +16,7 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-data/tasklist.txt
+data/*.txt
 
 # Class files
 src/main/java/*.class
