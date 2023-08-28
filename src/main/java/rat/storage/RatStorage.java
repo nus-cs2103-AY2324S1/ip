@@ -1,11 +1,11 @@
 package rat.storage;
 
+import static rat.io.RatPrinter.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
-import static rat.io.RatPrinter.*;
 
 /**
  * This class encapsulates the logic of handling the storage of Rat,

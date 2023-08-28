@@ -1,11 +1,11 @@
 package rat.io;
 
+import static rat.io.RatPrinter.*;
+
 import java.util.Scanner;
 
 import rat.tasks.*;
 import rat.command.*;
-
-import static rat.io.RatPrinter.*;
 
 /**
  * This class encapsulates the input handling of Rat.
