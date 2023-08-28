@@ -1,4 +1,4 @@
-package alain;
+package Chatbot.alain;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -41,7 +41,7 @@ public class ChatbotAlain{
             String transformedTime = date.format(outputPattern);
             return transformedTime.toString() + " " + addMsg;
         } else if (inputTime.length() == 0) {
-            throw new AlainException(" ☹ OOPS!!! The description of a alain.Task cannot be empty.");
+            throw new AlainException(" OOPS!!! The description of a alain.Task cannot be empty.");
         } else {
             return inputTime;
         }
@@ -143,6 +143,7 @@ public class ChatbotAlain{
     }
 
     public static void main(String[] args) throws AlainException, IOException {
+        //System.out.println("hi");
         new ChatbotAlain("tasks.txt").run();
     }
 }

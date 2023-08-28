@@ -1,4 +1,4 @@
-package alain;
+package Chatbot.alain;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class TaskList {
         if (index >= 0 && index < list.size()) {
             return list.remove(index);
         } else {
-            throw new AlainException(" ☹ OOPS!!! Seems like alain.Task with such index does not exist");
+            throw new AlainException(" OOPS!!! Seems like alain.Task with such index does not exist");
         }
     }
 

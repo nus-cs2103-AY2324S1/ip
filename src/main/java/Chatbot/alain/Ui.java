@@ -1,4 +1,4 @@
-package alain;
+package Chatbot.alain;
 
 public class Ui {
     public void showlines() {
@@ -18,7 +18,7 @@ public class Ui {
 
     public void showError(String errorMessage) {
         this.showlines();
-        System.out.println(" ☹ OOPS!!! " + errorMessage);
+        System.out.println(" OOPS!!! " + errorMessage);
         this.showlines();
     }
 

@@ -1,4 +1,4 @@
-package alain;
+package Chatbot.alain;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -62,7 +62,7 @@ public class Storage {
             String transformedTime = date.format(outputPattern);
             return transformedTime.toString() + " " + addMsg;
         } else if (inputTime.length() == 0) {
-            throw new AlainException(" ☹ OOPS!!! The description of a alain.Task cannot be empty.");
+            throw new AlainException(" OOPS!!! The description of a alain.Task cannot be empty.");
         } else {
             return inputTime;
         }
