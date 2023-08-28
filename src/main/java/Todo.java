@@ -4,6 +4,11 @@ public class Todo extends Task{
     }
 
     @Override
+    public String saveString() {
+        String completedString = completed ? "X|" : " |";
+        return "T|" + completedString + task;
+    }
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }

@@ -1,6 +1,6 @@
-public class Task {
-    private String task;
-    private Boolean completed = false;
+abstract public class Task {
+    protected String task;
+    protected Boolean completed = false;
     public Task(String task) {
         this.task = task;
     }
@@ -8,6 +8,8 @@ public class Task {
     public void setCompleted(Boolean completed) {
         this.completed = completed;
     }
+
+    abstract public String saveString();
 
     public String toString() {
         String box = this.completed ? "[X]": "[ ]";

@@ -1,11 +1,13 @@
+import java.io.*;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    private static List<Task> tasks = new ArrayList<>();
+    private static final List<Task> tasks = new ArrayList<>();
     private static final String lineSep = "-------------------------------";
+    private static final String saveLocation = "data/duke.txt";
 
     private enum Command {
         invalid, bye, list, mark, unmark, delete, todo, deadline, event;
@@ -22,13 +24,19 @@ public class Duke {
         System.out.println(lineSep);
         System.out.println("Hello! I'm YJ's Chatbot");
         System.out.println("What can I do for you?\n" + lineSep);
+        try {
+            loadSavedTasks();
+        } catch (FileNotFoundException ignored) {
+        } catch (IOException e) {
+            System.out.println("Failed to load saved tasks!");
+        }
         Scanner scanner = new Scanner(System.in);
         String input = readCmd(scanner);
         Command cmd = getCommand(input);
+        int prevSize = 0;
         while (!cmd.equals(Command.bye)) {
             if (cmd.equals(Command.list)) {
                 listTasks();
-                System.out.println(lineSep);
             } else if (cmd.equals(Command.delete)) {
                 String[] split = input.split(" ");
                 if (split.length > 1) {
@@ -55,10 +63,17 @@ public class Duke {
                 addTask(cmd, input);
             } else {
                 // Unknown command
-                System.out.println("Unknown command given :<");
+                System.out.println(lineSep + "\nUnknown command given :<");
             }
-                System.out.println(lineSep);
+            System.out.println(lineSep);
+            if (prevSize < tasks.size()) {
                 System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                try {
+                    saveTasks();
+                } catch (IOException e) {
+                    System.out.println("Failed to save tasks!");
+                }
+            }
                 input = readCmd(scanner);
                 cmd = getCommand(input);
             }
@@ -72,8 +87,7 @@ public class Duke {
 
     public static String readCmd(Scanner scanner) {
         // Read user input
-        String cmd = scanner.nextLine();
-        return cmd;
+        return scanner.nextLine();
     }
 
     private static void listTasks() {
@@ -129,8 +143,7 @@ public class Duke {
             }
         } else if (cmd.equals(Command.deadline)) {
             if (!input.matches(".*\\b /by \\b.*")) {
-                System.out.println("A deadline must contain a description and end specified with `/by`!\n"
-                        + lineSep);
+                System.out.println("A deadline must contain a description and end specified with `/by`!");
             } else {
                 System.out.println("Got it. I've added this task:");
                 String afterCommand = input.replaceFirst("deadline ", "");
@@ -140,9 +153,9 @@ public class Duke {
                 System.out.println(deadline);
             }
         } else if (cmd.equals(Command.event)) {
-            if (!input.matches(".*\\b /by \\b.*") && !input.matches(".*\\b/to \\b.*")) {
+            if (!input.matches(".*\\b /by \\b.*") || !input.matches(".*\\b/to \\b.*")) {
                 System.out.println("An event must contain a description," +
-                        " start and end specified with `/by` and `/to`!\n" + lineSep);
+                        " start and end specified with `/by` and `/to`!");
             } else {
                 System.out.println("Got it. I've added this task:");
                 String afterCommand = input.replaceFirst("deadline ", "");
@@ -158,6 +171,53 @@ public class Duke {
                 tasks.add(event);
                 System.out.println(event);
             }
+        }
+    }
+
+    private static void saveTasks() throws IOException {
+        File saveFile = new File(saveLocation);
+        saveFile.mkdirs();
+        if (saveFile.exists()) {
+            boolean deleteFileSuccess = saveFile.delete();
+            if (!deleteFileSuccess) {
+                System.out.println("Failed to delete previous save file!");
+            }
+        }
+        boolean createNewFileSuccess = saveFile.createNewFile();
+        if (!createNewFileSuccess) {
+            System.out.println("Failed to create save file!");
+        } else {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(saveLocation, true));
+            for (Task task : tasks) {
+                writer.append(task.saveString()).append("\n");
+            }
+            writer.close();
+        }
+    }
+
+    private static void loadSavedTasks() throws IOException {
+        File saveFile = new File(saveLocation);
+        if (saveFile.exists()) {
+            BufferedReader reader = new BufferedReader(new FileReader(saveLocation));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] datum = line.split("\\|");
+                switch (datum[0]) {
+                    case "T":
+                        tasks.add(new Todo(datum[2]));
+                        break;
+                    case "D":
+                        tasks.add(new Deadline(datum[2], datum[3]));
+                        break;
+                    case "E":
+                        tasks.add(new Event(datum[2], datum[3], datum[4]));
+                        break;
+                }
+                if (datum[1].equals("X")) {
+                    tasks.get(tasks.size() - 1).setCompleted(true);
+                }
+            }
+            reader.close();
         }
     }
 }
