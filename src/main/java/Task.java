@@ -12,15 +12,19 @@ public class Task {
     }
 
     public void markAsNotDone() {
-        isDone = false;
+        this.isDone = false;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (this.isDone ? "X" : " ");
     }
 
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
+    }
+
+    public String toFileString() {
+        return "| " + (this.isDone ? "1" : "0") + " | " + this.description;
     }
 }

@@ -4,35 +4,30 @@ Hello jeff! I'm Sam, your personal AI chatbot, ready to serve you today
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
+Here are the tasks in your list:
+1.[T][ ] go to the zoo
+____________________________________________________________
+____________________________________________________________
 Got it. I've added this task:
   [T][ ] borrow book
-Now you have 1 task in the list.
-____________________________________________________________
-____________________________________________________________
-Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+  [D][ ] return book (by: Sunday)
 Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
-1.[T][ ] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-____________________________________________________________
-____________________________________________________________
-Nice! I've marked this task as done:
-[D][X] return book (by: Sunday)
+Got it. I've added this task:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 4 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1.[T][ ] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+1.[T][ ] go to the zoo
+2.[T][ ] borrow book
+3.[D][ ] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -40,19 +35,32 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1.[T][X] borrow book
-2.[D][X] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+1.[T][ ] go to the zoo
+2.[T][X] borrow book
+3.[D][ ] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
-OK, I've marked this task as not done yet:
-[D][ ] return book (by: Sunday)
+Nice! I've marked this task as done:
+[T][X] go to the zoo
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1.[T][X] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+1.[T][X] go to the zoo
+2.[T][X] borrow book
+3.[D][ ] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done yet:
+[T][ ] borrow book
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[T][X] go to the zoo
+2.[T][ ] borrow book
+3.[D][ ] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
 ☹ OOPS!!! The description of a todo cannot be empty.
@@ -77,22 +85,33 @@ ____________________________________________________________
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1.[T][X] borrow book
-2.[D][ ] return book (by: Sunday)
-3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+1.[T][X] go to the zoo
+2.[T][ ] borrow book
+3.[D][ ] return book (by: Sunday)
+4.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task:
+  [T][ ] borrow book
+Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task:
+  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
   [D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list.
+Now you have 1 task in the list.
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done yet:
+[T][ ] go to the zoo
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1.[T][X] borrow book
-2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
-____________________________________________________________
-____________________________________________________________
-☹ OOPS!!! Invalid task index.
+1.[T][ ] go to the zoo
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

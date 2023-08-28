@@ -1,4 +1,5 @@
 jeff
+list
 ToDo borrow book
 deadline return book /by Sunday
 event project meeting /from Mon 2pm /to 4pm
@@ -18,6 +19,8 @@ mark 7
 unmark 7
 list
 delete 2
-list
 delete 3
+delete 2
+unmark 1
+list
 bye
