@@ -74,6 +74,10 @@ public class Parser {
 
             int index = Integer.parseInt(number);
             return new DeleteCommand(index);
+        } else if (input.startsWith("find")) {
+            String keyword = input.replaceFirst("find", "").trim();
+            validateFind(keyword);
+            return new FindCommand(keyword);
         } else {
             throw new DukeException("Boop Beep OOPS! I'm sorry, but I don't know what that means :(");
         }
@@ -153,6 +157,18 @@ public class Parser {
             LocalDate d = LocalDate.parse(date);
         } catch (DateTimeParseException e) {
             throw new DukeException("Boop Beep OOPS! Please check that the date is in YYYY-MM-DD format.");
+        }
+    }
+
+    /**
+     * This method is used to check whether the keyword for the find command is valid.
+     *
+     * @param keyword The keyword to be searched for.
+     * @throws DukeException When keyword is blank.
+     */
+    private static void validateFind(String keyword) throws DukeException {
+        if (keyword.isBlank()) {
+            throw new DukeException("Boop Beep OOPS! Please check that you have entered a keyword.");
         }
     }
 }
