@@ -43,34 +43,7 @@ public class Emiya {
 
     public static void main(String[] args) {
 
-        String path = Paths.get("").toAbsolutePath().toString();
-        String pathToDataDir = Paths.get(path, "data").toString();
-        Path pathToDataDoc = Paths.get(pathToDataDir, "emiya.txt");
-        String pathToDataDocStr = pathToDataDoc.toString();
-        File dataDir = new File(pathToDataDir);
-        File dataDoc = new File(pathToDataDocStr);
-
-        if (!dataDir.exists()) {
-            boolean result = dataDir.mkdirs();
-            if (result) {
-                System.out.println("Directory was created successfully");
-            } else {
-                System.out.println("Failed to create directory");
-            }
-        } else {
-            System.out.println("Directory already exists");
-        }
-
-        if (!dataDoc.exists()) {
-            String testData = "Writing Works!";
-            try {
-                Files.write(pathToDataDoc, testData.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("File already exists");
-        }
+        Storage storage = new Storage();
 
         // Represents the list as an ArrayList of task.Task objects
         ArrayList<Task> taskArrayList = new ArrayList<>();
@@ -169,6 +142,7 @@ public class Emiya {
                         // throw new EmiyaException("Unknown command received! Please try again!");
                         throw new UnknownCommandException();
                     }
+                    storage.writeToFileFromTaskList(taskArrayList, "emiya.txt", "data");
                     break;
                 case "unmark":
                     if (position != null) {
@@ -184,6 +158,7 @@ public class Emiya {
                         // throw new EmiyaException("Unknown command received! Please try again!");
                         throw new UnknownCommandException();
                     }
+                    storage.writeToFileFromTaskList(taskArrayList, "emiya.txt", "data");
                     break;
                 case "delete":
                     if (position != null) {
@@ -210,6 +185,7 @@ public class Emiya {
                         // throw new EmiyaException("Unknown command received! Please try again!");
                         throw new UnknownCommandException();
                     }
+                    storage.writeToFileFromTaskList(taskArrayList, "emiya.txt", "data");
                     break;
                 case "todo":
                     // need to be able to go through the rest of the string and add it inside
@@ -232,6 +208,7 @@ public class Emiya {
                                 + "-----------------------------------------\n";
                     }
                     System.out.println(todoOutputMessage);
+                    storage.writeToFileFromTaskList(taskArrayList, "emiya.txt", "data");
                     break;
                 case "deadline": // go through taskDetails and find /by
                     if (taskDetails.length() < 1) {
@@ -258,6 +235,7 @@ public class Emiya {
                                 + "-----------------------------------------\n";
                     }
                     System.out.println(deadlineOutputMessage);
+                    storage.writeToFileFromTaskList(taskArrayList, "emiya.txt", "data");
                     break;
                 case "event": // need to go through taskDetails and find /from and /to
                     if (taskDetails.length() <= 1) {
@@ -288,8 +266,8 @@ public class Emiya {
                                 + "Now you have " + taskArrayList.size() + " tasks in your list!\n"
                                 + "-----------------------------------------\n";
                     }
-
                     System.out.println(eventOutputMessage);
+                    storage.writeToFileFromTaskList(taskArrayList, "emiya.txt", "data");
                     break;
                 default:
                     // throw new EmiyaException("Unknown command received! Please try again!");

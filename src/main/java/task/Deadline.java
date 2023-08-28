@@ -19,4 +19,14 @@ public class Deadline extends Task {
             return "[D][ ] " + nameOfTask + "(by:" + dateOfDeadline + ")";
         }
     }
+
+    @Override
+    public String typeOfString() {
+        return "D ";
+    }
+
+    @Override
+    public String taskDetailsString() {
+        return super.nameOfTask + "| " + dateOfDeadline;
+    }
 }
