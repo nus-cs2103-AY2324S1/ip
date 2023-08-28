@@ -29,7 +29,7 @@ public class Duke {
 
     // CONSTANTS
     static final String LINE = "_______________________________________";
-    private static final String DIR_NAME = "./data";
+    private static final String DIR_NAME = "data";
     private static final String FILE_NAME = "duke.txt";
     private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
             .appendPattern("yyyy-MM-dd")
@@ -39,28 +39,13 @@ public class Duke {
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
             .toFormatter();
 
-
-    private static void sendIntroduction() {
-        String logo = "                     _                 _      \n" +
-                " _ __ ___  ___ _ __ (_)_ __ ___  _ __ (_)_  __\n" +
-                "| '__/ _ \\/ __| '_ \\| | '__/ _ \\| '_ \\| \\ \\/ /\n" +
-                "| | |  __/\\__ \\ |_) | | | | (_) | | | | |>  < \n" +
-                "|_|  \\___||___/ .__/|_|_|  \\___/|_| |_|_/_/\\_\\\n" +
-                "              |_|                             ";
-        System.out.println(LINE);
-        System.out.println(logo);
-        System.out.println(LINE);
-        System.out.println("Hello! I'm your personal AI");
-        System.out.println("What can I do for you?");
-        System.out.println(LINE);
-    }
-
     public static void main(String[] args) {
         Storage storage = new Storage(DIR_NAME + File.separator + FILE_NAME);
         TaskList tasks = new TaskList(storage.loadTasksFromStorage());
+        Ui ui = new Ui();
         Scanner scanner = new Scanner(System.in);
 
-        sendIntroduction();
+        ui.showWelcome();
 
         try {
             while (true) {

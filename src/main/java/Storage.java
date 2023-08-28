@@ -50,7 +50,7 @@ public class Storage {
             }
         } catch (FileNotFoundException e) { // File does not exist
             try {
-                if (new File("./duke").mkdir()) {
+                if (new File(filePath.split("/")[0]).mkdir()) {
                     System.out.println("Sorry, directory does not exist. Creating now...");
                 }
                 if (file.createNewFile()) {
