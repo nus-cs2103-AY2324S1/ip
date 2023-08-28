@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -176,10 +177,10 @@ public class Duke {
             throw new InvalidVarException("Blank parameters!");
         }
         String name = input.substring(6, split1 - 1);
-        String start = input.substring(split1 + 6, split2 - 1);
-        String end = input.substring(split2 + 4);
+        LocalDate start = LocalDate.parse(input.substring(split1 + 6, split2 - 1));
+        LocalDate end = LocalDate.parse(input.substring(split2 + 4));
         Event task = new Event(name, start, end);
-        if (name.isBlank() || start.isBlank() || end.isBlank()) {
+        if (name.isBlank()) {
             throw new InvalidVarException("Blank parameters!");
         }
         addTask(task, input);
@@ -197,9 +198,9 @@ public class Duke {
             throw new InvalidVarException("Blank parameters!");
         }
         String name = input.substring(9, split - 1);
-        String deadline = input.substring(split + 4);
+        LocalDate deadline = LocalDate.parse(input.substring(split + 4));
 
-        if (name.isBlank() || deadline.isBlank()) {
+        if (name.isBlank()) {
             throw new InvalidVarException("Blank parameters!");
         }
         Deadline task = new Deadline(name, deadline);
