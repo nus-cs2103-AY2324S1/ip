@@ -1,0 +1,26 @@
+list
+todo buy
+todo
+deadline
+deadline read
+deadline read /by
+deadline read /by tues
+event
+event read
+event read /from
+event read /from mon
+event read /from mon /to
+event read /from mon /to tues
+list
+mark
+mark 1
+mark 0
+mark 6
+unmark 1
+unmark 0
+unmark 6
+delete 1
+delete 0
+delete 6
+find
+bye

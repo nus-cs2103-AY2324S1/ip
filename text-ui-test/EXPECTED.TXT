@@ -1,31 +1,41 @@
 Hey! It's Sally here!
 How can I help you today?
-
-
-Added to My List:
- [T][ ] borrow book
+My List:
+Added to My List: 
+ [T][ ] buy
 Now you have 1 tasks in the list.
-Added to My List:
- [D][ ] return book (by: Sunday)
+OOPS! The description of a todo cannot be empty.
+OOPS! The description of a deadline cannot be incomplete, you need a ' /by '.
+OOPS! The description of a deadline cannot be incomplete, you need a ' /by '.
+OOPS! The description of a deadline cannot be incomplete, you need a ' /by '.
+Added to My List: 
+ [D][ ] read (by: tues)
 Now you have 2 tasks in the list.
+OOPS! The description of an event cannot be incomplete, you need a '/from' and '/to'.
+OOPS! The description of an event cannot be incomplete, you need a '/from' and '/to'.
+OOPS! The description of an event cannot be incomplete, you need a '/from' and '/to'.
+OOPS! The description of an event cannot be incomplete, you need a '/from' and '/to'.
+OOPS! The description of an event cannot be incomplete, you need a '/from' and '/to'.
 Added to My List:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ [E][ ] read (from: mon to: tues)
 Now you have 3 tasks in the list.
-Added to My List:
- [D][ ] do homework (by: no idea :-p)
-Now you have 4 tasks in the list.
-Sorry, I do not understand the command (Use todo/deadline/event to add tasks to your list).
 My List:
-1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-4. [D][ ] do homework (by: no idea :-p)
+1. [T][ ] buy
+2. [D][ ] read (by: tues)
+3. [E][ ] read (from: mon to: tues)
+OOPS! Provide a valid task number to mark.
 Nice! I've marked this task as done:
- [D][X] return book (by: Sunday)
-My List:
-1. [T][ ] borrow book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-4. [D][ ] do homework (by: no idea :-p)
+ [T][X] buy
+OOPS! Provide a valid task number to unmark.
+OOPS! Provide a valid task number to unmark.
+Ok, I've marked this task as not done yet:
+ [T][ ] buy
+OOPS! Provide a valid task number to unmark.
+OOPS! Provide a valid task number to unmark.
+Noted. I've removed this task:
+ [T][ ] buy
+Now you have 2 tasks in the list.
+OOPS! Provide a valid task number to delete.
+OOPS! Provide a valid task number to delete.
+Sorry, I do not understand the command :-(
 Bye! See you again next time.
-
