@@ -55,6 +55,9 @@ public class Duke {
             } catch (InvalidIndexException e) {
                 System.out.println(e.getMessage());
                 System.out.println(horizontal);
+            } catch (InvalidDateTimeException e) {
+                System.out.println(e.getMessage());
+                System.out.println(horizontal);
             }
 
         }

@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.File;
@@ -47,7 +48,7 @@ public class TaskList {
      * @param input The input containing the description and deadline.
      * @throws EmptyTaskException If the task description or deadline is empty.
      */
-    public void addDeadline(String input) throws EmptyTaskException {
+    public void addDeadline(String input) throws EmptyTaskException, InvalidDateTimeException {
         String[] splitInput = input.split(" /by ");
         String description = splitInput[0];
         if(description.isEmpty()) {
@@ -57,10 +58,12 @@ public class TaskList {
             throw new EmptyTaskException(TaskType.DEADLINE, "by");
         }
         String by = splitInput[1];
+
         if(by.isEmpty()) {
             throw new EmptyTaskException(TaskType.DEADLINE, "by");
         }
-        Task task= new Deadline(description, by);
+        String dateTimeBy = DateParser.transformDateTimeFormat(by);
+        Task task= new Deadline(description, dateTimeBy);
         store.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
@@ -74,7 +77,7 @@ public class TaskList {
      * @param input The input containing the description, start time, and end time.
      * @throws EmptyTaskException If the task description, start time, or end time is empty.
      */
-    public void addEvent(String input) throws EmptyTaskException {
+    public void addEvent(String input) throws EmptyTaskException, InvalidDateTimeException {
         String[] splitInput = input.split("/");
         String description = splitInput[0].trim();
         if(description.isEmpty()) {
@@ -94,7 +97,9 @@ public class TaskList {
         if(to.isEmpty()) {
             throw new EmptyTaskException(TaskType.EVENT, "to");
         }
-        Task task= new Event(description, from, to);
+        String dateTimeFrom = DateParser.transformDateTimeFormat(from);
+        String dateTimeTo = DateParser.transformDateTimeFormat(to);
+        Task task= new Event(description, dateTimeFrom, dateTimeTo);
         store.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
