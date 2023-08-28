@@ -9,12 +9,18 @@ public class Task {
         return date.format(DateTimeFormatter.ofPattern("h:mm a, MMM d yyyy"));
     }
 
-    public Task(String description) {
+    public Task(String description) throws DukeException {
+        if (description.isEmpty()) {
+            throw new DukeException("\u2639 OOPS!!! The description of a task cannot be empty.");
+        }
         this.description = description;
         this.isDone = false;
     }
 
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone) throws DukeException {
+        if (description.isEmpty()) {
+            throw new DukeException("\u2639 OOPS!!! The description of a task cannot be empty.");
+        }
         this.description = description;
         this.isDone = isDone;
     }
