@@ -28,4 +28,8 @@ public class TaskList {
             }
         }
     }
+
+    public void mark(int index) {
+        this.tasks.get(index).markAsDone();
+    }
 }
