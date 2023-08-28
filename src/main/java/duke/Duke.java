@@ -1,14 +1,13 @@
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
+package duke;
 
-import java.io.*;
-import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import duke.DukeException;
+import duke.Parser;
+import duke.Storage;
+import duke.Ui;
+import duke.command.Command;
+import duke.task.TaskList;
+
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class Duke {
 

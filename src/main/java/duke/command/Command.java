@@ -1,4 +1,6 @@
-import java.util.List;
+package duke.command;
+
+import duke.task.TaskList;
 
 public abstract class Command {
 

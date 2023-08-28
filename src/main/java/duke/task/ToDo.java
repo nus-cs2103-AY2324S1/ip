@@ -1,3 +1,5 @@
+package duke.task;
+
 public class ToDo extends Task {
 
     public ToDo(String task) {
@@ -12,6 +14,6 @@ public class ToDo extends Task {
 
     @Override
     public String type() {
-        return "ToDo";
+        return "Task.ToDo";
     }
 }

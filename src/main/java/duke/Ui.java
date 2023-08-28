@@ -1,5 +1,9 @@
+package duke;
+
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.util.List;
-import java.util.ArrayList;
 
 public class Ui {
 

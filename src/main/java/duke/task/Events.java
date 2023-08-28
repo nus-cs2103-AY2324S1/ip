@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDate;
 
 public class Events extends Task {
@@ -24,6 +26,6 @@ public class Events extends Task {
 
     @Override
     public String type() {
-        return "Events";
+        return "Task.Events";
     }
 }

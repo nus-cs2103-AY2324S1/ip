@@ -1,9 +1,11 @@
+package duke;
+
+import duke.task.Task;
+import duke.task.TaskList;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Storage {
 
@@ -39,9 +41,9 @@ public class Storage {
 
             for (int i = 0; i < save.type.length; i++) {
                 String s = save.type[i];
-                if (s.equals("ToDo")) {
+                if (s.equals("Task.ToDo")) {
                     list.add(save.toDos[i]);
-                } else if (s.equals("Events")) {
+                } else if (s.equals("Task.Events")) {
                     list.add(save.events[i]);
                 } else {
                     list.add(save.deadlines[i]);

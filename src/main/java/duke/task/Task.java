@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Task {
 
     private String name;
@@ -12,7 +14,7 @@ public class Task {
     }
 
     public String type() {
-        return "Task";
+        return "duke/task";
     }
 
     public String taskName() {

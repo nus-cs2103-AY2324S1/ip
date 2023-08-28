@@ -1,7 +1,9 @@
-import jdk.jfr.Event;
+package duke;
 
-import java.util.List;
-import java.util.ArrayList;
+import duke.task.Deadline;
+import duke.task.Events;
+import duke.task.Task;
+import duke.task.ToDo;
 
 public class SaveData {
     
@@ -23,13 +25,13 @@ public class SaveData {
         for (int i = 0; i < n; i++) {
             type[i] = list[i].type();
             switch (type[i]) {
-                case "ToDo":
+                case "Task.ToDo":
                     toDos[i] = (ToDo) list[i];
                     break;
-                case "Deadline":
+                case "Task.Deadline":
                     deadlines[i] = (Deadline) list[i];
                     break;
-                case "Events":
+                case "Task.Events":
                     events[i] = (Events) list[i];
                     break;
 
