@@ -1,4 +1,5 @@
 package carbonbot;
+
 import carbonbot.command.Command;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class CarbonBot {
     public void run() {
         this.ui.showGreetings();
         boolean isExit = false;
-        while(!isExit) {
+        while (!isExit) {
             String input = this.ui.getNextInput();
 
             // Ignore if the input was empty
