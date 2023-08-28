@@ -12,7 +12,6 @@ public class MarkCommand {
     private static Reply reply = Reply.init();
     private static TaskList tasks = TaskList.init();
     public static void start(String input) throws
-            InvalidInputException,
             MissingArgumentException,
             InvalidCommandException {
 

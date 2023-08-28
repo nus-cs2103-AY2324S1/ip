@@ -8,7 +8,6 @@ import exception.MissingTaskArgumentException;
 
 public class CommandParser {
     public static String getCommandArguments(String input, Command command) throws
-            InvalidInputException,
             MissingArgumentException,
             InvalidCommandException {
 
@@ -27,7 +26,7 @@ public class CommandParser {
         } else if (args.startsWith(" ")){
             return args.substring(1);
         } else {
-            throw new InvalidInputException();
+            throw new InvalidCommandException();
         }
     }
 }
