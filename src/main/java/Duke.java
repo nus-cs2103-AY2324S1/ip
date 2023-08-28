@@ -1,11 +1,38 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Duke {
+    private static final Storage storage = new Storage();
+    private static File file;
+
+    private static void readFile() throws FileNotFoundException {
+        File f = new File("data/duke.txt");
+        Scanner s = new Scanner(f);
+        while (s.hasNext()) {
+            storage.addTask(s.nextLine());
+        }
+        file = f;
+    }
+
+    //TODO: update the file after each task creation/modification
+    private static void updateFile() throws IOException {
+        FileWriter fw = new FileWriter(file);
+        fw.write(storage.getTasksTxt());
+        fw.close();
+    }
+
     public static void main(String[] args) {
+        try {
+            readFile();
+        } catch (FileNotFoundException e) {
+            file = new File("data/duke.txt");
+        }
         Scanner scanner = new Scanner(System.in);
-        Storage storage = new Storage();
         String logo = " _ \n"
                 + "| |\n"
                 + "| |\n"
@@ -23,7 +50,13 @@ public class Duke {
                 Matcher taskMatcher = taskPattern.matcher(repeat);
                 if (repeat.contains("bye") || repeat.contains("88")) {
                     System.out.println("Bye!\n\"Beware the barrenness of a busy life.\"");
-                    break;
+                    try {
+                        updateFile();
+                    } catch (IOException e) {
+                        throw new DukeException("file error");
+                    } finally {
+                        break;
+                    }
                 } else if (markMatcher.matches()) {
                     String action = markMatcher.group(1);
                     int taskIndex = Integer.parseInt(markMatcher.group(2));
@@ -52,6 +85,8 @@ public class Duke {
                     System.out.println("⚠ Oops! Need description and by date for the deadline:(");
                 } else if (message.equals("event error")) {
                     System.out.println("⚠ Oops! Need description, from and to date for the event:(");
+                } else {
+                    System.out.println("⚠ Oops! Something went wrong:(");
                 }
             }
         }
