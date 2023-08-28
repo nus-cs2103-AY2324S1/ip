@@ -65,29 +65,42 @@ class Task {
 
 class ListOfTask {
     private static ArrayList<Task> listOfTask = new ArrayList<>();
-    private static int counter = 0;
+
+    protected int size() {
+        return listOfTask.size();
+    }
 
     protected void addTask(String task) {
         Task temp = new Task.ToDos(task);
         listOfTask.add(temp);
-        //listOfTask[counter] = new Task.ToDos(task);
         System.out.println("added: " + temp);
     }
 
     protected void addTask(String task, String dayDate) {
         Task temp = new Task.Deadlines(task, dayDate);
         listOfTask.add(temp);
-        //listOfTask[counter] = new Task.Deadlines(task, dayDate);
         System.out.println("added: " + temp);
-        counter++;
     }
 
     protected void addTask(String task, String startDayDateTime, String endDayDateTime) {
         Task temp = new Task.Event(task, startDayDateTime, endDayDateTime);
         listOfTask.add(temp);
-        //listOfTask[counter] = new Task.Event(task, startDayDateTime, endDayDateTime);
         System.out.println("added: " + temp);
-        counter++;
+    }
+
+    protected void loadTask(String task) {
+        Task temp = new Task.ToDos(task);
+        listOfTask.add(temp);
+    }
+
+    protected void loadTask(String task, String dayDate) {
+        Task temp = new Task.Deadlines(task, dayDate);
+        listOfTask.add(temp);
+    }
+
+    protected void loadTask(String task, String startDayDateTime, String endDayDateTime) {
+        Task temp = new Task.Event(task, startDayDateTime, endDayDateTime);
+        listOfTask.add(temp);
     }
 
     protected void listTasks() {
@@ -108,6 +121,10 @@ class ListOfTask {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Please select from index 1 to " + listOfTask.size());
         }
+    }
+
+    protected void loadMark(int index) {
+        listOfTask.get(index - 1).mark();
     }
 
     protected void unMark(int index) {

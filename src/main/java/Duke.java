@@ -13,13 +13,13 @@ public class Duke {
     }
 
     private static void greet() {
-        //loadData
-        File saveData = new File("./data.duke.txt");
+        File saveData = new File("./src/data/duke.txt");
         try {
             Scanner readData = new Scanner(saveData);
             while (readData.hasNextLine()) {
                 quickLoad(readData.nextLine());
             }
+            readData.close();
         } catch (FileNotFoundException e) {
             try {
                 saveData.createNewFile();
@@ -63,29 +63,46 @@ public class Duke {
 
         switch (firstWord) {
         case TODO:
-            taskList.addTask(cmd.secondWord());
-            break;
+            if (cmd.secondWord() != null) {
+                taskList.loadTask(cmd.secondWord());
+            } else {
+                System.out.println("ToDo line corrupted");
+            }
+            return;
 
         case DEADLINE:
-            String task = cmd.phaseParse();
-            String dayDate = cmd.phaseTwo();
-            Parse parseDayDate = new Parse(dayDate);
-            taskList.addTask(task, parseDayDate.secondWord());
+            try {
+                String task = cmd.phaseParse();
+                String dayDate = cmd.phaseTwo();
+                Parse parseDayDate = new Parse(dayDate);
+                if (parseDayDate.mainCommand().equals(COMMANDS.BY) && parseDayDate.secondWord() != null) {
+                    taskList.loadTask(task, parseDayDate.secondWord());
+                }
+            } catch (NullPointerException e) {
+                System.out.println("Deadline line corrupted");
+            }
             return;
 
         case EVENT:
-            String task2 = cmd.phaseParse();
-            String startDayDateTime = cmd.phaseTwo();
-            Parse parseStartDayDateTime = new Parse(startDayDateTime);
-            String endDayDateTime = cmd.phaseThree();
-            Parse parseEndDayDateTime = new Parse(endDayDateTime);
-            taskList.addTask(task2, parseStartDayDateTime.secondWord(), parseEndDayDateTime.secondWord());
+            try {
+                String task2 = cmd.phaseParse();
+                String startDayDateTime = cmd.phaseTwo();
+                Parse parseStartDayDateTime = new Parse(startDayDateTime);
+                String endDayDateTime = cmd.phaseThree();
+                Parse parseEndDayDateTime = new Parse(endDayDateTime);
+                taskList.loadTask(task2, parseStartDayDateTime.secondWord(), parseEndDayDateTime.secondWord());
+            } catch (NullPointerException e) {
+                System.out.println("Event line corrupted");
+            }
             return;
 
         case MARK:
-            int i = Integer.parseInt(cmd.secondWord());
-            taskList.mark(i);
+            int i = taskList.size();
+            taskList.loadMark(i);
             return;
+
+        default:
+            System.out.println("line corrupted");
         }
     }
 
