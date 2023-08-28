@@ -1,6 +1,6 @@
-public class ResponseGen {
+public class Ui {
     protected static String H_LINE = "____________________________________________________________\n";
-    public ResponseGen(){}
+    public Ui(){}
 
     public void greetings(){
         System.out.println(H_LINE
@@ -35,11 +35,11 @@ public class ResponseGen {
                 + H_LINE);
     }
 
-    public void toDoAdded(ToDo toDoTask, TaskManager taskManager) {
+    public void toDoAdded(ToDo toDoTask, TaskList taskList) {
         System.out.println(H_LINE
                 + "Got it. I've added this task:\n"
                 + toDoTask + "\n"
-                + "Now you have " + taskManager.getSize() + ((taskManager.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
+                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
                 + H_LINE);
     }
 
@@ -49,11 +49,11 @@ public class ResponseGen {
                 + H_LINE);
     }
 
-    public void deadlineAdded(Deadline deadlineTask, TaskManager taskManager) {
+    public void deadlineAdded(Deadline deadlineTask, TaskList taskList) {
         System.out.println(H_LINE
                 + "Got it. I've added this task:\n"
                 + deadlineTask + "\n"
-                + "Now you have " + taskManager.getSize() + ((taskManager.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
+                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
                 + H_LINE);
     }
 
@@ -63,11 +63,11 @@ public class ResponseGen {
                 + H_LINE);
     }
 
-    public void eventAdded(Event eventTask, TaskManager taskManager) {
+    public void eventAdded(Event eventTask, TaskList taskList) {
         System.out.println(H_LINE
                 + "Got it. I've added this task:\n"
                 + eventTask + "\n"
-                + "Now you have " + taskManager.getSize() + ((taskManager.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
+                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
                 + H_LINE);
     }
 
@@ -77,11 +77,11 @@ public class ResponseGen {
                 + H_LINE);
     }
 
-    public void taskDeleted(Task deletedTask, TaskManager taskManager){
+    public void taskDeleted(Task deletedTask, TaskList taskList){
         System.out.println(H_LINE
                 + "Noted. I've removed this task:\n"
                 + deletedTask + "\n"
-                + "Now you have " + taskManager.getSize() + ((taskManager.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
+                + "Now you have " + taskList.getSize() + ((taskList.getSize() > 1) ? " tasks " : " task ") + "in the list." + "\n"
                 + H_LINE);
     }
 
