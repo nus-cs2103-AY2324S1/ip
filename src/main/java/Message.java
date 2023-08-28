@@ -1,4 +1,5 @@
 import Task.Task;
+import Task.TaskList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,10 @@ public class Message {
         this.content = content;
     }
 
-    public static List<Message> ConvertTasks(List<? extends Task> tasks) {
+    public static List<Message> ConvertTasks(TaskList taskList) {
         List<Message> messages = new ArrayList<>();
-        for(int i = 0; i < tasks.size(); i++) {
-            messages.add((new Message((i + 1) + ". " + tasks.get(i).toString())));
+        for(int i = 0; i < taskList.Size(); i++) {
+            messages.add((new Message((i + 1) + ". " + taskList.GetTask(i).toString())));
         }
         return messages;
     }
@@ -59,8 +60,8 @@ public class Message {
         return new Message ("I've removed this task: \n" + task.toString());
     }
 
-    public static Message NumberOfTasks(List<Task> tasks) {
-        return new Message ("There are " + tasks.size() + " tasks in the list.");
+    public static Message NumberOfTasks(TaskList tasks) {
+        return new Message ("There are " + tasks.Size() + " tasks in the list.");
     }
 
     public Message ChainTo(Message message, String splitString) {

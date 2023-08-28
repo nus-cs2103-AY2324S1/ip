@@ -1,22 +1,41 @@
+import DukeException.DukeException;
+import Task.TaskList;
+
 import java.util.Scanner;
 
 public class Duke {
-    final private static String name = "Iris";
+    private  String name = "Iris";
+    private TaskList taskList;
 
-    private static boolean running = true;
-    public static void main(String[] args) {
-        InputHandler inputHandler = new InputHandler();
+    private Storage storage;
+    private Ui ui;
+    private boolean awake = true;
+    public Duke(String filePath) {
+        Ui ui= new Ui();
+        storage = new Storage(filePath);
+        try {
+            taskList = storage.LoadTaskList();
+        } catch (DukeException e) {
+            //ui.showLoadingError();
+            taskList = new TaskList();
+        }
+    }
+    public void run() {
         Scanner scanner = new Scanner(System.in);
         Message.OnGreeting(name).Print();
-        while( running ){
+        while(awake){
             if(scanner.hasNext()) {
-                inputHandler.HandleInput(scanner.nextLine());
+                ui.HandleLine(scanner.nextLine());
             }
         }
     }
 
-    protected static void Exit()
+    public static void main(String[] args) {
+        new Duke("data/tasks.txt").run();
+    }
+
+    protected void Exit()
     {
-        running = false;
+        awake = false;
     }
 }

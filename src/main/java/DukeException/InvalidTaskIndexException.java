@@ -1,6 +1,6 @@
 package DukeException;
 
-public class InvalidTaskIndexException extends Exception {
+public class InvalidTaskIndexException extends DukeException {
     public InvalidTaskIndexException(String message) {
         super(message);
     }

@@ -1,14 +1,12 @@
 
 import Task.Task;
+import Task.TaskList;
 
-import java.util.ArrayList;
-import java.util.List;
+public class InputParser {
 
-public class InputHandler {
-
-    final private List<Task> tasks = new ArrayList<>();
-    public InputHandler() {}
-    public void HandleInput(String input) {
+    private TaskList taskList;
+    public InputParser() {}
+    public Message HandleInput(String input, Duke duke) {
         String[] inputComponents = input.trim().split(" ", 2);
         String command = inputComponents[0];
         String content = "";
@@ -17,28 +15,23 @@ public class InputHandler {
         try {
             switch (command) {
                 case "bye":
-                    Message.OnExit().Print();
-                    Duke.Exit();
-                    break;
+                    duke.Exit();
+                    return Message.OnExit();
                 case "todo":
                     Task task = Task.Of(content, Task.TaskType.TODO);
-                    tasks.add(task);
-                    Message.OnTaskAdd((task)).Print();
-                    break;
+                    taskList.AddTask(task);
+                    return Message.OnTaskAdd((task));
                 case "deadline":
                     task = Task.Of(content, Task.TaskType.DEADLINE);
-                    tasks.add(task);
-                    Message.OnTaskAdd((task)).Print();
-                    break;
+                    taskList.AddTask(task);
+                    return Message.OnTaskAdd((task));
                 case "event":
                     task = Task.Of(content, Task.TaskType.EVENT);
-                    tasks.add(task);
-                    Message.OnTaskAdd((task)).Print();
-                    break;
+                    taskList.AddTask(task);
+                    return Message.OnTaskAdd((task));
                 case "list":
-                    Message.ChainList(Message.ConvertTasks(tasks), "\n").ChainTo(
-                    Message.NumberOfTasks(tasks), "\n").Print();
-                    break;
+                    return Message.ChainList(Message.ConvertTasks(taskList), "\n").ChainTo(
+                    Message.NumberOfTasks(taskList), "\n");
                 case "mark":
                     int taskIndex;
                     try {
@@ -47,54 +40,49 @@ public class InputHandler {
                         throw new DukeException.InvalidTaskIndexException(content);
                     }
                     try {
-                        task = tasks.get(taskIndex);
+                        task = taskList.GetTask(taskIndex);
                     } catch (IndexOutOfBoundsException e) {
-                        throw new DukeException.TaskIndexOutOfRangeException();
+                        throw new DukeException.TaskIndexOutOfRangeException(taskIndex + " is not a valid index");
                     }
                     task.SetCompleted();
-                    Message.OnTaskComplete(task).Print();
-                    break;
+                    return Message.OnTaskComplete(task);
                 case "unmark":
                     try {
                         taskIndex = Integer.parseInt(content) - 1;
                     } catch (NumberFormatException e) {
-                        Message.OnInvalidTaskNo(content).Print();
-                        break;
+                        return Message.OnInvalidTaskNo(content);
                     }
                     try {
-                        task = tasks.get(taskIndex);
+                        task = taskList.GetTask(taskIndex);
                     } catch (IndexOutOfBoundsException e) {
-                        throw new DukeException.TaskIndexOutOfRangeException();
+                        throw new DukeException.TaskIndexOutOfRangeException(taskIndex + " is not a valid index");
                     }
                     task.SetUncompleted();
-                    Message.OnTaskUncomplete(task).Print();
-                    break;
+                    return Message.OnTaskUncomplete(task);
                 case "delete":
                     try {
                         taskIndex = Integer.parseInt(content) - 1;
                     } catch (NumberFormatException e) {
-                        Message.OnInvalidTaskNo(content).Print();
-                        break;
+                        return Message.OnInvalidTaskNo(content);
                     }
                     try {
-                        task = tasks.get(taskIndex);
+                        task = taskList.GetTask(taskIndex);
                     } catch (IndexOutOfBoundsException e) {
-                        throw new DukeException.TaskIndexOutOfRangeException();
+                        throw new DukeException.TaskIndexOutOfRangeException(taskIndex + " is not a valid index");
                     }
-                    tasks.remove((task));
-                    Message.OnTaskDelete(task).Print();
-                    break;
+                    taskList.RemoveTask((task));
+                    return Message.OnTaskDelete(task);
                 default:
-                    throw new DukeException.NoCommandFoundException();
+                    throw new DukeException.NoCommandFoundException(command + " is not a valid command.");
             }
         } catch (DukeException.EmptyTaskDescException e) {
-            Message.EmptyTaskName().Print();
+            return Message.EmptyTaskName();
         } catch (DukeException.NoCommandFoundException e) {
-            Message.NoCommandFound().Print();
+            return Message.NoCommandFound();
         } catch (DukeException.InvalidTaskIndexException e) {
-            Message.OnInvalidTaskNo(e.getMessage()).Print();
+            return Message.OnInvalidTaskNo(e.getMessage());
         } catch (DukeException.TaskIndexOutOfRangeException e) {
-            Message.OnTaskIndexOutOfRange().Print();
+            return Message.OnTaskIndexOutOfRange();
         }
     }
 }
