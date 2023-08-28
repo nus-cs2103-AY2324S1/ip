@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
@@ -95,17 +98,18 @@ public class Duke {
         if (tokens.length == 0 || tokens[1].isBlank()) {
             throw new EmptyDescriptionException("Task description cannot be empty");
         }
-        int startIndex = userInput.indexOf(commandAndKeyword[0]) + commandAndKeyword[0].length();
-        int endIndex = userInput.indexOf(commandAndKeyword[1]);
+        String detailsWithKeyword = tokens[1];
+        int endIndex = detailsWithKeyword.indexOf(commandAndKeyword[1]);
         if (endIndex == -1) {
             throw new MissingKeywordException("Missing keyword: " + commandAndKeyword[1]);
         }
-        String toReturn = userInput.substring(startIndex, endIndex).trim();
+        String toReturn = detailsWithKeyword.substring(0, endIndex).trim();
         if (toReturn.isEmpty()) {
             throw new EmptyDescriptionException("Task description cannot be empty");
         }
         return toReturn;
     }
+
 
     /**
      * Extracts the details after the keyword.
@@ -151,6 +155,34 @@ public class Duke {
         }
     }
 
+    private static void saveTasksToFile(TaskList taskList) {
+        try {
+            File dataDir = new File("./data");
+            if (!dataDir.exists()) {
+                if (dataDir.mkdirs()) {
+                    System.out.println("Data directory created.");
+                } else {
+                    System.out.println("Data directory creation failed.");
+                }
+            }
+            File file = new File("./data/duke.txt");
+            if (!file.exists()) {
+                if (file.createNewFile()) {
+                    System.out.println("Data file created.");
+                } else {
+                    System.out.println("Data file creation failed.");
+                }
+            }
+            FileWriter writer = new FileWriter(file);
+            for (Task task : taskList.returnTaskList()) {
+                writer.write(task.changeFormat() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error while saving tasks to file: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         greet();
         Scanner scanner = new Scanner(System.in);
@@ -168,34 +200,35 @@ public class Duke {
                     throw new InvalidCommandException();
                 }
                 switch (operation) {
-                    case BYE:
-                        ongoing = false;
-                        exit();
-                        break;
-                    case LIST:
-                        taskList.listAllTasks();
-                        break;
-                    case DELETE:
-                        delete(userInput, taskList);
-                        break;
-                    case MARK:
-                        mark(userInput, taskList);
-                        break;
-                    case UNMARK:
-                        unmark(userInput, taskList);
-                        break;
-                    case TODO:
-                        todo(userInput, taskList);
-                        break;
-                    case DEADLINE:
-                        deadline(userInput, taskList);
-                        break;
-                    case EVENT:
-                        event(userInput, taskList);
-                        break;
-                    default:
-                        throw new InvalidCommandException();
+                case BYE:
+                    ongoing = false;
+                    exit();
+                    break;
+                case LIST:
+                    taskList.listAllTasks();
+                    break;
+                case DELETE:
+                    delete(userInput, taskList);
+                    break;
+                case MARK:
+                    mark(userInput, taskList);
+                    break;
+                case UNMARK:
+                    unmark(userInput, taskList);
+                    break;
+                case TODO:
+                    todo(userInput, taskList);
+                    break;
+                case DEADLINE:
+                    deadline(userInput, taskList);
+                    break;
+                case EVENT:
+                    event(userInput, taskList);
+                    break;
+                default:
+                    throw new InvalidCommandException();
                 }
+                saveTasksToFile(taskList);
             } catch (TaskException | InvalidCommandException | EmptyDescriptionException
                      | NotIntegerException | MissingKeywordException e) {
                 System.out.println(e.getMessage());

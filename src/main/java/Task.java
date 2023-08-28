@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Task {
-    private String description;
+abstract public class Task {
+    public String description;
     public boolean isMarked;
 
     public Task(String description) {
@@ -13,6 +13,8 @@ public class Task {
     private String getStatusIcon() {
         return (isMarked ? "[X]" : "[ ]");
     }
+
+    abstract public String changeFormat();
 
     @Override
     public String toString() {

@@ -5,6 +5,14 @@ class Deadline extends Task {
         this.by = by;
     }
 
+    public String changeFormat() {
+        int isDone = 0;
+        if (isMarked) {
+            isDone = 1;
+        }
+        return "D" + " | " + isDone + " | " + super.description + " | " + by;
+    };
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by:" + by + ")";

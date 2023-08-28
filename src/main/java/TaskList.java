@@ -28,6 +28,10 @@ public class TaskList {
         }
     }
 
+    public List<Task> returnTaskList() {
+        return taskList;
+    }
+
     public void deleteTask(int i) throws TaskException{
         if (i > taskList.size()) {
             throw new TaskException("Invalid task index. Valid indexes from 1 to " + taskList.size());
