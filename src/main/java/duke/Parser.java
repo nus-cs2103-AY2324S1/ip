@@ -222,7 +222,7 @@ public class Parser {
         }
         Task t = tasks.get(j-1);
         t.markDone();
-        this.ui.print("duke.task.Task marked as done.");
+        this.ui.print("Task marked as done.");
     }
 
     /**
@@ -245,7 +245,7 @@ public class Parser {
         }
         Task t = tasks.get(j-1);
         t.markUndone();
-        this.ui.print("duke.task.Task marked as undone.");
+        this.ui.print("Task marked as undone.");
     }
 
     /**
@@ -321,45 +321,4 @@ public class Parser {
             break;
         }
     }
-       /* try {
-            String x = sc.nextLine();
-            String[] stringList = x.split(" ", 2);
-            String first = stringList[0];
-            String second = null;
-            try {
-                second = stringList[1];
-            } catch (IndexOutOfBoundsException e) {
-                // do nothing
-            }
-            switch (first) {
-            case "bye":
-                break;
-            case "list":
-                printList();
-                break;
-            case "mark":
-                markDone(second);
-                break;
-            case "unmark":
-                markUndone(second);
-                break;
-            case "todo":
-                addTodo(second);
-                break;
-            case "deadline":
-                addDeadline(second);
-                break;
-            case "event":
-                addEvent(second);
-                break;
-            case "delete":
-                delete(second);
-                break;
-            default:
-                throw new duke.exception.InvalidInputException("OOPS! I do not know what " + first + " means. Please try again :)");
-            }
-            if (x.equals("bye")) {
-                ending();
-                break;
-            }*/
 }
