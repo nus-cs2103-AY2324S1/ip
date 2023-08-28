@@ -3,24 +3,19 @@ import java.util.Scanner;
 
 public class Duke {
 	/**
-	 * Storage object to handle file operations
-	 */
-	private final Storage STORAGE = new Storage("data/duke.txt");
-	private final TaskList TASKLIST = new TaskList();
-
-	/**
 	 * The main function where the program starts
 	 *
 	 * @param args input args
 	 */
 	public static void main(String[] args) {
 		Duke duke = new Duke();
+		Storage storage = new Storage("data/duke.txt");
+		TaskList taskList = storage.readFromFile();
 		duke.printLine();
 		System.out.println("Hello I'm RyamBot");
 		System.out.println("What can I do for you?");
-		duke.STORAGE.writeToFile("Hello I'm RyamBot");
 		duke.printLine();
-		duke.queryBot();
+		duke.queryBot(taskList, storage);
 		duke.printLine();
 	}
 
@@ -31,7 +26,7 @@ public class Duke {
 		System.out.println("____________________________________________________________");
 	}
 
-	void queryBot() {
+	void queryBot(TaskList taskList, Storage storage) {
 		Scanner input = new Scanner(System.in);
 		while (input.hasNextLine()) {
 			try {
@@ -41,19 +36,19 @@ public class Duke {
 					exit();
 					break;
 				} else if (query.equals("list")) {
-					list();
+					list(taskList, storage);
 				} else if (query.startsWith("delete")) {
-					delete(query);
+					delete(query, taskList, storage);
 				} else if (query.startsWith("mark")) {
-					mark(query);
+					mark(query, taskList, storage);
 				} else if (query.startsWith("unmark")) {
-					unmark(query);
+					unmark(query, taskList, storage);
 				} else if (query.startsWith("event")) {
-					event(query);
+					event(query, taskList, storage);
 				} else if (query.startsWith("deadline")) {
-					deadline(query);
+					deadline(query, taskList, storage);
 				} else if (query.startsWith("todo")) {
-					todo(query);
+					todo(query, taskList, storage);
 				} else {
 					throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
 				}
@@ -87,18 +82,20 @@ public class Duke {
 	/**
 	 * @throws DukeException
 	 */
-	void list() throws DukeException {
-		if (TASKLIST.length() <= 0) {
+	void list(TaskList taskList, Storage storage) throws DukeException {
+		if (taskList.length() <= 0) {
 			throw new DukeException("☹ OOPS!!! I'm sorry, but you don't have any tasks yet!");
 		}
-		TASKLIST.printList();
+		taskList.printList();
 	}
 
 	/**
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	void delete(String query) throws DukeException {
+	void delete(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! You are missing a number\n" +
 							"Please enter a valid delete query - delete 1");
@@ -113,20 +110,23 @@ public class Duke {
 							"Please enter a valid delete query - delete 1");
 		}
 		int index = Integer.parseInt(splitted[1]) - 1;
-		if (index >= TASKLIST.length() || index < 0) {
+		if (index >= taskList.length() || index < 0) {
 			throw new DukeException("No such task exists! Please enter a valid number within following list!\n" +
 							"Please use the command list to see the list of tasks\n" +
 							"and then delete the following task that you would like");
 		} else {
-			TASKLIST.delete(index);
+			taskList.delete(index);
+			storage.writeToFile(taskList);
 		}
 	}
 
 	/**
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	void mark(String query) throws DukeException {
+	void mark(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! You are missing a number\n" +
 							"Please enter a valid mark query - mark 1");
@@ -141,22 +141,24 @@ public class Duke {
 							"Please enter a valid mark query - mark 1");
 		}
 		int index = Integer.parseInt(splitted[1]) - 1;
-		if (index >= TASKLIST.length() || index < 0) {
+		if (index >= taskList.length() || index < 0) {
 			throw new DukeException("No such task exists! Please enter a valid number within following list!\n" +
 							"Please use the command list to see the list of tasks\n" +
 							"and then mark the following task that you would like");
 		} else {
-			Task currTask = TASKLIST.get(index);
+			Task currTask = taskList.get(index);
 			currTask.mark();
-			System.out.println(currTask);
+			storage.writeToFile(taskList);
 		}
 	}
 
 	/**
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	void unmark(String query) throws DukeException {
+	void unmark(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! You are missing a number\n" +
 							"Please enter a valid unmark query - unmark 1");
@@ -171,36 +173,40 @@ public class Duke {
 							"Please enter a valid mark query - mark 1");
 		}
 		int index = Integer.parseInt(splitted[1]) - 1;
-		if (index >= TASKLIST.length()) {
+		if (index >= taskList.length()) {
 			throw new DukeException("No such task exists! Please enter a valid number within following list!\n" +
 							"Please use the command list to see the list of tasks\n" +
 							"and then unmark the following task that you would like");
 		} else {
-			Task currTask = TASKLIST.get(index);
+			Task currTask = taskList.get(index);
 			currTask.unmark();
-			System.out.println(currTask);
+			storage.writeToFile(taskList);
 		}
 	}
 
 	/**
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	void todo(String query) throws DukeException {
+	void todo(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.\n" +
 							"Please enter a valid todo - todo read book or todo sleep");
 		}
 		String[] splitted = query.split(" ", 2);
 		Task newTask = new ToDo(splitted[1]);
-		TASKLIST.addToList(newTask);
+		taskList.addToList(newTask, storage);
 	}
 
 	/**
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	void deadline(String query) throws DukeException {
+	void deadline(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.\n" +
 							"Please enter a valid deadline - deadline return book /by 2pm");
@@ -221,14 +227,16 @@ public class Duke {
 		}
 		String deadline = parts[1];
 		Task newTask = new Deadline(taskName, deadline);
-		TASKLIST.addToList(newTask);
+		taskList.addToList(newTask, storage);
 	}
 
 	/**
 	 * @param query
+	 * @param taskList
+	 * @param storage
 	 * @throws DukeException
 	 */
-	void event(String query) throws DukeException {
+	void event(String query, TaskList taskList, Storage storage) throws DukeException {
 		if (query.split(" ").length == 1) {
 			throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.\n" +
 							"Please enter a valid event - event read book /from 2pm /to 4pm");
@@ -265,7 +273,7 @@ public class Duke {
 							"Please enter a valid event - event read book /from 2pm /to 4pm");
 		}
 		Task newTask = new Event(taskName, from, to);
-		TASKLIST.addToList(newTask);
+		taskList.addToList(newTask, storage);
 	}
 
 	/**

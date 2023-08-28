@@ -7,12 +7,16 @@ public class TaskList {
 		this.list = new ArrayList<>();
 	}
 
-	public void addToList(Task item) {
+	public void addToList(Task item, Storage storage) {
 		System.out.println("Got it. I've added this task:");
 		this.list.add(item);
-//		System.out.println("[" + item.getLetter() + "]" + "[" + item.getStatusIcon() + "] " + item.description);
 		System.out.println(item.toString());
 		System.out.println("Now you have " + this.list.size() + " tasks in the list.");
+		storage.writeToFile(this);
+	}
+
+	public void addToList(Task item) {
+		this.list.add(item);
 	}
 
 	public Task get(int index) {
@@ -23,7 +27,6 @@ public class TaskList {
 		System.out.println("Here are the tasks in your list:");
 		for (int i = 0; i < this.list.size(); i++) {
 			Task currTask = this.list.get(i);
-//			System.out.println((i + 1) + ". " + "[" + currTask.getLetter() + "][" + currTask.getStatusIcon() + "] " + currTask.description);
 			System.out.println((i + 1) + "." + currTask.toString());
 		}
 	}

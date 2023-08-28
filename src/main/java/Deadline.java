@@ -10,6 +10,11 @@ public class Deadline extends Task {
 
 	@Override
 	public String toString() {
-		return "[" + this.letter + "]" + "[" + this.getStatusIcon() + "] " + this.description + " (by: " + this.timeline + ")";
+		return super.toString() + " (by: " + this.timeline + ")";
+	}
+
+	@Override
+	public String toFile() {
+		return super.toFile() + " | " + this.timeline;
 	}
 }
