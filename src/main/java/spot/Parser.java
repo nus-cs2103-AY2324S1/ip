@@ -11,6 +11,7 @@ import spot.command.AddToDoCommand;
 import spot.command.Command;
 import spot.command.DeleteCommand;
 import spot.command.ExitCommand;
+import spot.command.FindCommand;
 import spot.command.ListCommand;
 import spot.command.ListTasksOnCommand;
 import spot.command.MarkCommand;
@@ -37,6 +38,12 @@ public class Parser {
             return new ListTasksOnCommand(date);
         } else if (input.startsWith("list")) {
             return new ListCommand();
+        } else if (input.startsWith("find")) {
+            if (input.length() <= 5) {
+                throw new SpotException("Spot needs more details than that!");
+            }
+            String keyword = input.substring(5);
+            return new FindCommand(keyword);
         } else if (input.startsWith("mark")) {
             if (input.length() <= 5) {
                 throw new SpotException("Spot needs more details than that!");
@@ -68,8 +75,8 @@ public class Parser {
             }
             String[] keywords = input.substring(9).trim().split("/by");
             if (keywords.length == 0 || keywords[0].trim().isEmpty()) {
-                throw new SpotException("Spot wonders if you've " +
-                        "forgotten the description?");
+                throw new SpotException("Spot wonders if you've "
+                        + "forgotten the description?");
             }
             if (keywords.length < 2) {
                 throw new SpotException("Spot thinks you're missing a deadline!");

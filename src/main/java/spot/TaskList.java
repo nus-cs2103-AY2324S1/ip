@@ -154,7 +154,6 @@ public class TaskList {
         if (tasks.size() == 0) {
             ui.showMessage("You don't have any tasks for now! Want Spot to help find some?");
         } else {
-            ui.showMessage("Here's Spot's list of your tasks on " + date + "!\n");
             int position = 1;
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
@@ -165,6 +164,24 @@ public class TaskList {
             }
             if (position <= 1) {
                 ui.showMessage("Spot says you don't have any tasks on " + date + "!\n");
+            }
+        }
+    }
+
+    public void findTasks(Ui ui, String keyword) {
+        if (tasks.size() == 0) {
+            ui.showMessage("You don't have any tasks for now! Want Spot to help find some?");
+        } else {
+            int position = 1;
+            for (int i = 0; i < tasks.size(); i++) {
+                Task task = tasks.get(i);
+                if (task.descriptionContains(keyword)) {
+                    ui.showMessage(position + ". " + task);
+                    position += 1;
+                }
+            }
+            if (position <= 1) {
+                ui.showMessage("Spot can't find any tasks matching the keyword: " + keyword + "\n");
             }
         }
     }

@@ -92,4 +92,8 @@ public abstract class Task {
      * @return Boolean representing whether the Task object falls on the specified date.
      */
     public abstract boolean fallsOn(LocalDate date);
+
+    public boolean descriptionContains(String keyword) {
+        return description.contains(keyword);
+    }
 }
