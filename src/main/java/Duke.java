@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Duke {
     /** Divider constant */
@@ -263,13 +264,17 @@ public class Duke {
                         // Makes sure deadline format is followed (e.g. there's /by)
                         String description = parts[0].substring(9).trim();
                         String by = parts[1].trim();
+
+                        // Parse the date and time
+                        LocalDate deadlineDate = LocalDate.parse(by);
+
                         if (description.isBlank() || by.isBlank()) {
                             // If description or by is empty
                             System.out.println(DIVIDER);
                             System.out.println("        OOPS!! The description or by of a deadline or cannot be empty!!");
                             System.out.println(DIVIDER);
                         } else {
-                            newTask = new Deadlines(description, by);
+                            newTask = new Deadlines(description, deadlineDate);
                             userList.add(newTask);
                         }
                     } else {
