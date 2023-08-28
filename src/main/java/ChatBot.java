@@ -1,3 +1,6 @@
+import java.time.DateTimeException;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -5,6 +8,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class ChatBot {
     private static List<Task> list = new ArrayList<>();
@@ -103,11 +108,17 @@ public class ChatBot {
             if (temp.length != 2) {
                 throw new DukeException("\n ☹ OOPS!!! The description of a deadline cannot be empty.\n");
             }
-            String[] temp2 = temp[1].split(" /by");
+            String[] temp2 = temp[1].split(" /by ");
             if (temp2.length != 2) {
                 throw new DukeException("\n ☹ OOPS!!! The date of a deadline cannot be empty.\n");
             }
-            Task deadline = new Deadline(temp2[0], temp2[1]);
+            Task deadline;
+            try {
+                LocalDate deadlineDate = LocalDate.parse(temp2[1]);
+                deadline = new Deadline(temp2[0], deadlineDate);
+            } catch (DateTimeException e) {
+                throw new DukeException("\n Incorrect date format! Date format should be YYYY-MM-DD");
+            }
             list.add(deadline);
             try {
                 appendList(deadline);
@@ -124,15 +135,25 @@ public class ChatBot {
             if (temp.length != 2) {
                 throw new DukeException("\n ☹ OOPS!!! The description of an event cannot be empty.\n");
             }
-            String[] temp3 = temp[1].split(" /from");
+            String[] temp3 = temp[1].split(" /from ");
             if (temp3.length != 2) {
                 throw new DukeException("\n ☹ OOPS!!! The date and time of an event cannot be empty.\n");
             }
-            String[] temp4 = temp3[1].split("/to");
+            String[] temp4 = temp3[1].split(" /to ");
             if (temp4.length != 2) {
                 throw new DukeException("\n ☹ OOPS!!! The end time of an event cannot be empty.\n");
             }
-            Task event = new Event(temp3[0], temp4[0], temp4[1]);
+            String[] temp5 =  temp4[0].split(" ");
+            Task event;
+            try {
+                LocalDate eventDate = LocalDate.parse(temp5[0]);
+                LocalTime eventStart = LocalTime.parse(temp5[1], DateTimeFormatter.ofPattern("ha"));
+                LocalTime eventEnd = LocalTime.parse(temp4[1], DateTimeFormatter.ofPattern("ha"));
+                event = new Event(temp3[0], eventDate, eventStart, eventEnd);
+            } catch (DateTimeException e) {
+                throw new DukeException("\n Invalid Date/Time format! Format should be YYYY-MM-DD HH(AM/PM) " +
+                        "/to HH(AM/PM) \n");
+            }
             list.add(event);
             try {
                 appendList(event);
@@ -183,17 +204,24 @@ public class ChatBot {
         }
 
         Task curr = list.get(num);
-        curr.markDone();
+        if (curr.checkDone()) {
+            System.out.println(lineBreak +
+                    "\n This task is already marked done!\n" +
+                    lineBreak);
+        } else {
+            curr.markDone();
+            System.out.println(lineBreak +
+                    "\n Nice! I've marked this task as done:\n " +
+                    curr.toString() +
+                    "\n" +
+                    lineBreak);
+        }
         try {
             writeAll();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(lineBreak +
-                "\n Nice! I've marked this task as done:\n " +
-                curr.toString() +
-                "\n" +
-                lineBreak);
+
     }
 
     private static void unmarkDone(String str) throws DukeException {
@@ -201,27 +229,34 @@ public class ChatBot {
         boolean isInteger = str.matches("\\b[1-9][0-9]*\\b");
 
         if (!isInteger) {
-            throw new DukeException(" The task number you have keyed in is not valid. Please try again.\n");
+            throw new DukeException("\n The task number you have keyed in is not valid. Please try again.\n");
         }
 
         int num = Integer.parseInt(str) - 1;
 
         if (list.size() <= num) {
-            throw new DukeException(" This task number is not available. Please try again.\n");
+            throw new DukeException("\n This task number is not available. Please try again.\n");
         }
 
         Task curr = list.get(num);
-        curr.unmarkDone();
+        if (!curr.checkDone()) {
+            System.out.println(lineBreak +
+                    "\n This task is not done yet!\n" +
+                    lineBreak);
+        } else {
+            curr.unmarkDone();
+            System.out.println(lineBreak +
+                    "\n OK, I've marked this task not done yet:\n " +
+                    curr.toString() +
+                    "\n" +
+                    lineBreak);
+        }
+
         try {
             writeAll();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(lineBreak +
-                "\n OK, I've marked this task not done yet:\n " +
-                curr.toString() +
-                "\n" +
-                lineBreak);
     }
 
     private static void delete(String str) throws DukeException {
@@ -237,6 +272,7 @@ public class ChatBot {
         if (list.size() <= num) {
             throw new DukeException(" This task number is not available. Please try again.\n");
         }
+
         Task curr = list.get(num);
         list.remove(num);
         try {
@@ -266,15 +302,30 @@ public class ChatBot {
                 list.add(toDo);
                 break;
             case "D":
-                Task deadline = new Deadline(split[2], split[3]);
+                Task deadline;
+                try {
+                    LocalDate deadlineDate = LocalDate.parse(split[3]);
+                    deadline = new Deadline(split[2], deadlineDate);
+                } catch (DateTimeException e) {
+                    throw new DukeException("\n Incorrect date format! Date format should be YYYY-MM-DD \n");
+                }
                 if (split[1].equals("X")) {
                     deadline.markDone();
                 }
                 list.add(deadline);
                 break;
             case "E":
-                String[] temp = split[3].split(" to ", 2);
-                Task event = new Event(split[2], temp[0], temp[1]);
+                String[] temp = split[3].split(" ");
+                Task event;
+                try {
+                    LocalDate eventDate = LocalDate.parse(temp[0]);
+                    LocalTime eventStart = LocalTime.parse(temp[1], DateTimeFormatter.ofPattern("ha"));
+                    LocalTime eventEnd = LocalTime.parse(temp[3], DateTimeFormatter.ofPattern("ha"));
+                    event = new Event(split[2], eventDate, eventStart, eventEnd);
+                } catch (DateTimeException e) {
+                    throw new DukeException("\n Invalid Date/Time format! Format should be YYYY-MM-DD HH(AM/PM) " +
+                            "/to HH(AM/PM) \n");
+                }
                 if (split[1].equals("X")) {
                     event.markDone();
                 }
