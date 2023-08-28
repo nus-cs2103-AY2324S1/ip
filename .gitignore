@@ -18,3 +18,6 @@ text-ui-test/EXPECTED-UNIX.TXT
 
 # Compiled Class files
 *.class
+
+# Local Storage Data for Duke
+/data/*.txt

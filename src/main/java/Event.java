@@ -9,6 +9,10 @@ public class Event extends Task {
         this.end = end;
     }
 
+    public String exportData() {
+        return "E | " + this.getStatusIcon() + " | " + this.description + " | " + this.start + "-" + this.end;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
