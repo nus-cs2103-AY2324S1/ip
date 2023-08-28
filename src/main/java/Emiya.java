@@ -41,13 +41,18 @@ public class Emiya {
     public static void main(String[] args) {
 
         String path = Paths.get("").toAbsolutePath().toString();
-        String pathToDataFolder = Paths.get(path, "data").toString();
-        File dataDir = new File (pathToDataFolder);
+        String pathToDataDir = Paths.get(path, "data").toString();
+        File dataDir = new File (pathToDataDir);
 
-        if (dataDir.exists()) {
-            System.out.println("dataDir exists");
+        if (!dataDir.exists()) {
+            boolean result = dataDir.mkdirs();
+            if (result) {
+                System.out.println("Directory was created successfully");
+            } else {
+                System.out.println("Failed to create directory");
+            }
         } else {
-            System.out.println("dataDir does not exist");
+            System.out.println("Directory already exists");
         }
 
         // Represents the list as an ArrayList of task.Task objects
