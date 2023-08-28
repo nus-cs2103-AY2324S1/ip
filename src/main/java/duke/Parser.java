@@ -28,26 +28,29 @@ public class Parser {
         } else if (input.startsWith("mark")) {
             String number = input.replaceFirst("mark", "").trim();
             validateMarkOrUnmarkorDelete(number, size);
+
             int index = Integer.parseInt(number);
             return new MarkDoneCommand(index);
         } else if (input.startsWith("unmark")) {
             String number = input.replaceFirst("unmark", "").trim();
             validateMarkOrUnmarkorDelete(number, size);
+
             int index = Integer.parseInt(number);
             return new UnmarkDoneCommand(index);
         } else if (input.startsWith("todo")) {
             String description = input.replaceFirst("todo", "").trim();
             validateToDo(description);
+
             return new AddToDoCommand(description);
         } else if (input.startsWith("deadline")) {
             String[] deadlineString = input.replaceFirst("deadline", "")
                     .split("/", 2);
             validateDeadline(deadlineString);
 
-            String description = deadlineString[0].trim();
             String deadlineDate = deadlineString[1].replaceFirst("by", "").trim();
-
             validateDate(deadlineDate);
+
+            String description = deadlineString[0].trim();
             LocalDate d = LocalDate.parse(deadlineDate);
 
             return new AddDeadlineCommand(description, d);
@@ -55,12 +58,12 @@ public class Parser {
             String[] eventString = input.replaceFirst("event", "").split("/", 3);
             validateEvent(eventString);
 
-            String description = eventString[0].trim();
             String start = eventString[1].replaceFirst("from", "").trim();
             String end = eventString[2].replaceFirst("to", "").trim();
-
             validateDate(start);
             validateDate(end);
+
+            String description = eventString[0].trim();
             LocalDate d1 = LocalDate.parse(start);
             LocalDate d2 = LocalDate.parse(end);
 
@@ -68,6 +71,7 @@ public class Parser {
         } else if (input.startsWith("delete")) {
             String number = input.replaceFirst("delete", "").trim();
             validateMarkOrUnmarkorDelete(number, size);
+
             int index = Integer.parseInt(number);
             return new DeleteCommand(index);
         } else {
@@ -131,7 +135,8 @@ public class Parser {
      * @throws DukeException On input error.
      */
     private static void validateEvent(String[] eventString) throws DukeException {
-        if (eventString.length != 3 || eventString[0].isBlank() || eventString[1].isBlank() || eventString[2].isBlank()) {
+        if (eventString.length != 3 || eventString[0].isBlank() || eventString[1].isBlank() ||
+                eventString[2].isBlank()) {
             throw new DukeException("Boop Beep OOPS! Please make sure that"
                     + " the description and dates of the event is not empty.");
         }

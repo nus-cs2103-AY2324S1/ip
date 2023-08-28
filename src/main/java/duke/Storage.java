@@ -119,9 +119,10 @@ public class Storage {
                     String description = fullLine[0];
                     String date = fullLine[1];
 
-                    String taskDescription = description.substring(0, description.length() - 3).trim();
                     String taskDate = formatDate(date.substring(0, date.length()).trim());
                     validateDate(taskDate);
+
+                    String taskDescription = description.substring(0, description.length() - 3).trim();
                     LocalDate d = LocalDate.parse(taskDate);
 
                     Deadline deadline = new Deadline(taskDescription, d);
@@ -132,11 +133,12 @@ public class Storage {
                     String start = fullLine[1];
                     String end = fullLine[2];
 
-                    String taskDescription = description.substring(0, description.length() - 5).trim();
                     String taskStart = formatDate(start.substring(0, start.length() - 2).trim());
                     String taskEnd = formatDate(end.substring(0, end.length() - 1).trim());
                     validateDate(taskStart);
                     validateDate(taskEnd);
+
+                    String taskDescription = description.substring(0, description.length() - 5).trim();
                     LocalDate d1 = LocalDate.parse(taskStart);
                     LocalDate d2 = LocalDate.parse(taskEnd);
 
