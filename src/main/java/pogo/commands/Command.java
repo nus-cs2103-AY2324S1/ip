@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * The Command class is the base class for all commands.
+ * Based on AddressBook-Level2
  */
 public class Command {
 
@@ -36,6 +37,6 @@ public class Command {
      * @return The result of the command.
      */
     public CommandResult execute() {
-        return new CommandResult();
+        throw new UnsupportedOperationException("This method is to be implemented by child classes.");
     }
 }

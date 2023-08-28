@@ -28,21 +28,24 @@ public class Parser {
         }
 
         final String commandWord = matcher.group("command");
+        final String arguments = matcher.group("arguments").trim();
 
         try {
             switch (commandWord) {
             case "list":
                 return new ListTasksCommand();
             case "deadline":
-                return TaskParser.parseDeadlineCommand(matcher.group("arguments"));
+                return TaskParser.parseDeadlineCommand(arguments);
             case "todo":
-                return TaskParser.parseToDoCommand(matcher.group("arguments"));
+                return TaskParser.parseToDoCommand(arguments);
             case "event":
-                return TaskParser.parseEventCommand(matcher.group("arguments"));
+                return TaskParser.parseEventCommand(arguments);
             case "mark":
-                return TaskParser.parseMarkCommand(matcher.group("arguments"), true);
+                return TaskParser.parseMarkCommand(arguments, true);
             case "unmark":
-                return TaskParser.parseMarkCommand(matcher.group("arguments"), false);
+                return TaskParser.parseMarkCommand(arguments, false);
+            case "delete":
+                return TaskParser.parseDeleteCommand(arguments);
             case "bye":
                 return new ExitCommand();
             }

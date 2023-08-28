@@ -79,22 +79,53 @@ public class TaskParser {
     }
 
     /**
+     * Parses the index of a task.
+     * @param input The input string.
+     * @return The index of the task.
+     */
+    private static int parseIndex(String input) {
+        final Pattern MARK_PATTERN = Pattern.compile("(?<index>\\d+)");
+        final Matcher matcher = MARK_PATTERN.matcher(input);
+        if (!matcher.matches()) {
+            return -1;
+        }
+
+        try {
+            return Integer.parseInt(matcher.group("index"));
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    /**
      * Parses a "mark task as done" command.
      * @param input The input string.
      * @param isMark Whether the command is a mark command or an unmark command.
      */
     public static Command parseMarkCommand(String input, boolean isMark) {
-        final Pattern MARK_PATTERN = Pattern.compile("(?<index>\\d+)");
-        final Matcher matcher = MARK_PATTERN.matcher(input);
-        if (!matcher.matches()) {
-            return new InvalidCommand(Messages.INVALID_MARK);
+        int index = parseIndex(input);
+        if (index < 0) {
+            return new InvalidCommand(Messages.INVALID_INDEX);
         }
 
-        int index = Integer.parseInt(matcher.group("index"));
         if (isMark) {
             return new MarkTaskCommand(index);
         } else {
             return new UnmarkTaskCommand(index);
         }
+    }
+
+    /**
+     * Parses a "delete task" command.
+     * @param input The input string.
+     * @return The DeleteTaskCommand object.
+     */
+    public static Command parseDeleteCommand(String input) {
+        int index = parseIndex(input);
+        if (index < 0) {
+            return new InvalidCommand(Messages.INVALID_INDEX);
+        }
+
+        return new DeleteTaskCommand(index);
     }
 }
