@@ -6,15 +6,15 @@ import java.time.format.DateTimeParseException;
 
 public class DateTimeDetector {
     // List of formats
-    DateTimeFormatter T1_12h = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
-    DateTimeFormatter T2_12h = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm");
-    DateTimeFormatter T3_12h = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
-    DateTimeFormatter T1_24h = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    DateTimeFormatter T2_24h = DateTimeFormatter.ofPattern("dd-MMM-yyyy HHmm");
-    DateTimeFormatter T3_24h = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    DateTimeFormatter D1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    DateTimeFormatter D2 = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-    DateTimeFormatter D3 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private final DateTimeFormatter t112h = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
+    private final DateTimeFormatter t212h = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm");
+    private final DateTimeFormatter t124h = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private final DateTimeFormatter t224h = DateTimeFormatter.ofPattern("dd-MMM-yyyy HHmm");
+    private final DateTimeFormatter t312h = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+    private final DateTimeFormatter t324h = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private final DateTimeFormatter d1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final DateTimeFormatter d2 = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+    private final DateTimeFormatter d3 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Constructor of DateTimeDetector.
@@ -27,7 +27,7 @@ public class DateTimeDetector {
      * @return Formatted date.
      */
     public String format(String date) {
-        LocalDate d = null;
+        LocalDate d;
         if (date.contains(" ")) {
             // date and time given
             try {
@@ -37,14 +37,14 @@ public class DateTimeDetector {
                         int len = date.split("-")[0].length();
                         if (len == 4) {
                             // date is yyyy-MM-dd hh:mm
-                            d = LocalDate.parse(date, T1_12h);
+                            d = LocalDate.parse(date, t112h);
                         } else {
                             // date is dd-MMM-yyyy hh:mm
-                            d = LocalDate.parse(date, T2_12h);
+                            d = LocalDate.parse(date, t212h);
                         }
                     } else {
                         // date is dd/MM/yyyy hh:mm
-                        d = LocalDate.parse(date, T3_12h);
+                        d = LocalDate.parse(date, t312h);
                     }
                 } else {
                     // time is 24h format
@@ -52,14 +52,14 @@ public class DateTimeDetector {
                         int len = date.split("-")[0].length();
                         if (len == 4) {
                             // date is yyyy-MM-dd HHmm
-                            d = LocalDate.parse(date, T1_24h);
+                            d = LocalDate.parse(date, t124h);
                         } else {
                             // date is dd-MMM-yyyy HHmm
-                            d = LocalDate.parse(date, T2_24h);
+                            d = LocalDate.parse(date, t224h);
                         }
                     } else {
                         // date is dd/MM/yyyy HHmm
-                        d = LocalDate.parse(date, T3_24h);
+                        d = LocalDate.parse(date, t324h);
                     }
                 }
                 return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
@@ -74,14 +74,14 @@ public class DateTimeDetector {
                     int len = date.split("-")[0].length();
                     if (len == 4) {
                         // Case 1: Date is in yyyy-MM-dd
-                        d = LocalDate.parse(date, D1);
+                        d = LocalDate.parse(date, d1);
                     } else {
                         // Case 2: Date is dd-MMM-yyyy
-                        d = LocalDate.parse(date, D2);
+                        d = LocalDate.parse(date, d2);
                     }
                 } else {
                     // Case 3: Date is dd/MM/yyyy
-                    d = LocalDate.parse(date, D3);
+                    d = LocalDate.parse(date, d3);
                 }
                 return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             } catch (DateTimeParseException e) {
