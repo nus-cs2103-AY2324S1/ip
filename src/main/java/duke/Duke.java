@@ -5,15 +5,15 @@ import duke.task.TaskList;
 import duke.userio.InvalidUserInputException;
 import duke.userio.Parser;
 import duke.userio.Ui;
-
 import java.util.*;
+
 public class Duke {
     private final TaskList taskList;
     private final Ui ui;
     private final Storage storage;
     private final Parser parser;
     private boolean botInUse = true;
-    public Duke(){
+    public Duke() {
         this("src/main/data/duke.txt");
     }
 
@@ -23,11 +23,11 @@ public class Duke {
         this.storage = new Storage(filepath);
         this.parser = new Parser(ui, taskList, botInUse, storage);
     }
-    public void run(){
+    public void run() {
         storage.loadFileToTaskManager(taskList);
         ui.greetings();
         Scanner sc = new Scanner(System.in);
-        while(botInUse) {
+        while (botInUse) {
             String input = sc.nextLine();
             try {
                 parser.listen(input);
