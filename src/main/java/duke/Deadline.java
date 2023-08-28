@@ -1,16 +1,24 @@
 package duke;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task{
-    protected String deadline;
+
+    protected LocalDate deadline;
 
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = deadline;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate d1 = LocalDate.parse(deadline, formatter);
+        this.deadline = d1;
     }
 
     @Override
     public String getDescription() {
+        String dueDate = this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return "[D]" + super.getDescription()
-                + " (by: " + this.deadline + ")";
+                + " (by: " + dueDate + ")";
     }
 
     @Override

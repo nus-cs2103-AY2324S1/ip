@@ -48,6 +48,7 @@ public class Parser {
                     } else {
                         String deadDescription = deadTask[0];
                         String deadTime = deadTask[1];
+                        deadTime = deadTime.trim();
                         Deadline deadlineTask = new Deadline(deadDescription, deadTime);
                         TaskList.add(deadlineTask, "deadline");
                     }

@@ -1,3 +1,0 @@
-T | 1 | something something
-D | 0 | something | friday
-T | 0 | work
