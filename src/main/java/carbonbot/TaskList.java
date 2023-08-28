@@ -95,7 +95,7 @@ public class TaskList {
 		if (index <= tasks.size() && index >= 1) {
 			return tasks.get(index - 1);
 		} else {
-			throw new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException("The task list does not contain the given index.");
 		}
 	}
 
