@@ -1,3 +1,13 @@
+package storage;
+
+import duke.Parser;
+import duke.Ui;
+
+import taskutil.Deadline;
+import taskutil.Event;
+import taskutil.TaskList;
+import taskutil.Todo;
+
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.io.File;
@@ -73,19 +83,19 @@ public class Storage {
                 case "T":
                     Todo todo = new Todo(splitInput[2]);
                     todo.changeStatus(isDone);
-                    taskList.addTask(todo);
+                    taskList.addTask(todo, false);
                     break;
                 case "D":
                     Deadline deadline = new Deadline(splitInput[2], Parser.parseDate(splitInput[3]));
                     deadline.changeStatus(isDone);
-                    taskList.addTask(deadline);
+                    taskList.addTask(deadline, false);
                     break;
                 case "E":
                     LocalDateTime start = Parser.parseDate(splitInput[3]);
                     LocalDateTime end = Parser.parseDate(splitInput[4]);
                     Event event = new Event(splitInput[2], start, end);
                     event.changeStatus(isDone);
-                    taskList.addTask(event);
+                    taskList.addTask(event, false);
                     break;
                 }
             }

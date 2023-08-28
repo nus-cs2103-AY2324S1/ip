@@ -1,3 +1,8 @@
+import duke.Parser;
+import duke.Ui;
+import taskutil.TaskList;
+import storage.Storage;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -8,10 +13,6 @@ public class Duke {
     public Duke(String fileDirectory) {
         storage = new Storage(fileDirectory);
         taskList = new TaskList();
-    }
-
-    public static void main(String[] args) {
-        new Duke("./data").initialise();
     }
 
     /**
@@ -58,5 +59,9 @@ public class Duke {
             storage.writeToFile(taskList);
         }
         userInput.close();
+    }
+
+    public static void main(String[] args) {
+        new Duke("./data").initialise();
     }
 }

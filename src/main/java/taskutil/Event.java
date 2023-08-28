@@ -1,6 +1,10 @@
+package taskutil;
+
+import duke.Parser;
+
 import java.time.LocalDateTime;
 
-public class Event extends Task{
+public class Event extends Task {
 
     protected LocalDateTime start;
     protected LocalDateTime end;

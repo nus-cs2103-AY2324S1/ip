@@ -1,3 +1,11 @@
+package duke;
+
+import taskutil.Deadline;
+import taskutil.Event;
+import taskutil.Task;
+import taskutil.TaskList;
+import taskutil.Todo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -65,14 +73,14 @@ public class Parser {
                         + "       todo [DESCRIPTION]");
             } else {
                 Task todo = new Todo(splitInput[1]);
-                taskList.addTask(todo);
+                taskList.addTask(todo, true);
             }
             break;
         case "deadline":
             try {
                 String[] deadVar = splitInput[1].split(" /by ", 2);
                 Task deadline = new Deadline(deadVar[0], parseDate(deadVar[1]));
-                taskList.addTask(deadline);
+                taskList.addTask(deadline, true);
             } catch (ArrayIndexOutOfBoundsException e) {    // String not split due to improper format
                 Ui.output("Wrong format, make sure your command is in the format:\n"
                         + "      deadline [DESCRIPTION] /by [dd.mm.yyyy]");
@@ -92,7 +100,7 @@ public class Parser {
                     Ui.output("An event cannot end before it starts... might wanna check your dates");
                 } else {
                     Task event = new Event(eventVar[0], start, end);
-                    taskList.addTask(event);
+                    taskList.addTask(event, true);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {    // String not split due to improper format
                 Ui.output("Wrong format, make sure your command is in the format:\n"

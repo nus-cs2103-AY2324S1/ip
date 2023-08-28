@@ -1,3 +1,7 @@
+package taskutil;
+
+import duke.Ui;
+
 import java.util.ArrayList;
 
 public class TaskList {
@@ -26,10 +30,13 @@ public class TaskList {
     /**
      * Add task to taskList.
      * @param task Task to be added.
+     * @param printMessage Determines whether to show task added message.
      */
-    public void addTask(Task task) {
+    public void addTask(Task task, boolean printMessage) {
         taskList.add(task);
-        Ui.taskOutput(task, "added", taskList.size());
+        if (printMessage) {
+            Ui.taskOutput(task, "added", taskList.size());
+        }
     }
 
     /**
