@@ -1,11 +1,11 @@
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
-public class Deadline extends Task {
+public class DeadlineTask extends Task {
 
     protected LocalDateTime by;
 
-    public Deadline(String description, String by) throws DukeException {
+    public DeadlineTask(String description, String by) throws DukeException {
         super(description);
         try {
             this.by = LocalDateTime.parse(by, Task.DATE_FORMAT);
@@ -14,7 +14,7 @@ public class Deadline extends Task {
         }
     }
 
-    public Deadline() {
+    public DeadlineTask() {
         super("");
     }
 
