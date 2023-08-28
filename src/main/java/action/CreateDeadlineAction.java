@@ -1,10 +1,14 @@
 package action;
 
+import java.time.LocalDateTime;
+
+import util.DateTime;
+
 public final class CreateDeadlineAction extends Action {
     private final String title;
-    private final String by;
+    private final LocalDateTime by;
 
-    public CreateDeadlineAction(String title, String by) {
+    public CreateDeadlineAction(String title, LocalDateTime by) {
         this.title = title;
         this.by = by;
     }
@@ -13,7 +17,7 @@ public final class CreateDeadlineAction extends Action {
         return title;
     }
 
-    public String getBy() {
+    public LocalDateTime getBy() {
         return by;
     }
 

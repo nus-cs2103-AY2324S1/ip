@@ -1,5 +1,10 @@
 package cli;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
 import java.util.HashMap;
 
 import action.Action;
@@ -12,6 +17,7 @@ import action.ListAction;
 import action.MarkAction;
 import action.UnmarkAction;
 import error.ParseException;
+import util.DateTime;
 
 public final class Parser {
     public static Action parseAction(String line) {
@@ -47,15 +53,15 @@ public final class Parser {
                 if (argument.isEmpty()) {
                     throw new ParseException(line, "The description of a deadline cannot be empty.");
                 }
-                String by = getFlagValue(line, flags, "by");
+                LocalDateTime by = parseDateTimeArgument(getFlagValue(line, flags, "by"));
                 return new CreateDeadlineAction(argument, by);
             }
             case "event": {
                 if (argument.isEmpty()) {
                     throw new ParseException(line, "The description of an event cannot be empty.");
                 }
-                String from = getFlagValue(line, flags, "from");
-                String to = getFlagValue(line, flags, "to");
+                LocalDateTime from = parseDateTimeArgument(getFlagValue(line, flags, "from"));
+                LocalDateTime to = parseDateTimeArgument(getFlagValue(line, flags, "to"));
                 return new CreateEventAction(argument, from, to);
             }
             case "mark": {
@@ -125,7 +131,22 @@ public final class Parser {
         try {
             return Integer.parseInt(argument);
         } catch (NumberFormatException error) {
-            throw new ParseException(argument, "Expected an integer but received a string");
+            throw new ParseException(argument, "Expected an integer.");
+        }
+    }
+
+    private static LocalDateTime parseDateTimeArgument(String argument) {
+        try {
+            // https://stackoverflow.com/questions/48280447/java-8-datetimeformatter-with-optional-part
+            TemporalAccessor temporalAccessor = DateTime.FORMATTER.parseBest(argument, LocalDateTime::from,
+                    LocalDate::from);
+            if (temporalAccessor instanceof LocalDateTime) {
+                return (LocalDateTime) temporalAccessor;
+            } else {
+                return ((LocalDate) temporalAccessor).atStartOfDay();
+            }
+        } catch (DateTimeParseException error) {
+            throw new ParseException(argument, "Expected a date, time or both.");
         }
     }
 

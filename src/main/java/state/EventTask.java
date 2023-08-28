@@ -1,20 +1,22 @@
 package state;
 
-public final class EventTask extends Task {
-    private final String from;
-    private final String to;
+import java.time.LocalDateTime;
 
-    public EventTask(String title, boolean isDone, String from, String to) {
+public final class EventTask extends Task {
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+
+    public EventTask(String title, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(title, isDone);
         this.from = from;
         this.to = to;
     }
 
-    public String getFrom() {
+    public LocalDateTime getFrom() {
         return from;
     }
 
-    public String getTo() {
+    public LocalDateTime getTo() {
         return to;
     }
 

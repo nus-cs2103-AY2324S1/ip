@@ -1,11 +1,15 @@
 package action;
 
+import java.time.LocalDateTime;
+
+import util.DateTime;
+
 public final class CreateEventAction extends Action {
     private final String title;
-    private final String from;
-    private final String to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
-    public CreateEventAction(String title, String from, String to) {
+    public CreateEventAction(String title, LocalDateTime from, LocalDateTime to) {
         this.title = title;
         this.from = from;
         this.to = to;
@@ -15,11 +19,11 @@ public final class CreateEventAction extends Action {
         return title;
     }
 
-    public String getFrom() {
+    public LocalDateTime getFrom() {
         return from;
     }
 
-    public String getTo() {
+    public LocalDateTime getTo() {
         return to;
     }
 
