@@ -27,11 +27,12 @@ public class Duke {
 
         while (true) {
             String line = in.nextLine();
-            String[] split = line.split(" ");
-            String command = split[0];
             try {
+                ArrayList<String> parsedInput = Parser.parseUserInput(line);
+                String command = parsedInput.get(0);
+
                 if (command.equals(Command.MARK.getCommand())) {
-                    int index = Integer.parseInt(split[1]) - 1;
+                    int index = Integer.parseInt(parsedInput.get(1)) - 1;
                     if (!Duke.isTaskIndexValid(index)) {
                         throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
                     }
@@ -42,7 +43,7 @@ public class Duke {
                     continue;
                 }
                 if (command.equals(Command.UNMARK.getCommand())) {
-                    int index = Integer.parseInt(split[1]) - 1;
+                    int index = Integer.parseInt(parsedInput.get(1)) - 1;
                     if (!Duke.isTaskIndexValid(index)) {
                         throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
                     }
@@ -65,31 +66,28 @@ public class Duke {
                     break;
                 }
                 if (command.equals(Command.TODO.getCommand())) {
-                    String[] processedToDoInput = ToDo.processInput(split);
-                    ToDo newTodo = new ToDo(processedToDoInput[0]);
+                    ToDo newTodo = new ToDo(parsedInput.get(1));
                     Duke.tasks.add(newTodo);
                     Duke.printTaskAddedMessages(newTodo);
                     continue;
                 }
                 if (command.equals(Command.DEADLINE.getCommand())) {
-                    String[] processedDeadlineInput = Deadline.processInput(split);
-                    Deadline newDeadline = new Deadline(processedDeadlineInput[0],
-                            LocalDateTime.parse(processedDeadlineInput[1], dateTimeInputFormatter));
+                    Deadline newDeadline = new Deadline(parsedInput.get(1),
+                            LocalDateTime.parse(parsedInput.get(2), dateTimeInputFormatter));
                     Duke.tasks.add(newDeadline);
                     Duke.printTaskAddedMessages(newDeadline);
                     continue;
                 }
                 if (command.equals(Command.EVENT.getCommand())) {
-                    String[] processedEventInput = Event.processInput(split);
-                    Event newEvent = new Event(processedEventInput[0],
-                            LocalDateTime.parse(processedEventInput[1], dateTimeInputFormatter),
-                            LocalDateTime.parse(processedEventInput[2], dateTimeInputFormatter));
+                    Event newEvent = new Event(parsedInput.get(1),
+                            LocalDateTime.parse(parsedInput.get(2), dateTimeInputFormatter),
+                            LocalDateTime.parse(parsedInput.get(3), dateTimeInputFormatter));
                     Duke.tasks.add(newEvent);
                     Duke.printTaskAddedMessages(newEvent);
                     continue;
                 }
                 if (command.equals(Command.DELETE.getCommand())) {
-                    int index = Integer.parseInt(split[1]) - 1;
+                    int index = Integer.parseInt(parsedInput.get(1)) - 1;
                     if (!Duke.isTaskIndexValid(index)) {
                         throw new InvalidCommandException("☹ OOPS!!! The task index in invalid");
                     }
@@ -98,7 +96,7 @@ public class Duke {
                     continue;
                 }
                 if (command.equals(Command.ON.getCommand())) {
-                    LocalDate date = LocalDate.parse(split[1]);
+                    LocalDate date = LocalDate.parse(parsedInput.get(1));
                     for (int i = 0; i < Duke.tasks.size(); i++) {
                         if (Duke.tasks.get(i).isOnDate(date)) {
                             System.out.println((i + 1) + "." + Duke.tasks.get(i));
@@ -107,7 +105,7 @@ public class Duke {
                     continue;
                 }
                 throw new InvalidCommandException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            } catch (InvalidTaskException | InvalidCommandException e) {
+            } catch (InvalidCommandException e) {
                 System.out.println(e.getMessage());
             }
         }
