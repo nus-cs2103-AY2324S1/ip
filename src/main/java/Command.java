@@ -202,6 +202,15 @@ public class Command {
     }
 
     /**
+     * Checks whether the command has parameters.
+     *
+     * @return `true` if there is at least one parameter, `false` otherwise.
+     */
+    public boolean hasParams() {
+        return !this.params.isEmpty();
+    }
+
+    /**
      * Checks whether the given parameter was initialised.
      *
      * @param key the parameter, also known as the key.

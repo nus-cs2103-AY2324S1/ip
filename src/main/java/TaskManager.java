@@ -294,7 +294,7 @@ public class TaskManager {
      * Adds a task to the task list.
      *
      * @param task The task to add.
-     * @return `true`, by definition of {@link List#add}
+     * @return `true`, by {@link List#add} definition.
      */
     public boolean addTask(Task task) {
         return this.taskList.add(task);
