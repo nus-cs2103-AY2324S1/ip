@@ -6,7 +6,7 @@ What can I do for you?
 -----------------------------------------
 Sure! I have added this task to the list:
 [T][ ] buy a book
-Now you have 1 tasks in your list!
+Now you have 1 task in your list!
 -----------------------------------------
 
 -----------------------------------------
@@ -22,7 +22,7 @@ Now you have 3 tasks in your list!
 -----------------------------------------
 
 -----------------------------------------
-Here are the tasks in your list:
+Lots of things to do! Get to it!:
 1.[T][ ] buy a book
 2.[D][ ] read book (by: Sunday)
 3.[E][ ] reading book (from: today to: Sunday)
@@ -34,7 +34,7 @@ Nice job! I have marked this task as done:
 -----------------------------------------
 
 -----------------------------------------
-Here are the tasks in your list:
+Lots of things to do! Get to it!:
 1.[T][ ] buy a book
 2.[D][X] read book (by: Sunday)
 3.[E][ ] reading book (from: today to: Sunday)
@@ -46,13 +46,16 @@ Oof, alright I have set this task as unmarked:
 -----------------------------------------
 
 -----------------------------------------
-Here are the tasks in your list:
+Lots of things to do! Get to it!:
 1.[T][ ] buy a book
 2.[D][ ] read book (by: Sunday)
 3.[E][ ] reading book (from: today to: Sunday)
 -----------------------------------------
 
+
 -----------------------------------------
 Bye. Hope to see you again soon!
 -----------------------------------------
 
+
+Process finished with exit code 0
