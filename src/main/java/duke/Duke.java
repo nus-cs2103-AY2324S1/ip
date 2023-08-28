@@ -48,7 +48,6 @@ public class Duke {
         storage.load();
         greet();
         parser.interact();
-
     }
     public static void main(String[] args) {
         Duke duke = new Duke();

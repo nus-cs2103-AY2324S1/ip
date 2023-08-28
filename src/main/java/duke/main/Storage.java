@@ -61,18 +61,18 @@ public class Storage {
         String status = savedToFileLine[1];
         String description = savedToFileLine[2];
         switch (type) {
-            case "T":
-                return ToDo.create(status, description);
-            case "D":
-                String due = savedToFileLine[3];
-                return Deadline.create(status, description, due);
-            case "E":
-                String range = savedToFileLine[3];
-                String from = range.substring(0, range.indexOf(" to")).replace("from ", "");
-                String to = range.substring(range.indexOf("to ")).replace("to ", "");
-                return Event.create(status, description, from, to);
-            default:
-                throw new DukeInvalidSavedToFileLineType();
+        case "T":
+            return ToDo.create(status, description);
+        case "D":
+            String due = savedToFileLine[3];
+            return Deadline.create(status, description, due);
+        case "E":
+            String range = savedToFileLine[3];
+            String from = range.substring(0, range.indexOf(" to")).replace("from ", "");
+            String to = range.substring(range.indexOf("to ")).replace("to ", "");
+            return Event.create(status, description, from, to);
+        default:
+            throw new DukeInvalidSavedToFileLineType();
         }
     }
 

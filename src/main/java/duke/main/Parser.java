@@ -163,32 +163,32 @@ public class Parser {
             }
             try {
                 switch (firstWord) {
-                    case BYE:
-                        exit();
-                        break;
-                    case LIST:
-                        listOutTasks();
-                        break;
-                    case MARK:
-                        mark(Character.getNumericValue(reply.charAt(5) - 1));
-                        break;
-                    case UNMARK:
-                        unmark(Character.getNumericValue(reply.charAt(7) - 1));
-                        break;
-                    case TODO:
-                        addToDo(reply);
-                        break;
-                    case DEADLINE:
-                        addDeadline(reply);
-                        break;
-                    case EVENT:
-                        addEvent(reply);
-                        break;
-                    case DELETE:
-                        delete(Character.getNumericValue(reply.charAt(7) - 1));
-                        break;
-                    default:
-                        throw new DukeUnknownCommandException();
+                case BYE:
+                    exit();
+                    break;
+                case LIST:
+                    listOutTasks();
+                    break;
+                case MARK:
+                    mark(Character.getNumericValue(reply.charAt(5) - 1));
+                    break;
+                case UNMARK:
+                    unmark(Character.getNumericValue(reply.charAt(7) - 1));
+                    break;
+                case TODO:
+                    addToDo(reply);
+                    break;
+                case DEADLINE:
+                    addDeadline(reply);
+                    break;
+                case EVENT:
+                    addEvent(reply);
+                    break;
+                case DELETE:
+                    delete(Character.getNumericValue(reply.charAt(7) - 1));
+                    break;
+                default:
+                    throw new DukeUnknownCommandException();
                 }
             } catch (DukeException e) {
                 this.line(e.toString());

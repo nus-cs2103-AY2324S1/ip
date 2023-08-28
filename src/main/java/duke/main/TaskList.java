@@ -11,6 +11,14 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
+    public void add(Task task) {
+        tasks.add(task);
+    }
+
+    public Task remove(int index) {
+        return tasks.remove(index);
+    }
+
     public int size() {
         return tasks.size();
     }
@@ -19,11 +27,5 @@ public class TaskList {
         return tasks.get(index);
     }
 
-    public void add(Task task) {
-        tasks.add(task);
-    }
 
-    public Task remove(int index) {
-        return tasks.remove(index);
-    }
 }
