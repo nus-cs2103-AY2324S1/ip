@@ -3,7 +3,6 @@ package duke;
  * Task represents a task given by a user's input
  * It contains details of a task
  */
-
 public class Task {
 
     private String taskName;

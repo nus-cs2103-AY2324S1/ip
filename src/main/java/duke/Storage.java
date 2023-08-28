@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileWriter;
 
+/**
+ * This class is used to represent the storage of the chat bot
+ */
 public class Storage {
 
     public static final String FILESEPERATORCHARACTER = " | ";
@@ -112,6 +115,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Clears the file in the Storage object
+     * @return  true if the clear was successful, false otherwise
+     */
     public boolean clearFile() {
         try {
             FileWriter fileWriter = new FileWriter(filePath);

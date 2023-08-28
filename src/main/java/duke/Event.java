@@ -48,40 +48,40 @@ public class Event extends Task {
      * taskValidator does nothing if there are no wrong inputs but throws a WrongInputException
      * if inputs are invalid
      * @param input the user's string input
-     * @throws WrongInputTask which informs the user of the error and actions to take
+     * @throws WrongInputException which informs the user of the error and actions to take
      */
-    public static void taskValidator(String input) throws WrongInputTask {
+    public static void taskValidator(String input) throws WrongInputException {
         String[] segmentedViaFrom = input.split(" /from ");
         if (segmentedViaFrom.length < 2) {
-            throw new WrongInputTask("/from command is required",
+            throw new WrongInputException("/from command is required",
                     "Use the /from command in 'event <event_name> /from <start> /to <end>'");
         }
         try {
             String taskNameEvent = segmentedViaFrom[0].substring(Parser.EVENTOFFSET);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new WrongInputTask("Task name cannot be blank", "Enter a non-blank name");
+            throw new WrongInputException("Task name cannot be blank", "Enter a non-blank name");
         }
         String taskNameEvent = segmentedViaFrom[0].substring(Parser.EVENTOFFSET);
         String[] segmentedViaTo = segmentedViaFrom[1].split(" /to ");
         if (segmentedViaTo.length < 2) {
-            throw new WrongInputTask("/to command is required",
+            throw new WrongInputException("/to command is required",
                     "Use the /to command in 'event <event_name> /from <start> /to <end>'");
         } else {
             String start = segmentedViaTo[0];
             String end = segmentedViaTo[1];
             if (taskNameEvent.trim().isEmpty()) {
-                throw new WrongInputTask("Task name cannot be blank", "Enter a non-blank name");
+                throw new WrongInputException("Task name cannot be blank", "Enter a non-blank name");
             } else if (start.trim().isEmpty()) {
-                throw new WrongInputTask("/from <content>, content cannot be blank",
+                throw new WrongInputException("/from <content>, content cannot be blank",
                         "Enter non-blank text after /from ");
 
             } else if (end.trim().isEmpty()) {
-                throw new WrongInputTask("/to <content>, content cannot be blank", "Enter text after /to ");
+                throw new WrongInputException("/to <content>, content cannot be blank", "Enter text after /to ");
             } else if (!DateTimeParser.isValidDateTime(start)) {
-                throw new WrongInputTask("Invalid date and time format for /from <datetime>",
+                throw new WrongInputException("Invalid date and time format for /from <datetime>",
                         DateTimeParser.getValidDateTimeFormat());
             } else if (!DateTimeParser.isValidDateTime(end)) {
-                throw new WrongInputTask("Invalid date and time format for /to <datetime>",
+                throw new WrongInputException("Invalid date and time format for /to <datetime>",
                         DateTimeParser.getValidDateTimeFormat());
             }
         }

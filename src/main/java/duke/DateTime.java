@@ -23,13 +23,13 @@ public class DateTime {
      * Creates a DateTime object based on whether there is a valid input
      * @param input the user's input
      * @return  a DateTime object
-     * @throws WrongInputTask
+     * @throws WrongInputException
      */
-    public static DateTime createDateTime(String input) throws WrongInputTask {
+    public static DateTime createDateTime(String input) throws WrongInputException {
         if (DateTimeParser.isValidDateTime(input)) {
             return new DateTime(input, DateTimeParser.createLocalDateTime(input));
         } else {
-            throw new WrongInputTask("Invalid date and time format",
+            throw new WrongInputException("Invalid date and time format",
                     "Please enter a valid date and time format");
         }
     }
@@ -42,7 +42,7 @@ public class DateTime {
     public static DateTime createDateTimeFromStorage(String input) {
         try {
             return new DateTime(input, DateTimeParser.createLocalDateTime(input));
-        } catch (WrongInputTask e) {
+        } catch (WrongInputException e) {
             System.out.println("Unable to create DateTime object from storage" + e.toString());
             return null;
         }

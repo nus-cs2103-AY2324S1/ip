@@ -35,12 +35,12 @@ public class ToDos extends Task {
      * taskValidator does nothing if there are no wrong inputs but throws a WrongInputException
      * if inputs are invalid
      * @param input the user's string input
-     * @throws WrongInputTask which informs the user of the error and actions to take
+     * @throws WrongInputException which informs the user of the error and actions to take
      */
-    public static void taskValidator(String input) throws WrongInputTask {
+    public static void taskValidator(String input) throws WrongInputException {
         String[] splitString = input.split(" ");
         if (splitString.length < 2) {
-            throw new WrongInputTask("Cannot be blank", "Enter a non-blank To-Do task");
+            throw new WrongInputException("Cannot be blank", "Enter a non-blank To-Do task");
         }
     }
 

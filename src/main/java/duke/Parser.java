@@ -105,13 +105,18 @@ public class Parser {
         } catch (NumberFormatException e) {
             // If we mark a non int task number
             System.out.println("Enter a valid task number that is a integer shown in list");
-        } catch (WrongInputTask e) {
+        } catch (WrongInputException e) {
             System.out.println(e.toString());
         } catch (IndexOutOfBoundsException e) {
             // To catch invalid number inputs for delete
             System.out.println("Please enter a valid task number from the range in  list");
         }
     }
+
+    /**
+     * Checks whether the program should continue running
+     * @return  whether the program should continue running
+     */
     public boolean shouldContinue() {
         return this.hasCommands;
     }

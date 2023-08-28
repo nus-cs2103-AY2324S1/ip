@@ -36,9 +36,9 @@ public class DateTimeParser {
      * Creates a LocalDateTime object based on the input
      * @param validDateTime a valid Date Time formatted String already checked by isValidDateTime
      * @return  a LocalDateTime object
-     * @throws WrongInputTask   if the input is not a valid date and time format
+     * @throws WrongInputException   if the input is not a valid date and time format
      */
-    public static LocalDateTime createLocalDateTime(String validDateTime) throws WrongInputTask {
+    public static LocalDateTime createLocalDateTime(String validDateTime) throws WrongInputException {
         for (String format : VALID_DATE_TIME_FORMAT) {
             try {
                 LocalDateTime dateTime = LocalDateTime.parse(validDateTime, DateTimeFormatter.ofPattern(format));
@@ -47,7 +47,7 @@ public class DateTimeParser {
                 // do nothing
             }
         }
-        throw new WrongInputTask("Invalid date and time format",
+        throw new WrongInputException("Invalid date and time format",
                 "Please enter a valid date and time format");
     }
 
