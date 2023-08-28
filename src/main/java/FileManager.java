@@ -12,7 +12,7 @@ public class FileManager {
 
     public void saveFile(String content) {
         try {
-            FileWriter myWriter = new FileWriter(DEFAULT_TASK_FILE_PATH);
+            FileWriter myWriter = new FileWriter(DEFAULT_TASK_FILE_PATH, false);
             myWriter.write(content);
             myWriter.close();
             System.out.println("Successfully wrote to the file.");
@@ -24,8 +24,7 @@ public class FileManager {
                 System.out.println("An error occurred. File is not written.");
                 e.printStackTrace();
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("An error occurred. File is not written.");
             e.printStackTrace();
         }

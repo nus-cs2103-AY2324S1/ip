@@ -73,10 +73,10 @@ public class Duke {
         }
     }
     public static void main(String[] args) {
+        fileManager.loadFileToTaskManager(taskManager);
         responseGen.greetings();
         Scanner sc = new Scanner(System.in);
         while(botInUse) {
-            fileManager.loadFileToTaskManager(taskManager);
             String input = sc.nextLine();
             try {
                 listen(input);
