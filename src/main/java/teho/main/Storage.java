@@ -8,14 +8,28 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Saves and loads tasks into and from a file.
+ */
 public class Storage {
+    /** File path for saving and loadings tasks into and from a file */
     public static String filePath; //check if need switch to private
 
+    /**
+     * Constructs new Storage instance with file path.
+     *
+     * @param filePath String representation of the file path of the file
+     *                 to save and load task into and from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-
+    /**
+     * Saves tasks from taskList into file.
+     *
+     * @param taskList List of tasks to save the tasks from into the file.
+     */
     public static void saveTasks(TaskList taskList) {
         try {
             //Solution below inspired by https://www.geeksforgeeks.org/io-bufferedwriter-class-methods-java/
@@ -32,6 +46,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from file into a taskList.
+     *
+     * @return ArrayList containing the loaded tasks.
+     */
     public static ArrayList<Task> loadTasks() { //change type
         ArrayList<Task> taskList =  new ArrayList<>();
         try {

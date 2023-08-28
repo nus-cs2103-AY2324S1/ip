@@ -6,8 +6,16 @@ import teho.main.Task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+/**
+ * Makes sense of the user command that was loaded in file.
+ */
 public class Parser {
+    /**
+     * Parses input and adds task to taskList.
+     *
+     * @param nextLine Line to be parsed.
+     * @param taskList List to add the parsed task into.
+     */
     public static void readLine(String nextLine, ArrayList<Task> taskList) {
         Task taskToAddFirst;
         //use (\\|) to treat \ as a legit character or else it will get split by any spaces
