@@ -12,13 +12,13 @@ public class Event extends Task {
         this.by = this.convertToLocalDateTime(by);
     }
 
-    @Override
-    public String getString() throws DateTimeException {
-        return "[E]" + super.getString() + " (from: " + convertDateTimeToString(from) + " to: " + convertDateTimeToString(by) + ")";
+    @Override public String getString() throws DateTimeException {
+        return "[E]" + super.getString() + " (from: " + convertDateTimeToString(from) + " to: "
+                + convertDateTimeToString(by) + ")";
     }
 
-    @Override
-    public String getFileString() throws DateTimeException {
-        return "E|" + super.getFileString() + "|" + from.toString().replace('T', ' ') + "|" + by.toString().replace('T', ' ');
+    @Override public String getFileString() throws DateTimeException {
+        return "E|" + super.getFileString() + "|" + from.toString().replace('T', ' ') + "|" + by.toString()
+                .replace('T', ' ');
     }
 }

@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Storage {
     private String dirPath;
     private String fileName;
+
     public Storage(String dirPath, String fileName) {
         this.dirPath = dirPath;
         this.fileName = fileName;
@@ -43,8 +44,7 @@ public class Storage {
                     TaskList.list.add(new Deadline(task[2], task[3]));
                 } else if (task[0].equals("E")) {
                     TaskList.list.add(new Event(task[2], task[3], task[4]));
-                }
-                else {
+                } else {
                     throw new BrunoIncorrectFormatException();
                 }
             }

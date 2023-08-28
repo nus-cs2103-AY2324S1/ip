@@ -4,6 +4,7 @@ public class Parser {
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
+
     public boolean parse(String s) throws BrunoException {
         TaskType type = TaskType.valueOf(s.split(" ")[0].toUpperCase());
         switch (type) {

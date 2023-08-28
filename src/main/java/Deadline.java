@@ -9,13 +9,11 @@ public class Deadline extends Task {
         this.by = this.convertToLocalDateTime(by);
     }
 
-    @Override
-    public String getString() throws DateTimeException {
+    @Override public String getString() throws DateTimeException {
         return "[D]" + super.getString() + " (by: " + convertDateTimeToString(by) + ")";
     }
 
-    @Override
-    public String getFileString() {
+    @Override public String getFileString() {
         return "D|" + super.getFileString() + "|" + by.toString().replace('T', ' ');
     }
 }

@@ -30,12 +30,12 @@ public class Task {
         this.isDone = false;
     }
 
-    public LocalDateTime convertToLocalDateTime(String s) throws DateTimeException{
+    public LocalDateTime convertToLocalDateTime(String s) throws DateTimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(s, formatter);
     }
 
-    public String convertDateTimeToString(LocalDateTime dt) throws DateTimeException{
+    public String convertDateTimeToString(LocalDateTime dt) throws DateTimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm", Locale.ENGLISH);
         return dt.format(formatter);
     }

@@ -30,7 +30,7 @@ public class Bruno {
                 String s = sc.nextLine();
                 ui.display_lines();
                 boolean flag = parser.parse(s);
-                if (flag == false) {
+                if (!flag) {
                     ui.displayBye();
                     ui.display_lines();
                     System.exit(0);
@@ -45,6 +45,7 @@ public class Bruno {
             ui.display_lines();
         }
     }
+
     public static void main(String[] args) {
         Bruno bruno = new Bruno("data/", "bruno.txt");
         bruno.run();

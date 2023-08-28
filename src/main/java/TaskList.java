@@ -1,114 +1,135 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class TaskList {
     public static List<Task> list;
-    public static String fileName = "bruno.txt";
-    public static String dirPath = "data/";
-    TaskList() {
+    private final Storage storage;
+    private final UI ui;
+
+    TaskList(Storage storage, UI ui) {
         list = new ArrayList<>();
-    }
-    public String addToDo(String task) throws DukeException {
-        if (task.split(" ").length == 1) {
-            System.out.print("\t");
-            throw new DukeEmptyException(task.split(" ")[0]);
-        }
-        list.add(new ToDo(task.substring(task.indexOf(" ") + 1)));
-        return "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
+        this.storage = storage;
+        this.ui = ui;
     }
 
-    public String addDeadline(String task) throws DukeException {
+    public void addToDo(String task) throws BrunoException {
+        if (task.split(" ").length == 1) {
+            System.out.print("\t");
+            throw new BrunoEmptyException(task.split(" ")[0]);
+        }
+        list.add(new ToDo(task.substring(task.indexOf(" ") + 1)));
+        String s = "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
+        storage.writeToFile();
+        ui.displayMessage(s);
+    }
+
+    public void addDeadline(String task) throws BrunoException {
         if (task.split(" ").length == 1 || task.indexOf('/') == 9) {
             System.out.print("\t");
-            throw new DukeEmptyException(task.split(" ")[0]);
+            throw new BrunoEmptyException(task.split(" ")[0]);
         }
         if (!task.substring(task.indexOf("deadline") + 1).contains("/by")) {
             System.out.print("\t");
-            throw new DukeMissingDeadlineException();
+            throw new BrunoMissingDeadlineException();
         }
-        list.add(new Deadline(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1), task.substring(task.lastIndexOf('/') + 4)));
-        return "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
+        list.add(new Deadline(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
+                task.substring(task.lastIndexOf('/') + 4)));
+        storage.writeToFile();
+        String s = "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
+        ui.displayMessage(s);
     }
 
-    public String addEvent(String task) throws DukeException {
+    public void addEvent(String task) throws BrunoException {
         if (task.split(" ").length == 1 || task.indexOf('/') == 6) {
             System.out.print("\t");
-            throw new DukeEmptyException(task.split(" ")[0]);
+            throw new BrunoEmptyException(task.split(" ")[0]);
         }
-        if (!task.substring(task.indexOf("event") + 1).contains("/from") || !task.substring(task.indexOf("event") + 1).contains("/to")) {
+        if (!task.substring(task.indexOf("event") + 1).contains("/from") || !task.substring(
+                task.indexOf("event") + 1).contains("/to")) {
             System.out.print("\t");
-            throw new DukeMissingEventException();
+            throw new BrunoMissingEventException();
         }
-        list.add(new Event(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1), task.substring(task.indexOf("from") + 5, task.lastIndexOf('/') - 1), task.substring(task.indexOf("to") + 3)));
-        return "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
+        list.add(new Event(task.substring(task.indexOf(' ') + 1, task.indexOf('/') - 1),
+                task.substring(task.indexOf("from") + 5, task.lastIndexOf('/') - 1),
+                task.substring(task.indexOf("to") + 3)));
+        storage.writeToFile();
+        String s = "\tWoof. I have added this task:\n\t\t" + list.get(list.size() - 1).getString();
+        ui.displayMessage(s);
     }
 
-    public String markTask(String task) throws DukeException {
+    public void markTask(String task) throws BrunoException {
         String markVal = task.split(" ")[1];
         if (!Character.isDigit(markVal.charAt(0))) {
-            throw new DukeIntegerMismatchException("mark");
+            throw new BrunoIntegerMismatchException("mark");
         }
         if (Integer.parseInt(markVal) > list.size()) {
-            throw new DukeIndexOutOfBoundsException("mark");
+            throw new BrunoIndexOutOfBoundsException("mark");
         }
         if (Integer.parseInt(markVal) < 0) {
-            throw new DukeNegativeArgException("mark");
+            throw new BrunoNegativeArgException("mark");
         }
         list.get(Integer.parseInt(markVal) - 1).markAsDone();
-        return "\tWoof Woof! I have marked the task as done.\n\t" + list.get(Integer.parseInt(markVal) - 1).getString();
+        storage.writeToFile();
+        String s =
+                "\tWoof Woof! I have marked the task as done.\n\t" + list.get(Integer.parseInt(markVal) - 1)
+                        .getString();
+        ui.displayMessage(s);
     }
 
-    public String unmarkTask(String task) throws DukeException {
+    public void unmarkTask(String task) throws BrunoException {
         String unmarkVal = task.split(" ")[1];
         if (!Character.isDigit(unmarkVal.charAt(0))) {
-            throw new DukeIntegerMismatchException("unmark");
+            throw new BrunoIntegerMismatchException("unmark");
         }
         if (Integer.parseInt(unmarkVal) > list.size()) {
-            throw new DukeIndexOutOfBoundsException("unmark");
+            throw new BrunoIndexOutOfBoundsException("unmark");
         }
         if (Integer.parseInt(unmarkVal) < 0) {
-            throw new DukeNegativeArgException("unmark");
+            throw new BrunoNegativeArgException("unmark");
         }
         list.get(Integer.parseInt(unmarkVal) - 1).unMark();
-        return "\tOK, I have marked the task as not done yet.\n\t" + list.get(Integer.parseInt(unmarkVal) - 1).getString();
+        storage.writeToFile();
+        String s = "\tOK, I have marked the task as not done yet.\n\t" + list.get(
+                Integer.parseInt(unmarkVal) - 1).getString();
+        ui.displayMessage(s);
     }
 
-    public String deleteTask(String task) throws DukeException {
+    public void deleteTask(String task) throws BrunoException {
         String deleteVal = task.split(" ")[1];
         if (!Character.isDigit(deleteVal.charAt(0))) {
-            throw new DukeIntegerMismatchException("delete");
+            throw new BrunoIntegerMismatchException("delete");
         }
         if (Integer.parseInt(deleteVal) > list.size()) {
-            throw new DukeIndexOutOfBoundsException("delete");
+            throw new BrunoIndexOutOfBoundsException("delete");
         }
         if (Integer.parseInt(deleteVal) < 0) {
-            throw new DukeNegativeArgException("delete");
+            throw new BrunoNegativeArgException("delete");
         }
         String s1 = list.get(Integer.parseInt(deleteVal) - 1).getString();
         list.remove(Integer.parseInt(deleteVal) - 1);
-        return "\tI have removed this task from your list:\n\t" + s1;
+        storage.writeToFile();
+        String s = "\tI have removed this task from your list:\n\t" + s1;
+        ui.displayMessage(s);
     }
 
-    public String displayListSum() {
-        return "\tNow you have " + list.size() + (list.size() == 1 ? " task" : " tasks") + " in your list.";
+    public void displayListSum() {
+        String s = "\tNow you have " + list.size() + (list.size() == 1 ? " task" : " tasks") + " in your "
+                + "list.";
+        ui.displayMessage(s);
     }
+
     public void displayList() {
-        System.out.print("\t");
-        System.out.println("Here are the tasks in your list:");
+        String s = "\tHere are the tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
-            System.out.print("\t\t");
-            System.out.println((i + 1) + ". " + list.get(i).getString());
+            s += "\t\t" + (i + 1) + ". " + list.get(i).getString() + "\n";
         }
+        ui.displayMessage(s);
     }
-    public String showSchedule(String task) throws DateTimeException {
+
+    public void showSchedule(String task) throws DateTimeException {
         String s = "";
         int counter = 0;
         LocalDate d = LocalDate.parse(task.split(" ")[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -117,65 +138,17 @@ public class TaskList {
                 if (d.isEqual(((Deadline) t).by.toLocalDate())) {
                     s = s + "\t" + (++counter) + ". " + t.getString() + "\n";
                 }
-            }
-            else if (t instanceof Event) {
-                if ((d.isAfter(((Event) t).from.toLocalDate()) && d.isBefore(((Event) t).by.toLocalDate())) || d.isEqual(((Event) t).from.toLocalDate()) || d.isEqual(((Event) t).by.toLocalDate())){
+            } else if (t instanceof Event) {
+                if ((d.isAfter(((Event) t).from.toLocalDate()) && d.isBefore(((Event) t).by.toLocalDate()))
+                        || d.isEqual(((Event) t).from.toLocalDate()) || d.isEqual(
+                        ((Event) t).by.toLocalDate())) {
                     s = s + "\t" + (++counter) + ". " + t.getString() + "\n";
                 }
             }
         }
         if (counter == 0) {
-            return "\tYou have no deadlines or events on this date.";
+            ui.displayMessage("\tYou have no deadlines or events on this date.");
         }
-        return s;
-    }
-
-    public void writeToFile() {
-        File directory = new File(dirPath);
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-        try {
-            FileWriter fileWriter = new FileWriter(dirPath + fileName);
-            for (Task task : list) {
-                fileWriter.write(task.getFileString() + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void loadFile() throws DukeException {
-        try {
-            File directory = new File(dirPath);
-            if (!directory.exists()) {
-                System.out.println("Directory \"data\" has been created.");
-                directory.mkdir();
-            }
-            File file = new File(dirPath + fileName);
-            if (!file.exists()) {
-                System.out.println("File \"bruno.txt\" has been created");
-                file.createNewFile();
-            }
-            Scanner sc = new Scanner(file);
-            while (sc.hasNextLine()) {
-                String s = sc.nextLine();
-                String[] task = s.split("\\|");
-                if (task[0].equals("T")) {
-                    list.add(new ToDo(task[2]));
-                } else if (task[0].equals("D")) {
-                    list.add(new Deadline(task[2], task[3]));
-                } else if (task[0].equals("E")) {
-                    list.add(new Event(task[2], task[3], task[4]));
-                }
-                else {
-                    throw new DukeIncorrectFormatException();
-                }
-            }
-            sc.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        ui.displayMessage(s);
     }
 }
