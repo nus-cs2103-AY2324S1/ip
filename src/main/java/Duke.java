@@ -28,24 +28,24 @@ public class Duke {
     private CommandType parseText(String line) throws DukeException {
         String command = line.split(" ")[0];
         switch(command) {
-            case "list":
-                return CommandType.LIST;
-            case "mark":
-                return CommandType.MARK;
-            case "unmark":
-                return CommandType.UNMARK;
-            case "todo":
-                return CommandType.TODO;
-            case "deadline":
-                return CommandType.DEADLINE;
-            case "event":
-                return CommandType.EVENT;
-            case "delete":
-                return CommandType.DELETE;
-            case "bye":
-                return CommandType.BYE;
-            default:
-                throw new DukeException("!!!: Sorry I do not understand what you mean");
+        case "list":
+            return CommandType.LIST;
+        case "mark":
+            return CommandType.MARK;
+        case "unmark":
+            return CommandType.UNMARK;
+        case "todo":
+            return CommandType.TODO;
+        case "deadline":
+            return CommandType.DEADLINE;
+        case "event":
+            return CommandType.EVENT;
+        case "delete":
+            return CommandType.DELETE;
+        case "bye":
+            return CommandType.BYE;
+        default:
+            throw new DukeException("!!!: Sorry I do not understand what you mean");
         }
     }
 
@@ -169,30 +169,30 @@ public class Duke {
                 CommandType command = parseText(line);
                 String options = !line.contains(" ") ? "" : line.substring(line.indexOf(' ') + 1);
                 switch (command) {
-                    case LIST:
-                        list();
-                        break;
-                    case MARK:
-                        markDone(options);
-                        break;
-                    case UNMARK:
-                        unmarkDone(options);
-                        break;
-                    case TODO:
-                        addTodoToList(options);
-                        break;
-                    case DEADLINE:
-                        addDeadlineToList(options);
-                        break;
-                    case EVENT:
-                        addEventToList(options);
-                        break;
-                    case DELETE:
-                        deleteFromList(options);
-                        break;
-                    case BYE:
-                        exit();
-                        return;
+                case LIST:
+                    list();
+                    break;
+                case MARK:
+                    markDone(options);
+                    break;
+                case UNMARK:
+                    unmarkDone(options);
+                    break;
+                case TODO:
+                    addTodoToList(options);
+                    break;
+                case DEADLINE:
+                    addDeadlineToList(options);
+                    break;
+                case EVENT:
+                    addEventToList(options);
+                    break;
+                case DELETE:
+                    deleteFromList(options);
+                    break;
+                case BYE:
+                    exit();
+                    return;
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
