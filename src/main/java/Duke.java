@@ -32,7 +32,7 @@ public class Duke {
     }
 
     // CONSTANTS
-    private static final String LINE = "_______________________________________";
+    static final String LINE = "_______________________________________";
     private static final String DIR_NAME = "./data";
     private static final String FILE_NAME = "duke.txt";
     private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
@@ -42,6 +42,9 @@ public class Duke {
             .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
             .toFormatter();
+
+    private static TaskList tasks;
+
 
     private static void sendIntroduction() {
         String logo = "                     _                 _      \n" +
@@ -144,18 +147,8 @@ public class Duke {
 
     }
 
-    private static void printTasks(List<Task> tasks) {
-        System.out.println("Here are your list of tasks:");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            System.out.printf("%d. %s%n", i + 1, task);
-        }
-        System.out.println(LINE);
-    }
-
     public static void main(String[] args) {
-        List<Task> tasks = loadTasksFromStorage(DIR_NAME, FILE_NAME);
-
+        tasks = new TaskList(loadTasksFromStorage(DIR_NAME, FILE_NAME));
         Scanner scanner = new Scanner(System.in);
 
         sendIntroduction();
@@ -172,13 +165,7 @@ public class Duke {
                     // User wants to end the chatbot
                     if (command.equals(Command.BYE.name())) {
 
-                        // store the data into the storage
-                        StringBuilder textForStorage = new StringBuilder();
-                        for (Task task : tasks) {
-                            textForStorage.append(task.formatForStorage()).append("\n");
-                        }
-
-                        writeFile(DIR_NAME + File.separator + FILE_NAME, textForStorage.toString());
+                        writeFile(DIR_NAME + File.separator + FILE_NAME, tasks.retrieveForStorage());
 
                         System.out.println("Bye. Hope to see you again soon!");
                         System.out.println(LINE);
@@ -192,7 +179,7 @@ public class Duke {
                             throw new EmptyTaskListException();
                         }
 
-                        printTasks(tasks);
+                        tasks.printTasks();
                         continue;
                     }
 
@@ -327,9 +314,7 @@ public class Duke {
                     // check for tasks on a day
                     if (command.equals(Command.CHECK.name())) {
                         String content = input.replaceAll("^\\s*check\\s*", "");
-                        List<Task> scheduledTasks = checkScheduleOnDate(LocalDateTime.parse(content, FORMATTER), tasks);
-
-                        printTasks(scheduledTasks);
+                        tasks.printScheduledTasks(LocalDateTime.parse(content, FORMATTER));
                         continue;
                     }
 
