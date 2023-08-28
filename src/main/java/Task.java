@@ -27,8 +27,16 @@ abstract class Task {
                 + "\n ----------------------------------------");
     }
 
+    public String getType() {
+        return " ";
+    }
+
+    public String getDetails() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getType() + "]" + "[" + this.getStatusIcon() + "] " + this.description;
     }
 }

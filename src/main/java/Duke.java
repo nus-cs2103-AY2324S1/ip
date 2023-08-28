@@ -7,9 +7,11 @@ public class Duke {
                 + message
                 + "\n ----------------------------------------");
     }
+
     public static void main(String[] args) {
+        Storage storage = new Storage("./data/duke.txt");
         Scanner scan = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = storage.readFile();
         String welcome = "  Hello! I'm Handsome\n"
                 + "  What can I do for you?";
         String goodbye = "  Bye. Hope to see you again soon!";
@@ -24,7 +26,7 @@ public class Duke {
                 System.out.println(" ----------------------------------------\n"
                         + "Here are the tasks in your list:");
                 for (Task task : tasks) {
-                    System.out.println(String.format(" %d. %s", index, task.toString()));
+                    System.out.printf(" %d. %s%n", index, task.toString());
                     index++;
                 }
                 System.out.println(" ----------------------------------------");
@@ -42,6 +44,7 @@ public class Duke {
                             int markTaskId = Integer.parseInt(substrings[1]) - 1;
                             if (markTaskId >= 0 && markTaskId < tasks.size()) {
                                 tasks.get(markTaskId).markAsDone();
+                                storage.writeToFile(tasks);
                             } else { // user input is an integer bigger than size of task list
                                 String message = tasks.size() > 0
                                         ? "No such task! Please enter a task ID between 1 and " + tasks.size()
@@ -58,6 +61,7 @@ public class Duke {
                             int unmarkTaskId = Integer.parseInt(substrings[1]) - 1;
                             if (unmarkTaskId >= 0 && unmarkTaskId < tasks.size()) {
                                 tasks.get(unmarkTaskId).markAsUndone();
+                                storage.writeToFile(tasks);
                             } else { // user input is an integer bigger than size of task list
                                 String message = tasks.size() > 0
                                         ? "No such task! Please enter a task ID between 1 and " + tasks.size()
@@ -75,6 +79,7 @@ public class Duke {
                             if (deleteTaskId >= 0 && deleteTaskId < tasks.size()) {
                                 String details = tasks.get(deleteTaskId).toString();
                                 tasks.remove(deleteTaskId);
+                                storage.writeToFile(tasks);
                                 String message = " Noted. I've removed this task:\n"
                                         + "     " + details
                                         + "\n Now you have " + tasks.size() + " tasks in the list.";
@@ -94,6 +99,7 @@ public class Duke {
                             String todoDesc = substrings[1];
                             Todo todo = new Todo(todoDesc);
                             tasks.add(todo);
+                            storage.writeToFile(tasks);
                             printLine(" Got it. I've added this task:\n"
                                     + "     " + todo
                                     + "\n Now you have " + tasks.size() + " tasks in the list.");
@@ -112,6 +118,7 @@ public class Duke {
                             }
                             Deadline deadline = new Deadline(details[0], details[1]);
                             tasks.add(deadline);
+                            storage.writeToFile(tasks);
                             printLine(" Got it. I've added this task:\n"
                                     + "     " + deadline
                                     + "\n Now you have " + tasks.size() + " tasks in the list.");
@@ -137,6 +144,7 @@ public class Duke {
                             }
                             Event event = new Event(eventDetails[0], eventTimings[0], eventTimings[1]);
                             tasks.add(event);
+                            storage.writeToFile(tasks);
                             String message = " Got it. I've added this task:\n"
                                     + "     " + event
                                     + "\n Now you have " + tasks.size() + " tasks in the list.";
