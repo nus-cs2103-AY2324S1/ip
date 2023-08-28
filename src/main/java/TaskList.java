@@ -4,6 +4,13 @@ public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
     private int size = 0;
 
+    public TaskList() {}
+
+    public TaskList(ArrayList<Task> list) {
+        this.list = list;
+        this.size = list.size();
+    }
+
     public int getSize() {
         return size;
     }
@@ -94,6 +101,14 @@ public class TaskList {
         list.remove(index);
         size--;
         return task;
+    }
+
+    public String toLogString() {
+        StringBuilder output = new StringBuilder();
+        for (int i = 1; i <= list.size(); ++i) {
+            output.append(list.get(i - 1).toLogString()).append("\n");
+        }
+        return output.toString();
     }
 
     @Override
