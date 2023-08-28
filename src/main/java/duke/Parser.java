@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exception.UnknownCommandException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 public class Parser {
 
     public static boolean processCommand(String scannerIn, TaskList tasks) throws Exception {

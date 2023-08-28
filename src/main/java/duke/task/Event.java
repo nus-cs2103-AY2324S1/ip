@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.exception.EmptyDescriptionException;
+
 public class Event extends Task {
 
     protected String from;
