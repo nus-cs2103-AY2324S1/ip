@@ -1,7 +1,11 @@
+import java.time.format.DateTimeFormatter;
+
 public abstract class Task {
 
     protected String description;
     protected boolean isDone = false;
+
+    public static DateTimeFormatter standardDateTimeParser = DateTimeFormatter.ofPattern("yyyy MM DD HHmm");
 
     public static Task create(Commands command, String rawLine) throws DukeException {
         switch (command) {
