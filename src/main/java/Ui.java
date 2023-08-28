@@ -30,7 +30,6 @@ public class Ui {
         System.out.println(Ui.i5 + "Bye. Hope to see you again soon!");
     }
     public void bye() {
-        Ui.line();
         this.scanner.close();
         this.exit();
         Ui.line();
