@@ -1,5 +1,6 @@
-package duke;
+package duke.parser;
 
+import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.exception.UnknownCommandException;
 import duke.task.TaskList;

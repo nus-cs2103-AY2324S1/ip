@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.Ui;
+import duke.ui.Ui;
 import duke.exception.IllegalTaskIndexException;
 import duke.exception.InvalidArgumentException;
 import duke.storage.Storage;
@@ -171,7 +171,7 @@ public class TaskList {
         if (index > tasks.size() || index < 1) {
             throw new IllegalTaskIndexException();
         }
-        // Calls delete message from duke.Ui class
+        // Calls delete message from duke.ui.Ui class
         Ui.showDeleteTaskMessage(tasks, index);
         try {
             storage.save(tasks);

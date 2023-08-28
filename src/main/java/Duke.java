@@ -1,5 +1,5 @@
-import duke.Parser;
-import duke.Ui;
+import duke.parser.Parser;
+import duke.ui.Ui;
 import duke.task.TaskList;
 import java.util.Scanner;
 
