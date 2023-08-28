@@ -21,41 +21,41 @@ public class Input {
                 } else if (input.startsWith("mark")) {
                     // Throw error if there is no index
                     if (input.length() < 6 || input.split(" ", 2).length < 2) {
-                        throw new MarkException("☹ OOPS!!! You need to include an index to mark task.");
+                        throw new InvalidIndexException("☹ OOPS!!! You need to include an index to mark task.");
                     }
                     String strIndex = input.split(" ", 2)[1];
                     // Throw error if index given is not an int
                     if (!Input.isInt(strIndex)) {
-                        throw new MarkException("☹ OOPS!!! You need to include an index to mark task.");
+                        throw new InvalidIndexException("☹ OOPS!!! You need to include an index to mark task.");
                     }
                     int index = Integer.parseInt(strIndex) - 1;
                     // Throw error if there is no task at index
                     if (index >= Storage.getLength()) {
-                        throw new MarkException("☹ OOPS!!! There is no task at that index.");
+                        throw new InvalidIndexException("☹ OOPS!!! There is no task at that index.");
                     }
                     Storage.markAsDone(index);
                     Printing.printMarkAsDone(index);
                 } else if (input.startsWith("unmark")) {
                     // Throw error if there is no index
                     if (input.length() < 8 || input.split(" ", 2).length < 2) {
-                        throw new MarkException("☹ OOPS!!! You need to include an index to unmark task.");
+                        throw new InvalidIndexException("☹ OOPS!!! You need to include an index to unmark task.");
                     }
                     String strIndex = input.split(" ", 2)[1];
                     // Throw error if index given is not an int
                     if (!Input.isInt(strIndex)) {
-                        throw new MarkException("☹ OOPS!!! You need to include an index to unmark task.");
+                        throw new InvalidIndexException("☹ OOPS!!! You need to include an index to unmark task.");
                     }
                     int index = Integer.parseInt(strIndex) - 1;
                     // Throw error if there is no task at index
                     if (index >= Storage.getLength()) {
-                        throw new MarkException("☹ OOPS!!! There is no task at that index.");
+                        throw new InvalidIndexException("☹ OOPS!!! There is no task at that index.");
                     }
                     Storage.unmark(index);
                     Printing.printUnmark(index);
                 } else if (input.startsWith("todo")) {
                     // Throw error if there is no description
                     if (input.length() < 6) {
-                        throw new TodoException("☹ OOPS!!! The description of a todo cannot be empty.");
+                        throw new InvalidParametersException("☹ OOPS!!! The description of a todo cannot be empty.");
                     }
                     String[] arr = input.split(" ", 2);
                     Task newTask = new Todo(arr[1]);
@@ -68,7 +68,7 @@ public class Input {
                             input.split(" /by ")[0].length() < 10 ||
                             input.split(" /by ")[0].substring(9).trim().equals("") ||
                             input.split(" /by ")[1].trim().equals("")) {
-                        throw new DeadlineException("☹ OOPS!!! The description and by of a deadline cannot be empty.");
+                        throw new InvalidParametersException("☹ OOPS!!! The description and by of a deadline cannot be empty.");
                     }
                     String[] arr = input.split(" /by ");
                     String taskDesc = arr[0].substring(9);
@@ -86,7 +86,7 @@ public class Input {
                             input.split(" /from ")[1].split(" /to ").length < 2 ||
                             input.split(" /from ")[1].split(" /to ")[0].trim().equals("") ||
                             input.split(" /from ")[1].split(" /to ")[1].trim().equals("")) {
-                        throw new EventException("☹ OOPS!!! The description and from and to of an event cannot be empty.");
+                        throw new InvalidParametersException("☹ OOPS!!! The description and from and to of an event cannot be empty.");
                     }
                     String[] arr = input.split(" /from ");
                     String taskDesc = arr[0].substring(6);
@@ -99,17 +99,17 @@ public class Input {
                 } else if (input.startsWith("delete")) {
                     // Throw error if there is no index
                     if (input.length() < 8 || input.split(" ", 2).length < 2) {
-                        throw new MarkException("☹ OOPS!!! You need to include an index to delete task.");
+                        throw new InvalidIndexException("☹ OOPS!!! You need to include an index to delete task.");
                     }
                     String strIndex = input.split(" ", 2)[1];
                     // Throw error if index given is not an int
                     if (!Input.isInt(strIndex)) {
-                        throw new MarkException("☹ OOPS!!! You need to include an index to delete task.");
+                        throw new InvalidIndexException("☹ OOPS!!! You need to include an index to delete task.");
                     }
                     int index = Integer.parseInt(strIndex) - 1;
                     // Throw error if there is no task at index
                     if (index >= Storage.getLength()) {
-                        throw new MarkException("☹ OOPS!!! There is no task at that index.");
+                        throw new InvalidIndexException("☹ OOPS!!! There is no task at that index.");
                     }
                     Task removedTask = Storage.delete(index);
                     Printing.printDelete(removedTask);
