@@ -1,16 +1,44 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Duke {
     static final String HORIZONTAL_LINE = "____________________________________________________________\n";
+    static final Path filePath = Paths.get("data", "duke.txt");
     static List<Task> tasks = new ArrayList<>();
 
     private static void outputMessage(String message) {
         System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
     }
 
+    private static void writeToFile(File file, String textToAdd) {
+        try (FileWriter fw = new FileWriter(file)) {
+            fw.write(textToAdd);
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static File createFile() {
+        File file = new File(filePath.toUri());
+        try {
+            if (!file.getParentFile().mkdirs() && !file.createNewFile() && !file.exists()) {
+                System.out.println("Something went wrong.");
+            }
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+        return file;
+    }
+
     public static void main(String[] args) {
+        File file = createFile();
         outputMessage(" Hello! I'm Pixel\n What can I do for you?\n");
 
         Scanner scanner = new Scanner(System.in);
@@ -21,7 +49,8 @@ public class Duke {
                 case "bye": {
                     outputMessage(" Bye. Hope to see you again soon!\n");
                     scanner.close();
-                    break;
+                    writeToFile(file, tasks.stream().map(Task::toString).collect(Collectors.joining("\n")));
+                    return;
                 }
                 case "list": {
                     if (tasks.size() == 0) {
