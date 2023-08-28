@@ -16,6 +16,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
+        this.by = by;
+    }
+
     /**
      * Returns the description of the deadline task with the specified date that task needs to be completed.
      *
@@ -23,6 +28,11 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + "(by: " + by + ")";
+        return "[D]" + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String fileString() {
+        return "D" + super.fileString() + " | " + this.by;
     }
 }

@@ -20,6 +20,12 @@ public class Event extends Task{
         this.to = to;
     }
 
+    public Event(String description, boolean isDone, String from, String to) {
+        super(description, isDone);
+        this.from = from;
+        this.to = to;
+    }
+
     /**
      * Returns the description of the task with the specified time period.
      *
@@ -27,6 +33,12 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(from: " + this.from + "to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    @Override
+    public String fileString() {
+        return "E" + super.fileString() + " | " + this.from + "-" + this.to;
+    }
+
 }
