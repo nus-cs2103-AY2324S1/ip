@@ -9,6 +9,10 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public String getFromTo() {
+        return from + "-" + to;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + "(from:" + from + "to:" + to + ")";
