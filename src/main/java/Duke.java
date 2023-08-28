@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -19,8 +20,6 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         //this is what the user typed in
         String userCommand;
-        //fixed size array to store the items
-        ArrayList<Task> toDo = new ArrayList<>();
 
         //create the directory to store tasks
         File directory = new File("./data");
@@ -37,30 +36,54 @@ public class Duke {
             }
         }
 
+        //fixed size array to store the items
+        ArrayList<Task> toDo = new ArrayList<>();
+        //get the tasks from the file
+        try {
+            Scanner s = new Scanner(taskList);
+            String savedStrings;
+            while (s.hasNextLine()) {
+                savedStrings = s.nextLine();
+                String[] arr = savedStrings.split("\\|");
+                for (int i = 0; i < arr.length; i++) {
+                    arr[i] = arr[i].trim();
+                }
+                String taskType = arr[0];
+                switch (taskType) {
+                    case "T":
+                        Todo t = new Todo(arr[2]);
+                        if (arr[1] == "1") {
+                            t.mark();
+                        }
+                        break;
+                    case "D":
+                        Deadline d = new Deadline(arr[2], arr[3]);
+                        if (arr[1] == "1") {
+                            d.mark();
+                        }
+                        break;
+                    case"E":
+                        String startEnd = arr[3];
+                        String[] duration = startEnd.split("-");
+                        String start = duration[0];
+                        String end = duration[1];
+                        Event e = new Event(arr[2], start, end);
+                        if (arr[1] == "1") {
+                            e.mark();
+                        }
+                        break;
+                    default:
+                        System.out.println("Wrong input recognised :((");
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
         //initial greeting
         System.out.println(lines + "\n" + greeting + lines);
         //getting user input
         userCommand = sc.nextLine();
-
-        /**
-         * public class CreateFile {
-         *   public static void main(String[] args) {
-         *     try {
-         *       File myObj = new File("filename.txt");
-         *       if (myObj.createNewFile()) {
-         *         System.out.println("File created: " + myObj.getName());
-         *       } else {
-         *         System.out.println("File already exists.");
-         *       }
-         *     } catch (IOException e) {
-         *       System.out.println("An error occurred.");
-         *       e.printStackTrace();
-         *     }
-         *   }
-         * }
-         */
-
-
 
         while (!userCommand.equals("bye")) {
             String[] splitted = userCommand.split(" ", 2);
@@ -82,6 +105,7 @@ public class Duke {
                         if (task_no <= toDo.size()) {
                             Task target = toDo.get(task_no - 1);
                             target.mark();
+
                             String description = target.getDescription();
                             System.out.println(lines
                                     + "\n        Nice! I've marked this task as done:\n          "
