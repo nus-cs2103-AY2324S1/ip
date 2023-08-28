@@ -85,9 +85,9 @@ public class Parser {
         } else if (input.contains("delete")) {
             try {
                 int taskNum = getTaskNumber("delete", input);
-                Task task = taskList.deleteTask(taskNum - 1);
+                Task deletedTask = taskList.deleteTask(taskNum - 1);
                 this.storage.saveFile(this.taskList);
-                this.ui.printDeletedTask(task, n - 1);
+                this.ui.printDeletedTask(deletedTask, n - 1);
             } catch (IndexOutOfBoundsException e) {
                 int taskNum = getTaskNumber("delete", input);
                 DukeExceptionHandler.handleTaskNumOutOfBounds(taskNum);

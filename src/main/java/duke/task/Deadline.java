@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task {
     private LocalDateTime deadline;
-    private static String noDescErrorMsg = "OOPS!!! The description of a deadline cannot be empty.";
+    private static String NO_DESC_ERROR_MSG = "OOPS!!! The description of a deadline cannot be empty.";
 
     public Deadline(String task) {
         super(getTask(task));
@@ -29,13 +29,13 @@ public class Deadline extends Task {
      */
     public static String[] splitDeadlineString(String taskString) {
         if (checkTaskNoDescription(taskString, "deadline")) {
-            throw new IllegalArgumentException(noDescErrorMsg);
+            throw new IllegalArgumentException(NO_DESC_ERROR_MSG);
         }
 
         // removes "deadline "  from the task string
         String removeCmd = taskString.substring(9);
         if (checkAllWhiteSpace(removeCmd)) {
-            throw new IllegalArgumentException(noDescErrorMsg);
+            throw new IllegalArgumentException(NO_DESC_ERROR_MSG);
         }
 
         // we know the array has 2 elements 
@@ -53,11 +53,11 @@ public class Deadline extends Task {
      * @return           the task
      */
     public static String getTask(String taskString) {
-        String[] arr = splitDeadlineString(taskString);
-        String task = arr[0];
+        String[] strings = splitDeadlineString(taskString);
+        String task = strings[0];
 
         if (checkAllWhiteSpace(task)) {
-            throw new IllegalArgumentException(noDescErrorMsg);
+            throw new IllegalArgumentException(NO_DESC_ERROR_MSG);
         }
         // we remove the white space behind the task
         return task.trim();
@@ -70,8 +70,8 @@ public class Deadline extends Task {
      * @return           the deadline
      */
     public String getDeadline(String taskString) {
-        String[] arr = splitDeadlineString(taskString);
-        String deadline = arr[1];
+        String[] strings = splitDeadlineString(taskString);
+        String deadline = strings[1];
 
         if (checkAllWhiteSpace(deadline)) {
             throw new IllegalArgumentException("OOPS!!! The deadline of a deadline cannot be empty.");
@@ -105,8 +105,8 @@ public class Deadline extends Task {
      * @return a string to be saved in the text file
      */
     @Override
-    public String stringToSave() {
-        return "D" + super.stringToSave() + " | " + this.saveDeadline(); 
+    public String saveStringToFile() {
+        return "D" + super.saveStringToFile() + " | " + this.saveDeadline(); 
     }
 
     @Override

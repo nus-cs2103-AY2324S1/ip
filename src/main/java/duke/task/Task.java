@@ -60,7 +60,7 @@ public abstract class Task {
      * 
      * @return string that contains the status and task to be saved in a file
      */
-    public String stringToSave() {
+    public String saveStringToFile() {
         String status = isDone ? "[X]" : "[ ]";
         return " | " + status + " | " + task;
     }

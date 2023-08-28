@@ -113,7 +113,7 @@ public class Storage {
 
             for (int i = 0; i < n; i += 1) {
                 Task currentTask = taskList.getTask(i);
-                String s = currentTask.stringToSave();
+                String s = currentTask.saveStringToFile();
                 bufferedWriter.write(s);
                 bufferedWriter.newLine();
             }

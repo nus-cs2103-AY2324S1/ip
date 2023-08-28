@@ -6,8 +6,8 @@ import duke.task.Task;
  * Represents the user interface of the chatbot.
  */
 public class Ui {
-    private String divider = "____________________________________________________________";
-    private String indent = "     ";
+    private String DIVIDER = "____________________________________________________________";
+    private String INDENT = "     ";
 
     /*
      * Adds indentation to the string given and prints it out.
@@ -15,14 +15,14 @@ public class Ui {
      * @params s the string to be indented
      */
     public void formatString(String s) {
-        System.out.println(indent + s);
+        System.out.println(INDENT + s);
     }
 
     /**
      * Shows the divider line in the UI.
      */
     public void showLine() {
-        formatString(divider);
+        formatString(DIVIDER);
     }
 
     /**

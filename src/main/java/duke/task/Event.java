@@ -70,8 +70,8 @@ public class Event extends Task {
      * @return           the task
      */
     public static String getTask(String taskString) {
-        String[] arr = splitEventString(taskString);
-        String task = arr[0];
+        String[] strings = splitEventString(taskString);
+        String task = strings[0];
 
         if (checkAllWhiteSpace(task)) {
             throw new IllegalArgumentException(noDescErrorMsg);
@@ -87,8 +87,8 @@ public class Event extends Task {
      * @return           the start time
      */
     public String getStartTime(String taskString) {
-        String[] arr = splitEventString(taskString);
-        String startTime = arr[1];
+        String[] strings = splitEventString(taskString);
+        String startTime = strings[1];
 
         if (checkAllWhiteSpace(startTime)) {
             throw new IllegalArgumentException("OOPS!!! The start time of a event cannot be empty.");
@@ -104,8 +104,8 @@ public class Event extends Task {
      * @return           the end time
      */
     public String getEndTime(String taskString) {
-        String[] arr = splitEventString(taskString);
-        String endTime = arr[2];
+        String[] strings = splitEventString(taskString);
+        String endTime = strings[2];
 
         if (checkAllWhiteSpace(endTime)) {
             throw new IllegalArgumentException("OOPS!!! The end time of a event cannot be empty.");
@@ -158,8 +158,8 @@ public class Event extends Task {
      * @return a string to be saved in the text file
      */
     @Override
-    public String stringToSave() {
-        return "E" + super.stringToSave() + " | " + this.saveStartTime() + " | " + 
+    public String saveStringToFile() {
+        return "E" + super.saveStringToFile() + " | " + this.saveStartTime() + " | " + 
             this.saveEndTime(); 
     }
 
