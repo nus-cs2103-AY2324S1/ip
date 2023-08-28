@@ -51,7 +51,7 @@ public class Ui {
     public void generateDeleteMessage(Task task, TaskList taskList) {
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
-        System.out.println("Now you have "+ taskList.getSize()+" task(s) in the list.");
+        System.out.println("Now you have " + taskList.getSize() + " task(s) in the list.");
     }
 
     public void showLoadingError() {

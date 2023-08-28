@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    public static String filePath;
+    public static String filePath; //check if need switch to private
 
     public Storage(String filePath) {
         this.filePath = filePath;
