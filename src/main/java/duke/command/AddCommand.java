@@ -9,6 +9,9 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/*
+ * A class that represents all task addition commands that user can give
+ */
 public class AddCommand extends Command {
     private Task task;
 
@@ -16,12 +19,25 @@ public class AddCommand extends Command {
 
     }
 
+    /*
+     * A method that executes the command that user gave
+     * 
+     * @params tasks TaskList containing all existing Task objects
+     * 
+     * @params ui UI interface that is used to print messages to the terminak
+     * 
+     * @params storage Storage object that houses database of the program
+     */
+    @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         tasks.addTask(this.task);
         ui.addTask(tasks);
         storage.update(tasks);
     }
 
+    /*
+     * A class that represents the user command to add a Todo task
+     */
     public class TodoCommand extends AddCommand {
         public TodoCommand(String fullCommand) throws DukeException {
             try {
@@ -32,6 +48,9 @@ public class AddCommand extends Command {
         }
     }
 
+    /*
+     * A class that represents the user command to add a Deadline task
+     */
     public class DeadlineCommand extends AddCommand {
         public DeadlineCommand(String fullCommand) throws DukeException {
             try {
@@ -42,6 +61,9 @@ public class AddCommand extends Command {
         }
     }
 
+    /*
+     * A class that represents the user command to add an Event task
+     */
     public class EventCommand extends AddCommand {
         public EventCommand(String fullCommand) throws DukeException {
             try {

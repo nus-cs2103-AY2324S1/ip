@@ -13,12 +13,24 @@ import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
 import duke.exception.UnknownTaskTypeException;
 
+/*
+ * A class that deals with making sense of the user commands
+ */
+
 public class Parser {
 
     public Parser() {
 
     }
 
+    /*
+     * A method that returns an integer which represents the type of command user
+     * inputted.
+     * 
+     * @params userInput string that user gave
+     * 
+     * @return integer based on the type of command user gave
+     */
     public static int getCommand(String userInput) {
         userInput = userInput.trim();
         boolean isList = userInput.equals("list");
@@ -39,6 +51,13 @@ public class Parser {
                                                 : isExit ? 5 : 6;
     }
 
+    /*
+     * A method that returns an integer based on the type of task user wants to add
+     * 
+     * @params userInput string that user gave
+     * 
+     * @return integer based on the type of task user wants to add
+     */
     public static int getTaskType(String userInput) {
         boolean isTodo = Pattern.compile("^todo").matcher(userInput).find();
         boolean isDeadline = Pattern.compile("^deadline").matcher(userInput).find();
@@ -46,9 +65,28 @@ public class Parser {
         return isTodo ? 0 : isDeadline ? 1 : 2;
     }
 
+    /*
+     * A method that gets the index of a task that user specified in command, if any
+     * 
+     * @params userInput string that user gave
+     * 
+     * @return index that user specified
+     */
+
     public static int getIndex(String userInput) {
         return Integer.parseInt(userInput.split(" ")[1]);
     }
+
+    /*
+     * A method to parse command that user gave
+     * 
+     * @params fullCommand string that user gave
+     * 
+     * @return A Command object representing the command user gives
+     * 
+     * @throws DukeException when user input does not represent any particular
+     * command
+     */
 
     public static Command parse(String fullCommand) throws DukeException {
         int taskType = Parser.getCommand(fullCommand);

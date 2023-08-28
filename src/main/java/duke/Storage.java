@@ -12,6 +12,9 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/*
+ * A class that deals with loading tasks from the file and saving tasks in the file
+ */
 public class Storage {
     private String filePath;
 
@@ -19,6 +22,12 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /*
+     * A method that returns a Task ArrayList based on stored data.
+     * ArrayList generated is then used to initialise TaskList object
+     * 
+     * @return ArrayList<Task> based on stored data
+     */
     public ArrayList<Task> load() throws Exception {
         ArrayList<Task> arr = new ArrayList<>();
         // String filePathString = "./data/duke.txt";
@@ -70,6 +79,13 @@ public class Storage {
         }
         return arr;
     }
+
+    /*
+     * A method to update stored data based on latest user input on the program
+     *
+     * @params arr active TaskList object of the program
+     * 
+     */
 
     public void update(TaskList arr) {
         try {
