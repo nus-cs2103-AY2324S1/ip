@@ -1,14 +1,13 @@
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Pogo {
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static List<Task> tasks = new ArrayList<>();
+    private static final Storage storage = TextStorage.of();
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String QUIT_MESSAGE = "Bye. Hope to see you again soon!";
-    private static final String TASKS_FILE = "./data/tasks.txt";
 
     private enum Action {
         BYE, LIST, MARK, UNMARK, DELETE, ADD
@@ -16,98 +15,6 @@ public class Pogo {
 
     private enum TaskType {
         TODO, DEADLINE, EVENT
-    }
-
-    private static void createTaskFileIfNotExist() throws IOException {
-        File file = new File(TASKS_FILE);
-
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
-        }
-
-        file.createNewFile();
-    }
-
-    private static String formatTasks() {
-        StringBuilder sb = new StringBuilder();
-        for (Task task : tasks) {
-            sb.append(task.toFormattedString()).append(System.lineSeparator());
-        }
-        return sb.toString();
-    }
-
-    private static void saveTasks() {
-        try {
-            createTaskFileIfNotExist();
-        } catch (IOException e) {
-            System.out.println("Error creating task file");
-            return;
-        }
-
-        try {
-            FileWriter fw = new FileWriter(TASKS_FILE);
-            fw.write(formatTasks());
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Error saving tasks");
-        }
-    }
-
-    private static TaskType toTaskType(String input) {
-        if (input.startsWith("todo") || input.startsWith("T")) {
-            return TaskType.TODO;
-        } else if (input.startsWith("deadline") || input.startsWith("D")) {
-            return TaskType.DEADLINE;
-        } else if (input.startsWith("event") || input.startsWith("E")) {
-            return TaskType.EVENT;
-        } else {
-            return null;
-        }
-    }
-
-    private static int loadTasks() throws IOException {
-        createTaskFileIfNotExist();
-
-        File f = new File(TASKS_FILE);
-        Scanner s = new Scanner(f);
-
-        int count = 0;
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            String[] split = line.split(" \\| ");
-            TaskType taskType = toTaskType(split[0]);
-
-            if (taskType == null) {
-                System.out.println("Failed to read the following task: " + line);
-                continue;
-            }
-
-            boolean isDone = split[1].equals("1");
-            Task task = null;
-
-            try {
-                switch (taskType) {
-                case TODO:
-                    task = ToDo.fromFormattedString(line);
-                    break;
-                case DEADLINE:
-                    task = Deadline.fromFormattedString(line);
-                    break;
-                case EVENT:
-                    task = Event.fromFormattedString(line);
-                    break;
-                }
-
-                if (task != null) {
-                    tasks.add(task);
-                    count++;
-                }
-            } catch (PogoInvalidTaskException e) {
-                System.out.println("Failed to read the following task: " + line);
-                continue;
-            }
-        }
-        return count;
     }
 
     private static int parseTaskIndex(String input) {
@@ -122,7 +29,7 @@ public class Pogo {
     }
 
     private static Task addTask(String input) throws PogoException {
-        TaskType taskType = null;
+        TaskType taskType;
         if (input.startsWith("todo")) {
             taskType = TaskType.TODO;
         } else if (input.startsWith("deadline")) {
@@ -134,7 +41,7 @@ public class Pogo {
         }
 
         Task task = null;
-        int length = 0;
+        int length;
         String[] split;
         String description;
 
@@ -184,7 +91,7 @@ public class Pogo {
     }
 
     private static boolean handleInput(String input) {
-        Action action = null;
+        Action action;
         if (input.equals("bye")) {
             action = Action.BYE;
         } else if (input.equals("list")) {
@@ -199,8 +106,8 @@ public class Pogo {
             action = Action.ADD;
         }
 
-        int index = 0;
-        Task task = null;
+        int index;
+        Task task;
         switch (action) {
         case BYE:
             System.out.println(QUIT_MESSAGE);
@@ -262,14 +169,14 @@ public class Pogo {
             }
             break;
         }
-        saveTasks();
+        storage.save(tasks);
         return false;
     }
 
     public static void main(String[] args) {
         try {
-            int count = Pogo.loadTasks();
-            System.out.println("Loaded " + count + " tasks from file.");
+            tasks = storage.load();
+            System.out.println("Loaded " + tasks.size() + " tasks from file.");
         } catch (IOException e) {
             System.out.println("Failed to load tasks from file.");
             return;
