@@ -52,14 +52,13 @@ public class DateTimeDetector {
                         d = LocalDate.parse(date, T3_24h);
                     }
                 }
-                return d.toString();
+                return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             } catch (DateTimeParseException e) {
                 return date;
             }
 
         } else {
             // only date given
-
             try {
                 if (date.contains("-")) {
                     int len = date.split("-")[0].length();
@@ -74,7 +73,7 @@ public class DateTimeDetector {
                     // Case 3: Date is dd/MM/yyyy
                     d = LocalDate.parse(date, D3);
                 }
-                return d.toString();
+                return d.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             } catch (DateTimeParseException e) {
                 return date;
             }
