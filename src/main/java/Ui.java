@@ -76,6 +76,7 @@ public class Ui {
         } catch (NumberFormatException e) {
             throw new DukeException(Ui.i5 + "☹ OOPS!!! Please specify a valid task number to be marked.");
         }
+
     }
 
     public int unmark() throws DukeException {
