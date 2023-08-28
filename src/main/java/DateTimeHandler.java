@@ -15,7 +15,6 @@ public class DateTimeHandler {
             String[] dateTime = s.split(" ");
             String[] dateString = dateTime[0].split("/");
             int timeString = Integer.parseInt(dateTime[1]);
-            System.out.println("time String: " + timeString);
             day = Integer.parseInt(dateString[0]);
             month = Integer.parseInt(dateString[1]);
             year = Integer.parseInt(dateString[2]);
@@ -34,9 +33,9 @@ public class DateTimeHandler {
         return date;
     }
     public String stringDisplay() {
-        return dateTimeString + " " + hour + ":" + ((min < 10) ? "0" + min : min);
+        return dateTimeString + " " + ((hour < 10) ? "0" + hour : hour) + ":" + ((min < 10) ? "0" + min : min);
     }
     public String toString() {
-        return day + "/" + month + "/" + year + " " + hour + ((min < 10) ? "0" + min : min);
+        return day + "/" + month + "/" + year + " " + ((hour < 10) ? "0" + hour : hour) + ((min < 10) ? "0" + min : min);
     }
 }
