@@ -17,15 +17,20 @@ public class MarkCommand extends Command {
 
 	@Override
 	public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-		Task task = tasks.get(taskIdx);
-		if (isMark) {
-			ui.showMessage("Nice! I've marked this task as done:");
-			task.markAsDone();
-		} else {
-			ui.showMessage("OK, I've marked this task as not done yet:");
-			task.markAsUndone();
+		try {
+			Task task = tasks.get(taskIdx);
+			if (isMark) {
+				ui.showMessage("Nice! I've marked this task as done:");
+				task.markAsDone();
+			} else {
+				ui.showMessage("OK, I've marked this task as not done yet:");
+				task.markAsUndone();
+			}
+			ui.showMessage(task.toString());
+		} catch (IndexOutOfBoundsException ioe) {
+			throw new DukeException("Index provided was out-of-bounds. Use the index" +
+					" number labelled for the task in the command 'list'!");
 		}
-		ui.showMessage(task.toString());
 
 		// Save the TaskList to Storage
 		try {
