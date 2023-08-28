@@ -11,8 +11,7 @@ public class MeowBot {
 
     enum TaskType {Event, Deadline, Todo};
     ArrayList<Task> Tasklist;
-    int counter;
-    String lines,command, filename;
+    String lines, filename;
     Scanner scan;
     FileWriter writer;
 
@@ -57,7 +56,7 @@ public class MeowBot {
         try {
             this.markTaskLocalStorage(tasknumber - 1, 1);
         } catch (IOException e) {
-            System.out.println("Cannot makr local storage");
+            System.out.println("Cannot make local storage");
         }
 
     }
@@ -86,7 +85,7 @@ public class MeowBot {
         System.out.println(lines);
         try {
             this.deleteFromLocalStorage(tasknumber - 1);
-            System.out.println("Delete from storage");
+//            System.out.println("Delete from storage");
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -154,38 +153,29 @@ public class MeowBot {
     }
 
     public void addTodoTask(String command) throws DukeException {
-        String taskInput = command.substring(4).trim();
-        this.addTask(taskInput, TaskType.Todo);
+        String taskInput = command.substring(4);
+        Task task = new Todo(taskInput);
+        this.Tasklist.add(task);
+        this.addTask(task, TaskType.Todo);
     }
 
     public void addDeadlineTask(String command) throws DukeException {
         String taskInput = command.substring(9);
-        String[] ans = taskInput.split("/");
-        String deadline = ans[0].substring(1);
-        this.addTask(taskInput, TaskType.Deadline);
+        Task task = new Deadline(taskInput);
+        this.Tasklist.add(task);
+        this.addTask(task, TaskType.Deadline);
 
     }
 
     public void addEventTask(String command) throws DukeException {
         String taskInput = command.substring(6);
-        String[] ans = taskInput.split("/");
-        String startdate = ans[0];
-        String enddate = ans[0];
-        this.addTask(taskInput, TaskType.Event);
+        Task task = new Event(taskInput);
+        this.Tasklist.add(task);
+        this.addTask(task, TaskType.Event);
     }
 
 
-    void addTask(String taskname, TaskType eType) throws DukeException{
-        Task task = null;
-        if (eType == TaskType.Todo) {
-            task = new Todo(taskname);
-        } else if (eType == TaskType.Event) {
-            task = new Event(taskname);
-        } else if (eType == TaskType.Deadline) {
-            task = new Deadline(taskname);
-        }
-        this.Tasklist.add(task);
-
+    void addTask(Task task, TaskType type) {
 
         System.out.println("MEOW got it. I've added this task:\n   " + task);
         System.out.println("Now you have " + this.Tasklist.size() + " meow-tasks in the list.");
@@ -194,8 +184,8 @@ public class MeowBot {
         try {
             // 0 is not completed
             // 1 is completed
-            this.writeToLocalStorage(taskname, eType, 0);
-            System.out.println("Yayers! Saved your data to local storage");
+            this.writeToLocalStorage(task, type, 0);
+//            System.out.println("Yayers! Saved your data to local storage");
 
         } catch (IOException e) {
             System.out.println("MEOWWW!!! Cannot write to local storage");
@@ -227,7 +217,6 @@ public class MeowBot {
         if (count == 0) System.out.println("Meow! A new User yay");
 
         else System.out.println("Meow! Successfully loaded " + count + " tasks from previous session");
-
     }
 
     Task generateTaskFromString(String taskname) throws DukeException {
@@ -235,16 +224,18 @@ public class MeowBot {
         Task generatedTask = null;
         String[] arr = taskname.split("\\|");
         int length = arr.length;
+
+        String ogname = arr[3];
         String tasktype = arr[2];
         String result = arr[1];
         String mark = arr[0];
 
         if (tasktype.equals("Event")) {
-            generatedTask = new Event(result);
+            generatedTask = new Event(ogname);
         } else if (tasktype.equals("Deadline")) {
-            generatedTask = new Deadline(result);
+            generatedTask = new Deadline(ogname);
         } else if (tasktype.equals("Todo")) {
-            generatedTask = new Todo(result);
+            generatedTask = new Todo(ogname);
         }
         if (mark.equals("1")) generatedTask.markCompleted();
         else if (mark.equals("0")) generatedTask.markUncompleted();
@@ -253,10 +244,10 @@ public class MeowBot {
 
     }
 
-    void writeToLocalStorage(String taskname, TaskType type, int completed) throws IOException {
+    void writeToLocalStorage(Task task, TaskType type, int completed) throws IOException {
         // 1 mean true
         FileWriter writer = new FileWriter(this.filename, true);  // Open the file in append mode
-        writer.write(completed + "|" + taskname.toString() + "|" + type + "\n");  // Append the new task and a newline character
+        writer.write(completed + "|" + task.toString() + "|" + type + "|" + task.ogname + "\n");  // Append the new task and a newline character
         writer.close();
     }
     public void processCommand() {

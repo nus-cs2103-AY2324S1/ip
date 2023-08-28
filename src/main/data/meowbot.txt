@@ -1,1 +1,1 @@
-0|weak|Todo
+0|[T][ ]  borrow book|Todo| borrow book

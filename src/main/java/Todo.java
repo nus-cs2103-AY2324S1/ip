@@ -1,7 +1,8 @@
 public class Todo extends Task{
     String[] inputs;
     public Todo(String name) throws DukeException {
-        super(name);
+        super(" " + name);
+        this.ogname = name;
         if (name.isEmpty()) throw new DukeException("dont leave the description empty!");
     }
     @Override

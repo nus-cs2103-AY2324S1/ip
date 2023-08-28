@@ -13,13 +13,18 @@ Meoowww here are your tasks
 ______________________________
 ______________________________
 MEOW got it. I've added this task:
-   [D][ ]  return book (by: Sunday)
+   [D][ ] return book (by: Oct 2 2019)
 Now you have 2 meow-tasks in the list.
 ______________________________
 ______________________________
 MEOW got it. I've added this task:
-   [E][ ]  project meeting (from: Mon 2pm to: 4pm)
+   [E][ ] project meeting (from: Dec 2 2019 to: Dec 4 2019)
 Now you have 3 meow-tasks in the list.
+______________________________
+______________________________
+MEOW got it. I've added this task:
+   [D][ ] return book (by: Dec 2 2019)
+Now you have 4 meow-tasks in the list.
 ______________________________
 ______________________________
 Bye. Hope to see you again soon!
