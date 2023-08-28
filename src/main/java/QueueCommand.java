@@ -15,7 +15,7 @@ public class QueueCommand extends Command {
   }
 
   @Override
-  public void execute(List<Task> tasks, Ui ui, File storage) {
+  public void execute(TaskList tasks, Ui ui, Storage storage) {
     List<Deadline> deadlines = new ArrayList<>();
     for (Task task : tasks) {
       if (task instanceof Deadline) {

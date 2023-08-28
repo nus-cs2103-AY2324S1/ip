@@ -11,10 +11,10 @@ public abstract class TaskCommand extends Command {
   protected abstract Task makeTask() throws DukeException;
 
   @Override
-  public void execute(List<Task> tasks, Ui ui, File storage) throws DukeException {
+  public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
     Task newTask = this.makeTask();
     tasks.add(newTask);
-    ui.print(String.format("Got it. I've added this task:\n  %s\n%s", tasks.get(tasks.size() - 1).toString(), ui.getTaskCount(tasks.size())));;
+    ui.print(String.format("Got it. I've added this task:\n  %s\n%s", tasks.get(tasks.size()).toString(), ui.getTaskCount(tasks.size())));;
   }
 
   @Override

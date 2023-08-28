@@ -14,12 +14,12 @@ public class UnmarkCommand extends Command {
   }
 
   @Override
-  public void execute(List<Task> tasks, Ui ui, File storage) throws OutOfBoundsException {
+  public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
     int idx = (int) ((Integer) this.args.get("index"));
     if (idx >= tasks.size()) {
       throw new OutOfBoundsException(idx, tasks.size());
     }
-    tasks.get(idx).unmark();
+    tasks.unmark(idx);
     ui.print(String.format("OK, I've marked this task as not done yet:\n  %s", tasks.get(idx).toString()));
   }
 

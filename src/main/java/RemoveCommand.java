@@ -14,7 +14,7 @@ public class RemoveCommand extends Command {
   }
 
   @Override
-  public void execute(List<Task> tasks, Ui ui, File storage) throws OutOfBoundsException {
+  public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
     int idx = (int) ((Integer) this.args.get("index"));
     if (idx >= tasks.size()) {
       throw new OutOfBoundsException(idx, tasks.size());

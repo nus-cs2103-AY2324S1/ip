@@ -14,12 +14,12 @@ public class MarkCommand extends Command {
   }
 
   @Override
-  public void execute(List<Task> tasks, Ui ui, File storage) throws OutOfBoundsException {
+  public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
     int idx = (int) ((Integer) this.args.get("index"));
     if (idx >= tasks.size()) {
       throw new OutOfBoundsException(idx, tasks.size());
     }
-    tasks.get(idx).mark();
+    tasks.mark(idx);
     ui.print(String.format("Nice! I've marked this task as done:\n  %s", tasks.get(idx).toString()));
   }
 

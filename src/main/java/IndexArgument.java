@@ -15,12 +15,12 @@ public class IndexArgument extends Argument {
     if (idx <= 0) {
       throw new InvalidIndexException();
     }
-    return idx - 1;
+    return idx;
   }
 
   @Override
   public String formatOutput(Object val) {
-    return String.valueOf(((int) ((Integer) val)) + 1);
+    return String.valueOf((int) ((Integer) val));
   }
 
 }

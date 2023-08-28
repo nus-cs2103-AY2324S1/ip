@@ -9,4 +9,7 @@ public class SilentUi extends Ui {
   @Override
   public void print(String msg) {}
 
+  @Override
+  public void greet() {}
+
 }

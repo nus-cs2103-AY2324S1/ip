@@ -4,8 +4,16 @@ public class VerboseUi extends Ui {
 
   private static final String HORIZONTAL_LINE = "_".repeat(60);
 
-  public VerboseUi() {
+  private String name;
+
+  public VerboseUi(String name) {
     super(new Scanner(System.in));
+    this.name = name;
+  }
+
+  @Override
+  public void greet() {
+    print(String.format("Hello! I'm %s\nWhat can I do for you?", name));
   }
 
   @Override
@@ -18,7 +26,7 @@ public class VerboseUi extends Ui {
     System.out.println();
   }
 
-  public void printIndent(String msg) {
+  private void printIndent(String msg) {
     for (String line : msg.split("\n")) {
       System.out.println(" ".repeat(2) + line);
     }
