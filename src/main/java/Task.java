@@ -31,7 +31,7 @@ public class Task {
         if (this.isDone) {
             return "[X] " + this.detail;
         } else {
-            return "[ ] " + this.detail;
+            return "[-] " + this.detail;
         }
     }
 

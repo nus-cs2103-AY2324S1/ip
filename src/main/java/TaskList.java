@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -15,12 +16,24 @@ public class TaskList {
      */
     protected int numTasks;
 
+    protected final String dirPath = "./data";
+
+    protected final String fileName = "duke.txt";
+
+    protected DukeFileWriter dukeFileWriter = new DukeFileWriter(dirPath, fileName);
+
     /**
      * Constructor creates an array of size 100 when there is no argument provided
      */
-    public TaskList() {
-        this.tasks = new ArrayList<>();
-        numTasks = 0;
+    public TaskList(){
+        try {
+            this.tasks = dukeFileWriter.extractFromFile();
+            this.numTasks = this.tasks.size();
+        } catch (DukeException e) {
+            System.out.println("File is corrupted.");
+        } catch (FileNotFoundException e) {
+            System.out.println("File cannot be found.");
+        }
     }
 
     /**
@@ -61,6 +74,8 @@ public class TaskList {
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
+
+        dukeFileWriter.writeToFile(tasks);
     }
 
     /**
@@ -148,6 +163,8 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new DukeException("Deleting task should be in this format: delete [task number]");
         }
+
+        dukeFileWriter.writeToFile(tasks);
     }
 
     /**
@@ -179,6 +196,8 @@ public class TaskList {
         } catch (NumberFormatException e) {
             throw new DukeException("Marking/unmarking tasks should be in this format: mark/unmark [task number]");
         }
+
+        dukeFileWriter.writeToFile(tasks);
     }
 
     /**
