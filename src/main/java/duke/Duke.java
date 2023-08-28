@@ -17,7 +17,6 @@ public class Duke {
     protected static String name = "Alfred";
 
     protected static ArrayList<Task> list = new ArrayList<Task>();
-    protected static int counter = 0;
 
     public static void printline() {
         System.out.println("____________________________________________________________");
@@ -25,17 +24,6 @@ public class Duke {
 
     public static String getName() {
         return Duke.name;
-    }
-
-    public static int getCounter() {
-        return Duke.counter;
-    }
-
-    public static void incrementCounter() {
-        Duke.counter++;
-    }
-    public static void decrementCounter() {
-        Duke.counter--;
     }
 
     public static void setList(Task item) {
@@ -79,7 +67,7 @@ public class Duke {
                             } else {
                                 Todo todo = new Todo(description.trim());
                                 setList(todo);
-                                incrementCounter();
+
                             }
                         } else if (text.startsWith("deadline")) {
                             String[] splitText = text.split("/", 2);
@@ -89,7 +77,7 @@ public class Duke {
                             LocalDateTime deadline = LocalDateTime.parse(deadlineText);
                             Deadline dl = new Deadline(description.trim(), deadline);
                             setList(dl);
-                            incrementCounter();
+
                         } else if (text.startsWith("event")) {
                             String[] splitText = text.split("/", 3);
                             String description = splitText[0].substring(5);
@@ -100,11 +88,9 @@ public class Duke {
                             LocalDateTime end = LocalDateTime.parse(endText);
                             Event event = new Event(description.trim(), start, end);
                             setList(event);
-                            incrementCounter();
                         } else if (text.startsWith("delete")) {
                             String[] splitText = text.split(" ");
                             int numToDelete = Integer.parseInt(splitText[1]) - 1;
-                            decrementCounter();
                             list.remove(numToDelete);
                         } else {
                             continue;
@@ -183,14 +169,13 @@ public class Duke {
                                 }
                                 Todo todo = new Todo(description.trim());
                                 setList(todo);
-                                incrementCounter();
 
                                 printline();
                                 System.out.println("Noted Sir. I've added this task to your list: ");
                                 System.out.println(String.format("\t [%s] [%s] %s", todo.tag,
                                         todo.getStatusIcon(), todo.toString()));
                                 System.out.println(String.format("As of now, you have %d tasks on the agenda.",
-                                        getCounter()));
+                                        list.size()));
                                 printline();
                             }
                         } else if (text.startsWith("deadline")) {
@@ -210,14 +195,14 @@ public class Duke {
                                 LocalDateTime deadline = LocalDateTime.parse(deadlineText);
                                 Deadline dl = new Deadline(description.trim(), deadline);
                                 setList(dl);
-                                incrementCounter();
+
 
                                 printline();
                                 System.out.println("Noted Sir. I've added this task to your list: ");
                                 System.out.println(String.format("\t [%s] [%s] %s", dl.tag, dl.getStatusIcon(),
                                         dl.toString()));
                                 System.out.println(String.format("As of now, you have %d tasks on the agenda.",
-                                        getCounter()));
+                                        list.size()));
                                 printline();
                             }
                         } else if (text.startsWith("event")) {
@@ -240,7 +225,6 @@ public class Duke {
                                 LocalDateTime end = LocalDateTime.parse(endText);
                                 Event event = new Event(description.trim(), start, end);
                                 setList(event);
-                                incrementCounter();
 
 
                                 printline();
@@ -249,7 +233,7 @@ public class Duke {
                                         event.getStatusIcon(),
                                         event.toString()));
                                 System.out.println(String.format("As of now, you have %d tasks on the agenda.",
-                                        getCounter()));
+                                        list.size()));
                                 printline();
                             }
 
@@ -267,9 +251,8 @@ public class Duke {
                             System.out.println("Alright Sir, I have removed this task from the list for you.");
                             System.out.println(String.format("\t [%s] [%s] %s", list.get(numToDelete).tag,
                                     list.get(numToDelete).getStatusIcon(), list.get(numToDelete).toString()));
-                            decrementCounter();
                             list.remove(numToDelete);
-                            System.out.println(String.format("Now you have %d tasks left.", getCounter()));
+                            System.out.println(String.format("Now you have %d tasks left.", list.size()));
                         } else {
                             throw new DukeException("I apologise, sir. But I do not understand what you mean.");
                         }
