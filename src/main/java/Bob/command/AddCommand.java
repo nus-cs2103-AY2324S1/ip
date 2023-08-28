@@ -1,11 +1,11 @@
-package command;
+package Bob.command;
 
-import enums.CommandType;
-import exception.BobException;
-import exception.BobInvalidCommandException;
-import task.*;
-import ui.TextUi;
-import storage.StorageFile;
+import Bob.enums.CommandType;
+import Bob.exception.BobException;
+import Bob.exception.BobInvalidCommandException;
+import Bob.task.*;
+import Bob.ui.TextUi;
+import Bob.storage.StorageFile;
 
 public class AddCommand extends Command {
 

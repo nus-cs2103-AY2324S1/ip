@@ -1,12 +1,12 @@
-package parser;
+package Bob.parser;
 
-import command.*;
-import enums.CommandType;
-import exception.*;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import Bob.command.*;
+import Bob.enums.CommandType;
+import Bob.exception.*;
+import Bob.task.Deadline;
+import Bob.task.Event;
+import Bob.task.Task;
+import Bob.task.Todo;
 
 public class Parser {
 

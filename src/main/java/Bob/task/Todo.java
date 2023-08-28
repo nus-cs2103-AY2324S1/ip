@@ -1,4 +1,4 @@
-package task;
+package Bob.task;
 
 public class Todo extends Task {
 

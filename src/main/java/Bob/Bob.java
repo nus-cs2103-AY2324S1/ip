@@ -1,9 +1,11 @@
-import command.Command;
-import exception.BobException;
-import parser.Parser;
-import storage.StorageFile;
-import task.*;
-import ui.TextUi;
+package Bob;
+
+import Bob.command.Command;
+import Bob.exception.BobException;
+import Bob.parser.Parser;
+import Bob.storage.StorageFile;
+import Bob.task.*;
+import Bob.ui.TextUi;
 
 public class Bob {
     private StorageFile storageFile;

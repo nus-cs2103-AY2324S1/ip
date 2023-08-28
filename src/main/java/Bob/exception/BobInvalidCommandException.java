@@ -1,4 +1,4 @@
-package exception;
+package Bob.exception;
 
 public class BobInvalidCommandException extends BobException {
     public BobInvalidCommandException() {
