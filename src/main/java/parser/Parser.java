@@ -25,50 +25,15 @@ public class Parser {
                 return new ListCommand();
             case MARK:
             case UNMARK:
-                if (argument.isBlank()) {
-                    throw new BobInvalidTaskNumberException("Give me a task number to mark/unmark as done!");
-                }
-                try {
-                    return new MarkCommand(Integer.parseInt(argument), commandType == CommandType.MARK);
-                } catch (NumberFormatException e) {
-                    throw new BobInvalidTaskNumberException();
-                }
+                return Parser.parseMarkCommand(commandType, argument);
             case TODO:
-                if (argument.isBlank()) {
-                    throw new BobMissingArgumentException("The description of your todo should not be empty! Try:\ntodo [description]");
-                }
-                return new AddCommand(commandType, argument, null, null);
+                return Parser.parseTodoCommand(commandType, argument);
             case DEADLINE:
-                if (argument.isBlank()) {
-                    throw new BobMissingArgumentException("The description of your deadline should not be empty! Try:\ndeadline [description] /by [duedate]");
-                }
-                String[] bySplit = argument.split(" /by ", 2);
-                if (bySplit.length != 2) {
-                    throw new BobInvalidCommandException("Incorrect deadline command format! It should be:\ndeadline [description] /by [duedate]");
-                }
-                return new AddCommand(commandType, bySplit[0], null, bySplit[1]);
+                return Parser.parseDeadlineCommand(commandType, argument);
             case EVENT:
-                if (argument.isBlank()) {
-                    throw new BobMissingArgumentException("The description of your event should not be empty! Try:\nevent [description] /from [start] /to [end]");
-                }
-                String[] descSplit = argument.split(" /from ", 2);
-                if (descSplit.length != 2) {
-                    throw new BobInvalidCommandException("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]");
-                }
-                String[] periodSplit = descSplit[1].split(" /to ", 2);
-                if (periodSplit.length != 2) {
-                    throw new BobInvalidCommandException("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]");
-                }
-                return new AddCommand(commandType, descSplit[0], periodSplit[0], periodSplit[1]);
+                return Parser.parseEventCommand(commandType, argument);
             case DELETE:
-                if (argument.isBlank()) {
-                    throw new BobInvalidTaskNumberException("Give me a task number to delete!");
-                }
-                try {
-                    return new DeleteCommand(Integer.parseInt(argument));
-                } catch (NumberFormatException e) {
-                    throw new BobInvalidTaskNumberException();
-                }
+                return Parser.parseDeleteCommand(argument);
             case INVALID:
                 throw new BobInvalidCommandException("I'm sorry! I don't understand the command :(");
             default:
@@ -76,6 +41,60 @@ public class Parser {
         }
     }
 
+    private static Command parseMarkCommand(CommandType commandType, String argument) throws BobInvalidTaskNumberException {
+        if (argument.isBlank()) {
+            throw new BobInvalidTaskNumberException("Give me a task number to mark/unmark as done!");
+        }
+        try {
+            return new MarkCommand(Integer.parseInt(argument), commandType == CommandType.MARK);
+        } catch (NumberFormatException e) {
+            throw new BobInvalidTaskNumberException();
+        }
+    }
+
+    private static Command parseTodoCommand(CommandType commandType, String argument) throws BobMissingArgumentException {
+        if (argument.isBlank()) {
+            throw new BobMissingArgumentException("The description of your todo should not be empty! Try:\ntodo [description]");
+        }
+        return new AddCommand(commandType, argument, null, null);
+    }
+
+    private static Command parseDeadlineCommand(CommandType commandType, String argument) throws BobMissingArgumentException, BobInvalidCommandException {
+        if (argument.isBlank()) {
+            throw new BobMissingArgumentException("The description of your deadline should not be empty! Try:\ndeadline [description] /by [duedate]");
+        }
+        String[] bySplit = argument.split(" /by ", 2);
+        if (bySplit.length != 2) {
+            throw new BobInvalidCommandException("Incorrect deadline command format! It should be:\ndeadline [description] /by [duedate]");
+        }
+        return new AddCommand(commandType, bySplit[0], null, bySplit[1]);
+    }
+
+    private static Command parseEventCommand(CommandType commandType, String argument) throws BobMissingArgumentException, BobInvalidCommandException {
+        if (argument.isBlank()) {
+            throw new BobMissingArgumentException("The description of your event should not be empty! Try:\nevent [description] /from [start] /to [end]");
+        }
+        String[] descSplit = argument.split(" /from ", 2);
+        if (descSplit.length != 2) {
+            throw new BobInvalidCommandException("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]");
+        }
+        String[] periodSplit = descSplit[1].split(" /to ", 2);
+        if (periodSplit.length != 2) {
+            throw new BobInvalidCommandException("Incorrect event command format! It should be:\nevent [description] /from [start] /to [end]");
+        }
+        return new AddCommand(commandType, descSplit[0], periodSplit[0], periodSplit[1]);
+    }
+
+    private static Command parseDeleteCommand(String argument) throws BobInvalidTaskNumberException {
+        if (argument.isBlank()) {
+            throw new BobInvalidTaskNumberException("Give me a task number to delete!");
+        }
+        try {
+            return new DeleteCommand(Integer.parseInt(argument));
+        } catch (NumberFormatException e) {
+            throw new BobInvalidTaskNumberException();
+        }
+    }
     private static CommandType strToCommandType(String s) {
         try {
             return CommandType.valueOf(s);
