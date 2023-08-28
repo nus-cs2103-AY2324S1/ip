@@ -5,10 +5,18 @@ import duke.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Handles user interface interactions and displays messages to the user.
+ */
 public class Ui {
 
     private static final int BOX_WIDTH = 85;
 
+    /**
+     * Displays a message to the user with a framed border.
+     *
+     * @param messages The messages to be displayed.
+     */
     public static void showToUser(String... messages) {
         System.out.println("+" + "-".repeat(BOX_WIDTH - 2) + "+");
 
@@ -29,6 +37,9 @@ public class Ui {
         System.out.println("+" + "-".repeat(BOX_WIDTH - 2) + "+");
     }
 
+    /**
+     * Displays a greeting message to the user.
+     */
     public static void showGreetMessage() {
         showToUser(
                 "Hello! I'm Atlas",
@@ -37,12 +48,18 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays an exit message to the user.
+     */
     public static void showExitMessage() {
         showToUser(
                 "Bye. Hope to see you again soon!"
         );
     }
 
+    /**
+     * Displays a help message to the user, listing available commands.
+     */
     public static void showHelpMessage() {
         showToUser(
                 "Here are the available commands:",
@@ -59,6 +76,12 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays a message indicating the successful addition of a Todo task.
+     *
+     * @param task The Todo task added.
+     * @param size The updated size of the TaskList.
+     */
     public static void showTodoMessage(Task task, int size) {
         showToUser(
                 "Got it. I've added this task:",
@@ -67,6 +90,12 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays a message indicating the successful addition of a Deadline task.
+     *
+     * @param task The Deadline task added.
+     * @param size The updated size of the TaskList.
+     */
     public static void showDeadlineMessage(Task task, int size) {
         showToUser(
                 "Got it. I've added this deadline task:",
@@ -75,6 +104,12 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays a message indicating the successful addition of a Event task.
+     *
+     * @param task The Event task added.
+     * @param size The updated size of the TaskList.
+     */
     public static void showEventMessage(Task task, int size) {
         showToUser(
                 "Got it. I've added this event task:",
@@ -83,6 +118,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays a message indicating the task is marked done.
+     *
+     * @param task The task that was marked done.
+     */
     public static void showMarkMessage(Task task) {
         showToUser(
                 "Nice! I've marked this task as done:",
@@ -90,6 +130,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays a message indicating the task is marked undone.
+     *
+     * @param task The task that was marked undone.
+     */
     public static void showUnmarkMessage(Task task) {
         showToUser(
                 "OK, I've marked this task as not done yet:",
@@ -97,6 +142,12 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays a message indicating the task is deleted.
+     *
+     * @param task The task that was deleted.
+     * @param size The updated size of the TaskList.
+     */
     public static void showDeleteMessage(Task task, int size) {
         showToUser(
                 "Noted. I've removed this task:",
@@ -105,6 +156,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays a message of the taskList indexed starting from 1.
+     *
+     * @param taskList The TaskList to display.
+     */
     public static void showListMessage(ArrayList<Task> taskList) {
         ArrayList<String> msg = new ArrayList<>();
         int num = 1;
@@ -120,6 +176,11 @@ public class Ui {
         );
     }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param e The DukeException representing the error.
+     */
     public static void showError(DukeException e) {
         showToUser(
                 e.toString()

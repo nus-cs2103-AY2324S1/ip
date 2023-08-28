@@ -9,7 +9,18 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses user input and database entries.
+ */
 public class Parser {
+
+    /**
+     * Parses a database entry and extracts relevant information.
+     *
+     * @param entry The database entry to be parsed.
+     * @return An ArrayList containing the elements extracted from the database entry.
+     * @throws DukeDatabaseInvalidEntryException If the database entry format is invalid.
+     */
     public static ArrayList<String> parseDatabaseEntry(String entry) throws DukeDatabaseInvalidEntryException {
         ArrayList<String> elements = new ArrayList<>();
         Pattern pattern = Pattern.compile("\\[([A-Z])\\]\\[(.)\\] (.+?)(?: \\(by: (.+?)\\)| \\(from: (.+?) to: (.+?)\\))?");
@@ -32,6 +43,13 @@ public class Parser {
         return elements;
     }
 
+    /**
+     * Parses a Command from the given input String.
+     *
+     * @param input The user input String.
+     * @return The Command enum value corresponding to the parsed command.
+     * @throws DukeNoSuchCommandException If the input does not correspond to a known Command.
+     */
     public static Command parseCommand(String input) throws DukeNoSuchCommandException {
         String[] inputArr = input.split(" ");
         try {
@@ -41,6 +59,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input and extracts relevant information.
+     *
+     * @param input The user input String to be parsed.
+     * @return An ArrayList containing the elements extracted from the user input String.
+     * @throws DukeInvalidArgumentException If the input does not correspond to a known Command.
+     */
     public static ArrayList<String> parseUserInput(String input) throws DukeInvalidArgumentException {
         ArrayList<String> result = new ArrayList<>();
 

@@ -23,13 +23,27 @@ import java.time.LocalDate;
 import java.io.*;
 import java.nio.file.*;
 
+/**
+ * Handles the loading and storing of tasks from and to the data file.
+ */
 public class Storage {
     private String filepath;
 
+    /**
+     * Constructor for Storage with specified filepath.
+     *
+     * @param filepath The filepath where the data is stored.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Loads task data from the data file.
+     *
+     * @return An ArrayList of tasks loaded from the data file.
+     * @throws DukeDatabaseNotFoundException If the data file is not found.
+     */
     public ArrayList<Task> loadData() throws DukeDatabaseNotFoundException {
         try {
             ArrayList<Task> taskList = new ArrayList<>();
@@ -53,6 +67,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the TaskList to the data file.
+     *
+     * @param taskList The TaskList containing the tasks.
+     */
     public void saveData(TaskList taskList) {
         try {
             createDataDirectory();
@@ -125,9 +144,12 @@ public class Storage {
         }
     }
 
-    // reading from duke.txt returns date as MMM dd yyyy (e.g Oct 15 2019) instead of
-    // yyyy-mm-dd format (e.g 2019-10-15), hence this function converts
-    // Oct 15 2019 to 2019-10-15
+    /**
+     * Converts a date string in "MMM dd yyyy" format (eg: Oct 15 2019) to LocalDate.
+     *
+     * @param inputDate The date string in "MMM dd yyyy" format.
+     * @return The LocalDate representation of the input date.
+     */
     public LocalDate formatDate(String inputDate) {
         return LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("MMM d yyyy", Locale.ENGLISH));
     }

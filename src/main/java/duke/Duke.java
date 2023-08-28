@@ -10,10 +10,18 @@ import duke.ui.Ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The main class for the Duke task management application.
+ */
 public class Duke {
     private Storage storage;
     private TaskList taskList;
 
+    /**
+     * Constructor for Duke, which instantiates the storage and taskList.
+     *
+     * @param filePath The specified filePath of the database.
+     */
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
         try {
@@ -40,6 +48,9 @@ public class Duke {
         Ui.showHelpMessage();
     }
 
+    /**
+     * Listens for user input and processes commands until the user exits.
+     */
     private void listen() {
         Scanner sc = new Scanner(System.in);
         while (true) {
