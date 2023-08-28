@@ -1,7 +1,9 @@
+package Exceptions;
+
 public class InvalidInputException extends DukeException {
 
     /**
-     * Constructor for InvalidInputException.
+     * Constructor for Exceptions.InvalidInputException.
      * @param message Exception message.
      */
     public InvalidInputException(String message) {

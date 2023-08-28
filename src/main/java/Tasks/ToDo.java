@@ -1,10 +1,12 @@
+package Tasks;
+
 public class ToDo extends Task {
     /**
-     * Constructor for ToDo.
+     * Constructor for Tasks.ToDo.
      * @param taskName Name of todo.
      */
-    public ToDo(String taskName) {
-        super(taskName);
+    public ToDo(String taskName, int isDone) {
+        super(taskName, isDone);
     }
 
     /**
@@ -14,5 +16,10 @@ public class ToDo extends Task {
     @Override
     public String getTask() {
         return "To Do ->" + super.getTask();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString().replace("/TASK", "todo ");
     }
 }

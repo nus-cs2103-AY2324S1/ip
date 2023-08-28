@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Event extends Task {
 
     /** Date where the event start. */
@@ -6,13 +8,13 @@ public class Event extends Task {
     private String to;
 
     /**
-     * Constructor for Event.
+     * Constructor for Tasks.Event.
      * @param taskName Name of event.
      * @param from Date where event starts.
      * @param to Date where event ends.
      */
-    public Event(String taskName, String from, String to) {
-        super(taskName);
+    public Event(String taskName, int isDone, String from, String to) {
+        super(taskName, isDone);
         this.from = from;
         this.to = to;
     }
@@ -32,5 +34,10 @@ public class Event extends Task {
     @Override
     public String getTask() {
         return "Event ->" + super.getTask() + " (" + getDuration() + ")";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString().replace("/TASK", "event ") + "/from " + from + " /to " + to;
     }
 }
