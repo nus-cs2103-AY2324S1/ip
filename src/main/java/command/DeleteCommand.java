@@ -15,7 +15,7 @@ public class DeleteCommand {
             MissingArgumentException,
             InvalidCommandException {
 
-        String number = CommandParser.getCommandArguments(input, enums.Command.DELETE);
+        String number = CommandParser.getCommandArguments(input);
         try {
             tasks.deleteTask(Integer.parseInt(number));
         } catch (NumberFormatException e ) {

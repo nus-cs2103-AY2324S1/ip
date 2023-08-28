@@ -15,7 +15,7 @@ public class MarkCommand {
             MissingArgumentException,
             InvalidCommandException {
 
-        String number = CommandParser.getCommandArguments(input, Command.MARK);
+        String number = CommandParser.getCommandArguments(input);
         try {
             tasks.markDone(Integer.parseInt(number));
         } catch (NumberFormatException e ) {

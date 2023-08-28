@@ -1,18 +1,27 @@
 package parser;
 
 import enums.Command;
-import exception.InvalidInputException;
 import exception.MissingArgumentException;
 import exception.InvalidCommandException;
 import exception.MissingTaskArgumentException;
 
 public class CommandParser {
-    public static String getCommandArguments(String input, Command command) throws
+
+    public static String getCommandArguments(String input) throws
             MissingArgumentException,
             InvalidCommandException {
 
-        int cmdLength = command.getCommandStringLength();
-        String args = input.substring(cmdLength);
+        String firstWord = getFirstWord(input);
+        Command command;
+
+        try {
+            System.out.println(firstWord);
+            command = Command.valueOf(firstWord.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new InvalidCommandException();
+        }
+
+        String args = input.substring(command.getCommandStringLength() + 1);
 
         if (args.isBlank()) {
             switch (command) {
@@ -23,10 +32,16 @@ public class CommandParser {
                 default:
                     throw new InvalidCommandException();
             }
-        } else if (args.startsWith(" ")){
-            return args.substring(1);
         } else {
-            throw new InvalidCommandException();
+            return args;
         }
+    }
+
+    public static String getFirstWord(String input) {
+        int spaceIndex = input.indexOf(' ');
+        if (spaceIndex == -1) {
+            return input;
+        }
+        return input.substring(0, spaceIndex);
     }
 }

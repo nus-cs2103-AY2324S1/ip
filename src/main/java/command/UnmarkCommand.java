@@ -16,7 +16,7 @@ public class UnmarkCommand {
             MissingArgumentException,
             InvalidCommandException {
 
-        String number = CommandParser.getCommandArguments(input, Command.UNMARK);
+        String number = CommandParser.getCommandArguments(input);
         try {
             tasks.unmarkDone(Integer.parseInt(number));
         } catch (NumberFormatException e ) {
