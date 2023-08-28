@@ -43,5 +43,5 @@ Noted. I've removed this task:
 Now you have 1 tasks in the list.
 Here are the tasks in your list:
 1.[D][X] watch TV  (by: 7pm )
+☹ OOPS!!! I'm sorry, but I don't know what that means :-(
 Bye. Hope to see you again soon!
-

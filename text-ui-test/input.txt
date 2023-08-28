@@ -18,4 +18,5 @@ delete 1
 list
 delete 2
 list
+w
 bye
