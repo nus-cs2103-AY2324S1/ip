@@ -1,3 +1,9 @@
+package Ren;
+
+import Ren.task.Deadline;
+import Ren.task.Event;
+import Ren.task.TaskList;
+import Ren.task.ToDo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,9 +21,9 @@ public final class RenObjectMapper {
     private static String cacheFileAddress = ".\\data\\cacheTaskList.txt";
 
     public RenObjectMapper() {
-        objectMapper.registerSubtypes(new NamedType(ToDo.class, "ToDo"));
-        objectMapper.registerSubtypes(new NamedType(Deadline.class, "Deadline"));
-        objectMapper.registerSubtypes(new NamedType(Event.class, "Event"));
+        objectMapper.registerSubtypes(new NamedType(ToDo.class, "Ren.task.ToDo"));
+        objectMapper.registerSubtypes(new NamedType(Deadline.class, "Ren.task.Deadline"));
+        objectMapper.registerSubtypes(new NamedType(Event.class, "Ren.task.Event"));
     }
 
     public static void storeIntoHarddisk(TaskList taskList) {

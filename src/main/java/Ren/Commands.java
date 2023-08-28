@@ -1,3 +1,5 @@
+package Ren;
+
 public enum Commands {
     LS_COMMAND("list"),
     DELETE_COMMAND("delete"),

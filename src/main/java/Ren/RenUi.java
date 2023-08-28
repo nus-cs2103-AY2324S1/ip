@@ -1,7 +1,12 @@
+package Ren;
+
+import Ren.task.Task;
+import Ren.task.TaskList;
+
 public class RenUi {
     private static final String LINE_BREAK = "____________________________________________________________\n";
     private static String welcomeMsg = LINE_BREAK +
-            " Hello! I'm Ren\n" +
+            " Hello! I'm Ren.Ren\n" +
             " What can I do for you?\n" +
             LINE_BREAK;
     private static String goodbyeMsg = LINE_BREAK +
