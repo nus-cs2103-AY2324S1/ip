@@ -3,11 +3,22 @@ package duke;
 import duke.command.Command;
 import duke.exception.DukeException;
 
+/**
+ * The Duke program is a chatbot named Beep Boop Bot that
+ * executes commands to create and edit a tasklist.
+ *
+ * @author Inez Kok
+ */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * This is the constructor for a Duke.
+     *
+     * @param filePath This is the string representaion of the file path used to store the TaskList.
+     */
     public Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -19,6 +30,11 @@ public class Duke {
         }
     }
 
+    /**
+     * This method is used to run the Duke program.
+     *
+     * @return Nothing.
+     */
     public void run() {
         ui.printGreetingMessage();
 
@@ -35,6 +51,12 @@ public class Duke {
         }
     }
 
+    /**
+     * This is the main method which makes use of the run method.
+     *
+     * @param args Unused.
+     * @return Nothing.
+     */
     public static void main(String[] args) {
         new Duke("data/tasks.txt").run();
     }

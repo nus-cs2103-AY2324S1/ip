@@ -15,16 +15,29 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class deals with loading tasks from the file and saving tasks in the file.
+ *
+ * @author Inez Kok
+ */
 public class Storage {
-    // Fields
     private String filePath;
 
-    // Constructor
+    /**
+     * This is the constructor for a Storage.
+     *
+     * @param filePath The string representation of the file path.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    // Methods
+    /**
+     * This method is used to check whether the string representation of a date is valid.
+     *
+     * @param date The string representation of the date.
+     * @throws DukeException On format error.
+     */
     private void validateDate(String date) throws DukeException {
         try {
             LocalDate d = LocalDate.parse(date);
@@ -33,6 +46,12 @@ public class Storage {
         }
     }
 
+    /**
+     * This method is used to format the string representation of a date YYYY-MM-DD.
+     *
+     * @param date The string representation of the date MMM DD YYYY.
+     * @return Returns the string representation of a date YYYY-MM-DD.
+     */
     private String formatDate(String date) {
         String dateString = date;
         String month = dateString.substring(0, 3);
@@ -68,6 +87,12 @@ public class Storage {
         return String.format("%s-%s-%s", year, month, day);
     }
 
+    /**
+     * This method is used to load the list of tasks in the file.
+     *
+     * @return Returns an array list of tasks.
+     * @throws DukeException On corrupted values in file.
+     */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -139,6 +164,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * This method is used to save changes made to the task list in the file.
+     *
+     * @param list The array list of tasks.
+     * @throws DukeException On IO exceptions.
+     */
     public void save(ArrayList<Task> list) throws DukeException {
         try {
             File f = new File(filePath);

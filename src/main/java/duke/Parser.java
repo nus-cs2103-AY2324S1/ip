@@ -6,7 +6,20 @@ import duke.exception.DukeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class deals with making sense of the user command.
+ *
+ * @author Inez Kok
+ */
 public class Parser {
+    /**
+     * This method is used to parse through user command and make sense of it.
+     *
+     * @param input This is the user input.
+     * @param size This is the size of the current task list.
+     * @return Command This returns the respective command based on user input.
+     * @throws DukeException On input error.
+     */
     public static Command parse(String input, int size) throws DukeException {
         if (input.equals("bye")) {
             return new ExitCommand();
@@ -62,6 +75,14 @@ public class Parser {
         }
     }
 
+    /**
+     * This method is used to check whether the user input for mark,
+     * unmark or delete commands is valid.
+     *
+     * @param number The string representation of the one-based index of task.
+     * @param size The size of the current task list.
+     * @throws DukeException On input error.
+     */
     private static void validateMarkOrUnmarkorDelete(String number, int size) throws DukeException {
         if (number.isBlank()) {
             throw new DukeException("Boop Beep OOPS! Please make sure that the index of the task is not empty.");
@@ -78,12 +99,24 @@ public class Parser {
         }
     }
 
+    /**
+     * This method is used to check whether the user input for creating a todo is valid.
+     *
+     * @param description The string representation of the todo description.
+     * @throws DukeException On input error.
+     */
     private static void validateToDo(String description) throws DukeException {
         if (description.isBlank()) {
             throw new DukeException("Boop Beep OOPS! The description of a todo cannot be empty.");
         }
     }
 
+    /**
+     * This method is used to check whether the user input for creating a deadline is valid.
+     *
+     * @param deadlineString The array of string representations of the parameters of a Deadline.
+     * @throws DukeException On input error.
+     */
     private static void validateDeadline(String[] deadlineString) throws DukeException {
         if (deadlineString.length != 2 || deadlineString[0].isBlank() || deadlineString[1].isBlank()) {
             throw new DukeException("Boop Beep OOPS! Please make sure that"
@@ -91,6 +124,12 @@ public class Parser {
         }
     }
 
+    /**
+     * This method is used to check whether the user input for creating a event is valid.
+     *
+     * @param eventString The array of string representations of the parameters of an Event.
+     * @throws DukeException On input error.
+     */
     private static void validateEvent(String[] eventString) throws DukeException {
         if (eventString.length != 3 || eventString[0].isBlank() || eventString[1].isBlank() || eventString[2].isBlank()) {
             throw new DukeException("Boop Beep OOPS! Please make sure that"
@@ -98,6 +137,12 @@ public class Parser {
         }
     }
 
+    /**
+     * This method is used to check whether the user input for a Date is valid.
+     *
+     * @param date The string representation of the date.
+     * @throws DukeException On format error of String date.
+     */
     private static void validateDate(String date) throws DukeException {
         try {
             LocalDate d = LocalDate.parse(date);
