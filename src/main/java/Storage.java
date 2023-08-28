@@ -5,16 +5,16 @@ import java.util.Scanner;
 import java.io.IOException;
 
 public class Storage {
-    private final static String DEFAULT_TASK_FILE_PATH = "src/main/data/duke.txt";
-    public Storage(){
+    private String filepath;
+    public Storage(String filepath){
+        this.filepath = filepath;
     }
 
     public void saveFile(String content) {
         try {
-            FileWriter myWriter = new FileWriter(DEFAULT_TASK_FILE_PATH, false);
+            FileWriter myWriter = new FileWriter(filepath, false);
             myWriter.write(content);
             myWriter.close();
-            System.out.println("Successfully wrote to the file.");
         } catch (FileNotFoundException e) {
             File f = new File("src/main/data");
             if (f.mkdir()) {
@@ -31,7 +31,7 @@ public class Storage {
 
     public String readFile() throws FileNotFoundException {
         try {
-            File myObj = new File(DEFAULT_TASK_FILE_PATH);
+            File myObj = new File(filepath);
             Scanner myReader = new Scanner(myObj);
             StringBuilder data = new StringBuilder();
             while (myReader.hasNextLine()) {
