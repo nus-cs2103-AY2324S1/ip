@@ -8,4 +8,8 @@ public class TaskList {
     public void add(Task task) {
         this.tasks.add(task);
     }
+
+    public void remove(int index) {
+        this.tasks.remove(index);
+    }
 }
