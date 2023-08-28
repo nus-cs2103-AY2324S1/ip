@@ -1,6 +1,11 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+// https://www.w3schools.com/java/java_files_create.asp
 public class Duke {
     public static void printHorizontalLine() {
 
@@ -29,6 +34,35 @@ public class Duke {
 
     public static void toDo() {
         ArrayList<Task> list = new ArrayList<>();
+
+        try {
+            File theDir = new File("./src/main/data");
+            if (!theDir.exists()){
+                theDir.mkdirs();
+            }
+            File myObj = new File("./src/main/data/duke.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String type = data.substring(0,1);
+                switch (type) {
+                    case "T":
+                        Todo.readData(list, data);
+                        break;
+                    case "D":
+                        Deadline.readData(list, data);
+                        break;
+                    case "E":
+                        Event.readData(list, data);
+                        break;
+                }
+            }
+            System.out.println("w");
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            File myObj = new File("./src/main/data/duke.txt");
+        }
+
         Scanner sc = new Scanner(System.in);
         Pattern listRegex = Pattern.compile("^" + Commands.LIST, Pattern.CASE_INSENSITIVE);
         Pattern markRegex = Pattern.compile("^" + Commands.MARK, Pattern.CASE_INSENSITIVE);
@@ -55,12 +89,10 @@ public class Duke {
                 Deadline.addDeadline(list, command);
             } else if (todoRegex.matcher(command).find()) {
                 Todo.addTodo(list, command);
-
             } else if (eventRegex.matcher(command).find()) {
                 Event.addEvent(list, command);
             } else if (deleteRegex.matcher(command).find()) {
                 Task.deleteTask(list, command);
-
             } else {
                 try {
                     throw new DukeException("Invalid Response");
@@ -73,15 +105,42 @@ public class Duke {
         }
     }
 
+    public static void writeFile() {
+        try {
+            FileWriter myWriter = new FileWriter("./src/main/data/duke.txt");
+            myWriter.write("Files in Java might be tricky, but it is fun enough!\n");
+            myWriter.write("Files in Java might be tricky, but it is fun enough!\n");
+            myWriter.write("Files in Java might be tricky, but it is fun enough!\n");
 
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 
-
-
-
+    public static void readFile() {
+        try {
+            File myObj = new File("./src/main/data/duke.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
         introduction();
 
         toDo();
+//        createFile();
+//        writeFile();
+//        readFile();
 
         conclusion();
 

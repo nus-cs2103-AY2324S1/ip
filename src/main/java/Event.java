@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Event extends Task {
@@ -72,9 +74,28 @@ public class Event extends Task {
         String to = currStr.substring(toIndex + 4);
         Task eventTask = new Event(description, from, to);
         list.add(eventTask);
+        try {
+            FileWriter myWriter = new FileWriter("./src/main/data/duke.txt", true);
+            myWriter.write(  "E | 0 | " + description + "| " + from + "| " + to +"\n");
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
         System.out.println(eventTask);
         System.out.println("Now you have " + list.size() + " tasks in the list." );
         printHorizontalLine();
+    }
+
+    public static void readData(ArrayList<Task> list, String data) {
+        String splitEvent[] = data.split(" \\| ");
+
+
+        Task eventTask = new Event(splitEvent[2], splitEvent[3] + " ", splitEvent[4]);
+        list.add(eventTask);
+        if (splitEvent[1].equals("1")) {
+            list.get(list.size()-1).markDoneNoPrint();
+        }
     }
 
 

@@ -41,6 +41,14 @@ public class Task {
         }
     }
 
+    public void markDoneNoPrint() {
+        if (isDone) {
+            return;
+        } else {
+            this.isDone = true;
+        }
+    }
+
     public void markUndone() {
         printHorizontalLine();
         this.isDone = false;
