@@ -32,6 +32,8 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public abstract String fileString();
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);

@@ -15,6 +15,15 @@ public class Deadlines extends Task {
         super(item);
         this.deadline = deadline;
     }
+    @Override
+    public String fileString() {
+        return String.format(
+                "deadline %d %s /by %s",
+                super.isDone ? 1 : 0,
+                super.description,
+                this.deadline
+                );
+    }
 
     @Override
     public String toString() {
