@@ -1,4 +1,7 @@
 
+import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
+import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -16,6 +19,11 @@ public class Tasklistloader {
   public Tasklistloader(ArrayList<Task> tasks) {
     this.taskList = tasks;
     this.taskMapper = new ObjectMapper();
+    PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
+        .allowIfSubType("com.baeldung.jackson.inheritance")
+        .allowIfSubType("java.util.ArrayList")
+        .build();
+    this.taskMapper.activateDefaultTyping(ptv, DefaultTyping.NON_FINAL);
   }
 
 
