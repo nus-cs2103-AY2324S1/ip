@@ -1,39 +1,62 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Locale;
 import java.util.Scanner;
 
-public class Duke {
+public class Parser {
     public enum Operation {
         BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, CHECKDATE
     }
 
     private final static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    private final static String[] dateFormats = {
-            "yyyy-MM-dd HH:mm",  // Format 1
-            "dd/MM/yyyy HH:mm",  // Format 2
-            "dd.MM.yyyy HH:mm"   // Format 3 (add more formats as needed)
-    };
 
-    private static void greet() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | | / _ \\\n"
-                + "| |_| | |_| |  |_   __/\n"
-                + "|____/ \\__,_|___|\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("I'm Duke!\nWhat can I do for you?");
-    }
-
-    private static void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+    // main functionality -> trying to make sense of the users command
+    public static void parse(String userInput, TaskList taskList) {
+        boolean ongoing = true;
+        while(ongoing) {
+            Operation operation;
+            try {
+//            System.out.print("> ");
+                try {
+                    operation = Operation.valueOf(userInput.toUpperCase().split(" ")[0]);
+                } catch (Exception e) {
+                    throw new InvalidCommandException();
+                }
+                switch (operation) {
+                case LIST:
+                    taskList.listAllTasks();
+                    break;
+                case DELETE:
+                    delete(userInput, taskList);
+                    break;
+                case MARK:
+                    mark(userInput, taskList);
+                    break;
+                case UNMARK:
+                    unmark(userInput, taskList);
+                    break;
+                case TODO:
+                    todo(userInput, taskList);
+                    break;
+                case DEADLINE:
+                    deadline(userInput, taskList);
+                    break;
+                case EVENT:
+                    event(userInput, taskList);
+                    break;
+                case CHECKDATE:
+                    checkDate(userInput, taskList);
+                    break;
+                default:
+                    throw new InvalidCommandException();
+                }
+            } catch (TaskException | InvalidCommandException | EmptyDescriptionException
+                     | NotIntegerException | MissingKeywordException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public static void delete(String userInput, TaskList taskList) throws TaskException, NotIntegerException {
@@ -203,127 +226,5 @@ public class Duke {
                 return false;
             }
         }
-    }
-
-    private static void writeFile(TaskList taskList) throws IOException {
-        try {
-            File file = new File("./data/duke.txt");
-
-            FileWriter writer = new FileWriter(file);
-            for (Task task : taskList.returnTaskList()) {
-                writer.write(task.writeFormat() + "\n");
-            }
-            writer.close();
-        } catch (FileNotFoundException e) {
-            if (new File("data").mkdir()) {
-                System.out.println("data folder does not exist, create now");
-            } else if (new File("data/duke.txt").createNewFile()){
-                System.out.println("duke.txt file not exist, create now");
-            }
-        }
-    }
-
-    private static TaskList readFile(String filePath) throws IOException {
-        TaskList taskList = new TaskList(); // Create an empty task list
-        try {
-            File myData = new File(filePath);
-            Scanner scanner = new Scanner(myData);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                Task task = parseTaskFromLine(line, taskList);
-                if (task != null) {
-                    taskList.addTask(task);
-                }
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            if (new File("data").mkdir()) {
-                System.out.println("data folder does not exist, create now");
-            } else if (new File("data/duke.txt").createNewFile()){
-                System.out.println("duke.txt file not exist, create now");
-            }
-        }
-        return taskList;
-    }
-
-    private static Task parseTaskFromLine(String line, TaskList taskList) {
-        String[] parts = line.split(" \\| ");
-        String taskType = parts[0];
-        String description = parts[2];
-        boolean isMarked = parts[1].equals("1");
-
-        switch (taskType) {
-        case "T":
-            return new Todo(description, isMarked);
-        case "D":
-            LocalDateTime byDate = LocalDateTime.parse(parts[3], timeFormat);
-            return new Deadline(description, byDate, isMarked);
-        case "E":
-            LocalDateTime from = LocalDateTime.parse(parts[3], timeFormat);
-            LocalDateTime to = LocalDateTime.parse(parts[4], timeFormat);
-            return new Event(description, from, to, isMarked);
-        // Add cases for other task types (e.g., Event) as needed
-        default:
-            return null; // Unknown task type, skip
-        }
-    }
-
-    // TODO handle IOException
-    public static void main(String[] args) throws IOException {
-        greet();
-        Scanner scanner = new Scanner(System.in);
-        String userInput;
-//        TaskList taskList = new TaskList();
-        TaskList taskList = readFile("./data/duke.txt");
-        boolean ongoing = true;
-        while(ongoing) {
-            Operation operation;
-            try {
-//            System.out.print("> ");
-                userInput = scanner.nextLine();
-                try {
-                    operation = Operation.valueOf(userInput.toUpperCase().split(" ")[0]);
-                } catch (Exception e) {
-                    throw new InvalidCommandException();
-                }
-                switch (operation) {
-                case BYE:
-                    ongoing = false;
-                    exit();
-                    break;
-                case LIST:
-                    taskList.listAllTasks();
-                    break;
-                case DELETE:
-                    delete(userInput, taskList);
-                    break;
-                case MARK:
-                    mark(userInput, taskList);
-                    break;
-                case UNMARK:
-                    unmark(userInput, taskList);
-                    break;
-                case TODO:
-                    todo(userInput, taskList);
-                    break;
-                case DEADLINE:
-                    deadline(userInput, taskList);
-                    break;
-                case EVENT:
-                    event(userInput, taskList);
-                    break;
-                case CHECKDATE:
-                    checkDate(userInput, taskList);
-                    break;
-                default:
-                    throw new InvalidCommandException();
-                }
-                writeFile(taskList);
-            } catch (TaskException | InvalidCommandException | EmptyDescriptionException
-                     | NotIntegerException | MissingKeywordException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        scanner.close();
     }
 }

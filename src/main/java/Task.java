@@ -14,7 +14,7 @@ abstract public class Task {
         return (isMarked ? "[X]" : "[ ]");
     }
 
-    abstract public String changeFormat();
+    abstract public String writeFormat();
 
     @Override
     public String toString() {

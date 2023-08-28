@@ -3,20 +3,21 @@ import java.time.format.DateTimeFormatter;
 
 class Event extends Task {
     private LocalDateTime from, to;
-    public Event(String description, LocalDateTime from, LocalDateTime to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, boolean isMarked) {
         super(description); // initializes its task
         this.from = from;
         this.to = to;
+        super.isMarked = isMarked;
     }
 
-    public String changeFormat() {
+    public String writeFormat() {
         int isDone = 0;
         if (isMarked) {
             isDone = 1;
         }
 
-        String formattedDateFrom = from.format(DateTimeFormatter.ofPattern("dd MMM HH:mm"));
-        String formattedDateTo = to.format(DateTimeFormatter.ofPattern("dd MMM HH:mm"));
+        String formattedDateFrom = from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        String formattedDateTo = to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
         return "E" + " | " + isDone + " | " + super.description + " | " + formattedDateFrom + " | " + formattedDateTo;
     };

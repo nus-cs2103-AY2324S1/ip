@@ -1,9 +1,10 @@
 class Todo extends Task {
-    public Todo(String description) {
+    public Todo(String description, boolean isMarked) {
         super(description); // initializes its task
+        super.isMarked = isMarked;
     }
 
-    public String changeFormat() {
+    public String writeFormat() {
         int isDone = 0;
         if (isMarked) {
             isDone = 1;
