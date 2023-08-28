@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Duke {
@@ -33,47 +34,30 @@ public class Duke {
         return this.taskList.add(task);
     }
 
-    public boolean deleteTask(int index) {
+    public Optional<Task> deleteTask(int index) {
         if (index < 0 || index >= taskList.size()) {
-            outputService.echo(String.format("Invalid Task Index: %s provided.", index));
-            return false;
+            return Optional.empty();
         }
         Task removedTask = taskList.remove(index);
-        List<String> displayText = new ArrayList<>();
-        displayText.add("Noted. I have removed this task:");
-        displayText.add(outputService.indentLeft(removedTask.toString()));
-        displayText.add(String.format("Now you have %s %s in the list.",
-                taskList.size(),
-                taskList.size() == 1 ? "task" : "tasks"));
-
-        outputService.echo(displayText);
-        return true;
+        return Optional.of(removedTask);
     }
 
-    public void markTask(int index) {
+    public Optional<Task> markTask(int index) {
         if (index < 0 || index >= taskList.size()) {
-            outputService.echo(String.format("Invalid Task Index: %s provided.", index));
-            return;
+            return Optional.empty();
         }
         Task task = taskList.get(index);
         task.markAsDone();
-        List<String> displayText = new ArrayList<>();
-        displayText.add("Nice! I've marked this task as done:");
-        displayText.add(outputService.indentLeft(task.toString()));
-        outputService.echo(displayText);
+        return Optional.of(task);
     }
 
-    public void unmarkTask(int index) {
+    public Optional<Task> unmarkTask(int index) {
         if (index < 0 || index >= taskList.size()) {
-            outputService.echo(String.format("Invalid Task Index: %s provided.", index));
-            return;
+            return Optional.empty();
         }
         Task task = taskList.get(index);
         task.markAsNotDone();
-        List<String> displayText = new ArrayList<>();
-        displayText.add("OK, I've marked this task as not done yet:");
-        displayText.add(outputService.indentLeft(task.toString()));
-        outputService.echo(displayText);
+        return Optional.of(task);
     }
 
     public List<Task> getTaskList() {
