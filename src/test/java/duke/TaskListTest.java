@@ -1,7 +1,5 @@
 package duke; //same package as the class being tested
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 
 import duke.exception.DukeException;

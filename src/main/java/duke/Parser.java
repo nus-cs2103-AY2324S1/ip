@@ -31,12 +31,19 @@ public class Parser {
         boolean isExit = Pattern.compile("^bye").matcher(userInput).find();
         boolean isValidTask = isTodo || isDeadline || isEvent;
 
-        return isList ? 0
-                : isMark ? 1
-                        : isUnmark ? 2
-                                : isValidTask ? 3
-                                        : isDelete ? 4
-                                                : isExit ? 5 : 6;
+        return isList
+                ? 0
+                : isMark
+                ? 1
+                : isUnmark
+                ? 2
+                : isValidTask
+                ? 3
+                : isDelete
+                ? 4
+                : isExit
+                ? 5
+                : 6;
     }
 
     public static int getTaskType(String userInput) {

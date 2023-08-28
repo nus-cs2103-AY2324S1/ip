@@ -21,14 +21,12 @@ public class Storage {
 
     public ArrayList<Task> load() throws Exception {
         ArrayList<Task> arr = new ArrayList<>();
-        // String filePathString = "./data/duke.txt";
         File f = new File(filePath);
         try {
             f.createNewFile();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        // Update task list based on data file
         try {
             Scanner dataSc = new Scanner(f);
             try {
@@ -54,7 +52,6 @@ public class Storage {
                             break;
                         }
                     }
-                    // System.out.println(task[1].trim());
                     if (task[1].trim().equals("1")) {
                         arr.get(arr.size() - 1).markAsDone();
                     } else {
