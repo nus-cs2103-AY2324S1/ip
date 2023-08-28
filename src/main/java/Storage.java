@@ -1,13 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.io.IOException;
 
-public class FileManager {
+public class Storage {
     private final static String DEFAULT_TASK_FILE_PATH = "src/main/data/duke.txt";
-    public FileManager(){
+    public Storage(){
     }
 
     public void saveFile(String content) {
@@ -45,7 +44,7 @@ public class FileManager {
         }
     }
 
-    public void loadFileToTaskManager(TaskManager taskManager) {
+    public void loadFileToTaskManager(TaskList taskList) {
         try {
             String savedText = readFile();
             Scanner scanner = new Scanner(savedText);
@@ -60,14 +59,14 @@ public class FileManager {
                 if (taskType.equals("T")) {
                     // create to do task
                     ToDo td = new ToDo(taskDetails, markStatus);
-                    taskManager.addTask(td);
+                    taskList.addTask(td);
                 } else if (taskType.equals("D")) {
                     // create deadline task
                     String[] taskDetailsSplit = taskDetails.split(" \\(by: ");
                     String description = taskDetailsSplit[0];
                     String by = taskDetailsSplit[1].substring(0, taskDetailsSplit[1].length()-1);
                     Deadline d = new Deadline(description, markStatus, by);
-                    taskManager.addTask(d);
+                    taskList.addTask(d);
                 } else if (taskType.equals("E")) {
                     // Extract description from task details
                     String[] taskDetailsSplit = taskDetails.split(" \\(from: ");
@@ -79,7 +78,7 @@ public class FileManager {
                     String to = taskDetailsSplit2[1]
                                 .substring(0, taskDetailsSplit[1].split(" to: ")[1].length()-1);
                     Event e = new Event(description, markStatus, from, to);
-                    taskManager.addTask(e);
+                    taskList.addTask(e);
                 }
 
             }

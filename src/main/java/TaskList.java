@@ -1,12 +1,12 @@
 import java.util.LinkedList;
 
-public class TaskManager {
+public class TaskList {
     protected LinkedList<Task> storage;
 
     /**
      * Constructor to build a Task Manager.
      */
-    public TaskManager() {
+    public TaskList() {
         this.storage = new LinkedList<Task>();
     }
 
