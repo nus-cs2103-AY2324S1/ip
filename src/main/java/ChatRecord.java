@@ -5,14 +5,15 @@ public class ChatRecord {
     private ArrayList<Task> chatRecords;
     private int counter;
     public ChatRecord() {
-         chatRecords = new ArrayList<>();
          counter = 0;
+         chatRecords = SaveData.loadData();
     }
 
     public Task addTask(String name, TaskTypes type) {
         Task ret = new Todo(name);
         chatRecords.add(ret);
         counter++;
+        saveChat();
         return ret;
     }
 
@@ -20,6 +21,7 @@ public class ChatRecord {
         Task ret = new Deadline(name, args);
         chatRecords.add(ret);
         counter++;
+        saveChat();
         return ret;
     }
 
@@ -27,11 +29,13 @@ public class ChatRecord {
         Task ret = new Event(name, args[0].trim(), args[1].trim());
         chatRecords.add(ret);
         counter++;
+        saveChat();
         return ret;
     }
 
     public Task deleteTask(int n) {
         counter--;
+        saveChat();
         return chatRecords.remove(n - 1);
     }
 
@@ -41,6 +45,12 @@ public class ChatRecord {
             ret.append(String.format("\t%d. %s\n", i + 1, chatRecords.get(i).toString()));
         }
         return ret.toString().stripTrailing();
+    }
+
+    private void saveChat() {
+        Task[] temp = new Task[chatRecords.size()];
+        temp = chatRecords.toArray(temp);
+        SaveData.saveData(TaskParser.formatSave(temp));
     }
 
     public int getCount() {

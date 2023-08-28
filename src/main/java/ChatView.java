@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import task.*;
@@ -51,7 +50,7 @@ public class ChatView {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println(beautifyString("ERROR!! The description of Todo cannot be empty!"));
                 } catch (Exception e) {
-                    System.out.println(beautifyString("CRITICAL ERROR!!! An unknown error has occurred. Please report the bug to the developers"));
+                    System.out.println(beautifyString(String.format("CRITICAL ERROR!!! An unknown error has occurred. Please report the bug to the developers: %s", e.getMessage())));
                 }
                 break;
             case "deadline":
@@ -71,7 +70,7 @@ public class ChatView {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println(beautifyString("ERROR!! The description of Deadline cannot be empty!"));
                 } catch (Exception e) {
-                    System.out.println(beautifyString("CRITICAL ERROR!!! An unknown error has occurred. Please report the bug to the developers"));
+                    System.out.println(beautifyString(String.format("CRITICAL ERROR!!! An unknown error has occurred. Please report the bug to the developers: %s", e.getMessage())));
                 }
                 break;
             case "event":
@@ -93,7 +92,7 @@ public class ChatView {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println(beautifyString("ERROR!! The description of Event cannot be empty!"));
                 } catch (Exception e) {
-                    System.out.println(beautifyString("CRITICAL ERROR!!! An unknown error has occurred. Please report the bug to the developers"));
+                    System.out.println(beautifyString(String.format("CRITICAL ERROR!!! An unknown error has occurred. Please report the bug to the developers: %s", e.getMessage())));
                 }
                 break;
             default:
