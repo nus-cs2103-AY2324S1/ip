@@ -5,6 +5,7 @@ import java.util.Collections;
 public class Parser {
     private static final String DELIMITER_COMMAND = " ";
     private static final String DELIMITER_DATE = " /";
+    private static final String DELIMITER_INPUT = " / ";
     public static ArrayList<String> parseUserInput(String input) throws InvalidCommandException {
         ArrayList<String> parsedInput= new ArrayList<>();
 
@@ -34,5 +35,12 @@ public class Parser {
                 splitInputByDateDelimiter.length));
 
         return parsedInput;
+    }
+
+    public static ArrayList<String> parseFileInput(String input) throws InvalidCommandException {
+      ArrayList<String> parsedInput = new ArrayList<>();
+      String[] split = input.split(DELIMITER_INPUT);
+      Collections.addAll(parsedInput, split);
+      return parsedInput;
     }
 }
