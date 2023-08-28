@@ -1,31 +1,31 @@
-package tasks;
+package duke.tasks;
 
 import java.util.ArrayList;
 
-import exception.InvalidIndexException;
+import duke.exception.InvalidIndexException;
 
 /**
- * Represents a list of tasks, allowing for various operations such as
- * adding, deleting, marking tasks as done, and unmarking tasks.
+ * Represents a list of duke.tasks, allowing for various operations such as
+ * adding, deleting, marking duke.tasks as done, and unmarking duke.tasks.
  *
  * <p> The TaskList class provides a comprehensive set of methods to manage and manipulate
- * a list of tasks. Each task in the list can be accessed by its index.
+ * a list of duke.tasks. Each task in the list can be accessed by its index.
  * Methods throw {@link InvalidIndexException} if operations are attempted on invalid indices. </p>
  */
 public class TaskList {
     private ArrayList<Task> store;
 
     /**
-     * Initializes an empty list of tasks.
+     * Initializes an empty list of duke.tasks.
      */
     public TaskList() {
         store = new ArrayList<>();
     }
 
     /**
-     * Initializes a task list with a given list of tasks.
+     * Initializes a task list with a given list of duke.tasks.
      *
-     * @param tasks An ArrayList of tasks to be added to the task list.
+     * @param tasks An ArrayList of duke.tasks to be added to the task list.
      */
     public TaskList(ArrayList<Task> tasks) {
         store = tasks;
@@ -40,7 +40,7 @@ public class TaskList {
         store.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
-        System.out.println("Now you have " + store.size() + " tasks in the list.");
+        System.out.println("Now you have " + store.size() + " duke.tasks in the list.");
     }
 
     /**
@@ -57,14 +57,14 @@ public class TaskList {
         store.remove(index - 1);
         System.out.println("Noted. I've removed this task:");
         System.out.println("\t" + task);
-        System.out.println("Now you have " + store.size() + " tasks in the list.");
+        System.out.println("Now you have " + store.size() + " duke.tasks in the list.");
     }
 
     /**
-     * Prints all the tasks currently in the list.
+     * Prints all the duke.tasks currently in the list.
      */
     public void listTasks() {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("Here are the duke.tasks in your list:");
         int counter = 1;
         for(Task task: store) {
             System.out.println(counter + "." + task);
@@ -105,9 +105,9 @@ public class TaskList {
     }
 
     /**
-     * Retrieves the current list of tasks.
+     * Retrieves the current list of duke.tasks.
      *
-     * @return An ArrayList containing all the tasks.
+     * @return An ArrayList containing all the duke.tasks.
      */
     public ArrayList<Task> getTasks() {
         return store;

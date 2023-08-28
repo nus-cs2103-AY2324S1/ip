@@ -1,14 +1,14 @@
-package command;
+package duke.command;
 
-import exception.InvalidIndexException;
-import tasks.TaskList;
-import util.Ui;
-import util.Storage;
+import duke.exception.InvalidIndexException;
+import duke.tasks.TaskList;
+import duke.util.Ui;
+import duke.util.Storage;
 
 /**
- * Represents a command to mark a task as completed.
+ * Represents a duke.command to mark a task as completed.
  * <p>
- * When executed, this command will mark the task at the specified index as completed.
+ * When executed, this duke.command will mark the task at the specified index as completed.
  * </p>
  */
 public class MarkCommand extends Command {
@@ -26,9 +26,9 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Executes the mark command, marking the task at the specified index as completed.
+     * Executes the mark duke.command, marking the task at the specified index as completed.
      *
-     * @param tasks List of tasks.
+     * @param tasks List of duke.tasks.
      * @param ui User interface.
      * @param storage Storage system.
      * @throws InvalidIndexException If the given index is out of bounds.

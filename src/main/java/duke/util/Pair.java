@@ -1,4 +1,4 @@
-package util;
+package duke.util;
 
 /**
  * Represents an immutable key-value pair.

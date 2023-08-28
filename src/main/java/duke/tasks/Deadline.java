@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 
 /**
  * Represents a task with a specific deadline.

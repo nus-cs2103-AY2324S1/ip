@@ -1,9 +1,9 @@
-package exception;
+package duke.exception;
 
 /**
- * Represents an exception that is thrown when the application encounters corrupted or incorrectly formatted data.
+ * Represents an duke.exception that is thrown when the application encounters corrupted or incorrectly formatted data.
  * <p>
- * This exception indicates that the data read from the storage or hard drive is not in the expected format.
+ * This duke.exception indicates that the data read from the storage or hard drive is not in the expected format.
  * </p>
  */
 public class CorruptHarddriveException extends Exception {

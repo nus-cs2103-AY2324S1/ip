@@ -1,9 +1,9 @@
-package util;
-import command.*;
-import exception.DukeException;
-import exception.EmptyTaskException;
-import exception.InvalidDateTimeException;
-import tasks.TaskType;
+package duke.util;
+import duke.command.*;
+import duke.exception.DukeException;
+import duke.exception.EmptyTaskException;
+import duke.exception.InvalidDateTimeException;
+import duke.tasks.TaskType;
 
 import java.util.HashMap;
 
@@ -17,7 +17,7 @@ public class Parser {
      *
      * @param input The raw input string from the user.
      * @return A Command that corresponds to the input instruction.
-     * @throws DukeException If the input does not match any command or is invalid.
+     * @throws DukeException If the input does not match any duke.command or is invalid.
      * @throws EmptyTaskException If the input is missing essential information.
      * @throws InvalidDateTimeException If the date or time format is invalid.
      */

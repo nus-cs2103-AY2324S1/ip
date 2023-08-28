@@ -1,7 +1,4 @@
-package tasks;
-
-import tasks.Task;
-import tasks.TaskType;
+package duke.tasks;
 
 /**
  * Represents a todo task, a type of task without a specific deadline or duration.

@@ -1,9 +1,9 @@
-package util;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.Todo;
-import exception.CorruptHarddriveException;
+package duke.util;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
+import duke.exception.CorruptHarddriveException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,18 +13,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Provides functionality for storing tasks in a file and retrieving tasks from a file.
+ * Provides functionality for storing duke.tasks in a file and retrieving duke.tasks from a file.
  */
 public class Storage {
 
-    /** File path to where the tasks are saved. */
+    /** File path to where the duke.tasks are saved. */
     private static final String filePath = "./data/hardrive.txt";
 
     /** Directory path to where the file is located. */
     private static final String dataFolderPath = "./data";
 
     /**
-     * Loads the tasks from the hard drive.
+     * Loads the duke.tasks from the hard drive.
      *
      * @return An ArrayList of Task objects, each representing a task retrieved from the hard drive.
      * If there are any errors while reading, the list may be empty.
@@ -85,9 +85,9 @@ public class Storage {
     }
 
     /**
-     * Saves the given list of tasks to the hard drive.
+     * Saves the given list of duke.tasks to the hard drive.
      *
-     * @param store The list of tasks to save.
+     * @param store The list of duke.tasks to save.
      */
     public void save(ArrayList<Task> store) {
         try {

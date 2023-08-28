@@ -2,7 +2,7 @@
  * Represents the user interface for managing input and output to the console.
  * Provides methods to show welcome and exit messages, get user input, and display a horizontal line.
  */
-package util;
+package duke.util;
 
 import java.util.Scanner;
 

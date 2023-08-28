@@ -1,12 +1,12 @@
-package command;
+package duke.command;
 
-import tasks.Event;
-import tasks.TaskList;
-import util.Ui;
-import util.Storage;
+import duke.tasks.Event;
+import duke.tasks.TaskList;
+import duke.util.Ui;
+import duke.util.Storage;
 
 /**
- * Represents a command to add an event task to the task list.
+ * Represents a duke.command to add an event task to the task list.
  * <p>
  * The {@code AddEventCommand} class encapsulates the details of the event,
  * including its description and the duration it spans (from-to). When executed,
@@ -45,10 +45,10 @@ public class AddEventCommand extends Command {
     }
 
     /**
-     * Executes the command by adding a new event to the provided task list,
+     * Executes the duke.command by adding a new event to the provided task list,
      * and saving the updated list using the provided storage.
      *
-     * @param tasks list of tasks.
+     * @param tasks list of duke.tasks.
      * @param ui user interface.
      * @param storage storage system.
      */
@@ -59,9 +59,9 @@ public class AddEventCommand extends Command {
     }
 
     /**
-     * Indicates that this command doesn't terminate the application.
+     * Indicates that this duke.command doesn't terminate the application.
      *
-     * @return {@code false} since this command doesn't cause the application to exit.
+     * @return {@code false} since this duke.command doesn't cause the application to exit.
      */
     @Override
     public boolean isExit() {

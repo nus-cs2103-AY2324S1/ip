@@ -1,18 +1,20 @@
+package duke;
+
 import java.util.ArrayList;
 
-import exception.DukeException;
-import exception.EmptyTaskException;
-import exception.InvalidDateTimeException;
-import exception.InvalidIndexException;
+import duke.exception.DukeException;
+import duke.exception.EmptyTaskException;
+import duke.exception.InvalidDateTimeException;
+import duke.exception.InvalidIndexException;
 
-import tasks.TaskList;
-import tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.Task;
 
-import util.Ui;
-import util.Storage;
-import util.Parser;
+import duke.util.Ui;
+import duke.util.Storage;
+import duke.util.Parser;
 
-import command.Command;
+import duke.command.Command;
 public class Duke {
 
     private Storage storage;
