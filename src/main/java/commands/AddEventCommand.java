@@ -3,8 +3,10 @@ package commands;
 import tasks.Event;
 import tasks.Task;
 import tasks.TaskList;
+import utility.DateUtility;
 import utility.PrintUtility;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class AddEventCommand implements ICommand {
@@ -38,7 +40,21 @@ public class AddEventCommand implements ICommand {
     String eventFrom = String.join(" ", parts.subList(fromIdx + 1, toIdx));
     String eventTo = String.join(" ", parts.subList(toIdx + 1, parts.size()));
 
-    Task event = new Event(eventName, eventFrom, eventTo);
+    LocalDate eventFromDate = DateUtility.parse(eventFrom);
+    if (eventFromDate == null) {
+      PrintUtility.printText("Invalid event format: invalid from string, must be format " +
+          "dd/MM/yyyy");
+      return;
+    }
+
+    LocalDate eventToDate = DateUtility.parse(eventTo);
+    if (eventToDate == null) {
+      PrintUtility.printText("Invalid event format: invalid to string, must be format " +
+          "dd/MM/yyyy");
+      return;
+    }
+
+    Task event = new Event(eventName, eventFromDate, eventToDate);
     tasks.addTask(event);
     PrintUtility.printAddTask(event);
   }

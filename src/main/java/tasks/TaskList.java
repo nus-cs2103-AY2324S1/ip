@@ -120,10 +120,19 @@ public class TaskList {
             task = new ToDo(entry.get("name"));
             break;
           case "deadline":
-            task = new Deadline(entry.get("name"), DateUtility.parse(entry.get("due")));
+            LocalDate deadlineDate = DateUtility.parse(entry.get("due"));
+            if (deadlineDate == null) {
+              throw new IllegalStateException("Invalid deadline format");
+            }
+            task = new Deadline(entry.get("name"), deadlineDate);
             break;
           case "event":
-            task = new Event(entry.get("name"), entry.get("from"), entry.get("to"));
+            LocalDate fromDate = DateUtility.parse(entry.get("from"));
+            LocalDate toDate = DateUtility.parse(entry.get("to"));
+            if (fromDate == null || toDate == null) {
+              throw new IllegalStateException("Invalid from/to format");
+            }
+            task = new Event(entry.get("name"), fromDate, toDate);
             break;
           default:
             throw new IllegalStateException("Invalid task type found in data.json");
