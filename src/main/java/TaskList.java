@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class TaskList {
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     public TaskList() {}
 
@@ -11,5 +11,12 @@ public class TaskList {
 
     public void remove(int index) {
         this.tasks.remove(index);
+    }
+
+    public void printContents() {
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < this.tasks.size(); i++) {
+            System.out.println((i + 1) + "." + this.tasks.get(i));
+        }
     }
 }
