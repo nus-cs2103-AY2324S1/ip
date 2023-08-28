@@ -1,15 +1,16 @@
 package duke;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.util.Scanner;
+import duke.task.*;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
-
+/**
+ * Represents the storage of the tasks, where we can load our tasks from a file or save our tasks
+ * into a file.
+ */
 public class Storage {
     private String filePath;
     private String directoryPath;
@@ -93,8 +94,7 @@ public class Storage {
             return taskList;
 
         } catch (IOException e) {
-            System.out.println("Error creating file");
-            e.printStackTrace();
+            DukeExceptionHandler.printErrorMsg(e.getMessage());
             return new TaskList();
         }
     }
@@ -120,7 +120,7 @@ public class Storage {
 
             bufferedWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            DukeExceptionHandler.printErrorMsg(e.getMessage());
         }
     }
 }

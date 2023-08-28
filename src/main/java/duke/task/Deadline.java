@@ -1,8 +1,11 @@
 package duke.task;
+
 import java.time.LocalDateTime;
 
+/**
+ * Represents a task that has a deadline.
+ */
 public class Deadline extends Task {
-    // private String deadline;
     private LocalDateTime deadline;
     private static String noDescErrorMsg = "OOPS!!! The description of a deadline cannot be empty.";
 
@@ -77,14 +80,30 @@ public class Deadline extends Task {
         return deadline.trim();
     }
 
+    /**
+     * Returns a string representing the deadline to be displayed in the user interface.
+     * 
+     * @return the deadline to be displayed in the UI
+     */
     public String displayDeadline() {
         return this.displayTime(this.deadline);
     }
 
+    /**
+     * Returns a string representing the deadline which would form a part of the string to be saved 
+     * in the text file.
+     * 
+     * @return string representing the deadline to be saved in the text file
+     */
     public String saveDeadline() {
         return this.saveTime(this.deadline);
     }
 
+    /**
+     * Returns a string to be saved in the text file, specifically for an deadline.
+     * 
+     * @return a string to be saved in the text file
+     */
     @Override
     public String stringToSave() {
         return "D" + super.stringToSave() + " | " + this.saveDeadline(); 
