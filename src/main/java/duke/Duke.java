@@ -1,7 +1,7 @@
+package duke;
 
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.ArrayList;
+import duke.task.TaskList;
+
 public class Duke {
 
     private TaskList tasks;

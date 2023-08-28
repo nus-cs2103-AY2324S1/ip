@@ -1,7 +1,8 @@
+package duke;
+
+import duke.task.*;
 public class Parser {
     private static TaskList tasks;
-
-
     public static void parse(String input, TaskList tasks) throws DukeException {
         String[] parts = input.split(" ", 2);
         String command = parts[0];

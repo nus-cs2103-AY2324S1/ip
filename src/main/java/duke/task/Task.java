@@ -1,6 +1,4 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+package duke.task;
 public abstract class Task {
 
         protected String description;
