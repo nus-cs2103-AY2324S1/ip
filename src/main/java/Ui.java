@@ -10,7 +10,7 @@ public class Ui {
         return this.input.nextLine();
     }
 
-    public void showGreet() {
+    public void showWelcome() {
         System.out.println(LINE);
         System.out.println("\t Hello! I'm Bard.");
         System.out.println("\t What can I do for you?");
