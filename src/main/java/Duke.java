@@ -1,7 +1,10 @@
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Duke {
     private static final String CHAT_BOT_NAME = "Genos";
@@ -11,6 +14,7 @@ public class Duke {
                     "deadline", Command.DEADLINE, "delete", Command.DELETE)
     );
     private ArrayList<Task> tasks;
+
     private enum Command {
         MARK, UNMARK, LIST, EXIT, TODO, DEADLINE, EVENT, INVALID, DELETE
     }
@@ -64,14 +68,14 @@ public class Duke {
                     case MARK:
                         int num = Integer.parseInt(text.split(" ")[1]);
                         // index out of bounds error will be caught below
-                        task = this.tasks.get(num-1);
+                        task = this.tasks.get(num - 1);
                         task.doTask();
                         System.out.println("    I've marked this task as done:");
                         break;
                     case UNMARK:
                         int num2 = Integer.parseInt(text.split(" ")[1]);
                         // index out of bounds error will be caught below
-                        task = this.tasks.get(num2-1);
+                        task = this.tasks.get(num2 - 1);
                         task.undoTask();
                         System.out.println("    I've marked this task as not done yet:");
                         break;
@@ -92,16 +96,16 @@ public class Duke {
                     case EVENT:
                         String[] parts = (text.substring(6)).split("/");
                         if (parts.length != 3 || !parts[1].startsWith("from ") ||
-                            !parts[2].startsWith("to ")) {
+                                !parts[2].startsWith("to ")) {
                             throw new RuntimeException("    Invalid format for adding an event! "
-                            + "Please enter in this format:\n"
-                            + "event [description] /from [date] /to [date]");
+                                    + "Please enter in this format:\n"
+                                    + "event [description] /from [date] /to [date]");
                         }
                         String fromTime = parts[1].substring(5); // remove the "from "
                         String toTime = parts[2].substring(3);  // remove the "to "
                         task = new Event(parts[0], fromTime, toTime);
                         this.tasks.add(task);
-                        System.out.println("    Added Event to the list of tasks:" );
+                        System.out.println("    Added Event to the list of tasks:");
                         break;
                     case DEADLINE:
                         String[] parts2 = (text.substring(9)).split("/");
@@ -129,6 +133,13 @@ public class Duke {
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
+            // if it reaches here, there must be a change in tasks
+            try {
+                this.saveToDisk();
+            } catch (IOException e) {
+                System.out.println("Something went wrong while trying to save the tasks to the disk!");
+            }
+
         }
     }
 
@@ -141,6 +152,24 @@ public class Duke {
     private Command textToCommand(String text) {
         String cmd = text.split(" ")[0];
         return Duke.commandMap.getOrDefault(cmd, Command.INVALID);
+    }
+
+    private void saveToDisk() throws IOException {
+        // create a new directory if it does not exist yet
+        try {
+            new File("./data").mkdir();
+        } catch (SecurityException e) {
+            // error in creating the directory
+            System.out.println("There was an error creating the diretory when trying to save tasks");
+        }
+        StringBuilder content = new StringBuilder();
+        for (Task task : this.tasks) {
+            content.append(task.toString());
+            content.append(System.lineSeparator());
+        }
+        FileWriter fw = new FileWriter("data/tasks.txt");
+        fw.write(content.toString());
+        fw.close();
     }
 
     public static void main(String[] args) {
