@@ -4,6 +4,7 @@
 public class ToDos extends Task {
     /**
      * Constructor to initialize the ToDos class.
+     *
      * @param description Describes the todos task.
      */
     public ToDos(String description) {
@@ -11,8 +12,15 @@ public class ToDos extends Task {
     }
 
     /**
-     * Method that overrides default toString.
-     * @return String representation of ToDos.
+     * {@inheritDoc}
+     */
+    public String toFileString() {
+        String doneStatus = isDone ? "1" : "0";
+        return String.format("T | %s | %s", doneStatus, this.description);
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

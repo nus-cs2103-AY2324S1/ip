@@ -9,6 +9,7 @@ public class Events extends Task{
 
     /**
      * Constructor to initialize the Events class.
+     *
      * @param description Describes the event.
      * @param from When the event is from.
      * @param to Until when the event is to.
@@ -20,8 +21,15 @@ public class Events extends Task{
     }
 
     /**
-     * Method that overrides default toString.
-     * @return String representation of Events.
+     * {@inheritDoc}
+     */
+    public String toFileString() {
+        String doneStatus = isDone ? "1" : "0";
+        return String.format("E | %s | %s | %s | %s", doneStatus, this.description, this.from, this.to);
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
