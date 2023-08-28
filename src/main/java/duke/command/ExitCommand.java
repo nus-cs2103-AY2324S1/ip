@@ -14,6 +14,15 @@ public class ExitCommand extends Command {
         return true;
     }
 
+    /*
+     * A method that executes the command that user gave
+     * 
+     * @params tasks TaskList containing all existing Task objects
+     * 
+     * @params ui UI interface that is used to print messages to the terminak
+     * 
+     * @params storage Storage object that houses database of the program
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
 
     }
