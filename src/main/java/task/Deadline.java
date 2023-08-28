@@ -1,3 +1,7 @@
+package task;
+
+import task.Task;
+
 public class Deadline extends Task {
 
     private String dateOfDeadline;

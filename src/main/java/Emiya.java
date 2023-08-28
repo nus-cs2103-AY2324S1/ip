@@ -1,4 +1,18 @@
-import emiyaexception.*;
+import emiyaexception.EmiyaException;
+import emiyaexception.EmptyDeadlineException;
+import emiyaexception.EmptyEventException;
+import emiyaexception.EmptyTodoException;
+import emiyaexception.ListEmptyException;
+import emiyaexception.NoByException;
+import emiyaexception.NoFromException;
+import emiyaexception.NoToException;
+import emiyaexception.OutOfListBoundsException;
+import emiyaexception.UnknownCommandException;
+
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,7 +36,7 @@ public class Emiya {
 
     public static void main(String[] args) {
 
-        // Represents the list as an ArrayList of Task objects
+        // Represents the list as an ArrayList of task.Task objects
         ArrayList<Task> taskArrayList = new ArrayList<>();
         String welcomeMessage = "-----------------------------------------\n"
                 + "Hello! I'm Emiya\n"
@@ -108,7 +122,7 @@ public class Emiya {
                 case "mark":
                     if (position != null) {
                         if (position <= 0 || position > taskArrayList.size()) {
-                            // throw new EmiyaException("Task does not exist! Please try with a different value");
+                            // throw new EmiyaException("task.Task does not exist! Please try with a different value");
                             throw new OutOfListBoundsException();
                         }
                         taskArrayList.get(position-1).setMarked();
@@ -123,7 +137,7 @@ public class Emiya {
                 case "unmark":
                     if (position != null) {
                         if (position <= 0 || position > taskArrayList.size()) {
-                            // throw new EmiyaException("Task does not exist! Please try with a different value");
+                            // throw new EmiyaException("task.Task does not exist! Please try with a different value");
                             throw new OutOfListBoundsException();
                         }
                         taskArrayList.get(position-1).setUnmarked();
@@ -138,7 +152,7 @@ public class Emiya {
                 case "delete":
                     if (position != null) {
                         if (position <= 0 || position > taskArrayList.size()) {
-                            // throw new EmiyaException("Task does not exist! Please try with a different value");
+                            // throw new EmiyaException("task.Task does not exist! Please try with a different value");
                             throw new OutOfListBoundsException();
                         }
                         Task task = taskArrayList.get(position-1);
@@ -185,7 +199,7 @@ public class Emiya {
                     break;
                 case "deadline": // go through taskDetails and find /by
                     if (taskDetails.length() < 1) {
-                        // throw new EmiyaException("Oh no! Deadline tasks cannot be empty! Please try again!");
+                        // throw new EmiyaException("Oh no! task.Deadline tasks cannot be empty! Please try again!");
                         throw new EmptyDeadlineException();
                     }
                     String[] deadlineDetails = taskDetails.split("/by", 2);
@@ -211,7 +225,7 @@ public class Emiya {
                     break;
                 case "event": // need to go through taskDetails and find /from and /to
                     if (taskDetails.length() <= 1) {
-                        // throw new EmiyaException("Oh no! Event tasks cannot be empty! Please try again!");
+                        // throw new EmiyaException("Oh no! task.Event tasks cannot be empty! Please try again!");
                         throw new EmptyEventException();
                     }
                     String[] eventDetails = taskDetails.split("/from ", 2);

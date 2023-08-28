@@ -1,3 +1,7 @@
+package task;
+
+import task.Task;
+
 public class Event extends Task {
 
     private String start;
