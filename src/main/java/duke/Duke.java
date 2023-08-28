@@ -1,3 +1,12 @@
+package duke;
+
+import duke.command.Command;
+import duke.data.exception.DukeException;
+import duke.data.task.TaskList;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.ui.Ui;
+
 public class Duke {
 
     private static final String BOT_NAME = "SoCrates";

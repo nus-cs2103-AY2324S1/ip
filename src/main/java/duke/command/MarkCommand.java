@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.data.exception.DukeException;
+import duke.storage.Storage;
+import duke.data.task.Task;
+import duke.data.task.TaskList;
+import duke.ui.Ui;
+
 public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";

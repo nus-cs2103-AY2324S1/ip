@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.storage.Storage;
+import duke.data.task.TaskList;
+import duke.data.task.Todo;
+import duke.ui.Ui;
+
 public class AddTodoCommand extends Command {
 
     public static final String COMMAND_WORD = "todo";
