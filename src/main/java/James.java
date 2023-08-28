@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 
 public class James {
     public enum TaskType {
@@ -67,7 +68,7 @@ public class James {
                         if (description.length == 1) {
                             throw new JamesException(sadFace + " OOPS!!! The description of a todo cannot be empty.");
                         }
-                        task = new ToDo(description[1]);
+                        task = new ToDoTask(description[1]);
                     } else if (taskType == TaskType.DEADLINE) {
                         String[] parsed = input.split("deadline ");
                         if (parsed.length == 1) {
@@ -79,7 +80,7 @@ public class James {
                         }
                         String description = param[0];
                         String time = param[1];
-                        task = new Deadline(description, time);
+                        task = new DeadlineTask(description, time);
                     } else if (taskType == TaskType.EVENT) {
                         String[] parsed = input.split("event ")[1].split(" /from ");
                         if (parsed.length == 1) {
@@ -92,7 +93,7 @@ public class James {
                         }
                         String startTime = params[0];
                         String endTime = params[1];
-                        task = new Event(description, startTime, endTime);
+                        task = new EventTask(description, startTime, endTime);
                     } else {
                         throw new JamesException(sadFace + " OOPS!!! I'm sorry, but I don't know what that means :-(");
                     }
@@ -113,6 +114,22 @@ public class James {
     }
 
     public void save() {
+        String path = "../james.txt";
+        try {
+            File file = new File(path);
 
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            java.io.FileWriter fw = new java.io.FileWriter(file);
+            for (Task task : this.items) {
+                fw.write(task.toString() + "\n");
+            }
+            fw.close();
+        } catch (java.io.IOException e) {
+            System.out.println("An error occurred when saving: " + e.getMessage());
+        }
     }
+
 }
