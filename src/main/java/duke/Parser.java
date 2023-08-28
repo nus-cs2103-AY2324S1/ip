@@ -9,6 +9,9 @@ public class Parser {
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
+
+    private SearchEngine searchEngine;
+
     private boolean hasCommands = true;
 
     /**
@@ -17,10 +20,11 @@ public class Parser {
      * @param storage   the storage
      * @param ui    the ui
      */
-    public Parser(TaskList taskList, Storage storage, Ui ui) {
+    public Parser(TaskList taskList, Storage storage, Ui ui, SearchEngine searchEngine) {
         this.taskList = taskList;
         this.storage = storage;
         this.ui = ui;
+        this.searchEngine = searchEngine;
     }
 
     /**
@@ -96,6 +100,12 @@ public class Parser {
                     int taskNumberDelete = Integer.parseInt(splitString[1]);
                     totalItemNumber--;
                     this.taskList.deleteTask(taskNumberDelete - 1, totalItemNumber, storage);
+                    break;
+                case FIND:
+                    searchEngine.searchValidator(input);
+                    String keyword = input.split(" ")[1];
+                    TaskList searchResult = this.searchEngine.search(keyword);
+                    this.ui.showSearchResult(searchResult);
                     break;
 
             }

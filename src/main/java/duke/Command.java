@@ -9,12 +9,13 @@ public enum Command {
     TODO,
     DEADLINE,
     EVENT,
-    DELETE;
+    DELETE,
+    FIND;
 
     public static final String[] validCommands =
             {"list", "bye", "todo <task_name>", "deadline <task_name> /by <deadline>",
                     "event <task_name> /from <start-time> /to <end-time>", "mark <number>",
-                    "unmark <number>", "delete <number>"};
+                    "unmark <number>", "delete <number>", "find <keyword>"};
 
 
 
@@ -38,6 +39,8 @@ public enum Command {
             return Command.EVENT;
         } else if (commandWord.startsWith("delete")) {
             return Command.DELETE;
+        } else if (commandWord.startsWith("find")) {
+            return Command.FIND;
         } else {
             throw new InvalidInputException();
         }

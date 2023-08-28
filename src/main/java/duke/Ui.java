@@ -62,6 +62,20 @@ public class Ui {
         System.out.println(message);
     }
 
-
+    /**
+     * Shows the user the result of the search
+     * @param taskList  the list of tasks
+     */
+    public void showSearchResult(TaskList taskList) {
+        if (taskList.length() < 1) {
+            System.out.println("There are no matching tasks in your list");
+            System.out.println("Remember it is space sensitive!");
+            return;
+        }
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < taskList.length(); i++) {
+            System.out.println(i + 1 + ". " +taskList.getTask(i));
+        }
+    }
 
 }

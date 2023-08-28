@@ -68,7 +68,11 @@ public class TaskList {
         }
     }
 
-    private void addTaskInterally(Task task) {
+    /**
+     * Adds a task to the taskList without saving it
+     * @param task  the task to be added
+     */
+    public void addTaskQuietly(Task task) {
         this.taskList.add(task);
     };
 

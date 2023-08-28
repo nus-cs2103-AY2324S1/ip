@@ -87,6 +87,13 @@ public class Task {
         return "";
     }
 
+    /**
+     * Returns the task name
+     * @return
+     */
+    public String getTaskName() {
+        return this.taskName;
+    }
 
     @Override
     public String toString() {
@@ -96,4 +103,5 @@ public class Task {
             return "[" + this.getStatusIcon() + "] " + this.taskName;
         }
     }
+
 }
