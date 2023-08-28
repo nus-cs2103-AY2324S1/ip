@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -9,8 +10,20 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+}
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType(Test) {
+    systemProperty "file.encoding", "UTF-8"
 }
 
 test {
@@ -28,7 +41,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Duke")
 }
 
 shadowJar {
