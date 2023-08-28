@@ -1,3 +1,10 @@
+
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.io.File;
+import java.rmi.activation.ActivationGroup_Stub;
 import java.util.Scanner;
 import java.util.ArrayList;
 public class MeowBot {
@@ -5,14 +12,27 @@ public class MeowBot {
     enum TaskType {Event, Deadline, Todo};
     ArrayList<Task> Tasklist;
     int counter;
-    String lines,command;
-
+    String lines,command, filename;
     Scanner scan;
+    FileWriter writer;
 
-    public MeowBot() {
+    public MeowBot()  {
         this.scan = new Scanner(System.in);
         this.Tasklist = new ArrayList<>();
         this.lines = "______________________________";
+        this.filename = "src/main/data/meowbot.txt";
+        try {
+            this.loadTask();
+            writer = new FileWriter(this.filename, true);
+        } catch (FileNotFoundException e) {
+            System.out.println("Meow?? I cant find your data");
+        } catch (IOException e) {
+            System.out.println("MEOOOWWWW!!! cannot initialise writer");
+        } catch (DukeException e) {
+            System.out.println("Meow!! I have meowblem to load past tasks");
+            System.out.println(e);
+        }
+
     }
 
     public void greet() {
@@ -34,6 +54,12 @@ public class MeowBot {
         System.out.println("Nice! I've meowrked this task as done: ");
         System.out.println("   " + wantedtask);
         System.out.println(lines);
+        try {
+            this.markTaskLocalStorage(tasknumber - 1, 1);
+        } catch (IOException e) {
+            System.out.println("Cannot makr local storage");
+        }
+
     }
 
     public void unmarkTask(String command) {
@@ -43,16 +69,79 @@ public class MeowBot {
         System.out.println("Ok, get your task done soon, I'll be waiting!");
         System.out.println(" " + wantedtask);
         System.out.println(lines);
+        try {
+            this.markTaskLocalStorage(tasknumber - 1, 0);
+        } catch (IOException e) {
+            System.out.println("Cannot makr local storage");
+        }
     }
 
     public void deleteTask(String command) {
         int tasknumber = Integer.parseInt(command.substring(7));
         Task wantedtask = this.Tasklist.get(tasknumber - 1);
-        this.removeTask(tasknumber - 1);
+        this.removeTask(tasknumber - 1); //this would also be the line number to delete in the txt file
         System.out.println("Meow... ok, I've removed this task: ");
         System.out.println(" " + wantedtask);
         System.out.println("Now you have " + this.Tasklist.size() + " meow-tasks in the list.");
         System.out.println(lines);
+        try {
+            this.deleteFromLocalStorage(tasknumber - 1);
+            System.out.println("Delete from storage");
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteFromLocalStorage(int num) throws IOException {
+        String tempfile = "src/main/data/temp.txt";
+        FileWriter tempwriter = new FileWriter(tempfile, true);  // Open the file in append mode
+        FileWriter writer = new FileWriter(filename, true);
+        Scanner sc = new Scanner(new File(filename));
+        int count = 0;
+        while (sc.hasNextLine()){
+            String l = sc.nextLine();
+            if (count == num){
+                count ++;
+            }
+            else {
+                count += 1;
+                tempwriter.write(l);
+            }
+        }
+        File ogfile = new File(filename);
+        File temp = new File(tempfile);
+        tempwriter.close();
+        writer.close();
+        ogfile.delete();
+        temp.renameTo(new File(filename));
+
+    }
+
+    public void markTaskLocalStorage(int linenum, int mark) throws IOException {
+        String tempfile = "src/main/data/temp.txt";
+        FileWriter tempwriter = new FileWriter(tempfile, true);  // Open the file in append mode
+        FileWriter writer = new FileWriter(filename, true);
+        Scanner sc = new Scanner(new File(filename));
+        int count = 0;
+        while (sc.hasNextLine()){
+            if (count == linenum) {
+                String[] arr = sc.nextLine().split("\\|");
+                arr[0] = String.valueOf(mark);
+                tempwriter.append(String.join("|", arr));
+            }
+            else {
+                tempwriter.append(sc.next());
+            }
+            count += 1;
+
+        }
+        File ogfile = new File(filename);
+        File temp = new File(tempfile);
+        tempwriter.close();
+        writer.close();
+        ogfile.delete();
+        temp.renameTo(new File(filename));
     }
 
     public void listTasks() {
@@ -70,18 +159,105 @@ public class MeowBot {
     }
 
     public void addDeadlineTask(String command) throws DukeException {
-        String taskInput = command.substring(8);
+        String taskInput = command.substring(9);
         String[] ans = taskInput.split("/");
         String deadline = ans[0].substring(1);
         this.addTask(taskInput, TaskType.Deadline);
+
     }
 
     public void addEventTask(String command) throws DukeException {
-        String taskInput = command.substring(5);
+        String taskInput = command.substring(6);
         String[] ans = taskInput.split("/");
         String startdate = ans[0];
         String enddate = ans[0];
         this.addTask(taskInput, TaskType.Event);
+    }
+
+
+    void addTask(String taskname, TaskType eType) throws DukeException{
+        Task task = null;
+        if (eType == TaskType.Todo) {
+            task = new Todo(taskname);
+        } else if (eType == TaskType.Event) {
+            task = new Event(taskname);
+        } else if (eType == TaskType.Deadline) {
+            task = new Deadline(taskname);
+        }
+        this.Tasklist.add(task);
+
+
+        System.out.println("MEOW got it. I've added this task:\n   " + task);
+        System.out.println("Now you have " + this.Tasklist.size() + " meow-tasks in the list.");
+        System.out.println(lines);
+
+        try {
+            // 0 is not completed
+            // 1 is completed
+            this.writeToLocalStorage(taskname, eType, 0);
+            System.out.println("Yayers! Saved your data to local storage");
+
+        } catch (IOException e) {
+            System.out.println("MEOWWW!!! Cannot write to local storage");
+        }
+    }
+
+    boolean getCommand(String command) throws DukeException{
+        String firstword = command.split(" ")[0];
+        String[] commands = {"bye","list", "unmark","mark", "todo", "deadline", "event", "delete"};
+        for (String c: commands) {
+            if(c.equals(firstword)) return true;
+        }
+        throw new DukeException("Invalid keyword");
+
+    }
+
+    void removeTask(int taskNumber) {
+        this.Tasklist.remove(taskNumber);
+    }
+
+    void loadTask() throws FileNotFoundException, DukeException {
+        Scanner sc = new Scanner(new File(filename));
+        int count = 0;
+        while (sc.hasNextLine()){
+            Task generatedTask = generateTaskFromString(sc.nextLine());
+            this.Tasklist.add(generatedTask);
+            count += 1;
+        }
+        if (count == 0) System.out.println("Meow! A new User yay");
+
+        else System.out.println("Meow! Successfully loaded " + count + " tasks from previous session");
+
+    }
+
+    Task generateTaskFromString(String taskname) throws DukeException {
+        // check the taskname and its type
+        Task generatedTask = null;
+        String[] arr = taskname.split("\\|");
+        int length = arr.length;
+        String tasktype = arr[2];
+        String result = arr[1];
+        String mark = arr[0];
+
+        if (tasktype.equals("Event")) {
+            generatedTask = new Event(result);
+        } else if (tasktype.equals("Deadline")) {
+            generatedTask = new Deadline(result);
+        } else if (tasktype.equals("Todo")) {
+            generatedTask = new Todo(result);
+        }
+        if (mark.equals("1")) generatedTask.markCompleted();
+        else if (mark.equals("0")) generatedTask.markUncompleted();
+
+        return generatedTask;
+
+    }
+
+    void writeToLocalStorage(String taskname, TaskType type, int completed) throws IOException {
+        // 1 mean true
+        FileWriter writer = new FileWriter(this.filename, true);  // Open the file in append mode
+        writer.write(completed + "|" + taskname.toString() + "|" + type + "\n");  // Append the new task and a newline character
+        writer.close();
     }
     public void processCommand() {
         String command = this.scan.nextLine();
@@ -124,41 +300,11 @@ public class MeowBot {
             }
         }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         MeowBot meowBot = new MeowBot();
         meowBot.greet();
         meowBot.processCommand();
         meowBot.bye();
     }
 
-    void addTask(String taskname, TaskType eType) throws DukeException{
-        Task task = null;
-        if (eType == TaskType.Todo) {
-            task = new Todo(taskname);
-        } else if (eType == TaskType.Event) {
-            task = new Event(taskname);
-        } else if (eType == TaskType.Deadline) {
-            task = new Deadline(taskname);
-        }
-        this.Tasklist.add(task);
-        System.out.println(lines);
-
-        System.out.println("MEOW got it. I've added this task:\n   " + task);
-        System.out.println("Now you have " + this.Tasklist.size() + " meow-tasks in the list.");
-        System.out.println(lines);
-    }
-
-    boolean getCommand(String command) throws DukeException{
-        String firstword = command.split(" ")[0];
-        String[] commands = {"bye","list", "unmark","mark", "todo", "deadline", "event", "delete"};
-        for (String c: commands) {
-            if(c.equals(firstword)) return true;
-        }
-        throw new DukeException("Invalid keyword");
-
-    }
-
-    void removeTask(int taskNumber) {
-        this.Tasklist.remove(taskNumber);
-    }
 }
