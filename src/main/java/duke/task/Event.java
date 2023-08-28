@@ -19,7 +19,7 @@ public class Event extends Task {
      * @param description String describing the Event.
      * @param start Start date in MMM DD YYYY format.
      * @param end End date in MMM DD YYYY format.
-     * @throws DukeEndDateBeforeStartDateException
+     * @throws DukeEndDateBeforeStartDateException If the end date is before the start date.
      */
     public Event(String description, LocalDate start,LocalDate end) throws DukeEndDateBeforeStartDateException {
         super(description);
