@@ -23,6 +23,18 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    |____/ \__,_|_|\_\___|
    ```
 
+
+Notes:
+ - commands are in format COMMAND NAME /ARGUMENT_NAME ARGUMENT
+ - TIME is in format yyyy-mm-dd (2019-10-15)
+ - list
+ - todo STRING
+ - deadline STRING /by TIME
+ - event STRING /from TIME /to TIME
+ - delete NUMBER
+ - mark NUMBER
+ - unmark NUMBER
+ 
 TODO:
  - refactor exceptions to interrupt exceptions and noninterrupt
  - refactor printer
