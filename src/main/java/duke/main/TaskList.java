@@ -27,5 +27,16 @@ public class TaskList {
         return tasks.get(index);
     }
 
-
+    public String find(String keyword) {
+        String matchingTasks = "";
+        int index = 1;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task currentTask = tasks.get(i);
+            if (currentTask.showContent().contains(keyword)) {
+                matchingTasks += String.format("  %d. %s\n", index, currentTask.toString().trim());
+                index += 1;
+            }
+        }
+        return matchingTasks;
+    }
 }
