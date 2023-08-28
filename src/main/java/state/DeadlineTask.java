@@ -1,16 +1,16 @@
 package state;
 
-import java.time.LocalDateTime;
+import util.DateTime;
 
 public final class DeadlineTask extends Task {
-    private final LocalDateTime by;
+    private final DateTime by;
 
-    public DeadlineTask(String title, boolean isDone, LocalDateTime by) {
+    public DeadlineTask(String title, boolean isDone, DateTime by) {
         super(title, isDone);
         this.by = by;
     }
 
-    public LocalDateTime getBy() {
+    public DateTime getBy() {
         return by;
     }
 

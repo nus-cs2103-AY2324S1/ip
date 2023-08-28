@@ -1,22 +1,22 @@
 package state;
 
-import java.time.LocalDateTime;
+import util.DateTime;
 
 public final class EventTask extends Task {
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private final DateTime from;
+    private final DateTime to;
 
-    public EventTask(String title, boolean isDone, LocalDateTime from, LocalDateTime to) {
+    public EventTask(String title, boolean isDone, DateTime from, DateTime to) {
         super(title, isDone);
         this.from = from;
         this.to = to;
     }
 
-    public LocalDateTime getFrom() {
+    public DateTime getFrom() {
         return from;
     }
 
-    public LocalDateTime getTo() {
+    public DateTime getTo() {
         return to;
     }
 

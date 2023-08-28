@@ -1,14 +1,12 @@
 package action;
 
-import java.time.LocalDateTime;
-
 import util.DateTime;
 
 public final class CreateDeadlineAction extends Action {
     private final String title;
-    private final LocalDateTime by;
+    private final DateTime by;
 
-    public CreateDeadlineAction(String title, LocalDateTime by) {
+    public CreateDeadlineAction(String title, DateTime by) {
         this.title = title;
         this.by = by;
     }
@@ -17,12 +15,12 @@ public final class CreateDeadlineAction extends Action {
         return title;
     }
 
-    public LocalDateTime getBy() {
+    public DateTime getBy() {
         return by;
     }
 
     @Override
     public String toString() {
-        return String.format("deadline %s /by %s", title, by.format(DateTime.FORMATTER));
+        return String.format("deadline %s /by %s", title, by);
     }
 }

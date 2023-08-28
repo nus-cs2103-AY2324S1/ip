@@ -39,6 +39,10 @@ public class Ekud {
         }
 
         Program program = new Program(System.in, System.out, dataFileOut);
-        program.run(state);
+        if (state != null) {
+            program.run(state);
+        } else {
+            program.run();
+        }
     }
 }

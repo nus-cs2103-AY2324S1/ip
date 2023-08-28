@@ -1,6 +1,6 @@
 list
-deadline Submit Tutorial 1 /by Thursday
-event Birthday celebration /from 5pm /to 9pm
+deadline Submit Tutorial 1 /by 05-04-2023
+event Birthday celebration /from 17:00 /to 21:00
 todo Clear the trash
 list
 mark 1
