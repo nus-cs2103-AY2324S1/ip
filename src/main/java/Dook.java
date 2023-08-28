@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.jar.Attributes;
 
+
 public class Dook {
     public static final String name = "Dook";
     public static final String FILEPATH = "./data/dook.txt";
@@ -10,25 +11,7 @@ public class Dook {
     private Parser parser;
     private UiDisplay uiDisplay = new UiDisplay();
     private boolean isActive;
-    private enum Command{
-        bye("Exits the program."), list("Displays the current tasks"),
-        mark("Marks selected task as done."), unmark("Marks selected task as undone."),
-        todo("Adds a task."), deadline("Adds a task with a deadline."),
-        event("Adds a task with a start and end time."), delete("Deletes selected task from list."),
-        save("Saves the current task list to a file"),
-        invalid("You entered an invalid command.");
 
-        private final String desc;
-
-        Command(String desc) {
-            this.desc = desc;
-        }
-        @Override
-        public String toString() {
-            return this.name() + ": " + this.desc;
-        }
-
-    }
     private static Command parseKeyword(String keyword) {
          try {
             return Command.valueOf(keyword);
@@ -121,53 +104,53 @@ public class Dook {
     public TaskList taskList = new TaskList(null);
     private void handleToDo(String body) throws DookException {
         if (body.isBlank()) {
-            throw new DookException(String.format("Usage: todo [name]"));
+            throw new DookException("Usage: todo [name]");
         }
-        Task task = new Todo(body.trim());
+        Task task = new Todo(body.trim(), false);
         addToTaskList(task);
     }
     private void handleDeadline(String body) throws DookException {
         if (body.isBlank()) {
-            throw new DookException(String.format("Usage: deadline [name] /by [time]."));
+            throw new DookException("Usage: deadline [name] /by [time].");
         }
 
         String[] tmp = body.split("/by", 2);
         if (tmp.length <= 1) {
-            throw new DookException(String.format("Usage: deadline [name] /by [time]."));
+            throw new DookException("Usage: deadline [name] /by [time].");
         }
 
         String desc = tmp[0].trim();
         String by = tmp[1].trim();
         if (desc.isBlank() || by.isBlank()) {
-            throw new DookException(String.format("Some information is missing!\n" +
-                    "Usage: deadline [name] /by [time]."));
+            throw new DookException("Some information is missing!\n" +
+                    "Usage: deadline [name] /by [time].");
         }
-        Task task = new Deadline(desc, by);
+        Task task = new Deadline(desc, by, false);
         addToTaskList(task);
     }
     private void handleEvent(String body) throws DookException{
         if (body.isBlank()) {
-            throw new DookException(String.format("Usage: event [name] /from [start] /to [end]."));
+            throw new DookException("Usage: event [name] /from [start] /to [end].");
         }
         String[] tmp1 = body.split("/from", 2);
         if (tmp1.length <= 1) {
-            throw new DookException(String.format("Usage: event [name] /from [start] /to [end]."));
+            throw new DookException("Usage: event [name] /from [start] /to [end].");
         }
 
         String desc = tmp1[0].trim();
 
         String[] tmp2 = tmp1[1].split("/to", 2);
         if (tmp2.length <= 1) {
-            throw new DookException(String.format("Usage: event [name] /from [start] /to [end]."));
+            throw new DookException("Usage: event [name] /from [start] /to [end].");
         }
         String from = tmp2[0].trim();
         String to = tmp2[1].trim();
         if (desc.isBlank() || from.isBlank() || to.isBlank()) {
-            throw new DookException(String.format("Some information is missing!\n" +
-                    "Usage: event [name] /from [start] /to [end]."));
+            throw new DookException("Some information is missing!\n" +
+                    "Usage: event [name] /from [start] /to [end].");
         }
 
-        Task task = new Event(desc, from, to);
+        Task task = new Event(desc, from, to, false);
         addToTaskList(task);
     }
     private void addToTaskList(Task task) {
@@ -190,7 +173,7 @@ public class Dook {
         try {
             index = Integer.parseInt(body.split(" ", 2)[0]);
         } catch (NumberFormatException e) {
-            throw new DookException(String.format("Usage: delete [task number]"));
+            throw new DookException("Usage: delete [task number]");
         }
         uiDisplay.printMessage(taskList.deleteTask(index));
     }
