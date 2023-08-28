@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.io.IOException;
 
-
 /**
  * Represents the main class for the Friday application.
  */
