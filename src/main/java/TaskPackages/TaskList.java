@@ -136,4 +136,8 @@ public class TaskList {
     list.remove(0);
     return tempString;
   }
+
+  public int getSize() {
+    return list.size();
+  }
 }

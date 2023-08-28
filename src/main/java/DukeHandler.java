@@ -27,7 +27,7 @@ public class DukeHandler {
         try {
             if (Files.notExists(path)) {
                 Files.createFile(path);
-            }  
+            } 
             BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8, StandardOpenOption.WRITE);
             while (!tasklist.isEmpty()) {
                 writer.write(tasklist.clearList());
@@ -57,6 +57,10 @@ public class DukeHandler {
                         System.err.println(tasklist.addTodo(parsedContent[2]));
                     } else {
                         System.err.println("Invalid file format");
+                        break;
+                    }
+                    if (Integer.parseInt(parsedContent[1]) == 1) {
+                        tasklist.markAsDone(String.format("%d", tasklist.getSize()));
                     }
                 }
                 return tasklist;
