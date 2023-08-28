@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -103,6 +104,8 @@ public class Duke {
                     task = new Deadline(description, by);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("\u2639 OOPS!!! The deadline of a deadline cannot be empty.");
+                } catch (DateTimeParseException e) {
+                    throw new DukeException("\u2639 OOPS!!! The date time format must be something like 2007-12-03T10:15:30.");
                 }
                 break;
             case EVENT:
@@ -112,6 +115,8 @@ public class Duke {
                     task = new Event(description, from, to);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("\u2639 OOPS!!! The start time or end time of an event cannot be empty.");
+                } catch (DateTimeParseException e) {
+                    throw new DukeException("\u2639 OOPS!!! The date time format must be something like 2007-12-03T10:15:30.");
                 }
                 break;
             default:
