@@ -57,4 +57,20 @@ public class Ui {
     public void showLoadingError() {
         System.out.println("OHNO! Loading error!");
     }
+
+    public static void generateFindMessage(String toMatch, TaskList taskList) {
+        System.out.println("Here are the matching tasks in your list:");
+        int count = 0;
+        for (int i = 0; i < taskList.getSize(); i++) {
+            Task task = taskList.getTask(i);
+            String stringTask =  task.toString();
+            if (stringTask.contains(toMatch)) {
+                count++;
+                System.out.println((count) + ". " + stringTask);
+            }
+        }
+        if (count == 0) {
+            System.out.println("There is no matching task:(");
+        }
+    }
 }

@@ -1,9 +1,6 @@
 package teho.main;
 
-import teho.exceptions.EmptyDeadlineDescriptionException;
-import teho.exceptions.EmptyEventDescriptionException;
-import teho.exceptions.EmptyToDoDescriptionException;
-import teho.exceptions.InvalidCommandException;
+import teho.exceptions.*;
 
 import java.util.Scanner;
 import static java.lang.Integer.parseInt;
@@ -44,6 +41,8 @@ public class TehO {
                 addEvent(userCommand);
             } else if (userCommand.startsWith("delete")) {
                 delete(userCommand);
+            } else if (userCommand.startsWith("find")){
+                find(userCommand);
             } else {
                 try {
                     throw new InvalidCommandException();
@@ -124,12 +123,23 @@ public class TehO {
         }
     }
 
-
     public  void delete(String userCommand) {
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
         Task task = this.taskList.getTask(taskNumber);
         this.taskList.remove(taskNumber);
         ui.generateDeleteMessage(task, taskList);
+    }
+
+    public void find(String userCommand) {
+        try {
+            if (userCommand.length() < 5) {
+                throw new EmptyFindDescriptionException();
+            }
+            String toMatch = userCommand.substring(5); //"deadline " 9 index
+            ui.generateFindMessage(toMatch, taskList);
+        } catch (EmptyFindDescriptionException e) {
+            System.out.println(e.toString());
+        }
     }
 }
 
