@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Deadline extends Task {
@@ -51,9 +53,32 @@ public class Deadline extends Task {
         String description = currStr.substring(0, dateIndex);
         Task deadlineTask = new Deadline(description, date);
         list.add(deadlineTask);
+        try {
+            FileWriter myWriter = new FileWriter("./src/main/data/duke.txt", true);
+            myWriter.write(  "D | 0 | " + description + "| " + date + "\n");
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
         System.out.println(deadlineTask);
         System.out.println("Now you have " + list.size() + " tasks in the list." );
         printHorizontalLine();
+    }
+
+
+    public static void readData(ArrayList<Task> list, String data) {
+        String splitDeadline[] = data.split(" \\| ");
+
+//        for (int i = 0; i < splitDeadline.length; i++) {
+//            System.out.println(splitDeadline[i]);
+//        }
+
+        Task deadlineTask = new Deadline(splitDeadline[2], splitDeadline[3]);
+        list.add(deadlineTask);
+        if (splitDeadline[1].equals("1")) {
+            list.get(list.size()-1).markDoneNoPrint();
+        }
     }
 
     @Override
