@@ -1,5 +1,10 @@
+package duke.command;
+
+import duke.TaskList;
+import duke.Ui;
+
 /**
- * Command use to end the program.
+ * duke.command.Command use to end the program.
  */
 public class ExitCommand implements Command{
 

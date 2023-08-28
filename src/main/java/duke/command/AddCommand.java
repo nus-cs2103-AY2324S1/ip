@@ -1,5 +1,14 @@
+package duke.command;
+
+import duke.*;
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 /**
- * Command that adds the task to the task list.
+ * duke.command.Command that adds the task to the task list.
  */
 public class AddCommand implements Command{
 
@@ -12,7 +21,7 @@ public class AddCommand implements Command{
      * @return {@code false} as the program should continue running.
      */
     @Override
-    public boolean execute(TaskList tasks,Ui ui) throws DukeException {
+    public boolean execute(TaskList tasks, Ui ui) throws DukeException {
         String userInput = ui.getLastMsg();
         Task task = null;
 

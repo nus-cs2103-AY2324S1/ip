@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.exception.DukeException;
+
 import java.time.LocalDate;
 
 /**
@@ -6,7 +10,7 @@ import java.time.LocalDate;
 public abstract class Task {
 
     /**
-     * The Task Type of the Task.
+     * The duke.task.Task Type of the duke.task.Task.
      */
     protected Task.TaskType TaskType;
     /**
@@ -19,7 +23,7 @@ public abstract class Task {
     protected Boolean isDone;
 
     /**
-     * Constructs a Task with the given description.
+     * Constructs a duke.task.Task with the given description.
      *
      * @param description The description of the task.
      */

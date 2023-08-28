@@ -1,3 +1,8 @@
+package duke;
+
+import duke.command.Command;
+import duke.exception.DukeException;
+
 /**
  * Main entry point of the bot
  */
@@ -9,7 +14,7 @@ public class Duke {
     private Ui ui = new Ui();
 
     /**
-     * Task list to store the tasks.
+     * duke.task.Task list to store the tasks.
      */
     private TaskList tasks = new TaskList();
 
@@ -36,7 +41,7 @@ public class Duke {
                 ui.showLine();
                 Command command = Parser.parse(userInput);
                 isExit = command.execute(this.tasks, ui);
-                Storage.writeTask(tasks,ui);
+                Storage.writeTask(tasks, ui);
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {

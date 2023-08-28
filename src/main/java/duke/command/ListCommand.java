@@ -1,5 +1,11 @@
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.TaskList;
+import duke.Ui;
+
 /**
- * Command that prints the tasks in a list.
+ * duke.command.Command that prints the tasks in a list.
  */
 public class ListCommand implements Command {
 

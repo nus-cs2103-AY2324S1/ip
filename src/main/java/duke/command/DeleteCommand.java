@@ -1,5 +1,12 @@
+package duke.command;
+
+import duke.exception.DukeException;
+import duke.task.Task;
+import duke.TaskList;
+import duke.Ui;
+
 /**
- * Command that delets the task from the task list using index.
+ * duke.command.Command that deletes the task from the task list using index.
  */
 public class DeleteCommand implements Command{
 

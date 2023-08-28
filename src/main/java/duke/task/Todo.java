@@ -1,10 +1,14 @@
+package duke.task;
+
+import duke.exception.DukeException;
+
 /**
  * A simple task only holding the description.
  */
 public class Todo extends Task {
 
     /**
-     * Constructs a Todo task
+     * Constructs a duke.task.Todo task
      *
      * @param description The description of the task.
      */

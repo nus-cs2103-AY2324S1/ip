@@ -1,13 +1,18 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.DukeException;
+
 /**
  * Class responsible for parsing user input and returning
- * a Command object for execution.
+ * a duke.command.Command object for execution.
  */
 public class Parser {
     /**
-     * Parses the user input into a Command object.
+     * Parses the user input into a duke.command.Command object.
      *
      * @param userInput The input string from the user.
-     * @return The corresponding Command object.
+     * @return The corresponding duke.command.Command object.
      */
     public static Command parse(String userInput) throws DukeException {
         String[] words = userInput.toLowerCase().split("\\s+");
@@ -27,7 +32,7 @@ public class Parser {
         case "delete":
             return new DeleteCommand();
         default:
-            throw new DukeException("Unknown Command!");
+            throw new DukeException("Unknown duke.command.Command!");
         }
     }
 }

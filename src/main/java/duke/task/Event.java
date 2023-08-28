@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.exception.DukeException;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +22,7 @@ public class Event extends Task {
     private LocalDate to;
 
     /**
-     * Constructs an Event task
+     * Constructs an duke.task.Event task
      *
      * @param description The description of the task.
      * @param from        The start time of the task.

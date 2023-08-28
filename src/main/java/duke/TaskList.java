@@ -1,3 +1,8 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.task.Task;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +15,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * Constructs an empty TaskList.
+     * Constructs an empty duke.TaskList.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();

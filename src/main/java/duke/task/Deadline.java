@@ -1,3 +1,7 @@
+package duke.task;
+
+import duke.exception.DukeException;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +17,7 @@ public class Deadline extends Task {
     private LocalDate date;
 
     /**
-     * Constructs an unmarked Deadline task
+     * Constructs an unmarked duke.task.Deadline task
      * with the given description and due date.
      *
      * @param description The description of the task.
