@@ -6,20 +6,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
     @Test
-    public void createNewTodo() {
+    public void testCreateNewTodo() {
         Todo task = new Todo("CS2103T ip");
         assertEquals(task.toString(), "[T][ ] CS2103T ip");
     }
 
     @Test
-    public void markDoneTodo() {
+    public void testMarkDoneTodo() {
         Todo task = new Todo("CS2103T ip");
         task.markAsDone();
         assertEquals(task.toString(), "[T][X] CS2103T ip");
     }
 
     @Test
-    public void markUndoneTodo() {
+    public void testMarkUndoneTodo() {
         Todo task = new Todo("CS2103T ip");
         task.markAsDone();
         task.markAsUndone();
