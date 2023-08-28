@@ -1,3 +1,6 @@
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
@@ -5,6 +8,42 @@ import java.util.Arrays;
 public class Duke {
     public static void main(String[] args) {
         ArrayList<Task> tasks = new ArrayList<>();
+
+        Path path = Paths.get("src/main/java/data/duke.txt");
+
+        try {
+            File file = path.toFile();
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            BufferedReader br = new BufferedReader(new FileReader(path.toString()));
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] strings = line.split("\\|");
+                switch (strings[0]) {
+                case "T":
+                    Todo todo = new Todo(strings[2], Integer.parseInt(strings[1]));
+                    tasks.add(todo);
+                    break;
+                case "D":
+                    Deadline deadline = new Deadline(strings[2], strings[3], Integer.parseInt(strings[1]));
+                    tasks.add(deadline);
+                    break;
+                case "E":
+                    Event event = new Event(strings[2], strings[3], strings[4], Integer.parseInt(strings[1]));
+                    tasks.add(event);
+                    break;
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        File inFile = path.toFile();
 
         System.out.println("    Hello! I'm Arona, your Virtual Assistant.\n    What can I do for you today?\n");
 
@@ -29,39 +68,117 @@ public class Duke {
 
                     } else if (strings[0].equals("mark")) { // Marks a task.
                         if (strings.length == 1) {
-                            throw new DukeException("    Whoops! Don't forget to specify the task.\n");
+                            throw new IllegalArgumentDukeException("    Whoops! Don't forget to specify the task.\n");
                         }
                         int index = Integer.valueOf(strings[1]) - 1;
                         if (index < 0 || index >= tasks.size()) {
-                            throw new DukeException("    Uh-oh, that task does not exist.\n");
+                            throw new IllegalArgumentDukeException("    Uh-oh, that task does not exist.\n");
                         }
                         Task task = tasks.get(index);
                         task.mark();
+
+                        try {
+                            File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+                            BufferedReader br = new BufferedReader(new FileReader(inFile));
+                            BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
+
+                            String line = null;
+                            int currentLine = 0;
+
+                            while ((line = br.readLine()) != null) {
+                                if (currentLine != index) {
+                                    bw.write(line);
+                                    bw.newLine();
+                                } else {
+                                    char[] charArray = line.toCharArray();
+                                    charArray[2] = '1';
+                                    String modifiedLine = new String(charArray);
+                                    bw.write(modifiedLine);
+                                    bw.newLine();
+                                }
+                                currentLine++;
+                            }
+
+                            br.close();
+                            bw.close();
+
+                            inFile.delete();
+                            tempFile.renameTo(inFile);
+
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
 
                         System.out.println("    Awesome! I've marked this task as done:");
                         System.out.println("      " + task + "\n");
 
                     } else if (strings[0].equals("unmark")) { // Unmarks a task.
                         if (strings.length == 1) {
-                            throw new DukeException("    Whoops! Don't forget to specify the task.\n");
+                            throw new IllegalArgumentDukeException("    Whoops! Don't forget to specify the task.\n");
                         }
                         int index = Integer.valueOf(strings[1]) - 1;
                         if (index < 0 || index >= tasks.size()) {
-                            throw new DukeException("    Uh-oh, that task does not exist.\n");
+                            throw new IllegalArgumentDukeException("    Uh-oh, that task does not exist.\n");
                         }
                         Task task = tasks.get(index);
                         task.unmark();
+
+                        try {
+                            File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+                            BufferedReader br = new BufferedReader(new FileReader(inFile));
+                            BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
+
+                            String line = null;
+                            int currentLine = 0;
+
+                            while ((line = br.readLine()) != null) {
+                                if (currentLine != index) {
+                                    bw.write(line);
+                                    bw.newLine();
+                                } else {
+                                    char[] charArray = line.toCharArray();
+                                    charArray[2] = '0';
+                                    String modifiedLine = new String(charArray);
+                                    bw.write(modifiedLine);
+                                    bw.newLine();
+                                }
+                                currentLine++;
+                            }
+
+                            br.close();
+                            bw.close();
+
+                            inFile.delete();
+                            tempFile.renameTo(inFile);
+
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
 
                         System.out.println("    Sure thing! I've marked this task as not done yet:");
                         System.out.println("      " + task + "\n");
 
                     } else if (strings[0].equals("todo")) { // Adds a todo task.
                         if (strings.length == 1) {
-                            throw new DukeException("    Oh no! You forgot to specify the task!\n");
+                            throw new IllegalArgumentDukeException("    Oh no! You forgot to specify the task!\n");
                         }
                         String description = String.join(" ", Arrays.copyOfRange(strings, 1, strings.length));
                         Todo todo = new Todo(description);
                         tasks.add(todo);
+
+                        try {
+                            BufferedWriter bw = new BufferedWriter(new FileWriter(inFile, true));
+
+                            String data = "T|0|" + description + "\n";
+
+                            bw.write(data);
+                            bw.close();
+
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                        }
 
                         System.out.println("    Got it! I've added this task:");
                         System.out.println("      " + todo);
@@ -69,10 +186,10 @@ public class Duke {
 
                     } else if (strings[0].equals("deadline")) { // Adds a deadline task.
                         if (strings.length == 1) {
-                            throw new DukeException("    Oh no! You forgot to specify the task!\n");
+                            throw new IllegalArgumentDukeException("    Oh no! You forgot to specify the task!\n");
                         }
                         if (!echo.contains("/")) {
-                            throw new DukeException("    Whoopsie! The deadline seems a bit confused. Please use '/by' to set it.\n");
+                            throw new IllegalArgumentDukeException("    Whoopsie! The deadline seems a bit confused. Please use '/by' to set it.\n");
                         }
                         int index = -1;
                         for (int i = 0; i < strings.length; i++) {
@@ -82,10 +199,23 @@ public class Duke {
                                 break;
                             }
                         }
+
                         String description = String.join(" ", Arrays.copyOfRange(strings, 1, index));
                         String by = String.join(" ", Arrays.copyOfRange(strings, index, strings.length));
                         Deadline deadline = new Deadline(description, by);
                         tasks.add(deadline);
+
+                        try {
+                            BufferedWriter bw = new BufferedWriter(new FileWriter(inFile, true));
+
+                            String data = "D|0|" + description + "|" + by + "\n";
+
+                            bw.write(data);
+                            bw.close();
+
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                        }
 
                         System.out.println("    Got it! I've added this task:");
                         System.out.println("      " + deadline);
@@ -93,7 +223,7 @@ public class Duke {
 
                     } else if (strings[0].equals("event")) { // Adds an event task.
                         if (strings.length == 1) {
-                            throw new DukeException("    Oh no! You forgot to specify the event!\n");
+                            throw new IllegalArgumentDukeException("    Oh no! You forgot to specify the event!\n");
                         }
                         int count = 0;
                         for (int i = 0; i < echo.length(); i++) {
@@ -102,7 +232,7 @@ public class Duke {
                             }
                         }
                         if (count != 2) { //echo should contain two '/'.
-                            throw new DukeException("    Uh-oh! This event seems to have lost its way. Please use '/from' and '/to' to set it.\n");
+                            throw new IllegalArgumentDukeException("    Uh-oh! This event seems to have lost its way. Please use '/from' and '/to' to set it.\n");
                         }
                         int indexStart = -1;
                         int indexEnd = -1;
@@ -126,29 +256,69 @@ public class Duke {
                         Event event = new Event(description, from, to);
                         tasks.add(event);
 
+                        try {
+                            BufferedWriter bw = new BufferedWriter(new FileWriter(inFile, true));
+
+                            String data = "E|0|" + description + "|" + from + "|" + to + "\n";
+
+                            bw.write(data);
+                            bw.close();
+
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                        }
+
                         System.out.println("    Got it! I've added this task:");
                         System.out.println("      " + event);
                         System.out.println("    Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.\n");
+
                     } else if (strings[0].equals("delete")) { // Deletes a task.
                         if (strings.length == 1) {
-                            throw new DukeException("    Whoops! Don't forget to specify the task to be deleted.\n");
+                            throw new IllegalArgumentDukeException("    Whoops! Don't forget to specify the task to be deleted.\n");
                         }
                         int index = Integer.valueOf(strings[1]) - 1;
                         if (index < 0 || index >= tasks.size()) {
-                            throw new DukeException("    Uh-oh, that task does not exist.\n");
+                            throw new IllegalArgumentDukeException("    Uh-oh, that task does not exist.\n");
                         }
                         Task task = tasks.get(index);
                         tasks.remove(index);
+
+                        try {
+                            File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+                            BufferedReader br = new BufferedReader(new FileReader(inFile));
+                            BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
+
+                            String line = null;
+                            int currentLine = 0;
+
+                            while ((line = br.readLine()) != null) {
+                                if (currentLine != index) {
+                                    bw.write(line);
+                                    bw.newLine();
+                                }
+                                currentLine++;
+                            }
+
+                            br.close();
+                            bw.close();
+
+                            inFile.delete();
+                            tempFile.renameTo(inFile);
+
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
 
                         System.out.println("    Sure thing! I've removed this task:");
                         System.out.println("      " + task + "\n");
                         System.out.println("    Now you have " + tasks.size() + (tasks.size() == 1 ? " task" : " tasks") + " in the list.\n");
 
                     } else { // Invalid arguments
-                        throw new DukeException("    Oops! I'm not quite sure what that means...\n");
+                        throw new IllegalArgumentDukeException("    Oops! I'm not quite sure what that means...\n");
                     }
                 }
-            } catch (DukeException e) {
+            } catch (IllegalArgumentDukeException e) {
                 System.out.println(e.getMessage());
             } finally {
                 echo = scanner.nextLine().toLowerCase().trim(); // Reads next line

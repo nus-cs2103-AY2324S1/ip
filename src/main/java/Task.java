@@ -7,6 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, int isMarked) {
+        this.description = description;
+        this.isDone = (isMarked == 1) ? true : false;
+    }
+
     public String getStatusIcon() {
         return isDone ? "[X] " : "[ ] ";
     }
