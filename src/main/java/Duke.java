@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Duke {
-    enum COMMANDS {BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BY, FROM, TO, UNKNOWN}
+    enum COMMANDS {BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, BY, FROM, TO, SORT, FIND, UNKNOWN}
     static DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     private static ListOfTask taskList = new ListOfTask();
     public static void main(String[] args) {
@@ -152,6 +152,10 @@ public class Duke {
                 return COMMANDS.FROM;
             case ("to"):
                 return COMMANDS.TO;
+            case ("sort"):
+                return COMMANDS.SORT;
+            case ("find"):
+                return COMMANDS.FIND;
             default:
                 return COMMANDS.UNKNOWN;
             }
@@ -204,7 +208,10 @@ public class Duke {
             return;
 
         case LIST:
-            taskList.listTasks();
+            String secondWord = cmd.secondWord();
+            if (secondWord == null) {
+                taskList.listTasks();
+            }
             break;
 
         case TODO:

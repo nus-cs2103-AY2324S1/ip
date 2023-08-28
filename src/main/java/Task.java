@@ -11,10 +11,12 @@ class Task {
 
     private String taskName;
     private Boolean done;
+    private LocalDateTime dateAdded;
 
     public Task(String taskName) {
         this.taskName = taskName;
         this.done = false;
+        this.dateAdded = LocalDateTime.parse(LocalDateTime.now().format(Duke.FORMAT));
     }
     @Override
     public String toString() {
@@ -35,13 +37,6 @@ class Task {
 
     protected String write() {
         return "task " + this.taskName + "\n";
-    }
-
-    public static class MyDate extends Date {
-        @Override
-        public String toString() {
-            return this.getDay() + "-" + this.getMonth() + "-" + this.getYear() + " " + this.getHours() + this.getMinutes();
-        }
     }
 
     public static class ToDos extends Task {
