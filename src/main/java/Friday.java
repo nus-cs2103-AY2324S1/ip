@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.io.IOException;
+
 
 /**
  * Represents the main class for the Friday application.
@@ -25,6 +27,18 @@ public class Friday {
     }
 
     /**
+     * Saves tasks to tasks.txt.
+     * If an error occurs during save operation, an error message is printed.
+     */
+    public void saveTasks() {
+        try {
+            taskList.saveFile();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    /**
      * Processes user inputs and interacts with the TaskList to execute user commands.
      * Continues to run until the user inputs the "bye" command.
      */
@@ -42,13 +56,17 @@ public class Friday {
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
                     System.out.println("Nice! I've marked this task as not done yet:");
                     taskList.unmark(taskNumber - 1);
+                    saveTasks();
                 } else if (userInput.contains("mark")) {
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
                     System.out.println("Nice! I've marked this task as done:");
                     taskList.mark(taskNumber - 1);
+                    saveTasks();
+
                 } else if (userInput.contains("delete")) {
                     int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
                     taskList.delete(taskNumber - 1);
+                    saveTasks();
                 } else if (userInput.contains("todo")) {
                     String[] todoInput = userInput.split(" ", 2);
                     if (todoInput.length < 2 || todoInput[1].trim().isEmpty()) {
@@ -58,6 +76,8 @@ public class Friday {
                     System.out.println("added: " + todo);
                     taskList.add(todo);
                     taskList.message();
+                    saveTasks();
+
                 } else if (userInput.contains("deadline")) {
                     String[] commandAndDetails = userInput.split(" ", 2);
                     if (commandAndDetails.length < 2 || !userInput.contains("/by")) {
@@ -73,6 +93,8 @@ public class Friday {
                     System.out.println("added: " + deadline);
                     taskList.add(deadline);
                     taskList.message();
+                    saveTasks();
+
                 } else if (userInput.contains("event")) {
                     String[] commandAndDetails = userInput.split(" ", 2);
                     if (commandAndDetails.length < 2 || !userInput.contains("/from") || !userInput.contains("/to")) {
@@ -89,6 +111,8 @@ public class Friday {
                     System.out.println("added: " + event);
                     taskList.add(event);
                     taskList.message();
+                    saveTasks();
+
                 } else {
                     throw new FridayException("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
                 }
