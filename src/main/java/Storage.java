@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +11,8 @@ public class Storage {
 
     private ArrayList<Task> store = new ArrayList<Task>();
     private String filePath;
+    private DateTimeFormatter storeTimeFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
+    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     Storage(String filePath) {
         this.filePath = filePath;
@@ -56,7 +60,8 @@ public class Storage {
                     if (taskComponents.length < 3) {
                         throw new DukeException("Invalid Deadline Format!");
                     }
-                    Task item = new Deadline(desc, taskComponents[3]);
+                    LocalDateTime buffer = LocalDateTime.parse(taskComponents[3], storeTimeFormatter);
+                    Task item = new Deadline(desc, buffer.format(inputFormatter));
                     if (isCompleted.equals("X")) {
                         item.markTask();
                     }
@@ -71,7 +76,9 @@ public class Storage {
                     if (taskComponents.length < 2) {
                         throw new DukeException("Invalid Event Format!");
                     }
-                    Task item = new Event(desc, timeComponents[0], timeComponents[1]);
+                    LocalDateTime bufferStart = LocalDateTime.parse(timeComponents[0], storeTimeFormatter);
+                    LocalDateTime bufferEnd = LocalDateTime.parse(timeComponents[1], storeTimeFormatter);
+                    Task item = new Event(desc, bufferStart.format(inputFormatter), bufferEnd.format(inputFormatter));
                     if (isCompleted.equals("X")) {
                         item.markTask();
                     }
