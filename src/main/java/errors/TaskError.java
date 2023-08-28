@@ -35,6 +35,13 @@ public enum TaskError {
         this.errorMessage = errorMessage;
     }
 
+    /**
+     * Attaches the main errorMessage to the exception's sub-message,
+     * and displays it to the user.
+     * @param e This is the DotException (or any other exception),
+     *          which is passed along with the TaskError enum, to be
+     *          handled
+     */
     public void printErrorMessage(Exception e) {
         if (e instanceof NumberFormatException) {
             Ui.wrapPrintWithHorizontalRules(this.errorMessage

@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * This is the parser for Dot, which converts String inputs into
+ * formatted strings, or other desired objects.
+ */
 public class Parser {
     /**
      * Parses a dateInput in the format dd/MM/yyyy into a LocalDateTime
@@ -45,6 +49,14 @@ public class Parser {
 
     }
 
+    /**
+     * Parses the user's input into the appropriate command.
+     * Heavily utilises the sister class Validation.
+     * @param input This is the user input.
+     * @param dotTaskList This is the TaskList which encapsulates the Task and operations
+     * @return The appropriate Command
+     * @throws DotException On detected error
+     */
     public static Command parseInputToCommand(String input,
                                               TaskList dotTaskList) throws DotException {
         if (input.strip().equals("bye")) {

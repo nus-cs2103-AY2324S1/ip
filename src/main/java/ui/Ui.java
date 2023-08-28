@@ -3,21 +3,21 @@ package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Ui class is responsible for most of the UI interaction with user.
+ */
 public class Ui {
+    private static final String HORIZONTAL_RULE = "_".repeat(80) + "\n";
 
+    private static final String LOGO = " ____          _\n"
+            + "|  _ \\ _____ _| |___\n"
+            + "| | | | | | | | ____|\n"
+            + "| |_| | |_| | | |___\n"
+            + "|____/ \\___/  \\____/\n";
     private final Scanner sc;
-
     public Ui() {
         this.sc = new Scanner(System.in);
     }
-
-    public static final String HORIZONTAL_RULE = "_".repeat(80) + "\n";
-
-    private static final String LOGO = " ____          _\n"
-        + "|  _ \\ _____ _| |___\n"
-        + "| | | | | | | | ____|\n"
-        + "| |_| | |_| | | |___\n"
-        + "|____/ \\___/  \\____/\n";
 
     /**
      * Displays the welcome message for the user.
@@ -68,6 +68,13 @@ public class Ui {
             HORIZONTAL_RULE, msg, HORIZONTAL_RULE);
     }
 
+    /**
+     * This method displays a message after a mark or unmark command
+     * is successfully executed.
+     * @param isMarking If true, the mark command is the one being run,
+     *                  else it is the unmark command
+     * @param task The task's string representation to display
+     */
     public static void displayMarkOrUnmark(boolean isMarking, String task) {
         if (isMarking) {
             wrapPrintWithHorizontalRules(String.format(
@@ -91,6 +98,10 @@ public class Ui {
         Ui.wrapPrintWithHorizontalRules(sb.toString().strip());
     }
 
+    /**
+     * Reads the next line from System.in.
+     * @return The next line from System.in
+     */
     public String readNextLine() {
         return this.sc.nextLine();
     }

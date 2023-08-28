@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Storage class is responsible for fileIO.
+ */
 public class Storage {
     // TODO: Handle the situation of the data file being corrupted
     private final String storageLocation;
@@ -27,6 +30,12 @@ public class Storage {
         this.storageLocation = storageLocation;
     }
 
+    /**
+     * This method attempts to create the given directory and file,
+     * if they do not exist. Then, it returns a File object.
+     * @return File object in the given pathname, subject to format
+     * @throws DotException On detected error
+     */
     public File getFile() throws DotException {
         try {
             String[] splitBySlash = this.storageLocation.split("/");
@@ -44,6 +53,12 @@ public class Storage {
         }
     }
 
+    /**
+     * This method access the file using getFile, reads it
+     * and parse it into an ArrayList of Tasks to return
+     * @return An ArrayList of Tasks from the fil =e
+     * @throws DotException On detected error
+     */
     public ArrayList<Task> getTasks() throws DotException {
         try {
             File file = this.getFile();
@@ -81,6 +96,12 @@ public class Storage {
         }
     }
 
+    /**
+     * This method access the data file using getFile and writes
+     * the given taskList to it.
+     * @param taskList This is the TaskList to write
+     * @throws DotException On detected error
+     */
     public void saveTasks(ArrayList<Task> taskList) throws DotException {
         try {
             File file = this.getFile();

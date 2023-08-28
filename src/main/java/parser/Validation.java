@@ -3,19 +3,34 @@ package parser;
 import errors.DotException;
 import errors.TaskError;
 
+/**
+ * Contains most of the validation logic of the app.
+ */
 public class Validation {
 
+    /**
+     * Checks whether given input is in date format: dd/MM/yyyy.
+     * @param dateInput This is the user input
+     * @return true if input is of valid date format, else false
+     */
     public static boolean isValidDate(String dateInput) {
         String dateRegex = "^([1-9]|0[1-9]|[1-2][0-9]|3[0-1])/([1-9]|0[1-9]|1[0-2])/[0-9]{4}$";
 
         return dateInput.matches(dateRegex);
     }
 
+    /**
+     * Checks whether given input has a valid command.
+     * @param input This is the user input
+     * @param command This is the command we want to check against
+     * @return true if input begins with command
+     */
     public static boolean isValidCommand(String input, String command) {
         int commandLen = command.length();
         return input.startsWith(command) && (
                 input.length() == commandLen || input.charAt(commandLen) == ' ');
     }
+
     /**
      * Validates whether input is in format: <code>{@literal <command> <integer>.}</code>
      * Assumes valid command.

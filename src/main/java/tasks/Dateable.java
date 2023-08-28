@@ -3,6 +3,14 @@ package tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * A Dateable object that can either be a DotDateTime which encapsulates
+ * a LocalDateTime object, or a TimeDescription which stores the description
+ * of the date-time as a String.
+ * <p>
+ * Dateable also provides support for WhatsgoingonCommand through its
+ * comparison methods.
+ */
 public abstract class Dateable {
 
     /**
@@ -23,11 +31,16 @@ public abstract class Dateable {
      */
     public abstract boolean isAfterOrOn(LocalDateTime date);
 
+    /**
+     * DotDateTime is one of the subclasses of Dateable,
+     * which stores a LocalDateTime.
+     */
     public static class DotDateTime extends Dateable {
         private LocalDateTime dotDateTime;
         DotDateTime(String input) {
             this.dotDateTime = LocalDateTime.parse(input);
         }
+
         @Override
         public boolean isBeforeOrOn(LocalDateTime date) {
             return this.dotDateTime.isBefore(date) || this.dotDateTime.isEqual(date);
@@ -44,6 +57,10 @@ public abstract class Dateable {
         }
     }
 
+    /**
+     * TimeDescription is one of the subclasses of Dateable,
+     * which stores a String describing the date-time.
+     */
     public static class TimeDescription extends Dateable {
         private String timeDescription;
 
@@ -66,6 +83,14 @@ public abstract class Dateable {
             return this.timeDescription;
         }
     }
+
+    /**
+     * The factory method for Dateable. It validates that input is of the
+     * correct date-time input format accepted, and then returns the appropriate
+     * Dateable object.
+     * @param input This is the user input
+     * @return A DotDateTime if input is of format, else a TimeDescription
+     */
     public static Dateable of(String input) {
         //(Only) regex inspired by ChatGPT
         //Prompt: Give me a regex crash course
