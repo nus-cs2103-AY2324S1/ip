@@ -42,6 +42,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean containString(String string) {
+        return this.description.contains(string);
+    }
+
     /**
      * Prints out the description of the task and its status.
      * @return A string that shows the task's description and status.
