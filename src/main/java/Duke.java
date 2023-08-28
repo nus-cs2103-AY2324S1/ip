@@ -1,192 +1,106 @@
+
 // fixing DukeException based on my understanding of exceptions 27/8/23
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
+    private UI helper;
+    private TaskList tasks;
 
-    public enum Activity {
-        bye, list, mark, unmark, todo, deadline, event, delete,
+    public Duke() {
+        this.helper = new UI("DukeKing");
+        this.tasks = new TaskList();
     }
+
     public static void main(String[] args) {
+        new Duke().run();
+    }
+
+    public void run() {
         // welcome message
-        ArrayList<Task> list = new ArrayList<>();
-        String name = "DukeKing";
-        String welcome = "Hello! I'm " + name + "\nWhat can I do for you?";
-        printLine();
-        System.out.println(welcome);
-        printLine();
+
+        helper.welcome();
 
         // setting up
-        String output = "";
         Scanner sc = new Scanner(System.in);
         String string = sc.nextLine();
 
-        //looping in the program
+        // looping in the program
         while (true) {
             // end the program
             try {
-                if (string.equals(Activity.bye.name())) {
+                if (string.equals(Commands.bye.name())) {
                     break;
 
-                    // reading the list
-                } else if (string.equals(Activity.list.name())) {
-                    printLine();
-                    printList(list);
-                    // marking the task to the list
-                } else if (string.startsWith(Activity.mark.name())) {
+                    // reading the tasks
+                } else if (string.equals(Commands.list.name())) {
+                    helper.printLine();
+                    tasks.printList();
+                    // marking the task to the tasks
+                } else if (string.startsWith(Commands.mark.name())) {
                     try {
                         String[] splittedInput = string.split(" ");
                         int taskNumber = Integer.parseInt(splittedInput[1]);
-                        if (!list.get(taskNumber - 1).isDone) {
-                            list.get(taskNumber - 1).markAsDone();
-                            String markingTask = "Nice! I've marked this task as done:";
-                            printLine();
-                            output = String.format("%s\n%s",markingTask, list.get(taskNumber - 1));
-                            System.out.println(output);
-                        } else if (list.get(taskNumber - 1).isDone) {
-                            printLine();
+                        Task task = tasks.get(taskNumber - 1);
+                        if (!task.isDone) {
+                            task.markAsDone();
+                            helper.markTask(task);
+                        } else if (task.isDone) {
+                            helper.printLine();
                             throw new WrongMarkException("This task is already done.");
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        printLine();
+                        helper.printLine();
                         System.out.println("OOPS!!! Must choose something to unmark.");
                     } catch (NullPointerException e) {
-                        printLine();
+                        helper.printLine();
                         System.out.println("OOPS!!! You chose air.");
                     }
-                    // unmarking the task from the list
-                } else if (string.startsWith(Activity.unmark.name())) {
+                    // unmarking the task from the tasks
+                } else if (string.startsWith(Commands.unmark.name())) {
                     try {
                         String[] splittedInput = string.split(" ");
                         int taskNumber = Integer.parseInt(splittedInput[1]);
-                        if (list.get(taskNumber - 1).isDone) {
-                            list.get(taskNumber - 1).markAsUndone();
-                            String unMarkingTask = "OK, I've marked this task as not done yet:";
-                            printLine();
-                            output = String.format("%s\n%s",unMarkingTask, list.get(taskNumber - 1));
-                            System.out.println(output);
+                        Task task = tasks.get(taskNumber - 1);
+                        if (task.isDone) {
+                            task.markAsUndone();
+                            helper.unMarkTask(task);
                         } else {
-                            printLine();
+                            helper.printLine();
                             throw new WrongMarkException("This task is not done yet.");
                         }
                     } catch (ArrayIndexOutOfBoundsException e) {
-                        printLine();
+                        helper.printLine();
                         System.out.println("OOPS!!! Must choose something to unmark.");
                     } catch (NullPointerException e) {
-                        printLine();
+                        helper.printLine();
                         System.out.println("OOPS!!! You chose air.");
                     }
                     // if task is a todo
-                } else if (string.startsWith(Activity.todo.name())) {
-                    String addingTask = "Got it. I've added this task:";
-                    int noOfTask = list.size() + 1;
-                    String numberOfTask = "Now you have " + noOfTask + " tasks in the list.";
-                    String[] splittedInput = string.split(" ");
-                    if (splittedInput.length == 1) {
-                        printLine();
-                        throw new EmptyDetailsOfTaskError("The description of a todo cannot be empty.");
-                    } else {
-                        String task = string.replace("todo ", "");
-                        Task currentTask = new Todo(task);
-                        list.add(currentTask);
-                        printLine();
-                        output = String.format("%s\n  %s\n%s", addingTask, currentTask, numberOfTask);
-                        System.out.println(output);
-                    }
-                    // if task is a dateline
-                } else if (string.startsWith(Activity.deadline.name())) {
-                    String addingTask = "Got it. I've added this task:";
-                    int noOfTask = list.size() + 1;
-                    String numberOfTask = "Now you have " + noOfTask + " tasks in the list.";
-                    String[] splittedInput = string.split(" ");
-                    if (splittedInput.length == 1) {
-                        printLine();
-                        throw new EmptyDetailsOfTaskError("The description of a deadline cannot be empty.");
-                    } else {
-                        String task = string.replace("deadline ", "");
-                        String[] splittedTask = task.split(" /by ");
-                        if (splittedTask.length == 1) {
-                            printLine();
-                            throw new EmptyDetailsOfTaskError("The end of a deadline cannot be empty.");
-                        } else {
-                            String taskName = splittedTask[0];
-                            String end = splittedTask[1];
-                            Task currentTask = new Deadlines(taskName, end);
-                            list.add(currentTask);
-                            printLine();
-                            output = String.format("%s\n  %s\n%s", addingTask, currentTask, numberOfTask);
-                            System.out.println(output);
-                        }
-                    }
-                    // if task is an event
-                } else if (string.startsWith(Activity.event.name())) {
-                    String addingTask = "Got it. I've added this task:";
-                    int noOfTask = list.size() + 1;
-                    String numberOfTask = "Now you have " + noOfTask + " tasks in the list.";
-                    String[] splittedInput = string.split(" ");
-                    if (splittedInput.length == 1) {
-                        printLine();
-                        throw new EmptyDetailsOfTaskError("The description of a event cannot be empty.");
-                    } else {
-                        String task = string.replace("event ", "");
-                        String[] splitStart = task.split(" /from ");
-                        if (splitStart.length == 1) {
-                            printLine();
-                            throw new EmptyDetailsOfTaskError("The start of a event cannot be empty.");
-                        } else {
-                            String taskName = splitStart[0];
-                            String[] splitEnd = splitStart[1].split(" /to ");
-                            if (splitEnd.length == 1) {
-                                printLine();
-                                throw new EmptyDetailsOfTaskError("The end of a event cannot be empty.");
-                            } else {
-                                String start = splitEnd[0];
-                                String end = splitEnd[1];
-                                Task currentTask = new Events(taskName, start, end);
-                                list.add(currentTask);
-                                printLine();
-                                output = String.format("%s\n  %s\n%s", addingTask, currentTask, numberOfTask);
-                                System.out.println(output);
-                            }
-                        }
-                    }
-                } else if (string.startsWith(Activity.delete.name())) {
+                } else if (string.startsWith(Commands.delete.name())) {
                     String[] splittedInput = string.split(" ");
                     int taskNumber = Integer.parseInt(splittedInput[1]);
-                    printLine();
-                    deleteTask(list, taskNumber);
+                    helper.deleteTask(tasks, taskNumber);
                 } else {
-                    printLine();
-                    throw new UnknownCommandException("I'm sorry, but I don't know what that means :-C");
+                    try {
+                        Task currentTask = Task.createTask(string);
+                        tasks.add(currentTask);
+                        helper.addTask(currentTask, tasks);
+                    } catch (EmptyDetailsOfTaskError e) {
+                        helper.printLine();
+                        System.out.println(e.getMessage());
+                    } catch (UnknownCommandException e) {
+                        helper.printLine();
+                        System.out.println(e.getMessage());
+                    }
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             }
-            printLine();
+            helper.printLine();
             string = sc.nextLine();
         }
         // end the program
-        printLine();
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
-    }
-    public static void printList(ArrayList<Task> list) {
-        System.out.println("Here are the tasks in your list:");
-        for (int length = 1; length < list.size() + 1; length += 1) {
-            System.out.println(length + "." + list.get(length - 1));
-        }
-    }
-
-    public static void deleteTask(ArrayList<Task> list, int taskNumber) {
-        String deletingTask = "Noted. I've removed this task:";
-        int taskInArray = list.size() - 1;
-        Task removedTask = list.remove(taskNumber - 1);
-        String numberOfTask = "Now you have " + taskInArray + " tasks in the list.";
-        String output = String.format("%s\n  %s\n%s", deletingTask, removedTask, numberOfTask);
-        System.out.println(output);
-    }
-
-    public static void printLine() {
-        System.out.println("_".repeat(40));
+        sc.close();
+        helper.bye();
     }
 }
