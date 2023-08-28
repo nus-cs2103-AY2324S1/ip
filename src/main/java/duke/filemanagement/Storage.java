@@ -13,10 +13,19 @@ import java.io.IOException;
 
 public class Storage {
     private String filepath;
+
+    /**
+     * Constructor of storage.
+     * @param filepath Filepath that leads to the task file to be loaded into bot.
+     */
     public Storage(String filepath){
         this.filepath = filepath;
     }
 
+    /**
+     * Writes the content into the task file provided in the filepath during construction of Storage.
+     * @param content Content to be written into task file.
+     */
     public void saveFile(String content) {
         try {
             FileWriter myWriter = new FileWriter(filepath, false);
@@ -36,6 +45,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns content inside the task file in filepath used during construction of Storage.
+     * @return Content of task file.
+     * @throws FileNotFoundException File is not found in the filepath.
+     */
     public String readFile() throws FileNotFoundException {
         try {
             File myObj = new File(filepath);
@@ -51,6 +65,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Load content of task file into TaskList. This will populate the TaskList with the necessary Task objects.
+     * @param taskList TaskList to store the tasks in the task file.
+     */
     public void loadFileToTaskManager(TaskList taskList) {
         try {
             String savedText = readFile();

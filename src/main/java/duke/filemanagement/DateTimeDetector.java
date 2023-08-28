@@ -16,8 +16,16 @@ public class DateTimeDetector {
     DateTimeFormatter D2 = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
     DateTimeFormatter D3 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    /**
+     * Constructor of DateTimeDetector.
+     */
     public DateTimeDetector(){}
 
+    /**
+     * Format the input date.
+     * @param date Date to be formatted.
+     * @return Formatted date.
+     */
     public String format(String date) {
         LocalDate d = null;
         if (date.contains(" ")) {
