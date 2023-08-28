@@ -5,6 +5,10 @@ public class Todo extends Task {
         super(name, TaskTypes.TODO);
     }
 
+    public Todo(String name, boolean status) {
+        super(name, TaskTypes.TODO, status);
+    }
+
     @Override
     public String toString() {
         String statusMark = this.status ? "[✓]" : "[✕]";

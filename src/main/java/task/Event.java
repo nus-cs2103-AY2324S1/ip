@@ -9,6 +9,18 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
+    public Event(String name, boolean status, String startDate, String endDate) {
+        this.name = name;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    @Override
+    public String getTimeDescriptor() {
+        return String.format("%s to %s", startDate, endDate);
+    }
+
     @Override
     public String toString() {
         String statusMark = this.status ? "[✓]" : "[✕]";

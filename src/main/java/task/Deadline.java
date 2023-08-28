@@ -8,6 +8,17 @@ public class Deadline extends Task {
         this.status = false;
     }
 
+    public Deadline(String name, boolean status, String date) {
+        this.name = name;
+        this.date = date;
+        this.status = status;
+    }
+
+    @Override
+    public String getTimeDescriptor() {
+        return date;
+    }
+
     @Override
     public String toString() {
         String statusMark = this.status ? "[✓]" : "[✕]";
