@@ -4,11 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/*
-* EventTask class
-* Represents a task that starts and ends at a specific time
+/**
+ * Represents an event task
  */
-public class EventTask extends Task{
+public class EventTask extends Task {
     /** The start time of the event */
     private LocalDateTime startTime;
 
@@ -25,10 +24,10 @@ public class EventTask extends Task{
     public EventTask(String description, String startTimeInput, String endTimeInput) {
         super(description);
         String[] possibleFormats = {
-                "yyyy-MM-dd HH:mm",
-                "yyyy/MM/dd HH:mm",
-                "dd/MM/yyyy HH:mm",
-                "MMM dd yyyy HH:mm",
+            "yyyy-MM-dd HH:mm",
+            "yyyy/MM/dd HH:mm",
+            "dd/MM/yyyy HH:mm",
+            "MMM dd yyyy HH:mm",
         };
         for (String format : possibleFormats) {
             try {

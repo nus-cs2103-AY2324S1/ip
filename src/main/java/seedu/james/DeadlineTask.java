@@ -23,10 +23,10 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String description, String timeInput) {
         super(description);
         String[] possibleFormats = {
-                "yyyy-MM-dd HH:mm",
-                "yyyy/MM/dd HH:mm",
-                "dd/MM/yyyy HH:mm",
-                "MMM dd yyyy HH:mm",
+            "yyyy-MM-dd HH:mm",
+            "yyyy/MM/dd HH:mm",
+            "dd/MM/yyyy HH:mm",
+            "MMM dd yyyy HH:mm",
         };
         for (String format : possibleFormats) {
             try {

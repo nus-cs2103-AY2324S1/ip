@@ -3,7 +3,7 @@ package seedu.james;
 /**
  * Represents an exception that occurs during saving.
  */
-public class SavingException  extends JamesException{
+public class SavingException extends JamesException {
 
     /**
      * Constructs a new SavingException with the specified detail message.

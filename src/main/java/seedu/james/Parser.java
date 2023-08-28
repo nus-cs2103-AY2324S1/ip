@@ -91,7 +91,7 @@ public class Parser {
         } else if (input.contains("mark")) {
             Integer taskIdx = Integer.parseInt(input.split(" ")[1]);
             tasks.markTask(taskIdx - 1);
-            System.out.println( "Nice! I've marked this task as done:");
+            System.out.println("Nice! I've marked this task as done:");
             System.out.println(tasks.getTask(taskIdx - 1));
         } else if (input.contains("delete")) {
             Integer taskIdx = Integer.parseInt(input.split(" ")[1]);

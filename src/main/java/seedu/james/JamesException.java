@@ -3,7 +3,7 @@ package seedu.james;
 /**
  * Represents a JamesException.
  */
-public class JamesException extends Exception{
+public class JamesException extends Exception {
     /**
      * Constructor for JamesException.
      *
