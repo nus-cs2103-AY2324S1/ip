@@ -1,8 +1,8 @@
 class Event extends Task {
     final String from;
     final String to;
-    public Event(String desc) throws DukeException {
-        super(desc.substring(6, desc.indexOf("/from")));
+    public Event(boolean done, String desc) throws DukeException {
+        super(done, desc.substring(6, desc.indexOf("/from")));
         int fromIndex = desc.indexOf("/from");
         int toIndex = desc.indexOf("/to");
         try {

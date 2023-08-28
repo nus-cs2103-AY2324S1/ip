@@ -7,13 +7,13 @@ public class Duke {
         Scanner scan = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>();
         String name = "Chaty";
-        String taskFileName = "/tasks.txt";
 
         System.out.println("Hello! I'm " + name + "\n"
                 + "What can I do for you?" + "\n\n");
         String next = scan.nextLine();
         while (!next.equals("bye")) {
             try {
+                tasks = TaskFile.loadTasks();
                 if (next.equals("list")) {
                     for (int i = 0; i < tasks.size(); i++) {
                         System.out.println((i + 1) + "." + tasks.get(i));
@@ -36,7 +36,7 @@ public class Duke {
                     if (!next.contains("/by") || next.length() <= next.indexOf("/by") + 4) {
                         throw new DukeException("You forgot to specify when the deadline ends!");
                     }
-                    Task nextTask = new Deadline(next);
+                    Task nextTask = new Deadline(false, next);
                    // writeToFile(taskFile, nextTask);
                     tasks.add(nextTask);
                     System.out.println("Got it. I've added this task: \n" + nextTask + "\nnow you have "
@@ -49,17 +49,16 @@ public class Duke {
                     if (!next.contains("/to")) {
                         throw new DukeException("You forgot to specify when the event ends!");
                     }
-                    Task nextTask = new Event(next);
+                    Task nextTask = new Event(false, next);
                     tasks.add(nextTask);
                     System.out.println("Got it. I've added this task: \n" + nextTask + "\nnow you have "
                             + tasks.size() + " tasks in the list");
 
                 } else if (next.startsWith("todo")) {
-                    Task nextTask = new Todo(next);
+                    Task nextTask = new Todo(false, next);
                     tasks.add(nextTask);
                     System.out.println("Got it. I've added this task: \n" + nextTask + "\nnow you have "
                             + tasks.size() + " tasks in the list");
-                    TaskFile.saveTask(nextTask, taskFileName);
 
                 } else if (next.startsWith("delete")) {
                     if (tasks.size() <= 0) {
@@ -73,6 +72,7 @@ public class Duke {
                 } else {
                     throw new DukeException("Sorry I don't understand your input!");
                 }
+                TaskFile.saveTask(tasks);
 
             } catch (DukeException e) {
                 System.out.println(e.getMessage());

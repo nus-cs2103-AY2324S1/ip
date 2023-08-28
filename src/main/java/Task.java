@@ -3,9 +3,9 @@ class Task {
     protected final String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(boolean done, String description) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = done;
     }
 
     public void mark() throws DukeException {
@@ -29,5 +29,31 @@ class Task {
     @Override
     public String toString() {
         return ("[" + this.getStatusIcon() + "] " + this.description);
+    }
+
+    public static Task parse(String text) throws DukeException{
+        String[] parts = text.split("\\|");
+        String first = parts[0];
+        Task task = null;
+        boolean done = parts[1].equals(1); // 1 = done, 0 = undone
+        String description = parts[2];
+
+            switch (first) {
+                case "T":
+                    task = new Todo(done, "todo " + description);
+                    break;
+
+                case "E":
+                    String from = parts[3];
+                    String to = parts[4];
+                    task = new Event(done, "event " + description + " /from " + from + " /to " + to);
+                    break;
+
+                case "D":
+                    String by = parts[3];
+                    task = new Deadline(done, "deadline " + description + " /by " + by);
+                    break;
+            }
+        return task;
     }
 }
