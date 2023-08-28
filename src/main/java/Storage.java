@@ -65,11 +65,11 @@ public class Storage {
         boolean isDone = params[1].equals("X");
         switch (taskCode) {
             case "T":
-                return new Todo(params[2], isDone);
+                return new Todo(params[2].trim(), isDone);
             case "D":
-                return new Deadline(params[2], params[3], isDone);
+                return new Deadline(params[2].trim(), params[3].trim(), isDone);
             case "E":
-                return new Event(params[2], params[3], params[4], isDone);
+                return new Event(params[2].trim(), params[3].trim(), params[4].trim(), isDone);
             default:
                 throw new DookException("Failed to read from file correctly.");
         }
