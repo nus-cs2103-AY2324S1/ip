@@ -16,7 +16,7 @@ public class Ui {
 
     private void drawLine() {
         int lineLength = 60; // Adjust the length of the line as needed
-        char horizontalLineChar = '\u2500'; // Unicode character for a horizontal line
+        char horizontalLineChar = '_'; // Unicode character for a horizontal line
 
         for (int i = 0; i < lineLength; i++) {
             System.out.print(horizontalLineChar);

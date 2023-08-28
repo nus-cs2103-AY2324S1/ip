@@ -55,7 +55,7 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        char marked = '\u2717';
+        char marked = 'X';
         return "[" + (isDone ? marked : " ") + "] " + this.description;
     }
 
