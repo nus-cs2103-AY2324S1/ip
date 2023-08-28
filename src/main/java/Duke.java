@@ -10,6 +10,8 @@ public class Duke {
      * @param args Command-line arguments (not used).
      * @throws DukeException If an error occurs during user input processing.
      */
+    
+    static ArrayList<Task> taskArray = new ArrayList<>();
     public static void main(String[] args) throws DukeException {
         // Send welcome message
         System.out.println(
@@ -20,8 +22,6 @@ public class Duke {
 
         // Implement function to read user input via keyboard
         Scanner scan = new Scanner(System.in);
-        ArrayList<Task> taskArray = new ArrayList<>();
-        boolean[] statusArray = new boolean[100];
 
         int inputNum = 0;
 
@@ -36,20 +36,20 @@ public class Duke {
                     break;
 
                 } else if (Objects.equals(userInput, "list")) {
-                    listTasks(taskArray, inputNum);
+                    listTasks(inputNum);
 
                 } else if (userInput.startsWith("mark")) {
-                    markTask(userInput, inputNum, taskArray);
+                    markTask(userInput, inputNum);
 
                 } else if (userInput.startsWith("unmark")) {
-                    unmarkTask(userInput, inputNum, taskArray);
+                    unmarkTask(userInput, inputNum);
 
                 } else if (userInput.startsWith("todo")) {
                     if (userInput.equals("todo")) {
                         throw new EmptyTaskException("todo");
                     }
                     String taskName = userInput.substring("todo".length()).trim();
-                    makeToDo(taskName, inputNum, taskArray);
+                    makeToDo(taskName, inputNum);
                     inputNum++;
 
                 } else if (userInput.startsWith("deadline")) {
@@ -61,7 +61,7 @@ public class Duke {
                     String[] deadlineParts = getDeadlineParts(userInput);
                     String taskName = deadlineParts[0];
                     String by = deadlineParts[1];
-                    makeDeadline(taskName, by, inputNum, taskArray);
+                    makeDeadline(taskName, by, inputNum);
                     inputNum++;
 
                 } else if (userInput.startsWith("event")) {
@@ -72,11 +72,11 @@ public class Duke {
                     String taskName = eventParts[0];
                     String start = eventParts[1];
                     String end = eventParts[2];
-                    makeEvent(taskName, start, end, inputNum, taskArray);
+                    makeEvent(taskName, start, end, inputNum);
                     inputNum++;
 
                 } else if (userInput.startsWith("delete")) {
-                    deleteTask(userInput, inputNum, taskArray);
+                    deleteTask(userInput, inputNum);
                     inputNum--;
                 }
                 else {
@@ -92,9 +92,9 @@ public class Duke {
     /**
      * Lists the tasks stored in the task array.
      *
-     * @param taskArray An ArrayList containing the tasks.
+     * @param inputNum The number of tasks entered.
      */
-    private static void listTasks(ArrayList<Task> taskArray, int inputNum) {
+    private static void listTasks(int inputNum) {
         String inputArrayString = "";
         for (int i = 0; i < inputNum; i++) {
             Task currentTask = taskArray.get(i);
@@ -118,11 +118,10 @@ public class Duke {
      *
      * @param userInput The user input containing the task index.
      * @param inputNum  The number of tasks entered.
-     * @param taskArray An ArrayList containing the tasks.
      * @throws EmptyTaskException  If the task is missing.
      * @throws OutOfRangeException If the task index is out of range.
      */
-    private static void markTask(String userInput, int inputNum, ArrayList<Task> taskArray) throws EmptyTaskException, OutOfRangeException {
+    private static void markTask(String userInput, int inputNum) throws EmptyTaskException, OutOfRangeException {
         if (userInput.equals("mark")) {
             throw new EmptyTaskException("mark");
         }
@@ -145,11 +144,10 @@ public class Duke {
      *
      * @param userInput The user input containing the task index.
      * @param inputNum  The number of tasks entered.
-     * @param taskArray An ArrayList containing the tasks.
      * @throws EmptyTaskException  If the task is missing.
      * @throws OutOfRangeException If the task index is out of range.
      */
-    private static void unmarkTask(String userInput, int inputNum, ArrayList<Task> taskArray) throws EmptyTaskException, OutOfRangeException {
+    private static void unmarkTask(String userInput, int inputNum) throws EmptyTaskException, OutOfRangeException {
         if (userInput.equals("unmark")) {
             throw new EmptyTaskException("unmark");
         }
@@ -172,9 +170,8 @@ public class Duke {
      *
      * @param taskName  The name of the ToDo task.
      * @param inputNum  The number of tasks entered.
-     * @param taskArray An ArrayList containing the tasks.
      */
-    private static void makeToDo(String taskName, int inputNum, ArrayList<Task> taskArray) {
+    private static void makeToDo(String taskName, int inputNum) {
         taskArray.add(new ToDo(taskName));
         System.out.println(
                 "    ____________________________________________________________\n" +
@@ -206,9 +203,8 @@ public class Duke {
      * @param taskName  The name of the Deadline task.
      * @param by        The due date of the Deadline task.
      * @param inputNum  The number of tasks entered.
-     * @param taskArray An ArrayList containing the tasks.
      */
-    private static void makeDeadline(String taskName, String by, int inputNum, ArrayList<Task> taskArray) {
+    private static void makeDeadline(String taskName, String by, int inputNum) {
         taskArray.add(new Deadline(taskName, by));
         System.out.println(
                 "    ____________________________________________________________\n" +
@@ -245,9 +241,8 @@ public class Duke {
      * @param start     The start date of the Event task.
      * @param end       The end date of the Event task.
      * @param inputNum  The number of tasks entered.
-     * @param taskArray An ArrayList containing the tasks.
      */
-    private static void makeEvent(String taskName, String start, String end, int inputNum, ArrayList<Task> taskArray) {
+    private static void makeEvent(String taskName, String start, String end, int inputNum) {
         taskArray.add(new Event(taskName, start, end));
         System.out.println("    ____________________________________________________________\n" +
                 "     Got it. I've added this task:\n" +
@@ -261,11 +256,10 @@ public class Duke {
      *
      * @param userInput The user input containing the task index.
      * @param inputNum  The number of tasks entered.
-     * @param taskArray An ArrayList containing the tasks.
      * @throws EmptyTaskException  If the task is missing.
      * @throws OutOfRangeException If the task index is out of range.
      */
-    private static void deleteTask(String userInput, int inputNum, ArrayList<Task> taskArray) throws EmptyTaskException, OutOfRangeException {
+    private static void deleteTask(String userInput, int inputNum) throws EmptyTaskException, OutOfRangeException {
         if (userInput.equals("delete")) {
             throw new EmptyTaskException("delete");
         }
