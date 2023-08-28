@@ -5,13 +5,16 @@ import java.util.Collections;
 public class Parser {
     private static final String DELIMITER_COMMAND = " ";
     private static final String DELIMITER_DATE = " /";
-    public static ArrayList<String> parseUserInput(String input) {
+    public static ArrayList<String> parseUserInput(String input) throws InvalidCommandException {
         ArrayList<String> parsedInput= new ArrayList<>();
 
         String[] splitInputByDateDelimiter = input.split(DELIMITER_DATE);
 
         for (int i = 1; i < splitInputByDateDelimiter.length; i++) {
             String[] split = splitInputByDateDelimiter[i].split(DELIMITER_COMMAND);
+            if (split.length <= 1) {
+                throw new InvalidCommandException("Invalid input for date");
+            }
             splitInputByDateDelimiter[i] = String.join(" ", Arrays.copyOfRange(split, 1, split.length));
         }
 
