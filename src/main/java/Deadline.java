@@ -8,6 +8,13 @@ public class Deadline extends Task {
     }
 
     @Override
+    public String fileFormat() {
+        return String.format("D%s%s%s%s",
+                Storage.SEPARATOR, super.fileFormat(),
+                Storage.SEPARATOR, this.by);
+    }
+
+    @Override
     public String toString() {
         return String.format("[D]%s (by: %s)", super.toString(), this.by);
     }

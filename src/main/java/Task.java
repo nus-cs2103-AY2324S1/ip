@@ -11,9 +11,14 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    public String mark(boolean status) {
-        this.isDone = status;
+    public String mark(boolean isDone) {
+        this.isDone = isDone;
         return this.toString();
+    }
+
+    public String fileFormat() {
+        return String.format("%d%s%s",
+                isDone ? 1 : 0, Storage.SEPARATOR, description);
     }
 
     @Override

@@ -5,6 +5,11 @@ public class Todo extends Task{
     }
 
     @Override
+    public String fileFormat() {
+        return String.format("T%s%s", Storage.SEPARATOR, super.fileFormat());
+    }
+
+    @Override
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
