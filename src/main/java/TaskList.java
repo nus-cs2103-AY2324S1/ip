@@ -68,11 +68,11 @@ public class TaskList {
 
     public void saveState() {
         try {
-            FileWriter fw = new FileWriter(TaskList.FILE_PATH);
+            ArrayList<String> stringRepresentation = new ArrayList<>();
             for (int i = 0; i < this.tasks.size(); i++) {
-                fw.write(this.tasks.get(i).toSaveStateString() + "\n");
+                stringRepresentation.add(this.tasks.get(i).toSaveStateString());
             }
-            fw.close();
+            Storage.saveData(stringRepresentation, TaskList.FILE_PATH);
             System.out.println("Sucessfully saved state");
         } catch (IOException e) {
             System.out.println("Failed to save state");
@@ -81,10 +81,9 @@ public class TaskList {
 
     private void loadState() {
         try {
-            File f = new File(TaskList.FILE_PATH);
-            Scanner s = new Scanner(f);
-            while (s.hasNext()) {
-                String[] taskArray = s.nextLine().split(" / ");
+            ArrayList<String> storedData = Storage.loadData(TaskList.FILE_PATH);
+            for (int i = 0; i < storedData.size(); i++) {
+                String[] taskArray = storedData.get(i).split(" / ");
                 Task task;
 
                 if (taskArray[0].equals(Command.TODO.getCommand())) {
