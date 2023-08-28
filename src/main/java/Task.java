@@ -1,24 +1,24 @@
 public abstract class Task {
-  protected boolean completed;
-  protected String taskName;
+    protected boolean isMarked;
+    protected String taskName;
 
 
-  public void toggleComplete() {
-    this.completed = !this.completed;
-  }
+    public void toggleComplete() {
+        this.isMarked = !this.isMarked;
+    }
 
-  public boolean isCompleted() {
-    return this.completed;
-  }
+    public boolean isCompleted() {
+        return this.isMarked;
+    }
 
 
-  @Override
-  public String toString() {
-    return (this.completed ? "[X] " : "[ ] ") + this.taskName;
-  }
+    @Override
+    public String toString() {
+        return (this.isMarked ? "[X] " : "[ ] ") + this.taskName;
+    }
 
-  Task(String taskName) {
-    this.taskName = taskName;
-    this.completed = false;
-  }
+    Task(String taskName, boolean completed) {
+        this.taskName = taskName;
+        this.isMarked = completed;
+    }
 }
