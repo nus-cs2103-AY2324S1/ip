@@ -1,19 +1,19 @@
 package Chatbot.alain;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
 
 /**
  * Represents the main class for the Alain chatbot.
  */
-public class ChatbotAlain{
-    private  Ui ui;
-    private  Storage storage;
-    private  TaskList tasks;
+public class ChatbotAlain {
+    private Ui ui;
+    private Storage storage;
+    private TaskList tasks;
 
     /**
      * Constructs a ChatbotAlain object.
@@ -38,13 +38,13 @@ public class ChatbotAlain{
      * @throws AlainException If an exception occurs during the transformation.
      */
     public static String stringToTimeString(String inputTime) throws AlainException {
-        if (Pattern.matches("\\d+-\\d+-\\d+",inputTime)) {
+        if (Pattern.matches("\\d+-\\d+-\\d+", inputTime)) {
             DateTimeFormatter inputPattern = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.from(LocalDate.parse(inputTime, inputPattern));
             DateTimeFormatter outputPattern = DateTimeFormatter.ofPattern("MMMM dd yyyy", Locale.ENGLISH);
             String transformedTime = date.format(outputPattern);
             return transformedTime.toString();
-        } else if (Pattern.matches("\\d+-\\d+-\\d+ .+",inputTime)) {
+        } else if (Pattern.matches("\\d+-\\d+-\\d+ .+", inputTime)) {
             String[] dateAndTime = inputTime.split(" ");
             String addMsg = "";
             for (int i = 1; i < dateAndTime.length; i++) {
@@ -69,7 +69,7 @@ public class ChatbotAlain{
      * @throws AlainException If an exception occurs during chatbot execution.
      * @throws IOException If an I/O error occurs during chatbot execution.
      */
-    public  void run() throws AlainException, IOException {
+    public void run() throws AlainException, IOException {
         if (this.storage.isBye()) {
             return;
         }
@@ -85,6 +85,18 @@ public class ChatbotAlain{
                 boolean isToDo = Pattern.matches("todo .+", text);
                 boolean isEvent = Pattern.matches("event .+", text);
                 boolean isDelete = Pattern.matches("delete .+", text);
+                boolean isFind = Pattern.matches("find .+", text);
+                if (isFind) {
+                    String keyWord = text.substring(4);
+                    TaskList tmpList = new TaskList();
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.getTask(i).descriptionContain(keyWord)) {
+                            tmpList.addTask(list.getTask(i));
+                        }
+                    }
+                    ui.showListContainingKeyword(tmpList);
+                    continue;
+                }
                 if (isDelete) {
                     String numericPart = text.substring(7);
                     int pos = Integer.parseInt(numericPart) - 1;
@@ -102,7 +114,7 @@ public class ChatbotAlain{
                         throw new AlainException("The description of a Todo cannot be empty.");
                     }
                     list.addTask(new ToDos(mission));
-                    ui.showAddTask(list.getTask(list.size() - 1),list);
+                    ui.showAddTask(list.getTask(list.size() - 1), list);
                     continue;
                 }
                 if (isDeadline) {
@@ -115,7 +127,7 @@ public class ChatbotAlain{
                         throw new AlainException("The description of a Deadline is invalid");
                     }
                     list.addTask(new Deadlines(parts[0], stringToTimeString(parts[1])));
-                    ui.showAddTask(list.getTask(list.size() - 1),list);
+                    ui.showAddTask(list.getTask(list.size() - 1), list);
                     continue;
                 }
                 if (isEvent) {
@@ -128,7 +140,7 @@ public class ChatbotAlain{
                         throw new AlainException("The description of a Event is invalid");
                     }
                     list.addTask(new Events(parts[0], stringToTimeString(parts[1].substring(5)), stringToTimeString(parts[2].substring(3))));
-                    ui.showAddTask(list.getTask(list.size() - 1),list);
+                    ui.showAddTask(list.getTask(list.size() - 1), list);
                     continue;
                 }
                 if (text.equals("bye")) {
@@ -148,7 +160,7 @@ public class ChatbotAlain{
                     continue;
                 }
                 throw new AlainException("I'm sorry, but I don't know what that means :-(");
-            } catch (AlainException e){
+            } catch (AlainException e) {
                 ui.showError(e.getMessage());
                 storage.saveTasksToFile(null, "list.txt", true, e.getMessage());
             }
@@ -156,7 +168,7 @@ public class ChatbotAlain{
 
         try {
             ui.showList(list);
-            storage.saveTasksToFile(list, "list.txt", false,null);
+            storage.saveTasksToFile(list, "list.txt", false, null);
         } catch (IOException e) {
             ui.showError("Error saving tasks to file");
         } finally {

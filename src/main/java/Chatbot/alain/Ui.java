@@ -49,7 +49,23 @@ public class Ui {
     public void showList(TaskList list) {
         String output = "";
         this.showlines();
-        output +=  "Here are the tasks in your list:\n";
+        output += "Here are the tasks in your list:\n";
+        for (int i = 0; i < list.size(); i++) {
+            output += " " + (i + 1) + ". " + list.getTask(i) + "\n";
+        }
+        System.out.print(output);
+        this.showlines();
+    }
+
+    /**
+     * Displays the list of tasks containing the given keyword.
+     *
+     * @param list The list of tasks to display.
+     */
+    public void showListContainingKeyword(TaskList list) {
+        String output = "";
+        this.showlines();
+        output += "Here are the matching tasks in your list:\n";
         for (int i = 0; i < list.size(); i++) {
             output += " " + (i + 1) + ". " + list.getTask(i) + "\n";
         }
