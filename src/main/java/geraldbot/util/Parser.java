@@ -10,6 +10,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * The Parser class handles the parsing of user input and the execution of corresponding actions
+ * based on the parsed commands. It interacts with the Storage and TaskList classes to manage tasks.
+ */
 public class Parser {
     private final Storage storage;
 
@@ -21,11 +25,23 @@ public class Parser {
         EVENT
     }
 
+    /**
+     * Initializes a new Parser instance with the provided storage and task list.
+     *
+     * @param storage   The storage instance used for reading and writing tasks.
+     * @param taskList  The task list containing the tasks to be processed.
+     */
     public Parser(Storage storage, ArrayList<Task> taskList) {
         this.storage = storage;
         this.lst = new TaskList(taskList);
     }
 
+    /**
+     * Parses the user input and executes the corresponding actions.
+     *
+     * @param input The user input to be parsed and processed.
+     * @throws DukeException If an error occurs during parsing or execution.
+     */
     public void parse(String input) throws DukeException {
         if (input.equals("list")) {
             this.printList();
@@ -159,6 +175,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a date string and returns a LocalDateTime object.
+     *
+     * @param dateStr The date string to be parsed.
+     * @return A LocalDateTime object representing the parsed date.
+     */
     private LocalDateTime parseDate(String dateStr) {
         try {
             String[] parts = dateStr.split("\\s+", 2);
@@ -170,6 +192,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a new todo task to the task list and storage.
+     *
+     * @param input   The description of the todo task.
+     * @param isDone  The completion status of the task.
+     */
     public void addTodo(String input, boolean isDone) {
         Todo newTask = new Todo(input, isDone);
         String newTaskString = newTask.fileFormat();
@@ -183,6 +211,13 @@ public class Parser {
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
     }
 
+    /**
+     * Adds a new deadline task to the task list and storage.
+     *
+     * @param input   The description of the deadline task.
+     * @param isDone  The completion status of the task.
+     * @param by The deadline in LocalDateTime format of that task.
+     */
     public void addDeadline(String input, boolean isDone, LocalDateTime by) {
         Deadline newTask = new Deadline(input, isDone, by);
         String newTaskString = newTask.fileFormat();
@@ -196,6 +231,14 @@ public class Parser {
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
     }
 
+    /**
+     * Adds a new event task to the task list and storage.
+     *
+     * @param input   The description of the event task.
+     * @param isDone  The completion status of the task.
+     * @param start The start time of the event.
+     * @param end The end time of the event.
+     */
     public void addEvent(String input, boolean isDone, String start, String end) {
         Event newTask = new Event(input, isDone, start, end);
         String newTaskString = newTask.fileFormat();
@@ -209,6 +252,9 @@ public class Parser {
         System.out.println("Now you have " + lst.size() + " tasks in the list.");
     }
 
+    /**
+     * Prints the list of tasks.
+     */
     public void printList() {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < lst.size(); i++) {
@@ -216,6 +262,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as done and updates the storage.
+     *
+     * @param task The task to be marked as done.
+     * @param num  The index of the task in the list.
+     */
     public void markCompletion(Task task, int num) {
         if (task.getStatusIcon().equals("X")) {
             System.out.println("Nice! I've marked this task as done:");
@@ -231,6 +283,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Removes the completion status of a task and updates the storage.
+     *
+     * @param task The task to be marked as not done.
+     * @param num  The index of the task in the list.
+     */
     public void unmarkCompletion(Task task, int num) {
         if (task.getStatusIcon().equals(" ")) {
             System.out.println("OK, I've marked this task as not done yet:");
@@ -246,6 +304,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a task from the task list and updates the storage.
+     *
+     * @param num The index of the task in the task list to be deleted.
+     */
     public void deleteTask(Integer num) {
         System.out.println("Noted. I've removed this task:");
 

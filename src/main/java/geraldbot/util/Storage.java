@@ -13,9 +13,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles reading and writing tasks to the storage file.
+ */
 public class Storage {
     private File file;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param path The path to the storage file.
+     */
     public Storage(String path) {
         this.file = new File(path);
 
@@ -24,10 +32,18 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns the storage file.
+     *
+     * @return The storage file.
+     */
     public File getFile() {
         return this.file;
     }
 
+    /**
+     * Creates a new file if it does not exist and also creates parent directories if needed.
+     */
     private void createFile() {
         File parentFolder = this.file.getParentFile();
 
@@ -45,6 +61,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the storage file.
+     *
+     * @return An ArrayList of Task objects.
+     */
     public ArrayList<Task> read() {
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -79,6 +100,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Adds a task in file format to the storage file.
+     *
+     * @param fileFormat The formatted task to add.
+     */
     public void addTask(String fileFormat) {
         try {
             FileWriter fw = new FileWriter(this.file, true);
@@ -95,6 +121,12 @@ public class Storage {
 
     }
 
+    /**
+     * Updates a task in the storage file.
+     *
+     * @param index The index of the task to update.
+     * @param updatedFile The updated task in file format.
+     */
     public void updateTask(int index, String updatedFile) {
         try {
             Scanner sc = new Scanner(this.file);
