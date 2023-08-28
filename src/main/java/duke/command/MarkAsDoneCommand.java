@@ -1,15 +1,15 @@
 package duke.command;
 
-import duke.task.TaskList;
-import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.storage.Storage;
+import duke.task.TaskList;
+import duke.ui.Ui;
 
 /**
  * Represents a command issued by the user to mark a task as done.
  */
 public class MarkAsDoneCommand extends Command {
-    private int index; // The index of the task to be marked as done.
+    private final int index; // The index of the task to be marked as done.
 
     public MarkAsDoneCommand(int index) {
         this.index = index;

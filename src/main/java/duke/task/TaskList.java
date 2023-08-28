@@ -9,7 +9,7 @@ import java.util.List;
  * Represents a list of tasks.
  */
 public class TaskList {
-    private ArrayList<Task> tasks; // The list of tasks.
+    private final ArrayList<Task> tasks; // The list of tasks.
 
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -19,24 +19,26 @@ public class TaskList {
         this.tasks = new ArrayList<>();
         for (String line : lines) {
             String[] inputs = line.split(" \\| ");
+
             String taskType = inputs[0];
             Boolean isDone = inputs[1].equals("1");
             String description = inputs[2];
+            
             switch (taskType) {
-                case "T":
-                    this.add(new Todo(description, isDone));
-                    break;
-                case "D":
-                    String by = inputs[3];
-                    this.add(new Deadline(description, by, isDone));
-                    break;
-                case "E":
-                    String from = inputs[3];
-                    String to = inputs[4];
-                    this.add(new Event(description, from, to, isDone));
-                    break;
-                default:
-                    break;
+            case "T":
+                this.add(new Todo(description, isDone));
+                break;
+            case "D":
+                String by = inputs[3];
+                this.add(new Deadline(description, by, isDone));
+                break;
+            case "E":
+                String from = inputs[3];
+                String to = inputs[4];
+                this.add(new Event(description, from, to, isDone));
+                break;
+            default:
+                break;
             }
         }
     }

@@ -13,7 +13,7 @@ public class Ui {
     private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private static final String CHATBOT_NAME = "Duke";
 
-    private Scanner sc; // The scanner to read user input.
+    private final Scanner sc; // The scanner to read user input.
 
     public Ui() {
         this.sc = new Scanner(System.in);

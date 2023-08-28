@@ -1,9 +1,9 @@
 package duke.task;
 
+import duke.exception.DukeException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
-import duke.exception.DukeException;
 
 /**
  * Represents a task. A <code>Task</code> object corresponds to a task
@@ -21,14 +21,12 @@ public class Task {
      * @return A string representation of the date in the format of "h:mm a, MMM d
      *         yyyy".
      */
-    protected static String getDate(LocalDateTime date) {
-        return date.format(DateTimeFormatter.ofPattern("h:mm a, MMM d yyyy"));
-    }
 
     public Task(String description) throws DukeException {
         if (description.isEmpty()) {
             throw new DukeException("\u2639 OOPS!!! The description of a task cannot be empty.");
         }
+        
         this.description = description;
         this.isDone = false;
     }
@@ -37,8 +35,13 @@ public class Task {
         if (description.isEmpty()) {
             throw new DukeException("\u2639 OOPS!!! The description of a task cannot be empty.");
         }
+
         this.description = description;
         this.isDone = isDone;
+    }
+
+    protected static String getDate(LocalDateTime date) {
+        return date.format(DateTimeFormatter.ofPattern("h:mm a, MMM d yyyy"));
     }
 
     /**

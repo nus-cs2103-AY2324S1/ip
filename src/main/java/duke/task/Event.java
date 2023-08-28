@@ -1,8 +1,8 @@
 package duke.task;
 
-import java.time.LocalDateTime;
-
 import duke.exception.DukeException;
+
+import java.time.LocalDateTime;
 
 /**
  * Represents a task with a start and end time.

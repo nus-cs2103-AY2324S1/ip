@@ -1,5 +1,7 @@
 package duke.storage;
 
+import duke.exception.DukeException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -8,14 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import duke.exception.DukeException;
-
 /**
  * Represents a storage that stores the task list in the hard disk.
  * The tasks are stored in a text file. Each line corresponds to a task.
  */
 public class Storage {
-    private String filePath; // The path of the file to store the task list.
+    private final String filePath; // The path of the file to store the task list.
 
     public Storage(String filePath) {
         this.filePath = filePath;
