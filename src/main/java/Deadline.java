@@ -1,6 +1,13 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+
 public class Deadline extends Task {
 
     protected String by;
+    private final DateTimeDetector detector = new DateTimeDetector();
 
     /**
      * Constructor to build a task with description as input.
@@ -19,12 +26,14 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+
     /**
      * Prints out the description of the task and its status.
      * @return A string that shows the task's description and status.
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        String d = detector.format(by);
+        return "[D]" + super.toString() + " (by: " + d + ")";
     }
 }
