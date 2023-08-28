@@ -15,6 +15,9 @@ import task.Task;
 import task.ToDo;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -42,7 +45,10 @@ public class Emiya {
 
         String path = Paths.get("").toAbsolutePath().toString();
         String pathToDataDir = Paths.get(path, "data").toString();
-        File dataDir = new File (pathToDataDir);
+        Path pathToDataDoc = Paths.get(pathToDataDir, "emiya.txt");
+        String pathToDataDocStr = pathToDataDoc.toString();
+        File dataDir = new File(pathToDataDir);
+        File dataDoc = new File(pathToDataDocStr);
 
         if (!dataDir.exists()) {
             boolean result = dataDir.mkdirs();
@@ -53,6 +59,17 @@ public class Emiya {
             }
         } else {
             System.out.println("Directory already exists");
+        }
+
+        if (!dataDoc.exists()) {
+            String testData = "Writing Works!";
+            try {
+                Files.write(pathToDataDoc, testData.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("File already exists");
         }
 
         // Represents the list as an ArrayList of task.Task objects
