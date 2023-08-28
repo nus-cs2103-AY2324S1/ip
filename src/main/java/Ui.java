@@ -71,5 +71,4 @@ public class Ui {
         System.out.print(HORIZONTAL_LINE);
     }
 
-
 }

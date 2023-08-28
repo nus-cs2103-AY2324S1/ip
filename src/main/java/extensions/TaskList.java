@@ -1,13 +1,13 @@
 package extensions;
 
-import exceptions.DukeException;
-import exceptions.InvalidIndexException;
-
 import java.lang.StringBuilder;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import exceptions.DukeException;
+import exceptions.InvalidIndexException;
 
 public class TaskList {
     protected static final DateTimeFormatter DATETIME_FORMAT
@@ -33,7 +33,7 @@ public class TaskList {
     }
 
     public Task addEvent(String desc, String start, String end, int isMarked)
-            throws DateTimeParseException{
+            throws DateTimeParseException {
         LocalDateTime dateTimeStart = LocalDateTime.parse(start, DATETIME_FORMAT);
         LocalDateTime dateTimeEnd = LocalDateTime.parse(end, DATETIME_FORMAT);
         Task task = new EventTask(desc, dateTimeStart, dateTimeEnd, isMarked);

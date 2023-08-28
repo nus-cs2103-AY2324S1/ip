@@ -1,24 +1,23 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import extensions.Task;
 import extensions.TaskList;
 
 public class Storage {
 
-    private String filepath;
+    /*
+        file format:
+        <tasktype>|<isMarked>|<desc>|<end>|<start>
+    */
 
-    public Storage(String filepath) {
-        this.filepath = filepath;
-    }
-
-    public TaskList retrieveSavedData() {
+    public static TaskList retrieveSavedData() {
         try {
             ArrayList<String> arr = new ArrayList<>();
-            File f = new File(filepath);
+            File f = new File("data/duke.txt");
             if (!f.exists()) {
                 return new TaskList();
             }
@@ -38,7 +37,7 @@ public class Storage {
         }
     }
 
-    private TaskList populate(ArrayList<String> arr) {
+    private static TaskList populate(ArrayList<String> arr) {
         TaskList taskList = new TaskList();
 
         for (String str : arr) {
@@ -68,7 +67,7 @@ public class Storage {
         return taskList;
     }
 
-    public void saveChanges(TaskList taskList) {
+    public static void saveChanges(TaskList taskList) {
         try {
             File directory = new File("data");
             if (!directory.exists()) {
@@ -79,8 +78,8 @@ public class Storage {
             fileWriter.write("");
             fileWriter.append(taskList.getTextFormattedString());
             fileWriter.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            Ui.printError(e.getMessage());
         }
     }
 
