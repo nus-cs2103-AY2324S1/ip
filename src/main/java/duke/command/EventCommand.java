@@ -13,6 +13,12 @@ public class EventCommand extends Command {
     /** Represents an Event object */
     private final Event event;
 
+    /**
+     * Constructor method.
+     *
+     * @param input User input.
+     * @throws DukeException If any error occurs.
+     */
     public EventCommand(String input) throws DukeException {
         if (input == null) {
             throw new DukeException(" ☹ OOPS!!! The description of an event cannot be empty.");
@@ -37,8 +43,8 @@ public class EventCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(event);
-        ui.showMessage(String.format("Got it. I've added this task:\n    " +
-                "%s\nNow you have %d tasks in the list.", event, taskList.getListSize()));
+        ui.showMessage(String.format("Got it. I've added this task:\n    "
+                + "%s\nNow you have %d tasks in the list.", event, taskList.getListSize()));
         storage.appendFile(event);
     }
 }

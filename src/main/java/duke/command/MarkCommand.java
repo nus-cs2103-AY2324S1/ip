@@ -13,6 +13,12 @@ public class MarkCommand extends Command {
     /** Index of command to be marked. */
     private final int index;
 
+    /**
+     * Constructor method.
+     *
+     * @param input User input.
+     * @throws DukeException If any error occurs.
+     */
     public MarkCommand(String input) throws DukeException {
         if (input == null) {
             throw new DukeException(" ☹ Which task?");

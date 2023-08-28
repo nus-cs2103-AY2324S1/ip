@@ -13,6 +13,12 @@ public class DeadlineCommand extends Command {
     /** Represents a Deadline object. */
     private final Deadline deadline;
 
+    /**
+     * Constructor method.
+     *
+     * @param input User input.
+     * @throws DukeException If any error occurs.
+     */
     public DeadlineCommand(String input) throws DukeException {
         if (input == null) {
             throw new DukeException(" ☹ OOPS!!! The description of a deadline cannot be empty.");
@@ -34,8 +40,8 @@ public class DeadlineCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(deadline);
-        ui.showMessage(String.format("Got it. I've added this task:\n    " +
-                "%s\nNow you have %d tasks in the list.", deadline, taskList.getListSize()));
+        ui.showMessage(String.format("Got it. I've added this task:\n    "
+                + "%s\nNow you have %d tasks in the list.", deadline, taskList.getListSize()));
         storage.appendFile(deadline);
     }
 }
