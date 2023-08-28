@@ -62,15 +62,15 @@ public class Storage {
             String taskInfo = taskInfoSplit[taskInfoSplit.length - 1].trim();
 
             switch (taskType) {
-                case "D":
-                    newTask = Deadline.initializeFromStorage(taskInfo);
-                    break;
-                case "T":
-                    newTask = Todo.initializeFromStorage(taskInfo);
-                    break;
-                case "E":
-                    newTask = Event.initializeFromStorage(taskInfo);
-                    break;
+            case "D":
+                newTask = Deadline.initializeFromStorage(taskInfo);
+                break;
+            case "T":
+                newTask = Todo.initializeFromStorage(taskInfo);
+                break;
+            case "E":
+                newTask = Event.initializeFromStorage(taskInfo);
+                break;
             }
             if (Objects.equals(taskComplete, "X")) {
                 assert newTask != null;
