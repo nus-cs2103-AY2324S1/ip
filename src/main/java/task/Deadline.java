@@ -1,18 +1,21 @@
 package task;
 import task.Task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     /**
      * The date of the deadline.
      */
-    private final String dateTime;
+    private final LocalDateTime dateTime;
 
     /**
      * Creates a deadline with the given description and date.
      * @param description The description of the deadline.
      * @param dateTime The date and time of the deadline.
      */
-    public Deadline (String description, String dateTime) {
+    public Deadline (String description, LocalDateTime dateTime) {
         super.description = description;
         this.dateTime = dateTime;
     }
@@ -23,6 +26,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dateTime + ")";
+        String newDateTime = dateTime.format(super.formatter);
+        return "[D]" + super.toString() + " (by: " + newDateTime + ")";
     }
 }
