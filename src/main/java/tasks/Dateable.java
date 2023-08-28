@@ -38,7 +38,6 @@ public abstract class Dateable {
             return this.dotDateTime.isAfter(date) || this.dotDateTime.isEqual(date);
         }
 
-
         @Override
         public String toString() {
             return this.dotDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy ha"));
@@ -70,10 +69,10 @@ public abstract class Dateable {
     public static Dateable of(String input) {
         //(Only) regex inspired by ChatGPT
         //Prompt: Give me a regex crash course
-        //We allow tutorial e.g. 2/12/2019 1800
+        //We allow tutorial's format e.g. 2/12/2019 1800
         //We need to parse it into yyyy-MM-ddTHH:mm:ss
-        String regex = "^([1-9]|0[1-9]|[1-2][0-9]|3[0-1])/([1-9]|0[1-9]|1[0-2])/[0-9]{4} " +
-                "([0-1][0-9]|2[0-3])([0-5][0-9])$";
+        String regex = "^([1-9]|0[1-9]|[1-2][0-9]|3[0-1])/([1-9]|0[1-9]|1[0-2])/[0-9]{4} "
+                + "([0-1][0-9]|2[0-3])([0-5][0-9])$";
         if (input.matches(regex)) {
             // Parse into format accepted by LocalDateTime
             String[] splitBySpace = input.split(" ");

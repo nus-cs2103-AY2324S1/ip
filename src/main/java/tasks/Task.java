@@ -42,7 +42,7 @@ public abstract class Task {
     //https://nus-cs2103-ay2324s1.github.io/website/schedule/week2/project.html
     //Only refers to the getStatus method
     public char getStatus() {
-        return this.completed ? 'X': ' ';
+        return this.completed ? 'X' : ' ';
     }
 
     public String toString() {

@@ -13,15 +13,15 @@ public class Validation {
 
     public static boolean isValidCommand(String input, String command) {
         int commandLen = command.length();
-        return input.startsWith(command) &&
-                (input.length() == commandLen || input.charAt(commandLen) == ' ');
+        return input.startsWith(command) && (
+                input.length() == commandLen || input.charAt(commandLen) == ' ');
     }
     /**
-     * Validates whether input is in format: <command> <integer>.
+     * Validates whether input is in format: <code>{@literal <command> <integer>.}</code>
      * Assumes valid command.
      * @param input from the user
      * @param potentialError the TaskError that will handle potential exceptions
-     * @return the argument <integer>
+     * @return the argument <code>{@literal <integer>}</code>
      * @throws DotException if input is invalid
      */
     public static int intIfValidCommandSpaceNumber(String input,
@@ -46,14 +46,14 @@ public class Validation {
     }
 
     /**
-     * Validates whether input is in format: <command> <description>
+     * Validates whether input is in format: <code>{@literal <command> <description>.}</code>
      * We require command parameter because we are not relying on String::split
      * Assumes that command is valid
      * @param input from user
      * @param command in format
      * @param parameterDesc for error message
      * @param potentialError the TaskError that will handle potential exceptions
-     * @return the argument <description>
+     * @return the argument <code>{@literal <description>}</code>
      * @throws DotException if input is invalid
      */
     public static String descIfValidCommandSpaceDesc(String input, String command, String parameterDesc,
@@ -67,7 +67,7 @@ public class Validation {
     }
 
     /**
-     * Validates whether input is in format: deadline <desc> /by <deadline>
+     * Validates whether input is in format: <code>{@literal deadline <desc> /by <deadline>}</code>
      * This is capable of spotting format errors such as overflowing parameters
      * @param input from user
      * @return { description, deadline > if valid
@@ -84,7 +84,6 @@ public class Validation {
             throw new DotException("No deadline given or is given without task description.",
                     TaskError.ERR_USING_DEADLINE);
         }
-
         // We can assume that input is now in the format "deadline .+ /by.*'
         String[] substrings = input.split(" /by");
 
@@ -112,7 +111,8 @@ public class Validation {
     }
 
     /**
-     * Validates whether input is in format: event <desc> /from <start> /to <end>
+     * Validates whether input is in format: event
+     * <code>{@literal <desc> /from <start> /to <end>}</code>
      * @param input from user
      * @return { desc, start, end } if input is valid
      * @throws DotException if input is invalid
