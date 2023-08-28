@@ -4,10 +4,12 @@ import exception.IllegalTaskIndexException;
 import exception.InvalidArgumentException;
 import storage.Storage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a list of tasks.
@@ -28,10 +30,10 @@ public class TaskList {
                 String[] split = details.split(" /by ");
                 if (split.length != 2) {
                     throw new InvalidArgumentException("☹ OOPS!!! The deadline format is incorrect. " +
-                            "It should be: deadline <name> /by <dateTime>");
+                            "It should be: deadline <name> /by <date> <time>");
                 }
                 String taskName = split[0], dateTime = split[1];
-                return new Deadline(taskName, dateTime);
+                return new Deadline(taskName, parseDateTime(dateTime));
             }
         },
         EVENT {
@@ -41,10 +43,10 @@ public class TaskList {
                 String[] secondSplit = firstSplit[firstSplit.length - 1].split(" /to ");
                 if (firstSplit.length != 2 || secondSplit.length != 2) {
                     throw new InvalidArgumentException("☹ OOPS!!! The event format is incorrect. " +
-                            "It should be: event <name> /from <dateTime> /to <dateTime>");
+                            "It should be: event <name> /from <date> <time> /to <date> <time>");
                 }
                 String taskName = firstSplit[0], startDateTime = secondSplit[0], endDateTime = secondSplit[1];
-                return new Event(taskName, startDateTime, endDateTime);
+                return new Event(taskName, parseDateTime(startDateTime), parseDateTime(endDateTime));
             }
         };
 
@@ -55,6 +57,21 @@ public class TaskList {
          * @throws InvalidArgumentException If the deadline task's format is invalid.
          */
         public abstract Task createTask(String details) throws InvalidArgumentException;
+        private static final DateTimeFormatter[] DATE_TIME_FORMATS = {
+                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+                DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm"),
+        };
+        private static LocalDateTime parseDateTime(String dateTime) throws InvalidArgumentException {
+            for (DateTimeFormatter format: DATE_TIME_FORMATS) {
+                try {
+                    return LocalDateTime.parse(dateTime, format);
+                } catch (DateTimeParseException e) {
+                    // Do nothing
+                }
+            }
+            throw new InvalidArgumentException("☹ OOPS!!! Your dateTime format is not supported!");
+        }
     }
 
     private List<Task> tasks;

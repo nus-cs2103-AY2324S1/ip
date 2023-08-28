@@ -1,5 +1,7 @@
 package task;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task in the task list.
  */
@@ -14,6 +16,8 @@ public abstract class Task {
      * Whether the task is done.
      */
     protected boolean isDone;
+
+    protected DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
     /**
      * Returns the status icon of the task.

@@ -5,50 +5,42 @@ ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] Read book
-Now you have 1 task in the list.
+Now you have 6 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
-[D][ ] submit 2103T lab (by: 30-08-2023 2356)
-Now you have 2 tasks in the list.
+☹ OOPS!!! Your dateTime format is not supported!
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
-[E][ ] 2101 team meeting (from: 05-09-2023 to: Tuesday 10pm)
-Now you have 3 tasks in the list.
+☹ OOPS!!! Your dateTime format is not supported!
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] Go grocery shopping
-Now you have 4 tasks in the list.
+Now you have 7 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
-[E][ ] Running (from: 2023-Sep-10 to: 15:00 tomorrow)
-Now you have 5 tasks in the list.
+☹ OOPS!!! Your dateTime format is not supported!
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
 [D][ ] Finish project (by: 17-09-2023 23:59)
-Now you have 6 tasks in the list.
+Now you have 8 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
 [T][ ] Walk the dog
-Now you have 7 tasks in the list.
+Now you have 9 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 1.[T][ ] Read book
-2.[D][ ] submit 2103T lab (by: 30-08-2023 2356)
-3.[E][ ] 2101 team meeting (from: 05-09-2023 to: Tuesday 10pm)
-4.[T][ ] Go grocery shopping
-5.[E][ ] Running (from: 2023-Sep-10 to: 15:00 tomorrow)
-6.[D][ ] Finish project (by: 17-09-2023 23:59)
-7.[T][ ] Walk the dog
-____________________________________________________________
-____________________________________________________________
-Nice! I've marked this task as done:
-[D][X] submit 2103T lab (by: 30-08-2023 2356)
+2.[T][ ] Read book
+3.[T][X] Go grocery shopping
+4.[D][ ] Finish project (by: 17-09-2023 23:59)
+5.[T][X] Walk the dog
+6.[T][ ] Read book
+7.[T][ ] Go grocery shopping
+8.[D][ ] Finish project (by: 17-09-2023 23:59)
+9.[T][ ] Walk the dog
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -56,16 +48,22 @@ Nice! I've marked this task as done:
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-[E][X] Running (from: 2023-Sep-10 to: 15:00 tomorrow)
+[T][X] Read book
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+[T][X] Walk the dog
 ____________________________________________________________
 ____________________________________________________________
 1.[T][X] Read book
-2.[D][X] submit 2103T lab (by: 30-08-2023 2356)
-3.[E][ ] 2101 team meeting (from: 05-09-2023 to: Tuesday 10pm)
-4.[T][ ] Go grocery shopping
-5.[E][X] Running (from: 2023-Sep-10 to: 15:00 tomorrow)
-6.[D][ ] Finish project (by: 17-09-2023 23:59)
-7.[T][ ] Walk the dog
+2.[T][X] Read book
+3.[T][X] Go grocery shopping
+4.[D][ ] Finish project (by: 17-09-2023 23:59)
+5.[T][X] Walk the dog
+6.[T][ ] Read book
+7.[T][ ] Go grocery shopping
+8.[D][ ] Finish project (by: 17-09-2023 23:59)
+9.[T][ ] Walk the dog
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
@@ -73,92 +71,87 @@ OK, I've marked this task as not done yet:
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-[D][ ] submit 2103T lab (by: 30-08-2023 2356)
+[T][ ] Read book
 ____________________________________________________________
 ____________________________________________________________
 1.[T][ ] Read book
-2.[D][ ] submit 2103T lab (by: 30-08-2023 2356)
-3.[E][ ] 2101 team meeting (from: 05-09-2023 to: Tuesday 10pm)
-4.[T][ ] Go grocery shopping
-5.[E][X] Running (from: 2023-Sep-10 to: 15:00 tomorrow)
-6.[D][ ] Finish project (by: 17-09-2023 23:59)
-7.[T][ ] Walk the dog
+2.[T][ ] Read book
+3.[T][X] Go grocery shopping
+4.[D][ ] Finish project (by: 17-09-2023 23:59)
+5.[T][X] Walk the dog
+6.[T][ ] Read book
+7.[T][ ] Go grocery shopping
+8.[D][ ] Finish project (by: 17-09-2023 23:59)
+9.[T][ ] Walk the dog
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
-[E][ ] watch netflix again (from: 19-4-2023 to: Tuesday 19:00)
-Now you have 8 tasks in the list.
+☹ OOPS!!! Your dateTime format is not supported!
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
-[D][ ] modreg round 9 (by: Wedenesday 2023-09-25)
-Now you have 9 tasks in the list.
+☹ OOPS!!! Your dateTime format is not supported!
 ____________________________________________________________
 ____________________________________________________________
 1.[T][ ] Read book
-2.[D][ ] submit 2103T lab (by: 30-08-2023 2356)
-3.[E][ ] 2101 team meeting (from: 05-09-2023 to: Tuesday 10pm)
-4.[T][ ] Go grocery shopping
-5.[E][X] Running (from: 2023-Sep-10 to: 15:00 tomorrow)
-6.[D][ ] Finish project (by: 17-09-2023 23:59)
-7.[T][ ] Walk the dog
-8.[E][ ] watch netflix again (from: 19-4-2023 to: Tuesday 19:00)
-9.[D][ ] modreg round 9 (by: Wedenesday 2023-09-25)
+2.[T][ ] Read book
+3.[T][X] Go grocery shopping
+4.[D][ ] Finish project (by: 17-09-2023 23:59)
+5.[T][X] Walk the dog
+6.[T][ ] Read book
+7.[T][ ] Go grocery shopping
+8.[D][ ] Finish project (by: 17-09-2023 23:59)
+9.[T][ ] Walk the dog
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-[T][X] Walk the dog
+[T][X] Go grocery shopping
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-[D][ ] submit 2103T lab (by: 30-08-2023 2356)
+[T][ ] Read book
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
-[E][X] 2101 team meeting (from: 05-09-2023 to: Tuesday 10pm)
+[T][X] Go grocery shopping
 ____________________________________________________________
 ____________________________________________________________
 1.[T][ ] Read book
-2.[D][ ] submit 2103T lab (by: 30-08-2023 2356)
-3.[E][X] 2101 team meeting (from: 05-09-2023 to: Tuesday 10pm)
-4.[T][ ] Go grocery shopping
-5.[E][X] Running (from: 2023-Sep-10 to: 15:00 tomorrow)
-6.[D][ ] Finish project (by: 17-09-2023 23:59)
-7.[T][X] Walk the dog
-8.[E][ ] watch netflix again (from: 19-4-2023 to: Tuesday 19:00)
-9.[D][ ] modreg round 9 (by: Wedenesday 2023-09-25)
+2.[T][ ] Read book
+3.[T][X] Go grocery shopping
+4.[D][ ] Finish project (by: 17-09-2023 23:59)
+5.[T][X] Walk the dog
+6.[T][ ] Read book
+7.[T][X] Go grocery shopping
+8.[D][ ] Finish project (by: 17-09-2023 23:59)
+9.[T][ ] Walk the dog
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
-[T][ ] Go grocery shopping
+[D][ ] Finish project (by: 17-09-2023 23:59)
 ____________________________________________________________
 ____________________________________________________________
 1.[T][ ] Read book
-2.[D][ ] submit 2103T lab (by: 30-08-2023 2356)
-3.[E][X] 2101 team meeting (from: 05-09-2023 to: Tuesday 10pm)
-4.[T][ ] Go grocery shopping
-5.[E][X] Running (from: 2023-Sep-10 to: 15:00 tomorrow)
-6.[D][ ] Finish project (by: 17-09-2023 23:59)
-7.[T][X] Walk the dog
-8.[E][ ] watch netflix again (from: 19-4-2023 to: Tuesday 19:00)
-9.[D][ ] modreg round 9 (by: Wedenesday 2023-09-25)
+2.[T][ ] Read book
+3.[T][X] Go grocery shopping
+4.[D][ ] Finish project (by: 17-09-2023 23:59)
+5.[T][X] Walk the dog
+6.[T][ ] Read book
+7.[T][X] Go grocery shopping
+8.[D][ ] Finish project (by: 17-09-2023 23:59)
+9.[T][ ] Walk the dog
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
-[E][ ] Dinner with the family (from: 17-09-2024 to: 20:00 tomorrow)
-Now you have 10 tasks in the list.
+☹ OOPS!!! Your dateTime format is not supported!
 ____________________________________________________________
 ____________________________________________________________
 1.[T][ ] Read book
-2.[D][ ] submit 2103T lab (by: 30-08-2023 2356)
-3.[E][X] 2101 team meeting (from: 05-09-2023 to: Tuesday 10pm)
-4.[T][ ] Go grocery shopping
-5.[E][X] Running (from: 2023-Sep-10 to: 15:00 tomorrow)
-6.[D][ ] Finish project (by: 17-09-2023 23:59)
-7.[T][X] Walk the dog
-8.[E][ ] watch netflix again (from: 19-4-2023 to: Tuesday 19:00)
-9.[D][ ] modreg round 9 (by: Wedenesday 2023-09-25)
-10.[E][ ] Dinner with the family (from: 17-09-2024 to: 20:00 tomorrow)
+2.[T][ ] Read book
+3.[T][X] Go grocery shopping
+4.[D][ ] Finish project (by: 17-09-2023 23:59)
+5.[T][X] Walk the dog
+6.[T][ ] Read book
+7.[T][X] Go grocery shopping
+8.[D][ ] Finish project (by: 17-09-2023 23:59)
+9.[T][ ] Walk the dog
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

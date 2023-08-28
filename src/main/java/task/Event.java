@@ -1,11 +1,13 @@
 package task;
 
+import java.time.LocalDateTime;
+
 public class Event extends Task {
     /**
      * The date of the event.
      */
-    private final String startDateTime;
-    private final String endDateTime;
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
 
     /**
      * Creates an event with the given description and date.
@@ -13,7 +15,7 @@ public class Event extends Task {
      * @param startDateTime The startDateTime of the event.
      * @param endDateTime The endDateTime of the event.
      */
-    public Event (String description, String startDateTime, String endDateTime) {
+    public Event (String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super.description = description;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -25,7 +27,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startDateTime + " to: " + endDateTime + ")";
+        String newStartDateTime = startDateTime.format(super.formatter);
+        String newEndDateTime = endDateTime.format(super.formatter);
+        return "[E]" + super.toString() + " (from: " + newStartDateTime + " to: " + newEndDateTime + ")";
     }
 
 }

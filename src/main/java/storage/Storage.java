@@ -8,6 +8,8 @@ import task.Event;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,6 +56,7 @@ public class Storage {
             boolean isDone = doneStatus == 'X';
             String description = parts[2].trim();
             Task task;
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
             switch (type) {
             case 'T':
                 task = new ToDo(description);
@@ -66,7 +69,7 @@ public class Storage {
                 String[] components = description.split(" \\(by: ");
                 String deadlineDescription = components[0].trim();
                 String deadlineDateTime = components[1].substring(0, components[1].length() - 1);
-                task = new Deadline(deadlineDescription, deadlineDateTime);
+                task = new Deadline(deadlineDescription, LocalDateTime.parse(deadlineDateTime, format));
                 if (isDone) {
                     task.markAsDone();
                 }
@@ -78,7 +81,9 @@ public class Storage {
                 String[] eventDateTimes = eventParts[1].split(" to: ");
                 String eventStartDateTime = eventDateTimes[0];
                 String eventEndDateTime = eventDateTimes[1].substring(0, eventDateTimes[1].length() - 1);
-                task = new Event(eventDescription, eventStartDateTime, eventEndDateTime);
+                task = new Event(eventDescription,
+                        LocalDateTime.parse(eventStartDateTime, format),
+                        LocalDateTime.parse(eventEndDateTime, format));
                 if (isDone) task.markAsDone();
                 tasks.add(task);
                 break;
