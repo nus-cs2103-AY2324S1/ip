@@ -2,10 +2,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
-    private static String horizontalLine = "____________________________________________________________";
-    private String myName = "Quack-NKN";
-    private Scanner scanner = new Scanner(System.in);
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
+    private final String myName = "Quack-NKN";
+    private final Scanner scanner = new Scanner(System.in);
+    private final ArrayList<Task> taskList = new ArrayList<>();
 
     public Duke() {
         interact();
@@ -15,11 +15,11 @@ public class Duke {
      * Invoked at the start of the interaction, to greet the user.
      */
     private void start() {
-        System.out.println(Duke.horizontalLine);
+        System.out.println(Duke.HORIZONTAL_LINE);
         System.out.print("Hello from ");
         System.out.println(this.myName);
         System.out.println("What can I do for you?");
-        System.out.println(Duke.horizontalLine);
+        System.out.println(Duke.HORIZONTAL_LINE);
     }
 
     /**
@@ -27,7 +27,7 @@ public class Duke {
      */
     private void exit() {
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(Duke.horizontalLine);
+        System.out.println(Duke.HORIZONTAL_LINE);
     }
 
     /**
@@ -49,7 +49,7 @@ public class Duke {
             // receive input
             System.out.print("In: ");
             String command = this.scanner.nextLine();
-            System.out.println(Duke.horizontalLine);
+            System.out.println(Duke.HORIZONTAL_LINE);
             String[] commandArgs = command.split(" ", 2);
 
             // exit
@@ -99,7 +99,7 @@ public class Duke {
                     break;
             }
 
-            System.out.println(Duke.horizontalLine);
+            System.out.println(Duke.HORIZONTAL_LINE);
         }
         this.exit();
     }
