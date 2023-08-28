@@ -18,13 +18,13 @@ public class Bot {
 
     public void printWelcomeMessage() {
         String name = "LINUS";
-        MessagePrint.print(
+        MessagePrinter.print(
                 "Hello! I'm " + name + "\n"
                         + "What can I do for you?");
     }
 
     public void printExitMessage() {
-        MessagePrint.print("Bye. Hope to see you again soon!");
+        MessagePrinter.print("Bye. Hope to see you again soon!");
     }
 
     public void list() {
@@ -33,13 +33,13 @@ public class Bot {
             listOfItems += (i + 1) + "."
                     + tasks.get(i).toString() + "\n";
         }
-        MessagePrint.print(listOfItems);
+        MessagePrinter.print(listOfItems);
     }
 
     public void add(Task task) {
         tasks.add(task);
         int numOfTasks = tasks.size();
-        MessagePrint.print("Got it. I've added this task:\n"
+        MessagePrinter.print("Got it. I've added this task:\n"
                 + "  " + task + "\n"
                 + "Now you have " + numOfTasks + " task" + (numOfTasks > 1 ? "s" : "") + " in the list.");
     }
@@ -48,7 +48,7 @@ public class Bot {
         Task task = tasks.get(index);
         tasks.remove(index);
         int numOfTasks = tasks.size();
-        MessagePrint.print("Noted. I've removed this task:\n"
+        MessagePrinter.print("Noted. I've removed this task:\n"
                 + "  " + task + "\n"
                 + "Now you have " + numOfTasks + " task" + (numOfTasks > 1 ? "s" : "") + " in the list.");
     }
@@ -135,9 +135,10 @@ public class Bot {
                 }
                 break;
             } catch (IllegalArgumentException e) {
-                MessagePrint.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                MessagePrinter.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
+                        "Please start your inputs with a valid command.");
             } catch (LinusException e) {
-                MessagePrint.print(e.getMessage());
+                MessagePrinter.print(e.getMessage());
             }
         }
     }
