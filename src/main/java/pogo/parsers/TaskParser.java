@@ -1,3 +1,5 @@
+package pogo.parsers;
+
 public class TaskParser {
     public static TaskType toTaskType(String input) {
         if (input.startsWith("todo") || input.startsWith("T")) {

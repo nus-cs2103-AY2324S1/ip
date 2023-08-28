@@ -1,3 +1,12 @@
+package pogo;
+
+import pogo.storage.Storage;
+import pogo.storage.TextStorage;
+import pogo.tasks.*;
+import pogo.tasks.exceptions.PogoEmptyTaskException;
+import pogo.tasks.exceptions.PogoException;
+import pogo.tasks.exceptions.PogoInvalidTaskException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,16 +22,12 @@ public class Pogo {
         BYE, LIST, MARK, UNMARK, DELETE, ADD
     }
 
-    private enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
-
     private static int parseTaskIndex(String input) {
         return Integer.parseInt(input.split(" ")[1]) - 1;
     }
 
     private static void printTasks() {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("Here are the pogo.tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(i + 1 + ". " + tasks.get(i).getStatusMessage());
         }
@@ -87,7 +92,7 @@ public class Pogo {
     }
 
     private static void printNumberOfTasks() {
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println("Now you have " + tasks.size() + " pogo.tasks in the list.");
     }
 
     private static boolean handleInput(String input) {
@@ -156,7 +161,7 @@ public class Pogo {
                 Pogo.printNumberOfTasks();
             } catch (PogoInvalidTaskException e) {
                 System.out.println("Oops! I don't recognise that task.\n"
-                        + "Only the following tasks are supported:\n"
+                        + "Only the following pogo.tasks are supported:\n"
                         + " - todo <description>\n"
                         + " - deadline <description> /by <date>\n"
                         + " - event <description> /from <date> /to <date>"
@@ -176,14 +181,14 @@ public class Pogo {
     public static void main(String[] args) {
         try {
             tasks = storage.load();
-            System.out.println("Loaded " + tasks.size() + " tasks from file.");
+            System.out.println("Loaded " + tasks.size() + " pogo.tasks from file.");
         } catch (IOException e) {
-            System.out.println("Failed to load tasks from file.");
+            System.out.println("Failed to load pogo.tasks from file.");
             return;
         }
 
         System.out.println(HORIZONTAL_LINE);
-        System.out.println("Hello! I'm Pogo\nWhat can I do for you?");
+        System.out.println("Hello! I'm pogo.Pogo\nWhat can I do for you?");
         System.out.println(HORIZONTAL_LINE);
 
         Scanner scanner = new Scanner(System.in);

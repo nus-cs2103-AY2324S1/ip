@@ -1,14 +1,14 @@
 ____________________________________________________________
-Hello! I'm Pogo
+Hello! I'm pogo.Pogo
 What can I do for you?
 ____________________________________________________________
 ____________________________________________________________
 added: [T][ ] first
-Now you have 1 tasks in the list.
+Now you have 1 pogo.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Oops! I don't recognise that task.
-Only the following tasks are supported:
+Only the following pogo.tasks are supported:
  - todo <description>
  - deadline <description> /by <date>
  - event <description> /from <date> /to <date>
@@ -18,10 +18,10 @@ Oops! The description of a task cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
 added: [E][ ] third (from: 4pm to: 6pm)
-Now you have 2 tasks in the list.
+Now you have 2 pogo.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here are the pogo.tasks in your list:
 1. [T][ ] first
 2. [E][ ] third (from: 4pm to: 6pm)
 ____________________________________________________________
@@ -34,7 +34,7 @@ This task is already done!
 [E][X] third (from: 4pm to: 6pm)
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here are the pogo.tasks in your list:
 1. [T][ ] first
 2. [E][X] third (from: 4pm to: 6pm)
 ____________________________________________________________
@@ -48,14 +48,14 @@ This task is already not done!
 ____________________________________________________________
 ____________________________________________________________
 added: [D][ ] fourth (by: 7pm)
-Now you have 3 tasks in the list.
+Now you have 3 pogo.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
 [D][X] fourth (by: 7pm)
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here are the pogo.tasks in your list:
 1. [T][ ] first
 2. [E][ ] third (from: 4pm to: 6pm)
 3. [D][X] fourth (by: 7pm)
@@ -63,15 +63,15 @@ ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
 [T][ ] first
-Now you have 2 tasks in the list.
+Now you have 2 pogo.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
 Noted. I've removed this task:
 [E][ ] third (from: 4pm to: 6pm)
-Now you have 1 tasks in the list.
+Now you have 1 pogo.tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+Here are the pogo.tasks in your list:
 1. [D][X] fourth (by: 7pm)
 ____________________________________________________________
 ____________________________________________________________

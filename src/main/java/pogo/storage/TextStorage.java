@@ -1,3 +1,12 @@
+package pogo.storage;
+
+import pogo.parsers.TaskParser;
+import pogo.tasks.Deadline;
+import pogo.tasks.Event;
+import pogo.tasks.Task;
+import pogo.tasks.TaskType;
+import pogo.tasks.exceptions.PogoInvalidTaskException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,7 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TextStorage implements Storage {
-    private static final String TASKS_FILE = "./data/tasks.txt";
+    private static final String TASKS_FILE = "./data/pogo.tasks.txt";
 
     private TextStorage() {
     }
@@ -46,7 +55,7 @@ public class TextStorage implements Storage {
             fw.write(formatTasks(tasks));
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error saving tasks");
+            System.out.println("Error saving pogo.tasks");
         }
     }
 
