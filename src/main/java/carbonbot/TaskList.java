@@ -1,18 +1,18 @@
 package carbonbot;
 
-import carbonbot.task.Deadline;
-import carbonbot.task.Event;
-import carbonbot.task.Task;
-import carbonbot.task.Todo;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import carbonbot.task.Deadline;
+import carbonbot.task.Event;
+import carbonbot.task.Task;
+import carbonbot.task.Todo;
+
 public class TaskList {
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     public TaskList() {
         this.tasks = new ArrayList<>();
