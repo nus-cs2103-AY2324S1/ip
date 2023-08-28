@@ -8,6 +8,7 @@ import com.alpha.commands.Command;
 import com.alpha.commands.DeadlineCommand;
 import com.alpha.commands.DeleteCommand;
 import com.alpha.commands.EventCommand;
+import com.alpha.commands.FindCommand;
 import com.alpha.commands.ListCommand;
 import com.alpha.commands.MarkCommand;
 import com.alpha.commands.ToDoCommand;
@@ -22,6 +23,17 @@ import com.alpha.exceptions.InvalidTaskException.InvalidToDoException;
 public class Parser {
 
     private Parser() {
+    }
+
+    /**
+     * Gets search string from user input.
+     *
+     * @param text User input.
+     * @return Search string of the task.
+     */
+    public static String getFindSearchString(String text) {
+        String result = text.replaceFirst("find", "").replaceFirst(" ", "");
+        return result;
     }
 
     /**
@@ -180,6 +192,8 @@ public class Parser {
             return new DeadlineCommand(userInput);
         case "event":
             return new EventCommand(userInput);
+        case "find":
+            return new FindCommand(userInput);
         default:
             return null;
         }
