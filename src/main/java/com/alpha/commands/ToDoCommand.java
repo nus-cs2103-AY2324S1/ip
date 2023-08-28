@@ -10,17 +10,17 @@ import com.alpha.utils.Parser;
 
 public class ToDoCommand extends Command {
 
-  public ToDoCommand(String args) {
-    super(args);
-  }
-
-  public void execute(TaskList taskList, Ui ui, Storage storage) {
-    try {
-      Task task = new ToDo(Parser.getToDoName(getArgs()));
-      taskList.addTask(task);
-      ui.addTask(task, taskList);
-    } catch (InvalidToDoException e) {
-      System.out.println(e.getMessage());
+    public ToDoCommand(String args) {
+        super(args);
     }
-  }
+
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        try {
+            Task task = new ToDo(Parser.getToDoName(getArgs()));
+            taskList.addTask(task);
+            ui.addTask(task, taskList);
+        } catch (InvalidToDoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
