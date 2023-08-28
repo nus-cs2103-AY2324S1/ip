@@ -417,9 +417,10 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
             case AddDeadline:
                 if (!chatCommand.hasParamWithUsefulValue("by")) {
-                    throw new ChatbotException(
-                            "The 'deadline' command requires supplying '/by <deadline>'!"
-                    );
+                    throw new ChatbotException(String.format(
+                            "The 'deadline' command requires supplying '%sby <deadline>'!",
+                            ChatCommand.PARAMETER_PREFIX
+                    ));
                 }
 
                 long byTimestamp;
@@ -442,9 +443,12 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             case AddEvent:
                 if (!chatCommand.hasParamWithUsefulValue("from") ||
                         !chatCommand.hasParamWithUsefulValue("to")) {
-                    throw new ChatbotException(
-                            "The 'event' command requires supplying both '/from <date>' and '/to <date>'!"
-                    );
+
+                    throw new ChatbotException(String.format(
+                            "The 'event' command requires supplying both '%sfrom <date>' and '%sto <date>'!",
+                            ChatCommand.PARAMETER_PREFIX,
+                            ChatCommand.PARAMETER_PREFIX
+                    ));
                 }
 
                 long startTimestamp;

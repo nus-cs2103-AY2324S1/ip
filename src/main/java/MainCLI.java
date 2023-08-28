@@ -7,11 +7,11 @@ import java.util.Scanner;
  * The chatbot CLI entry-point, which provides an interactive input prompt via the CLI.
  *
  * <p>
- *     The name is left as "Duke" for compatibility reasons and to keep the legacy around.
  *     The default name for the chatbot is specified at {@link chatbot.Chatbot#DEFAULT_NAME}.
+ *     Custom names can be set by modifying the {@link MainCLI#main} implementation here.
  * </p>
  */
-public class Duke {
+public class MainCLI {
 
     private static final String CHATBOT_PADDING = "  ";
     private static final String USER_PADDING = " > ";

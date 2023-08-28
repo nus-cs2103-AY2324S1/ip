@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class ChatCommand {
 
-    private static final String PARAMETER_PREFIX = "/";
+    public static final String PARAMETER_PREFIX = "--";
 
     /**
      * A command operation, representing an identified operation for a command.
@@ -63,7 +63,7 @@ public class ChatCommand {
      * Parses a string instruction as a command.
      *
      * <p>
-     *     This expects the format: "commandName Some long data text, /key1 value1 /key2 value2".
+     *     This expects the format: "commandName Some long data text --key1 value1 --key2 value2".
      * </p>
      *
      * @param instruction The string instruction to parse.
@@ -137,7 +137,7 @@ public class ChatCommand {
      * Parses a string instruction's command name.
      *
      * <p>
-     *     This expects the format: "commandName Some long data text, /key1 value1 /key2 value2".
+     *     This expects the format: "commandName Some long data text --key1 value1 --key2 value2".
      *     It only returns the commandName component, and does not attempt to read anything beyond that.
      * </p>
      *
