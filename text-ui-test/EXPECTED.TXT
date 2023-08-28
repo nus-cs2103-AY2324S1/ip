@@ -5,8 +5,6 @@ ____________________
 What can I do for you?
 ____________________
 
-Could not load previous.
-C:\Users\Xavier\IdeaProjects\ip\text-ui-test\.\data\Kniaz.dat does not exist
 As you say. The task has been added To-Do :
 [T][ ] read book
 ____________________
@@ -20,12 +18,12 @@ As you say. The task has been added as a Deadline :
 ____________________
 
 As you say. The task has been added To-Do :
-[E][ ] project meeting from : Mon 2pm to: 4pm
+[E][ ] project meeting from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
 ____________________
 
 1. [T][ ] read book
 2. [D][ ] return book(by : Sunday)
-3. [E][ ] project meeting from : Mon 2pm to: 4pm
+3. [E][ ] project meeting from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
 
 ____________________
 
@@ -35,12 +33,57 @@ ____________________
 I did not recognise test2 as an input, try again.
 ____________________
 
+As you say. The task has been added as a Deadline :
+[D][ ] fix dates(by : Dec 03 2007 10:15)
+____________________
+
 Your input is formatted wrongly, try again.
+____________________
+
+As you say. The task has been added To-Do :
+[E][ ] weirdly timed event from : apples to: oranges
+____________________
+
+1. [T][ ] read book
+2. [D][ ] return book(by : Sunday)
+3. [E][ ] project meeting from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
+4. [D][ ] fix dates(by : Dec 03 2007 10:15)
+5. [E][ ] weirdly timed event from : apples to: oranges
+
+____________________
+
+This task has been erased, mercy on its data :
+[T][ ] read book
+Only 4 tasks remain.
 ____________________
 
 This task has been erased, mercy on its data :
 [D][ ] return book(by : Sunday)
+Only 3 tasks remain.
+____________________
+
+This task has been erased, mercy on its data :
+[E][ ] project meeting from : Dec 03 2010 10:15 to: Dec 03 2011 09:15
 Only 2 tasks remain.
+____________________
+
+This task has been erased, mercy on its data :
+[D][ ] fix dates(by : Dec 03 2007 10:15)
+Only 1 tasks remain.
+____________________
+
+This task has been erased, mercy on its data :
+[E][ ] weirdly timed event from : apples to: oranges
+Only 0 tasks remain.
+____________________
+
+There is no such entry numbered 1. Try again, but correct.
+____________________
+
+There is no such entry numbered 1. Try again, but correct.
+____________________
+
+
 ____________________
 
 Bye. Hope to see you again soon!
