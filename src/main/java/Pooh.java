@@ -135,6 +135,7 @@ public class Pooh {
             for (Task task : taskList) {
                 fileWriter.write(task.writeTaskToFile() + "\n");
             }
+            fileWriter.close();
         } catch (IOException ex) {
             generalRespond("An error has occurred whilst writing to file. Error is:" + ex.getMessage());
         }
@@ -152,8 +153,8 @@ public class Pooh {
                 String userCmd = userInput.nextLine();
                 String userAction = userCmd.split(" ")[0];
                 if (userAction.equalsIgnoreCase("bye")) {
-                    writeTask(todoList);
                     exitMsg();
+                    writeTask(todoList);
                     userInput.close();
                     System.exit(0);
                 } else if (userAction.equalsIgnoreCase("list")) {
@@ -165,6 +166,7 @@ public class Pooh {
                     }
                     Task task = todoList.get(index);
                     task.markAsDone();
+                    writeTask(todoList);
                     taskDoneMsg(task);
                 } else if (userAction.equalsIgnoreCase("unmark")) {
                     int index = Integer.parseInt(userCmd.split(" ")[1]) - 1;
@@ -173,11 +175,13 @@ public class Pooh {
                     }
                     Task task = todoList.get(index);
                     task.markAsUndone();
+                    writeTask(todoList);
                     taskUndoneMsg(task);
                 } else if (userAction.equalsIgnoreCase("todo") || userAction.equalsIgnoreCase(
                         "event") || userAction.equalsIgnoreCase("deadline")) {
                     try {
                         addTask(todoList, userAction, userCmd);
+                        writeTask(todoList);
                     } catch (EmptyTaskDescriptorsException ex) {
                         generalRespond(ex.toString());
                     }
@@ -186,6 +190,7 @@ public class Pooh {
                     if (index < 0 || index >= todoList.size()) {
                         throw new InvalidTaskException();
                     }
+                    writeTask(todoList);
                     deleteTask(todoList, index);
                 } else {
                     throw new UnrecognizedCommandException();
