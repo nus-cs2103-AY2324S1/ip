@@ -79,7 +79,9 @@ public class TaskList {
      * @throws TaskNotFoundException If task does not exist.
      */
     public void deleteTask(int taskId) throws TaskNotFoundException {
-        if (taskId >= taskList.size()) throw new TaskNotFoundException();
+        if (taskId >= taskList.size()) {
+            throw new TaskNotFoundException();
+        }
         Task removedTask = taskList.remove(taskId);
         System.out.println("Noted. I've removed this task:");
         System.out.println(removedTask);
@@ -93,12 +95,16 @@ public class TaskList {
         Storage.writeToFile(taskList);
     }
 
+<<<<<<< .merge_file_KeHKD9
     /**
      * Returns the number of tasks in the task list.
      *
      * @return Number of tasks.
      */
     public int numTasks() {
+=======
+    public int getNumTasks() {
+>>>>>>> .merge_file_xEML82
         return taskList.size();
     }
 
@@ -110,7 +116,9 @@ public class TaskList {
      * @throws TaskNotFoundException If task does not exist.
      */
     public Task getTask(int taskId) throws TaskNotFoundException {
-        if (taskId >= taskList.size()) throw new TaskNotFoundException();
+        if (taskId >= taskList.size()) {
+            throw new TaskNotFoundException();
+        }
         return taskList.get(taskId);
     }
 }
