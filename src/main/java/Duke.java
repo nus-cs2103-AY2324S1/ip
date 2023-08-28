@@ -62,7 +62,7 @@ public class Duke {
                     System.out.println("Good Job! I have marked this task as done!");
                     System.out.println(todoList.get(taskIndex).toString());
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("This task does not exist!");
+                    System.out.println("This task does not exist! Please try again!");
                 } catch (NumberFormatException e) {
                     System.out.println("Please input the correct command");
                 }
@@ -75,7 +75,7 @@ public class Duke {
                     System.out.println("Aw man! I have marked this task as undone. We go again!");
                     System.out.println(todoList.get(taskIndex).toString());
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("This task does not exist!");
+                    System.out.println("This task does not exist! Please try again!");
                 } catch (NumberFormatException e) {
                     System.out.println("Please input the correct command");
                 }
@@ -90,7 +90,7 @@ public class Duke {
                     System.out.println(toRemove.toString());
                     System.out.println(String.format("You have %d task(s) currently in the list", todoList.size()));
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println("This task does not exist!");
+                    System.out.println("This task does not exist! Please try again!");
                 } catch (NumberFormatException e) {
                     System.out.println("Please input the correct command");
                 }
