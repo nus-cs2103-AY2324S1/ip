@@ -1,9 +1,9 @@
 package rat.tasks;
 
+import static rat.io.RatPrinter.*;
+
 import java.util.ArrayList;
 import java.time.LocalDateTime;
-
-import static rat.io.RatPrinter.*;
 
 import rat.storage.RatStorage;
 

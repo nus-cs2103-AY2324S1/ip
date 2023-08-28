@@ -1,8 +1,8 @@
 package rat;
 
-import java.util.Scanner;
-
 import static rat.io.RatPrinter.*;
+
+import java.util.Scanner;
 
 import rat.tasks.*;
 import rat.io.RatInput;
