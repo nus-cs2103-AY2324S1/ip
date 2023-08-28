@@ -1,1 +1,1 @@
-["java.util.ArrayList",[["Todo",{"description":"nigga","doneIcon":" "}],["Event",{"description":"hop ","startDate":" mon ","endDate":" sun","doneIcon":"X"}],["Deadline",{"description":"code ","deadDate":" today","doneIcon":" "}]]]
+["ReceivedTasks",{"tasks":["java.util.ArrayList",[{"@type":"Todo","description":"test","doneIcon":" "}]]}]

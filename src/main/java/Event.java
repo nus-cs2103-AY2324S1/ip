@@ -1,3 +1,7 @@
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+@JsonTypeName("Event")
 public class Event extends Task {
 
   public static final String taskType = "E";

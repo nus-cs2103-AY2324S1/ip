@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+@JsonTypeName("Deadline")
 public class Deadline extends Task {
 
   public static final String taskType = "D";
