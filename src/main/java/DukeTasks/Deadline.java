@@ -23,6 +23,29 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructor for the DukeTasks.Deadline class.
+     *
+     * @author Tan Kerway
+     * @param description the description of the task
+     * @param isDone whether the task is done
+     * @param by the deadline for the task
+     */
+    public Deadline(String description, boolean isDone, String by) {
+        super(description, isDone);
+        this.by = by;
+    }
+
+    /**
+     * Returns the deadline of the DukeTasks.Deadline instance.
+     *
+     * @author Tan Kerway
+     * @return the deadline of the DukeTasks.Deadline instance
+     */
+    public String getBy() {
+        return this.by;
+    }
+
+    /**
      * Returns the String representation of a DukeTasks.Deadline class.
      *
      * @author Tan Kerway
