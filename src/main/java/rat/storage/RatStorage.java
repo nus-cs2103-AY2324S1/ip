@@ -35,10 +35,18 @@ public class RatStorage {
         }
     }
 
+    /**
+     * Checks if the file is empty.
+     * @return True if the file is empty, false otherwise.
+     */
     public boolean isFileEmpty() {
         return ratData.length() == 0;
     }
 
+    /**
+     * Overwrites the file with the given input.
+     * @param input The input to overwrite the file with.
+     */
     public void overwriteFile(String input) {
         try {
             FileWriter fw = new FileWriter(ratData);

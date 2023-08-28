@@ -6,17 +6,37 @@ import java.text.ParseException;
 
 import rat.tasks.RatTaskManager;
 
+/**
+ * This class encapsulates a command that adds a task to the task list.
+ */
 public class AddCommand extends RatCommand {
 
+    /**
+     * The type of task to be added.
+     */
     private final CommandType commandType;
+
+    /**
+     * The user input passed from RatInput that contains details of the task to be added.
+     */
     private final String input;
 
+    /**
+     * Constructor for a AddCommand object.
+     * @param ratTaskManager The RatTaskManager object used to store and process the user's tasks.
+     * @param input The user input passed from RatInput that contains details of the task to be added.
+     * @param commandType The type of task to be added.
+     */
     public AddCommand(RatTaskManager ratTaskManager, String input, CommandType commandType) {
         super(ratTaskManager);
         this.input = input;
         this.commandType = commandType;
     }
 
+    /**
+     * Adds a ToDo task to the task list.
+     * @param params The user input passed from RatInput that contains details of the task to be added.
+     */
     private void addToDo(String params) {
         try {
             params = params.substring(5);
@@ -26,6 +46,10 @@ public class AddCommand extends RatCommand {
         }
     }
 
+    /**
+     * Adds a Deadline task to the task list.
+     * @param params The user input passed from RatInput that contains details of the task to be added.
+     */
     private void addDeadline(String params) {
         try {
             params = params.substring(9);
@@ -43,6 +67,10 @@ public class AddCommand extends RatCommand {
         }
     }
 
+    /**
+     * Adds an Event task to the task list.
+     * @param params The user input passed from RatInput that contains details of the task to be added.
+     */
     private void addEvent(String params) {
         try {
             params = params.substring(6);
@@ -65,6 +93,9 @@ public class AddCommand extends RatCommand {
         }
     }
 
+    /**
+     * Executes the command.
+     */
     @Override
     public void execute() {
         switch (commandType) {
