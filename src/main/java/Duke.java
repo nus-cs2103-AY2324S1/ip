@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,13 +11,15 @@ import java.util.Scanner;
 public class Duke {
     protected List<Task> tasks;
     protected int numberOfTasks;
+    protected String path;
 
     /**
      * A constructor for the chatbot
      */
     public Duke() {
-        tasks = new ArrayList<>();
-        numberOfTasks = 0;
+        this.numberOfTasks = 0;
+        this.path = "./duke.txt";
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -177,8 +180,56 @@ public class Duke {
         this.tasks.remove(deleteIndex - 1);
     }
 
+    public void saveTasks(List<Task> tasks) throws IOException {
+        FileWriter writer = new FileWriter(this.path);
+        for (Task task : tasks) {
+            writer.write(task.toFileFormat() + "\n");
+        }
+        writer.close();
+    }
+
+    public void getTasks() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(this.path));
+
+        String nextTask = reader.readLine();
+        while (nextTask != null) {
+            String[] taskDescription = nextTask.split("\\|");
+            String isDone = taskDescription[1].strip();
+            String description = taskDescription[2].strip();
+            switch (taskDescription[0].strip()) {
+                case "T":
+                    this.tasks.add(new Todo(description));
+                    break;
+                case "D":
+                    this.tasks.add(new Deadline(description, taskDescription[3].strip()));
+
+                    break;
+                case "E":
+                    this.tasks.add(new Event(description, taskDescription[3].strip(), taskDescription[4].strip()));
+                    break;
+                default:
+                    break;
+            }
+            if (isDone.equals("true")) {
+                int index = this.tasks.size() - 1;
+                this.tasks.get(index).markAsDone();
+            }
+            nextTask = reader.readLine();
+        }
+        reader.close();
+    }
+
     public static void main(String[] args) {
         Duke chatbot = new Duke();
+        try {
+            File file = new File(chatbot.path);
+            if (!file.createNewFile()) {
+                chatbot.getTasks();
+                chatbot.numberOfTasks = chatbot.tasks.size();
+            }
+        } catch (IOException exception) {
+            System.out.println(exception.getMessage());
+        }
 
         String greetings = "Hello! I'm Botty!\nWhat can I do for you?";
         String farewell = "Bye. Hope to see you again soon!";
@@ -196,6 +247,11 @@ public class Duke {
 
                 switch (firstWord) {
                     case "bye":
+                        try {
+                            chatbot.saveTasks(chatbot.tasks);
+                        } catch (IOException exception) {
+                            System.out.println(exception.getMessage());
+                        }
                         System.out.println(farewell);
                         sc.close();
                         break label;

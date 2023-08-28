@@ -22,5 +22,9 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
+
+    public String toFileFormat() {
+        return "D | " + this.isDone + " | " + this.description + " | " + this.by;
+    }
 }
 
