@@ -1,3 +1,15 @@
+package chatbot;
+
+import chatbot.exception.ChatbotException;
+import chatbot.exception.ChatbotRuntimeException;
+import taskmanager.TaskManager;
+import taskmanager.task.Deadline;
+import taskmanager.task.Event;
+import taskmanager.task.Task;
+import taskmanager.task.Todo;
+import util.EpochConverter;
+import util.events.EventEmitter;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
@@ -31,9 +43,9 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
 
     private final String name;
-    private final ArrayList<ChatMessage> convoList = new ArrayList<>();
-    private final TaskManager taskManager = new TaskManager();
-    private boolean closed = true;
+    private final ArrayList<ChatMessage> convoList;
+    private final TaskManager taskManager;
+    private boolean closed;
 
 
 
@@ -45,6 +57,9 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      */
     public Chatbot(String name) {
         this.name = name;
+        this.convoList = new ArrayList<>();
+        this.taskManager = new TaskManager();
+        this.closed = true;
     }
 
     /**
@@ -185,36 +200,36 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         }
 
         // Let's see what the other users send!
-        final Command command = Command.parse(message.getMessage());
+        final ChatCommand command = ChatCommand.parse(message.getMessage());
         this.processCommand(command);
     }
 
 
     /**
      * Internal method to process newly received commands.
-     * @param command The command to process.
+     * @param chatCommand The command to process.
      */
-    private void processCommand(Command command) {
+    private void processCommand(ChatCommand chatCommand) {
         final String FAILURE_MESSAGE_REPLY = "Sorry, idgi :(";
 
         try {
             boolean dataProcessed = false;
-            switch (command.getOperation()) {
+            switch (chatCommand.getOperation()) {
                 case MarkComplete:
                 case UnmarkComplete:
                 case Delete:
-                    dataProcessed = this.processCommandAssertNumericData(command);
+                    dataProcessed = this.processCommandAssertNumericData(chatCommand);
                     break;
 
                 case AddTodo:
                 case AddDeadline:
                 case AddEvent:
-                    dataProcessed = this.processCommandAssertHasData(command);
+                    dataProcessed = this.processCommandAssertHasData(chatCommand);
                     break;
 
                 case List:
                 case Exit:
-                    dataProcessed = this.processCommandAssertNoData(command);
+                    dataProcessed = this.processCommandAssertNoData(chatCommand);
                     break;
 
                 case Unknown:
@@ -227,6 +242,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         } catch (ChatbotException e) {
             this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oops! " + e.getLocalizedMessage());
         } catch (Exception e) {
+            e.printStackTrace();
             this.sendMessage(
                     ChatMessage.SenderType.CHATBOT,
                     String.format("Oh no, something's wrong! [%s] %s", e.getClass().getSimpleName(), e.getLocalizedMessage())
@@ -246,12 +262,12 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Internal method to process commands with numeric data as input.
-     * @param command The command to process.
+     * @param chatCommand The command to process.
      * @throws ChatbotException if the data field does not have numeric data as input or any command-specific error.
      * @return `true` if the command was processed, `false` otherwise.
      */
-    public boolean processCommandAssertNumericData(Command command) throws ChatbotException {
-        switch (command.getOperation()) {
+    public boolean processCommandAssertNumericData(ChatCommand chatCommand) throws ChatbotException {
+        switch (chatCommand.getOperation()) {
             case MarkComplete:
             case UnmarkComplete:
             case Delete:
@@ -261,15 +277,15 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         }
 
         int index;
-        TaskManager.Task task;
+        Task task;
 
         // Process the input
         try {
-            index = Integer.parseInt(command.getData()) - 1;
+            index = Integer.parseInt(chatCommand.getData()) - 1;
         } catch (NumberFormatException | NullPointerException e) {
             throw new ChatbotException(String.format(
                     "The command '%s' must be followed by a number representing the task number!",
-                    command.getName()
+                    chatCommand.getName()
             ));
         }
 
@@ -283,7 +299,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         }
 
         // Let's see what we should do!
-        if (command.getOperation() == Command.Operation.Delete) {
+        if (chatCommand.getOperation() == ChatCommand.Operation.Delete) {
 
             // Delete the task accordingly. We already checked the index so it should be correct.
             this.taskManager.removeTask(index);
@@ -301,7 +317,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         } else {
 
             // Mark the task as done or not accordingly
-            boolean completed = command.getOperation() == Command.Operation.MarkComplete;
+            boolean completed = chatCommand.getOperation() == ChatCommand.Operation.MarkComplete;
             if (task.isCompleted() == completed) {
                 throw new ChatbotException(
                         completed ? "The task was already done!" : "The task was already not done!"
@@ -329,12 +345,12 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Internal method to process commands with no data nor parameters as input.
-     * @param command The command to process.
+     * @param chatCommand The command to process.
      * @throws ChatbotException if the data field in fact has data as input or any command-specific error.
      * @return `true` if the command was processed, `false` otherwise.
      */
-    public boolean processCommandAssertNoData(Command command) throws ChatbotException {
-        switch (command.getOperation()) {
+    public boolean processCommandAssertNoData(ChatCommand chatCommand) throws ChatbotException {
+        switch (chatCommand.getOperation()) {
             case List:
             case Exit:
                 break;
@@ -342,14 +358,14 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                 return false;
         }
 
-        if (!command.getData().isBlank() || command.hasParams()) {
+        if (!chatCommand.getData().isBlank() || chatCommand.hasParams()) {
             throw new ChatbotException(String.format(
                     "Hmm, the command '%s' should not have anything following it. Is that a typo?",
-                    command.getName()
+                    chatCommand.getName()
             ));
         }
 
-        switch (command.getOperation()) {
+        switch (chatCommand.getOperation()) {
             case List:
                 StringBuilder builder = new StringBuilder();
 
@@ -360,7 +376,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                 }
 
                 int count = 1;
-                for (TaskManager.Task task : this.taskManager.getTasks()) {
+                for (Task task : this.taskManager.getTasks()) {
                     builder.append("\n");
                     builder.append(count);
                     builder.append(". ");
@@ -382,12 +398,12 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
     /**
      * Internal method to process commands that contain some data as input.
-     * @param command The command to process.
+     * @param chatCommand The command to process.
      * @throws ChatbotException if the data field does not have data as input or any command-specific error.
      * @return `true` if the command was processed, `false` otherwise.
      */
-    public boolean processCommandAssertHasData(Command command) throws ChatbotException {
-        switch (command.getOperation()) {
+    public boolean processCommandAssertHasData(ChatCommand chatCommand) throws ChatbotException {
+        switch (chatCommand.getOperation()) {
             case AddTodo:
             case AddDeadline:
             case AddEvent:
@@ -396,22 +412,22 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                 return false;
         }
 
-        if (command.getData().isBlank()) {
+        if (chatCommand.getData().isBlank()) {
             throw new ChatbotException(String.format(
                     "The command '%s' requires some title content after the command name, but none was found!",
-                    command.getName()
+                    chatCommand.getName()
             ));
         }
 
         // Create the appropriate task
-        TaskManager.Task task = null;
-        switch (command.getOperation()) {
+        Task task = null;
+        switch (chatCommand.getOperation()) {
             case AddTodo:
-                task = new TaskManager.Todo(command.getData());
+                task = new Todo(chatCommand.getData());
                 break;
 
             case AddDeadline:
-                if (!command.hasParamWithUsefulValue("by")) {
+                if (!chatCommand.hasParamWithUsefulValue("by")) {
                     throw new ChatbotException(
                             "The 'deadline' command requires supplying '/by <deadline>'!"
                     );
@@ -419,7 +435,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
                 long byTimestamp;
                 try {
-                    byTimestamp = EpochConverter.getEpochFromISODateString(command.getParam("by"));
+                    byTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("by"));
                 } catch (DateTimeParseException e) {
                     throw new ChatbotException(
                             "The deadline supplied is invalid! It must be a correct date and follow the " +
@@ -428,15 +444,15 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                     );
                 }
 
-                task = new TaskManager.Deadline(
-                        command.getData(),
+                task = new Deadline(
+                        chatCommand.getData(),
                         byTimestamp
                 );
                 break;
 
             case AddEvent:
-                if (!command.hasParamWithUsefulValue("from") ||
-                        !command.hasParamWithUsefulValue("to")) {
+                if (!chatCommand.hasParamWithUsefulValue("from") ||
+                        !chatCommand.hasParamWithUsefulValue("to")) {
                     throw new ChatbotException(
                             "The 'event' command requires supplying both '/from <date>' and '/to <date>'!"
                     );
@@ -445,8 +461,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                 long startTimestamp;
                 long endTimestamp;
                 try {
-                    startTimestamp = EpochConverter.getEpochFromISODateString(command.getParam("from"));
-                    endTimestamp = EpochConverter.getEpochFromISODateString(command.getParam("to"));
+                    startTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("from"));
+                    endTimestamp = EpochConverter.getEpochFromISODateString(chatCommand.getParam("to"));
                 } catch (DateTimeParseException e) {
                     throw new ChatbotException(
                             "The date range supplied is invalid! They must be correct dates and follow the " +
@@ -455,8 +471,8 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                     );
                 }
 
-                task = new TaskManager.Event(
-                        command.getData(),
+                task = new Event(
+                        chatCommand.getData(),
                         startTimestamp,
                         endTimestamp
                 );

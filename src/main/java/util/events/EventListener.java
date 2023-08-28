@@ -1,5 +1,7 @@
+package util.events;
+
 /**
- * An interface capable of listening to certain events.
+ * An interface capable of listening to certain utils.events.
  * @param <T> The type of the event.
  */
 @FunctionalInterface

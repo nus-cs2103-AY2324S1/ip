@@ -1,3 +1,6 @@
+import chatbot.ChatMessage;
+import chatbot.Chatbot;
+
 import java.util.Scanner;
 
 /**

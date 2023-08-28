@@ -1,8 +1,10 @@
+package chatbot;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * An abstraction for an instruction command.
+ * An abstraction for an instruction command derived from a chat message.
  *
  * <p>
  *     This class represents a simple command structure with name, data, parameters.
@@ -10,7 +12,7 @@ import java.util.Map;
  *     and enum lookups for known command operation types.
  * </p>
  */
-public class Command {
+public class ChatCommand {
 
     /**
      * A command operation, representing an identified operation for a command.
@@ -42,7 +44,7 @@ public class Command {
      * @param data The data of the command. Cannot be null; supply empty string if no data.
      * @param params The parameters of the command. May be null.
      */
-    public Command(String name, String data, Map<String, String> params) {
+    public ChatCommand(String name, String data, Map<String, String> params) {
         this.name = name;
         this.data = data;
 
@@ -65,7 +67,7 @@ public class Command {
      * @param instruction The string instruction to parse.
      * @return The resulting command.
      */
-    public static Command parse(String instruction) {
+    public static ChatCommand parse(String instruction) {
         String[] parts = instruction.trim().split(" ");
 
         // 1. The first space delimited component is our name
@@ -121,7 +123,7 @@ public class Command {
         }
 
         // 4. Now we are done! Construct and return the result.
-        return new Command(name, data.toString(), params);
+        return new ChatCommand(name, data.toString(), params);
     }
 
     /**

@@ -1,3 +1,5 @@
+package chatbot;
+
 import java.time.Instant;
 
 /**
@@ -16,7 +18,7 @@ public class ChatMessage {
     private final SenderType senderType;
     private final String message;
 
-    ChatMessage(SenderType senderType, String message) {
+    public ChatMessage(SenderType senderType, String message) {
         this.timestamp = Instant.now().getEpochSecond();
         this.senderType = senderType;
         this.message = message;

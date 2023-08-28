@@ -1,5 +1,7 @@
+package chatbot.exception;
+
 public class ChatbotRuntimeException extends RuntimeException {
-    ChatbotRuntimeException(String message) {
+    public ChatbotRuntimeException(String message) {
         super(message);
     }
 }
