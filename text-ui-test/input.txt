@@ -1,0 +1,12 @@
+todo test todo
+list
+deadline homework /by Monday
+event soc /from Sunday /to Monday
+list
+mark 2
+list
+unmark 2
+mark 3
+list
+delete 1
+list

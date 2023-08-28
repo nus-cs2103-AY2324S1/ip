@@ -68,6 +68,22 @@ public class Dialogix {
                     } else {
                         throw new DialogixException(":( OOPS!!! Task index is out of range.");
                     }
+                } else if (userInput.startsWith("mark")) {
+                    int taskIndex = Integer.parseInt(userInput.replaceFirst("mark\\s+", "")) - 1;
+                    if (taskIndex >= 0 && taskIndex < list.size()) {
+                        list.get(taskIndex).markAsDone();
+                        System.out.println("Bot: Nice! I've marked this task as done:\n  " + list.get(taskIndex).toString());
+                    } else {
+                        throw new DialogixException(":( OOPS!!! Task index is out of range.");
+                    }
+                } else if (userInput.startsWith("unmark")) {
+                    int taskIndex = Integer.parseInt(userInput.replaceFirst("unmark\\s+", "")) - 1;
+                    if (taskIndex >= 0 && taskIndex < list.size()) {
+                        list.get(taskIndex).markAsNotDone();
+                        System.out.println("Bot: OK, I've marked this task as not done yet:\n  " + list.get(taskIndex).toString());
+                    } else {
+                        throw new DialogixException(":( OOPS!!! Task index is out of range.");
+                    }
                 } else if (userInput.trim().isEmpty()) {
                     throw new DialogixException(":( OOPS!!! The description cannot be empty.");
                 } else {

@@ -1,7 +1,47 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+ Hello! I'm Dialogix
+ What can I do for you?
+____________________________________________________________
+User: todo test todo
+Bot: Got it. I've added this task:
+  [T][ ] test todo
+User: list
+Bot: Here are the tasks in your list:
+1. [T][ ] test todo
+User: deadline homework /by Monday
+Bot: Got it. I've added this task:
+  [D][ ] homework (by: Monday)
+User: event soc /from Sunday /to Monday
+Bot: Got it. I've added this task:
+  [E][ ] soc (from: Sunday to: Monday)
+User: list
+Bot: Here are the tasks in your list:
+1. [T][ ] test todo
+2. [D][ ] homework (by: Monday)
+3. [E][ ] soc (from: Sunday to: Monday)
+User: mark 2
+Bot: Nice! I've marked this task as done:
+  [D][X] homework (by: Monday)
+User: list
+Bot: Here are the tasks in your list:
+1. [T][ ] test todo
+2. [D][X] homework (by: Monday)
+3. [E][ ] soc (from: Sunday to: Monday)
+User: unmark 2
+Bot: OK, I've marked this task as not done yet:
+  [D][ ] homework (by: Monday)
+User: mark 3
+Bot: Nice! I've marked this task as done:
+  [E][X] soc (from: Sunday to: Monday)
+User: list
+Bot: Here are the tasks in your list:
+1. [T][ ] test todo
+2. [D][ ] homework (by: Monday)
+3. [E][X] soc (from: Sunday to: Monday)
+User: delete 1
+Bot: Noted. I've removed this task:
+  [T][ ] test todo
+User: list
+Bot: Here are the tasks in your list:
+1. [D][ ] homework (by: Monday)
+2. [E][X] soc (from: Sunday to: Monday)
