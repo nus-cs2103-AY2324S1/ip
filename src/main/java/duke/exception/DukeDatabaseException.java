@@ -1,3 +1,5 @@
+package duke.exception;
+
 public class DukeDatabaseException extends DukeException {
 
     public DukeDatabaseException() {

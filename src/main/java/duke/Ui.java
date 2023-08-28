@@ -1,3 +1,11 @@
+package duke;
+
+import duke.exception.DukeException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -86,13 +94,13 @@ public class Ui {
             Task task = taskList.get(i);
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                if (deadline.time.toLocalDate().equals(date)) {
+                if (deadline.getTime().toLocalDate().equals(date)) {
                     System.out.println("\t\t " + task);
                     foundTasks = true;
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                if (event.time.toLocalDate().equals(date)) {
+                if (event.getTime().toLocalDate().equals(date)) {
                     System.out.println("\t\t " + task);
                     foundTasks = true;
                 }
@@ -118,13 +126,13 @@ public class Ui {
             Task task = taskList.get(i);
             if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                if (deadline.time.toLocalDate().equals(today)) {
+                if (deadline.getTime().toLocalDate().equals(today)) {
                     System.out.println("\t\t " + task);
                     foundTasks = true;
                 }
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                if (event.time.toLocalDate().equals(today)) {
+                if (event.getTime().toLocalDate().equals(today)) {
                     System.out.println("\t\t " + task);
                     foundTasks = true;
                 }

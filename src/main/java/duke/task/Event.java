@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,6 +9,10 @@ public class Event extends Task {
     public Event(String description, LocalDateTime time) {
         super(description);
         this.time = time;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
     }
 
     @Override

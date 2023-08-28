@@ -1,11 +1,14 @@
-import java.time.LocalDate;
+package duke.command;
 
-public class TodayCommand extends Command {
+import duke.Storage;
+import duke.Ui;
+import duke.task.TaskList;
+
+public class ListCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        LocalDate today = LocalDate.now();
-        ui.showTasksForToday(today, taskList);
+        ui.showList(taskList);
     }
 
     @Override

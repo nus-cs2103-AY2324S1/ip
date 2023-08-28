@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.Storage;
+import duke.Ui;
+import duke.exception.EmptyDescriptionException;
+import duke.task.TaskList;
+import duke.task.Todo;
+
 public class AddTodoCommand extends Command {
     private String description;
 

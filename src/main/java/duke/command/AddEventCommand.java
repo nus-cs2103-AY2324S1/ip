@@ -1,12 +1,19 @@
+package duke.command;
+
+import duke.Storage;
+import duke.Ui;
+import duke.exception.EmptyDescriptionException;
+import duke.task.Event;
+import duke.task.TaskList;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class AddDeadlineCommand extends Command {
+public class AddEventCommand extends Command {
     private String description;
     private LocalDateTime dateTime;
 
-    public AddDeadlineCommand(String description, LocalDateTime dateTime) {
+    public AddEventCommand(String description, LocalDateTime dateTime) {
         this.description = description;
         this.dateTime = dateTime;
     }
@@ -15,12 +22,12 @@ public class AddDeadlineCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         try {
             if (description.trim().isEmpty()) {
-                throw new EmptyDescriptionException("deadline");
+                throw new EmptyDescriptionException("event");
             }
 
-            Deadline newDeadline = new Deadline(description, dateTime);
-            taskList.add(newDeadline);
-            ui.showAdd(newDeadline, taskList.getLength());
+            Event newEvent = new Event(description, dateTime);
+            taskList.add(newEvent);
+            ui.showAdd(newEvent, taskList.getLength());
 
         } catch (EmptyDescriptionException e) {
             ui.showDukeException(e);

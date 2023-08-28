@@ -1,3 +1,9 @@
+package duke;
+
+import duke.command.*;
+import duke.exception.*;
+import duke.task.*;
+
 public class Duke {
     private static String DATAPATH = "./data/duke.txt";
     private Storage storage;
@@ -27,7 +33,7 @@ public class Duke {
                 }
 
                 Command command = Parser.parseCommand(userInput);
-                command.execute(taskList,ui, storage);
+                command.execute(taskList, ui, storage);
                 isExit = command.isExit();
 
             } catch (DukeException e) {
