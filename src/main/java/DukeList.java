@@ -10,6 +10,12 @@ public class DukeList {
         dukeList = new ArrayList<>(100);
     }
 
+
+
+    public DukeList(ArrayList<Task> ItemList) {
+        dukeList = ItemList;
+    }
+
     /**
      * This method simply prints out an acknowledgemnt that a task has been added
      * @param newTask takes in a new task
@@ -102,5 +108,9 @@ public class DukeList {
      */
     public int getSize() {
         return dukeList.size();
+    }
+
+    public ArrayList<Task> getArrayList() {
+        return this.dukeList;
     }
 }

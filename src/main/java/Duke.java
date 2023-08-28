@@ -7,8 +7,24 @@ import java.util.Scanner;
  * Duke class serves as the chatbot
  */
 public class Duke {
+
+    private DukeList ItemList;
+    private Storage storage;
+
+    public Duke(String filePath) {
+        //Initialising array to store list items
+        this.storage = new Storage(filePath);
+
+        try {
+            this.ItemList = new DukeList(this.storage.load());
+        } catch (DukeException e) {
+            this.ItemList = new DukeList();
+        }
+
+    }
+
     public static void main(String[] args) {
-            Duke bot = new Duke();
+            Duke bot = new Duke("data/duke.txt");
             //Introduction
             bot.greet();
             //Interact
@@ -36,8 +52,6 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         boolean notEnd = true;
 
-        //Initialising array to store list items
-        DukeList ItemList = new DukeList();
         while (notEnd) {
             try {
                 String input = scanner.nextLine();
@@ -50,16 +64,22 @@ public class Duke {
                     String[] splitted = input.split(" ", 2);
                     if (input.startsWith("mark")) {
                         this.mark(splitted, ItemList);
+                        storage.updateStorage(ItemList.getArrayList());
                     } else if (input.startsWith("unmark")) {
                         this.unmark(splitted, ItemList);
+                        storage.updateStorage(ItemList.getArrayList());
                     } else if (input.startsWith("delete")) {
                         this.deleteTask(splitted, ItemList);
+                        storage.updateStorage(ItemList.getArrayList());
                     } else if (input.startsWith("todo")) {
                         this.toDo(splitted, ItemList);
+                        storage.updateStorage(ItemList.getArrayList());
                     } else if (input.startsWith("deadline")) {
                         this.deadline(splitted, ItemList);
+                        storage.updateStorage(ItemList.getArrayList());
                     } else if (input.startsWith("event")) {
                         this.event(splitted, ItemList);
+                        storage.updateStorage(ItemList.getArrayList());
                     } else {
                         throw new DukeException(" I'm sorry, but I don't know what that means :-(");
                     }
