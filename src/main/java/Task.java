@@ -62,4 +62,24 @@ public class Task {
     public void unmark() {
         this.done = false;
     }
+
+    public String transformFormat() {
+        String printType;
+        switch (type) {
+        case TODO:
+            printType = "T";
+            break;
+        case EVENT:
+            printType = "E";
+            break;
+        case DEADLINE:
+            printType = "D";
+            break;
+        default:
+            printType = "";
+            break;
+        }
+        return printType + " | " + this.done + " | " + this.description;
+    }
+
 }

@@ -1,16 +1,26 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.io.File;
+import java.util.Scanner;
 
 /**
  * Represents a list of tasks with various operations to manage tasks.
  */
 public class TaskList {
     private ArrayList<Task> store;
+    private final String dataFolderPath = "./data";
+    private final String filePath = "./data/hardrive.txt";
 
     /**
      * Constructs an empty task list.
      */
     public TaskList() {
+
         store = new ArrayList<>();
+        readFile();
     }
 
     /**
@@ -28,6 +38,7 @@ public class TaskList {
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
         System.out.println("Now you have " + store.size() + " tasks in the list.");
+        writeFile();
     }
 
     /**
@@ -54,6 +65,7 @@ public class TaskList {
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
         System.out.println("Now you have " + store.size() + " tasks in the list.");
+        writeFile();
     }
 
     /**
@@ -87,6 +99,7 @@ public class TaskList {
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
         System.out.println("Now you have " + store.size() + " tasks in the list.");
+        writeFile();
     }
 
     /**
@@ -104,6 +117,7 @@ public class TaskList {
         System.out.println("Noted. I've removed this task:");
         System.out.println("\t" + task);
         System.out.println("Now you have " + store.size() + " tasks in the list.");
+        writeFile();
     }
 
     /**
@@ -132,6 +146,7 @@ public class TaskList {
         curr.mark();
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("\t" + curr);
+        writeFile();
     }
 
     /**
@@ -148,5 +163,78 @@ public class TaskList {
         curr.unmark();
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("\t" + curr);
+        writeFile();
     }
+
+    private void readFile() {
+        try {
+            File f = new File(filePath); // create a File for the given file path
+            Scanner s = new Scanner(f); // create a Scanner using the File as the source
+            int index = 0;
+            while (s.hasNext()) {
+                index++;
+                String data = s.nextLine();
+                String[] splitted = data.split("\\|");
+                String type = splitted[0].trim();
+                Task task;
+                switch (type) {
+                case "T":
+                    if (splitted.length != 3) {
+                        throw new CorruptHarddriveException();
+                    }
+                    task = new Todo(splitted[2].trim());
+                    store.add(task);
+                    if (Boolean.valueOf(splitted[1].trim())) {
+                        task.mark();
+                    }
+                    break;
+                case "D":
+                    if (splitted.length != 4) {
+                        throw new CorruptHarddriveException();
+                    }
+                    task = new Deadline(splitted[2].trim(), splitted[3].trim());
+                    store.add(task);
+                    if (Boolean.valueOf(splitted[1].trim())) {
+                        task.mark();
+                    }
+                    break;
+                case "E":
+                    if (splitted.length != 5) {
+                        throw new CorruptHarddriveException();
+                    }
+                    task = new Event(splitted[2].trim(), splitted[3].trim(), splitted[4].trim());
+                    store.add(task);
+                    if (Boolean.valueOf(splitted[1].trim())) {
+                        task.mark();
+                    }
+                    break;
+                default:
+                    throw new CorruptHarddriveException();
+                }
+            }
+        } catch (FileNotFoundException e) {
+        } catch (CorruptHarddriveException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private void writeFile() {
+        try {
+            File dataFolder = new File(dataFolderPath);
+            if (!dataFolder.exists()) {
+                dataFolder.mkdirs();
+            }
+
+            FileWriter fw = new FileWriter(filePath);
+            for (Task element : store) {
+                String data = element.transformFormat();
+                fw.write(data);
+                fw.write(System.lineSeparator());
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
 }

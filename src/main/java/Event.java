@@ -27,4 +27,9 @@ public class Event extends Task{
     public String toString() {
         return super.toString() + " (from: " + this.from + " to: " + this.to + ")";
     }
+
+    @Override
+    public String transformFormat() {
+        return super.transformFormat() + " | " + this.from + " | " + this.to;
+    }
 }

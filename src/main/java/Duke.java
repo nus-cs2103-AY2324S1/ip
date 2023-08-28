@@ -44,7 +44,7 @@ public class Duke {
                     store.deleteTask(index);
                 } else {
                     throw new DukeException();
-                }
+            }
                 System.out.println(horizontal);
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
