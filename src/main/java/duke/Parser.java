@@ -9,6 +9,7 @@ public class Parser {
         Parser.ui = ui;
         String[] parts = input.split(" ", 2);
         String command = parts[0];
+
         switch (command) {
         case "list":
             tasks.listTask();
@@ -45,10 +46,14 @@ public class Parser {
             }
             tasks.getTask(unmarkTask).unmarkTask();
             break;
+        case "find":
+            tasks.findTasks(parseFindCommand(parts), ui);
+            break;
         default:
             System.out.println("You inputted an invalid command! Please try deadline, todo or event :)");
         }
     }
+
 
     //For the data loading
     public static Task parse(String taskType, String taskDetails, boolean isDone) throws DukeException {
@@ -64,6 +69,13 @@ public class Parser {
         }
     }
 
+    private static String parseFindCommand(String[] parts) throws DukeException {
+        if (parts.length < 2) {
+            throw new DukeException("The description of a find cannot be empty.");
+        }
+        String keyword = parts[1];
+        return parts[1];
+    }
 
 
     private static int parseMarkCommand(String[] parts) throws DukeException {

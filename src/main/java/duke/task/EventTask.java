@@ -20,14 +20,22 @@ public class EventTask extends Task {
         }
     }
 
-    public void setEventFromDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.fromDate = LocalDate.parse(date, formatter);
+    public void setEventFromDate(String date) throws DukeException{
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            this.fromDate = LocalDate.parse(date, formatter);
+        } catch (DateTimeException e) {
+            throw new DukeException("There is no such data!");
+        }
     }
 
-    public void setEventToDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        this.toDate = LocalDate.parse(date, formatter);
+    public void setEventToDate(String date) throws DukeException {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            this.toDate = LocalDate.parse(date, formatter);
+        } catch (DateTimeException e) {
+            throw new DukeException("There is no such data!");
+        }
     }
 
     public String getFormattedFromDate() {

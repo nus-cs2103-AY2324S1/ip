@@ -27,6 +27,13 @@ public class Ui {
         System.out.println("  " + task);
         System.out.println("Now you have " + totalTasks + " task(s) in the list.");
     }
+
+    public void showNoMatchingTasksMessage() {
+        System.out.println("No matching tasks found in your list :(");
+    }
+    public void showFindTaskMessage() {
+        System.out.println("Here are the matching tasks in your list:)");
+    }
     public void showGoodbyeMessage() {
         System.out.println("I wish you a pleasant day ahead, goodbye!");
     }

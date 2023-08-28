@@ -32,6 +32,32 @@ public class TaskList {
         return tasks.get(index);
     }
 
+    /**
+     * Finds tasks that contain the specified keyword in their descriptions.
+     *
+     * @param keyword The keyword to search for.
+     * @param ui      The Ui instance to display the results.
+     */
+    public void findTasks(String keyword, Ui ui) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            // No matching tasks found
+            ui.showNoMatchingTasksMessage();
+        } else {
+            // Matching tasks found, display them to the user
+            ui.showFindTaskMessage();
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println(i + 1 + ". " + matchingTasks.get(i));
+            }
+        }
+    }
     public int getTotalTasks() {
         return tasks.size();
     }
@@ -46,7 +72,7 @@ public class TaskList {
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int item = 0; item < this.getTotalTasks(); item++)  {
-                System.out.println(item + 1 + ". " + this.getTask(item));
+                System.out.println(item + 1 + ". " + this.tasks.get(item));
             }
         }
     }
