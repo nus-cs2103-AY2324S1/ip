@@ -35,7 +35,7 @@ public abstract class Task {
         return true;
     }
 
-    public String stringToSave() {
+    public String saveStringToFile() {
         String status = isDone ? "[X]" : "[ ]";
         return " | " + status + " | " + task;
     }

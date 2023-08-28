@@ -1,6 +1,9 @@
 package duke;
 
-import duke.task.*;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +39,7 @@ public class StorageTest {
         String filePath = "";
         Storage storage = new Storage(filePath, directoryPath);
         TaskList taskList = storage.loadFile();
+
         assertEquals(0, taskList.getSize());
     }
 
@@ -52,6 +56,8 @@ public class StorageTest {
         TaskList taskList2 = storage.loadFile();
         assertEquals(1, taskList2.getSize());
         assertEquals(task1.toString(), taskList2.getTask(0).toString());
+
+        // to clean up the file for future tests
         taskList2.deleteTask(0);
         storage.saveFile(taskList2);
     }

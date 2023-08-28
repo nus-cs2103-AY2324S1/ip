@@ -26,8 +26,8 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String stringToSave() {
-        return "T" + super.stringToSave(); 
+    public String saveStringToFile() {
+        return "T" + super.saveStringToFile(); 
     }
 
     @Override

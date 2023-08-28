@@ -2,8 +2,8 @@ package duke;
 import duke.task.Task;
 
 public class Ui {
-    private String divider = "____________________________________________________________";
-    private String indent = "     ";
+    private String DIVIDER = "____________________________________________________________";
+    private String INDENT = "     ";
 
     /*
      * Adds indentation to the string given and prints it out.
@@ -11,11 +11,11 @@ public class Ui {
      * @params s the string to be indented
      */
     public void formatString(String s) {
-        System.out.println(indent + s);
+        System.out.println(INDENT + s);
     }
 
     public void showLine() {
-        formatString(divider);
+        formatString(DIVIDER);
     }
 
     public void greet() {
