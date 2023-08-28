@@ -6,9 +6,7 @@ package duke;
 public class Deadline extends Task {
     private String taskName;
     private String deadline;
-
     private DateTime dateTime;
-
 
     /**
      * Constructor for creating a task
@@ -88,4 +86,5 @@ public class Deadline extends Task {
         return "[D]" + "[" + this.getStatusIcon() + "] "
                 + this.taskName + " (by: " + this.dateTime + ")";
     }
+
 }

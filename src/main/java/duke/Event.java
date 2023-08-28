@@ -1,4 +1,5 @@
 package duke;
+
 /**
  * Event encapsulates task that starts at a specific date / time and
  * ends at a specific date/time
@@ -7,7 +8,6 @@ public class Event extends Task {
     private String taskName;
     private String startTime;
     private String endTime;
-
     private DateTime start;
     private DateTime end;
 
@@ -86,7 +86,6 @@ public class Event extends Task {
             }
         }
     }
-
 
     /**
      * Converts an Event task into a string that can be saved

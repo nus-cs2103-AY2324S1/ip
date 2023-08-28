@@ -1,11 +1,11 @@
 package duke;
+
 import java.util.Scanner;
 
 /**
  * Ui encapsulates the user interface of the chat bot
  */
 public class Ui {
-
     private Scanner scanner;
 
     public Ui() {
@@ -27,7 +27,6 @@ public class Ui {
     public String readCommand() {
         return this.scanner.nextLine();
     }
-
 
     /**
      * Shows the user the list of tasks
@@ -61,7 +60,5 @@ public class Ui {
         }
         System.out.println(message);
     }
-
-
 
 }

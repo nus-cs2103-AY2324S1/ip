@@ -4,15 +4,12 @@ package duke;
  * ToDos encapsulates a task without any date or timeline attached to it
  */
 public class ToDos extends Task {
-    /**
-     * Constructor for creating a To-Do Task
-     *
-     * @param taskName name of task.
-     *
-     */
-
     private String taskName;
 
+    /**
+     * Constructor for creating a To-Do Task
+     * @param taskName name of task.
+     */
     public ToDos(String taskName) {
         super(taskName);
         this.taskName = taskName;
@@ -57,4 +54,5 @@ public class ToDos extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
 }

@@ -1,9 +1,9 @@
 package duke;
+
 /**
  * Class to encapsulate the whole chatbot and its functionality
  */
 public class Duke {
-
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
@@ -22,7 +22,7 @@ public class Duke {
     }
 
     /**
-     * Runs the chat bot
+     * Runs the chatbot
      */
     public void run() {
         this.ui.showWelcome();
@@ -44,4 +44,5 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
     }
+
 }

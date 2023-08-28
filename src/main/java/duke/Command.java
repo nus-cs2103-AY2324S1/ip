@@ -22,7 +22,6 @@ public enum Command {
                     "event <task_name> /from <start-time> /to <end-time>", "mark <number>",
                     "unmark <number>", "delete <number>"};
 
-
     /**
      * This method is used to get the command from the user's input
      * @param input the user's input
@@ -53,6 +52,5 @@ public enum Command {
             throw new InvalidInputException();
         }
     }
-
 
 }
