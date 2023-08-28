@@ -29,8 +29,8 @@ public class Parser {
     public static Command parseCommand(String input) throws SpotException {
         if (input.startsWith("list tasks on")) {
             if (input.length() <= 14) {
-                throw new SpotException("Spot thinks you might've " +
-                        "forgotten to add a date!");
+                throw new SpotException("Spot thinks you might've "
+                        + "forgotten to add a date!");
             }
             String d = input.substring(14);
             LocalDate date = Parser.parseDate(d);
@@ -57,8 +57,8 @@ public class Parser {
             return new DeleteCommand(position);
         } else if (input.startsWith("todo")) {
             if (input.length() <= 5) {
-                throw new SpotException("Spot wonders if you've " +
-                        "forgotten the description?");
+                throw new SpotException("Spot wonders if you've "
+                        + "forgotten the description?");
             }
             String description = input.substring(5).trim();
             return new AddToDoCommand(description);
@@ -83,13 +83,13 @@ public class Parser {
             }
             String[] keywords = input.substring(6).trim().split("/from|/to");
             if (keywords.length == 0 || keywords[0].trim().isEmpty()) {
-                throw new SpotException("Spot wonders if you've " +
-                        "forgotten the description?");
+                throw new SpotException("Spot wonders if you've "
+                        + "forgotten the description?");
             }
             if (keywords.length < 3 || keywords[1].trim().isEmpty()
                     || keywords[2].trim().isEmpty()) {
-                throw new SpotException("Spot can't find a start time" +
-                        " and/or an end time!");
+                throw new SpotException("Spot can't find a start time"
+                        + " and/or an end time!");
             }
             String description = keywords[0].trim();
             LocalDate start = Parser.parseDate(keywords[1].trim());
@@ -115,8 +115,8 @@ public class Parser {
                     DateTimeFormatter.ofPattern("dd-MM-uuuu")
                             .withResolverStyle(ResolverStyle.STRICT));
         } catch (DateTimeParseException e) {
-            throw new SpotException("This doesn't seem like a valid date to Spot!" +
-                    "Please make sure your date is given in this format: dd-mm-yyyy");
+            throw new SpotException("This doesn't seem like a valid date to Spot!"
+                    + "Please make sure your date is given in this format: dd-mm-yyyy");
         }
     }
 

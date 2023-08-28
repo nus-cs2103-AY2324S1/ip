@@ -2,10 +2,10 @@ package spot.command;
 
 import java.time.LocalDate;
 
-import spot.exception.SpotException;
 import spot.Storage;
 import spot.TaskList;
 import spot.Ui;
+import spot.exception.SpotException;
 import spot.task.Deadline;
 
 public class AddDeadlineCommand extends Command {
