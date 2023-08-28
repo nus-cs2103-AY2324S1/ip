@@ -1,9 +1,11 @@
 package pogo.parsers;
 
 import pogo.commands.Command;
+import pogo.commands.ExitCommand;
 import pogo.commands.InvalidCommand;
 import pogo.commands.ListTasksCommand;
 import pogo.common.Messages;
+import pogo.tasks.exceptions.PogoInvalidTaskException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,15 +29,21 @@ public class Parser {
 
         final String commandWord = matcher.group("command");
 
-        switch (commandWord) {
-        case "list":
-            return new ListTasksCommand();
-        case "deadline":
-            return TaskParser.parseDeadlineCommand(matcher.group("arguments"));
-        case "todo":
-            return TaskParser.parseToDoCommand(matcher.group("arguments"));
-        case "event":
-            return TaskParser.parseEventCommand(matcher.group("arguments"));
+        try {
+            switch (commandWord) {
+            case "list":
+                return new ListTasksCommand();
+            case "deadline":
+                return TaskParser.parseDeadlineCommand(matcher.group("arguments"));
+            case "todo":
+                return TaskParser.parseToDoCommand(matcher.group("arguments"));
+            case "event":
+                return TaskParser.parseEventCommand(matcher.group("arguments"));
+            case "bye":
+                return new ExitCommand();
+            }
+        } catch (PogoInvalidTaskException e) {
+            return new InvalidCommand(Messages.INVALID_TASK);
         }
 
         return null;
