@@ -7,23 +7,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * CS2103T IP
- * AY 23/24 Semester 1
- *
- * <p> A concrete implementation of Event Task </p>
- *
- * @author Koo Yu Cong
- * @version CS2103T AY 23/24 Sem 1
+ * Represents an event task.
  */
 public class Event extends Task {
     private LocalDate start;
     private LocalDate end;
 
     /**
-     * A constructor that constructs an Event Task
-     * @param taskName The task name for the constructed
-     * @param start The start of the period for the constructed event
-     * @param end The end of the period for the constructed event
+     * Constructs an Event Task using the task name, start date and end date.
+     * @param taskName The task name for the constructed.
+     * @param start The start of the period for the constructed event.
+     * @param end The end of the period for the constructed event.
      */
     @JsonCreator
     public Event(@JsonProperty("taskName") String taskName

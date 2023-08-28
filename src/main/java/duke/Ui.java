@@ -2,9 +2,14 @@ package duke;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface of duke that handles reading input and
+ * displaying output.
+ */
 public class Ui {
     private Scanner sc;
 
+    /** Constructs a Ui. */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
@@ -20,9 +25,9 @@ public class Ui {
     }
 
     /**
-     * Prints the output to the ui.
+     * Displays the output to the ui.
      *
-     * @param output Output to be printed.
+     * @param output Output to be displayed.
      */
     public void printOutput(String output) {
         System.out.println(output);
@@ -55,6 +60,10 @@ public class Ui {
         printOutput("Oops!!! There was an error when loading file from local disk.");
     }
 
+    /**
+     * Reads the input entered by user.
+     * @return The input entered by user.
+     */
     public String readCommand() {
         if (!this.sc.hasNextLine()) {
             return "";
@@ -63,6 +72,9 @@ public class Ui {
         return sc.nextLine();
     }
 
+    /**
+     * Closes the Ui.
+     */
     public void closeUi() {
         this.sc.close();
     }

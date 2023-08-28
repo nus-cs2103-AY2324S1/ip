@@ -3,19 +3,20 @@ package duke;
 import command.Command;
 
 /**
- * CS2103T IP
- * AY 23/24 Semester 1
- *
- * <p> A command line app </p>
- *
- * @author Koo Yu Cong
- * @version CS2103T AY 23/24 Sem 1
+ * Represents the command line application Duke.
  */
 public class Duke {
     private DiskManager diskManager;
     private TaskManager taskManager;
     private Ui ui;
 
+    /**
+     * Constructs Duke with the directory path and file name that specifies the filepath
+     * of data Duke should run on.
+     *
+     * @param directoryPath The directory path.
+     * @param fileName The file name.
+     */
     public Duke(String directoryPath, String fileName) {
         this.ui = new Ui();
         this.diskManager = new DiskManager(directoryPath, fileName);

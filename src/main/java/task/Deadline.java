@@ -7,22 +7,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * CS2103T IP
- * AY 23/24 Semester 1
- *
- * <p> A concrete implementation of Deadline Task </p>
- *
- * @author Koo Yu Cong
- * @version CS2103T AY 23/24 Sem 1
+ * Represents a deadline task.
  */
 public class Deadline extends Task {
-    // private String deadline;
     private LocalDate deadline;
 
     /**
-     * A constructor that constructs a Deadline Task
-     * @param taskName The task name of the constructed Deadline Task
-     * @param deadline The deadline of the constructed Deadline Task
+     * Constructs a Deadline Task using the task name and deadline.
+     * @param taskName The task name of the constructed Deadline Task.
+     * @param deadline The deadline of the constructed Deadline Task.
      */
     @JsonCreator
     public Deadline(@JsonProperty("taskName") String taskName, @JsonProperty("deadline") LocalDate deadline) {

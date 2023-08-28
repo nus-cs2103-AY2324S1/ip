@@ -10,6 +10,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.*;
 
+/**
+ * Represents the disk manager which handles operation related to disk storage.
+ */
 public class DiskManager {
     private static final ObjectMapper MAPPER = new ObjectMapper();
     static {
@@ -21,6 +24,13 @@ public class DiskManager {
     private String directoryPath;
     private String fileName;
 
+    /**
+     * Constructs a DiskManager with a directory path and file name, all storage operation
+     * will then operate on the file path specified.
+     *
+     * @param directoryPath The path to the directory of the storage file.
+     * @param fileName The file name of the storage file.
+     */
     public DiskManager(String directoryPath, String fileName) {
         this.directoryPath = directoryPath;
         this.fileName = fileName;
@@ -54,7 +64,7 @@ public class DiskManager {
         }
     }
 
-    public String taskManagerToJson(TaskManager taskManager) throws DukeException {
+    private String taskManagerToJson(TaskManager taskManager) throws DukeException {
         try {
             return MAPPER.writeValueAsString(taskManager);
         } catch (JsonProcessingException e) {
@@ -62,6 +72,12 @@ public class DiskManager {
         }
     }
 
+    /**
+     * Saves the task manager that encapsulates the task list to the disk.
+     *
+     * @param taskManager The task manager to be saved to disk.
+     * @throws DukeException If taskManager could not be serialized into json or FileWriter failed to write to the disk.
+     */
     public void saveToDisk(TaskManager taskManager) throws DukeException {
         try {
             String json = taskManagerToJson(taskManager);
@@ -76,6 +92,12 @@ public class DiskManager {
         }
     }
 
+    /**
+     * Loads data from the disk and returns the task manager encapsulating the data.
+     *
+     * @return The task manager.
+     * @throws DukeException If could not read file from disk or could not deserialize the data read from disk.
+     */
     public TaskManager loadFromDisk() throws DukeException {
         try {
             File file = getFile();

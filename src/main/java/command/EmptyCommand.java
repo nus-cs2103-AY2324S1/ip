@@ -4,6 +4,9 @@ import duke.DiskManager;
 import duke.TaskManager;
 import duke.Ui;
 
+/**
+ * Represents an empty command that does nothing.
+ */
 public class EmptyCommand extends Command {
     @Override
     public boolean isExit() {

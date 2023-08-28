@@ -6,13 +6,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
- * CS2103T IP
- * AY 23/24 Semester 1
- *
- * <p> An abstract Task class</p>
- *
- * @author Koo Yu Cong
- * @version CS2103T AY 23/24 Sem 1
+ * Represents an abstract task class.
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
 @JsonSubTypes({
@@ -25,8 +19,9 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * A constuctor that constructs a Task with a task name
-     * @param description The name of the constructed task
+     * Constructs a Task with a task name.
+     *
+     * @param description The name of the constructed task.
      */
     @JsonCreator
     public Task(@JsonProperty("description") String description) {

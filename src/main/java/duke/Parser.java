@@ -18,6 +18,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Represents a parser class that will be in charge of parsing user commands
+ * for Duke.
+ */
 public class Parser {
     private static final String BYE_FLAG = "bye";
     private static final String LIST_FLAG = "list";
@@ -28,6 +32,13 @@ public class Parser {
     private static final String EVENT_FLAG = "event";
     private static final String DELETE_FLAG = "delete";
 
+    /**
+     * Parses the input passed in and return the respective command.
+     *
+     * @param input The user input.
+     * @return The command represented by input.
+     * @throws DukeException If the command format is invalid or unrecognized.
+     */
     public static Command parseCommand(String input) throws DukeException {
         // skip past empty lines
         if (input.isEmpty()) {
