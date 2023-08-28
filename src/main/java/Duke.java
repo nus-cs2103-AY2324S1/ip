@@ -1,6 +1,8 @@
 import com.sun.source.util.TaskListener;
 
 import java.lang.reflect.Array;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
@@ -180,7 +182,7 @@ public class Duke {
             } else {
                 wrongInput = true;
             }
-            if (wrongInput == true) {
+            if (wrongInput) {
                 System.out.println("Please input a valid task");
             } else {
                 System.out.println(line);
@@ -202,7 +204,7 @@ public class Duke {
             } else {
                 wrongInput = true;
             }
-            if (wrongInput == true) {
+            if (wrongInput) {
                 System.out.println("Please input a valid task");
             } else {
                 System.out.println(line);
@@ -211,6 +213,40 @@ public class Duke {
                 System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 System.out.println(line);
             }
+        }
+    }
+
+    public static void printTasksByDate(String date) {
+        LocalDate dueDate = null;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parsedStartDate = LocalDate.parse(date, formatter);
+            dueDate = parsedStartDate;
+        } catch (java.time.format.DateTimeParseException e) {
+            System.out.println("Please input a valid date format: yyyy-mm-dd!");
+        }
+        System.out.println("Tasks occurring on " + dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
+
+        int count = 1;
+
+        for (Task task : taskList) {
+            String dueDateString = dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                String deadlineString = deadline.getStringDate();
+                LocalDate deadlineDate = deadline.getLocalDate();
+                if ((deadlineDate != null && deadlineDate.equals(dueDate)) || (deadlineString != null && deadlineString.equals(dueDateString))) {
+                    System.out.println(count + ": " + task.toString());
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                String startString = event.getStartString();
+                LocalDate startDate = event.getStartDate();
+                if  ((startDate != null && startDate.equals(dueDate)) || (startString != null && startString.equals(dueDateString))) {
+                    System.out.println(count + ": " + task.toString());
+                }
+            }
+            count++;
         }
     }
 
@@ -251,6 +287,9 @@ public class Duke {
                     System.out.println("Please specify the task number to delete.");
                 }
                 saveTasksToFile();
+            } else if (userInput.startsWith("due")) {
+                String date = userInput.substring(4).trim();
+                printTasksByDate(date);
             } else {
                 throw new DukeException("Please enter a valid command!");
             }

@@ -23,6 +23,14 @@ public class Event extends Task {
         }
     }
 
+    public String getStartString() {
+        return this.startTime;
+    }
+
+    public LocalDate getStartDate() {
+        return this.startDate;
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "

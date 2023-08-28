@@ -18,6 +18,14 @@ public class Deadline extends Task {
             }
         }
 
+        public String getStringDate() {
+            return this.deadline;
+        }
+
+        public LocalDate getLocalDate() {
+            return this.date;
+        }
+
         @Override
         public String toString() {
             return "[D]" + super.toString() + " (by: " + (deadline == null ? date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) : deadline) + ")";
