@@ -3,7 +3,13 @@ import com.sun.source.util.TaskListener;
 import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Duke {
+    private static final String FILE_PATH = "./Data.txt";
     private static ArrayList<Task> taskList = new ArrayList<>();
     private static int number = 0;
     private static boolean activated = true;
@@ -13,6 +19,74 @@ public class Duke {
     }
     private enum TaskType {
         TODO, EVENT, DEADLINE
+    }
+
+    public static void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                System.out.println(line);
+                char type = line.charAt(1);
+                char mark = line.charAt(4);
+
+                if (type == 'T') {
+                    String description = line.substring(6).trim();
+                    if (mark == 'X') {
+                        Duke.taskList.add(new Todo(description, "marked" ));
+                    } else {
+                        Duke.taskList.add(new Todo(description, "unmarked"));
+                    }
+                    Duke.number++;
+                } else if ( type == 'D') {
+                    int byIndex = line.indexOf("(by: ");
+                    String description = line.substring(7, byIndex).trim(); // 7 is the length of "[D][ ] "
+                    String dueDate = line.substring(byIndex + 5, line.length() - 1).trim();
+
+                    if (mark == 'X') {
+                        Duke.taskList.add(new Deadline(description, dueDate, "marked"));
+                    } else {
+                        Duke.taskList.add(new Deadline(description, dueDate, "unmarked"));
+                    }
+                    Duke.number++;
+                } else if ( type == 'E') {
+                    String[] parts = line.split("\\(from: | to ");
+                    String description = parts[0].trim().substring(7
+                    );
+                    String startTime = parts[1].trim();
+                    String endTime = parts[2].replace(")", "").trim();
+
+                    if (mark == 'X') {
+                        Duke.taskList.add(new Event(description, startTime, endTime, "marked"));
+                    } else {
+                        Duke.taskList.add(new Event(description, startTime, endTime, "unmarked"));
+                    }
+                    Duke.number++;
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Data file not found: " + e.getMessage());
+        }
+    }
+
+    public static void saveTasksToFile() {
+        try {
+            FileWriter writer = new FileWriter(FILE_PATH);
+
+            for (Task task : taskList) {
+                // Convert Task objects to strings and write them to the file
+                // For example, if your Task class has a toString method that returns
+                // a string representation of the task, you can use task.toString().
+                writer.write(task.toString() + System.lineSeparator());
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
     }
 
     public static void printHello() {
@@ -75,13 +149,13 @@ public class Duke {
         }
     }
 
-    public static void addTask(TaskType taskType, String userInput) throws DukeException{
+    public static void addTask(TaskType taskType, String userInput, String marked) throws DukeException{
         if (taskType == TaskType.TODO) {
             String description = userInput.substring(5).trim();
             if (description.isEmpty()) {
                 throw new DukeException("The description of a todo cannot be empty.");
             }
-            Duke.taskList.add(new Todo(description));
+            Duke.taskList.add(new Todo(description, marked));
             Duke.number++;
             System.out.println(line);
             System.out.println("Got it. I've added this to-do task:");
@@ -98,7 +172,7 @@ public class Duke {
                 if (timeParts.length == 2) {
                     String from = timeParts[0].trim();
                     String end = timeParts[1].trim();
-                    Duke.taskList.add(new Event(description, from, end));
+                    Duke.taskList.add(new Event(description, from, end, marked));
                     Duke.number++;
                 } else {
                     wrongInput = true;
@@ -122,7 +196,7 @@ public class Duke {
             if (parts.length == 2) {
                 String description = parts[0].trim();
                 String by = parts[1].trim();
-                Duke.taskList.add(new Deadline(description, by));
+                Duke.taskList.add(new Deadline(description, by, marked));
                 Duke.number++;
 
             } else {
@@ -141,6 +215,7 @@ public class Duke {
     }
 
     public static void main(String[] args) throws DukeException {
+        loadTasksFromFile();
         Scanner scanner = new Scanner(System.in);
         printHello();
 
@@ -153,15 +228,20 @@ public class Duke {
             } else if (userInput.equalsIgnoreCase("list")) {
                 printList(Duke.taskList);
             } else if (userInput.startsWith("todo")) {
-                addTask(TaskType.TODO, userInput);
+                addTask(TaskType.TODO, userInput, "unmarked");
+                saveTasksToFile();
             } else if (userInput.startsWith("event")) {
-                addTask(TaskType.EVENT, userInput);
+                addTask(TaskType.EVENT, userInput, "unmarked");
+                saveTasksToFile();
             } else if (userInput.startsWith("deadline")) {
-                addTask(TaskType.DEADLINE, userInput);
+                addTask(TaskType.DEADLINE, userInput, "unmarked");
+                saveTasksToFile();
             } else if (userInput.startsWith("mark")) {
                 toggleMark(MarkStatus.MARK, Duke.taskList, userInput);
+                saveTasksToFile();
             } else if (userInput.startsWith("unmark")) {
                 toggleMark(MarkStatus.UNMARK, Duke.taskList, userInput);
+                saveTasksToFile();
             } else if (userInput.startsWith("delete")) {
                 String[] parts = userInput.split(" ");
                 if (parts.length == 2) {
@@ -170,6 +250,7 @@ public class Duke {
                 } else {
                     System.out.println("Please specify the task number to delete.");
                 }
+                saveTasksToFile();
             } else {
                 throw new DukeException("Please enter a valid command!");
             }
