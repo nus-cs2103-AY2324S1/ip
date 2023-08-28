@@ -34,7 +34,8 @@ public class Duke {
                     String command = substrings[0];
                     switch (command) {
                         case "mark":
-                            if (substrings.length < 2) { // user input only has the command eg "mark"
+                            // user input only has the command eg "mark"
+                            if (substrings.length < 2 || substrings[1].trim().isEmpty()) {
                                 throw new DukeException("Invalid command! " +
                                         "Please include the index of the task you wish to mark");
                             }
@@ -49,7 +50,8 @@ public class Duke {
                             }
                             break;
                         case "unmark":
-                            if (substrings.length < 2) { // user input only has the command eg "unmark"
+                            // user input only has the command eg "unmark"
+                            if (substrings.length < 2 || substrings[1].trim().isEmpty()) {
                                 throw new DukeException("Invalid command! " +
                                         "Please include the index of the task you wish to unmark");
                             }
@@ -64,7 +66,8 @@ public class Duke {
                             }
                             break;
                         case "delete":
-                            if (substrings.length < 2) { // user input only has the command eg "delete"
+                            // user input only has the command eg "delete"
+                            if (substrings.length < 2 || substrings[1].trim().isEmpty()) {
                                 throw new DukeException("Invalid command! " +
                                         "Please include the index of the task you wish to delete");
                             }
@@ -84,7 +87,8 @@ public class Duke {
                             }
                             break;
                         case "todo":
-                            if (substrings.length != 2) { // user input only has the command
+                            // user input only has the command eg "todo"
+                            if (substrings.length < 2 || substrings[1].trim().isEmpty()) {
                                 throw new DukeException("Invalid command! Please include details of this task");
                             }
                             String todoDesc = substrings[1];
@@ -95,12 +99,16 @@ public class Duke {
                                     + "\n Now you have " + tasks.size() + " tasks in the list.");
                             break;
                         case "deadline":
-                            if (substrings.length != 2) { // user input only has the command eg "deadline"
+                            // user input only has the command eg "deadline"
+                            if (substrings.length < 2 || substrings[1].trim().isEmpty()) {
                                 throw new DukeException("Invalid command! Please include details of this task");
                             }
                             String[] details = substrings[1].split("/by", 2);
-                            if (details.length != 2) { // user input does not have /by
+                            if (details.length < 2 || details[1].trim().isEmpty()) { // user input does not have /by
                                 throw new DukeException("Invalid command! Please include the deadline of this task");
+                            }
+                            if (details[0].split(" ", 2).length < 2) {
+                                throw new DukeException("Invalid command! Please include details of this task");
                             }
                             Deadline deadline = new Deadline(details[0], details[1]);
                             tasks.add(deadline);
@@ -109,15 +117,22 @@ public class Duke {
                                     + "\n Now you have " + tasks.size() + " tasks in the list.");
                             break;
                         case "event":
-                            if (substrings.length != 2) { // user input only has the command eg "event"
+                            // user input only has the command eg "event"
+                            if (substrings.length < 2 || substrings[1].trim().isEmpty()) {
                                 throw new DukeException("Invalid command! Please include details of this task");
                             }
                             String[] eventDetails = substrings[1].split("/from", 2);
-                            if (eventDetails.length != 2) { // user input does not include /from
+                            // user input does not include /from
+                            if (eventDetails.length < 2 || eventDetails[1].trim().isEmpty()) {
                                 throw new DukeException("Invalid command! Please include when the event starts");
                             }
+                            // user input does not include /from
+                            if (eventDetails[0].split(" ", 2).length < 2) {
+                                throw new DukeException("Invalid command! Please include details of this task");
+                            }
                             String[] eventTimings = eventDetails[1].split("/to", 2);
-                            if (eventTimings.length != 2) { // user input does not include /to
+                            // user input does not include /to
+                            if (eventTimings.length < 2 || eventTimings[1].trim().isEmpty()) {
                                 throw new DukeException("Invalid command! Please include when the event ends");
                             }
                             Event event = new Event(eventDetails[0], eventTimings[0], eventTimings[1]);

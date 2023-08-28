@@ -36,7 +36,7 @@ Invalid command! Please include details of this task
 Invalid command! Please include when the event starts
  ----------------------------------------
  ----------------------------------------
-Invalid command! Please include when the event ends
+Invalid command! Please include when the event starts
  ----------------------------------------
  ----------------------------------------
 Invalid command! Please include when the event starts
