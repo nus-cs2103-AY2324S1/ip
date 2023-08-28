@@ -3,7 +3,15 @@ package duke.parser;
 import duke.command.*;
 import duke.exception.DukeException;
 
+/**
+ * Parses inputs from the user.
+ *
+ * @author Joseph Oliver Lim
+ */
 public class Parser {
+    /**
+     * Enum for the command words that can be interpreted.
+     */
     enum CommandWord {
         BYE,
         DELETE,
@@ -15,6 +23,13 @@ public class Parser {
         EVENT,
     }
 
+    /**
+     * Parses the user input into a command.
+     *
+     * @param input The user input to be parsed.
+     * @return A command representing the user input.
+     * @throws DukeException If the input is invalid.
+     */
     public static Command parse(String input) throws DukeException {
         try {
             CommandWord commandWord = CommandWord.valueOf(input.split(" ")[0].trim().toUpperCase());

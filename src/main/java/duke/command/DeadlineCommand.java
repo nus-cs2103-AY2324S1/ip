@@ -9,15 +9,34 @@ import duke.ui.Ui;
 
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the Command Deadline that adds a Deadline to the list.
+ *
+ * @author Joseph Oliver Lim
+ */
 public class DeadlineCommand extends Command {
     private String description;
     private String by;
 
+    /**
+     * Constructs a DeadlineCommand with a specified description and date.
+     *
+     * @param description A string describing the deadline task.
+     * @param by A string describing the deadline date.
+     */
     public DeadlineCommand(String description, String by) {
         this.description = description;
         this.by = by;
     }
 
+    /**
+     * Executes the DeadlineCommand.
+     *
+     * @param tasks The TaskList where the command is to be executed.
+     * @param ui The Ui that functions as user interface.
+     * @param storage The Storage that functions to store data.
+     * @throws DukeException If the deadline date is of invalid format.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         try {
